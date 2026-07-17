@@ -1,0 +1,38 @@
+name: README Agent Run (dry-run)
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_key:
+        description: "org/repo (must exist in data/products.json)"
+        required: true
+        type: string
+      mode:
+        description: "Run mode"
+        required: false
+        default: "dry_run"
+        type: choice
+        options:
+          - dry_run
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: readme-agent run --repo "${{ inputs.repo_key }}" --mode dry_run
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "evidence-${{ inputs.repo_key }}"
+          path: runs/evidence/

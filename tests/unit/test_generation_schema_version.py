@@ -1,0 +1,45 @@
+"""Version tripwire (Consistency & Determinism Tier 1 SS4): prompts.py or
+renderer.py's owned-span contract changed without bumping
+facts.GENERATION_SCHEMA_VERSION. Fails closed on a purely cosmetic edit too --
+that's the intended, deliberately annoying-sometimes behavior, not a bug.
+
+To bump: edit the file, bump GENERATION_SCHEMA_VERSION in facts.py, then
+regenerate the snapshot json with the new hashes and version.
+"""
+
+import hashlib
+import json
+from pathlib import Path
+
+from readme_agent.readme.facts import GENERATION_SCHEMA_VERSION
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SNAPSHOT_PATH = (
+    Path(__file__).resolve().parents[1] / "fixtures" / "generation_schema_version_snapshot.json"
+)
+WATCHED_FILES = {
+    "prompts_py": REPO_ROOT / "src" / "readme_agent" / "llm" / "prompts.py",
+    "renderer_py": REPO_ROOT / "src" / "readme_agent" / "readme" / "renderer.py",
+}
+
+
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def test_owned_span_contract_files_changed_only_with_a_version_bump():
+    snapshot = json.loads(SNAPSHOT_PATH.read_text(encoding="utf-8"))
+
+    current_hashes = {name: _sha256_file(path) for name, path in WATCHED_FILES.items()}
+    files_changed = current_hashes != snapshot["hashes"]
+    version_bumped = GENERATION_SCHEMA_VERSION != snapshot["generation_schema_version"]
+
+    if files_changed and not version_bumped:
+        raise AssertionError(
+            "prompts.py and/or renderer.py changed without bumping "
+            "GENERATION_SCHEMA_VERSION in facts.py. If this is a real "
+            "contract change, bump the version and regenerate "
+            f"{SNAPSHOT_PATH} with the new hashes and version. If it's a "
+            "purely cosmetic edit, this failing is the intended, "
+            "fail-closed behavior -- bump anyway."
+        )

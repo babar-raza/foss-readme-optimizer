@@ -1,0 +1,21 @@
+# Disposable runtime state (baseline/work clones, evidence) — see paths.py
+/runs/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+venv/
+
+# Secrets / local overrides
+.env
+.env.act
+.secrets
+
+# Editors
+.vscode/
+.idea/

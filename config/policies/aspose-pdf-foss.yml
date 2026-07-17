@@ -1,0 +1,55 @@
+schema_version: 2
+policy_profile: aspose-pdf-foss
+
+required_elements:
+  license_mentioned:
+    detected_license: MIT
+  products_org_link:
+    # Confirmed missing in the real README as of the 2026-07-17 audit — this is
+    # the one gap this profile exists to close.
+    url: "https://products.aspose.org/pdf/java/"
+    family_url: "https://products.aspose.org/pdf/"
+    label: "Aspose.PDF FOSS for Java"
+  products_com_link:
+    # Confirmed present in the real README (audit finding) — used here only for
+    # referential-integrity cross-checking, not re-rendered.
+    url: "https://products.aspose.com/pdf/java/"
+    family_url: "https://products.aspose.com/pdf"
+    label: "Aspose.PDF for Java"
+    utm:
+      utm_source: github
+      utm_medium: readme
+      utm_campaign: foss-readme-optimizer
+  relationship_explained:
+    min_sentences: 2
+    talking_points: [open_source_scope, commercial_upgrade_path]
+
+secondary_links:
+  - docs.aspose.org
+  - docs.aspose.com
+  - reference.aspose.com
+  - releases.aspose.com
+  - blog.aspose.org
+  - kb.aspose.org
+  - forum.aspose.com
+
+block:
+  word_limit:
+    min: 20
+    max: 120
+  prohibited_terms:
+    - "guarantee"
+    - "100%"
+    - "best in the world"
+    - "free forever"
+    - "no bugs"
+  link_whitelist_domains:
+    - products.aspose.com
+    - docs.aspose.com
+    - reference.aspose.com
+    - releases.aspose.com
+    - products.aspose.org
+    - docs.aspose.org
+    - kb.aspose.org
+    - blog.aspose.org
+    - forum.aspose.com
