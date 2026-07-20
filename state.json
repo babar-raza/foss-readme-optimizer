@@ -3,6 +3,45 @@
   "accepted_status": null,
   "capability_outputs": [],
   "domain_states": {
+    "community_files_presentation": {
+      "accepted_facts_hash": "37dc24a925b87b88d9c723069d3df0585cd31e68e7e69e3d340b6eecb6c7a876",
+      "accepted_status": "FIRST_OBSERVATION",
+      "details": {
+        "community_profile_health_percentage": 50,
+        "detected_license": "MIT",
+        "missing_files": [
+          "CODE_OF_CONDUCT",
+          "CONTRIBUTING",
+          "SECURITY",
+          "SUPPORT"
+        ],
+        "prepared_candidates": {
+          "CODE_OF_CONDUCT": {
+            "content": "# Contributor Covenant Code of Conduct\n\n## Our Pledge\n\nWe as members, contributors, and leaders pledge to make participation in our community a\nharassment-free experience for everyone, regardless of age, body size, visible or invisible\ndisability, ethnicity, sex characteristics, gender identity and expression, level of experience,\neducation, socio-economic status, nationality, personal appearance, race, caste, color, religion,\nor sexual identity and orientation.\n\nWe pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive,\nand healthy community.\n\n## Our Standards\n\nExamples of behavior that contributes to a positive environment for our community include:\n\n* Demonstrating empathy and kindness toward other people\n* Being respectful of differing opinions, viewpoints, and experiences\n* Giving and gracefully accepting constructive feedback\n* Accepting responsibility and apologizing to those affected by our mistakes, and learning from\n  the experience\n* Focusing on what is best not just for us as individuals, but for the overall community\n\nExamples of unacceptable behavior include:\n\n* The use of sexualized language or imagery, and sexual attention or advances of any kind\n* Trolling, insulting or derogatory comments, and personal or political attacks\n* Public or private harassment\n* Publishing others' private information, such as a physical or email address, without their\n  explicit permission\n* Other conduct which could reasonably be considered inappropriate in a professional setting\n\n## Enforcement Responsibilities\n\nCommunity leaders are responsible for clarifying and enforcing our standards of acceptable\nbehavior and will take appropriate and fair corrective action in response to any behavior that\nthey deem inappropriate, threatening, offensive, or harmful.\n\nCommunity leaders have the right and responsibility to remove, edit, or reject comments, commits,\ncode, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct,\nand will communicate reasons for moderation decisions when appropriate.\n\n## Scope\n\nThis Code of Conduct applies within all community spaces, and also applies when an individual is\nofficially representing the community in public spaces. Examples of representing our community\ninclude using an official e-mail address, posting via an official social media account, or acting\nas an appointed representative at an online or offline event.\n\n## Enforcement\n\nInstances of abusive, harassing, or otherwise unacceptable behavior may be reported to the\ncommunity leaders responsible for enforcement at [INSERT CONTACT METHOD]. All complaints will be\nreviewed and investigated promptly and fairly.\n\nAll community leaders are obligated to respect the privacy and security of the reporter of any\nincident.\n\n## Enforcement Guidelines\n\nCommunity leaders will follow these Community Impact Guidelines in determining the consequences\nfor any action they deem in violation of this Code of Conduct:\n\n### 1. Correction\n\n**Community Impact**: Use of inappropriate language or other behavior deemed unprofessional or\nunwelcome in the community.\n\n**Consequence**: A private, written warning from community leaders, providing clarity around the\nnature of the violation and an explanation of why the behavior was inappropriate. A public\napology may be requested.\n\n### 2. Warning\n\n**Community Impact**: A violation through a single incident or series of actions.\n\n**Consequence**: A warning with consequences for continued behavior. No interaction with the\npeople involved, including unsolicited interaction with those enforcing the Code of Conduct, for\na specified period of time. This includes avoiding interactions in community spaces as well as\nexternal channels like social media. Violating these terms may lead to a temporary or permanent\nban.\n\n### 3. Temporary Ban\n\n**Community Impact**: A serious violation of community standards, including sustained\ninappropriate behavior.\n\n**Consequence**: A temporary ban from any sort of interaction or public communication with the\ncommunity for a specified period of time. No public or private interaction with the people\ninvolved, including unsolicited interaction with those enforcing the Code of Conduct, is allowed\nduring this period. Violating these terms may lead to a permanent ban.\n\n### 4. Permanent Ban\n\n**Community Impact**: Demonstrating a pattern of violation of community standards, including\nsustained inappropriate behavior, harassment of an individual, or aggression toward or\ndisparagement of classes of individuals.\n\n**Consequence**: A permanent ban from any sort of public interaction within the community.\n\n## Attribution\n\nThis Code of Conduct is adapted from the [Contributor Covenant][homepage], version 2.1,\navailable at [https://www.contributor-covenant.org/version/2/1/code_of_conduct.html][v2.1].\n\nCommunity Impact Guidelines were inspired by [Mozilla's code of conduct enforcement\nladder][Mozilla CoC].\n\nFor answers to common questions about this code of conduct, see the FAQ at\n[https://www.contributor-covenant.org/faq][FAQ]. Translations are available at\n[https://www.contributor-covenant.org/translations][translations].\n\n[homepage]: https://www.contributor-covenant.org\n[v2.1]: https://www.contributor-covenant.org/version/2/1/code_of_conduct.html\n[Mozilla CoC]: https://github.com/mozilla/diversity\n[FAQ]: https://www.contributor-covenant.org/faq\n[translations]: https://www.contributor-covenant.org/translations\n",
+            "filename": "CODE_OF_CONDUCT.md",
+            "source": "Contributor Covenant v2.1 (https://www.contributor-covenant.org/version/2/1/code_of_conduct/) -- verbatim, requires filling in the [INSERT CONTACT METHOD] placeholder before use"
+          }
+        },
+        "presence_recognition_gaps": [],
+        "present_files": {
+          "CODE_OF_CONDUCT": false,
+          "CONTRIBUTING": false,
+          "LICENSE": true,
+          "SECURITY": false,
+          "SUPPORT": false
+        },
+        "recognized_files": {
+          "CODE_OF_CONDUCT": false,
+          "CONTRIBUTING": false,
+          "LICENSE": true
+        }
+      },
+      "domain": "community_files_presentation",
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-20T14:27:52.394693+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "github_generated_surface_audit": {
       "accepted_facts_hash": "5aa63e993b4b0124039130133a64d1617fca7b86acc1fd36e89770569d765be9",
       "accepted_status": "FIRST_OBSERVATION",
@@ -86,7 +125,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 6,
+  "state_version": 7,
   "supervisor_state": {
     "capability_gaps": [],
     "last_observed_upstream_revision": "c6473f62c592295f9b60bf525804f55cb089f028",
