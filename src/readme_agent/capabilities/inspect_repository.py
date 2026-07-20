@@ -24,11 +24,13 @@ MANIFEST = CapabilityManifest(
         "readme_length_chars": "integer",
         "manifest_keys": "array",
     },
-    preconditions=["org_repo must be allow-listed in data/products.json with a non-disabled mode"],
+    preconditions=[
+        "org_repo must be listed in data/products.json (mode is irrelevant -- read-only)"
+    ],
     required_permissions=["read_only_local"],
     side_effect_class="read_only_local",
     tools_used=["orchestrator.inspect_repo"],
-    failure_modes=["NotAllowlistedError if org_repo is not permitted"],
+    failure_modes=["NotAllowlistedError if org_repo is not listed in data/products.json"],
     rollback_behavior="not applicable -- read-only, nothing to roll back",
     tests=["tests/unit/test_capabilities.py"],
 )

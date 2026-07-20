@@ -43,7 +43,7 @@ from readme_agent.readme.gap_detector import detect as detect_gaps
 from readme_agent.readme.markers import SPAN_NAMES, find_span, remove_span, upsert_span
 from readme_agent.readme.presentation_report import detect_presentation
 from readme_agent.readme.renderer import render_missing_elements
-from readme_agent.registry.loader import enabled_entries, find_entry, load_policy
+from readme_agent.registry.loader import enabled_entries, find_entry, load_policy, require_listed
 from readme_agent.registry.models import PolicyProfile, ProductEntry
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.schema import RunStateV1
@@ -193,8 +193,12 @@ def inspect_repo(org_repo: str, *, check_install: bool = False) -> dict:
     dimension 5) -- opt-in only, matching the established pattern for live
     network checks (links/validator.py's check_live_reachable, --check-links):
     never a default, never able to fail this command by itself.
+
+    Gated by require_listed(), not require_permitted() (decision #40): this
+    is read-only, so mode is irrelevant -- it runs against every registry
+    entry, including a mode: "disabled" one.
     """
-    entry = require_permitted(org_repo)
+    entry = require_listed(org_repo)
     baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
     clone_baseline(entry, baseline_path)
 

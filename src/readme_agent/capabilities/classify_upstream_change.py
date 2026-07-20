@@ -16,7 +16,7 @@ from readme_agent.inspection import file_inventory
 from readme_agent.inspection.git_metadata import get_git_metadata
 from readme_agent.paths import baseline_dir
 from readme_agent.readme.reconciliation import classify
-from readme_agent.registry.loader import find_entry
+from readme_agent.registry.loader import require_listed
 
 CAPABILITY_ID = "classify_upstream_change"
 
@@ -44,14 +44,14 @@ MANIFEST = CapabilityManifest(
         "current_revision": "string",
     },
     preconditions=[
-        "org_repo must be allow-listed in data/products.json with a non-disabled mode",
+        "org_repo must be listed in data/products.json (mode is irrelevant -- read-only)",
         "absence of a prior fingerprint means FIRST_OBSERVATION, not an error",
     ],
     required_permissions=["read_only_local"],
     side_effect_class="read_only_local",
     allowed_domains=[README_RECONCILIATION],
     tools_used=["gitsafety.clone.clone_baseline", "readme.reconciliation.classify"],
-    failure_modes=["PermissionError if org_repo is not allow-listed with an enabled mode"],
+    failure_modes=["NotAllowlistedError if org_repo is not listed in data/products.json"],
     rollback_behavior="not applicable -- read-only, nothing to roll back",
     tests=["tests/unit/test_capabilities.py", "tests/unit/test_reconciliation.py"],
 )
@@ -62,9 +62,7 @@ def execute(
     prior_stripped_text_hash: str | None = None,
     prior_owned_span_present: bool = False,
 ) -> dict:
-    entry = find_entry(org_repo)
-    if entry is None or entry.mode == "disabled":
-        raise PermissionError(f"{org_repo} is not allow-listed with an enabled mode")
+    entry = require_listed(org_repo)
 
     path = baseline_dir(entry.org, entry.repo_name)
     clone_baseline(entry, path)

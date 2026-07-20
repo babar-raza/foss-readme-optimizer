@@ -91,10 +91,20 @@ corresponding tests to still pass *and* still be meaningful:
    `verify_push_blocked()` proves both from `git remote -v` and hook contents — never by
    attempting a real push. This tool must never issue a git/GitHub write verb against a real
    remote, even though its tokens could.
-2. **The allow-list.** `data/products.json` is the only list of repos the tool may touch.
-   Every repo-accepting entry point calls `registry.loader.is_permitted()` *before* any network
-   or git operation; missing or `mode: "disabled"` entries are a hard `NotAllowlistedError`.
-   Never add a code path that reaches the network for a repo before this check.
+2. **The allow-list.** `data/products.json` is the only list of repos the tool may touch. A repo
+   missing from it is always a hard `NotAllowlistedError`, for any operation. Beyond that, the
+   gate splits by intent (decision #40): read-only capabilities (`profile_repository`,
+   `get_product_facts`, `detect_readme_gaps`, `classify_upstream_change`,
+   `inspect_repository`/`orchestrator.inspect_repo()`, and `supervise_repo()`'s own entry gate)
+   call `registry.loader.require_listed()` — `mode` is irrelevant, since `mode: "disabled"` means
+   push access to that org hasn't been verified yet, not that the repo is off-limits to read.
+   Anything write/push-capable calls `registry.loader.is_permitted()` /
+   `orchestrator.require_permitted()` instead, which still hard-blocks on `mode: "disabled"`; a
+   `local_write`/`remote_write` capability dispatched through the supervisor is independently
+   re-checked against `mode == "full"` at dispatch time
+   (`supervisor/loop.py::_dispatch_and_record()`), since the supervisor's own entry gate no longer
+   implies it. Never add a code path that reaches the network for a repo before the check that
+   matches what it's about to do with that repo.
 
 Related non-negotiables:
 
@@ -106,13 +116,18 @@ Related non-negotiables:
 - Rendered content stays inside the one owned marker span (`readme/markers.py`); the tool never
   edits content outside it.
 - **Every `data/products.json` entry has equal precedence for research and development.** The
-  allow-list's `mode` field (`full`/`dry_run`/`disabled`) gates *write/execution* access, not
+  allow-list's `mode` field (`full`/`dry_run`/`disabled`) gates *write/push-capable* access, not
   relevance — a portfolio survey, fact-gathering task, or policy/validator design MUST cover the
-  whole registry (all 25 entries as of this writing), never just the enabled ones. The exception
-  is **end-to-end verification**: that's scoped to the three enabled Java pilots
-  (`aspose-3d-foss`, `aspose-cells-foss`, `aspose-pdf-foss`) purely because they're the only
-  non-`disabled` entries this tool can currently execute against — an access constraint, not a
-  priority signal. See `plans/master.md` decision #24 and `PIL-011` in `plans/requirements.md`.
+  whole registry (all 25 entries as of this writing), never just the enabled ones. As of decision
+  #40, this is no longer just an offline-research-script carve-out: live read-only capability
+  execution (`profile_repository`, `get_product_facts`, `inspect_repository`, etc., and
+  `supervise_repo()` itself) runs against any registered repo regardless of mode too — `mode`
+  never meant "irrelevant to look at," only "push access unverified." The exception is
+  **end-to-end verification (anything that actually renders/commits)**: that's scoped to the
+  three enabled Java pilots (`aspose-3d-foss`, `aspose-cells-foss`, `aspose-pdf-foss`) purely
+  because they're the only `mode: "full"`/`"dry_run"` entries this tool can currently write
+  through — an access constraint, not a priority signal. See `plans/master.md` decisions #24/#40
+  and `PIL-011` in `plans/requirements.md`.
 
 ## Handling issues found outside the current task
 

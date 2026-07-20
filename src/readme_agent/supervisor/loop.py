@@ -28,7 +28,7 @@ from readme_agent.evidence.writer import generate_run_id
 from readme_agent.gitsafety._git import run_git
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.llm.planner_client import LivePlannerClient, PlannerClient
-from readme_agent.orchestrator import require_permitted
+from readme_agent.registry.loader import find_entry, require_listed
 from readme_agent.specialists import registry as specialists_registry
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.schema import DomainStateV1, RunStateV1, SupervisorStateV1
@@ -135,12 +135,29 @@ def _dispatch_and_record(
     graph.mark(task.task_id, "EXECUTING")
     tool_call = {"function": {"name": task.capability_id, "arguments": json.dumps(task.arguments)}}
     manifest = registry.get(task.capability_id) if task.capability_id else None
+    write_capable = manifest is not None and manifest.side_effect_class in (
+        "local_write",
+        "remote_write",
+    )
 
-    if (
-        backend is not None
-        and manifest is not None
-        and manifest.side_effect_class in ("local_write", "remote_write")
-    ):
+    if write_capable:
+        # require_listed() (decision #40) means supervise_repo()'s entry gate
+        # no longer implies mode == "full" -- this is the actual write-cycle
+        # enforcement point: a write-capable capability must never dispatch
+        # against a repo whose push access hasn't been verified.
+        write_entry = find_entry(org_repo)
+        if write_entry is None or write_entry.mode != "full":
+            mode = write_entry.mode if write_entry else "unlisted"
+            return graph.mark(
+                task.task_id,
+                "BLOCKED",
+                blocked_reason=(
+                    f"{task.capability_id!r} is write-capable but {org_repo} has "
+                    f"mode={mode!r}, not 'full' -- refusing to dispatch"
+                ),
+            )
+
+    if backend is not None and write_capable:
         gated = dispatch_gated_effect(
             tool_call, _READ_ONLY_PERMISSIONS | {"local_write", "remote_write"}, backend, org_repo
         )
@@ -194,7 +211,11 @@ def supervise_repo(
     write_evidence_bundle: bool = True,
     max_turns: int = DEFAULT_MAX_TURNS,
 ) -> SuperviseResult:
-    entry = require_permitted(org_repo)
+    # require_listed(), not require_permitted() (decision #40): most of a
+    # supervised run is read-only planning/observation, so mode is not
+    # itself a reason to refuse the whole run -- _dispatch_and_record()
+    # is where a write-capable capability is actually mode-gated, per turn.
+    entry = require_listed(org_repo)
     baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
     clone_baseline(entry, baseline_path)
     current_revision = _current_upstream_revision(baseline_path)

@@ -10,7 +10,7 @@ from readme_agent.inspection import file_inventory
 from readme_agent.license.auditor import detect_license
 from readme_agent.paths import baseline_dir
 from readme_agent.readme.gap_detector import detect as detect_gaps
-from readme_agent.registry.loader import find_entry
+from readme_agent.registry.loader import require_listed
 
 CAPABILITY_ID = "detect_readme_gaps"
 
@@ -31,20 +31,20 @@ MANIFEST = CapabilityManifest(
         "relationship_explained": "boolean",
         "total_gaps": "integer",
     },
-    preconditions=["org_repo must be allow-listed in data/products.json with a non-disabled mode"],
+    preconditions=[
+        "org_repo must be listed in data/products.json (mode is irrelevant -- read-only)"
+    ],
     required_permissions=["read_only_local"],
     side_effect_class="read_only_local",
     tools_used=["gitsafety.clone.clone_baseline", "readme.gap_detector.detect"],
-    failure_modes=["PermissionError if org_repo is not allow-listed with an enabled mode"],
+    failure_modes=["NotAllowlistedError if org_repo is not listed in data/products.json"],
     rollback_behavior="not applicable -- read-only, nothing to roll back",
     tests=["tests/unit/test_capabilities.py"],
 )
 
 
 def _clone_and_scan(org_repo: str):
-    entry = find_entry(org_repo)
-    if entry is None or entry.mode == "disabled":
-        raise PermissionError(f"{org_repo} is not allow-listed with an enabled mode")
+    entry = require_listed(org_repo)
     path = baseline_dir(entry.org, entry.repo_name)
     clone_baseline(entry, path)
     inventory = file_inventory.scan(path)

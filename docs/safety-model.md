@@ -35,19 +35,33 @@ before that write happens — a standing or implied approval from earlier never 
 
 ## 2. The allow-list
 
-`data/products.json` is the **only** list of repos this tool is ever permitted to touch.
-`registry/loader.py`'s `is_permitted(org_repo)` returns the entry only if it exists **and** its
-`mode` isn't `"disabled"`. Every entry point that accepts a repo argument calls this *before* any
-network or git operation — not found, or disabled, is a hard `NotAllowlistedError`
-(`BLOCKED_NOT_ALLOWLISTED`), with no clone attempted.
+`data/products.json` is the **only** list of repos this tool is ever permitted to touch. Not
+being in that file is always a hard `NotAllowlistedError` (`BLOCKED_NOT_ALLOWLISTED`), with no
+clone attempted, for any operation. Beyond that, the gate splits by intent (decision #40,
+`plans/master.md`):
+
+- **Read-only capabilities** (`profile_repository`, `get_product_facts`,
+  `detect_readme_gaps`, `classify_upstream_change`, `inspect_repository`, and `supervise_repo()`'s
+  own entry gate) call `registry/loader.py`'s `require_listed(org_repo)`, which only checks
+  presence in the file — `mode` is irrelevant. `mode: "disabled"` means push access to that org
+  hasn't been verified yet, not that the repo is off-limits to read; a disabled entry is cloned
+  and profiled/inspected the same as any other.
+- **Write/push-capable operations** — `orchestrator.py`'s `generate_repo()`/`run_repo()`
+  render+commit pipeline, and any `local_write`/`remote_write` capability — still call
+  `is_permitted(org_repo)`/`require_permitted(org_repo)`, which returns the entry only if it
+  exists **and** its `mode` isn't `"disabled"`. A write-capable capability dispatched through the
+  supervisor is independently re-checked against `mode == "full"` at dispatch time
+  (`supervisor/loop.py::_dispatch_and_record()`), since the supervisor's own entry gate no longer
+  implies it.
 
 This is a named safety property on par with push-blocking, not an incidental consequence of what
 happens to be configured: push-blocking stops a write on a repo we're allowed to touch;
-the allow-list stops us from ever touching a repo we weren't told to. The base registry is copied
-verbatim from Aspose's own real, 25-entry FOSS repo list — every real Aspose FOSS repo is present
-in the file, but only 3 have a non-`disabled` mode today. Expanding coverage means flipping
-`mode` + adding `ecosystem`/`policy_profile` for an existing entry, never a new file format or a
-re-discovery exercise.
+the allow-list stops us from ever touching a repo we weren't told to at all, and from ever writing
+to one we haven't been told is ready for that. The base registry is copied verbatim from Aspose's
+own real, 25-entry FOSS repo list — every real Aspose FOSS repo is present in the file and can be
+read/analyzed, but only 3 have a non-`disabled` mode today, so only those 3 can be written to.
+Expanding write coverage means flipping `mode` + adding `ecosystem`/`policy_profile` for an
+existing entry, never a new file format or a re-discovery exercise.
 
 ## What's NOT a safety control (by design)
 

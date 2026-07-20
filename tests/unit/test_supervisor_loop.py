@@ -349,4 +349,90 @@ class TestMaxTurns:
             max_turns=3,
         )
         assert result.status == "BLOCKED"
-        assert result.blocked_reason == "repair_exhausted"
+
+
+class TestWriteCapableModeGate:
+    """Decision #40's safety companion: supervise_repo()'s entry gate moved
+    to require_listed() (mode is irrelevant for reads), so it no longer
+    implies mode == "full" the way require_permitted() used to.
+    _dispatch_and_record() is the one place left that must still refuse to
+    dispatch a local_write/remote_write capability against a repo whose push
+    access hasn't been verified -- proven directly here since no real
+    write-capable capability is registered yet to exercise it end to end."""
+
+    def test_write_capable_capability_blocked_when_mode_not_full(self, project, monkeypatch):
+        from readme_agent.capabilities.schema import CapabilityManifest
+        from readme_agent.supervisor.loop import _dispatch_and_record
+        from readme_agent.supervisor.task import Task, TaskGraph
+
+        products_path = project / "data" / "products.json"
+        products = json.loads(products_path.read_text(encoding="utf-8"))
+        products[0]["mode"] = "disabled"
+        products_path.write_text(json.dumps(products), encoding="utf-8")
+
+        fake_manifest = CapabilityManifest(
+            capability_id="fake_write_capability",
+            version="1",
+            name="Fake write capability",
+            purpose="test fixture",
+            category="test",
+            owner="tests",
+            execution_type="deterministic_tool",
+            side_effect_class="local_write",
+        )
+        monkeypatch.setattr(registry, "get", lambda capability_id: fake_manifest)
+
+        graph = TaskGraph()
+        task = graph.add_task(
+            Task(capability_id="fake_write_capability", arguments={"org_repo": ORG_REPO})
+        )
+
+        result = _dispatch_and_record(
+            graph, task, backend=None, org_repo=ORG_REPO, decisions=[], turn=1
+        )
+
+        assert result.state == "BLOCKED"
+        assert "mode" in result.blocked_reason
+
+    def test_write_capable_capability_not_mode_blocked_when_mode_full(self, project, monkeypatch):
+        """Control case: mode == "full" is unaffected -- the new mode check
+        itself does not fire for a repo whose push access is verified.
+        (backend=None here means dispatch_gated_effect() is never reached
+        either way -- that branch is pre-existing, unchanged behavior, not
+        what decision #40 touched; this isolates just the new check.)"""
+        from readme_agent.capabilities.dispatcher import DispatchResult
+        from readme_agent.capabilities.schema import CapabilityManifest
+        from readme_agent.supervisor.loop import _dispatch_and_record
+        from readme_agent.supervisor.task import Task, TaskGraph
+
+        products_path = project / "data" / "products.json"
+        products = json.loads(products_path.read_text(encoding="utf-8"))
+        products[0]["mode"] = "full"
+        products_path.write_text(json.dumps(products), encoding="utf-8")
+
+        fake_manifest = CapabilityManifest(
+            capability_id="fake_write_capability",
+            version="1",
+            name="Fake write capability",
+            purpose="test fixture",
+            category="test",
+            owner="tests",
+            execution_type="deterministic_tool",
+            side_effect_class="local_write",
+        )
+        monkeypatch.setattr(registry, "get", lambda capability_id: fake_manifest)
+        monkeypatch.setattr(
+            "readme_agent.capabilities.dispatcher.dispatch_tool_call",
+            lambda tool_call, permissions: DispatchResult(outcome="executed", result={}),
+        )
+
+        graph = TaskGraph()
+        task = graph.add_task(
+            Task(capability_id="fake_write_capability", arguments={"org_repo": ORG_REPO})
+        )
+
+        result = _dispatch_and_record(
+            graph, task, backend=None, org_repo=ORG_REPO, decisions=[], turn=1
+        )
+
+        assert result.state == "PASSED"

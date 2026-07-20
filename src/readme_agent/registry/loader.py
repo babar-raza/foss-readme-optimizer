@@ -1,8 +1,14 @@
 """Load data/products.json + config/policies/*.yml; fail closed on malformed config.
 
-is_permitted() is the allow-list gate: every entry point that accepts a repo
-calls it *before* any network/git operation. Not found, or mode == "disabled"
--> the caller raises NotAllowlistedError.
+is_permitted() is the allow-list gate for the mutating pipeline: every write
+entry point calls it *before* any network/git operation. Not found, or
+mode == "disabled" -> the caller raises NotAllowlistedError.
+
+require_listed() is the separate, deliberately weaker gate for read-only
+capabilities (decision #40): `mode: "disabled"` means push/full-cycle access
+to that org has not been verified yet, not "excluded from analysis" -- only
+presence in data/products.json is the read authorization. See
+plans/master.md decision #40.
 """
 
 import json
@@ -11,7 +17,7 @@ from pathlib import Path
 import yaml
 from pydantic import ValidationError
 
-from readme_agent.errors import ConfigError
+from readme_agent.errors import ConfigError, NotAllowlistedError
 from readme_agent.registry.models import PolicyProfile, ProductEntry
 
 PRODUCTS_PATH = Path("data/products.json")
@@ -56,6 +62,21 @@ def find_entry(org_repo: str) -> ProductEntry | None:
         if entry.org_repo == org_repo:
             return entry
     return None
+
+
+def require_listed(org_repo: str) -> ProductEntry:
+    """The read-only gate (decision #40): raises only if org_repo isn't in
+    data/products.json at all. `mode` is irrelevant here -- it governs
+    push/full-cycle readiness, never read eligibility. Use this (not
+    is_permitted()/require_permitted()) for any capability whose
+    side_effect_class is read_only_local/read_only_network."""
+    entry = find_entry(org_repo)
+    if entry is None:
+        raise NotAllowlistedError(
+            f"{org_repo} is not in data/products.json -- refusing to touch it. "
+            "This is the hard allow-list gate."
+        )
+    return entry
 
 
 def is_permitted(org_repo: str) -> ProductEntry | None:

@@ -21,6 +21,7 @@ from readme_agent.capabilities import (
     registry,
 )
 from readme_agent.capabilities.schema import CapabilityGap, CapabilityManifest
+from readme_agent.errors import NotAllowlistedError
 
 
 def _manifest(**overrides) -> CapabilityManifest:
@@ -422,7 +423,7 @@ class TestClassifyUpstreamChangeCapability:
         readme.write_text("# Widget\n\nSome content.\n", encoding="utf-8")
         fake_entry = SimpleNamespace(org="acme", repo_name="widget", mode="full")
         fake_inventory = SimpleNamespace(readme_path=readme)
-        monkeypatch.setattr(classify_upstream_change, "find_entry", lambda org_repo: fake_entry)
+        monkeypatch.setattr(classify_upstream_change, "require_listed", lambda org_repo: fake_entry)
         monkeypatch.setattr(classify_upstream_change, "clone_baseline", lambda entry, path: None)
         monkeypatch.setattr(classify_upstream_change, "baseline_dir", lambda org, repo: tmp_path)
         monkeypatch.setattr(
@@ -447,7 +448,7 @@ class TestClassifyUpstreamChangeCapability:
         readme.write_text(readme_text, encoding="utf-8")
         fake_entry = SimpleNamespace(org="acme", repo_name="widget", mode="full")
         fake_inventory = SimpleNamespace(readme_path=readme)
-        monkeypatch.setattr(classify_upstream_change, "find_entry", lambda org_repo: fake_entry)
+        monkeypatch.setattr(classify_upstream_change, "require_listed", lambda org_repo: fake_entry)
         monkeypatch.setattr(classify_upstream_change, "clone_baseline", lambda entry, path: None)
         monkeypatch.setattr(classify_upstream_change, "baseline_dir", lambda org, repo: tmp_path)
         monkeypatch.setattr(
@@ -467,9 +468,35 @@ class TestClassifyUpstreamChangeCapability:
 
         assert result["classification"] == "NO_CHANGE"
 
-    def test_execute_rejects_disabled_repo(self, monkeypatch):
-        fake_entry = SimpleNamespace(mode="disabled")
-        monkeypatch.setattr(classify_upstream_change, "find_entry", lambda org_repo: fake_entry)
+    def test_execute_allows_disabled_repo(self, monkeypatch, tmp_path):
+        """Decision #40: mode == "disabled" means push access is unverified,
+        not "excluded from analysis" -- this read-only capability runs
+        against every registered repo regardless of mode."""
+        readme = tmp_path / "README.md"
+        readme.write_text("# Widget\n\nSome content.\n", encoding="utf-8")
+        fake_entry = SimpleNamespace(org="acme", repo_name="widget", mode="disabled")
+        fake_inventory = SimpleNamespace(readme_path=readme)
+        monkeypatch.setattr(classify_upstream_change, "require_listed", lambda org_repo: fake_entry)
+        monkeypatch.setattr(classify_upstream_change, "clone_baseline", lambda entry, path: None)
+        monkeypatch.setattr(classify_upstream_change, "baseline_dir", lambda org, repo: tmp_path)
+        monkeypatch.setattr(
+            classify_upstream_change.file_inventory, "scan", lambda path: fake_inventory
+        )
+        monkeypatch.setattr(
+            classify_upstream_change,
+            "get_git_metadata",
+            lambda path: SimpleNamespace(commit_sha="abc123"),
+        )
 
-        with pytest.raises(PermissionError):
+        result = classify_upstream_change.execute("acme/widget")
+
+        assert result["classification"] == "FIRST_OBSERVATION"
+
+    def test_execute_rejects_unknown_repo(self, monkeypatch):
+        def _raise(org_repo):
+            raise NotAllowlistedError(f"{org_repo} is not in data/products.json")
+
+        monkeypatch.setattr(classify_upstream_change, "require_listed", _raise)
+
+        with pytest.raises(NotAllowlistedError):
             classify_upstream_change.execute("acme/widget")
