@@ -13,7 +13,7 @@ import pytest
 from readme_agent import paths
 from readme_agent.errors import NotAllowlistedError, StateBackendError
 from readme_agent.gitsafety._git import run_git
-from readme_agent.orchestrator import generate_repo, run_repo
+from readme_agent.orchestrator import generate_repo, run_registry, run_repo
 from readme_agent.readme.markers import render_span
 from readme_agent.state.backend import SaveResult
 from readme_agent.state.schema import DomainStateV1, RunStateV1, SupervisorStateV1
@@ -342,6 +342,67 @@ class TestRunModeFullCommitsLocally:
         assert result.status == "GENERATED"
         assert result.committed
         assert result.push_block_ok
+
+
+class TestRunRegistryBaselineCleanup:
+    """Decision #40/Part B: a registry-wide loop over several repos must not
+    accumulate every one of their baseline clones on disk for the rest of
+    the batch -- run_registry() cleans up each entry's baseline dir once
+    that entry's run is done, success or failure."""
+
+    def test_baseline_dir_is_removed_after_run_registry_processes_entry(
+        self, tmp_path, monkeypatch
+    ):
+        # Fully compliant (zero gaps, mirrors TestFullyCompliantRepo above) so
+        # generate_repo() never reaches the LLM-call branch at all --
+        # run_registry() has no llm_mode passthrough, so a gapped README here
+        # would attempt a real live LLM call.
+        compliant_readme = (
+            "# Example FOSS for Java\n\n"
+            "MIT License. This is the free, open-source edition. "
+            "Upgrade to the commercial edition for a broader feature set.\n\n"
+            "https://products.example.org/thing/java/\n"
+            "https://products.example.com/thing/java/\n"
+        )
+        source = _init_source_repo(tmp_path / "source", compliant_readme)
+        _setup_project_root(tmp_path, str(source), mode="full")
+        monkeypatch.chdir(tmp_path)
+
+        results = run_registry()
+
+        assert len(results) == 1
+        assert results[0].ok
+        baseline_path = paths.baseline_dir("example-foss", "Example-FOSS-for-Java")
+        assert not baseline_path.exists()
+
+    def test_baseline_dir_is_removed_even_when_the_entry_errors(self, tmp_path, monkeypatch):
+        """The cleanup lives in a `finally`, not just the success path --
+        proven here by seeding a products.json entry whose clone_url is
+        simply wrong, so run_repo() raises before ever finishing."""
+        (tmp_path / "data").mkdir()
+        products = [
+            {
+                "family": "thing",
+                "platform": "java",
+                "repo_name": "Example-FOSS-for-Java",
+                "repo_url": "https://github.com/example-foss/Example-FOSS-for-Java",
+                "clone_url": str(tmp_path / "does-not-exist"),
+                "active": True,
+                "discovered_via": "manual",
+                "mode": "full",
+                "ecosystem": "java",
+                "policy_profile": "test-profile",
+            }
+        ]
+        (tmp_path / "data" / "products.json").write_text(json.dumps(products), encoding="utf-8")
+        monkeypatch.chdir(tmp_path)
+
+        results = run_registry()
+
+        assert len(results) == 1
+        assert not results[0].ok
+        baseline_path = paths.baseline_dir("example-foss", "Example-FOSS-for-Java")
+        assert not baseline_path.exists()
 
 
 class TestStaleNoncompliantAndForceRegenerate:

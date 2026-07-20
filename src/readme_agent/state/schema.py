@@ -97,6 +97,28 @@ class SupervisorStateV1(BaseModel):
     repair_history: list[dict] = Field(default_factory=list)
 
 
+class ProfileCacheV1(BaseModel):
+    """Decision #40/Part B: `profile_repository`/`get_product_facts` always
+    re-clone + re-walk from scratch today, even when nothing changed
+    upstream (measured ~258s on a real ~1GB registry repo). This caches the
+    last computed `RepositoryProfile` (as its serialized dict, mirroring
+    `CapabilityOutputCacheEntry.result`) keyed by the remote HEAD commit SHA
+    at the time it was built (`gitsafety.clone.remote_head_sha()` -- a cheap
+    `git ls-remote`, no clone) -- a cache hit means the upstream commit is
+    unchanged, so re-cloning and re-walking would produce the identical
+    result.
+
+    Deliberately its own field on `RunStateV1`, not reusing
+    `upstream_revision_at_accept` (owned by `generate_repo()`'s pipeline,
+    and itself still unpopulated) or `supervisor_state` -- the same
+    single-slot-for-multiple-writers bug decisions #32/#34 already found and
+    fixed applies here too, one level up."""
+
+    upstream_revision: str
+    profile_result: dict
+    cached_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
+
+
 class RunStateV1(BaseModel):
     """The durable record of what has been accepted for one `org/repo`.
     Exists specifically so idempotency ("run twice, second run makes zero
@@ -148,3 +170,7 @@ class RunStateV1(BaseModel):
     # multiple-writers bug decisions #32/#34 already found and fixed, one
     # level up -- caught before implementation, not after.
     supervisor_state: SupervisorStateV1 | None = None
+    # Decision #40/Part B -- own slot, same reasoning as supervisor_state
+    # above: a fourth independent producer (profile/cached.py), never
+    # sharing another producer's field.
+    profile_cache: ProfileCacheV1 | None = None

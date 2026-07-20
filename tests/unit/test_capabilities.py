@@ -293,11 +293,9 @@ class TestProfileRepositoryCapability:
             ],
             unresolved_manifests=[],
         )
-        monkeypatch.setattr(profile_repository, "find_entry", lambda org_repo: fake_entry)
-        monkeypatch.setattr(profile_repository, "clone_baseline", lambda entry, path: None)
-        monkeypatch.setattr(profile_repository, "baseline_dir", lambda org, repo: tmp_path)
+        monkeypatch.setattr(profile_repository, "require_listed", lambda org_repo: fake_entry)
         monkeypatch.setattr(
-            profile_repository, "build_profile", lambda org_repo, path: fake_profile
+            profile_repository, "get_or_build_profile", lambda entry, backend: fake_profile
         )
 
         result = profile_repository.execute("acme/widget")
@@ -306,17 +304,32 @@ class TestProfileRepositoryCapability:
         assert result["detected_ecosystems"][0]["ecosystem"] == "java"
         assert result["unresolved_manifests"] == []
 
-    def test_execute_rejects_disabled_repo(self, monkeypatch):
-        fake_entry = SimpleNamespace(org="acme", repo_name="widget", mode="disabled")
-        monkeypatch.setattr(profile_repository, "find_entry", lambda org_repo: fake_entry)
+    def test_execute_allows_disabled_repo(self, monkeypatch, tmp_path):
+        """Decision #40: mode == "disabled" means push access is unverified,
+        not "excluded from analysis" -- this read-only capability runs
+        against every registered repo regardless of mode."""
+        from readme_agent.profile.schema import RepositoryProfile
 
-        with pytest.raises(PermissionError):
-            profile_repository.execute("acme/widget")
+        fake_entry = SimpleNamespace(org="acme", repo_name="widget", mode="disabled")
+        fake_profile = RepositoryProfile(
+            org_repo="acme/widget", detected_ecosystems=[], unresolved_manifests=[]
+        )
+        monkeypatch.setattr(profile_repository, "require_listed", lambda org_repo: fake_entry)
+        monkeypatch.setattr(
+            profile_repository, "get_or_build_profile", lambda entry, backend: fake_profile
+        )
+
+        result = profile_repository.execute("acme/widget")
+
+        assert result["org_repo"] == "acme/widget"
 
     def test_execute_rejects_unknown_repo(self, monkeypatch):
-        monkeypatch.setattr(profile_repository, "find_entry", lambda org_repo: None)
+        def _raise(org_repo):
+            raise NotAllowlistedError(f"{org_repo} is not in data/products.json")
 
-        with pytest.raises(PermissionError):
+        monkeypatch.setattr(profile_repository, "require_listed", _raise)
+
+        with pytest.raises(NotAllowlistedError):
             profile_repository.execute("acme/widget")
 
 
@@ -383,11 +396,11 @@ class TestGetProductFactsCapability:
             ],
             unresolved_manifests=[],
         )
-        monkeypatch.setattr(get_product_facts, "find_entry", lambda org_repo: fake_entry)
+        monkeypatch.setattr(get_product_facts, "require_listed", lambda org_repo: fake_entry)
         monkeypatch.setattr(get_product_facts, "load_policy", lambda profile: fake_policy)
-        monkeypatch.setattr(get_product_facts, "clone_baseline", lambda entry, path: None)
-        monkeypatch.setattr(get_product_facts, "baseline_dir", lambda org, repo: tmp_path)
-        monkeypatch.setattr(get_product_facts, "build_profile", lambda org_repo, path: fake_profile)
+        monkeypatch.setattr(
+            get_product_facts, "get_or_build_profile", lambda entry, backend: fake_profile
+        )
 
         result = get_product_facts.execute("acme/widget")
 
@@ -399,17 +412,76 @@ class TestGetProductFactsCapability:
             "live repository clone (repository inspection)"
         )
 
-    def test_execute_rejects_disabled_repo(self, monkeypatch):
-        fake_entry = SimpleNamespace(mode="disabled")
-        monkeypatch.setattr(get_product_facts, "find_entry", lambda org_repo: fake_entry)
+    def test_execute_allows_disabled_repo(self, monkeypatch, tmp_path):
+        """Decision #40: mode == "disabled" means push access is unverified,
+        not "excluded from analysis" -- this read-only capability runs
+        against every registered repo regardless of mode."""
+        from readme_agent.profile.schema import RepositoryProfile
+        from readme_agent.registry.models import (
+            BlockPolicy,
+            LicenseElement,
+            LinkSpec,
+            PolicyProfile,
+            RelationshipElement,
+            RequiredElements,
+            WordLimit,
+        )
 
-        with pytest.raises(PermissionError):
-            get_product_facts.execute("acme/widget")
+        fake_entry = SimpleNamespace(
+            org="acme",
+            repo_name="widget",
+            mode="disabled",
+            family="widget",
+            platform="java",
+            ecosystem="java",
+            policy_profile="acme-widget",
+        )
+        fake_policy = PolicyProfile(
+            schema_version=2,
+            policy_profile="acme-widget",
+            required_elements=RequiredElements(
+                license_mentioned=LicenseElement(detected_license="MIT"),
+                products_org_link=LinkSpec(
+                    url="https://products.acme.org/widget/java/",
+                    family_url="https://products.acme.org/widget/",
+                    label="Widget",
+                ),
+                products_com_link=LinkSpec(
+                    url="https://products.acme.com/widget/java/",
+                    family_url="https://products.acme.com/widget/",
+                    label="Widget",
+                ),
+                relationship_explained=RelationshipElement(
+                    min_sentences=2, talking_points=["open_source_scope"]
+                ),
+            ),
+            secondary_links=[],
+            block=BlockPolicy(
+                word_limit=WordLimit(min=10, max=200),
+                prohibited_terms=[],
+                link_whitelist_domains=[],
+            ),
+        )
+        fake_profile = RepositoryProfile(
+            org_repo="acme/widget", detected_ecosystems=[], unresolved_manifests=[]
+        )
+        monkeypatch.setattr(get_product_facts, "require_listed", lambda org_repo: fake_entry)
+        monkeypatch.setattr(get_product_facts, "load_policy", lambda profile: fake_policy)
+        monkeypatch.setattr(
+            get_product_facts, "get_or_build_profile", lambda entry, backend: fake_profile
+        )
+
+        result = get_product_facts.execute("acme/widget")
+
+        assert result["org_repo"] == "acme/widget"
 
     def test_execute_rejects_unknown_repo(self, monkeypatch):
-        monkeypatch.setattr(get_product_facts, "find_entry", lambda org_repo: None)
+        def _raise(org_repo):
+            raise NotAllowlistedError(f"{org_repo} is not in data/products.json")
 
-        with pytest.raises(PermissionError):
+        monkeypatch.setattr(get_product_facts, "require_listed", _raise)
+
+        with pytest.raises(NotAllowlistedError):
             get_product_facts.execute("acme/widget")
 
 

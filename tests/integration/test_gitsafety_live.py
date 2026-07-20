@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from readme_agent.gitsafety.clone import _force_rmtree, clone_baseline, create_work_clone
+from readme_agent.gitsafety.clone import clone_baseline, create_work_clone, force_rmtree
 from readme_agent.gitsafety.hooks import install_pre_push_hook
 from readme_agent.gitsafety.neuter import neuter_push
 from readme_agent.gitsafety.verify import verify_push_blocked
@@ -33,6 +33,6 @@ def test_full_pipeline_against_real_pilot_repo(tmp_path, monkeypatch):
         assert proof.ok, proof.detail
     finally:
         if baseline_path.exists():
-            _force_rmtree(baseline_path)
+            force_rmtree(baseline_path)
         if work_path.exists():
-            _force_rmtree(work_path)
+            force_rmtree(work_path)

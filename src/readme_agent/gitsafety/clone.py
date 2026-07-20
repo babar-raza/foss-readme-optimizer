@@ -14,9 +14,14 @@ from readme_agent.gitsafety._git import run_git
 from readme_agent.registry.models import ProductEntry
 
 
-def _force_rmtree(path: Path) -> None:
+def force_rmtree(path: Path) -> None:
     """git writes objects read-only; plain shutil.rmtree chokes on that on
-    Windows. Clear the read-only bit on access-denied and retry."""
+    Windows. Clear the read-only bit on access-denied and retry. Public (not
+    module-private) since `orchestrator.py::run_registry()` reuses this same
+    primitive for post-profile baseline cleanup (decision #40/Part B) rather
+    than a fourth duplicate of this exact function. Caller must check
+    `path.exists()` first -- `shutil.rmtree` raises if the top-level path is
+    already gone, and that's a normal, expected case for callers here."""
 
     def _on_error(func, target_path, exc_info):
         os.chmod(target_path, stat.S_IWRITE)
@@ -29,7 +34,7 @@ def clone_baseline(entry: ProductEntry, baseline_path: Path) -> Path:
     """Fresh, read-only reference clone. Always re-cloned so it reflects the
     current upstream state -- never fetched/reset in place."""
     if baseline_path.exists():
-        _force_rmtree(baseline_path)
+        force_rmtree(baseline_path)
     baseline_path.parent.mkdir(parents=True, exist_ok=True)
 
     # No explicit --branch: --depth 1 alone clones the HEAD of the remote's
@@ -49,7 +54,7 @@ def create_work_clone(entry: ProductEntry, baseline_path: Path, work_path: Path)
     the real GitHub URL for realism/evidence (cloning from a local baseline
     path would otherwise leave `origin` pointing at a local path)."""
     if work_path.exists():
-        _force_rmtree(work_path)
+        force_rmtree(work_path)
     work_path.parent.mkdir(parents=True, exist_ok=True)
 
     result = run_git(
@@ -64,6 +69,26 @@ def create_work_clone(entry: ProductEntry, baseline_path: Path, work_path: Path)
         raise GitSafetyError(f"restoring origin URL for {entry.org_repo} failed: {result.stderr}")
 
     return work_path
+
+
+def remote_head_sha(clone_url: str, timeout: float = 15) -> str | None:
+    """Cheap freshness probe (decision #40/Part B): `git ls-remote` reports
+    the remote's default-branch HEAD commit SHA without cloning anything --
+    one tiny network round-trip, not the ~1GB+ transfer `clone_baseline()`
+    can cost on a large registry repo. `None` on any failure (unreachable
+    remote, timeout, unexpected output) -- callers must treat that as "no
+    freshness signal available," never as a cache-invalidation error, since
+    this is an optimization, not a correctness dependency: falling back to a
+    real clone is always safe."""
+    try:
+        result = run_git(["ls-remote", clone_url, "HEAD"], timeout=timeout)
+    except Exception:  # noqa: BLE001 -- a failed probe just means "clone anyway"
+        return None
+    if result.returncode != 0 or not result.stdout.strip():
+        return None
+    first_line = result.stdout.strip().splitlines()[0]
+    sha = first_line.split()[0] if first_line.split() else ""
+    return sha or None
 
 
 def toplevel_matches(repo_path: Path) -> bool:

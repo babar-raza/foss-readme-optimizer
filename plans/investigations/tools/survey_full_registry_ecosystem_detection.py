@@ -75,8 +75,11 @@ for i, entry in enumerate(entries, start=1):
     t0 = time.time()
     try:
         clone_baseline(entry, clone_path)
+        t_cloned = time.time()
         profile = build_profile(org_repo, clone_path)
         dt = time.time() - t0
+        clone_s = round(t_cloned - t0, 1)
+        profile_s = round(dt - (t_cloned - t0), 1)
         detected = [d.model_dump() for d in profile.detected_ecosystems]
         expected = EXPECTED_ECOSYSTEM_BY_PLATFORM.get(entry.platform)
         found_expected = any(d["ecosystem"] == expected for d in detected) if expected else None
@@ -84,6 +87,8 @@ for i, entry in enumerate(entries, start=1):
             {
                 "ok": True,
                 "latency_s": round(dt, 1),
+                "clone_s": clone_s,
+                "profile_s": profile_s,
                 "detected_ecosystems": detected,
                 "unresolved_manifests": profile.unresolved_manifests,
                 "expected_platform_detected": found_expected,
@@ -93,7 +98,8 @@ for i, entry in enumerate(entries, start=1):
             f"[{i}/{len(entries)}] ok {org_repo} ({entry.platform}): "
             f"detected={[d['ecosystem'] for d in detected]} "
             f"expected_found={found_expected} "
-            f"unresolved={profile.unresolved_manifests} {dt:.1f}s"
+            f"unresolved={profile.unresolved_manifests} "
+            f"{dt:.1f}s (clone={clone_s:.1f}s, profile={profile_s:.1f}s)"
         )
     except Exception as e:  # noqa: BLE001 -- survey every repo, one failure must not abort the rest
         dt = time.time() - t0

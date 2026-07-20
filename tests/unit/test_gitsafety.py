@@ -3,7 +3,12 @@
 from pathlib import Path
 
 from readme_agent.gitsafety._git import run_git
-from readme_agent.gitsafety.clone import clone_baseline, create_work_clone, toplevel_matches
+from readme_agent.gitsafety.clone import (
+    clone_baseline,
+    create_work_clone,
+    remote_head_sha,
+    toplevel_matches,
+)
 from readme_agent.gitsafety.hooks import BLOCK_MARKER, install_pre_push_hook
 from readme_agent.gitsafety.neuter import DISABLED_PUSH_URL, neuter_push
 from readme_agent.gitsafety.verify import verify_push_blocked
@@ -141,3 +146,35 @@ class TestCloneBaselineAndWork:
 
         clone_baseline(entry, baseline_path)
         assert not (baseline_path / "stray.txt").exists()
+
+
+class TestRemoteHeadSha:
+    """Decision #40/Part B: the pre-clone freshness probe -- no clone, just
+    a HEAD SHA lookup. Local paths work identically to a real remote for
+    `git ls-remote`'s purposes, matching this file's own no-network style."""
+
+    def test_returns_the_repos_head_sha(self, tmp_path):
+        source = _init_repo(tmp_path / "source")
+        expected = run_git(["rev-parse", "HEAD"], cwd=source).stdout.strip()
+
+        sha = remote_head_sha(str(source))
+
+        assert sha == expected
+        assert len(sha) == 40
+
+    def test_returns_none_for_unreachable_remote(self, tmp_path):
+        nonexistent = tmp_path / "does-not-exist"
+
+        assert remote_head_sha(str(nonexistent)) is None
+
+    def test_changes_after_a_new_commit(self, tmp_path):
+        source = _init_repo(tmp_path / "source")
+        first = remote_head_sha(str(source))
+
+        (source / "CHANGED.txt").write_text("new commit", encoding="utf-8")
+        run_git(["add", "."], cwd=source)
+        run_git(["commit", "-m", "second"], cwd=source)
+        second = remote_head_sha(str(source))
+
+        assert first != second
+        assert second == run_git(["rev-parse", "HEAD"], cwd=source).stdout.strip()

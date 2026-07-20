@@ -66,6 +66,7 @@ for i, entry in enumerate(entries, start=1):
     t0 = time.time()
     try:
         clone_baseline(entry, clone_path)
+        t_cloned = time.time()
 
         inventory = file_inventory.scan(clone_path)
         readme_text = (
@@ -80,13 +81,26 @@ for i, entry in enumerate(entries, start=1):
             prior_stripped_text_hash=None,
             prior_owned_span_present=False,
         )
+        t_before_profile = time.time()
         profile = build_profile(org_repo, clone_path)
+        t_profiled = time.time()
 
-        dt = time.time() - t0
+        dt = t_profiled - t0
+        # Split so a slow repo's cost can be attributed to network transfer
+        # (clone_s) vs. the manifest walk (profile_s) vs. this script's own
+        # extra reconciliation/fingerprint steps (other_s) -- see decision
+        # #40/Part B: the combined latency_s alone can't tell which side to
+        # optimize.
+        clone_s = round(t_cloned - t0, 1)
+        other_s = round(t_before_profile - t_cloned, 1)
+        profile_s = round(t_profiled - t_before_profile, 1)
         record.update(
             {
                 "ok": True,
                 "latency_s": round(dt, 1),
+                "clone_s": clone_s,
+                "other_s": other_s,
+                "profile_s": profile_s,
                 "has_readme": inventory.readme_path is not None,
                 "readme_length_chars": len(readme_text),
                 "has_license_file": inventory.license_path is not None,
@@ -102,7 +116,8 @@ for i, entry in enumerate(entries, start=1):
             f"[{i}/{len(entries)}] ok {org_repo} ({entry.platform}, mode={entry.mode}): "
             f"readme={record['has_readme']} license={record['has_license_file']} "
             f"community={record['community_files']} drift={drift.classification} "
-            f"span_present={drift.owned_span_present_now} {dt:.1f}s"
+            f"span_present={drift.owned_span_present_now} "
+            f"{dt:.1f}s (clone={clone_s:.1f}s, other={other_s:.1f}s, profile={profile_s:.1f}s)"
         )
     except Exception as e:  # noqa: BLE001 -- survey every repo, one failure must not abort the rest
         dt = time.time() - t0

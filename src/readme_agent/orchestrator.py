@@ -22,7 +22,7 @@ from readme_agent.ecosystems.registry import parse_manifest
 from readme_agent.errors import NotAllowlistedError, StateBackendError
 from readme_agent.evidence.writer import generate_run_id, write_evidence
 from readme_agent.gitsafety._git import run_git
-from readme_agent.gitsafety.clone import clone_baseline, create_work_clone
+from readme_agent.gitsafety.clone import clone_baseline, create_work_clone, force_rmtree
 from readme_agent.gitsafety.hooks import install_pre_push_hook
 from readme_agent.gitsafety.neuter import neuter_push
 from readme_agent.gitsafety.verify import verify_push_blocked
@@ -570,6 +570,18 @@ def run_registry(
                     committed=False,
                 )
             )
+        finally:
+            # Decision #40/Part B: baseline_path is only ever re-cloned fresh
+            # right before its *own* next clone (clone_baseline() force-
+            # removes then), never cleaned up after -- fine for a single
+            # repo, but a registry-wide loop over several large repos in one
+            # job otherwise accumulates every one of their baseline clones on
+            # disk for the rest of the batch. paths.work_dir() is untouched
+            # here -- that one is deliberately persistent across runs
+            # (decision #12), not scoped to this loop.
+            baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
+            if baseline_path.exists():
+                force_rmtree(baseline_path)
     return results
 
 

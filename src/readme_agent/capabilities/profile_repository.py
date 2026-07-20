@@ -1,15 +1,13 @@
 """Wraps profile.detector.build_profile() -- read-only, multi-ecosystem
-repository profiling (Wave 3). Same allow-list-gated clone pattern as
-detect_readme_gaps.py -- decision #4's hard allow-list applies unconditionally
-to every actual git/network operation; decision 24/PIL-011's "regardless of
-mode" carve-out is about analysis *scope* for research/survey work, not a
-license to clone a disabled entry through a live capability."""
+repository profiling (Wave 3). Gated by require_listed(), not the mutating
+pipeline's require_permitted()/is_permitted() (decision #40): mode encodes
+push/full-cycle readiness, never read eligibility, so this runs against every
+registry entry regardless of mode -- including a `mode: "disabled"` one."""
 
 from readme_agent.capabilities.schema import CapabilityManifest
-from readme_agent.gitsafety.clone import clone_baseline
-from readme_agent.paths import baseline_dir
-from readme_agent.profile.detector import build_profile
-from readme_agent.registry.loader import find_entry
+from readme_agent.profile.cached import get_or_build_profile
+from readme_agent.registry.loader import require_listed
+from readme_agent.state.backend import StateBackend
 
 CAPABILITY_ID = "profile_repository"
 
@@ -29,21 +27,24 @@ MANIFEST = CapabilityManifest(
         "detected_ecosystems": "array",
         "unresolved_manifests": "array",
     },
-    preconditions=["org_repo must be allow-listed in data/products.json with a non-disabled mode"],
+    preconditions=[
+        "org_repo must be listed in data/products.json (mode is irrelevant -- read-only)"
+    ],
     required_permissions=["read_only_local"],
     side_effect_class="read_only_local",
-    tools_used=["gitsafety.clone.clone_baseline", "profile.detector.build_profile"],
-    failure_modes=["PermissionError if org_repo is not allow-listed with an enabled mode"],
+    tools_used=["profile.cached.get_or_build_profile"],
+    failure_modes=["NotAllowlistedError if org_repo is not listed in data/products.json"],
     rollback_behavior="not applicable -- read-only, nothing to roll back",
     tests=["tests/unit/test_capabilities.py"],
 )
 
 
-def execute(org_repo: str) -> dict:
-    entry = find_entry(org_repo)
-    if entry is None or entry.mode == "disabled":
-        raise PermissionError(f"{org_repo} is not allow-listed with an enabled mode")
-    path = baseline_dir(entry.org, entry.repo_name)
-    clone_baseline(entry, path)
-    profile = build_profile(org_repo, path)
+def execute(org_repo: str, *, state_backend: StateBackend | None = None) -> dict:
+    """state_backend is never populated by the planner/dispatcher path
+    (arguments come only from the tool-call JSON) -- it exists so a future
+    direct caller with a durable backend (e.g. a scheduled registry sweep)
+    gets the decision #40/Part B freshness-cache benefit; today's calls
+    always clone+profile fresh, exactly as before."""
+    entry = require_listed(org_repo)
+    profile = get_or_build_profile(entry, state_backend)
     return profile.model_dump()

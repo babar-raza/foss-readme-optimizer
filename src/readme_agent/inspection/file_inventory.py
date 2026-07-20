@@ -50,6 +50,18 @@ _NOISE_DIRS = {
     "target",
 }
 
+# Circuit breaker, not a correctness guarantee (decision #40/Part B): a
+# single-ecosystem repo forces a full-tree walk since most registered
+# ecosystems' patterns never resolve (measured ~258s on a real ~1GB/
+# 2500-file registry repo, aspose-page-foss). Generous enough that no real
+# registry repo observed so far comes close to it -- this only guards
+# against a genuinely pathological tree. A walk that stops here is
+# indistinguishable in output shape from one that legitimately found
+# nothing more, so a genuinely multi-ecosystem *and* enormous repo could
+# see a false negative on a secondary ecosystem past this ceiling -- an
+# accepted, documented trade-off, not a silent one.
+_MAX_FILES_SCANNED = 200_000
+
 
 @dataclass
 class FileInventory:
@@ -87,6 +99,12 @@ def _find_manifest_paths(repo_path: Path) -> dict[str, Path]:
     ecosystem parser that actually reads the file (e.g. `dotnet.py`'s own
     shallowest-of-up-to-20 selection) remains the source of truth for which
     exact file gets parsed when more precision matters there.
+
+    Also bounded by `_MAX_FILES_SCANNED` (decision #40/Part B): the
+    single-walk redesign above still traverses the whole tree whenever most
+    registered ecosystems' patterns never resolve, true of any
+    single-ecosystem repo (measured ~258s on a real ~1GB/2500-file registry
+    repo) -- see `_MAX_FILES_SCANNED`'s own comment for the trade-off.
     """
     if not repo_path.is_dir():
         return {}
@@ -96,14 +114,16 @@ def _find_manifest_paths(repo_path: Path) -> dict[str, Path]:
     }
     candidates: dict[tuple[str, str], Path] = {}
 
+    files_scanned = 0
     for root, dirs, files in os.walk(repo_path):
         dirs[:] = [d for d in dirs if d not in _NOISE_DIRS]
         for filename in files:
+            files_scanned += 1
             for ecosystem, pattern in list(remaining):
                 if fnmatch.fnmatch(filename, pattern):
                     candidates[(ecosystem, pattern)] = Path(root) / filename
                     remaining.discard((ecosystem, pattern))
-        if not remaining:
+        if not remaining or files_scanned >= _MAX_FILES_SCANNED:
             break
 
     found: dict[str, Path] = {}

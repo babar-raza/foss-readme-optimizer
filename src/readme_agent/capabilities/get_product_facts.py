@@ -13,10 +13,9 @@ RESEARCH-GATED; this is a thin wrapper around today's real, narrower data.
 """
 
 from readme_agent.capabilities.schema import CapabilityManifest
-from readme_agent.gitsafety.clone import clone_baseline
-from readme_agent.paths import baseline_dir
-from readme_agent.profile.detector import build_profile
-from readme_agent.registry.loader import find_entry, load_policy
+from readme_agent.profile.cached import get_or_build_profile
+from readme_agent.registry.loader import load_policy, require_listed
+from readme_agent.state.backend import StateBackend
 
 CAPABILITY_ID = "get_product_facts"
 
@@ -54,19 +53,18 @@ MANIFEST = CapabilityManifest(
         "source": "object",
     },
     preconditions=[
-        "org_repo must be allow-listed in data/products.json with a non-disabled mode -- "
-        "every call clones for live profiling, same gate as profile_repository",
+        "org_repo must be listed in data/products.json (mode is irrelevant -- read-only, "
+        "same gate as profile_repository)",
     ],
     required_permissions=["read_only_local"],
     side_effect_class="read_only_local",
     tools_used=[
-        "registry.loader.find_entry",
+        "registry.loader.require_listed",
         "registry.loader.load_policy",
-        "gitsafety.clone.clone_baseline",
-        "profile.detector.build_profile",
+        "profile.cached.get_or_build_profile",
     ],
     failure_modes=[
-        "PermissionError if org_repo is not allow-listed with an enabled mode",
+        "NotAllowlistedError if org_repo is not listed in data/products.json",
         "ConfigError if the entry has no policy_profile configured",
     ],
     rollback_behavior="not applicable -- read-only, nothing to roll back",
@@ -74,17 +72,18 @@ MANIFEST = CapabilityManifest(
 )
 
 
-def execute(org_repo: str) -> dict:
-    entry = find_entry(org_repo)
-    if entry is None or entry.mode == "disabled":
-        raise PermissionError(f"{org_repo} is not allow-listed with an enabled mode")
+def execute(org_repo: str, *, state_backend: StateBackend | None = None) -> dict:
+    """state_backend is never populated by the planner/dispatcher path
+    (arguments come only from the tool-call JSON) -- it exists so a future
+    direct caller with a durable backend (e.g. a scheduled registry sweep)
+    gets the decision #40/Part B freshness-cache benefit; today's calls
+    always clone+profile fresh, exactly as before."""
+    entry = require_listed(org_repo)
     if entry.policy_profile is None:
         raise ValueError(f"{org_repo} has no policy_profile configured")
     policy = load_policy(entry.policy_profile)
 
-    path = baseline_dir(entry.org, entry.repo_name)
-    clone_baseline(entry, path)
-    profile = build_profile(org_repo, path)
+    profile = get_or_build_profile(entry, state_backend)
 
     required = policy.required_elements
     return {

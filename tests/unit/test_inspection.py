@@ -142,6 +142,44 @@ class TestFileInventoryManifests:
 
         assert "typescript" not in inv.manifest_paths
 
+    def test_walk_stops_at_max_files_scanned_bound(self, tmp_path, monkeypatch):
+        """Decision #40/Part B: a genuinely pathological tree (huge,
+        single-ecosystem, most patterns never resolve) must not force an
+        unbounded walk. Lower the bound to something small and prove a
+        manifest past it is never found -- the bound actually took effect,
+        not just "didn't crash"."""
+        monkeypatch.setattr(file_inventory, "_MAX_FILES_SCANNED", 50)
+
+        for d in range(6):
+            noisy = tmp_path / f"d{d}"
+            noisy.mkdir()
+            for f in range(10):
+                (noisy / f"noise{f}.txt").write_text("x", encoding="utf-8")
+        past_bound = tmp_path / "d6"
+        past_bound.mkdir()
+        (past_bound / "pyproject.toml").write_text("[project]\nname='x'\n", encoding="utf-8")
+
+        inv = file_inventory.scan(tmp_path)
+
+        assert "python" not in inv.manifest_paths
+
+    def test_walk_within_max_files_scanned_bound_still_finds_manifest(self, tmp_path, monkeypatch):
+        """Control case: the bound doesn't break the common, well-within-
+        bound case -- a manifest found before the ceiling is hit is
+        unaffected."""
+        monkeypatch.setattr(file_inventory, "_MAX_FILES_SCANNED", 50)
+
+        (tmp_path / "pyproject.toml").write_text("[project]\nname='x'\n", encoding="utf-8")
+        for d in range(6):
+            noisy = tmp_path / f"d{d}"
+            noisy.mkdir()
+            for f in range(10):
+                (noisy / f"noise{f}.txt").write_text("x", encoding="utf-8")
+
+        inv = file_inventory.scan(tmp_path)
+
+        assert inv.manifest_paths["python"] == tmp_path / "pyproject.toml"
+
 
 class TestFileInventoryCommunityPaths:
     """Decision #19's repository-file-managed control class; decision #38's
