@@ -1,12 +1,21 @@
 {
   "accepted_facts_hash": null,
   "accepted_status": null,
-  "capability_outputs": [],
+  "capability_outputs": [
+    {
+      "cached_at": "2026-07-20T12:46:13.249808+00:00",
+      "capability_id": "commit_readme_write",
+      "fingerprint": "0e11eaa8908bffbf4349fa1e4f46157b256d24acc930bb96d831b7d83a1023bc",
+      "result": {},
+      "status": "pending"
+    }
+  ],
   "domain_states": {},
   "last_run_id": null,
   "last_run_timestamp": null,
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
-  "state_version": 1,
+  "profile_cache": null,
+  "state_version": 2,
   "supervisor_state": {
     "capability_gaps": [],
     "last_observed_upstream_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
@@ -112,5 +121,6 @@
       ]
     }
   },
+  "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
 }
