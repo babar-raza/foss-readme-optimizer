@@ -1,0 +1,23 @@
+{
+  "schema": "AuditFindingV1-prototype",
+  "surface": "languages",
+  "control_class": "E-github-generated",
+  "input": "SYNTHETIC (labeled)",
+  "observation": {
+    "Java": "52%",
+    "HTML": "36%",
+    "JavaScript": "12%"
+  },
+  "analysis": "HTML+JS share is consistent with a vendored/generated docs/ tree, not hand-written frontend code (Linguist counts vendored files unless marked)",
+  "allowed_remediation": "IF vendored docs exist: propose `docs/** linguist-vendored` in .gitattributes \u2014 a repository-file change routed to the repo owner through normal class-A gates",
+  "forbidden_remediation": "any attempt to set language percentages directly (impossible and out of authority); deleting content to game stats",
+  "write_proposal_produced": false,
+  "real_pilot_state": {
+    "aspose-cells-foss": {
+      "Java": 1550264
+    },
+    "aspose-pdf-foss": {
+      "Java": 7661713
+    }
+  }
+}

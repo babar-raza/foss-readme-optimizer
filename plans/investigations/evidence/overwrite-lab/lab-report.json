@@ -1,0 +1,374 @@
+{
+  "full-overwrite-new-version": {
+    "accepted": {
+      "status": "GENERATED",
+      "llm_called": true,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [],
+      "gaps": [
+        "products_org_link",
+        "products_com_link",
+        "relationship_explained"
+      ]
+    },
+    "shipped_on_upstream": {
+      "status": "STALE_NONCOMPLIANT",
+      "llm_called": false,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [
+        "change_boundary"
+      ],
+      "gaps": [],
+      "work_readme_contains_upstream_capability": false,
+      "facts_hash_changed_vs_accepted": false
+    },
+    "reconcile_first_run": {
+      "status": "PROPOSED",
+      "drift": "MIXED_CHANGE",
+      "llm": {
+        "llm_calls_live": 1,
+        "llm_calls_fixture": 0,
+        "llm_calls_avoided_by_cache": 0
+      },
+      "checks": {
+        "stale_claims_reintroduced": [],
+        "non_whitelisted_links": [],
+        "prohibited_terms": [],
+        "candidate_is_append_only_superset_of_upstream": true,
+        "upstream_new_tokens_checked": [
+          "2.0.0",
+          "exportCsv"
+        ],
+        "upstream_new_tokens_missing": [],
+        "llm_calls_this_run": 1
+      },
+      "handoff": null,
+      "notes": [
+        "sim(upstream,base)=0.251 sim(upstream,accepted)=0.399 (offline proxy; production uses qwen3-embedding-8b, L4)"
+      ],
+      "patch": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.state\\overwrite-lab-scratch\\full-overwrite-new-version\\workspace\\reconciliation-work\\readme-candidate.patch"
+    },
+    "reconcile_rerun": {
+      "status": "NO_CHANGE",
+      "checks": {
+        "fingerprint_match": true,
+        "output_match": true,
+        "llm_calls_this_run": 0
+      }
+    }
+  },
+  "partial-overwrite-corrupt-markers": {
+    "accepted": {
+      "status": "GENERATED",
+      "llm_called": true,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [],
+      "gaps": [
+        "products_org_link",
+        "products_com_link",
+        "relationship_explained"
+      ]
+    },
+    "shipped_on_upstream": {
+      "status": "STALE_NONCOMPLIANT",
+      "llm_called": false,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [
+        "change_boundary"
+      ],
+      "gaps": [],
+      "work_readme_contains_upstream_capability": null,
+      "facts_hash_changed_vs_accepted": false
+    },
+    "reconcile_first_run": {
+      "status": "PROPOSED",
+      "drift": "UPSTREAM_PRODUCT_CHANGE",
+      "llm": {
+        "llm_calls_live": 0,
+        "llm_calls_fixture": 0,
+        "llm_calls_avoided_by_cache": 0
+      },
+      "checks": {
+        "stale_claims_reintroduced": [],
+        "non_whitelisted_links": [],
+        "prohibited_terms": [],
+        "candidate_is_append_only_superset_of_upstream": true,
+        "upstream_new_tokens_checked": [
+          "(version 2.0.0)"
+        ],
+        "upstream_new_tokens_missing": [],
+        "llm_calls_this_run": 0
+      },
+      "handoff": null,
+      "notes": [],
+      "patch": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.state\\overwrite-lab-scratch\\partial-overwrite-corrupt-markers\\workspace\\reconciliation-work\\readme-candidate.patch"
+    },
+    "reconcile_rerun": {
+      "status": "NO_CHANGE",
+      "checks": {
+        "fingerprint_match": true,
+        "output_match": true,
+        "llm_calls_this_run": 0
+      }
+    }
+  },
+  "generic-template-regression": {
+    "accepted": {
+      "status": "GENERATED",
+      "llm_called": true,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [],
+      "gaps": [
+        "products_org_link",
+        "products_com_link",
+        "relationship_explained"
+      ]
+    },
+    "shipped_on_upstream": {
+      "status": "STALE_NONCOMPLIANT",
+      "llm_called": false,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [
+        "change_boundary"
+      ],
+      "gaps": [],
+      "work_readme_contains_upstream_capability": null,
+      "facts_hash_changed_vs_accepted": false
+    },
+    "reconcile_first_run": {
+      "status": "PROPOSED",
+      "drift": "UPSTREAM_README_REWRITE",
+      "llm": {
+        "llm_calls_live": 0,
+        "llm_calls_fixture": 1,
+        "llm_calls_avoided_by_cache": 0
+      },
+      "checks": {
+        "stale_claims_reintroduced": [],
+        "non_whitelisted_links": [],
+        "prohibited_terms": [],
+        "candidate_is_append_only_superset_of_upstream": true,
+        "upstream_new_tokens_checked": [],
+        "upstream_new_tokens_missing": [],
+        "llm_calls_this_run": 1
+      },
+      "handoff": null,
+      "notes": [
+        "sim(upstream,base)=0.091 sim(upstream,accepted)=0.059 (offline proxy; production uses qwen3-embedding-8b, L4)"
+      ],
+      "patch": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.state\\overwrite-lab-scratch\\generic-template-regression\\workspace\\reconciliation-work\\readme-candidate.patch"
+    },
+    "reconcile_rerun": {
+      "status": "NO_CHANGE",
+      "checks": {
+        "fingerprint_match": true,
+        "output_match": true,
+        "llm_calls_this_run": 0
+      }
+    }
+  },
+  "legitimate-structural-redesign": {
+    "accepted": {
+      "status": "GENERATED",
+      "llm_called": true,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [],
+      "gaps": [
+        "products_org_link",
+        "products_com_link",
+        "relationship_explained"
+      ]
+    },
+    "shipped_on_upstream": {
+      "status": "STALE_NONCOMPLIANT",
+      "llm_called": false,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [
+        "change_boundary"
+      ],
+      "gaps": [],
+      "work_readme_contains_upstream_capability": null,
+      "facts_hash_changed_vs_accepted": false
+    },
+    "reconcile_first_run": {
+      "status": "PROPOSED",
+      "drift": "MIXED_CHANGE",
+      "llm": {
+        "llm_calls_live": 0,
+        "llm_calls_fixture": 1,
+        "llm_calls_avoided_by_cache": 0
+      },
+      "checks": {
+        "stale_claims_reintroduced": [],
+        "non_whitelisted_links": [],
+        "prohibited_terms": [],
+        "candidate_is_append_only_superset_of_upstream": true,
+        "upstream_new_tokens_checked": [
+          "First steps",
+          "## Contents"
+        ],
+        "upstream_new_tokens_missing": [],
+        "llm_calls_this_run": 1
+      },
+      "handoff": null,
+      "notes": [
+        "sim(upstream,base)=0.449 sim(upstream,accepted)=0.362 (offline proxy; production uses qwen3-embedding-8b, L4)"
+      ],
+      "patch": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.state\\overwrite-lab-scratch\\legitimate-structural-redesign\\workspace\\reconciliation-work\\readme-candidate.patch"
+    },
+    "reconcile_rerun": {
+      "status": "NO_CHANGE",
+      "checks": {
+        "fingerprint_match": true,
+        "output_match": true,
+        "llm_calls_this_run": 0
+      }
+    }
+  },
+  "stale-facts-conflict": {
+    "accepted": {
+      "status": "GENERATED",
+      "llm_called": true,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [],
+      "gaps": [
+        "products_org_link",
+        "products_com_link",
+        "relationship_explained"
+      ]
+    },
+    "shipped_on_upstream": {
+      "status": "STALE_NONCOMPLIANT",
+      "llm_called": false,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [
+        "change_boundary"
+      ],
+      "gaps": [],
+      "work_readme_contains_upstream_capability": null,
+      "facts_hash_changed_vs_accepted": false
+    },
+    "reconcile_first_run": {
+      "status": "BLOCKED_PENDING_PRODUCT_OWNER",
+      "drift": "CONFLICTING_FACTS",
+      "llm": {},
+      "checks": {},
+      "handoff": {
+        "finding": "readme_claims_capability_not_in_product_facts",
+        "claims": [
+          "PDF rendering"
+        ],
+        "source_commit": "45edaddea3ea3d1d5ce4accfac9e1782baf364c1",
+        "facts_hash": "3077cf6a7a025529aa232a2d7830d91ea295933ae7d3e4414f61c3cc3a36db73",
+        "owner": "acme-product-agent",
+        "required_action": "confirm capability + refresh ProductFacts, or correct README"
+      },
+      "notes": [
+        "No candidate produced; the central agent never invents or endorses an unverified capability (FACT-004)."
+      ],
+      "patch": null
+    },
+    "reconcile_rerun": null
+  },
+  "community-file-removed": {
+    "accepted": {
+      "status": "GENERATED",
+      "llm_called": true,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [],
+      "gaps": [
+        "products_org_link",
+        "products_com_link",
+        "relationship_explained"
+      ]
+    },
+    "shipped_on_upstream": {
+      "status": "COMPLIANT_NO_CHANGE",
+      "llm_called": false,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [],
+      "gaps": [],
+      "work_readme_contains_upstream_capability": null,
+      "facts_hash_changed_vs_accepted": false
+    },
+    "reconcile_first_run": {
+      "status": "PROPOSED",
+      "drift": "COMMUNITY_FILE_DRIFT",
+      "llm": {
+        "llm_calls_live": 0,
+        "llm_calls_fixture": 0,
+        "llm_calls_avoided_by_cache": 0
+      },
+      "checks": {
+        "readme_untouched": true,
+        "unrelated_files_untouched": true,
+        "llm_calls_this_run": 0
+      },
+      "handoff": null,
+      "notes": [
+        "CONTRIBUTING.md removed upstream but exists in accepted state",
+        "Restore proposed as a patch (never silently applied; product agent may reject via response loop)."
+      ],
+      "patch": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.state\\overwrite-lab-scratch\\community-file-removed\\workspace\\reconciliation-work\\contributing-restore.patch"
+    },
+    "reconcile_rerun": {
+      "status": "PROPOSED",
+      "checks": {
+        "readme_untouched": true,
+        "unrelated_files_untouched": true,
+        "llm_calls_this_run": 0
+      }
+    }
+  },
+  "concurrent-upstream-advance": {
+    "accepted": {
+      "status": "GENERATED",
+      "llm_called": true,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [],
+      "gaps": [
+        "products_org_link",
+        "products_com_link",
+        "relationship_explained"
+      ]
+    },
+    "shipped_on_upstream": {
+      "status": "STALE_NONCOMPLIANT",
+      "llm_called": false,
+      "facts_hash": "25e2f3a3e8cfa955777b03e96eee6ab682a7f5c9b467e1313679f640923d035c",
+      "failed_validators": [
+        "change_boundary"
+      ],
+      "gaps": [],
+      "work_readme_contains_upstream_capability": false,
+      "facts_hash_changed_vs_accepted": false
+    },
+    "reconcile_first_run": {
+      "status": "STALE_INPUT",
+      "drift": "MIXED_CHANGE",
+      "llm": {
+        "llm_calls_live": 0,
+        "llm_calls_fixture": 1,
+        "llm_calls_avoided_by_cache": 0
+      },
+      "checks": {
+        "stale_claims_reintroduced": [],
+        "non_whitelisted_links": [],
+        "prohibited_terms": [],
+        "candidate_is_append_only_superset_of_upstream": true,
+        "upstream_new_tokens_checked": [
+          "exportCsv"
+        ],
+        "upstream_new_tokens_missing": [],
+        "llm_calls_this_run": 1
+      },
+      "handoff": null,
+      "notes": [
+        "sim(upstream,base)=0.251 sim(upstream,accepted)=0.399 (offline proxy; production uses qwen3-embedding-8b, L4)",
+        "Upstream HEAD moved between snapshot and apply; no apply; restart required from the new revision."
+      ],
+      "patch": null
+    },
+    "reconcile_rerun": null
+  }
+}

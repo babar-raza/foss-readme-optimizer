@@ -27,6 +27,12 @@ On Windows, the hook's executable bit is meaningless (NTFS) and is recorded but 
 excluded from the pass/fail verdict — Git for Windows invokes hooks via its bundled shell
 regardless of the bit, not silently assumed to pass.
 
+**Any future exception is a human-confirmation gate, not a code toggle.** If a `gated_effector`
+capability is ever built to make a real write, lifting push-blocking for it is never a silent
+config flip: `GOV-018` (`plans/master.md` decision #33, `plans/GOVERNANCE.md` rule 10) requires an
+explicit, per-instance user confirmation naming exactly what is being pushed, why, and where,
+before that write happens — a standing or implied approval from earlier never substitutes.
+
 ## 2. The allow-list
 
 `data/products.json` is the **only** list of repos this tool is ever permitted to touch.

@@ -1,0 +1,58 @@
+{
+  "settings_dry_run": {
+    "observed": {
+      "description": null,
+      "homepage": null,
+      "topics": []
+    },
+    "desired": {
+      "description": "Open-source Java library for creating and processing PDF files.",
+      "homepage": "https://products.aspose.org/pdf/java/",
+      "topics": [
+        "java",
+        "maven",
+        "open-source",
+        "pdf",
+        "pdf-generation"
+      ]
+    },
+    "changed_fields": [
+      "description",
+      "homepage",
+      "topics"
+    ],
+    "validators_pass": true,
+    "no_remote_write_in_module": true,
+    "write_scanner_is_non_vacuous": true,
+    "rerun_when_state_equals_desired": "NO_PROPOSAL"
+  },
+  "social_preview_manual_apply": {
+    "status": "PREPARED_FOR_MANUAL_APPLY",
+    "fingerprint": "e34e28932be3acdf",
+    "never_reported_applied": true,
+    "rerun_creates_duplicate": false
+  },
+  "release_package_handoff": {
+    "finding_state": "ACKNOWLEDGED_BY_OWNER",
+    "no_write_handler_in_module": true,
+    "write_scanner_is_non_vacuous": true,
+    "response_consumed": true
+  },
+  "generated_surface_audit": {
+    "real_pilots_clean": true,
+    "synthetic_explained": true,
+    "write_proposal_produced": false
+  },
+  "surface_aware_evidence": {
+    "surfaces_in_manifest": 7,
+    "classes_covered": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "run_successful": true,
+    "negative_control_one_failed_surface_fails_run": true
+  }
+}

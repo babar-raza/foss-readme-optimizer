@@ -1,0 +1,519 @@
+{
+  "base_url_host": "llm.professionalize.com",
+  "probes": {
+    "models": {
+      "status": 200,
+      "ids": [
+        "qwen3-next",
+        "experimental",
+        "gpt-oss",
+        "recommended",
+        "qwen3-embedding-8b",
+        "Qwen2.5-VL-7B",
+        "stable-diffusion-3.5-large"
+      ]
+    },
+    "context_ladder": {
+      "qwen3-next": [
+        {
+          "approx_tokens": 2000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.6,
+          "prompt_tokens": 1031,
+          "note": null
+        },
+        {
+          "approx_tokens": 8000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.7,
+          "prompt_tokens": 1031,
+          "note": null
+        },
+        {
+          "approx_tokens": 16000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.5,
+          "prompt_tokens": 1032,
+          "note": null
+        },
+        {
+          "approx_tokens": 32000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 5.4,
+          "prompt_tokens": 1032,
+          "note": null
+        },
+        {
+          "approx_tokens": 64000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.6,
+          "prompt_tokens": 1032,
+          "note": null
+        },
+        {
+          "approx_tokens": 96000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.4,
+          "prompt_tokens": 1032,
+          "note": null
+        }
+      ],
+      "gpt-oss": [
+        {
+          "approx_tokens": 2000,
+          "ok": true,
+          "needle_found": false,
+          "latency_s": 1.9,
+          "prompt_tokens": 1086,
+          "note": null
+        },
+        {
+          "approx_tokens": 8000,
+          "ok": true,
+          "needle_found": false,
+          "latency_s": 1.9,
+          "prompt_tokens": 1086,
+          "note": null
+        },
+        {
+          "approx_tokens": 16000,
+          "ok": true,
+          "needle_found": false,
+          "latency_s": 1.7,
+          "prompt_tokens": 1086,
+          "note": null
+        },
+        {
+          "approx_tokens": 32000,
+          "ok": true,
+          "needle_found": false,
+          "latency_s": 1.6,
+          "prompt_tokens": 1086,
+          "note": null
+        },
+        {
+          "approx_tokens": 64000,
+          "ok": true,
+          "needle_found": false,
+          "latency_s": 1.6,
+          "prompt_tokens": 1086,
+          "note": null
+        },
+        {
+          "approx_tokens": 96000,
+          "ok": true,
+          "needle_found": false,
+          "latency_s": 1.5,
+          "prompt_tokens": 1086,
+          "note": null
+        }
+      ],
+      "Qwen2.5-VL-7B": [
+        {
+          "approx_tokens": 2000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.6,
+          "prompt_tokens": 1031,
+          "note": null
+        },
+        {
+          "approx_tokens": 8000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.6,
+          "prompt_tokens": 1031,
+          "note": null
+        },
+        {
+          "approx_tokens": 16000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.6,
+          "prompt_tokens": 1032,
+          "note": null
+        },
+        {
+          "approx_tokens": 32000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.6,
+          "prompt_tokens": 1032,
+          "note": null
+        },
+        {
+          "approx_tokens": 64000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.7,
+          "prompt_tokens": 1032,
+          "note": null
+        },
+        {
+          "approx_tokens": 96000,
+          "ok": true,
+          "needle_found": true,
+          "latency_s": 1.6,
+          "prompt_tokens": 1032,
+          "note": null
+        }
+      ]
+    },
+    "structured_output": {
+      "qwen3-next": {
+        "trials": 5,
+        "valid_rate": 1.0,
+        "fenced_rate": 0.0,
+        "outcomes": [
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 2.8
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 2.4
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 2.2
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 2.3
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 2.3
+          }
+        ]
+      },
+      "gpt-oss": {
+        "trials": 10,
+        "valid_rate": 0.4,
+        "fenced_rate": 0.0,
+        "outcomes": [
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 7.3
+          },
+          {
+            "ok": true,
+            "valid": false,
+            "why": "json:Expecting ',' delimiter: line 5 column 18 (char 150)",
+            "fenced": false,
+            "latency_s": 6.5
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 4.6
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 6.4
+          },
+          {
+            "ok": true,
+            "valid": false,
+            "why": "json:Unterminated string starting at: line 4 column 3 (char 107)",
+            "fenced": false,
+            "latency_s": 10.6
+          },
+          {
+            "ok": true,
+            "valid": false,
+            "why": "json:Expecting value: line 5 column 16 (char 148)",
+            "fenced": false,
+            "latency_s": 9.0
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 6.3
+          },
+          {
+            "ok": true,
+            "valid": false,
+            "why": "json:Expecting ',' delimiter: line 5 column 18 (char 150)",
+            "fenced": false,
+            "latency_s": 6.0
+          },
+          {
+            "ok": true,
+            "valid": false,
+            "why": "json:Expecting value: line 5 column 16 (char 148)",
+            "fenced": false,
+            "latency_s": 3.8
+          },
+          {
+            "ok": true,
+            "valid": false,
+            "why": "json:Unterminated string starting at: line 1 column 58 (char 57)",
+            "fenced": false,
+            "latency_s": 4.7
+          }
+        ]
+      },
+      "Qwen2.5-VL-7B": {
+        "trials": 5,
+        "valid_rate": 1.0,
+        "fenced_rate": 0.0,
+        "outcomes": [
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 2.3
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 2.2
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 2.3
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 2.3
+          },
+          {
+            "ok": true,
+            "valid": true,
+            "why": "schema-ok",
+            "fenced": false,
+            "latency_s": 2.3
+          }
+        ]
+      }
+    },
+    "embeddings": {
+      "model": "qwen3-embedding-8b",
+      "dims": 4096,
+      "cosine": {
+        "3d-java~3d-python": 0.7876,
+        "3d-java~cells-java": 0.5474,
+        "3d-java~words-python": 0.4604,
+        "3d-python~cells-java": 0.4605,
+        "3d-python~words-python": 0.6147,
+        "cells-java~words-python": 0.4462
+      },
+      "control_expectation": "3d-java~3d-python (same bot template) must be highest"
+    },
+    "tool_calling_single_step": {
+      "qwen3-next": {
+        "trials": 5,
+        "success_rate": 1.0,
+        "outcomes": [
+          {
+            "ok": true,
+            "n_tool_calls": 1,
+            "called_right_tool": true,
+            "fell_back_to_text": false,
+            "latency_s": 1.9
+          },
+          {
+            "ok": true,
+            "n_tool_calls": 1,
+            "called_right_tool": true,
+            "fell_back_to_text": false,
+            "latency_s": 1.7
+          },
+          {
+            "ok": true,
+            "n_tool_calls": 1,
+            "called_right_tool": true,
+            "fell_back_to_text": false,
+            "latency_s": 1.7
+          },
+          {
+            "ok": true,
+            "n_tool_calls": 1,
+            "called_right_tool": true,
+            "fell_back_to_text": false,
+            "latency_s": 1.7
+          },
+          {
+            "ok": true,
+            "n_tool_calls": 1,
+            "called_right_tool": true,
+            "fell_back_to_text": false,
+            "latency_s": 1.7
+          }
+        ]
+      },
+      "gpt-oss": {
+        "trials": 5,
+        "success_rate": 1.0,
+        "outcomes": [
+          {
+            "ok": true,
+            "n_tool_calls": 1,
+            "called_right_tool": true,
+            "fell_back_to_text": false,
+            "latency_s": 1.8
+          },
+          {
+            "ok": true,
+            "n_tool_calls": 1,
+            "called_right_tool": true,
+            "fell_back_to_text": false,
+            "latency_s": 1.9
+          },
+          {
+            "ok": true,
+            "n_tool_calls": 1,
+            "called_right_tool": true,
+            "fell_back_to_text": false,
+            "latency_s": 1.9
+          },
+          {
+            "ok": true,
+            "n_tool_calls": 1,
+            "called_right_tool": true,
+            "fell_back_to_text": false,
+            "latency_s": 1.9
+          },
+          {
+            "ok": true,
+            "n_tool_calls": 1,
+            "called_right_tool": true,
+            "fell_back_to_text": false,
+            "latency_s": 1.9
+          }
+        ]
+      },
+      "Qwen2.5-VL-7B": {
+        "trials": 5,
+        "success_rate": 0.0,
+        "outcomes": [
+          {
+            "ok": false,
+            "n_tool_calls": 0,
+            "called_right_tool": false,
+            "fell_back_to_text": false,
+            "latency_s": 1.3
+          },
+          {
+            "ok": false,
+            "n_tool_calls": 0,
+            "called_right_tool": false,
+            "fell_back_to_text": false,
+            "latency_s": 1.4
+          },
+          {
+            "ok": false,
+            "n_tool_calls": 0,
+            "called_right_tool": false,
+            "fell_back_to_text": false,
+            "latency_s": 1.3
+          },
+          {
+            "ok": false,
+            "n_tool_calls": 0,
+            "called_right_tool": false,
+            "fell_back_to_text": false,
+            "latency_s": 1.2
+          },
+          {
+            "ok": false,
+            "n_tool_calls": 0,
+            "called_right_tool": false,
+            "fell_back_to_text": false,
+            "latency_s": 1.4
+          }
+        ]
+      }
+    },
+    "tool_calling_multi_step": {
+      "qwen3-next": {
+        "round1_tool_calls": 1,
+        "round2_ok": true,
+        "round2_tool_calls": 0,
+        "round2_produced_final_answer": true,
+        "round2_latency_s": 1.6
+      },
+      "gpt-oss": {
+        "round1_tool_calls": 1,
+        "round2_ok": true,
+        "round2_tool_calls": 0,
+        "round2_produced_final_answer": true,
+        "round2_latency_s": 1.6
+      },
+      "Qwen2.5-VL-7B": {
+        "round1_ok": false,
+        "round1_tool_calls": 0,
+        "skipped": true
+      }
+    },
+    "tool_calling_parallel": {
+      "qwen3-next": {
+        "ok": true,
+        "n_tool_calls": 2,
+        "distinct_tools_called": [
+          "count_readme_gaps",
+          "get_repository_license"
+        ],
+        "both_in_one_response": true,
+        "latency_s": 2.4
+      },
+      "gpt-oss": {
+        "ok": true,
+        "n_tool_calls": 1,
+        "distinct_tools_called": [
+          "get_repository_license"
+        ],
+        "both_in_one_response": false,
+        "latency_s": 2.4
+      },
+      "Qwen2.5-VL-7B": {
+        "ok": false,
+        "n_tool_calls": 0,
+        "distinct_tools_called": [],
+        "both_in_one_response": false,
+        "latency_s": 1.3
+      }
+    }
+  }
+}

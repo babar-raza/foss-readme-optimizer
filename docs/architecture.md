@@ -1,5 +1,123 @@
 # Architecture
 
+## Target architecture
+
+The governing doctrine (`plans/master.md` decision #26) is an autonomous, capability-driven
+control plane running primarily from GitHub Actions: the runtime discovers a repository's
+structure, automatically selects from a registered set of capabilities, and lets the LLM plan,
+interpret, coordinate, and repair — while every fact, mutation, validation, evidence record, and
+rollback stays deterministic and gated. No human selects a prompt, skill, command, or next action
+during a normal run.
+
+Everything below this section describes **the current, proven engine** — the Phase 0–21
+deterministic README/presentation pipeline, real and load-bearing today. It is the first
+capability surface the target runtime will wrap as later waves land a capability registry,
+supervisor, and durable cross-runner state (see `plans/master.md`'s sprint reset entry in the
+Changelog); it is not being discarded, and nothing below is aspirational.
+
+**Wave 1 update (2026-07-18, decision #27):** the runtime's task-graph/dispatcher will extend
+this orchestrator directly, built on `pydantic` (already a dependency) — not a third-party agent
+framework. A live probe of `llm.professionalize.com` found native tool-calling reliable for both
+routed chat models, so the sprint's structured-action dispatch protocol is implemented as a
+native tool call rather than freeform-JSON prompting. See
+`plans/investigations/llm-gateway-characterization.md` (findings L6–L8),
+`plans/investigations/runtime-framework-evaluation.md` (the framework comparison), and
+`plans/investigations/agentic-loop-proof.md` (one live observe→plan→execute→observe→replan
+iteration proven against a real pilot repository) for the full evidence.
+
+**Wave 2 update (2026-07-18):** the capability registry and permission-aware dispatcher are now
+real, tested production code — `src/readme_agent/capabilities/` (see Module map below), not
+investigation spikes. Three read-only capabilities are registered so far, wrapping already-proven
+`orchestrator`/`readme`/`ecosystems` functions; no mutating capability exists yet. A live
+integration test (`tests/integration/test_capabilities_live.py`) proves the real registry and
+dispatcher work end to end against the real gateway and a real pilot repository — the
+production-code equivalent of Wave 1's spike script.
+
+**Wave 3 update (2026-07-19):** repository profiling is no longer single-ecosystem. The prior
+`inspection/file_inventory.py` hardcoded one manifest field (`pom_path`) and
+`ecosystems/registry.py` had exactly one registered parser (`"maven"`) — a real structural gap
+`ECO-002` could never actually prove. Both are now generalized: `FileInventory.manifest_paths`
+is a `dict[str, Path]` populated data-driven from `ecosystems.registry.known_manifest_globs()`,
+and six real platform parsers are registered (Java — pom.xml *or* build.gradle, Python, .NET,
+TypeScript, Go, C++), adapted from aspose.org's real, in-production
+`scripts/pipeline/extraction/package_manifest.py` (GOVERNANCE.md rule 8, Decision #30) rather
+than written from scratch. `profile/` builds a `RepositoryProfile` (multiple detected ecosystems,
+not one string — `ECO-001`) on top of this same generalized detection, not a second scanner.
+The shipped pipeline's `ecosystem`/`policy_profile` fields are unchanged in *purpose* (deliberate
+policy selection, decision #1) — only the dispatch key for the existing Java pilots was renamed
+`"maven"` → `"java"` (migrated in `data/products.json` in the same change) to match the new
+platform-keyed vocabulary. See `plans/investigations/` — no dedicated Wave 3 investigation doc
+was needed; the aspose.org source was read directly and adapted, not spiked first, per decision
+#30's own reasoning (a proven reference beats a from-scratch design *and* a from-scratch spike).
+
+**Wave 4 update (2026-07-19, decision #32):** idempotency ("run twice, second run makes zero LLM
+calls") no longer depends only on `paths.work_dir()`'s persistent local clone, which a GitHub
+Actions runner wipes after every job (`RUN-001`). `src/readme_agent/state/` adds a durable,
+backend-independent record (`MEM-*`) that `orchestrator.generate_repo()` consults additively,
+alongside the existing local-clone check, not instead of it. The real backend
+(`state/git_backend.py`) is one dedicated git ref per `org_repo` on this project's own
+remote -- a first draft (one shared branch holding every repo's state as separate files) was
+reassessed and reversed before implementation: a shared branch's non-fast-forward CAS check is
+scoped to the whole ref, so two *unrelated* repos' concurrent writes would have falsely
+conflicted, a false positive on exactly the safety signal `MEM-002` exists to produce. A
+per-`org_repo` ref makes that impossible by construction. Opt-in via CLI `--durable-state`
+(mirrors `--check-install`'s never-a-default convention, since it's a real network write);
+`readme-agent-run.yml` passes it by default. The live git-push proof
+(`tests/integration/test_state_git_backend_live.py`) ran with explicit confirmation and passed
+4/4, catching a real bug along the way: `subprocess.run(text=True, input=...)` silently
+translates `\n` to `\r\n` on Windows even on the *write* side, which was corrupting
+`git_backend.py`'s `mktree` input before it reached git -- fixed in
+`gitsafety/_git.py::run_git()` by piping `input_text` as raw UTF-8 bytes instead. `MEM-002` is
+now `IMPLEMENTED`. `RUN-003` closed the same day: a real `act workflow_dispatch` reproduction of
+`readme-agent-run.yml` (confirmed to run the actual local code via `act`'s `docker cp`-based
+checkout, not a stale `origin/main`) found two more real bugs on its first two attempts -- a
+durable-state write-back failure (missing push credentials under `act`'s local-checkout mode) was
+uncaught and aborted the whole run, so `orchestrator.py`'s durable-state read/write-back are now
+both best-effort (mirrors `inspect_repo`'s `check_install` convention, never able to fail the run
+by itself); and `readme-agent-run.yml`'s `upload-artifact` step used `inputs.repo_key`
+("org/repo") directly as an artifact name, which the GitHub Actions API rejects (`/` is invalid),
+fixed with a shell step sanitizing to the `{org}__{repo}` convention. Third attempt: `Job
+succeeded`. `RUN-001`/`RUN-003` are now `IMPLEMENTED`.
+
+**Wave 7+ resolution (2026-07-19, decisions #34/#35):** the "subgraph/specialist-role composition"
+question decision #27 left open is settled ahead of Wave 7 actually landing, as two separate
+sub-decisions rather than one framework choice. LangGraph is adopted for Wave 6-8 specialist
+composition (decision #27's addendum) -- but its per-node tool binding is a request-time
+reliability/UX layer, not the enforcement boundary. The actual boundary is dispatch-side:
+`capabilities/schema.py::CapabilityManifest.allowed_domains` plus `dispatcher.py`'s `caller_domain`
+check (decision #34, `CAP-006`), evaluated against real proven authorization libraries (Oso, Casbin,
+Cedar, OPA) and found to still favor this hand-rolled, additive extension. Separately,
+`state/schema.py::RunStateV1` gained `domain_states` (decision #35, `MEM-004`) so multiple
+specialists writing independent accepted results into one repo's state record in the same run don't
+false-positive collide or silently clobber each other -- the same CAS-granularity bug decision #32
+fixed once already, one layer down; evaluated against GitHub-native and external (S3/DynamoDB)
+alternatives and found to still favor extending the existing git-ref backend. Both shipped as code
+this pass (additive, all existing tests green); real domain population and a live multi-specialist
+proof remain Wave 6's job. See `plans/master.md` decisions #34/#35 and
+`plans/investigations/specialist-domain-isolation-production-readiness.md` for full reasoning.
+
+**Wave 5 update (2026-07-19, decision #36):** `src/readme_agent/supervisor/` is the production
+supervisor `capabilities/schema.py::CapabilityGap`'s own docstring called "the first wave with a
+'run'" -- a real task graph (`ORC-001`'s exact states, two independent cycle checks, a
+`SUPERSEDED` dedup rule that makes convergence decidable), `AGT-004`'s four stop conditions,
+`ORC-002`/`VER-002` failure classification and one bounded auto-repair attempt per failure, and
+`supervise_repo()` promoting Wave 1's spike into tested production code -- new CLI `supervise`
+verb, additive alongside `run`/`run-registry` (unchanged). `llm/planner_client.py` is a new
+Live/Fixture client pair (`LLMClient` can't carry a tool-calling response). `capabilities/
+effect_ledger.py` implements `EFF-002`/`EFF-003` (two-phase pending/applied apply, retry
+structurally inert unless declared safe) at the dispatch tier, not supervisor-specific, proven
+against a synthetic test effector since no real mutating capability is registered yet (decision
+#26: that stays Wave 7's job, a same-day conflict with an initial user confirmation that was
+surfaced and resolved rather than silently picked). See `plans/master.md` decision #36 for the
+corrected effect-ledger storage design and the bugs found via direct testing before/instead of in
+production. **Live-proven 2026-07-19**: both `tests/integration/test_effect_ledger_live.py` and
+`test_supervisor_live.py` have now run for real (real `GitStateBackend` push/fetch, real LLM
+gateway, real `pdf/java` pilot) and pass 4/4 -- crash-mid-effect survival, real multi-round
+convergence, and a real durable zero-planning-call second call, closing `AGT-002`/`MEM-001`/
+`EFF-002`/`VER-003` to `IMPLEMENTED`. `EFF-001`/`ORC-002`/`ORC-003`/`VER-002` stay `PARTIAL`: the
+healthy pilot never actually failed, so the repair/replan path itself remains proven only at unit
+level, and a real mutating capability/specialist role still doesn't exist until Wave 7.
+
 ## What this tool does
 
 `readme-agent` audits a GitHub repository's README for four specific, independently-checkable
@@ -24,34 +142,50 @@ allow-list check (data/products.json)
   -> git safety (clone baseline, clone/reuse work, neuter push, install pre-push hook, verify)
   -> inspect (git metadata, file inventory, ecosystem manifest parse)
   -> gap-detect (scan the *whole* README, not just our own marker span)
-  -> facts + facts_hash (repo metadata + policy content hash -- NOT gap_report, see below)
+  -> facts + facts_hash (repo metadata + policy content hash + prompt content hash --
+     NOT gap_report, see below)
   -> decide: skip (compliant or hash-matches-and-still-valid) vs regenerate
   -> LLM call *only* if relationship_explained is a gap (every other element is
      deterministically rendered from policy config -- no LLM needed to know a URL
      that's already in config/policies/*.yml)
-  -> render missing elements into two owned spans (callout, resources)
-  -> validate (8 deterministic rules, always run, even on the skip path)
+  -> render missing elements into one owned span (resources)
+  -> validate (10 deterministic rules, always run, even on the skip path)
   -> evidence (redacted, atomic writes)
   -> commit locally if mode=full and status=GENERATED (never pushed)
 ```
 
-## Two owned spans, not one
+## One owned span, not two
 
-- `callout`: immediately after the H1. Short, addresses *prominence* (a real finding: one repo's
-  only commercial link was buried at line 1890 of a 1890-line file).
-- `resources`: appended at the end of the file. Fuller, mirrors the one real repo that already had
-  this fully hand-authored (`aspose-3d-foss/Aspose.3D-FOSS-for-Java`).
+Through Phase 20 the renderer used two owned spans: `callout` (immediately after the H1, addressing
+*prominence*) and `resources` (appended at the end of the file, mirroring the one real repo that
+already had this fully hand-authored — `aspose-3d-foss/Aspose.3D-FOSS-for-Java`). Phase 21 retired
+`callout`: the reference-repository benchmark showed that what leading FOSS projects actually share
+about commercial mentions isn't a fixed position, it's tone, density, and singularity (decision #9,
+corrected) — and singularity is incompatible with maintaining two separate spans that could each
+carry a commercial link. `resources` (appended at the end of the file) is now the *only* owned span.
+`markers.py`'s `remove_span` still recognizes the legacy `"callout"` name so the orchestrator can
+strip any already-materialized callout span from a work clone on its next run
+(`GENERATION_SCHEMA_VERSION` bumped to `"3"` to force that migration), but `upsert_span` no longer
+accepts it — `callout` cannot be created again.
 
-Each renders **only** the specific elements missing for that repo. A repo missing only the org
-link (the real `pdf/java` case) gets a one-line callout addition and nothing else — no LLM call,
-no redundant restatement of content that's already there.
+The single `resources` span renders **only** the specific elements missing for that repo. A repo
+missing only the org link (the real `pdf/java` case) gets a one-line resources addition and nothing
+else — no LLM call, no redundant restatement of content that's already there.
+
+Two new ERROR-severity validator rules (`product_first_opening`, `commercial_mention_discipline`)
+now also gate the *entire* README text on every run, not just newly-rendered content — so a
+repo that never needed regeneration can still fail validation if its existing commercial mentions
+violate the corrected decision #9 (e.g. `3d/java`'s pre-existing bot-authored resources section).
 
 ## Why facts_hash excludes gap_report
 
 `gap_report` is *derived from* README content this tool itself rewrites. Including it in the hash
 used to decide "should I regenerate" is circular: rendering closes gaps, which changes gap_report,
 which would make the hash unable to ever match itself again. `facts_hash` covers only genuinely
-independent inputs (repo metadata, detected license, policy content, generation schema version).
+independent inputs (repo metadata, detected license, policy content, prompt content, generation
+schema version). Prompt content hashing (`llm/prompts.py::prompt_content_hash()`) means an edited
+`prompts/relationship_explained/*.txt` file forces regeneration on its own, without needing a
+`GENERATION_SCHEMA_VERSION` bump (`prompts/README.md` rule 3).
 See `readme_agent/readme/facts.py` and the orchestrator test that caught this
 (`tests/unit/test_orchestrator.py::TestBlankSlateRepo::test_second_run_is_idempotent_zero_llm_calls`).
 
@@ -71,10 +205,14 @@ accumulate as a historical audit trail.
 | `registry/` | `data/products.json` + `config/policies/*.yml` loading, the allow-list gate |
 | `preflight/` | GitHub + LLM connectivity checks, fail-closed |
 | `gitsafety/` | Clone, push-neuter, pre-push hook, independent verification |
-| `inspection/`, `ecosystems/` | Git metadata, file inventory, per-ecosystem manifest parsing |
-| `readme/` | `gap_detector.py`, `markers.py` (two spans), `facts.py`, `renderer.py` |
-| `llm/` | Strict-schema client (live + fixture), `prompts.py` (facts+policy only) |
-| `validation/` | 8-rule deterministic registry |
+| `inspection/`, `ecosystems/` | Git metadata; generic multi-manifest file inventory (`FileInventory.manifest_paths`, data-driven from `ecosystems.registry.known_manifest_globs()`); six real per-platform manifest parsers (`java.py` -- pom.xml or build.gradle, `python.py`, `dotnet.py`, `typescript.py`, `go.py`, `cpp.py`), all adapted from aspose.org's proven `package_manifest.py` (GOVERNANCE.md rule 8, Wave 3); opt-in live install-path resolution (`resolver.py`, Maven Central only) |
+| `profile/` | Wave 3: `RepositoryProfile`/`DetectedEcosystem` (`schema.py`), `build_profile()` (`detector.py`) -- multi-ecosystem detection built on `inspection/`+`ecosystems/`, one scan, one source of truth, not a second parallel scanner |
+| `readme/` | `gap_detector.py`, `markers.py` (one span), `facts.py`, `renderer.py`, `presentation_report.py` |
+| `llm/` | Strict-schema client (live + fixture), `prompts.py` (facts+policy only). Wave 5 (decision #36): `planner_client.py` (`PlannerTurn`, `PlannerClient` Protocol, `LivePlannerClient`/`FixturePlannerClient`) -- a separate thin family, not a reuse of `LLMClient`, since a tool-call planning turn has no `content` to validate against the strict-schema client's `LLMBlockResponse`; promotes Wave 1's spike `chat_raw()` logic into tested production code |
+| `validation/` | 10-rule deterministic registry |
 | `license/`, `links/` | License classification, link checks |
 | `evidence/` | Redaction, atomic writes, run manifest |
 | `orchestrator.py` | Wires everything into `generate`/`run`/`run-registry`/`inspect`/`report` |
+| `capabilities/` | Wave 2 (decision #27): `schema.py` (`CapabilityManifest`/`CapabilityGap`), `registry.py` (dispatch table, mirrors `ecosystems/registry.py`'s pattern), `dispatcher.py` (permission-aware tool-call dispatch), one file per capability (`inspect_repository.py`, `detect_readme_gaps.py`, `check_install_path.py`, `profile_repository.py`) wrapping already-proven `orchestrator`/`readme`/`ecosystems`/`profile` functions — all `read_only_local`/`read_only_network`, no mutating capability exists yet (`CAP-005`, `BACKLOG`). `domains.py` (Wave 7+, decision #34): registered specialist-domain set (`KNOWN_DOMAINS`, empty until Wave 6) backing `CapabilityManifest.allowed_domains` and `dispatcher.py`'s `caller_domain` check -- the dispatch-side enforcement boundary for specialist isolation, independent of whatever a composition framework offers (`CAP-006`). `effect_ledger.py` (Wave 5, decision #36, `EFF-002`/`EFF-003`): `dispatch_gated_effect()` -- a dispatch-tier two-phase pending/applied wrapper around `dispatch_tool_call()`, durable via `GitStateBackend` (not local evidence-dir JSON, a flaw caught in the originating investigation doc's own proposal before implementation), plus `retry_is_safe()` for retry-inertness; usable by any future `dispatch_tool_call` caller, proven now against a synthetic effector, ahead of `CAP-005`/`BACKLOG`'s real mutating capability, which still arrives in Wave 7 |
+| `state/` | Wave 4 (decision #32): `schema.py` (`RunStateV1`, `CapabilityOutputCacheEntry`), `backend.py` (`StateBackend` Protocol, `MEM-003`), `git_backend.py` (`GitStateBackend` -- one git ref per `org_repo` on this project's own remote, not a shared branch, so per-repository CAS (`MEM-002`) can't falsely conflict across unrelated repos; git plumbing only, no per-write working-tree checkout). Consulted additively by `orchestrator.generate_repo()` alongside the local work clone, opt-in via CLI `--durable-state`. `schema.py::DomainStateV1`/`RunStateV1.domain_states` and `domain_state.py::save_domain()` (Wave 7+, decision #35, `MEM-004`): per-specialist accepted state, additive alongside the flat fields above, composing the existing `acquire_lock`/`release_lock` lease as primary serialization with version-CAS as a lease-expiry backstop |
+| `supervisor/` | Wave 5 (decision #36, `AGT-001`/`003`/`004`, `ORC-001`): the first wave with a real planning loop. `task.py` (`Task`/`TaskGraph` -- `ORC-001`'s literal states, referential-integrity + cycle rejection at add-time, an independent `validate_acyclic()` DFS gate before execution, `SUPERSEDED` dedup on `(capability_id, canonicalized arguments)` against an already-`PASSED` task, `ready_tasks()` gated on `depends_on` reaching any terminal state, not just `PASSED`, so repair tasks aren't permanently stranded). `convergence.py` (`is_fresh()` -- cheap `VER-003` upstream-SHA check, zero LLM calls on an unchanged rerun; `check_repair_exhausted()`, a per-turn stuck-planner bug detector, evaluated every turn but never the thing that decides to stop; `final_status()`, which classifies the ending state only once the planner's own explicit no-tool-call turn has actually fired). `repair.py` (`classify_failure()`, `create_repair_task()` -- proposes a same-capability retry only for `execution_error` + `retry_is_safe()`, `None` otherwise, escalating to `BLOCKED`). `loop.py` (`supervise_repo()` -- acquires the per-`org_repo` lock and returns `BLOCKED`/`"lock_held"` immediately if unavailable, never proceeds unlocked; seeds one deterministic bootstrap task, then loops planner turns via `llm/planner_client.py` against `registry.all_tool_schemas()`; writes `state/schema.py::SupervisorStateV1` -- a new nested field on `RunStateV1`, deliberately separate from `generate_repo()`'s flat accepted-state fields and from `domain_states`, avoiding a single-slot-multiple-writers collision). New opt-in CLI verb `readme-agent supervise --repo ... [--durable-state]`, additive alongside `generate`/`run`/`run-registry`, which are untouched |

@@ -1,0 +1,199 @@
+{
+  "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+  "dimensions": {
+    "multi_trial_consistency": {
+      "inspect_repository": [
+        {
+          "ok": true,
+          "outcome": "executed",
+          "result": {
+            "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+            "has_readme": true,
+            "has_license_file": true,
+            "readme_length_chars": 8074,
+            "manifest_keys": [
+              "artifact_id",
+              "group_id",
+              "license",
+              "name",
+              "version"
+            ]
+          },
+          "error": null,
+          "latency_s": 2.1
+        },
+        {
+          "ok": true,
+          "outcome": "executed",
+          "result": {
+            "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+            "has_readme": true,
+            "has_license_file": true,
+            "readme_length_chars": 8074,
+            "manifest_keys": [
+              "artifact_id",
+              "group_id",
+              "license",
+              "name",
+              "version"
+            ]
+          },
+          "error": null,
+          "latency_s": 2.0
+        },
+        {
+          "ok": true,
+          "outcome": "executed",
+          "result": {
+            "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+            "has_readme": true,
+            "has_license_file": true,
+            "readme_length_chars": 8074,
+            "manifest_keys": [
+              "artifact_id",
+              "group_id",
+              "license",
+              "name",
+              "version"
+            ]
+          },
+          "error": null,
+          "latency_s": 2.1
+        }
+      ],
+      "detect_readme_gaps": [
+        {
+          "ok": true,
+          "outcome": "executed",
+          "result": {
+            "license_mentioned": true,
+            "products_org_link": false,
+            "products_com_link": true,
+            "relationship_explained": true,
+            "total_gaps": 1
+          },
+          "error": null,
+          "latency_s": 1.9
+        },
+        {
+          "ok": true,
+          "outcome": "executed",
+          "result": {
+            "license_mentioned": true,
+            "products_org_link": false,
+            "products_com_link": true,
+            "relationship_explained": true,
+            "total_gaps": 1
+          },
+          "error": null,
+          "latency_s": 2.0
+        },
+        {
+          "ok": true,
+          "outcome": "executed",
+          "result": {
+            "license_mentioned": true,
+            "products_org_link": false,
+            "products_com_link": true,
+            "relationship_explained": true,
+            "total_gaps": 1
+          },
+          "error": null,
+          "latency_s": 2.2
+        }
+      ],
+      "check_install_path": [
+        {
+          "ok": true,
+          "outcome": "executed",
+          "result": {
+            "install_path_resolved": false,
+            "evidence": "Maven Central: org.aspose:aspose-pdf-foss NOT FOUND (0 results)"
+          },
+          "error": null,
+          "latency_s": 2.0
+        },
+        {
+          "ok": true,
+          "outcome": "executed",
+          "result": {
+            "install_path_resolved": false,
+            "evidence": "Maven Central: org.aspose:aspose-pdf-foss NOT FOUND (0 results)"
+          },
+          "error": null,
+          "latency_s": 2.2
+        },
+        {
+          "ok": true,
+          "outcome": "executed",
+          "result": {
+            "install_path_resolved": false,
+            "evidence": "Maven Central: org.aspose:aspose-pdf-foss NOT FOUND (0 results)"
+          },
+          "error": null,
+          "latency_s": 2.1
+        }
+      ]
+    },
+    "full_menu_open_ended": [
+      {
+        "ok": true,
+        "chosen_capability": "detect_readme_gaps",
+        "valid_choice": true,
+        "n_tools_offered": 3,
+        "outcome": "executed",
+        "latency_s": 2.0
+      },
+      {
+        "ok": true,
+        "chosen_capability": "detect_readme_gaps",
+        "valid_choice": true,
+        "n_tools_offered": 3,
+        "outcome": "executed",
+        "latency_s": 2.1
+      },
+      {
+        "ok": true,
+        "chosen_capability": "detect_readme_gaps",
+        "valid_choice": true,
+        "n_tools_offered": 3,
+        "outcome": "executed",
+        "latency_s": 2.1
+      }
+    ],
+    "no_good_match": [
+      {
+        "ok": true,
+        "outcome": "correctly_no_tool_call"
+      },
+      {
+        "ok": true,
+        "outcome": "correctly_no_tool_call"
+      },
+      {
+        "ok": true,
+        "outcome": "correctly_no_tool_call"
+      }
+    ],
+    "gpt_oss_single_tool": [
+      {
+        "ok": true,
+        "outcome": "executed",
+        "error": null,
+        "latency_s": 2.3
+      },
+      {
+        "ok": true,
+        "outcome": "executed",
+        "error": null,
+        "latency_s": 4.0
+      },
+      {
+        "ok": true,
+        "outcome": "executed",
+        "error": null,
+        "latency_s": 2.3
+      }
+    ]
+  }
+}

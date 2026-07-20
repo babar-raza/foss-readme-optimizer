@@ -1,0 +1,2732 @@
+governed_by:
+- plans/master.md
+- plans/requirements.md
+- plans/GOVERNANCE.md
+artifact_role: analysis_or_evidence_only
+source_document: plans/requirements.md
+source_head_commit: 4adbaaf33d3c733afc8f9c9a14761f10e5b10d7c
+totals:
+  requirements: 223
+  unique_ids: 223
+  by_group:
+    BIZ: 8
+    CORE: 32
+    DOC: 10
+    FACT: 10
+    GOV: 13
+    INT: 10
+    LLM: 14
+    MET: 8
+    NFR: 12
+    OPS: 8
+    OWN: 15
+    PIL: 10
+    RDM: 23
+    SAFE: 18
+    SURF: 15
+    VAL: 17
+  by_status:
+    GOVERNANCE: 25
+    IMPLEMENTED: 57
+    PLANNED: 131
+    RESEARCH-GATED: 10
+  by_priority:
+    P0: 87
+    P1: 109
+    P2: 27
+integrity_problems: []
+requirements:
+- id: GOV-001
+  group: GOV
+  priority: P0
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: Every normative requirement MUST have a permanent ID in this document.
+  acceptance_evidence: Requirement-ID uniqueness check passes.
+  traceability_raw: Decision 25
+  decision_refs:
+  - '25'
+  phase_refs: []
+- id: GOV-002
+  group: GOV
+  priority: P0
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: Requirement IDs MUST NOT be renumbered or reused. Changed requirements retain their ID and revision history.
+  acceptance_evidence: Diff review confirms stable IDs.
+  traceability_raw: Decision 25
+  decision_refs:
+  - '25'
+  phase_refs: []
+- id: GOV-003
+  group: GOV
+  priority: P0
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: Removed requirements MUST be marked `DEPRECATED` or `SUPERSEDED`; they MUST NOT be silently deleted.
+  acceptance_evidence: Changelog identifies replacement or reason.
+  traceability_raw: Decision 25
+  decision_refs:
+  - '25'
+  phase_refs: []
+- id: GOV-004
+  group: GOV
+  priority: P0
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: Any master-plan decision, phase, architecture change, or accepted stakeholder instruction that changes system
+    obligations MUST update this document in the same commit or change set.
+  acceptance_evidence: Cross-document traceability check; no orphan decision.
+  traceability_raw: Decision 25
+  decision_refs:
+  - '25'
+  phase_refs: []
+- id: GOV-005
+  group: GOV
+  priority: P0
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: Any requirement change that affects sequencing, architecture, ownership, or rollout MUST update `plans/master.md`
+    in the same commit or change set.
+  acceptance_evidence: Cross-document traceability check; no orphan requirement.
+  traceability_raw: Decision 25
+  decision_refs:
+  - '25'
+  phase_refs: []
+- id: GOV-006
+  group: GOV
+  priority: P1
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: Every requirement MUST identify status, priority, acceptance evidence, and master-plan traceability.
+  acceptance_evidence: Requirements linter passes.
+  traceability_raw: Decision 25
+  decision_refs:
+  - '25'
+  phase_refs: []
+- id: GOV-007
+  group: GOV
+  priority: P1
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: A requirement MUST NOT be marked `IMPLEMENTED` until objective tests or evidence satisfy its acceptance criteria.
+  acceptance_evidence: Evidence reference exists and is reviewable.
+  traceability_raw: Decisions 16, 25
+  decision_refs:
+  - '16'
+  - '25'
+  phase_refs: []
+- id: GOV-008
+  group: GOV
+  priority: P1
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: Research findings MAY refine implementation details but MUST NOT silently weaken an accepted safety, ownership,
+    or product-first requirement — any such change goes through the governance procedure with a ledger edit and Changelog
+    line.
+  acceptance_evidence: Decision review records any allowed change.
+  traceability_raw: Decisions 18–24
+  decision_refs:
+  - '18'
+  - '19'
+  - '20'
+  - '21'
+  - '22'
+  - '23'
+  - '24'
+  phase_refs: []
+- id: GOV-009
+  group: GOV
+  priority: P1
+  status: PLANNED
+  section: 3. Requirements governance
+  requirement: CI MUST validate unique IDs, required fields, valid statuses, valid phase/decision references, and bidirectional
+    master-plan traceability.
+  acceptance_evidence: '`validate_requirements.py` or equivalent passes locally and in CI.'
+  traceability_raw: Phase 20
+  decision_refs: []
+  phase_refs:
+  - '20'
+- id: GOV-010
+  group: GOV
+  priority: P1
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: The requirements specification MUST be reviewed whenever a phase is closed, a pilot is accepted, or a stakeholder
+    changes scope.
+  acceptance_evidence: Closeout checklist includes requirements review.
+  traceability_raw: Decision 25
+  decision_refs:
+  - '25'
+  phase_refs: []
+- id: GOV-011
+  group: GOV
+  priority: P1
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: The master plan MUST link to this document, and this document MUST link back to the master plan using repository-relative
+    links.
+  acceptance_evidence: Link validation passes.
+  traceability_raw: Decision 25
+  decision_refs:
+  - '25'
+  phase_refs: []
+- id: GOV-012
+  group: GOV
+  priority: P2
+  status: PLANNED
+  section: 3. Requirements governance
+  requirement: Generated evidence SHOULD record the requirement IDs exercised by each run or validation report.
+  acceptance_evidence: Evidence manifest contains `requirements` array.
+  traceability_raw: Phases 21–26
+  decision_refs: []
+  phase_refs:
+  - '21'
+  - '22'
+  - '23'
+  - '24'
+  - '25'
+  - '26'
+- id: GOV-013
+  group: GOV
+  priority: P1
+  status: GOVERNANCE
+  section: 3. Requirements governance
+  requirement: The `foss-readme-optimizer` project itself MUST NOT add a `LICENSE` file until a separate ledger decision approves
+    one; its README MUST continue to state the current licensing status accurately.
+  acceptance_evidence: Repository file audit and master-plan decision review.
+  traceability_raw: Decision 3
+  decision_refs:
+  - '3'
+  phase_refs: []
+- id: BIZ-001
+  group: BIZ
+  priority: P0
+  status: GOVERNANCE
+  section: 4. Business and product outcomes
+  requirement: Repository credibility and developer usefulness MUST take precedence over promotional exposure.
+  acceptance_evidence: Human review confirms the opening is product-first; no promotional banner precedes product explanation.
+  traceability_raw: Decisions 9, 17, 20
+  decision_refs:
+  - '9'
+  - '17'
+  - '20'
+  phase_refs: []
+- id: BIZ-002
+  group: BIZ
+  priority: P1
+  status: PLANNED
+  section: 4. Business and product outcomes
+  requirement: A visitor SHOULD be able to understand what the product does, who it is for, what it supports, how to start,
+    and whether it is maintained without first following an Aspose promotional link.
+  acceptance_evidence: Phase-21 presentation report passes the product-understanding criteria.
+  traceability_raw: Phase 21
+  decision_refs: []
+  phase_refs:
+  - '21'
+- id: BIZ-003
+  group: BIZ
+  priority: P1
+  status: GOVERNANCE
+  section: 4. Business and product outcomes
+  requirement: Links to Aspose.org, Aspose.com, documentation, or commercial products MUST appear only where they provide
+    relevant context or a useful next step.
+  acceptance_evidence: Link-purpose review and destination validation pass.
+  traceability_raw: Decisions 9, 17, 20
+  decision_refs:
+  - '9'
+  - '17'
+  - '20'
+  phase_refs: []
+- id: BIZ-004
+  group: BIZ
+  priority: P1
+  status: RESEARCH-GATED
+  section: 4. Business and product outcomes
+  requirement: The system SHOULD support a credible path to at least 10 weekly visitors from GitHub to Aspose.org, provided
+    the target does not conflict with product trust or quality.
+  acceptance_evidence: Phase-20 feasibility study and post-rollout measurement.
+  traceability_raw: Decision 20, Phase 20
+  decision_refs:
+  - '20'
+  phase_refs:
+  - '20'
+- id: BIZ-005
+  group: BIZ
+  priority: P1
+  status: GOVERNANCE
+  section: 4. Business and product outcomes
+  requirement: Raw click volume MUST NOT be treated as success if links are misleading, irrelevant, intrusive, or harmful
+    to README quality.
+  acceptance_evidence: Metric report includes quality and destination-relevance checks.
+  traceability_raw: Decision 20
+  decision_refs:
+  - '20'
+  phase_refs: []
+- id: BIZ-006
+  group: BIZ
+  priority: P1
+  status: PLANNED
+  section: 4. Business and product outcomes
+  requirement: Each repository MUST be tailored to its own product, audience, ecosystem, maturity, and capabilities rather
+    than receiving a common prose template.
+  acceptance_evidence: Independent pilot review confirms materially different, product-appropriate outcomes.
+  traceability_raw: Decisions 18, 24; Phase 26
+  decision_refs:
+  - '18'
+  - '24'
+  phase_refs:
+  - '26'
+- id: BIZ-007
+  group: BIZ
+  priority: P1
+  status: PLANNED
+  section: 4. Business and product outcomes
+  requirement: The system MUST improve presentation without reducing technical accuracy, completeness, maintainability, or
+    usefulness.
+  acceptance_evidence: Before/after comparison shows no verified fact was lost or broadened.
+  traceability_raw: Decisions 18, 22
+  decision_refs:
+  - '18'
+  - '22'
+  phase_refs: []
+- id: BIZ-008
+  group: BIZ
+  priority: P2
+  status: PLANNED
+  section: 4. Business and product outcomes
+  requirement: The system SHOULD make the relationship between the FOSS product, Aspose.org, and the related commercial product
+    understandable without making the repository feel like an advertisement.
+  acceptance_evidence: Human and deterministic review of relationship language.
+  traceability_raw: Decisions 7–9, 17
+  decision_refs:
+  - '7'
+  - '8'
+  - '9'
+  - '17'
+  phase_refs: []
+- id: OWN-001
+  group: OWN
+  priority: P0
+  status: GOVERNANCE
+  section: 5. Scope, control, and ownership boundaries
+  requirement: Every visible GitHub surface MUST be assigned exactly one control class before the system proposes an action.
+  acceptance_evidence: Surface-control matrix contains one classification per surface.
+  traceability_raw: Decision 19
+  decision_refs:
+  - '19'
+  phase_refs: []
+- id: OWN-002
+  group: OWN
+  priority: P0
+  status: GOVERNANCE
+  section: 5. Scope, control, and ownership boundaries
+  requirement: 'Supported control classes MUST be: repository-file managed, GitHub API/settings managed, manual UI managed,
+    product-agent owned, or GitHub generated.'
+  acceptance_evidence: Schema and documentation enumerate only these classes unless a ledger decision adds another.
+  traceability_raw: Decision 19
+  decision_refs:
+  - '19'
+  phase_refs: []
+- id: OWN-003
+  group: OWN
+  priority: P0
+  status: PLANNED
+  section: 5. Scope, control, and ownership boundaries
+  requirement: The system MUST NOT expose a renderer or remote write path for a GitHub-generated surface.
+  acceptance_evidence: Negative tests prove no write functions for generated surfaces.
+  traceability_raw: Decision 19; Phase 22
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '22'
+- id: OWN-004
+  group: OWN
+  priority: P0
+  status: PLANNED
+  section: 5. Scope, control, and ownership boundaries
+  requirement: The system MUST NOT publish, replace, or edit releases, packages, package metadata, or release-specific technical
+    facts owned by product agents.
+  acceptance_evidence: Audit-only report; no publication credentials or write call path.
+  traceability_raw: Decisions 18, 19
+  decision_refs:
+  - '18'
+  - '19'
+  phase_refs: []
+- id: OWN-005
+  group: OWN
+  priority: P0
+  status: GOVERNANCE
+  section: 5. Scope, control, and ownership boundaries
+  requirement: Contributors, languages, stars, forks, watchers, activity, counts, tabs, and GitHub page layout MUST be treated
+    as GitHub-generated or GitHub-controlled presentation, not directly editable metadata.
+  acceptance_evidence: Control-boundary tests and documentation pass.
+  traceability_raw: Decision 19
+  decision_refs:
+  - '19'
+  phase_refs: []
+- id: OWN-006
+  group: OWN
+  priority: P0
+  status: PLANNED
+  section: 5. Scope, control, and ownership boundaries
+  requirement: Repository description, homepage, topics, and approved feature settings MAY be proposed only through a dry-run-first,
+    explicitly gated settings workflow.
+  acceptance_evidence: Dry-run emits proposal/evidence; no remote write without apply gate.
+  traceability_raw: Decision 19; Phase 22
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '22'
+- id: OWN-007
+  group: OWN
+  priority: P0
+  status: PLANNED
+  section: 5. Scope, control, and ownership boundaries
+  requirement: Social-preview upload MUST be treated as manual UI managed unless official, current GitHub documentation confirms
+    an authorized write API.
+  acceptance_evidence: Phase-20 control research and Phase-24 delivery path.
+  traceability_raw: Decisions 19, 23
+  decision_refs:
+  - '19'
+  - '23'
+  phase_refs: []
+- id: OWN-008
+  group: OWN
+  priority: P0
+  status: GOVERNANCE
+  section: 5. Scope, control, and ownership boundaries
+  requirement: README content, embedded images, community files, and approved templates are repository-file managed and MUST
+    use the push-blocked work-clone workflow until an explicit publication design is separately approved.
+  acceptance_evidence: Push-block verification and change-boundary evidence.
+  traceability_raw: Decisions 9, 19
+  decision_refs:
+  - '9'
+  - '19'
+  phase_refs: []
+- id: OWN-009
+  group: OWN
+  priority: P0
+  status: GOVERNANCE
+  section: 5. Scope, control, and ownership boundaries
+  requirement: Product agents remain authoritative for product capabilities, supported formats, installation/package coordinates,
+    APIs, examples, release changes, and package publication.
+  acceptance_evidence: Product-facts contract identifies source/owner for each field.
+  traceability_raw: Decisions 18, 22
+  decision_refs:
+  - '18'
+  - '22'
+  phase_refs: []
+- id: OWN-010
+  group: OWN
+  priority: P0
+  status: PLANNED
+  section: 5. Scope, control, and ownership boundaries
+  requirement: Ambiguous or conflicting product facts MUST be returned to the owning product agent as a finding; the central
+    agent MUST NOT guess.
+  acceptance_evidence: Proposal status is blocked/pending-facts with evidence.
+  traceability_raw: Decisions 18, 22
+  decision_refs:
+  - '18'
+  - '22'
+  phase_refs: []
+- id: OWN-011
+  group: OWN
+  priority: P1
+  status: PLANNED
+  section: 5. Scope, control, and ownership boundaries
+  requirement: The central agent MAY improve organization, wording, navigation, and presentation only where verified facts
+    and ownership rules permit.
+  acceptance_evidence: Diff provenance map and change-boundary review.
+  traceability_raw: Decision 18; Phase 21
+  decision_refs:
+  - '18'
+  phase_refs:
+  - '21'
+- id: OWN-012
+  group: OWN
+  priority: P1
+  status: PLANNED
+  section: 5. Scope, control, and ownership boundaries
+  requirement: GitHub-generated surfaces MAY be audited for anomalies, but the audit MUST identify the underlying repository
+    history, files, or GitHub behavior rather than proposing direct field edits.
+  acceptance_evidence: Audit report names cause and allowed remediation.
+  traceability_raw: Decision 19; Phase 22
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '22'
+- id: OWN-013
+  group: OWN
+  priority: P1
+  status: PLANNED
+  section: 5. Scope, control, and ownership boundaries
+  requirement: Releases and package links MAY be checked for availability, naming, linkage, and consistency, but remediation
+    MUST be handed to the product owner.
+  acceptance_evidence: Product-agent handoff artifact.
+  traceability_raw: Decision 19; Phase 22
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '22'
+- id: OWN-014
+  group: OWN
+  priority: P1
+  status: PLANNED
+  section: 5. Scope, control, and ownership boundaries
+  requirement: The system MUST record the required permission and rollback method for every API/settings-managed action.
+  acceptance_evidence: '`github-surface-control.md` and proposal evidence include permission/rollback.'
+  traceability_raw: Phase 20, 22
+  decision_refs: []
+  phase_refs:
+  - '20'
+  - '22'
+- id: OWN-015
+  group: OWN
+  priority: P1
+  status: PLANNED
+  section: 5. Scope, control, and ownership boundaries
+  requirement: The system MUST identify whether an action is local-only, proposal-only, manually applied, or remotely applied.
+  acceptance_evidence: Every evidence manifest has an action mode.
+  traceability_raw: Phases 21–24
+  decision_refs: []
+  phase_refs:
+  - '21'
+  - '22'
+  - '23'
+  - '24'
+- id: FACT-001
+  group: FACT
+  priority: P0
+  status: PLANNED
+  section: 6. Product-facts and provenance requirements
+  requirement: Before changing product-facing content, the system MUST obtain a provenance-bearing product-facts record from
+    repository inspection, an owning product agent, or both.
+  acceptance_evidence: Product-facts artifact exists before proposal generation.
+  traceability_raw: Decision 22; Phase 20/25
+  decision_refs:
+  - '22'
+  phase_refs:
+  - '20'
+  - '25'
+- id: FACT-002
+  group: FACT
+  priority: P0
+  status: PLANNED
+  section: 6. Product-facts and provenance requirements
+  requirement: The minimum product-facts record MUST include product identity, audience, supported capabilities, supported
+    formats, installation/package coordinates, a minimal verified example, documentation links, current release information,
+    and known limitations.
+  acceptance_evidence: Schema validation passes.
+  traceability_raw: Decision 22
+  decision_refs:
+  - '22'
+  phase_refs: []
+- id: FACT-003
+  group: FACT
+  priority: P0
+  status: PLANNED
+  section: 6. Product-facts and provenance requirements
+  requirement: Every technical claim introduced or materially changed by the central agent MUST map to one or more product-fact
+    IDs or repository evidence locations.
+  acceptance_evidence: Claim-to-source map has no unmapped claim.
+  traceability_raw: Decisions 18, 22
+  decision_refs:
+  - '18'
+  - '22'
+  phase_refs: []
+- id: FACT-004
+  group: FACT
+  priority: P0
+  status: PLANNED
+  section: 6. Product-facts and provenance requirements
+  requirement: Missing required facts MUST produce a blocking finding or product-agent handoff, not a placeholder, broad marketing
+    statement, or invented capability.
+  acceptance_evidence: Negative tests and pilot evidence.
+  traceability_raw: Decision 22
+  decision_refs:
+  - '22'
+  phase_refs: []
+- id: FACT-005
+  group: FACT
+  priority: P0
+  status: PLANNED
+  section: 6. Product-facts and provenance requirements
+  requirement: Conflicting sources MUST be recorded and resolved by an authoritative owner before affected content is changed.
+  acceptance_evidence: Conflict record and resolution evidence.
+  traceability_raw: Decisions 18, 22
+  decision_refs:
+  - '18'
+  - '22'
+  phase_refs: []
+- id: FACT-006
+  group: FACT
+  priority: P1
+  status: PLANNED
+  section: 6. Product-facts and provenance requirements
+  requirement: Product facts MUST include source type, source location, source revision or retrieval time, owning agent/team,
+    and confidence or verification state.
+  acceptance_evidence: Schema fields present and validated.
+  traceability_raw: Decision 22; Phase 25
+  decision_refs:
+  - '22'
+  phase_refs:
+  - '25'
+- id: FACT-007
+  group: FACT
+  priority: P1
+  status: PLANNED
+  section: 6. Product-facts and provenance requirements
+  requirement: Examples presented as working examples MUST be executable or otherwise verified against the referenced package/version.
+  acceptance_evidence: Example-validation evidence.
+  traceability_raw: Phase 21
+  decision_refs: []
+  phase_refs:
+  - '21'
+- id: FACT-008
+  group: FACT
+  priority: P1
+  status: PLANNED
+  section: 6. Product-facts and provenance requirements
+  requirement: Release-specific facts MUST be refreshed through the product-agent handoff and MUST NOT be inferred from stale
+    README prose.
+  acceptance_evidence: Release source and timestamp recorded.
+  traceability_raw: Decisions 18, 22
+  decision_refs:
+  - '18'
+  - '22'
+  phase_refs: []
+- id: FACT-009
+  group: FACT
+  priority: P1
+  status: PLANNED
+  section: 6. Product-facts and provenance requirements
+  requirement: Known limitations MUST be preserved where relevant and MUST NOT be removed merely to make the presentation
+    more attractive.
+  acceptance_evidence: Before/after fact comparison.
+  traceability_raw: Decisions 18, 22
+  decision_refs:
+  - '18'
+  - '22'
+  phase_refs: []
+- id: FACT-010
+  group: FACT
+  priority: P2
+  status: PLANNED
+  section: 6. Product-facts and provenance requirements
+  requirement: Product-facts changes SHOULD trigger only the presentation sections that depend on the changed facts.
+  acceptance_evidence: Dependency map and surgical diff evidence.
+  traceability_raw: Decision 21; Phase 25
+  decision_refs:
+  - '21'
+  phase_refs:
+  - '25'
+- id: RDM-001
+  group: RDM
+  priority: P0
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: The retired promotional `callout` span immediately after the H1 MUST be removed from renderer behavior, markers,
+    validators, fixtures, and pilot work clones.
+  acceptance_evidence: No callout marker or generated banner remains; tests pass.
+  traceability_raw: Decision 9; Phase 21
+  decision_refs:
+  - '9'
+  phase_refs:
+  - '21'
+- id: RDM-002
+  group: RDM
+  priority: P0
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: The README opening MUST explain the product before presenting promotional or commercial links.
+  acceptance_evidence: Section-order validator and human review pass.
+  traceability_raw: Decisions 9, 17
+  decision_refs:
+  - '9'
+  - '17'
+  phase_refs: []
+- id: RDM-003
+  group: RDM
+  priority: P0
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: The central agent MUST NOT replace a complete README with a generic full-document template.
+  acceptance_evidence: Change-boundary and similarity checks pass.
+  traceability_raw: Decisions 9, 18
+  decision_refs:
+  - '9'
+  - '18'
+  phase_refs: []
+- id: RDM-004
+  group: RDM
+  priority: P0
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: README changes MUST be surgical, fact-backed, and limited to identified presentation gaps.
+  acceptance_evidence: Gap-to-diff map covers every change.
+  traceability_raw: Decisions 9, 18, 22
+  decision_refs:
+  - '9'
+  - '18'
+  - '22'
+  phase_refs: []
+- id: RDM-005
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: The README SHOULD identify the intended developer or use case in clear language.
+  acceptance_evidence: Presentation report criterion passes.
+  traceability_raw: Phase 21
+  decision_refs: []
+  phase_refs:
+  - '21'
+- id: RDM-006
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: The README SHOULD explain the primary problem solved by the product.
+  acceptance_evidence: Presentation report criterion passes.
+  traceability_raw: Phase 21
+  decision_refs: []
+  phase_refs:
+  - '21'
+- id: RDM-007
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: The README MUST provide a usable installation or acquisition path appropriate to the ecosystem.
+  acceptance_evidence: Install command/steps verified against facts.
+  traceability_raw: Phase 21; FACT-002
+  decision_refs: []
+  phase_refs:
+  - '21'
+- id: RDM-008
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: The README MUST provide a minimal verified first-use example when the product and ecosystem reasonably support
+    one.
+  acceptance_evidence: Example executes or is independently verified.
+  traceability_raw: Phase 21; FACT-007
+  decision_refs: []
+  phase_refs:
+  - '21'
+- id: RDM-009
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: Supported capabilities and formats MUST be described accurately and at a useful level of detail without unsupported
+    breadth.
+  acceptance_evidence: Claim-to-source mapping passes.
+  traceability_raw: Decisions 18, 22
+  decision_refs:
+  - '18'
+  - '22'
+  phase_refs: []
+- id: RDM-010
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: Critical developer information MUST not be buried beneath promotional, historical, or secondary material.
+  acceptance_evidence: Information-order review passes.
+  traceability_raw: Decision 17; Phase 21
+  decision_refs:
+  - '17'
+  phase_refs:
+  - '21'
+- id: RDM-011
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: Links MUST have a clear purpose, descriptive label, valid destination, and appropriate placement.
+  acceptance_evidence: Link validator and purpose review pass.
+  traceability_raw: Decisions 9, 17
+  decision_refs:
+  - '9'
+  - '17'
+  phase_refs: []
+- id: RDM-012
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: Aspose.org and Aspose.com links MUST not be inserted merely to satisfy a quota or appear in the first screen
+    without product-context justification.
+  acceptance_evidence: No quota rule; placement review passes.
+  traceability_raw: Decisions 9, 17, 20
+  decision_refs:
+  - '9'
+  - '17'
+  - '20'
+  phase_refs: []
+- id: RDM-013
+  group: RDM
+  priority: P1
+  status: IMPLEMENTED
+  section: 7. README presentation requirements
+  requirement: The existing `resources` owned span MAY add genuinely missing license and relationship links near the end of
+    the README.
+  acceptance_evidence: Existing Phase 0–15 tests and pilot evidence.
+  traceability_raw: Decisions 7–9
+  decision_refs:
+  - '7'
+  - '8'
+  - '9'
+  phase_refs: []
+- id: RDM-014
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: Presence of the `resources` span MUST NOT be treated as proof that the README is professionally complete.
+  acceptance_evidence: Presentation report evaluates full README independently.
+  traceability_raw: Decision 9; Phase 21
+  decision_refs:
+  - '9'
+  phase_refs:
+  - '21'
+- id: RDM-015
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: The README SHOULD provide clear navigation for long documents without forcing identical section names or order
+    across repositories.
+  acceptance_evidence: Repository-specific presentation review.
+  traceability_raw: Decisions 18, 24
+  decision_refs:
+  - '18'
+  - '24'
+  phase_refs: []
+- id: RDM-016
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: Contribution, support, license, security, and maintenance information MUST be linked or presented where relevant
+    and available.
+  acceptance_evidence: Community-file and README cross-link audit.
+  traceability_raw: Phases 21, 23
+  decision_refs: []
+  phase_refs:
+  - '21'
+  - '23'
+- id: RDM-017
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: A product illustration MAY be embedded only when it improves understanding of the product or workflow. Decorative
+    imagery alone MUST NOT satisfy a presentation requirement.
+  acceptance_evidence: Visual usefulness review and alt-text check.
+  traceability_raw: Decision 23; Phase 24
+  decision_refs:
+  - '23'
+  phase_refs:
+  - '24'
+- id: RDM-018
+  group: RDM
+  priority: P1
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: Product-specific terminology, package names, APIs, commands, and examples MUST be preserved unless authoritative
+    facts require correction.
+  acceptance_evidence: Before/after technical-token comparison and provenance.
+  traceability_raw: Decisions 18, 22
+  decision_refs:
+  - '18'
+  - '22'
+  phase_refs: []
+- id: RDM-019
+  group: RDM
+  priority: P2
+  status: RESEARCH-GATED
+  section: 7. README presentation requirements
+  requirement: The product-presentation standard MUST define what a visitor should understand in the first screen, first minute,
+    and first successful installation attempt.
+  acceptance_evidence: '`docs/presentation-standard.md` accepted.'
+  traceability_raw: Phase 20
+  decision_refs: []
+  phase_refs:
+  - '20'
+- id: RDM-020
+  group: RDM
+  priority: P2
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: The system SHOULD detect generic, repetitive, or mechanically inserted prose that weakens repository credibility.
+  acceptance_evidence: Drift/quality rule with fixtures.
+  traceability_raw: Decision 21; Phase 25
+  decision_refs:
+  - '21'
+  phase_refs:
+  - '25'
+- id: RDM-021
+  group: RDM
+  priority: P2
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: Formatting changes MUST not create broken anchors, malformed Markdown, inaccessible images, or invalid code
+    fences.
+  acceptance_evidence: Markdown, link, anchor, and code-fence validation passes.
+  traceability_raw: Phases 17, 21, 24
+  decision_refs: []
+  phase_refs:
+  - '17'
+  - '21'
+  - '24'
+- id: RDM-022
+  group: RDM
+  priority: P2
+  status: PLANNED
+  section: 7. README presentation requirements
+  requirement: README presentation proposals SHOULD explain why each change helps an external developer.
+  acceptance_evidence: Evidence contains per-change rationale.
+  traceability_raw: Phase 21
+  decision_refs: []
+  phase_refs:
+  - '21'
+- id: RDM-023
+  group: RDM
+  priority: P2
+  status: IMPLEMENTED
+  section: 7. README presentation requirements
+  requirement: Secondary Aspose documentation, reference, release, blog, KB, and forum links MAY be tracked for useful coverage
+    but MUST remain best-effort rather than hard compliance gates.
+  acceptance_evidence: Policy and validator review.
+  traceability_raw: Registry & Policy Config
+  decision_refs: []
+  phase_refs: []
+- id: SURF-001
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: Repository descriptions MUST be concise, product-specific, fact-backed, and understandable without promotional
+    filler.
+  acceptance_evidence: Description validator and provenance map pass.
+  traceability_raw: Decisions 8, 19; Phase 22
+  decision_refs:
+  - '8'
+  - '19'
+  phase_refs:
+  - '22'
+- id: SURF-002
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: Homepage/website proposals MUST use the most useful canonical destination defined by policy and product context.
+  acceptance_evidence: URL matches policy and resolves.
+  traceability_raw: Decision 19; Phase 22
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '22'
+- id: SURF-003
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: Topic proposals MUST be relevant to the product, language, formats, and ecosystem and MUST reject keyword stuffing.
+  acceptance_evidence: Topic policy validator passes.
+  traceability_raw: Decision 19; Phase 22
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '22'
+- id: SURF-004
+  group: SURF
+  priority: P0
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: No repository description, homepage, topic, or feature setting may be remotely changed without an explicit
+    authorized apply action.
+  acceptance_evidence: Dry-run proof and apply-gate negative tests.
+  traceability_raw: Decision 19; Phase 22
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '22'
+- id: SURF-005
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: Settings proposals MUST include before/after values, rationale, permissions, rollback instructions, and evidence.
+  acceptance_evidence: Proposal schema passes.
+  traceability_raw: Decision 19; Phase 22
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '22'
+- id: SURF-006
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: Community-file requirements MUST be policy-driven per repository; the system MUST NOT create irrelevant files
+    merely to imitate another project.
+  acceptance_evidence: Policy and pilot review.
+  traceability_raw: Decisions 18, 24; Phase 23
+  decision_refs:
+  - '18'
+  - '24'
+  phase_refs:
+  - '23'
+- id: SURF-007
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: Supported community files include LICENSE presence, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, SUPPORT, issue
+    templates, and PR templates where policy requires them.
+  acceptance_evidence: Community-profile and file audit.
+  traceability_raw: Phase 23
+  decision_refs: []
+  phase_refs:
+  - '23'
+- id: SURF-008
+  group: SURF
+  priority: P0
+  status: GOVERNANCE
+  section: 8. Repository settings and supporting surfaces
+  requirement: The system MUST distinguish between controlling a community file and controlling where GitHub displays it.
+  acceptance_evidence: Documentation and tests use correct language.
+  traceability_raw: Decision 19
+  decision_refs:
+  - '19'
+  phase_refs: []
+- id: SURF-009
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: Community-file changes MUST use the same push-blocked, evidence-backed, change-boundary model as README changes.
+  acceptance_evidence: Git-safety and evidence proof.
+  traceability_raw: Decision 19; Phase 23
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '23'
+- id: SURF-010
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: The README illustration and social-preview asset MUST be produced, validated, approved, and delivered as separate
+    outputs.
+  acceptance_evidence: Two independent artifact records.
+  traceability_raw: Decision 23; Phase 24
+  decision_refs:
+  - '23'
+  phase_refs:
+  - '24'
+- id: SURF-011
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: Visual assets MUST be factually accurate, accessible, appropriately licensed, product-specific, and free of
+    unsupported claims.
+  acceptance_evidence: Visual review checklist and provenance.
+  traceability_raw: Decisions 8, 23
+  decision_refs:
+  - '8'
+  - '23'
+  phase_refs: []
+- id: SURF-012
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: README visuals MUST use stable repository-relative paths and idempotent file naming.
+  acceptance_evidence: Re-run produces no duplicate asset or path churn.
+  traceability_raw: Decision 23; Phase 24
+  decision_refs:
+  - '23'
+  phase_refs:
+  - '24'
+- id: SURF-013
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: Social-preview delivery MUST include validated dimensions/file size and operator instructions when manual upload
+    is required.
+  acceptance_evidence: Asset validation and instructions.
+  traceability_raw: Decisions 19, 23; Phase 24
+  decision_refs:
+  - '19'
+  - '23'
+  phase_refs:
+  - '24'
+- id: SURF-014
+  group: SURF
+  priority: P1
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: Release/package audits MUST report actionable inconsistencies without changing the owned publishing surface.
+  acceptance_evidence: Audit and handoff evidence.
+  traceability_raw: Decision 19; Phase 22
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '22'
+- id: SURF-015
+  group: SURF
+  priority: P2
+  status: PLANNED
+  section: 8. Repository settings and supporting surfaces
+  requirement: GitHub-generated language and contributor anomalies SHOULD be investigated through repository contents/history
+    and reported without attempting cosmetic manipulation.
+  acceptance_evidence: Audit explanation and allowed remediation.
+  traceability_raw: Decision 19; Phase 22
+  decision_refs:
+  - '19'
+  phase_refs:
+  - '22'
+- id: CORE-001
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: The engine MUST remain generic; Aspose-specific names and facts MUST reside only in registry and policy data.
+  acceptance_evidence: Synthetic non-Aspose test and code review.
+  traceability_raw: Decisions 1, 13
+  decision_refs:
+  - '1'
+  - '13'
+  phase_refs: []
+- id: CORE-002
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: The package and CLI name MUST remain `readme_agent` / `readme-agent`.
+  acceptance_evidence: Package metadata and CLI tests.
+  traceability_raw: Decision 2
+  decision_refs:
+  - '2'
+  phase_refs: []
+- id: CORE-003
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: '`data/products.json` MUST be the hard allow-list checked before network, clone, generation, or settings operations.'
+  acceptance_evidence: Allow-list block proof.
+  traceability_raw: Decision 4
+  decision_refs:
+  - '4'
+  phase_refs: []
+- id: CORE-004
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Disabled or unlisted repositories MUST produce a blocked result without a clone or write attempt.
+  acceptance_evidence: Existing allow-list tests/evidence.
+  traceability_raw: Decision 4
+  decision_refs:
+  - '4'
+  phase_refs: []
+- id: CORE-005
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Registry entries MUST support `full`, `dry_run`, and `disabled` modes.
+  acceptance_evidence: Loader/model tests.
+  traceability_raw: Decision 10
+  decision_refs:
+  - '10'
+  phase_refs: []
+- id: CORE-006
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: The three enabled repositories MUST retain their blank-slate, zero-gap, and partial-gap engineering pilot roles
+    until the pilot contract is revised by a ledger decision.
+  acceptance_evidence: Registry and decision review.
+  traceability_raw: Decisions 10, 24
+  decision_refs:
+  - '10'
+  - '24'
+  phase_refs: []
+- id: CORE-007
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Missing or undetected license information MUST soft-degrade to a real gap rather than crash or hard-block.
+  acceptance_evidence: License auditor tests.
+  traceability_raw: Decision 5
+  decision_refs:
+  - '5'
+  phase_refs: []
+- id: CORE-008
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: The engine MUST scan the full README for required elements, not only its owned marker spans.
+  acceptance_evidence: Gap-detector fixtures.
+  traceability_raw: Phase 6
+  decision_refs: []
+  phase_refs:
+  - '6'
+- id: CORE-009
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: The four shipped policy elements MUST remain supported for backward compatibility until explicitly deprecated.
+  acceptance_evidence: Existing tests and policy schema.
+  traceability_raw: Decision 7
+  decision_refs:
+  - '7'
+  phase_refs: []
+- id: CORE-010
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Domain detection in generic engine code MUST not be hardcoded to Aspose.org or Aspose.com.
+  acceptance_evidence: Synthetic-domain test.
+  traceability_raw: Decision 13
+  decision_refs:
+  - '13'
+  phase_refs: []
+- id: CORE-011
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: '`facts_hash` MUST exclude values derived from content the agent itself changes, including `gap_report`.'
+  acceptance_evidence: Idempotency tests.
+  traceability_raw: Decision 11
+  decision_refs:
+  - '11'
+  phase_refs: []
+- id: CORE-012
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Work clones MUST be stable per repository; baseline clones and evidence MUST remain run-scoped.
+  acceptance_evidence: Path and idempotency tests.
+  traceability_raw: Decision 12
+  decision_refs:
+  - '12'
+  phase_refs: []
+- id: CORE-013
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Git clone/fetch behavior MUST pin line-ending determinism per invocation.
+  acceptance_evidence: Git-safety tests.
+  traceability_raw: Decision 14
+  decision_refs:
+  - '14'
+  phase_refs: []
+- id: CORE-014
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Generation schema version MUST change whenever prompt or owned-span rendering contracts change.
+  acceptance_evidence: Version-tripwire test.
+  traceability_raw: Decision 15
+  decision_refs:
+  - '15'
+  phase_refs: []
+- id: CORE-015
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Validation MUST run on generation, explicit validation, idempotent, and zero-gap paths.
+  acceptance_evidence: Existing validation tests.
+  traceability_raw: Decision 16
+  decision_refs:
+  - '16'
+  phase_refs: []
+- id: CORE-016
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Hash matching MUST control whether generation is required, not whether validation is required.
+  acceptance_evidence: '`STALE_NONCOMPLIANT` proof.'
+  traceability_raw: Decision 16
+  decision_refs:
+  - '16'
+  phase_refs: []
+- id: CORE-017
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Explicit `--force-regenerate` MUST be required to regenerate stale noncompliant owned content.
+  acceptance_evidence: CLI/orchestrator tests.
+  traceability_raw: Decision 16
+  decision_refs:
+  - '16'
+  phase_refs: []
+- id: CORE-018
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: The renderer MUST use canonical configured URLs rather than model-invented URLs.
+  acceptance_evidence: Referential-integrity tests.
+  traceability_raw: Decisions 6, 8
+  decision_refs:
+  - '6'
+  - '8'
+  phase_refs: []
+- id: CORE-019
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Evidence and facts hashing MUST normalize CRLF/LF consistently.
+  acceptance_evidence: Hash tests.
+  traceability_raw: Decisions 14, 15
+  decision_refs:
+  - '14'
+  - '15'
+  phase_refs: []
+- id: CORE-020
+  group: CORE
+  priority: P1
+  status: PLANNED
+  section: 9. Core engine and registry requirements
+  requirement: The engine MUST extend the existing inspect → gap detect → facts → propose/render → validate → evidence flow
+    to new surfaces rather than creating an unrelated second pipeline.
+  acceptance_evidence: Architecture and integration tests.
+  traceability_raw: Phases 21–24
+  decision_refs: []
+  phase_refs:
+  - '21'
+  - '22'
+  - '23'
+  - '24'
+- id: CORE-021
+  group: CORE
+  priority: P1
+  status: PLANNED
+  section: 9. Core engine and registry requirements
+  requirement: Each new surface MUST have an explicit detector, authority class, proposal/render path if allowed, validators,
+    evidence, and apply gate if remote.
+  acceptance_evidence: Surface registration tests.
+  traceability_raw: Decision 19
+  decision_refs:
+  - '19'
+  phase_refs: []
+- id: CORE-022
+  group: CORE
+  priority: P1
+  status: PLANNED
+  section: 9. Core engine and registry requirements
+  requirement: A surface classified as product-agent owned or GitHub generated MUST have no write handler.
+  acceptance_evidence: Registry/schema negative test.
+  traceability_raw: Decision 19
+  decision_refs:
+  - '19'
+  phase_refs: []
+- id: CORE-023
+  group: CORE
+  priority: P2
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: The products registry MUST be kept in sync with the authoritative GitHub orgs (seeded by `data/families.json`)
+    without mutating agent-owned fields (`mode`/`ecosystem`/`policy_profile`).
+  acceptance_evidence: '`scripts/update_products_registry.py` merge-logic unit tests + live `--dry-run` round-trip proof (see
+    `plans/master.md` Verification Checklist).'
+  traceability_raw: Phase 18; Decision 4
+  decision_refs:
+  - '4'
+  phase_refs:
+  - '18'
+- id: CORE-024
+  group: CORE
+  priority: P2
+  status: PLANNED
+  section: 9. Core engine and registry requirements
+  requirement: Insertion and presentation behavior MUST be tested against the remaining registry README corpus, including
+    .NET repositories.
+  acceptance_evidence: Phase-19 corpus results.
+  traceability_raw: Phase 19
+  decision_refs: []
+  phase_refs:
+  - '19'
+- id: CORE-025
+  group: CORE
+  priority: P2
+  status: PLANNED
+  section: 9. Core engine and registry requirements
+  requirement: Historical evidence validation SHOULD support fully offline replay against an evidence directory.
+  acceptance_evidence: Offline validation design and tests.
+  traceability_raw: Open item in master plan
+  decision_refs: []
+  phase_refs: []
+- id: CORE-026
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: 'The CLI MUST provide the seven shipped commands: `preflight`, `inspect`, `generate`, `run`, `run-registry`,
+    `report`, and `validate`.'
+  acceptance_evidence: CLI parser and command tests.
+  traceability_raw: Phase 12
+  decision_refs: []
+  phase_refs:
+  - '12'
+- id: CORE-027
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: 'CLI exit codes MUST remain: `0` pass, `1` validation/policy failure, `2` usage/config error, and `3` preflight/git-safety/allow-list
+    failure.'
+  acceptance_evidence: CLI tests.
+  traceability_raw: Phase 12
+  decision_refs: []
+  phase_refs:
+  - '12'
+- id: CORE-028
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Preflight MUST verify GitHub read access and the configured LLM model before clone or generation and MUST fail
+    closed.
+  acceptance_evidence: Live and fixture preflight tests.
+  traceability_raw: Phase 2
+  decision_refs: []
+  phase_refs:
+  - '2'
+- id: CORE-029
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: The shipped ecosystem parser MUST support Maven `pom.xml` product metadata, including BOM-safe reading and
+    known parent-block behavior.
+  acceptance_evidence: Maven parser fixtures.
+  traceability_raw: Phase 4
+  decision_refs: []
+  phase_refs:
+  - '4'
+- id: CORE-030
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: The owned `resources` span MUST use versioned begin/end markers containing the facts hash and schema version,
+    and marker removal MUST remain the exact inverse of insertion.
+  acceptance_evidence: Marker round-trip and change-boundary tests.
+  traceability_raw: Marker format; Decisions 9, 15
+  decision_refs:
+  - '9'
+  - '15'
+  phase_refs: []
+- id: CORE-031
+  group: CORE
+  priority: P1
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: Runtime paths MUST honor `README_AGENT_RUNS_DIR` when set and otherwise use repository-root-relative `runs/`,
+    with fresh baseline clones, stable work clones, and run-scoped evidence.
+  acceptance_evidence: Path tests and runtime inspection.
+  traceability_raw: Runtime layout; Decision 12
+  decision_refs:
+  - '12'
+  phase_refs: []
+- id: CORE-032
+  group: CORE
+  priority: P0
+  status: IMPLEMENTED
+  section: 9. Core engine and registry requirements
+  requirement: 'Automated registry discovery MUST default every newly discovered `(family, platform)` entry to `mode: "disabled"`
+    and MUST NOT modify `mode`/`ecosystem`/`policy_profile` on any existing entry, regardless of what GitHub reports.'
+  acceptance_evidence: '`test_merge_new_entry_defaults_to_disabled`, `test_merge_preserves_owned_fields_on_existing_entry`
+    (`tests/unit/test_update_products_registry.py`).'
+  traceability_raw: Decision 4; Phase 18
+  decision_refs:
+  - '4'
+  phase_refs:
+  - '18'
+- id: OPS-001
+  group: OPS
+  priority: P1
+  status: PLANNED
+  section: 10. Operational and workflow requirements
+  requirement: The dispatched GitHub Actions workflow MUST be reproducible locally with `act` before it is relied on for remote
+    execution.
+  acceptance_evidence: Phase-16 `act workflow_dispatch` proof.
+  traceability_raw: Phase 16
+  decision_refs: []
+  phase_refs:
+  - '16'
+- id: OPS-002
+  group: OPS
+  priority: P1
+  status: IMPLEMENTED
+  section: 10. Operational and workflow requirements
+  requirement: The ordinary CI workflow MUST run ruff, formatting checks, mypy, and non-live pytest across Python 3.11–3.13.
+  acceptance_evidence: CI workflow and successful run.
+  traceability_raw: CI & Safety
+  decision_refs: []
+  phase_refs: []
+- id: OPS-003
+  group: OPS
+  priority: P1
+  status: IMPLEMENTED
+  section: 10. Operational and workflow requirements
+  requirement: '`readme-agent-run.yml` MUST remain manually dispatched, read-only, dry-run only, and upload evidence as a
+    workflow artifact.'
+  acceptance_evidence: Workflow inspection and dry-run execution.
+  traceability_raw: Phase 15/16
+  decision_refs: []
+  phase_refs:
+  - '15'
+  - '16'
+- id: OPS-004
+  group: OPS
+  priority: P2
+  status: PLANNED
+  section: 10. Operational and workflow requirements
+  requirement: The golden-set monitor MUST run on a schedule and manual trigger, use the LLM-exercising pilot, remain hard-coded
+    to dry-run, and append stable run history.
+  acceptance_evidence: Workflow and history proof.
+  traceability_raw: Phase 18
+  decision_refs: []
+  phase_refs:
+  - '18'
+- id: OPS-005
+  group: OPS
+  priority: P2
+  status: IMPLEMENTED
+  section: 10. Operational and workflow requirements
+  requirement: Registry synchronization MUST scan the authoritative GitHub orgs (seeded by `data/families.json`) and prove
+    a no-loss round trip.
+  acceptance_evidence: '`scripts/update_products_registry.py` unit tests + live `--dry-run` proof.'
+  traceability_raw: Phase 18
+  decision_refs: []
+  phase_refs:
+  - '18'
+- id: OPS-006
+  group: OPS
+  priority: P2
+  status: PLANNED
+  section: 10. Operational and workflow requirements
+  requirement: Dependency updates MUST be proposed through reviewable Dependabot pull requests rather than silent automation.
+  acceptance_evidence: Dependabot configuration.
+  traceability_raw: Phase 18
+  decision_refs: []
+  phase_refs:
+  - '18'
+- id: OPS-007
+  group: OPS
+  priority: P1
+  status: IMPLEMENTED
+  section: 10. Operational and workflow requirements
+  requirement: '`data/families.json` MUST enumerate the GitHub orgs to scan for registry discovery and MUST NOT itself grant
+    allow-list permission — only `data/products.json` entries with a non-`disabled` `mode`, checked via `registry.loader.is_permitted()`,
+    are ever permitted.'
+  acceptance_evidence: '`test_real_families_json_has_26_entries_with_matching_org_convention`, `test_real_families_json_covers_every_org_referenced_by_products_json`.'
+  traceability_raw: Decision 4; CORE-003
+  decision_refs:
+  - '4'
+  phase_refs: []
+- id: OPS-008
+  group: OPS
+  priority: P1
+  status: IMPLEMENTED
+  section: 10. Operational and workflow requirements
+  requirement: The scheduled registry-update workflow MUST propose changes via pull request and MUST NOT push directly to
+    the default branch.
+  acceptance_evidence: '`.github/workflows/update-products-registry.yml` uses `peter-evans/create-pull-request`; workflow
+    inspection.'
+  traceability_raw: Phase 18
+  decision_refs: []
+  phase_refs:
+  - '18'
+- id: LLM-001
+  group: LLM
+  priority: P0
+  status: IMPLEMENTED
+  section: 11. LLM requirements
+  requirement: LLM use MUST be limited to jobs that require language generation; deterministic facts and URLs MUST remain
+    deterministic.
+  acceptance_evidence: Existing job-routing tests.
+  traceability_raw: Decision 8
+  decision_refs:
+  - '8'
+  phase_refs: []
+- id: LLM-002
+  group: LLM
+  priority: P0
+  status: IMPLEMENTED
+  section: 11. LLM requirements
+  requirement: The shipped relationship paragraph job MUST run only when `relationship_explained` is a detected gap.
+  acceptance_evidence: Gap/orchestrator tests.
+  traceability_raw: Decision 8
+  decision_refs:
+  - '8'
+  phase_refs: []
+- id: LLM-003
+  group: LLM
+  priority: P0
+  status: IMPLEMENTED
+  section: 11. LLM requirements
+  requirement: LLM output MUST conform to a strict schema and MUST fail closed on local schema failure.
+  acceptance_evidence: Schema tests.
+  traceability_raw: LLM contract
+  decision_refs: []
+  phase_refs: []
+- id: LLM-004
+  group: LLM
+  priority: P0
+  status: IMPLEMENTED
+  section: 11. LLM requirements
+  requirement: Model self-reported claims MUST be cross-checked against authoritative facts and rendered output.
+  acceptance_evidence: Referential-integrity tests.
+  traceability_raw: Decision 6
+  decision_refs:
+  - '6'
+  phase_refs: []
+- id: LLM-005
+  group: LLM
+  priority: P0
+  status: PLANNED
+  section: 11. LLM requirements
+  requirement: Future README, description, or visual-generation jobs MUST consume only approved product facts and policy inputs.
+  acceptance_evidence: Prompt signature and provenance tests.
+  traceability_raw: Decisions 8, 22
+  decision_refs:
+  - '8'
+  - '22'
+  phase_refs: []
+- id: LLM-006
+  group: LLM
+  priority: P0
+  status: PLANNED
+  section: 11. LLM requirements
+  requirement: The model MUST NOT invent capabilities, formats, package coordinates, release facts, licenses, support claims,
+    or commercial claims.
+  acceptance_evidence: Adversarial fixtures and claim validation.
+  traceability_raw: Decisions 6, 8, 22; Phase 17
+  decision_refs:
+  - '6'
+  - '8'
+  - '22'
+  phase_refs:
+  - '17'
+- id: LLM-007
+  group: LLM
+  priority: P0
+  status: IMPLEMENTED
+  section: 11. LLM requirements
+  requirement: Retry MUST be bounded and limited to retryable transport/rate/server failures, not schema or non-retryable
+    client errors.
+  acceptance_evidence: Client tests.
+  traceability_raw: LLM contract
+  decision_refs: []
+  phase_refs: []
+- id: LLM-008
+  group: LLM
+  priority: P0
+  status: IMPLEMENTED
+  section: 11. LLM requirements
+  requirement: The selected model MUST be validated through preflight against the live model list before use.
+  acceptance_evidence: Live preflight evidence.
+  traceability_raw: Phase 2/5
+  decision_refs: []
+  phase_refs:
+  - '2'
+  - '5'
+- id: LLM-009
+  group: LLM
+  priority: P1
+  status: PLANNED
+  section: 11. LLM requirements
+  requirement: Generated descriptions and prose MUST be validated for clarity, prohibited terms, unsupported claims, product
+    specificity, and duplication.
+  acceptance_evidence: Phase-21/22 validators.
+  traceability_raw: Decisions 8, 18
+  decision_refs:
+  - '8'
+  - '18'
+  phase_refs: []
+- id: LLM-010
+  group: LLM
+  priority: P1
+  status: PLANNED
+  section: 11. LLM requirements
+  requirement: Generated visual concepts MUST not depict unsupported formats, workflows, integrations, performance, or commercial
+    features.
+  acceptance_evidence: Visual factual-accuracy review.
+  traceability_raw: Decisions 8, 23
+  decision_refs:
+  - '8'
+  - '23'
+  phase_refs: []
+- id: LLM-011
+  group: LLM
+  priority: P1
+  status: PLANNED
+  section: 11. LLM requirements
+  requirement: Prompt-injection content found in repository files MUST be treated as untrusted data and MUST not override
+    system policy, ownership, or output schema.
+  acceptance_evidence: Adversarial fixture tests.
+  traceability_raw: Phase 17
+  decision_refs: []
+  phase_refs:
+  - '17'
+- id: LLM-012
+  group: LLM
+  priority: P2
+  status: PLANNED
+  section: 11. LLM requirements
+  requirement: Model drift SHOULD be monitored through a live golden-set run that cannot escalate to write mode.
+  acceptance_evidence: Golden-set workflow and history.
+  traceability_raw: Phase 18
+  decision_refs: []
+  phase_refs:
+  - '18'
+- id: LLM-013
+  group: LLM
+  priority: P1
+  status: IMPLEMENTED
+  section: 11. LLM requirements
+  requirement: LLM endpoint and key selection MUST honor the documented environment-variable precedence without logging secret
+    values.
+  acceptance_evidence: Client configuration tests and secret scan.
+  traceability_raw: LLM Contract
+  decision_refs: []
+  phase_refs: []
+- id: LLM-014
+  group: LLM
+  priority: P1
+  status: IMPLEMENTED
+  section: 11. LLM requirements
+  requirement: The live client MUST use the documented chat-completions request/response contract and configured model, temperature,
+    and token limit.
+  acceptance_evidence: Live client tests and recorded redacted request.
+  traceability_raw: LLM Contract
+  decision_refs: []
+  phase_refs: []
+- id: VAL-001
+  group: VAL
+  priority: P0
+  status: IMPLEMENTED
+  section: 12. Validation and quality gates
+  requirement: All shipped validator rules MUST run on every relevant invocation.
+  acceptance_evidence: Validator-registry tests.
+  traceability_raw: Decision 16
+  decision_refs:
+  - '16'
+  phase_refs: []
+- id: VAL-002
+  group: VAL
+  priority: P0
+  status: IMPLEMENTED
+  section: 12. Validation and quality gates
+  requirement: '`referential_integrity` MUST remain a hard error gate.'
+  acceptance_evidence: Existing tests.
+  traceability_raw: Decision 6
+  decision_refs:
+  - '6'
+  phase_refs: []
+- id: VAL-003
+  group: VAL
+  priority: P0
+  status: IMPLEMENTED
+  section: 12. Validation and quality gates
+  requirement: '`change_boundary` MUST prove that content outside owned spans is unchanged for the shipped renderer.'
+  acceptance_evidence: Existing tests.
+  traceability_raw: Validator registry
+  decision_refs: []
+  phase_refs: []
+- id: VAL-004
+  group: VAL
+  priority: P0
+  status: IMPLEMENTED
+  section: 12. Validation and quality gates
+  requirement: LLM-authored content MUST satisfy configured word-count, prohibited-term, link-whitelist, talking-point, and
+    referential-integrity rules.
+  acceptance_evidence: Existing tests.
+  traceability_raw: Validator registry
+  decision_refs: []
+  phase_refs: []
+- id: VAL-005
+  group: VAL
+  priority: P1
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Phase-21 README validation MUST evaluate product explanation, audience/problem, installation, verified first
+    use, capability accuracy, navigation, visual usefulness, maintenance/contribution signals, and natural link placement.
+  acceptance_evidence: '`READMEPresentationReport` and fixtures.'
+  traceability_raw: Phase 21
+  decision_refs: []
+  phase_refs:
+  - '21'
+- id: VAL-006
+  group: VAL
+  priority: P0
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Presentation validation MUST not reward moving promotional links upward.
+  acceptance_evidence: Negative fixtures and rule review.
+  traceability_raw: Decision 17
+  decision_refs:
+  - '17'
+  phase_refs: []
+- id: VAL-007
+  group: VAL
+  priority: P0
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Every changed factual claim MUST pass provenance validation.
+  acceptance_evidence: Claim-to-source validator.
+  traceability_raw: Decisions 18, 22
+  decision_refs:
+  - '18'
+  - '22'
+  phase_refs: []
+- id: VAL-008
+  group: VAL
+  priority: P0
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Every proposed action MUST pass authority-class validation before a renderer or write operation is selected.
+  acceptance_evidence: Surface authorization test.
+  traceability_raw: Decision 19
+  decision_refs:
+  - '19'
+  phase_refs: []
+- id: VAL-009
+  group: VAL
+  priority: P0
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: API/settings changes MUST pass dry-run, permission, before/after, and rollback validation.
+  acceptance_evidence: Phase-22 proposal tests.
+  traceability_raw: Decision 19
+  decision_refs:
+  - '19'
+  phase_refs: []
+- id: VAL-010
+  group: VAL
+  priority: P1
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Topics MUST be checked for relevance, duplication, valid format, and keyword stuffing.
+  acceptance_evidence: Topics validator.
+  traceability_raw: Phase 22
+  decision_refs: []
+  phase_refs:
+  - '22'
+- id: VAL-011
+  group: VAL
+  priority: P1
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Repository descriptions MUST be checked for length, product specificity, clarity, and unsupported claims.
+  acceptance_evidence: Description validator.
+  traceability_raw: Phase 22
+  decision_refs: []
+  phase_refs:
+  - '22'
+- id: VAL-012
+  group: VAL
+  priority: P1
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Community files MUST be checked for recognized location/name, policy relevance, quality, internal consistency,
+    and broken links.
+  acceptance_evidence: Phase-23 fixtures.
+  traceability_raw: Phase 23
+  decision_refs: []
+  phase_refs:
+  - '23'
+- id: VAL-013
+  group: VAL
+  priority: P1
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Visuals MUST be checked for dimensions, file size, accessibility, license/provenance, factual accuracy, stable
+    naming, and correct delivery surface.
+  acceptance_evidence: Phase-24 validator.
+  traceability_raw: Decision 23
+  decision_refs:
+  - '23'
+  phase_refs: []
+- id: VAL-014
+  group: VAL
+  priority: P1
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Markdown, links, anchors, relative asset paths, code fences, and generated files MUST be validated after every
+    presentation change.
+  acceptance_evidence: Presentation validation suite.
+  traceability_raw: Phases 17, 21, 24
+  decision_refs: []
+  phase_refs:
+  - '17'
+  - '21'
+  - '24'
+- id: VAL-015
+  group: VAL
+  priority: P1
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: A proposal with unresolved product-fact conflicts or missing mandatory facts MUST not pass.
+  acceptance_evidence: Blocking-status tests.
+  traceability_raw: Decision 22
+  decision_refs:
+  - '22'
+  phase_refs: []
+- id: VAL-016
+  group: VAL
+  priority: P2
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Similarity checks SHOULD detect accidental template cloning across pilot repositories while allowing legitimate
+    shared policy language.
+  acceptance_evidence: Cross-pilot comparison.
+  traceability_raw: Decision 24; Phase 26
+  decision_refs:
+  - '24'
+  phase_refs:
+  - '26'
+- id: VAL-017
+  group: VAL
+  priority: P2
+  status: PLANNED
+  section: 12. Validation and quality gates
+  requirement: Adversarial fixtures MUST cover prompt injection, malformed markers, malformed/missing README, non-UTF8 content,
+    invalid model output, and policy violations.
+  acceptance_evidence: Phase-17 report.
+  traceability_raw: Phase 17
+  decision_refs: []
+  phase_refs:
+  - '17'
+- id: SAFE-001
+  group: SAFE
+  priority: P0
+  status: IMPLEMENTED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Git push MUST be disabled through both a neutered push URL and a blocking pre-push hook.
+  acceptance_evidence: Existing real push-block proof.
+  traceability_raw: CI & Safety
+  decision_refs: []
+  phase_refs: []
+- id: SAFE-002
+  group: SAFE
+  priority: P0
+  status: IMPLEMENTED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Push-blocking MUST be independently verified from actual remote and hook contents, not assumed from successful
+    setup calls.
+  acceptance_evidence: '`verify_push_blocked()` evidence.'
+  traceability_raw: CI & Safety
+  decision_refs: []
+  phase_refs: []
+- id: SAFE-003
+  group: SAFE
+  priority: P0
+  status: IMPLEMENTED
+  section: 13. Safety, security, and evidence requirements
+  requirement: The allow-list MUST operate independently from push-blocking.
+  acceptance_evidence: Separate tests/evidence.
+  traceability_raw: Decision 4
+  decision_refs:
+  - '4'
+  phase_refs: []
+- id: SAFE-004
+  group: SAFE
+  priority: P0
+  status: IMPLEMENTED
+  section: 13. Safety, security, and evidence requirements
+  requirement: CI for ordinary pull requests MUST require no real secrets and MUST exclude live tests by default.
+  acceptance_evidence: Workflow inspection and CI run.
+  traceability_raw: CI & Safety
+  decision_refs: []
+  phase_refs: []
+- id: SAFE-005
+  group: SAFE
+  priority: P0
+  status: IMPLEMENTED
+  section: 13. Safety, security, and evidence requirements
+  requirement: The manual workflow MUST expose dry-run only and read-only content permissions.
+  acceptance_evidence: Workflow file test/review.
+  traceability_raw: CI & Safety
+  decision_refs: []
+  phase_refs: []
+- id: SAFE-006
+  group: SAFE
+  priority: P0
+  status: PLANNED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Scheduled monitoring MUST be structurally unable to escalate to full/write mode.
+  acceptance_evidence: Workflow-level hard-coded dry-run test.
+  traceability_raw: Phase 18
+  decision_refs: []
+  phase_refs:
+  - '18'
+- id: SAFE-007
+  group: SAFE
+  priority: P0
+  status: IMPLEMENTED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Secrets MUST be redacted before any evidence is written.
+  acceptance_evidence: Deterministic and opportunistic secret-scan tests.
+  traceability_raw: Phase 11
+  decision_refs: []
+  phase_refs:
+  - '11'
+- id: SAFE-008
+  group: SAFE
+  priority: P0
+  status: IMPLEMENTED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Evidence writes MUST be atomic.
+  acceptance_evidence: Writer tests.
+  traceability_raw: Phase 11
+  decision_refs: []
+  phase_refs:
+  - '11'
+- id: SAFE-009
+  group: SAFE
+  priority: P0
+  status: IMPLEMENTED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Evidence MUST include facts, request/response where applicable, diff, validation report, manifest, and checksums.
+  acceptance_evidence: Existing evidence bundle inspection.
+  traceability_raw: Phase 11
+  decision_refs: []
+  phase_refs:
+  - '11'
+- id: SAFE-010
+  group: SAFE
+  priority: P0
+  status: PLANNED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Remote settings writes MUST require explicit authorization, necessary permissions, a pre-write snapshot, and
+    a rollback plan.
+  acceptance_evidence: Phase-22 apply-gate tests.
+  traceability_raw: Decision 19
+  decision_refs:
+  - '19'
+  phase_refs: []
+- id: SAFE-011
+  group: SAFE
+  priority: P0
+  status: PLANNED
+  section: 13. Safety, security, and evidence requirements
+  requirement: No manual-UI step may be represented as automatically completed unless evidence of the operator action is supplied.
+  acceptance_evidence: Delivery status remains `PREPARED_FOR_MANUAL_APPLY`.
+  traceability_raw: Decision 19
+  decision_refs:
+  - '19'
+  phase_refs: []
+- id: SAFE-012
+  group: SAFE
+  priority: P0
+  status: PLANNED
+  section: 13. Safety, security, and evidence requirements
+  requirement: The system MUST not silently revert changes made by another product agent.
+  acceptance_evidence: Drift flow produces proposal/handoff only.
+  traceability_raw: Decision 21
+  decision_refs:
+  - '21'
+  phase_refs: []
+- id: SAFE-013
+  group: SAFE
+  priority: P1
+  status: PLANNED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Evidence MUST record surface class, action mode, authoritative source, changed fields/files, validators run,
+    and acceptance status.
+  acceptance_evidence: Evidence schema.
+  traceability_raw: Phases 21–25
+  decision_refs: []
+  phase_refs:
+  - '21'
+  - '22'
+  - '23'
+  - '24'
+  - '25'
+- id: SAFE-014
+  group: SAFE
+  priority: P1
+  status: PLANNED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Evidence SHOULD record requirement IDs and decision/phase traceability for the run.
+  acceptance_evidence: Evidence manifest fields.
+  traceability_raw: GOV-012
+  decision_refs: []
+  phase_refs: []
+- id: SAFE-015
+  group: SAFE
+  priority: P1
+  status: PLANNED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Every remote proposal MUST be reproducible from recorded facts, policy, baseline, and tool version.
+  acceptance_evidence: Replay or deterministic comparison.
+  traceability_raw: Phases 22–26
+  decision_refs: []
+  phase_refs:
+  - '22'
+  - '23'
+  - '24'
+  - '25'
+  - '26'
+- id: SAFE-016
+  group: SAFE
+  priority: P1
+  status: PLANNED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Generated binary visual assets MUST have checksums and provenance records.
+  acceptance_evidence: Artifact manifest.
+  traceability_raw: Phase 24
+  decision_refs: []
+  phase_refs:
+  - '24'
+- id: SAFE-017
+  group: SAFE
+  priority: P1
+  status: PLANNED
+  section: 13. Safety, security, and evidence requirements
+  requirement: A failed validation MUST block commit/proposal acceptance and identify the failed requirement IDs.
+  acceptance_evidence: Failure report tests.
+  traceability_raw: GOV-012; Phases 21–24
+  decision_refs: []
+  phase_refs:
+  - '21'
+  - '22'
+  - '23'
+  - '24'
+- id: SAFE-018
+  group: SAFE
+  priority: P2
+  status: PLANNED
+  section: 13. Safety, security, and evidence requirements
+  requirement: Dependency versions SHOULD be locked and Dependabot SHOULD maintain them through reviewable PRs.
+  acceptance_evidence: Lockfile and Dependabot workflow.
+  traceability_raw: Phase 18
+  decision_refs: []
+  phase_refs:
+  - '18'
+- id: INT-001
+  group: INT
+  priority: P0
+  status: PLANNED
+  section: 14. Integration and drift-protection requirements
+  requirement: The central agent MUST integrate after or alongside product publishing so presentation can be revalidated after
+    product changes.
+  acceptance_evidence: Simulated publishing integration proof.
+  traceability_raw: Decision 21; Phase 25
+  decision_refs:
+  - '21'
+  phase_refs:
+  - '25'
+- id: INT-002
+  group: INT
+  priority: P0
+  status: PLANNED
+  section: 14. Integration and drift-protection requirements
+  requirement: Drift detection MUST identify removed owned markers, lost required sections, weakened or generic prose, stale
+    facts, stale visuals, broken links, and missing supporting files.
+  acceptance_evidence: Drift fixture suite.
+  traceability_raw: Decision 21
+  decision_refs:
+  - '21'
+  phase_refs: []
+- id: INT-003
+  group: INT
+  priority: P0
+  status: PLANNED
+  section: 14. Integration and drift-protection requirements
+  requirement: Drift detection MUST compare against both current authoritative product facts and the accepted presentation
+    baseline.
+  acceptance_evidence: Drift evidence includes both comparisons.
+  traceability_raw: Decisions 21, 22
+  decision_refs:
+  - '21'
+  - '22'
+  phase_refs: []
+- id: INT-004
+  group: INT
+  priority: P0
+  status: PLANNED
+  section: 14. Integration and drift-protection requirements
+  requirement: Detected drift MUST produce evidence and an allowed repair proposal or product-agent handoff; it MUST NOT silently
+    overwrite.
+  acceptance_evidence: Drift run behavior tests.
+  traceability_raw: Decision 21
+  decision_refs:
+  - '21'
+  phase_refs: []
+- id: INT-005
+  group: INT
+  priority: P0
+  status: PLANNED
+  section: 14. Integration and drift-protection requirements
+  requirement: Technical discrepancies MUST be routed to the owning product agent. Presentation-only regressions MAY be repaired
+    through normal central-agent gates.
+  acceptance_evidence: Classified handoff/proposal evidence.
+  traceability_raw: Decisions 18, 21, 22
+  decision_refs:
+  - '18'
+  - '21'
+  - '22'
+  phase_refs: []
+- id: INT-006
+  group: INT
+  priority: P1
+  status: PLANNED
+  section: 14. Integration and drift-protection requirements
+  requirement: Product-fact changes SHOULD trigger targeted reevaluation of dependent presentation surfaces.
+  acceptance_evidence: Dependency-driven rerun proof.
+  traceability_raw: FACT-010; Phase 25
+  decision_refs: []
+  phase_refs:
+  - '25'
+- id: INT-007
+  group: INT
+  priority: P1
+  status: PLANNED
+  section: 14. Integration and drift-protection requirements
+  requirement: Scheduled re-audits MUST run in dry-run/observe mode and preserve historical results.
+  acceptance_evidence: Golden-set monitor and history.
+  traceability_raw: Phase 18/25
+  decision_refs: []
+  phase_refs:
+  - '18'
+  - '25'
+- id: INT-008
+  group: INT
+  priority: P1
+  status: PLANNED
+  section: 14. Integration and drift-protection requirements
+  requirement: The system MUST detect when another agent overwrites high-quality content with a generic template.
+  acceptance_evidence: Regression fixture and report.
+  traceability_raw: Decision 21
+  decision_refs:
+  - '21'
+  phase_refs: []
+- id: INT-009
+  group: INT
+  priority: P1
+  status: PLANNED
+  section: 14. Integration and drift-protection requirements
+  requirement: Drift findings MUST distinguish legitimate product updates from presentation regressions.
+  acceptance_evidence: Classification tests and human-reviewed fixtures.
+  traceability_raw: Decision 21
+  decision_refs:
+  - '21'
+  phase_refs: []
+- id: INT-010
+  group: INT
+  priority: P2
+  status: PLANNED
+  section: 14. Integration and drift-protection requirements
+  requirement: The integration contract SHOULD be machine-readable and versioned.
+  acceptance_evidence: Product-facts/change-handoff schema version.
+  traceability_raw: Decision 22; Phase 25
+  decision_refs:
+  - '22'
+  phase_refs:
+  - '25'
+- id: NFR-001
+  group: NFR
+  priority: P0
+  status: IMPLEMENTED
+  section: 15. Non-functional requirements
+  requirement: Runs MUST be deterministic for identical independent inputs, policy, code, and model response fixtures.
+  acceptance_evidence: Idempotency and hash tests.
+  traceability_raw: Decisions 11–16
+  decision_refs:
+  - '11'
+  - '12'
+  - '13'
+  - '14'
+  - '15'
+  - '16'
+  phase_refs: []
+- id: NFR-002
+  group: NFR
+  priority: P0
+  status: IMPLEMENTED
+  section: 15. Non-functional requirements
+  requirement: A second compliant run MUST make no new diff and no unnecessary LLM call.
+  acceptance_evidence: Cells/Java idempotency proof.
+  traceability_raw: Decision 12
+  decision_refs:
+  - '12'
+  phase_refs: []
+- id: NFR-003
+  group: NFR
+  priority: P0
+  status: GOVERNANCE
+  section: 15. Non-functional requirements
+  requirement: The system MUST fail closed on authority ambiguity, invalid policy, invalid model schema, unsafe git state,
+    missing required permission, or unresolved mandatory facts.
+  acceptance_evidence: Negative tests.
+  traceability_raw: Decisions 4, 6, 18, 19, 22
+  decision_refs:
+  - '4'
+  - '6'
+  - '18'
+  - '19'
+  - '22'
+  phase_refs: []
+- id: NFR-004
+  group: NFR
+  priority: P1
+  status: IMPLEMENTED
+  section: 15. Non-functional requirements
+  requirement: The codebase MUST pass supported Python matrix tests, ruff, formatting checks, and mypy.
+  acceptance_evidence: CI evidence.
+  traceability_raw: Status/CI
+  decision_refs: []
+  phase_refs: []
+- id: NFR-005
+  group: NFR
+  priority: P1
+  status: PLANNED
+  section: 15. Non-functional requirements
+  requirement: New surface implementations MUST remain modular but use the common pipeline and evidence model.
+  acceptance_evidence: Architecture review and tests.
+  traceability_raw: CORE-020/021
+  decision_refs: []
+  phase_refs: []
+- id: NFR-006
+  group: NFR
+  priority: P1
+  status: PLANNED
+  section: 15. Non-functional requirements
+  requirement: Outputs MUST be understandable to product owners and reviewers, not only machine-readable.
+  acceptance_evidence: Human-readable reports accompany JSON evidence.
+  traceability_raw: Phases 21–26
+  decision_refs: []
+  phase_refs:
+  - '21'
+  - '22'
+  - '23'
+  - '24'
+  - '25'
+  - '26'
+- id: NFR-007
+  group: NFR
+  priority: P1
+  status: PLANNED
+  section: 15. Non-functional requirements
+  requirement: The system MUST preserve repository-specific character and SHOULD avoid repetitive AI-style prose.
+  acceptance_evidence: Human review and similarity checks.
+  traceability_raw: Decisions 18, 24
+  decision_refs:
+  - '18'
+  - '24'
+  phase_refs: []
+- id: NFR-008
+  group: NFR
+  priority: P1
+  status: PLANNED
+  section: 15. Non-functional requirements
+  requirement: Automated changes MUST be reversible through recorded baseline/diff or settings snapshot.
+  acceptance_evidence: Rollback proof.
+  traceability_raw: Decisions 19, 21
+  decision_refs:
+  - '19'
+  - '21'
+  phase_refs: []
+- id: NFR-009
+  group: NFR
+  priority: P1
+  status: PLANNED
+  section: 15. Non-functional requirements
+  requirement: The system MUST support Windows development and Linux CI without line-ending drift.
+  acceptance_evidence: Cross-platform tests.
+  traceability_raw: Decision 14
+  decision_refs:
+  - '14'
+  phase_refs: []
+- id: NFR-010
+  group: NFR
+  priority: P2
+  status: PLANNED
+  section: 15. Non-functional requirements
+  requirement: Large registry runs SHOULD isolate per-repository failures so one blocked repository does not corrupt or falsely
+    complete another.
+  acceptance_evidence: Registry-run failure-isolation tests.
+  traceability_raw: Phase 25/26
+  decision_refs: []
+  phase_refs:
+  - '25'
+  - '26'
+- id: NFR-011
+  group: NFR
+  priority: P2
+  status: PLANNED
+  section: 15. Non-functional requirements
+  requirement: Reports SHOULD be stable enough for before/after comparisons across runs and releases.
+  acceptance_evidence: Schema versioning and history tests.
+  traceability_raw: Phase 18/25
+  decision_refs: []
+  phase_refs:
+  - '18'
+  - '25'
+- id: NFR-012
+  group: NFR
+  priority: P2
+  status: PLANNED
+  section: 15. Non-functional requirements
+  requirement: The system SHOULD minimize LLM calls by using deterministic detection, facts, rendering, and idempotency wherever
+    possible.
+  acceptance_evidence: Call-count assertions.
+  traceability_raw: Decision 8
+  decision_refs:
+  - '8'
+  phase_refs: []
+- id: PIL-001
+  group: PIL
+  priority: P0
+  status: GOVERNANCE
+  section: 16. Pilot, rollout, and acceptance requirements
+  requirement: The initial pilot MUST use the three enabled registry repositories representing blank-slate, zero-gap, and
+    partial-gap conditions.
+  acceptance_evidence: Registry and run list.
+  traceability_raw: Decisions 10, 24
+  decision_refs:
+  - '10'
+  - '24'
+  phase_refs: []
+- id: PIL-002
+  group: PIL
+  priority: P0
+  status: PLANNED
+  section: 16. Pilot, rollout, and acceptance requirements
+  requirement: The three pilots MUST receive repository-specific proposals, not three instances of one template.
+  acceptance_evidence: Cross-pilot comparison.
+  traceability_raw: Decision 24
+  decision_refs:
+  - '24'
+  phase_refs: []
+- id: PIL-003
+  group: PIL
+  priority: P0
+  status: PLANNED
+  section: 16. Pilot, rollout, and acceptance requirements
+  requirement: No repository beyond the pilot set may be enabled until the Phase-26 rollout gates pass.
+  acceptance_evidence: Registry modes remain disabled.
+  traceability_raw: Decision 24
+  decision_refs:
+  - '24'
+  phase_refs: []
+- id: PIL-004
+  group: PIL
+  priority: P0
+  status: PLANNED
+  section: 16. Pilot, rollout, and acceptance requirements
+  requirement: Each pilot MUST pass deterministic validation, product-fact provenance, ownership/control checks, and independent
+    human/agent review.
+  acceptance_evidence: Pilot acceptance bundle.
+  traceability_raw: Decision 24; Phase 26
+  decision_refs:
+  - '24'
+  phase_refs:
+  - '26'
+- id: PIL-005
+  group: PIL
+  priority: P0
+  status: PLANNED
+  section: 16. Pilot, rollout, and acceptance requirements
+  requirement: The pilot MUST prove that no unsupported GitHub write path or control claim remains.
+  acceptance_evidence: Control-boundary proof.
+  traceability_raw: Decisions 19, 24
+  decision_refs:
+  - '19'
+  - '24'
+  phase_refs: []
+- id: PIL-006
+  group: PIL
+  priority: P0
+  status: PLANNED
+  section: 16. Pilot, rollout, and acceptance requirements
+  requirement: The pilot MUST survive a simulated product-agent refresh without silently losing accepted presentation quality.
+  acceptance_evidence: Publishing-integration proof.
+  traceability_raw: Decisions 21, 24
+  decision_refs:
+  - '21'
+  - '24'
+  phase_refs: []
+- id: PIL-007
+  group: PIL
+  priority: P1
+  status: PLANNED
+  section: 16. Pilot, rollout, and acceptance requirements
+  requirement: Pilot review MUST compare before/after developer comprehension, installation usability, claim accuracy, link
+    relevance, and presentation quality.
+  acceptance_evidence: Structured review report.
+  traceability_raw: Phase 26
+  decision_refs: []
+  phase_refs:
+  - '26'
+- id: PIL-008
+  group: PIL
+  priority: P1
+  status: PLANNED
+  section: 16. Pilot, rollout, and acceptance requirements
+  requirement: Sponsor acceptance of the quality standard and pilot output MUST be recorded before expansion.
+  acceptance_evidence: Acceptance record.
+  traceability_raw: Decision 24
+  decision_refs:
+  - '24'
+  phase_refs: []
+- id: PIL-009
+  group: PIL
+  priority: P1
+  status: PLANNED
+  section: 16. Pilot, rollout, and acceptance requirements
+  requirement: Wider rollout MUST proceed in small waves with per-wave evidence and stop conditions.
+  acceptance_evidence: Rollout plan and wave results.
+  traceability_raw: Decision 24
+  decision_refs:
+  - '24'
+  phase_refs: []
+- id: PIL-010
+  group: PIL
+  priority: P2
+  status: PLANNED
+  section: 16. Pilot, rollout, and acceptance requirements
+  requirement: A failed pilot SHOULD improve validators, policies, facts contracts, or ownership rules before rerunning rather
+    than receiving an ad hoc one-off patch.
+  acceptance_evidence: Repair-loop evidence.
+  traceability_raw: Governance; Phase 26
+  decision_refs: []
+  phase_refs:
+  - '26'
+- id: MET-001
+  group: MET
+  priority: P1
+  status: RESEARCH-GATED
+  section: 17. Measurement requirements
+  requirement: Phase 20 MUST establish the current GitHub referral baseline and determine whether ≥10 weekly visitors to Aspose.org
+    is realistic.
+  acceptance_evidence: Numbered feasibility study.
+  traceability_raw: Decision 20
+  decision_refs:
+  - '20'
+  phase_refs: []
+- id: MET-002
+  group: MET
+  priority: P1
+  status: RESEARCH-GATED
+  section: 17. Measurement requirements
+  requirement: The feasibility study MUST include pilot repository views/uniques, placement-specific click assumptions, repository-coverage
+    math, timing, and confidence/limitations.
+  acceptance_evidence: Study completeness review.
+  traceability_raw: Phase 20
+  decision_refs: []
+  phase_refs:
+  - '20'
+- id: MET-003
+  group: MET
+  priority: P1
+  status: PLANNED
+  section: 17. Measurement requirements
+  requirement: Approved eligible links SHOULD use consistent UTM parameters so referral traffic can be attributed.
+  acceptance_evidence: Link output and analytics evidence.
+  traceability_raw: Decision 20
+  decision_refs:
+  - '20'
+  phase_refs: []
+- id: MET-004
+  group: MET
+  priority: P1
+  status: PLANNED
+  section: 17. Measurement requirements
+  requirement: Post-rollout measurement MUST track referral count together with product relevance and README-quality checks.
+  acceptance_evidence: Weekly report.
+  traceability_raw: Decision 20
+  decision_refs:
+  - '20'
+  phase_refs: []
+- id: MET-005
+  group: MET
+  priority: P0
+  status: GOVERNANCE
+  section: 17. Measurement requirements
+  requirement: The traffic target MUST NOT override BIZ-001, BIZ-003, RDM-002, or RDM-012.
+  acceptance_evidence: Decision/requirements conflict check.
+  traceability_raw: Decision 20
+  decision_refs:
+  - '20'
+  phase_refs: []
+- id: MET-006
+  group: MET
+  priority: P1
+  status: RESEARCH-GATED
+  section: 17. Measurement requirements
+  requirement: Phase 20 MUST define a minimum observation period before rollout decisions are based on traffic.
+  acceptance_evidence: Feasibility study.
+  traceability_raw: Phase 20
+  decision_refs: []
+  phase_refs:
+  - '20'
+- id: MET-007
+  group: MET
+  priority: P2
+  status: PLANNED
+  section: 17. Measurement requirements
+  requirement: Pilot and rollout reports SHOULD distinguish direct GitHub referral traffic from other sources and from internal/test
+    clicks where possible.
+  acceptance_evidence: Analytics methodology.
+  traceability_raw: Decision 20
+  decision_refs:
+  - '20'
+  phase_refs: []
+- id: MET-008
+  group: MET
+  priority: P2
+  status: PLANNED
+  section: 17. Measurement requirements
+  requirement: The target MAY be revised only through an explicit decision supported by baseline evidence; it MUST NOT be
+    silently changed in code or reports.
+  acceptance_evidence: Master-plan decision and requirements update.
+  traceability_raw: GOV-004/005
+  decision_refs: []
+  phase_refs: []
+- id: DOC-001
+  group: DOC
+  priority: P0
+  status: GOVERNANCE
+  section: 18. Documentation and research deliverables
+  requirement: '`plans/master.md` MUST link to this requirements specification as the authoritative requirement register.'
+  acceptance_evidence: Link validation.
+  traceability_raw: Decision 25
+  decision_refs:
+  - '25'
+  phase_refs: []
+- id: DOC-002
+  group: DOC
+  priority: P0
+  status: GOVERNANCE
+  section: 18. Documentation and research deliverables
+  requirement: This document MUST link to `plans/master.md` as the execution and decision authority.
+  acceptance_evidence: Link validation.
+  traceability_raw: Decision 25
+  decision_refs:
+  - '25'
+  phase_refs: []
+- id: DOC-003
+  group: DOC
+  priority: P1
+  status: RESEARCH-GATED
+  section: 18. Documentation and research deliverables
+  requirement: '`docs/presentation-standard.md` MUST study n8n, 2–3 additional leading FOSS repositories, and strong Aspose
+    NuGet pages for principles rather than templates.'
+  acceptance_evidence: Research document review.
+  traceability_raw: Phase 20
+  decision_refs: []
+  phase_refs:
+  - '20'
+- id: DOC-004
+  group: DOC
+  priority: P1
+  status: RESEARCH-GATED
+  section: 18. Documentation and research deliverables
+  requirement: The presentation standard MUST define product clarity, audience fit, trust signals, installation path, verified
+    examples, navigation, visual usefulness, contribution readiness, maintenance signals, and natural commercial context.
+  acceptance_evidence: Research acceptance checklist.
+  traceability_raw: Phase 20
+  decision_refs: []
+  phase_refs:
+  - '20'
+- id: DOC-005
+  group: DOC
+  priority: P1
+  status: RESEARCH-GATED
+  section: 18. Documentation and research deliverables
+  requirement: '`docs/github-surface-control.md` MUST verify every control claim against current official GitHub documentation
+    and record class, permission, endpoint/file/UI location, dry-run/apply behavior, rollback, and evidence.'
+  acceptance_evidence: Control document review.
+  traceability_raw: Phase 20
+  decision_refs: []
+  phase_refs:
+  - '20'
+- id: DOC-006
+  group: DOC
+  priority: P1
+  status: RESEARCH-GATED
+  section: 18. Documentation and research deliverables
+  requirement: The product-facts and change-handoff schema MUST be documented and frozen before Phase-21/25 content work depends
+    on it.
+  acceptance_evidence: Schema and examples.
+  traceability_raw: Decision 22; Phase 20
+  decision_refs:
+  - '22'
+  phase_refs:
+  - '20'
+- id: DOC-007
+  group: DOC
+  priority: P1
+  status: RESEARCH-GATED
+  section: 18. Documentation and research deliverables
+  requirement: The traffic-feasibility study MUST answer whether the target is achievable, by when, through how many repositories,
+    and under what assumptions.
+  acceptance_evidence: Numbered study.
+  traceability_raw: Decision 20; Phase 20
+  decision_refs:
+  - '20'
+  phase_refs:
+  - '20'
+- id: DOC-008
+  group: DOC
+  priority: P1
+  status: PLANNED
+  section: 18. Documentation and research deliverables
+  requirement: '`docs/architecture.md`, `docs/safety-model.md`, and `docs/policy-authoring.md` MUST be updated when implementation
+    changes make them stale.'
+  acceptance_evidence: Documentation consistency review.
+  traceability_raw: Master-plan status
+  decision_refs: []
+  phase_refs: []
+- id: DOC-009
+  group: DOC
+  priority: P1
+  status: PLANNED
+  section: 18. Documentation and research deliverables
+  requirement: Each completed phase MUST update requirement statuses and attach evidence references before closeout.
+  acceptance_evidence: Phase-close checklist.
+  traceability_raw: GOV-007/010
+  decision_refs: []
+  phase_refs: []
+- id: DOC-010
+  group: DOC
+  priority: P2
+  status: PLANNED
+  section: 18. Documentation and research deliverables
+  requirement: The repository SHOULD include a generated traceability report mapping requirements to decisions, phases, tests,
+    modules, and evidence.
+  acceptance_evidence: Generated report.
+  traceability_raw: GOV-009/012
+  decision_refs: []
+  phase_refs: []

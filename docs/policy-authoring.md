@@ -2,8 +2,11 @@
 
 ## Enabling an already-listed repo
 
-Every real Aspose FOSS repo is already present in `data/products.json` (copied verbatim from
-Aspose's own registry) with `mode: "disabled"`. To enable one:
+Every real Aspose FOSS repo is already present in `data/products.json`, kept current by
+[`scripts/update_products_registry.py`](../scripts/update_products_registry.py) (see
+[`data/README.md`](../data/README.md)), with `mode: "disabled"`. You never need to hand-add a
+repo entry — the scheduled discovery workflow does that automatically, always as `disabled`. To
+enable one:
 
 1. Confirm `GH_TOKEN` has read access: `gh api repos/{org}/{repo}`.
 2. Author `config/policies/<policy_profile>.yml` (see shape below) — the `products_org_link`/

@@ -1,0 +1,152 @@
+{
+  "schema": "RunManifestV1-prototype",
+  "run_id": "control-class-proofs",
+  "surfaces_evaluated": 7,
+  "surfaces": [
+    {
+      "surface_id": "repo-settings(description,homepage,topics)",
+      "control_class": "B",
+      "action_mode": "proposal_only",
+      "outcome": "PROPOSED_DRY_RUN",
+      "observed_state_hash": "50acca18fef84b3c369644307687cf61661e137e541d27d80ef37c84267a4f5e",
+      "desired_state_hash": "537e1482d5dafb45367883d24870c51a4205c8dc9fd6ba4b235f0e35f1b16793",
+      "requirement_ids": [
+        "OWN-006",
+        "SURF-001",
+        "SURF-002",
+        "SURF-003",
+        "SURF-004",
+        "SURF-005",
+        "VAL-009"
+      ],
+      "validators_run": [
+        "description_len_ok",
+        "topics_count_ok",
+        "topics_normalized",
+        "no_keyword_stuffing"
+      ],
+      "proposal": "settings-dry-run-proposal.json",
+      "rollback": "before-snapshot recorded"
+    },
+    {
+      "surface_id": "social-preview",
+      "control_class": "C",
+      "action_mode": "manual_ui_prepared",
+      "outcome": "PREPARED_FOR_MANUAL_APPLY",
+      "observed_state_hash": "e34e28932be3acdfe519caa9d9ed27c937f59989f23c4400171b90b938c8af55",
+      "desired_state_hash": "e34e28932be3acdfe519caa9d9ed27c937f59989f23c4400171b90b938c8af55",
+      "requirement_ids": [
+        "OWN-007",
+        "SURF-010",
+        "SURF-013",
+        "SAFE-011"
+      ],
+      "validators_run": [
+        "dimensions_ok",
+        "format_ok",
+        "size_ok",
+        "claims_reviewed"
+      ],
+      "proposal": "social-preview-asset-spec.json",
+      "rollback": "previous preview unchanged until operator acts"
+    },
+    {
+      "surface_id": "releases+packages",
+      "control_class": "D",
+      "action_mode": "handoff_only",
+      "outcome": "ACKNOWLEDGED_BY_OWNER",
+      "observed_state_hash": "03b72e14f22f3b46bd9cdff9d5ec5a1ac11231d80c9b13c7b44126ed48105d63",
+      "desired_state_hash": null,
+      "requirement_ids": [
+        "OWN-004",
+        "OWN-013",
+        "SURF-014",
+        "FACT-005",
+        "FACT-008",
+        "CORE-022"
+      ],
+      "validators_run": [
+        "no_write_handler_scan"
+      ],
+      "proposal": "release-package-handoff-finding.json",
+      "rollback": "n/a \u2014 central agent owns nothing here"
+    },
+    {
+      "surface_id": "languages",
+      "control_class": "E",
+      "action_mode": "audit_only",
+      "outcome": "OBSERVED_NO_ANOMALY(real)/EXPLAINED(synthetic)",
+      "observed_state_hash": "2856439d930d1ad4d95a4ea6594ee0a63e0a4af39975f254275cd7d7738273d7",
+      "desired_state_hash": null,
+      "requirement_ids": [
+        "OWN-003",
+        "OWN-005",
+        "OWN-012",
+        "SURF-015"
+      ],
+      "validators_run": [
+        "no_write_proposal_check"
+      ],
+      "proposal": "generated-surface-language-audit.json",
+      "rollback": "n/a"
+    },
+    {
+      "surface_id": "README.md (full-overwrite-new-version)",
+      "control_class": "A",
+      "action_mode": "prepared_patch",
+      "outcome": "PROPOSED",
+      "observed_state_hash": "9030c8d86f84ee913c0de6f0a1a945302bd271c0a6efd0eeea62025b3d239968",
+      "desired_state_hash": "d423670778e30e03fc419be6b6d4ec8421bf14f6185355cbee49ae1d47387646",
+      "requirement_ids": [
+        "INT-002",
+        "INT-003",
+        "INT-004",
+        "INT-009",
+        "PIL-006",
+        "SAFE-012"
+      ],
+      "validators_run": [
+        "stale_claims",
+        "link_whitelist",
+        "prohibited_terms",
+        "upstream_preserved"
+      ],
+      "proposal": "tests/fixtures/overwrite-scenarios/full-overwrite-new-version/",
+      "rollback": "previous accepted blob in .state/"
+    },
+    {
+      "surface_id": "CONTRIBUTING.md (community-file-removed)",
+      "control_class": "A",
+      "action_mode": "prepared_patch",
+      "outcome": "PROPOSED_RESTORE",
+      "observed_state_hash": "372a43879993fe88a4d78c5ef214cf3271fbde429b6e60c34448d45e2b3157bb",
+      "desired_state_hash": "4e19a602bed1805756ca65b6168d92292cb98daa6c72f7784aed1d7a61203296",
+      "requirement_ids": [
+        "SURF-009",
+        "INT-002"
+      ],
+      "validators_run": [
+        "readme_untouched",
+        "unrelated_untouched"
+      ],
+      "proposal": "contributing-restore.patch",
+      "rollback": "accepted file content in .state/"
+    },
+    {
+      "surface_id": "LICENSE (lab)",
+      "control_class": "A",
+      "action_mode": "none",
+      "outcome": "NO_CHANGE",
+      "observed_state_hash": "76a7d0fa2ef08e04a5580a46a018148525197ab9c255c72c8193b091b79fc52c",
+      "desired_state_hash": "76a7d0fa2ef08e04a5580a46a018148525197ab9c255c72c8193b091b79fc52c",
+      "requirement_ids": [
+        "CORE-007"
+      ],
+      "validators_run": [],
+      "proposal": null,
+      "rollback": null
+    }
+  ],
+  "run_successful": true,
+  "rule": "a run is NOT successful if any required surface was skipped or failed"
+}

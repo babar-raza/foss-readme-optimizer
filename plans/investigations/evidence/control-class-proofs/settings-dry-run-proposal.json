@@ -1,0 +1,46 @@
+{
+  "mode": "DRY_RUN_PROPOSAL_ONLY",
+  "before": {
+    "description": null,
+    "homepage": null,
+    "topics": []
+  },
+  "after": {
+    "description": "Open-source Java library for creating and processing PDF files.",
+    "homepage": "https://products.aspose.org/pdf/java/",
+    "topics": [
+      "java",
+      "maven",
+      "open-source",
+      "pdf",
+      "pdf-generation"
+    ]
+  },
+  "changed_fields": [
+    "description",
+    "homepage",
+    "topics"
+  ],
+  "surface": "repository-settings",
+  "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+  "rationale": {
+    "description": "settings finding: currently null; drafted from product facts",
+    "homepage": "settings finding: currently null; canonical destination per policy",
+    "topics": "settings finding: currently empty; product/language/ecosystem, no stuffing"
+  },
+  "required_permission": "repo admin (Administration: write) \u2014 PATCH /repos/{o}/{r} + PUT /repos/{o}/{r}/topics",
+  "rollback": {
+    "method": "re-apply recorded before values",
+    "before_snapshot": {
+      "description": null,
+      "homepage": null,
+      "topics": []
+    }
+  },
+  "validators": {
+    "description_len_ok": true,
+    "topics_count_ok": true,
+    "topics_normalized": true,
+    "no_keyword_stuffing": true
+  }
+}

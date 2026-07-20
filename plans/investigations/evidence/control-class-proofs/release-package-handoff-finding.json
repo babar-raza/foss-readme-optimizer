@@ -1,0 +1,20 @@
+{
+  "schema": "HandoffFindingV1-prototype",
+  "finding_id": "cells-central-install-mismatch",
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "surface": "packages",
+  "control_class": "D-product-agent-owned",
+  "owner": "cells-product-agent",
+  "severity": "HIGH-user-facing",
+  "evidence": {
+    "readme_instructs": "Maven Central <dependency> org.aspose:aspose-cells-foss",
+    "maven_central_lookup": "0 results (search.maven.org, 2026-07-18)",
+    "release_tags": [
+      "V26.5.0",
+      "V26.4.0"
+    ],
+    "tag_naming_note": "family-inconsistent prefix (cells 'V', 3d/pdf 'v')"
+  },
+  "required_action": "Publish the artifact, or correct the README install section to the actual availability (product agent decides \u2014 central agent will NOT edit this technical claim)",
+  "state": "SENT"
+}

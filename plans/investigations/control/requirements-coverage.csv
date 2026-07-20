@@ -1,0 +1,224 @@
+id,group,priority,status,coverage,note,repair_route,section
+GOV-001,GOV,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+GOV-002,GOV,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+GOV-003,GOV,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+GOV-004,GOV,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+GOV-005,GOV,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+GOV-006,GOV,P1,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+GOV-007,GOV,P1,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+GOV-008,GOV,P1,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+GOV-009,GOV,P1,PLANNED,DEFERRED_WITH_DESIGN,CI traceability check designed via the traceability report + a roadmap card (validate_requirements.py),,3. Requirements governance
+GOV-010,GOV,P1,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+GOV-011,GOV,P1,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+GOV-012,GOV,P2,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] prototype manifest carries requirement IDs; not the frozen schema,,3. Requirements governance
+GOV-013,GOV,P1,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,3. Requirements governance
+BIZ-001,BIZ,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,4. Business and product outcomes
+BIZ-002,BIZ,P1,PLANNED,PARTIALLY_INVESTIGATED,Product-understanding criteria depend on Phase-20 presentation standard; measurement hierarchy designed,,4. Business and product outcomes
+BIZ-003,BIZ,P1,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,4. Business and product outcomes
+BIZ-004,BIZ,P1,RESEARCH-GATED,DEFERRED_WITH_DESIGN,Measurement hierarchy designed; feasibility study itself is Phase-20 homework in roadmap,,4. Business and product outcomes
+BIZ-005,BIZ,P1,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,4. Business and product outcomes
+BIZ-006,BIZ,P1,PLANNED,PARTIALLY_INVESTIGATED,Per-repo tailoring principle encoded; cross-pilot tailoring proof deferred to roadmap (VAL-016 wave),,4. Business and product outcomes
+BIZ-007,BIZ,P1,PLANNED,FULLY_INVESTIGATED,Three-way reconciliation preserves verified facts by design; the repository-file proof exercises no-fact-loss,,4. Business and product outcomes
+BIZ-008,BIZ,P2,PLANNED,DEFERRED_WITH_DESIGN,Relationship-language quality rides on existing validators + Phase-21 presentation work in roadmap,,4. Business and product outcomes
+OWN-001,OWN,P0,GOVERNANCE,FULLY_INVESTIGATED,The control-class inventory freezes one class per surface,,"5. Scope, control, and ownership boundaries"
+OWN-002,OWN,P0,GOVERNANCE,FULLY_INVESTIGATED,Five classes fixed; no additions,,"5. Scope, control, and ownership boundaries"
+OWN-003,OWN,P0,PLANNED,FULLY_INVESTIGATED,The generated-surface audit proof asserts no write path for generated surfaces,,"5. Scope, control, and ownership boundaries"
+OWN-004,OWN,P0,PLANNED,FULLY_INVESTIGATED,The handoff proof asserts no release/package write handler,,"5. Scope, control, and ownership boundaries"
+OWN-005,OWN,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,"5. Scope, control, and ownership boundaries"
+OWN-006,OWN,P0,PLANNED,FULLY_INVESTIGATED,The settings proof demonstrates a dry-run-first gated settings workflow (no remote write in pilot),,"5. Scope, control, and ownership boundaries"
+OWN-007,OWN,P0,PLANNED,FULLY_INVESTIGATED,The social-preview proof demonstrates the manual-UI contract with PREPARED_FOR_MANUAL_APPLY,,"5. Scope, control, and ownership boundaries"
+OWN-008,OWN,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,"5. Scope, control, and ownership boundaries"
+OWN-009,OWN,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,"5. Scope, control, and ownership boundaries"
+OWN-010,OWN,P0,PLANNED,FULLY_INVESTIGATED,Blocking handoff on ambiguous/missing facts in contracts + the handoff proof's response loop,,"5. Scope, control, and ownership boundaries"
+OWN-011,OWN,P1,PLANNED,PARTIALLY_INVESTIGATED,Editorial-authority bounds designed; fine-grained rules await Phase-20 presentation standard,,"5. Scope, control, and ownership boundaries"
+OWN-012,OWN,P1,PLANNED,FULLY_INVESTIGATED,The generated-surface audit names the underlying cause; no field edits,,"5. Scope, control, and ownership boundaries"
+OWN-013,OWN,P1,PLANNED,FULLY_INVESTIGATED,The handoff proof: findings handed to product owner,,"5. Scope, control, and ownership boundaries"
+OWN-014,OWN,P1,PLANNED,PARTIALLY_INVESTIGATED,Permission+rollback recorded in the settings proof; full github-surface-control doc is Phase-20 research in roadmap,,"5. Scope, control, and ownership boundaries"
+OWN-015,OWN,P1,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] action_mode present in the prototype manifest; not frozen,,"5. Scope, control, and ownership boundaries"
+FACT-001,FACT,P0,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] block-on-missing-facts behavior proven (the stale-facts and handoff proofs); ProductFactsV1 record not yet frozen,,6. Product-facts and provenance requirements
+FACT-002,FACT,P0,PLANNED,DEFERRED_WITH_DESIGN,[review-downgraded] minimum-fields listed but the schema is not yet frozen,,6. Product-facts and provenance requirements
+FACT-003,FACT,P0,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] claim->fact matching is a prototype heading/bullet MVP; full contract pending,,6. Product-facts and provenance requirements
+FACT-004,FACT,P0,PLANNED,FULLY_INVESTIGATED,Missing facts => blocking finding (contracts + the handoff proof),,6. Product-facts and provenance requirements
+FACT-005,FACT,P0,PLANNED,FULLY_INVESTIGATED,Conflicting sources => owner resolution before change (contract + response loop),,6. Product-facts and provenance requirements
+FACT-006,FACT,P1,PLANNED,DEFERRED_WITH_DESIGN,[review-downgraded] provenance fields specified; ProductFactsV1 schema not written yet,,6. Product-facts and provenance requirements
+FACT-007,FACT,P1,PLANNED,PARTIALLY_INVESTIGATED,Verified-example field designed; execution/verification mechanics deferred to roadmap,,6. Product-facts and provenance requirements
+FACT-008,FACT,P1,PLANNED,FULLY_INVESTIGATED,"Release facts via handoff, never stale prose (the handoff proof)",,6. Product-facts and provenance requirements
+FACT-009,FACT,P1,PLANNED,DEFERRED_WITH_DESIGN,[review-downgraded] limitation preservation designed; no dedicated proof this sprint,,6. Product-facts and provenance requirements
+FACT-010,FACT,P2,PLANNED,DEFERRED_WITH_DESIGN,[review-downgraded] dependency_fact_ids designed in the state model; targeted reevaluation not proven,,6. Product-facts and provenance requirements
+RDM-001,RDM,P0,PLANNED,DEFERRED_WITH_DESIGN,"Callout retirement is a roadmap card (production change, out of investigation scope)",,7. README presentation requirements
+RDM-002,RDM,P0,PLANNED,PARTIALLY_INVESTIGATED,Product-first opening principle encoded; measurable criteria await Phase-20 standard,,7. README presentation requirements
+RDM-003,RDM,P0,PLANNED,FULLY_INVESTIGATED,No-generic-template: three-way recompile + embedding similarity detection (the repository-file proof's generic-template scenario),,7. README presentation requirements
+RDM-004,RDM,P0,PLANNED,FULLY_INVESTIGATED,Surgical fact-backed changes: desired-state compile + change classification,,7. README presentation requirements
+RDM-005,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-006,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-007,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-008,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-009,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-010,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-011,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-012,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-013,RDM,P1,IMPLEMENTED,ALREADY_PROVEN,Existing resources-span behavior; Phase 0-15 tests + evidence,,7. README presentation requirements
+RDM-014,RDM,P1,PLANNED,FULLY_INVESTIGATED,Span presence != completeness (established in the current-state findings),,7. README presentation requirements
+RDM-015,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-016,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-017,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-018,RDM,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,7. README presentation requirements
+RDM-019,RDM,P2,RESEARCH-GATED,DEFERRED_WITHOUT_DESIGN,First-screen/minute/install standard is Phase-20 research; P2,Roadmap Wave 0 card (Phase-20 research),7. README presentation requirements
+RDM-020,RDM,P2,PLANNED,PARTIALLY_INVESTIGATED,Generic/mechanical-prose detection via endpoint embeddings; calibration in the repository-file proof,,7. README presentation requirements
+RDM-021,RDM,P2,PLANNED,PARTIALLY_INVESTIGATED,Markdown/anchor/fence validation designed on AST model; implementation in roadmap,,7. README presentation requirements
+RDM-022,RDM,P2,PLANNED,DEFERRED_WITH_DESIGN,Per-change rationale field in proposals (RunManifestV1),,7. README presentation requirements
+RDM-023,RDM,P2,IMPLEMENTED,ALREADY_PROVEN,Secondary-links best-effort tracking shipped,,7. README presentation requirements
+SURF-001,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
+SURF-002,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
+SURF-003,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
+SURF-004,SURF,P0,PLANNED,FULLY_INVESTIGATED,The settings proof negative-asserts no remote write without an apply gate,,8. Repository settings and supporting surfaces
+SURF-005,SURF,P1,PLANNED,FULLY_INVESTIGATED,Proposal = before/after + rationale + permission + rollback + evidence (the settings proof),,8. Repository settings and supporting surfaces
+SURF-006,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
+SURF-007,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
+SURF-008,SURF,P0,GOVERNANCE,FULLY_INVESTIGATED,File-vs-GitHub-display distinction encoded in the control-class model,,8. Repository settings and supporting surfaces
+SURF-009,SURF,P1,PLANNED,FULLY_INVESTIGATED,Community files use the same push-blocked evidence model (the repository-file proof),,8. Repository settings and supporting surfaces
+SURF-010,SURF,P1,PLANNED,FULLY_INVESTIGATED,Illustration vs social preview separated (the social-preview proof),,8. Repository settings and supporting surfaces
+SURF-011,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
+SURF-012,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
+SURF-013,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
+SURF-014,SURF,P1,PLANNED,FULLY_INVESTIGATED,Release/package audit without touching the owned surface (the handoff proof),,8. Repository settings and supporting surfaces
+SURF-015,SURF,P2,PLANNED,FULLY_INVESTIGATED,Generated-surface anomalies investigated via repo evidence (the generated-surface audit),,8. Repository settings and supporting surfaces
+CORE-001,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-002,CORE,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-003,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-004,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-005,CORE,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-006,CORE,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-007,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-008,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-009,CORE,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-010,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-011,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-012,CORE,P0,IMPLEMENTED,PARTIALLY_INVESTIGATED,"IMPLEMENTED as scoped, but the current-state evidence proves work-clone-as-state fails portability/CI; routed to a supersession delta (work clone -> cache role)",,9. Core engine and registry requirements
+CORE-013,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-014,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-015,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-016,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-017,CORE,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-018,CORE,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-019,CORE,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-020,CORE,P1,PLANNED,FULLY_INVESTIGATED,The spine extends the one pipeline across surfaces (no second pipeline),,9. Core engine and registry requirements
+CORE-021,CORE,P1,PLANNED,FULLY_INVESTIGATED,Per-surface detector/class/proposal/validators/evidence/gate is the control-class proof structure,,9. Core engine and registry requirements
+CORE-022,CORE,P1,PLANNED,FULLY_INVESTIGATED,The handoff and generated-surface audit proofs assert no write handler for classes D/E,,9. Core engine and registry requirements
+CORE-023,CORE,P2,IMPLEMENTED,DEFERRED_WITHOUT_DESIGN,Registry sync script is Phase-18 ops; P2,Roadmap ops card,9. Core engine and registry requirements
+CORE-024,CORE,P2,PLANNED,DEFERRED_WITHOUT_DESIGN,Broader README corpus (.NET etc.) is Phase-19; P2,Roadmap verification-wave card,9. Core engine and registry requirements
+CORE-025,CORE,P2,PLANNED,DEFERRED_WITH_DESIGN,Offline evidence replay designed in the reconciliation/apply design (replay from evidence bundle),,9. Core engine and registry requirements
+CORE-026,CORE,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-027,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-028,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-029,CORE,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-030,CORE,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+CORE-031,CORE,P1,IMPLEMENTED,PARTIALLY_INVESTIGATED,Runtime layout works locally; durable-state role superseded by the .state/ StateStore proposal,,9. Core engine and registry requirements
+CORE-032,CORE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,9. Core engine and registry requirements
+OPS-001,OPS,P1,PLANNED,DEFERRED_WITHOUT_DESIGN,act local CI simulation not performed (system package install needs approval); P1,Roadmap card: install act + workflow_dispatch e2e (Phase 16),10. Operational and workflow requirements
+OPS-002,OPS,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,10. Operational and workflow requirements
+OPS-003,OPS,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,10. Operational and workflow requirements
+OPS-004,OPS,P2,PLANNED,DEFERRED_WITH_DESIGN,Golden-set monitor = scheduled safety-net mode in the consolidated architecture's publishing design,,10. Operational and workflow requirements
+OPS-005,OPS,P2,IMPLEMENTED,DEFERRED_WITHOUT_DESIGN,Registry sync ops; P2,Roadmap ops card (Phase 18),10. Operational and workflow requirements
+OPS-006,OPS,P2,PLANNED,DEFERRED_WITHOUT_DESIGN,Dependabot config; P2,Roadmap ops card (Phase 18),10. Operational and workflow requirements
+OPS-007,OPS,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,10. Operational and workflow requirements
+OPS-008,OPS,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,10. Operational and workflow requirements
+LLM-001,LLM,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,11. LLM requirements
+LLM-002,LLM,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,11. LLM requirements
+LLM-003,LLM,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,11. LLM requirements
+LLM-004,LLM,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,11. LLM requirements
+LLM-005,LLM,P0,PLANNED,DEFERRED_WITH_DESIGN,"[review-downgraded] facts-only prompt coupling for future jobs designed, not built",,11. LLM requirements
+LLM-006,LLM,P0,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] referential-integrity pattern shipped + gpt-oss reliability risk proven; future-job guard unbuilt,,11. LLM requirements
+LLM-007,LLM,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,11. LLM requirements
+LLM-008,LLM,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,11. LLM requirements
+LLM-009,LLM,P1,PLANNED,PARTIALLY_INVESTIGATED,Description prose validation partially exercised by the settings proof; full validators in roadmap,,11. LLM requirements
+LLM-010,LLM,P1,PLANNED,DEFERRED_WITH_DESIGN,Visual-claims validation designed with the asset contract; implementation in roadmap,,11. LLM requirements
+LLM-011,LLM,P1,PLANNED,PARTIALLY_INVESTIGATED,Prompt-injection-as-untrusted-data named in the consolidated architecture's security section; adversarial fixtures deferred (Phase-17 wave),,11. LLM requirements
+LLM-012,LLM,P2,PLANNED,DEFERRED_WITH_DESIGN,Model-drift monitoring = scheduled safety-net + the LLM gateway-characterization baseline,,11. LLM requirements
+LLM-013,LLM,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,11. LLM requirements
+LLM-014,LLM,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,11. LLM requirements
+VAL-001,VAL,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,12. Validation and quality gates
+VAL-002,VAL,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,12. Validation and quality gates
+VAL-003,VAL,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,12. Validation and quality gates
+VAL-004,VAL,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,12. Validation and quality gates
+VAL-005,VAL,P1,PLANNED,DEFERRED_WITH_DESIGN,READMEPresentationReport awaits the Phase-20 standard; roadmap wave,,12. Validation and quality gates
+VAL-006,VAL,P0,PLANNED,FULLY_INVESTIGATED,Presentation validation must not reward moving promo links up (plan principle + MET-005),,12. Validation and quality gates
+VAL-007,VAL,P0,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] claim provenance uses prototype matching; frozen validator pending,,12. Validation and quality gates
+VAL-008,VAL,P0,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] surfaces classified + proofs route by class; blocking validator not built,,12. Validation and quality gates
+VAL-009,VAL,P0,PLANNED,FULLY_INVESTIGATED,The settings proof: dry-run/permission/before-after/rollback validation,,12. Validation and quality gates
+VAL-010,VAL,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,12. Validation and quality gates
+VAL-011,VAL,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,12. Validation and quality gates
+VAL-012,VAL,P1,PLANNED,PARTIALLY_INVESTIGATED,Community-file validation exercised minimally in the repository-file proof; full checks in roadmap,,12. Validation and quality gates
+VAL-013,VAL,P1,PLANNED,PARTIALLY_INVESTIGATED,Visual validation contract in the social-preview proof (dimensions/type/size/claims); full suite in roadmap,,12. Validation and quality gates
+VAL-014,VAL,P1,PLANNED,PARTIALLY_INVESTIGATED,Markdown/link/anchor validation designed on the AST model; roadmap wave,,12. Validation and quality gates
+VAL-015,VAL,P1,PLANNED,FULLY_INVESTIGATED,Unresolved fact conflict => proposal blocked (contracts + the handoff proof),,12. Validation and quality gates
+VAL-016,VAL,P2,PLANNED,PARTIALLY_INVESTIGATED,Template-clone similarity via endpoint embeddings; calibration method defined in the reuse/LLM analysis,,12. Validation and quality gates
+VAL-017,VAL,P2,PLANNED,DEFERRED_WITH_DESIGN,Adversarial fixtures enumerated in the negative-control list; execution in roadmap (Phase-17 wave),,12. Validation and quality gates
+SAFE-001,SAFE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,"13. Safety, security, and evidence requirements"
+SAFE-002,SAFE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,"13. Safety, security, and evidence requirements"
+SAFE-003,SAFE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,"13. Safety, security, and evidence requirements"
+SAFE-004,SAFE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,"13. Safety, security, and evidence requirements"
+SAFE-005,SAFE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,"13. Safety, security, and evidence requirements"
+SAFE-006,SAFE,P0,PLANNED,DEFERRED_WITH_DESIGN,Monitor structurally unable to escalate: workflow-hardcoded dry-run design (the consolidated architecture),,"13. Safety, security, and evidence requirements"
+SAFE-007,SAFE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,"13. Safety, security, and evidence requirements"
+SAFE-008,SAFE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,"13. Safety, security, and evidence requirements"
+SAFE-009,SAFE,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,"13. Safety, security, and evidence requirements"
+SAFE-010,SAFE,P0,PLANNED,DEFERRED_WITH_DESIGN,"[review-downgraded] authorization+snapshot+rollback designed; apply gate deferred, unproven",,"13. Safety, security, and evidence requirements"
+SAFE-011,SAFE,P0,PLANNED,FULLY_INVESTIGATED,The social-preview proof: manual step never reported complete without operator evidence,,"13. Safety, security, and evidence requirements"
+SAFE-012,SAFE,P0,PLANNED,FULLY_INVESTIGATED,"No-silent-revert: drift => proposal/handoff only (three-way recompile, never auto-revert)",,"13. Safety, security, and evidence requirements"
+SAFE-013,SAFE,P1,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] RunManifestV1 is a prototype in the proofs; schema not frozen,,"13. Safety, security, and evidence requirements"
+SAFE-014,SAFE,P1,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] requirement-ID recording shown in the prototype manifest; not frozen,,"13. Safety, security, and evidence requirements"
+SAFE-015,SAFE,P1,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] rerun no-op via fingerprint shown in the prototype; full reproducibility unproven,,"13. Safety, security, and evidence requirements"
+SAFE-016,SAFE,P1,PLANNED,PARTIALLY_INVESTIGATED,Binary asset checksums+provenance designed; implementation in roadmap,,"13. Safety, security, and evidence requirements"
+SAFE-017,SAFE,P1,PLANNED,FULLY_INVESTIGATED,Failed validation blocks + names failed requirement IDs (RunManifestV1),,"13. Safety, security, and evidence requirements"
+SAFE-018,SAFE,P2,PLANNED,DEFERRED_WITHOUT_DESIGN,Lockfile+dependabot; P2,Roadmap ops card (Phase 18),"13. Safety, security, and evidence requirements"
+INT-001,INT,P0,PLANNED,DEFERRED_WITH_DESIGN,"[review-downgraded] publishing ordering / one-final-writer is architecture design, not proven",,14. Integration and drift-protection requirements
+INT-002,INT,P0,PLANNED,FULLY_INVESTIGATED,Drift taxonomy covers markers/sections/prose/facts/visuals/links/files (12 categories),,14. Integration and drift-protection requirements
+INT-003,INT,P0,PLANNED,FULLY_INVESTIGATED,Drift compares facts AND the accepted baseline (base/accepted/upstream/facts/policy),,14. Integration and drift-protection requirements
+INT-004,INT,P0,PLANNED,FULLY_INVESTIGATED,"Drift => evidence + proposal/handoff, never silent overwrite",,14. Integration and drift-protection requirements
+INT-005,INT,P0,PLANNED,FULLY_INVESTIGATED,Technical->product-owner routing vs presentation->central-gates (classification),,14. Integration and drift-protection requirements
+INT-006,INT,P1,PLANNED,DEFERRED_WITH_DESIGN,[review-downgraded] fact-change targeted reevaluation designed only,,14. Integration and drift-protection requirements
+INT-007,INT,P1,PLANNED,DEFERRED_WITH_DESIGN,Scheduled re-audit = safety-net mode; history preservation in roadmap,,14. Integration and drift-protection requirements
+INT-008,INT,P1,PLANNED,FULLY_INVESTIGATED,Generic-template overwrite detection: the generic-template scenario + embeddings,,14. Integration and drift-protection requirements
+INT-009,INT,P1,PLANNED,FULLY_INVESTIGATED,Legitimate-update vs regression distinction: change classification (the repository-file proof),,14. Integration and drift-protection requirements
+INT-010,INT,P2,PLANNED,DEFERRED_WITH_DESIGN,[review-downgraded] machine-readable versioned contracts not yet frozen,,14. Integration and drift-protection requirements
+NFR-001,NFR,P0,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,15. Non-functional requirements
+NFR-002,NFR,P0,IMPLEMENTED,PARTIALLY_INVESTIGATED,Proven on a dev machine; the current-state evidence shows it does NOT hold on ephemeral CI (no durable state) -> strengthening delta,,15. Non-functional requirements
+NFR-003,NFR,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,15. Non-functional requirements
+NFR-004,NFR,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,15. Non-functional requirements
+NFR-005,NFR,P1,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] shared spine shown in the prototype; production modularity unproven,,15. Non-functional requirements
+NFR-006,NFR,P1,PLANNED,PARTIALLY_INVESTIGATED,Human-readable proposal/report formats designed; full reports in roadmap,,15. Non-functional requirements
+NFR-007,NFR,P1,PLANNED,PARTIALLY_INVESTIGATED,Repo-specific character preserved by design; similarity checks partial (embeddings),,15. Non-functional requirements
+NFR-008,NFR,P1,PLANNED,FULLY_INVESTIGATED,Reversibility via baseline/diff/settings-snapshot (rollback design),,15. Non-functional requirements
+NFR-009,NFR,P1,PLANNED,PARTIALLY_INVESTIGATED,CRLF determinism implemented; full Windows/Linux cross-platform test matrix in roadmap,,15. Non-functional requirements
+NFR-010,NFR,P2,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] surface-level one-fail-flips proven; per-repo isolation untested,,15. Non-functional requirements
+NFR-011,NFR,P2,PLANNED,PARTIALLY_INVESTIGATED,Report stability via versioned schemas; history comparisons in roadmap,,15. Non-functional requirements
+NFR-012,NFR,P2,PLANNED,FULLY_INVESTIGATED,LLM-call minimization: deterministic workers + generation cache + skip logic,,15. Non-functional requirements
+PIL-001,PIL,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,"16. Pilot, rollout, and acceptance requirements"
+PIL-002,PIL,P0,PLANNED,PARTIALLY_INVESTIGATED,Repo-specific proposals by design; cross-pilot tailoring comparison deferred (VAL-016 wave),,"16. Pilot, rollout, and acceptance requirements"
+PIL-003,PIL,P0,PLANNED,FULLY_INVESTIGATED,No expansion until the rollout gates pass (plan constraint),,"16. Pilot, rollout, and acceptance requirements"
+PIL-004,PIL,P0,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,"16. Pilot, rollout, and acceptance requirements"
+PIL-005,PIL,P0,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,"16. Pilot, rollout, and acceptance requirements"
+PIL-006,PIL,P0,PLANNED,FULLY_INVESTIGATED,Simulated product-agent refresh survival IS the repository-file proof (this sprint's core),,"16. Pilot, rollout, and acceptance requirements"
+PIL-007,PIL,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,"16. Pilot, rollout, and acceptance requirements"
+PIL-008,PIL,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,"16. Pilot, rollout, and acceptance requirements"
+PIL-009,PIL,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,"16. Pilot, rollout, and acceptance requirements"
+PIL-010,PIL,P2,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,"16. Pilot, rollout, and acceptance requirements"
+MET-001,MET,P1,RESEARCH-GATED,DEFERRED_WITHOUT_DESIGN,"Referral baseline study = Phase-20 homework, not this sprint; P1",Roadmap Wave 0 card (Phase-20 traffic study),17. Measurement requirements
+MET-002,MET,P1,RESEARCH-GATED,DEFERRED_WITHOUT_DESIGN,Feasibility-study contents = Phase-20; P1,Roadmap Wave 0 card (Phase-20 traffic study),17. Measurement requirements
+MET-003,MET,P1,PLANNED,DEFERRED_WITH_DESIGN,UTM already policy-driven; measurement hierarchy designed,,17. Measurement requirements
+MET-004,MET,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,17. Measurement requirements
+MET-005,MET,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,17. Measurement requirements
+MET-006,MET,P1,RESEARCH-GATED,DEFERRED_WITHOUT_DESIGN,Observation period definition = Phase-20; P1,Roadmap Wave 0 card (Phase-20 traffic study),17. Measurement requirements
+MET-007,MET,P2,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,17. Measurement requirements
+MET-008,MET,P2,PLANNED,FULLY_INVESTIGATED,Target changes only via a governed decision (plan constraint),,17. Measurement requirements
+DOC-001,DOC,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,18. Documentation and research deliverables
+DOC-002,DOC,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,18. Documentation and research deliverables
+DOC-003,DOC,P1,RESEARCH-GATED,DEFERRED_WITHOUT_DESIGN,Presentation-standard research (n8n/nuget) not in sprint; P1,Roadmap Wave 0 card (Phase-20 research),18. Documentation and research deliverables
+DOC-004,DOC,P1,RESEARCH-GATED,DEFERRED_WITHOUT_DESIGN,Presentation-standard contents; P1,Roadmap Wave 0 card (Phase-20 research),18. Documentation and research deliverables
+DOC-005,DOC,P1,RESEARCH-GATED,PARTIALLY_INVESTIGATED,Surface model covers classes/authority; official-GitHub-doc verification pass deferred to a Phase-20 card,,18. Documentation and research deliverables
+DOC-006,DOC,P1,RESEARCH-GATED,DEFERRED_WITH_DESIGN,"[review-downgraded] product-facts/handoff schema is a pending deliverable, not yet frozen",,18. Documentation and research deliverables
+DOC-007,DOC,P1,RESEARCH-GATED,DEFERRED_WITHOUT_DESIGN,Traffic study; P1,Roadmap Wave 0 card (Phase-20 traffic study),18. Documentation and research deliverables
+DOC-008,DOC,P1,PLANNED,PARTIALLY_INVESTIGATED,Stale docs (architecture.md/AGENTS.md callout) found; fixes routed via the contradiction ledger,,18. Documentation and research deliverables
+DOC-009,DOC,P1,PLANNED,FULLY_INVESTIGATED,Honest-status rule enforced (nothing IMPLEMENTED for drafts),,18. Documentation and research deliverables
+DOC-010,DOC,P2,PLANNED,FULLY_INVESTIGATED,The traceability report generates this mapping,,18. Documentation and research deliverables
