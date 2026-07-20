@@ -5,13 +5,14 @@ build-backend = "hatchling.build"
 [project]
 name = "readme-agent"
 version = "0.1.0"
-description = "Audits and remediates missing promotional content in Aspose FOSS GitHub READMEs"
+description = "Capability-driven repository-presentation agent; ships today as a README audit/remediation engine for the Aspose FOSS portfolio"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "requests>=2.28",
     "PyYAML>=6.0",
     "pydantic>=2.0",
+    "langgraph>=1.0",
 ]
 
 [project.optional-dependencies]
@@ -29,7 +30,7 @@ readme-agent = "readme_agent.cli:main"
 packages = ["src/readme_agent"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
+pythonpath = ["src", "scripts"]
 testpaths = ["tests"]
 markers = [
     "live: requires real network access / live secrets, excluded from default CI run",

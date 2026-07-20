@@ -5,12 +5,29 @@ partial-gap (pdf/java).
 """
 
 import json
+import re
+from pathlib import Path
 
 import pytest
 
-from readme_agent.errors import NotAllowlistedError
+from readme_agent import paths
+from readme_agent.errors import NotAllowlistedError, StateBackendError
 from readme_agent.gitsafety._git import run_git
 from readme_agent.orchestrator import generate_repo, run_repo
+from readme_agent.readme.markers import render_span
+from readme_agent.state.backend import SaveResult
+from readme_agent.state.schema import DomainStateV1, RunStateV1, SupervisorStateV1
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+# Phase 21: must explain the product (not just name it) so the new
+# product_first_opening/commercial_mention_discipline gates pass cleanly on
+# fixtures that aren't testing those rules specifically.
+BLANK_SLATE_README = (
+    "# Example FOSS for Java\n\n"
+    "Example FOSS for Java is a Java library for creating, reading, and "
+    "modifying document files.\n"
+)
 
 POM_XML = """<project>
   <groupId>com.example</groupId>
@@ -75,6 +92,18 @@ def _init_source_repo(path, readme_text: str):
 def _setup_project_root(tmp_path, source_clone_url: str, mode: str):
     (tmp_path / "data").mkdir()
     (tmp_path / "config" / "policies").mkdir(parents=True)
+    prompt_dir = tmp_path / "prompts" / "relationship_explained"
+    prompt_dir.mkdir(parents=True)
+    (prompt_dir / "system.txt").write_text(
+        (REPO_ROOT / "prompts" / "relationship_explained" / "system.txt").read_text(
+            encoding="utf-8"
+        ),
+        encoding="utf-8",
+    )
+    (prompt_dir / "user.txt").write_text(
+        (REPO_ROOT / "prompts" / "relationship_explained" / "user.txt").read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
     products = [
         {
             "family": "thing",
@@ -85,7 +114,7 @@ def _setup_project_root(tmp_path, source_clone_url: str, mode: str):
             "active": True,
             "discovered_via": "manual",
             "mode": mode,
-            "ecosystem": "maven",
+            "ecosystem": "java",
             "policy_profile": "test-profile",
         }
     ]
@@ -101,11 +130,59 @@ def _setup_project_root(tmp_path, source_clone_url: str, mode: str):
 ORG_REPO = "example-foss/Example-FOSS-for-Java"
 
 
+class _FakeStateBackend:
+    """Minimal in-memory `StateBackend` for the fresh-runner test below --
+    the full CAS/lock contract is proven separately (test_state_backend.py),
+    this one only needs `load`/`save` to seed an accepted record."""
+
+    def __init__(self):
+        self._states: dict[str, RunStateV1] = {}
+
+    def load(self, org_repo):
+        return self._states.get(org_repo)
+
+    def save(self, org_repo, state, expected_version):
+        current = self._states.get(org_repo)
+        current_version = current.state_version if current else None
+        if expected_version != current_version:
+            return SaveResult(outcome="stale", new_version=current_version)
+        new_version = (current_version or 0) + 1
+        self._states[org_repo] = state.model_copy(update={"state_version": new_version})
+        return SaveResult(outcome="saved", new_version=new_version)
+
+    def acquire_lock(self, org_repo):
+        return None
+
+    def release_lock(self, lock):
+        pass
+
+
+class _RaisingStateBackend:
+    """A `StateBackend` whose every method raises `StateBackendError` --
+    simulates a durable backend that is unreachable (network, credentials --
+    the exact failure `RUN-003`'s live `act` reproduction found: a checkout
+    that didn't persist push credentials made a real `git push` fail this
+    way). Proves the opt-in enhancement can never take down the run it's
+    enhancing, mirroring `inspect_repo`'s `check_install` convention."""
+
+    def load(self, org_repo):
+        raise StateBackendError("simulated: durable backend unreachable (load)")
+
+    def save(self, org_repo, state, expected_version):
+        raise StateBackendError("simulated: durable backend unreachable (save)")
+
+    def acquire_lock(self, org_repo):
+        raise StateBackendError("simulated: durable backend unreachable (lock)")
+
+    def release_lock(self, lock):
+        raise StateBackendError("simulated: durable backend unreachable (lock)")
+
+
 class TestBlankSlateRepo:
     """Mirrors cells/java: nothing present, needs a real LLM call."""
 
     def test_first_run_generates_and_calls_the_llm(self, tmp_path, monkeypatch):
-        source = _init_source_repo(tmp_path / "source", "# Example FOSS for Java\n\nIntro.\n")
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
         fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
         monkeypatch.chdir(tmp_path)
 
@@ -113,13 +190,19 @@ class TestBlankSlateRepo:
 
         assert result.status == "GENERATED"
         assert result.llm_called
+        assert result.llm_calls == ["relationship_explained"]
         text = result.work_readme_path.read_text(encoding="utf-8")
         assert "products.example.org" in text
         assert "products.example.com" in text
         assert "free, open-source FOSS edition" in text
 
+        # LLM-015: usage must be visible in evidence, not just minimized.
+        manifest = json.loads((result.evidence_dir / "manifest.json").read_text(encoding="utf-8"))
+        assert manifest["llm_call_count"] == 1
+        assert manifest["llm_calls"] == ["relationship_explained"]
+
     def test_second_run_is_idempotent_zero_llm_calls(self, tmp_path, monkeypatch):
-        source = _init_source_repo(tmp_path / "source", "# Example FOSS for Java\n\nIntro.\n")
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
         fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
         monkeypatch.chdir(tmp_path)
 
@@ -154,9 +237,52 @@ class TestFullyCompliantRepo:
 
         assert result.status == "COMPLIANT_NO_CHANGE"
         assert not result.llm_called
+        assert result.llm_calls == []
         assert result.gap_report.fully_compliant
         # Never touched: file on disk still equals what was originally cloned.
         assert result.work_readme_path.read_text(encoding="utf-8") == compliant_readme
+
+
+class TestCalloutMigration:
+    """RDM-001 / decision #9: a legacy callout span already materialized in a
+    work clone (from before Phase 21) must be stripped on the very next run,
+    even when that run is otherwise a no-op skip -- generate_repo's skip
+    branch never writes readme_path, so this proves the migration step's
+    unconditional, always-persisted write (orchestrator.py, right after
+    current_text is read) actually reaches disk rather than only existing
+    in memory for that one run."""
+
+    def test_legacy_callout_left_in_a_work_clone_is_stripped_on_next_run(
+        self, tmp_path, monkeypatch
+    ):
+        compliant_readme = (
+            "# Example FOSS for Java\n\n"
+            "MIT License. This is the free, open-source edition. "
+            "Upgrade to the commercial edition for a broader feature set.\n\n"
+            "https://products.example.org/thing/java/\n"
+            "https://products.example.com/thing/java/\n"
+        )
+        source = _init_source_repo(tmp_path / "source", compliant_readme)
+        fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
+        monkeypatch.chdir(tmp_path)
+
+        first = generate_repo(ORG_REPO, llm_mode="fixture", fixture_response_path=fixture_path)
+        assert first.status == "COMPLIANT_NO_CHANGE"
+
+        # Simulate a pre-Phase-21 work clone by appending a legacy callout
+        # span directly to the on-disk work clone -- bypassing upsert_span,
+        # which no longer accepts "callout" (see markers.py).
+        work_readme_path = paths.work_dir("example-foss", "Example-FOSS-for-Java") / "README.md"
+        legacy_span = render_span("callout", "old promotional banner", "deadbeef")
+        work_readme_path.write_text(compliant_readme + "\n" + legacy_span, encoding="utf-8")
+
+        second = generate_repo(ORG_REPO, llm_mode="fixture", fixture_response_path=fixture_path)
+
+        assert second.status == "COMPLIANT_NO_CHANGE"
+        assert not second.llm_called
+        final_text = second.work_readme_path.read_text(encoding="utf-8")
+        assert "readme-agent:callout" not in final_text
+        assert final_text == compliant_readme
 
 
 class TestPartialGapRepo:
@@ -204,7 +330,7 @@ class TestAllowList:
 
 class TestRunModeFullCommitsLocally:
     def test_full_mode_commits_locally_never_pushes(self, tmp_path, monkeypatch):
-        source = _init_source_repo(tmp_path / "source", "# Example FOSS for Java\n\nIntro.\n")
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
         fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
         monkeypatch.chdir(tmp_path)
 
@@ -227,7 +353,7 @@ class TestStaleNoncompliantAndForceRegenerate:
     def test_tightening_word_limit_after_generation_yields_stale_noncompliant(
         self, tmp_path, monkeypatch
     ):
-        source = _init_source_repo(tmp_path / "source", "# Example FOSS for Java\n\nIntro.\n")
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
         fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
         monkeypatch.chdir(tmp_path)
 
@@ -249,7 +375,7 @@ class TestStaleNoncompliantAndForceRegenerate:
         assert second.work_readme_path.read_text(encoding="utf-8") == rendered_text_before
 
     def test_force_regenerate_overrides_the_stale_state(self, tmp_path, monkeypatch):
-        source = _init_source_repo(tmp_path / "source", "# Example FOSS for Java\n\nIntro.\n")
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
         fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
         monkeypatch.chdir(tmp_path)
 
@@ -273,3 +399,276 @@ class TestStaleNoncompliantAndForceRegenerate:
         # force-regenerate re-tries, it doesn't fake compliance.
         assert forced.llm_called
         assert forced.status == "BLOCKED_VALIDATION_FAILED"
+
+    def test_force_regenerate_preserves_previously_rendered_links(self, tmp_path, monkeypatch):
+        """Real bug found live during the Phase 21 pilot re-proof
+        (force-regenerating cells/java): org/com links that exist only
+        inside the tool's own resources span -- not in raw baseline prose --
+        must not be silently dropped just because force-regenerate only
+        needed a fresh relationship paragraph. upsert_span replaces the
+        whole span, so the render decision must re-detect every element
+        against the span-stripped text, not trust gap_report computed from
+        content that includes the very span about to be overwritten."""
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
+        fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
+        monkeypatch.chdir(tmp_path)
+
+        first = generate_repo(ORG_REPO, llm_mode="fixture", fixture_response_path=fixture_path)
+        assert first.status == "GENERATED"
+        first_text = first.work_readme_path.read_text(encoding="utf-8")
+        assert "products.example.org" in first_text
+        assert "products.example.com" in first_text
+
+        forced = generate_repo(
+            ORG_REPO,
+            llm_mode="fixture",
+            fixture_response_path=fixture_path,
+            force_regenerate=True,
+        )
+
+        assert forced.status == "GENERATED"
+        forced_text = forced.work_readme_path.read_text(encoding="utf-8")
+        assert "products.example.org" in forced_text
+        assert "products.example.com" in forced_text
+
+    def test_force_regenerate_of_a_stale_hash_render_does_not_spuriously_fail_idempotency(
+        self, tmp_path, monkeypatch
+    ):
+        """Second real bug found in the same pilot re-proof: validation must
+        check the hash actually embedded in the *freshly rendered* text, not
+        the stale pre-render hash captured before this run started --
+        otherwise a legitimate re-render (forced because the previously
+        embedded hash was stale, e.g. after a GENERATION_SCHEMA_VERSION
+        bump) always fails its own idempotency check, even though the fresh
+        render is completely correct. Real cells/java evidence: the
+        idempotency rule kept reporting the pre-bump hash as mismatched
+        after a successful force-regenerate that had already fixed
+        everything else."""
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
+        fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
+        monkeypatch.chdir(tmp_path)
+
+        first = generate_repo(ORG_REPO, llm_mode="fixture", fixture_response_path=fixture_path)
+        assert first.status == "GENERATED"
+
+        # Simulate a stale embedded hash (e.g. left over from before a
+        # GENERATION_SCHEMA_VERSION bump) by rewriting the work clone's
+        # resources span with a hash that can never match a freshly-derived
+        # one.
+        work_readme_path = paths.work_dir("example-foss", "Example-FOSS-for-Java") / "README.md"
+        stale_text = re.sub(
+            r'hash="sha256:[0-9a-f]+"',
+            'hash="sha256:' + "0" * 64 + '"',
+            first.work_readme_path.read_text(encoding="utf-8"),
+        )
+        work_readme_path.write_text(stale_text, encoding="utf-8")
+
+        forced = generate_repo(
+            ORG_REPO,
+            llm_mode="fixture",
+            fixture_response_path=fixture_path,
+            force_regenerate=True,
+        )
+
+        assert forced.status == "GENERATED"
+        forced_text = forced.work_readme_path.read_text(encoding="utf-8")
+        assert "products.example.org" in forced_text
+        assert "products.example.com" in forced_text
+
+
+class TestDurableStateFreshRunner:
+    """Wave 4 / `RUN-001`'s concrete regression test: idempotency ("second
+    run, zero LLM calls") must survive an ephemeral GitHub Actions runner
+    being wiped between jobs, not just a reused local work clone (decision
+    #12). Simulated as two *separate* runner working directories that share
+    only the durable state backend and the same upstream source -- the
+    second one's local work clone is genuinely fresh, never cloned before,
+    exactly the fresh-runner scenario `paths.work_dir()`'s persistence
+    cannot cover by itself."""
+
+    def test_fresh_runner_with_no_local_marker_skips_using_durable_state_alone(
+        self, tmp_path, monkeypatch
+    ):
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
+        backend = _FakeStateBackend()
+
+        runner_one = tmp_path / "runner-one"
+        runner_one.mkdir()
+        fixture_path_one = _setup_project_root(runner_one, str(source), mode="full")
+        monkeypatch.chdir(runner_one)
+        first = generate_repo(
+            ORG_REPO,
+            llm_mode="fixture",
+            fixture_response_path=fixture_path_one,
+            state_backend=backend,
+        )
+        assert first.status == "GENERATED"
+        assert first.llm_called
+
+        runner_two = tmp_path / "runner-two"
+        runner_two.mkdir()
+        fixture_path_two = _setup_project_root(runner_two, str(source), mode="full")
+        monkeypatch.chdir(runner_two)
+
+        second = generate_repo(
+            ORG_REPO,
+            llm_mode="fixture",
+            fixture_response_path=fixture_path_two,
+            state_backend=backend,
+        )
+
+        assert second.status == first.status
+        assert not second.llm_called
+        assert second.llm_calls == []
+
+    def test_without_a_state_backend_behavior_is_unchanged(self, tmp_path, monkeypatch):
+        """No `state_backend` passed (every existing caller, today) must
+        behave exactly as before Wave 4 -- a second fresh runner with no
+        shared backend still calls the LLM, since nothing durable exists."""
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
+
+        runner_one = tmp_path / "runner-one"
+        runner_one.mkdir()
+        fixture_path_one = _setup_project_root(runner_one, str(source), mode="full")
+        monkeypatch.chdir(runner_one)
+        first = generate_repo(ORG_REPO, llm_mode="fixture", fixture_response_path=fixture_path_one)
+        assert first.llm_called
+
+        runner_two = tmp_path / "runner-two"
+        runner_two.mkdir()
+        fixture_path_two = _setup_project_root(runner_two, str(source), mode="full")
+        monkeypatch.chdir(runner_two)
+        second = generate_repo(ORG_REPO, llm_mode="fixture", fixture_response_path=fixture_path_two)
+
+        assert second.llm_called  # no durable backend -- nothing to remember the prior run by
+
+    def test_unreachable_state_backend_does_not_abort_the_run(self, tmp_path, monkeypatch):
+        """`RUN-003` regression: found live via an `act` reproduction of
+        `readme-agent-run.yml` where `actions/checkout` didn't persist push
+        credentials, making the real `git push` fail with
+        `StateBackendError` -- uncaught, it aborted the whole run and lost
+        the evidence bundle for work that had already succeeded. A backend
+        that raises on every call must degrade to "not remembered," not
+        take the run down (mirrors `inspect_repo`'s `check_install`
+        convention)."""
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
+        fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
+        monkeypatch.chdir(tmp_path)
+
+        result = generate_repo(
+            ORG_REPO,
+            llm_mode="fixture",
+            fixture_response_path=fixture_path,
+            state_backend=_RaisingStateBackend(),
+        )
+
+        assert result.status == "GENERATED"
+        assert result.llm_called
+        assert result.evidence_dir is not None
+        assert (result.evidence_dir / "manifest.json").exists()
+
+    def test_fresh_runner_with_changed_upstream_content_does_not_blindly_skip(
+        self, tmp_path, monkeypatch
+    ):
+        """Decision #38's concrete regression test. Before the fix,
+        `durable_skip` required only `accepted_facts_hash == facts_hash` --
+        and `facts_hash` deliberately excludes README content (decision #11),
+        so a real upstream README edit between two fresh-runner calls was
+        silently invisible: the second call would blindly copy
+        `durable_state.accepted_status` without ever looking at the (changed)
+        content. Same two-separate-runner-directories shape as
+        `test_fresh_runner_with_no_local_marker_skips_using_durable_state_alone`
+        above, but the upstream `source` repo's README is genuinely edited in
+        between -- proving the second call now re-examines real content
+        instead of trusting stale history."""
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
+        backend = _FakeStateBackend()
+
+        runner_one = tmp_path / "runner-one"
+        runner_one.mkdir()
+        fixture_path_one = _setup_project_root(runner_one, str(source), mode="full")
+        monkeypatch.chdir(runner_one)
+        first = generate_repo(
+            ORG_REPO,
+            llm_mode="fixture",
+            fixture_response_path=fixture_path_one,
+            state_backend=backend,
+        )
+        assert first.status == "GENERATED"
+        assert first.llm_called
+
+        # A real upstream edit -- prose only, so manifest/license/policy (and
+        # therefore facts_hash) stay identical to the first call. Isolates
+        # the content-fingerprint gate from facts_hash's own, separate check.
+        edited_readme = (
+            BLANK_SLATE_README
+            + "\nThis edit simulates a real maintainer updating the README upstream.\n"
+        )
+        (source / "README.md").write_text(edited_readme, encoding="utf-8")
+        run_git(["add", "."], cwd=source)
+        run_git(["commit", "-m", "docs: update description"], cwd=source)
+
+        runner_two = tmp_path / "runner-two"
+        runner_two.mkdir()
+        fixture_path_two = _setup_project_root(runner_two, str(source), mode="full")
+        monkeypatch.chdir(runner_two)
+
+        second = generate_repo(
+            ORG_REPO,
+            llm_mode="fixture",
+            fixture_response_path=fixture_path_two,
+            state_backend=backend,
+        )
+
+        assert second.facts_hash == first.facts_hash  # confirms this isolates the fingerprint gate
+        assert second.llm_called  # must re-examine and re-render, not blindly trust history
+        rendered = second.work_readme_path.read_text(encoding="utf-8")
+        assert "This edit simulates a real maintainer updating the README upstream." in rendered
+        assert second.status == "GENERATED"
+
+    def test_record_accepted_state_preserves_domain_states_and_supervisor_state(
+        self, tmp_path, monkeypatch
+    ):
+        """Decision #38's second bug fix, verified directly: before this fix,
+        `_record_accepted_state()` built a brand-new `RunStateV1(...)` from
+        scratch on every write, silently dropping `domain_states`/
+        `supervisor_state` -- live today for `supervisor_state`, since
+        `supervisor/loop.py::supervise_repo()` already writes it. Seeds the
+        backend with both fields pre-populated (as if `supervise` already ran
+        for this repo), then runs a normal `generate_repo(state_backend=...)`
+        call and confirms both survive."""
+        source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
+        fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
+        monkeypatch.chdir(tmp_path)
+
+        backend = _FakeStateBackend()
+        backend.save(
+            ORG_REPO,
+            RunStateV1(
+                org_repo=ORG_REPO,
+                domain_states={
+                    "readme_reconciliation": DomainStateV1(
+                        domain="readme_reconciliation", accepted_status="NO_CHANGE"
+                    )
+                },
+                supervisor_state=SupervisorStateV1(last_status="CONVERGED_NO_CHANGE"),
+            ),
+            expected_version=None,
+        )
+
+        result = generate_repo(
+            ORG_REPO,
+            llm_mode="fixture",
+            fixture_response_path=fixture_path,
+            state_backend=backend,
+        )
+        assert result.status == "GENERATED"
+
+        after = backend.load(ORG_REPO)
+        assert after is not None
+        assert after.domain_states["readme_reconciliation"].accepted_status == "NO_CHANGE"
+        assert after.supervisor_state is not None
+        assert after.supervisor_state.last_status == "CONVERGED_NO_CHANGE"
+        # And the fields this call actually owns were updated, not ignored.
+        assert after.accepted_facts_hash == result.facts_hash
+        assert after.accepted_status == "GENERATED"

@@ -12,11 +12,14 @@ to itself, not a hypothetical.
 
 import json
 import os
+from pathlib import Path
 
 from readme_agent import env
 from readme_agent.evidence.redaction import redact
 from readme_agent.gitsafety._git import run_git
 from readme_agent.orchestrator import generate_repo
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 POM_XML = "<project><groupId>x</groupId><artifactId>y</artifactId><version>1</version></project>"
 FIXTURE_RESPONSE = {
@@ -85,6 +88,15 @@ class TestOpportunisticLayer:
 
         (tmp_path / "data").mkdir()
         (tmp_path / "config" / "policies").mkdir(parents=True)
+        prompt_dir = tmp_path / "prompts" / "relationship_explained"
+        prompt_dir.mkdir(parents=True)
+        for asset in ("system.txt", "user.txt"):
+            (prompt_dir / asset).write_text(
+                (REPO_ROOT / "prompts" / "relationship_explained" / asset).read_text(
+                    encoding="utf-8"
+                ),
+                encoding="utf-8",
+            )
         products = [
             {
                 "family": "x",
@@ -95,7 +107,7 @@ class TestOpportunisticLayer:
                 "active": True,
                 "discovered_via": "manual",
                 "mode": "full",
-                "ecosystem": "maven",
+                "ecosystem": "java",
                 "policy_profile": "sec-test-profile",
             }
         ]

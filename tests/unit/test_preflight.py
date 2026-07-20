@@ -83,7 +83,7 @@ class TestLlmCheck:
         monkeypatch.setattr(llm_check.requests, "get", fake_get)
         result = llm_check.check_models("https://example/v1", "key")
         assert result.ok
-        assert result.selected_model == "gpt-oss"
+        assert result.selected_model == "qwen3-next"
 
     def test_explicit_model_not_in_list_is_hard_blocked(self, monkeypatch):
         monkeypatch.setenv("LLM_MODEL", "not-a-real-model")
@@ -111,7 +111,7 @@ class TestLlmCheck:
         monkeypatch.delenv("LLM_MODEL", raising=False)
 
         def fake_get(url, headers, timeout):
-            return FakeResponse(200, {"data": [{"id": "qwen3-next"}]})
+            return FakeResponse(200, {"data": [{"id": "gpt-oss"}]})
 
         monkeypatch.setattr(llm_check.requests, "get", fake_get)
         result = llm_check.check_models("https://example/v1", "key")

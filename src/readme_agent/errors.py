@@ -25,6 +25,10 @@ class GitSafetyError(ReadmeAgentError):
     exit_code = 3
 
 
+class StateBackendError(ReadmeAgentError):
+    exit_code = 3
+
+
 class NotAllowlistedError(ReadmeAgentError):
     exit_code = 3
 

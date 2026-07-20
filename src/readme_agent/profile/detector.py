@@ -1,0 +1,67 @@
+"""build_profile() -- one file_inventory.scan() call, one DetectedEcosystem
+per populated manifest_paths entry via the existing parse_manifest dispatch,
+plus a separate glob for manifest-shaped files matching no registered
+ecosystem (unresolved, recorded not guessed -- ECO-003). One scan, one
+source of truth: this does not re-implement manifest detection, it reads
+the same inspection/file_inventory.py + ecosystems/registry.py the shipped
+pipeline already generalized in this wave.
+"""
+
+from pathlib import Path
+
+from readme_agent.ecosystems.registry import parse_manifest
+from readme_agent.inspection import file_inventory
+from readme_agent.profile.schema import DetectedEcosystem, RepositoryProfile
+
+# Broad, best-effort scan for "looks like it could be a manifest" -- some
+# over-inclusion is expected and acceptable (e.g. tsconfig.json, a lockfile):
+# ECO-003 asks for unresolved files to be *recorded*, not for this list to be
+# a precise manifest classifier. Known non-manifest filenames are excluded
+# explicitly rather than silently, so the exclusion itself is reviewable.
+_MANIFEST_SHAPED_GLOBS = ("*.toml", "*.json", "*.xml")
+_KNOWN_NON_MANIFEST_FILENAMES = {
+    "package-lock.json",
+    "tsconfig.json",
+    ".eslintrc.json",
+    # CMake's own companion config file, not a manifest -- found unresolved
+    # against a real registry repo by the full-registry survey (2026-07-19).
+    "CMakePresets.json",
+    "CMakeUserPresets.json",
+}
+
+
+def build_profile(org_repo: str, repo_path: Path) -> RepositoryProfile:
+    inventory = file_inventory.scan(repo_path)
+
+    detected: list[DetectedEcosystem] = []
+    for ecosystem, manifest_path in inventory.manifest_paths.items():
+        facts = parse_manifest(ecosystem, repo_path)
+        detected.append(
+            DetectedEcosystem(
+                ecosystem=ecosystem,
+                manifest_path=str(manifest_path.relative_to(repo_path)),
+                confidence=1.0 if facts else 0.5,
+                evidence=(
+                    f"found {manifest_path.name}; parsed {len(facts)} field(s)"
+                    if facts
+                    else f"found {manifest_path.name}; nothing parsed"
+                ),
+            )
+        )
+
+    matched_paths = set(inventory.manifest_paths.values())
+    unresolved: set[str] = set()
+    if repo_path.is_dir():
+        for pattern in _MANIFEST_SHAPED_GLOBS:
+            for candidate in repo_path.glob(pattern):
+                if candidate in matched_paths:
+                    continue
+                if candidate.name in _KNOWN_NON_MANIFEST_FILENAMES:
+                    continue
+                unresolved.add(candidate.name)
+
+    return RepositoryProfile(
+        org_repo=org_repo,
+        detected_ecosystems=detected,
+        unresolved_manifests=sorted(unresolved),
+    )

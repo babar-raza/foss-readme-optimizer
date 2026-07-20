@@ -49,6 +49,7 @@ class TestWriteEvidence:
             facts={"org_repo": "x"},
             facts_hash="abc123",
             llm_mode="fixture",
+            llm_calls=["relationship_explained"],
             llm_request=[{"role": "user", "content": "hi"}],
             llm_response={"relationship_paragraph": "hello"},
             baseline_readme="# Title\n",
@@ -70,6 +71,9 @@ class TestWriteEvidence:
         manifest = json.loads((evidence_dir / "manifest.json").read_text(encoding="utf-8"))
         assert manifest["run_id"] == "run1"
         assert manifest["status"] == "GENERATED"
+        # LLM-015: usage must be visible in evidence, not just minimized.
+        assert manifest["llm_call_count"] == 1
+        assert manifest["llm_calls"] == ["relationship_explained"]
 
     def test_secret_like_values_are_redacted_in_written_files(self, tmp_path):
         evidence_dir = tmp_path / "evidence" / "run2"
@@ -83,6 +87,7 @@ class TestWriteEvidence:
             facts={"note": "leaked key: sk-abcdefghij1234567890"},
             facts_hash="abc123",
             llm_mode="fixture",
+            llm_calls=[],
             llm_request=None,
             llm_response=None,
             baseline_readme="# Title\n",

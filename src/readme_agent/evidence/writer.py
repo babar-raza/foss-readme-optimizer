@@ -89,6 +89,7 @@ def write_evidence(
     facts: Any,
     facts_hash: str,
     llm_mode: str | None,
+    llm_calls: list[str],
     llm_request: list[dict[str, str]] | None,
     llm_response: Any | None,
     baseline_readme: str,
@@ -121,6 +122,10 @@ def write_evidence(
         "org_repo": org_repo,
         "mode": mode,
         "llm_mode": llm_mode,
+        # `LLM-015`: usage MUST be visible in evidence/report, not just minimized
+        # (`NFR-012`) -- this is the tracked-usage forcing function.
+        "llm_call_count": len(llm_calls),
+        "llm_calls": llm_calls,
         "status": status,
         "facts_hash": facts_hash,
         "push_block_detail": push_block_detail,
