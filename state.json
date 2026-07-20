@@ -113,8 +113,78 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 5,
-  "supervisor_state": null,
+  "state_version": 6,
+  "supervisor_state": {
+    "capability_gaps": [],
+    "last_observed_upstream_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+    "last_run_id": "20260720-143557-a1d1",
+    "last_run_timestamp": "2026-07-20T14:35:57.493819+00:00",
+    "last_status": "BLOCKED",
+    "repair_history": [
+      {
+        "detail": "'get_product_facts' failed (execution_error); retrying once",
+        "kind": "repair",
+        "turn": 1
+      }
+    ],
+    "task_graph_snapshot": {
+      "tasks": [
+        {
+          "arguments": {
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp"
+          },
+          "blocked_reason": null,
+          "capability_id": "inspect_repository",
+          "created_at": "2026-07-20T14:35:43.376773+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "has_license_file": true,
+            "has_readme": true,
+            "manifest_keys": [],
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+            "readme_length_chars": 2137
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "0981a50263014096a94948393009f849",
+          "terminal_at": "2026-07-20T14:35:45.539705+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp"
+          },
+          "blocked_reason": "ValueError: aspose-email-foss/Aspose.Email-FOSS-for-Cpp has no policy_profile configured",
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-20T14:35:51.655076+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": null,
+          "state": "FAILED",
+          "supersedes": null,
+          "task_id": "6eaa91ad529b401ea673f391ef38cd2b",
+          "terminal_at": "2026-07-20T14:35:51.656081+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp"
+          },
+          "blocked_reason": "ValueError: aspose-email-foss/Aspose.Email-FOSS-for-Cpp has no policy_profile configured",
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-20T14:35:51.656034+00:00",
+          "depends_on": [
+            "6eaa91ad529b401ea673f391ef38cd2b"
+          ],
+          "gap": null,
+          "result": null,
+          "state": "BLOCKED",
+          "supersedes": null,
+          "task_id": "d483f3b0c214404d975f8ab251d013bd",
+          "terminal_at": "2026-07-20T14:35:51.656861+00:00"
+        }
+      ]
+    }
+  },
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
 }
