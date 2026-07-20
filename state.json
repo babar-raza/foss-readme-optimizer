@@ -3,6 +3,26 @@
   "accepted_status": null,
   "capability_outputs": [],
   "domain_states": {
+    "github_generated_surface_audit": {
+      "accepted_facts_hash": "5aa63e993b4b0124039130133a64d1617fca7b86acc1fd36e89770569d765be9",
+      "accepted_status": "FIRST_OBSERVATION",
+      "details": {
+        "contributors_count": 1,
+        "forks_count": 0,
+        "languages": {
+          "Java": 532307
+        },
+        "open_issues_count": 0,
+        "primary_language": "Java",
+        "stargazers_count": 1,
+        "watchers_count": 1
+      },
+      "domain": "github_generated_surface_audit",
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-20T14:27:02.673854+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
       "accepted_status": "NO_CHANGE",
@@ -20,7 +40,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 3,
+  "state_version": 4,
   "supervisor_state": {
     "capability_gaps": [],
     "last_observed_upstream_revision": "c6473f62c592295f9b60bf525804f55cb089f028",
