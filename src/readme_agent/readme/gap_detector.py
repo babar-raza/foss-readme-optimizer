@@ -101,6 +101,22 @@ def _relationship_explained(text: str) -> tuple[bool, str | None]:
     return False, None
 
 
+def commercial_com_link_matches(text: str) -> list[re.Match]:
+    """Public accessor: every products.<vendor>.com occurrence, in document
+    order. Deliberately .com-only, not the combined org|com pattern -- .org is
+    the FOSS/community reference, not a "commercial mention" in the
+    promotional-density sense decision #9 targets. Used by the
+    product_first_opening and commercial_mention_discipline validator rules."""
+    return list(_PRODUCTS_COM_RE.finditer(text))
+
+
+def first_commercial_link_index(text: str) -> int | None:
+    """Character offset of the first products.<vendor>.com occurrence, or
+    None. Public: shared by the product_first_opening validator rule."""
+    match = _PRODUCTS_COM_RE.search(text)
+    return match.start() if match else None
+
+
 def detect(readme_text: str, detected_license: str | None = None) -> GapReport:
     license_ok, license_ev = _license_mentioned(readme_text, detected_license)
 

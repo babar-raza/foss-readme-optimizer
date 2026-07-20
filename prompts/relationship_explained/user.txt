@@ -1,0 +1,10 @@
+Repository: $org_repo
+Manifest name: $manifest_name
+Detected license: $detected_license
+FOSS catalog page: $org_link_label ($org_link_url)
+Commercial edition page: $com_link_label ($com_link_url)
+
+Write relationship_paragraph ($min_sentences+ sentences) explaining that this repository is the free, open-source (FOSS) edition of the corresponding commercial Aspose product, and that the commercial edition provides a broader feature set. Cover these talking points: $talking_points.
+
+Respond with exactly this JSON shape:
+{"relationship_paragraph": "...", "talking_points_covered": ["..."], "claims": {"license_name": "...", "commercial_link_url": "..."}}

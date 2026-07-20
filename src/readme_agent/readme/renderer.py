@@ -1,18 +1,28 @@
-"""Purely additive rendering of only the missing elements.
+"""Purely additive rendering of only the missing elements, into a single
+owned span.
 
 Never takes URLs from the LLM -- always substitutes the policy's canonical
-URLs. pdf/java (missing only products_org_link) renders a one-line callout
-addition with zero LLM involvement; cells/java (missing everything) renders
-both spans, one of which carries the LLM-authored relationship paragraph.
+URLs. pdf/java (missing only products_org_link) renders a one-line addition
+with zero LLM involvement; cells/java (missing everything) renders the full
+resources block, including the LLM-authored relationship paragraph.
+
+Phase 21 (decision #9 as corrected): the former "callout" span, rendered
+immediately after the H1, is retired. Its link content now merges into this
+module's single "resources" span instead of a separate, more prominent
+placement -- both because a promotional banner right under the H1 is exactly
+what decision #9 forbids, and because the two-span design had a real,
+confirmed duplication bug: org/com links were rendered twice (once in
+callout, once unconditionally in resources) whenever both a link gap and a
+resources gap were present in the same run (see runs/evidence/
+20260717-172958-b0ad/block.md for the real, pre-fix example). This module now
+renders each element into resources exactly once, gated on whether that
+specific element is actually a gap.
 """
 
 from urllib.parse import urlencode
 
 from readme_agent.readme.gap_detector import GapReport
 from readme_agent.registry.models import LinkSpec, PolicyProfile
-
-_LINK_GAPS = ("products_org_link", "products_com_link")
-_RESOURCES_GAPS = ("license_mentioned", "relationship_explained")
 
 
 def _with_utm(spec: LinkSpec) -> str:
@@ -22,32 +32,24 @@ def _with_utm(spec: LinkSpec) -> str:
     return spec.url + separator + urlencode(spec.utm)
 
 
-def _render_callout(link_gaps: list[str], policy: PolicyProfile) -> str:
-    lines = []
-    if "products_org_link" in link_gaps:
-        spec = policy.required_elements.products_org_link
-        lines.append(f"🆓 Open-source catalog: [{spec.label}]({spec.url})")
-    if "products_com_link" in link_gaps:
-        spec = policy.required_elements.products_com_link
-        lines.append(f"💼 Commercial edition: [{spec.label}]({_with_utm(spec)})")
-    return "> " + "  \n> ".join(lines)
-
-
 def _render_resources(
-    resources_gaps: list[str], policy: PolicyProfile, relationship_paragraph: str | None
+    gaps: list[str], policy: PolicyProfile, relationship_paragraph: str | None
 ) -> str:
     parts = ["### Related Aspose Resources", ""]
 
-    if "license_mentioned" in resources_gaps:
+    if "license_mentioned" in gaps:
         detected = policy.required_elements.license_mentioned.detected_license
         parts.append(f"- **License:** {detected}")
 
-    org = policy.required_elements.products_org_link
-    com = policy.required_elements.products_com_link
-    parts.append(f"- **Open-source (FOSS) catalog:** [{org.label}]({org.url})")
-    parts.append(f"- **Commercial edition:** [{com.label}]({_with_utm(com)})")
+    if "products_org_link" in gaps:
+        org = policy.required_elements.products_org_link
+        parts.append(f"- **Open-source (FOSS) catalog:** [{org.label}]({org.url})")
 
-    if "relationship_explained" in resources_gaps and relationship_paragraph:
+    if "products_com_link" in gaps:
+        com = policy.required_elements.products_com_link
+        parts.append(f"- **Commercial edition:** [{com.label}]({_with_utm(com)})")
+
+    if "relationship_explained" in gaps and relationship_paragraph:
         parts.append("")
         parts.append(relationship_paragraph)
 
@@ -59,16 +61,9 @@ def render_missing_elements(
     policy: PolicyProfile,
     relationship_paragraph: str | None,
 ) -> dict[str, str]:
-    """Returns {span_name: content}. Empty dict if fully compliant --
-    a zero-gap repo (the 3d family) gets neither span."""
-    spans: dict[str, str] = {}
-
-    link_gaps = [g for g in gap_report.gaps if g in _LINK_GAPS]
-    if link_gaps:
-        spans["callout"] = _render_callout(link_gaps, policy)
-
-    resources_gaps = [g for g in gap_report.gaps if g in _RESOURCES_GAPS]
-    if resources_gaps:
-        spans["resources"] = _render_resources(resources_gaps, policy, relationship_paragraph)
-
-    return spans
+    """Returns {span_name: content}. Empty dict if fully compliant -- a
+    zero-gap repo (the 3d family) gets no span. Every missing element renders
+    into the single owned "resources" span, exactly once per element."""
+    if not gap_report.gaps:
+        return {}
+    return {"resources": _render_resources(gap_report.gaps, policy, relationship_paragraph)}

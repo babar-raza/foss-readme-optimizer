@@ -1,17 +1,20 @@
-"""Two owned spans -- callout (immediately after H1) and resources (file end).
+"""One owned span -- resources (file end).
 
-Evidence-grounded, not the single-block design from the first pass: the
-working 3d template has a short prominent pointer right under the H1 *and* a
-fuller structured section further down, and pdf/Go's one buried link (line
-1890 of 1890) showed presence without prominence doesn't serve the actual
-goal. One documented strategy per span, not a pluggable framework.
+Phase 21 (decision #9 as corrected): a second span, "callout", used to render
+immediately after the H1 -- retired, because a promotional banner right under
+the H1 is exactly what a product-first opening forbids, and because the
+two-span design had a real, confirmed link-duplication bug (see renderer.py).
+find_span/remove_span still work on any span name, including the retired
+"callout", so orchestrator.py's one-time migration step can cleanly strip a
+legacy callout span out of an existing work clone; upsert_span only ever
+targets "resources" now.
 """
 
 import re
 from dataclasses import dataclass
 
 SCHEMA_VERSION = "2"
-SPAN_NAMES = ("callout", "resources")
+SPAN_NAMES = ("resources",)
 
 
 def _span_pattern(span_name: str) -> re.Pattern:
@@ -53,19 +56,11 @@ def render_span(span_name: str, content: str, facts_hash: str) -> str:
     )
 
 
-def _h1_end_index(text: str) -> int:
-    """Index right after the H1 heading line (+ its newline), or 0 if none."""
-    match = re.search(r"^#[^#].*$", text, re.MULTILINE)
-    if not match:
-        return 0
-    idx = match.end()
-    if idx < len(text) and text[idx] == "\n":
-        idx += 1
-    return idx
-
-
 def upsert_span(text: str, span_name: str, content: str, facts_hash: str) -> str:
-    """Insert or replace the owned span. Never touches anything outside it."""
+    """Insert or replace the owned span. Never touches anything outside it.
+    Only "resources" is a valid target since Phase 21 -- appended at end of
+    file. Raises for any other name, including the retired "callout" (use
+    remove_span for that -- see orchestrator.py's migration step)."""
     if span_name not in SPAN_NAMES:
         raise ValueError(f"unknown span {span_name!r}, expected one of {SPAN_NAMES}")
 
@@ -74,11 +69,6 @@ def upsert_span(text: str, span_name: str, content: str, facts_hash: str) -> str
     if existing:
         return text[: existing.start] + rendered + text[existing.end :]
 
-    if span_name == "callout":
-        insert_at = _h1_end_index(text)
-        return text[:insert_at] + "\n" + rendered + "\n" + text[insert_at:]
-
-    # resources: append at end of file
     separator = "" if text.endswith("\n") else "\n"
     return text + separator + "\n" + rendered
 

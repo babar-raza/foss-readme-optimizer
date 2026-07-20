@@ -8,8 +8,10 @@ from readme_agent.validation import registry
 from readme_agent.validation.context import ValidationContext
 from readme_agent.validation.rules import (
     change_boundary,
+    commercial_mention_discipline,
     idempotency,
     link_whitelist,
+    product_first_opening,
     prohibited_terms,
     prominence,
     referential_integrity,
@@ -94,11 +96,13 @@ class TestProhibitedTerms:
 
 class TestLinkWhitelist:
     def test_passes_whitelisted_domain(self):
-        ctx = _base_ctx(rendered_spans={"callout": "[link](https://products.aspose.com/3d/java/)"})
+        ctx = _base_ctx(
+            rendered_spans={"resources": "[link](https://products.aspose.com/3d/java/)"}
+        )
         assert link_whitelist.check(ctx).passed
 
     def test_fails_off_whitelist_domain(self):
-        ctx = _base_ctx(rendered_spans={"callout": "[link](https://evil.example.com/phish)"})
+        ctx = _base_ctx(rendered_spans={"resources": "[link](https://evil.example.com/phish)"})
         result = link_whitelist.check(ctx)
         assert not result.passed
         assert "evil.example.com" in result.message
@@ -106,12 +110,12 @@ class TestLinkWhitelist:
 
 class TestChangeBoundary:
     def test_passes_when_only_spans_changed(self):
-        with_span = upsert_span(BASELINE, "callout", "callout content", "aaa111")
+        with_span = upsert_span(BASELINE, "resources", "resources content", "aaa111")
         ctx = _base_ctx(readme_text=with_span)
         assert change_boundary.check(ctx).passed
 
     def test_fails_when_content_outside_spans_also_changed(self):
-        with_span = upsert_span(BASELINE, "callout", "callout content", "aaa111")
+        with_span = upsert_span(BASELINE, "resources", "resources content", "aaa111")
         tampered = with_span.replace("An intro paragraph.", "A DIFFERENT intro paragraph.")
         ctx = _base_ctx(readme_text=tampered)
         assert not change_boundary.check(ctx).passed
@@ -204,8 +208,13 @@ class TestProminence:
 
 class TestRegistryAggregation:
     def test_prominence_warning_does_not_fail_overall_registry(self):
+        # Opening explains the product (satisfies product_first_opening)
+        # *before* the buried link further down (still fails prominence,
+        # which is what this test is actually about) -- isolates the one
+        # WARNING this test targets from the two new Phase 21 ERROR gates.
+        opening = "Title is a Java library for creating, reading, and modifying files.\n\n"
         filler = "\n".join(f"paragraph {i} " * 20 for i in range(200))
-        text = f"# Title\n\n{filler}\n\nhttps://products.aspose.com/3d/java/\n"
+        text = f"# Title\n\n{opening}{filler}\n\nhttps://products.aspose.com/3d/java/\n"
         report = GapReport(True, False, True, True)
         ctx = _base_ctx(readme_text=text, baseline_readme_text=text, pre_render_gap_report=report)
 
@@ -219,3 +228,94 @@ class TestRegistryAggregation:
         ctx = _base_ctx(rendered_spans={"resources": "We guarantee everything."})
         results = registry.run_all(ctx)
         assert not registry.passed(results)
+
+
+# Phase 21 (decision #9 as corrected). Both new rules check ctx.readme_text --
+# the *final* document -- not ctx.rendered_spans, so they fire on pre-existing
+# content too, not just what this run rendered.
+
+_GOOD_OPENING = (
+    "# Example FOSS\n\n"
+    "Example FOSS is a Java library for creating, reading, and modifying "
+    "spreadsheet files.\n\n"
+    "See the commercial edition at https://products.example.com/cells/java/ "
+    "for more features.\n"
+)
+_PROMO_BEFORE_EXPLANATION = (
+    "# Example FOSS\n\n"
+    "Get the commercial edition at https://products.example.com/cells/java/ today!\n\n"
+    "Example FOSS is a Java library for creating, reading, and modifying "
+    "spreadsheet files.\n"
+)
+_NO_EXPLANATION_AT_ALL = "# Example FOSS\n\nGet it at https://products.example.com/cells/java/.\n"
+_NO_COMMERCIAL_LINK = (
+    "# Example FOSS\n\nExample FOSS is a Java library for creating, reading, "
+    "and modifying spreadsheet files.\n"
+)
+
+
+class TestProductFirstOpening:
+    def test_passes_when_product_explained_before_commercial_link(self):
+        ctx = _base_ctx(readme_text=_GOOD_OPENING)
+        assert product_first_opening.check(ctx).passed
+
+    def test_passes_trivially_with_no_commercial_link(self):
+        ctx = _base_ctx(readme_text=_NO_COMMERCIAL_LINK)
+        assert product_first_opening.check(ctx).passed
+
+    def test_fails_when_commercial_link_precedes_explanation(self):
+        ctx = _base_ctx(readme_text=_PROMO_BEFORE_EXPLANATION)
+        result = product_first_opening.check(ctx)
+        assert not result.passed
+        assert result.severity == "ERROR"
+
+    def test_fails_when_commercial_link_present_but_no_explanation_found(self):
+        ctx = _base_ctx(readme_text=_NO_EXPLANATION_AT_ALL)
+        assert not product_first_opening.check(ctx).passed
+
+
+_NATURAL_SINGLE_MENTION = (
+    "# Example FOSS\n\n"
+    "Example FOSS is a Java library for creating, reading, and modifying spreadsheet "
+    "files. It is API-compatible with [Example for Java]"
+    "(https://products.example.com/cells/java/), the commercial edition with a "
+    "broader feature set.\n"
+)
+# Real evidence this shape is modeled on: aspose-3d-foss/...Java's bot-authored
+# Resources section (see docs/presentation-standard.md dimension 10).
+_LINK_FARM = (
+    "# Example FOSS\n\n"
+    "Example FOSS is a Java library for creating, reading, and modifying "
+    "spreadsheet files.\n\n"
+    "## Resources\n\n"
+    "- [Example for Java](https://products.example.com/cells/java/) -- commercial edition\n"
+    "- [Example family](https://products.example.com/cells/) -- overview\n"
+)
+_PROMOTIONAL_LANGUAGE = (
+    "# Example FOSS\n\n"
+    "Example FOSS is a Java library for creating, reading, and modifying spreadsheet "
+    "files. Buy now the world-class commercial edition at "
+    "https://products.example.com/cells/java/!\n"
+)
+
+
+class TestCommercialMentionDiscipline:
+    def test_passes_a_single_natural_mention(self):
+        ctx = _base_ctx(readme_text=_NATURAL_SINGLE_MENTION)
+        assert commercial_mention_discipline.check(ctx).passed
+
+    def test_passes_trivially_with_no_commercial_link(self):
+        ctx = _base_ctx(readme_text=_NO_COMMERCIAL_LINK)
+        assert commercial_mention_discipline.check(ctx).passed
+
+    def test_fails_on_a_link_farm_pattern(self):
+        ctx = _base_ctx(readme_text=_LINK_FARM)
+        result = commercial_mention_discipline.check(ctx)
+        assert not result.passed
+        assert "list item" in result.message
+
+    def test_fails_on_promotional_language(self):
+        ctx = _base_ctx(readme_text=_PROMOTIONAL_LANGUAGE)
+        result = commercial_mention_discipline.check(ctx)
+        assert not result.passed
+        assert "promotional" in result.message

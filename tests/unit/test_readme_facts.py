@@ -2,6 +2,7 @@ from readme_agent.readme.facts import (
     GapReportFacts,
     RepositoryFacts,
     compute_facts_hash,
+    compute_tracked_content_hash,
     sha256_text,
 )
 from readme_agent.readme.gap_detector import GapReport
@@ -32,6 +33,7 @@ def _facts(**overrides) -> RepositoryFacts:
             )
         ),
         policy_content_hash="policyhash123",
+        prompt_content_hash="prompthash123",
     )
     defaults.update(overrides)
     return RepositoryFacts(**defaults)
@@ -64,3 +66,45 @@ class TestComputeFactsHash:
         assert compute_facts_hash(_facts()) != compute_facts_hash(
             _facts(policy_content_hash="other")
         )
+
+    def test_different_prompt_content_hash_changes_the_hash(self):
+        assert compute_facts_hash(_facts()) != compute_facts_hash(
+            _facts(prompt_content_hash="other")
+        )
+
+
+class TestComputeTrackedContentHash:
+    """Decision #38: the single, canonical content-level fingerprint both
+    `orchestrator.py`'s durable-skip gate and (Wave 6's) readme_reconciliation
+    specialist compare against -- never reimplemented a second time."""
+
+    def test_identical_content_hashes_identically(self, tmp_path):
+        (tmp_path / "README.md").write_text("hello", encoding="utf-8")
+        (tmp_path / "LICENSE").write_text("MIT", encoding="utf-8")
+        assert compute_tracked_content_hash(tmp_path) == compute_tracked_content_hash(tmp_path)
+
+    def test_edited_readme_changes_the_hash(self, tmp_path):
+        (tmp_path / "README.md").write_text("hello", encoding="utf-8")
+        before = compute_tracked_content_hash(tmp_path)
+        (tmp_path / "README.md").write_text("hello world", encoding="utf-8")
+        after = compute_tracked_content_hash(tmp_path)
+        assert before != after
+
+    def test_missing_files_produce_a_deterministic_sentinel_not_a_crash(self, tmp_path):
+        result = compute_tracked_content_hash(tmp_path)
+        assert isinstance(result, str)
+        assert result == compute_tracked_content_hash(tmp_path)
+
+    def test_adding_a_community_file_changes_the_hash(self, tmp_path):
+        (tmp_path / "README.md").write_text("hello", encoding="utf-8")
+        before = compute_tracked_content_hash(tmp_path)
+        (tmp_path / "CONTRIBUTING.md").write_text("please contribute", encoding="utf-8")
+        after = compute_tracked_content_hash(tmp_path)
+        assert before != after
+
+    def test_unrelated_file_does_not_affect_the_hash(self, tmp_path):
+        (tmp_path / "README.md").write_text("hello", encoding="utf-8")
+        before = compute_tracked_content_hash(tmp_path)
+        (tmp_path / "some_other_file.txt").write_text("irrelevant", encoding="utf-8")
+        after = compute_tracked_content_hash(tmp_path)
+        assert before == after

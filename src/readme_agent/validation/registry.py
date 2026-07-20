@@ -1,14 +1,19 @@
-"""Ordered rule pipeline + aggregation. All 8 rules run on every invocation,
+"""Ordered rule pipeline + aggregation. All rules run on every invocation,
 including the idempotent (hash-matches) and zero-gap paths -- idempotency only
 ever decides whether the *LLM* gets called, never whether validation runs.
+`product_first_opening` and `commercial_mention_discipline` (Phase 21) are the
+first two rules that check the *whole* README, not just content rendered this
+run -- a zero-gap, hash-matched repo can still fail one of them.
 """
 
 from readme_agent.validation.context import ValidationContext
 from readme_agent.validation.result import RuleResult
 from readme_agent.validation.rules import (
     change_boundary,
+    commercial_mention_discipline,
     idempotency,
     link_whitelist,
+    product_first_opening,
     prohibited_terms,
     prominence,
     referential_integrity,
@@ -25,6 +30,8 @@ RULES = (
     referential_integrity,
     idempotency,
     prominence,
+    product_first_opening,
+    commercial_mention_discipline,
 )
 
 

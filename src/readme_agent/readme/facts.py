@@ -11,20 +11,60 @@ mechanically enforced there, not just by convention here.
 
 import hashlib
 import json
+from pathlib import Path
 
 from pydantic import BaseModel, Field
 
+from readme_agent.inspection import file_inventory
 from readme_agent.readme.gap_detector import GapReport
 
-# Bumped whenever prompts.py or renderer.py's owned-span contract changes --
-# included in the facts hash so a renderer/prompt change forces regeneration
-# even when nothing about the repo itself changed.
-GENERATION_SCHEMA_VERSION = "2"
+# Bumped whenever build_prompt()'s logic or renderer.py's owned-span contract
+# changes -- included in the facts hash so a change forces regeneration even
+# when nothing about the repo itself changed. Prompt *wording* changes are now
+# covered automatically by prompt_content_hash instead (prompts/README.md rule
+# 3); this version is for logic/contract changes the file hash can't see.
+# Bumped to "3" for Phase 21 (decision #9 as corrected): renderer.py merges
+# what were two owned spans (callout, resources) into one -- a real
+# owned-span contract change, not cosmetic. Bumped to "4" for the prompts/
+# migration (`GOV-016`): build_prompt()'s implementation changed from
+# embedded f-strings to loading+substituting prompts/relationship_explained/.
+GENERATION_SCHEMA_VERSION = "4"
 
 
 def sha256_text(text: str) -> str:
     normalized = text.replace("\r\n", "\n").replace("\r", "\n")
     return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
+def compute_tracked_content_hash(repo_path: Path) -> str:
+    """Content-level fingerprint of the repository-file-managed control-class
+    surfaces (decision #19's class 1: README, LICENSE, community files) --
+    independent from and finer-grained than `SupervisorStateV1.
+    last_observed_upstream_revision`'s whole-repo commit SHA, which keeps its
+    own, different, coarser purpose (supervisor loop-cost avoidance).
+
+    This is the single, canonical implementation: `orchestrator.py`'s
+    durable-skip gate and the readme_reconciliation specialist both compare
+    against this function's output, never a second, independently-computed
+    hash -- the fragmentation of "did anything change" signals across waves
+    is exactly what previously let a real drift-detection gap go unnoticed
+    (decision #38).
+    """
+    inventory = file_inventory.scan(repo_path)
+    tracked: list[tuple[str, Path | None]] = [
+        ("README", inventory.readme_path),
+        ("LICENSE", inventory.license_path),
+    ]
+    tracked.extend(sorted(inventory.community_paths.items()))
+
+    parts = []
+    for name, path in tracked:
+        if path is not None and path.exists():
+            content = path.read_text(encoding="utf-8", errors="replace")
+            parts.append(f"{name}:{sha256_text(content)}")
+        else:
+            parts.append(f"{name}:MISSING")
+    return sha256_text("|".join(parts))
 
 
 class GapReportFacts(BaseModel):
@@ -53,6 +93,7 @@ class RepositoryFacts(BaseModel):
     detected_license: str | None
     gap_report: GapReportFacts
     policy_content_hash: str
+    prompt_content_hash: str
     generation_schema_version: str = GENERATION_SCHEMA_VERSION
 
 
@@ -68,6 +109,7 @@ _HASH_FIELDS = (
     "manifest",
     "detected_license",
     "policy_content_hash",
+    "prompt_content_hash",
     "generation_schema_version",
 )
 

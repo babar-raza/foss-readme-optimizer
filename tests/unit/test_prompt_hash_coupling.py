@@ -41,6 +41,7 @@ def _facts(**overrides) -> RepositoryFacts:
             )
         ),
         policy_content_hash="policyhash123",
+        prompt_content_hash="prompthash123",
     )
     defaults.update(overrides)
     return RepositoryFacts(**defaults)
