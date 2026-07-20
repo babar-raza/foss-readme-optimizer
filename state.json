@@ -3,11 +3,14 @@
   "accepted_status": "GENERATED",
   "capability_outputs": [
     {
-      "cached_at": "2026-07-20T12:47:14.090999+00:00",
+      "cached_at": "2026-07-20T12:47:18.468873+00:00",
       "capability_id": "commit_readme_write",
       "fingerprint": "5b6abbb78002b0d08127fe43bab710534ca405e8a305007f857b703f985da894",
-      "result": {},
-      "status": "pending"
+      "result": {
+        "committed": true,
+        "written": true
+      },
+      "status": "applied"
     }
   ],
   "domain_states": {
@@ -26,7 +29,7 @@
   "last_run_timestamp": "2026-07-19T12:45:30.307188+00:00",
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 5,
+  "state_version": 6,
   "supervisor_state": {
     "capability_gaps": [],
     "last_observed_upstream_revision": "9274b621ebd30f2aca692851bea29ff343a019d8",
