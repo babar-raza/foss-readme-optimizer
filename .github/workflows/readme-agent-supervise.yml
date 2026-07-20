@@ -1,0 +1,46 @@
+name: README Agent Supervise (dry-run)
+
+# Wave 6 (decision #39): the first CI entry point for `supervise` (only
+# `run`/`run-registry` had one before). `workflow_dispatch` only, no
+# `schedule:` -- deliberately deferred (BACKLOG, extends RUN-002) until this
+# has been run live against the real enabled pilots and correctly reports
+# both convergence tiers, per GOVERNANCE.md rule 10 ("prove it in production
+# before automating") and decision #24's pilot-first posture.
+on:
+  workflow_dispatch:
+    inputs:
+      repo_key:
+        description: "org/repo (must exist in data/products.json)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  supervise:
+    runs-on: ubuntu-latest
+    # Same least-privilege scoping as readme-agent-run.yml: this job's own
+    # GITHUB_TOKEN needs to push only to this repo's own
+    # refs/readme-agent-state/... refs (state/git_backend.py), never a
+    # target repo -- supervise_repo() itself never pushes to the repo it
+    # observes (push-blocked work clone, same as `run`/`generate`).
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: readme-agent supervise --repo "${{ inputs.repo_key }}" --durable-state
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      - id: safe_repo_key
+        run: echo "value=$(echo '${{ inputs.repo_key }}' | sed 's#/#__#')" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "supervise-evidence-${{ steps.safe_repo_key.outputs.value }}"
+          path: runs/evidence/

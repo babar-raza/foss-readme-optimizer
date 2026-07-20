@@ -1,0 +1,46 @@
+name: Update Products Registry
+
+# Scheduled, read-only discovery of FOSS repos in the orgs listed in data/families.json.
+# Never writes to a product repo and never pushes straight to main: it proposes changes to
+# data/products.json as a PR, and every newly discovered repo lands with mode: "disabled"
+# (see scripts/update_products_registry.py's safety contract and docs/safety-model.md).
+#
+# Local test: act workflow_dispatch -W .github/workflows/update-products-registry.yml
+
+on:
+  schedule:
+    - cron: "0 7 * * 1" # weekly, Monday 07:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  update-registry:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: Scan GitHub orgs and refresh data/products.json
+        run: python scripts/update_products_registry.py
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Open a PR if the registry changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(data): refresh products registry from GitHub"
+          title: "chore(data): refresh products registry from GitHub"
+          body: >
+            Automated weekly scan of the GitHub orgs in `data/families.json`.
+            Newly discovered repos are added with `mode: "disabled"` — enabling one still
+            requires a manual change per `docs/policy-authoring.md`. No repo is ever removed.
+          branch: chore/update-products-registry
+          delete-branch: true
+          add-paths: data/products.json

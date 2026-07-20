@@ -1,2 +1,7 @@
 -P ubuntu-latest=catthehacker/ubuntu:act-latest
 --detect-event
+# actions/upload-artifact needs a local artifact server under act -- real
+# GitHub-hosted runners get ACTIONS_RUNTIME_TOKEN for free, act does not.
+# Confirmed live (RUN-003, 2026-07-19): without this, upload-artifact fails
+# with "Unable to get the ACTIONS_RUNTIME_TOKEN env variable" every time.
+--artifact-server-path /tmp/act-artifacts

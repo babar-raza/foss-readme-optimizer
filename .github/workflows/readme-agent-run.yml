@@ -21,18 +21,32 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
+    # Wave 4 (`MEM-*`): this job's own `GITHUB_TOKEN` needs to push to this
+    # repo's own `refs/readme-agent-state/...` refs -- state/git_backend.py's
+    # durable-state backend, never a target repo. Scoped to the job that
+    # needs it, mirroring update-products-registry.yml's existing
+    # least-privilege override pattern rather than a blanket repo-level grant.
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -e .
-      - run: readme-agent run --repo "${{ inputs.repo_key }}" --mode dry_run
+      - run: readme-agent run --repo "${{ inputs.repo_key }}" --mode dry_run --durable-state
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      # Artifact names can't contain "/" (GitHub Actions API constraint,
+      # confirmed live via RUN-003's `act` reproduction: `inputs.repo_key`
+      # is always "org/repo" and upload-artifact rejected it outright) --
+      # sanitized to this project's own `{org}__{repo}` convention
+      # (paths.py, state/git_backend.py's ref naming), not invented fresh.
+      - id: safe_repo_key
+        run: echo "value=$(echo '${{ inputs.repo_key }}' | sed 's#/#__#')" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
         with:
-          name: "evidence-${{ inputs.repo_key }}"
+          name: "evidence-${{ steps.safe_repo_key.outputs.value }}"
           path: runs/evidence/
