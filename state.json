@@ -184,12 +184,12 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 10,
+  "state_version": 11,
   "supervisor_state": {
     "capability_gaps": [],
-    "last_observed_upstream_revision": "c6473f62c592295f9b60bf525804f55cb089f028",
-    "last_run_id": "20260720-061830-cb85",
-    "last_run_timestamp": "2026-07-20T06:18:30.124042+00:00",
+    "last_observed_upstream_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+    "last_run_id": "20260720-142940-9a4c",
+    "last_run_timestamp": "2026-07-20T14:29:40.827538+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -200,7 +200,7 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-20T06:18:01.186860+00:00",
+          "created_at": "2026-07-20T14:28:52.526316+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -219,8 +219,29 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "b8adf80371ff4ad6967d521ecb059a1f",
-          "terminal_at": "2026-07-20T06:18:03.958474+00:00"
+          "task_id": "7d14da6237244cf799a70512e6ce8f7f",
+          "terminal_at": "2026-07-20T14:28:55.423899+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+          },
+          "blocked_reason": null,
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-20T14:29:04.399987+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": true,
+            "total_gaps": 0
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "7ac376e5a2ba4439b9bb54f3b28919f6",
+          "terminal_at": "2026-07-20T14:29:07.287817+00:00"
         },
         {
           "arguments": {
@@ -228,7 +249,7 @@
           },
           "blocked_reason": null,
           "capability_id": "profile_repository",
-          "created_at": "2026-07-20T06:18:06.427539+00:00",
+          "created_at": "2026-07-20T14:29:11.057331+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -245,8 +266,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "e7e899e964c64d22a954483aa187b238",
-          "terminal_at": "2026-07-20T06:18:09.155924+00:00"
+          "task_id": "d22f9dda90674d0b9af421da4e4fd7a2",
+          "terminal_at": "2026-07-20T14:29:14.991885+00:00"
         },
         {
           "arguments": {
@@ -254,7 +275,7 @@
           },
           "blocked_reason": null,
           "capability_id": "get_product_facts",
-          "created_at": "2026-07-20T06:18:11.045841+00:00",
+          "created_at": "2026-07-20T14:29:19.302708+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -332,47 +353,33 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "01e43e1431324d9c8860f53ce71bf83c",
-          "terminal_at": "2026-07-20T06:18:13.777531+00:00"
+          "task_id": "a6700f55444e48d28caf4b58ead79700",
+          "terminal_at": "2026-07-20T14:29:23.187060+00:00"
         },
         {
           "arguments": {
+            "force_regenerate": false,
             "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
           },
           "blocked_reason": null,
-          "capability_id": "detect_readme_gaps",
-          "created_at": "2026-07-20T06:18:16.011825+00:00",
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-20T14:29:30.792264+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
-            "license_mentioned": true,
-            "products_com_link": true,
-            "products_org_link": true,
-            "relationship_explained": true,
-            "total_gaps": 0
+            "facts_hash": "edc9f3536ebb131c40cd0922456534e7ed23e179ab9cfdb04e292cc84b14d81b",
+            "final_text": "# Aspose.3D FOSS for Java\n\nA free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library.\n\n> \ud83c\udfe0 **Aspose.3D FOSS** lives on [aspose.org](https://products.aspose.org/3d/java/) \u2014 Aspose's home for free, open-source file-format libraries. The full commercial edition, [Aspose.3D for Java](https://products.aspose.com/3d/java/), is available on [aspose.com](https://products.aspose.com/3d).\n\n## About Aspose.3D FOSS\n\nAspose.3D FOSS is the free, open-source edition of Aspose.3D. It shares the same public API design as the commercial Aspose.3D On-Premise library, so you can:\n\n- **Build and ship 3D applications at no cost** under a permissive MIT License.\n- **Start free and grow without rewriting code** \u2014 code written against the FOSS edition works with the commercial edition.\n- **Upgrade only when you need to** \u2014 when you require the broader feature set, higher performance, rendering, or proprietary format support of the [commercial On-Premise edition](https://products.aspose.com/3d/java/), simply swap in the commercial package, no API rewrites required.\n\nThe FOSS edition focuses on the most widely used open 3D formats. The commercial edition additionally covers proprietary and high-performance scenarios such as rendering, advanced mesh operations, and formats like USD, PDF, A3DW, JT, and more.\n\n## Project Status\n\nThis is a work-in-progress port. See [TODO.md](TODO.md) for current progress and [FILE_FORMATS.md](FILE_FORMATS.md) for format support status.\n\n## API Compatibility\n\nThe public API matches Aspose.3D for Java 26.1.0:\n- Package structure: `com.aspose.threed.*`\n- Method signatures: Identical to Aspose.3D\n- Class names: Same as Aspose.3D\n\n**Excluded APIs:**\n- No licensing, trial, or DRM-related functionality (not applicable to an open-source project)\n- Some advanced features have stub implementations\n\n## Building\n\nThis is a Maven project. Build and test with:\n\n```bash\n# Build the project\nmvn clean package\n\n# Run tests\nmvn test\n```\n\n## Usage\n\n```java\nimport com.aspose.threed.Scene;\n\n// Load a 3D file\nScene scene = new Scene(\"testdata/input/cube.obj\");\n\n// Save to another format\nscene.save(\"output.stl\");\n```\n\n## Contributing\n\nContributions are welcome! Please feel free to submit issues and pull requests.\n\n## License\n\nThis project is licensed under the **MIT License** \u2014 see the [LICENSE](LICENSE) file for details.\n\n## Resources\n\n### Aspose.3D FOSS \u2014 free & open source (aspose.org)\n- [Aspose.3D FOSS for Java](https://products.aspose.org/3d/java/) \u2014 product page\n- [Aspose.3D FOSS family](https://products.aspose.org/3d/) \u2014 all platforms (Python, .NET, Java, TypeScript)\n- [Aspose FOSS documentation](https://docs.aspose.org/) \u2014 guides for all open-source libraries\n- [Aspose FOSS blog](https://blog.aspose.org/) \u2014 tutorials and announcements\n- [Java FAQ](https://kb.aspose.org/3d/java/faq/) \u2014 frequently asked questions\n\n### Aspose.3D \u2014 commercial On-Premise edition (aspose.com)\n- [Aspose.3D for Java](https://products.aspose.com/3d/java/) \u2014 full-featured commercial edition\n- [Aspose.3D product family](https://products.aspose.com/3d) \u2014 overview\n- [Developer documentation](https://docs.aspose.com/3d/java/) \u2014 API guides\n- [API reference](https://reference.aspose.com/3d/java/) \u2014 complete API documentation\n- [Download / free trial](https://releases.aspose.com/3d/java/) \u2014 get the commercial package\n\n### Community & support\n- [Aspose.3D support forum](https://forum.aspose.com/c/3d/19) \u2014 questions and help\n- [Free online 3D apps](https://products.aspose.app/3d/) \u2014 convert and view 3D files in your browser\n\n## Acknowledgments\n\nThis is a clean-room FOSS implementation designed for API compatibility with Aspose.3D for Java.\n",
+            "fresh_fingerprint": "c79347e79f898c370f41c52c9e430ff380918c9a8a09e41e68bf8409d086876a",
+            "llm_called": false,
+            "llm_calls": [],
+            "needs_write": false,
+            "skip_regeneration": true,
+            "status": "STALE_NONCOMPLIANT"
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "4554a79ca3f14628b522cdc4886f9740",
-          "terminal_at": "2026-07-20T06:18:18.670715+00:00"
-        },
-        {
-          "arguments": {
-            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
-          },
-          "blocked_reason": null,
-          "capability_id": "check_install_path",
-          "created_at": "2026-07-20T06:18:20.824989+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "evidence": "Maven Central: org.aspose:aspose-3d-foss NOT FOUND (0 results)",
-            "install_path_resolved": false
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "0e4a5979446b48aa91f45b50e23d983b",
-          "terminal_at": "2026-07-20T06:18:26.374968+00:00"
+          "task_id": "0fa085008b8344449dd0f40991ce53ad",
+          "terminal_at": "2026-07-20T14:29:33.770008+00:00"
         }
       ]
     }
