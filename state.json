@@ -165,14 +165,14 @@
     },
     "package_release_audit": {
       "accepted_facts_hash": "3a2f9544ea776bd582681853aca6a67a84920af285249e049129aed52d49bbcc",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "details": {
         "evidence": "Maven Central: org.aspose:aspose-cells-foss NOT FOUND (0 results)",
         "handoff_findings": [
           {
             "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-21T08:57:27.376413+00:00",
+            "detected_at": "2026-07-21T14:28:01.379009+00:00",
             "evidence": {
               "detail": "Maven Central: org.aspose:aspose-cells-foss NOT FOUND (0 results)"
             },
@@ -187,7 +187,7 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T08:57:27.377220+00:00",
+      "last_run_timestamp": "2026-07-21T14:28:01.379379+00:00",
       "owned_span_present_at_accept": false,
       "upstream_revision_at_accept": null
     },
@@ -257,7 +257,7 @@
   "last_run_timestamp": "2026-07-20T12:47:26.000344+00:00",
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 24,
+  "state_version": 25,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0825e00f7af3e215f0a8420ffee1723c30b05662f6f0d6a2ac0590b248637d0",
