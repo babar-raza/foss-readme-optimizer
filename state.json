@@ -36,6 +36,34 @@
       "owned_span_present_at_accept": false,
       "upstream_revision_at_accept": null
     },
+    "package_release_audit": {
+      "accepted_facts_hash": "3a2f9544ea776bd582681853aca6a67a84920af285249e049129aed52d49bbcc",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "evidence": "Maven Central: org.aspose:aspose-cells-foss NOT FOUND (0 results)",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-21T08:57:27.376413+00:00",
+            "evidence": {
+              "detail": "Maven Central: org.aspose:aspose-cells-foss NOT FOUND (0 results)"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
+        "latest_release_name": "V26.5.0",
+        "latest_release_tag": "V26.5.0",
+        "releases_count": 2
+      },
+      "domain": "package_release_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T08:57:27.377220+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_presentation": {
       "accepted_facts_hash": "11407c2e03727d32e09027569c79b9446a5d065d8b01b87c5baa9587552f7e34",
       "accepted_status": "NO_CHANGE",
@@ -73,7 +101,7 @@
   "last_run_timestamp": "2026-07-20T12:47:26.000344+00:00",
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 14,
+  "state_version": 15,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
