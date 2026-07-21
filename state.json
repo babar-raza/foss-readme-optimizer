@@ -255,13 +255,13 @@
   "last_run_timestamp": "2026-07-20T12:46:26.020316+00:00",
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 14,
+  "state_version": 15,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": null,
+    "control_plane_fingerprint": "6fead41d02ce74533d2b27d827b17eae52be71f9233cf629128bad5758f368ec",
     "last_observed_upstream_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
-    "last_run_id": "20260719-165008-5d29",
-    "last_run_timestamp": "2026-07-19T16:50:08.642457+00:00",
+    "last_run_id": "20260721-102543-46e2",
+    "last_run_timestamp": "2026-07-21T10:25:43.593346+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -272,7 +272,7 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-19T16:48:58.215257+00:00",
+          "created_at": "2026-07-21T10:24:21.511488+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -291,8 +291,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "78d24cb04f9b4744bf670a960f183edd",
-          "terminal_at": "2026-07-19T16:49:10.664171+00:00"
+          "task_id": "294c0937645348eb8946cff36d4fd8e7",
+          "terminal_at": "2026-07-21T10:24:41.597607+00:00"
         },
         {
           "arguments": {
@@ -300,7 +300,7 @@
           },
           "blocked_reason": null,
           "capability_id": "detect_readme_gaps",
-          "created_at": "2026-07-19T16:49:15.822263+00:00",
+          "created_at": "2026-07-21T10:24:49.383013+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -312,19 +312,45 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "c25d709c065f4f478426f8d74c22b718",
-          "terminal_at": "2026-07-19T16:49:27.423471+00:00"
+          "task_id": "f013da32cf0f471398b8f4d9d517535e",
+          "terminal_at": "2026-07-21T10:25:00.194775+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": false,
+            "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-21T10:25:05.514808+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "a78c2e2667b5b43c5e2faeee4962118a72344aa3db4ea3eef082406a7f1c846c",
+            "final_text": "# Aspose.PDF FOSS for Java\n\n> Pure Java PDF library, zero third-party dependencies\n\n[![Build Status](https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java/actions/workflows/build.yml/badge.svg)](https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java/actions/workflows/build.yml)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n[![Maven Central](https://img.shields.io/maven-central/v/org.aspose/aspose-pdf.svg)](https://search.maven.org/artifact/org.aspose/aspose-pdf)\n[![Java Version](https://img.shields.io/badge/Java-11%2B-blue.svg)](https://openjdk.org/projects/jdk/11/)\n\nAspose.PDF FOSS for Java is an open-source Java library for working with PDF documents. It is API-compatible with [Aspose.PDF for Java](https://products.aspose.com/pdf/java/), targets ISO 32000-1:2008 compliance, and depends only on the standard Java platform \u2014 no third-party libraries required.\n\n## Status\n\n**Version 26.7** (Aspose-style year.month versioning). The library is functional for many common workflows but breaking changes may still happen between releases. See the [roadmap](#status--roadmap) below for current coverage.\n\n## Features\n\n- **Text** \u2014 extraction, search, and replacement with `TextFragmentAbsorber` and `TextAbsorber`; RTL/Arabic shaping\n- **Document generation** \u2014 pages, paragraphs, tables (`Table`/`Row`/`Cell`), floating boxes, headers/footers, text/image/page-number stamps, watermarks\n- **Drawing API** \u2014 graphs and shapes (`Line`, `Rectangle`, `Circle`, `Arc`, `Curve`, `Ellipse`), gradient shadings\n- **Images** \u2014 extraction from PDF pages; rasterization of pages to PNG, JPEG, GIF, BMP, TIFF; multi-frame TIFF import\n- **Forms** \u2014 AcroForm support: text fields, checkboxes, radio buttons, combo boxes, list boxes, signature fields\n- **XFA forms** \u2014 fill and read XFA data, JavaScript and FormCalc scripting, rendering, conversion to AcroForm, flattening\n- **Annotations** \u2014 text markup (highlight, underline, strikeout, squiggly), free text, ink, stamps, file attachments, links, redaction\n- **Bookmarks & Outlines** \u2014 read, modify, and create document outline trees\n- **Digital Signatures** \u2014 PKCS#7 signing (RSA, DSA, ECDSA) and signature verification\n- **Encryption** \u2014 AES-128/256, RC4-40/128; password protection (user/owner)\n- **Optimization** \u2014 `Document.optimizeResources()`: unused-object removal, duplicate-stream linking, stream recompression, image compression/downsampling, font subsetting\n- **PDF/A** \u2014 validation and conversion to PDF/A-1, PDF/A-2, PDF/A-3, PDF/A-4\n- **HTML** \u2014 HTML-to-PDF import (`HtmlLoadOptions`) and save to HTML/XML\n- **XMP Metadata** \u2014 read and write document metadata\n- **Page operations** \u2014 split, merge, rotate, resize content, reorder\n- **Layers (OCG)** \u2014 read and write optional content groups\n- **Attachments** \u2014 embedded files collection, preserved across merges\n- **Document structure** \u2014 tagged PDF, logical structure\n- **Facades** \u2014 `PdfFileEditor`, `PdfContentEditor`, `PdfBookmarkEditor`, `PdfExtractor`, `PdfConverter`, `PdfFileSignature`, and more\n- **Zero dependencies** \u2014 uses only `java.*`, `javax.crypto`, `javax.imageio`, `javax.xml.*`\n\n## Installation\n\nMaven Central publication is planned but the artifact is **not yet available** on Central. For now, build from source:\n\n```bash\ngit clone https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java.git\ncd Aspose.PDF-FOSS-for-Java\nmvn clean install\n```\n\nOnce on Maven Central, add to your `pom.xml`:\n\n```xml\n<dependency>\n    <groupId>org.aspose</groupId>\n    <artifactId>aspose-pdf</artifactId>\n    <version>26.7</version>\n</dependency>\n```\n\nGradle:\n\n```groovy\nimplementation 'org.aspose:aspose-pdf:26.7'\n```\n\n## Quick Start\n\n### Extract text from an existing PDF\n\n```java\nimport org.aspose.pdf.Document;\nimport org.aspose.pdf.text.TextAbsorber;\n\ntry (Document doc = new Document(\"input.pdf\")) {\n    TextAbsorber absorber = new TextAbsorber();\n    doc.getPages().accept(absorber);\n    String text = absorber.getText();\n    System.out.println(text);\n}\n```\n\n### Extract images from a PDF\n\n```java\nimport org.aspose.pdf.Document;\nimport org.aspose.pdf.XImage;\n\nimport java.io.FileOutputStream;\n\ntry (Document doc = new Document(\"input.pdf\")) {\n    int pageIndex = 1;\n    int imageIndex = 1;\n    for (XImage image : doc.getPages().get(pageIndex).getResources().getImages()) {\n        try (FileOutputStream out = new FileOutputStream(\"image-\" + imageIndex + \".png\")) {\n            image.save(out);\n        }\n        imageIndex++;\n    }\n}\n```\n\n### Create a PDF from scratch\n\n```java\nimport org.aspose.pdf.Document;\nimport org.aspose.pdf.Page;\nimport org.aspose.pdf.text.TextFragment;\n\ntry (Document doc = new Document()) {\n    Page page = doc.getPages().add();\n    TextFragment fragment = new TextFragment(\"Hello, PDF world!\");\n    page.getParagraphs().add(fragment);\n    doc.save(\"output.pdf\");\n}\n```\n\n### Work with forms\n\n```java\nimport org.aspose.pdf.Document;\nimport org.aspose.pdf.forms.Form;\nimport org.aspose.pdf.forms.TextBoxField;\n\ntry (Document doc = new Document(\"form.pdf\")) {\n    Form form = doc.getForm();\n    TextBoxField nameField = (TextBoxField) form.get(\"name\");\n    nameField.setValue(\"Jane Doe\");\n\n    // Iterate all fields\n    for (org.aspose.pdf.forms.Field field : form.getFields()) {\n        System.out.println(field.getPartialName() + \" = \" + field.getValue());\n    }\n\n    doc.save(\"form-filled.pdf\");\n}\n```\n\n## Documentation\n\nAPI documentation will be published at https://aspose-pdf-foss.github.io/Aspose.PDF-FOSS-for-Java/ once a stable release is tagged. For now, JavaDoc can be generated locally:\n\n```bash\nmvn javadoc:javadoc\n```\n\nThe generated HTML lives in `target/site/apidocs/`.\n\n## Status & Roadmap\n\nThis is an early-stage open-source effort. The following coverage matrix tracks parity against the commercial Aspose.PDF for Java API:\n\n| Area | Status |\n|---|---|\n| Document model (COS layer, pages, resources) | \u2705 Implemented |\n| Text extraction, search, replacement | \u2705 Implemented |\n| Image extraction and page rasterization | \u2705 Implemented |\n| Document generation (paragraphs, tables, stamps, headers/footers) | \u2705 Implemented |\n| Drawing API (shapes, gradients) | \u2705 Implemented |\n| AcroForm fields | \u2705 Implemented |\n| XFA forms (fill, JavaScript/FormCalc, rendering, conversion to AcroForm, flattening) | \u2705 Implemented |\n| Annotations | \u2705 Implemented (most types, incl. redaction) |\n| Bookmarks & outlines | \u2705 Implemented |\n| Digital signatures (PKCS#7: RSA/DSA/ECDSA) | \u2705 Implemented |\n| Encryption (AES, RC4) | \u2705 Implemented |\n| Resource optimization (`optimizeResources`: dedup, recompression, image downsampling, font subsetting) | \u2705 Implemented |\n| PDF/A validation & conversion | \u2705 Implemented |\n| HTML to PDF | \u2705 Implemented |\n| Layers (optional content groups) | \u2705 Implemented |\n| Attachments / embedded files | \u2705 Implemented |\n| Facades (`PdfFileEditor`, `PdfContentEditor`, ...) | \u2705 Implemented |\n| XMP metadata | \u2705 Implemented |\n| Tagged PDF / logical structure | \ud83d\udfe1 Partial |\n\nBug reports and feature requests are welcome via [GitHub Issues](https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java/issues).\n\n## Contributing\n\nPull requests are welcome. Before opening one, please:\n\n1. Open an issue describing the change you intend to make\n2. Ensure `mvn test` passes locally\n3. Follow the existing code style (run `mvn checkstyle:check` if configured)\n4. Keep changes focused \u2014 one PR per logical change\n5. Do not add third-party runtime dependencies; this is a zero-dependency library\n\nSee [AGENTS.md](AGENTS.md) for additional guidance, particularly if you are using an AI coding assistant.\n\n## License\n\nThis project is licensed under the **MIT License** \u2014 see [LICENSE](LICENSE) for the full text.\n\n## Related projects\n\n[Aspose.PDF for Java](https://products.aspose.com/pdf/java/) is a commercial library from Aspose Pty Ltd that offers a broader feature set, including OCR and conversion to many non-PDF formats. The FOSS edition shares the same API shape, so user code can often migrate between the two with minimal changes.\n\n<!-- readme-agent:resources hash=\"sha256:a78c2e2667b5b43c5e2faeee4962118a72344aa3db4ea3eef082406a7f1c846c\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.PDF FOSS for Java](https://products.aspose.org/pdf/java/)\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "18101b773803a6576c6549f772d97fa70931f9c9f349d00492c632dddf372b43",
+            "llm_called": false,
+            "llm_calls": [],
+            "needs_write": false,
+            "skip_regeneration": true,
+            "status": "COMPLIANT_NO_CHANGE"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "e5f8b2c88f2c428dae2bc6bba1283b0d",
+          "terminal_at": "2026-07-21T10:25:16.899982+00:00"
         },
         {
           "arguments": {
             "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java"
           },
           "blocked_reason": null,
-          "capability_id": "profile_repository",
-          "created_at": "2026-07-19T16:49:32.677444+00:00",
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-21T10:25:24.402013+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
+            "declared_license": "MIT",
             "detected_ecosystems": [
               {
                 "confidence": 1.0,
@@ -333,31 +359,73 @@
                 "manifest_path": "pom.xml"
               }
             ],
+            "ecosystem": "java",
+            "family": "pdf",
+            "link_whitelist_domains": [
+              "products.aspose.com",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "products.aspose.org",
+              "docs.aspose.org",
+              "kb.aspose.org",
+              "blog.aspose.org",
+              "forum.aspose.com"
+            ],
             "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
-            "unresolved_manifests": []
+            "platform": "java",
+            "policy_profile": "aspose-pdf-foss",
+            "products_com_link": {
+              "family_url": "https://products.aspose.com/pdf",
+              "label": "Aspose.PDF for Java",
+              "url": "https://products.aspose.com/pdf/java/",
+              "utm": {
+                "utm_campaign": "foss-readme-optimizer",
+                "utm_medium": "readme",
+                "utm_source": "github"
+              }
+            },
+            "products_org_link": {
+              "family_url": "https://products.aspose.org/pdf/",
+              "label": "Aspose.PDF FOSS for Java",
+              "url": "https://products.aspose.org/pdf/java/",
+              "utm": null
+            },
+            "prohibited_terms": [
+              "guarantee",
+              "100%",
+              "best in the world",
+              "free forever",
+              "no bugs"
+            ],
+            "relationship_talking_points": [
+              "open_source_scope",
+              "commercial_upgrade_path"
+            ],
+            "secondary_links": [
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "detected_ecosystems": "live repository clone (repository inspection)",
+              "identity_and_policy": "data/products.json + config/policies/aspose-pdf-foss.yml",
+              "unresolved_manifests": "live repository clone (repository inspection)"
+            },
+            "unresolved_manifests": [],
+            "word_limit": {
+              "max": 120,
+              "min": 20
+            }
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "a1c0dd34f1f8442aa48da100d15a154f",
-          "terminal_at": "2026-07-19T16:49:43.103228+00:00"
-        },
-        {
-          "arguments": {
-            "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java"
-          },
-          "blocked_reason": null,
-          "capability_id": "check_install_path",
-          "created_at": "2026-07-19T16:49:49.671129+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "evidence": "Maven Central: org.aspose:aspose-pdf-foss NOT FOUND (0 results)",
-            "install_path_resolved": false
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "ecb896a99898461fb4eca92038003cb0",
-          "terminal_at": "2026-07-19T16:50:02.511957+00:00"
+          "task_id": "f8f20749dc8040cc9b330b0f9e7cb28c",
+          "terminal_at": "2026-07-21T10:25:35.666012+00:00"
         }
       ]
     }
