@@ -131,6 +131,25 @@
       "owned_span_present_at_accept": false,
       "upstream_revision_at_accept": null
     },
+    "package_release_audit": {
+      "accepted_facts_hash": "bed55f47d08da38ba63306cee16cf62a0b90901eaabba48cbac31e40dcf5457b",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "evidence": null,
+        "handoff_findings": [],
+        "install_path_resolved": null,
+        "latest_release_name": null,
+        "latest_release_tag": null,
+        "releases_count": 0
+      },
+      "domain": "package_release_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:09:38.839518+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
@@ -162,7 +181,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 8,
+  "state_version": 9,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
