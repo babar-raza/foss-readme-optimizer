@@ -3,6 +3,28 @@
   "accepted_status": null,
   "capability_outputs": [],
   "domain_states": {
+    "github_generated_surface_audit": {
+      "accepted_facts_hash": "4ed485e9c5c9ac045de0f4f8b4f2a3ed6b2a4f5b99ded0ef8ca04bf85c993ef0",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "contributors_count": 1,
+        "forks_count": 2,
+        "languages": {
+          "TypeScript": 299378
+        },
+        "open_issues_count": 1,
+        "primary_language": "TypeScript",
+        "stargazers_count": 0,
+        "watchers_count": 0
+      },
+      "domain": "github_generated_surface_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:00:09.363902+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "1a2a4cf34bf48db85412a5b25ccc196c38b6fc735cbc308a4941a4219b881aa8",
       "accepted_status": "FIRST_OBSERVATION",
@@ -22,7 +44,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 1,
+  "state_version": 2,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
