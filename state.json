@@ -96,6 +96,49 @@
       "owned_span_present_at_accept": false,
       "upstream_revision_at_accept": null
     },
+    "independent_verification": {
+      "accepted_facts_hash": "d9471b8db979fe4a90c6bb798f5e51443ee547f5ce73133fc7d504b2a88834e4",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "adversarial_findings": [],
+        "checks_performed": [
+          "evidence_completeness",
+          "requirement_mapping",
+          "adversarial_cross_domain"
+        ],
+        "completeness": {},
+        "failure_escalations": {},
+        "requirement_map": {
+          "CAP-006": {
+            "capability_id": "classify_upstream_change",
+            "domain": "readme_reconciliation",
+            "exercised_without_error": true
+          },
+          "EFF-001": {
+            "capability_id": "commit_readme_write",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "VER-001": {
+            "capability_id": "verify_readme_candidate",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "VER-002": {
+            "capability_id": "verify_readme_candidate",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          }
+        }
+      },
+      "domain": "independent_verification",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:24:07.146969+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "metadata_presentation": {
       "accepted_facts_hash": "22af6a6c9ae9d8cbf17dfeadebfbe31ebeac886deca41d582f6c85ad624368ca",
       "accepted_status": "FIRST_OBSERVATION",
@@ -212,7 +255,7 @@
   "last_run_timestamp": "2026-07-20T12:46:26.020316+00:00",
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 13,
+  "state_version": 14,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
