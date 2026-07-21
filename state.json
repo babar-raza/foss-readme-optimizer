@@ -183,8 +183,41 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 7,
-  "supervisor_state": null,
+  "state_version": 8,
+  "supervisor_state": {
+    "capability_gaps": [],
+    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
+    "last_observed_upstream_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+    "last_run_id": "20260721-101400-9da9",
+    "last_run_timestamp": "2026-07-21T10:14:00.923575+00:00",
+    "last_status": "CONVERGED_NO_CHANGE",
+    "repair_history": [],
+    "task_graph_snapshot": {
+      "tasks": [
+        {
+          "arguments": {
+            "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "inspect_repository",
+          "created_at": "2026-07-21T10:13:42.938017+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "has_license_file": true,
+            "has_readme": true,
+            "manifest_keys": [],
+            "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+            "readme_length_chars": 14558
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "0ea7744a326a43c38ade799b2bc9526d",
+          "terminal_at": "2026-07-21T10:13:53.774126+00:00"
+        }
+      ]
+    }
+  },
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
 }
