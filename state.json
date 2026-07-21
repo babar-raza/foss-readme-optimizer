@@ -44,6 +44,25 @@
       "owned_span_present_at_accept": false,
       "upstream_revision_at_accept": null
     },
+    "cross_surface_validation": {
+      "accepted_facts_hash": "3cccb9928d5ab6e6331b0657151e31046f8211b605c55dccd5a8801e29db674b",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "compared": {
+          "community_files_presentation_detected_license": "MIT",
+          "readme_reconciliation_license_claim": null
+        },
+        "inconsistencies": [],
+        "stale_sibling_data": {}
+      },
+      "domain": "cross_surface_validation",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:54:17.043005+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "github_generated_surface_audit": {
       "accepted_facts_hash": "3e239a9ed14168f2d27debed829c1de42d47609aba7fa1160562c858c633d8e4",
       "accepted_status": "FIRST_OBSERVATION",
@@ -105,7 +124,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 4,
+  "state_version": 5,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
