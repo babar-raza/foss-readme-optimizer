@@ -88,6 +88,54 @@
       "owned_span_present_at_accept": false,
       "upstream_revision_at_accept": null
     },
+    "independent_verification": {
+      "accepted_facts_hash": "af3203bfed16370931990a17c8d94447628ee98335d68b7672991fe71251ee38",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "adversarial_findings": [],
+        "checks_performed": [
+          "evidence_completeness",
+          "requirement_mapping",
+          "adversarial_cross_domain"
+        ],
+        "completeness": {},
+        "failure_escalations": {
+          "readme_presentation": {
+            "consecutive_failure_count": 1,
+            "last_failure_reason": "execution_error"
+          }
+        },
+        "requirement_map": {
+          "CAP-006": {
+            "capability_id": "classify_upstream_change",
+            "domain": "readme_reconciliation",
+            "exercised_without_error": true
+          },
+          "EFF-001": {
+            "capability_id": "commit_readme_write",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "VER-001": {
+            "capability_id": "verify_readme_candidate",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "VER-002": {
+            "capability_id": "verify_readme_candidate",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          }
+        }
+      },
+      "domain": "independent_verification",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:07:19.314905+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "package_release_audit": {
       "accepted_facts_hash": "bd4fdd3eb7f7156bedb3619dd2bdf06296ca2fb9dd8dcb47879528515d0303c4",
       "accepted_status": "FIRST_OBSERVATION",
@@ -138,7 +186,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 6,
+  "state_version": 7,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
