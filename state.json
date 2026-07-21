@@ -3,6 +3,30 @@
   "accepted_status": null,
   "capability_outputs": [],
   "domain_states": {
+    "github_generated_surface_audit": {
+      "accepted_facts_hash": "0c006cf9cf6a3938e64777187082d48968b773dd1b0d70440df4b54de415d7dc",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "contributors_count": 1,
+        "forks_count": 0,
+        "languages": {
+          "Dockerfile": 386,
+          "Makefile": 3194,
+          "Python": 1469535
+        },
+        "open_issues_count": 0,
+        "primary_language": "Python",
+        "stargazers_count": 0,
+        "watchers_count": 0
+      },
+      "domain": "github_generated_surface_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:09:58.762672+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "3de44e203b62696c90a3e09aa95587feb78c1fbd2a51c16b8cdd0183f47522cf",
       "accepted_status": "FIRST_OBSERVATION",
@@ -22,7 +46,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 1,
+  "state_version": 2,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
