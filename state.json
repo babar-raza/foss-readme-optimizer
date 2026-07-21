@@ -3,6 +3,28 @@
   "accepted_status": null,
   "capability_outputs": [],
   "domain_states": {
+    "github_generated_surface_audit": {
+      "accepted_facts_hash": "55d0a4f5a207c32e3cc8526e3d88eb1186c05f1dfcfe41aecce7c0c6458a933c",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "contributors_count": 1,
+        "forks_count": 0,
+        "languages": {
+          "C#": 923246
+        },
+        "open_issues_count": 0,
+        "primary_language": "C#",
+        "stargazers_count": 1,
+        "watchers_count": 1
+      },
+      "domain": "github_generated_surface_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T09:56:11.227468+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
       "accepted_status": "FIRST_OBSERVATION",
@@ -22,7 +44,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 1,
+  "state_version": 2,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
