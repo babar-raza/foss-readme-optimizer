@@ -3,6 +3,27 @@
   "accepted_status": null,
   "capability_outputs": [],
   "domain_states": {
+    "cross_surface_validation": {
+      "accepted_facts_hash": "05d361e2853d145111c43bf5fbda96c6e5d32018e912fa62039f8df7c2033143",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "compared": {
+          "community_files_presentation_detected_license": null,
+          "readme_reconciliation_license_claim": "MIT"
+        },
+        "inconsistencies": [],
+        "stale_sibling_data": {
+          "community_files_presentation": "no persisted state -- never successfully recorded"
+        }
+      },
+      "domain": "cross_surface_validation",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:28:22.252470+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "github_generated_surface_audit": {
       "accepted_facts_hash": "a5069c572c0c612636fe437bc7dd427a5f34d9f5c773b6fabf4dd251879b3a75",
       "accepted_status": "FIRST_OBSERVATION",
@@ -63,7 +84,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 3,
+  "state_version": 4,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
