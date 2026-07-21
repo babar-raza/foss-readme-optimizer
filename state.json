@@ -3,6 +3,29 @@
   "accepted_status": null,
   "capability_outputs": [],
   "domain_states": {
+    "github_generated_surface_audit": {
+      "accepted_facts_hash": "8daadfcf9903e227640332bd9a39dc9681d7b360257222106fc4c9e5891a9618",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "contributors_count": 1,
+        "forks_count": 1,
+        "languages": {
+          "C++": 1973309,
+          "CMake": 1453
+        },
+        "open_issues_count": 1,
+        "primary_language": "C++",
+        "stargazers_count": 2,
+        "watchers_count": 2
+      },
+      "domain": "github_generated_surface_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:24:10.099895+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "731a28662e5b2c33a78a71b2476f3f5a0cbfd7858d3106c96abae8e7c5dd7814",
       "accepted_status": "FIRST_OBSERVATION",
@@ -22,7 +45,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 1,
+  "state_version": 2,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
