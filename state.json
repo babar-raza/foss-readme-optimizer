@@ -25,6 +25,25 @@
       "owned_span_present_at_accept": false,
       "upstream_revision_at_accept": null
     },
+    "package_release_audit": {
+      "accepted_facts_hash": "ffcd01a00ff4b288e6955d3b413b3ef9af18e08eb418782bda495009e3824c8c",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "evidence": null,
+        "handoff_findings": [],
+        "install_path_resolved": null,
+        "latest_release_name": "Release v26.4",
+        "latest_release_tag": "26.4.0",
+        "releases_count": 2
+      },
+      "domain": "package_release_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:29:36.099458+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "72530dbe96a0a23ecd2d4ac4008a7bb7b86a8d3eb1e749a06830bf016f40dad9",
       "accepted_status": "FIRST_OBSERVATION",
@@ -44,7 +63,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 2,
+  "state_version": 3,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
