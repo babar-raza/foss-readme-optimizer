@@ -14,6 +14,28 @@
     }
   ],
   "domain_states": {
+    "github_generated_surface_audit": {
+      "accepted_facts_hash": "ef02480ffaa7015ec367599963f4e6fee25e69cb7b780ef174e08b282b77d39c",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "contributors_count": 2,
+        "forks_count": 2,
+        "languages": {
+          "Java": 7661713
+        },
+        "open_issues_count": 0,
+        "primary_language": "Java",
+        "stargazers_count": 2,
+        "watchers_count": 2
+      },
+      "domain": "github_generated_surface_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:21:27.700927+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_presentation": {
       "accepted_facts_hash": "a78c2e2667b5b43c5e2faeee4962118a72344aa3db4ea3eef082406a7f1c846c",
       "accepted_status": "FIRST_OBSERVATION",
@@ -51,7 +73,7 @@
   "last_run_timestamp": "2026-07-20T12:46:26.020316+00:00",
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 6,
+  "state_version": 7,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
