@@ -156,8 +156,62 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 5,
-  "supervisor_state": null,
+  "state_version": 6,
+  "supervisor_state": {
+    "capability_gaps": [],
+    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
+    "last_observed_upstream_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
+    "last_run_id": "20260721-095701-d92f",
+    "last_run_timestamp": "2026-07-21T09:57:01.094752+00:00",
+    "last_status": "CONVERGED_NO_CHANGE",
+    "repair_history": [],
+    "task_graph_snapshot": {
+      "tasks": [
+        {
+          "arguments": {
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+          },
+          "blocked_reason": null,
+          "capability_id": "inspect_repository",
+          "created_at": "2026-07-21T09:56:36.905401+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "has_license_file": true,
+            "has_readme": true,
+            "manifest_keys": [],
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+            "readme_length_chars": 4254
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "00f72ce934494d7ca21898805c33fe11",
+          "terminal_at": "2026-07-21T09:56:43.398389+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+          },
+          "blocked_reason": null,
+          "capability_id": "inspect_repository",
+          "created_at": "2026-07-21T09:56:53.960054+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "has_license_file": true,
+            "has_readme": true,
+            "manifest_keys": [],
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+            "readme_length_chars": 4254
+          },
+          "state": "SUPERSEDED",
+          "supersedes": "00f72ce934494d7ca21898805c33fe11",
+          "task_id": "14be984cadd540d69ec3dfc5e80f029d",
+          "terminal_at": "2026-07-21T09:56:53.960128+00:00"
+        }
+      ]
+    }
+  },
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
 }
