@@ -25,6 +25,25 @@
       "owned_span_present_at_accept": false,
       "upstream_revision_at_accept": null
     },
+    "package_release_audit": {
+      "accepted_facts_hash": "966b56a155d57b94b97bd06b38a14a35642a50de7d25ad15658d5a647bb5f65f",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "evidence": null,
+        "handoff_findings": [],
+        "install_path_resolved": null,
+        "latest_release_name": "V26.3.1",
+        "latest_release_tag": "V26.3.1",
+        "releases_count": 2
+      },
+      "domain": "package_release_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T09:57:56.533123+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
       "accepted_status": "FIRST_OBSERVATION",
@@ -44,7 +63,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 2,
+  "state_version": 3,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
