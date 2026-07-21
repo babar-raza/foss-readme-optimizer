@@ -36,6 +36,34 @@
       "owned_span_present_at_accept": false,
       "upstream_revision_at_accept": null
     },
+    "package_release_audit": {
+      "accepted_facts_hash": "a5c3b6ee93b500cb9cea70a77223a614b507601a8c882ae0c25453f2ba708a59",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "evidence": "Maven Central: org.aspose:aspose-pdf-foss NOT FOUND (0 results)",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-21T10:21:53.592686+00:00",
+            "evidence": {
+              "detail": "Maven Central: org.aspose:aspose-pdf-foss NOT FOUND (0 results)"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
+        "latest_release_name": "Release v26.6.0",
+        "latest_release_tag": "v26.6.0",
+        "releases_count": 1
+      },
+      "domain": "package_release_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T10:21:53.593321+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_presentation": {
       "accepted_facts_hash": "a78c2e2667b5b43c5e2faeee4962118a72344aa3db4ea3eef082406a7f1c846c",
       "accepted_status": "FIRST_OBSERVATION",
@@ -73,7 +101,7 @@
   "last_run_timestamp": "2026-07-20T12:46:26.020316+00:00",
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 7,
+  "state_version": 8,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
