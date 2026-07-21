@@ -3,6 +3,28 @@
   "accepted_status": null,
   "capability_outputs": [],
   "domain_states": {
+    "github_generated_surface_audit": {
+      "accepted_facts_hash": "d989b243cb24564edb7b7c5d930943072e642a61722905f981b46d357c9a022c",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "contributors_count": 1,
+        "forks_count": 0,
+        "languages": {
+          "Python": 684496
+        },
+        "open_issues_count": 0,
+        "primary_language": "Python",
+        "stargazers_count": 1,
+        "watchers_count": 1
+      },
+      "domain": "github_generated_surface_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T09:58:32.099690+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
       "accepted_status": "FIRST_OBSERVATION",
@@ -22,7 +44,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 1,
+  "state_version": 2,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
