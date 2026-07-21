@@ -185,8 +185,114 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 7,
-  "supervisor_state": null,
+  "state_version": 8,
+  "supervisor_state": {
+    "capability_gaps": [
+      {
+        "detected_at": "2026-07-21T09:59:29.925383+00:00",
+        "evidence": {
+          "tool_call": {
+            "function": {
+              "arguments": "{\"org_repo\": \"aspose-cells-foss/Aspose.Cells-FOSS-for-Python\"}",
+              "name": "stop"
+            }
+          }
+        },
+        "gap_id": "a2e0f1363ce1401999bf6e9ea8762e13",
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+        "reason": "no registered capability matches this capability_id",
+        "requested_capability_id": "stop",
+        "requested_need": "tool call requested unknown capability 'stop'"
+      }
+    ],
+    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
+    "last_observed_upstream_revision": "5b5b28eb372c28f4529928ea81696a0031b68d60",
+    "last_run_id": "20260721-095936-b015",
+    "last_run_timestamp": "2026-07-21T09:59:36.404826+00:00",
+    "last_status": "PARTIAL_WITH_CAPABILITY_GAP",
+    "repair_history": [],
+    "task_graph_snapshot": {
+      "tasks": [
+        {
+          "arguments": {
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "inspect_repository",
+          "created_at": "2026-07-21T09:59:06.458234+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "has_license_file": true,
+            "has_readme": true,
+            "manifest_keys": [],
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+            "readme_length_chars": 4580
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "4549949bf2e24caf9e62861f37a9a1f6",
+          "terminal_at": "2026-07-21T09:59:12.094721+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "profile_repository",
+          "created_at": "2026-07-21T09:59:19.081616+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "detected_ecosystems": [
+              {
+                "confidence": 1.0,
+                "ecosystem": "python",
+                "evidence": "found pyproject.toml; parsed 5 field(s)",
+                "manifest_path": "pyproject.toml"
+              }
+            ],
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+            "unresolved_manifests": []
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "c568530e055742faa267ddbf7e4b797b",
+          "terminal_at": "2026-07-21T09:59:23.197690+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
+          },
+          "blocked_reason": "dispatch_rejected",
+          "capability_id": "stop",
+          "created_at": "2026-07-21T09:59:29.925263+00:00",
+          "depends_on": [],
+          "gap": {
+            "detected_at": "2026-07-21T09:59:29.925383+00:00",
+            "evidence": {
+              "tool_call": {
+                "function": {
+                  "arguments": "{\"org_repo\": \"aspose-cells-foss/Aspose.Cells-FOSS-for-Python\"}",
+                  "name": "stop"
+                }
+              }
+            },
+            "gap_id": "a2e0f1363ce1401999bf6e9ea8762e13",
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+            "reason": "no registered capability matches this capability_id",
+            "requested_capability_id": "stop",
+            "requested_need": "tool call requested unknown capability 'stop'"
+          },
+          "result": null,
+          "state": "BLOCKED",
+          "supersedes": null,
+          "task_id": "4726c12a6e1c4e659068527c7fd37aa5",
+          "terminal_at": "2026-07-21T09:59:29.925403+00:00"
+        }
+      ]
+    }
+  },
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
 }
