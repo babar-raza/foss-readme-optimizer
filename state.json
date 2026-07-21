@@ -181,8 +181,105 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 13,
-  "supervisor_state": null,
+  "state_version": 14,
+  "supervisor_state": {
+    "capability_gaps": [],
+    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
+    "last_observed_upstream_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+    "last_run_id": "20260721-101115-63a9",
+    "last_run_timestamp": "2026-07-21T10:11:15.141599+00:00",
+    "last_status": "BLOCKED",
+    "repair_history": [
+      {
+        "detail": "'get_product_facts' failed (execution_error); retrying once",
+        "kind": "repair",
+        "turn": 2
+      }
+    ],
+    "task_graph_snapshot": {
+      "tasks": [
+        {
+          "arguments": {
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "inspect_repository",
+          "created_at": "2026-07-21T10:10:51.181011+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "has_license_file": true,
+            "has_readme": true,
+            "manifest_keys": [],
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+            "readme_length_chars": 4059
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "94688df038514b03a95ce95d3c790fcb",
+          "terminal_at": "2026-07-21T10:10:53.328279+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "profile_repository",
+          "created_at": "2026-07-21T10:10:58.979275+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "detected_ecosystems": [
+              {
+                "confidence": 1.0,
+                "ecosystem": "python",
+                "evidence": "found pyproject.toml; parsed 5 field(s)",
+                "manifest_path": "pyproject.toml"
+              }
+            ],
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+            "unresolved_manifests": []
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "221e0774349b459a913b349986979aa5",
+          "terminal_at": "2026-07-21T10:11:02.110561+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python"
+          },
+          "blocked_reason": "ValueError: aspose-email-foss/Aspose.Email-FOSS-for-Python has no policy_profile configured",
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-21T10:11:08.460505+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": null,
+          "state": "FAILED",
+          "supersedes": null,
+          "task_id": "401107e88ebb42daab47bd9ba7ad5959",
+          "terminal_at": "2026-07-21T10:11:08.461641+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python"
+          },
+          "blocked_reason": "ValueError: aspose-email-foss/Aspose.Email-FOSS-for-Python has no policy_profile configured",
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-21T10:11:08.461591+00:00",
+          "depends_on": [
+            "401107e88ebb42daab47bd9ba7ad5959"
+          ],
+          "gap": null,
+          "result": null,
+          "state": "BLOCKED",
+          "supersedes": null,
+          "task_id": "e9ee009186d84c2aaedd423765fb413c",
+          "terminal_at": "2026-07-21T10:11:08.462591+00:00"
+        }
+      ]
+    }
+  },
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
 }
