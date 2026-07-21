@@ -3,6 +3,28 @@
   "accepted_status": null,
   "capability_outputs": [],
   "domain_states": {
+    "github_generated_surface_audit": {
+      "accepted_facts_hash": "e9af3c5627fdd966bcea58612c785069d40adc3aa262e9ceac0c8d60378f3100",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "details": {
+        "contributors_count": 1,
+        "forks_count": 1,
+        "languages": {
+          "Python": 1074644
+        },
+        "open_issues_count": 0,
+        "primary_language": "Python",
+        "stargazers_count": 9,
+        "watchers_count": 9
+      },
+      "domain": "github_generated_surface_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-21T09:57:35.179501+00:00",
+      "owned_span_present_at_accept": false,
+      "upstream_revision_at_accept": null
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
       "accepted_status": "FIRST_OBSERVATION",
@@ -22,7 +44,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 1,
+  "state_version": 2,
   "supervisor_state": null,
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
