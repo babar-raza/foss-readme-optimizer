@@ -3,11 +3,14 @@
   "accepted_status": null,
   "capability_outputs": [
     {
-      "cached_at": "2026-07-22T14:16:47.278077+00:00",
+      "cached_at": "2026-07-22T14:16:53.474423+00:00",
       "capability_id": "commit_readme_write",
       "fingerprint": "b1d4a18b488993a6634358b75b7292ee4ee06e3493a1f4a02421f1a6524a6d27",
-      "result": {},
-      "status": "pending"
+      "result": {
+        "committed": false,
+        "written": true
+      },
+      "status": "applied"
     }
   ],
   "domain_states": {
@@ -241,7 +244,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 16,
+  "state_version": 17,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
