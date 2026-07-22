@@ -92,7 +92,7 @@
       "upstream_revision_at_accept": "605f67d1192fee1881078dfd53d37b8cb29623ba"
     },
     "independent_verification": {
-      "accepted_facts_hash": "4e4a225a784673bf06d327c5e570306c35aa053c7766a933041426dbbe6103f8",
+      "accepted_facts_hash": "ba881c7f8eba0a0fea1ef3dcc36668c7b7bfa91a86c08bacfd6db1dffe533a2a",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -112,13 +112,38 @@
             "exercised_without_error": true
           },
           "EFF-001": {
-            "capability_id": "commit_readme_write",
+            "capability_id": "open_presentation_pr",
             "domain": "readme_presentation",
             "exercised_without_error": true
           },
           "LLM-010": {
             "capability_id": "review_visual_asset_accuracy",
             "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "PRL-001": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "PRL-002": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "PRL-004": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "PRL-007": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "PRL-008": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
             "exercised_without_error": true
           },
           "RDM-020": {
@@ -146,7 +171,7 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T09:37:02.249769+00:00",
+      "last_run_timestamp": "2026-07-22T15:44:47.895280+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "605f67d1192fee1881078dfd53d37b8cb29623ba"
@@ -353,7 +378,7 @@
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 52,
+  "state_version": 53,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cea056ab3ab69473184157a4ebda5cf531adf26e6a66a8071e35a5f55eac0b3a",
