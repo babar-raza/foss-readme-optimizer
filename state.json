@@ -103,7 +103,7 @@
       "upstream_revision_at_accept": "bd19e16057b628310b4a04330585d366cb40e9b7"
     },
     "independent_verification": {
-      "accepted_facts_hash": "f5bfc7e90ffd8b067ca05628822aaf2bfb2ceeb5d955a83ccf4cea928a75fcc7",
+      "accepted_facts_hash": "4e4a225a784673bf06d327c5e570306c35aa053c7766a933041426dbbe6103f8",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -115,12 +115,7 @@
           "adversarial_cross_domain"
         ],
         "completeness": {},
-        "failure_escalations": {
-          "readme_presentation": {
-            "consecutive_failure_count": 3,
-            "last_failure_reason": "execution_error"
-          }
-        },
+        "failure_escalations": {},
         "requirement_map": {
           "CAP-006": {
             "capability_id": "classify_upstream_change",
@@ -130,27 +125,42 @@
           "EFF-001": {
             "capability_id": "commit_readme_write",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
+          },
+          "LLM-010": {
+            "capability_id": "review_visual_asset_accuracy",
+            "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "RDM-020": {
+            "capability_id": "verify_prose_quality",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "VAL-005": {
+            "capability_id": "compare_against_presentation_standard",
+            "domain": "presentation_benchmarking",
+            "exercised_without_error": true
           },
           "VER-001": {
             "capability_id": "verify_readme_candidate",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "VER-002": {
             "capability_id": "verify_readme_candidate",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           }
         }
       },
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T11:02:28.451538+00:00",
+      "last_run_timestamp": "2026-07-22T15:02:40.919945+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "bd19e16057b628310b4a04330585d366cb40e9b7"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "39ed7ca8d85c87a8197f8f6fb1c1028833ca8f4909e9f98ede8fc2f37f0830ac",
@@ -386,7 +396,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 30,
+  "state_version": 31,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
