@@ -195,6 +195,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "a8999e259143a9ffc660086b34a7f39516da29f5"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "d830dcfbf32f67fafe95aa899039d59ec62bd6d35434aeb47fb90d71c6cef4d3",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs (working with CFB, MSG, EML, etc.) and avoids vague language.",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The README specifies the target audience (.NET developers) and ecosystem (.NET), and contextualizes the use case (deterministic binary/message processing without external dependencies).",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "No LICENSE file is visible in the README, and there are no badges (build, version, package registry) \u2014 though the install command implies NuGet, no badge or direct link to the package is provided.",
+            "satisfied": false
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command `dotnet add package Aspose.Email.Foss` uses real NuGet coordinates and is presented clearly, though missing a NuGet badge or link to the package for verification.",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the install snippet, there are three runnable code examples (read MSG, create/save MSG, bridge EML\u2194MSG) that demonstrate real usage.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers follow consistent Markdown levels (`##`), and the logical flow (description \u2192 features \u2192 install \u2192 examples \u2192 build/test) prioritizes getting-started content before reference/infrastructure sections.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is appropriate for a low-visual-value API library \u2014 the standard allows this when imagery would not improve understanding.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README does not mention or link to LICENSE, CONTRIBUTING, or CODE_OF_CONDUCT files, and GitHub's quick-link row would likely show only 'README' for this repo.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README contains no visible indication of recent activity (e.g., release dates, commit history, or 'last updated' info), and no `pushed_at` or release badges are included.",
+            "satisfied": false
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention at all \u2014 which is acceptable for a FOSS-first repo without a dual-license commercial offering, per the standard's allowance for pure-FOSS cases like PDFBox.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies most core presentation dimensions (product clarity, audience fit, examples, navigation, and appropriate absence of visuals/commercial pitch), but fails on trust signals (missing LICENSE visibility and badges), contribution readiness (missing community files), and maintenance signals (no activity indicators)."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T14:26:35.740843+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "a8999e259143a9ffc660086b34a7f39516da29f5"
+    },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
@@ -268,7 +336,7 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
   "profile_cache": null,
-  "state_version": 17,
+  "state_version": 18,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
