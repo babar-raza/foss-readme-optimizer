@@ -353,27 +353,16 @@
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 18,
+  "state_version": 19,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-134544-6450",
+    "control_plane_fingerprint": "d4d127f734d171f953a2512a0e57b7e9125b2d631b53d24c637f697b603a83fa",
+    "domain_coverage_complete": true,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "last_run_id": "20260721-100005-2f8d",
-    "last_run_timestamp": "2026-07-21T10:00:05.607967+00:00",
+    "last_run_id": "20260722-134907-698e",
+    "last_run_timestamp": "2026-07-22T13:49:07.342855+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -384,20 +373,69 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T09:59:54.067421+00:00",
+          "created_at": "2026-07-22T13:48:46.811344+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "name",
+              "version"
+            ],
             "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
             "readme_length_chars": 6871
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "f901c2af735f4fcf9b68547931a1b49f",
-          "terminal_at": "2026-07-21T09:59:58.256188+00:00"
+          "task_id": "5a9fdaf3cb9a4529968e2a33180f0cb5",
+          "terminal_at": "2026-07-22T13:48:50.343629+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T13:48:52.751240+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": true,
+            "total_gaps": 0
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "508ec2c98c8e4766b4c8a97c326711ea",
+          "terminal_at": "2026-07-22T13:48:56.641123+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": false,
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T13:48:59.217760+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "127a3d5d6446cd50d39b914521dd0ac4212c0f4ee32d1ae7ef84165675ae7e74",
+            "final_text": "# Aspose.3D FOSS for Python\n\nA powerful, free, and open-source 3D file format library for Python. Aspose.3D FOSS for Python enables developers to create, manipulate, and convert 3D scenes and models programmatically. It supports popular 3D file formats including OBJ, STL, glTF, 3MF, and more, and is released under the permissive **MIT License**.\n\n> \ud83c\udfe0 **Aspose.3D FOSS** lives on [aspose.org](https://products.aspose.org/3d/python/) \u2014 Aspose's home for free, open-source file-format libraries. The full commercial edition, [Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/), is available on [aspose.com](https://products.aspose.com/3d).\n\n## About Aspose.3D FOSS\n\nAspose.3D FOSS is the free, open-source edition of Aspose.3D. It shares the same public API design as the commercial Aspose.3D On-Premise library, so you can:\n\n- **Build and ship 3D applications at no cost** under a permissive MIT License.\n- **Start free and grow without rewriting code** \u2014 code written against the FOSS edition works with the commercial edition.\n- **Upgrade only when you need to** \u2014 when you require the broader feature set, higher performance, or proprietary format support of the [commercial On-Premise edition](https://products.aspose.com/3d/python-net/), simply swap in the commercial package, no API rewrites required.\n\nThe FOSS edition focuses on the most widely used open 3D formats. The commercial edition additionally covers proprietary and high-performance scenarios such as rendering, advanced mesh operations, and formats like FBX, USD, PDF, and more.\n\n## Features\n\n- **Format Support**\n  - OBJ - Import/export with materials, textures, and grouping\n  - GLTF - GL Transmission Format with full PBR material support\n  - STL - Stereo Lithography format for 3D printing\n  - 3MF - 3D Manufacturing Format for modern 3D printing workflows\n\n- **Scene Management**\n  - Create and manipulate 3D scenes\n  - Hierarchical node structure\n  - Mesh and entity management\n  - Material system with Lambert, Phong, and PBR materials\n\n- **3D Primitives**\n  - Vector math (Vector2, Vector3, Vector4, Matrix4, Quaternion)\n  - Bounding boxes and transformations\n  - Camera and light objects\n\n- **Mesh Operations**\n  - Triangulation support for polygon conversion\n  - Mesh manipulation and modification\n\n- **Animation System**\n  - Keyframe animation support\n  - Animation curves and interpolation\n\n## Installation\n\n```bash\npip install aspose-3d-foss\n```\n\n## Quick Start\n\n```python\nfrom aspose.threed import Scene\nfrom aspose.threed.formats.obj import ObjLoadOptions\n\n# Create a new scene\nscene = Scene()\n\n# Import an OBJ file\noptions = ObjLoadOptions()\noptions.enable_materials = True\noptions.flip_coordinate_system = False\nscene.open(\"model.obj\", options)\n\n# Access imported data\nfor node in scene.root_node.child_nodes:\n    if node.entity:\n        mesh = node.entity\n        print(f\"Mesh: {node.name}\")\n        print(f\"  Vertices: {len(mesh.control_points)}\")\n        print(f\"  Polygons: {mesh.polygon_count}\")\n```\n\n## Supported Formats\n\n### Import (Implemented)\n- **OBJ** - Wavefront OBJ with full material support\n- **GLTF** - GL Transmission Format (glTF 2.0)\n- **STL** - Stereo Lithography format\n- **3MF** - 3D Manufacturing Format\n- More formats coming soon...\n\n### Export (Implemented)\n- **OBJ** - Export with vertices, faces, and materials\n- **GLTF** - Export to glTF 2.0 format\n- **STL** - Export to STL format\n- **3MF** - Export to 3MF format\n- More formats coming soon...\n\n## Python Version Support\n\n- Python 3.7+\n- Python 3.8+\n- Python 3.9+\n- Python 3.10+\n- Python 3.11+\n- Python 3.12+\n\n## Format-Specific Features\n\n### OBJ Format\n\n**Import Features:**\n- Vertices (v), texture coordinates (vt), vertex normals (vn)\n- Faces (f) with multiple index formats\n- Objects (o), groups (g), smoothing groups (s)\n- Materials (usemtl, mtllib)\n\n**Load Options:**\n- `flip_coordinate_system` - Swap Y and Z coordinates\n- `enable_materials` - Enable/disable material loading\n- `scale` - Scale factor for all coordinates\n- `normalize_normal` - Normalize normal vectors\n\n**Save Options:**\n- `apply_unit_scale` - Apply unit scaling\n- `point_cloud` - Export as point cloud\n- `verbose` - Verbose output\n- `serialize_w` - Include W coordinate\n- `enable_materials` - Export materials\n- `flip_coordinate_system` - Flip coordinate system\n\n### GLTF Format\n\n**Features:**\n- glTF 2.0 specification support\n- PBR material system (metallic/roughness workflow)\n- Mesh primitives with attributes\n- Node hierarchy and transforms\n- Texture and image support\n\n### STL Format\n\n**Features:**\n- Binary and ASCII STL support\n- Triangular mesh representation\n- Unit conversion and scaling\n- Import for 3D printing workflows\n\n### 3MF Format\n\n**Features:**\n- 3D Manufacturing Format 1.2 support\n- Rich metadata support\n- Production-grade 3D printing\n- Color and material support\n\n## Architecture\n\nThe library is organized into several modules:\n\n- `aspose.threed` - Core scene classes (Scene, Node, Entity)\n- `aspose.threed.entities` - 3D entities (Mesh, Camera, Light)\n- `aspose.threed.formats` - File format importers and exporters (OBJ, GLTF, STL, 3MF)\n- `aspose.threed.shading` - Material system (Lambert, Phong, PBR materials)\n- `aspose.threed.utilities` - Math utilities (vectors, matrices, quaternions)\n- `aspose.threed.animation` - Animation system (keyframes, curves)\n\n## Contributing\n\nContributions are welcome! Please feel free to submit issues and pull requests.\n\n## License\n\nThis project is licensed under the **MIT License** \u2014 see the [LICENSE](LICENSE) file for details.\n\n## Resources\n\n### Aspose.3D FOSS \u2014 free & open source (aspose.org)\n- [Aspose.3D FOSS for Python](https://products.aspose.org/3d/python/) \u2014 product page\n- [Aspose.3D FOSS family](https://products.aspose.org/3d/) \u2014 all platforms (Python, .NET, Java, TypeScript)\n- [Aspose FOSS documentation](https://docs.aspose.org/) \u2014 guides for all open-source libraries\n- [Aspose FOSS blog](https://blog.aspose.org/) \u2014 tutorials and announcements\n\n### Aspose.3D \u2014 commercial On-Premise edition (aspose.com)\n- [Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/) \u2014 full-featured commercial edition\n- [Aspose.3D product family](https://products.aspose.com/3d) \u2014 overview\n- [Developer documentation](https://docs.aspose.com/3d/python-net/) \u2014 API guides\n- [API reference](https://reference.aspose.com/3d/python-net/) \u2014 complete API documentation\n- [Download / free trial](https://downloads.aspose.com/3d) \u2014 get the commercial package\n\n### Community & support\n- [Aspose.3D support forum](https://forum.aspose.com/c/3d/19) \u2014 questions and help\n- [Free online 3D apps](https://products.aspose.app/3d/) \u2014 convert and view 3D files in your browser\n\n## Acknowledgments\n\n- Aspose.3D FOSS is inspired by the Aspose.3D API.\n- 3D format specifications are maintained by various 3D software vendors and standards bodies.\n",
+            "fresh_fingerprint": "fb9af9a77cdb9f3b786dab680fd183cbd6dd3d1ae830f6b45b632a1db027b80a",
+            "llm_called": false,
+            "llm_calls": [],
+            "needs_write": false,
+            "skip_regeneration": true,
+            "status": "STALE_NONCOMPLIANT"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "97602f6170c4444a920566b936716fcc",
+          "terminal_at": "2026-07-22T13:49:03.044637+00:00"
         }
       ]
     }
