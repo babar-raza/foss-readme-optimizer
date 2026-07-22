@@ -144,14 +144,23 @@
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
-      "accepted_facts_hash": "bed55f47d08da38ba63306cee16cf62a0b90901eaabba48cbac31e40dcf5457b",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "39a0d8b13edd326c55c94b3f91ce58200ea4dbf80a9eb10cd69d31072c9051c4",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": null,
-        "handoff_findings": [],
-        "install_path_resolved": null,
+        "evidence": "no live resolver registered for ecosystem 'python'",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-22T15:15:48.575056+00:00",
+            "evidence": {
+              "detail": "no live resolver registered for ecosystem 'python'"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
         "latest_release_name": null,
         "latest_release_tag": null,
         "releases_count": 0
@@ -159,10 +168,10 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:33:36.776086+00:00",
+      "last_run_timestamp": "2026-07-22T15:15:48.575474+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "d051a96a7417149e816a8f862d45a5b769bc5fad"
     },
     "readme_presentation": {
       "accepted_facts_hash": null,
@@ -200,7 +209,7 @@
   "open_proposals": {},
   "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 24,
+  "state_version": 25,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
