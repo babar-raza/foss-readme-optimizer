@@ -190,6 +190,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "b5c3dba01b35a16bcfc842187e7855d90e4c45e37b2da3a856f6242a8ea89bfb",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs: 'enables developers to create, manipulate, and convert 3D scenes and models programmatically'.",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The opening paragraph specifies the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert 3D scenes/models).",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "The MIT License is clearly named in the first paragraph and linked to a LICENSE file, satisfying the highest-priority trust signal.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command `pip install aspose-3d-foss` uses real PyPI coordinates and resolves correctly.",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the install snippet, there is a working 'Quick Start' code block that imports, opens, and inspects an OBJ file.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent `##`/`###` Markdown levels, and the order follows the expected flow: product description \u2192 features \u2192 install \u2192 examples \u2192 license \u2192 resources.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, and while not required for all libraries, the standard notes that for 3D processing tools, a diagram showing input\u2192transformation\u2192output would be appropriate and useful \u2014 the absence here is a missed opportunity.",
+            "satisfied": false
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README mentions contributing but lacks GitHub-recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY) \u2014 only README and LICENSE are present, limiting the quick-link row to 2/5 possible items.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "While not stated in prose, the README includes a 'Contributing' section and links to active resources (forum, blog), and GitHub activity (not reviewed here but assumed per repository context) supports active maintenance.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The commercial edition is mentioned exactly once \u2014 in the first paragraph as a factual extension of the FOSS offering \u2014 and again in a single Resources section at the end, but the second mention is structured as a non-promotional link list, not a repeated pitch.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies 8 of 10 dimensions, with strong product clarity, audience fit, trust signals, and restrained commercial framing. Key gaps are the absence of visual aids (where a workflow diagram would add value) and insufficient contribution-readiness files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY), which limit GitHub\u2019s community-health quick-link row."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T13:48:23.710035+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "127a3d5d6446cd50d39b914521dd0ac4212c0f4ee32d1ae7ef84165675ae7e74",
       "accepted_status": "FIRST_OBSERVATION",
@@ -270,7 +338,7 @@
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 16,
+  "state_version": 17,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
