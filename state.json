@@ -208,6 +208,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "a900d0346a0a9f2161eca8f3ee5f627b223906cf0b85ef844025fd933065dfaf",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs ('create, manipulate, and convert 3D scenes and models') and identifies the target environment (Node.js and browser).",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The opening paragraph explicitly names the ecosystem (TypeScript/JavaScript), the file formats handled (OBJ, STL, FBX, GLTF, etc.), and the common tasks (creating, manipulating, converting 3D scenes).",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "A visible, GitHub-recognized MIT license is present in the README (via [LICENSE](LICENSE) link) and confirmed in the repo; badges for version/registry are not present but not required per standard (PDFBox baseline).",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command `npm install @aspose/3d` uses real package coordinates that resolve against npm (verified via standard npm registry lookup).",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "The 'Quick Start' section provides a runnable TypeScript code block beyond the install snippet, demonstrating actual usage with import, scene creation, and file loading.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent `##` levels, and the order follows logical sequencing: product description \u2192 features \u2192 install \u2192 examples \u2192 docs \u2192 contributing \u2192 license.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is acceptable per the standard for a non-visual API library; no decorative or misleading imagery is used.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README lacks GitHub-recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present (only LICENSE is recognized), so GitHub's quick-link row will show only 'README' and 'License'.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README does not claim maintenance status, and GitHub's own activity indicators (e.g., recent commits/releases) are assumed to be externally verifiable per standard.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repo; if commercial licensing were applicable, the standard would require exactly one factual mention, placed after product description.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files needed for GitHub's community quick-link row). All other criteria\u2014including product clarity, audience fit, working installation, and verified examples\u2014are met per the standard."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T13:53:12.194616+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "e9dc0b944d3763012555ff0d3080378663eb462b8357d65643f2d0f19e41e853",
       "accepted_status": "FIRST_OBSERVATION",
@@ -312,7 +380,7 @@
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 20,
+  "state_version": 21,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
