@@ -213,6 +213,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "bd19e16057b628310b4a04330585d366cb40e9b7"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "e19cf47f406475bcdf5a844ada7d9a29e43e2e3150bb783d885a7b0bb23e2350",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('creating, reading, and editing PowerPoint (.pptx) presentations').",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The opening paragraph specifies the ecosystem (.NET), the file format (.pptx), and the core tasks (creating, reading, editing), satisfying audience fit inline with the product description.",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "A visible, GitHub-recognized MIT License is present at the end, and badges for build/version/package registry are not required here since the install path resolves correctly (see dimension 4).",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The README lacks explicit package coordinates (e.g., NuGet ID like 'Aspose.Slides.FOSS') and a direct install command (e.g., `dotnet add package Aspose.Slides.FOSS`), making the install path incomplete and unverified against NuGet.",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the Quick Start snippet, there are 7 additional runnable code examples covering shapes, text, tables, connectors, fills, notes, comments, and document properties.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (`##`), and the logical flow (Quick Start \u2192 Features \u2192 Usage Examples \u2192 Limitations \u2192 Links \u2192 License) prioritizes getting-started content before reference/legal content.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is appropriate for a pure API library like this \u2014 no decorative or misleading imagery is used.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The repository is missing GitHub-recognized community files: CONTRIBUTING, CODE_OF_CONDUCT, and SECURITY \u2014 only README and LICENSE are present, limiting the native quick-link row.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "While not stated in the README, GitHub's own activity indicators (e.g., recent commits/releases) are external and not the responsibility of the README text to assert.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-first repo \u2014 but if added later, it must follow the restraint rules (single mention, factual tone, no promotion).",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies most dimensions, especially product clarity, audience fit, examples, and navigation. Critical gaps remain in installation path (missing NuGet coordinates/commands) and contribution readiness (missing community files beyond README/LICENSE)."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T15:02:28.453545+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "bd19e16057b628310b4a04330585d366cb40e9b7"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "0009b1bbf07ed4ac94fe1913af63b962789f5bf2931a3185fc3c757a53ebd8eb",
       "accepted_status": "FIRST_OBSERVATION",
@@ -318,7 +386,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 29,
+  "state_version": 30,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
