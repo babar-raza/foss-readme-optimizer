@@ -351,27 +351,16 @@
   "open_proposals": {},
   "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 31,
+  "state_version": 32,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-135447-8989",
+    "control_plane_fingerprint": "78edf277646cd39c7748990dc14512a0d031a5d82cb3d57641cf71ab0d70ead8",
+    "domain_coverage_complete": false,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
-    "last_run_id": "20260721-103757-8f8d",
-    "last_run_timestamp": "2026-07-21T10:37:57.146451+00:00",
+    "last_run_id": "20260722-135840-5a56",
+    "last_run_timestamp": "2026-07-22T13:58:40.688554+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -382,46 +371,73 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T10:37:33.368521+00:00",
+          "created_at": "2026-07-22T13:58:08.696166+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "license",
+              "name",
+              "requires_python",
+              "version"
+            ],
             "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
             "readme_length_chars": 6594
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "df21dd7d4db241c6a74bccf4f5fca23a",
-          "terminal_at": "2026-07-21T10:37:35.637404+00:00"
+          "task_id": "2781345d93514abdbff10bff915a149b",
+          "terminal_at": "2026-07-22T13:58:11.258544+00:00"
         },
         {
           "arguments": {
             "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
           },
           "blocked_reason": null,
-          "capability_id": "profile_repository",
-          "created_at": "2026-07-21T10:37:46.451229+00:00",
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T13:58:14.651141+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
-            "detected_ecosystems": [
-              {
-                "confidence": 1.0,
-                "ecosystem": "python",
-                "evidence": "found pyproject.toml; parsed 4 field(s)",
-                "manifest_path": "pyproject.toml"
-              }
-            ],
-            "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
-            "unresolved_manifests": []
+            "license_mentioned": true,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 3
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "204da9a53df7467fa895110242de9dff",
-          "terminal_at": "2026-07-21T10:37:49.872469+00:00"
+          "task_id": "3ad3771da2514df0ab8ab9b6bd3624cf",
+          "terminal_at": "2026-07-22T13:58:19.125267+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": true,
+            "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T13:58:25.087039+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "7f9449348e6cace675ffb1c6c24e83bd4054f0ce007fe63e9ca9a3d05d7def54",
+            "final_text": "# aspose-barcode-foss\n\nA pure-Python library for barcode generation. It produces deterministic,\nstandards-compliant barcodes and renders them as SVG or PNG.\n\n- No system dependencies \u2014 pure Python, with [Pillow](https://python-pillow.org/) used only for PNG output.\n- Fully typed (ships a `py.typed` marker).\n- Linear and 2D symbologies: Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code.\n\n## Installation\n\nThe package is not yet published to PyPI. Install it from a source checkout (run from\nthe repository root, where `pyproject.toml` lives):\n\n```bash\npip install .\n```\n\nThe distribution is named `aspose-barcode-foss`; the import package is\n`aspose_barcode_foss`:\n\n```python\nimport aspose_barcode_foss\n```\n\n## Quick Start\n\n```python\nfrom aspose_barcode_foss import code128\n\nbarcode = code128(\"Hello-World\")\nsvg = barcode.to_svg()       # -> str\npng = barcode.to_png()       # -> bytes\n```\n\nWrite the output to a file:\n\n```python\nwith open(\"barcode.svg\", \"w\", encoding=\"utf-8\") as f:\n    f.write(barcode.to_svg())\n\nwith open(\"barcode.png\", \"wb\") as f:\n    f.write(barcode.to_png())\n```\n\nQR Code works the same way:\n\n```python\nfrom aspose_barcode_foss import qr\n\npng = qr(\"https://example.com\").to_png()\n```\n\n## Supported Symbologies\n\nEach symbology has a dedicated helper; all of them are also reachable through the\ngeneric `generate()` function by name (canonical name or one of its aliases).\n\n| Symbology | Function | Accepted input |\n|-----------|----------|----------------|\n| Code 128 | `code128()` | Printable ASCII; Code Sets A/B/C with automatic optimal switching |\n| Code 39 | `code39()` | The 43-character set: digits, `A`\u2013`Z`, space, and ``- . $ / + %`` |\n| Code 39 (Extended) | `code39ext()` | Full ASCII (128 characters) via two-character shift encoding |\n| EAN-13 | `ean13()` | 12 digits (check digit computed), or 13 with `allow_check_digit_input=True` |\n| EAN-8 | `ean8()` | 7 digits (check digit computed), or 8 with `allow_check_digit_input=True` |\n| UPC-A | `upca()` | 11 digits (check digit computed), or 12 with `allow_check_digit_input=True` |\n| UPC-E | `upce()` | An 11- or 12-digit number-system-0 GTIN-12, zero-suppressed to UPC-E |\n| QR Code | `qr()` | Text in numeric, alphanumeric, byte (Latin-1), or Kanji mode; Model 2, versions 1\u201340 |\n\nSelect a symbology by name with `generate()`:\n\n```python\nfrom aspose_barcode_foss import generate\n\nbarcode = generate(\"code128\", \"ABC-123\")\nbarcode = generate(\"qr\", \"https://example.com\")\n```\n\n> Rendering backends: SVG and PNG are implemented for every symbology. PDF output is\n> planned but not yet implemented (`to_pdf()` raises `NotImplementedError`).\n\n## Render Options\n\nRendering is controlled with `RenderOptions`, passed as the keyword-only `options`\nargument:\n\n```python\nfrom aspose_barcode_foss import code128, RenderOptions\n\nbarcode = code128(\"Hello-World\")\nsvg = barcode.to_svg(options=RenderOptions(scale=2.0, show_text=True))\npng = barcode.to_png(options=RenderOptions(dpi=300, module_width=3.0))\n```\n\nAvailable fields: `scale`, `dpi`, `module_width`, `module_height`, `quiet_zone`,\n`foreground_color`, `background_color`, `transparent_background`, `show_text`,\n`font_family`, `font_size`. Any field left as `None` falls back to the symbology's\ndefault.\n\n## Encoding Options\n\nEach symbology helper accepts a keyword-only `encode` argument with a symbology-specific\noptions type.\n\n### Code 128\n\n```python\nfrom aspose_barcode_foss import code128, Code128Options, Code128EncodeMode\n\n# AUTO (default) selects the optimal Code Set sequence.\nbarcode = code128(\"Mixed123ABC\", encode=Code128Options(encode_mode=Code128EncodeMode.AUTO))\n\n# Force a specific Code Set.\nbarcode = code128(\"12345678\", encode=Code128Options(encode_mode=Code128EncodeMode.CODE_C))\n```\n\n`Code128EncodeMode` values: `AUTO`, `CODE_A`, `CODE_B`, `CODE_C`, `CODE_AB`, `CODE_AC`,\n`CODE_BC`.\n\n### QR Code\n\n```python\nfrom aspose_barcode_foss import qr, QrOptions, QrErrorCorrectionLevel, QrEncodeMode\n\nbarcode = qr(\n    \"PAYLOAD\",\n    encode=QrOptions(\n        error_correction_level=QrErrorCorrectionLevel.H,  # L / M / Q / H\n        version=None,                                      # 1-40, or None to auto-fit\n        mask=None,                                         # 0-7, or None to auto-select\n        encoding_mode=QrEncodeMode.AUTO,                   # AUTO / NUMERIC / ALPHANUMERIC / BYTE / KANJI\n    ),\n)\n```\n\n### Code 39\n\n```python\nfrom aspose_barcode_foss import code39, code39ext, Code39Options\n\n# Optional modulo-43 check character.\nbarcode = code39(\"ABC-123\", encode=Code39Options(add_check_digit=True))\n\n# code39ext() encodes the full ASCII set.\nbarcode = code39ext(\"Item #42\")\n```\n\n### EAN / UPC\n\n```python\nfrom aspose_barcode_foss import ean13, Ean13Options\n\n# Pass 12 digits and let the check digit be computed.\nbarcode = ean13(\"590123412345\")\n\n# Or pass all 13 digits and opt in to validating the supplied check digit.\nbarcode = ean13(\"5901234123457\", encode=Ean13Options(allow_check_digit_input=True))\n```\n\nThe same `allow_check_digit_input` option is available for `ean8()`, `upca()`, and\n`upce()`.\n\n## Custom Renderer\n\n`to_svg()` and `to_png()` are convenience wrappers around `render()`, which accepts any\n`Renderer` instance:\n\n```python\nfrom aspose_barcode_foss import code128, SvgRenderer, RenderOptions\n\nrenderer = SvgRenderer()\nbarcode = code128(\"Hello-World\")\nartifact = barcode.render(renderer, options=RenderOptions(scale=3.0))\nsvg = artifact.data\n```\n\nAvailable renderers: `SvgRenderer`, `PngRenderer`, and `PdfRenderer` (not yet\nimplemented).\n\n## Error Handling\n\n```python\nfrom aspose_barcode_foss import code128, generate, InvalidInputError, SymbologyNotFoundError\n\ntry:\n    code128(\"\")                       # empty input\nexcept InvalidInputError as e:\n    print(e)\n\ntry:\n    generate(\"datamatrix\", \"data\")    # unknown symbology\nexcept SymbologyNotFoundError as e:\n    print(e)\n```\n\nException hierarchy (all inherit from `BarcodeError`):\n\n| Exception | Raised when |\n|-----------|-------------|\n| `BarcodeError` | Base class for all library exceptions |\n| `InvalidInputError` | Input fails validation (bad characters, wrong length, etc.) |\n| `SymbologyNotFoundError` | Unknown symbology name passed to `generate()` |\n| `UnsupportedFeatureError` | Feature exists in the spec but is not yet implemented |\n| `UnsupportedCapabilityError` | Unsupported feature combination for a symbology |\n| `EncodingError` | Encoder-level failure |\n| `RenderingError` | Renderer-level failure |\n\n## Requirements\n\n- Python 3.12+\n- Pillow \u2265 10.1.0 (for PNG rendering)\n\n## License\n\nReleased under the [MIT License](LICENSE).\n\n<!-- readme-agent:resources hash=\"sha256:7f9449348e6cace675ffb1c6c24e83bd4054f0ce007fe63e9ca9a3d05d7def54\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.BarCode FOSS for Python](https://products.aspose.org/barcode/python/)\n- **Commercial edition:** [Aspose.BarCode for Python](https://products.aspose.com/barcode/python/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository, aspose-barcode-foss, is the free, open-source (FOSS) edition of Aspose.BarCode for Python, licensed under the MIT License and intended for community use and contribution. Users seeking enhanced capabilities, enterprise support, or additional features can upgrade to the commercial edition, which offers a broader feature set and professional support options.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "9558ad02bac368f5e11dde192c960375fd07bc6f33b3ecb2b139b292046a2c33",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": true,
+            "skip_regeneration": false,
+            "status": "GENERATED"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "13c93fde7d7f4a3fa0698411ee34340a",
+          "terminal_at": "2026-07-22T13:58:33.315645+00:00"
         }
       ]
     }
