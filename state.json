@@ -115,8 +115,8 @@
       "upstream_revision_at_accept": "9274b621ebd30f2aca692851bea29ff343a019d8"
     },
     "independent_verification": {
-      "accepted_facts_hash": "2e41c2981e591d939440e9a500fd517bee6e735df1b1247ad927420a45f831ab",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "4e4a225a784673bf06d327c5e570306c35aa053c7766a933041426dbbe6103f8",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -139,6 +139,21 @@
             "domain": "readme_presentation",
             "exercised_without_error": true
           },
+          "LLM-010": {
+            "capability_id": "review_visual_asset_accuracy",
+            "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "RDM-020": {
+            "capability_id": "verify_prose_quality",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "VAL-005": {
+            "capability_id": "compare_against_presentation_standard",
+            "domain": "presentation_benchmarking",
+            "exercised_without_error": true
+          },
           "VER-001": {
             "capability_id": "verify_readme_candidate",
             "domain": "readme_presentation",
@@ -154,10 +169,10 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T08:59:17.697302+00:00",
+      "last_run_timestamp": "2026-07-22T07:07:37.702163+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "9274b621ebd30f2aca692851bea29ff343a019d8"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "57d68315914463f8ee90ccd2f6960bb8af75b963d7982e91c9b3b860d538811a",
@@ -383,7 +398,7 @@
   "last_run_timestamp": "2026-07-22T07:06:27.474757+00:00",
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 58,
+  "state_version": 59,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0825e00f7af3e215f0a8420ffee1723c30b05662f6f0d6a2ac0590b248637d0",
