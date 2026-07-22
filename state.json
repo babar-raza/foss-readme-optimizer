@@ -105,8 +105,8 @@
       "upstream_revision_at_accept": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b"
     },
     "independent_verification": {
-      "accepted_facts_hash": "af3203bfed16370931990a17c8d94447628ee98335d68b7672991fe71251ee38",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "4e4a225a784673bf06d327c5e570306c35aa053c7766a933041426dbbe6103f8",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -117,12 +117,7 @@
           "adversarial_cross_domain"
         ],
         "completeness": {},
-        "failure_escalations": {
-          "readme_presentation": {
-            "consecutive_failure_count": 1,
-            "last_failure_reason": "execution_error"
-          }
-        },
+        "failure_escalations": {},
         "requirement_map": {
           "CAP-006": {
             "capability_id": "classify_upstream_change",
@@ -132,27 +127,42 @@
           "EFF-001": {
             "capability_id": "commit_readme_write",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
+          },
+          "LLM-010": {
+            "capability_id": "review_visual_asset_accuracy",
+            "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "RDM-020": {
+            "capability_id": "verify_prose_quality",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "VAL-005": {
+            "capability_id": "compare_against_presentation_standard",
+            "domain": "presentation_benchmarking",
+            "exercised_without_error": true
           },
           "VER-001": {
             "capability_id": "verify_readme_candidate",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "VER-002": {
             "capability_id": "verify_readme_candidate",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           }
         }
       },
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:01:19.348197+00:00",
+      "last_run_timestamp": "2026-07-22T14:18:00.226710+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "ee514cbfda1656bacf468edd7892bcb483d3bcc58e54249a7293806ca5218dde",
@@ -381,7 +391,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 21,
+  "state_version": 22,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
