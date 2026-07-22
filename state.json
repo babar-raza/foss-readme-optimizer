@@ -189,6 +189,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "7ca343e1e88d1b898f91a14607dc08f059f15a2890317a2f5eb5ff93a7b9b097",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('creating, loading, editing, and saving Excel .xlsx workbooks') before any other content.",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The README does not explicitly state who the library is for (e.g., C++ developers working with Excel files) or the specific situation that brings them here (e.g., needing Excel automation without Microsoft Excel installed).",
+            "satisfied": false
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "A visible, GitHub-recognized MIT license is present and correctly linked, satisfying the highest-leverage trust signal.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The 'How to build' section describes a manual CMake build process but does not provide real package coordinates (e.g., vcpkg, Conan, or a registry like GitHub Packages) that resolve against an actual external package registry.",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "The 'Quick Start' section includes a complete, runnable C++ code example beyond the minimal install/build snippet.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows logical sequencing: product description \u2192 features \u2192 build \u2192 example \u2192 features summary \u2192 license \u2192 support.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is appropriate for a pure API library like this; the standard allows absence when visuals do not improve understanding.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "Missing GitHub-recognized community files: no CONTRIBUTING, CODE_OF_CONDUCT, or SECURITY files are present, so GitHub will not show the full quick-link row below the repo header.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README does not include or reference recent releases or commit activity, and no evidence of recent maintenance is visible in the provided text.",
+            "satisfied": false
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repository; if commercial context were present, it would need to follow the restraint rules.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies product clarity, trust signals (via MIT license), verified examples, navigation, and appropriate absence of visuals, but fails on audience fit, installation path (no real registry coordinates), contribution readiness (missing community files), and maintenance signals (no activity evidence)."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T14:02:13.910448+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
+    },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
@@ -262,7 +330,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 24,
+  "state_version": 25,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
