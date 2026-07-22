@@ -144,6 +144,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "4f4f22c7a3a6d07f199dfadd7b52492aaa2f332cabff0cfd1c3872758f1d9d24",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs (split, merge, rotate, extract, read, write, encrypt, fill, build, style, attach, render, create, draw, embed, apply, validate, etc.).",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The README specifies the ecosystem (Go), the file format (PDF), and common tasks (splitting, merging, text/image extraction, form filling, etc.) in the opening block.",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "The README includes a visible, GitHub-recognized MIT license badge, build/lint badges, Go reference badge, and Go version badge \u2014 satisfying the top trust signals.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command `go get github.com/aspose-pdf-foss/aspose-pdf-foss-for-go` names real package coordinates that resolve against the live Go registry (pkg.go.dev).",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the install snippet, the README includes multiple runnable code blocks (Quick Start, API Reference sections) with full working examples.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (`##`, `###`) and follow logical sequencing: product description \u2192 install \u2192 quick start \u2192 features \u2192 API reference \u2192 license.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "The feature showcase image is product-illustrative (shows a generated PDF's content), not decorative, and directly supports understanding the library's output.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README does not include or reference a LICENSE file that GitHub recognizes as a community file (though a LICENSE file exists, it is not visible in the README and GitHub likely shows only README).",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README includes GitHub Actions badges for test and lint workflows, indicating recent activity, and the pkg.go.dev badge confirms active maintenance.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The commercial mention appears exactly once at the end as a factual product-page link, in capability-extension language, without promotional tone or repetition.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README meets 9 of 10 dimensions of the presentation standard. It excels in product clarity, audience fit, trust signals, installation path, examples, navigation, visual usefulness, maintenance signals, and commercial context. The only gap is contribution readiness: while a LICENSE file exists, GitHub does not recognize it as part of the community health profile because it is not explicitly linked or referenced in the README."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T15:23:49.689184+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
+    },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
@@ -213,7 +281,7 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
-  "state_version": 9,
+  "state_version": 10,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
