@@ -291,3 +291,21 @@ class TestModelRouteEnableCommand:
         assert saved["status"].job == "supervisor_planning"
         assert saved["status"].status == "enabled"
         assert saved["status"].reason == "fixed the bug"
+
+
+class TestScaffoldPolicyCommand:
+    """ONB-004: CLI parser wiring only -- behavior is covered end-to-end in
+    tests/unit/test_scaffold_policy.py."""
+
+    def test_parses_required_repo_flag(self):
+        args = _build_parser().parse_args(["scaffold-policy", "--repo", "org/repo"])
+        assert args.repo == "org/repo"
+        assert args.force is False
+
+    def test_missing_repo_flag_exits_nonzero(self):
+        with pytest.raises(SystemExit):
+            _build_parser().parse_args(["scaffold-policy"])
+
+    def test_force_flag_sets_true(self):
+        args = _build_parser().parse_args(["scaffold-policy", "--repo", "org/repo", "--force"])
+        assert args.force is True

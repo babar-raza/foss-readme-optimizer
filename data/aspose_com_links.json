@@ -162,10 +162,6 @@
           "url": "https://products.aspose.com/cells/python-net/",
           "http_status": 200
         },
-        "cells/typescript": {
-          "url": "https://products.aspose.com/cells/typescript/",
-          "http_status": 200
-        },
         "email/cpp": {
           "url": "https://products.aspose.com/email/cpp/",
           "http_status": 200
@@ -180,10 +176,6 @@
         },
         "email/python-net": {
           "url": "https://products.aspose.com/email/python-net/",
-          "http_status": 200
-        },
-        "page/python": {
-          "url": "https://products.aspose.com/page/python/",
           "http_status": 200
         },
         "pdf/go-cpp": {
@@ -218,10 +210,6 @@
           "url": "https://products.aspose.com/slides/python-net/",
           "http_status": 200
         },
-        "tex/python": {
-          "url": "https://products.aspose.com/tex/python/",
-          "http_status": 200
-        },
         "words/python": {
           "url": "https://products.aspose.com/words/python/",
           "http_status": 200
@@ -229,8 +217,31 @@
         "words/python-net": {
           "url": "https://products.aspose.com/words/python-net/",
           "http_status": 200
+        },
+        "page/python-net": {
+          "url": "https://products.aspose.com/page/python-net/",
+          "http_status": 200
+        },
+        "tex/python-net": {
+          "url": "https://products.aspose.com/tex/python-net/",
+          "http_status": 200
         }
-      }
+      },
+      "_maintenance_notes": [
+        {
+          "date": "2026-07-22",
+          "removed_stale_platform_entries": [
+            "cells/typescript",
+            "page/python",
+            "tex/python"
+          ],
+          "removed_reason": "live re-probe found these now 404 (recorded 200 on 2026-07-18)",
+          "added_platform_entries": [
+            "page/python-net",
+            "tex/python-net"
+          ]
+        }
+      ]
     },
     "docs.aspose.com": {
       "families": {
@@ -1102,6 +1113,164 @@
         },
         "zip/python": {
           "url": "https://kb.aspose.com/zip/python/",
+          "http_status": 200
+        }
+      }
+    },
+    "products.aspose.org": {
+      "provenance": {
+        "generated_at": "2026-07-22T00:00:00+00:00",
+        "generator": "scripts/data-refresh/verify_policy_profile_facts.py",
+        "generator_version": "1.0.0",
+        "mode": "live-probe-registry-scoped",
+        "note": "Not a comprehensive catalog like products.aspose.com's 293-link fetch -- covers exactly the 25 non-disabled data/products.json family/platform combinations, live-probed 2026-07-22 to close a gap this repo had never closed before (this surface previously did not exist at all).",
+        "total_links": 36
+      },
+      "families": {
+        "3d": {
+          "url": "https://products.aspose.org/3d/",
+          "http_status": 200
+        },
+        "barcode": {
+          "url": "https://products.aspose.org/barcode/",
+          "http_status": 200
+        },
+        "cells": {
+          "url": "https://products.aspose.org/cells/",
+          "http_status": 200
+        },
+        "email": {
+          "url": "https://products.aspose.org/email/",
+          "http_status": 200
+        },
+        "font": {
+          "url": "https://products.aspose.org/font/",
+          "http_status": 200
+        },
+        "note": {
+          "url": "https://products.aspose.org/note/",
+          "http_status": 200
+        },
+        "page": {
+          "url": "https://products.aspose.org/page/",
+          "http_status": 200
+        },
+        "pdf": {
+          "url": "https://products.aspose.org/pdf/",
+          "http_status": 200
+        },
+        "slides": {
+          "url": "https://products.aspose.org/slides/",
+          "http_status": 200
+        },
+        "tex": {
+          "url": "https://products.aspose.org/tex/",
+          "http_status": 200
+        },
+        "words": {
+          "url": "https://products.aspose.org/words/",
+          "http_status": 200
+        }
+      },
+      "platforms": {
+        "3d/java": {
+          "url": "https://products.aspose.org/3d/java/",
+          "http_status": 200
+        },
+        "3d/net": {
+          "url": "https://products.aspose.org/3d/net/",
+          "http_status": 200
+        },
+        "3d/python": {
+          "url": "https://products.aspose.org/3d/python/",
+          "http_status": 200
+        },
+        "3d/typescript": {
+          "url": "https://products.aspose.org/3d/typescript/",
+          "http_status": 200
+        },
+        "barcode/python": {
+          "url": "https://products.aspose.org/barcode/python/",
+          "http_status": 200
+        },
+        "cells/cpp": {
+          "url": "https://products.aspose.org/cells/cpp/",
+          "http_status": 200
+        },
+        "cells/java": {
+          "url": "https://products.aspose.org/cells/java/",
+          "http_status": 200
+        },
+        "cells/net": {
+          "url": "https://products.aspose.org/cells/net/",
+          "http_status": 200
+        },
+        "cells/python": {
+          "url": "https://products.aspose.org/cells/python/",
+          "http_status": 200
+        },
+        "cells/typescript": {
+          "url": "https://products.aspose.org/cells/typescript/",
+          "http_status": 200
+        },
+        "email/cpp": {
+          "url": "https://products.aspose.org/email/cpp/",
+          "http_status": 200
+        },
+        "email/net": {
+          "url": "https://products.aspose.org/email/net/",
+          "http_status": 200
+        },
+        "email/python": {
+          "url": "https://products.aspose.org/email/python/",
+          "http_status": 200
+        },
+        "font/python": {
+          "url": "https://products.aspose.org/font/python/",
+          "http_status": 200
+        },
+        "note/python": {
+          "url": "https://products.aspose.org/note/python/",
+          "http_status": 200
+        },
+        "page/python": {
+          "url": "https://products.aspose.org/page/python/",
+          "http_status": 200
+        },
+        "pdf/go": {
+          "url": "https://products.aspose.org/pdf/go/",
+          "http_status": 200
+        },
+        "pdf/java": {
+          "url": "https://products.aspose.org/pdf/java/",
+          "http_status": 200
+        },
+        "pdf/net": {
+          "url": "https://products.aspose.org/pdf/net/",
+          "http_status": 200
+        },
+        "slides/cpp": {
+          "url": "https://products.aspose.org/slides/cpp/",
+          "http_status": 200
+        },
+        "slides/java": {
+          "url": "https://products.aspose.org/slides/java/",
+          "http_status": 200
+        },
+        "slides/net": {
+          "url": "https://products.aspose.org/slides/net/",
+          "http_status": 200
+        },
+        "slides/python": {
+          "url": "https://products.aspose.org/slides/python/",
+          "http_status": 200
+        },
+        "tex/python": {
+          "url": "https://products.aspose.org/tex/python/",
+          "http_status": 200
+        },
+        "words/python": {
+          "url": "https://products.aspose.org/words/python/",
           "http_status": 200
         }
       }

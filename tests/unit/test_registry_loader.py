@@ -105,3 +105,23 @@ def test_enabled_entries_returns_every_non_disabled_entry(monkeypatch):
     raw = json.loads((REPO_ROOT / "data" / "products.json").read_text(encoding="utf-8"))
     expected_count = sum(1 for e in raw if e["mode"] != "disabled")
     assert len(loader.enabled_entries()) == expected_count
+
+
+def test_every_non_disabled_entry_has_ecosystem_and_policy_profile_configured():
+    """The regression this incident found (2026-07-22): a session flipped 22
+    entries from `disabled` to `dry_run` without authoring their
+    ecosystem/policy_profile, silently turning them into permanent
+    ERROR:missing_policy_profile targets on every supervise cycle
+    (get_product_facts.py, orchestrator.py, verification/checks.py all gate
+    on these two fields for anything past `disabled`). Both fields have
+    since been authored and live-verified for all 25 non-disabled entries
+    (see config/policies/*.yml + data/aspose_com_links.json's
+    products.aspose.org surface) -- this test is what makes the next such
+    flip fail loudly in CI instead of erroring silently in production."""
+    entries = loader.load_products(REPO_ROOT / "data" / "products.json")
+    unconfigured = [
+        e.org_repo
+        for e in entries
+        if e.mode != "disabled" and (e.ecosystem is None or e.policy_profile is None)
+    ]
+    assert unconfigured == []

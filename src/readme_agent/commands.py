@@ -1,6 +1,7 @@
 """CLI command handlers -- thin wrappers over orchestrator.py."""
 
 import argparse
+import sys
 
 
 def cmd_preflight(args: argparse.Namespace) -> int:
@@ -207,4 +208,170 @@ def cmd_model_route_enable(args: argparse.Namespace) -> int:
         )
     )
     print(f"{args.job}: enabled ({args.reason})")
+    return 0
+
+
+_SCAFFOLD_SECONDARY_LINKS = [
+    "docs.aspose.org",
+    "docs.aspose.com",
+    "reference.aspose.com",
+    "releases.aspose.com",
+    "blog.aspose.org",
+    "kb.aspose.org",
+    "forum.aspose.com",
+]
+_SCAFFOLD_PROHIBITED_TERMS = ["guarantee", "100%", "best in the world", "free forever", "no bugs"]
+_SCAFFOLD_LINK_WHITELIST_DOMAINS = [
+    "products.aspose.com",
+    "docs.aspose.com",
+    "reference.aspose.com",
+    "releases.aspose.com",
+    "products.aspose.org",
+    "docs.aspose.org",
+    "kb.aspose.org",
+    "forum.aspose.com",
+]
+
+
+def _build_scaffold_profile(
+    *,
+    policy_profile: str,
+    license_value: str,
+    org_url: str,
+    org_family_url: str,
+    org_label: str,
+    com_url: str,
+    com_family_url: str,
+    com_label: str,
+) -> dict:
+    """A dict, dumped via `yaml.safe_dump` -- not a hand-written string
+    template. A string template broke live the first time a TODO
+    placeholder (which legitimately contains a colon) was substituted in
+    unquoted: YAML read the colon as a nested-mapping separator and failed
+    to parse its own generated file. `yaml.safe_dump` quotes any scalar
+    that needs it, so this class of bug can't recur regardless of what
+    text ends up in a value."""
+    return {
+        "schema_version": 2,
+        "policy_profile": policy_profile,
+        "required_elements": {
+            "license_mentioned": {"detected_license": license_value},
+            "products_org_link": {"url": org_url, "family_url": org_family_url, "label": org_label},
+            "products_com_link": {
+                "url": com_url,
+                "family_url": com_family_url,
+                "label": com_label,
+                "utm": {
+                    "utm_source": "github",
+                    "utm_medium": "readme",
+                    "utm_campaign": "foss-readme-optimizer",
+                },
+            },
+            "relationship_explained": {
+                "min_sentences": 2,
+                "talking_points": ["open_source_scope", "commercial_upgrade_path"],
+            },
+        },
+        "secondary_links": list(_SCAFFOLD_SECONDARY_LINKS),
+        "block": {
+            "word_limit": {"min": 20, "max": 120},
+            "prohibited_terms": list(_SCAFFOLD_PROHIBITED_TERMS),
+            "link_whitelist_domains": list(_SCAFFOLD_LINK_WHITELIST_DOMAINS),
+        },
+    }
+
+
+def cmd_scaffold_policy(args: argparse.Namespace) -> int:
+    """ONB-004: pre-fill config/policies/<profile>.yml for a registry entry.
+
+    Never invents a business fact (decision #4): every URL and the license
+    are live-verified via `registry/policy_facts.py` (GitHub's own license
+    classifier + a README text fallback for the license; a real HTTP GET,
+    never a string-formatted guess, for every URL). Anything that fails to
+    verify is written as an explicit `TODO(human): ...` value rather than a
+    plausible-looking guess -- found live 2026-07-22 that guessing here is
+    exactly how 9 of 22 policy profiles ended up with a wrong `.com` URL.
+
+    Deliberately does not touch data/products.json: wiring a new profile's
+    name into `ecosystem`/`policy_profile` stays a separate, deliberate
+    human step per docs/policy-authoring.md -- this command only removes
+    the blank-page cost of authoring the YAML itself.
+    """
+    from pathlib import Path
+
+    from readme_agent import env
+    from readme_agent.registry import policy_facts
+    from readme_agent.registry.loader import POLICIES_DIR, find_entry
+
+    entry = find_entry(args.repo)
+    if entry is None:
+        print(f"error: {args.repo} is not in data/products.json -- add it first.", file=sys.stderr)
+        return 2
+
+    slug = f"aspose-{entry.family}-foss-{entry.platform}"
+    out_path = Path(POLICIES_DIR) / f"{slug}.yml"
+    if out_path.exists() and not args.force:
+        print(f"error: {out_path} already exists (pass --force to overwrite).", file=sys.stderr)
+        return 2
+
+    print(f"Verifying real facts for {args.repo} ({entry.family}/{entry.platform})...")
+    facts = policy_facts.verify_repo_facts(args.repo, entry.family, entry.platform, env.gh_token())
+
+    todo = "TODO(human): could not verify automatically -- confirm manually before enabling"
+    license_value = facts["license"] or todo
+    org_url = (
+        facts["org_platform_url"]
+        if facts["org_platform_status"] == 200
+        else (facts["org_family_url"] if facts["org_family_status"] == 200 else todo)
+    )
+    com_url = (
+        facts["com_platform_url"]
+        if facts["com_platform_status"] == 200
+        else (facts["com_family_url"] if facts["com_family_status"] == 200 else todo)
+    )
+    org_family_url = facts["org_family_url"] if facts["org_family_status"] == 200 else todo
+    com_family_url = facts["com_family_url"] if facts["com_family_status"] == 200 else todo
+
+    # Matches the exact label convention already used across the 25 existing
+    # profiles (net -> .NET, cpp -> Cpp, not a generic .upper()/.capitalize()
+    # guess -- found live: a naive length<=3 heuristic wrongly produced "NET"
+    # instead of ".NET" for aspose-words-foss-net.yml).
+    _PLATFORM_LABELS = {
+        "net": ".NET",
+        "python": "Python",
+        "java": "Java",
+        "typescript": "TypeScript",
+        "javascript": "JavaScript",
+        "cpp": "Cpp",
+        "go": "Go",
+        "nodejs": "NodeJS",
+    }
+    label_platform = _PLATFORM_LABELS.get(entry.platform, entry.platform.capitalize())
+    family_title = entry.family.upper() if len(entry.family) <= 3 else entry.family.capitalize()
+
+    import yaml
+
+    profile = _build_scaffold_profile(
+        policy_profile=slug,
+        license_value=license_value,
+        org_url=org_url,
+        org_family_url=org_family_url,
+        org_label=f"Aspose.{family_title} FOSS for {label_platform}",
+        com_url=com_url,
+        com_family_url=com_family_url,
+        com_label=f"Aspose.{family_title} for {label_platform}",
+    )
+    content = yaml.safe_dump(profile, sort_keys=False, default_flow_style=False, allow_unicode=True)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(content, encoding="utf-8", newline="\n")
+
+    _checked = [("license", license_value), ("org URL", org_url), ("com URL", com_url)]
+    unverified = [k for k, v in _checked if v == todo]
+    print(f"Wrote {out_path}")
+    if unverified:
+        print(f"  UNVERIFIED, needs manual review before enabling: {', '.join(unverified)}")
+    print(
+        "Not yet wired in: edit data/products.json's entry to set "
+        f'"ecosystem": "{entry.platform}", "policy_profile": "{slug}" once reviewed.'
+    )
     return 0

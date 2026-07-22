@@ -120,6 +120,24 @@ def _build_parser() -> argparse.ArgumentParser:
         "--reason", required=True, help="Why this route is being re-enabled"
     )
 
+    p_scaffold_policy = sub.add_parser(
+        "scaffold-policy",
+        help=(
+            "ONB-004: pre-fill config/policies/<profile>.yml for a registry entry -- "
+            "live-verifies license + products.aspose.org/.com links (never guesses "
+            "a URL by string-formatting, decision #4); leaves anything unverifiable "
+            "as an explicit TODO. Does not itself touch data/products.json -- wiring "
+            "ecosystem/policy_profile in stays a separate, deliberate human step "
+            "(docs/policy-authoring.md)."
+        ),
+    )
+    p_scaffold_policy.add_argument(
+        "--repo", required=True, help="org/repo, must already be in data/products.json"
+    )
+    p_scaffold_policy.add_argument(
+        "--force", action="store_true", help="Overwrite an existing profile file"
+    )
+
     return parser
 
 
@@ -147,6 +165,7 @@ def main(argv: list[str] | None = None) -> int:
         "supervise": commands.cmd_supervise,
         "report": commands.cmd_report,
         "model-route-enable": commands.cmd_model_route_enable,
+        "scaffold-policy": commands.cmd_scaffold_policy,
     }[args.command]
 
     try:

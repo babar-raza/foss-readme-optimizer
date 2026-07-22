@@ -120,13 +120,23 @@ exactly the weekly cron's.
 
 ## `data/aspose_com_links.json` — the verified aspose.com link database
 
-A database of **known-valid** `aspose.com` URLs, at exactly the two depths this project ever
-links to — family (`products.aspose.com/words/`) and platform
-(`products.aspose.com/words/python-net/`) — for the four content surfaces `products`, `docs`,
-`reference`, `kb.aspose.com`, plus `blog.aspose.com` category-root URLs (the blog has no
-family/platform landing pages, so its canonical page per category is derived separately, see
-below). This exists so the renderer never has to *guess* or *construct* a `products.*.com` link —
-it looks one up here and checks `http_status`.
+A database of **known-valid** `aspose.com`/`aspose.org` URLs, at exactly the two depths this
+project ever links to — family (`products.aspose.com/words/`) and platform
+(`products.aspose.com/words/python-net/`) — for the content surfaces `products.aspose.com`,
+`docs`, `reference`, `kb.aspose.com`, and (since 2026-07-22) `products.aspose.org`, plus
+`blog.aspose.com` category-root URLs (the blog has no family/platform landing pages, so its
+canonical page per category is derived separately, see below). This exists so the renderer (and
+policy-profile authoring) never has to *guess* or *construct* a `products.*` link — it looks one
+up here and checks `http_status`.
+
+**`products.aspose.org` note**: added 2026-07-22 by
+[`scripts/data-refresh/verify_policy_profile_facts.py`](../scripts/data-refresh/verify_policy_profile_facts.py)
+after policy-profile authoring found no verification source for `.org` links existed at all,
+despite every profile's `products_org_link` depending on one. Its coverage is deliberately
+scoped to the registry's own 25 non-disabled family/platform combinations at generation time
+(see its own `provenance.mode: "live-probe-registry-scoped"`), not a claim of the same
+comprehensive 293-link catalog `products.aspose.com` has — extend it the same way for any new
+registry entry needing a policy profile.
 
 ```json
 {
@@ -213,5 +223,5 @@ python scripts/data-refresh/detect_template_clones.py
 | I want to enable a repo the scan discovered. | Follow [`docs/policy-authoring.md`](../docs/policy-authoring.md) — author a policy profile, then flip `mode` by hand. Never scripted. |
 | A new Aspose FOSS family/org launches. | Add it to `data/families.json` by hand (one line) — that's the only manual step; `products.json` then fills in automatically. |
 | Does `families.json` need to match `products.json`'s orgs exactly? | Every org referenced by `products.json` must exist in `families.json` — enforced by `test_real_families_json_covers_every_org_referenced_by_products_json` in `tests/unit/test_registry_discovery.py`. |
-| I need a `products.aspose.com` (or docs/reference/kb/blog) link for a family or platform. | Look it up in `data/aspose_com_links.json`; use it only if `http_status == 200`. Never construct the URL by string-formatting a family/platform name — the link database is what confirms it actually resolves. |
+| I need a `products.aspose.com`/`products.aspose.org` (or docs/reference/kb/blog) link for a family or platform. | Look it up in `data/aspose_com_links.json`; use it only if `http_status == 200`. Never construct the URL by string-formatting a family/platform name — the link database is what confirms it actually resolves. (2026-07-22 incident: a session did exactly that for 22 policy profiles; 9 of the guessed `.com` platform URLs 404'd for real and had to be corrected against a live re-verification.) |
 | `aspose_com_links.json` looks stale. | Re-run `scripts/fetch_aspose_com_links.py` (live mode) yourself — there's no scheduled workflow for it yet, unlike `products.json`. |
