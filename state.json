@@ -207,18 +207,50 @@
       "upstream_revision_at_accept": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525"
     },
     "readme_presentation": {
-      "accepted_facts_hash": null,
-      "accepted_status": null,
-      "consecutive_failure_count": 1,
+      "accepted_facts_hash": "73effd1e4e0679bcbba7cbfa191961243318e7e4638d1a1fad0635ded1d6cfac",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "committed": false,
+        "fresh_fingerprint": "4d9dcf9d7948c9831772ce3fb36ddcf49ba57aef1af93c7a82e520402d57704e",
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ],
+        "prose_quality": {
+          "corroborated": false,
+          "flagged": false,
+          "quoted_span": "",
+          "reason": "The paragraph provides specific, non-repetitive information about the relationship between the open-source and commercial versions of Aspose.Slides for Python, including licensing details and feature distinctions. It avoids generic boilerplate phrasing and clearly communicates value and next steps to the reader."
+        },
+        "prose_quality_repair_attempts": 0,
+        "render_status": "GENERATED",
+        "verification": {
+          "checks": {
+            "needs_write_matches": true,
+            "validation_passed": true
+          },
+          "nonce": "20260722-150559-973c",
+          "reason": null,
+          "requirement_map": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": true
+          },
+          "token": "3cd09291575e83090b665258ded54b4cf8415c99003e58866398f3eb79f1bd76",
+          "verdict": "accept"
+        },
+        "written": true
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "execution_error",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:30:13.472635+00:00",
+      "last_run_timestamp": "2026-07-22T15:06:25.818767+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "72530dbe96a0a23ecd2d4ac4008a7bb7b86a8d3eb1e749a06830bf016f40dad9",
@@ -242,7 +274,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 18,
+  "state_version": 19,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
