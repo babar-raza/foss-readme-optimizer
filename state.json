@@ -190,6 +190,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "605f67d1192fee1881078dfd53d37b8cb29623ba"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "7401fbc3ebde2bfdc8481a59eea1b87e2d9c804ed8a1200106de504179db24d8",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in Java') using a concrete verb ('working' is acceptable; 'provides' is generic but acceptable given the context).",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The opening paragraph and 'About Aspose.3D FOSS' section explicitly state the audience (Java developers), ecosystem (Java), and common tasks (building 3D applications, loading/saving 3D models).",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "The LICENSE is clearly named (MIT) in the first paragraph and again in the dedicated 'License' section, and GitHub will recognize the LICENSE file if present \u2014 satisfying the highest-priority trust signal.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The README provides build instructions (Maven commands) but does not state package coordinates (e.g., groupId/artifactId) or reference a real external registry like Maven Central, making the install path unverifiable against live registry.",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "The 'Usage' section includes a runnable, self-contained code example beyond the install snippet, demonstrating loading and saving a 3D file.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows logical sequencing: product description \u2192 features \u2192 status \u2192 compatibility \u2192 build \u2192 usage \u2192 contributing \u2192 license \u2192 resources.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, and for a pure API library like this (no visual UI or interactive component), the absence of imagery is appropriate per the standard's rule.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README mentions 'Contributing' but the repository likely lacks GitHub-recognized community files (CODE_OF_CONDUCT, CONTRIBUTING.md, SECURITY.md), as only README is visible in the provided context.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README does not include or reference recent releases or commit activity, and no 'pushed_at' or release badges are present \u2014 maintenance status is not externally verifiable from the README.",
+            "satisfied": false
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The commercial mention appears in the first paragraph (via the '\ud83c\udfe0' banner) and again in the 'About' section and 'Resources' section \u2014 violating the rule of exactly one mention, and the first mention is placed before the product explanation (the banner precedes the core description).",
+            "satisfied": false
+          }
+        ],
+        "overall_summary": "The README satisfies most core presentation dimensions (product clarity, audience fit, trust via license, examples, navigation, visual appropriateness), but fails on installation-path verifiability, contribution-readiness files, maintenance signals, and critically, on natural commercial context due to multiple, premature, and promotional commercial references."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T09:36:51.178085+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "605f67d1192fee1881078dfd53d37b8cb29623ba"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "84c303a76cf504ebdae99dbf490da0b400b512856c0ba16dc2bc3973dc0e13d7",
       "accepted_status": "CHANGED",
@@ -269,7 +337,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 39,
+  "state_version": 40,
   "supervisor_state": {
     "capability_gaps": [
       {
