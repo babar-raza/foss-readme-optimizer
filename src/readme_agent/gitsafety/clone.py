@@ -4,6 +4,7 @@ Only read-only git verbs (clone, fetch) are ever issued against a real remote
 here -- push is neutered separately in neuter.py before any write is possible.
 """
 
+import base64
 import os
 import shutil
 import stat
@@ -251,15 +252,32 @@ def push_branch(repo_path: Path, branch_name: str, token: str, *, timeout: float
     scoped to this single `run_git()` call only, never written to the
     remote URL (which would leak it into `git remote -v`/evidence output)
     and never merged into `_git.py::GIT_SAFETY_ENV` (that only ever adds
-    `GIT_TERMINAL_PROMPT=0`, already composed in by `run_git()` itself for
-    every call, including this one -- a hung credential prompt here fails
-    fast exactly like every other `run_git()` call site). Pushes `HEAD` to
+    `GIT_TERMINAL_PROMPT=0`/`GCM_INTERACTIVE=never`, already composed in by
+    `run_git()` itself for every call, including this one -- a hung/blocked
+    credential prompt here fails fast exactly like every other `run_git()`
+    call site). Basic auth, `x-access-token:{token}` base64-encoded --
+    matches this project's own already-live-proven precedent
+    (`tests/integration/test_state_git_backend_live.py`'s own documented
+    `OPS-009` prerequisite) exactly; a bare `bearer {token}` header, tried
+    first, does not authenticate against GitHub's git-http backend (found
+    live, 2026-07-22: falls through to interactive credential-helper
+    resolution instead of failing on the header itself). Pushes `HEAD` to
     `branch_name` explicitly rather than relying on any configured upstream,
-    since `repo_path` never has one for a not-yet-existing remote branch."""
+    since `repo_path` never has one for a not-yet-existing remote branch.
+
+    Known, honest test-coverage gap: `tests/unit/test_open_presentation_pr.py`
+    exercises this function only against a local, file-transport remote,
+    where `http.extraheader` is a no-op regardless of its value -- this is
+    exactly why the bearer-vs-basic bug above was NOT caught by that test
+    and was only found live. No unit test can distinguish an auth header
+    format without a real HTTPS remote; the live proof
+    (`scripts/retrofits/prove_open_presentation_pr_live.py`) is the only
+    verification that actually exercises this."""
+    basic_auth = base64.b64encode(f"x-access-token:{token}".encode()).decode()
     return run_git(
         [
             "-c",
-            f"http.extraheader=AUTHORIZATION: bearer {token}",
+            f"http.extraheader=AUTHORIZATION: basic {basic_auth}",
             "push",
             "origin",
             f"HEAD:refs/heads/{branch_name}",
