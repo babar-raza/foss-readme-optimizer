@@ -197,6 +197,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "d051a96a7417149e816a8f862d45a5b769bc5fad"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "2743fc0073563619dfc8bb013bf1e40a65a31b7ceb4c3571732a34cdd2778125",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs ('converting', 'without requiring Microsoft Word').",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The second sentence identifies the audience (users of Aspose.Words for Python via .NET seeking a free/lightweight alternative) and specifies the ecosystem (Python), formats (DOCX, DOC, RTF, TXT, MD), and common tasks (converting to Markdown, plain text, PDF).",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "MIT license is visible and GitHub-recognized (via badge + link to license file), and build/version badges (Python version) are present.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command uses `git+https://...`, which is not a real package registry coordinate (PyPI); it does not resolve against PyPI, and no PyPI badge or link is provided.",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "The 'Quick Start' section includes four runnable code blocks beyond the install snippet, covering Markdown, PDF, plain text, and options-based export.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Headers use consistent `##` levels, and the section order follows the expected intent: product description \u2192 features \u2192 install \u2192 examples \u2192 requirements \u2192 license \u2192 support.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is appropriate for a pure API library; the standard allows absence when visuals do not improve understanding.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The repository lacks recognized community files: no visible `CONTRIBUTING`, `CODE_OF_CONDUCT`, or `SECURITY` files are referenced or present, and GitHub would only show README and LICENSE.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README does not claim maintenance status, and GitHub's own `pushed_at`/release data (not in README) would be the source for this \u2014 no violation here.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The second sentence mentions the commercial counterpart (`Aspose.Words for Python via .NET`) in factual, capability-extension language, placed after the product description \u2014 matching the acceptable SheetJS/iText pattern.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies 8 of 10 dimensions, with critical gaps in installation path (non-PyPI install) and contribution readiness (missing community files beyond LICENSE). The product clarity, audience fit, trust signals, examples, navigation, and commercial context are well-handled."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T15:17:40.714223+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "d051a96a7417149e816a8f862d45a5b769bc5fad"
+    },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
@@ -270,7 +338,7 @@
   "open_proposals": {},
   "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 30,
+  "state_version": 31,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
