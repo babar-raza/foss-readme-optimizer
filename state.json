@@ -193,6 +193,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "bc7da00da85c672459437a79ff3d42c8456cd45b5ba43c4e8f0bf8883b61d12b",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs (working with CFB, MSG, MAPI, EmailMessage) and specifies it's a 'pure Python toolkit' \u2014 satisfying the requirement for a plain-language, verb-driven product description before other content.",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The opening paragraph and 'Features' section explicitly name the ecosystem (Python), file formats (CFB, MSG), and common tasks (read/write MSG, convert to/from EmailMessage), fulfilling the need for audience and situational context in the opening block.",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "No LICENSE file is visible in the README (no badge or explicit mention), and GitHub community health would likely be low due to missing LICENSE recognition \u2014 a critical gap since 28% of the registry fails this, and it's the top-priority trust signal per the standard.",
+            "satisfied": false
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command `pip install aspose-email-foss` uses real PyPI coordinates (verified via the PyPI link in 'Links'), and the README includes a working badge-free install snippet \u2014 satisfying the requirement for real-package-registry resolution.",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the install snippet, there are two fully runnable, self-contained code examples (MSG\u2192EML and EML\u2192MSG conversions) with clear input/output expectations, matching the evidence-based expectation of at least one runnable example beyond installation.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Headers use consistent `##` levels, and the section order follows the expected intent: product description \u2192 features \u2192 install \u2192 examples \u2192 compatibility details \u2192 links \u2192 contribution/legal \u2014 with reference/contribution content (Links, Development, Security, Changelog) placed after getting-started content.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, and for a pure API library handling internal binary formats (CFB/MSG), the absence of imagery is appropriate \u2014 the standard permits this when visuals do not improve understanding, which is the case here.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README references CONTRIBUTING.md, SECURITY.md, and CHANGELOG.md, but the standard requires GitHub-recognized community files (LICENSE first); since LICENSE is missing from the README and likely the repo root, GitHub's quick-link row will not show all recognized files, failing this dimension.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "While the README doesn\u2019t state maintenance status, it includes a 'Changelog' section and references to issues/repository \u2014 implying GitHub-generated activity signals (commits, releases) are present elsewhere, and no false claims are made.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention anywhere in the README \u2014 which is acceptable per the standard, as long as the product explanation comes first (it does) and no promotional content appears; the absence of a commercial upsell is not a failure when the repo is purely FOSS.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies most presentation dimensions, especially product clarity, installation path, and examples, but fails on trust signals and contribution readiness due to missing or unacknowledged LICENSE recognition \u2014 the highest-priority gap per the standard."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T14:31:54.316317+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
+    },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
@@ -266,7 +334,7 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 23,
+  "state_version": 24,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
