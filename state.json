@@ -372,27 +372,16 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 20,
+  "state_version": 21,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-144512-df37",
+    "control_plane_fingerprint": "054203ee35e982cc402e49637b9ffead04af895e8aaa369af0ebe3aeb380f581",
+    "domain_coverage_complete": false,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "8a3131b9a6f7e97c20214896c615dbee86272459",
-    "last_run_id": "20260721-102331-6aa3",
-    "last_run_timestamp": "2026-07-21T10:23:31.413141+00:00",
+    "last_run_id": "20260722-144857-4ce8",
+    "last_run_timestamp": "2026-07-22T14:48:57.056761+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -403,20 +392,160 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T10:23:17.895534+00:00",
+          "created_at": "2026-07-22T14:48:17.531324+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "min_framework",
+              "name",
+              "target_framework",
+              "version"
+            ],
             "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
             "readme_length_chars": 15424
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "4031b67ba7074eb79a818c934fd82709",
-          "terminal_at": "2026-07-21T10:23:24.529535+00:00"
+          "task_id": "0a2a9e15e03f47d581ed381e8653a643",
+          "terminal_at": "2026-07-22T14:48:18.628601+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
+          },
+          "blocked_reason": null,
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T14:48:20.963599+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": false,
+            "relationship_explained": true,
+            "total_gaps": 1
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "5706b79463794980b4989580773e73fe",
+          "terminal_at": "2026-07-22T14:48:22.007901+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": true,
+            "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T14:48:27.833549+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "b5350b6ffb0cf475044c57c9a00dc1dcda530a39b6cc08e091fc08bf17f393f3",
+            "final_text": "# Aspose.PDF FOSS for .NET\n\nA free, open-source PDF library for .NET 8+ \u2014 read, create, modify, and convert PDF documents.\n\n> **Note:** Some features are incomplete and the public API may change between releases \u2014 see [What's not included](#whats-not-included-vs-asposepdf-for-net) for current gaps.\n\n> **Platform note:** Runs on .NET 8+ across Windows, Linux, and macOS. Core document work \u2014 parsing, editing, text, forms, encryption/signing \u2014 and page\u2192image rendering (via the built-in managed `SoftwarePageRenderer`, used automatically off-Windows) are pure-managed and fully cross-platform. A few image-interop and font-measurement members, plus the optional GDI+ renderer, still depend on `System.Drawing.Common` and throw `PlatformNotSupportedException` on Linux/macOS. Removing the remaining Windows dependency is planned for a later release.\n\nIt provides an **Aspose.PDF-compatible** API surface for common PDF scenarios \u2014 a large part of existing [**Aspose.PDF for .NET**](https://products.aspose.com/pdf/net/) code can compile and run unchanged. See [What's included](#whats-included) and [What's not included](#whats-not-included-vs-asposepdf-for-net) below for the per-feature breakdown.\n\n## Requirements\n\n- .NET 8.0 or later \u2014 runs on Windows, macOS, and Linux.\n- One NuGet dependency: **`System.Drawing.Common`**, used only by a few image-interop members\n  (e.g. `ImageDevice.GetBitmap`, `StampInfo.Image`). It's Windows-only on .NET 8, so those specific\n  members throw `PlatformNotSupportedException` on Linux/macOS; everything else \u2014 text, forms,\n  parsing, encryption & signing, and page\u2192image rendering via `PngDevice`/`JpegDevice` \u2014 is\n  pure-managed and fully cross-platform.\n\n## Installation\n\nBuild from source:\n\n```bash\ngit clone https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET.git\ncd Aspose.PDF-FOSS-for-.NET\ndotnet build src/Aspose.Pdf.Foss.csproj -c Release\n```\n\nThen reference `src/Aspose.Pdf.Foss.csproj` from your project (e.g. `dotnet add reference`),\nor add the built `Aspose.Pdf.Foss.dll` as an assembly reference.\n\n## What's included\n\n### Document core\n- Open and create PDFs; full round-trip save and incremental save\n- Page manipulation: add, delete, reorder, rotate, resize, copy across documents\n- Bookmarks / outlines, page labels, named destinations, document info & metadata (XMP)\n- Read & write document permissions, optional content (OCG) layers\n- Standard 14 font handling, TrueType / OpenType embedding & subsetting, Type 1 (PostScript) and Type 3 font parsing\n- Pure-managed crypto \u2014 no `System.Security.Cryptography` runtime dependency\n\n### Text\n- Extraction via `TextAbsorber`, `TextFragmentAbsorber`, `ParagraphAbsorber`, `TableAbsorber`\n- Find / replace across pages, including cross-operator and ligature-aware spans\n- Build new text: `TextBuilder`, `TextFragment`, `TextSegment`, `TextStamp`, `FormattedText`\n- Bidi (RTL) support; AGL Unicode mapping; CMap-based decoding\n\n### Forms (AcroForm)\n- Read, fill, and build form fields: text, checkbox, radio, choice (combo/list), button, signature, rich text\n- Field-level flatten, JSON import / export, XFDF tags, form-data import / export\n- `Form`, `Field`, `FormFieldBuilder`, `FormEditor`, `FormDataConverter`\n\n### Annotations\n- All standard annotation types: link, text, free-text, highlight, square / circle / line / polyline,\n  ink, stamp, popup, file attachment, screen, redaction, watermark, pre-press marks, rich media\n- Read, create, modify; appearance generation; flatten\n\n### Security\n- Encrypt / decrypt with RC4-40, RC4-128, AES-128, AES-256\n- Read & set document permissions\n- Sign with PKCS#7 / CMS detached signatures; verify signatures with embedded certificates\n- DocMDP / certifying signatures; appearance stream + image preview embedding\n\n### Rendering\n- Page-to-image via `PngDevice`, `JpegDevice`, `BmpDevice`, `TiffDevice`, `SvgDevice`, `TextDevice`\n- Pluggable `IPageRenderer` (default: `SoftwarePageRenderer`)\n- Mesh shading types 4 \u2013 7 (free-form / lattice Gouraud + Coons / tensor-product patch)\n- JBIG2 decoder, JPEG / JPEG2000 / CCITT-Fax filters\n- Resolution control, color depth, transparency, soft masks (incl. /TR transfer function)\n\n### Converters\n- **In:** PDF, HTML, XML, SVG, Markdown\n- **Out:** PDF, PDF/A (1A, 1B, 2A, 2B, 2U, 3A, 3B, 3U, 4, 4E, 4F), HTML, Markdown, SVG, plain text, image formats above\n- `HtmlSaveOptions`, `MdLoadOptions`, `SvgLoadOptions`, `HtmlLoadOptions`\n\n### Facades\n- `PdfFileEditor` \u2014 concatenate, split, resize, extract pages, edit content\n- `PdfFileSecurity` \u2014 encrypt / decrypt / permission management\n- `PdfFileSignature` \u2014 sign, verify, extract signature info, signature appearance\n- `PdfBookmarkEditor` \u2014 outline / bookmark CRUD, XML / HTML export\n- `PdfContentEditor` \u2014 add annotations, stamps, attachments, replace text\n- `PdfFileStamp` \u2014 header / footer / page-number stamping\n- `PdfFileInfo`, `PdfFileMend`, `PdfAnnotationEditor`, `PdfPageEditor`, `PdfConverter`, `PdfExtractor`, `PdfViewer`, `FormEditor`, `FormDataConverter`\n\n### Tagged PDF & accessibility\n- Read existing `/StructTreeRoot` trees; walk `Aspose.Pdf.LogicalStructure` element hierarchy\n- Build tagged content via `ITaggedContent`: 37 typed structure elements (Document, Sect, Part, P, Span, H1\u2013H6, L / LI / Lbl / LBody, Table / THead / TBody / TFoot / TR / TH / TD, Figure, Form, Annot, etc.)\n- Set document language, title, alternate text, expansion text, marked content\n\n### Other\n- Tables (`Table`, `Row`, `Cell`, `TableAbsorber`)\n- Drawing primitives (`Graph`, `Rectangle`, `Circle`, `Ellipse`, `Arc`, `Line`, `Curve`)\n- XMP metadata + XmpPdfAExtension schema editing\n- Image extraction & placement (`ImagePlacementAbsorber`, `XImageCollection`)\n- Stamps (text / image / page-number / watermark / PDF-page)\n\n## What's not included (vs. Aspose.PDF for .NET)\n\nThe following Aspose.PDF for .NET features are **not** in the FOSS edition. Code that depends on them will throw `NotImplementedException` / `PlatformNotSupportedException`, or \u2014 for some types \u2014 exist as a reflection-shape stub that doesn't perform the operation:\n\n### Out of scope by design\n- **AI / LowCode workflows** \u2014 `Aspose.Pdf.AI.*`, `Aspose.Pdf.LowCode.*`. Use Aspose.PDF for .NET for OpenAI / Llama-powered summarisation, OCR-aided extraction, and the LowCode fa\u00e7ade APIs.\n- **Multithreading APIs** \u2014 `Aspose.Pdf.Multithreading.*`. The FOSS edition is single-threaded for a single `Document` instance.\n- **Format converters beyond PDF / HTML / SVG / Markdown / XML** \u2014 DOCX, EPUB, MHT, XPS, PCL, LaTeX, DJVU, OFD, PostScript, Cgm.\n- **Printing pipeline** \u2014 `PdfViewer.Print*` methods throw `PlatformNotSupportedException`. Render to image and pass the image to your printing stack instead.\n\n### Partial \u2014 basics work, advanced doesn't\n- **Digital signatures** \u2014 basic Sign / Verify / PKCS#1 / PKCS#7 / DocMDP / certifying works. The validation-options surface (`ValidationOptions`, `ValidationResult`, OCSP, timestamping over the network, custom remote-sign delegates) is stored-but-not-active.\n- **Advanced `PdfFileEditor` features** \u2014 `MakeNUp` imposition, `MakeBooklet` from `Stream` with non-trivial margins, `ResizeContents` with custom imposition matrices \u2014 accepted as input but the FOSS save path emits the simple layout.\n- **XFA forms** \u2014 dynamic XFA is read and can be flattened to real, findable AcroForm pages; XFA datasets round-trip through the AcroForm `/XFA`, sync two-way with AcroForm fields, and export / import via FDF / XFDF / XML. Fine-grained authoring of individual XFA dataset fields is still limited.\n- **3D annotations (`PDF3DAnnotation`)** \u2014 3D annotations are read (artwork, views, cross-sections, lighting / render mode, view array) and round-trip, but the 3D content stream is not regenerated on save and the page renderer does not display the 3D model.\n- **Document comparison** \u2014 the low-level `Aspose.Pdf.Comparison.Diff` edit-operation model (diff operations plus merge / slide optimizers) is available; a higher-level \"compare two PDFs and produce a visual diff document\" workflow is not.\n- **Tagged PDF rendering fidelity** \u2014 the structure tree is built and round-trips through `/StructTreeRoot`, but advanced PDF/UA-2 layout-aware tagging features are partial.\n- **Some PDF/A conversion semantics** \u2014 validation against PDF/A levels works; certain PDF/A-2 / PDF/A-3 conversion fix-ups (transparency flattening, embedded-file constraints, ICC profile downgrade) are stored-but-not-applied.\n- **Advanced rendering of complex colour spaces** \u2014 `DeviceN` and `Separation` with N > 4 channels, ICC-based group blending in CMYK \u2014 render in approximate sRGB.\n\n### Renderer fidelity\n- The FOSS rendering output is pixel-close but not byte-identical to Aspose.PDF for .NET / GDI+ output. Sub-pixel glyph positioning, image dithering, anti-aliasing weight, and widget-appearance details may differ slightly. If you compare rendered PNGs against an Aspose.PDF for .NET reference, expect small per-pixel deltas.\n\n### Platform-specific notes\n- **`System.Drawing.Common` interop** \u2014 methods that return `System.Drawing.Image` / `Bitmap` are tagged `[SupportedOSPlatform(\"windows\")]` and throw `PlatformNotSupportedException` on Linux / macOS. Use the byte-array / `Stream` overloads instead, or read pixel data directly from the renderer's `BitmapInfo`.\n\n## Quick start\n\n### Open a PDF and extract text\n\n```csharp\nusing Aspose.Pdf;\nusing Aspose.Pdf.Text;\n\nusing var doc = new Document(\"input.pdf\");\nvar absorber = new TextAbsorber();\nabsorber.Visit(doc.Pages[1]);\nConsole.WriteLine(absorber.Text);\n```\n\n### Create a new PDF\n\n```csharp\nusing Aspose.Pdf;\nusing Aspose.Pdf.Text;\n\nusing var doc = new Document();\nvar page = doc.Pages.Add();\n\nvar fragment = new TextFragment(\"Hello, World!\");\nfragment.TextState.FontSize = 24;\npage.Paragraphs.Add(fragment);\n\ndoc.Save(\"output.pdf\");\n```\n\n### Find and replace text\n\n```csharp\nusing Aspose.Pdf;\nusing Aspose.Pdf.Text;\n\nusing var doc = new Document(\"input.pdf\");\nvar absorber = new TextFragmentAbsorber(\"old text\");\nabsorber.Visit(doc);\n\nforeach (var fragment in absorber.TextFragments)\n    fragment.Text = \"new text\";\n\ndoc.Save(\"output.pdf\");\n```\n\n### Fill form fields\n\n```csharp\nusing Aspose.Pdf;\n\nusing var doc = new Document(\"form.pdf\");\nforeach (var field in doc.Form.Fields)\n    Console.WriteLine($\"{field.FullName} = {field.Value}\");\n```\n\n### Encrypt a PDF\n\n```csharp\nusing Aspose.Pdf;\n\nusing var doc = new Document(\"input.pdf\");\ndoc.Encrypt(\"user-pw\", \"owner-pw\", Permissions.PrintDocument, CryptoAlgorithm.AESx256);\ndoc.Save(\"encrypted.pdf\");\n```\n\n### Convert HTML to PDF\n\n```csharp\nusing Aspose.Pdf;\n\nusing var doc = new Document(\"input.html\", new HtmlLoadOptions());\ndoc.Save(\"output.pdf\");\n```\n\n### Render a page to PNG\n\n```csharp\nusing Aspose.Pdf;\nusing Aspose.Pdf.Devices;\n\nusing var doc = new Document(\"input.pdf\");\nvar device = new PngDevice(new Resolution(300));\nusing var stream = File.Create(\"page1.png\");\ndevice.Process(doc.Pages[1], stream);\n```\n\n### Sign a PDF\n\n```csharp\nusing Aspose.Pdf;\nusing Aspose.Pdf.Facades;\nusing Aspose.Pdf.Forms;\n\nusing var signer = new PdfFileSignature();\nsigner.BindPdf(\"input.pdf\");\nvar sig = new PKCS7(\"my.pfx\", \"pfx-password\");\nsigner.Sign(1, \"reason\", \"contact\", \"location\", true,\n    new System.Drawing.Rectangle(100, 100, 200, 60), sig);\nsigner.Save(\"signed.pdf\");\n```\n\n## Documentation\n\n| Guide | Description |\n|-------|-------------|\n| [Getting Started](docs/getting-started.md) | Installation, first program, core concepts (document lifecycle, 1-based page indexing, saving) |\n| [Working with Text](docs/working-with-text.md) | Extract, search, and replace text; build new text with `TextBuilder` / `TextParagraph`; tab stops |\n| [Working with Pages](docs/working-with-pages.md) | Add, delete, reorder, rotate, and resize pages; copy pages across documents; merge & split |\n| [Fonts](docs/fonts.md) | Standard 14, embedding & subsetting, custom fonts (`FontRepository`), substitution, inspection |\n| [Working with Forms](docs/working-with-forms.md) | Read, fill, and build AcroForm fields (text, checkbox, radio, choice, button, signature) |\n| [Working with Annotations](docs/working-with-annotations.md) | Read, create, and modify PDF annotations; watermarks; flatten |\n| [Bookmarks & Navigation](docs/bookmarks-and-navigation.md) | Outlines/bookmarks, named destinations, and page labels |\n| [Security and Encryption](docs/security-and-encryption.md) | Encrypt / decrypt (RC4 / AES-128 / AES-256), document permissions, digital signatures (PKCS#7) |\n| [Metadata & XMP](docs/metadata-and-xmp.md) | Document Info dictionary (Title/Author/\u2026) and the XMP metadata packet |\n| [Converters](docs/converters.md) | PDF \u2194 HTML, PDF \u2194 Markdown, PDF \u2194 SVG, PDF \u2192 plain text |\n| [Rendering](docs/rendering.md) | Render pages to PNG, JPEG, BMP, TIFF; SVG output; resolution + color depth control |\n| [Optimization](docs/optimization.md) | Compress images, subset fonts, link duplicate streams, PDF/A validation + conversion |\n| [Working with Tables](docs/working-with-tables.md) | Extract tabular data with `TableAbsorber`; build tables with `Table` / `Row` / `Cell` |\n| [Tagged PDF](docs/tagged-pdf.md) | Read and build `/StructTreeRoot` trees; `ITaggedContent` authoring API |\n| [Facades](docs/facades.md) | High-level task-oriented APIs (`PdfFileEditor`, `PdfFileSecurity`, `PdfFileSignature`, `PdfBookmarkEditor`, `PdfContentEditor`, ...) |\n| [API Reference](docs/api-reference.md) | Public classes organised by namespace, plus a \"not included vs Aspose.PDF for .NET\" list |\n\n## API overview\n\n| Area | Key classes |\n|------|-------------|\n| Core | `Document`, `Page`, `PageCollection`, `Rectangle`, `Matrix` |\n| Text | `TextAbsorber`, `TextFragmentAbsorber`, `TextFragment`, `TextBuilder`, `TextReplacer`, `TextState`, `TextFragmentState` |\n| Forms | `Form`, `Field`, `FormFieldBuilder`, `FormEditor`, `Signature`, `SignatureField` |\n| Annotations | `Annotation`, `AnnotationCollection`, `AnnotationSelector`, `WidgetAnnotation` |\n| Security | `CryptoAlgorithm`, `DocumentPrivilege`, `PdfSigner`, `PdfCertificate`, `SignatureAppearance`, `PKCS1`, `PKCS7` |\n| Facades | `PdfFileEditor`, `PdfFileSecurity`, `PdfFileSignature`, `PdfBookmarkEditor`, `PdfContentEditor`, `PdfAnnotationEditor`, `PdfFileStamp`, `PdfFileInfo` |\n| Converters | `HtmlSaveOptions`, `MdLoadOptions`, `SvgLoadOptions`, `HtmlLoadOptions`, `PdfFormatConversionOptions` |\n| Devices | `PngDevice`, `JpegDevice`, `BmpDevice`, `TiffDevice`, `SvgDevice`, `TextDevice` |\n| Optimization | `OptimizationOptions`, `PdfFormatConversionOptions` (PDF/A) |\n| Tagged PDF | `ITaggedContent`, `LogicalStructure.StructureElement`, `Structure.RootElement` |\n| Tables | `Table`, `Row`, `Cell`, `TableAbsorber` |\n| Drawing | `Graph`, `Rectangle`, `Circle`, `Ellipse`, `Arc`, `Line`, `Curve` |\n| Fonts | `FontRepository`, `FontAbsorber`, `Font`, `FontInfo` |\n\n## Running tests\n\n```bash\ndotnet test tests/Aspose.Pdf.Foss.Tests.csproj\n```\n\n## Related projects\n\n[Aspose.PDF for .NET](https://products.aspose.com/pdf/net/) is the product from Aspose Pty Ltd that offers a broader feature set \u2014 including AI / LowCode workflows, XFA authoring, advanced digital-signature validation, multithreading, and conversion to many non-PDF formats (DOCX, EPUB, XPS, PCL, PostScript, ...). The FOSS edition shares the same public API shape, so code can usually migrate between the two with minimal changes.\n\n## License\n\nMIT \u2014 see [LICENSE](LICENSE).\n\n<!-- readme-agent:resources hash=\"sha256:b5350b6ffb0cf475044c57c9a00dc1dcda530a39b6cc08e091fc08bf17f393f3\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.PDF FOSS for .NET](https://products.aspose.org/pdf/net/)\n\nThis repository, Aspose.PDF-FOSS-for-.NET, represents the free, open-source (FOSS) edition of Aspose.PDF for .NET, offering core PDF processing capabilities under the MIT license. Users seeking extended functionality, enterprise support, and additional features can upgrade to the commercial edition, which provides a broader feature set and is available through the official Aspose.PDF for .NET product page.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "dfb55592322204d2c6cf8c28b6ae3ea4dd48aa4a846cf3ff2129ab36075e2b6b",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": true,
+            "skip_regeneration": false,
+            "status": "BLOCKED_VALIDATION_FAILED"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "cd9046f3098f4686bfa8cf354e4467c2",
+          "terminal_at": "2026-07-22T14:48:33.915268+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
+          },
+          "blocked_reason": null,
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-22T14:48:43.397946+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "declared_license": "MIT",
+            "detected_ecosystems": [
+              {
+                "confidence": 1.0,
+                "ecosystem": "net",
+                "evidence": "found Aspose.Pdf.Foss.csproj; parsed 4 field(s)",
+                "manifest_path": "src/Aspose.Pdf.Foss.csproj"
+              }
+            ],
+            "ecosystem": "net",
+            "family": "pdf",
+            "link_whitelist_domains": [
+              "products.aspose.com",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "products.aspose.org",
+              "docs.aspose.org",
+              "kb.aspose.org",
+              "blog.aspose.org",
+              "forum.aspose.com"
+            ],
+            "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
+            "platform": "net",
+            "policy_profile": "aspose-pdf-foss-net",
+            "products_com_link": {
+              "family_url": "https://products.aspose.com/pdf",
+              "label": "Aspose.PDF for .NET",
+              "url": "https://products.aspose.com/pdf/net/",
+              "utm": {
+                "utm_campaign": "foss-readme-optimizer",
+                "utm_medium": "readme",
+                "utm_source": "github"
+              }
+            },
+            "products_org_link": {
+              "family_url": "https://products.aspose.org/pdf/",
+              "label": "Aspose.PDF FOSS for .NET",
+              "url": "https://products.aspose.org/pdf/net/",
+              "utm": null
+            },
+            "prohibited_terms": [
+              "guarantee",
+              "100%",
+              "best in the world",
+              "free forever",
+              "no bugs"
+            ],
+            "relationship_talking_points": [
+              "open_source_scope",
+              "commercial_upgrade_path"
+            ],
+            "secondary_links": [
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "detected_ecosystems": "live repository clone (repository inspection)",
+              "identity_and_policy": "data/products.json + config/policies/aspose-pdf-foss-net.yml",
+              "unresolved_manifests": "live repository clone (repository inspection)"
+            },
+            "unresolved_manifests": [],
+            "word_limit": {
+              "max": 120,
+              "min": 20
+            }
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "79314d7a9c664f27b73c4b049357ec6a",
+          "terminal_at": "2026-07-22T14:48:47.624556+00:00"
         }
       ]
     }
