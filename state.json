@@ -240,7 +240,7 @@
     },
     "visual_preparation": {
       "accepted_facts_hash": "80511fc65a039258941d87811760027f48a5450923129a738a0b99c90f403793",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -258,22 +258,29 @@
         },
         "size_bytes": 2134,
         "size_within_reasonable_bounds": true,
+        "visual_accuracy_review": {
+          "asset_source": "generated_candidate",
+          "concerns": [],
+          "depicts_unsupported_content": false,
+          "rationale": "The text 'pdf FOSS for java' in the image accurately reflects the product name 'Aspose.PDF-FOSS-for-Java', which is a free open-source library for Java to work with PDF files. There are no unsupported claims or misleading elements in the image.",
+          "verdict": "accept"
+        },
         "width": 800
       },
       "domain": "visual_preparation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:23:54.856905+00:00",
+      "last_run_timestamp": "2026-07-22T07:54:16.259045+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "1ed0a411171e49758b462321ed24bff568bb4444"
     }
   },
   "last_run_id": null,
   "last_run_timestamp": "2026-07-20T12:46:26.020316+00:00",
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 22,
+  "state_version": 23,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6fead41d02ce74533d2b27d827b17eae52be71f9233cf629128bad5758f368ec",
