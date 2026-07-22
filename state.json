@@ -1,7 +1,15 @@
 {
   "accepted_facts_hash": null,
   "accepted_status": null,
-  "capability_outputs": [],
+  "capability_outputs": [
+    {
+      "cached_at": "2026-07-22T14:21:23.771811+00:00",
+      "capability_id": "commit_readme_write",
+      "fingerprint": "0ee59d2191d52a96e2ecb4abb1bd4286bd429e09bcce3888b02c721aefe622d1",
+      "result": {},
+      "status": "pending"
+    }
+  ],
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "37dc24a925b87b88d9c723069d3df0585cd31e68e7e69e3d340b6eecb6c7a876",
@@ -231,7 +239,7 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 21,
+  "state_version": 22,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
