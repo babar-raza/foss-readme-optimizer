@@ -90,6 +90,71 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
     },
+    "independent_verification": {
+      "accepted_facts_hash": "db2701efcb7c107b04a8d7233dcce0ab6603d189401a3a214a3a3081a6220202",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "adversarial_findings": [],
+        "checks_performed": [
+          "evidence_completeness",
+          "requirement_mapping",
+          "adversarial_cross_domain"
+        ],
+        "completeness": {},
+        "failure_escalations": {
+          "readme_presentation": {
+            "consecutive_failure_count": 1,
+            "last_failure_reason": "verification_rejected"
+          }
+        },
+        "requirement_map": {
+          "CAP-006": {
+            "capability_id": "classify_upstream_change",
+            "domain": "readme_reconciliation",
+            "exercised_without_error": true
+          },
+          "EFF-001": {
+            "capability_id": "commit_readme_write",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "LLM-010": {
+            "capability_id": "review_visual_asset_accuracy",
+            "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "RDM-020": {
+            "capability_id": "verify_prose_quality",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "VAL-005": {
+            "capability_id": "compare_against_presentation_standard",
+            "domain": "presentation_benchmarking",
+            "exercised_without_error": true
+          },
+          "VER-001": {
+            "capability_id": "verify_readme_candidate",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "VER-002": {
+            "capability_id": "verify_readme_candidate",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          }
+        }
+      },
+      "domain": "independent_verification",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T15:24:01.328483+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
+    },
     "metadata_presentation": {
       "accepted_facts_hash": "22af6a6c9ae9d8cbf17dfeadebfbe31ebeac886deca41d582f6c85ad624368ca",
       "accepted_status": "FIRST_OBSERVATION",
@@ -281,7 +346,7 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
-  "state_version": 10,
+  "state_version": 11,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
