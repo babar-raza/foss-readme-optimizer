@@ -352,27 +352,16 @@
   "open_proposals": {},
   "org_repo": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 19,
+  "state_version": 20,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-150908-05b7",
+    "control_plane_fingerprint": "505dc361197f0f26dc8845f5c70ba0e7720de8daa296a081c3d9332bcb1f6a41",
+    "domain_coverage_complete": false,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
-    "last_run_id": "20260721-103300-9a36",
-    "last_run_timestamp": "2026-07-21T10:33:00.691038+00:00",
+    "last_run_id": "20260722-151420-4df6",
+    "last_run_timestamp": "2026-07-22T15:14:20.315537+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -383,20 +372,73 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T10:32:47.987675+00:00",
+          "created_at": "2026-07-22T15:13:51.165815+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "license",
+              "name",
+              "requires_python",
+              "version"
+            ],
             "org_repo": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
             "readme_length_chars": 4412
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "f43b9ac9d66e40699082e4eb8582c55c",
-          "terminal_at": "2026-07-21T10:32:52.804683+00:00"
+          "task_id": "838a834ca29f40c39ac2d1ffb44831e0",
+          "terminal_at": "2026-07-22T15:13:52.246818+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T15:13:55.894140+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "license_mentioned": true,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 3
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "9cb5d79387bd4f22901af610c716627b",
+          "terminal_at": "2026-07-22T15:13:56.987107+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": true,
+            "org_repo": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T15:14:03.308277+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "711c94c1fdde2acbea887ab01d89850249bfcd5bb9d9c3f8af65da15a829139c",
+            "final_text": "# aspose-tex\n\nPure-Python library for TeX/LaTeX processing. Parses TeX input and produces PDF,\nSVG, and DVI output. No external TeX installation required \u2014 Computer Modern\nfonts and hyphenation patterns are bundled.\n\n> **Status: Pre-Alpha.** The core engine and public API are under active\n> development. Interfaces may change between releases.\n\n## Requirements\n\n- Python 3.10+\n\n## Installation\n\n```bash\npip install aspose-tex\n```\n\nFor development:\n\n```bash\npip install -e \".[dev]\"\n```\n\n## Quick Start\n\n### PDF output\n\n```python\nfrom pathlib import Path\nfrom aspose_tex import TeXJob, TeXOptions, PdfDevice, create_input_source\n\nsource = create_input_source(\"Hello World\\n\\\\bye\")\ndevice = PdfDevice(Path(\"hello.pdf\"))\njob = TeXJob(source, device, options=TeXOptions(load_format=False))\njob.run() # hello.pdf is written to disk\n```\n\nIn-memory PDF:\n\n```python\nfrom aspose_tex import TeXJob, TeXOptions, PdfDevice, create_input_source\n\nsource = create_input_source(\"Hello World\\n\\\\bye\")\ndevice = PdfDevice()\njob = TeXJob(source, device, options=TeXOptions(load_format=False))\npdf_bytes = job.run()\n```\n\n### DVI output\n\n```python\nfrom aspose_tex import TeXJob, TeXOptions, DviDevice, create_input_source\n\nsource = create_input_source(\"Hello World\\n\\\\bye\")\ndevice = DviDevice()\njob = TeXJob(source, device, options=TeXOptions(load_format=False))\ndvi_bytes = job.run()\n```\n\nOutput to file directly:\n\n```python\nfrom pathlib import Path\nfrom aspose_tex import TeXJob, TeXOptions, DviDevice, create_input_source\n\nsource = create_input_source(\"Hello World\\n\\\\bye\")\ndevice = DviDevice(Path(\"hello.dvi\"))\njob = TeXJob(source, device, options=TeXOptions(load_format=False))\njob.run() # returns None; output is on disk\n```\n\n### SVG output\n\n```python\nfrom aspose_tex import TeXJob, TeXOptions, SvgDevice, create_input_source\n\nsource = create_input_source(\"Hello World\\n\\\\bye\")\ndevice = SvgDevice()\njob = TeXJob(source, device, options=TeXOptions(load_format=False))\nsvg_bytes = job.run() # UTF-8 encoded SVG 1.1 document\n```\n\nOutput to file:\n\n```python\nfrom pathlib import Path\nfrom aspose_tex import TeXJob, TeXOptions, SvgDevice, create_input_source\n\nsource = create_input_source(\"Hello World\\n\\\\bye\")\ndevice = SvgDevice(Path(\"output/hello\"))\njob = TeXJob(source, device, options=TeXOptions(load_format=False))\njob.run() # writes output/hello.svg (or hello-1.svg, hello-2.svg for multi-page)\n```\n\nMulti-page in-memory output:\n\n```python\nfrom aspose_tex import TeXJob, TeXOptions, SvgDevice, create_input_source\n\nsource = create_input_source(\"Page one\\n\\\\eject\\nPage two\\n\\\\bye\")\ndevice = SvgDevice()\njob = TeXJob(source, device, options=TeXOptions(load_format=False))\njob.run()\npages = device.get_all_pages() # list[bytes], one SVG per page\n```\n\nSVG output is self-contained \u2014 glyph outlines are extracted from the bundled\nComputer Modern PFB fonts and embedded as `<path>` elements, so no external\nfonts are required by the SVG viewer.\n\n### Options\n\n```python\nfrom aspose_tex import TeXJob, TeXOptions, PdfDevice, create_input_source\n\nopts = TeXOptions(job_name=\"hello\", magnification=1200, load_format=False)\nsource = create_input_source(\"Hello World\\n\\\\bye\")\ndevice = PdfDevice()\njob = TeXJob(source, device, options=opts)\npdf_bytes = job.run()\n```\n\n### Messages and logging\n\n`TeXJob.messages` returns a copy of the messages collected during the most\nrecent run. `\\message` and `\\write 16` append plain-text messages; `\\errmessage`\nappends messages with a leading `! ` prefix; `\\write -1` logs only.\n\n```python\nfrom pathlib import Path\nfrom aspose_tex import TeXJob, TeXOptions, DviDevice, create_input_source\n\nopts = TeXOptions(load_format=False, extra_format_paths=[Path(\"tex-inputs\")])\nsource = create_input_source(\"\\\\input chapter1\\n\\\\bye\")\njob = TeXJob(source, DviDevice(), options=opts)\ndvi_bytes = job.run()\nmessages = job.messages\n```\n\n`extra_format_paths` is searched after bundled format data and before the\ncurrent working directory for `\\input` files.\n\nThe package registers a `logging.NullHandler` on the `aspose_tex` logger so\napplications can opt into standard Python logging without receiving default\nhandler warnings:\n\n```python\nimport logging\n\nlogging.basicConfig(level=logging.INFO)\nlogging.getLogger(\"aspose_tex\").setLevel(logging.INFO)\n```\n\n## License\n\nReleased under the MIT License \u2014 see [LICENSE](LICENSE). Bundled Computer Modern\nfonts are covered separately \u2014 see [LICENSE-FONTS](LICENSE-FONTS).\n\n<!-- readme-agent:resources hash=\"sha256:711c94c1fdde2acbea887ab01d89850249bfcd5bb9d9c3f8af65da15a829139c\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.TeX FOSS for Python](https://products.aspose.org/tex/python/)\n- **Commercial edition:** [Aspose.TeX for Python](https://products.aspose.com/tex/python-net/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository, aspose-tex-foss/Aspose.TeX-FOSS-for-Python, hosts the free, open-source (FOSS) edition of Aspose.TeX for Python, licensed under the MIT license. It provides a subset of the functionality available in the commercial edition, Aspose.TeX for Python, which offers a broader feature set and is intended for production use with commercial support.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "e7936421728e509b742fdf73ba8e9c131579591201556d8bdc90c0299ce218b7",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": true,
+            "skip_regeneration": false,
+            "status": "GENERATED"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "555e45b8178a4ecc854b10e52455b22c",
+          "terminal_at": "2026-07-22T15:14:08.811166+00:00"
         }
       ]
     }
