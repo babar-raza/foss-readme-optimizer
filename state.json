@@ -1,7 +1,15 @@
 {
   "accepted_facts_hash": null,
   "accepted_status": null,
-  "capability_outputs": [],
+  "capability_outputs": [
+    {
+      "cached_at": "2026-07-22T14:32:49.575690+00:00",
+      "capability_id": "commit_readme_write",
+      "fingerprint": "e7cec47fe7673681d17cafe04f38b564cdb44d43b1d7ee228830541593cc3167",
+      "result": {},
+      "status": "pending"
+    }
+  ],
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "1bb2fe1a9be0cf15ffc72f5474dc209837488aeb3149e210f800abecb3b949d6",
@@ -349,7 +357,7 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 25,
+  "state_version": 26,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
