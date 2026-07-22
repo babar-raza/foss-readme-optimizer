@@ -195,6 +195,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "eb8e940dea15abe457a6bda22ba7a1d613236ff476dbce4552b460aa8fb997f8",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in .NET') using a concrete verb ('working' implies create, read, write, convert).",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The opening paragraph specifies the ecosystem (.NET), formats (OBJ, STL, FBX, glTF), and common tasks (working with 3D scenes/models), and the 'About' section reinforces the target user (developers building 3D apps at no cost).",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "The MIT License is prominently displayed in the first paragraph and linked to a LICENSE file, satisfying the highest-priority trust signal; badges are absent but not required per standard.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command names real package coordinates (`Aspose.3D.FOSS`) and uses the correct .NET CLI syntax; though no registry badge is present, the command itself is valid and matches the ecosystem convention.",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the install snippet, the 'Quick Start' section provides a runnable C# code block that creates a scene and saves it to OBJ, satisfying the requirement for at least one runnable example.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Headers use consistent Markdown levels (`##` for main sections), and the order follows the standard: product description \u2192 audience/usage \u2192 status/limitations \u2192 install \u2192 examples \u2192 resources \u2192 license \u2192 contributing.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is acceptable per the standard for a library whose interface is purely API-based; the absence does not violate the rule that visuals are only required when they improve understanding of input/output/workflow.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README lacks GitHub-recognized community files: no LICENSE file is referenced in the repo header (though mentioned in text), and there is no visible CONTRIBUTING, CODE_OF_CONDUCT, or SECURITY file listed or linked, so GitHub's quick-link row would show only README.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README does not claim maintenance status, and the 'Status' section honestly reflects the work-in-progress nature \u2014 consistent with the standard's requirement that maintenance signals be structural (GitHub-generated), not prose.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The commercial edition is mentioned exactly once in the first paragraph (as a product home link) and again in the 'About' and 'Limitations' sections using factual, capability-extension language \u2014 never as a banner, never repeated, and never with promotional adjectives.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole failure being contribution readiness (missing GitHub-recognized community files beyond LICENSE). All other criteria\u2014including product clarity, installation validity, example sufficiency, and restrained commercial framing\u2014are well met per the standard."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T13:44:21.068922+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "93625f45ae3b5a4f7fc76d153ec6ac7d2b7d589cb31f1641ea4426ba2f4ba505",
       "accepted_status": "FIRST_OBSERVATION",
@@ -275,7 +343,7 @@
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 17,
+  "state_version": 18,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
