@@ -6,6 +6,10 @@ repository-specific — never a generic template. The Aspose FOSS portfolio is i
 product profile, not the ceiling of what it addresses (see `plans/master.md`'s Mission and
 Decision #26 for the full target architecture).
 
+[`plans/idea.md`](plans/idea.md) captures the core product idea and intended operating model.
+`plans/master.md` remains the authoritative executable specification for turning that idea into
+the governed system.
+
 The **currently shipped engine** — what actually runs today — audits a repository's README for
 specific missing promotional elements (license mention, `products.aspose.org`/
 `products.aspose.com` links, an explanation of the FOSS-vs-commercial relationship) and proposes a

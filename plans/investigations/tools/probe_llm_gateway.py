@@ -65,8 +65,12 @@ def chat(model: str, content: str, max_tokens: int = 200) -> tuple[bool, str, fl
 
 def chat_raw(
     model: str, messages: list[dict], tools: list[dict] | None = None, max_tokens: int = 250
-) -> tuple[bool, dict, float]:
-    """Like chat(), but returns the raw response `message` dict (for tool_calls) not just text."""
+) -> tuple[bool, dict, float, dict]:
+    """Like chat(), but returns the raw response `message` dict (for tool_calls) not just
+    text, plus the response's own `usage` dict (added alongside the multi-turn
+    conversation-growth probe below -- the model-reported `prompt_tokens` per turn is the
+    ground truth for how a real, growing planner conversation's token cost actually
+    accumulates, not a client-side tokenizer estimate)."""
     t0 = time.time()
     payload: dict = {
         "model": model,
@@ -81,11 +85,11 @@ def chat_raw(
         r = requests.post(f"{BASE}/chat/completions", headers=HDRS, json=payload, timeout=TIMEOUT)
         dt = time.time() - t0
         if r.status_code != 200:
-            return False, {"error": f"HTTP {r.status_code}: {r.text[:300]}"}, dt
+            return False, {"error": f"HTTP {r.status_code}: {r.text[:300]}"}, dt, {}
         d = r.json()
-        return True, d["choices"][0]["message"], dt
+        return True, d["choices"][0]["message"], dt, d.get("usage", {})
     except Exception as e:  # noqa: BLE001
-        return False, {"error": f"{type(e).__name__}: {e}"}, time.time() - t0
+        return False, {"error": f"{type(e).__name__}: {e}"}, time.time() - t0, {}
 
 
 TOOL_LOOKUP_LICENSE = {
@@ -149,12 +153,24 @@ embed_models = [m for m in models if "embed" in m.lower()]
 
 # --- 2. context-window ladder ----------------------------------------------
 # Filler ~4 chars/token. Ask for a needle at the END to prove full-prompt visibility.
+# BUGFIX (2026-07-21): the previous version built `filler` from a FIXED-length
+# (~5,600-char) string ("lorem ipsum dolor sit amet " * 200) and then sliced it
+# to `approx_tok * 4 - 400` chars -- but slicing past a string's actual length
+# is a Python no-op, so every ladder rung from 2,000 to 96,000 "approx tokens"
+# silently sent the same ~5,600-char (~1,400-token) filler. This exactly
+# explained why `probe-results.json`'s own `usage.prompt_tokens` stayed flat
+# (~1,031-1,032) across the whole ladder in the prior run -- not a gateway
+# quirk, a one-line bug. Fixed by scaling the repeat count to the target size
+# BEFORE slicing.
+_FILLER_UNIT = "lorem ipsum dolor sit amet "
 ladder = [2_000, 8_000, 16_000, 32_000, 64_000, 96_000]  # approx tokens
 ctx: dict = {}
 for model in chat_models:
     ctx[model] = []
     for approx_tok in ladder:
-        filler = ("lorem ipsum dolor sit amet " * 200)[: approx_tok * 4 - 400]
+        target_chars = approx_tok * 4 - 400
+        repeats = target_chars // len(_FILLER_UNIT) + 1
+        filler = (_FILLER_UNIT * repeats)[:target_chars]
         prompt = (
             f"{filler}\n\nIMPORTANT: reply with exactly the code word: ZEBRA-{approx_tok}."
             " Nothing else."
@@ -175,6 +191,87 @@ for model in chat_models:
         if not ok:
             break  # ladder stops at first hard failure
 results["probes"]["context_ladder"] = ctx
+
+# --- 2b. multi-turn conversation growth (real planner shape, not a flat prompt) ----
+# `AGT-007`/`LLM-019`: the production consumer of a context budget is
+# `supervisor/loop.py`'s growing tool-calling conversation (system prompt +
+# initial dossier, then an appended assistant tool_call + tool result pair
+# each turn, up to `DEFAULT_MAX_TURNS=8`), not a single flat prompt. The
+# context-ladder probe above answers "how large a single prompt survives" --
+# it does not answer "how large does a real 7-turn planner conversation
+# actually get." This section measures that directly via the gateway's own
+# `usage.prompt_tokens` at each turn, so a dossier token budget can be sized
+# against real accumulation, not a guess.
+_DOSSIER_SYSTEM = (
+    "You are an autonomous repository-presentation planner. You have a menu of "
+    "capabilities describing what each one observes or changes. Given the current "
+    "observation, call exactly one capability per turn that would most usefully extend "
+    "your understanding of the repository, or address a gap you've observed. Once you "
+    "have enough information and no further capability would help, stop calling tools "
+    "and explain why in plain text."
+)
+# A moderately realistic initial dossier -- bootstrap result + 9 specialist summaries,
+# sized like a real (not synthetic-filler) planner turn-0 payload.
+_DOSSIER_USER = (
+    "Repository: acme/widget. Initial observation: "
+    '{"has_readme": true, "has_license_file": true, "readme_length_chars": 4820, '
+    '"manifest_keys": ["pom.xml"]}. Specialist observations: '
+    '{"readme_reconciliation": "CHANGED", "github_generated_surface_audit": "CHANGED", '
+    '"package_release_audit": "NO_CHANGE", "metadata_presentation": "NO_CHANGE", '
+    '"community_files_presentation": "NO_CHANGE", "cross_surface_validation": "NO_CHANGE", '
+    '"readme_presentation": "CHANGED", "visual_preparation": "NO_CHANGE", '
+    '"independent_verification": "NO_CHANGE"}. Independent verification findings: '
+    '{"evidence_completeness": {"community_files_presentation": "incomplete"}, '
+    '"requirement_map": {"readme_presentation": ["RDM-008"]}, "adversarial_findings": [], '
+    '"failure_escalations": {}}. Plan the next step, or stop if nothing further would help."'
+)
+MULTI_TURN_MAX_TURNS = 8  # matches supervisor/loop.py::DEFAULT_MAX_TURNS
+multi_turn_growth: dict = {}
+for model in chat_models:
+    messages: list[dict] = [
+        {"role": "system", "content": _DOSSIER_SYSTEM},
+        {"role": "user", "content": _DOSSIER_USER},
+    ]
+    turns: list[dict] = []
+    for turn in range(1, MULTI_TURN_MAX_TURNS + 1):
+        ok, msg, dt, usage = chat_raw(
+            model, messages, tools=[TOOL_LOOKUP_LICENSE, TOOL_COUNT_GAPS], max_tokens=300
+        )
+        calls = _extract_tool_calls(msg) if ok else []
+        turns.append(
+            {
+                "turn": turn,
+                "ok": ok,
+                "prompt_tokens": usage.get("prompt_tokens"),
+                "completion_tokens": usage.get("completion_tokens"),
+                "n_tool_calls": len(calls),
+                "latency_s": round(dt, 1),
+            }
+        )
+        print(
+            f"[2b] {model} turn {turn}/{MULTI_TURN_MAX_TURNS}: ok={ok} "
+            f"prompt_tokens={usage.get('prompt_tokens')} tool_calls={len(calls)} {dt:.1f}s"
+        )
+        if not ok or not calls:
+            break  # model stopped calling tools (or errored) -- real convergence, stop growing
+        raw_calls = msg.get("tool_calls") or []
+        messages.append(
+            {"role": "assistant", "content": msg.get("content"), "tool_calls": raw_calls}
+        )
+        for c in raw_calls:
+            fn_name = c.get("function", {}).get("name", "")
+            synthetic_result = (
+                {"license": "MIT"} if fn_name == "get_repository_license" else {"gap_count": 2}
+            )
+            messages.append(
+                {
+                    "role": "tool",
+                    "tool_call_id": c.get("id", ""),
+                    "content": json.dumps(synthetic_result),
+                }
+            )
+    multi_turn_growth[model] = {"turns": turns}
+results["probes"]["multi_turn_conversation_growth"] = multi_turn_growth
 
 # --- 3. structured-output reliability ---------------------------------------
 SCHEMA_PROMPT = (
@@ -290,7 +387,7 @@ for model in chat_models:
     n = 5
     outcomes = []
     for i in range(n):
-        ok, msg, dt = chat_raw(
+        ok, msg, dt, _usage = chat_raw(
             model,
             [{"role": "user", "content": TOOL_PROMPT}],
             tools=[TOOL_LOOKUP_LICENSE, TOOL_COUNT_GAPS],
@@ -322,7 +419,7 @@ results["probes"]["tool_calling_single_step"] = tool_calling
 # --- 6. multi-step tool use ---------------------------------------------------
 multi_step: dict = {}
 for model in chat_models:
-    ok1, msg1, dt1 = chat_raw(
+    ok1, msg1, dt1, _usage1 = chat_raw(
         model,
         [{"role": "user", "content": TOOL_PROMPT}],
         tools=[TOOL_LOOKUP_LICENSE, TOOL_COUNT_GAPS],
@@ -345,7 +442,7 @@ for model in chat_models:
                 "content": json.dumps({"license": "MIT"}),
             }
         )
-    ok2, msg2, dt2 = chat_raw(
+    ok2, msg2, dt2, _usage2 = chat_raw(
         model, followup_messages, tools=[TOOL_LOOKUP_LICENSE, TOOL_COUNT_GAPS]
     )
     calls2 = _extract_tool_calls(msg2) if ok2 else []
@@ -370,7 +467,7 @@ PARALLEL_PROMPT = (
 )
 parallel: dict = {}
 for model in chat_models:
-    ok, msg, dt = chat_raw(
+    ok, msg, dt, _usage = chat_raw(
         model,
         [{"role": "user", "content": PARALLEL_PROMPT}],
         tools=[TOOL_LOOKUP_LICENSE, TOOL_COUNT_GAPS],

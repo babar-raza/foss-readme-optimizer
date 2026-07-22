@@ -63,6 +63,18 @@ read/analyzed, but only 3 have a non-`disabled` mode today, so only those 3 can 
 Expanding write coverage means flipping `mode` + adding `ecosystem`/`policy_profile` for an
 existing entry, never a new file format or a re-discovery exercise.
 
+The allow-list stays current by two paths sharing one implementation
+(`registry/discovery.py`): the weekly `update-products-registry.yml` cron, and the
+supervise-time runtime self-heal (`registry/self_heal.py`, `CORE-034`, decision #47) that runs
+before each `supervise` invocation's gates. Both can only **add `disabled` entries** and refresh
+upstream-shaped fields — neither can enable, delete, or touch `mode`/`ecosystem`/
+`policy_profile` on any existing entry, and the heal re-validates every merged entry against the
+loader's schema before replacing the file. The one posture consequence, stated plainly: a
+self-healed entry becomes *read*-eligible (`require_listed()`) immediately, without waiting for
+PR review — bounded by the human-curated `data/families.json` org list and the FOSS naming
+convention; the write surface is unchanged. In CI, a healed registry diff surfaces as a pull
+request on the same branch as the weekly cron's — never a direct push to `main`.
+
 ## What's NOT a safety control (by design)
 
 - **Preflight** (`preflight/`) is a *quality* gate (don't start work if GitHub/LLM connectivity is

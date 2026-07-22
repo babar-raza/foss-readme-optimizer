@@ -32,9 +32,12 @@ to add a project fact here, it belongs in `master.md` instead.
    supersedes #6."
 5. **Status and Build Checklist must be accurate at every commit.** A phase is checked off only
    when it's actually done, not when it's designed. Don't narrate — a checklist, not prose.
-6. **Changelog entries are one line.** `YYYY-MM-DD — <what changed> — <one-clause why>.` Full
-   design rationale for a decision lives as a short inline note next to that decision in the
-   spec itself (Architecture / Decision Ledger), not in the Changelog.
+6. **Changelog entries are one line, and live in `logs/`, not inline.** `- [tag] **YYYY-MM-DD** —
+   <what changed> — <one-clause why>.` Full design rationale for a decision lives as a short
+   inline note next to that decision in the spec itself (Architecture / Decision Ledger), not in
+   the Changelog. (Amended 2026-07-21: Changelog content relocated out of `master.md`/
+   `requirements.md`, which had grown a combined ~2,100 lines of pure historical narrative, into
+   an indexed, dated-shard `logs/` directory — see `logs/README.md` and Decision #44.)
 7. **Reference Data is data, not narrative.** Empirical findings (e.g. the README audit table),
    adopted external patterns (e.g. the aspose.org reuse table) live here as tables/facts. If a
    finding changes an architectural decision, the decision moves to its proper section
@@ -88,6 +91,29 @@ to add a project fact here, it belongs in `master.md` instead.
     never substitutes for this; each push gets its own explicit what/why/where confirmation.
     Proving something "in production" is never itself that approval. (Added 2026-07-19, user
     directive — see Decision #33.)
+11. **Each wave first reconciles the previous wave against the spec, before building on it.**
+    Before a new wave's work begins, check the immediately preceding wave's actual delivered
+    state — its code, tests, and evidence — against what `plans/master.md` (that wave's Decision
+    Ledger entry, Status, Build Checklist line) and `plans/requirements.md` (every requirement row
+    it touches) currently claim. This is not the periodic requirements review `GOV-010` already
+    requires when a phase closes — it is an entry gate on the *next* wave, and it names exactly
+    what must match: Decision Ledger, Status, Build Checklist, requirement rows, not "review" left
+    open-ended. A status that overclaims (`IMPLEMENTED` without the evidence `GOV-007`/`GOV-018`
+    require, a Build Checklist line checked off with a gap still open) is corrected — downgraded,
+    or the gap logged as `BACKLOG` per `GOV-014` — before the new wave extends the affected
+    surface. The new wave's own Build Checklist entry or opening session narrative records that
+    this check ran and what, if anything, it found; a wave opened with no record of this check is
+    incomplete, not merely undocumented. (Added 2026-07-21, user directive — see Decision #43.)
+12. **`master.md` is gated, not open to routine edits.** No agent edits any section of `master.md`
+    as an implicit side effect of ordinary session work. Before making any edit to it, the agent
+    states — in the same turn, before the edit — which section(s) it intends to change and why,
+    and proceeds only on the user's fresh, explicit go-ahead for that specific edit; a standing or
+    implied yes from earlier in the session does not count, the same discipline rule 10 already
+    requires for pushes. `logs/` is exempt from this gate — any agent may append to it freely,
+    with no confirmation step, since absorbing frequent low-ceremony history writes is exactly
+    what it exists for. `plans/requirements.md` is also unaffected — its own editing procedure
+    (`GOV-004`/`GOV-005`) is unchanged; only its Changelog section moved. (Added 2026-07-21, user
+    directive — see Decision #44, `GOV-023`.)
 
 ## Applying a new requirement (the actual procedure)
 
@@ -140,7 +166,10 @@ cross-reference tags in reports/CSVs/manifests.
    `investigations/tools/<what-it-does>.py`. Evidence is
    `investigations/evidence/<investigation-slug>/<self-explanatory-name>.<ext>`, one
    subdirectory per investigation, named after the investigation — never after the run order.
-   Control data (inventories, ledgers, coverage) lives in `investigations/control/`.
+   Control data (inventories, ledgers, coverage) lives in `investigations/control/`. Project log
+   shards are `logs/<YYYY-MM-DD>.md`, one per day, indexed from `logs/README.md` (see "Repository
+   layout" below
+   and rule 6 above).
 7. **Traceability both ways.** Every evidence directory is produced by an identifiable tool and
    cited by at least one report; the report references evidence by its real filename. A rename
    is therefore always a three-way change (tool + evidence + every citing report/manifest),
@@ -176,6 +205,7 @@ examples). Nothing else appears at root.
 | `templates/` | Every fill-and-match template — the README owned-span skeleton (resources) and any other skeleton this project fills in or matches against. Any format. Loaded only by the owning `src/` module; see `templates/README.md`. |
 | `docs/` | Durable human-facing documentation of the *current* system. |
 | `plans/` | The spec (`master.md`, `requirements.md`), this file, and `investigations/` (governed by "Machinery artifacts" above). |
+| `logs/` | Dated historical narrative for the plan trio (`master.md`/`requirements.md`/`GOVERNANCE.md`) — index at `logs/README.md`, daily shards `logs/<YYYY-MM-DD>.md`. The one row in this table exempt from rule 12's `master.md` edit-confirmation gate — freely, immediately agent-appendable. |
 | `runs/` | Disposable runtime state (clones, evidence), written only via `src/readme_agent/paths.py`. Gitignored; never committed. |
 | `.github/workflows/` | CI and scheduled automation. |
 

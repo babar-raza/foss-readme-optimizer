@@ -179,6 +179,20 @@ implied yes from earlier in the session never substitutes — get a fresh confir
 statement every time. See `GOV-018` (`plans/master.md` decision #33, `plans/GOVERNANCE.md`
 rule 10).
 
+## Each wave reconciles the previous wave first
+
+Before starting a new wave's work, check the immediately preceding wave's actual delivered state —
+its code, tests, and evidence — against `plans/master.md` (that wave's Decision Ledger entry,
+Status, Build Checklist line) and `plans/requirements.md` (every requirement row it touches). Don't
+assume a prior Changelog entry got it right. If a status overclaims (`IMPLEMENTED` without the
+evidence `GOV-007`/`GOV-018` require, a Build Checklist line checked off with a gap still open),
+correct it — downgrade the status, or log the gap as `BACKLOG` per `GOV-014` — before extending the
+affected surface with new-wave work. Record that this check ran (and what it found, if anything) in
+the new wave's own Build Checklist entry or opening session narrative; a wave started without that
+record is incomplete. This is distinct from `GOV-010`'s existing phase-close review — that reviews
+the wave that just finished, this gates the one about to start. See `GOV-022`
+(`plans/master.md` decision #43, `plans/GOVERNANCE.md` rule 11).
+
 ## The agentic–deterministic blend
 
 The system is deliberately both agentic and deterministic, with a hard boundary (Decision #26
@@ -276,6 +290,9 @@ where". The short version every agent must follow:
 - `config/policies/*.yml` + `data/*.json` are the config surface. Enabling a new repo is a
   config change, not a code change — follow `docs/policy-authoring.md`. Every `data/` file has
   an ownership section in `data/README.md`; add one when adding a file.
+- `logs/` holds the dated history for `plans/master.md`/`requirements.md`/`GOVERNANCE.md` — index
+  at `logs/README.md`, daily shards `logs/<YYYY-MM-DD>.md`. Freely, immediately agent-appendable;
+  the one place in this layout with no edit-confirmation gate.
 - LLM prompt assets (any format — text, YAML/JSON state machines) → `prompts/<task>/`, loaded
   only by `src/readme_agent/llm/`. Fill-and-match templates (README spans etc.) →
   `templates/<surface>/`, loaded only by the owning module. Never author prompt/template content
@@ -290,9 +307,18 @@ where". The short version every agent must follow:
 ## Spec governance
 
 `plans/master.md` is the single executable spec and always describes the **current** intended
-state — no design-history narrative. When a change alters a decision, edit the affected
-section(s) surgically, update Status/Build Checklist if needed, and append one dated Changelog
-line. The full rules are in `plans/GOVERNANCE.md`; follow them for any edit to `plans/`.
+state — no design-history narrative; that lives in `logs/` (index `logs/README.md`, daily
+shards `logs/<YYYY-MM-DD>.md`), merged from `master.md`'s and `requirements.md`'s former inline
+Changelogs. When a change alters a decision, edit the affected section(s) surgically, update
+Status/Build Checklist if needed, and append one dated entry to `logs/`, not inline.
+
+**`master.md` is gated, not freely editable.** Before changing any of its sections, state which
+section(s) and why, and proceed only on the user's fresh, explicit go-ahead for that specific edit
+— a standing session yes doesn't count, the same discipline as the push-confirmation rule above.
+`logs/` has no such gate — append to it freely. See `GOV-023` (`plans/master.md` decision #44,
+`plans/GOVERNANCE.md` rule 12).
+
+The full rules are in `plans/GOVERNANCE.md`; follow them for any edit to `plans/`.
 
 ## Naming: machinery artifacts
 

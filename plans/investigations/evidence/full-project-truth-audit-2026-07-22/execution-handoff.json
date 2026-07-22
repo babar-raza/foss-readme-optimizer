@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-22",
+  "verdict": "NOT_PRESENTABLE",
+  "maturity_level": 3,
+  "authoritative_plan": "plans/master.md",
+  "requirements": "plans/requirements.md",
+  "current_wave": "truth-foundation-reconciliation",
+  "next_executable_task": "isolate and fix OPS-010 process-lifecycle behavior under overlapping or cancelled test runs",
+  "dependencies": [],
+  "blocking_conditions": [
+    "plans/master.md correction awaits its mandatory fresh section-specific approval",
+    "OPS-010 process-lifecycle behavior remains unsafe under overlapping or cancelled test runs despite one clean 824-test pass",
+    "product facts and ownership are not enforced before generation",
+    "required durable state failures are best-effort",
+    "no product-remote branch or draft pull-request lifecycle exists"
+  ],
+  "repository_targets": [
+    "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java"
+  ],
+  "required_commands": [
+    ".venv/Scripts/python -m ruff check .",
+    ".venv/Scripts/python -m ruff format --check .",
+    ".venv/Scripts/python -m mypy src",
+    ".venv/Scripts/python -m pytest -q"
+  ],
+  "validation_gates": [
+    "OPS-010 repeated clean-process full-suite completion",
+    "RUN-005 fail-closed state failure injection",
+    "FACT-001 through FACT-006 enforced provenance",
+    "OWN-010 and OWN-011 conflict/protection proof",
+    "PIL-014 draft-PR create/update/dedup/recovery proof",
+    "PIL-013 independently reviewed three-repository evidence bundle"
+  ],
+  "evidence_locations": [
+    "plans/investigations/full-project-truth-audit-2026-07-22.md",
+    "plans/investigations/evidence/full-project-truth-audit-2026-07-22/execution-handoff.json"
+  ],
+  "resume_instructions": "Read the audit, verify the dirty worktree is preserved, fix OPS-010 first, rerun all four checks, then implement foundation requirements before adding presentation capabilities. Never write a product remote without fresh exact what/why/where approval."
+}
