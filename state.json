@@ -7,6 +7,7 @@
       "accepted_facts_hash": "37dc24a925b87b88d9c723069d3df0585cd31e68e7e69e3d340b6eecb6c7a876",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "community_profile_health_percentage": 50,
         "detected_license": "MIT",
@@ -42,12 +43,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:03:00.633343+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "cross_surface_validation": {
       "accepted_facts_hash": "3cccb9928d5ab6e6331b0657151e31046f8211b605c55dccd5a8801e29db674b",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "compared": {
           "community_files_presentation_detected_license": "MIT",
@@ -61,12 +64,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:03:14.525642+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "github_generated_surface_audit": {
       "accepted_facts_hash": "0721e0d39eb8658124f7ceedd0b3ad317a5925e20f023c8dbcd21bc6be4c340d",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "contributors_count": 1,
         "forks_count": 0,
@@ -84,12 +89,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:02:25.852381+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "independent_verification": {
       "accepted_facts_hash": "7d99b3e8945abf78a82f62a8aad903a5ed09c4b200d49ba63e1c876b378025a7",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "adversarial_findings": [],
         "checks_performed": [
@@ -131,12 +138,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:03:37.658547+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
       "accepted_facts_hash": "bed55f47d08da38ba63306cee16cf62a0b90901eaabba48cbac31e40dcf5457b",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "evidence": null,
         "handoff_findings": [],
@@ -150,24 +159,28 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:02:40.508653+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
       "consecutive_failure_count": 1,
+      "consecutive_skip_count": 0,
       "details": {},
       "domain": "readme_presentation",
       "last_failure_reason": "execution_error",
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:03:25.643876+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "40a0d44e62344a1a40fd0908091ff033a8faadc70b1ebff1dddf11e21973366d",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "license_claim": null
       },
@@ -176,17 +189,33 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:01:59.427716+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2"
     }
   },
   "last_run_id": null,
   "last_run_timestamp": null,
+  "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 14,
+  "state_version": 15,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
+    "domain_coverage_complete": null,
+    "in_flight_domains": [
+      "readme_reconciliation",
+      "github_generated_surface_audit",
+      "package_release_audit",
+      "metadata_presentation",
+      "community_files_presentation",
+      "cross_surface_validation",
+      "readme_presentation",
+      "visual_preparation",
+      "presentation_benchmarking",
+      "independent_verification"
+    ],
+    "in_flight_run_id": "20260722-141924-fb01",
     "last_observed_upstream_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
     "last_run_id": "20260721-100415-56bf",
     "last_run_timestamp": "2026-07-21T10:04:15.916433+00:00",
