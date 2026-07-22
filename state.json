@@ -90,7 +90,7 @@
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     },
     "independent_verification": {
-      "accepted_facts_hash": "439d0aba242ed174c697524c07f44e13c7adbb6514f9a9162e099a5f76610e2d",
+      "accepted_facts_hash": "db2701efcb7c107b04a8d7233dcce0ab6603d189401a3a214a3a3081a6220202",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -104,8 +104,8 @@
         "completeness": {},
         "failure_escalations": {
           "readme_presentation": {
-            "consecutive_failure_count": 2,
-            "last_failure_reason": "execution_error"
+            "consecutive_failure_count": 1,
+            "last_failure_reason": "verification_rejected"
           }
         },
         "requirement_map": {
@@ -118,6 +118,21 @@
             "capability_id": "commit_readme_write",
             "domain": "readme_presentation",
             "exercised_without_error": false
+          },
+          "LLM-010": {
+            "capability_id": "review_visual_asset_accuracy",
+            "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "RDM-020": {
+            "capability_id": "verify_prose_quality",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "VAL-005": {
+            "capability_id": "compare_against_presentation_standard",
+            "domain": "presentation_benchmarking",
+            "exercised_without_error": true
           },
           "VER-001": {
             "capability_id": "verify_readme_candidate",
@@ -134,10 +149,10 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:10:36.847195+00:00",
+      "last_run_timestamp": "2026-07-22T14:32:06.044313+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "b3369c801763642cfc50644fedb3004f0d40f205bd20686400f6466f42efaeb9",
@@ -334,7 +349,7 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 24,
+  "state_version": 25,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
