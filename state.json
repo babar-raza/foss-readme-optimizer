@@ -27,6 +27,36 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
     },
+    "package_release_audit": {
+      "accepted_facts_hash": "f11c2b7dfe06b05fb720e1cfae2c40b43d2b9d9e9943b0d03a400297907d2ce3",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "evidence": "no live resolver registered for ecosystem 'go'",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-22T15:20:58.121361+00:00",
+            "evidence": {
+              "detail": "no live resolver registered for ecosystem 'go'"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
+        "latest_release_name": "v0.6.0 \u2014 The AI & Markdown Release: copilots on any endpoint, searchable scans, 652/652 CommonMark",
+        "latest_release_tag": "v0.6.0",
+        "releases_count": 6
+      },
+      "domain": "package_release_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T15:20:58.122137+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "8dc7c86a138505bde353e5766475534ada55ef1a7e1a42e55dea8c3c6bbe12e7",
       "accepted_status": "FIRST_OBSERVATION",
@@ -49,7 +79,7 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
-  "state_version": 3,
+  "state_version": 4,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
