@@ -216,6 +216,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8a3131b9a6f7e97c20214896c615dbee86272459"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "e89b150a7de39027c5091880bd706aa9421f1b15699b31008bb2f264e85cc81b",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does ('A free, open-source PDF library for .NET 8+ \u2014 read, create, modify, and convert PDF documents') using concrete verbs.",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The README explicitly names the target ecosystem (.NET 8+), the file format (PDF), and common tasks (read, create, modify, convert), fitting audience expectations in the opening block.",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "A visible, GitHub-recognized MIT license is present and clearly linked in the License section, satisfying the highest-priority trust signal.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The installation section only provides building from source instructions and does not provide a NuGet package coordinate or badge, nor does it resolve against a live registry (NuGet).",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "The 'Quick start' section includes multiple runnable, self-contained C# code examples beyond the install snippet, covering common workflows.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (##, ###), and the order logically progresses from product description \u2192 requirements \u2192 installation \u2192 features \u2192 examples \u2192 docs \u2192 license.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is acceptable per the standard for a pure-API library like Aspose.PDF FOSS, where visuals would not meaningfully improve understanding.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The repository is missing recognized community files beyond README: no LICENSE file is referenced in the GitHub UI (though mentioned in text), and no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "While not stated in the README, recent activity can be verified via GitHub's UI (not in scope for README text), and the README does not falsely claim maintenance status.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The commercial product is mentioned exactly once at the end in factual, capability-extension language ('is the product from Aspose Pty Ltd that offers a broader feature set'), with no promotional tone or repetition.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies most dimensions, especially product clarity, audience fit, examples, and commercial context. Critical gaps remain in installation path (no NuGet coordinates) and contribution readiness (missing community files), with the LICENSE file not yet GitHub-recognized despite being referenced."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T14:47:40.565307+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "8a3131b9a6f7e97c20214896c615dbee86272459"
+    },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
@@ -289,7 +357,7 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 17,
+  "state_version": 18,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
