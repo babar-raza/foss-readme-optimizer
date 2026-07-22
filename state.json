@@ -390,27 +390,16 @@
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 22,
+  "state_version": 23,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-134950-4368",
+    "control_plane_fingerprint": "64a67a1e490604edf99ba6ee3ddd0f444e2e6eed27ab83face4a8b9b42412f5f",
+    "domain_coverage_complete": true,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "last_run_id": "20260721-100241-ce6c",
-    "last_run_timestamp": "2026-07-21T10:02:41.957665+00:00",
+    "last_run_id": "20260722-135403-4b75",
+    "last_run_timestamp": "2026-07-22T13:54:03.364747+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -421,67 +410,72 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T10:02:14.560537+00:00",
+          "created_at": "2026-07-22T13:53:36.606610+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": false,
             "has_readme": true,
-            "manifest_keys": [],
-            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
-            "readme_length_chars": 6582
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "78220c70ac804672b86db159076bc4a4",
-          "terminal_at": "2026-07-21T10:02:17.617289+00:00"
-        },
-        {
-          "arguments": {
-            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript"
-          },
-          "blocked_reason": null,
-          "capability_id": "profile_repository",
-          "created_at": "2026-07-21T10:02:25.754032+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "detected_ecosystems": [
-              {
-                "confidence": 1.0,
-                "ecosystem": "typescript",
-                "evidence": "found package.json; parsed 3 field(s)",
-                "manifest_path": "package.json"
-              }
+            "manifest_keys": [
+              "license",
+              "name",
+              "version"
             ],
             "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
-            "unresolved_manifests": []
+            "readme_length_chars": 6582
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "53310de849684012bc9110ff67fb8763",
-          "terminal_at": "2026-07-21T10:02:29.941086+00:00"
+          "task_id": "1ec59af507ed4838b705ec2f77a4d59c",
+          "terminal_at": "2026-07-22T13:53:39.488275+00:00"
         },
         {
           "arguments": {
             "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript"
           },
           "blocked_reason": null,
-          "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T10:02:34.897461+00:00",
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T13:53:41.823528+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
-            "has_license_file": false,
-            "has_readme": true,
-            "manifest_keys": [],
-            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
-            "readme_length_chars": 6582
+            "license_mentioned": true,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 3
           },
-          "state": "SUPERSEDED",
-          "supersedes": "78220c70ac804672b86db159076bc4a4",
-          "task_id": "67db1332034f4f269a7bdb3b7ab00a5a",
-          "terminal_at": "2026-07-21T10:02:34.897526+00:00"
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "50563a0aaacf4fb4b102b15aa019cf4d",
+          "terminal_at": "2026-07-22T13:53:44.428446+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": true,
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T13:53:50.003881+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "e9dc0b944d3763012555ff0d3080378663eb462b8357d65643f2d0f19e41e853",
+            "final_text": "# Aspose.3D FOSS for TypeScript\n\nA powerful and open-source 3D file format library for TypeScript/JavaScript. Aspose.3D for TypeScript enables developers to create, manipulate, and convert 3D scenes and models programmatically in Node.js and browser environments. Supports popular 3D file formats including OBJ, STL, FBX, GLTF, and more.\n\n## Features\n\n- **Format Support**\n  - OBJ - Import/export with materials, textures, and grouping\n  - GLTF - GL Transmission Format with full PBR material support\n  - STL - Stereo Lithography format for 3D printing\n  - 3MF - 3D Manufacturing Format for modern 3D printing workflows\n  - FBX - Autodesk FBX format support\n  - Collada - COLLADA (DAE) format support\n\n- **Scene Management**\n  - Create and manipulate 3D scenes\n  - Hierarchical node structure\n  - Mesh and entity management\n  - Material system with Lambert, Phong, and PBR materials\n\n- **3D Primitives**\n  - Vector math (Vector2, Vector3, Vector4, Matrix4, Quaternion)\n  - Bounding boxes and transformations\n  - Camera and light objects\n  - 2D bounding boxes (BoundingBox2D)\n\n- **Mesh Operations**\n  - Triangulation support for polygon conversion\n  - Mesh manipulation and modification\n  - Vertex element management\n\n- **Animation System**\n  - Keyframe animation support\n  - Animation curves and interpolation\n  - Animation clips and channels\n\n## Installation\n\n```bash\nnpm install @aspose/3d\n```\n\nOr add to your `package.json`:\n\n```json\n{\n  \"dependencies\": {\n    \"@aspose/3d\": \"^24.12.0\"\n  }\n}\n```\n\n## Quick Start\n\n```typescript\nimport { Scene } from '@aspose/3d';\nimport { ObjLoadOptions, ObjImporter } from '@aspose/3d/formats/obj';\n\n// Create a new scene\nconst scene = new Scene();\n\n// Import an OBJ file\nconst options = new ObjLoadOptions();\noptions.enableMaterials = true;\noptions.flipCoordinateSystem = false;\nscene.open(\"model.obj\", options);\n\n// Access imported data\nfor (const node of scene.rootNode.childNodes) {\n    if (node.entity) {\n        const mesh = node.entity;\n        console.log(`Mesh: ${node.name}`);\n        console.log(`  Vertices: ${mesh.controlPoints.length}`);\n        console.log(`  Polygons: ${mesh.polygonCount}`);\n    }\n}\n```\n\n## Supported Formats\n\n### Import (Implemented)\n- **OBJ** - Wavefront OBJ with full material support\n- **GLTF** - GL Transmission Format (glTF 2.0)\n- **STL** - Stereo Lithography format\n- **3MF** - 3D Manufacturing Format\n- **FBX** - Autodesk FBX format\n- **Collada** - COLLADA (DAE) format\n- More formats coming soon...\n\n### Export (Implemented)\n- **OBJ** - Export with vertices, faces, and materials\n- **GLTF** - Export to glTF 2.0 format\n- **STL** - Export to STL format\n- **3MF** - Export to 3MF format\n- **FBX** - Export to FBX format\n- **Collada** - Export to COLLADA format\n- More formats coming soon...\n\n## Documentation\n\n- [API Reference](https://reference.aspose.com/3d/python-net/) - Complete API documentation (Python API, same structure as TypeScript)\n\n## TypeScript Version Support\n\n- TypeScript 5.0+\n- Node.js 16+\n- Node.js 18+\n- Node.js 20+\n- Node.js 22+\n- Modern browsers (ES2020+)\n\n## Build & Test\n\n```bash\n# Install dependencies\nnpm install\n\n# Build the project\nnpm run build\n\n# Run tests\nnpm run test\n\n# Type checking\nnpm run typecheck\n\n# Linting\nnpm run lint\n```\n\n## Format-Specific Features\n\n### OBJ Format\n\n**Import Features:**\n- Vertices (v), texture coordinates (vt), vertex normals (vn)\n- Faces (f) with multiple index formats\n- Objects (o), groups (g), smoothing groups (s)\n- Materials (usemtl, mtllib)\n\n**Load Options:**\n- `flipCoordinateSystem` - Swap Y and Z coordinates\n- `enableMaterials` - Enable/disable material loading\n- `scale` - Scale factor for all coordinates\n- `normalizeNormal` - Normalize normal vectors\n\n**Save Options:**\n- `applyUnitScale` - Apply unit scaling\n- `pointCloud` - Export as point cloud\n- `verbose` - Verbose output\n- `serializeW` - Include W coordinate\n- `enableMaterials` - Export materials\n- `flipCoordinateSystem` - Flip coordinate system\n\n### GLTF Format\n\n**Features:**\n- glTF 2.0 specification support\n- PBR material system (metallic/roughness workflow)\n- Mesh primitives with attributes\n- Node hierarchy and transforms\n- Texture and image support\n\n### STL Format\n\n**Features:**\n- Binary and ASCII STL support\n- Triangular mesh representation\n- Unit conversion and scaling\n- Import for 3D printing workflows\n\n### 3MF Format\n\n**Features:**\n- 3D Manufacturing Format 1.2 support\n- Rich metadata support\n- Production-grade 3D printing\n- Color and material support\n\n### FBX Format\n\n**Features:**\n- Autodesk FBX format support\n- Scene hierarchy and nodes\n- Mesh and geometry data\n- Animation data\n- Materials and textures\n\n### Collada Format\n\n**Features:**\n- COLLADA (DAE) format support\n- Asset information and unit scaling\n- Geometry and mesh data\n- Materials and effects\n- Animation clips\n\n## Architecture\n\nThe library is organized into several modules:\n\n- `@aspose/3d` - Core scene classes (Scene, Node, Entity)\n- `@aspose/3d/entities` - 3D entities (Mesh, Camera, Light, PolygonModifier)\n- `@aspose/3d/formats` - File format importers and exporters (OBJ, GLTF, STL, 3MF, FBX, Collada)\n- `@aspose/3d/formats/obj` - OBJ format implementation\n- `@aspose/3d/formats/gltf` - GLTF format implementation\n- `@aspose/3d/formats/stl` - STL format implementation\n- `@aspose/3d/formats/3mf` - 3MF format implementation\n- `@aspose/3d/formats/fbx` - FBX format implementation\n- `@aspose/3d/formats/collada` - Collada format implementation\n- `@aspose/3d/shading` - Material system (Lambert, Phong, PBR materials)\n- `@aspose/3d/utilities` - Math utilities (vectors, matrices, quaternions, bounding boxes)\n- `@aspose/3d/animation` - Animation system (keyframes, curves)\n\n## Examples\n\nSee the `examples/` directory for code examples demonstrating:\n\n- Creating 3D scenes programmatically\n- Importing and exporting various file formats\n- Working with meshes and vertices\n- Using materials and lighting\n- Animation scenarios\n\n## Contributing\n\nContributions are welcome! Please feel free to submit issues and pull requests.\n\n1. Fork the repository\n2. Create your feature branch (`git checkout -b feature/AmazingFeature`)\n3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)\n4. Push to the branch (`git push origin feature/AmazingFeature`)\n5. Open a Pull Request\n\n## License\n\nThis project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.\n\n## Acknowledgments\n\n- Aspose.3D for Python is inspired by the original Aspose.3D API\n- 3D format specification maintained by various 3D software vendors\n- Built with TypeScript and Node.js standards\n\n<!-- readme-agent:resources hash=\"sha256:e9dc0b944d3763012555ff0d3080378663eb462b8357d65643f2d0f19e41e853\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.3D FOSS for TypeScript](https://products.aspose.org/3d/typescript/)\n- **Commercial edition:** [Aspose.3D for TypeScript](https://products.aspose.com/3d/typescript/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository, @aspose/3d, is the free, open-source (FOSS) edition of Aspose.3D for TypeScript, offering core 3D file processing capabilities under the MIT license. Users seeking extended functionality, enterprise support, or additional file format conversions can upgrade to the commercial edition, which provides a broader feature set and is available at the official Aspose.3D for TypeScript product page.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "a02f4d6b63cf3caafb45bcd76ff5544eb2788aa683f6071efae221060ff9690c",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": false,
+            "skip_regeneration": false,
+            "status": "GENERATED"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "a90d19956353414d92550efcc139b674",
+          "terminal_at": "2026-07-22T13:53:56.847265+00:00"
         }
       ]
     }
