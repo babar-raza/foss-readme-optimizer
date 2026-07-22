@@ -207,18 +207,50 @@
       "upstream_revision_at_accept": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2"
     },
     "readme_presentation": {
-      "accepted_facts_hash": null,
-      "accepted_status": null,
-      "consecutive_failure_count": 1,
+      "accepted_facts_hash": "9b41a8ff6bc7a002acafa62d3d8892f70b2dae234df45e5af5f9224ce56af785",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "committed": false,
+        "fresh_fingerprint": "3e231cad58b2cc9629827ad3fb8ff580148f272318e5693f62eb762160fc3fcd",
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ],
+        "prose_quality": {
+          "corroborated": false,
+          "flagged": false,
+          "quoted_span": "",
+          "reason": "The paragraph provides specific, non-generic information about the project: it clearly distinguishes between the FOSS and commercial editions, mentions the MIT license explicitly, and includes targeted descriptions of what each version offers. The language is purposeful and not repetitive or boilerplate."
+        },
+        "prose_quality_repair_attempts": 2,
+        "render_status": "GENERATED",
+        "verification": {
+          "checks": {
+            "needs_write_matches": true,
+            "validation_passed": true
+          },
+          "nonce": "20260722-142059-8ee8",
+          "reason": null,
+          "requirement_map": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": true
+          },
+          "token": "127972f30e30c757385285728fe5dba125d02a4095162a8550f6662aa95988d2",
+          "verdict": "accept"
+        },
+        "written": true
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "execution_error",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:03:25.643876+00:00",
+      "last_run_timestamp": "2026-07-22T14:21:41.897727+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "40a0d44e62344a1a40fd0908091ff033a8faadc70b1ebff1dddf11e21973366d",
@@ -242,7 +274,7 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 24,
+  "state_version": 25,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
