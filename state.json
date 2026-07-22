@@ -141,14 +141,23 @@
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
-      "accepted_facts_hash": "6ce1996772b66e2cbdd6c0fe4854d1c940f7908d1c5d91f4f439bf826b1edee5",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "b803e583fbce83b369312ef434b1d739cb4a3bda0b7fefdceb32ec0273430cca",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": null,
-        "handoff_findings": [],
-        "install_path_resolved": null,
+        "evidence": "no live resolver registered for ecosystem 'net'",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-22T14:04:55.681172+00:00",
+            "evidence": {
+              "detail": "no live resolver registered for ecosystem 'net'"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
         "latest_release_name": "V26.7.0",
         "latest_release_tag": "V26.7.0",
         "releases_count": 6
@@ -156,10 +165,10 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T09:55:22.313115+00:00",
+      "last_run_timestamp": "2026-07-22T14:04:55.681710+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "c0176f510f1370dd51472b6d147daaaf1a2e0787"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "c6d75e19ed4a647f4d833b96dd366657ef15170f96e933b5b24cd696e8549658",
@@ -183,7 +192,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 9,
+  "state_version": 10,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
