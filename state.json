@@ -103,8 +103,8 @@
       "upstream_revision_at_accept": "1ed0a411171e49758b462321ed24bff568bb4444"
     },
     "independent_verification": {
-      "accepted_facts_hash": "d9471b8db979fe4a90c6bb798f5e51443ee547f5ce73133fc7d504b2a88834e4",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "4e4a225a784673bf06d327c5e570306c35aa053c7766a933041426dbbe6103f8",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -125,27 +125,42 @@
           "EFF-001": {
             "capability_id": "commit_readme_write",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
+          },
+          "LLM-010": {
+            "capability_id": "review_visual_asset_accuracy",
+            "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "RDM-020": {
+            "capability_id": "verify_prose_quality",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "VAL-005": {
+            "capability_id": "compare_against_presentation_standard",
+            "domain": "presentation_benchmarking",
+            "exercised_without_error": true
           },
           "VER-001": {
             "capability_id": "verify_readme_candidate",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "VER-002": {
             "capability_id": "verify_readme_candidate",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           }
         }
       },
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:24:07.146969+00:00",
+      "last_run_timestamp": "2026-07-22T07:54:59.340927+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "1ed0a411171e49758b462321ed24bff568bb4444"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "22af6a6c9ae9d8cbf17dfeadebfbe31ebeac886deca41d582f6c85ad624368ca",
@@ -348,7 +363,7 @@
   "last_run_timestamp": "2026-07-20T12:46:26.020316+00:00",
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 24,
+  "state_version": 25,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6fead41d02ce74533d2b27d827b17eae52be71f9233cf629128bad5758f368ec",
