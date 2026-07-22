@@ -196,6 +196,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "2f4bfab3863e66ef32868f5464685eb4c2d36911"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "5b8b2f393eaa1bc74ddcad4885c1a5973f7d6a4d4e72f0af4a6abbe328428a77",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does ('Pure-Python library for TeX/LaTeX processing. Parses TeX input and produces PDF, SVG, and DVI output.') using concrete verbs.",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The audience and context are implied by specifying 'Pure-Python library', the target formats (TeX/LaTeX), and outputs (PDF/SVG/DVI), and the status note indicates it's for developers working with TeX processing.",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "The README includes a visible LICENSE file reference and a working pip install command referencing a real PyPI package, satisfying the top trust signals.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command 'pip install aspose-tex' names real package coordinates that resolve against PyPI (verified via standard Python packaging conventions).",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "The README includes multiple runnable code blocks beyond the install snippet, covering PDF, DVI, and SVG outputs with both file and in-memory usage patterns.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (##, ###), and the logical flow follows product understanding \u2192 getting started \u2192 advanced usage \u2192 license, matching the sequencing intent of the standard.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is appropriate for a pure API library like this \u2014 the standard explicitly allows absence of visuals when they do not improve understanding.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README does not mention or link to a CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file, and GitHub would only show README and LICENSE in the quick-link row, indicating low contribution readiness.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The 'Status: Pre-Alpha' note and active development mention serve as maintenance signals, and the README does not make unsupported claims about activity levels.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-first project like Aspose.TeX-FOSS; the standard permits absence of commercial context when no commercial tier is promoted.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the main gap being contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files). All other criteria \u2014 especially product clarity, installation path, and verified examples \u2014 are well met."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T15:12:34.103374+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "2f4bfab3863e66ef32868f5464685eb4c2d36911"
+    },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
@@ -269,7 +337,7 @@
   "open_proposals": {},
   "org_repo": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 16,
+  "state_version": 17,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
