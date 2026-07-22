@@ -144,14 +144,23 @@
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
-      "accepted_facts_hash": "966b56a155d57b94b97bd06b38a14a35642a50de7d25ad15658d5a647bb5f65f",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "af24e9cc60f32aeed3217eb9bf0e9b4447060b15e225d91c1d5ef7948787e623",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": null,
-        "handoff_findings": [],
-        "install_path_resolved": null,
+        "evidence": "no live resolver registered for ecosystem 'python'",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-22T14:10:36.109982+00:00",
+            "evidence": {
+              "detail": "no live resolver registered for ecosystem 'python'"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
         "latest_release_name": "V26.3.1",
         "latest_release_tag": "V26.3.1",
         "releases_count": 2
@@ -159,10 +168,10 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T09:57:56.533123+00:00",
+      "last_run_timestamp": "2026-07-22T14:10:36.110703+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "5b5b28eb372c28f4529928ea81696a0031b68d60"
     },
     "readme_presentation": {
       "accepted_facts_hash": null,
@@ -200,7 +209,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 11,
+  "state_version": 12,
   "supervisor_state": {
     "capability_gaps": [
       {
