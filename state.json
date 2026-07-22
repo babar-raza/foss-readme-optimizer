@@ -137,14 +137,23 @@
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
-      "accepted_facts_hash": "bed55f47d08da38ba63306cee16cf62a0b90901eaabba48cbac31e40dcf5457b",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "2c11dbacd7f005141c788f956057e62e6f0411f9e9ec95877ec5537ff2d32442",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": null,
-        "handoff_findings": [],
-        "install_path_resolved": null,
+        "evidence": "Maven Central: org.aspose.slides.foss:aspose-slides-foss NOT FOUND (0 results)",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-22T14:55:28.063497+00:00",
+            "evidence": {
+              "detail": "Maven Central: org.aspose.slides.foss:aspose-slides-foss NOT FOUND (0 results)"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
         "latest_release_name": null,
         "latest_release_tag": null,
         "releases_count": 0
@@ -152,10 +161,10 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:26:55.413122+00:00",
+      "last_run_timestamp": "2026-07-22T14:55:28.064474+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "44597f1a09feb16ed1b6f29a1c6b939df4415863"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "ef4be3af30903a5262b95a2f3d15b4d7adfb3d75ef620012d809f55056af355a",
@@ -179,7 +188,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 18,
+  "state_version": 19,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
