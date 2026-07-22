@@ -93,8 +93,8 @@
       "upstream_revision_at_accept": "ef1bf4191341aa93f618bf3b0c06165eb5bee4db"
     },
     "independent_verification": {
-      "accepted_facts_hash": "af3203bfed16370931990a17c8d94447628ee98335d68b7672991fe71251ee38",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "db2701efcb7c107b04a8d7233dcce0ab6603d189401a3a214a3a3081a6220202",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -108,7 +108,7 @@
         "failure_escalations": {
           "readme_presentation": {
             "consecutive_failure_count": 1,
-            "last_failure_reason": "execution_error"
+            "last_failure_reason": "verification_rejected"
           }
         },
         "requirement_map": {
@@ -121,6 +121,21 @@
             "capability_id": "commit_readme_write",
             "domain": "readme_presentation",
             "exercised_without_error": false
+          },
+          "LLM-010": {
+            "capability_id": "review_visual_asset_accuracy",
+            "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "RDM-020": {
+            "capability_id": "verify_prose_quality",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "VAL-005": {
+            "capability_id": "compare_against_presentation_standard",
+            "domain": "presentation_benchmarking",
+            "exercised_without_error": true
           },
           "VER-001": {
             "capability_id": "verify_readme_candidate",
@@ -137,10 +152,10 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:12:37.827582+00:00",
+      "last_run_timestamp": "2026-07-22T14:38:14.657801+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "ef1bf4191341aa93f618bf3b0c06165eb5bee4db"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "a5937cffa3c28a409fe4719aa4de88e1ca07d6e41645f16095bc4a5b9064dd2c",
@@ -337,7 +352,7 @@
   "open_proposals": {},
   "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 18,
+  "state_version": 19,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
