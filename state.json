@@ -206,6 +206,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "e2c6fca5eb36313f0e16915c0850820ece60eda4c4e6a06b127c87083b1069b5",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening sentence clearly states what the product does using a concrete verb ('processing') and specifies key constraints (dependency-free, C++17, deterministic).",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The README does not explicitly state who the library is for (e.g., C++ developers working with email formats) or the specific use cases beyond technical capabilities.",
+            "satisfied": false
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "No LICENSE file is visible in the README, and no badges (build, version, registry) are present \u2014 critical trust signals missing per the standard.",
+            "satisfied": false
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install section uses `cmake --install` into a local path, not a real package registry coordinate (e.g., vcpkg, Conan, or future NuGet/CPAN-style), and no registry badge or external link is provided.",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Two runnable code blocks beyond the install snippet are provided, demonstrating real usage with full context (includes, headers, output).",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers follow consistent Markdown levels (`##`), and the order logically flows from overview \u2192 features \u2192 build \u2192 install \u2192 examples \u2192 more examples.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is acceptable for a non-visual API library per the standard \u2014 no decorative or misleading imagery is used.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README does not mention or link to CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files, and GitHub's community-files quick-link row would likely show only 'README' for this repo.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "No visible indication of recent releases or commit activity is provided in the README, and no `pushed_at` or release badges are included.",
+            "satisfied": false
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention at all, which is acceptable for a FOSS-only repo \u2014 but if Aspose were to add one, it must follow the restraint rules (single, factual, non-promotional).",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies product clarity, verified examples, navigation, and visual-usefulness dimensions, but fails on audience fit, trust signals (especially missing LICENSE), installation path (no registry integration), contribution readiness, and maintenance signals \u2014 with the most urgent gap being LICENSE visibility and registry-based install instructions."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T14:22:25.188588+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "9b41a8ff6bc7a002acafa62d3d8892f70b2dae234df45e5af5f9224ce56af785",
       "accepted_status": "FIRST_OBSERVATION",
@@ -311,7 +379,7 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 26,
+  "state_version": 27,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
