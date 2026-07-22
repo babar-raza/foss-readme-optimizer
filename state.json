@@ -7,6 +7,7 @@
       "accepted_facts_hash": "4f8aea4a7e306c8c40c87ed8fe0fe5ebe86c5f804c2f6389133a99c656ddbced",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "community_profile_health_percentage": 37,
         "detected_license": "MIT",
@@ -44,12 +45,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T09:58:14.506759+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "cross_surface_validation": {
       "accepted_facts_hash": "aee5ab33e37e794d99cf2f1e917ab65bad67f1e379eed5f86fb546003222c628",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "compared": {
           "community_files_presentation_detected_license": "MIT",
@@ -63,12 +66,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T09:58:26.231529+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "github_generated_surface_audit": {
       "accepted_facts_hash": "e9af3c5627fdd966bcea58612c785069d40adc3aa262e9ceac0c8d60378f3100",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "contributors_count": 1,
         "forks_count": 1,
@@ -85,12 +90,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T09:57:35.179501+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "independent_verification": {
       "accepted_facts_hash": "af3203bfed16370931990a17c8d94447628ee98335d68b7672991fe71251ee38",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "adversarial_findings": [],
         "checks_performed": [
@@ -133,12 +140,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T09:58:52.826193+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
       "accepted_facts_hash": "966b56a155d57b94b97bd06b38a14a35642a50de7d25ad15658d5a647bb5f65f",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "evidence": null,
         "handoff_findings": [],
@@ -152,24 +161,28 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T09:57:56.533123+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
       "consecutive_failure_count": 1,
+      "consecutive_skip_count": 0,
       "details": {},
       "domain": "readme_presentation",
       "last_failure_reason": "execution_error",
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T09:58:37.099387+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "license_claim": "MIT"
       },
@@ -178,14 +191,16 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T09:57:20.125313+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": "5b5b28eb372c28f4529928ea81696a0031b68d60"
     }
   },
   "last_run_id": null,
   "last_run_timestamp": null,
+  "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 8,
+  "state_version": 9,
   "supervisor_state": {
     "capability_gaps": [
       {
@@ -206,6 +221,20 @@
       }
     ],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
+    "domain_coverage_complete": null,
+    "in_flight_domains": [
+      "readme_reconciliation",
+      "github_generated_surface_audit",
+      "package_release_audit",
+      "metadata_presentation",
+      "community_files_presentation",
+      "cross_surface_validation",
+      "readme_presentation",
+      "visual_preparation",
+      "presentation_benchmarking",
+      "independent_verification"
+    ],
+    "in_flight_run_id": "20260722-140955-3d00",
     "last_observed_upstream_revision": "5b5b28eb372c28f4529928ea81696a0031b68d60",
     "last_run_id": "20260721-095936-b015",
     "last_run_timestamp": "2026-07-21T09:59:36.404826+00:00",
