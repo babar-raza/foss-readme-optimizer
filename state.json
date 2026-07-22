@@ -170,7 +170,7 @@
         "handoff_findings": [
           {
             "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-21T13:08:01.786129+00:00",
+            "detected_at": "2026-07-22T09:34:59.621432+00:00",
             "evidence": {
               "detail": "Maven Central: org.aspose:aspose-3d-foss NOT FOUND (0 results)"
             },
@@ -185,10 +185,10 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T13:08:01.786650+00:00",
+      "last_run_timestamp": "2026-07-22T09:34:59.622103+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "605f67d1192fee1881078dfd53d37b8cb29623ba"
     },
     "readme_presentation": {
       "accepted_facts_hash": "f3b194ba10e3bd4b62917473531e9498fc98493d0b2b0b2dbc74b44db01e3473",
@@ -262,7 +262,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 33,
+  "state_version": 34,
   "supervisor_state": {
     "capability_gaps": [
       {
