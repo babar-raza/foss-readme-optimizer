@@ -214,25 +214,48 @@
       "upstream_revision_at_accept": "9274b621ebd30f2aca692851bea29ff343a019d8"
     },
     "readme_presentation": {
-      "accepted_facts_hash": "11407c2e03727d32e09027569c79b9446a5d065d8b01b87c5baa9587552f7e34",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "dbe2849ddce83d4ae24fe4f492612a86dfdafd9b07aef432c61e3a94e14b950b",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "committed": false,
+        "committed": true,
         "fresh_fingerprint": "0c9e85f84c3bac815c2c5d8e993c91d240b712df934c5f9682af4e121a881766",
-        "llm_called": false,
-        "llm_calls": [],
-        "render_status": "COMPLIANT_NO_CHANGE",
-        "written": false
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ],
+        "prose_quality": {
+          "corroborated": false,
+          "flagged": false,
+          "quoted_span": "",
+          "reason": "The paragraph provides specific, non-repetitive information about the open-source and commercial editions of Aspose.Cells for Java, clearly distinguishing their licensing, feature scope, and upgrade path. It avoids generic boilerplate and includes concrete details relevant to the reader's decision-making."
+        },
+        "prose_quality_repair_attempts": 0,
+        "render_status": "GENERATED",
+        "verification": {
+          "checks": {
+            "needs_write_matches": true,
+            "validation_passed": true
+          },
+          "reason": null,
+          "requirement_map": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": true
+          },
+          "verdict": "accept"
+        },
+        "written": true
       },
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T08:58:38.986967+00:00",
+      "last_run_timestamp": "2026-07-22T07:06:30.653770+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "9274b621ebd30f2aca692851bea29ff343a019d8"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "e6e18d96005d6b718438b348f9484385458bb8cea2f23288911592b2c8e729b0",
@@ -285,7 +308,7 @@
   "last_run_timestamp": "2026-07-22T07:06:27.474757+00:00",
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 55,
+  "state_version": 56,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0825e00f7af3e215f0a8420ffee1723c30b05662f6f0d6a2ac0590b248637d0",
