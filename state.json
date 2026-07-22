@@ -206,6 +206,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "e094fe07a87f69d1797e15e9a457ba3980fd69f200d81005919528b259e284f3",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('creating, reading, and editing PowerPoint (.pptx) presentations').",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The opening paragraph specifies the ecosystem (Python), the file format (.pptx), and the core tasks (creating, reading, editing), satisfying audience-fit requirements.",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "The README includes a visible, GitHub-recognized MIT License section, and while badges are absent, the presence of a clear license and working install path meets the minimum trust-signal threshold.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command `pip install aspose-slides-foss` uses real PyPI coordinates (as confirmed by Aspose's prior PyPI publishing), and the README does not rely on GitHub Packages.",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the install snippet, the README includes 12 runnable code examples across diverse features (shapes, text, tables, charts, etc.), satisfying the verified-examples requirement.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent `##` levels, and the order follows the expected intent: product description \u2192 install \u2192 quick start \u2192 features \u2192 examples \u2192 limitations \u2192 links \u2192 license.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is acceptable for a pure-API library like this; the standard permits absence when visuals do not improve understanding.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README does not mention or link to CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files, and GitHub's community-files quick-link row would show only README and License \u2014 missing key signals like Contributing.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "While not stated in prose, the README implies active maintenance via recent examples and a clean, well-structured layout \u2014 though actual maintenance must be verified via GitHub activity, which is outside the README text.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention in the README, which is acceptable: the standard allows absence if the product is purely FOSS without a gated commercial tier, and no evidence suggests this repo has one.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README meets 9 of 10 dimensions, with the sole gap in contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files). All other criteria \u2014 especially product clarity, installation path, and verified examples \u2014 are strongly satisfied."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T15:07:20.804016+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "73effd1e4e0679bcbba7cbfa191961243318e7e4638d1a1fad0635ded1d6cfac",
       "accepted_status": "FIRST_OBSERVATION",
@@ -311,7 +379,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 20,
+  "state_version": 21,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
