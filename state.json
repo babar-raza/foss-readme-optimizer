@@ -50,7 +50,7 @@
     },
     "cross_surface_validation": {
       "accepted_facts_hash": "3cccb9928d5ab6e6331b0657151e31046f8211b605c55dccd5a8801e29db674b",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -59,17 +59,15 @@
           "readme_reconciliation_license_claim": null
         },
         "inconsistencies": [],
-        "stale_sibling_data": {
-          "readme_reconciliation": "no persisted state -- never successfully recorded"
-        }
+        "stale_sibling_data": {}
       },
       "domain": "cross_surface_validation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T09:55:56.339210+00:00",
+      "last_run_timestamp": "2026-07-22T14:05:46.393430+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "c0176f510f1370dd51472b6d147daaaf1a2e0787"
     },
     "github_generated_surface_audit": {
       "accepted_facts_hash": "1df977fb6c4ea964ba027a5dd9dd86a2c263253ac92938fbe9fc7a6b60de1e12",
@@ -225,7 +223,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 12,
+  "state_version": 13,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
