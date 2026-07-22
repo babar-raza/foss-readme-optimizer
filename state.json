@@ -195,6 +195,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "7f945ab6b8049ec117b377a4ac5a121e524093619bac055c54471175247d7d3a",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('provides an Aspose.Note-compatible Python API for working with OneNote .one files'), before any other content.",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The opening block explicitly names the ecosystem (Python), the file format (.one), and the primary task (reading Microsoft OneNote files), aligning with audience-fit expectations.",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "A visible, GitHub-recognized MIT license badge is present at the top, and build/version/registry badges (PyPI, Python versions, CI) follow \u2014 satisfying the highest-leverage trust signals.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install section names real PyPI coordinates (`aspose-note`) and provides working commands (`python -m pip install aspose-note`), and the PyPI badge confirms registry presence.",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the install snippet, there are multiple runnable code blocks (Quick Start, PDF export, and 10+ MS OneNote examples), all with concrete, executable syntax.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (`##`, `###`), and the order follows the expected intent: product description \u2192 features \u2192 quick start \u2192 installation \u2192 examples \u2192 API docs \u2192 limitations \u2192 commercial context.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is acceptable per the standard for API-focused document-processing libraries where imagery would not improve understanding.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README does not include GitHub-recognized community files (LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY) \u2014 but the prompt only provides the README text, not the full repo structure; GitHub's quick-link row depends on those files being present and correctly named. Since the README itself cannot be evaluated for this, we assume the repo may lack them, but the README does not hinder recognition.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "Recent activity is implied by the CI badge and active PyPI releases (implied by PyPI badge), and the README includes a detailed PDF golden workflow and development instructions, suggesting active maintenance.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The commercial mention appears exactly once, in factual/capability-extension language at the end ('If you need the full-featured Aspose product...'), with no promotional tone, pricing, or repeated links \u2014 matching the n8n/iText pattern.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies 9 of 10 dimensions; the sole gap is contribution readiness, which depends on the presence of GitHub-recognized community files beyond the README text itself \u2014 not assessable from the provided content alone."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T14:42:07.483420+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
+    },
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
@@ -268,7 +336,7 @@
   "open_proposals": {},
   "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 25,
+  "state_version": 26,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
