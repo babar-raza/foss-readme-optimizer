@@ -351,27 +351,16 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
   "profile_cache": null,
-  "state_version": 20,
+  "state_version": 21,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-142353-7ce9",
+    "control_plane_fingerprint": "aef13340985c9deae647b3a97b691a85f6fe5de14e78ce9afcf89f6b832d338c",
+    "domain_coverage_complete": false,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
-    "last_run_id": "20260721-100620-0b4a",
-    "last_run_timestamp": "2026-07-21T10:06:20.515238+00:00",
+    "last_run_id": "20260722-142813-9599",
+    "last_run_timestamp": "2026-07-22T14:28:13.399192+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -382,20 +371,158 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T10:06:08.088172+00:00",
+          "created_at": "2026-07-22T14:27:41.204482+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "min_framework",
+              "target_framework"
+            ],
             "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
             "readme_length_chars": 2355
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "8bd12302f04b4a12af9801892e40736e",
-          "terminal_at": "2026-07-21T10:06:10.455468+00:00"
+          "task_id": "44c3cf50d924455fa81da41ac730eb0b",
+          "terminal_at": "2026-07-22T14:27:41.218227+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-.Net"
+          },
+          "blocked_reason": null,
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T14:27:44.034119+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "license_mentioned": false,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 4
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "449b81d8a47f4d1d9462237575ed2908",
+          "terminal_at": "2026-07-22T14:27:44.044594+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-.Net"
+          },
+          "blocked_reason": null,
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-22T14:27:51.119147+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "declared_license": "MIT",
+            "detected_ecosystems": [
+              {
+                "confidence": 1.0,
+                "ecosystem": "net",
+                "evidence": "found create_msg_and_eml.csproj; parsed 3 field(s)",
+                "manifest_path": "examples/create_msg_and_eml/create_msg_and_eml.csproj"
+              }
+            ],
+            "ecosystem": "net",
+            "family": "email",
+            "link_whitelist_domains": [
+              "products.aspose.com",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "products.aspose.org",
+              "docs.aspose.org",
+              "kb.aspose.org",
+              "blog.aspose.org",
+              "forum.aspose.com"
+            ],
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+            "platform": "net",
+            "policy_profile": "aspose-email-foss-net",
+            "products_com_link": {
+              "family_url": "https://products.aspose.com/email",
+              "label": "Aspose.Email for .Net",
+              "url": "https://products.aspose.com/email/net/",
+              "utm": {
+                "utm_campaign": "foss-readme-optimizer",
+                "utm_medium": "readme",
+                "utm_source": "github"
+              }
+            },
+            "products_org_link": {
+              "family_url": "https://products.aspose.org/email/",
+              "label": "Aspose.Email FOSS for .Net",
+              "url": "https://products.aspose.org/email/net/",
+              "utm": null
+            },
+            "prohibited_terms": [
+              "guarantee",
+              "100%",
+              "best in the world",
+              "free forever",
+              "no bugs"
+            ],
+            "relationship_talking_points": [
+              "open_source_scope",
+              "commercial_upgrade_path"
+            ],
+            "secondary_links": [
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "detected_ecosystems": "live repository clone (repository inspection)",
+              "identity_and_policy": "data/products.json + config/policies/aspose-email-foss-net.yml",
+              "unresolved_manifests": "live repository clone (repository inspection)"
+            },
+            "unresolved_manifests": [],
+            "word_limit": {
+              "max": 120,
+              "min": 20
+            }
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "0e17c3fb7599451bb702f20378ce7059",
+          "terminal_at": "2026-07-22T14:27:54.315143+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": false,
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-.Net"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T14:28:01.348257+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "401421923d6fdcc99ed7b45e279a87112b59d7a1bcf21a3d98e60dcccc2a1bdf",
+            "final_text": "# Aspose.Email FOSS for .NET\n\nAspose.Email FOSS for .NET is a dependency-free C# library for working with:\n\n- Compound File Binary (CFB) containers\n- Outlook MSG files\n- High-level mutable message objects\n- EML parsing and serialization through an in-repository MIME implementation\n\nThe package is designed for deterministic binary and message processing without external runtime dependencies.\n\n## Main Namespaces\n\n- `Aspose.Email.Foss.Cfb`\n- `Aspose.Email.Foss.Msg`\n\n## Features\n\n- Read and write CFB containers through `CfbReader` and `CfbWriter`\n- Read and write MSG documents through `MsgReader`, `MsgWriter`, and `MsgDocument`\n- Create, edit, save, and reload high-level messages through `MapiMessage`\n- Load `.eml` into `MapiMessage` with `MapiMessage.LoadFromEml`\n- Save `MapiMessage` back to `.eml` with `MapiMessage.SaveToEml`\n- Work with recipients, regular attachments, and embedded message attachments\n\n## Install\n\n```powershell\ndotnet add package Aspose.Email.Foss\n```\n\n## Quick Start\n\nRead a subject from an MSG file:\n\n```csharp\nusing System.IO;\nusing Aspose.Email.Foss.Msg;\nusing var stream = File.OpenRead(\"sample.msg\");\n\nvar message = MapiMessage.FromStream(stream);\nConsole.WriteLine(message.Subject);\n```\n\nCreate and save a message:\n\n```csharp\nusing System.IO;\nusing Aspose.Email.Foss.Msg;\n\nvar message = MapiMessage.Create(\"Hello\", \"Body\");\nmessage.SenderName = \"Alice\";\nmessage.SenderEmailAddress = \"alice@example.com\";\nmessage.AddRecipient(\"bob@example.com\", \"Bob\");\nusing var attachmentStream = new MemoryStream(\"abc\"u8.ToArray());\nmessage.AddAttachment(\"note.txt\", attachmentStream, \"text/plain\");\nusing var output = File.Create(\"hello.msg\");\nmessage.Save(output);\n```\n\nBridge between EML and MSG:\n\n```csharp\nusing System.IO;\nusing Aspose.Email.Foss.Msg;\nusing var input = File.OpenRead(\"message.eml\");\n\nvar message = MapiMessage.LoadFromEml(input);\nusing var msgOutput = File.Create(\"message.msg\");\nmessage.Save(msgOutput);\nusing var emlOutput = File.Create(\"roundtrip.eml\");\nmessage.SaveToEml(emlOutput);\n```\n\n## Build And Test\n\n```powershell\ndotnet build csharp/src/Aspose.Email.Foss/Aspose.Email.Foss.csproj -c Release\ndotnet pack csharp/src/Aspose.Email.Foss/Aspose.Email.Foss.csproj -c Release\n```\n\n## Examples\n\nExamples are available under `csharp/examples/`:\n\n- `create_msg_and_eml.cs`\n- `msg_reader.cs`\n- `msg_summary.cs`\n\n<!-- readme-agent:resources hash=\"sha256:401421923d6fdcc99ed7b45e279a87112b59d7a1bcf21a3d98e60dcccc2a1bdf\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **License:** MIT\n- **Open-source (FOSS) catalog:** [Aspose.Email FOSS for .Net](https://products.aspose.org/email/net/)\n- **Commercial edition:** [Aspose.Email for .Net](https://products.aspose.com/email/net/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository hosts the free, open-source (FOSS) edition of Aspose.Email for .NET, which provides a subset of the core functionality available in the commercial product. Users seeking extended features, enterprise support, and advanced capabilities can upgrade to the commercial edition, which builds upon the FOSS foundation with additional processing options, performance enhancements, and official support channels.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "fe7d94d137ffcd6fe5201c45b86b0068d2a71b6dbc8c2ea101f5e03cf5e76ebe",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": true,
+            "skip_regeneration": false,
+            "status": "GENERATED"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "9ce1bad36bf24a45988d44f1be284d30",
+          "terminal_at": "2026-07-22T14:28:05.296746+00:00"
         }
       ]
     }
