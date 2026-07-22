@@ -142,14 +142,23 @@
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
-      "accepted_facts_hash": "243b06c3f72bde933b9af9fd4773cdce49161de3adcaf4b3bbe88336fcd1187d",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "398736e681ab00b36a3929eecb80cb0cb483af7af7fa91866ad57af819cd4049",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": null,
-        "handoff_findings": [],
-        "install_path_resolved": null,
+        "evidence": "no live resolver registered for ecosystem 'net'",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-22T14:45:52.051274+00:00",
+            "evidence": {
+              "detail": "no live resolver registered for ecosystem 'net'"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
         "latest_release_name": "v26.7.0",
         "latest_release_tag": "v26.7.0",
         "releases_count": 1
@@ -157,10 +166,10 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:22:01.367584+00:00",
+      "last_run_timestamp": "2026-07-22T14:45:52.051956+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "8a3131b9a6f7e97c20214896c615dbee86272459"
     },
     "readme_presentation": {
       "accepted_facts_hash": null,
@@ -198,7 +207,7 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 11,
+  "state_version": 12,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
