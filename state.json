@@ -92,8 +92,8 @@
       "upstream_revision_at_accept": "605f67d1192fee1881078dfd53d37b8cb29623ba"
     },
     "independent_verification": {
-      "accepted_facts_hash": "2e41c2981e591d939440e9a500fd517bee6e735df1b1247ad927420a45f831ab",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "4e4a225a784673bf06d327c5e570306c35aa053c7766a933041426dbbe6103f8",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -116,6 +116,21 @@
             "domain": "readme_presentation",
             "exercised_without_error": true
           },
+          "LLM-010": {
+            "capability_id": "review_visual_asset_accuracy",
+            "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "RDM-020": {
+            "capability_id": "verify_prose_quality",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "VAL-005": {
+            "capability_id": "compare_against_presentation_standard",
+            "domain": "presentation_benchmarking",
+            "exercised_without_error": true
+          },
           "VER-001": {
             "capability_id": "verify_readme_candidate",
             "domain": "readme_presentation",
@@ -131,10 +146,10 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T13:09:21.313050+00:00",
+      "last_run_timestamp": "2026-07-22T09:37:02.249769+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "605f67d1192fee1881078dfd53d37b8cb29623ba"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "0b0d72e132be26e9dacc197117284d0a34a676d2ff75ee602fd384978c9036b3",
@@ -337,7 +352,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 40,
+  "state_version": 41,
   "supervisor_state": {
     "capability_gaps": [
       {
