@@ -214,6 +214,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "25adb25c8796f06d9b89cd5f8093e490091195ef"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "6bd24acb936deff7bb818334ca9c6ddf353af16e7995fc039e7f95fe5a48937f",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('creating, reading, and editing PowerPoint (.pptx) presentations').",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The README does not explicitly state who the library is for (e.g., C++ developers building presentation tools) or the specific use cases/situations that bring them here.",
+            "satisfied": false
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "The LICENSE is present, visible, and GitHub-recognized (MIT License link in footer), satisfying the highest-priority trust signal.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "No installation command or package coordinates (e.g., vcpkg, Conan, or direct CMake FetchContent usage) are provided \u2014 only build instructions assuming the source is already cloned.",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Multiple runnable code blocks beyond the Quick Start are provided (Shapes, Text Formatting, Table, etc.), satisfying the verified examples requirement.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows logical sequencing: product description \u2192 quick start \u2192 features \u2192 examples \u2192 building \u2192 limitations \u2192 links \u2192 license.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is acceptable for a pure API library like this; the standard permits absence when visuals do not improve understanding.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "Missing GitHub-recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so only README and LICENSE are recognized.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README does not include or reference recent releases or commit activity, and no GitHub-generated signals (e.g., 'pushed_at') can be inferred from the text alone.",
+            "satisfied": false
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repository; the standard allows absence when no commercial tier exists or is promoted.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies product clarity, trust signals (via LICENSE), verified examples, navigation, and visual-usefulness (by omission), but fails on audience fit, installation path, contribution readiness, and maintenance signals. The absence of commercial context is acceptable given the FOSS-only scope."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T14:53:12.016892+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "25adb25c8796f06d9b89cd5f8093e490091195ef"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "954d902cea57a3a93121b47df66b519eef4e6c83d73d158796184f92f0f04421",
       "accepted_status": "FIRST_OBSERVATION",
@@ -319,7 +387,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 27,
+  "state_version": 28,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
