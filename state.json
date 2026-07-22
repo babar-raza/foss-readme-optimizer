@@ -206,8 +206,8 @@
       "upstream_revision_at_accept": "605f67d1192fee1881078dfd53d37b8cb29623ba"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "7401fbc3ebde2bfdc8481a59eea1b87e2d9c804ed8a1200106de504179db24d8",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "43649a99a515703c2441be5a7a2d43c68bdc8f12ac0e2c70055d1b33e2d12a0b",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -219,56 +219,56 @@
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph and 'About Aspose.3D FOSS' section explicitly state the audience (Java developers), ecosystem (Java), and common tasks (building 3D applications, loading/saving 3D models).",
+            "note": "The opening paragraph specifies the audience (Java developers) and the situation (need for an open-source alternative to Aspose.3D for Java), and the 'About' section elaborates on use cases and upgrade path.",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The LICENSE is clearly named (MIT) in the first paragraph and again in the dedicated 'License' section, and GitHub will recognize the LICENSE file if present \u2014 satisfying the highest-priority trust signal.",
+            "note": "The README includes a visible MIT License mention in the first paragraph and a dedicated 'License' section referencing the LICENSE file, satisfying the highest-priority trust signal.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The README provides build instructions (Maven commands) but does not state package coordinates (e.g., groupId/artifactId) or reference a real external registry like Maven Central, making the install path unverifiable against live registry.",
+            "note": "The README lacks any package registry coordinates (e.g., Maven Central) and install command \u2014 it only shows build instructions for local development, not how to consume the library via a package manager.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "The 'Usage' section includes a runnable, self-contained code example beyond the install snippet, demonstrating loading and saving a 3D file.",
+            "note": "The 'Usage' section provides a runnable, self-contained code example beyond the install snippet, demonstrating loading and saving a 3D file.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (##), and the order follows logical sequencing: product description \u2192 features \u2192 status \u2192 compatibility \u2192 build \u2192 usage \u2192 contributing \u2192 license \u2192 resources.",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows the expected sequence: product description \u2192 features/status \u2192 build/usage \u2192 license \u2192 resources.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, and for a pure API library like this (no visual UI or interactive component), the absence of imagery is appropriate per the standard's rule.",
+            "note": "No visuals are present, which is appropriate for a library whose interface is purely API-based; the standard allows absence of visuals where they do not improve understanding.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README mentions 'Contributing' but the repository likely lacks GitHub-recognized community files (CODE_OF_CONDUCT, CONTRIBUTING.md, SECURITY.md), as only README is visible in the provided context.",
+            "note": "The README does not mention or link to a CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file, and GitHub would only show 'README' in the quick-link row; LICENSE is present but not sufficient alone for full contribution readiness.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not include or reference recent releases or commit activity, and no 'pushed_at' or release badges are present \u2014 maintenance status is not externally verifiable from the README.",
+            "note": "The README does not include any visible maintenance signals (e.g., release badges, recent commit dates, or a 'Releases' link), and no evidence of activity is provided in the document itself.",
             "satisfied": false
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears in the first paragraph (via the '\ud83c\udfe0' banner) and again in the 'About' section and 'Resources' section \u2014 violating the rule of exactly one mention, and the first mention is placed before the product explanation (the banner precedes the core description).",
+            "note": "The commercial mention appears in the first paragraph (via the '\ud83c\udfe0' home link) and again in the 'About' section and 'Resources' section \u2014 violating the rule of exactly one mention, and the Resources section is overly promotional with 12 outbound links across three subsections.",
             "satisfied": false
           }
         ],
-        "overall_summary": "The README satisfies most core presentation dimensions (product clarity, audience fit, trust via license, examples, navigation, visual appropriateness), but fails on installation-path verifiability, contribution-readiness files, maintenance signals, and critically, on natural commercial context due to multiple, premature, and promotional commercial references."
+        "overall_summary": "The README satisfies most core presentation dimensions (product clarity, audience fit, trust signals via license, examples, navigation, and visual appropriateness) but fails on installation path (no registry coordinates), contribution readiness (missing community files), maintenance signals (no activity visibility), and natural commercial context (multiple, overly dense commercial mentions)."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T09:36:51.178085+00:00",
+      "last_run_timestamp": "2026-07-22T15:44:38.145301+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "605f67d1192fee1881078dfd53d37b8cb29623ba"
@@ -353,7 +353,7 @@
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 51,
+  "state_version": 52,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cea056ab3ab69473184157a4ebda5cf531adf26e6a66a8071e35a5f55eac0b3a",
