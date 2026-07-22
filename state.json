@@ -353,27 +353,16 @@
   "open_proposals": {},
   "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 33,
+  "state_version": 34,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-151506-832d",
+    "control_plane_fingerprint": "7fd042f3d6f868eb81b5eef39097ef0b408aa405abcd59b919c909b2c2c8d5d6",
+    "domain_coverage_complete": false,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "d051a96a7417149e816a8f862d45a5b769bc5fad",
-    "last_run_id": "20260721-103444-1614",
-    "last_run_timestamp": "2026-07-21T10:34:44.969597+00:00",
+    "last_run_id": "20260722-151904-38dc",
+    "last_run_timestamp": "2026-07-22T15:19:04.810735+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -384,20 +373,160 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T10:34:35.096415+00:00",
+          "created_at": "2026-07-22T15:18:23.331194+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "license",
+              "name",
+              "requires_python",
+              "version"
+            ],
             "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
             "readme_length_chars": 3385
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "0a9e3ac9e332480fb4f189a47d14f726",
-          "terminal_at": "2026-07-21T10:34:37.759491+00:00"
+          "task_id": "ae20d5f54ab742fcb0dcd5d2f33b599b",
+          "terminal_at": "2026-07-22T15:18:24.403262+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T15:18:26.981565+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "license_mentioned": true,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 3
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "7a121d2c2f2b495c844531a790b1fae8",
+          "terminal_at": "2026-07-22T15:18:27.985592+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": true,
+            "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T15:18:35.082387+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "b0fb5e1d06171c8d42088a3d64aff2223af86dfd4ee7a5edd506615e0c728e6c",
+            "final_text": "# Aspose.Words FOSS\n\nA lightweight, open-source Python library for converting DOCX, DOC, RTF, TXT, and MD files to Markdown, plain text, and PDF without requiring Microsoft Word.\n\nA free, lightweight version of [Aspose.Words for Python via .NET](https://github.com/aspose-words/Aspose.Words-for-Python-via-.NET) with a compatible API (`Document`, `SaveFormat`, `SaveOptions`).\n\n[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n\n## Features\n\n- **DOCX Support**: Pure Python reader using only the standard library (`zipfile`, `xml.etree`)\n- **DOC Support**: Word 97-2003 binary format reader via `olefile`\n- **RTF Support**: Rich Text Format reader via OLE2 delegation\n- **Plain Text & Markdown Input**: Read `.txt` and `.md` files\n- **Markdown Export**: Rich formatting \u2014 headings, bold/italic/strikethrough/underline, ordered and unordered lists (including nested), tables, block quotes, code blocks, and hyperlinks\n- **PDF Export**: Generate PDF output via `fpdf2`\n- **Plain Text Export**: Extract document text content\n\n## Installation\n\n```bash\npip install git+https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python.git\n```\n\n## Quick Start\n\n### Convert a document to Markdown\n\n```python\nimport aspose.words_foss as aw\n\ndoc = aw.Document(\"input.docx\")  # or .doc, .rtf, .txt, .md\ndoc.save(\"output.md\", aw.SaveFormat.MARKDOWN)\n```\n\n### Export to PDF\n\n```python\nimport aspose.words_foss as aw\n\ndoc = aw.Document(\"input.docx\")\ndoc.save(\"output.pdf\", aw.SaveFormat.PDF)\n```\n\n### Extract plain text\n\n```python\nimport aspose.words_foss as aw\n\ndoc = aw.Document(\"input.docx\")\ntext = doc.get_text()\n```\n\n### Save with options\n\n```python\nimport aspose.words_foss as aw\nfrom aspose.words_foss.saving import MarkdownSaveOptions, PdfSaveOptions\n\ndoc = aw.Document(\"input.docx\")\n\nmd_opts = MarkdownSaveOptions()\nmd_opts.export_underline_formatting = True\ndoc.save(\"output.md\", md_opts)\n\npdf_opts = PdfSaveOptions()\ndoc.save(\"output.pdf\", pdf_opts)\n```\n\n## Requirements\n\n- Python 3.10 or higher\n- olefile >= 0.46\n- fpdf2 >= 2.7.0\n- pydantic >= 2.0.0\n\n## API Examples\n\nRunnable examples demonstrating the `aspose.words_foss` API:\nApiExamples folder\n\n### Files\n\n| File | What it shows |\n|------|---------------|\n| `convert_document.py` | Every input format (DOCX, DOC, RTF, TXT, MD) to every output format (Markdown, PDF, TXT) |\n| `working_with_markdown_save_options.py` | `MarkdownSaveOptions` \u2014 only options that are actually applied |\n| `working_with_pdf_save_options.py` | PDF export from all input formats |\n| `working_with_txt_save_options.py` | Plain-text export and `get_text()` |\n| `working_with_images.py` | Image-containing documents to all output formats |\n\n### Running\n\n```bash\n# Individual scripts\npython ApiExamples/convert_document.py\n\n# All via pytest\npython -m pytest ApiExamples/ -v --rootdir=ApiExamples -c ApiExamples/pytest.ini\n```\n\n### Input / Output\n\n- **Input**: `tests/data/input/` (shared test fixtures)\n- **Output**: `ApiExamples/output/` (git-ignored)\n\n## License\n\nThis project is licensed under the MIT License - see the [LICENSE](License/license.txt) file for details.\n\n## Support\n\n- **Issues**: [GitHub Issues](https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python/issues)\n\n<!-- readme-agent:resources hash=\"sha256:b0fb5e1d06171c8d42088a3d64aff2223af86dfd4ee7a5edd506615e0c728e6c\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.Words FOSS for Python](https://products.aspose.org/words/python/)\n- **Commercial edition:** [Aspose.Words for Python](https://products.aspose.com/words/python/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository, aspose-words-foss, provides the free, open-source (FOSS) edition of Aspose.Words for Python, licensed under the MIT license, and is intended for developers seeking a lightweight, community-supported solution for document processing. It serves as the open-source foundation of the product, while the commercial edition\u2014Aspose.Words for Python\u2014offers an expanded feature set, enterprise-grade support, and additional capabilities not included in the FOSS version, providing a clear upgrade path for users requiring more advanced functionality.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "39faab39b9cebfcf4e7839d284381b7348f6056cc7b81513a455a2edc60b2a3f",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": true,
+            "skip_regeneration": false,
+            "status": "BLOCKED_VALIDATION_FAILED"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "f7d10449efa84e31acc41f00f6d1d5a3",
+          "terminal_at": "2026-07-22T15:18:41.012358+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-22T15:18:47.278007+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "declared_license": "MIT",
+            "detected_ecosystems": [
+              {
+                "confidence": 1.0,
+                "ecosystem": "python",
+                "evidence": "found pyproject.toml; parsed 4 field(s)",
+                "manifest_path": "pyproject.toml"
+              }
+            ],
+            "ecosystem": "python",
+            "family": "words",
+            "link_whitelist_domains": [
+              "products.aspose.com",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "products.aspose.org",
+              "docs.aspose.org",
+              "kb.aspose.org",
+              "blog.aspose.org",
+              "forum.aspose.com"
+            ],
+            "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
+            "platform": "python",
+            "policy_profile": "aspose-words-foss-python",
+            "products_com_link": {
+              "family_url": "https://products.aspose.com/words",
+              "label": "Aspose.Words for Python",
+              "url": "https://products.aspose.com/words/python/",
+              "utm": {
+                "utm_campaign": "foss-readme-optimizer",
+                "utm_medium": "readme",
+                "utm_source": "github"
+              }
+            },
+            "products_org_link": {
+              "family_url": "https://products.aspose.org/words/",
+              "label": "Aspose.Words FOSS for Python",
+              "url": "https://products.aspose.org/words/python/",
+              "utm": null
+            },
+            "prohibited_terms": [
+              "guarantee",
+              "100%",
+              "best in the world",
+              "free forever",
+              "no bugs"
+            ],
+            "relationship_talking_points": [
+              "open_source_scope",
+              "commercial_upgrade_path"
+            ],
+            "secondary_links": [
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "detected_ecosystems": "live repository clone (repository inspection)",
+              "identity_and_policy": "data/products.json + config/policies/aspose-words-foss-python.yml",
+              "unresolved_manifests": "live repository clone (repository inspection)"
+            },
+            "unresolved_manifests": [],
+            "word_limit": {
+              "max": 120,
+              "min": 20
+            }
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "fa48f8d684fd406d9938e3769381aceb",
+          "terminal_at": "2026-07-22T15:18:51.011033+00:00"
         }
       ]
     }
