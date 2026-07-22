@@ -352,33 +352,37 @@
   "open_proposals": {},
   "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 20,
+  "state_version": 21,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-143515-dd69",
+    "control_plane_fingerprint": "e796fc6253c87a7962fa406b10905df767a6fb7b510a73e6a2685d2a9ef34f90",
+    "domain_coverage_complete": true,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "ef1bf4191341aa93f618bf3b0c06165eb5bee4db",
-    "last_run_id": "20260721-101348-f292",
-    "last_run_timestamp": "2026-07-21T10:13:48.793793+00:00",
+    "last_run_id": "20260722-143907-5a92",
+    "last_run_timestamp": "2026-07-22T14:39:07.190192+00:00",
     "last_status": "BLOCKED",
     "repair_history": [
       {
+        "detail": "'render_readme_candidate' failed (execution_error); retrying once",
+        "kind": "repair",
+        "turn": 2
+      },
+      {
+        "detail": "'render_readme_candidate' failed (execution_error); retrying once",
+        "kind": "repair",
+        "turn": 2
+      },
+      {
         "detail": "'get_product_facts' failed (execution_error); retrying once",
         "kind": "repair",
-        "turn": 1
+        "turn": 3
+      },
+      {
+        "detail": "'get_product_facts' failed (execution_error); retrying once",
+        "kind": "repair",
+        "turn": 3
       }
     ],
     "task_graph_snapshot": {
@@ -389,7 +393,7 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T10:12:53.621920+00:00",
+          "created_at": "2026-07-22T14:38:45.122218+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -401,40 +405,130 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "1d4298b6b5364f0d978378692c9416da",
-          "terminal_at": "2026-07-21T10:13:34.224379+00:00"
+          "task_id": "9cdbea7d76d641af9bc1725ae542f818",
+          "terminal_at": "2026-07-22T14:38:45.144492+00:00"
         },
         {
           "arguments": {
             "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python"
           },
-          "blocked_reason": "ValueError: aspose-font-foss/Aspose.Font-FOSS-for-Python has no policy_profile configured",
-          "capability_id": "get_product_facts",
-          "created_at": "2026-07-21T10:13:41.222037+00:00",
+          "blocked_reason": null,
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T14:38:47.869387+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "license_mentioned": true,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 3
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "63f6f74319c140fc9e6c2a9194e2ded3",
+          "terminal_at": "2026-07-22T14:38:47.886714+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": false,
+            "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python"
+          },
+          "blocked_reason": "NotAllowlistedError: aspose-font-foss/Aspose.Font-FOSS-for-Python has no policy_profile/ecosystem configured yet",
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T14:38:53.671304+00:00",
           "depends_on": [],
           "gap": null,
           "result": null,
           "state": "FAILED",
           "supersedes": null,
-          "task_id": "7c625e6910fe48d9ab8bb51ed4d2c88d",
-          "terminal_at": "2026-07-21T10:13:41.223304+00:00"
+          "task_id": "5261935afd3f4c1b934e76ace945a76f",
+          "terminal_at": "2026-07-22T14:38:53.672177+00:00"
         },
         {
           "arguments": {
+            "force_regenerate": false,
             "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python"
           },
-          "blocked_reason": "ValueError: aspose-font-foss/Aspose.Font-FOSS-for-Python has no policy_profile configured",
-          "capability_id": "get_product_facts",
-          "created_at": "2026-07-21T10:13:41.223246+00:00",
+          "blocked_reason": "NotAllowlistedError: aspose-font-foss/Aspose.Font-FOSS-for-Python has no policy_profile/ecosystem configured yet",
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T14:38:53.672131+00:00",
           "depends_on": [
-            "7c625e6910fe48d9ab8bb51ed4d2c88d"
+            "5261935afd3f4c1b934e76ace945a76f"
+          ],
+          "gap": null,
+          "result": null,
+          "state": "FAILED",
+          "supersedes": null,
+          "task_id": "ea23005e43a94a01aa33f1d0624b974c",
+          "terminal_at": "2026-07-22T14:38:53.672781+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": false,
+            "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python"
+          },
+          "blocked_reason": "NotAllowlistedError: aspose-font-foss/Aspose.Font-FOSS-for-Python has no policy_profile/ecosystem configured yet",
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T14:38:53.672748+00:00",
+          "depends_on": [
+            "ea23005e43a94a01aa33f1d0624b974c"
           ],
           "gap": null,
           "result": null,
           "state": "BLOCKED",
           "supersedes": null,
-          "task_id": "0f04feddf26d49829d8f61c1b075294a",
-          "terminal_at": "2026-07-21T10:13:41.224253+00:00"
+          "task_id": "33b367d56ee440eb84ccb73d686187eb",
+          "terminal_at": "2026-07-22T14:38:53.673347+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python"
+          },
+          "blocked_reason": "NotAllowlistedError: aspose-font-foss/Aspose.Font-FOSS-for-Python has no policy_profile configured",
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-22T14:38:59.103602+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": null,
+          "state": "FAILED",
+          "supersedes": null,
+          "task_id": "c8e49c9338824cdfa2b4126881fda4cb",
+          "terminal_at": "2026-07-22T14:38:59.104366+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python"
+          },
+          "blocked_reason": "NotAllowlistedError: aspose-font-foss/Aspose.Font-FOSS-for-Python has no policy_profile configured",
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-22T14:38:59.104332+00:00",
+          "depends_on": [
+            "c8e49c9338824cdfa2b4126881fda4cb"
+          ],
+          "gap": null,
+          "result": null,
+          "state": "FAILED",
+          "supersedes": null,
+          "task_id": "b83f11367dc24d40848c39d1aa0caea7",
+          "terminal_at": "2026-07-22T14:38:59.104924+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python"
+          },
+          "blocked_reason": "NotAllowlistedError: aspose-font-foss/Aspose.Font-FOSS-for-Python has no policy_profile configured",
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-22T14:38:59.104896+00:00",
+          "depends_on": [
+            "b83f11367dc24d40848c39d1aa0caea7"
+          ],
+          "gap": null,
+          "result": null,
+          "state": "BLOCKED",
+          "supersedes": null,
+          "task_id": "e31e10829c4a4160812a79d5cdbb552f",
+          "terminal_at": "2026-07-22T14:38:59.105402+00:00"
         }
       ]
     }
