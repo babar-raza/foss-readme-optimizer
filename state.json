@@ -215,18 +215,50 @@
       "upstream_revision_at_accept": "25adb25c8796f06d9b89cd5f8093e490091195ef"
     },
     "readme_presentation": {
-      "accepted_facts_hash": null,
-      "accepted_status": null,
-      "consecutive_failure_count": 2,
+      "accepted_facts_hash": "954d902cea57a3a93121b47df66b519eef4e6c83d73d158796184f92f0f04421",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "committed": false,
+        "fresh_fingerprint": "35af2012a014d0f378b1d9fea001bf997885bea08fe3e8c8c61cc6c788f49b88",
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ],
+        "prose_quality": {
+          "corroborated": false,
+          "flagged": false,
+          "quoted_span": "",
+          "reason": "The paragraph provides specific, non-repetitive information about the relationship between the open-source and commercial editions of Aspose.Slides for C++, including licensing, feature distinctions, and upgrade path. It avoids generic boilerplate and reads as intentional, contextual documentation."
+        },
+        "prose_quality_repair_attempts": 2,
+        "render_status": "GENERATED",
+        "verification": {
+          "checks": {
+            "needs_write_matches": true,
+            "validation_passed": true
+          },
+          "nonce": "20260722-145135-b543",
+          "reason": null,
+          "requirement_map": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": true
+          },
+          "token": "a52556e44daf9aacdc589659f9b9aef84c423cfa6a0c97b93034de68d021d67c",
+          "verdict": "accept"
+        },
+        "written": true
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "execution_error",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:59:54.197794+00:00",
+      "last_run_timestamp": "2026-07-22T14:52:22.665075+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "25adb25c8796f06d9b89cd5f8093e490091195ef"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "731a28662e5b2c33a78a71b2476f3f5a0cbfd7858d3106c96abae8e7c5dd7814",
@@ -250,7 +282,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 25,
+  "state_version": 26,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
