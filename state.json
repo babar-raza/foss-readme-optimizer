@@ -208,6 +208,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "b6530ce17b8b11fa06cc92d5abba76f96fb3cc1712dd87f112e071c4ed8186f6",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('creating, loading, editing, and saving Excel .xlsx workbooks') before any other content.",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The README does not explicitly state who the library is for (e.g., TypeScript/Node.js developers) or the specific situation that brings them here (e.g., needing Excel automation without Excel installed).",
+            "satisfied": false
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "A visible, GitHub-recognized MIT license is present and correctly linked, satisfying the highest-leverage trust signal.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The installation instructions instruct cloning and `npm install`, but do not provide the real package coordinates (e.g., npm package name) or a `npm install <package>` command that resolves against the live npm registry.",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "There are two runnable code blocks beyond the install snippet (Create/Style/Save and Load/Update), both clearly executable and illustrative.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (`##`, `###`), and the order follows the expected intent: product description \u2192 features \u2192 getting started \u2192 examples \u2192 build \u2192 compatibility \u2192 license \u2192 support.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is acceptable for a pure API library like this; the standard allows absence when visuals do not improve understanding.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The repository is missing GitHub-recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub will not show the full quick-link row.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README does not include or reference recent releases or commit activity, and no evidence of recent maintenance is visible in the provided text.",
+            "satisfied": false
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repository; if commercial context were present, it would need to follow the restraint rules.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies 6 of 10 dimensions: it has strong product clarity, trust signals, verified examples, navigation, and avoids visual missteps, but fails on audience fit, installation path (no real registry coordinates), contribution readiness (missing community files), and maintenance signals (no activity evidence)."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T14:17:48.673978+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "75260a0f27dde3f41e4e9aaede3680b1ba840dcaabc5e148b3933ae5fcf43e73",
       "accepted_status": "FIRST_OBSERVATION",
@@ -313,7 +381,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 20,
+  "state_version": 21,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
