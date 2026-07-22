@@ -18,6 +18,7 @@
       "accepted_facts_hash": "4f8aea4a7e306c8c40c87ed8fe0fe5ebe86c5f804c2f6389133a99c656ddbced",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "community_profile_health_percentage": 37,
         "detected_license": "MIT",
@@ -55,12 +56,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T14:31:46.387630+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "cross_surface_validation": {
       "accepted_facts_hash": "aee5ab33e37e794d99cf2f1e917ab65bad67f1e379eed5f86fb546003222c628",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "compared": {
           "community_files_presentation_detected_license": "MIT",
@@ -74,12 +77,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T14:32:02.383838+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "github_generated_surface_audit": {
       "accepted_facts_hash": "3a59a3bea673c876809ac5b032cf208995e91b66bde39e4bd7b4cd9fe565ad93",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "contributors_count": 2,
         "forks_count": 1,
@@ -96,12 +101,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T14:30:39.061984+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "independent_verification": {
       "accepted_facts_hash": "2e41c2981e591d939440e9a500fd517bee6e735df1b1247ad927420a45f831ab",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "adversarial_findings": [],
         "checks_performed": [
@@ -139,12 +146,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T08:59:17.697302+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "metadata_presentation": {
       "accepted_facts_hash": "57d68315914463f8ee90ccd2f6960bb8af75b963d7982e91c9b3b860d538811a",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "current_description": "Open-source Java library for creating, reading, modifying, and converting Excel files programmatically.",
         "current_homepage": "https://products.aspose.org/cells/",
@@ -161,12 +170,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T14:31:22.398654+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
       "accepted_facts_hash": "3a2f9544ea776bd582681853aca6a67a84920af285249e049129aed52d49bbcc",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "evidence": "Maven Central: org.aspose:aspose-cells-foss NOT FOUND (0 results)",
         "handoff_findings": [
@@ -189,12 +200,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T14:31:08.371781+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "readme_presentation": {
       "accepted_facts_hash": "11407c2e03727d32e09027569c79b9446a5d065d8b01b87c5baa9587552f7e34",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "committed": false,
         "fresh_fingerprint": "0c9e85f84c3bac815c2c5d8e993c91d240b712df934c5f9682af4e121a881766",
@@ -208,26 +221,30 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T08:58:38.986967+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "e6e18d96005d6b718438b348f9484385458bb8cea2f23288911592b2c8e729b0",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "license_claim": "MIT"
       },
       "domain": "readme_reconciliation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T14:30:26.175003+00:00",
+      "last_run_timestamp": "2026-07-22T06:43:35.785448+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": "9274b621ebd30f2aca692851bea29ff343a019d8"
     },
     "visual_preparation": {
       "accepted_facts_hash": "fab5e8edf0be613e3e714d8beb5bcd4bcc84910deca256abb8d37ba7f9b8fe72",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "alt_text": "cells FOSS for java logo",
         "concerns": [],
@@ -250,6 +267,7 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T08:59:05.417324+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     }
   },
@@ -257,7 +275,7 @@
   "last_run_timestamp": "2026-07-20T12:47:26.000344+00:00",
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 34,
+  "state_version": 35,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0825e00f7af3e215f0a8420ffee1723c30b05662f6f0d6a2ac0590b248637d0",
