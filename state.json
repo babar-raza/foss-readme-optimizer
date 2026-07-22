@@ -3,11 +3,14 @@
   "accepted_status": null,
   "capability_outputs": [
     {
-      "cached_at": "2026-07-22T15:06:07.481928+00:00",
+      "cached_at": "2026-07-22T15:06:14.417431+00:00",
       "capability_id": "commit_readme_write",
       "fingerprint": "360a5ad6b208fb373dad8cb6a3633984445dd630f41ec0f714c937c68f17a9ce",
-      "result": {},
-      "status": "pending"
+      "result": {
+        "committed": false,
+        "written": true
+      },
+      "status": "applied"
     }
   ],
   "domain_states": {
@@ -239,7 +242,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 16,
+  "state_version": 17,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
