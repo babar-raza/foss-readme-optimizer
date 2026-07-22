@@ -209,18 +209,49 @@
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
     },
     "readme_presentation": {
-      "accepted_facts_hash": null,
-      "accepted_status": null,
-      "consecutive_failure_count": 1,
+      "accepted_facts_hash": "e9dc0b944d3763012555ff0d3080378663eb462b8357d65643f2d0f19e41e853",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "committed": false,
+        "fresh_fingerprint": "a02f4d6b63cf3caafb45bcd76ff5544eb2788aa683f6071efae221060ff9690c",
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ],
+        "prose_quality": {
+          "corroborated": false,
+          "flagged": false,
+          "quoted_span": "",
+          "reason": "The paragraph provides specific, non-repetitive information about the open-source and commercial editions of Aspose.3D for TypeScript, clearly distinguishing their purposes, licensing, and upgrade paths. It includes concrete links,\u660e\u786e mentions the MIT license, and explains the value proposition of each edition without generic or boilerplate phrasing."
+        },
+        "prose_quality_repair_attempts": 2,
+        "render_status": "GENERATED",
+        "verification": {
+          "checks": {
+            "needs_write_matches": true,
+            "validation_passed": true
+          },
+          "reason": null,
+          "requirement_map": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": true
+          },
+          "token": "5a33e0b93462604c28aee58305abf4bd55e26cb8f0e5bed443e022c1e98bbfc6",
+          "verdict": "accept"
+        },
+        "written": true
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "execution_error",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:01:40.213510+00:00",
+      "last_run_timestamp": "2026-07-22T13:52:20.820760+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
@@ -244,7 +275,7 @@
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 18,
+  "state_version": 19,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
