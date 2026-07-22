@@ -85,6 +85,29 @@ This will be an autonomous system that:
 Humans will periodically review its work, but their role will primarily be passive oversight
 rather than operating the system or initiating its routine work.
 
+## Implementation Principles
+
+### Deterministic and Agentic Approach
+
+The system must combine deterministic and agentic approaches. Responsibilities that can be
+expressed as explicit rulesâ€”including control flow, safety checks, state management, caching,
+idempotency, validation, and repeatable transformationsâ€”should be implemented deterministically.
+
+Agentic reasoning should be used where interpretation, planning, editorial judgment, or adaptation
+to repository-specific context is genuinely required. Agentic outputs must remain subject to
+deterministic validation and operational safeguards before they produce an effect.
+
+### Prefer Battle-Tested Solutions
+
+Development should favor battle-tested libraries, frameworks, standard facilities, and proven
+reference implementations over hand-rolled solutions. Existing solutions should be actively
+researched and evaluated before custom functionality is developed.
+
+This preference is intended to accelerate development, reduce maintenance risk, and make
+troubleshooting easier by building on tools and patterns that have already been exercised in real
+systems. A custom solution should be used only when the proven alternatives do not satisfy the
+system's requirements and the reason for departing from them is documented.
+
 ## Responsibility Boundaries
 
 ### Product Agents

@@ -249,6 +249,20 @@ point-in-time count, so they cannot drift out of sync the next time the registry
 again; the original 3-pilot subset is still asserted as a floor. Full suite re-verified green after
 the fix: `pytest -q` → 867 passed, 18 deselected, 0 failed (557s).
 
+**2026-07-22, same-day continuation (decisions #49, #50)**: a concurrent session's registry-
+onboarding push (`ONB-004`, `scaffold-policy` CLI) and clone-reliability redesign (`SCL-009`,
+probe-validated `clone_baseline()`) landed alongside this session's own plan-file-hardening
+execution — `GOV-022`'s mechanical wave-reconciliation check, `VER-001`'s replay-closing nonce
+(`TC-28`), `SCL-006`'s bounded specialist retry (`TC-19`), `AGT-006`'s deterministic termination
+backstop (`TC-18`), the pre-commit hook now also gating on ruff/mypy (`TC-30`), and TC-01's
+remaining push to `origin/main`, now complete. Both sessions independently found and fixed the
+same `test_specialists.py` clone-staleness bug by the same mechanism before either read the
+other's work — reconciled, not duplicated, in decision #50. Fresh, real, this-session-verified
+full suite: `pytest -q` → **919 passed, 0 failed, 18 deselected** (421s). Wave 9 (the heterogeneous
+portfolio proof) has still not started; `TC-08` (the remote-write PR-opener capability) is now the
+single remaining blocker to a live 3-repo presentation proof, with all four of its prerequisites
+closed.
+
 ## Decision Ledger
 
 Current working positions, not locked commitments (see GOVERNANCE.md rule 4). Any entry can be
@@ -1417,6 +1431,107 @@ that is the only permanence they carry; text is always the decision as it stands
     `CORE-032`/`OPS-005`/`ONB-004` requirement-row updates.)
 
 48. **Effect-ledger lock holder-identity revalidation (`EFF-005`), and the verifier-accept gate's move from a literal string comparison to a re-derivable token (TC-15).** Two independent hardening fixes this same session, both closing gaps Phase 13's own adversarial machinery audit found (F3, F4) — building on decision #46 rather than restating it. `capabilities/effect_ledger.py::dispatch_gated_effect()` now calls the new `StateBackend.lock_still_held(lock)` (implemented in `state/git_backend.py` by re-fetching the lock ref and comparing `holder_id`) immediately before its terminal `applied` write; a lease that outlived `LOCK_LEASE_SECONDS` and was legitimately reclaimed by a second runner now leaves the ledger record `pending` rather than dishonestly recording sole authorship — proven by `tests/unit/test_effect_ledger.py::TestDispatchGatedEffectLockRevalidation` (a slow-effector-outlives-its-lease scenario, not just argued in prose). Separately, `commit_readme_write.py::precheck()`'s `verification_verdict` check is no longer a plain `== "accept"` string comparison — `verification/checks.py::compute_verification_token()` derives a value from `org_repo`/`facts_hash`/`fresh_fingerprint` that only `specialists/readme_presentation.py::_verify_node` computes, and only after a real accept for that exact candidate; `precheck()` re-derives and compares. `tests/unit/test_capabilities.py::test_precheck_rejects_a_hardcoded_accept_literal` proves the exact F3 regression (a hand-authored or wiring-bug call typing the literal `"accept"`) is now rejected. Both named honestly, not oversold: same-process consistency checks against an accidental wiring bug, not cryptographic secrets or a defense against a deliberately adversarial caller — `compute_verification_token()`'s own docstring states this plainly. Also this session (TC-16/17/23, Phase 13 §13.4 Pillars A/C): `audit_package_release_surfaces.py` sorts releases by `published_at` before selecting "latest" (`SCL-007` → `IMPLEMENTED`); a real, registered `stop` capability (`capabilities/stop.py`) lets `supervisor/loop.py` distinguish an explicit stop intent from an unrecognized/hallucinated capability name in telemetry (`AGT-006`); and `SupervisorStateV1.in_flight_run_id`/`in_flight_domains`, written before the specialist loop begins and cleared by the next normal completing write, close `VER-005`'s residual process/runner-kill blind spot via the new `effective_domain_coverage_complete()` helper. `PRL-002`'s state shape (`OpenProposalV1`, `state/schema.py`) is added ahead of the `remote_write` capability that will populate it (`TC-08`, not yet built — this entry's own hardening work, plus `TC-06`'s new `PRL-*` requirement rows, are explicitly sequenced to precede it, per Phase 13/14's own reasoning about why skipping them compounds into a live duplicate-write hazard). (2026-07-22.)
+
+49. **Production-hardening pass: a policy-profile fabrication incident found and fixed with real
+    verification tooling (`ONB-004`), and the within-run clone-redundancy root cause behind a live
+    timeout, fixed structurally (`SCL-009`).** Triggered by two problems surfacing during the
+    previous sprint's live proof of `CORE-034`'s Words/.NET self-heal: 4 failing
+    `test_registry_loader.py` tests, and a 300s baseline-clone timeout on that same newly-published
+    repo. Investigated thoroughly per explicit user direction to treat both as production problems,
+    not local patches — separating symptom from root cause in each case.
+
+    **Registry-readiness incident.** The 4 failing tests turned out to be *correct*: a concurrent
+    session had already flipped 22 entries `disabled`→`dry_run` (found committed to `main`, not
+    merely a working-tree experiment — the user separately confirmed this broadening is intentional
+    per decision #24/`PIL-011`, and a sibling session rewrote the count-pinned tests to a drift-proof
+    invariant), but a *further*, still-uncommitted session had then mass-generated 22
+    `config/policies/*.yml` files by pattern substitution to fill the resulting null `ecosystem`/
+    `policy_profile` fields. Direct inspection found this violated `docs/policy-authoring.md`'s own
+    written rule (never construct a link by string-formatting family/platform) and decision #4's
+    business-facts posture: every profile carried an identical, copy-pasted `MIT` license and a
+    `products.aspose.org` URL guessed from the family/platform pattern — and `data/aspose_com_links.json`
+    had **zero** `.org` entries anywhere to verify against. Live-checking all 25 non-disabled
+    entries confirmed 9 of the 22 guessed `.com` platform URLs were genuinely wrong (Aspose's real
+    site uses a combined `-net`/`-cpp` slug for several Python bindings, or has no platform-specific
+    page at all for two families) — not a hypothetical risk, a real, if not-yet-shipped, fabrication.
+
+    Fixed by building the verification this project always needed rather than reverting the
+    broadening: `src/readme_agent/registry/policy_facts.py::verify_repo_facts()` — GitHub's own
+    license classifier plus a README-text fallback (matching the `aspose-cells-foss.yml` pilot's own
+    established ground-truth-from-README precedent) for the license; a real HTTP GET, never a
+    guess, for every `.org`/`.com` URL at family and platform depth. All 25 profiles were corrected
+    against it (9 `.com` URLs fixed; every license independently reconfirmed MIT — none were
+    actually false, but none had been genuinely checked either); `data/aspose_com_links.json` gained
+    a real `products.aspose.org` surface (11 families/25 platforms, live-probed, explicitly labeled
+    registry-scoped rather than claiming the `.com` surface's full 293-link coverage) plus corrected
+    3 stale/added 2 real `.com` platform entries found along the way. `readme-agent scaffold-policy`
+    (new CLI) and `scripts/data-refresh/policy_profile_coverage_report.py` are the durable form of
+    this fix — `ONB-004`'s own long-designed-not-built scaffolding, finally built, using the same
+    verification module so no future profile can repeat this mistake. A new hard regression control
+    (`test_every_non_disabled_entry_has_ecosystem_and_policy_profile_configured`,
+    `test_registry_loader.py`) makes the original triggering condition — a mode flip with no profile
+    behind it — a loud CI failure permanently, not a silent per-cycle `ERROR:missing_policy_profile`.
+    `aspose-words-foss/Aspose.Words-FOSS-for-.NET` — this whole investigation's own trigger repo —
+    was scaffolded, fully verified with zero unverifiable fields, and wired to `mode: "dry_run"` as
+    the live proof; the remaining backlog (5 entries: `cells/go`, `cells/rust`, `html/python`,
+    `pdf/cpp`, `pdf/python`) is unchanged `disabled`, needing a human to run `scaffold-policy` and
+    review the result — `ONB-004` is `PARTIAL`, not `IMPLEMENTED`, on that basis, stated plainly.
+
+    **Clone-reliability redesign.** Tracing why the Words/.NET clone timed out found the fixed 300s
+    ceiling was a symptom, not the cause: `clone_baseline()` unconditionally force-clones on every
+    call, and every one of ~7-9 stateless capabilities dispatched within a single `supervise_repo()`
+    run calls it independently for the same repository (decision #26(b): capabilities share no
+    per-run repo view by design) — one run was paying for the identical clone roughly 9-17 times
+    over the network, each an independent roll against `SCL-004`'s own already-measured 158s-1004s
+    clone-time variance for the identical repo. This is what actually breaks consistency across
+    reruns (more redundant clones raise the odds that at least one draws the long tail), and it
+    hides a latent correctness gap too: nothing guaranteed all ~9 clones observed the same upstream
+    commit if a push landed mid-run. Preserved unchanged: the push-blocked clone model, the
+    `--depth 1` convention, decision #40's read/write gate split, the git-tree-API profiling path
+    (`SCL-004`) as a *future*, not this-pass, generalization target (bigger, riskier, unproven for
+    non-manifest reads — named explicitly, not silently skipped).
+
+    Redesigned (`SCL-009`, new row): an in-process memo in `clone.py` collapses the ~7-9
+    within-run re-clones to one real clone. The first version of this design invalidated the memo
+    via a call added inside `supervise_repo()` right before its own top-level clone — reasoning
+    that "a run is one `supervise_repo()` call, not one process." That reasoning was itself
+    incomplete: a live full-suite run the same session found two more pre-existing
+    `test_specialists.py` tests broken by the same class of staleness
+    (`test_upstream_edit_between_runs_is_upstream_changed`,
+    `test_a_success_after_failures_resets_the_counter`), each calling a specialist's own `run()`
+    directly, twice, in one process — a *different* top-level entry point the invalidate-only-in-
+    `supervise_repo()` design never covered, and there is no bounded list of such entry points to
+    exhaustively invalidate at (a concurrent session, working from that same intermediate state,
+    independently found and patched these two tests at the TEST layer instead — an autouse
+    `_clean_clone_memo` fixture plus explicit `reset_clone_memo()` calls between each test's two
+    `run()` invocations, `tests/unit/test_specialists.py`; harmless, and left in place as
+    additional defense-in-depth, but superseded as the mechanism of correctness by the fix below).
+
+    Corrected to the actual final design: `clone_baseline()` validates its own memo against a
+    cheap `remote_head_sha()` probe (a `git ls-remote`, ~1-15s — this project's own decision
+    #40/ORC-006 freshness-probe pattern, reused rather than reinvented) instead of trusting it for
+    an entire process's lifetime. This makes every caller correct automatically — `supervise_repo()`,
+    every specialist's `run()`, any future entry point — with zero invalidation bookkeeping
+    anywhere; `invalidate_baseline_clone()` was removed as unnecessary. The honest cost: reuse
+    isn't free (a network probe, not a memory read), but ~1-15s per reuse is a small price against
+    the ~150-1000s a redundant full clone cost, and it is a self-verifying design rather than one
+    that depends on every present and future caller remembering to invalidate correctly. `env.py::
+    git_clone_timeout_seconds()` makes the timeout tunable (default raised 300s→600s,
+    evidence-informed, not a guarantee against the measured tail); a bounded, transient-only retry
+    (2 attempts, 5s/15s backoff, real errors like "not found" fail fast, never retried); and
+    `supervise_repo()` catches its own clone's `GitSafetyError` and returns a `BLOCKED`
+    `SuperviseResult` with a written evidence bundle, instead of an uncaught abort with none.
+
+    Both fixes are live-tested, not merely unit-proven: the words/net onboarding above and the
+    clone redesign were exercised together against the real trigger repo; the full unit suite
+    (including the two previously-broken `test_specialists.py` tests, passing without needing
+    their own test-layer patch to be the thing making them pass) was re-run clean after the
+    correction. (2026-07-22, user directive: "make all repos ready for processing" plus an
+    explicit request to treat the clone timeout as a production problem — separate symptoms from
+    root causes, propose a durable design, call out tradeoffs and limits honestly rather than
+    claim more confidence than the evidence supports.)
+
+50. **Plan-file hardening executed against the Claude-Code plan's own Phase 17 taskcard register: GOV-022 mechanical wave-reconciliation, a run-scoped verification-token nonce, a graduated convergence shortcut, a deterministic termination backstop, a hardened pre-commit gate, and TC-01's remaining push — plus an independent duplicate finding of decision #49's own test-staleness bug.** Executed concurrently with, and only discovering afterward, decision #49's own extensive registry-onboarding/clone-reliability work above — reconciled against it directly, not overwritten. **TC-14 remainder** (`GOV-022`): `scripts/governance/validate_plan_structure.py::check_wave_reconciliation_gate()` fails the pre-commit hook/CI if a Build Checklist wave item flips `[ ]` → `[x]` in the same change with no matching `logs/*.md` Wave/Phase entry — diff-aware (compares the working copy against `git show HEAD:plans/master.md`) so Waves 0-8 are never retroactively flagged; proven by 9 new tests in the first-ever test file for this script (`tests/unit/test_validate_plan_structure.py`), which also adds smoke coverage for the 4 pre-existing checks that had none. **TC-30**: the pre-commit hook now also runs `ruff check`/`ruff format --check`/`mypy src` (all sub-second) — the full `pytest` suite is deliberately excluded (a ~9-minute hook would get bypassed with `--no-verify` as routine, defeating "disallow from the start"; it remains a required CI step instead). **TC-28** (`VER-001` hardening): `compute_verification_token()` gains a `nonce` argument, minted once per `_verify_node` call and threaded through `commit_readme_write`'s new `verification_nonce` argument — closes the one gap TC-15/decision #48 named honestly but left open (a token minted in one run being replayable into a later, separate run for content that hashes the same way); proven by `test_precheck_rejects_a_token_computed_with_a_different_nonce` plus 3 new direct unit tests on the function itself. **TC-19** (`SCL-006` → `PARTIAL`, Phase 13 §13.4 Pillar C.2): a domain reporting an `ERROR:`-prefixed status now gets one immediate re-classify retry before the `CONVERGED_NO_TRACKED_CHANGE` shortcut's `all(...)` check runs, isolating one transient flake instead of unconditionally falling through to the full planner loop; records a `specialist_retry` decision noting recovery. **TC-18** (`AGT-006` further progress, Pillar A.2): `NO_PROGRESS_TURN_LIMIT` (3) ends a run deterministically via `final_status()` once a turn's task is `SUPERSEDED` or `BLOCKED` for 3 consecutive turns, rather than burning every turn toward `max_turns`/`repair_exhausted` — proven for both the duplicate-call and the unknown-capability-hallucination shape (the latter correctly lands on `PARTIAL_WITH_CAPABILITY_GAP`, never `BLOCKED: repair_exhausted`). **TC-29**: reviewed `golden_set/` (harness.py/aggregation.py/scenarios.py, `OPS-011`) — real, tested (18 fixture-only tests, `FixturePlannerClient`, never live), but scoped to planner capability-selection scoring and durable-state metric aggregation, not the README-content-drift weekly-replay Pillar D/TC-22 originally envisioned; TC-22 stays `not_attempted` for its own original scope. **TC-01 remainder**: the 3 commits from decisions #46-48 (`f85b9b2`/`acc824e`/`b3954d5`) pushed to `origin/main` for real (verified `git status` shows zero ahead/behind) — a real, live `git-credential-manager.exe` hang on the first attempt (killed, retried with `GIT_TERMINAL_PROMPT=0` + `gh auth git-credential`) is a second corroborating data point for `OPS-009`. **Independently duplicated part of decision #49's own finding**: before reading #49, this session separately found and fixed the identical `test_specialists.py` staleness bug via the identical mechanism (an autouse `_clean_clone_memo` fixture plus explicit `reset_clone_memo()` calls between each affected test's two `run()` calls) — left in place per #49's own characterization ("harmless... additional defense-in-depth"), not removed, since #49's deeper probe-based redesign supersedes it as the actual mechanism of correctness without conflicting with it. **A separate, one-off flake investigated and NOT fixed as a code bug**: `test_gitsafety.py` + `test_supervisor_loop.py` run together showed 9 assertion failures once, then passed 79/79 clean on an immediate identical rerun — `tasklist`/`Get-CimInstance Win32_Process` at the time showed substantial unrelated concurrent load on this machine (live daemons from two other, unrelated repositories, plus another concurrent `readme_agent.cli supervise --durable-state` process against a real pilot) — logged as new evidence on the already-existing `OPS-010` row, not re-investigated further since it did not reproduce a second time. A pre-existing, unrelated mypy error found in `gitsafety/clone.py` (a `CompletedProcess | None` narrowing mypy can't prove from `range()`'s non-emptiness, on the pre-redesign version of that file) fixed with an `assert`. Fresh full-suite run after all of the above, this session's own final verification: `pytest -q` → **919 passed, 0 failed, 18 deselected** (421s); `ruff check .`, `ruff format --check .`, `mypy src`, and `scripts/governance/validate_plan_structure.py` all clean. Not done this pass, still open: TC-02 (token rotation, human-only), TC-08 (the PR-opener capability itself — now genuinely unblocked, all four prerequisites closed), TC-09/TC-13 (blocked on TC-08), TC-20 (deliberately deferred per its own taskcard), TC-21/TC-22's own live-gateway measurement (no `LLM_BASE_URL`/`LLM_API_KEY` in this environment). (2026-07-22.)
 
 ## Architecture
 

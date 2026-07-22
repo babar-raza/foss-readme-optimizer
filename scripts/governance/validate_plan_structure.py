@@ -16,6 +16,7 @@ client.py`.
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -62,6 +63,10 @@ SHARD_DENSE_WARN_LINES = 1500
 ENTRY_LINE_RE = re.compile(r"^-\s*(?:\[[^\]]+\]\s*)+\*\*\d{4}-\d{2}-\d{2}")
 INDEX_ROW_RE = re.compile(r"^\|\s*\d{4}-\d{2}-\d{2}\s*\|")
 SHARD_DIR_ROW_RE = re.compile(r"^\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*`logs/([^`]+)`\s*\|\s*(\d+)\s*\|")
+
+# GOV-022 (wave-entry reconciliation gate).
+WAVE_CHECKLIST_RE = re.compile(r"^- \[(x| )\] Wave (\d+(?:\.\d+)?)\b", re.MULTILINE)
+LOG_WAVE_TOKEN_RE = re.compile(r"Wave\s+(\d+)")
 
 
 class Result:
@@ -223,6 +228,79 @@ def check_specialist_module_map_completeness(result: Result) -> None:
         )
 
 
+_USE_GIT = object()  # sentinel: "no override supplied, ask git for HEAD's version" -- tests pass
+# an explicit str (or None, for "no git history available") instead of this default.
+
+
+def _previous_master_md_text() -> str | None:
+    """`plans/master.md` as it stood at HEAD, i.e. before whatever is currently being committed.
+    Returns None (not an error -- there is nothing to diff against) if git history isn't
+    available, e.g. a shallow clone or the very first commit."""
+    try:
+        completed = subprocess.run(
+            ["git", "show", "HEAD:plans/master.md"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    if completed.returncode != 0:
+        return None
+    return completed.stdout
+
+
+def _logged_wave_numbers(logs_dir: Path) -> set[str]:
+    numbers: set[str] = set()
+    if not logs_dir.exists():
+        return numbers
+    for path in logs_dir.glob("*.md"):
+        if path.name == "README.md":
+            continue
+        shard_text = path.read_text(encoding="utf-8")
+        numbers.update(m.group(1) for m in LOG_WAVE_TOKEN_RE.finditer(shard_text))
+    return numbers
+
+
+def check_wave_reconciliation_gate(
+    result: Result,
+    previous_master_text: str | None = _USE_GIT,  # type: ignore[assignment]
+) -> None:
+    """GOV-022: a Build Checklist wave item may not flip `[ ]` -> `[x]` in the same change with no
+    logs/ entry whose Wave/Phase column names that wave. Deliberately diff-aware (compares the
+    working copy against HEAD, not a static snapshot) so Waves 0-8 -- checked off before this gate
+    or its logging tool existed -- are never retroactively flagged; only a wave newly checked off
+    in the change under review is held to this bar. `previous_master_text` is an injectable seam
+    for tests; production callers always take the `_USE_GIT` default."""
+    if not MASTER_MD.exists():
+        return
+    if previous_master_text is _USE_GIT:
+        previous_master_text = _previous_master_md_text()
+    if previous_master_text is None:
+        return
+    current_text = MASTER_MD.read_text(encoding="utf-8")
+    current_checked = {
+        m.group(2) for m in WAVE_CHECKLIST_RE.finditer(current_text) if m.group(1) == "x"
+    }
+    previously_checked = {
+        m.group(2) for m in WAVE_CHECKLIST_RE.finditer(previous_master_text) if m.group(1) == "x"
+    }
+    newly_checked = current_checked - previously_checked
+    if not newly_checked:
+        return
+    logged = _logged_wave_numbers(LOGS_DIR)
+    for wave in sorted(newly_checked, key=float):
+        wave_int = wave.split(".")[0]
+        if wave_int not in logged:
+            result.error(
+                f"plans/master.md's Build Checklist newly checks off Wave {wave} in this change, "
+                f'but no logs/*.md entry\'s Wave/Phase column references "Wave {wave_int}" -- '
+                "GOVERNANCE.md rule 11 (GOV-022) requires a reconciliation note in the same "
+                "change that marks a wave done."
+            )
+
+
 def main() -> int:
     result = Result()
     check_master_section_order(result)
@@ -230,6 +308,7 @@ def main() -> int:
     check_requirements(result)
     check_logs_shard_index_consistency(result)
     check_specialist_module_map_completeness(result)
+    check_wave_reconciliation_gate(result)
 
     for warning in result.warnings:
         print(f"WARNING: {warning}", file=sys.stderr)
