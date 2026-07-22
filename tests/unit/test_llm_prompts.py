@@ -1,5 +1,6 @@
-"""Prompt assets load from prompts/relationship_explained/ (prompts/README.md
-rule 1) and prompt_content_hash() actually reflects file content, so an edited
+"""Prompt assets load from the categorical prompt registry (Wave 8.5,
+`prompts/generation/relationship_explained.yaml`, prompts/README.md rule 1)
+and prompt_content_hash() actually reflects file content, so an edited
 prompt file changes the generation hash rather than silently reusing a stale
 one (rule 3)."""
 
@@ -61,14 +62,16 @@ class TestPromptContentHash:
         assert prompt_content_hash() == prompt_content_hash()
 
     def test_changes_when_prompt_file_content_changes(self, tmp_path, monkeypatch):
-        asset_dir = tmp_path / "relationship_explained"
-        asset_dir.mkdir()
-        (asset_dir / "system.txt").write_text("original system\n", encoding="utf-8")
-        (asset_dir / "user.txt").write_text("original user $org_repo\n", encoding="utf-8")
-        monkeypatch.setattr(prompts_module, "PROMPTS_DIR", asset_dir)
+        asset_path = tmp_path / "relationship_explained.yaml"
+        asset_path.write_text(
+            "prompt_id: relationship_explained\nsystem: original\n", encoding="utf-8"
+        )
+        monkeypatch.setattr(prompts_module, "PROMPT_ASSET_PATH", asset_path)
 
         before = prompt_content_hash()
-        (asset_dir / "system.txt").write_text("edited system\n", encoding="utf-8")
+        asset_path.write_text(
+            "prompt_id: relationship_explained\nsystem: edited\n", encoding="utf-8"
+        )
         after = prompt_content_hash()
 
         assert before != after

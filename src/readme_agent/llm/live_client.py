@@ -20,7 +20,7 @@ from pydantic import ValidationError
 
 from readme_agent.errors import LLMError
 from readme_agent.llm.client import GeneratedResult
-from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta
+from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta, Usage
 
 DEFAULT_TEMPERATURE = 0.0
 DEFAULT_MAX_TOKENS = 8000
@@ -117,9 +117,19 @@ class LiveLLMClient:
         except ValidationError as exc:
             raise LLMError(f"LLM content did not match the required schema: {exc}") from exc
 
+        raw_usage = body.get("usage") or {}
+        usage = (
+            Usage(
+                prompt_tokens=raw_usage.get("prompt_tokens"),
+                completion_tokens=raw_usage.get("completion_tokens"),
+            )
+            if raw_usage
+            else None
+        )
         meta = LLMResponseMeta(
             request_id=body.get("id"),
             created=body.get("created"),
             model=body.get("model"),
+            usage=usage,
         )
         return GeneratedResult(response=block, meta=meta, mode="live", was_fenced=was_fenced)

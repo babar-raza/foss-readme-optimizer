@@ -60,9 +60,11 @@ def _effector_manifest(**overrides) -> CapabilityManifest:
 
 def _register(monkeypatch, manifest: CapabilityManifest, execute):
     module = SimpleNamespace(MANIFEST=manifest, execute=execute)
-    manifests, executors = registry._build((module,))
+    manifests, executors, reconciliation_checks, prechecks = registry._build((module,))
     monkeypatch.setattr(registry, "_MANIFESTS", manifests)
     monkeypatch.setattr(registry, "_EXECUTORS", executors)
+    monkeypatch.setattr(registry, "_RECONCILIATION_CHECKS", reconciliation_checks)
+    monkeypatch.setattr(registry, "_PRECHECKS", prechecks)
 
 
 def _tool_call(capability_id: str, arguments: dict) -> dict:

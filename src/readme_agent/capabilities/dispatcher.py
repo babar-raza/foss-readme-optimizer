@@ -17,6 +17,7 @@ Outcome = Literal[
     "rejected_permission_denied",
     "rejected_domain_denied",
     "rejected_invalid_arguments",
+    "rejected_precondition_failed",
     "execution_error",
 ]
 
@@ -33,6 +34,7 @@ def dispatch_tool_call(
     tool_call: dict,
     allowed_permissions: set[PermissionClass],
     caller_domain: str | None = None,
+    extra_kwargs: dict | None = None,
 ) -> DispatchResult:
     """tool_call is the OpenAI tool-call shape proven live in Wave 1:
     {"id": ..., "function": {"name": ..., "arguments": "<json string>"}}.
@@ -45,7 +47,17 @@ def dispatch_tool_call(
     LangGraph, Wave 6+) reduces wrong-tool-call *rate*, but nothing about it
     is a hard guarantee -- a wiring bug, a stale tool list, or a
     hand-authored call straight into this function all silently bypass it.
-    This check is the one point every call path must cross regardless."""
+    This check is the one point every call path must cross regardless.
+
+    extra_kwargs (AGT-008/Wave 8.5): the one deliberate, narrow exception to
+    decision #26(b)'s "capabilities are stateless" rule -- supplied only by
+    wiring code (e.g. `supervisor/loop.py::_dispatch_and_record()`), never
+    derived from the LLM's own tool-call arguments, and merged *last* so a
+    key collision with an LLM-hallucinated argument of the same name fails
+    loudly (`TypeError` at the call site, caught by the `except Exception`
+    below as a normal `execution_error`) rather than one silently shadowing
+    the other. Used today only by `get_domain_findings`, which needs a live
+    `state_backend` no LLM tool-call argument could ever legitimately carry."""
     function = tool_call.get("function", {})
     capability_id = function.get("name")
     raw_arguments = function.get("arguments")
@@ -100,7 +112,7 @@ def dispatch_tool_call(
         )
 
     try:
-        result = executor(**arguments)
+        result = executor(**arguments, **(extra_kwargs or {}))
     except Exception as e:  # noqa: BLE001 -- any wrapped-function failure becomes a typed outcome
         return DispatchResult(outcome="execution_error", error=f"{type(e).__name__}: {e}")
 

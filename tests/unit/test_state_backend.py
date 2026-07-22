@@ -21,6 +21,14 @@ class FakeStateBackend:
     def __init__(self):
         self._states: dict[str, RunStateV1] = {}
         self._locks: dict[str, tuple[str, datetime]] = {}
+        # Wave 8.5 (SCL-005 extension): a second, genuinely separate tracking
+        # dict for the run-lock, mirroring GitStateBackend's own two-dict
+        # design exactly -- keyed only by org_repo, so one dict cannot safely
+        # hold both lock families' state simultaneously for the same repo.
+        self._run_locks: dict[str, tuple[str, datetime]] = {}
+        # Wave 8.6 (`OPS-011` extension): the global (not per-org_repo)
+        # model-route registry, keyed by job name.
+        self._model_routes: dict = {}
 
     def load(self, org_repo: str) -> RunStateV1 | None:
         return self._states.get(org_repo)
@@ -36,17 +44,36 @@ class FakeStateBackend:
         )
         return SaveResult(outcome="saved", new_version=new_version)
 
-    def acquire_lock(self, org_repo: str) -> Lock | None:
-        existing = self._locks.get(org_repo)
+    def _acquire(self, org_repo: str, tracking: dict[str, tuple[str, datetime]]) -> Lock | None:
+        existing = tracking.get(org_repo)
         if existing is not None and existing[1] > datetime.now(UTC):
             return None
         leased_until = datetime.now(UTC) + timedelta(seconds=900)
-        holder_id = f"fake-holder-{len(self._locks)}"
-        self._locks[org_repo] = (holder_id, leased_until)
+        holder_id = f"fake-holder-{len(tracking)}"
+        tracking[org_repo] = (holder_id, leased_until)
         return Lock(org_repo=org_repo, holder_id=holder_id, leased_until=leased_until.isoformat())
+
+    def acquire_lock(self, org_repo: str) -> Lock | None:
+        return self._acquire(org_repo, self._locks)
 
     def release_lock(self, lock: Lock) -> None:
         self._locks.pop(lock.org_repo, None)
+
+    def lock_still_held(self, lock: Lock) -> bool:
+        current = self._locks.get(lock.org_repo)
+        return current is not None and current[0] == lock.holder_id
+
+    def acquire_run_lock(self, org_repo: str) -> Lock | None:
+        return self._acquire(org_repo, self._run_locks)
+
+    def release_run_lock(self, lock: Lock) -> None:
+        self._run_locks.pop(lock.org_repo, None)
+
+    def load_model_route_status(self, job: str):
+        return self._model_routes.get(job)
+
+    def save_model_route_status(self, status) -> None:
+        self._model_routes[status.job] = status
 
 
 class TestFakeStateBackendCAS:
@@ -119,6 +146,116 @@ class TestFakeStateBackendLock:
         assert backend.acquire_lock("org/repo") is not None
 
 
+class TestFakeStateBackendLockRevalidation:
+    """Decision #46/#48 (`EFF-005`, Phase 13 §13.1's F4 finding): the
+    holder-identity revalidation `effect_ledger.py::dispatch_gated_effect()`
+    now performs immediately before its terminal `applied` write."""
+
+    def test_still_held_by_the_same_holder_is_true(self):
+        backend = FakeStateBackend()
+        lock = backend.acquire_lock("org/repo")
+        assert backend.lock_still_held(lock) is True
+
+    def test_reclaimed_by_a_different_holder_is_false(self):
+        backend = FakeStateBackend()
+        lock = backend.acquire_lock("org/repo")
+        # Simulate the lease genuinely expiring and a second runner
+        # legitimately reclaiming it -- the same mechanism
+        # test_acquire_reclaims_an_expired_lease already proves.
+        backend._locks["org/repo"] = ("intruder", datetime.now(UTC) + timedelta(seconds=900))
+        assert backend.lock_still_held(lock) is False
+
+    def test_released_lock_is_not_still_held(self):
+        backend = FakeStateBackend()
+        lock = backend.acquire_lock("org/repo")
+        backend.release_lock(lock)
+        assert backend.lock_still_held(lock) is False
+
+
+class TestFakeStateBackendRunLock:
+    """Wave 8.5 (SCL-005 extension) -- mirrors TestFakeStateBackendLock's own
+    four tests exactly, proving the run-lock's behavior matches the
+    existing per-op lock's semantics by construction (same shared `_acquire`
+    helper), not by two independently-written test suites that could
+    silently diverge. Also proves the two lock families are genuinely
+    independent -- acquiring one never affects the other for the same repo."""
+
+    def test_acquire_when_unlocked_succeeds(self):
+        backend = FakeStateBackend()
+        lock = backend.acquire_run_lock("org/repo")
+        assert lock is not None
+        assert lock.org_repo == "org/repo"
+
+    def test_acquire_when_held_and_unexpired_fails(self):
+        backend = FakeStateBackend()
+        backend.acquire_run_lock("org/repo")
+        assert backend.acquire_run_lock("org/repo") is None
+
+    def test_acquire_reclaims_an_expired_lease(self):
+        backend = FakeStateBackend()
+        backend.acquire_run_lock("org/repo")
+        backend._run_locks["org/repo"] = (
+            "crashed-holder",
+            datetime.now(UTC) - timedelta(seconds=1),
+        )
+        lock = backend.acquire_run_lock("org/repo")
+        assert lock is not None
+
+    def test_release_then_acquire_succeeds(self):
+        backend = FakeStateBackend()
+        lock = backend.acquire_run_lock("org/repo")
+        assert lock is not None
+        backend.release_run_lock(lock)
+        assert backend.acquire_run_lock("org/repo") is not None
+
+    def test_run_lock_and_op_lock_are_genuinely_independent(self):
+        """The exact property the new run-lock's real-ref-difference relies
+        on: holding one lock family for a repo must never block the other."""
+        backend = FakeStateBackend()
+        op_lock = backend.acquire_lock("org/repo")
+        assert op_lock is not None
+        run_lock = backend.acquire_run_lock("org/repo")
+        assert run_lock is not None  # not blocked by the held op lock
+        assert backend.acquire_lock("org/repo") is None  # op lock still genuinely held
+        assert backend.acquire_run_lock("org/repo") is None  # run lock still genuinely held
+
+
+class TestSafeReleaseLock:
+    """Found live, 2026-07-22: every `finally: backend.release_lock(lock)`
+    in this codebase (`domain_state.py` x3, `effect_ledger.py`,
+    `supervisor/loop.py` x2) let a genuine release failure raise straight out
+    of a `finally:` block, discarding whatever the `try` block was already
+    returning/raising. `safe_release_lock()` is the one shared fix all six
+    call sites now use."""
+
+    def test_successful_release_is_silent(self, capsys):
+        from readme_agent.state.backend import safe_release_lock
+
+        backend = FakeStateBackend()
+        lock = backend.acquire_lock("org/repo")
+
+        safe_release_lock(backend.release_lock, lock, label="lock")
+
+        assert backend.acquire_lock("org/repo") is not None  # actually released
+        assert capsys.readouterr().err == ""
+
+    def test_release_failure_is_caught_and_logged_not_raised(self, capsys):
+        from readme_agent.state.backend import safe_release_lock
+
+        backend = FakeStateBackend()
+        lock = backend.acquire_lock("org/repo")
+
+        def _raising_release(lock):
+            raise RuntimeError("push failed: connection reset")
+
+        safe_release_lock(_raising_release, lock, label="lock")  # must not raise
+
+        err = capsys.readouterr().err
+        assert "warning: releasing lock" in err
+        assert "org/repo" in err
+        assert "connection reset" in err
+
+
 class TestSaveDomain:
     """MEM-004/Decision #34 -- the concrete regression test for root cause
     #2 (RunStateV1's flat accepted_* fields silently colliding/clobbering
@@ -181,6 +318,32 @@ class TestSaveDomain:
         loaded = backend.load("org/repo")
         assert loaded.domain_states["readme"].accepted_status == "COMPLIANT_NO_CHANGE"
         assert loaded.domain_states["metadata"].accepted_status == "COMPLIANT_NO_CHANGE"
+
+    def test_details_payload_survives_a_cas_retry_cycle_unchanged(self):
+        """Wave 7: `DomainStateV1.details`'s round-trip through the exact
+        write path every specialist uses, not just plain JSON serialization
+        (already covered in test_state_schema.py)."""
+        backend = FakeStateBackend()
+        payload = {"proposed_topics": ["pdf", "java"], "current_description": "A PDF library"}
+        save_domain(
+            backend,
+            "org/repo",
+            "metadata_presentation",
+            DomainStateV1(
+                domain="metadata_presentation", accepted_status="PROPOSED", details=payload
+            ),
+        )
+        # A second, unrelated domain's write forces a real reload -- proves
+        # `details` isn't silently dropped by the "patch only my own key on
+        # a freshly reloaded copy" mechanics `save_domain()` relies on.
+        save_domain(
+            backend,
+            "org/repo",
+            "readme",
+            DomainStateV1(domain="readme", accepted_status="GENERATED"),
+        )
+        loaded = backend.load("org/repo")
+        assert loaded.domain_states["metadata_presentation"].details == payload
 
     def test_stale_retry_carries_forward_a_concurrent_writers_result(self):
         """Simulates the lease-expiry edge case: another writer's save lands
@@ -283,3 +446,49 @@ class TestSaveDomain:
         # single failed write would permanently wedge the repo for
         # LOCK_LEASE_SECONDS.
         assert backend.acquire_lock("org/repo") is not None
+
+
+class TestFakeStateBackendModelRoute:
+    """Wave 8.6 (`OPS-011` extension): the global (not per-org_repo)
+    model-route registry."""
+
+    def test_no_status_recorded_returns_none(self):
+        backend = FakeStateBackend()
+        assert backend.load_model_route_status("supervisor_planning") is None
+
+    def test_saved_status_round_trips(self):
+        from readme_agent.state.schema import ModelRouteStatusV1
+
+        backend = FakeStateBackend()
+        backend.save_model_route_status(
+            ModelRouteStatusV1(job="supervisor_planning", status="disabled", reason="low pass rate")
+        )
+        loaded = backend.load_model_route_status("supervisor_planning")
+        assert loaded is not None
+        assert loaded.status == "disabled"
+        assert loaded.reason == "low pass rate"
+
+    def test_different_jobs_are_independent(self):
+        from readme_agent.state.schema import ModelRouteStatusV1
+
+        backend = FakeStateBackend()
+        backend.save_model_route_status(
+            ModelRouteStatusV1(job="supervisor_planning", status="disabled")
+        )
+        assert backend.load_model_route_status("prose_quality_check") is None
+
+    def test_re_enabling_overwrites_the_prior_status(self):
+        from readme_agent.state.schema import ModelRouteStatusV1
+
+        backend = FakeStateBackend()
+        backend.save_model_route_status(
+            ModelRouteStatusV1(job="supervisor_planning", status="disabled", reason="bad")
+        )
+        backend.save_model_route_status(
+            ModelRouteStatusV1(
+                job="supervisor_planning", status="enabled", re_enabled_by="human", reason="fixed"
+            )
+        )
+        loaded = backend.load_model_route_status("supervisor_planning")
+        assert loaded.status == "enabled"
+        assert loaded.re_enabled_by == "human"

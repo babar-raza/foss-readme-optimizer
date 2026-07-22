@@ -7,6 +7,8 @@ the same inspection/file_inventory.py + ecosystems/registry.py the shipped
 pipeline already generalized in this wave.
 """
 
+import fnmatch
+from collections.abc import Iterable
 from pathlib import Path
 
 from readme_agent.ecosystems.registry import parse_manifest
@@ -18,8 +20,12 @@ from readme_agent.profile.schema import DetectedEcosystem, RepositoryProfile
 # ECO-003 asks for unresolved files to be *recorded*, not for this list to be
 # a precise manifest classifier. Known non-manifest filenames are excluded
 # explicitly rather than silently, so the exclusion itself is reviewable.
-_MANIFEST_SHAPED_GLOBS = ("*.toml", "*.json", "*.xml")
-_KNOWN_NON_MANIFEST_FILENAMES = {
+# Public (not module-private): profile/cached.py's git-tree-API path
+# (decision #40/Part F) shares this exact rule via
+# resolve_unresolved_manifests() below, so a real registry repo's exclusion
+# list stays one list, not two that could drift apart.
+MANIFEST_SHAPED_GLOBS = ("*.toml", "*.json", "*.xml")
+KNOWN_NON_MANIFEST_FILENAMES = {
     "package-lock.json",
     "tsconfig.json",
     ".eslintrc.json",
@@ -28,6 +34,23 @@ _KNOWN_NON_MANIFEST_FILENAMES = {
     "CMakePresets.json",
     "CMakeUserPresets.json",
 }
+
+
+def resolve_unresolved_manifests(
+    filenames: Iterable[str], matched_filenames: set[str]
+) -> list[str]:
+    """Root-level, manifest-shaped filenames (`MANIFEST_SHAPED_GLOBS`) that
+    matched no registered ecosystem -- recorded, not guessed (`ECO-003`).
+    Shared by `build_profile()`'s filesystem glob and
+    `profile/cached.py`'s git-tree-API path (decision #40/Part F) so both
+    traversal strategies apply the identical over-inclusion/exclusion rule."""
+    unresolved: set[str] = set()
+    for filename in filenames:
+        if filename in matched_filenames or filename in KNOWN_NON_MANIFEST_FILENAMES:
+            continue
+        if any(fnmatch.fnmatch(filename, pattern) for pattern in MANIFEST_SHAPED_GLOBS):
+            unresolved.add(filename)
+    return sorted(unresolved)
 
 
 def build_profile(org_repo: str, repo_path: Path) -> RepositoryProfile:
@@ -49,19 +72,15 @@ def build_profile(org_repo: str, repo_path: Path) -> RepositoryProfile:
             )
         )
 
-    matched_paths = set(inventory.manifest_paths.values())
-    unresolved: set[str] = set()
+    matched_filenames = {path.name for path in inventory.manifest_paths.values()}
+    root_candidates: list[str] = []
     if repo_path.is_dir():
-        for pattern in _MANIFEST_SHAPED_GLOBS:
-            for candidate in repo_path.glob(pattern):
-                if candidate in matched_paths:
-                    continue
-                if candidate.name in _KNOWN_NON_MANIFEST_FILENAMES:
-                    continue
-                unresolved.add(candidate.name)
+        for pattern in MANIFEST_SHAPED_GLOBS:
+            root_candidates.extend(candidate.name for candidate in repo_path.glob(pattern))
+    unresolved = resolve_unresolved_manifests(root_candidates, matched_filenames)
 
     return RepositoryProfile(
         org_repo=org_repo,
         detected_ecosystems=detected,
-        unresolved_manifests=sorted(unresolved),
+        unresolved_manifests=unresolved,
     )

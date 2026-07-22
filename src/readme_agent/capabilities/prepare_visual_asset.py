@@ -1,0 +1,113 @@
+"""Visuals specialist's one capability (Wave 7h) -- domain `visual_
+preparation`. `execution_type="manual_delivery_preparation"` (declared in
+`schema.py` since Wave 2's sprint but unused until now): validates an
+existing image asset if one exists, or prepares a real, freshly-generated
+candidate banner from the pilot's own product facts if none does -- **never
+writes or embeds anything into `README.md` or anywhere else this wave**.
+
+Confirmed live, not assumed: a real GitHub code search across this
+project's own sampled pilots (`cells/java`, `pdf/java`, `3d/java`) found zero
+existing image assets (png/jpg/svg) in any of them, 2026-07-20 -- the
+"prepare a candidate" path is the common case for this registry, not an
+edge case. When a candidate must be prepared, it is generated in-memory via
+Pillow (`GOV-015`: a proven, standard library, not a hand-rolled image
+encoder) -- plain text on a plain background, no copied or sourced material,
+so its licensing is unambiguous (`license_status` says exactly that,
+honestly, rather than guessing at an existing asset's unknown provenance).
+
+The generated candidate's bytes are never persisted into durable state --
+only its validated properties (dimensions, format, size) and the recipe
+(what text was drawn) are, avoiding bloating `DomainStateV1` with binary
+data a human reviewing evidence would need to decode anyway."""
+
+from readme_agent import paths
+from readme_agent.capabilities import _visual_asset_ops
+from readme_agent.capabilities.domains import VISUAL_PREPARATION
+from readme_agent.capabilities.schema import CapabilityManifest
+from readme_agent.gitsafety.clone import clone_baseline
+from readme_agent.registry.loader import require_listed
+
+CAPABILITY_ID = "prepare_visual_asset"
+
+_NOISE_DIRS = {".git", "node_modules", "target", "build", "dist", "__pycache__"}
+
+MANIFEST = CapabilityManifest(
+    capability_id=CAPABILITY_ID,
+    version="1",
+    name="Prepare visual asset",
+    purpose="Read-only: validate an existing image asset (dimensions, format, size) if one "
+    "exists in the repository, or prepare a real, freshly-generated candidate banner from "
+    "product facts if none does -- never writes or embeds anything into the repository or "
+    "README.md this wave.",
+    category="visual_preparation",
+    owner="readme_agent.capabilities.prepare_visual_asset",
+    execution_type="manual_delivery_preparation",
+    required_inputs={"org_repo": "string"},
+    optional_inputs={"family": "string", "platform": "string"},
+    produced_outputs={
+        "existing_asset_found": "boolean",
+        "existing_asset_path": "string",
+        "width": "integer",
+        "height": "integer",
+        "format": "string",
+        "size_bytes": "integer",
+        "size_within_reasonable_bounds": "boolean",
+        "concerns": "array",
+        "alt_text": "string",
+        "license_status": "string",
+        "prepared_candidate": "object",
+    },
+    preconditions=[
+        "org_repo must be listed in data/products.json (mode is irrelevant -- read-only)",
+        "never writes or embeds any asset -- prepare-only this wave",
+    ],
+    required_permissions=["read_only_local"],
+    side_effect_class="read_only_local",
+    allowed_domains=[VISUAL_PREPARATION],
+    tools_used=["gitsafety.clone.clone_baseline", "PIL.Image"],
+    failure_modes=["NotAllowlistedError if org_repo is not listed in data/products.json"],
+    rollback_behavior="not applicable -- read-only, nothing to roll back, no write ever attempted",
+    tests=["tests/unit/test_capabilities.py"],
+)
+
+
+def execute(org_repo: str, family: str | None = None, platform: str | None = None) -> dict:
+    entry = require_listed(org_repo)
+    baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
+    clone_baseline(entry, baseline_path)
+
+    existing_path = _visual_asset_ops.find_existing_asset(baseline_path)
+
+    if existing_path is not None:
+        data = existing_path.read_bytes()
+        validated = _visual_asset_ops.validate_bytes(
+            data, is_svg=existing_path.suffix.lower() == ".svg"
+        )
+        return {
+            "existing_asset_found": True,
+            "existing_asset_path": str(existing_path.relative_to(baseline_path)),
+            **validated,
+            "alt_text": f"{family or entry.family} logo",
+            "license_status": "unknown -- existing asset found in the repository, no automated "
+            "provenance/licensing signal available; human review required before any use",
+            "prepared_candidate": None,
+        }
+
+    label = f"{family or entry.family} FOSS for {platform or entry.platform}"
+    candidate_bytes = _visual_asset_ops.generate_candidate_banner(label)
+    validated = _visual_asset_ops.validate_bytes(candidate_bytes, is_svg=False)
+    return {
+        "existing_asset_found": False,
+        "existing_asset_path": None,
+        **validated,
+        "alt_text": f"{label} logo",
+        "license_status": "generated by readme-agent -- plain text on a plain background, no "
+        "external or copied content, no licensing concern",
+        "prepared_candidate": {
+            "filename": "banner.png",
+            "recipe": f"plain white {validated['width']}x{validated['height']}px PNG, centered "
+            f"black text: {label!r}",
+            "proposed_placement": "top of README, immediately after the H1 -- not written this "
+            "wave, pending a real per-region ownership design (see module docstring)",
+        },
+    }

@@ -22,16 +22,23 @@ from readme_agent.ecosystems.registry import parse_manifest
 from readme_agent.errors import NotAllowlistedError, StateBackendError
 from readme_agent.evidence.writer import generate_run_id, write_evidence
 from readme_agent.gitsafety._git import run_git
-from readme_agent.gitsafety.clone import clone_baseline, create_work_clone, force_rmtree
+from readme_agent.gitsafety.clone import (
+    clone_baseline,
+    create_work_clone,
+    force_rmtree,
+    remote_head_sha,
+)
 from readme_agent.gitsafety.hooks import install_pre_push_hook
 from readme_agent.gitsafety.neuter import neuter_push
-from readme_agent.gitsafety.verify import verify_push_blocked
+from readme_agent.gitsafety.verify import PushBlockProof, verify_push_blocked
 from readme_agent.inspection import file_inventory
 from readme_agent.license.auditor import detect_license
 from readme_agent.llm.client import GeneratedResult, LLMClient
 from readme_agent.llm.fixture_client import FixtureLLMClient
 from readme_agent.llm.live_client import LiveLLMClient
 from readme_agent.llm.prompts import build_prompt, prompt_content_hash
+from readme_agent.profile.cached import get_or_build_profile
+from readme_agent.profile.schema import RepositoryProfile
 from readme_agent.readme.facts import (
     GapReportFacts,
     RepositoryFacts,
@@ -43,12 +50,66 @@ from readme_agent.readme.gap_detector import detect as detect_gaps
 from readme_agent.readme.markers import SPAN_NAMES, find_span, remove_span, upsert_span
 from readme_agent.readme.presentation_report import detect_presentation
 from readme_agent.readme.renderer import render_missing_elements
-from readme_agent.registry.loader import enabled_entries, find_entry, load_policy, require_listed
+from readme_agent.registry.loader import (
+    enabled_entries,
+    find_entry,
+    load_policy,
+    load_products,
+    require_listed,
+)
 from readme_agent.registry.models import PolicyProfile, ProductEntry
 from readme_agent.state.backend import StateBackend
-from readme_agent.state.schema import RunStateV1
+from readme_agent.state.schema import ProfileCacheV1, RunStateV1
 from readme_agent.validation import registry as validation_registry
 from readme_agent.validation.context import ValidationContext
+
+
+@dataclass
+class ReadmeCandidate:
+    """The read-only render/validate decision for one `org_repo`'s README --
+    no filesystem write happens until `commit_readme_candidate` is called
+    with this result. Splits `generate_repo()`'s single pipeline at its write
+    boundary (Wave 7 `EFF-001` fix, decision #26 addendum): the prior design
+    wrapped the whole pipeline behind one `gated_effector` capability keyed on
+    `facts_hash` -- but `facts_hash` is computed mid-pipeline, not a call
+    argument, so it can't be supplied pre-dispatch the way the effect ledger
+    requires (decision #36 already found and rejected this exact design for
+    a different capability). This dataclass is the boundary: everything
+    above it is pure computation (including validation -- no filesystem
+    mutation), everything below it (`commit_readme_candidate`) is the one
+    real write.
+
+    `final_text != original_text` is the single source of truth for "does a
+    write need to happen" -- deliberately replaces two separate write sites
+    the original pipeline had (an unconditional callout-migration write, and
+    a conditional render write): both collapse to one comparison here, with
+    zero observable difference in end state, `GenerateResult`, or evidence
+    content, since nothing reads the intermediate on-disk state between them
+    within a single `generate_repo()` call.
+    """
+
+    entry: ProductEntry
+    work_path: Path
+    readme_path: Path
+    baseline_readme_text: str
+    original_text: str
+    final_text: str
+    facts: RepositoryFacts
+    facts_hash: str
+    fresh_fingerprint: str
+    gap_report: GapReport
+    skip_regeneration: bool
+    durable_skip: bool
+    new_spans: dict[str, str]
+    existing_rendered_spans: dict[str, str]
+    llm_called: bool
+    llm_calls: list[str]
+    llm_request: list[dict[str, str]] | None
+    llm_response: object | None
+    generated_result: GeneratedResult | None
+    validation_results: list
+    status: str
+    proof: PushBlockProof
 
 
 @dataclass
@@ -98,6 +159,28 @@ def _work_clone_fingerprint_sidecar(work_path: Path) -> Path:
     return work_path.parent / f"{work_path.name}.tracked-content-fingerprint"
 
 
+def _is_valid_work_clone(work_path: Path) -> bool:
+    """A `.git` directory can exist yet be incomplete/corrupted (an
+    interrupted clone missing `HEAD`/`config`/`refs`) -- git then silently
+    walks up to the nearest valid PARENT repository instead of failing, so
+    `.git`'s mere existence is not proof this clone is usable. Found live,
+    2026-07-22: a work clone left with only `hooks/`+`objects/` resolved
+    `rev-parse --show-toplevel` to this project's OWN repo root, not
+    `work_path` -- meaning `neuter_push()` (called against what the caller
+    believed was the target's own work clone) silently disabled push on this
+    project's real remote instead. Guarding on the resolved toplevel actually
+    matching `work_path` catches both failure shapes: a hard git error, or
+    the surprising-but-real silent-walk-up-to-parent case."""
+    result = run_git(["rev-parse", "--show-toplevel"], cwd=work_path)
+    if result.returncode != 0:
+        return False
+    try:
+        resolved = Path(result.stdout.strip()).resolve()
+    except OSError:
+        return False
+    return resolved == work_path.resolve()
+
+
 def _ensure_work_clone(
     entry: ProductEntry, baseline_path: Path, work_path: Path, *, fresh_fingerprint: str
 ) -> Path:
@@ -119,7 +202,7 @@ def _ensure_work_clone(
     to today) and rebuilds from the already-fresh baseline the moment it
     isn't."""
     sidecar = _work_clone_fingerprint_sidecar(work_path)
-    if work_path.exists() and (work_path / ".git").exists():
+    if work_path.exists() and (work_path / ".git").exists() and _is_valid_work_clone(work_path):
         if sidecar.exists() and sidecar.read_text(encoding="utf-8").strip() == fresh_fingerprint:
             return work_path  # reuse -- unchanged tracked content
     result = create_work_clone(entry, baseline_path, work_path)
@@ -128,7 +211,7 @@ def _ensure_work_clone(
     return result
 
 
-def _record_accepted_state(
+def record_accepted_readme_state(
     backend: StateBackend,
     org_repo: str,
     facts_hash: str,
@@ -136,7 +219,16 @@ def _record_accepted_state(
     run_id: str | None,
     content_fingerprint: str,
 ) -> None:
-    """Best-effort CAS write-back (Wave 4, `MEM-002`). On `stale`, re-loads
+    """Best-effort CAS write-back (Wave 4, `MEM-002`). Public (Wave 7,
+    `EFF-001`/`ORC-004`): `commit_readme_candidate()`'s CLI path and
+    `specialists/readme_presentation.py`'s `commit_readme_write` path
+    (7g) both call this same function -- the whole point of unifying them
+    is exactly one writer of `accepted_facts_hash`/`accepted_status`
+    regardless of entry point, so this can no longer be a private,
+    orchestrator-only helper ("depend on public seams, not `_`-private
+    helpers").
+
+    On `stale`, re-loads
     and re-checks rather than retrying blindly: if the now-current durable
     record already reflects this exact facts_hash, another runner already
     accepted the same outcome first and there is nothing to do. Otherwise a
@@ -231,15 +323,38 @@ def inspect_repo(org_repo: str, *, check_install: bool = False) -> dict:
     }
 
 
-def generate_repo(
+def prepare_readme_candidate(
     org_repo: str,
     *,
     force_regenerate: bool = False,
     llm_mode: str = "live",
     fixture_response_path: Path | None = None,
-    write_evidence_bundle: bool = True,
     state_backend: StateBackend | None = None,
-) -> GenerateResult:
+    prior_facts_hash: str | None = None,
+    prior_content_fingerprint: str | None = None,
+    prior_status: str | None = None,
+) -> ReadmeCandidate:
+    """Everything through the render/skip decision and validation -- no
+    filesystem write. See `ReadmeCandidate`'s docstring for why this split
+    exists and why `final_text != original_text` alone is what decides
+    whether `commit_readme_candidate` needs to write anything.
+
+    `prior_facts_hash`/`prior_content_fingerprint`/`prior_status` (Wave 7
+    production-reliability fix, found by independent review 2026-07-20): a
+    second way to supply the same durable-skip signal `state_backend`
+    already provides, as plain values rather than a live backend object --
+    for `capabilities/render_readme_candidate.py`, which must stay stateless
+    (decision #26(b)) and therefore cannot hold a `state_backend` itself.
+    `specialists/readme_presentation.py`'s own `DomainStateV1` already IS
+    this project's durable record of the last accepted render; without this
+    parameter set, that capability had no way to learn it, so a fresh work
+    clone (the normal case on an ephemeral CI runner, `RUN-001`) could never
+    engage the durable-skip path here even though this exact function has
+    had it, via `state_backend`, since decision #38 -- the result was a real
+    LLM call on every single run with any upstream commit at all, not just
+    one touching tracked content. If both `state_backend` and these
+    arguments are supplied, `state_backend`'s own durable record wins (the
+    original, CLI-path precedent); today no caller supplies both."""
     entry = require_permitted(org_repo)
     if entry.policy_profile is None or entry.ecosystem is None:
         raise NotAllowlistedError(f"{org_repo} has no policy_profile/ecosystem configured yet")
@@ -267,19 +382,17 @@ def generate_repo(
     baseline_readme_text = (
         baseline_readme_path.read_text(encoding="utf-8") if baseline_readme_path.exists() else ""
     )
-    current_text = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
+    original_text = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
 
     # Phase 21 migration (decision #9 as corrected): strip any legacy "callout"
-    # span left over from before its retirement, unconditionally and
-    # independent of this run's skip/render decision below -- the skip branch
-    # never writes readme_path, so without this explicit, always-persisted
-    # step a work clone that skips regeneration would keep a dead callout
-    # marker on disk forever. Confirmed live: 2/3 pilots' real evidence had a
-    # callout span (pdf/java: callout only, no resources span at all).
-    migrated_text = remove_span(current_text, "callout")
-    if migrated_text != current_text:
-        readme_path.write_text(migrated_text, encoding="utf-8")
-    current_text = migrated_text
+    # span left over from before its retirement -- computed here, in memory,
+    # regardless of this run's skip/render decision below, since everything
+    # downstream must reason about migrated content; persisting it is
+    # `commit_readme_candidate`'s job (folded into `final_text != original_
+    # text`, not a separate write site anymore). Confirmed live: 2/3 pilots'
+    # real evidence had a callout span (pdf/java: callout only, no resources
+    # span at all).
+    current_text = remove_span(original_text, "callout")
 
     manifest = parse_manifest(entry.ecosystem, work_path)
     license_state = detect_license(manifest.get("license"), inventory.license_path)
@@ -310,7 +423,7 @@ def generate_repo(
     # survived between runs. On a fresh GitHub Actions runner it never does.
     # `durable_state` answers the same question from a backend that *does*
     # survive a fresh runner -- additive, not a replacement for the check
-    # above. Best-effort like the write-back below (see `_record_accepted_state`):
+    # above. Best-effort like the write-back below (see `record_accepted_readme_state`):
     # a read failure degrades to "no durable state known," never aborts the run.
     durable_state = None
     if state_backend is not None:
@@ -320,6 +433,15 @@ def generate_repo(
             print(
                 f"warning: durable state read failed, continuing without it: {exc}", file=sys.stderr
             )
+    # A live state_backend's own record wins when supplied (the original
+    # CLI-path precedent); otherwise fall back to the caller-supplied plain
+    # values (see this function's own docstring for why those exist).
+    if durable_state is not None:
+        accepted_facts_hash = durable_state.accepted_facts_hash
+        accepted_content_fingerprint = durable_state.upstream_content_fingerprint_at_accept
+    else:
+        accepted_facts_hash = prior_facts_hash
+        accepted_content_fingerprint = prior_content_fingerprint
     # Decision #38: `accepted_facts_hash` matching alone is NOT sufficient --
     # `facts_hash` deliberately excludes README content (decision #11), so on
     # its own it is blind to a real upstream README/community-file edit. On
@@ -333,9 +455,9 @@ def generate_repo(
     durable_skip = (
         not force_regenerate
         and existing is None
-        and durable_state is not None
-        and durable_state.accepted_facts_hash == facts_hash
-        and durable_state.upstream_content_fingerprint_at_accept == fresh_fingerprint
+        and accepted_facts_hash is not None
+        and accepted_facts_hash == facts_hash
+        and accepted_content_fingerprint == fresh_fingerprint
     )
 
     def _validate(readme_text: str, llm_response, rendered_spans: dict[str, str]):
@@ -377,14 +499,18 @@ def generate_repo(
         if durable_skip:
             # Fresh-runner path (`RUN-001`'s actual target scenario): the
             # local work clone carries no marker of its own, but the durable
-            # backend already recorded this exact facts_hash as accepted.
-            # Trust that record rather than re-validating `current_text` --
-            # it's the plain, unmodified baseline content, not what was
-            # actually accepted, and would fail validation for reasons that
-            # have nothing to do with this run.
-            assert durable_state is not None  # durable_skip implies this
+            # record (a live `state_backend`, or the plain `prior_*` values a
+            # stateless capability caller supplied instead) already accepted
+            # this exact facts_hash. Trust that record rather than
+            # re-validating `current_text` -- it's the plain, unmodified
+            # baseline content, not what was actually accepted, and would
+            # fail validation for reasons that have nothing to do with this
+            # run.
             results: list = []
-            status = durable_state.accepted_status or "COMPLIANT_NO_CHANGE"
+            if durable_state is not None:
+                status = durable_state.accepted_status or "COMPLIANT_NO_CHANGE"
+            else:
+                status = prior_status or "COMPLIANT_NO_CHANGE"
         else:
             results = _validate(current_text, None, existing_rendered_spans)
             status = (
@@ -392,7 +518,7 @@ def generate_repo(
                 if validation_registry.passed(results)
                 else "STALE_NONCOMPLIANT"
             )
-        new_text = current_text
+        final_text = current_text
         new_spans: dict[str, str] = {}
     else:
         # Correctness fix (found live during the Phase 21 pilot re-proof,
@@ -437,15 +563,54 @@ def generate_repo(
             policy,
             relationship_paragraph=llm_response.relationship_paragraph if llm_response else None,
         )
-        new_text = current_text
+        final_text = current_text
         for span_name, content in new_spans.items():
-            new_text = upsert_span(new_text, span_name, content, facts_hash)
+            final_text = upsert_span(final_text, span_name, content, facts_hash)
 
-        readme_path.parent.mkdir(parents=True, exist_ok=True)
-        readme_path.write_text(new_text, encoding="utf-8")
-
-        results = _validate(new_text, llm_response, new_spans)
+        results = _validate(final_text, llm_response, new_spans)
         status = "GENERATED" if validation_registry.passed(results) else "BLOCKED_VALIDATION_FAILED"
+
+    return ReadmeCandidate(
+        entry=entry,
+        work_path=work_path,
+        readme_path=readme_path,
+        baseline_readme_text=baseline_readme_text,
+        original_text=original_text,
+        final_text=final_text,
+        facts=facts,
+        facts_hash=facts_hash,
+        fresh_fingerprint=fresh_fingerprint,
+        gap_report=gap_report,
+        skip_regeneration=skip_regeneration,
+        durable_skip=durable_skip,
+        new_spans=new_spans,
+        existing_rendered_spans=existing_rendered_spans,
+        llm_called=llm_called,
+        llm_calls=llm_calls,
+        llm_request=llm_request,
+        llm_response=llm_response,
+        generated_result=generated_result,
+        validation_results=results,
+        status=status,
+        proof=proof,
+    )
+
+
+def commit_readme_candidate(
+    candidate: ReadmeCandidate,
+    org_repo: str,
+    *,
+    write_evidence_bundle: bool = True,
+    state_backend: StateBackend | None = None,
+) -> GenerateResult:
+    """The one real write: persists `candidate.final_text` if it differs from
+    what's currently on disk (folding the former unconditional callout-
+    migration write and the conditional render write into one comparison --
+    see `ReadmeCandidate`'s docstring), then durable-state write-back and
+    evidence, exactly as `generate_repo()` always has."""
+    if candidate.final_text != candidate.original_text:
+        candidate.readme_path.parent.mkdir(parents=True, exist_ok=True)
+        candidate.readme_path.write_text(candidate.final_text, encoding="utf-8")
 
     run_id = generate_run_id() if write_evidence_bundle else None
 
@@ -455,14 +620,15 @@ def generate_repo(
     if (
         state_backend is not None
         and write_evidence_bundle
-        and status
-        in (
-            "GENERATED",
-            "COMPLIANT_NO_CHANGE",
-        )
+        and candidate.status in ("GENERATED", "COMPLIANT_NO_CHANGE")
     ):
-        _record_accepted_state(
-            state_backend, org_repo, facts_hash, status, run_id, fresh_fingerprint
+        record_accepted_readme_state(
+            state_backend,
+            org_repo,
+            candidate.facts_hash,
+            candidate.status,
+            run_id,
+            candidate.fresh_fingerprint,
         )
 
     evidence_path = None
@@ -474,30 +640,58 @@ def generate_repo(
             run_id=run_id,
             org_repo=org_repo,
             mode="dry_run",
-            status=status,
-            facts=facts,
-            facts_hash=facts_hash,
-            llm_mode=(generated_result.mode if generated_result else None),
-            llm_calls=llm_calls,
-            llm_request=llm_request,
-            llm_response=llm_response,
-            baseline_readme=baseline_readme_text,
-            work_readme=new_text,
-            rendered_spans=new_spans if not skip_regeneration else existing_rendered_spans,
-            validation_results=results,
-            push_block_detail=proof.detail,
+            status=candidate.status,
+            facts=candidate.facts,
+            facts_hash=candidate.facts_hash,
+            llm_mode=(candidate.generated_result.mode if candidate.generated_result else None),
+            llm_calls=candidate.llm_calls,
+            llm_request=candidate.llm_request,
+            llm_response=candidate.llm_response,
+            baseline_readme=candidate.baseline_readme_text,
+            work_readme=candidate.final_text,
+            rendered_spans=(
+                candidate.new_spans
+                if not candidate.skip_regeneration
+                else candidate.existing_rendered_spans
+            ),
+            validation_results=candidate.validation_results,
+            push_block_detail=candidate.proof.detail,
         )
 
     return GenerateResult(
-        status=status,
+        status=candidate.status,
         org_repo=org_repo,
-        gap_report=gap_report,
-        llm_called=llm_called,
-        llm_calls=llm_calls,
-        validation_results=results,
-        facts_hash=facts_hash,
-        work_readme_path=readme_path,
+        gap_report=candidate.gap_report,
+        llm_called=candidate.llm_called,
+        llm_calls=candidate.llm_calls,
+        validation_results=candidate.validation_results,
+        facts_hash=candidate.facts_hash,
+        work_readme_path=candidate.readme_path,
         evidence_dir=evidence_path,
+    )
+
+
+def generate_repo(
+    org_repo: str,
+    *,
+    force_regenerate: bool = False,
+    llm_mode: str = "live",
+    fixture_response_path: Path | None = None,
+    write_evidence_bundle: bool = True,
+    state_backend: StateBackend | None = None,
+) -> GenerateResult:
+    candidate = prepare_readme_candidate(
+        org_repo,
+        force_regenerate=force_regenerate,
+        llm_mode=llm_mode,
+        fixture_response_path=fixture_response_path,
+        state_backend=state_backend,
+    )
+    return commit_readme_candidate(
+        candidate,
+        org_repo,
+        write_evidence_bundle=write_evidence_bundle,
+        state_backend=state_backend,
     )
 
 
@@ -508,6 +702,25 @@ def validate_repo(org_repo: str, check_links: bool = False) -> GenerateResult:
     the current work clone instead of reloading a historical evidence bundle.
     """
     return generate_repo(org_repo, force_regenerate=False, write_evidence_bundle=False)
+
+
+def commit_generated_readme(work_path: Path, facts_hash: str, status: str, *, mode: str) -> bool:
+    """The one real git commit into the local work clone (never pushed) --
+    gated on `mode == "full"` and `status == "GENERATED"`, extracted
+    unchanged from `run_repo()`'s own inline logic (Wave 7g, `EFF-001`) so
+    `capabilities/commit_readme_write.py` (the new gated-effector capability)
+    calls this exact same real-commit logic instead of reimplementing it a
+    second time. `run_repo()` below is refactored onto this with zero
+    behavior change, proven by `test_orchestrator.py::TestRunModeFullCommitsLocally`
+    passing unmodified."""
+    if mode != "full" or status != "GENERATED":
+        return False
+    run_git(["add", "-A"], cwd=work_path)
+    commit = run_git(
+        ["commit", "-m", f"readme-agent: close promotional gaps ({facts_hash[:12]})"],
+        cwd=work_path,
+    )
+    return commit.returncode == 0
 
 
 def run_repo(
@@ -530,15 +743,7 @@ def run_repo(
 
     work_path = paths.work_dir(entry.org, entry.repo_name)
     proof = verify_push_blocked(work_path)
-
-    committed = False
-    if mode == "full" and result.status == "GENERATED":
-        run_git(["add", "-A"], cwd=work_path)
-        commit = run_git(
-            ["commit", "-m", f"readme-agent: close promotional gaps ({result.facts_hash[:12]})"],
-            cwd=work_path,
-        )
-        committed = commit.returncode == 0
+    committed = commit_generated_readme(work_path, result.facts_hash, result.status, mode=mode)
 
     ok = result.status in ("COMPLIANT_NO_CHANGE", "GENERATED") and proof.ok
     return RunResult(
@@ -549,6 +754,65 @@ def run_repo(
         committed=committed,
         evidence_dir=result.evidence_dir,
     )
+
+
+def profile_repo_with_cache(
+    entry: ProductEntry, state_backend: StateBackend | None
+) -> RepositoryProfile:
+    """Deterministic-wiring counterpart to the now-stateless
+    `profile.cached.get_or_build_profile()` (decision #26(b), Part E of the
+    follow-up plan): owns loading `RunStateV1.profile_cache` before the call
+    and CAS-writing the fresh result back after it -- exactly what this
+    module's own docstring convention says wiring code, not a capability,
+    should own. Mirrors `record_accepted_readme_state()`'s best-effort
+    CAS write-back pattern immediately above (never able to fail the caller
+    itself).
+
+    Resolves `remote_head_sha()` a second time for the write-back rather
+    than reusing `get_or_build_profile()`'s internal one: that function
+    only ever returns a `RepositoryProfile`, never the revision it resolved,
+    so on a cache *miss* there is no other way to know what revision the
+    fresh profile is actually current as of. The extra `git ls-remote` is
+    cheap (no clone) -- correctness here matters more than saving one small
+    network round-trip."""
+    prior_upstream_revision = None
+    prior_profile_result = None
+    if state_backend is not None:
+        try:
+            current = state_backend.load(entry.org_repo)
+        except StateBackendError:
+            current = None
+        if current is not None and current.profile_cache is not None:
+            prior_upstream_revision = current.profile_cache.upstream_revision
+            prior_profile_result = current.profile_cache.profile_result
+
+    profile = get_or_build_profile(
+        entry,
+        prior_upstream_revision=prior_upstream_revision,
+        prior_profile_result=prior_profile_result,
+    )
+
+    if state_backend is not None:
+        current_revision = remote_head_sha(entry.clone_url)
+        if current_revision is not None:
+            try:
+                current = state_backend.load(entry.org_repo)
+                expected_version = current.state_version if current else None
+                cache = ProfileCacheV1(
+                    upstream_revision=current_revision,
+                    profile_result=profile.model_dump(mode="json"),
+                )
+                new_state = (current or RunStateV1(org_repo=entry.org_repo)).model_copy(
+                    update={"profile_cache": cache}
+                )
+                state_backend.save(entry.org_repo, new_state, expected_version)
+            except StateBackendError as exc:
+                print(
+                    f"warning: durable state write-back failed, continuing without it: {exc}",
+                    file=sys.stderr,
+                )
+
+    return profile
 
 
 def run_registry(
@@ -583,6 +847,34 @@ def run_registry(
             if baseline_path.exists():
                 force_rmtree(baseline_path)
     return results
+
+
+def run_registry_profiling_sweep(
+    state_backend: StateBackend | None = None, only: list[str] | None = None
+) -> list[RepositoryProfile]:
+    """The actual answer to "large-repo profiling latency across several
+    huge registry repos, on free GitHub runners" (decision #40, Part E):
+    nothing before this looped the registry calling profiling at all.
+    Iterates `load_products()` -- **every** entry, not `enabled_entries()`
+    -- since this is read-only, and decision #40 already established
+    read-only capabilities cover the whole registry regardless of mode, the
+    same reasoning `require_listed()` already applies one level down.
+    Reuses `run_registry()`'s exact failure-isolation and disk-cleanup shape
+    (a repo that fails to profile is skipped, not fatal to the sweep; its
+    baseline clone, if any, is removed before moving to the next repo)."""
+    profiles: list[RepositoryProfile] = []
+    for entry in load_products():
+        if only and entry.org_repo not in only:
+            continue
+        try:
+            profiles.append(profile_repo_with_cache(entry, state_backend))
+        except Exception as exc:  # noqa: BLE001 -- continue past any single repo's failure
+            print(f"warning: profiling {entry.org_repo} failed: {exc}", file=sys.stderr)
+        finally:
+            baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
+            if baseline_path.exists():
+                force_rmtree(baseline_path)
+    return profiles
 
 
 def report(run_id: str) -> dict:

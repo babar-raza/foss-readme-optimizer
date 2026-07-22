@@ -17,6 +17,16 @@ class LLMBlockResponse(BaseModel):
     claims: LLMClaims = Field(default_factory=LLMClaims)
 
 
+class Usage(BaseModel):
+    """AGT-008/Wave 8.5: the gateway's own reported token accounting, when
+    present -- both fields are optional since not every response includes
+    `usage` (confirmed: this project's own prior evidence never read it).
+    Consumers must never assume either field is populated."""
+
+    prompt_tokens: int | None = None
+    completion_tokens: int | None = None
+
+
 class LLMResponseMeta(BaseModel):
     """Best-effort drift-observability signal. Empirically confirmed (live
     probe, 2026-07-17): the gateway echoes back the requested `model` string
@@ -26,3 +36,4 @@ class LLMResponseMeta(BaseModel):
     request_id: str | None = None
     created: int | None = None
     model: str | None = None
+    usage: Usage | None = None

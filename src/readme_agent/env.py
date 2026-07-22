@@ -5,6 +5,13 @@ import os
 DEFAULT_LLM_BASE_URL = "https://llm.professionalize.com/v1"
 DEFAULT_LLM_MODEL = "qwen3-next"
 DEFAULT_LLM_TIMEOUT_SECONDS = 90
+# Wave 8.6 (item I, `LLM-017`): the one embedding model this gateway hosts,
+# characterized live (plans/investigations/llm-gateway-characterization.md
+# L4) -- 4096-dim, showed real separation between a known same-template
+# README pair (cosine 0.788) and unrelated pairs (0.45-0.55). Batch-only,
+# deliberately never routed through JOB_MODEL_ROUTING/llm_model_for_job()
+# (that table is for the per-run supervisor/generation jobs only).
+DEFAULT_EMBEDDING_MODEL = "qwen3-embedding-8b"
 
 # Per-job model routing (Decision 26(e), `LLM-016`): chosen from live-tested
 # gateway behavior in plans/investigations/llm-gateway-characterization.md,
@@ -20,6 +27,27 @@ JOB_MODEL_ROUTING: dict[str, str] = {
     # the loop against (agentic-loop-proof.md) -- explicit here rather than
     # relying on it happening to match DEFAULT_LLM_MODEL.
     "supervisor_planning": "qwen3-next",
+    # Wave 8.6 (`ORC-003` reversal): the specialist-skip decision is a single,
+    # narrow, forced-tool-call choice among an already-deterministically-
+    # vetted menu -- same reliability profile as supervisor_planning, same
+    # routing choice.
+    "specialist_selection": "qwen3-next",
+    # Wave 8.6 (`VER-006` reversal): both a single narrow forced-tool-call
+    # judgment (prose quality) and a single narrow forced-tool-call choice
+    # among an already-dispatcher-validated capability menu (repair
+    # alternative selection) -- same reliability profile, same routing
+    # choice as the two entries above.
+    "prose_quality_check": "qwen3-next",
+    "repair_capability_selection": "qwen3-next",
+    # Wave 8.6 (comparison capability): a freeform structured-JSON analysis
+    # call -- qwen3-next's 5/5 structured-output reliability (L3) is the
+    # routing evidence here, same as relationship_explained's own choice.
+    "presentation_standard_compliance": "qwen3-next",
+    # Wave 8.6 (item H, vision integration): the only vision-capable model
+    # this gateway hosts and has any structured-output evidence for --
+    # flagged PARTIAL until a real image-bearing call is confirmed live
+    # (see prompts/verification/visual_asset_accuracy.yaml's own notes).
+    "visual_asset_accuracy": "Qwen2.5-VL-7B",
 }
 
 
@@ -58,6 +86,10 @@ def llm_model_for_job(job: str) -> str:
 def llm_timeout_seconds() -> float:
     raw = os.environ.get("LLM_TIMEOUT_SECONDS")
     return float(raw) if raw else DEFAULT_LLM_TIMEOUT_SECONDS
+
+
+def llm_embedding_model() -> str:
+    return os.environ.get("LLM_EMBEDDING_MODEL") or DEFAULT_EMBEDDING_MODEL
 
 
 def secret_values() -> list[str]:

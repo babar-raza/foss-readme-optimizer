@@ -30,3 +30,10 @@ def work_dir(org: str, repo: str) -> Path:
 
 def evidence_dir(run_id: str) -> Path:
     return runs_dir() / "evidence" / run_id
+
+
+def registry_heal_marker_path() -> Path:
+    """TTL marker for the supervise-time registry self-heal (CORE-034): a
+    sequential multi-repo pass reads this to scan GitHub once per interval,
+    not once per repo."""
+    return runs_dir() / "registry-heal" / "last_heal.json"

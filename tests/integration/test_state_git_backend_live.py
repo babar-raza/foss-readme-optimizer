@@ -33,6 +33,7 @@ runner-provided token into git's credentials automatically, which is why
 `RUN-003`'s `act` reproduction never hit this.
 """
 
+import json
 import time
 import uuid
 
@@ -42,11 +43,16 @@ from readme_agent.gitsafety._git import run_git
 from readme_agent.state import git_backend as git_backend_module
 from readme_agent.state.git_backend import (
     LOCK_REF_PREFIX,
+    MODEL_ROUTE_REF,
+    RUN_LOCK_REF_PREFIX,
     STATE_REF_PREFIX,
     GitStateBackend,
+    _fetch_remote_sha,
+    _read_blob,
     _ref_key,
+    _write_commit,
 )
-from readme_agent.state.schema import RunStateV1
+from readme_agent.state.schema import ModelRouteStatusV1, RunStateV1
 
 
 def _disposable_org_repo() -> str:
@@ -61,6 +67,9 @@ def _delete_refs(*org_repos: str) -> None:
         key = _ref_key(org_repo)
         run_git(["push", "origin", f":{STATE_REF_PREFIX}/{key}"])
         run_git(["push", "origin", f":{LOCK_REF_PREFIX}/{key}"])
+        # Wave 8.5 (SCL-005 extension): the run-lock's own ref, cleaned up
+        # the same way as the existing per-op lock ref above.
+        run_git(["push", "origin", f":{RUN_LOCK_REF_PREFIX}/{key}"])
 
 
 @pytest.mark.live
@@ -156,5 +165,136 @@ def test_lock_acquire_release_and_reclaim_after_lease_expiry(monkeypatch):
         reclaimed = backend.acquire_lock(org_repo)
         assert reclaimed is not None
         assert reclaimed.holder_id != second.holder_id
+    finally:
+        _delete_refs(org_repo)
+
+
+@pytest.mark.live
+def test_run_lock_acquire_release_and_reclaim_after_lease_expiry(monkeypatch):
+    """Wave 8.5 (SCL-005 extension) -- mirrors
+    test_lock_acquire_release_and_reclaim_after_lease_expiry exactly, proving
+    the new run-lock's CAS/lease/reclaim semantics against a real remote.
+    Also proves the two lock families are genuinely independent refs: the
+    run-lock is acquirable even while the (separate) per-op lock is held."""
+    LEASE_SECONDS = 8
+    org_repo = _disposable_org_repo()
+    backend = GitStateBackend()
+    monkeypatch.setattr(git_backend_module, "RUN_LOCK_LEASE_SECONDS", LEASE_SECONDS)
+    try:
+        op_lock = backend.acquire_lock(org_repo)
+        assert op_lock is not None
+
+        first = backend.acquire_run_lock(org_repo)
+        assert first is not None  # not blocked by the held, separate per-op lock
+        assert backend.acquire_run_lock(org_repo) is None  # held, not expired
+
+        backend.release_run_lock(first)
+        second = backend.acquire_run_lock(org_repo)
+        assert second is not None
+        assert second.holder_id != first.holder_id
+
+        time.sleep(LEASE_SECONDS + 0.5)
+        reclaimed = backend.acquire_run_lock(org_repo)
+        assert reclaimed is not None
+        assert reclaimed.holder_id != second.holder_id
+
+        backend.release_lock(op_lock)
+    finally:
+        _delete_refs(org_repo)
+
+
+@pytest.mark.live
+def test_model_route_status_round_trips_against_a_real_global_ref():
+    """Wave 8.6 (`OPS-011` extension): the first GLOBAL (not per-org_repo)
+    ref this backend uses -- proves save/load round-trips for real, and that
+    a second save (re-enable) correctly overwrites the prior status via the
+    same CAS-retry mechanism `save_domain()` already uses one level down."""
+    backend = GitStateBackend()
+    job = f"live-test-job-{uuid.uuid4().hex[:8]}"
+    try:
+        assert backend.load_model_route_status(job) is None
+
+        backend.save_model_route_status(
+            ModelRouteStatusV1(job=job, status="disabled", reason="golden-set pass rate low")
+        )
+        disabled = backend.load_model_route_status(job)
+        assert disabled is not None
+        assert disabled.status == "disabled"
+
+        backend.save_model_route_status(
+            ModelRouteStatusV1(job=job, status="enabled", re_enabled_by="live-test")
+        )
+        enabled = backend.load_model_route_status(job)
+        assert enabled is not None
+        assert enabled.status == "enabled"
+        assert enabled.re_enabled_by == "live-test"
+    finally:
+        # CAUTION: this deletes the ENTIRE global registry (every job's
+        # status), not just this test's own job entry -- the minimal
+        # save/load API this wave ships has no per-key delete. Safe today
+        # only because nothing else has written to this brand-new ref yet;
+        # revisit before this mechanism carries any real production status.
+        run_git(["push", "origin", f":{MODEL_ROUTE_REF}"])
+
+
+@pytest.mark.live
+def test_stale_release_never_destroys_a_reclaimer_s_active_lock():
+    """Production-reliability regression (found by independent review,
+    2026-07-20): before the `--force-with-lease` fix, `release_lock()` did
+    an unconditional `git push origin :{ref}` -- if a runner's own lease
+    expired mid-operation (a slow LLM call, a retried GitHub API call) and a
+    second runner legitimately reclaimed the lock in the meantime, the first
+    runner's own (late, stale) `release_lock()` call would delete the
+    SECOND runner's active lock, not its own (already-superseded) one,
+    letting a third runner acquire while the second still believed it held
+    exclusivity. Reproduced here with two real `GitStateBackend` instances
+    (simulating two separate runners) against a real lock ref: runner A's
+    lease is forced to an already-expired state on the real remote (the
+    same observable state a genuine 900s overrun would eventually reach),
+    runner B genuinely reclaims via the real CAS `acquire_lock()` path, and
+    runner A's late `release_lock()` call is confirmed to leave runner B's
+    lock untouched."""
+    org_repo = _disposable_org_repo()
+    runner_a = GitStateBackend()
+    runner_b = GitStateBackend()
+    try:
+        first = runner_a.acquire_lock(org_repo)
+        assert first is not None
+
+        # Force the real remote lease into an already-expired state --
+        # the same observable condition a genuine 900s overrun reaches,
+        # without actually waiting 900s. runner_a's own in-memory `first`
+        # Lock object is now stale relative to the real remote, exactly as
+        # it would be after a real overrun.
+        remote_ref = f"{LOCK_REF_PREFIX}/{_ref_key(org_repo)}"
+        expired_payload = (
+            json.dumps(
+                {"holder_id": first.holder_id, "leased_until": "2020-01-01T00:00:00+00:00"},
+                indent=2,
+            )
+            + "\n"
+        )
+        commit_sha = _write_commit(
+            tree_path="lock.json",
+            payload=expired_payload,
+            parent_sha=None,
+            message=f"lock: {org_repo} (test-forced-expiry)",
+        )
+        run_git(["push", "origin", f"{commit_sha}:{remote_ref}", "--force"])
+
+        second = runner_b.acquire_lock(org_repo)
+        assert second is not None
+        assert second.holder_id != first.holder_id  # runner B genuinely holds it now
+
+        # Runner A, unaware, finishes and releases its own (stale) lock.
+        runner_a.release_lock(first)
+
+        # The real remote lock ref must still be runner B's, untouched.
+        current_sha = _fetch_remote_sha(remote_ref)
+        assert current_sha is not None
+        current_payload = json.loads(_read_blob(current_sha, "lock.json"))
+        assert current_payload["holder_id"] == second.holder_id
+
+        runner_b.release_lock(second)
     finally:
         _delete_refs(org_repo)

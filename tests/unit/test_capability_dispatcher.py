@@ -147,6 +147,35 @@ class TestDispatchDomainDenied:
 
         assert result.outcome == "rejected_domain_denied"
 
+    def test_real_audit_github_generated_surfaces_manifest_is_domain_scoped_and_gets_denied(self):
+        """Wave 7b: the second real domain-scoped capability, and the second
+        real domain -- CAP-006's cross-domain-denial path proven against
+        genuinely two different domains, not just one repeated capability."""
+        tool_call = _tool_call("audit_github_generated_surfaces", '{"org_repo": "acme/widget"}')
+
+        result = dispatcher.dispatch_tool_call(
+            tool_call,
+            allowed_permissions={"read_only_local", "read_only_network"},
+            caller_domain="readme_reconciliation",
+        )
+
+        assert result.outcome == "rejected_domain_denied"
+
+    def test_each_real_domain_scoped_capability_only_admits_its_own_domain(self):
+        """The other half of the same proof: `readme_reconciliation`'s own
+        capability must equally reject a caller claiming to be the *other*
+        real domain -- neither domain's capabilities are reachable by the
+        other's caller_domain."""
+        tool_call = _tool_call("classify_upstream_change", '{"org_repo": "acme/widget"}')
+
+        result = dispatcher.dispatch_tool_call(
+            tool_call,
+            allowed_permissions={"read_only_local", "read_only_network"},
+            caller_domain="github_generated_surface_audit",
+        )
+
+        assert result.outcome == "rejected_domain_denied"
+
     def test_existing_call_sites_without_caller_domain_are_unaffected(self, monkeypatch):
         """Regression: every existing caller (this test file,
         test_capabilities_live.py) never passes caller_domain -- the

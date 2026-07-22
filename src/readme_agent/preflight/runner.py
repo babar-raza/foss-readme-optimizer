@@ -26,7 +26,7 @@ class PreflightResult:
     llm: LlmCheckResult
 
 
-def run_preflight() -> PreflightResult:
+def _run_preflight_against(org_repos: list[str]) -> PreflightResult:
     token = env.gh_token()
     if not token:
         return PreflightResult(
@@ -37,11 +37,25 @@ def run_preflight() -> PreflightResult:
         )
 
     identity = check_identity(token)
-    repos = [check_repo(entry.org_repo, token) for entry in enabled_entries()]
+    repos = [check_repo(org_repo, token) for org_repo in org_repos]
     llm = check_models(env.llm_base_url(), env.llm_api_key())
 
     ok = identity.ok and all(r.ok for r in repos) and llm.ok
     return PreflightResult(ok=ok, identity=identity, repos=repos, llm=llm)
+
+
+def run_preflight() -> PreflightResult:
+    return _run_preflight_against([entry.org_repo for entry in enabled_entries()])
+
+
+def run_preflight_for_repo(org_repo: str) -> PreflightResult:
+    """Wave 8.5 (`ORC-006`/D2): a single-repo preflight, deliberately NOT
+    reusing the portfolio-wide `run_preflight()` above -- that function
+    checks *every* `enabled_entries()`, which grows as the registry does; an
+    unrelated repo's transient failure would otherwise block a completely
+    unrelated single-repo `supervise` call, a real correctness bug, not just
+    wasted work. Used by `commands.py::cmd_supervise()`."""
+    return _run_preflight_against([org_repo])
 
 
 def format_summary(result: PreflightResult) -> str:

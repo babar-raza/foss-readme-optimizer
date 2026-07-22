@@ -8,10 +8,14 @@ moment this runs on a Linux CI runner.
 
 import fnmatch
 import os
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import TypeVar
 
 from readme_agent.ecosystems.registry import known_manifest_globs
+
+_T = TypeVar("_T")
 
 _README_NAMES = {"readme.md", "readme", "readme.rst", "readme.txt"}
 _LICENSE_NAMES = {"license", "license.txt", "license.md", "copying", "license.rst"}
@@ -34,11 +38,24 @@ _COMMUNITY_FILE_NAMES: dict[str, set[str]] = {
     "SUPPORT": {"support.md", "support", "support.txt", "support.rst"},
 }
 
+# Wave 8.6 (`ORC-003` reversal, `supervisor/specialist_selection.py`): public
+# aliases of this module's own root-only name sets, so the specialist-skip
+# diff heuristic can match against the same canonical names this scan
+# already uses, rather than a second, independently-drifting hardcoded list.
+README_FILENAMES: frozenset[str] = frozenset(_README_NAMES)
+LICENSE_FILENAMES: frozenset[str] = frozenset(_LICENSE_NAMES)
+COMMUNITY_FILENAMES: frozenset[str] = frozenset(
+    name for names in _COMMUNITY_FILE_NAMES.values() for name in names
+)
+
 # Directories never worth descending into for manifest detection -- skipping
 # them is both a correctness improvement (a vendored/build-output pom.xml or
 # package.json is not the repo's own manifest) and the main performance lever
-# for _find_manifest_paths() on a large real repo.
-_NOISE_DIRS = {
+# for _find_manifest_paths() on a large real repo. Public (not module-private)
+# since inspection/tree_paths.py's git-tree-API scan (decision #40/Part F)
+# shares this exact set -- one definition of "noise," not two that could
+# silently drift apart.
+NOISE_DIRS = {
     ".git",
     "node_modules",
     "__pycache__",
@@ -80,6 +97,43 @@ def _find_case_insensitive(directory: Path, candidate_names: set[str]) -> Path |
     return None
 
 
+def resolve_manifest_candidates(filename_and_ref_pairs: Iterable[tuple[str, _T]]) -> dict[str, _T]:
+    """One ref per ecosystem -- the first candidate pattern that matches, in
+    `known_manifest_globs()` priority order (Wave 3: multi-ecosystem
+    detection; a third platform later is a new registry entry, never a new
+    branch here). `ref` is opaque to this function (a filesystem `Path` for
+    `_find_manifest_paths()`'s `os.walk()`, a tree-relative path string for
+    `inspection/tree_paths.py`'s git-tree-API scan, decision #40/Part F) --
+    this is the single shared matching rule both traversal strategies call,
+    so a manifest glob added to `ecosystems.registry` is honored identically
+    by whichever one a caller happens to use, not two copies that could
+    silently drift apart. Short-circuits the moment every ecosystem has a
+    candidate; callers control how much of `filename_and_ref_pairs` to
+    offer (`_find_manifest_paths()`'s own `_MAX_FILES_SCANNED` bound, or the
+    git-tree API's own ~100k-entry cap)."""
+    globs = known_manifest_globs()
+    remaining = {
+        (ecosystem, pattern) for ecosystem, patterns in globs.items() for pattern in patterns
+    }
+    candidates: dict[tuple[str, str], _T] = {}
+
+    for filename, ref in filename_and_ref_pairs:
+        for ecosystem, pattern in list(remaining):
+            if fnmatch.fnmatch(filename, pattern):
+                candidates[(ecosystem, pattern)] = ref
+                remaining.discard((ecosystem, pattern))
+        if not remaining:
+            break
+
+    found: dict[str, _T] = {}
+    for ecosystem, patterns in globs.items():
+        for pattern in patterns:
+            if (ecosystem, pattern) in candidates:
+                found[ecosystem] = candidates[(ecosystem, pattern)]
+                break
+    return found
+
+
 def _find_manifest_paths(repo_path: Path) -> dict[str, Path]:
     """One path per platform -- the first candidate pattern that matches, in
     priority order (Wave 3: multi-ecosystem detection, data-driven from
@@ -108,31 +162,18 @@ def _find_manifest_paths(repo_path: Path) -> dict[str, Path]:
     """
     if not repo_path.is_dir():
         return {}
-    globs = known_manifest_globs()
-    remaining = {
-        (ecosystem, pattern) for ecosystem, patterns in globs.items() for pattern in patterns
-    }
-    candidates: dict[tuple[str, str], Path] = {}
 
-    files_scanned = 0
-    for root, dirs, files in os.walk(repo_path):
-        dirs[:] = [d for d in dirs if d not in _NOISE_DIRS]
-        for filename in files:
-            files_scanned += 1
-            for ecosystem, pattern in list(remaining):
-                if fnmatch.fnmatch(filename, pattern):
-                    candidates[(ecosystem, pattern)] = Path(root) / filename
-                    remaining.discard((ecosystem, pattern))
-        if not remaining or files_scanned >= _MAX_FILES_SCANNED:
-            break
+    def _bounded_walk() -> Iterable[tuple[str, Path]]:
+        files_scanned = 0
+        for root, dirs, files in os.walk(repo_path):
+            dirs[:] = [d for d in dirs if d not in NOISE_DIRS]
+            for filename in files:
+                files_scanned += 1
+                yield filename, Path(root) / filename
+            if files_scanned >= _MAX_FILES_SCANNED:
+                return
 
-    found: dict[str, Path] = {}
-    for ecosystem, patterns in globs.items():
-        for pattern in patterns:
-            if (ecosystem, pattern) in candidates:
-                found[ecosystem] = candidates[(ecosystem, pattern)]
-                break
-    return found
+    return resolve_manifest_candidates(_bounded_walk())
 
 
 def scan(repo_path: Path) -> FileInventory:

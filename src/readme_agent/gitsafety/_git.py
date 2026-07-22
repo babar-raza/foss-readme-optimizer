@@ -31,28 +31,49 @@ def run_git(
     entry itself -- a real bug found live (`refs/readme-agent-state/...`
     tree entries came back path `"state.json\\r"`, not `state.json`) --
     proven live in `tests/integration/test_state_git_backend_live.py`.
-    stdout/stderr are still decoded as text, matching every other call."""
+    stdout/stderr are still decoded as text, matching every other call.
+
+    A hung git subprocess (found live, 2026-07-22: `git push` blocking on
+    interactive credential-manager resolution against a real HTTPS remote --
+    a known hazard already documented in `test_state_git_backend_live.py`'s
+    own docstring) previously surfaced as an uncaught `subprocess.
+    TimeoutExpired`, crashing every caller with a raw traceback instead of the
+    typed error each caller's own `if result.returncode != 0` branch already
+    handles. Fixed once here, at the source every one of this function's ~20
+    call sites shares, rather than patched at each call site separately: a
+    timeout is reported as an ordinary failed `CompletedProcess` (conventional
+    shell timeout exit code 124), so existing failure-handling logic
+    everywhere picks it up unchanged."""
     full_env = {**os.environ, **env} if env else None
-    if input_text is None:
-        return subprocess.run(
-            ["git", *DETERMINISM_FLAGS, *args],
+    git_args = ["git", *DETERMINISM_FLAGS, *args]
+    try:
+        if input_text is None:
+            return subprocess.run(
+                git_args,
+                cwd=str(cwd) if cwd else None,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                env=full_env,
+            )
+        raw = subprocess.run(
+            git_args,
             cwd=str(cwd) if cwd else None,
+            input=input_text.encode("utf-8"),
             capture_output=True,
-            text=True,
             timeout=timeout,
             env=full_env,
         )
-    raw = subprocess.run(
-        ["git", *DETERMINISM_FLAGS, *args],
-        cwd=str(cwd) if cwd else None,
-        input=input_text.encode("utf-8"),
-        capture_output=True,
-        timeout=timeout,
-        env=full_env,
-    )
-    return subprocess.CompletedProcess(
-        args=raw.args,
-        returncode=raw.returncode,
-        stdout=raw.stdout.decode("utf-8", errors="replace"),
-        stderr=raw.stderr.decode("utf-8", errors="replace"),
-    )
+        return subprocess.CompletedProcess(
+            args=raw.args,
+            returncode=raw.returncode,
+            stdout=raw.stdout.decode("utf-8", errors="replace"),
+            stderr=raw.stderr.decode("utf-8", errors="replace"),
+        )
+    except subprocess.TimeoutExpired:
+        return subprocess.CompletedProcess(
+            args=git_args,
+            returncode=124,
+            stdout="",
+            stderr=f"git {' '.join(args)} timed out after {timeout}s",
+        )

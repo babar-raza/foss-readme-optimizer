@@ -88,15 +88,18 @@ class TestOpportunisticLayer:
 
         (tmp_path / "data").mkdir()
         (tmp_path / "config" / "policies").mkdir(parents=True)
-        prompt_dir = tmp_path / "prompts" / "relationship_explained"
+        # Wave 8.5: llm.prompts.prompt_content_hash() reads
+        # prompts/generation/relationship_explained.yaml fresh, cwd-relative,
+        # on every call -- staged here so it doesn't raise after
+        # monkeypatch.chdir().
+        prompt_dir = tmp_path / "prompts" / "generation"
         prompt_dir.mkdir(parents=True)
-        for asset in ("system.txt", "user.txt"):
-            (prompt_dir / asset).write_text(
-                (REPO_ROOT / "prompts" / "relationship_explained" / asset).read_text(
-                    encoding="utf-8"
-                ),
-                encoding="utf-8",
-            )
+        (prompt_dir / "relationship_explained.yaml").write_text(
+            (REPO_ROOT / "prompts" / "generation" / "relationship_explained.yaml").read_text(
+                encoding="utf-8"
+            ),
+            encoding="utf-8",
+        )
         products = [
             {
                 "family": "x",

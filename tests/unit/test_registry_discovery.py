@@ -2,8 +2,8 @@ import json
 from pathlib import Path
 
 import pytest
-import update_products_registry as registry_sync
 
+from readme_agent.registry import discovery as registry_sync
 from readme_agent.registry.models import ProductEntry
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -200,3 +200,50 @@ class TestRateLimitWaitSeconds:
         resp = _FakeResponse({})
         wait = registry_sync._rate_limit_wait_seconds(resp)
         assert 55 <= wait <= 63
+
+
+class _Fake403Response:
+    status_code = 403
+
+    def __init__(self, headers):
+        self.headers = headers
+
+
+def test_paginate_raises_instead_of_sleeping_beyond_max_rate_limit_wait(monkeypatch):
+    # The runtime self-heal's fail-open promise depends on this: a 403 asking for
+    # a wait over the caller's cap must surface as an exception the heal can turn
+    # into a visible skip, never a silent multi-minute sleep inside supervise.
+    monkeypatch.setattr(
+        registry_sync.requests, "get", lambda *a, **k: _Fake403Response({"Retry-After": "300"})
+    )
+    monkeypatch.setattr(
+        registry_sync.time, "sleep", lambda s: pytest.fail(f"slept {s}s instead of raising")
+    )
+    with pytest.raises(registry_sync.RegistryScanRateLimited) as excinfo:
+        list(
+            registry_sync._paginate(
+                "https://api.github.com/orgs/x/repos", {}, None, max_rate_limit_wait_seconds=60
+            )
+        )
+    assert excinfo.value.wait_seconds == 302
+    assert excinfo.value.max_wait_seconds == 60
+
+
+def test_discover_returns_org_failures_instead_of_dropping_them(monkeypatch):
+    def fake_scan_org(org, *, token=None, max_rate_limit_wait_seconds=None):
+        if org == "aspose-broken-foss":
+            raise RuntimeError("boom")
+        return [
+            {
+                "name": "Aspose.3D-FOSS-for-Java",
+                "html_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+                "clone_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Java.git",
+                "archived": False,
+            }
+        ]
+
+    monkeypatch.setattr(registry_sync, "scan_org", fake_scan_org)
+    families = [{"github_org": "aspose-broken-foss"}, {"github_org": "aspose-3d-foss"}]
+    discovered, org_failures = registry_sync.discover(families)
+    assert [(e["family"], e["platform"]) for e in discovered] == [("3d", "java")]
+    assert org_failures == [{"org": "aspose-broken-foss", "error": "boom"}]

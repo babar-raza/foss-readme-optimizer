@@ -49,10 +49,27 @@ def clone_baseline(entry: ProductEntry, baseline_path: Path) -> Path:
     return baseline_path
 
 
+_COMMIT_AUTHOR_NAME = "readme-agent"
+_COMMIT_AUTHOR_EMAIL = "readme-agent@users.noreply.github.com"
+
+
 def create_work_clone(entry: ProductEntry, baseline_path: Path, work_path: Path) -> Path:
     """Fast local-to-local clone from the baseline, then origin is restored to
     the real GitHub URL for realism/evidence (cloning from a local baseline
-    path would otherwise leave `origin` pointing at a local path)."""
+    path would otherwise leave `origin` pointing at a local path).
+
+    Also sets a `--local` git identity on the work clone itself (never
+    `--global` -- this must never touch the actual runner's/developer's own
+    git configuration). Found during an external-review triage (2026-07-21):
+    neither shipped CI workflow (`readme-agent-run.yml`/`readme-agent-
+    supervise.yml`) configures `user.name`/`user.email` anywhere, and every
+    real-commit proof recorded in this project's history so far ran either on
+    a locally-configured dev machine or via local `act` emulation -- never
+    confirmed against a genuinely fresh, hosted GitHub Actions runner, which
+    has no default git identity. Without this, `commit_generated_readme()`/
+    `commit_readme_write` would very likely fail there with a real commit
+    attempt, on every run, since git refuses to commit with no identity
+    configured anywhere in scope."""
     if work_path.exists():
         force_rmtree(work_path)
     work_path.parent.mkdir(parents=True, exist_ok=True)
@@ -67,6 +84,13 @@ def create_work_clone(entry: ProductEntry, baseline_path: Path, work_path: Path)
     result = run_git(["remote", "set-url", "origin", entry.repo_url + ".git"], cwd=work_path)
     if result.returncode != 0:
         raise GitSafetyError(f"restoring origin URL for {entry.org_repo} failed: {result.stderr}")
+
+    for key, value in (("user.name", _COMMIT_AUTHOR_NAME), ("user.email", _COMMIT_AUTHOR_EMAIL)):
+        result = run_git(["config", "--local", key, value], cwd=work_path)
+        if result.returncode != 0:
+            raise GitSafetyError(
+                f"setting local git identity ({key}) for {entry.org_repo} failed: {result.stderr}"
+            )
 
     return work_path
 
@@ -89,6 +113,44 @@ def remote_head_sha(clone_url: str, timeout: float = 15) -> str | None:
     first_line = result.stdout.strip().splitlines()[0]
     sha = first_line.split()[0] if first_line.split() else ""
     return sha or None
+
+
+def diff_changed_paths(baseline_path: Path, from_sha: str, to_sha: str) -> list[str] | None:
+    """Wave 8.6 (`ORC-003` reversal, `supervisor/specialist_selection.py`):
+    which paths changed between two revisions, against a `clone_baseline()`
+    clone that is `--depth 1` (zero retained history) -- `from_sha` almost
+    never being locally present. `git fetch --depth 1 origin <from_sha>`
+    fetches exactly that one historical commit's tree (GitHub.com supports
+    fetching an arbitrary reachable commit by SHA for public repos) without a
+    full unshallow; a two-dot `git diff <a> <b>` only needs both commits'
+    trees present locally, not a connected history/merge-base, so this works
+    even though `to_sha` and the newly-fetched `from_sha` came from two
+    disjoint shallow operations.
+
+    Fails closed by construction: any failure (unreachable/rewritten
+    history, unsupported remote, network hiccup) returns `None`, never an
+    empty list -- callers MUST treat `None` as "cannot determine, assume
+    changed," never as a false "nothing changed." The worst case of this
+    mechanism failing entirely is identical to not having built it at all
+    (always falls through to a real run) -- it can never itself cause a
+    false skip."""
+    if from_sha == to_sha:
+        return []
+    try:
+        fetch = run_git(
+            ["fetch", "--depth", "1", "origin", from_sha], cwd=baseline_path, timeout=60
+        )
+    except Exception:  # noqa: BLE001 -- any failure here just means "cannot determine"
+        return None
+    if fetch.returncode != 0:
+        return None
+    try:
+        diff = run_git(["diff", "--name-only", from_sha, to_sha], cwd=baseline_path, timeout=30)
+    except Exception:  # noqa: BLE001
+        return None
+    if diff.returncode != 0:
+        return None
+    return [line for line in diff.stdout.splitlines() if line.strip()]
 
 
 def toplevel_matches(repo_path: Path) -> bool:

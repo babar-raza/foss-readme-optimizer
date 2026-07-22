@@ -20,6 +20,7 @@ from typing import Literal
 
 from readme_agent.readme.facts import sha256_text
 from readme_agent.readme.markers import SPAN_NAMES, find_span, remove_span
+from readme_agent.state.change_detection import ChangeClassification, classify_surface
 
 DriftClassification = Literal[
     "FIRST_OBSERVATION",
@@ -28,6 +29,17 @@ DriftClassification = Literal[
     "OWNED_SPAN_LOST",
     "MIXED_CHANGE",
 ]
+
+# Wave 7: this domain's own naming for the shared, generic classification
+# (state/change_detection.py) -- kept exactly as before (zero behavior
+# change) rather than renaming every existing consumer of DriftClassification.
+_GENERIC_TO_DRIFT: dict[ChangeClassification, DriftClassification] = {
+    "FIRST_OBSERVATION": "FIRST_OBSERVATION",
+    "NO_CHANGE": "NO_CHANGE",
+    "CHANGED": "UPSTREAM_CHANGED",
+    "MARKER_LOST": "OWNED_SPAN_LOST",
+    "MIXED_CHANGE": "MIXED_CHANGE",
+}
 
 
 @dataclass
@@ -47,35 +59,31 @@ def classify(
     """Compares the current README (with every owned span stripped) against
     the last-accepted stripped-content hash for this domain. `None` for
     `prior_stripped_text_hash` means no prior accepted state exists yet --
-    the very first observation for this org_repo, not an error."""
+    the very first observation for this org_repo, not an error.
+
+    Delegates the actual comparison to `state/change_detection.py::
+    classify_surface()` (Wave 7's shared primitive, extracted from this
+    function's own general shape) -- this function now only computes
+    README-specific inputs (the stripped-content hash, owned-span presence)
+    and translates the generic result back to this domain's own established
+    `DriftClassification` names, with zero change to this function's own
+    external contract."""
     stripped_now = current_readme_text
     for span_name in SPAN_NAMES:
         stripped_now = remove_span(stripped_now, span_name)
     stripped_hash_now = sha256_text(stripped_now)
     span_present_now = find_span(current_readme_text, "resources") is not None
 
-    if prior_stripped_text_hash is None:
-        return DriftResult(
-            classification="FIRST_OBSERVATION",
-            stripped_text_hash=stripped_hash_now,
-            owned_span_present_now=span_present_now,
-            notes=["no prior accepted state for this domain -- establishing baseline"],
-        )
-
-    stripped_changed = stripped_hash_now != prior_stripped_text_hash
-    span_lost = prior_owned_span_present and not span_present_now
-
-    if not stripped_changed and not span_lost:
-        classification: DriftClassification = "NO_CHANGE"
-    elif stripped_changed and span_lost:
-        classification = "MIXED_CHANGE"
-    elif span_lost:
-        classification = "OWNED_SPAN_LOST"
-    else:
-        classification = "UPSTREAM_CHANGED"
+    generic = classify_surface(
+        current_fingerprint=stripped_hash_now,
+        prior_fingerprint=prior_stripped_text_hash,
+        prior_marker_present=prior_owned_span_present,
+        marker_present_now=span_present_now,
+    )
 
     return DriftResult(
-        classification=classification,
+        classification=_GENERIC_TO_DRIFT[generic.classification],
         stripped_text_hash=stripped_hash_now,
         owned_span_present_now=span_present_now,
+        notes=generic.notes,
     )

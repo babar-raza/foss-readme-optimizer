@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field
 
 from readme_agent.inspection import file_inventory
 from readme_agent.readme.gap_detector import GapReport
+from readme_agent.validation.registry import VALIDATION_RULESET_VERSION
 
 # Bumped whenever build_prompt()'s logic or renderer.py's owned-span contract
 # changes -- included in the facts hash so a change forces regeneration even
@@ -28,7 +29,13 @@ from readme_agent.readme.gap_detector import GapReport
 # owned-span contract change, not cosmetic. Bumped to "4" for the prompts/
 # migration (`GOV-016`): build_prompt()'s implementation changed from
 # embedded f-strings to loading+substituting prompts/relationship_explained/.
-GENERATION_SCHEMA_VERSION = "4"
+# Bumped to "5" for the categorical prompt registry migration (`GOV-024`,
+# Wave 8.5): build_prompt()'s implementation changed again, from loading two
+# `.txt` files to loading a schema-validated YAML manifest via
+# llm/prompt_registry.py -- same string.Template substitution semantics,
+# same generated content, but the file-hash tripwire this version guards
+# can't see "same semantics," only "file changed."
+GENERATION_SCHEMA_VERSION = "5"
 
 
 def sha256_text(text: str) -> str:
@@ -95,6 +102,12 @@ class RepositoryFacts(BaseModel):
     policy_content_hash: str
     prompt_content_hash: str
     generation_schema_version: str = GENERATION_SCHEMA_VERSION
+    # VER-004: closes durable_skip's blindness to a validation *rule-code*
+    # change (policy_content_hash only covers the policy YAML, never the
+    # rule modules in validation/registry.py::RULES) -- same manually-bumped
+    # convention as generation_schema_version, folded into the same hash so
+    # bumping it forces exactly one honest re-validation on next touch.
+    validation_ruleset_version: str = VALIDATION_RULESET_VERSION
 
 
 # Deliberately excludes gap_report: it's *derived from* README content this
@@ -111,6 +124,7 @@ _HASH_FIELDS = (
     "policy_content_hash",
     "prompt_content_hash",
     "generation_schema_version",
+    "validation_ruleset_version",
 )
 
 

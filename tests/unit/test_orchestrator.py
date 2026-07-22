@@ -7,16 +7,24 @@ partial-gap (pdf/java).
 import json
 import re
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
-from readme_agent import paths
+from readme_agent import orchestrator, paths
 from readme_agent.errors import NotAllowlistedError, StateBackendError
 from readme_agent.gitsafety._git import run_git
-from readme_agent.orchestrator import generate_repo, run_registry, run_repo
+from readme_agent.orchestrator import (
+    generate_repo,
+    profile_repo_with_cache,
+    run_registry,
+    run_registry_profiling_sweep,
+    run_repo,
+)
+from readme_agent.profile.schema import RepositoryProfile
 from readme_agent.readme.markers import render_span
 from readme_agent.state.backend import SaveResult
-from readme_agent.state.schema import DomainStateV1, RunStateV1, SupervisorStateV1
+from readme_agent.state.schema import DomainStateV1, ProfileCacheV1, RunStateV1, SupervisorStateV1
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -92,16 +100,17 @@ def _init_source_repo(path, readme_text: str):
 def _setup_project_root(tmp_path, source_clone_url: str, mode: str):
     (tmp_path / "data").mkdir()
     (tmp_path / "config" / "policies").mkdir(parents=True)
-    prompt_dir = tmp_path / "prompts" / "relationship_explained"
+    # Wave 8.5: llm.prompts.prompt_content_hash() reads
+    # prompts/generation/relationship_explained.yaml fresh, cwd-relative, on
+    # every call -- staged here so it doesn't raise after monkeypatch.chdir().
+    # build_prompt() itself reads from the eagerly import-time-cached
+    # prompt_registry instead, unaffected by cwd.
+    prompt_dir = tmp_path / "prompts" / "generation"
     prompt_dir.mkdir(parents=True)
-    (prompt_dir / "system.txt").write_text(
-        (REPO_ROOT / "prompts" / "relationship_explained" / "system.txt").read_text(
+    (prompt_dir / "relationship_explained.yaml").write_text(
+        (REPO_ROOT / "prompts" / "generation" / "relationship_explained.yaml").read_text(
             encoding="utf-8"
         ),
-        encoding="utf-8",
-    )
-    (prompt_dir / "user.txt").write_text(
-        (REPO_ROOT / "prompts" / "relationship_explained" / "user.txt").read_text(encoding="utf-8"),
         encoding="utf-8",
     )
     products = [
@@ -156,6 +165,9 @@ class _FakeStateBackend:
     def release_lock(self, lock):
         pass
 
+    def lock_still_held(self, lock):
+        return True
+
 
 class _RaisingStateBackend:
     """A `StateBackend` whose every method raises `StateBackendError` --
@@ -175,6 +187,9 @@ class _RaisingStateBackend:
         raise StateBackendError("simulated: durable backend unreachable (lock)")
 
     def release_lock(self, lock):
+        raise StateBackendError("simulated: durable backend unreachable (lock)")
+
+    def lock_still_held(self, lock):
         raise StateBackendError("simulated: durable backend unreachable (lock)")
 
 
@@ -403,6 +418,255 @@ class TestRunRegistryBaselineCleanup:
         assert not results[0].ok
         baseline_path = paths.baseline_dir("example-foss", "Example-FOSS-for-Java")
         assert not baseline_path.exists()
+
+
+def _fake_product_entry(org_repo="acme/widget"):
+    org, repo_name = org_repo.split("/", 1)
+    return SimpleNamespace(
+        org=org,
+        repo_name=repo_name,
+        org_repo=org_repo,
+        clone_url=f"https://example.invalid/{org_repo}.git",
+    )
+
+
+class TestProfileRepoWithCache:
+    """Decision #40, Part E: the deterministic-wiring counterpart to the
+    now-stateless profile.cached.get_or_build_profile() -- owns loading
+    prior state before the call and CAS-writing the fresh result back after
+    it. get_or_build_profile()/remote_head_sha() are monkeypatched at the
+    orchestrator module level so this stays a fast, offline unit test."""
+
+    def test_no_backend_passes_no_prior_values(self, monkeypatch):
+        entry = _fake_product_entry()
+        fresh_profile = RepositoryProfile(
+            org_repo=entry.org_repo, detected_ecosystems=[], unresolved_manifests=[]
+        )
+        captured = {}
+
+        def _fake_get_or_build_profile(entry, **kwargs):
+            captured.update(kwargs)
+            return fresh_profile
+
+        monkeypatch.setattr(orchestrator, "get_or_build_profile", _fake_get_or_build_profile)
+
+        result = profile_repo_with_cache(entry, None)
+
+        assert result == fresh_profile
+        assert captured == {"prior_upstream_revision": None, "prior_profile_result": None}
+
+    def test_loads_prior_cache_and_passes_it_through(self, monkeypatch):
+        entry = _fake_product_entry()
+        prior_profile_result = RepositoryProfile(
+            org_repo=entry.org_repo, detected_ecosystems=[], unresolved_manifests=["old.toml"]
+        ).model_dump(mode="json")
+        backend = _FakeStateBackend()
+        backend.save(
+            entry.org_repo,
+            RunStateV1(
+                org_repo=entry.org_repo,
+                profile_cache=ProfileCacheV1(
+                    upstream_revision="old-sha", profile_result=prior_profile_result
+                ),
+            ),
+            expected_version=None,
+        )
+        captured = {}
+
+        def _fake_get_or_build_profile(entry, **kwargs):
+            captured.update(kwargs)
+            return RepositoryProfile(
+                org_repo=entry.org_repo, detected_ecosystems=[], unresolved_manifests=[]
+            )
+
+        monkeypatch.setattr(orchestrator, "get_or_build_profile", _fake_get_or_build_profile)
+        monkeypatch.setattr(orchestrator, "remote_head_sha", lambda clone_url: "new-sha")
+
+        profile_repo_with_cache(entry, backend)
+
+        assert captured["prior_upstream_revision"] == "old-sha"
+        assert captured["prior_profile_result"] == prior_profile_result
+
+    def test_writes_back_fresh_result_under_the_current_revision(self, monkeypatch):
+        """The write-back bug this test guards against: get_or_build_profile()
+        never hands back which revision a *fresh* (cache-miss) profile is
+        actually current as of, so profile_repo_with_cache() must resolve
+        its own remote_head_sha() for the write-back rather than reusing
+        (or worse, blanking) the prior value."""
+        entry = _fake_product_entry()
+        fresh_profile = RepositoryProfile(
+            org_repo=entry.org_repo, detected_ecosystems=[], unresolved_manifests=["new.toml"]
+        )
+        backend = _FakeStateBackend()
+        monkeypatch.setattr(orchestrator, "get_or_build_profile", lambda entry, **kw: fresh_profile)
+        monkeypatch.setattr(orchestrator, "remote_head_sha", lambda clone_url: "current-sha")
+
+        profile_repo_with_cache(entry, backend)
+
+        stored = backend.load(entry.org_repo)
+        assert stored.profile_cache.upstream_revision == "current-sha"
+        assert stored.profile_cache.profile_result == fresh_profile.model_dump(mode="json")
+
+    def test_backend_load_failure_still_returns_profile(self, monkeypatch):
+        entry = _fake_product_entry()
+        fresh_profile = RepositoryProfile(
+            org_repo=entry.org_repo, detected_ecosystems=[], unresolved_manifests=[]
+        )
+        monkeypatch.setattr(orchestrator, "get_or_build_profile", lambda entry, **kw: fresh_profile)
+        monkeypatch.setattr(orchestrator, "remote_head_sha", lambda clone_url: "sha")
+
+        result = profile_repo_with_cache(entry, _RaisingStateBackend())
+
+        assert result == fresh_profile
+
+    def test_remote_head_sha_none_skips_write_back(self, monkeypatch):
+        """No resolvable current revision means there's nothing correct to
+        key a write-back by -- skip it rather than writing a wrong/blank
+        one, mirroring get_or_build_profile()'s own probe-failure handling."""
+        entry = _fake_product_entry()
+        fresh_profile = RepositoryProfile(
+            org_repo=entry.org_repo, detected_ecosystems=[], unresolved_manifests=[]
+        )
+        backend = _FakeStateBackend()
+        monkeypatch.setattr(orchestrator, "get_or_build_profile", lambda entry, **kw: fresh_profile)
+        monkeypatch.setattr(orchestrator, "remote_head_sha", lambda clone_url: None)
+
+        result = profile_repo_with_cache(entry, backend)
+
+        assert result == fresh_profile
+        assert backend.load(entry.org_repo) is None
+
+
+class TestRunRegistryProfilingSweep:
+    """Decision #40, Part E: the actual registry-wide profiling loop --
+    unlike run_registry(), sweeps every products.json entry regardless of
+    mode (read-only, matching decision #40's require_listed() reasoning),
+    with the same failure-isolation and disk-cleanup shape run_registry()
+    already proved."""
+
+    def test_sweeps_every_entry_regardless_of_mode(self, tmp_path, monkeypatch):
+        (tmp_path / "data").mkdir()
+        products = [
+            {
+                "family": "one",
+                "platform": "java",
+                "repo_name": "One",
+                "repo_url": "https://github.com/acme/One",
+                "clone_url": "https://github.com/acme/One.git",
+                "active": True,
+                "discovered_via": "manual",
+                "mode": "full",
+                "ecosystem": None,
+                "policy_profile": None,
+            },
+            {
+                "family": "two",
+                "platform": "java",
+                "repo_name": "Two",
+                "repo_url": "https://github.com/acme/Two",
+                "clone_url": "https://github.com/acme/Two.git",
+                "active": True,
+                "discovered_via": "manual",
+                "mode": "disabled",
+                "ecosystem": None,
+                "policy_profile": None,
+            },
+        ]
+        (tmp_path / "data" / "products.json").write_text(json.dumps(products), encoding="utf-8")
+        monkeypatch.chdir(tmp_path)
+
+        seen = []
+
+        def _fake_profile_repo_with_cache(entry, state_backend):
+            seen.append(entry.org_repo)
+            return RepositoryProfile(
+                org_repo=entry.org_repo, detected_ecosystems=[], unresolved_manifests=[]
+            )
+
+        monkeypatch.setattr(orchestrator, "profile_repo_with_cache", _fake_profile_repo_with_cache)
+
+        profiles = run_registry_profiling_sweep()
+
+        assert sorted(seen) == ["acme/One", "acme/Two"]
+        assert len(profiles) == 2
+
+    def test_continues_past_one_entrys_failure(self, tmp_path, monkeypatch):
+        (tmp_path / "data").mkdir()
+        products = [
+            {
+                "family": "one",
+                "platform": "java",
+                "repo_name": "One",
+                "repo_url": "https://github.com/acme/One",
+                "clone_url": "https://github.com/acme/One.git",
+                "active": True,
+                "discovered_via": "manual",
+                "mode": "full",
+                "ecosystem": None,
+                "policy_profile": None,
+            },
+            {
+                "family": "two",
+                "platform": "java",
+                "repo_name": "Two",
+                "repo_url": "https://github.com/acme/Two",
+                "clone_url": "https://github.com/acme/Two.git",
+                "active": True,
+                "discovered_via": "manual",
+                "mode": "full",
+                "ecosystem": None,
+                "policy_profile": None,
+            },
+        ]
+        (tmp_path / "data" / "products.json").write_text(json.dumps(products), encoding="utf-8")
+        monkeypatch.chdir(tmp_path)
+
+        def _flaky(entry, state_backend):
+            if entry.repo_name == "One":
+                raise RuntimeError("simulated profiling failure")
+            return RepositoryProfile(
+                org_repo=entry.org_repo, detected_ecosystems=[], unresolved_manifests=[]
+            )
+
+        monkeypatch.setattr(orchestrator, "profile_repo_with_cache", _flaky)
+
+        profiles = run_registry_profiling_sweep()
+
+        assert len(profiles) == 1
+        assert profiles[0].org_repo == "acme/Two"
+
+    def test_cleans_up_baseline_dir_after_each_entry(self, tmp_path, monkeypatch):
+        (tmp_path / "data").mkdir()
+        products = [
+            {
+                "family": "one",
+                "platform": "java",
+                "repo_name": "One",
+                "repo_url": "https://github.com/acme/One",
+                "clone_url": "https://github.com/acme/One.git",
+                "active": True,
+                "discovered_via": "manual",
+                "mode": "full",
+                "ecosystem": None,
+                "policy_profile": None,
+            }
+        ]
+        (tmp_path / "data" / "products.json").write_text(json.dumps(products), encoding="utf-8")
+        monkeypatch.chdir(tmp_path)
+
+        def _fake_profile_repo_with_cache(entry, state_backend):
+            baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
+            baseline_path.mkdir(parents=True)
+            (baseline_path / "stray.txt").write_text("x", encoding="utf-8")
+            return RepositoryProfile(
+                org_repo=entry.org_repo, detected_ecosystems=[], unresolved_manifests=[]
+            )
+
+        monkeypatch.setattr(orchestrator, "profile_repo_with_cache", _fake_profile_repo_with_cache)
+
+        run_registry_profiling_sweep()
+
+        assert not paths.baseline_dir("acme", "One").exists()
 
 
 class TestStaleNoncompliantAndForceRegenerate:
@@ -733,3 +997,92 @@ class TestDurableStateFreshRunner:
         # And the fields this call actually owns were updated, not ignored.
         assert after.accepted_facts_hash == result.facts_hash
         assert after.accepted_status == "GENERATED"
+
+
+def _init_git_repo(path: Path) -> Path:
+    path.mkdir(parents=True, exist_ok=True)
+    run_git(["init", "-b", "main"], cwd=path)
+    run_git(["config", "user.email", "test@example.com"], cwd=path)
+    run_git(["config", "user.name", "Test"], cwd=path)
+    (path / "README.md").write_text("# test\n", encoding="utf-8")
+    run_git(["add", "."], cwd=path)
+    run_git(["commit", "-m", "initial"], cwd=path)
+    return path
+
+
+class TestEnsureWorkCloneValidity:
+    """Found live, 2026-07-22: `_ensure_work_clone()`'s reuse check only
+    verified `.git` exists as a directory, never that it's a genuinely valid,
+    complete repository. A work clone left incomplete (interrupted mid-clone,
+    or corrupted) still passed that check, was "reused," and then had
+    `neuter_push()` called against it -- which silently walked up to and
+    disabled push on the *parent* directory's repo instead, since git treats
+    an incomplete `.git` the same as "not a repo here, check the parent."
+    These tests prove the fix: an invalid `.git` is never reused, and a
+    valid one still is (no regression to the decision #38 fast path)."""
+
+    def test_valid_clone_is_reused(self, tmp_path):
+        baseline = _init_git_repo(tmp_path / "baseline")
+        work_path = tmp_path / "work"
+        entry = SimpleNamespace(
+            org_repo="acme/widget", repo_url="https://example.invalid/acme/widget"
+        )
+
+        first = orchestrator._ensure_work_clone(
+            entry, baseline, work_path, fresh_fingerprint="fp-1"
+        )
+        second = orchestrator._ensure_work_clone(
+            entry, baseline, work_path, fresh_fingerprint="fp-1"
+        )
+
+        assert first == work_path
+        assert second == work_path
+        # Proves reuse actually happened, not a silent re-clone: the git
+        # identity create_work_clone() sets is still there from the first call.
+        assert run_git(["config", "user.name"], cwd=work_path).stdout.strip() == "readme-agent"
+
+    def test_incomplete_git_dir_is_not_reused(self, tmp_path):
+        """The exact shape found live: only `hooks/`+`objects/`, missing
+        `HEAD`/`config`/`index`/`refs` -- git silently resolves operations
+        against the nearest valid PARENT repo instead of failing."""
+        baseline = _init_git_repo(tmp_path / "baseline")
+        work_path = tmp_path / "work"
+        (work_path / ".git" / "hooks").mkdir(parents=True)
+        (work_path / ".git" / "objects").mkdir(parents=True)
+        sidecar = orchestrator._work_clone_fingerprint_sidecar(work_path)
+        sidecar.parent.mkdir(parents=True, exist_ok=True)
+        sidecar.write_text("fp-1", encoding="utf-8")
+        entry = SimpleNamespace(
+            org_repo="acme/widget", repo_url="https://example.invalid/acme/widget"
+        )
+
+        result = orchestrator._ensure_work_clone(
+            entry, baseline, work_path, fresh_fingerprint="fp-1"
+        )
+
+        # A real, complete clone was built instead of trusting the broken one.
+        assert result == work_path
+        assert (work_path / ".git" / "HEAD").exists()
+        assert (work_path / ".git" / "config").exists()
+
+    def test_is_valid_work_clone_rejects_a_walk_up_to_parent(self, tmp_path):
+        """Direct proof of the exact bug: a `.git` missing HEAD/config/refs
+        makes `rev-parse --show-toplevel` resolve to an ANCESTOR directory,
+        not `work_path` itself -- `_is_valid_work_clone` must catch this even
+        though git itself doesn't report an error."""
+        _init_git_repo(tmp_path)  # tmp_path itself is a valid repo (the "parent")
+        work_path = tmp_path / "work"
+        (work_path / ".git" / "hooks").mkdir(parents=True)
+        (work_path / ".git" / "objects").mkdir(parents=True)
+
+        assert orchestrator._is_valid_work_clone(work_path) is False
+
+    def test_is_valid_work_clone_accepts_a_real_clone(self, tmp_path):
+        baseline = _init_git_repo(tmp_path / "baseline")
+        work_path = tmp_path / "work"
+        entry = SimpleNamespace(
+            org_repo="acme/widget", repo_url="https://example.invalid/acme/widget"
+        )
+        orchestrator._ensure_work_clone(entry, baseline, work_path, fresh_fingerprint="fp-1")
+
+        assert orchestrator._is_valid_work_clone(work_path) is True

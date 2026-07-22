@@ -14,6 +14,7 @@ from readme_agent.capabilities.schema import CapabilityManifest
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.inspection import file_inventory
 from readme_agent.inspection.git_metadata import get_git_metadata
+from readme_agent.license.auditor import classify_license_text
 from readme_agent.paths import baseline_dir
 from readme_agent.readme.reconciliation import classify
 from readme_agent.registry.loader import require_listed
@@ -42,6 +43,7 @@ MANIFEST = CapabilityManifest(
         "stripped_text_hash": "string",
         "owned_span_present_now": "boolean",
         "current_revision": "string",
+        "license_claim": "string",
     },
     preconditions=[
         "org_repo must be listed in data/products.json (mode is irrelevant -- read-only)",
@@ -54,6 +56,9 @@ MANIFEST = CapabilityManifest(
     failure_modes=["NotAllowlistedError if org_repo is not listed in data/products.json"],
     rollback_behavior="not applicable -- read-only, nothing to roll back",
     tests=["tests/unit/test_capabilities.py", "tests/unit/test_reconciliation.py"],
+    # Wave 8c (requirement mapping): the first domain-scoped capability
+    # (Wave 6, decision #39).
+    requirement_ids=["CAP-006"],
 )
 
 
@@ -81,4 +86,12 @@ def execute(
         "stripped_text_hash": result.stripped_text_hash,
         "owned_span_present_now": result.owned_span_present_now,
         "current_revision": current_revision,
+        # Wave 7f: what the README's own text currently claims about its
+        # license, via the same regex classifier `license.auditor.detect_
+        # license()` uses for LICENSE-file content -- feeds
+        # `cross_surface_validation`'s comparison against `community_files_
+        # presentation`'s independently-detected LICENSE file classification.
+        # `None` both when the README says nothing recognizable and when
+        # there's no README at all -- not itself a gap this capability flags.
+        "license_claim": classify_license_text(readme_text),
     }

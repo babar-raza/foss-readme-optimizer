@@ -10,12 +10,17 @@ Explicitly not the full decision #22 product-facts list: audience, a
 verified example, release information, and known limitations remain unbuilt.
 `DOC-006` (the schema that would freeze the complete list) stays
 RESEARCH-GATED; this is a thin wrapper around today's real, narrower data.
+
+No live `state_backend` object here (decision #26(b), matching
+render_readme_candidate.py's own established convention) -- accepts the
+same durable-skip signal as plain values (`prior_upstream_revision`/
+`prior_profile_result`) instead; see profile_repository.py's matching
+docstring for the full reasoning.
 """
 
 from readme_agent.capabilities.schema import CapabilityManifest
 from readme_agent.profile.cached import get_or_build_profile
 from readme_agent.registry.loader import load_policy, require_listed
-from readme_agent.state.backend import StateBackend
 
 CAPABILITY_ID = "get_product_facts"
 
@@ -72,18 +77,25 @@ MANIFEST = CapabilityManifest(
 )
 
 
-def execute(org_repo: str, *, state_backend: StateBackend | None = None) -> dict:
-    """state_backend is never populated by the planner/dispatcher path
-    (arguments come only from the tool-call JSON) -- it exists so a future
-    direct caller with a durable backend (e.g. a scheduled registry sweep)
-    gets the decision #40/Part B freshness-cache benefit; today's calls
-    always clone+profile fresh, exactly as before."""
+def execute(
+    org_repo: str,
+    prior_upstream_revision: str | None = None,
+    prior_profile_result: dict | None = None,
+) -> dict:
+    """prior_upstream_revision/prior_profile_result: see
+    profile_repository.execute()'s matching docstring -- same deliberately
+    undeclared-in-schema plain-value convention, same wiring caller
+    (profile_repo_with_cache())."""
     entry = require_listed(org_repo)
     if entry.policy_profile is None:
         raise ValueError(f"{org_repo} has no policy_profile configured")
     policy = load_policy(entry.policy_profile)
 
-    profile = get_or_build_profile(entry, state_backend)
+    profile = get_or_build_profile(
+        entry,
+        prior_upstream_revision=prior_upstream_revision,
+        prior_profile_result=prior_profile_result,
+    )
 
     required = policy.required_elements
     return {

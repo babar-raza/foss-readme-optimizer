@@ -53,7 +53,25 @@ class FakeStateBackend:
         return Lock(org_repo=org_repo, holder_id="holder", leased_until=leased_until.isoformat())
 
     def release_lock(self, lock):
-        self._locks.pop(lock.org_repo, None)
+        # Compare-and-pop by holder_id, mirroring GitStateBackend's real
+        # --force-with-lease CAS-delete: only ever removes the lock THIS
+        # holder created, never a since-reclaimed intruder's.
+        current = self._locks.get(lock.org_repo)
+        if current is not None and current[0] == lock.holder_id:
+            self._locks.pop(lock.org_repo, None)
+
+    def lock_still_held(self, lock):
+        current = self._locks.get(lock.org_repo)
+        return current is not None and current[0] == lock.holder_id
+
+    def force_reclaim_lock(self, org_repo, new_holder_id="intruder"):
+        """Test-only helper simulating a second runner reclaiming this
+        org_repo's lease (e.g. because the first runner's lease genuinely
+        expired) -- overwrites the tracked holder without going through
+        `acquire_lock()`'s own expiry check, so a test can force the exact
+        window `lock_still_held()` exists to detect."""
+        leased_until = datetime.now(UTC) + timedelta(seconds=900)
+        self._locks[org_repo] = (new_holder_id, leased_until)
 
 
 def _effector_manifest(**overrides) -> CapabilityManifest:
@@ -69,15 +87,31 @@ def _effector_manifest(**overrides) -> CapabilityManifest:
         required_inputs={"org_repo": "string"},
         idempotency_inputs=["org_repo"],
         retry_policy="idempotent_only",
+        # Wave 7b: the real domains.KNOWN_DOMAINS now has 2 entries, so the
+        # fail-closed sunset (decision #33) requires a scoped domain for any
+        # mutating manifest -- this test module isn't testing domain
+        # scoping itself (test_capabilities.py's TestRegistryDomainEnforcement
+        # does), so it just picks a real, already-known domain to satisfy
+        # the gate without changing what's actually under test here.
+        allowed_domains=["readme_reconciliation"],
     )
     return CapabilityManifest(**{**defaults, **overrides})
 
 
-def _register(monkeypatch, manifest: CapabilityManifest, execute):
-    module = SimpleNamespace(MANIFEST=manifest, execute=execute)
-    manifests, executors = registry._build((module,))
+def _register(
+    monkeypatch, manifest: CapabilityManifest, execute, reconciliation_check=None, precheck=None
+):
+    kwargs = {"MANIFEST": manifest, "execute": execute}
+    if reconciliation_check is not None:
+        kwargs["reconciliation_check"] = reconciliation_check
+    if precheck is not None:
+        kwargs["precheck"] = precheck
+    module = SimpleNamespace(**kwargs)
+    manifests, executors, reconciliation_checks, prechecks = registry._build((module,))
     monkeypatch.setattr(registry, "_MANIFESTS", manifests)
     monkeypatch.setattr(registry, "_EXECUTORS", executors)
+    monkeypatch.setattr(registry, "_RECONCILIATION_CHECKS", reconciliation_checks)
+    monkeypatch.setattr(registry, "_PRECHECKS", prechecks)
 
 
 def _tool_call(capability_id: str, arguments: dict) -> dict:
@@ -131,6 +165,7 @@ class TestDispatchGatedEffectHappyPath:
             {"local_write"},
             backend,
             ORG_REPO,
+            caller_domain="readme_reconciliation",
         )
         assert result.outcome == "dispatched"
         assert result.dispatch.outcome == "executed"
@@ -151,8 +186,12 @@ class TestDispatchGatedEffectHappyPath:
         backend = FakeStateBackend()
         tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
 
-        dispatch_gated_effect(tool_call, {"local_write"}, backend, ORG_REPO)
-        second = dispatch_gated_effect(tool_call, {"local_write"}, backend, ORG_REPO)
+        dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+        second = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
 
         assert second.outcome == "already_applied"
         assert counter.applied == 1  # NOT re-executed -- this is the actual EFF-002 guarantee
@@ -177,7 +216,9 @@ class TestDispatchGatedEffectCrashRecovery:
         backend = FakeStateBackend()
         tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
 
-        first = dispatch_gated_effect(tool_call, {"local_write"}, backend, ORG_REPO)
+        first = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
         assert first.outcome == "dispatched"
         assert first.dispatch.outcome == "execution_error"
         assert counter.applied == 1
@@ -185,9 +226,80 @@ class TestDispatchGatedEffectCrashRecovery:
         state = backend.load(ORG_REPO)
         assert state.capability_outputs[0].status == "pending"  # never flipped to applied
 
-        second = dispatch_gated_effect(tool_call, {"local_write"}, backend, ORG_REPO)
+        second = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
         assert second.outcome == "blocked_pending_reconciliation"
         assert counter.applied == 1  # NOT re-executed -- refused to guess
+
+
+class TestDispatchGatedEffectLockRevalidation:
+    """Decision #46/#48 (`EFF-005`, Phase 13 §13.1's F4 finding): a slow
+    effector can outlive the lock's lease, letting a second runner reclaim
+    it before the first runner's own terminal applied-write lands. The fix
+    cannot prevent the double-dispatch itself (the effector already ran by
+    the time this is checked) -- it prevents the ledger from dishonestly
+    recording the first runner's work as independently `applied` once it
+    can no longer prove it was still the exclusive holder."""
+
+    def test_lock_reclaimed_during_effector_leaves_record_pending_not_applied(self, monkeypatch):
+        counter = _Counter()
+        backend = FakeStateBackend()
+
+        def slow_execute(org_repo):
+            counter.applied += 1
+            # Simulate the effector outliving its lease: a second runner's
+            # acquire_lock() legitimately reclaims org_repo's lock while
+            # this effector is still "running".
+            backend.force_reclaim_lock(org_repo)
+            return {"done": True}
+
+        _register(monkeypatch, _effector_manifest(), slow_execute)
+        tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
+
+        result = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+
+        assert result.outcome == "dispatched"
+        assert result.dispatch.outcome == "executed"  # the real side effect DID happen
+        assert counter.applied == 1
+        assert result.detail is not None and "reclaimed" in result.detail
+
+        state = backend.load(ORG_REPO)
+        assert state.capability_outputs[0].status == "pending"  # NOT falsely marked applied
+
+        # A second attempt for the identical idempotency key must not
+        # silently succeed either -- whether because the intruder still
+        # holds the lock, or because the record is pending with no
+        # reconciliation check, either way this is never "already_applied".
+        second = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+        assert second.outcome == "blocked_pending_reconciliation"
+
+    def test_lock_not_reclaimed_writes_applied_as_before(self, monkeypatch):
+        """Regression guard: the new check must not change behavior in the
+        overwhelmingly common case where nothing reclaims the lock."""
+        counter = _Counter()
+        backend = FakeStateBackend()
+
+        def fast_execute(org_repo):
+            counter.applied += 1
+            return {"done": True}
+
+        _register(monkeypatch, _effector_manifest(), fast_execute)
+        tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
+
+        result = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+
+        assert result.outcome == "dispatched"
+        assert result.dispatch.outcome == "executed"
+        assert result.detail is None
+        state = backend.load(ORG_REPO)
+        assert state.capability_outputs[0].status == "applied"
 
 
 class TestDispatchGatedEffectRetryInertness:
@@ -215,11 +327,175 @@ class TestDispatchGatedEffectRetryInertness:
         backend = FakeStateBackend()
         tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
 
-        first = dispatch_gated_effect(tool_call, {"local_write"}, backend, ORG_REPO)
+        first = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
         assert first.dispatch.outcome == "execution_error"
 
-        second = dispatch_gated_effect(tool_call, {"local_write"}, backend, ORG_REPO)
+        second = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
         assert second.outcome == "blocked_pending_reconciliation"
+
+
+class TestDispatchGatedEffectReconciliationCheck:
+    """Wave 7's fix for `EFF-001`'s remaining gap: a registered capability's
+    `reconciliation_check` gets a chance to answer "did this already happen?"
+    before a stale `pending` record is treated as an unrecoverable blocker."""
+
+    def test_reconciliation_check_confirms_and_backfills_to_applied(self, monkeypatch):
+        counter = _Counter()
+
+        def crashing_execute(org_repo):
+            counter.applied += 1
+            raise RuntimeError("simulated crash after the real side effect landed")
+
+        def reconciliation_check(arguments):
+            # Simulates re-observing reality and confirming the effect did land.
+            return {"reconciled": True, "org_repo": arguments["org_repo"]}
+
+        _register(monkeypatch, _effector_manifest(), crashing_execute, reconciliation_check)
+        backend = FakeStateBackend()
+        tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
+
+        first = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+        assert first.dispatch.outcome == "execution_error"
+        assert backend.load(ORG_REPO).capability_outputs[0].status == "pending"
+
+        second = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+        assert second.outcome == "already_applied"
+        assert second.cached_result == {"reconciled": True, "org_repo": ORG_REPO}
+        assert counter.applied == 1  # still not re-executed
+
+        # The ledger's own record was corrected, not just the return value.
+        state = backend.load(ORG_REPO)
+        assert state.capability_outputs[0].status == "applied"
+        assert state.capability_outputs[0].result == {"reconciled": True, "org_repo": ORG_REPO}
+
+    def test_reconciliation_check_returning_none_still_blocks(self, monkeypatch):
+        def crashing_execute(org_repo):
+            raise RuntimeError("boom")
+
+        def reconciliation_check(arguments):
+            return None  # cannot confirm -- stay blocked, same as no check at all
+
+        _register(monkeypatch, _effector_manifest(), crashing_execute, reconciliation_check)
+        backend = FakeStateBackend()
+        tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
+
+        dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+        second = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+
+        assert second.outcome == "blocked_pending_reconciliation"
+        assert backend.load(ORG_REPO).capability_outputs[0].status == "pending"
+
+    def test_the_real_commit_readme_write_capability_has_a_reconciliation_check_registered(self):
+        """Wave 7g: `EFF-001`'s remaining gap, closed against the real
+        registered mutating capability, not just a synthetic effector --
+        the crash-recovery mechanism itself is exercised end to end via the
+        live proof (`plans/master.md`), this confirms the wiring is real."""
+        check = registry.get_reconciliation_check("commit_readme_write")
+        assert check is not None
+
+
+class TestPrecheck:
+    """Wave 8 (`EFF-002` ordering fix, production-reliability pass): a
+    rejecting `precheck()` must never write a pending ledger entry at all --
+    proven by inspecting the backend's own state directly, not just the
+    return value, which is exactly the distinction between "fails cheaply"
+    and "poisons the ledger" the fix exists to make."""
+
+    def test_rejecting_precheck_writes_zero_ledger_entries(self, monkeypatch):
+        counter = _Counter()
+
+        def execute(org_repo):
+            counter.applied += 1
+            return {"applied": True}
+
+        def precheck(arguments):
+            return "synthetic precondition failure for testing"
+
+        _register(monkeypatch, _effector_manifest(), execute, precheck=precheck)
+        backend = FakeStateBackend()
+
+        result = dispatch_gated_effect(
+            _tool_call("mutate_thing", {"org_repo": ORG_REPO}),
+            {"local_write"},
+            backend,
+            ORG_REPO,
+            caller_domain="readme_reconciliation",
+        )
+
+        assert result.outcome == "dispatched"
+        assert result.dispatch.outcome == "rejected_precondition_failed"
+        assert result.dispatch.error == "synthetic precondition failure for testing"
+        assert counter.applied == 0  # the executor itself was never reached
+        assert backend.load(ORG_REPO) is None  # zero ledger writes -- no pending entry at all
+
+    def test_accepting_precheck_proceeds_normally(self, monkeypatch):
+        counter = _Counter()
+
+        def execute(org_repo):
+            counter.applied += 1
+            return {"applied": True}
+
+        def precheck(arguments):
+            return None  # accept
+
+        _register(monkeypatch, _effector_manifest(), execute, precheck=precheck)
+        backend = FakeStateBackend()
+
+        result = dispatch_gated_effect(
+            _tool_call("mutate_thing", {"org_repo": ORG_REPO}),
+            {"local_write"},
+            backend,
+            ORG_REPO,
+            caller_domain="readme_reconciliation",
+        )
+
+        assert result.outcome == "dispatched"
+        assert result.dispatch.outcome == "executed"
+        assert counter.applied == 1
+
+    def test_a_repeat_dispatch_after_a_rejected_precheck_is_not_blocked(self, monkeypatch):
+        """The actual proof this matters: unlike a genuine crash-mid-effect,
+        a precheck rejection leaves no trace at all, so a corrected retry
+        with the same idempotency-key-bearing arguments proceeds normally --
+        never `blocked_pending_reconciliation`."""
+        counter = _Counter()
+        verdict = {"reject": True}
+
+        def execute(org_repo):
+            counter.applied += 1
+            return {"applied": True}
+
+        def precheck(arguments):
+            return "rejected" if verdict["reject"] else None
+
+        _register(monkeypatch, _effector_manifest(), execute, precheck=precheck)
+        backend = FakeStateBackend()
+        tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
+
+        first = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+        assert first.dispatch.outcome == "rejected_precondition_failed"
+
+        verdict["reject"] = False
+        second = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+        assert second.outcome == "dispatched"
+        assert second.dispatch.outcome == "executed"
+        assert counter.applied == 1
 
 
 class TestDispatchGatedEffectPassthrough:

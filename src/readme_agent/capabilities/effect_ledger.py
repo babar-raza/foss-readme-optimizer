@@ -26,7 +26,7 @@ from readme_agent.capabilities import registry
 from readme_agent.capabilities.dispatcher import DispatchResult, dispatch_tool_call
 from readme_agent.capabilities.schema import CapabilityManifest, PermissionClass
 from readme_agent.errors import StateBackendError
-from readme_agent.state.backend import StateBackend
+from readme_agent.state.backend import StateBackend, safe_release_lock
 from readme_agent.state.schema import CapabilityOutputCacheEntry, RunStateV1
 
 # side_effect_class values at or above this index require going through this
@@ -148,6 +148,31 @@ def dispatch_gated_effect(
         )
     except json.JSONDecodeError:
         arguments = {}
+
+    # Wave 8 (production-reliability pass): checked BEFORE the lock/pending
+    # write below, not after -- a cheap, side-effect-free rejection here
+    # never touches the ledger at all. Found by direct trace: every one of
+    # `dispatch_tool_call()`'s own checks (unknown capability, permission
+    # denied, domain denied, missing argument) already ran *after* a pending
+    # entry was written, meaning any caller-side mistake -- not just this new
+    # precondition class -- has the exact same signature as a genuine
+    # crash-mid-effect and permanently jams that idempotency key behind
+    # `blocked_pending_reconciliation`, since `reconciliation_check()` can
+    # only confirm "did it land," never "should this have been attempted at
+    # all." `precheck()` exists specifically so a capability-declared
+    # precondition (e.g. `commit_readme_write`'s `verification_verdict`)
+    # fails cheaply instead.
+    precheck = registry.get_precheck(capability_id)
+    if precheck is not None:
+        rejection_reason = precheck(arguments)
+        if rejection_reason is not None:
+            return GatedDispatchResult(
+                outcome="dispatched",
+                dispatch=DispatchResult(
+                    outcome="rejected_precondition_failed", error=rejection_reason
+                ),
+            )
+
     key = idempotency_key(capability_id, arguments, manifest.idempotency_inputs)
 
     lock = backend.acquire_lock(org_repo)
@@ -165,23 +190,46 @@ def dispatch_gated_effect(
 
         if existing is not None and existing.status == "pending":
             # A prior attempt started and never finished -- the actual crash
-            # signature EFF-002 exists to catch. No reconciliation-check hook
-            # is wired to a real capability yet (none is registered -- Wave
-            # 7's job); an honest AGT-004 genuine-blocker, never a silent
-            # retry. Note this fires regardless of retry_policy -- "did the
-            # effect land" is genuinely unknown here, which is a strictly
-            # stronger reason to refuse than retry_policy alone would be.
-            # retry_policy's own enforcement point is one layer up
-            # (`supervisor/repair.py::create_repair_task()`, `EFF-003`):
-            # whether to even *propose* dispatching this capability+
-            # arguments again in the first place, checked before this
-            # function is ever called a second time for the same task.
+            # signature EFF-002 exists to catch. Note this fires regardless
+            # of retry_policy -- "did the effect land" is genuinely unknown
+            # here, which is a strictly stronger reason to refuse than
+            # retry_policy alone would be. retry_policy's own enforcement
+            # point is one layer up (`supervisor/repair.py::
+            # create_repair_task()`, `EFF-003`): whether to even *propose*
+            # dispatching this capability+arguments again in the first
+            # place, checked before this function is ever called a second
+            # time for the same task.
+            #
+            # Wave 7 (`EFF-001`'s remaining gap): a registered capability MAY
+            # answer "does this effect already exist in observable reality?"
+            # itself, via `registry.get_reconciliation_check()`. A `dict`
+            # result means yes -- backfill the stale `pending` record to
+            # `applied` (correcting the ledger's own audit trail) instead of
+            # leaving it permanently stuck; a `None` result (or no check
+            # registered at all) falls through to the same honest
+            # AGT-004 genuine-blocker every capability without a check gets.
+            reconciliation_check = registry.get_reconciliation_check(capability_id)
+            if reconciliation_check is not None:
+                reconciled_result = reconciliation_check(arguments)
+                if reconciled_result is not None:
+                    applied_entry = CapabilityOutputCacheEntry(
+                        capability_id=capability_id,
+                        fingerprint=key,
+                        result=reconciled_result,
+                        status="applied",
+                    )
+                    _save_entry_with_retry(
+                        backend, org_repo, applied_entry, max_retries=max_retries
+                    )
+                    return GatedDispatchResult(
+                        outcome="already_applied", cached_result=reconciled_result
+                    )
             return GatedDispatchResult(
                 outcome="blocked_pending_reconciliation",
                 detail=(
                     f"a prior attempt for {capability_id!r} (key {key[:12]}...) never "
-                    "completed and no reconciliation check is available -- refusing to "
-                    "blindly re-execute"
+                    "completed and no reconciliation check could confirm it landed -- "
+                    "refusing to blindly re-execute"
                 ),
             )
 
@@ -192,19 +240,43 @@ def dispatch_gated_effect(
 
         dispatch = dispatch_tool_call(tool_call, allowed_permissions, caller_domain)
 
+        lock_loss_detail = None
         if dispatch.outcome == "executed":
-            applied_entry = CapabilityOutputCacheEntry(
-                capability_id=capability_id,
-                fingerprint=key,
-                result=dispatch.result or {},
-                status="applied",
-            )
-            _save_entry_with_retry(backend, org_repo, applied_entry, max_retries=max_retries)
+            # Decision #46/#48 (`EFF-005`, Phase 13 §13.1's F4 finding): the
+            # effector above may have run long enough that another runner
+            # legitimately reclaimed this lease while this call believed it
+            # still held it -- re-verify by holder identity immediately
+            # before the one write that would otherwise assert sole
+            # authority over this effect. This does not undo the real side
+            # effect the effector already performed (nothing here could);
+            # it only decides whether THIS caller may honestly claim
+            # exclusive credit for it in the ledger.
+            if backend.lock_still_held(lock):
+                applied_entry = CapabilityOutputCacheEntry(
+                    capability_id=capability_id,
+                    fingerprint=key,
+                    result=dispatch.result or {},
+                    status="applied",
+                )
+                _save_entry_with_retry(backend, org_repo, applied_entry, max_retries=max_retries)
+            else:
+                # Leave the pending record exactly as-is -- do NOT write
+                # applied. A future dispatch attempt for this same key hits
+                # blocked_pending_reconciliation and must go through a real
+                # reconciliation_check() before either runner's copy of this
+                # effect is trusted, rather than two runners both silently
+                # believing they alone applied it.
+                lock_loss_detail = (
+                    f"lock for {org_repo!r} was reclaimed by another holder before the "
+                    f"terminal applied-write for {capability_id!r} (key {key[:12]}...) -- "
+                    "effect executed, but NOT recorded as applied; left pending for "
+                    "reconciliation_check() to resolve"
+                )
         # Any other outcome: the pending record correctly stays pending,
         # reflecting reality -- it is not flipped to applied, and it is not
         # removed. A future call with the same key hits the
         # blocked_pending_reconciliation path above, not a silent retry.
 
-        return GatedDispatchResult(outcome="dispatched", dispatch=dispatch)
+        return GatedDispatchResult(outcome="dispatched", dispatch=dispatch, detail=lock_loss_detail)
     finally:
-        backend.release_lock(lock)
+        safe_release_lock(backend.release_lock, lock, label="lock")

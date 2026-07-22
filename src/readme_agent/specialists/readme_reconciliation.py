@@ -65,12 +65,18 @@ def _classify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         "accepted_status": result["classification"],
         "upstream_revision_at_accept": result["current_revision"],
         "owned_span_present_at_accept": result["owned_span_present_now"],
+        # Wave 7f: the one fact `cross_surface_validation` needs from this
+        # domain -- what the README's own text currently claims about its
+        # license, to compare against `community_files_presentation`'s
+        # independently-detected LICENSE file classification.
+        "details": {"license_claim": result["license_claim"]},
     }
 
 
 def _record_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     backend: StateBackend | None = config["configurable"].get("backend")
     org_repo = config["configurable"]["org_repo"]
+    current_revision = config["configurable"].get("current_revision")
     timestamp = datetime.now(UTC).isoformat()
 
     if backend is not None and not (state.accepted_status or "").startswith("ERROR:"):
@@ -80,6 +86,7 @@ def _record_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 org_repo,
                 DOMAIN,
                 state.model_copy(update={"domain": DOMAIN, "last_run_timestamp": timestamp}),
+                current_revision=current_revision,
             )
         except StateBackendError as exc:
             print(
@@ -102,11 +109,19 @@ def _build_graph():
 _GRAPH = _build_graph()
 
 
-def run(org_repo: str, backend: StateBackend | None) -> DomainStateV1:
+def run(
+    org_repo: str, backend: StateBackend | None, current_revision: str | None = None
+) -> DomainStateV1:
     """Entry point `specialists/registry.py::run_domain()` calls. Loads the
     prior accepted state for this domain (if any), runs the two-node graph,
     and returns the resulting `DomainStateV1` -- already durably recorded by
-    the `record` node when `backend` is not `None`."""
+    the `record` node when `backend` is not `None`.
+
+    `current_revision` (Wave 8.6, `ORC-003` reversal prerequisite): threaded
+    through to `_record_node()`'s own `save_domain()` call, which stamps
+    `upstream_revision_at_accept` -- see `state/domain_state.py::save_
+    domain()`'s own docstring for why this must happen at the persistence
+    point, not here."""
     prior_domain_state = None
     if backend is not None:
         try:
@@ -123,6 +138,12 @@ def run(org_repo: str, backend: StateBackend | None) -> DomainStateV1:
     initial_state = prior_domain_state or DomainStateV1(domain=DOMAIN)
     result = _GRAPH.invoke(
         initial_state,
-        config={"configurable": {"org_repo": org_repo, "backend": backend}},
+        config={
+            "configurable": {
+                "org_repo": org_repo,
+                "backend": backend,
+                "current_revision": current_revision,
+            }
+        },
     )
     return DomainStateV1(**result)

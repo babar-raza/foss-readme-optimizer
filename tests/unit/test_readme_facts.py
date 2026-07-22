@@ -72,6 +72,16 @@ class TestComputeFactsHash:
             _facts(prompt_content_hash="other")
         )
 
+    def test_different_validation_ruleset_version_changes_the_hash(self):
+        """VER-004: closes durable_skip's blindness to a validation rule-code
+        change -- bumping `VALIDATION_RULESET_VERSION` must change
+        `facts_hash`, the same way a policy/prompt content change already
+        does, so a repo trusted via durable_skip gets exactly one forced
+        re-validation the next time it's touched after a rule edit."""
+        assert compute_facts_hash(_facts()) != compute_facts_hash(
+            _facts(validation_ruleset_version="999")
+        )
+
 
 class TestComputeTrackedContentHash:
     """Decision #38: the single, canonical content-level fingerprint both

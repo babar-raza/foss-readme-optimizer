@@ -1,51 +1,22 @@
 """profile/cached.py::get_or_build_profile() -- decision #40/Part B's
-pre-clone freshness gate. No real clone/network: clone_baseline(),
-build_profile(), and remote_head_sha() are all monkeypatched, mirroring
-test_capabilities.py's style for the two callers of this shared helper."""
+pre-clone freshness gate, refactored to the stateless convention (decision
+#26(b), Part E1), plus the git-tree-API-first path (`SCL-004`, Part F).
+No real clone/network: clone_baseline(), build_profile(), remote_head_sha(),
+env.gh_token(), and github_api_client.get_tree()/get_file_content() are all
+monkeypatched.
 
-from datetime import UTC, datetime, timedelta
+Every clone-fallback test below explicitly mocks env.gh_token() to return
+None -- without that, a real GH_TOKEN/GITHUB_PAT present in the ambient
+shell environment (ordinary for a dev machine) would make these "offline"
+unit tests attempt real GitHub API calls. Write-back behavior belongs to
+orchestrator.py::profile_repo_with_cache() -- see test_orchestrator.py."""
+
 from types import SimpleNamespace
 
 from readme_agent.profile import cached
 from readme_agent.profile.schema import RepositoryProfile
-from readme_agent.state.backend import Lock, SaveResult
-from readme_agent.state.schema import ProfileCacheV1, RunStateV1
 
 ORG_REPO = "acme/widget"
-
-
-class FakeStateBackend:
-    """In-memory `StateBackend`, mirrors `test_state_backend.py`'s fake."""
-
-    def __init__(self):
-        self._states: dict[str, RunStateV1] = {}
-        self._locks: dict[str, tuple[str, datetime]] = {}
-
-    def load(self, org_repo: str) -> RunStateV1 | None:
-        return self._states.get(org_repo)
-
-    def save(self, org_repo: str, state: RunStateV1, expected_version: int | None) -> SaveResult:
-        current = self._states.get(org_repo)
-        current_version = current.state_version if current else None
-        if expected_version != current_version:
-            return SaveResult(outcome="stale", new_version=current_version)
-        new_version = (current_version or 0) + 1
-        self._states[org_repo] = state.model_copy(
-            update={"org_repo": org_repo, "state_version": new_version}
-        )
-        return SaveResult(outcome="saved", new_version=new_version)
-
-    def acquire_lock(self, org_repo: str):
-        existing = self._locks.get(org_repo)
-        if existing is not None and existing[1] > datetime.now(UTC):
-            return None
-        leased_until = datetime.now(UTC) + timedelta(seconds=900)
-        holder_id = f"fake-holder-{len(self._locks)}"
-        self._locks[org_repo] = (holder_id, leased_until)
-        return Lock(org_repo=org_repo, holder_id=holder_id, leased_until=leased_until.isoformat())
-
-    def release_lock(self, lock) -> None:
-        self._locks.pop(lock.org_repo, None)
 
 
 def _fake_entry() -> SimpleNamespace:
@@ -62,95 +33,190 @@ def _fail_if_called(*args, **kwargs):
 
 
 class TestGetOrBuildProfileCacheHit:
-    def test_cache_hit_returns_cached_profile_without_cloning(self, monkeypatch, tmp_path):
+    def test_cache_hit_returns_prior_profile_without_cloning(self, monkeypatch):
         entry = _fake_entry()
-        backend = FakeStateBackend()
-        cached_profile = RepositoryProfile(
+        prior_profile = RepositoryProfile(
             org_repo=ORG_REPO, detected_ecosystems=[], unresolved_manifests=["stray.toml"]
-        )
-        backend.save(
-            ORG_REPO,
-            RunStateV1(
-                org_repo=ORG_REPO,
-                profile_cache=ProfileCacheV1(
-                    upstream_revision="deadbeef",
-                    profile_result=cached_profile.model_dump(mode="json"),
-                ),
-            ),
-            expected_version=None,
         )
         monkeypatch.setattr(cached, "remote_head_sha", lambda clone_url: "deadbeef")
         monkeypatch.setattr(cached, "clone_baseline", _fail_if_called)
         monkeypatch.setattr(cached, "build_profile", _fail_if_called)
 
-        result = cached.get_or_build_profile(entry, backend)
+        result = cached.get_or_build_profile(
+            entry,
+            prior_upstream_revision="deadbeef",
+            prior_profile_result=prior_profile.model_dump(mode="json"),
+        )
 
-        assert result == cached_profile
+        assert result == prior_profile
 
-    def test_sha_mismatch_clones_fresh_and_updates_cache(self, monkeypatch, tmp_path):
+    def test_sha_mismatch_clones_fresh(self, monkeypatch, tmp_path):
         entry = _fake_entry()
-        backend = FakeStateBackend()
         stale_profile = RepositoryProfile(
             org_repo=ORG_REPO, detected_ecosystems=[], unresolved_manifests=["old.toml"]
-        )
-        backend.save(
-            ORG_REPO,
-            RunStateV1(
-                org_repo=ORG_REPO,
-                profile_cache=ProfileCacheV1(
-                    upstream_revision="old-sha",
-                    profile_result=stale_profile.model_dump(mode="json"),
-                ),
-            ),
-            expected_version=None,
         )
         fresh_profile = RepositoryProfile(
             org_repo=ORG_REPO, detected_ecosystems=[], unresolved_manifests=["new.toml"]
         )
         monkeypatch.setattr(cached, "remote_head_sha", lambda clone_url: "new-sha")
+        monkeypatch.setattr(cached.env, "gh_token", lambda: None)
         monkeypatch.setattr(cached, "baseline_dir", lambda org, repo: tmp_path)
         monkeypatch.setattr(cached, "clone_baseline", lambda entry, path: None)
         monkeypatch.setattr(cached, "build_profile", lambda org_repo, path: fresh_profile)
 
-        result = cached.get_or_build_profile(entry, backend)
+        result = cached.get_or_build_profile(
+            entry,
+            prior_upstream_revision="old-sha",
+            prior_profile_result=stale_profile.model_dump(mode="json"),
+        )
 
         assert result == fresh_profile
-        updated = backend.load(ORG_REPO)
-        assert updated.profile_cache.upstream_revision == "new-sha"
-        assert updated.profile_cache.profile_result == fresh_profile.model_dump(mode="json")
 
-    def test_no_backend_always_clones_fresh(self, monkeypatch, tmp_path):
+    def test_no_prior_value_always_clones_fresh(self, monkeypatch, tmp_path):
         entry = _fake_entry()
         fresh_profile = RepositoryProfile(
             org_repo=ORG_REPO, detected_ecosystems=[], unresolved_manifests=[]
         )
         monkeypatch.setattr(cached, "remote_head_sha", lambda clone_url: "some-sha")
+        monkeypatch.setattr(cached.env, "gh_token", lambda: None)
         monkeypatch.setattr(cached, "baseline_dir", lambda org, repo: tmp_path)
         monkeypatch.setattr(cached, "clone_baseline", lambda entry, path: None)
         monkeypatch.setattr(cached, "build_profile", lambda org_repo, path: fresh_profile)
 
-        result = cached.get_or_build_profile(entry, state_backend=None)
+        result = cached.get_or_build_profile(entry)
 
         assert result == fresh_profile
 
-    def test_remote_head_sha_failure_falls_back_to_clone_without_caching(
-        self, monkeypatch, tmp_path
-    ):
+    def test_prior_revision_without_prior_result_clones_fresh(self, monkeypatch, tmp_path):
+        """A prior_upstream_revision with no matching prior_profile_result
+        (e.g. a caller bug, or a durable record predating this field) must
+        never be treated as a usable cache hit -- there's nothing to return."""
+        entry = _fake_entry()
+        fresh_profile = RepositoryProfile(
+            org_repo=ORG_REPO, detected_ecosystems=[], unresolved_manifests=[]
+        )
+        monkeypatch.setattr(cached, "remote_head_sha", lambda clone_url: "deadbeef")
+        monkeypatch.setattr(cached.env, "gh_token", lambda: None)
+        monkeypatch.setattr(cached, "baseline_dir", lambda org, repo: tmp_path)
+        monkeypatch.setattr(cached, "clone_baseline", lambda entry, path: None)
+        monkeypatch.setattr(cached, "build_profile", lambda org_repo, path: fresh_profile)
+
+        result = cached.get_or_build_profile(
+            entry, prior_upstream_revision="deadbeef", prior_profile_result=None
+        )
+
+        assert result == fresh_profile
+
+    def test_remote_head_sha_failure_falls_back_to_clone(self, monkeypatch, tmp_path):
         """remote_head_sha() returning None (unreachable remote, timeout,
         etc.) must never be treated as a cache-invalidation error -- just
-        clone as if there were no backend at all, and skip the write-back
-        since there's no revision to key it by."""
+        clone as if no prior value had been supplied at all."""
         entry = _fake_entry()
-        backend = FakeStateBackend()
+        prior_profile = RepositoryProfile(
+            org_repo=ORG_REPO, detected_ecosystems=[], unresolved_manifests=["old.toml"]
+        )
         fresh_profile = RepositoryProfile(
             org_repo=ORG_REPO, detected_ecosystems=[], unresolved_manifests=[]
         )
         monkeypatch.setattr(cached, "remote_head_sha", lambda clone_url: None)
+        monkeypatch.setattr(cached.env, "gh_token", lambda: None)
         monkeypatch.setattr(cached, "baseline_dir", lambda org, repo: tmp_path)
         monkeypatch.setattr(cached, "clone_baseline", lambda entry, path: None)
         monkeypatch.setattr(cached, "build_profile", lambda org_repo, path: fresh_profile)
 
-        result = cached.get_or_build_profile(entry, backend)
+        result = cached.get_or_build_profile(
+            entry,
+            prior_upstream_revision="old-sha",
+            prior_profile_result=prior_profile.model_dump(mode="json"),
+        )
 
         assert result == fresh_profile
-        assert backend.load(ORG_REPO) is None
+
+
+class TestGetOrBuildProfileApiPath:
+    """SCL-004 (decision #40/Part F): the git-tree-API-first path, tried
+    before falling back to a real clone, only when a token is available."""
+
+    def test_no_token_skips_api_path_entirely(self, monkeypatch, tmp_path):
+        entry = _fake_entry()
+        fresh_profile = RepositoryProfile(
+            org_repo=ORG_REPO, detected_ecosystems=[], unresolved_manifests=[]
+        )
+        monkeypatch.setattr(cached, "remote_head_sha", lambda clone_url: "new-sha")
+        monkeypatch.setattr(cached.env, "gh_token", lambda: None)
+        monkeypatch.setattr(cached.github_api_client, "get_tree", _fail_if_called)
+        monkeypatch.setattr(cached, "baseline_dir", lambda org, repo: tmp_path)
+        monkeypatch.setattr(cached, "clone_baseline", lambda entry, path: None)
+        monkeypatch.setattr(cached, "build_profile", lambda org_repo, path: fresh_profile)
+
+        result = cached.get_or_build_profile(entry)
+
+        assert result == fresh_profile
+
+    def test_api_path_used_when_token_available_no_clone(self, monkeypatch):
+        entry = _fake_entry()
+        monkeypatch.setattr(cached, "remote_head_sha", lambda clone_url: "new-sha")
+        monkeypatch.setattr(cached.env, "gh_token", lambda: "fake-token")
+        monkeypatch.setattr(cached, "clone_baseline", _fail_if_called)
+        monkeypatch.setattr(cached, "build_profile", _fail_if_called)
+        monkeypatch.setattr(
+            cached.github_api_client,
+            "get_tree",
+            lambda org_repo, sha, token: {
+                "truncated": False,
+                "tree": [{"path": "pyproject.toml", "type": "blob"}],
+            },
+        )
+        monkeypatch.setattr(
+            cached.github_api_client,
+            "get_file_content",
+            lambda org_repo, path, token: b"[project]\nname = 'widget'\n",
+        )
+
+        result = cached.get_or_build_profile(entry)
+
+        assert result.org_repo == ORG_REPO
+        assert [d.ecosystem for d in result.detected_ecosystems] == ["python"]
+        assert result.detected_ecosystems[0].manifest_path == "pyproject.toml"
+
+    def test_truncated_tree_falls_back_to_clone(self, monkeypatch, tmp_path):
+        entry = _fake_entry()
+        fresh_profile = RepositoryProfile(
+            org_repo=ORG_REPO, detected_ecosystems=[], unresolved_manifests=[]
+        )
+        monkeypatch.setattr(cached, "remote_head_sha", lambda clone_url: "new-sha")
+        monkeypatch.setattr(cached.env, "gh_token", lambda: "fake-token")
+        monkeypatch.setattr(
+            cached.github_api_client,
+            "get_tree",
+            lambda org_repo, sha, token: {"truncated": True, "tree": []},
+        )
+        monkeypatch.setattr(cached, "baseline_dir", lambda org, repo: tmp_path)
+        monkeypatch.setattr(cached, "clone_baseline", lambda entry, path: None)
+        monkeypatch.setattr(cached, "build_profile", lambda org_repo, path: fresh_profile)
+
+        result = cached.get_or_build_profile(entry)
+
+        assert result == fresh_profile
+
+    def test_api_failure_falls_back_to_clone(self, monkeypatch, tmp_path):
+        entry = _fake_entry()
+        fresh_profile = RepositoryProfile(
+            org_repo=ORG_REPO, detected_ecosystems=[], unresolved_manifests=[]
+        )
+
+        def _raise_http_error(org_repo, sha, token):
+            import requests
+
+            raise requests.HTTPError("simulated 500")
+
+        monkeypatch.setattr(cached, "remote_head_sha", lambda clone_url: "new-sha")
+        monkeypatch.setattr(cached.env, "gh_token", lambda: "fake-token")
+        monkeypatch.setattr(cached.github_api_client, "get_tree", _raise_http_error)
+        monkeypatch.setattr(cached, "baseline_dir", lambda org, repo: tmp_path)
+        monkeypatch.setattr(cached, "clone_baseline", lambda entry, path: None)
+        monkeypatch.setattr(cached, "build_profile", lambda org_repo, path: fresh_profile)
+
+        result = cached.get_or_build_profile(entry)
+
+        assert result == fresh_profile

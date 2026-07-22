@@ -20,7 +20,7 @@ import requests
 from pydantic import BaseModel
 
 from readme_agent.errors import LLMError
-from readme_agent.llm.schema import LLMResponseMeta
+from readme_agent.llm.schema import LLMResponseMeta, Usage
 
 DEFAULT_TEMPERATURE = 0.0
 DEFAULT_MAX_TOKENS = 300  # one capability per turn (decision #27/L7) -- a short response
@@ -118,8 +118,20 @@ class LivePlannerClient:
         tool_calls = message.get("tool_calls") or []
         tool_call = tool_calls[0] if tool_calls else None  # one capability per turn, per L7
 
+        raw_usage = body.get("usage") or {}
+        usage = (
+            Usage(
+                prompt_tokens=raw_usage.get("prompt_tokens"),
+                completion_tokens=raw_usage.get("completion_tokens"),
+            )
+            if raw_usage
+            else None
+        )
         meta = LLMResponseMeta(
-            request_id=body.get("id"), created=body.get("created"), model=body.get("model")
+            request_id=body.get("id"),
+            created=body.get("created"),
+            model=body.get("model"),
+            usage=usage,
         )
         return PlannerTurn(tool_call=tool_call, content=message.get("content"), meta=meta)
 

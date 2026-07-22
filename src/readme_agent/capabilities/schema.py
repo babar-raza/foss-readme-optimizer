@@ -80,6 +80,20 @@ class CapabilityManifest(BaseModel):
     failure_modes: list[str] = Field(default_factory=list)
     rollback_behavior: str | None = None
     tests: list[str] = Field(default_factory=list)
+    # Wave 8c (requirement mapping): which `plans/requirements.md` IDs this
+    # capability's own output is evidence for -- a coarse, honest "was the
+    # evidence-producing capability exercised and did it succeed," not a
+    # semantic judgment of whether the prose acceptance text is satisfied
+    # (that distinction stays a human `IMPLEMENTED` call). Empty here in
+    # Wave 8a (schema-only, added early since it's a safe additive default,
+    # matching the existing "declare the field before any capability uses
+    # it" convention `execution_type="validator"` already established) --
+    # populated per capability in Wave 8c. `tests/unit/test_capabilities.py`'s
+    # own drift test asserts every declared ID here actually exists in
+    # `plans/requirements.md` (`GOV-015`: reuses `plans/investigations/tools/
+    # extract_requirements.py`'s own proven row-matching regex, not a second
+    # hand-rolled parser).
+    requirement_ids: list[str] = Field(default_factory=list)
 
     # Not yet meaningful -- Wave 3's RepositoryProfile/archetype model gives
     # these real values; empty means "no restriction expressed yet", not
