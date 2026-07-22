@@ -3,11 +3,14 @@
   "accepted_status": null,
   "capability_outputs": [
     {
-      "cached_at": "2026-07-22T15:01:20.081638+00:00",
+      "cached_at": "2026-07-22T15:01:26.807015+00:00",
       "capability_id": "commit_readme_write",
       "fingerprint": "088e1f0b6021acc215609ec3e782efce8fbfbf375a0b2e1b4324c0d8b10504cb",
-      "result": {},
-      "status": "pending"
+      "result": {
+        "committed": false,
+        "written": true
+      },
+      "status": "applied"
     }
   ],
   "domain_states": {
@@ -246,7 +249,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 25,
+  "state_version": 26,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
