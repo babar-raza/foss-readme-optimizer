@@ -396,27 +396,16 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 31,
+  "state_version": 32,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-145924-37d0",
+    "control_plane_fingerprint": "ad84bcb337de4c7a1e2251e9b40b2da811a12c0aa26386985cd96c1fdb317a4e",
+    "domain_coverage_complete": true,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "bd19e16057b628310b4a04330585d366cb40e9b7",
-    "last_run_id": "20260721-110250-d9dd",
-    "last_run_timestamp": "2026-07-21T11:02:50.313434+00:00",
+    "last_run_id": "20260722-150319-6774",
+    "last_run_timestamp": "2026-07-22T15:03:19.837233+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -427,20 +416,71 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T11:02:39.769646+00:00",
+          "created_at": "2026-07-22T15:02:54.492234+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "min_framework",
+              "target_framework"
+            ],
             "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
             "readme_length_chars": 5396
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "ec9689f79ae44278ba6e3f13cd678322",
-          "terminal_at": "2026-07-21T11:02:43.256101+00:00"
+          "task_id": "8ae11a3470694f82a35d21968cd5981e",
+          "terminal_at": "2026-07-22T15:02:56.110976+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET"
+          },
+          "blocked_reason": null,
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T15:02:58.519228+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "license_mentioned": true,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 3
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "c24ffa1feb0e4e7088580ffd4c94a475",
+          "terminal_at": "2026-07-22T15:02:59.778587+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": true,
+            "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T15:03:05.705689+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "0009b1bbf07ed4ac94fe1913af63b962789f5bf2931a3185fc3c757a53ebd8eb",
+            "final_text": "# Aspose.Slides FOSS\n\nThe official open-source .NET library by Aspose.Slides for creating, reading, and editing PowerPoint (`.pptx`) presentations.\n\n---\n\n## Quick Start\n\n```csharp\nusing Aspose.Slides.Foss;\nusing Aspose.Slides.Foss.Export;\n\n// Open an existing presentation\nusing var prs = new Presentation(\"input.pptx\");\nConsole.WriteLine($\"Slides: {prs.Slides.Count}\");\nprs.Save(\"output.pptx\", SaveFormat.Pptx);\n\n// Create a new presentation\nusing var newPrs = new Presentation();\nvar slide = newPrs.Slides[0];\nnewPrs.Save(\"new.pptx\", SaveFormat.Pptx);\n```\n\n---\n\n## Features\n\n- **Presentation I/O** \u2014 Open, create, and save `.pptx` files with full round-trip fidelity\n- **Slides** \u2014 Add, remove, clone, reorder, and iterate slides\n- **Shapes** \u2014 AutoShapes, PictureFrames, Tables, Connectors\n- **Text** \u2014 TextFrame, Paragraph, Portion with character, paragraph, and text frame formatting (including bullets)\n- **Fill** \u2014 Solid, gradient, pattern, and picture fills\n- **Lines** \u2014 Width, dash style, arrows, join and alignment\n- **Effects** \u2014 Outer shadow, glow, soft edge, blur, reflection, inner shadow\n- **3D** \u2014 Bevel, camera, light rig, material, extrusion depth\n- **Document properties** \u2014 Core, app, and custom properties\n- **Notes slides** \u2014 Per-slide notes with header/footer management\n- **Comments** \u2014 Threaded comments with authors, timestamps, and positions\n- **Images** \u2014 Embed from file, bytes, or stream\n\n---\n\n## Usage Examples\n\n### Shapes\n\n```csharp\nusing Aspose.Slides.Foss;\nusing Aspose.Slides.Foss.Export;\n\nusing var prs = new Presentation();\nvar slide = prs.Slides[0];\nvar shape = slide.Shapes.AddAutoShape(ShapeType.Rectangle, 50, 50, 300, 100);\nshape.AddTextFrame(\"Hello, world!\");\nprs.Save(\"shapes.pptx\", SaveFormat.Pptx);\n```\n\n### Text Formatting\n\n```csharp\nusing Aspose.Slides.Foss;\nusing Aspose.Slides.Foss.Drawing;\nusing Aspose.Slides.Foss.Export;\n\nusing var prs = new Presentation();\nvar shape = prs.Slides[0].Shapes.AddAutoShape(ShapeType.Rectangle, 50, 50, 400, 150);\nvar tf = shape.AddTextFrame(\"Formatted text\");\nvar fmt = tf.Paragraphs[0].Portions[0].PortionFormat;\nfmt.FontHeight = 24;\nfmt.FontBold = NullableBool.True;\nfmt.FillFormat.FillType = FillType.Solid;\nfmt.FillFormat.SolidFillColor.Color = Color.FromArgb(255, 0, 70, 127);\nprs.Save(\"text.pptx\", SaveFormat.Pptx);\n```\n\n### Table\n\n```csharp\nusing Aspose.Slides.Foss;\nusing Aspose.Slides.Foss.Export;\n\nusing var prs = new Presentation();\nvar table = prs.Slides[0].Shapes.AddTable(50, 50, [120.0, 120.0, 120.0], [40.0, 40.0]);\ntable.Rows[0][0].TextFrame.Text = \"Name\";\ntable.Rows[0][1].TextFrame.Text = \"Value\";\nprs.Save(\"table.pptx\", SaveFormat.Pptx);\n```\n\n### Connector\n\n```csharp\nusing Aspose.Slides.Foss;\nusing Aspose.Slides.Foss.Export;\n\nusing var prs = new Presentation();\nvar slide = prs.Slides[0];\nvar box1 = slide.Shapes.AddAutoShape(ShapeType.Rectangle, 50, 100, 150, 60);\nvar box2 = slide.Shapes.AddAutoShape(ShapeType.Rectangle, 350, 100, 150, 60);\nvar conn = slide.Shapes.AddConnector(ShapeType.BentConnector3, 0, 0, 10, 10);\nconn.StartShapeConnectedTo = box1;\nconn.StartShapeConnectionSiteIndex = 3;  // right\nconn.EndShapeConnectedTo = box2;\nconn.EndShapeConnectionSiteIndex = 1;    // left\nprs.Save(\"connector.pptx\", SaveFormat.Pptx);\n```\n\n### Fill\n\n```csharp\nusing Aspose.Slides.Foss;\nusing Aspose.Slides.Foss.Drawing;\nusing Aspose.Slides.Foss.Export;\n\nusing var prs = new Presentation();\nvar shape = prs.Slides[0].Shapes.AddAutoShape(ShapeType.Rectangle, 50, 50, 300, 150);\nshape.FillFormat.FillType = FillType.Solid;\nshape.FillFormat.SolidFillColor.Color = Color.FromArgb(255, 30, 120, 200);\nprs.Save(\"fill.pptx\", SaveFormat.Pptx);\n```\n\n### Notes\n\n```csharp\nusing Aspose.Slides.Foss;\nusing Aspose.Slides.Foss.Export;\n\nusing var prs = new Presentation();\nvar notes = prs.Slides[0].NotesSlideManager.AddNotesSlide();\nnotes.NotesTextFrame.Text = \"Speaker notes go here.\";\nprs.Save(\"notes.pptx\", SaveFormat.Pptx);\n```\n\n### Comments\n\n```csharp\nusing Aspose.Slides.Foss;\nusing Aspose.Slides.Foss.Drawing;\nusing Aspose.Slides.Foss.Export;\n\nusing var prs = new Presentation();\nvar author = prs.CommentAuthors.AddAuthor(\"Jane Smith\", \"JS\");\nvar slide = prs.Slides[0];\nauthor.Comments.AddComment(\"Review this slide\", slide, new PointF(2.0f, 2.0f), DateTime.Now);\nprs.Save(\"comments.pptx\", SaveFormat.Pptx);\n```\n\n### Document Properties\n\n```csharp\nusing Aspose.Slides.Foss;\nusing Aspose.Slides.Foss.Export;\n\nusing var prs = new Presentation();\nprs.DocumentProperties.Title = \"Q1 Results\";\nprs.DocumentProperties.Author = \"Finance Team\";\nprs.DocumentProperties.SetCustomPropertyValue(\"Version\", 3);\nprs.Save(\"deck.pptx\", SaveFormat.Pptx);\n```\n\n---\n\n## Limitations\n\nThe following areas are not yet implemented:\n\n- Charts, SmartArt, OLE objects, mathematical text\n- Animations and slide transitions\n- Export to non-PPTX formats (PDF, HTML, SVG, images)\n- VBA macros, digital signatures\n- Hyperlinks and action settings\n\nUnknown XML parts encountered during load are preserved verbatim on save \u2014\nopening and re-saving a file will never strip content this library does not yet understand.\n\n---\n\n## Links\n\n- [GitHub Repository](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET)\n- [Issue Tracker](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/issues)\n\n---\n\n## License\n\n[MIT License](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/blob/main/LICENSE)\n\n<!-- readme-agent:resources hash=\"sha256:0009b1bbf07ed4ac94fe1913af63b962789f5bf2931a3185fc3c757a53ebd8eb\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.Slides FOSS for .NET](https://products.aspose.org/slides/net/)\n- **Commercial edition:** [Aspose.Slides for .NET](https://products.aspose.com/slides/net/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository contains the free, open-source (FOSS) edition of Aspose.Slides for .NET, licensed under the MIT License, and provides a subset of the functionality available in the commercial edition. Users seeking additional features, enterprise support, or advanced capabilities can upgrade to the commercial Aspose.Slides for .NET product, which is distributed under a proprietary license and offers a broader feature set.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "d503994e6065ae9d89a55cca290cb58d3508278d7fc9ce5f40d14873007cb303",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": false,
+            "skip_regeneration": false,
+            "status": "GENERATED"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "4be637d805c64480bd883823ffd10d13",
+          "terminal_at": "2026-07-22T15:03:11.106757+00:00"
         }
       ]
     }
