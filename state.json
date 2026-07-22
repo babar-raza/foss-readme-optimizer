@@ -208,6 +208,52 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "44597f1a09feb16ed1b6f29a1c6b939df4415863"
     },
+    "readme_presentation": {
+      "accepted_facts_hash": "325d7fa12f45080f0f87d27895d1997d4f088a5a5db691aebb79e2755afc2634",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "committed": false,
+        "fresh_fingerprint": "b1231a801bd10b9777e8cc67464cc663e0907c87aee20cc376b8146f02aa607b",
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ],
+        "prose_quality": {
+          "corroborated": false,
+          "flagged": false,
+          "quoted_span": "",
+          "reason": "The paragraph provides specific, non-repetitive information about the relationship between the open-source and commercial editions of Aspose.Slides for Java, including licensing details (MIT License), feature distinctions (core vs. expanded functionality), and a clear upgrade path. It avoids generic boilerplate and reads as intentional, informative content."
+        },
+        "prose_quality_repair_attempts": 0,
+        "render_status": "GENERATED",
+        "verification": {
+          "checks": {
+            "needs_write_matches": true,
+            "validation_passed": true
+          },
+          "nonce": "20260722-145638-6821",
+          "reason": null,
+          "requirement_map": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": true
+          },
+          "token": "69bff123e81a8d9c2e4c73df760e883e5b6c9a91ed3da60e2be27e6b69d04a3f",
+          "verdict": "accept"
+        },
+        "written": true
+      },
+      "domain": "readme_presentation",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T14:57:02.464921+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "44597f1a09feb16ed1b6f29a1c6b939df4415863"
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "ef4be3af30903a5262b95a2f3d15b4d7adfb3d75ef620012d809f55056af355a",
       "accepted_status": "NO_CHANGE",
@@ -230,7 +276,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 25,
+  "state_version": 26,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
