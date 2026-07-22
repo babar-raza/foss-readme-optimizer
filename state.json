@@ -362,27 +362,16 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 18,
+  "state_version": 19,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-140410-2690",
+    "control_plane_fingerprint": "4ed4b1e7ba6c7551afcf0bc19efd3b3e7e61ac9fddeef1f3b900c416cede1597",
+    "domain_coverage_complete": false,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
-    "last_run_id": "20260721-095701-d92f",
-    "last_run_timestamp": "2026-07-21T09:57:01.094752+00:00",
+    "last_run_id": "20260722-140910-46e7",
+    "last_run_timestamp": "2026-07-22T14:09:10.472693+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -393,41 +382,93 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T09:56:36.905401+00:00",
+          "created_at": "2026-07-22T14:08:21.095095+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "min_framework",
+              "name",
+              "target_framework",
+              "version"
+            ],
             "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
             "readme_length_chars": 4254
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "00f72ce934494d7ca21898805c33fe11",
-          "terminal_at": "2026-07-21T09:56:43.398389+00:00"
+          "task_id": "6baf26b452de46d9a25b240518e5bc07",
+          "terminal_at": "2026-07-22T14:08:27.333360+00:00"
         },
         {
           "arguments": {
             "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
           },
           "blocked_reason": null,
-          "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T09:56:53.960054+00:00",
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T14:08:30.220446+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
-            "has_license_file": true,
-            "has_readme": true,
-            "manifest_keys": [],
-            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
-            "readme_length_chars": 4254
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": false,
+            "total_gaps": 1
           },
-          "state": "SUPERSEDED",
-          "supersedes": "00f72ce934494d7ca21898805c33fe11",
-          "task_id": "14be984cadd540d69ec3dfc5e80f029d",
-          "terminal_at": "2026-07-21T09:56:53.960128+00:00"
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "0f6948757aa1435ea15b8c81cc4dc621",
+          "terminal_at": "2026-07-22T14:08:36.428235+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": true,
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T14:08:41.507645+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "0c198432be9eebfe7577ac84dfe7cad6d90dfd6af3ddd381379ca1670a00e601",
+            "final_text": "# Aspose.Cells FOSS for .NET\n\nAspose.Cells FOSS is an open-source .NET library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.\n\n## Highlights\n\n- Aspose.Cells-compatible API surface for common XLSX scenarios\n- `.xlsx` load/save from file paths and streams\n- Cell values, formulas, styles, merges, and number formats\n- Conditional formatting, data validation, hyperlinks, names, tables, charts, shapes, comments, pictures\n- Recovery-oriented loading with diagnostics and warning callbacks\n- Multi-targeted library: `netstandard2.0` and `net8.0`\n\n## Installation\n\n```bash\ndotnet add package Aspose.Cells.FOSS\n```\n\n## Product Links\n\n- Open-source product page: <https://products.aspose.org/cells>\n- Aspose.Cells product page: <https://products.aspose.com/cells>\n\n## Quick Start\n\n### Create, style, and save a workbook\n\n```csharp\nusing Aspose.Cells_FOSS;\n\nvar workbook = new Workbook();\nvar sheet = workbook.Worksheets[0];\n\nsheet.Name = \"Products\";\nsheet.Cells[\"A1\"].PutValue(\"Product\");\nsheet.Cells[\"B1\"].PutValue(\"Price\");\nsheet.Cells[\"A2\"].PutValue(\"Apple\");\nsheet.Cells[\"B2\"].PutValue(2.99m);\nsheet.Cells[\"A3\"].PutValue(\"Orange\");\nsheet.Cells[\"B3\"].PutValue(1.99m);\nsheet.Cells[\"B4\"].Formula = \"=SUM(B2:B3)\";\n\nvar headerStyle = sheet.Cells[\"A1\"].GetStyle();\nheaderStyle.Font.IsBold = true;\nheaderStyle.Font.Color = Color.FromArgb(255, 255, 255, 255);\nheaderStyle.Pattern = FillPattern.Solid;\nheaderStyle.ForegroundColor = Color.FromArgb(255, 34, 120, 212);\nsheet.Cells[\"A1\"].SetStyle(headerStyle);\nsheet.Cells[\"B1\"].SetStyle(headerStyle);\n\nworkbook.Save(\"products.xlsx\");\n```\n\n### Load workbook with recovery options and diagnostics\n\n```csharp\nusing System;\nusing Aspose.Cells_FOSS;\n\npublic sealed class ConsoleWarningCallback : IWarningCallback\n{\n    public void Warning(WarningInfo warningInfo)\n    {\n        Console.WriteLine(\"[{0}] {1}: {2}\", warningInfo.Severity, warningInfo.Code, warningInfo.Message);\n    }\n}\n\nvar loadOptions = new LoadOptions\n{\n    TryRepairPackage = true,\n    TryRepairXml = true,\n    StrictMode = false,\n    WarningCallback = new ConsoleWarningCallback()\n};\n\nvar workbook = new Workbook(\"input.xlsx\", loadOptions);\n\nif (workbook.LoadDiagnostics.HasRepairs)\n{\n    Console.WriteLine(\"Load repairs were applied.\");\n}\n\nif (workbook.LoadDiagnostics.HasDataLossRisk)\n{\n    Console.WriteLine(\"Potential data loss risk detected during load.\");\n}\n\nworkbook.Worksheets[0].Cells[\"A1\"].PutValue(\"Updated\");\nworkbook.Save(\"updated.xlsx\");\n```\n\n## Supported Areas\n\n- Workbook and worksheet management\n- Cells and formulas\n- Style model (font, fill, borders, alignment, number formats)\n- Worksheet settings (visibility, zoom, RTL, gridlines, protection)\n- Hyperlinks and defined names\n- Data validation and conditional formatting\n- Page setup and print-related settings\n- Tables (`ListObjects`)\n- Pictures, shapes, and charts\n- Document properties\n\nFor runnable examples, see [`samples/`](samples/):\n\n- `Aspose.Cells_FOSS.Samples.Basic`\n- `Aspose.Cells_FOSS.Samples.Loading`\n- `Aspose.Cells_FOSS.Samples.Styles`\n- `Aspose.Cells_FOSS.Samples.WorksheetSettings`\n- `Aspose.Cells_FOSS.Samples.Validations`\n- `Aspose.Cells_FOSS.Samples.ConditionalFormatting`\n- `Aspose.Cells_FOSS.Samples.HyperlinksAndNames`\n- `Aspose.Cells_FOSS.Samples.PageSetup`\n- `Aspose.Cells_FOSS.Samples.Shapes`\n- `Aspose.Cells_FOSS.Samples.Charts`\n- `Aspose.Cells_FOSS.Samples.Comments`\n- `Aspose.Cells_FOSS.Samples.DocumentProperties`\n- `Aspose.Cells_FOSS.Samples.ListObjects`\n- `Aspose.Cells_FOSS.Samples.Pictures`\n\n## Build from Source\n\nRun commands from the repository root:\n\n```bash\ndotnet build src\\Aspose.Cells_FOSS\\Aspose.Cells_FOSS.csproj -c Debug\ndotnet build samples\\Aspose.Cells_FOSS.Samples.Basic\\Aspose.Cells_FOSS.Samples.Basic.csproj -c Debug\n```\n\n## Compatibility\n\nPrimary targets:\n\n- `netstandard2.0`\n- `net8.0`\n\nBecause the package targets `netstandard2.0`, it can also be consumed by many compatible runtimes (for example .NET Framework 4.6.1+ and modern .NET).\n\n## License\n\nMIT. See [License/LICENSE.txt](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET/blob/master/License/LICENSE.txt).\n\n## Support\n\n- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET/issues>\n\n<!-- readme-agent:resources hash=\"sha256:0c198432be9eebfe7577ac84dfe7cad6d90dfd6af3ddd381379ca1670a00e601\" schema=\"2\" -->\n### Related Aspose Resources\n\n\nThis repository, Aspose.Cells-FOSS-for-.NET, represents the free, open-source (FOSS) edition of Aspose.Cells for .NET, offering core functionality under the MIT license for community use and contribution. Users seeking enhanced capabilities, advanced features, and commercial support can upgrade to the full commercial edition, Aspose.Cells for .NET, which provides a broader feature set and enterprise-grade support.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "214b82a545ef786fd2025412e99299d2d32a84612a788a87d06a30c1e854286c",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": true,
+            "skip_regeneration": false,
+            "status": "BLOCKED_VALIDATION_FAILED"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "fda6c25eab4d484aa4696c084862268c",
+          "terminal_at": "2026-07-22T14:08:53.181652+00:00"
+        },
+        {
+          "arguments": {
+            "domain": "readme_presentation",
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+          },
+          "blocked_reason": null,
+          "capability_id": "get_domain_findings",
+          "created_at": "2026-07-22T14:09:01.340244+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "accepted_status": null,
+            "details": {},
+            "found": true
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "cfd38b71f10b42ec8dd68d18522f7c28",
+          "terminal_at": "2026-07-22T14:09:02.579433+00:00"
         }
       ]
     }
