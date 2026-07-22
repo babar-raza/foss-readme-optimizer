@@ -390,27 +390,16 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 28,
+  "state_version": 29,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-141924-fb01",
+    "control_plane_fingerprint": "a8841a5dcef7c6ebac09690e95e658cace15e994f8fdf8579387b0e377ee17a7",
+    "domain_coverage_complete": true,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
-    "last_run_id": "20260721-100415-56bf",
-    "last_run_timestamp": "2026-07-21T10:04:15.916433+00:00",
+    "last_run_id": "20260722-142310-77a1",
+    "last_run_timestamp": "2026-07-22T14:23:10.400181+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -421,46 +410,74 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T10:03:51.189788+00:00",
+          "created_at": "2026-07-22T14:22:51.567515+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "cmake_min_version",
+              "cpp_standard",
+              "library_target",
+              "name",
+              "version"
+            ],
             "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
             "readme_length_chars": 2137
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "3f8fb8be0f674772963f7ff66f67e0d9",
-          "terminal_at": "2026-07-21T10:03:53.597952+00:00"
+          "task_id": "847587b613af41b1aa1fa4e0894de9fa",
+          "terminal_at": "2026-07-22T14:22:51.577383+00:00"
         },
         {
           "arguments": {
             "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp"
           },
           "blocked_reason": null,
-          "capability_id": "profile_repository",
-          "created_at": "2026-07-21T10:04:04.579376+00:00",
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T14:22:53.931551+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
-            "detected_ecosystems": [
-              {
-                "confidence": 1.0,
-                "ecosystem": "cpp",
-                "evidence": "found CMakeLists.txt; parsed 5 field(s)",
-                "manifest_path": "CMakeLists.txt"
-              }
-            ],
-            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
-            "unresolved_manifests": []
+            "license_mentioned": false,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 4
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "8cf372d2df864db68953b70ab7d5daf7",
-          "terminal_at": "2026-07-21T10:04:08.829101+00:00"
+          "task_id": "1be0aba739924bb59fa50ca5fd899be2",
+          "terminal_at": "2026-07-22T14:22:53.940085+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": true,
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T14:22:58.957325+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "9b41a8ff6bc7a002acafa62d3d8892f70b2dae234df45e5af5f9224ce56af785",
+            "final_text": "# Aspose.Email FOSS for C++\n\nAspose.Email FOSS for C++ is a dependency-free C++17 library for deterministic binary email container and message processing without external runtime dependencies.\n\n## Features\n\n- Read CFB containers from file paths, streams, and in-memory byte buffers\n- Build and mutate CFB storage/stream trees in user code\n- Write deterministic CFB output to files, streams, and byte buffers\n- Read and write low-level MSG documents through `msg_reader`, `msg_document`, and `msg_writer`\n- Create, edit, save, and reload high-level messages through `mapi_message`\n- Work with recipients, regular attachments, and embedded-message attachments\n- Load `.eml` into `mapi_message` through an in-repository MIME engine\n- Save `mapi_message` back to `.eml` without external MIME libraries\n\n## Build\n\n```powershell\ncmake --preset default\ncmake --build --preset default\nctest --preset default\n```\n\n## Install\n\n```powershell\ncmake --install out\\build\\default --prefix out\\install\\default\n```\n\n## Quick Start\n\nRead a subject from an MSG file:\n\n```cpp\n#include <fstream>\n#include <iostream>\n\n#include \"aspose/email/foss/msg/mapi_message.hpp\"\n\nint main()\n{\n    std::ifstream input(\"sample.msg\", std::ios::binary);\n    auto message = aspose::email::foss::msg::mapi_message::from_stream(input);\n    std::cout << message.subject() << '\\n';\n}\n```\n\nCreate a message and save both MSG and EML:\n\n```cpp\n#include <fstream>\n\n#include \"aspose/email/foss/msg/mapi_message.hpp\"\n\nint main()\n{\n    auto message = aspose::email::foss::msg::mapi_message::create(\"Hello\", \"Body\");\n    message.set_sender_name(\"Alice\");\n    message.set_sender_email_address(\"alice@example.com\");\n    message.add_recipient(\"bob@example.com\", \"Bob\");\n    message.add_attachment(\"note.txt\", std::vector<std::uint8_t>{'a', 'b', 'c'}, \"text/plain\");\n\n    std::ofstream msg_output(\"hello.msg\", std::ios::binary);\n    message.save(msg_output);\n\n    std::ofstream eml_output(\"hello.eml\", std::ios::binary);\n    message.save_to_eml(eml_output);\n}\n```\n\n## Examples\n\nExamples are available under `cpp/examples/`:\n\n- `create_msg_and_eml.cpp`\n- `msg_reader.cpp`\n- `msg_summary.cpp`\n\n<!-- readme-agent:resources hash=\"sha256:9b41a8ff6bc7a002acafa62d3d8892f70b2dae234df45e5af5f9224ce56af785\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **License:** MIT\n- **Open-source (FOSS) catalog:** [Aspose.Email FOSS for Cpp](https://products.aspose.org/email/cpp/)\n- **Commercial edition:** [Aspose.Email for Cpp](https://products.aspose.com/email/cpp/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository, Aspose.Email-FOSS-for-Cpp, represents the free, open-source (FOSS) edition of Aspose.Email for C++, offering core email processing capabilities under the MIT license. Users seeking extended functionality, enterprise support, and additional features can upgrade to the commercial edition, Aspose.Email for C++, which provides a broader feature set and professional support options.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "3e231cad58b2cc9629827ad3fb8ff580148f272318e5693f62eb762160fc3fcd",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": true,
+            "skip_regeneration": false,
+            "status": "GENERATED"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "82bc978253704b44b9d9c2e16bd2c9a8",
+          "terminal_at": "2026-07-22T14:23:02.931638+00:00"
         }
       ]
     }
