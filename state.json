@@ -2,13 +2,30 @@
   "accepted_facts_hash": null,
   "accepted_status": null,
   "capability_outputs": [],
-  "domain_states": {},
+  "domain_states": {
+    "readme_reconciliation": {
+      "accepted_facts_hash": "8dc7c86a138505bde353e5766475534ada55ef1a7e1a42e55dea8c3c6bbe12e7",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "license_claim": "MIT"
+      },
+      "domain": "readme_reconciliation",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T15:20:28.070859+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
+    }
+  },
   "last_run_id": null,
   "last_run_timestamp": null,
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
-  "state_version": 1,
+  "state_version": 2,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
