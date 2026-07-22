@@ -181,7 +181,7 @@
     },
     "package_release_audit": {
       "accepted_facts_hash": "f11c2b7dfe06b05fb720e1cfae2c40b43d2b9d9e9943b0d03a400297907d2ce3",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -189,7 +189,7 @@
         "handoff_findings": [
           {
             "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-22T15:20:58.121361+00:00",
+            "detected_at": "2026-07-22T15:36:50.312424+00:00",
             "evidence": {
               "detail": "no live resolver registered for ecosystem 'go'"
             },
@@ -204,7 +204,7 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:20:58.122137+00:00",
+      "last_run_timestamp": "2026-07-22T15:36:50.312982+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
@@ -346,7 +346,7 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
-  "state_version": 14,
+  "state_version": 15,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
