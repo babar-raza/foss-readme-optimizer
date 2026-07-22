@@ -34,7 +34,23 @@ DETERMINISM_FLAGS = ["-c", "core.autocrlf=false", "-c", "core.eol=lf"]
 # `gitsafety/neuter.py`, and `state/git_backend.py` that none of `run_git()`'s
 # ~20 call sites relies on git prompting or on this var being unset; every
 # one already treats a non-zero returncode as an ordinary handled failure.
-GIT_SAFETY_ENV = {"GIT_TERMINAL_PROMPT": "0"}
+#
+# `GIT_TERMINAL_PROMPT=0` alone proved INSUFFICIENT -- found live, 2026-07-22,
+# re-testing this exact fix: it only suppresses git's own raw fallback
+# prompt. When a CONFIGURED credential helper exists (`git-credential-
+# manager`, common on Windows -- confirmed present on this machine via
+# `tasklist`), git invokes that helper regardless of `GIT_TERMINAL_PROMPT`,
+# and the helper's own interactive (browser/GUI) flow is what actually hung
+# -- reproduced live, killed via `taskkill`, and confirmed the run-lock this
+# process held stayed correctly held until lease expiry (the reclaim safety
+# net working exactly as designed for a hard kill, not just a caught
+# exception). `GCM_INTERACTIVE=never` is git-credential-manager's own
+# documented "fail instead of prompting" switch -- deliberately NOT a blanket
+# `credential.helper=` override, which would also break the legitimate local-
+# dev case (`test_state_git_backend_live.py`'s own documented prerequisite:
+# a real, already-cached credential helper silently supplying push
+# credentials with zero interaction) that this project still relies on.
+GIT_SAFETY_ENV = {"GIT_TERMINAL_PROMPT": "0", "GCM_INTERACTIVE": "never"}
 
 
 def run_git(

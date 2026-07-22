@@ -209,6 +209,66 @@ def create_work_clone(entry: ProductEntry, baseline_path: Path, work_path: Path)
     return work_path
 
 
+def create_pr_clone(entry: ProductEntry, baseline_path: Path, pr_work_path: Path) -> Path:
+    """TC-08/`PRL-007`: the one clone in this codebase that is deliberately
+    NEVER neutered -- structurally separate from `create_work_clone()`
+    (a different root, `paths.pr_work_dir()`, never `paths.work_dir()`) so
+    the `remote_write` capability that uses it can never be confused with,
+    or substituted for, any capability that assumes `verify_push_blocked()`
+    would pass on its own clone. This function itself does not push
+    anything -- it only clones and sets a local git identity, exactly like
+    `create_work_clone()`'s own first two steps. The actual authenticated
+    push happens in `push_branch()` below, called separately by the one
+    capability permitted to use this path."""
+    if pr_work_path.exists():
+        force_rmtree(pr_work_path)
+    pr_work_path.parent.mkdir(parents=True, exist_ok=True)
+
+    result = run_git(
+        ["clone", "--no-tags", str(baseline_path), str(pr_work_path)],
+        timeout=120,
+    )
+    if result.returncode != 0:
+        raise GitSafetyError(f"pr clone of {entry.org_repo} failed: {result.stderr}")
+
+    result = run_git(["remote", "set-url", "origin", entry.repo_url + ".git"], cwd=pr_work_path)
+    if result.returncode != 0:
+        raise GitSafetyError(f"restoring origin URL for {entry.org_repo} failed: {result.stderr}")
+
+    for key, value in (("user.name", _COMMIT_AUTHOR_NAME), ("user.email", _COMMIT_AUTHOR_EMAIL)):
+        result = run_git(["config", "--local", key, value], cwd=pr_work_path)
+        if result.returncode != 0:
+            raise GitSafetyError(
+                f"setting local git identity ({key}) for {entry.org_repo} failed: {result.stderr}"
+            )
+
+    return pr_work_path
+
+
+def push_branch(repo_path: Path, branch_name: str, token: str, *, timeout: float = 60):
+    """The one function in this codebase that performs a real, authenticated
+    push. The token travels via a per-invocation `http.extraheader` --
+    scoped to this single `run_git()` call only, never written to the
+    remote URL (which would leak it into `git remote -v`/evidence output)
+    and never merged into `_git.py::GIT_SAFETY_ENV` (that only ever adds
+    `GIT_TERMINAL_PROMPT=0`, already composed in by `run_git()` itself for
+    every call, including this one -- a hung credential prompt here fails
+    fast exactly like every other `run_git()` call site). Pushes `HEAD` to
+    `branch_name` explicitly rather than relying on any configured upstream,
+    since `repo_path` never has one for a not-yet-existing remote branch."""
+    return run_git(
+        [
+            "-c",
+            f"http.extraheader=AUTHORIZATION: bearer {token}",
+            "push",
+            "origin",
+            f"HEAD:refs/heads/{branch_name}",
+        ],
+        cwd=repo_path,
+        timeout=timeout,
+    )
+
+
 def remote_head_sha(clone_url: str, timeout: float = 15) -> str | None:
     """Cheap freshness probe (decision #40/Part B): `git ls-remote` reports
     the remote's default-branch HEAD commit SHA without cloning anything --

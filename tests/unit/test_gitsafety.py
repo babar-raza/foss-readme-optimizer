@@ -575,6 +575,7 @@ class TestGitTerminalPromptDisabled:
 
         assert captured["env"] is not None
         assert captured["env"]["GIT_TERMINAL_PROMPT"] == "0"
+        assert captured["env"]["GCM_INTERACTIVE"] == "never"
 
     def test_present_in_the_input_text_stdin_branch_too(self, monkeypatch):
         """mktree/hash-object/commit-tree (state/git_backend.py) go through
@@ -594,6 +595,7 @@ class TestGitTerminalPromptDisabled:
         run_git(["commit-tree", "deadbeef"], input_text="msg")
 
         assert captured["env"]["GIT_TERMINAL_PROMPT"] == "0"
+        assert captured["env"]["GCM_INTERACTIVE"] == "never"
 
     def test_coexists_with_a_caller_supplied_env_dict(self, monkeypatch):
         """state/git_backend.py's _COMMIT_IDENTITY_ENV / clone.py's identity
@@ -614,6 +616,7 @@ class TestGitTerminalPromptDisabled:
 
         assert captured["env"]["GIT_AUTHOR_NAME"] == "readme-agent"
         assert captured["env"]["GIT_TERMINAL_PROMPT"] == "0"
+        assert captured["env"]["GCM_INTERACTIVE"] == "never"
 
     def test_cannot_be_overridden_by_a_caller_supplied_env(self, monkeypatch):
         """Defense in depth: even if some future call site's own env dict
@@ -633,3 +636,26 @@ class TestGitTerminalPromptDisabled:
         run_git(["status"], env={"GIT_TERMINAL_PROMPT": "1"})
 
         assert captured["env"]["GIT_TERMINAL_PROMPT"] == "0"
+
+    def test_gcm_interactive_never_is_also_always_present(self, monkeypatch):
+        """Found live, 2026-07-22: GIT_TERMINAL_PROMPT=0 alone proved
+        insufficient -- a CONFIGURED credential helper (git-credential-
+        manager) is invoked regardless of that setting, and its own
+        interactive flow is what actually hung. GCM_INTERACTIVE=never closes
+        that gap without disabling the helper entirely (which would break
+        the legitimate cached-credential local-dev case)."""
+        import subprocess
+
+        from readme_agent.gitsafety import _git as git_module
+
+        captured = {}
+
+        def _spy(*args, **kwargs):
+            captured["env"] = kwargs.get("env")
+            return subprocess.CompletedProcess(args=args[0], returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(git_module.subprocess, "run", _spy)
+
+        run_git(["status"], env={"GCM_INTERACTIVE": "auto"})
+
+        assert captured["env"]["GCM_INTERACTIVE"] == "never"

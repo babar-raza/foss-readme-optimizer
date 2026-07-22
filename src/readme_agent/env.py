@@ -52,7 +52,13 @@ JOB_MODEL_ROUTING: dict[str, str] = {
 
 
 def gh_token() -> str | None:
-    """GH_TOKEN (primary) > GITHUB_PAT (fallback). Read-only usage only."""
+    """GH_TOKEN (primary) > GITHUB_PAT (fallback). Used read-only by every
+    caller except `capabilities/open_presentation_pr.py` (TC-08, the one
+    `remote_write` capability this project registers) -- whether a write
+    actually succeeds is a server-side permission check on the token itself
+    (confirmed live, decision #46: `push=true`/`admin=true` on the 3
+    confirmed pilots), never a client-side restriction this function could
+    enforce by returning a different value for different callers."""
     return os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_PAT") or None
 
 

@@ -95,7 +95,7 @@ class TestCapabilityGap:
 
 
 class TestRegistry:
-    def test_all_twenty_one_capabilities_registered(self):
+    def test_all_twenty_two_capabilities_registered(self):
         ids = {m.capability_id for m in registry.list_all()}
         assert ids == {
             "inspect_repository",
@@ -110,6 +110,8 @@ class TestRegistry:
             "propose_metadata_changes",
             "audit_community_files",
             "commit_readme_write",
+            # TC-08: the one real remote-write capability.
+            "open_presentation_pr",
             "prepare_visual_asset",
             "verify_readme_candidate",
             # Wave 8.5 (AGT-008): on-demand full-detail drill-down for the
@@ -157,6 +159,11 @@ class TestRegistry:
         """Wave 7g: the first (and, this wave, only) real mutating capability."""
         mutating = registry.filter_by(side_effect_class="local_write")
         assert {m.capability_id for m in mutating} == {"commit_readme_write"}
+
+    def test_filter_by_side_effect_class_remote_write(self):
+        """TC-08: the first (and, this wave, only) real remote-write capability."""
+        mutating = registry.filter_by(side_effect_class="remote_write")
+        assert {m.capability_id for m in mutating} == {"open_presentation_pr"}
 
     def test_filter_by_execution_type(self):
         tools = registry.filter_by(execution_type="deterministic_tool")
@@ -306,10 +313,11 @@ class TestRegistryEff001RegistrationGate:
         )
         registry._build((mutator,))  # must not raise
 
-    def test_real_registry_of_twenty_one_capabilities_still_builds_cleanly(self):
-        """Regression: twenty read-only capabilities plus the one real
-        mutating capability (Wave 7g) all pass the mutating-only gate."""
-        assert len(registry.list_all()) == 21
+    def test_real_registry_of_twenty_two_capabilities_still_builds_cleanly(self):
+        """Regression: twenty read-only capabilities plus the two real
+        mutating capabilities (commit_readme_write, Wave 7g;
+        open_presentation_pr, TC-08) all pass the mutating-only gate."""
+        assert len(registry.list_all()) == 22
 
 
 class TestInspectRepositoryCapability:

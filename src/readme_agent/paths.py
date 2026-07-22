@@ -28,6 +28,16 @@ def work_dir(org: str, repo: str) -> Path:
     return runs_dir() / "work" / f"{org}__{repo}"
 
 
+def pr_work_dir(org: str, repo: str) -> Path:
+    """TC-08/`PRL-007`: structurally separate from `work_dir()` -- the one
+    clone location `open_presentation_pr` may use, deliberately never
+    neutered (`gitsafety.clone.create_pr_clone()`, the opposite of
+    `create_work_clone()`'s own `neuter_push()` call). No other capability
+    may read or write here, and this function's result may never be passed
+    to any capability that assumes `verify_push_blocked()` would pass."""
+    return runs_dir() / "pr_work" / f"{org}__{repo}"
+
+
 def evidence_dir(run_id: str) -> Path:
     return runs_dir() / "evidence" / run_id
 
