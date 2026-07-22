@@ -582,6 +582,24 @@ class TestGetProductFactsCapability:
         with pytest.raises(NotAllowlistedError):
             get_product_facts.execute("acme/widget")
 
+    def test_execute_raises_when_policy_profile_missing(self, monkeypatch):
+        """Wave 8.7 drive-by: this branch was previously untested entirely
+        and raised a bare ValueError -- harmonized to NotAllowlistedError to
+        match the other two "not onboarded" raise sites."""
+        fake_entry = SimpleNamespace(
+            org="acme",
+            repo_name="widget",
+            mode="dry_run",
+            family="widget",
+            platform="java",
+            ecosystem="java",
+            policy_profile=None,
+        )
+        monkeypatch.setattr(get_product_facts, "require_listed", lambda org_repo: fake_entry)
+
+        with pytest.raises(NotAllowlistedError):
+            get_product_facts.execute("acme/widget")
+
 
 class TestRenderReadmeCandidateCapability:
     """Wave 7 `EFF-001` fix: the read-only half of the render/commit split.
@@ -1749,9 +1767,39 @@ class TestCommitReadmeWriteCapability:
             "org_repo": "acme/widget",
             "facts_hash": "deadbeef1234",
             "fresh_fingerprint": "cafef00d",
+            "verification_nonce": "run-nonce-abc",
         }
-        token = compute_verification_token(**arguments)
+        token = compute_verification_token(
+            arguments["org_repo"],
+            arguments["facts_hash"],
+            arguments["fresh_fingerprint"],
+            arguments["verification_nonce"],
+        )
         assert commit_readme_write.precheck({**arguments, "verification_verdict": token}) is None
+
+    def test_precheck_rejects_a_token_computed_with_a_different_nonce(self):
+        """TC-28 (decision #46's own deferred scope from TC-15): a token that
+        is real and correctly derived for THIS call's org_repo/facts_hash/
+        fresh_fingerprint, but minted with a DIFFERENT nonce (i.e. replayed
+        from a different run), must not be accepted -- proving the nonce
+        actually closes the cross-run replay gap TC-15 left open, not just
+        that it's threaded through somewhere."""
+        from readme_agent.verification.checks import compute_verification_token
+
+        replayed_token = compute_verification_token(
+            "acme/widget", "deadbeef1234", "cafef00d", "a-previous-runs-nonce"
+        )
+        reason = commit_readme_write.precheck(
+            {
+                "org_repo": "acme/widget",
+                "facts_hash": "deadbeef1234",
+                "fresh_fingerprint": "cafef00d",
+                "verification_verdict": replayed_token,
+                "verification_nonce": "this-runs-nonce",
+            }
+        )
+        assert reason is not None
+        assert "does not match" in reason
 
     def test_precheck_rejects_a_hardcoded_accept_literal(self):
         """The exact regression F3 found: a caller (or a future wiring bug
@@ -1776,7 +1824,9 @@ class TestCommitReadmeWriteCapability:
         candidate it was issued for, not just "any real-looking token"."""
         from readme_agent.verification.checks import compute_verification_token
 
-        stale_token = compute_verification_token("acme/widget", "old-hash", "old-fingerprint")
+        stale_token = compute_verification_token(
+            "acme/widget", "old-hash", "old-fingerprint", "some-nonce"
+        )
         reason = commit_readme_write.precheck(
             {
                 "org_repo": "acme/widget",

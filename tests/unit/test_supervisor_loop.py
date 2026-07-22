@@ -443,6 +443,74 @@ class TestBasicLoop:
         stop_decisions = [d for d in result.decisions if d.kind == "stop"]
         assert any("stop capability called" in d.detail for d in stop_decisions)
 
+    def test_deterministic_backstop_ends_a_run_of_repeated_duplicate_calls_early(self, project):
+        """TC-18 (Pillar A.2, decision #46's own rerun-consistency redesign):
+        a planner that just keeps re-proposing an already-answered capability
+        must not burn every remaining turn -- NO_PROGRESS_TURN_LIMIT
+        consecutive SUPERSEDED (duplicate) turns ends the run deterministically,
+        well short of DEFAULT_MAX_TURNS, without ever reaching repair_exhausted."""
+        turns = [
+            PlannerTurn(
+                tool_call=_tool_call(f"c{i}", "detect_readme_gaps", {"org_repo": ORG_REPO}),
+                meta=LLMResponseMeta(),
+            )
+            for i in range(1, 8)  # far more repeats than the backstop should ever consume
+        ]
+        result = supervise_repo(
+            ORG_REPO, planner_client=FixturePlannerClient(turns), write_evidence_bundle=False
+        )
+
+        assert result.status in ("CONVERGED_NO_CHANGE", "CONVERGED_APPLIED")
+        backstop_decisions = [
+            d
+            for d in result.decisions
+            if d.kind == "stop" and "deterministic termination backstop" in d.detail
+        ]
+        assert len(backstop_decisions) == 1
+        # Dispatched for real exactly once -- every further "call" was a
+        # SUPERSEDED short-circuit, never re-executed against the capability.
+        matching = [
+            t for t in result.task_graph.tasks.values() if t.capability_id == "detect_readme_gaps"
+        ]
+        assert sum(1 for t in matching if t.state == "PASSED") == 1
+        assert sum(1 for t in matching if t.state == "SUPERSEDED") == 3
+
+    def test_deterministic_backstop_ends_a_run_of_repeated_unknown_capability_calls_early(
+        self, project
+    ):
+        """Same backstop, the other no-forward-progress path: an unrecognized
+        (hallucinated) capability name that keeps recurring is BLOCKED every
+        time (never SUPERSEDED, since a rejected call never reaches PASSED)
+        -- must still trip the same NO_PROGRESS_TURN_LIMIT counter rather than
+        running all the way to DEFAULT_MAX_TURNS/repair_exhausted."""
+        turns = [
+            PlannerTurn(
+                tool_call=_tool_call(f"c{i}", "totally_unknown_capability", {"org_repo": ORG_REPO}),
+                meta=LLMResponseMeta(),
+            )
+            for i in range(1, 8)
+        ]
+        result = supervise_repo(
+            ORG_REPO, planner_client=FixturePlannerClient(turns), write_evidence_bundle=False
+        )
+
+        # A capability gap alongside the passed bootstrap classifies as
+        # PARTIAL_WITH_CAPABILITY_GAP, never BLOCKED: repair_exhausted -- the
+        # exact outcome this backstop exists to prevent.
+        assert result.status == "PARTIAL_WITH_CAPABILITY_GAP"
+        backstop_decisions = [
+            d
+            for d in result.decisions
+            if d.kind == "stop" and "deterministic termination backstop" in d.detail
+        ]
+        assert len(backstop_decisions) == 1
+        dispatched = [
+            t
+            for t in result.task_graph.tasks.values()
+            if t.capability_id == "totally_unknown_capability"
+        ]
+        assert len(dispatched) == 3  # NO_PROGRESS_TURN_LIMIT -- never all 7 offered turns
+
     def test_planner_never_consulted_when_it_would_only_repeat_itself(self, project):
         """SUPERSEDED dedup: asking for the same capability+arguments twice
         short-circuits instead of re-dispatching."""
@@ -820,6 +888,144 @@ class TestModelRouteDisablement:
             state_backend=backend,
         )
         assert result.status == "CONVERGED_NO_CHANGE"
+
+
+class TestNotOnboardedGate:
+    """Wave 8.7: a registry entry missing ecosystem/policy_profile
+    previously produced four different observable outcomes depending on
+    which capability the planner happened to reach first -- three
+    different raised exceptions plus a slow DEFAULT_MAX_TURNS-turn burn
+    ending in BLOCKED/repair_exhausted. This is the one, fast, early gate
+    that replaces all four for anything reached through supervise_repo() --
+    proven here with zero clone and zero specialist dispatch, mirroring
+    TestRunLockContention's own spy-assertion style."""
+
+    def _rewrite_products_json(self, project, **overrides):
+        products_path = project / "data" / "products.json"
+        products = json.loads(products_path.read_text(encoding="utf-8"))
+        products[0].update(overrides)
+        products_path.write_text(json.dumps(products), encoding="utf-8")
+
+    def test_missing_both_fields_blocks_before_any_clone_or_dispatch(self, project, monkeypatch):
+        import readme_agent.specialists.registry as specialists_registry_module
+        from readme_agent.supervisor import loop as loop_module
+
+        self._rewrite_products_json(project, ecosystem=None, policy_profile=None)
+
+        def _raising_clone_baseline(entry, baseline_path):
+            raise AssertionError("clone_baseline must not be called for a not-onboarded entry")
+
+        def _raising_run_domain(domain, org_repo, backend_arg, **kwargs):
+            raise AssertionError(
+                f"specialist {domain!r} must not be dispatched for a not-onboarded entry"
+            )
+
+        monkeypatch.setattr(loop_module, "clone_baseline", _raising_clone_baseline)
+        monkeypatch.setattr(specialists_registry_module, "run_domain", _raising_run_domain)
+
+        class _RaisingPlanner:
+            def plan(self, messages, tools):
+                raise AssertionError("planner must not be consulted for a not-onboarded entry")
+
+        result = supervise_repo(
+            ORG_REPO, planner_client=_RaisingPlanner(), write_evidence_bundle=False
+        )
+
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason == "not_onboarded"
+        assert result.task_graph.tasks == {}
+
+    def test_missing_ecosystem_only_still_blocks(self, project):
+        self._rewrite_products_json(project, ecosystem=None)
+
+        class _RaisingPlanner:
+            def plan(self, messages, tools):
+                raise AssertionError("planner must not be consulted")
+
+        result = supervise_repo(
+            ORG_REPO, planner_client=_RaisingPlanner(), write_evidence_bundle=False
+        )
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason == "not_onboarded"
+
+    def test_missing_policy_profile_only_still_blocks(self, project):
+        self._rewrite_products_json(project, policy_profile=None)
+
+        class _RaisingPlanner:
+            def plan(self, messages, tools):
+                raise AssertionError("planner must not be consulted")
+
+        result = supervise_repo(
+            ORG_REPO, planner_client=_RaisingPlanner(), write_evidence_bundle=False
+        )
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason == "not_onboarded"
+
+    def test_fully_onboarded_entry_is_unaffected_by_the_new_gate(self, project):
+        """Control case: the project fixture's default entry (ecosystem=
+        "java", policy_profile="test-profile", matching the 3 real onboarded
+        pilots' shape) must pass straight through the new check unchanged."""
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(
+                [PlannerTurn(content="done", meta=LLMResponseMeta())]
+            ),
+            write_evidence_bundle=False,
+        )
+        assert result.status != "BLOCKED"
+
+
+class TestBaselineCloneFailureDegradesGracefully:
+    """SCL-004 extension (2026-07-22): before this fix, a `GitSafetyError`
+    from `clone_baseline()` (e.g. a 15.5k-file repo timing out against the
+    previous hardcoded 300s) propagated uncaught out of `supervise_repo()`,
+    through `cmd_supervise()`, to the CLI's bare `error: ...` print and exit
+    3 -- no `SuperviseResult`, no evidence bundle, nothing for a portfolio
+    pass or a human to inspect afterward. Proven here with a real onboarded
+    entry (ecosystem/policy_profile set) so the not-onboarded gate above
+    doesn't short-circuit before the clone is ever reached."""
+
+    def test_clone_failure_returns_blocked_with_evidence_instead_of_raising(
+        self, project, monkeypatch
+    ):
+        from readme_agent.errors import GitSafetyError
+        from readme_agent.supervisor import loop as loop_module
+
+        def _raising_clone_baseline(entry, baseline_path):
+            raise GitSafetyError(f"baseline clone of {entry.org_repo} failed: timed out after 600s")
+
+        monkeypatch.setattr(loop_module, "clone_baseline", _raising_clone_baseline)
+
+        class _RaisingPlanner:
+            def plan(self, messages, tools):
+                raise AssertionError("planner must not be consulted after a clone failure")
+
+        result = supervise_repo(ORG_REPO, planner_client=_RaisingPlanner())
+
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason is not None
+        assert "baseline_clone_failed" in result.blocked_reason
+        assert "timed out after 600s" in result.blocked_reason
+        assert result.evidence_dir is not None
+        assert (result.evidence_dir / "manifest.json").exists()
+        assert (result.evidence_dir / "decisions.json").exists()
+        decisions = json.loads((result.evidence_dir / "decisions.json").read_text(encoding="utf-8"))
+        assert decisions[0]["kind"] == "baseline_clone_failed"
+
+    def test_clone_failure_with_evidence_disabled_still_returns_blocked(self, project, monkeypatch):
+        from readme_agent.errors import GitSafetyError
+        from readme_agent.supervisor import loop as loop_module
+
+        monkeypatch.setattr(
+            loop_module,
+            "clone_baseline",
+            lambda entry, baseline_path: (_ for _ in ()).throw(GitSafetyError("boom")),
+        )
+
+        result = supervise_repo(ORG_REPO, write_evidence_bundle=False)
+
+        assert result.status == "BLOCKED"
+        assert result.evidence_dir is None
 
 
 class TestMultiDomainCoexistence:
@@ -1533,6 +1739,22 @@ class TestPreCloneShortcut:
         )
         assert second.status == "CONVERGED_NO_CHANGE"
         assert clone_calls == []  # the pre-clone probe already matched -- zero clones
+
+        # Wave 8.7 (Item N): found live, 2026-07-22, that this shortcut wrote
+        # no evidence at all (only a console line) -- a human debugging
+        # months later could not tell this cheapest path fired versus the
+        # run never happening. Now it writes a real, minimal bundle with a
+        # distinguishing decision kind.
+        assert second.evidence_dir is not None
+        assert second.evidence_dir.exists()
+        for name in (
+            "manifest.json",
+            "decisions.json",
+            "task_graph.json",
+            "specialist_results.json",
+        ):
+            assert (second.evidence_dir / name).exists()
+        assert any(d.kind == "sha_probe_shortcut" for d in second.decisions)
 
 
 class TestTokenBudget:

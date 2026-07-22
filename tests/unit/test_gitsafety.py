@@ -2,18 +2,33 @@
 
 from pathlib import Path
 
+import pytest
+
 from readme_agent.gitsafety._git import run_git
 from readme_agent.gitsafety.clone import (
     clone_baseline,
     create_work_clone,
     diff_changed_paths,
+    force_rmtree,
     remote_head_sha,
+    reset_clone_memo,
     toplevel_matches,
 )
 from readme_agent.gitsafety.hooks import BLOCK_MARKER, install_pre_push_hook
 from readme_agent.gitsafety.neuter import DISABLED_PUSH_URL, neuter_push
 from readme_agent.gitsafety.verify import verify_push_blocked
 from readme_agent.registry.models import ProductEntry
+
+
+@pytest.fixture(autouse=True)
+def _clean_clone_memo():
+    """Every test gets a fresh in-process clone memo -- each test uses its
+    own `tmp_path`-scoped baseline path anyway (no key collision risk), this
+    just keeps the module-level dict from growing across a whole test
+    session and keeps each test's intent explicit."""
+    reset_clone_memo()
+    yield
+    reset_clone_memo()
 
 
 def _init_repo(path: Path, with_commit: bool = True) -> Path:
@@ -138,16 +153,222 @@ class TestCloneBaselineAndWork:
         remote = run_git(["remote", "get-url", "origin"], cwd=work_path)
         assert remote.stdout.strip() == entry.repo_url + ".git"
 
-    def test_clone_baseline_is_re_cloned_fresh_each_time(self, tmp_path):
+    def test_clone_baseline_is_re_cloned_fresh_across_runs(self, tmp_path):
+        """SCL-004 extension (2026-07-22): `clone_baseline()` is now memoized
+        WITHIN a process (see the sibling test below) -- this test asserts
+        the property that must still hold ACROSS runs, i.e. across a new
+        process (simulated here via `reset_clone_memo()`, exactly what a
+        fresh CLI invocation or CI job always starts with)."""
+        source = _init_repo(tmp_path / "source")
+        entry = _fake_entry(str(source))
+        baseline_path = tmp_path / "baseline"
+
+        reset_clone_memo()
+        clone_baseline(entry, baseline_path)
+        (baseline_path / "stray.txt").write_text("should not survive a re-clone", encoding="utf-8")
+
+        reset_clone_memo()
+        clone_baseline(entry, baseline_path)
+        assert not (baseline_path / "stray.txt").exists()
+
+    def test_clone_baseline_reuses_within_the_same_process(self, tmp_path):
+        """The redesigned contract this sprint adds: a single `supervise` run
+        dispatches clone_baseline() from ~7-9 independent capabilities with
+        no shared repo view -- memoizing within one process turns that into
+        one real clone instead of 7-9, without weakening the cross-run
+        freshness guarantee the sibling test above still proves."""
+        source = _init_repo(tmp_path / "source")
+        entry = _fake_entry(str(source))
+        baseline_path = tmp_path / "baseline"
+
+        reset_clone_memo()
+        clone_baseline(entry, baseline_path)
+        (baseline_path / "stray.txt").write_text("should survive a memoized call", encoding="utf-8")
+
+        clone_baseline(entry, baseline_path)  # same process, no reset -- must reuse
+        assert (baseline_path / "stray.txt").exists()
+
+    def test_clone_baseline_memo_self_heals_if_directory_vanishes(self, tmp_path):
+        """Defensive: if something external removed the memoized baseline
+        directory mid-process (e.g. orchestrator.py's own `force_rmtree`
+        reuse for post-profile cleanup), the memo must not lie about a
+        directory that no longer exists."""
+        source = _init_repo(tmp_path / "source")
+        entry = _fake_entry(str(source))
+        baseline_path = tmp_path / "baseline"
+
+        reset_clone_memo()
+        clone_baseline(entry, baseline_path)
+        # Plain shutil.rmtree chokes on git's read-only objects on Windows --
+        # force_rmtree (this module's own helper) is what any real external
+        # caller (e.g. orchestrator.py's post-profile cleanup reuse) would
+        # actually call too.
+        force_rmtree(baseline_path)
+
+        clone_baseline(entry, baseline_path)
+        assert (baseline_path / "README.md").exists()
+
+    def test_a_real_upstream_commit_invalidates_the_memo_via_the_sha_probe(self, tmp_path):
+        """The mechanism every caller relies on, with zero invalidation
+        bookkeeping needed anywhere: a "run" is one call, not one process
+        (this project's own tests call `clone_baseline()`'s various callers
+        -- `supervise_repo()`, specialist `run()` functions -- more than
+        once per process to test consecutive-run semantics), so the memo
+        must not trust its own age; it must re-verify against a real
+        `remote_head_sha()` probe every time. A genuine new commit on the
+        "remote" between two calls, same process, no `reset_clone_memo()`,
+        must produce a real re-clone."""
         source = _init_repo(tmp_path / "source")
         entry = _fake_entry(str(source))
         baseline_path = tmp_path / "baseline"
 
         clone_baseline(entry, baseline_path)
-        (baseline_path / "stray.txt").write_text("should not survive a re-clone", encoding="utf-8")
+        (source / "CHANGELOG.md").write_text("v2\n", encoding="utf-8")
+        run_git(["add", "."], cwd=source)
+        run_git(["commit", "-m", "v2"], cwd=source)
+
+        # Same process, no reset_clone_memo() call -- the probe must still
+        # detect the SHA moved and reclone rather than trust the stale memo.
+        clone_baseline(entry, baseline_path)
+        assert (baseline_path / "CHANGELOG.md").exists()
+
+    def test_probe_failure_falls_back_to_a_real_clone_not_a_stale_reuse(
+        self, tmp_path, monkeypatch
+    ):
+        """`remote_head_sha()` returning `None` (unreachable remote, timeout)
+        must never be read as "unchanged" -- the safe default is always to
+        reclone, matching this project's own "a failed probe just means
+        clone anyway" convention (`remote_head_sha()`'s own docstring)."""
+        from readme_agent.gitsafety import clone as clone_module
+
+        source = _init_repo(tmp_path / "source")
+        entry = _fake_entry(str(source))
+        baseline_path = tmp_path / "baseline"
+
+        clone_baseline(entry, baseline_path)
+        (baseline_path / "stray.txt").write_text(
+            "must not survive a failed-probe reclone", encoding="utf-8"
+        )
+        monkeypatch.setattr(clone_module, "remote_head_sha", lambda clone_url, timeout=15: None)
 
         clone_baseline(entry, baseline_path)
         assert not (baseline_path / "stray.txt").exists()
+
+
+class TestCloneBaselineRetryAndTimeout:
+    """Monkeypatches `clone.run_git` directly -- a real network timeout/
+    transient failure can't be reproduced against a local disposable repo,
+    so these test the retry/timeout decision logic in isolation from actual
+    git subprocess behavior (already covered by `_git.py`'s own tests)."""
+
+    def test_retries_once_on_synthetic_timeout_then_succeeds(self, monkeypatch, tmp_path):
+        import subprocess
+
+        from readme_agent.gitsafety import clone as clone_module
+
+        entry = _fake_entry("https://example.invalid/does-not-matter.git")
+        baseline_path = tmp_path / "baseline"
+        calls = []
+        sleeps = []
+
+        def _fake_run_git(args, cwd=None, timeout=None, **kwargs):
+            if args[0] == "rev-parse":
+                # clone_baseline() reads the checked-out SHA right after a
+                # successful clone, to seed the memo -- not the call under test.
+                return subprocess.CompletedProcess(
+                    args=args, returncode=0, stdout="deadbeef", stderr=""
+                )
+            calls.append(timeout)
+            if len(calls) == 1:
+                return subprocess.CompletedProcess(
+                    args=args, returncode=124, stdout="", stderr="git ... timed out after 600s"
+                )
+            baseline_path.mkdir(parents=True, exist_ok=True)
+            return subprocess.CompletedProcess(args=args, returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(clone_module, "run_git", _fake_run_git)
+        monkeypatch.setattr(clone_module.time, "sleep", lambda s: sleeps.append(s))
+
+        result = clone_module.clone_baseline(entry, baseline_path)
+
+        assert result == baseline_path
+        assert len(calls) == 2
+        assert sleeps == [clone_module._CLONE_RETRY_BACKOFF_SECONDS[0]]
+
+    def test_does_not_retry_a_real_not_found_error(self, monkeypatch, tmp_path):
+        import subprocess
+
+        from readme_agent.errors import GitSafetyError
+        from readme_agent.gitsafety import clone as clone_module
+
+        entry = _fake_entry("https://example.invalid/does-not-matter.git")
+        baseline_path = tmp_path / "baseline"
+        calls = []
+
+        def _fake_run_git(args, cwd=None, timeout=None, **kwargs):
+            calls.append(1)
+            return subprocess.CompletedProcess(
+                args=args,
+                returncode=128,
+                stdout="",
+                stderr="fatal: repository 'https://example.invalid/does-not-matter.git/' not found",
+            )
+
+        monkeypatch.setattr(clone_module, "run_git", _fake_run_git)
+        monkeypatch.setattr(
+            clone_module.time, "sleep", lambda s: pytest.fail("must not sleep/retry a real error")
+        )
+
+        with pytest.raises(GitSafetyError, match="not found"):
+            clone_module.clone_baseline(entry, baseline_path)
+        assert len(calls) == 1
+
+    def test_gives_up_after_max_attempts_of_repeated_timeouts(self, monkeypatch, tmp_path):
+        import subprocess
+
+        from readme_agent.errors import GitSafetyError
+        from readme_agent.gitsafety import clone as clone_module
+
+        entry = _fake_entry("https://example.invalid/does-not-matter.git")
+        baseline_path = tmp_path / "baseline"
+        calls = []
+
+        def _fake_run_git(args, cwd=None, timeout=None, **kwargs):
+            calls.append(1)
+            return subprocess.CompletedProcess(
+                args=args, returncode=124, stdout="", stderr="timed out after 600s"
+            )
+
+        monkeypatch.setattr(clone_module, "run_git", _fake_run_git)
+        monkeypatch.setattr(clone_module.time, "sleep", lambda s: None)
+
+        with pytest.raises(GitSafetyError):
+            clone_module.clone_baseline(entry, baseline_path)
+        assert len(calls) == clone_module._MAX_CLONE_ATTEMPTS
+
+    def test_timeout_is_read_from_the_env_var(self, monkeypatch, tmp_path):
+        import subprocess
+
+        from readme_agent.gitsafety import clone as clone_module
+
+        monkeypatch.setenv("GIT_CLONE_TIMEOUT_SECONDS", "42")
+        entry = _fake_entry("https://example.invalid/does-not-matter.git")
+        baseline_path = tmp_path / "baseline"
+        seen_timeouts = []
+
+        def _fake_run_git(args, cwd=None, timeout=None, **kwargs):
+            if args[0] == "rev-parse":
+                return subprocess.CompletedProcess(
+                    args=args, returncode=0, stdout="deadbeef", stderr=""
+                )
+            seen_timeouts.append(timeout)
+            baseline_path.mkdir(parents=True, exist_ok=True)
+            return subprocess.CompletedProcess(args=args, returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(clone_module, "run_git", _fake_run_git)
+        clone_module.clone_baseline(entry, baseline_path)
+
+        assert seen_timeouts == [42.0]
 
 
 class TestWorkCloneGitIdentity:
@@ -327,3 +548,88 @@ class TestRunGitTimeout:
 
         assert result.returncode != 0
         assert "timed out" in result.stderr
+
+
+class TestGitTerminalPromptDisabled:
+    """OPS-009 (found 2026-07-19, `test_state_git_backend_live.py`'s own
+    docstring): closes the hang at its source -- git must never attempt an
+    interactive credential prompt/helper in the first place -- rather than
+    trying to bound it after it starts, which CPython's own `subprocess.
+    run()` cannot reliably do for this exact hazard (see `_git.py`'s own
+    `GIT_SAFETY_ENV` docstring)."""
+
+    def test_present_in_every_call_with_no_explicit_env(self, monkeypatch):
+        import subprocess
+
+        from readme_agent.gitsafety import _git as git_module
+
+        captured = {}
+
+        def _spy(*args, **kwargs):
+            captured["env"] = kwargs.get("env")
+            return subprocess.CompletedProcess(args=args[0], returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(git_module.subprocess, "run", _spy)
+
+        run_git(["status"])
+
+        assert captured["env"] is not None
+        assert captured["env"]["GIT_TERMINAL_PROMPT"] == "0"
+
+    def test_present_in_the_input_text_stdin_branch_too(self, monkeypatch):
+        """mktree/hash-object/commit-tree (state/git_backend.py) go through
+        run_git()'s separate input_text branch -- must not be missed."""
+        import subprocess
+
+        from readme_agent.gitsafety import _git as git_module
+
+        captured = {}
+
+        def _spy(*args, **kwargs):
+            captured["env"] = kwargs.get("env")
+            return subprocess.CompletedProcess(args=args[0], returncode=0, stdout=b"", stderr=b"")
+
+        monkeypatch.setattr(git_module.subprocess, "run", _spy)
+
+        run_git(["commit-tree", "deadbeef"], input_text="msg")
+
+        assert captured["env"]["GIT_TERMINAL_PROMPT"] == "0"
+
+    def test_coexists_with_a_caller_supplied_env_dict(self, monkeypatch):
+        """state/git_backend.py's _COMMIT_IDENTITY_ENV / clone.py's identity
+        env must still pass through unchanged alongside the new safety var."""
+        import subprocess
+
+        from readme_agent.gitsafety import _git as git_module
+
+        captured = {}
+
+        def _spy(*args, **kwargs):
+            captured["env"] = kwargs.get("env")
+            return subprocess.CompletedProcess(args=args[0], returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(git_module.subprocess, "run", _spy)
+
+        run_git(["config", "--local", "user.name", "x"], env={"GIT_AUTHOR_NAME": "readme-agent"})
+
+        assert captured["env"]["GIT_AUTHOR_NAME"] == "readme-agent"
+        assert captured["env"]["GIT_TERMINAL_PROMPT"] == "0"
+
+    def test_cannot_be_overridden_by_a_caller_supplied_env(self, monkeypatch):
+        """Defense in depth: even if some future call site's own env dict
+        tried to set this differently, the safety value always wins."""
+        import subprocess
+
+        from readme_agent.gitsafety import _git as git_module
+
+        captured = {}
+
+        def _spy(*args, **kwargs):
+            captured["env"] = kwargs.get("env")
+            return subprocess.CompletedProcess(args=args[0], returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(git_module.subprocess, "run", _spy)
+
+        run_git(["status"], env={"GIT_TERMINAL_PROMPT": "1"})
+
+        assert captured["env"]["GIT_TERMINAL_PROMPT"] == "0"

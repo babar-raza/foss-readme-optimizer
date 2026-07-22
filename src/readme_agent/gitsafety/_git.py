@@ -10,6 +10,32 @@ from pathlib import Path
 # the source, not just at the hashing layer.
 DETERMINISM_FLAGS = ["-c", "core.autocrlf=false", "-c", "core.eol=lf"]
 
+# Fixes the OTHER hung-git incident (`OPS-009`, found 2026-07-19 -- see
+# `test_state_git_backend_live.py`'s own docstring): git resolving that it
+# needs credentials it doesn't have can invoke an interactive credential
+# helper (`git-credential-manager.exe` on Windows, confirmed live via
+# `tasklist` to survive as a detached process even after the immediate child
+# was killed) and block on stdin forever. A timeout alone cannot reliably
+# bound this: CPython's own `subprocess.run()`, on `TimeoutExpired`, calls
+# `process.kill()` then -- on Windows -- calls `process.communicate()` a
+# SECOND time with NO timeout to drain buffered output before re-raising;
+# that second, unbounded call joins reader threads still blocked in a plain
+# `fh.read()` on the child's stdout/stderr pipes, which only returns once
+# every process holding that pipe's write end closes it. If a detached
+# credential-helper grandchild inherited the same handle and is still alive,
+# that read blocks forever -- `run_git()`'s own `except subprocess.
+# TimeoutExpired` below never even gets a chance to fire, because
+# `subprocess.run()` itself never returns. `GIT_TERMINAL_PROMPT=0` closes
+# this at the source instead: git fails fast and cleanly (non-zero exit, a
+# stderr message like "could not read Username ... terminal prompts
+# disabled"), never invoking a helper or touching stdin. Merged in LAST
+# (after any caller-supplied `env`) so no call site can accidentally
+# re-enable prompting -- confirmed by direct reading of `gitsafety/clone.py`,
+# `gitsafety/neuter.py`, and `state/git_backend.py` that none of `run_git()`'s
+# ~20 call sites relies on git prompting or on this var being unset; every
+# one already treats a non-zero returncode as an ordinary handled failure.
+GIT_SAFETY_ENV = {"GIT_TERMINAL_PROMPT": "0"}
+
 
 def run_git(
     args: list[str],
@@ -44,7 +70,7 @@ def run_git(
     timeout is reported as an ordinary failed `CompletedProcess` (conventional
     shell timeout exit code 124), so existing failure-handling logic
     everywhere picks it up unchanged."""
-    full_env = {**os.environ, **env} if env else None
+    full_env = {**os.environ, **(env or {}), **GIT_SAFETY_ENV}
     git_args = ["git", *DETERMINISM_FLAGS, *args]
     try:
         if input_text is None:

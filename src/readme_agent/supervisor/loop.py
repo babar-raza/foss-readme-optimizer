@@ -25,7 +25,7 @@ from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_P
 from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.capabilities.stop import CAPABILITY_ID as STOP_CAPABILITY_ID
-from readme_agent.errors import LLMError, StateBackendError
+from readme_agent.errors import GitSafetyError, LLMError, StateBackendError
 from readme_agent.evidence.writer import generate_run_id
 from readme_agent.gitsafety._git import run_git
 from readme_agent.gitsafety.clone import clone_baseline, remote_head_sha
@@ -53,6 +53,20 @@ from readme_agent.supervisor.convergence import (
 from readme_agent.supervisor.task import Task, TaskGraph
 
 DEFAULT_MAX_TURNS = 8
+# TC-18 (Pillar A.2, decision #46's own rerun-consistency redesign): a
+# code-computed termination backstop, independent of the planner ever
+# emitting a real stop call -- AGT-006's own known failure mode (the planner
+# repeatedly proposing an already-answered or unrecognized capability) would
+# otherwise burn every remaining turn toward BLOCKED/repair_exhausted instead
+# of a correct CONVERGED_* status. "No forward progress" here means a turn
+# whose task ended up SUPERSEDED (an exact duplicate of an already-answered
+# call this run) or BLOCKED (rejected/failed dispatch) rather than PASSED --
+# a deliberately coarse, honest proxy for "nothing useful is left to try,"
+# not a claim that the task graph is provably exhausted in the abstract (see
+# plans/master.md's Decision Ledger for the tradeoff this scope narrowing
+# accepts). Tunable, no operational history yet to justify a different
+# value -- mirrors ESCALATION_ALERT_THRESHOLD's own precedent.
+NO_PROGRESS_TURN_LIMIT = 3
 _READ_ONLY_PERMISSIONS: set[PermissionClass] = {"read_only_local", "read_only_network"}
 # Wave 8d (`VER-002`/"repair loops"): a tunable, not a settled constant --
 # no operational history exists yet to justify a different value. Revisit
@@ -330,6 +344,34 @@ def supervise_repo(
     # is where a write-capable capability is actually mode-gated, per turn.
     entry = require_listed(org_repo)
 
+    # Wave 8.7: a registry entry missing ecosystem/policy_profile ("not yet
+    # onboarded" -- confirmed live, 2026-07-22: 28 of 31 real registry
+    # entries) previously produced four different observable outcomes
+    # depending on which capability the planner happened to reach first:
+    # orchestrator.py's render path raising NotAllowlistedError (checks both
+    # fields), verification/checks.py::independently_verify_readme_candidate()
+    # raising NotAllowlistedError (checks policy_profile only), capabilities/
+    # get_product_facts.py::execute() raising ValueError (checks
+    # policy_profile only), or -- if none of those capabilities happened to
+    # be reached early enough -- a slow, confusing DEFAULT_MAX_TURNS-turn
+    # burn ending in BLOCKED/repair_exhausted via convergence.py::
+    # check_repair_exhausted(). One check here, right after the allow-list
+    # gate and before any clone, specialist tier, or planner turn, replaces
+    # all four with a single, fast (seconds, not turns), unambiguous
+    # BLOCKED/"not_onboarded" for anything reached through supervise_repo().
+    # The three existing raise sites are deliberately left in place -- they
+    # remain the correct gate for entry points that don't go through
+    # supervise_repo() (direct `readme-agent generate`/`inspect` CLI
+    # commands, direct capability invocations, or tests that exercise those
+    # functions directly).
+    if entry.ecosystem is None or entry.policy_profile is None:
+        return SuperviseResult(
+            status="BLOCKED",
+            org_repo=org_repo,
+            task_graph=TaskGraph(),
+            blocked_reason="not_onboarded",
+        )
+
     # Wave 8.6 (`OPS-011` extension): checked before any clone/specialist
     # work -- a disabled route means "known to be performing below
     # threshold," never a reason to still pay the full run's cost first.
@@ -370,23 +412,98 @@ def supervise_repo(
         check_domain_coverage=True,
     ):
         graph = TaskGraph()
+        probe_decisions = [
+            DecisionSummary(
+                turn=0,
+                kind="sha_probe_shortcut",
+                detail=(
+                    f"upstream unchanged since last converged run (pre-clone probe, "
+                    f"{probed_revision}); zero clone, zero planning calls"
+                ),
+            )
+        ]
+        # Wave 8.7 (Item N): found live, 2026-07-22, that this shortcut wrote
+        # no evidence at all -- only the console line above -- unlike its
+        # post-clone sibling (CONVERGED_NO_TRACKED_CHANGE, below), which has
+        # written a full run_id/manifest/decisions bundle since decision #41.
+        # A human debugging months later could not tell, from evidence
+        # alone, that this (cheapest, zero-clone) shortcut fired versus the
+        # run never happening at all. `kind="sha_probe_shortcut"` (not the
+        # generic "stop" every other stop condition uses) lets evidence
+        # distinguish this specific, cost-free path from every other one.
+        if state_backend is not None:
+            _record_supervisor_state(
+                state_backend,
+                org_repo,
+                SupervisorStateV1(
+                    last_observed_upstream_revision=probed_revision,
+                    last_status="CONVERGED_NO_CHANGE",
+                    last_run_timestamp=datetime.now(UTC).isoformat(),
+                    control_plane_fingerprint=current_control_plane_fingerprint,
+                ),
+            )
+        probe_evidence_dir = None
+        if write_evidence_bundle:
+            probe_run_id = generate_run_id()
+            probe_evidence_dir = paths.evidence_dir(probe_run_id)
+            _write_supervise_evidence(
+                probe_evidence_dir,
+                probe_run_id,
+                org_repo,
+                "CONVERGED_NO_CHANGE",
+                graph,
+                probe_decisions,
+            )
+            _assert_evidence_complete(probe_evidence_dir)
         return SuperviseResult(
             status="CONVERGED_NO_CHANGE",
             org_repo=org_repo,
             task_graph=graph,
-            decisions=[
-                DecisionSummary(
-                    turn=0,
-                    kind="stop",
-                    detail=(
-                        f"upstream unchanged since last converged run (pre-clone probe, "
-                        f"{probed_revision}); zero clone, zero planning calls"
-                    ),
-                )
-            ],
+            decisions=probe_decisions,
+            evidence_dir=probe_evidence_dir,
         )
 
-    clone_baseline(entry, baseline_path)
+    # SCL-009 (2026-07-22): clone_baseline() itself validates its own memo
+    # against a cheap remote_head_sha() probe before reusing a prior clone
+    # (see clone.py's own module docstring) -- this call is always correct
+    # whether this is the first or the Nth call to supervise_repo() in this
+    # process, with no invalidation bookkeeping needed here.
+    try:
+        clone_baseline(entry, baseline_path)
+    except GitSafetyError as exc:
+        # Clone-reliability hardening (SCL-009, 2026-07-22): a clone_baseline()
+        # failure previously propagated uncaught all the way to the CLI's bare
+        # `error: ...` print and exit 3 -- no SuperviseResult, no evidence,
+        # nothing for a portfolio pass or a human to inspect afterward. Caught
+        # here, matching every other BLOCKED shortcut in this function, so a
+        # slow/oversized repo (e.g. Aspose.Words-FOSS-for-.NET, ~15.5k files,
+        # found live 2026-07-22 timing out against the previous hardcoded
+        # 300s) degrades to an observable, evidenced outcome instead of an
+        # opaque process abort.
+        clone_failure_decisions = [
+            DecisionSummary(turn=0, kind="baseline_clone_failed", detail=str(exc))
+        ]
+        clone_failure_evidence_dir = None
+        if write_evidence_bundle:
+            clone_failure_run_id = generate_run_id()
+            clone_failure_evidence_dir = paths.evidence_dir(clone_failure_run_id)
+            _write_supervise_evidence(
+                clone_failure_evidence_dir,
+                clone_failure_run_id,
+                org_repo,
+                "BLOCKED",
+                TaskGraph(),
+                clone_failure_decisions,
+            )
+            _assert_evidence_complete(clone_failure_evidence_dir)
+        return SuperviseResult(
+            status="BLOCKED",
+            org_repo=org_repo,
+            task_graph=TaskGraph(),
+            decisions=clone_failure_decisions,
+            blocked_reason=f"baseline_clone_failed:{exc}",
+            evidence_dir=clone_failure_evidence_dir,
+        )
     current_revision = _current_upstream_revision(baseline_path)
     if is_fresh(
         prior.last_observed_upstream_revision if prior else None,
@@ -530,6 +647,50 @@ def supervise_repo(
             if result is not None:
                 specialist_results[domain] = result
 
+        # TC-19 (Pillar C.2, decision #46's own rerun-consistency redesign):
+        # a domain reporting a transient ERROR: classification gets ONE
+        # immediate re-classify attempt before anything downstream (failure
+        # escalation, the convergence shortcut below) treats it as sticky --
+        # isolates ordinary flakiness (a dropped network call, a rate-limited
+        # LLM gateway call) to the one flaky domain instead of cascading into
+        # the full, expensive planner-loop path for the whole repo. Bounded
+        # to exactly one retry per domain per run -- distinct from a
+        # specialist's own internal content-repair loop (e.g. readme_
+        # presentation's MAX_PROSE_REPAIR_ATTEMPTS); this retries the
+        # classify DISPATCH itself, never candidate content.
+        retry_alerts: list[DecisionSummary] = []
+        for domain in [
+            d
+            for d, r in specialist_results.items()
+            if (r.accepted_status or "").startswith("ERROR:")
+        ]:
+            try:
+                retry_result = specialists_registry.run_domain(
+                    domain, org_repo, state_backend, current_revision=current_revision
+                )
+            except Exception as exc:  # noqa: BLE001 -- same isolation posture as the loop above
+                print(
+                    f"warning: specialist domain {domain!r} retry raised, keeping the "
+                    f"original error: {exc}",
+                    file=sys.stderr,
+                )
+                continue
+            if retry_result is None:
+                continue
+            recovered = not (retry_result.accepted_status or "").startswith("ERROR:")
+            retry_alerts.append(
+                DecisionSummary(
+                    turn=0,
+                    kind="specialist_retry",
+                    detail=(
+                        f"{domain!r} reported an error on its first classify attempt this "
+                        f"run; retried once, {'recovered' if recovered else 'still failing'} "
+                        f"({retry_result.accepted_status!r})"
+                    ),
+                )
+            )
+            specialist_results[domain] = retry_result
+
         # VER-005: domains that never durably recorded themselves this run --
         # the guard-and-skip pattern 8 of 9 specialists still use on failure, or
         # the crash placeholder just above -- folded into whichever
@@ -595,6 +756,7 @@ def supervise_repo(
                     ),
                 ),
                 *escalation_alerts,
+                *retry_alerts,
             ]
             if state_backend is not None and write_evidence_bundle:
                 _record_supervisor_state(
@@ -647,7 +809,7 @@ def supervise_repo(
                 )
         try:
             graph = TaskGraph()
-            decisions: list[DecisionSummary] = list(escalation_alerts)
+            decisions: list[DecisionSummary] = list(escalation_alerts) + list(retry_alerts)
             applied_any_effect = False
 
             bootstrap = graph.add_task(
@@ -704,6 +866,7 @@ def supervise_repo(
 
             turn = 0
             outcome = None
+            consecutive_no_progress_turns = 0
             while outcome is None:
                 turn += 1
                 outcome = check_repair_exhausted(turns_taken=turn, max_turns=max_turns)
@@ -804,6 +967,22 @@ def supervise_repo(
                     )
                 )
                 if new_task.state == "SUPERSEDED":
+                    consecutive_no_progress_turns += 1
+                    if consecutive_no_progress_turns >= NO_PROGRESS_TURN_LIMIT:
+                        decisions.append(
+                            DecisionSummary(
+                                turn=turn,
+                                kind="stop",
+                                detail=(
+                                    "deterministic termination backstop: "
+                                    f"{consecutive_no_progress_turns} consecutive turns with no "
+                                    "forward progress (repeated/duplicate capability calls) -- "
+                                    "ending run without exhausting max_turns"
+                                ),
+                            )
+                        )
+                        outcome = final_status(graph, applied_any_effect=applied_any_effect)
+                        break
                     messages.append(
                         {
                             "role": "user",
@@ -837,6 +1016,7 @@ def supervise_repo(
                     tools=registry.all_tool_schemas(),
                 )
                 if resolved.state == "PASSED":
+                    consecutive_no_progress_turns = 0
                     resolved_manifest = (
                         registry.get(resolved.capability_id) if resolved.capability_id else None
                     )
@@ -845,6 +1025,8 @@ def supervise_repo(
                         "remote_write",
                     ):
                         applied_any_effect = True
+                else:
+                    consecutive_no_progress_turns += 1
                 messages.append(
                     {"role": "assistant", "content": plan.content, "tool_calls": [plan.tool_call]}
                 )
@@ -861,6 +1043,22 @@ def supervise_repo(
                         ),
                     }
                 )
+
+                if consecutive_no_progress_turns >= NO_PROGRESS_TURN_LIMIT:
+                    decisions.append(
+                        DecisionSummary(
+                            turn=turn,
+                            kind="stop",
+                            detail=(
+                                "deterministic termination backstop: "
+                                f"{consecutive_no_progress_turns} consecutive turns with no "
+                                "forward progress (rejected/failed dispatches) -- ending run "
+                                "without exhausting max_turns"
+                            ),
+                        )
+                    )
+                    outcome = final_status(graph, applied_any_effect=applied_any_effect)
+                    break
 
                 # AGT-008/Wave 8.5: a defensive circuit breaker, not a
                 # routinely-approached limit (see DOSSIER_TOKEN_BUDGET's own

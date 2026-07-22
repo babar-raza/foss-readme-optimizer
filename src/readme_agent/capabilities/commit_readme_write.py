@@ -48,6 +48,17 @@ attempted at all." A bare `assert` is additionally its own hazard --
 Python's `-O` flag strips assertions, the wrong mechanism for an
 externally-reachable safety check).
 
+**`verification_nonce` (TC-28, decision #46's own deferred scope from
+TC-15)**: paired with `verification_verdict` -- `_verify_node` mints one
+fresh nonce per specialist `run()` invocation and folds it into both. Without
+it, a token computed for a given `facts_hash`/`fresh_fingerprint` in one run
+would still be accepted if replayed into a *later*, separate run whose
+content happened to hash identically -- `compute_verification_token()`'s own
+docstring states this precisely. Deliberately excluded from
+`idempotency_inputs` below: it is per-run, not per-content, and must never
+affect the idempotency key (that would break retries of the *same* pending
+effect across a lock-reclaim, EFF-005's whole point).
+
 **`idempotency_inputs` includes `fresh_fingerprint`** alongside `org_repo`/
 `facts_hash`: `facts_hash` deliberately excludes README content (decision
 #11) and can legitimately stay identical across two calls that produce a
@@ -93,6 +104,7 @@ MANIFEST = CapabilityManifest(
         "needs_write": "boolean",
         "final_text": "string",
         "verification_verdict": "string",
+        "verification_nonce": "string",
     },
     produced_outputs={
         "written": "boolean",
@@ -131,6 +143,10 @@ def execute(
     needs_write: bool,
     final_text: str,
     verification_verdict: str,
+    # Validated by precheck() (called separately, before this ever runs) --
+    # accepted here only so **arguments dispatch doesn't raise on the
+    # manifest's own declared required input.
+    verification_nonce: str = "",
 ) -> dict:
     entry = require_permitted(org_repo)
     work_path = paths.work_dir(entry.org, entry.repo_name)
@@ -160,15 +176,17 @@ def precheck(arguments: dict) -> str | None:
     wiring bug that skips `_verify_node` entirely -- could satisfy by typing
     the same four characters. `verification_verdict` must now be the exact
     token `verification.checks.compute_verification_token()` produces from
-    THIS call's own `org_repo`/`facts_hash`/`fresh_fingerprint` -- a value
-    only `_verify_node` can correctly produce, and only after a real accept
-    for this exact candidate. `compute_verification_token()`'s own docstring
-    states plainly what this does and does not defend against."""
+    THIS call's own `org_repo`/`facts_hash`/`fresh_fingerprint`/
+    `verification_nonce` -- a value only `_verify_node` can correctly
+    produce, and only after a real accept for this exact candidate in this
+    exact run. `compute_verification_token()`'s own docstring states plainly
+    what this does and does not defend against."""
     verdict = arguments.get("verification_verdict")
     expected = compute_verification_token(
         arguments.get("org_repo", ""),
         arguments.get("facts_hash", ""),
         arguments.get("fresh_fingerprint", ""),
+        arguments.get("verification_nonce", ""),
     )
     if verdict != expected:
         return "verification_verdict does not match the expected verification token"

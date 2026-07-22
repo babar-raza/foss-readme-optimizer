@@ -88,6 +88,20 @@ def llm_timeout_seconds() -> float:
     return float(raw) if raw else DEFAULT_LLM_TIMEOUT_SECONDS
 
 
+# SCL-004: cold `clone_baseline()` calls for the identical real repo measured
+# 158s-1004s across separate attempts (GitHub server-side shallow-pack
+# variance, not payload) -- 600s is evidence-informed headroom over the
+# previous hardcoded 300s, not a guarantee it covers the full observed tail.
+# Env-tunable for large real repos (e.g. Aspose.Words-FOSS-for-.NET, ~15.5k
+# files) an operator knows will need more, mirroring llm_timeout_seconds().
+DEFAULT_GIT_CLONE_TIMEOUT_SECONDS = 600
+
+
+def git_clone_timeout_seconds() -> float:
+    raw = os.environ.get("GIT_CLONE_TIMEOUT_SECONDS")
+    return float(raw) if raw else DEFAULT_GIT_CLONE_TIMEOUT_SECONDS
+
+
 def llm_embedding_model() -> str:
     return os.environ.get("LLM_EMBEDDING_MODEL") or DEFAULT_EMBEDDING_MODEL
 

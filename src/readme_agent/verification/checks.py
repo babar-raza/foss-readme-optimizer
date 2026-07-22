@@ -32,7 +32,9 @@ from readme_agent.validation import registry as validation_registry
 from readme_agent.validation.context import ValidationContext
 
 
-def compute_verification_token(org_repo: str, facts_hash: str, fresh_fingerprint: str) -> str:
+def compute_verification_token(
+    org_repo: str, facts_hash: str, fresh_fingerprint: str, nonce: str
+) -> str:
     """TC-15 (decision #46, `F3`): a deterministic token binding a real
     `accept` verdict to the exact candidate it was computed for, replacing
     the plain literal string `"accept"` `commit_readme_write.py::precheck()`
@@ -51,8 +53,19 @@ def compute_verification_token(org_repo: str, facts_hash: str, fresh_fingerprint
     same source file and reimplement the formula. `GOVERNANCE.md`'s own
     capability-lifecycle rule 7 ("graph structure is a reliability layer, not
     a security boundary") is the reason a real check was needed here at all;
-    this is that check, scoped honestly to the threat it actually closes."""
-    canonical = f"{org_repo}:{facts_hash}:{fresh_fingerprint}:accept"
+    this is that check, scoped honestly to the threat it actually closes.
+
+    `nonce` (TC-28, decision #46's own deferred scope from TC-15): a value
+    freshly generated once per `_verify_node` call (one per specialist `run()`
+    invocation), never persisted or reused across separate runs. Closes the
+    one gap TC-15's own docstring already named honestly: without it, a
+    token computed for a given `facts_hash`/`fresh_fingerprint` in one run
+    would still be valid if replayed (e.g. read back out of durably-persisted
+    evidence/state) into a LATER, separate run for content that happens to
+    hash the same way. With a fresh nonce every run, a replayed token from an
+    earlier run can never match the nonce `precheck()` re-derives against in
+    the current one."""
+    canonical = f"{org_repo}:{facts_hash}:{fresh_fingerprint}:{nonce}:accept"
     return hashlib.sha256(canonical.encode()).hexdigest()
 
 

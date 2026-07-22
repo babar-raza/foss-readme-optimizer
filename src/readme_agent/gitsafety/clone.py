@@ -7,11 +7,82 @@ here -- push is neutered separately in neuter.py before any write is possible.
 import os
 import shutil
 import stat
+import time
 from pathlib import Path
 
+from readme_agent import env
 from readme_agent.errors import GitSafetyError
 from readme_agent.gitsafety._git import run_git
 from readme_agent.registry.models import ProductEntry
+
+# SCL-009 (2026-07-22): a single `supervise` run dispatches clone_baseline()
+# from ~7-9 independent, stateless capabilities with no shared per-run repo
+# view (decision #26(b)) -- without memoization, the identical repo was
+# re-cloned over the network roughly 9-17 times per run, each an independent
+# roll against SCL-004's own measured 158s-1004s clone-time variance for the
+# SAME real repo.
+#
+# Keyed by baseline_path -> the SHA that's currently checked out there (NOT
+# by clone_url/process lifetime, and NOT invalidated by a caller-remembered
+# call before each "logical run"). An earlier version of this cache trusted
+# the memo for an entire process's lifetime, relying on callers like
+# `supervise_repo()` to explicitly invalidate before their own top-level
+# clone -- found live to be the wrong invariant: "one run" in this codebase
+# is not "one process," it's one call to ANY top-level entry point
+# (`supervise_repo()`, each specialist's own `run()`, `orchestrator.py`'s
+# `inspect_repo()`/`generate_repo()`, ...), and this project's own tests
+# call several of those more than once per process to exercise
+# consecutive-run semantics -- an invalidate-at-every-entry-point design
+# requires finding and touching every one (two were found broken by exactly
+# this before this cache was corrected: `test_supervisor_loop.py`'s and
+# `test_specialists.py`'s own consecutive-run tests). Validating via a cheap
+# `remote_head_sha()` probe (a `git ls-remote`, already this project's own
+# decision #40/ORC-006 freshness-probe pattern) instead makes every caller
+# correct automatically, with zero invalidation bookkeeping anywhere: reuse
+# only costs ~1-15s (one ls-remote) instead of zero, but that is a small,
+# honest price for never needing to reason about entry-point coverage again.
+_baseline_clone_memo: dict[Path, str] = {}
+
+# Bounded retry, distinct from the HTTP `_MAX_RETRIES`/`_BACKOFF_SECONDS`
+# convention used elsewhwere (llm/*_client.py, github_api/client.py,
+# registry/discovery.py) -- clone attempts are minutes-scale, not
+# milliseconds, so the backoff is seconds, not milliseconds, and only a
+# transient failure is retried at all; a real error (repo not found, auth
+# failure) fails fast rather than wasting 2x the time before failing anyway.
+_CLONE_RETRY_BACKOFF_SECONDS = [5, 15]
+_MAX_CLONE_ATTEMPTS = 1 + len(_CLONE_RETRY_BACKOFF_SECONDS)
+
+_TRANSIENT_CLONE_STDERR_MARKERS = (
+    "Connection reset",
+    "Connection timed out",
+    "Connection refused",
+    "Could not resolve host",
+    "The remote end hung up unexpectedly",
+    "early EOF",
+    "unexpected disconnect",
+    "RPC failed",
+    "Recv failure",
+    "Empty reply from server",
+)
+
+
+def reset_clone_memo() -> None:
+    """Test-only convenience (a blunter, cheaper-to-call alternative to
+    monkeypatching `remote_head_sha` for a test that just wants to force a
+    real re-clone). Production code never needs this: a new process starts
+    with an empty memo, and every existing entry is independently
+    self-validating anyway (see `_baseline_clone_memo`'s own docstring)."""
+    _baseline_clone_memo.clear()
+
+
+def _is_transient_clone_failure(result) -> bool:
+    """returncode 124 is run_git()'s own synthetic timeout marker (_git.py)
+    -- always worth a fresh attempt, since SCL-004 measured wide clone-time
+    variance for the identical repo across separate real attempts. Anything
+    else is retried only for known-transient network stderr text."""
+    if result.returncode == 124:
+        return True
+    return any(marker in result.stderr for marker in _TRANSIENT_CLONE_STDERR_MARKERS)
 
 
 def force_rmtree(path: Path) -> None:
@@ -30,23 +101,66 @@ def force_rmtree(path: Path) -> None:
     shutil.rmtree(path, onerror=_on_error)
 
 
+def _local_head_sha(repo_path: Path) -> str | None:
+    result = run_git(["rev-parse", "HEAD"], cwd=repo_path, timeout=10)
+    return result.stdout.strip() if result.returncode == 0 else None
+
+
 def clone_baseline(entry: ProductEntry, baseline_path: Path) -> Path:
-    """Fresh, read-only reference clone. Always re-cloned so it reflects the
-    current upstream state -- never fetched/reset in place."""
+    """Read-only reference clone, memoized against a cheap freshness probe
+    rather than blind process-lifetime trust: if this path already holds a
+    clone and a `remote_head_sha()` check (a `git ls-remote`, ~1-15s) still
+    matches the SHA that was checked out, reuse it instead of paying a full
+    `--depth 1` clone again. See `_baseline_clone_memo`'s own module
+    docstring for the redundancy this eliminates and why probe-validated
+    reuse, not caller-remembered invalidation, is the correct design. A
+    failed probe (unreachable remote, timeout) is treated the same as a
+    stale one -- "clone anyway" is always the safe fallback."""
+    memoized_sha = _baseline_clone_memo.get(baseline_path)
+    if memoized_sha is not None and baseline_path.is_dir() and any(baseline_path.iterdir()):
+        probed_sha = remote_head_sha(entry.clone_url)
+        if probed_sha is not None and probed_sha == memoized_sha:
+            return baseline_path
+
     if baseline_path.exists():
         force_rmtree(baseline_path)
     baseline_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # No explicit --branch: --depth 1 alone clones the HEAD of the remote's
-    # default branch, which is exactly what we want without needing a
-    # separate preflight lookup baked into the clone call itself.
-    result = run_git(
-        ["clone", "--depth", "1", entry.clone_url, str(baseline_path)],
-        timeout=300,
-    )
-    if result.returncode != 0:
-        raise GitSafetyError(f"baseline clone of {entry.org_repo} failed: {result.stderr}")
-    return baseline_path
+    timeout = env.git_clone_timeout_seconds()
+    last_result = None
+    for attempt in range(_MAX_CLONE_ATTEMPTS):
+        # No explicit --branch: --depth 1 alone clones the HEAD of the remote's
+        # default branch, which is exactly what we want without needing a
+        # separate preflight lookup baked into the clone call itself.
+        result = run_git(
+            ["clone", "--depth", "1", entry.clone_url, str(baseline_path)],
+            timeout=timeout,
+        )
+        if result.returncode == 0:
+            # A None SHA (rev-parse somehow failing right after a successful
+            # clone -- not expected, but not impossible) must not be trusted
+            # as a memo entry: drop any stale one instead, so the NEXT call
+            # always re-clones rather than risk comparing against a SHA that
+            # was never real.
+            sha = _local_head_sha(baseline_path)
+            if sha is not None:
+                _baseline_clone_memo[baseline_path] = sha
+            else:
+                _baseline_clone_memo.pop(baseline_path, None)
+            return baseline_path
+        last_result = result
+        if attempt < _MAX_CLONE_ATTEMPTS - 1 and _is_transient_clone_failure(result):
+            time.sleep(_CLONE_RETRY_BACKOFF_SECONDS[attempt])
+            if baseline_path.exists():
+                force_rmtree(baseline_path)
+            continue
+        break
+
+    # _MAX_CLONE_ATTEMPTS is 1 + len(_CLONE_RETRY_BACKOFF_SECONDS) >= 1, so the loop
+    # above always runs at least once and last_result is never actually None here --
+    # mypy can't prove range()'s non-emptiness statically.
+    assert last_result is not None
+    raise GitSafetyError(f"baseline clone of {entry.org_repo} failed: {last_result.stderr}")
 
 
 _COMMIT_AUTHOR_NAME = "readme-agent"

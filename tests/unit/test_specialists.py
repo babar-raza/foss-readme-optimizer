@@ -11,6 +11,7 @@ import pytest
 from readme_agent import orchestrator
 from readme_agent.capabilities import review_visual_asset_accuracy, verify_prose_quality
 from readme_agent.gitsafety._git import run_git
+from readme_agent.gitsafety.clone import reset_clone_memo
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.client import GeneratedResult
 from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta
@@ -22,6 +23,30 @@ from readme_agent.state.schema import DomainStateV1, RunStateV1
 
 ORG_REPO = "example-foss/Example-Widget"
 REPO_ROOT = Path(__file__).resolve().parents[2]
+
+
+@pytest.fixture(autouse=True)
+def _clean_clone_memo():
+    """Found live, 2026-07-22: `gitsafety.clone._baseline_clone_memo` (the
+    SCL-004-extension memoization added the same day) is only invalidated by
+    `supervisor/loop.py::supervise_repo()`'s own explicit call -- a "process is
+    one supervise/CLI run" assumption that holds for real production
+    invocations (each a fresh process) but not for this file's own tests,
+    several of which call a specialist's `run()` (or, transitively,
+    `orchestrator.prepare_readme_candidate()`) more than once in the SAME test
+    process for the SAME org_repo, each time expecting genuinely current
+    upstream state. Without this reset, the second call silently reused the
+    first call's now-stale baseline clone -- confirmed via a real, reproduced
+    regression (`test_upstream_edit_between_runs_is_upstream_changed`,
+    `test_a_success_after_failures_resets_the_counter`, both passed clean
+    against the last real commit, both failed 100%-reproducibly once this
+    memoization landed uncommitted). Mirrors `test_gitsafety.py`'s own
+    identical fixture, added for the identical reason when the memo was
+    introduced -- this file just didn't get the matching update."""
+    reset_clone_memo()
+    yield
+    reset_clone_memo()
+
 
 # Proven-valid against the real word-count/prohibited-terms/talking-points
 # rules (test_orchestrator.py's own FIXTURE_RESPONSE, against an identical
@@ -354,6 +379,11 @@ class TestReadmeReconciliationSpecialist:
         )
         run_git(["add", "."], cwd=source)
         run_git(["commit", "-m", "docs: update"], cwd=source)
+        # Simulates the process boundary supervise_repo() gets for free via its
+        # own invalidate_baseline_clone() call -- this test calls the
+        # specialist directly, so it must reset the memo itself, the same way
+        # test_gitsafety.py's own tests do for the identical reason.
+        reset_clone_memo()
 
         second = readme_reconciliation.run(ORG_REPO, backend)
         assert second.accepted_status == "UPSTREAM_CHANGED"
@@ -884,6 +914,11 @@ class TestReadmePresentationSpecialist:
         run_git(["add", "."], cwd=source)
         run_git(["commit", "-m", "fix: real body"], cwd=source)
         force_rmtree(paths.work_dir("example-foss", "Example-Widget"))
+        # Simulates the process boundary supervise_repo() gets for free via its
+        # own invalidate_baseline_clone() call -- see this file's own
+        # _clean_clone_memo fixture docstring for why a direct, in-process
+        # second run() call needs this too.
+        reset_clone_memo()
 
         readme_presentation.run(ORG_REPO, backend)
         second = backend.load(ORG_REPO).domain_states["readme_presentation"]

@@ -75,6 +75,7 @@ from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_P
 from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import StateBackendError
+from readme_agent.evidence.writer import generate_run_id
 from readme_agent.orchestrator import record_accepted_readme_state
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.change_detection import classify_surface
@@ -205,6 +206,13 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     org_repo = config["configurable"]["org_repo"]
     current_render_result = render_result
     repair_attempts = 0
+    # TC-28 (decision #46's own deferred scope from TC-15): one fresh value
+    # per _verify_node call (i.e. per specialist run() invocation), reused
+    # across this call's own internal prose-repair retries below -- never
+    # persisted, never read back from a prior run. See compute_verification_
+    # token()'s own docstring for exactly what replaying an old run's token
+    # would otherwise get away with.
+    run_nonce = generate_run_id()
 
     while True:
         dispatch = _dispatch_verify_readme_candidate(org_repo, current_render_result)
@@ -227,10 +235,12 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         # independently re-derives the same value and rejects on mismatch.
         verification = {
             **verification,
+            "nonce": run_nonce,
             "token": compute_verification_token(
                 org_repo,
                 current_render_result["facts_hash"],
                 current_render_result["fresh_fingerprint"],
+                run_nonce,
             ),
         }
 
@@ -301,6 +311,10 @@ def _commit_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     verification_verdict = state.details.get("verification", {}).get(
         "token", "MISSING_VERIFICATION_TOKEN"
     )
+    # TC-28: the same nonce _verify_node minted its token with -- precheck()
+    # re-derives compute_verification_token() from these two values plus
+    # facts_hash/fresh_fingerprint below, so both must travel together.
+    verification_nonce = state.details.get("verification", {}).get("nonce", "MISSING_NONCE")
     classification = classify_surface(
         current_fingerprint=facts_hash, prior_fingerprint=state.accepted_facts_hash
     )
@@ -363,6 +377,7 @@ def _commit_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                     # including this value being the guaranteed-mismatching
                     # placeholder above.
                     "verification_verdict": verification_verdict,
+                    "verification_nonce": verification_nonce,
                 }
             ),
         }

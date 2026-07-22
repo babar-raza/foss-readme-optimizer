@@ -19,6 +19,7 @@ docstring for the full reasoning.
 """
 
 from readme_agent.capabilities.schema import CapabilityManifest
+from readme_agent.errors import NotAllowlistedError
 from readme_agent.profile.cached import get_or_build_profile
 from readme_agent.registry.loader import load_policy, require_listed
 
@@ -70,7 +71,7 @@ MANIFEST = CapabilityManifest(
     ],
     failure_modes=[
         "NotAllowlistedError if org_repo is not listed in data/products.json",
-        "ConfigError if the entry has no policy_profile configured",
+        "NotAllowlistedError if the entry has no policy_profile configured",
     ],
     rollback_behavior="not applicable -- read-only, nothing to roll back",
     tests=["tests/unit/test_capabilities.py"],
@@ -88,7 +89,7 @@ def execute(
     (profile_repo_with_cache())."""
     entry = require_listed(org_repo)
     if entry.policy_profile is None:
-        raise ValueError(f"{org_repo} has no policy_profile configured")
+        raise NotAllowlistedError(f"{org_repo} has no policy_profile configured")
     policy = load_policy(entry.policy_profile)
 
     profile = get_or_build_profile(

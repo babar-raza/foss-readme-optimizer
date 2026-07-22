@@ -13,7 +13,10 @@ from pathlib import Path
 from readme_agent import paths
 from readme_agent.gitsafety._git import run_git
 from readme_agent.orchestrator import prepare_readme_candidate
-from readme_agent.verification.checks import independently_verify_readme_candidate
+from readme_agent.verification.checks import (
+    compute_verification_token,
+    independently_verify_readme_candidate,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ORG_REPO = "example-foss/Example-FOSS-for-Java"
@@ -119,6 +122,28 @@ def _setup_project_root(tmp_path, source_clone_url: str):
     fixture_path = tmp_path / "fixture_response.json"
     fixture_path.write_text(json.dumps(FIXTURE_RESPONSE), encoding="utf-8")
     return fixture_path
+
+
+class TestComputeVerificationToken:
+    """TC-28 (decision #46's own deferred scope from TC-15): the nonce
+    argument is what makes a token minted for a given org_repo/facts_hash/
+    fresh_fingerprint in one run rejectable if replayed into a later, separate
+    run -- these tests exercise the function directly, independent of the
+    commit_readme_write.precheck() integration tests in test_capabilities.py."""
+
+    def test_identical_inputs_produce_the_same_token(self):
+        args = ("acme/widget", "hash1", "fp1", "nonce1")
+        assert compute_verification_token(*args) == compute_verification_token(*args)
+
+    def test_a_different_nonce_alone_changes_the_token(self):
+        token_a = compute_verification_token("acme/widget", "hash1", "fp1", "nonce-a")
+        token_b = compute_verification_token("acme/widget", "hash1", "fp1", "nonce-b")
+        assert token_a != token_b
+
+    def test_a_different_facts_hash_alone_changes_the_token(self):
+        token_a = compute_verification_token("acme/widget", "hash1", "fp1", "nonce1")
+        token_b = compute_verification_token("acme/widget", "hash2", "fp1", "nonce1")
+        assert token_a != token_b
 
 
 class TestIndependentlyVerifyReadmeCandidate:
