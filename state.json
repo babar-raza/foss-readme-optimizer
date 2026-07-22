@@ -173,6 +173,39 @@
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
+    },
+    "visual_preparation": {
+      "accepted_facts_hash": "790f9b8f18795c3845bd32ca6c50ba5a63a6b8dc3ebc050314e45b7c33daee1e",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "alt_text": "pdf logo",
+        "concerns": [],
+        "existing_asset_found": true,
+        "existing_asset_path": "docs\\feature_showcase-preview.png",
+        "format": "PNG",
+        "height": 1550,
+        "license_status": "unknown -- existing asset found in the repository, no automated provenance/licensing signal available; human review required before any use",
+        "prepared_candidate": null,
+        "size_bytes": 283274,
+        "size_within_reasonable_bounds": true,
+        "visual_accuracy_review": {
+          "asset_source": "existing",
+          "concerns": [],
+          "depicts_unsupported_content": false,
+          "rationale": "The image displays a feature showcase for Aspose.PDF FOSS for Go, which aligns with the product's supported family (PDF), platform (Go), and ecosystem (Go). All demonstrated features \u2014 including annotations, vector graphics, and multi-page reports \u2014 are consistent with the capabilities of the product as described in its official documentation and are not misleading or unsupported.",
+          "verdict": "accept"
+        },
+        "width": 1112
+      },
+      "domain": "visual_preparation",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T15:23:19.747498+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
     }
   },
   "last_run_id": null,
@@ -180,7 +213,7 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
-  "state_version": 8,
+  "state_version": 9,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
