@@ -142,14 +142,23 @@
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
-      "accepted_facts_hash": "bed55f47d08da38ba63306cee16cf62a0b90901eaabba48cbac31e40dcf5457b",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "42fa3cb24ef87d3e7bdcf56dc8f59fbd445016d9021f4cc5f626a05c04c401aa",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": null,
-        "handoff_findings": [],
-        "install_path_resolved": null,
+        "evidence": "no live resolver registered for ecosystem 'cpp'",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-22T14:20:04.224333+00:00",
+            "evidence": {
+              "detail": "no live resolver registered for ecosystem 'cpp'"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
         "latest_release_name": null,
         "latest_release_tag": null,
         "releases_count": 0
@@ -157,10 +166,10 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:02:40.508653+00:00",
+      "last_run_timestamp": "2026-07-22T14:20:04.224980+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2"
     },
     "readme_presentation": {
       "accepted_facts_hash": null,
@@ -198,7 +207,7 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 17,
+  "state_version": 18,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
