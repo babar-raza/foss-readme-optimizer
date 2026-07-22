@@ -1,0 +1,247 @@
+"""Mechanical structural-integrity gate for the plan trio and the logs/ index.
+
+Replaces prose-only governance (`GOVERNANCE.md` rules 2/6/11/12, `GOV-009`) with a real check that
+runs in two places -- as a local pre-commit hook (rejects the commit itself, before anything can
+be pushed or seen by another session) and as a required CI step (backstops a `--no-verify` commit
+or a hookless clone). Decision #46: a foreign-section incident on 2026-07-22 showed that a rule
+living only in prose is violated the moment a session doesn't check it first, and nothing catches
+it until a human happens to notice. See `docs/architecture.md`'s own note on `presentation_
+benchmarking` for a second, independent instance this exact script now closes.
+
+Exit code 0 = all blocking checks pass (warnings may still print). Exit code 1 = at least one
+blocking check failed. Never modifies anything -- read-only by design, same posture as `github_api/
+client.py`.
+"""
+
+from __future__ import annotations
+
+import re
+import sys
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+MASTER_MD = REPO_ROOT / "plans" / "master.md"
+REQUIREMENTS_MD = REPO_ROOT / "plans" / "requirements.md"
+ARCHITECTURE_MD = REPO_ROOT / "docs" / "architecture.md"
+LOGS_DIR = REPO_ROOT / "logs"
+LOGS_INDEX = LOGS_DIR / "README.md"
+SPECIALISTS_REGISTRY = REPO_ROOT / "src" / "readme_agent" / "specialists" / "registry.py"
+
+# GOVERNANCE.md rule 2's fixed section order.
+FIXED_SECTION_ORDER = (
+    "Mission",
+    "Status",
+    "Decision Ledger",
+    "Architecture",
+    "Registry & Policy Config",
+    "Validator Registry",
+    "LLM Contract",
+    "CI & Safety",
+    "Reference Data",
+    "Build Checklist",
+    "Verification Checklist",
+    "Changelog",
+)
+
+VALID_STATUSES = {
+    "IMPLEMENTED",
+    "PLANNED",
+    "PARTIAL",
+    "BACKLOG",
+    "GOVERNANCE",
+    "RESEARCH-GATED",
+    "DEPRECATED",
+    "SUPERSEDED",
+}
+VALID_PRIORITIES = {"P0", "P1", "P2", "P3"}
+
+ID_RE = re.compile(r"^[A-Z]{2,5}-\d{3}$")
+ROW_LENGTH_WARN_THRESHOLD = 1500
+SHARD_DENSE_WARN_LINES = 1500
+
+ENTRY_LINE_RE = re.compile(r"^-\s*(?:\[[^\]]+\]\s*)+\*\*\d{4}-\d{2}-\d{2}")
+INDEX_ROW_RE = re.compile(r"^\|\s*\d{4}-\d{2}-\d{2}\s*\|")
+SHARD_DIR_ROW_RE = re.compile(r"^\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*`logs/([^`]+)`\s*\|\s*(\d+)\s*\|")
+
+
+class Result:
+    def __init__(self) -> None:
+        self.errors: list[str] = []
+        self.warnings: list[str] = []
+
+    def error(self, message: str) -> None:
+        self.errors.append(message)
+
+    def warn(self, message: str) -> None:
+        self.warnings.append(message)
+
+
+def check_master_section_order(result: Result) -> None:
+    if not MASTER_MD.exists():
+        result.error("plans/master.md not found")
+        return
+    text = MASTER_MD.read_text(encoding="utf-8")
+    headers = [line[3:].strip() for line in text.splitlines() if line.startswith("## ")]
+    if headers != list(FIXED_SECTION_ORDER):
+        result.error(
+            "plans/master.md's top-level `## ` sections do not match GOVERNANCE.md rule 2's "
+            f"fixed order.\n    Expected: {list(FIXED_SECTION_ORDER)}\n    Found:    {headers}"
+        )
+
+
+def check_master_status_mentions_latest_decision(result: Result) -> None:
+    if not MASTER_MD.exists():
+        return
+    text = MASTER_MD.read_text(encoding="utf-8")
+    decision_numbers = [int(n) for n in re.findall(r"^(\d+)\.\s+\*\*", text, flags=re.MULTILINE)]
+    if not decision_numbers:
+        return
+    latest = max(decision_numbers)
+    status_start = text.find("\n## Status\n")
+    ledger_start = text.find("\n## Decision Ledger\n")
+    if status_start == -1 or ledger_start == -1:
+        return
+    status_text = text[status_start:ledger_start]
+    if f"#{latest}" not in status_text and f"decision {latest}" not in status_text.lower():
+        result.warn(
+            f"plans/master.md's Status section does not mention decision #{latest} "
+            "(the highest-numbered entry in this same file) -- Status may be stale."
+        )
+
+
+def _requirement_rows(text: str) -> list[tuple[str, str, str, int, int]]:
+    """Return (id, status, priority, char_length, line_number) for every requirement row."""
+    rows = []
+    for lineno, line in enumerate(text.splitlines(), start=1):
+        if not line.startswith("| "):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) < 3:
+            continue
+        candidate_id = cells[0].strip("`")
+        if not ID_RE.match(candidate_id):
+            continue
+        priority = cells[1].strip("`")
+        status = cells[2].strip("`")
+        rows.append((candidate_id, status, priority, len(line), lineno))
+    return rows
+
+
+def check_requirements(result: Result) -> None:
+    if not REQUIREMENTS_MD.exists():
+        result.error("plans/requirements.md not found")
+        return
+    text = REQUIREMENTS_MD.read_text(encoding="utf-8")
+    rows = _requirement_rows(text)
+    seen: dict[str, int] = {}
+    for req_id, status, priority, length, lineno in rows:
+        if req_id in seen:
+            result.error(
+                f"plans/requirements.md:{lineno} duplicate requirement ID `{req_id}` "
+                f"(first seen at line {seen[req_id]})"
+            )
+        else:
+            seen[req_id] = lineno
+        if status not in VALID_STATUSES:
+            result.error(
+                f"plans/requirements.md:{lineno} `{req_id}` has invalid Status `{status}` "
+                f"(expected one of {sorted(VALID_STATUSES)})"
+            )
+        if priority not in VALID_PRIORITIES:
+            result.error(
+                f"plans/requirements.md:{lineno} `{req_id}` has invalid Priority `{priority}` "
+                f"(expected one of {sorted(VALID_PRIORITIES)})"
+            )
+        if length > ROW_LENGTH_WARN_THRESHOLD:
+            result.warn(
+                f"plans/requirements.md:{lineno} `{req_id}` row is {length} chars "
+                f"(over the {ROW_LENGTH_WARN_THRESHOLD}-char retrofit-on-touch guidance)"
+            )
+
+
+def check_logs_shard_index_consistency(result: Result) -> None:
+    if not LOGS_DIR.exists():
+        return
+    real_counts: dict[str, int] = {}
+    for path in sorted(LOGS_DIR.glob("*.md")):
+        if path.name == "README.md":
+            continue
+        shard_text = path.read_text(encoding="utf-8")
+        entries = sum(1 for line in shard_text.splitlines() if ENTRY_LINE_RE.match(line))
+        index_rows = sum(1 for line in shard_text.splitlines() if INDEX_ROW_RE.match(line))
+        if entries != index_rows:
+            result.error(
+                f"logs/{path.name}: {entries} entries but {index_rows} local index-table rows "
+                "-- these must match."
+            )
+        real_counts[path.stem] = entries
+        line_count = len(shard_text.splitlines())
+        if line_count > SHARD_DENSE_WARN_LINES:
+            result.warn(
+                f"logs/{path.name} is {line_count} lines (past the typical-day guidance) -- "
+                "consider a same-day split per logs/README.md."
+            )
+
+    if not LOGS_INDEX.exists():
+        result.error("logs/README.md not found")
+        return
+    index_text = LOGS_INDEX.read_text(encoding="utf-8")
+    indexed: dict[str, int] = {}
+    for line in index_text.splitlines():
+        match = SHARD_DIR_ROW_RE.match(line)
+        if match:
+            indexed[match.group(1)] = int(match.group(3))
+
+    for date, count in real_counts.items():
+        if date not in indexed:
+            result.error(
+                f"logs/README.md's shard directory is missing an entry for logs/{date}.md "
+                f"({count} real entries)."
+            )
+        elif indexed[date] != count:
+            result.error(
+                f"logs/README.md claims logs/{date}.md has {indexed[date]} entries; "
+                f"the real count is {count}."
+            )
+    for date in indexed:
+        if date not in real_counts:
+            result.error(f"logs/README.md indexes logs/{date}.md, which does not exist.")
+
+
+def check_specialist_module_map_completeness(result: Result) -> None:
+    if not SPECIALISTS_REGISTRY.exists() or not ARCHITECTURE_MD.exists():
+        return
+    registry_text = SPECIALISTS_REGISTRY.read_text(encoding="utf-8")
+    domains = set(re.findall(r"domain=(\w+)\.DOMAIN", registry_text))
+    arch_text = ARCHITECTURE_MD.read_text(encoding="utf-8")
+    missing = sorted(d for d in domains if f"{d}.py" not in arch_text)
+    if missing:
+        result.error(
+            "docs/architecture.md's module map is missing a row for these registered "
+            f"specialist modules: {missing} -- GOVERNANCE.md placement rule 2 requires the "
+            "module map to be updated in the same change that adds a new src module."
+        )
+
+
+def main() -> int:
+    result = Result()
+    check_master_section_order(result)
+    check_master_status_mentions_latest_decision(result)
+    check_requirements(result)
+    check_logs_shard_index_consistency(result)
+    check_specialist_module_map_completeness(result)
+
+    for warning in result.warnings:
+        print(f"WARNING: {warning}", file=sys.stderr)
+    for error in result.errors:
+        print(f"ERROR: {error}", file=sys.stderr)
+
+    if result.errors:
+        print(f"\n{len(result.errors)} blocking error(s), {len(result.warnings)} warning(s).")
+        return 1
+    print(f"Plan structure clean ({len(result.warnings)} warning(s)).")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

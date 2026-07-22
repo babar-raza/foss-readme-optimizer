@@ -3,7 +3,7 @@ name: Update Products Registry
 # Scheduled, read-only discovery of FOSS repos in the orgs listed in data/families.json.
 # Never writes to a product repo and never pushes straight to main: it proposes changes to
 # data/products.json as a PR, and every newly discovered repo lands with mode: "disabled"
-# (see scripts/update_products_registry.py's safety contract and docs/safety-model.md).
+# (see src/readme_agent/registry/discovery.py's safety contract and docs/safety-model.md).
 #
 # Local test: act workflow_dispatch -W .github/workflows/update-products-registry.yml
 
@@ -28,7 +28,7 @@ jobs:
           python-version: "3.12"
       - run: pip install -e .
       - name: Scan GitHub orgs and refresh data/products.json
-        run: python scripts/update_products_registry.py
+        run: python scripts/data-refresh/update_products_registry.py
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Open a PR if the registry changed

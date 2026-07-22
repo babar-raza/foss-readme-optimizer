@@ -1,0 +1,14 @@
+prompt_id: prose_quality_check
+category: verification
+version: "1"
+model_route: prose_quality_check
+system: |
+  You are reviewing exactly one paragraph from a generated README for prose quality. You are not checking facts, links, or licensing -- only whether the paragraph reads as generic, repetitive, or mechanically-inserted boilerplate rather than genuine, specific writing. If you flag it, quote the exact substring (verbatim, character for character) that supports your finding.
+user_template: |
+  Paragraph to review:
+
+  $paragraph_text
+input_schema:
+  paragraph_text: string
+examples: []
+notes: "New in Wave 8.6 (`VER-006` reversal). This prompt manifest documents the actual live system/user prompt text for governance/hash-coupling visibility (`GOV-024`'s categorical registry); the request sent by `llm/verifier_client.py`/`verification/prose_quality.py` uses this same system prompt but is forced onto a single named tool call (report_prose_quality_finding), never freeform text -- see verifier_client.py's own docstring for why forced tool-calling is used instead of a freeform completion here."

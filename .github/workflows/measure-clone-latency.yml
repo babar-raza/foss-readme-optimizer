@@ -1,0 +1,41 @@
+name: Measure Profile Clone Latency (diagnostic)
+
+# Decision #40/Part G: local-machine numbers (this project's own investigation
+# scripts) can't answer what cold-clone latency actually looks like on a real
+# GitHub Actions runner -- a 1004s run reported against this project's own
+# ~200s local benchmark, for the identical repo, is exactly the gap this
+# workflow exists to keep measuring. workflow_dispatch only, deliberately not
+# scheduled -- same "manual dispatch first, prove it live" discipline
+# readme-agent-supervise.yml already follows (GOVERNANCE.md rule 10); run
+# manually a handful of times to gather real runner variance before any
+# automation decision.
+
+on:
+  workflow_dispatch:
+    inputs:
+      org_repo:
+        description: "org/repo to measure (any public GitHub repo, not just a registered one)"
+        required: false
+        default: "aspose-page-foss/Aspose.Page-FOSS-for-Python"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: |
+          python plans/investigations/tools/measure_profile_latency.py \
+            --org-repo "${{ inputs.org_repo }}" \
+            --output runs/measure-profile-latency-result.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "profile-latency-${{ github.run_id }}"
+          path: runs/measure-profile-latency-result.json

@@ -25,3 +25,4 @@ jobs:
       - run: ruff format --check .
       - run: mypy src
       - run: pytest -q
+      - run: python scripts/governance/validate_plan_structure.py

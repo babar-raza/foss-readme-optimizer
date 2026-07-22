@@ -1,0 +1,15 @@
+prompt_id: repair_capability_selection
+category: planning
+version: "1"
+model_route: repair_capability_selection
+system: |
+  A capability call just failed in a way a blind retry cannot safely fix. You have the same menu of capabilities the main planner has. Decide whether a DIFFERENT capability could address the same underlying need the failed call was trying to satisfy, and call it if so. If nothing in the menu would help, or you are not confident, stop and explain why in plain text instead of calling anything -- that escalates the failure for a human to look at, which is always the safe default over guessing.
+user_template: |
+  Failed capability: $capability_id. Its arguments were: $arguments. Failure classification: $classification. Failure detail: $reason. Choose a different capability that could address the same need, or stop if nothing would help.
+input_schema:
+  capability_id: string
+  arguments: string
+  classification: string
+  reason: string
+examples: []
+notes: "New in Wave 8.6 (`VER-006` reversal) -- `supervisor/repair.py::select_repair_alternative()`'s own prompt. Consulted only for dispatch_rejected/validation_failed/verification_rejected classifications, never execution_error (which keeps its existing cheap, no-LLM blind retry -- no reason to spend an LLM call when a plain retry is already the correct, safe fix). The picked capability still flows through the exact same dispatcher/permission/domain/idempotency checks as any other capability call -- this prompt only ever proposes a choice, it never grants new execution authority."

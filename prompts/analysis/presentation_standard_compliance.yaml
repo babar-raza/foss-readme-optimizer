@@ -1,0 +1,20 @@
+prompt_id: presentation_standard_compliance
+category: analysis
+version: "1"
+model_route: presentation_standard_compliance
+system: |
+  You are comparing one repository's current README against a codified presentation standard. You will be given the standard's own text (a set of numbered dimensions) and the README text under review. For each numbered dimension in the standard, decide whether the README satisfies it, and why. Respond with a JSON object only, no other text, matching exactly this shape: {"criteria_results": [{"dimension": "<short name>", "satisfied": true|false, "note": "<one sentence>"}], "overall_summary": "<one or two sentences>"}. Do not invent dimensions that are not in the standard text you were given.
+user_template: |
+  Presentation standard (the dimensions to check against):
+
+  $presentation_standard_excerpt
+
+  README text under review for $org_repo:
+
+  $readme_text
+input_schema:
+  org_repo: string
+  readme_text: string
+  presentation_standard_excerpt: string
+examples: []
+notes: "New in Wave 8.6 -- closes a gap found in an external-review reconciliation session: docs/presentation-standard.md's own codified rules had no ongoing runtime comparison mechanism, only the one-time human research that authored it. capabilities/compare_against_presentation_standard.py reads the standard doc fresh at call time and interpolates it here rather than duplicating its text -- placement rule 7 (\"state a fact in its one home, never restate it\")."

@@ -54,10 +54,13 @@ here grants no permission to touch anything. It only tells the discovery script 
 
 ## How `data/products.json` stays current
 
-[`scripts/update_products_registry.py`](../scripts/update_products_registry.py) scans every
-GitHub org in `families.json` (read-only `GET` calls against the GitHub REST API), classifies
-each public repo by its `Aspose.{Family}-FOSS-for-{Platform}` naming convention, and merges the
-result into `data/products.json`:
+[`scripts/data-refresh/update_products_registry.py`](../scripts/data-refresh/update_products_registry.py)
+scans every GitHub org in `families.json` (read-only `GET` calls against the GitHub REST API),
+classifies each public repo by its `Aspose.{Family}-FOSS-for-{Platform}` naming convention, and
+merges the result into `data/products.json`. The script is a thin CLI wrapper — the discovery,
+classification, and merge logic (and the safety contract) live once in
+[`src/readme_agent/registry/discovery.py`](../src/readme_agent/registry/discovery.py), shared with
+the runtime self-heal below:
 
 - Newly discovered `(family, platform)` pairs are added with `mode: "disabled"`,
   `ecosystem: null`, `policy_profile: null` — never auto-enabled.
@@ -69,9 +72,9 @@ result into `data/products.json`:
 Run it yourself:
 
 ```bash
-python scripts/update_products_registry.py --dry-run     # preview, no write
-python scripts/update_products_registry.py                # scan every org, write data/products.json
-python scripts/update_products_registry.py --org aspose-pdf-foss   # scan one org
+python scripts/data-refresh/update_products_registry.py --dry-run     # preview, no write
+python scripts/data-refresh/update_products_registry.py                # scan every org, write data/products.json
+python scripts/data-refresh/update_products_registry.py --org aspose-pdf-foss   # scan one org
 ```
 
 `GH_TOKEN` / `GITHUB_PAT` (same precedence as the rest of the project, see `.env.example`) raises
@@ -92,6 +95,28 @@ Docker — no runner registration needed):
 ```bash
 act workflow_dispatch -W .github/workflows/update-products-registry.yml
 ```
+
+### Runtime self-heal (supervise)
+
+Registry drift is also a self-healed class at runtime (`CORE-034`): every `readme-agent supervise`
+invocation first runs `registry/self_heal.py::heal_registry_drift()`, which re-uses the exact
+discovery/merge core above in-process — so a repo GitHub added since the last weekly scan is
+merged (as `mode: "disabled"`, owned fields untouched, additive-only) before the allow-list gate
+is consulted, instead of waiting for the cron. Properties:
+
+- **Fail-open**: a scan/merge failure (network, rate limit over a 60 s wait cap, missing token)
+  never blocks supervision — the heal reports a `SKIPPED_*` status and the run proceeds.
+- **Throttled**: a TTL marker (`runs/registry-heal/last_heal.json`, 6 h default) makes a
+  sequential multi-repo pass scan GitHub once, not once per repo.
+- **Evidenced**: every attempt writes `runs/evidence/<run_id>/registry_heal.json` (orgs scanned,
+  org failures, entries added/refreshed).
+- **Opt-out**: `readme-agent supervise --no-registry-heal` skips it (the portfolio workflow's
+  matrix jobs do this; a dedicated job heals once per pass instead).
+- In CI, a healed `data/products.json` surfaces as a PR on the same branch as the weekly scan —
+  never a push to `main`.
+
+The heal can never enable a repo: it shares `merge()`'s invariants, so its write surface is
+exactly the weekly cron's.
 
 ## `data/aspose_com_links.json` — the verified aspose.com link database
 
@@ -152,15 +177,41 @@ it's refreshed on demand by an operator when aspose.com content is known to have
 project starts consuming it for rendered links, revisit whether it needs the same weekly-PR
 treatment as `products.json` (see `data/families.json` subsection above for that pattern).
 
+## `data/template_clone_findings.json` — periodic embedding-similarity findings (Wave 8.6)
+
+Pairwise cosine-similarity findings across the enabled portfolio's real READMEs (owned spans
+stripped first), flagging pairs likely to be template clones or generic/mechanically-inserted
+prose (`LLM-017`/`VAL-016`/`RDM-020`). Evidence only, never a sole verdict — consumed by the
+`get_template_clone_findings` capability for a given org_repo, or read directly by a human.
+
+```json
+{
+  "similarity_threshold": 0.70,
+  "repos_embedded": ["aspose-cells-foss/Aspose.Cells-FOSS-for-Java", "..."],
+  "repos_failed": [],
+  "flagged_pairs": [{"repo_a": "...", "repo_b": "...", "cosine_similarity": 0.788}]
+}
+```
+
+**How it's produced**: [`scripts/data-refresh/detect_template_clones.py`](../scripts/data-refresh/detect_template_clones.py),
+via `.github/workflows/detect-template-clones.yml` (`workflow_dispatch` only for now — no
+`schedule:` trigger until a manual run has been confirmed clean, per `GOVERNANCE.md` rule 10).
+Deliberately **not** run by the per-run supervisor loop — `LLM-017`'s own acceptance text keeps
+this a periodic batch job, explicitly out of the per-run planner path.
+
+```bash
+python scripts/data-refresh/detect_template_clones.py
+```
+
 ## Quick reference for agents
 
 | Question | Answer |
 |---|---|
 | Can I operate on this repo? | Only if it's in `data/products.json` with `mode != "disabled"` — check via `registry.loader.is_permitted()`, never by reading the file yourself. |
 | Does `mode: "disabled"` mean I can ignore this entry for research/development? | **No.** `mode` gates write/execution access only. Every entry — all 25, active or `disabled` — has equal precedence for portfolio surveys, fact-gathering, and policy/validator design; a `disabled` entry is not a lower-priority one. Only end-to-end execution is scoped to the three enabled Java pilots (`3d`, `cells`, `pdf`), and only because they're the sole non-`disabled` entries today. See `AGENTS.md`, `plans/master.md` decision #24, and `PIL-011` in `plans/requirements.md`. |
-| I found a new FOSS repo GitHub added — how does it get tracked? | It doesn't need manual entry: the next scheduled (or manual `--dry-run`/live) run of `scripts/update_products_registry.py` picks it up automatically, added as `disabled`. |
+| I found a new FOSS repo GitHub added — how does it get tracked? | It doesn't need manual entry: the next `readme-agent supervise` run self-heals it into the registry in-process (added as `disabled`), and the weekly scheduled (or manual) run of `scripts/data-refresh/update_products_registry.py` is the out-of-band safety net. |
 | I want to enable a repo the scan discovered. | Follow [`docs/policy-authoring.md`](../docs/policy-authoring.md) — author a policy profile, then flip `mode` by hand. Never scripted. |
 | A new Aspose FOSS family/org launches. | Add it to `data/families.json` by hand (one line) — that's the only manual step; `products.json` then fills in automatically. |
-| Does `families.json` need to match `products.json`'s orgs exactly? | Every org referenced by `products.json` must exist in `families.json` — enforced by `test_real_families_json_covers_every_org_referenced_by_products_json` in `tests/unit/test_update_products_registry.py`. |
+| Does `families.json` need to match `products.json`'s orgs exactly? | Every org referenced by `products.json` must exist in `families.json` — enforced by `test_real_families_json_covers_every_org_referenced_by_products_json` in `tests/unit/test_registry_discovery.py`. |
 | I need a `products.aspose.com` (or docs/reference/kb/blog) link for a family or platform. | Look it up in `data/aspose_com_links.json`; use it only if `http_status == 200`. Never construct the URL by string-formatting a family/platform name — the link database is what confirms it actually resolves. |
 | `aspose_com_links.json` looks stale. | Re-run `scripts/fetch_aspose_com_links.py` (live mode) yourself — there's no scheduled workflow for it yet, unlike `products.json`. |

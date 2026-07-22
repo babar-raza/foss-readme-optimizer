@@ -1,0 +1,38 @@
+name: Detect Template Clones (embeddings, manual only)
+
+# Wave 8.6 (item I, LLM-017/VAL-016/RDM-020): periodic embedding-similarity
+# batch job across the enabled portfolio's real READMEs, flagging likely
+# template-clone/generic-prose pairs. Deliberately kept OUT of the per-run
+# supervisor loop -- LLM-017's own text: "a new periodic batch script,
+# explicitly kept out of the per-run supervisor planner loop."
+#
+# Staged rollout per GOVERNANCE.md rule 10 ("prove it in production before
+# automating"): manual workflow_dispatch only, no `schedule:` trigger yet --
+# add one only after a real manual run has been confirmed clean.
+#
+# Local test: act workflow_dispatch -W .github/workflows/detect-template-clones.yml
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  detect-template-clones:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: python scripts/data-refresh/detect_template_clones.py
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: template-clone-findings
+          path: data/template_clone_findings.json

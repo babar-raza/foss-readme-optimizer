@@ -1,0 +1,29 @@
+prompt_id: relationship_explained
+category: generation
+version: "1"
+model_route: relationship_explained
+system: |
+  You are writing a short, factual relationship-explanation paragraph for an open-source repository's README. Never invent facts, licenses, or URLs not given to you. Respond with ONLY raw JSON, no markdown fence.
+user_template: |
+  Repository: $org_repo
+  Manifest name: $manifest_name
+  Detected license: $detected_license
+  FOSS catalog page: $org_link_label ($org_link_url)
+  Commercial edition page: $com_link_label ($com_link_url)
+
+  Write relationship_paragraph ($min_sentences+ sentences) explaining that this repository is the free, open-source (FOSS) edition of the corresponding commercial Aspose product, and that the commercial edition provides a broader feature set. Cover these talking points: $talking_points.
+
+  Respond with exactly this JSON shape:
+  {"relationship_paragraph": "...", "talking_points_covered": ["..."], "claims": {"license_name": "...", "commercial_link_url": "..."}}
+input_schema:
+  org_repo: string
+  manifest_name: string
+  detected_license: string
+  org_link_label: string
+  org_link_url: string
+  com_link_label: string
+  com_link_url: string
+  min_sentences: string
+  talking_points: string
+examples: []
+notes: "Migrated from prompts/relationship_explained/{system,user}.txt (GOV-016) into the categorical prompt registry (GOV-024, Wave 8.5). string.Template ($-style) substitution semantics preserved exactly -- the JSON example above has literal braces that would break str.format."

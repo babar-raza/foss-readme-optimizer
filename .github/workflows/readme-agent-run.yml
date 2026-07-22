@@ -18,6 +18,19 @@ on:
 permissions:
   contents: read
 
+# Wave 8.5 (SCL-005 extension): the SAME literal group-key string as
+# readme-agent-supervise.yml and readme-agent-portfolio.yml for the same
+# repo, so a manual dispatch here and a concurrent scheduled/manual
+# supervise run for the same repo queue against each other rather than
+# race -- GitHub Actions concurrency groups match by string value across
+# workflow files, not per-file. cancel-in-progress: false queues, never
+# cancels a legitimate in-flight run -- a second, CI-level layer,
+# complementary to (not a duplicate of) the in-process run-lock
+# (state/git_backend.py::acquire_run_lock()).
+concurrency:
+  group: readme-agent-${{ inputs.repo_key }}
+  cancel-in-progress: false
+
 jobs:
   run:
     runs-on: ubuntu-latest

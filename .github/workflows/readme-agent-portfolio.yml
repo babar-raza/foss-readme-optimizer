@@ -1,0 +1,125 @@
+name: README Agent Portfolio (dry-run)
+
+# Wave 8.5 (SCL-008/ORC-006): the first CI entry point that fans out
+# `supervise` across the allow-list registry, rather than one repo per
+# manual dispatch. The matrix is computed from registry.loader::
+# enabled_entries() -- the SAME allow-list decision #4 already gates, never
+# a separately-maintained list. max-parallel stays deliberately conservative
+# (1): no live gateway failure-injection evidence exists yet to justify more
+# (SCL-008's own explicit prerequisite) -- do not raise without that
+# investigation's evidence first. Staged rollout per GOVERNANCE.md rule 10
+# ("prove it in production before automating"): act-based local dry run,
+# then a real manual workflow_dispatch, then schedule at max-parallel: 1 for
+# at least one full week of clean evidence, before ever raising parallelism.
+#
+# Local test: act workflow_dispatch -W .github/workflows/readme-agent-portfolio.yml
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily, distinct from update-products-registry.yml's weekly Monday 07:00
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: readme-agent preflight
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+
+  # CORE-034: heal registry drift exactly once per portfolio pass -- the
+  # matrix jobs below run with --no-registry-heal so 25 fresh runners don't
+  # each rescan every GitHub org and race 25 identical PR updates. Mirrors
+  # update-products-registry.yml (same script, same PR branch, so diffs
+  # dedupe into one open PR); never pushes to main.
+  heal-registry:
+    needs: preflight
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: Scan GitHub orgs and refresh data/products.json
+        run: python scripts/data-refresh/update_products_registry.py
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Open a PR if the registry changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(data): registry self-heal from portfolio pass"
+          title: "chore(data): refresh products registry from GitHub"
+          body: >
+            The daily portfolio pass healed registry drift (CORE-034):
+            newly discovered repos are added with `mode: "disabled"` — enabling one still
+            requires a manual change per `docs/policy-authoring.md`. No repo is ever removed.
+          branch: chore/update-products-registry
+          delete-branch: true
+          add-paths: data/products.json
+
+  compute-matrix:
+    needs: preflight
+    runs-on: ubuntu-latest
+    outputs:
+      repos: ${{ steps.matrix.outputs.repos }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - id: matrix
+        run: |
+          echo "repos=$(python -c 'import json; from readme_agent.registry.loader import enabled_entries; print(json.dumps([e.org_repo for e in enabled_entries()]))')" >> "$GITHUB_OUTPUT"
+
+  supervise:
+    needs: compute-matrix
+    runs-on: ubuntu-latest
+    # Same least-privilege scoping as readme-agent-run.yml/readme-agent-
+    # supervise.yml: this job's own GITHUB_TOKEN needs to push only to this
+    # repo's own refs/readme-agent-state/... refs, never a target repo.
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        repo_key: ${{ fromJson(needs.compute-matrix.outputs.repos) }}
+    # Same literal group-key string as readme-agent-run.yml/readme-agent-
+    # supervise.yml for the same repo -- queues against a concurrent manual
+    # dispatch of either single-repo workflow rather than racing.
+    concurrency:
+      group: readme-agent-${{ matrix.repo_key }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: readme-agent supervise --repo "${{ matrix.repo_key }}" --durable-state --no-registry-heal
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      - id: safe_repo_key
+        run: echo "value=$(echo '${{ matrix.repo_key }}' | sed 's#/#__#')" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "portfolio-evidence-${{ steps.safe_repo_key.outputs.value }}"
+          path: runs/evidence/

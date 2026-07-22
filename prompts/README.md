@@ -16,11 +16,15 @@ Format follows the artifact's nature — a prompt is not required to be `.md`/`.
 ## Organization
 
 ```
-prompts/<task-or-flow>/<self-explanatory-name>.<ext>
+prompts/<category>/<prompt-id>.yaml
 ```
 
-One subdirectory per LLM task or flow, named for what it does (naming rules:
-`plans/GOVERNANCE.md`, "Machinery artifacts"). No enumerated or vague names.
+One subdirectory per prompt *category* (e.g. `generation/`, `planning/`), one schema-validated
+YAML file per prompt job (`src/readme_agent/llm/prompt_schema.py::PromptManifest`), keyed by its
+own declared `prompt_id`, not its filename — loaded and validated once, eagerly, at import time
+by `src/readme_agent/llm/prompt_registry.py` (mirrors `capabilities/registry.py`'s own
+eager-registration pattern). A manifest's declared `category` must match the subdirectory it's
+found in — checked at build time, fails loud on mismatch.
 
 ## Rules
 
@@ -30,19 +34,24 @@ One subdirectory per LLM task or flow, named for what it does (naming rules:
    prompt, it's a file under `prompts/`, loaded at runtime — never typed inline.
 2. **Only `src/readme_agent/llm/` loads these files.** No other module (and no script) reads
    `prompts/` directly — prompt assembly stays in one place.
-3. **Determinism contract.** Generation inputs are hash-coupled: today the prompt text is
-   embedded in `src/readme_agent/llm/prompts.py`, where `build_prompt(facts, policy)` takes
-   only two already-hashed objects and `tests/unit/test_prompt_hash_coupling.py` enforces it.
-   When prompt content migrates into files here (on next substantive touch, per governance),
-   the loaded file content **joins the hashed inputs** — a changed prompt file must change the
-   generation hash, never silently reuse a stale generation.
+3. **Determinism contract.** Generation inputs are hash-coupled: `build_prompt(facts, policy)`
+   takes only two already-hashed objects and `tests/unit/test_prompt_hash_coupling.py` enforces
+   it. `src/readme_agent/llm/prompts.py::prompt_content_hash()` reads
+   `prompts/generation/relationship_explained.yaml` fresh on every call and joins
+   `RepositoryFacts.prompt_content_hash` — narrowly scoped to that one job only, so an unrelated
+   prompt edit (e.g. the supervisor planner's own prompt) never forces every README to look
+   stale. `src/readme_agent/llm/prompt_registry.py::content_hash()` separately hashes *every*
+   registered prompt file, consumed by `supervisor/convergence.py::
+   compute_control_plane_fingerprint()` instead.
 4. **Prompt changes are behavior changes.** They land with the tests that cover them, like any
    `src/` change.
 
 ## Current state
 
-The one live prompt (relationship-explanation paragraph) lives in
-`prompts/relationship_explained/` (`system.txt`, `user.txt`), loaded by
-`src/readme_agent/llm/prompts.py::build_prompt()`. `prompt_content_hash()` in the same module
-hashes the loaded assets and joins `RepositoryFacts.prompt_content_hash` (rule 3's determinism
-contract) — migrated 2026-07-19, `GOV-016`.
+Two prompts are registered (Wave 8.5, `GOV-024`): `prompts/generation/relationship_explained.yaml`
+(the relationship-explanation paragraph, migrated from the former `system.txt`/`user.txt` pair,
+`GOV-016`) and `prompts/planning/supervisor_turn.yaml` (the autonomous supervisor's planner
+prompt, migrated from a hardcoded string literal in `supervisor/loop.py`). Both are loaded and
+schema-validated by `src/readme_agent/llm/prompt_registry.py`; `build_prompt()`
+(`llm/prompts.py`) and the supervisor's dossier assembly (`supervisor/dossier.py`) both read
+through this one registry — no other module reads `prompts/` directly.

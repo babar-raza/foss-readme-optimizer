@@ -17,6 +17,19 @@ on:
 permissions:
   contents: read
 
+# Wave 8.5 (SCL-005 extension): the SAME literal group-key string as
+# readme-agent-run.yml and readme-agent-portfolio.yml for the same repo, so
+# a manual dispatch here and a concurrent scheduled/manual run for the same
+# repo queue against each other rather than race -- GitHub Actions
+# concurrency groups match by string value across workflow files, not
+# per-file. cancel-in-progress: false queues, never cancels a legitimate
+# in-flight run -- a second, CI-level layer, complementary to (not a
+# duplicate of) the in-process run-lock (state/git_backend.py::
+# acquire_run_lock()).
+concurrency:
+  group: readme-agent-${{ inputs.repo_key }}
+  cancel-in-progress: false
+
 jobs:
   supervise:
     runs-on: ubuntu-latest
@@ -25,8 +38,11 @@ jobs:
     # refs/readme-agent-state/... refs (state/git_backend.py), never a
     # target repo -- supervise_repo() itself never pushes to the repo it
     # observes (push-blocked work clone, same as `run`/`generate`).
+    # pull-requests: write exists only for the registry self-heal PR step
+    # below (CORE-034) -- still never a push to main, and never a target repo.
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -44,3 +60,22 @@ jobs:
         with:
           name: "supervise-evidence-${{ steps.safe_repo_key.outputs.value }}"
           path: runs/evidence/
+      # CORE-034: if the supervise-time registry self-heal changed
+      # data/products.json on this ephemeral runner, surface it as a PR --
+      # never a push to main (OPS-008 posture). Deliberately the SAME branch
+      # as update-products-registry.yml's weekly PR so a runtime-heal diff
+      # and the weekly cron diff dedupe into one open PR instead of twins.
+      # The action no-ops when the file is unchanged.
+      - name: Open a PR if the registry self-healed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(data): registry self-heal from supervise run"
+          title: "chore(data): refresh products registry from GitHub"
+          body: >
+            A `readme-agent supervise` run self-healed registry drift (CORE-034):
+            newly discovered repos are added with `mode: "disabled"` — enabling one still
+            requires a manual change per `docs/policy-authoring.md`. No repo is ever removed.
+          branch: chore/update-products-registry
+          delete-branch: true
+          add-paths: data/products.json
