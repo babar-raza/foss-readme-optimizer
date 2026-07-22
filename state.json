@@ -208,6 +208,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "44597f1a09feb16ed1b6f29a1c6b939df4415863"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "638bc827b62645194432491808b92955ff47a3d251c79f75876464d5c4205bcb",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('creating, reading, and editing PowerPoint (.pptx) presentations').",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The README does not explicitly state who the library is for (e.g., Java developers) or the specific use case (e.g., automating PowerPoint generation in Java applications) in the opening block.",
+            "satisfied": false
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "The LICENSE is present, clearly linked, and GitHub-recognized; however, there are no build/version/package-registry badges, which is a minor gap but not fatal per the standard.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The README lacks explicit package coordinates (e.g., Maven group/artifact ID) and does not reference a real registry like Maven Central, making the install path unverifiable.",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "The README includes multiple runnable code examples beyond the Quick Start, covering shapes, text, tables, connectors, fills, notes, comments, and document properties.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows logical sequencing: product description \u2192 quick start \u2192 features \u2192 examples \u2192 limitations \u2192 links \u2192 license.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is acceptable for a pure API library like this; the standard permits absence when visuals do not improve understanding.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "Missing recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub's quick-link row will only show README and License.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README does not include or reference recent releases or commit activity, and no `pushed_at` or release cadence is visible in the provided text.",
+            "satisfied": false
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repo; the standard allows absence when no commercial tier is promoted.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies product clarity, verified examples, navigation, and visual-usefulness (by omission), but fails on audience fit, installation path, contribution readiness, and maintenance signals. The absence of commercial context is acceptable, and trust signals are partially met (license present, badges missing)."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T14:57:50.404818+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "44597f1a09feb16ed1b6f29a1c6b939df4415863"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "325d7fa12f45080f0f87d27895d1997d4f088a5a5db691aebb79e2755afc2634",
       "accepted_status": "FIRST_OBSERVATION",
@@ -313,7 +381,7 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 27,
+  "state_version": 28,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
