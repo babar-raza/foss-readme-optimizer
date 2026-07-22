@@ -378,45 +378,17 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 20,
+  "state_version": 21,
   "supervisor_state": {
-    "capability_gaps": [
-      {
-        "detected_at": "2026-07-21T09:59:29.925383+00:00",
-        "evidence": {
-          "tool_call": {
-            "function": {
-              "arguments": "{\"org_repo\": \"aspose-cells-foss/Aspose.Cells-FOSS-for-Python\"}",
-              "name": "stop"
-            }
-          }
-        },
-        "gap_id": "a2e0f1363ce1401999bf6e9ea8762e13",
-        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
-        "reason": "no registered capability matches this capability_id",
-        "requested_capability_id": "stop",
-        "requested_need": "tool call requested unknown capability 'stop'"
-      }
-    ],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-140955-3d00",
+    "capability_gaps": [],
+    "control_plane_fingerprint": "f232f49b71481b3cfe55d913057e324c79176f86565b9785617574a5f00ce47e",
+    "domain_coverage_complete": false,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "5b5b28eb372c28f4529928ea81696a0031b68d60",
-    "last_run_id": "20260721-095936-b015",
-    "last_run_timestamp": "2026-07-21T09:59:36.404826+00:00",
-    "last_status": "PARTIAL_WITH_CAPABILITY_GAP",
+    "last_run_id": "20260722-141421-ba65",
+    "last_run_timestamp": "2026-07-22T14:14:21.813958+00:00",
+    "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
       "tasks": [
@@ -426,76 +398,74 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T09:59:06.458234+00:00",
+          "created_at": "2026-07-22T14:14:00.049684+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "canonical_package",
+              "license",
+              "name",
+              "requires_python",
+              "version"
+            ],
             "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
             "readme_length_chars": 4580
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "4549949bf2e24caf9e62861f37a9a1f6",
-          "terminal_at": "2026-07-21T09:59:12.094721+00:00"
+          "task_id": "ba1e193049084c0199e5c911fad1182a",
+          "terminal_at": "2026-07-22T14:14:00.065080+00:00"
         },
         {
           "arguments": {
             "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
           },
           "blocked_reason": null,
-          "capability_id": "profile_repository",
-          "created_at": "2026-07-21T09:59:19.081616+00:00",
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T14:14:02.463422+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
-            "detected_ecosystems": [
-              {
-                "confidence": 1.0,
-                "ecosystem": "python",
-                "evidence": "found pyproject.toml; parsed 5 field(s)",
-                "manifest_path": "pyproject.toml"
-              }
-            ],
-            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
-            "unresolved_manifests": []
+            "license_mentioned": true,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 3
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "c568530e055742faa267ddbf7e4b797b",
-          "terminal_at": "2026-07-21T09:59:23.197690+00:00"
+          "task_id": "614c26ca050f4443bec9d9dfe76f3b7b",
+          "terminal_at": "2026-07-22T14:14:02.473209+00:00"
         },
         {
           "arguments": {
+            "force_regenerate": true,
             "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
           },
-          "blocked_reason": "dispatch_rejected",
-          "capability_id": "stop",
-          "created_at": "2026-07-21T09:59:29.925263+00:00",
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T14:14:08.533088+00:00",
           "depends_on": [],
-          "gap": {
-            "detected_at": "2026-07-21T09:59:29.925383+00:00",
-            "evidence": {
-              "tool_call": {
-                "function": {
-                  "arguments": "{\"org_repo\": \"aspose-cells-foss/Aspose.Cells-FOSS-for-Python\"}",
-                  "name": "stop"
-                }
-              }
-            },
-            "gap_id": "a2e0f1363ce1401999bf6e9ea8762e13",
-            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
-            "reason": "no registered capability matches this capability_id",
-            "requested_capability_id": "stop",
-            "requested_need": "tool call requested unknown capability 'stop'"
+          "gap": null,
+          "result": {
+            "facts_hash": "6d27138934cff08cf07ce0ed755faf2fd4ed5e82d898e245c29e1910873f789c",
+            "final_text": "# Aspose.Cells FOSS\n\nA Python library for creating, reading, and modifying Excel files (.xlsx format) without requiring Microsoft Excel.\n\n[![PyPI version](https://badge.fury.io/py/aspose-cells-foss.svg)](https://badge.fury.io/py/aspose-cells-foss)\n[![Python](https://img.shields.io/pypi/pyversions/aspose-cells-foss.svg)](https://pypi.org/project/aspose-cells-foss/)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n\n## Features\n\n- **Create & Edit Excel Files**: Create new workbooks or modify existing .xlsx files\n- **Cell Operations**: Read/write cell values and formulas\n- **Styling**: Apply fonts, colors, borders, number formats, and alignment\n- **Multiple Worksheets**: Add, remove, rename, and manage worksheets\n- **Charts**: Create and modify charts (line, bar, pie, scatter, combo, waterfall, treemap, and more)\n- **Tables**: Add and manage ListObject tables with styles and auto-filters\n- **Shapes & TextBoxes**: Add shapes, text boxes, and pictures with hyperlinks\n- **Data Validation**: Add dropdown lists, number ranges, and custom validation rules\n- **Comments**: Add and manage cell comments with author and rich text\n- **Hyperlinks**: Create links to URLs, emails, files, and internal references\n- **Auto-Filters**: Apply filtering to data ranges\n- **Conditional Formatting**: Apply rules-based formatting\n- **CSV / JSON / Markdown Export**: Save workbooks in multiple text formats\n- **Encryption**: Password-protect Excel files with AES encryption\n- **Workbook & Worksheet Protection**: Protect workbook structure and individual sheets\n\n## Installation\n\n```bash\npip install aspose-cells-foss\n```\n\n## Quick Start\n\n### Create a new Excel file\n\n```python\nfrom aspose.cells_foss import Workbook\n\n# Create a new workbook\nworkbook = Workbook()\n\n# Get the first worksheet\nworksheet = workbook.worksheets[0]\n\n# Set cell values\nworksheet.cells[\"A1\"].value = \"Hello\"\nworksheet.cells[\"B1\"].value = \"World\"\nworksheet.cells[\"A2\"].value = 42\nworksheet.cells[\"B2\"].value = 3.14\n\n# Save the workbook\nworkbook.save(\"output.xlsx\")\n```\n\n### Read an existing Excel file\n\n```python\nfrom aspose.cells_foss import Workbook\n\n# Open an existing workbook\nworkbook = Workbook(\"input.xlsx\")\n\n# Access a worksheet\nworksheet = workbook.worksheets[0]\n\n# Read cell values\nvalue = worksheet.cells[\"A1\"].value\nprint(f\"Cell A1 contains: {value}\")\n```\n\n### Apply styling\n\n```python\nfrom aspose.cells_foss import Workbook\n\nworkbook = Workbook()\nworksheet = workbook.worksheets[0]\ncell = worksheet.cells[\"A1\"]\n\ncell.value = \"Styled Text\"\n\n# Get and modify the cell style\nstyle = cell.get_style()\nstyle.font.bold = True\nstyle.font.color = \"#FF0000\"  # Red\nstyle.font.size = 14\ncell.apply_style(style)\n\nworkbook.save(\"styled.xlsx\")\n```\n\n### Add data validation (dropdown list)\n\n```python\nfrom aspose.cells_foss import Workbook, DataValidationType\n\nworkbook = Workbook()\nworksheet = workbook.worksheets[0]\n\n# Add a dropdown list validation to A1:A10\nvalidation = worksheet.data_validations.add(\"A1:A10\")\nvalidation.type = DataValidationType.LIST\nvalidation.formula1 = '\"Option1,Option2,Option3\"'\n\nworkbook.save(\"validation.xlsx\")\n```\n\n### Export to CSV\n\n```python\nfrom aspose.cells_foss import Workbook\n\nworkbook = Workbook(\"input.xlsx\")\nworkbook.save_as_csv(\"output.csv\")\n```\n\n### Password protection\n\n```python\nfrom aspose.cells_foss import Workbook\n\nworkbook = Workbook()\nworksheet = workbook.worksheets[0]\nworksheet.cells[\"A1\"].value = \"Confidential Data\"\n\n# Save with password protection\nworkbook.save(\"protected.xlsx\", password=\"mypassword\")\n\n# Open a password-protected file\nworkbook2 = Workbook(\"protected.xlsx\", password=\"mypassword\")\n```\n\n## Requirements\n\n- Python 3.7 or higher\n- pycryptodome >= 3.15.0\n- olefile >= 0.46\n\n## Documentation\n\nFor more examples and detailed API documentation, see the [examples](https://github.com/aspose-cells-foss/aspose-cells-python/tree/main/examples) directory.\n\n## Contributing\n\nContributions are welcome! Please feel free to submit a Pull Request.\n\n1. Fork the repository\n2. Create your feature branch (`git checkout -b feature/amazing-feature`)\n3. Commit your changes (`git commit -m 'Add some amazing feature'`)\n4. Push to the branch (`git push origin feature/amazing-feature`)\n5. Open a Pull Request\n\n## License\n\nThis project is licensed under the MIT License - see the [LICENSE](https://github.com/aspose-cells-foss/aspose-cells-python/blob/main/License/license.txt) file for details.\n\n## Support\n\n- **Issues**: [GitHub Issues](https://github.com/aspose-cells-foss/aspose-cells-python/issues)\n\n<!-- readme-agent:resources hash=\"sha256:6d27138934cff08cf07ce0ed755faf2fd4ed5e82d898e245c29e1910873f789c\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.Cells FOSS for Python](https://products.aspose.org/cells/python/)\n- **Commercial edition:** [Aspose.Cells for Python](https://products.aspose.com/cells/python/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository, aspose-cells-foss, hosts the free, open-source (FOSS) edition of Aspose.Cells for Python, licensed under the MIT License, and is intended for non-commercial use and community development. Users seeking enhanced functionality, enterprise support, and commercial licensing can upgrade to the full-featured commercial edition available at the official Aspose.Cells for Python product page.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "e254a50a8bc727a7542358338f141aa645e79af8faf6a57caf580a085e702ffc",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": true,
+            "skip_regeneration": false,
+            "status": "GENERATED"
           },
-          "result": null,
-          "state": "BLOCKED",
+          "state": "PASSED",
           "supersedes": null,
-          "task_id": "4726c12a6e1c4e659068527c7fd37aa5",
-          "terminal_at": "2026-07-21T09:59:29.925403+00:00"
+          "task_id": "2aa9d84ba5274604b3fa90ab0f1583f9",
+          "terminal_at": "2026-07-22T14:14:13.679839+00:00"
         }
       ]
     }
