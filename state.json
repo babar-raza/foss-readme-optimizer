@@ -7,6 +7,7 @@
       "accepted_facts_hash": "37dc24a925b87b88d9c723069d3df0585cd31e68e7e69e3d340b6eecb6c7a876",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "community_profile_health_percentage": 50,
         "detected_license": "MIT",
@@ -42,12 +43,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T13:08:30.512026+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "cross_surface_validation": {
       "accepted_facts_hash": "aee5ab33e37e794d99cf2f1e917ab65bad67f1e379eed5f86fb546003222c628",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "compared": {
           "community_files_presentation_detected_license": "MIT",
@@ -61,12 +64,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T13:08:40.618411+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "github_generated_surface_audit": {
       "accepted_facts_hash": "5aa63e993b4b0124039130133a64d1617fca7b86acc1fd36e89770569d765be9",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "contributors_count": 1,
         "forks_count": 0,
@@ -83,12 +88,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T13:07:46.473159+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "independent_verification": {
       "accepted_facts_hash": "2e41c2981e591d939440e9a500fd517bee6e735df1b1247ad927420a45f831ab",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "adversarial_findings": [],
         "checks_performed": [
@@ -126,12 +133,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T13:09:21.313050+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "metadata_presentation": {
       "accepted_facts_hash": "0b0d72e132be26e9dacc197117284d0a34a676d2ff75ee602fd384978c9036b3",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "current_description": "Aspose.3D FOSS for Java",
         "current_homepage": null,
@@ -148,12 +157,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T13:08:16.393790+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
       "accepted_facts_hash": "99e1d8613f0a20ce6bfdd5c973195f84e197fbfc7b016ec51ba8dac0b2a6d602",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "evidence": "Maven Central: org.aspose:aspose-3d-foss NOT FOUND (0 results)",
         "handoff_findings": [
@@ -176,12 +187,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T13:08:01.786650+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "readme_presentation": {
       "accepted_facts_hash": "f3b194ba10e3bd4b62917473531e9498fc98493d0b2b0b2dbc74b44db01e3473",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "committed": false,
         "fresh_fingerprint": "c79347e79f898c370f41c52c9e430ff380918c9a8a09e41e68bf8409d086876a",
@@ -195,26 +208,30 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T13:08:55.055415+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "license_claim": "MIT"
       },
       "domain": "readme_reconciliation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T13:07:31.861882+00:00",
+      "last_run_timestamp": "2026-07-22T09:34:26.670870+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": "605f67d1192fee1881078dfd53d37b8cb29623ba"
     },
     "visual_preparation": {
       "accepted_facts_hash": "23c2b9a110b6f00ff9ab5f3f7c00796a4c188e299b21db46963052852b6efd2e",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "alt_text": "3d FOSS for java logo",
         "concerns": [],
@@ -237,6 +254,7 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T13:09:11.208121+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     }
   },
@@ -244,7 +262,7 @@
   "last_run_timestamp": null,
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 31,
+  "state_version": 32,
   "supervisor_state": {
     "capability_gaps": [
       {
