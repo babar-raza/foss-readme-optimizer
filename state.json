@@ -378,7 +378,7 @@
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 54,
+  "state_version": 55,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "21d27014158683ec7540d1ea1b964158e04aeb7aa2f789ee6c94f1c88076cda7",
@@ -386,63 +386,11 @@
     "in_flight_domains": [],
     "in_flight_run_id": null,
     "last_observed_upstream_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
-    "last_run_id": "20260722-154506-b150",
-    "last_run_timestamp": "2026-07-22T15:45:06.832489+00:00",
+    "last_run_id": null,
+    "last_run_timestamp": "2026-07-22T15:46:43.399953+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
-    "task_graph_snapshot": {
-      "tasks": [
-        {
-          "arguments": {
-            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
-          },
-          "blocked_reason": null,
-          "capability_id": "inspect_repository",
-          "created_at": "2026-07-22T15:44:59.802477+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "has_license_file": true,
-            "has_readme": true,
-            "manifest_keys": [
-              "artifact_id",
-              "group_id",
-              "license",
-              "name",
-              "runtime_min_version",
-              "version"
-            ],
-            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
-            "readme_length_chars": 3894
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "1df144e772f74c3b9ce3c52cd842b176",
-          "terminal_at": "2026-07-22T15:45:00.773675+00:00"
-        },
-        {
-          "arguments": {
-            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
-          },
-          "blocked_reason": null,
-          "capability_id": "detect_readme_gaps",
-          "created_at": "2026-07-22T15:45:03.164206+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "license_mentioned": true,
-            "products_com_link": true,
-            "products_org_link": true,
-            "relationship_explained": true,
-            "total_gaps": 0
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "eb29a7194e52449a96dc0a9ac6a61405",
-          "terminal_at": "2026-07-22T15:45:04.104899+00:00"
-        }
-      ]
-    }
+    "task_graph_snapshot": null
   },
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
