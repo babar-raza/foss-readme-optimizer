@@ -392,35 +392,18 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 29,
+  "state_version": 30,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-142857-5040",
+    "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
+    "domain_coverage_complete": true,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
-    "last_run_id": "20260721-101115-63a9",
-    "last_run_timestamp": "2026-07-21T10:11:15.141599+00:00",
-    "last_status": "BLOCKED",
-    "repair_history": [
-      {
-        "detail": "'get_product_facts' failed (execution_error); retrying once",
-        "kind": "repair",
-        "turn": 2
-      }
-    ],
+    "last_run_id": "20260722-143342-18af",
+    "last_run_timestamp": "2026-07-22T14:33:42.919473+00:00",
+    "last_status": "CONVERGED_NO_CHANGE",
+    "repair_history": [],
     "task_graph_snapshot": {
       "tasks": [
         {
@@ -429,78 +412,101 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T10:10:51.181011+00:00",
+          "created_at": "2026-07-22T14:33:20.221853+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "canonical_package",
+              "license",
+              "name",
+              "requires_python",
+              "version"
+            ],
             "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
             "readme_length_chars": 4059
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "94688df038514b03a95ce95d3c790fcb",
-          "terminal_at": "2026-07-21T10:10:53.328279+00:00"
+          "task_id": "88ac949a5d43486ea1d82bf76365c178",
+          "terminal_at": "2026-07-22T14:33:20.235540+00:00"
         },
         {
           "arguments": {
             "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python"
           },
           "blocked_reason": null,
-          "capability_id": "profile_repository",
-          "created_at": "2026-07-21T10:10:58.979275+00:00",
+          "capability_id": "inspect_repository",
+          "created_at": "2026-07-22T14:33:22.722007+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
-            "detected_ecosystems": [
-              {
-                "confidence": 1.0,
-                "ecosystem": "python",
-                "evidence": "found pyproject.toml; parsed 5 field(s)",
-                "manifest_path": "pyproject.toml"
-              }
+            "has_license_file": true,
+            "has_readme": true,
+            "manifest_keys": [
+              "canonical_package",
+              "license",
+              "name",
+              "requires_python",
+              "version"
             ],
             "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
-            "unresolved_manifests": []
+            "readme_length_chars": 4059
+          },
+          "state": "SUPERSEDED",
+          "supersedes": "88ac949a5d43486ea1d82bf76365c178",
+          "task_id": "9b5c9d8a192b40598329075551b10f16",
+          "terminal_at": "2026-07-22T14:33:22.722057+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python"
+          },
+          "blocked_reason": null,
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T14:33:25.415481+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "license_mentioned": false,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 4
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "221e0774349b459a913b349986979aa5",
-          "terminal_at": "2026-07-21T10:11:02.110561+00:00"
+          "task_id": "01db0be1643649aabd43677db66b6eed",
+          "terminal_at": "2026-07-22T14:33:25.428238+00:00"
         },
         {
           "arguments": {
+            "force_regenerate": true,
             "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python"
           },
-          "blocked_reason": "ValueError: aspose-email-foss/Aspose.Email-FOSS-for-Python has no policy_profile configured",
-          "capability_id": "get_product_facts",
-          "created_at": "2026-07-21T10:11:08.460505+00:00",
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T14:33:31.567505+00:00",
           "depends_on": [],
           "gap": null,
-          "result": null,
-          "state": "FAILED",
-          "supersedes": null,
-          "task_id": "401107e88ebb42daab47bd9ba7ad5959",
-          "terminal_at": "2026-07-21T10:11:08.461641+00:00"
-        },
-        {
-          "arguments": {
-            "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python"
+          "result": {
+            "facts_hash": "7a82cda5004290a531a17df5e20e66540cffbe53bcabeeea919c22ee36f70e04",
+            "final_text": "# Aspose.Email FOSS for Python\n\nAspose.Email FOSS for Python is a pure Python toolkit for working with:\n\n- Compound File Binary (CFB) containers\n- Outlook MSG files\n- High-level MAPI-style message objects\n- [`email.message.EmailMessage`](https://docs.python.org/3/library/email.message.html#email.message.EmailMessage) conversion\n\nIt is focused on practical MSG read/write workflows in a lightweight open-source package.\n\n## Features\n\n- Read CFB and Outlook MSG containers\n- Inspect low-level storages, streams, and property bags\n- Read, edit, and write messages through `MapiMessage`\n- Work with recipients, attachments, and embedded messages\n- Convert between MSG and [`email.message.EmailMessage`](https://docs.python.org/3/library/email.message.html#email.message.EmailMessage)\n- Create new Outlook-compatible `.msg` files in pure Python\n\n## Installation\n\n```bash\npip install aspose-email-foss\n```\n\n## Quick Start\n\n```python\nfrom datetime import datetime, timezone\n\nfrom aspose.email_foss import msg\n\nmessage = msg.MapiMessage.create(\"Hello\", \"Body\")\nmessage.set_property(msg.PropertyId.SENDER_NAME, \"Build Agent\")\nmessage.set_property(msg.PropertyId.SENDER_EMAIL_ADDRESS, \"build.agent@example.com\")\nmessage.set_property(msg.PropertyId.MESSAGE_DELIVERY_TIME, datetime(2026, 3, 15, 10, 30, tzinfo=timezone.utc))\nmessage.add_recipient(\"alice@example.com\", display_name=\"Alice Example\")\nmessage.add_attachment(\"hello.txt\", b\"sample attachment\\n\", mime_type=\"text/plain\")\nmessage.save(\"example-message.msg\")\n\nwith msg.MapiMessage.from_file(\"example-message.msg\") as loaded:\n    email_message = loaded.to_email_message()\n    print(email_message[\"Subject\"])\n```\n\n## Package Entry Points\n\n- `aspose.email_foss.msg.MapiMessage`: high-level mutable MSG model\n- `aspose.email_foss.msg.MsgReader`: low-level MSG reader\n- `aspose.email_foss.msg.MsgWriter`: low-level MSG writer\n- `aspose.email_foss.cfb.CFBReader`: low-level CFB reader\n- `aspose.email_foss.cfb.CFBWriter`: low-level CFB writer\n\n## Compatibility\n\nMain supported scenarios:\n\n- Read Outlook `.msg` files\n- Write Outlook `.msg` files\n- Inspect Compound File Binary (CFB) containers\n- Convert `.msg` to `.eml`\n- Convert `.eml` to `.msg`\n- Work with recipients, attachments, and embedded messages\n\nAPI layers:\n\n- High-level MSG API: `aspose.email_foss.msg`, centered around `MapiMessage`\n- Low-level MSG API: `aspose.email_foss.msg`, centered around `MsgReader`, `MsgWriter`, and `MsgDocument`\n- Low-level CFB API: `aspose.email_foss.cfb`, centered around `CFBReader`, `CFBWriter`, and `CFBDocument`\n\n[`email.message.EmailMessage`](https://docs.python.org/3/library/email.message.html#email.message.EmailMessage) interop:\n\n- `MapiMessage.from_email_message(...)`\n- `MapiMessage.to_email_message()`\n\nOutlook-oriented behavior:\n\n- standard message creation\n- recipients\n- file attachments\n- embedded message attachments\n- common message property defaults for practical Outlook interoperability\n\nFor the stable API summary, see [PUBLIC_API.md](PUBLIC_API.md).\nFor runnable scenarios, see [examples](examples).\n\n## Examples\n\n### Convert MSG to EML\n\n```python\nfrom aspose.email_foss import msg\n\nwith msg.MapiMessage.from_file(\"message.msg\") as message:\n    email_message = message.to_email_message()\n\nwith open(\"message.eml\", \"wb\") as target:\n    target.write(email_message.as_bytes())\n```\n\n### Convert EML to MSG\n\n```python\nfrom email import policy\nfrom email.parser import BytesParser\n\nfrom aspose.email_foss import msg\n\nwith open(\"message.eml\", \"rb\") as source:\n    email_message = BytesParser(policy=policy.default).parse(source)\n\nmessage = msg.MapiMessage.from_email_message(email_message)\nmessage.save(\"message.msg\")\n```\n\n## Links\n\n- Repository: <https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python>\n- Issues: <https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python/issues>\n- PyPI: <https://pypi.org/project/aspose-email-foss/>\n\n## Development\n\nSee [CONTRIBUTING.md](CONTRIBUTING.md).\n\n## Security\n\nSee [SECURITY.md](SECURITY.md).\n\n## Changelog\n\nSee [CHANGELOG.md](CHANGELOG.md).\n\n<!-- readme-agent:resources hash=\"sha256:7a82cda5004290a531a17df5e20e66540cffbe53bcabeeea919c22ee36f70e04\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **License:** MIT\n- **Open-source (FOSS) catalog:** [Aspose.Email FOSS for Python](https://products.aspose.org/email/python/)\n- **Commercial edition:** [Aspose.Email for Python](https://products.aspose.com/email/python-net/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository, aspose-email-foss, is the free, open-source (FOSS) edition of Aspose.Email for Python, licensed under the MIT License and intended for community use and contribution. It provides a subset of the functionality available in the commercial Aspose.Email for Python product, which offers a broader feature set, including advanced capabilities and enterprise support, and is available for commercial licensing via the official Aspose product page.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "896514fa2e67a02d0635896f330858892bae49ea0374f2e91fc655e88db4de25",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": true,
+            "skip_regeneration": false,
+            "status": "GENERATED"
           },
-          "blocked_reason": "ValueError: aspose-email-foss/Aspose.Email-FOSS-for-Python has no policy_profile configured",
-          "capability_id": "get_product_facts",
-          "created_at": "2026-07-21T10:11:08.461591+00:00",
-          "depends_on": [
-            "401107e88ebb42daab47bd9ba7ad5959"
-          ],
-          "gap": null,
-          "result": null,
-          "state": "BLOCKED",
+          "state": "PASSED",
           "supersedes": null,
-          "task_id": "e9ee009186d84c2aaedd423765fb413c",
-          "terminal_at": "2026-07-21T10:11:08.462591+00:00"
+          "task_id": "9a90c791facf464687a5440f169ca446",
+          "terminal_at": "2026-07-22T14:33:35.862099+00:00"
         }
       ]
     }
