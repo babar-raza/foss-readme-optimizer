@@ -201,6 +201,74 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "1ed0a411171e49758b462321ed24bff568bb4444"
     },
+    "presentation_benchmarking": {
+      "accepted_facts_hash": "3a3f11f772cda9452868959e1004a26072954a466b4f5f8375844c6f55b8fe33",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does ('open-source Java library for working with PDF documents') using a concrete verb ('working') and includes key technical context (API-compatible, ISO compliant, zero dependencies).",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The opening paragraph explicitly names the target audience (Java developers), ecosystem (Java), format (PDF), and common tasks (working with PDF documents), and the 'Features' section further clarifies scope with concrete capabilities.",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "The README includes a visible, GitHub-recognized MIT license badge, Maven Central badge, build status badge, and Java version badge \u2014 satisfying all key trust signals.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install section states Maven coordinates but explicitly says the artifact is 'not yet available' on Maven Central, and the provided coordinates do not resolve \u2014 violating the requirement that installation commands must work against a real registry.",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "The 'Quick Start' section provides four runnable, self-contained code examples beyond the install snippet, each demonstrating a distinct capability (text extraction, image extraction, creation, forms).",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent Markdown levels (##), and the logical flow follows expected sequencing: product description \u2192 features \u2192 installation \u2192 examples \u2192 docs \u2192 roadmap \u2192 contributing \u2192 license.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "No visuals are present, which is appropriate for a pure API library like this; the standard permits absence when visuals do not improve understanding of the product or workflow.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The repository is missing recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub does not show the full quick-link row \u2014 only README and LICENSE are recognized.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "Recent activity is visible via the build workflow badge and versioning scheme (26.7), and the README's 'Status' section transparently communicates early-stage maturity without overclaiming.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The commercial mention appears exactly once at the end, in factual, capability-extension language ('commercial library... broader feature set... FOSS edition shares the same API shape'), with no promotional language or repeated mentions.",
+            "satisfied": true
+          }
+        ],
+        "overall_summary": "The README satisfies most dimensions, with critical gaps in installation-path validity (not yet on Maven Central) and contribution readiness (missing CODE_OF_CONDUCT/CONTRIBUTING/SECURITY files). The product clarity, examples, and commercial framing are well-executed per the standard."
+      },
+      "domain": "presentation_benchmarking",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-22T07:54:49.187050+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "1ed0a411171e49758b462321ed24bff568bb4444"
+    },
     "readme_presentation": {
       "accepted_facts_hash": "8c9df7913609b9bc6ba2d34aec6b0fafa1e1c7b681e41dec38b2c32393246436",
       "accepted_status": "CHANGED",
@@ -280,7 +348,7 @@
   "last_run_timestamp": "2026-07-20T12:46:26.020316+00:00",
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 23,
+  "state_version": 24,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6fead41d02ce74533d2b27d827b17eae52be71f9233cf629128bad5758f368ec",
