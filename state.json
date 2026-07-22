@@ -397,27 +397,16 @@
   "open_proposals": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 29,
+  "state_version": 30,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
-    "domain_coverage_complete": null,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260722-144949-446f",
+    "control_plane_fingerprint": "b45b57f5b8b20edaccdd705a785a68d7023d9dade78afc593e68bbb02692cda5",
+    "domain_coverage_complete": true,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "25adb25c8796f06d9b89cd5f8093e490091195ef",
-    "last_run_id": "20260721-110031-a22e",
-    "last_run_timestamp": "2026-07-21T11:00:31.593627+00:00",
+    "last_run_id": "20260722-145400-c68b",
+    "last_run_timestamp": "2026-07-22T14:54:00.112932+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "task_graph_snapshot": {
@@ -428,20 +417,72 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-21T11:00:18.908306+00:00",
+          "created_at": "2026-07-22T14:53:36.423980+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "has_license_file": true,
             "has_readme": true,
-            "manifest_keys": [],
+            "manifest_keys": [
+              "cmake_min_version",
+              "cpp_standard",
+              "name"
+            ],
             "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
             "readme_length_chars": 7937
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "b22887cc486b49fca3c1259667bf440f",
-          "terminal_at": "2026-07-21T11:00:23.952979+00:00"
+          "task_id": "c8b3f84bebde41d7938eddbbef4ced60",
+          "terminal_at": "2026-07-22T14:53:37.568323+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp"
+          },
+          "blocked_reason": null,
+          "capability_id": "detect_readme_gaps",
+          "created_at": "2026-07-22T14:53:40.533311+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "license_mentioned": true,
+            "products_com_link": false,
+            "products_org_link": false,
+            "relationship_explained": false,
+            "total_gaps": 3
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "861710537b454dc3aa7add1900aea8c3",
+          "terminal_at": "2026-07-22T14:53:41.620993+00:00"
+        },
+        {
+          "arguments": {
+            "force_regenerate": true,
+            "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp"
+          },
+          "blocked_reason": null,
+          "capability_id": "render_readme_candidate",
+          "created_at": "2026-07-22T14:53:47.004992+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "facts_hash": "954d902cea57a3a93121b47df66b519eef4e6c83d73d158796184f92f0f04421",
+            "final_text": "# Aspose.Slides FOSS for C++\n\nThe official open-source C++ library by Aspose.Slides for creating, reading, and editing PowerPoint (`.pptx`) presentations.\n\n---\n\n## Quick Start\n\n```cpp\n#include <Aspose/Slides/Foss/presentation.h>\n#include <Aspose/Slides/Foss/export/save_format.h>\n\nusing namespace Aspose::Slides::Foss;\n\nint main() {\n    // Open an existing presentation\n    Presentation pres(\"input.pptx\");\n    auto& slides = pres.slides();\n    // ... work with slides ...\n    pres.save(\"output.pptx\", SaveFormat::PPTX);\n\n    // Create a new presentation\n    Presentation new_pres;\n    auto& slide = new_pres.slides()[0];\n    new_pres.save(\"new.pptx\", SaveFormat::PPTX);\n}\n```\n\n---\n\n## Features\n\n- **Presentation I/O** \u2014 Open, create, and save `.pptx` files with full round-trip fidelity\n- **Slides** \u2014 Add, remove, clone, reorder, and iterate slides\n- **Shapes** \u2014 AutoShapes, PictureFrames, Tables, Connectors\n- **Text** \u2014 TextFrame, Paragraph, Portion with character, paragraph, and text frame formatting (including bullets)\n- **Fill** \u2014 Solid, gradient, pattern, and picture fills\n- **Lines** \u2014 Width, dash style, arrows, join and alignment\n- **Effects** \u2014 Outer shadow, glow, soft edge, blur, reflection, inner shadow\n- **3D** \u2014 Bevel, camera, light rig, material, extrusion depth\n- **Document properties** \u2014 Core, app, and custom properties\n- **Notes slides** \u2014 Per-slide notes with header/footer management\n- **Comments** \u2014 Threaded comments with authors, timestamps, and positions\n- **Images** \u2014 Embed from file, bytes, or stream\n\n---\n\n## Usage Examples\n\n### Shapes\n\n```cpp\n#include <Aspose/Slides/Foss/presentation.h>\n#include <Aspose/Slides/Foss/shape_type.h>\n#include <Aspose/Slides/Foss/auto_shape.h>\n#include <Aspose/Slides/Foss/export/save_format.h>\n\nusing namespace Aspose::Slides::Foss;\n\nPresentation pres;\nauto& slide = pres.slides()[0];\nauto& shape = slide.shapes().add_auto_shape(ShapeType::RECTANGLE, 50, 50, 300, 100);\nshape.add_text_frame(\"Hello, world!\");\npres.save(\"shapes.pptx\", SaveFormat::PPTX);\n```\n\n### Text Formatting\n\n```cpp\n#include <Aspose/Slides/Foss/presentation.h>\n#include <Aspose/Slides/Foss/shape_type.h>\n#include <Aspose/Slides/Foss/auto_shape.h>\n#include <Aspose/Slides/Foss/text_frame.h>\n#include <Aspose/Slides/Foss/paragraph.h>\n#include <Aspose/Slides/Foss/portion.h>\n#include <Aspose/Slides/Foss/portion_format.h>\n#include <Aspose/Slides/Foss/fill_type.h>\n#include <Aspose/Slides/Foss/nullable_bool.h>\n#include <Aspose/Slides/Foss/drawing/color.h>\n#include <Aspose/Slides/Foss/export/save_format.h>\n\nusing namespace Aspose::Slides::Foss;\nusing namespace Aspose::Slides::Foss::Drawing;\n\nPresentation pres;\nauto& shape = pres.slides()[0].shapes().add_auto_shape(\n    ShapeType::RECTANGLE, 50, 50, 400, 150);\nauto& tf = shape.add_text_frame(\"Formatted text\");\nauto& fmt = tf.paragraphs()[0].portions()[0].portion_format();\nfmt.set_font_height(24.0f);\nfmt.set_font_bold(NullableBool::TRUE);\nfmt.fill_format().set_fill_type(FillType::SOLID);\nfmt.fill_format().solid_fill_color().set_color(Color::from_argb(255, 0, 70, 127));\npres.save(\"text.pptx\", SaveFormat::PPTX);\n```\n\n### Table\n\n```cpp\n#include <Aspose/Slides/Foss/presentation.h>\n#include <Aspose/Slides/Foss/table.h>\n#include <Aspose/Slides/Foss/export/save_format.h>\n\nusing namespace Aspose::Slides::Foss;\n\nPresentation pres;\nauto& table = pres.slides()[0].shapes().add_table(\n    50, 50, {120.0, 120.0, 120.0}, {40.0, 40.0});\ntable.rows()[0][0].text_frame().set_text(\"Name\");\ntable.rows()[0][1].text_frame().set_text(\"Value\");\npres.save(\"table.pptx\", SaveFormat::PPTX);\n```\n\n### Connector\n\n```cpp\n#include <Aspose/Slides/Foss/presentation.h>\n#include <Aspose/Slides/Foss/shape_type.h>\n#include <Aspose/Slides/Foss/auto_shape.h>\n#include <Aspose/Slides/Foss/connector.h>\n#include <Aspose/Slides/Foss/export/save_format.h>\n\nusing namespace Aspose::Slides::Foss;\n\nPresentation pres;\nauto& slide = pres.slides()[0];\nauto& box1 = slide.shapes().add_auto_shape(ShapeType::RECTANGLE, 50, 100, 150, 60);\nauto& box2 = slide.shapes().add_auto_shape(ShapeType::RECTANGLE, 350, 100, 150, 60);\nauto& conn = slide.shapes().add_connector(\n    ShapeType::BENT_CONNECTOR3, 0, 0, 10, 10);\nconn.set_start_shape_connected_to(&box1);\nconn.set_start_shape_connection_site_index(3);  // right\nconn.set_end_shape_connected_to(&box2);\nconn.set_end_shape_connection_site_index(1);    // left\npres.save(\"connector.pptx\", SaveFormat::PPTX);\n```\n\n### Fill\n\n```cpp\n#include <Aspose/Slides/Foss/presentation.h>\n#include <Aspose/Slides/Foss/shape_type.h>\n#include <Aspose/Slides/Foss/auto_shape.h>\n#include <Aspose/Slides/Foss/fill_type.h>\n#include <Aspose/Slides/Foss/drawing/color.h>\n#include <Aspose/Slides/Foss/export/save_format.h>\n\nusing namespace Aspose::Slides::Foss;\nusing namespace Aspose::Slides::Foss::Drawing;\n\nPresentation pres;\nauto& shape = pres.slides()[0].shapes().add_auto_shape(\n    ShapeType::RECTANGLE, 50, 50, 300, 150);\nshape.fill_format().set_fill_type(FillType::SOLID);\nshape.fill_format().solid_fill_color().set_color(Color::from_argb(255, 30, 120, 200));\npres.save(\"fill.pptx\", SaveFormat::PPTX);\n```\n\n### Notes\n\n```cpp\n#include <Aspose/Slides/Foss/presentation.h>\n#include <Aspose/Slides/Foss/notes_slide_manager.h>\n#include <Aspose/Slides/Foss/notes_slide.h>\n#include <Aspose/Slides/Foss/text_frame.h>\n#include <Aspose/Slides/Foss/export/save_format.h>\n\nusing namespace Aspose::Slides::Foss;\n\nPresentation pres;\nauto& notes = pres.slides()[0].notes_slide_manager().add_notes_slide();\nnotes.notes_text_frame().set_text(\"Speaker notes go here.\");\npres.save(\"notes.pptx\", SaveFormat::PPTX);\n```\n\n### Comments\n\n```cpp\n#include <Aspose/Slides/Foss/presentation.h>\n#include <Aspose/Slides/Foss/comment_author_collection.h>\n#include <Aspose/Slides/Foss/comment_author.h>\n#include <Aspose/Slides/Foss/comment_collection.h>\n#include <Aspose/Slides/Foss/drawing/point_f.h>\n#include <Aspose/Slides/Foss/export/save_format.h>\n#include <chrono>\n\nusing namespace Aspose::Slides::Foss;\nusing namespace Aspose::Slides::Foss::Drawing;\n\nPresentation pres;\nauto& author = pres.comment_authors().add_author(\"Jane Smith\", \"JS\");\nauto& slide = pres.slides()[0];\nauthor.comments().add_comment(\n    \"Review this slide\", &slide, PointF{2.0, 2.0},\n    std::chrono::system_clock::now());\npres.save(\"comments.pptx\", SaveFormat::PPTX);\n```\n\n### Document Properties\n\n```cpp\n#include <Aspose/Slides/Foss/presentation.h>\n#include <Aspose/Slides/Foss/document_properties.h>\n#include <Aspose/Slides/Foss/export/save_format.h>\n\nusing namespace Aspose::Slides::Foss;\n\nPresentation pres;\npres.document_properties().set_title(\"Q1 Results\");\npres.document_properties().set_author(\"Finance Team\");\npres.document_properties().set_custom_property_value(\"Version\", 3);\npres.save(\"deck.pptx\", SaveFormat::PPTX);\n```\n\n---\n\n## Building\n\n```bash\ncmake -B build -DCMAKE_BUILD_TYPE=Release\ncmake --build build\n```\n\nDependencies (fetched automatically via CMake FetchContent):\n- [pugixml](https://github.com/zeux/pugixml) v1.14 \u2014 XML parsing\n- [miniz](https://github.com/richgel999/miniz) 3.0.2 \u2014 ZIP archive I/O\n- [GoogleTest](https://github.com/google/googletest) v1.15.2 \u2014 Testing (build only)\n\n**Requires:** C++20 compiler, CMake 3.20+\n\n---\n\n## Limitations\n\nThe following areas are not yet available:\n\n- Charts, SmartArt, OLE objects, mathematical text\n- Animations and slide transitions\n- Export to non-PPTX formats (PDF, HTML, SVG, images)\n- VBA macros, digital signatures\n- Hyperlinks and action settings\n\nUnknown XML parts encountered during load are preserved verbatim on save \u2014\nopening and re-saving a file will never strip content this library does not yet understand.\n\n---\n\n## Links\n\n- [GitHub Repository](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp)\n- [Issue Tracker](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp/issues)\n\n---\n\n## License\n\n[MIT License](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp/blob/main/LICENSE)\n\n<!-- readme-agent:resources hash=\"sha256:954d902cea57a3a93121b47df66b519eef4e6c83d73d158796184f92f0f04421\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.Slides FOSS for Cpp](https://products.aspose.org/slides/cpp/)\n- **Commercial edition:** [Aspose.Slides for Cpp](https://products.aspose.com/slides/cpp/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository, aspose_slides_foss, hosts the free, open-source (FOSS) edition of Aspose.Slides for C++, which is a subset of the full commercial Aspose.Slides for C++ product. While the FOSS edition provides core functionality under the MIT license, the commercial edition offers an expanded feature set, including advanced rendering, formatting, and enterprise-grade support, serving as the upgrade path for users requiring more comprehensive capabilities.\n<!-- readme-agent:resources:end -->\n",
+            "fresh_fingerprint": "35af2012a014d0f378b1d9fea001bf997885bea08fe3e8c8c61cc6c788f49b88",
+            "llm_called": true,
+            "llm_calls": [
+              "relationship_explained"
+            ],
+            "needs_write": false,
+            "skip_regeneration": false,
+            "status": "GENERATED"
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "6b5d3c58b1bf4ecf828fbb017e132d47",
+          "terminal_at": "2026-07-22T14:53:52.961451+00:00"
         }
       ]
     }
