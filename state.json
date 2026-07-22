@@ -1,7 +1,15 @@
 {
   "accepted_facts_hash": null,
   "accepted_status": null,
-  "capability_outputs": [],
+  "capability_outputs": [
+    {
+      "cached_at": "2026-07-22T13:52:04.429196+00:00",
+      "capability_id": "commit_readme_write",
+      "fingerprint": "7212ec2ebea0a2782d051664d4d1250131951b68dcb527cb31b7191f0405056d",
+      "result": {},
+      "status": "pending"
+    }
+  ],
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "ca270493289b85a9e56848a814ba4e92b402ea4c2105eba92465a9744a90da4a",
@@ -233,7 +241,7 @@
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 15,
+  "state_version": 16,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
