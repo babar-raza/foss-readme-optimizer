@@ -288,18 +288,50 @@
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     },
     "readme_presentation": {
-      "accepted_facts_hash": null,
-      "accepted_status": null,
-      "consecutive_failure_count": 1,
+      "accepted_facts_hash": "7a82cda5004290a531a17df5e20e66540cffbe53bcabeeea919c22ee36f70e04",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "committed": false,
+        "fresh_fingerprint": "896514fa2e67a02d0635896f330858892bae49ea0374f2e91fc655e88db4de25",
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ],
+        "prose_quality": {
+          "corroborated": false,
+          "flagged": false,
+          "quoted_span": "",
+          "reason": "The paragraph provides specific, non-repetitive information about the project's licensing (MIT), distinguishes clearly between the FOSS and commercial editions, and explains the relationship between them in a concise and purposeful way. It avoids generic boilerplate and reads as intentional, project-specific content."
+        },
+        "prose_quality_repair_attempts": 2,
+        "render_status": "GENERATED",
+        "verification": {
+          "checks": {
+            "needs_write_matches": true,
+            "validation_passed": true
+          },
+          "nonce": "20260722-143223-6c0d",
+          "reason": null,
+          "requirement_map": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": true
+          },
+          "token": "a7e249ba92ee7648f2019ded5f93666db3779bc4f55a8452d941d1e09df1210f",
+          "verdict": "accept"
+        },
+        "written": true
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "verification_rejected",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:31:01.363556+00:00",
+      "last_run_timestamp": "2026-07-22T14:33:07.688101+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "31908acb90cbec46e3da854db6e37863c4692a3f6cd5e4d82240acbf76690a35",
@@ -360,7 +392,7 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 28,
+  "state_version": 29,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
