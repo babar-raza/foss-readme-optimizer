@@ -18,6 +18,7 @@
       "accepted_facts_hash": "37dc24a925b87b88d9c723069d3df0585cd31e68e7e69e3d340b6eecb6c7a876",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "community_profile_health_percentage": 50,
         "detected_license": "MIT",
@@ -53,12 +54,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:22:42.833092+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "cross_surface_validation": {
       "accepted_facts_hash": "aee5ab33e37e794d99cf2f1e917ab65bad67f1e379eed5f86fb546003222c628",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "compared": {
           "community_files_presentation_detected_license": "MIT",
@@ -72,12 +75,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:22:56.916061+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "github_generated_surface_audit": {
       "accepted_facts_hash": "ef02480ffaa7015ec367599963f4e6fee25e69cb7b780ef174e08b282b77d39c",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "contributors_count": 2,
         "forks_count": 2,
@@ -94,12 +99,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:21:27.700927+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "independent_verification": {
       "accepted_facts_hash": "d9471b8db979fe4a90c6bb798f5e51443ee547f5ce73133fc7d504b2a88834e4",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "adversarial_findings": [],
         "checks_performed": [
@@ -137,12 +144,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:24:07.146969+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "metadata_presentation": {
       "accepted_facts_hash": "22af6a6c9ae9d8cbf17dfeadebfbe31ebeac886deca41d582f6c85ad624368ca",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "current_description": null,
         "current_homepage": null,
@@ -159,12 +168,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:22:18.651743+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
       "accepted_facts_hash": "a5c3b6ee93b500cb9cea70a77223a614b507601a8c882ae0c25453f2ba708a59",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "evidence": "Maven Central: org.aspose:aspose-pdf-foss NOT FOUND (0 results)",
         "handoff_findings": [
@@ -187,12 +198,14 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:21:53.593321+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "readme_presentation": {
       "accepted_facts_hash": "a78c2e2667b5b43c5e2faeee4962118a72344aa3db4ea3eef082406a7f1c846c",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "committed": false,
         "fresh_fingerprint": "18101b773803a6576c6549f772d97fa70931f9c9f349d00492c632dddf372b43",
@@ -206,26 +219,30 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:23:18.658107+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "8cec8c365707437102773ef42d196600392aab8df7776d8095286d538ba74083",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "license_claim": "MIT"
       },
       "domain": "readme_reconciliation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:21:11.821006+00:00",
+      "last_run_timestamp": "2026-07-22T07:52:06.252084+00:00",
       "owned_span_present_at_accept": false,
-      "upstream_revision_at_accept": "208684122fd0b10663698601548b32ce84068764"
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "1ed0a411171e49758b462321ed24bff568bb4444"
     },
     "visual_preparation": {
       "accepted_facts_hash": "80511fc65a039258941d87811760027f48a5450923129a738a0b99c90f403793",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
       "details": {
         "alt_text": "pdf FOSS for java logo",
         "concerns": [],
@@ -248,6 +265,7 @@
       "last_run_id": null,
       "last_run_timestamp": "2026-07-21T10:23:54.856905+00:00",
       "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": null
     }
   },
@@ -255,10 +273,11 @@
   "last_run_timestamp": "2026-07-20T12:46:26.020316+00:00",
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 15,
+  "state_version": 16,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6fead41d02ce74533d2b27d827b17eae52be71f9233cf629128bad5758f368ec",
+    "domain_coverage_complete": null,
     "last_observed_upstream_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
     "last_run_id": "20260721-102543-46e2",
     "last_run_timestamp": "2026-07-21T10:25:43.593346+00:00",
