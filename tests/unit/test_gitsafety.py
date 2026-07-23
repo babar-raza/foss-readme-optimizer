@@ -293,7 +293,8 @@ class TestCloneBaselineRetryAndTimeout:
 
         assert result == baseline_path
         assert len(calls) == 2
-        assert sleeps == [clone_module._CLONE_RETRY_BACKOFF_SECONDS[0]]
+        assert len(sleeps) == 1
+        assert 0 <= sleeps[0] <= clone_module.RETRY_POLICIES["clone"].maximum_seconds
 
     def test_does_not_retry_a_real_not_found_error(self, monkeypatch, tmp_path):
         import subprocess

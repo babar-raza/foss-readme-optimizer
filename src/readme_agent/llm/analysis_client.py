@@ -32,12 +32,11 @@ from pydantic import BaseModel
 
 from readme_agent.errors import LLMError
 from readme_agent.llm.schema import LLMResponseMeta, Usage
+from readme_agent.retry import RetryableOperationError, run_http_with_retry
 
 DEFAULT_TEMPERATURE = 0.0
 DEFAULT_MAX_TOKENS = 1000
 _RETRYABLE_STATUS = {429, 502, 503, 504}
-_MAX_RETRIES = 2
-_BACKOFF_SECONDS = [1, 2]
 
 _FENCE_RE = re.compile(r"^```(?:json)?\s*(.*?)\s*```$", re.DOTALL)
 
@@ -81,30 +80,18 @@ class LiveAnalysisClient:
         )
 
     def analyze(self, messages: list[dict]) -> AnalysisResult:
-        last_error: str | None = None
-        for attempt in range(_MAX_RETRIES + 1):
-            try:
-                resp = self._post_once(messages)
-            except (requests.ConnectionError, requests.Timeout) as exc:
-                last_error = f"network error: {exc}"
-                if attempt < _MAX_RETRIES:
-                    time.sleep(_BACKOFF_SECONDS[attempt])
-                    continue
-                raise LLMError(f"analysis call failed after retries: {last_error}") from exc
-
-            if resp.status_code in _RETRYABLE_STATUS:
-                last_error = f"HTTP {resp.status_code}"
-                if attempt < _MAX_RETRIES:
-                    time.sleep(_BACKOFF_SECONDS[attempt])
-                    continue
-                raise LLMError(f"analysis call failed after retries: {last_error}")
-
-            if resp.status_code != 200:
-                raise LLMError(f"analysis call failed: HTTP {resp.status_code}: {resp.text[:500]}")
-
-            return self._parse_response(resp)
-
-        raise LLMError(f"analysis call failed after retries: {last_error}")  # pragma: no cover
+        try:
+            resp = run_http_with_retry(
+                "llm_call",
+                lambda: self._post_once(messages),
+                retryable_statuses=_RETRYABLE_STATUS,
+                sleep=time.sleep,
+            )
+        except RetryableOperationError as exc:
+            raise LLMError(f"analysis call failed after retries: {exc}") from exc
+        if resp.status_code != 200:
+            raise LLMError(f"analysis call failed: HTTP {resp.status_code}: {resp.text[:500]}")
+        return self._parse_response(resp)
 
     def _parse_response(self, resp: requests.Response) -> AnalysisResult:
         try:

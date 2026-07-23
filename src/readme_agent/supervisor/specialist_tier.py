@@ -34,6 +34,7 @@ def run_specialist_tier(
     enable_specialist_skip: bool,
     specialist_selection_client: PlannerClient | None,
     escalation_alert_threshold: int,
+    fail_closed_on_state_failure: bool = False,
 ) -> SpecialistTierResult:
     """Run every registered domain while one domain's failure remains isolated."""
 
@@ -42,6 +43,8 @@ def run_specialist_tier(
         try:
             prior_full_state = state_backend.load(org_repo)
         except StateBackendError:
+            if fail_closed_on_state_failure:
+                raise
             prior_full_state = None
         skip_plan = specialist_selection.decide_skips(
             org_repo=org_repo,
@@ -56,7 +59,13 @@ def run_specialist_tier(
     domains = specialists_registry.all_domains()
     results: dict[str, DomainStateV1] = {}
     if state_backend is not None:
-        mark_specialist_tier_started(state_backend, org_repo, generate_run_id(), domains)
+        mark_specialist_tier_started(
+            state_backend,
+            org_repo,
+            generate_run_id(),
+            domains,
+            strict=fail_closed_on_state_failure,
+        )
 
     for domain in domains:
         if domain in skip_plan.skip_domains:
@@ -76,6 +85,8 @@ def run_specialist_tier(
                 domain, org_repo, state_backend, current_revision=current_revision
             )
         except Exception as exc:  # noqa: BLE001 -- one domain cannot abort its siblings
+            if fail_closed_on_state_failure and isinstance(exc, StateBackendError):
+                raise
             print(
                 f"warning: specialist domain {domain!r} raised, continuing with the others: {exc}",
                 file=sys.stderr,
@@ -99,6 +110,8 @@ def run_specialist_tier(
                 domain, org_repo, state_backend, current_revision=current_revision
             )
         except Exception as exc:  # noqa: BLE001 -- retain the original visible error
+            if fail_closed_on_state_failure and isinstance(exc, StateBackendError):
+                raise
             print(
                 f"warning: specialist domain {domain!r} retry raised, "
                 f"keeping the original error: {exc}",

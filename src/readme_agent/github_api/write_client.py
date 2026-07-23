@@ -13,7 +13,10 @@ import time
 
 import requests
 
-from readme_agent.github_api.client import API_ROOT, _headers, _rate_limit_wait_seconds
+from readme_agent.github_api.client import API_ROOT, _headers
+from readme_agent.retry import RetryableOperationError, run_http_with_retry
+
+_RETRYABLE_STATUS = {403, 429, 502, 503, 504}
 
 
 def find_open_pr(
@@ -28,10 +31,16 @@ def find_open_pr(
     owner = org_repo.split("/")[0]
     url = f"{API_ROOT}/repos/{org_repo}/pulls"
     params = {"head": f"{owner}:{branch_name}", "state": "open"}
-    resp = requests.get(url, params=params, headers=_headers(token), timeout=timeout)
-    if resp.status_code == 403:
-        time.sleep(_rate_limit_wait_seconds(resp))
-        resp = requests.get(url, params=params, headers=_headers(token), timeout=timeout)
+    try:
+        resp = run_http_with_retry(
+            "github_read",
+            lambda: requests.get(url, params=params, headers=_headers(token), timeout=timeout),
+            retryable_statuses=_RETRYABLE_STATUS,
+            honor_github_rate_limit=True,
+            sleep=time.sleep,
+        )
+    except RetryableOperationError as exc:
+        raise requests.ConnectionError(f"GitHub PR lookup failed after retries: {exc}") from exc
     resp.raise_for_status()
     results = resp.json()
     return results[0] if results else None
@@ -53,9 +62,15 @@ def create_pull_request(
     authority (`PR-merge-as-approval`, decision #46)."""
     url = f"{API_ROOT}/repos/{org_repo}/pulls"
     payload = {"head": head, "base": base, "title": title, "body": body}
-    resp = requests.post(url, json=payload, headers=_headers(token), timeout=timeout)
-    if resp.status_code == 403:
-        time.sleep(_rate_limit_wait_seconds(resp))
-        resp = requests.post(url, json=payload, headers=_headers(token), timeout=timeout)
+    try:
+        resp = run_http_with_retry(
+            "github_write",
+            lambda: requests.post(url, json=payload, headers=_headers(token), timeout=timeout),
+            retryable_statuses=_RETRYABLE_STATUS,
+            honor_github_rate_limit=True,
+            sleep=time.sleep,
+        )
+    except RetryableOperationError as exc:
+        raise requests.ConnectionError(f"GitHub PR creation failed after retries: {exc}") from exc
     resp.raise_for_status()
     return resp.json()

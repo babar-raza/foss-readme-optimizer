@@ -8,6 +8,7 @@ from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.llm.planner_client import PlannerClient
 from readme_agent.registry.loader import find_entry
 from readme_agent.state.backend import StateBackend
+from readme_agent.state.lifecycle import current_lifecycle_recorder
 from readme_agent.supervisor import repair
 from readme_agent.supervisor.models import DecisionSummary
 from readme_agent.supervisor.task import Task, TaskGraph
@@ -91,6 +92,21 @@ def dispatch_and_record(
             )
             repair_kind = "repair_alternative_selected"
         if repair_task is not None:
+            recorder = current_lifecycle_recorder()
+            if recorder is not None:
+                recorder.checkpoint(
+                    "repair_plan",
+                    task_id=task.task_id,
+                    action=repair_task.capability_id,
+                    inputs={
+                        "failed_capability": task.capability_id,
+                        "classification": classification,
+                    },
+                    outputs={
+                        "repair_task_id": repair_task.task_id,
+                        "repair_kind": repair_kind,
+                    },
+                )
             graph.mark(task.task_id, "FAILED", blocked_reason=dispatch.error)
             detail = (
                 f"{task.capability_id!r} failed ({classification}); retrying once"

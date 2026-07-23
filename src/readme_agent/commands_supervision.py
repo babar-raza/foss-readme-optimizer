@@ -41,6 +41,77 @@ def cmd_supervise(args: argparse.Namespace) -> int:
     else:
         profile = None
 
+    # Resolve and prove durable state before preflight can make an LLM
+    # connectivity call. A GitHub profile may never degrade to ephemeral
+    # execution when intake state is uncertain.
+    needs_durable_state = getattr(args, "durable_state", False) or (
+        profile is not None and profile.requires_durable_state
+    )
+    state_backend = (
+        _durable_state_backend(args)
+        if getattr(args, "durable_state", False)
+        else (_force_durable_state_backend() if needs_durable_state else None)
+    )
+
+    lifecycle_recorder = None
+    if profile is not None and profile.requires_durable_state:
+        from readme_agent import env
+        from readme_agent.errors import StateBackendError
+        from readme_agent.evidence.writer import generate_run_id
+        from readme_agent.state.lifecycle import LifecycleRecorder, accept_trigger
+        from readme_agent.state.trigger_v2 import normalize_github_trigger
+
+        event_name = env.github_event_name()
+        if event_name not in profile.allowed_triggers:
+            print(
+                f"error: trigger {event_name!r} is not allowed by execution profile "
+                f"{profile.name!r}",
+                file=sys.stderr,
+            )
+            return 2
+        assert state_backend is not None
+        resume_trigger_key = getattr(args, "resume_trigger_key", None)
+        if resume_trigger_key:
+            assert state_backend is not None
+            recovery_state = state_backend.load(args.repo)
+            if recovery_state is None:
+                raise StateBackendError(
+                    f"cannot resume trigger {resume_trigger_key!r}: no durable state "
+                    f"exists for {args.repo!r}"
+                )
+            lifecycle = recovery_state.trigger_lifecycles.get(resume_trigger_key)
+            if lifecycle is None:
+                raise StateBackendError(
+                    f"cannot resume unknown trigger {resume_trigger_key!r} for {args.repo!r}"
+                )
+            envelope = lifecycle.envelope
+        else:
+            envelope = normalize_github_trigger(args.repo)
+        acceptance = accept_trigger(state_backend, envelope)
+        if not acceptance.should_execute:
+            print(
+                f"{args.repo}: DEDUPLICATED -- trigger {envelope.dedup_key!r} "
+                "already reached a terminal state"
+            )
+            return 0
+        lifecycle_recorder = LifecycleRecorder(
+            state_backend,
+            envelope,
+            env.github_run_id() or generate_run_id(),
+            attempt=env.github_run_attempt(),
+        )
+        lifecycle_recorder.checkpoint(
+            "trigger_accepted",
+            inputs={"resumed": acceptance.resumed, "event_type": envelope.event_type},
+        )
+        lifecycle_recorder.start()
+    elif getattr(args, "resume_trigger_key", None):
+        print(
+            "error: --resume-trigger-key requires a github_* execution profile",
+            file=sys.stderr,
+        )
+        return 2
+
     # CORE-034 (decision #47): registry drift self-heals before preflight and
     # before any allow-list gate, so a repo GitHub published after the last
     # weekly scan is already listed (as mode: "disabled") when
@@ -57,53 +128,20 @@ def cmd_supervise(args: argparse.Namespace) -> int:
     # cmd_preflight()'s own return value.
     preflight_result = run_preflight_for_repo(args.repo)
     if not preflight_result.ok:
+        if lifecycle_recorder is not None:
+            from readme_agent.state.lifecycle import transition_trigger
+
+            assert state_backend is not None
+            transition_trigger(
+                state_backend,
+                args.repo,
+                lifecycle_recorder.envelope.dedup_key,
+                "retryable",
+                failure_classification="transient",
+                failure_detail="preflight_failed",
+            )
         print(format_summary(preflight_result))
         return 3
-
-    # Wave 9.4: a profile that declares `requires_durable_state` gets a real
-    # state backend regardless of whether `--durable-state` was also passed --
-    # the profile is now the authoritative declaration, not an extra flag a
-    # caller might forget. `--durable-state` alone (no profile) is unchanged.
-    # `default_state_backend()` either returns a real backend or raises --
-    # never a silent `None` -- so a `github_*` profile's `fail_closed_on_
-    # state_failure` requirement is already satisfied by that existing
-    # propagation (handled by `main()`'s own `ReadmeAgentError` catch), not
-    # something this function needs to re-implement.
-    needs_durable_state = getattr(args, "durable_state", False) or (
-        profile is not None and profile.requires_durable_state
-    )
-    state_backend = (
-        _durable_state_backend(args)
-        if getattr(args, "durable_state", False)
-        else (_force_durable_state_backend() if needs_durable_state else None)
-    )
-
-    # Wave 9.5 (`RUN-006`): trigger identity/dedup, only meaningful once a real
-    # state backend exists to check/record against. GitHub Actions always sets
-    # `GITHUB_RUN_ID` on a real runner; local CLI use has none, so `--domain`-
-    # style ad hoc invocations are never deduplicated against each other --
-    # correct, since there's no stable identity to dedup on outside Actions.
-    if profile is not None and state_backend is not None:
-        from readme_agent import env
-        from readme_agent.state.schema import TriggerRecordV1
-        from readme_agent.state.trigger import is_duplicate_trigger, record_trigger
-
-        run_id = env.github_run_id()
-        if run_id is not None:
-            trigger = TriggerRecordV1(
-                org_repo=args.repo,
-                event_type=(
-                    env.github_event_name() or "workflow_dispatch"  # type: ignore[arg-type]
-                ),
-                workflow_run_id=run_id,
-            )
-            if is_duplicate_trigger(state_backend, args.repo, trigger):
-                print(
-                    f"{args.repo}: DEDUPLICATED -- workflow run {run_id!r} already accepted, "
-                    "not re-executing"
-                )
-                return 0
-            record_trigger(state_backend, args.repo, trigger)
 
     if domain is not None:
         return _cmd_supervise_single_domain(args.repo, domain, state_backend)
@@ -137,12 +175,115 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             ),
         }
 
-    result = supervise_repo(
-        args.repo,
-        state_backend=state_backend,
-        allowed_permission_classes=allowed_permission_classes,
-        **dynamic_planning_kwargs,
-    )
+    from readme_agent.state.lifecycle import activate_lifecycle, transition_trigger
+
+    try:
+        with activate_lifecycle(lifecycle_recorder):
+            if profile is None:
+                result = supervise_repo(
+                    args.repo,
+                    state_backend=state_backend,
+                    allowed_permission_classes=allowed_permission_classes,
+                    **dynamic_planning_kwargs,
+                )
+            else:
+                result = supervise_repo(
+                    args.repo,
+                    state_backend=state_backend,
+                    allowed_permission_classes=allowed_permission_classes,
+                    fail_closed_on_state_failure=profile.fail_closed_on_state_failure,
+                    require_evidence_bundle=profile.require_evidence_bundle,
+                    require_independent_verification=profile.require_independent_verification,
+                    **dynamic_planning_kwargs,
+                )
+    except Exception as exc:
+        if lifecycle_recorder is not None:
+            assert state_backend is not None
+            transition_trigger(
+                state_backend,
+                args.repo,
+                lifecycle_recorder.envelope.dedup_key,
+                "retryable",
+                failure_classification="transient",
+                failure_detail=f"unhandled_runtime_failure:{type(exc).__name__}",
+            )
+        raise
+    if profile is not None and profile.require_evidence_bundle and result.evidence_dir is None:
+        from readme_agent import paths
+        from readme_agent.evidence.writer import generate_run_id
+        from readme_agent.supervisor.evidence import (
+            assert_evidence_complete,
+            write_supervise_evidence,
+        )
+
+        fallback_run_id = (
+            lifecycle_recorder.run_id if lifecycle_recorder is not None else generate_run_id()
+        )
+        result.evidence_dir = paths.evidence_dir(fallback_run_id)
+        with activate_lifecycle(lifecycle_recorder):
+            write_supervise_evidence(
+                result.evidence_dir,
+                fallback_run_id,
+                args.repo,
+                result.status,
+                result.task_graph,
+                result.decisions,
+            )
+        assert_evidence_complete(result.evidence_dir)
+
+    lifecycle_status = None
+    if lifecycle_recorder is not None:
+        assert state_backend is not None
+        if result.status == "BLOCKED":
+            transient = bool(
+                result.blocked_reason
+                and (
+                    result.blocked_reason.startswith("baseline_clone_failed:")
+                    or result.blocked_reason.startswith("planner_llm_failure:")
+                    or result.blocked_reason in {"lock_held", "run_lock_held"}
+                )
+            )
+            if transient:
+                transition_trigger(
+                    state_backend,
+                    args.repo,
+                    lifecycle_recorder.envelope.dedup_key,
+                    "retryable",
+                    failure_classification="transient",
+                    failure_detail=result.blocked_reason,
+                )
+                lifecycle_status = "retryable"
+            else:
+                lifecycle_recorder.finish(
+                    "blocked",
+                    detail=result.blocked_reason,
+                    failure_classification=(
+                        "unsupported"
+                        if result.blocked_reason
+                        and (
+                            result.blocked_reason.startswith("unsupported_ecosystem:")
+                            or result.blocked_reason == "not_onboarded"
+                        )
+                        else "validation_failed"
+                    ),
+                )
+                lifecycle_status = "blocked"
+        else:
+            lifecycle_recorder.finish("completed", detail=result.status)
+            lifecycle_status = "completed"
+        if result.evidence_dir is not None:
+            from readme_agent.supervisor.evidence import (
+                assert_evidence_complete,
+                finalize_run_manifest_v3,
+            )
+
+            assert lifecycle_status is not None
+            finalize_run_manifest_v3(
+                result.evidence_dir,
+                lifecycle_recorder,
+                lifecycle_status,
+            )
+            assert_evidence_complete(result.evidence_dir)
     print(
         f"{args.repo}: {result.status}"
         + (f" ({result.blocked_reason})" if result.blocked_reason else "")

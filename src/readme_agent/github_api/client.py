@@ -18,12 +18,16 @@ requests, matching every other GitHub API caller in this codebase
 import base64
 import time
 from collections.abc import Iterator
+from functools import partial
 from typing import Any
 
 import requests
 
+from readme_agent.retry import RetryableOperationError, run_http_with_retry
+
 API_ROOT = "https://api.github.com"
 _RATE_SLEEP = 1.0
+_RETRYABLE_STATUS = {403, 429, 502, 503, 504}
 
 
 def _headers(token: str | None) -> dict[str, str]:
@@ -55,10 +59,16 @@ def get_json(
     decide how to degrade, this function never silently swallows a real
     failure."""
     url = f"{API_ROOT}/{path.lstrip('/')}"
-    resp = requests.get(url, params=params, headers=_headers(token), timeout=timeout)
-    if resp.status_code == 403:
-        time.sleep(_rate_limit_wait_seconds(resp))
-        resp = requests.get(url, params=params, headers=_headers(token), timeout=timeout)
+    try:
+        resp = run_http_with_retry(
+            "github_read",
+            lambda: requests.get(url, params=params, headers=_headers(token), timeout=timeout),
+            retryable_statuses=_RETRYABLE_STATUS,
+            honor_github_rate_limit=True,
+            sleep=time.sleep,
+        )
+    except RetryableOperationError as exc:
+        raise requests.ConnectionError(f"GitHub read failed after retries: {exc}") from exc
     resp.raise_for_status()
     return resp.json()
 
@@ -72,10 +82,22 @@ def paginate(
     url: str | None = f"{API_ROOT}/{path.lstrip('/')}"
     query = dict(params or {})
     while url:
-        resp = requests.get(url, params=query, headers=_headers(token), timeout=timeout)
-        if resp.status_code == 403:
-            time.sleep(_rate_limit_wait_seconds(resp))
-            resp = requests.get(url, params=query, headers=_headers(token), timeout=timeout)
+        try:
+            resp = run_http_with_retry(
+                "github_read",
+                partial(
+                    requests.get,
+                    url,
+                    params=query,
+                    headers=_headers(token),
+                    timeout=timeout,
+                ),
+                retryable_statuses=_RETRYABLE_STATUS,
+                honor_github_rate_limit=True,
+                sleep=time.sleep,
+            )
+        except RetryableOperationError as exc:
+            raise requests.ConnectionError(f"GitHub read failed after retries: {exc}") from exc
         resp.raise_for_status()
         yield from resp.json()
         link = resp.headers.get("Link", "")

@@ -61,6 +61,12 @@ def gh_token() -> str | None:
     (confirmed live, decision #46: `push=true`/`admin=true` on the 3
     confirmed pilots), never a client-side restriction this function could
     enforce by returning a different value for different callers."""
+    if os.environ.get("README_AGENT_PRODUCTION_AUTH") == "github_app":
+        # Production profiles receive the installation token through a
+        # dedicated variable. Ambient GH_TOKEN/GITHUB_PAT values are ignored
+        # so a missing App token fails closed instead of silently widening
+        # authority through a PAT fallback.
+        return os.environ.get("README_AGENT_GITHUB_APP_TOKEN") or None
     return os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_PAT") or None
 
 
@@ -76,6 +82,30 @@ def github_event_name() -> str | None:
     """`GITHUB_EVENT_NAME` -- one of `workflow_dispatch`/`schedule`/`repository_dispatch`/... on a
     real Actions runner, `None` for local CLI use."""
     return os.environ.get("GITHUB_EVENT_NAME") or None
+
+
+def github_run_attempt() -> int:
+    value = os.environ.get("GITHUB_RUN_ATTEMPT")
+    try:
+        return max(int(value or "1"), 1)
+    except ValueError:
+        return 1
+
+
+def github_sha() -> str | None:
+    return os.environ.get("GITHUB_SHA") or None
+
+
+def trigger_provider_event_id() -> str | None:
+    return os.environ.get("README_AGENT_TRIGGER_ID") or None
+
+
+def trigger_delivery_id() -> str | None:
+    return os.environ.get("README_AGENT_DELIVERY_ID") or None
+
+
+def trigger_schedule_window() -> str | None:
+    return os.environ.get("README_AGENT_SCHEDULE_WINDOW") or None
 
 
 def llm_base_url() -> str:
@@ -149,6 +179,7 @@ def secret_values() -> list[str]:
     names = [
         "GH_TOKEN",
         "GITHUB_PAT",
+        "README_AGENT_GITHUB_APP_TOKEN",
         "LLM_API_KEY",
         "PROFESSIONALIZE_API_KEY",
         "GPT_OSS_API_KEY",

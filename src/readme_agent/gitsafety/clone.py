@@ -15,6 +15,11 @@ from readme_agent import env
 from readme_agent.errors import GitSafetyError
 from readme_agent.gitsafety._git import run_git
 from readme_agent.registry.models import ProductEntry
+from readme_agent.retry import (
+    RETRY_POLICIES,
+    RetryableOperationError,
+    run_with_retry,
+)
 
 # SCL-009 (2026-07-22): a single `supervise` run dispatches clone_baseline()
 # from ~7-9 independent, stateless capabilities with no shared per-run repo
@@ -50,8 +55,7 @@ _baseline_clone_memo: dict[Path, str] = {}
 # milliseconds, so the backoff is seconds, not milliseconds, and only a
 # transient failure is retried at all; a real error (repo not found, auth
 # failure) fails fast rather than wasting 2x the time before failing anyway.
-_CLONE_RETRY_BACKOFF_SECONDS = [5, 15]
-_MAX_CLONE_ATTEMPTS = 1 + len(_CLONE_RETRY_BACKOFF_SECONDS)
+_MAX_CLONE_ATTEMPTS = RETRY_POLICIES["clone"].max_attempts
 
 _TRANSIENT_CLONE_STDERR_MARKERS = (
     "Connection reset",
@@ -128,8 +132,8 @@ def clone_baseline(entry: ProductEntry, baseline_path: Path) -> Path:
     baseline_path.parent.mkdir(parents=True, exist_ok=True)
 
     timeout = env.git_clone_timeout_seconds()
-    last_result = None
-    for attempt in range(_MAX_CLONE_ATTEMPTS):
+
+    def clone_once() -> Path:
         # No explicit --branch: --depth 1 alone clones the HEAD of the remote's
         # default branch, which is exactly what we want without needing a
         # separate preflight lookup baked into the clone call itself.
@@ -149,19 +153,18 @@ def clone_baseline(entry: ProductEntry, baseline_path: Path) -> Path:
             else:
                 _baseline_clone_memo.pop(baseline_path, None)
             return baseline_path
-        last_result = result
-        if attempt < _MAX_CLONE_ATTEMPTS - 1 and _is_transient_clone_failure(result):
-            time.sleep(_CLONE_RETRY_BACKOFF_SECONDS[attempt])
+        if _is_transient_clone_failure(result):
             if baseline_path.exists():
                 force_rmtree(baseline_path)
-            continue
-        break
+            raise RetryableOperationError(f"transient baseline clone failure: {result.stderr}")
+        raise GitSafetyError(f"baseline clone of {entry.org_repo} failed: {result.stderr}")
 
-    # _MAX_CLONE_ATTEMPTS is 1 + len(_CLONE_RETRY_BACKOFF_SECONDS) >= 1, so the loop
-    # above always runs at least once and last_result is never actually None here --
-    # mypy can't prove range()'s non-emptiness statically.
-    assert last_result is not None
-    raise GitSafetyError(f"baseline clone of {entry.org_repo} failed: {last_result.stderr}")
+    try:
+        return run_with_retry("clone", clone_once, sleep=time.sleep)
+    except RetryableOperationError as exc:
+        raise GitSafetyError(
+            f"baseline clone of {entry.org_repo} failed after {_MAX_CLONE_ATTEMPTS} attempts: {exc}"
+        ) from exc
 
 
 _COMMIT_AUTHOR_NAME = "readme-agent"

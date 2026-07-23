@@ -7,6 +7,24 @@ default -- it only applies alongside the explicit
 from readme_agent import env
 
 
+class TestProductionGithubAuthentication:
+    def test_production_uses_only_dedicated_app_token(self, monkeypatch):
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "github_app")
+        monkeypatch.setenv("README_AGENT_GITHUB_APP_TOKEN", "app-installation-token")
+        monkeypatch.setenv("GH_TOKEN", "ambient-token")
+        monkeypatch.setenv("GITHUB_PAT", "ambient-pat")
+
+        assert env.gh_token() == "app-installation-token"
+
+    def test_production_does_not_fall_back_to_pat(self, monkeypatch):
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "github_app")
+        monkeypatch.delenv("README_AGENT_GITHUB_APP_TOKEN", raising=False)
+        monkeypatch.setenv("GH_TOKEN", "ambient-token")
+        monkeypatch.setenv("GITHUB_PAT", "ambient-pat")
+
+        assert env.gh_token() is None
+
+
 class TestLlmModelForJob:
     def test_known_job_resolves_to_its_routed_model(self, monkeypatch):
         monkeypatch.delenv("LLM_MODEL", raising=False)

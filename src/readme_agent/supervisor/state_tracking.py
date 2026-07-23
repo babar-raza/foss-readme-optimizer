@@ -9,10 +9,15 @@ from readme_agent.state.domain_state import (
     compute_domain_coverage_complete,
     merge_unrecorded_failures,
 )
-from readme_agent.state.schema import DomainStateV1, RunStateV1, SupervisorStateV1
+from readme_agent.state.schema import DomainStateV1, RunStateV1, RunStateV2, SupervisorStateV1
 
 
-def load_prior_run_state(backend: StateBackend | None, org_repo: str) -> RunStateV1 | None:
+def load_prior_run_state(
+    backend: StateBackend | None,
+    org_repo: str,
+    *,
+    strict: bool = False,
+) -> RunStateV2 | None:
     """Return prior durable state; local profiles degrade visibly when unavailable."""
 
     if backend is None:
@@ -20,12 +25,19 @@ def load_prior_run_state(backend: StateBackend | None, org_repo: str) -> RunStat
     try:
         return backend.load(org_repo)
     except StateBackendError as exc:
+        if strict:
+            raise
         print(f"warning: durable state read failed, continuing without it: {exc}", file=sys.stderr)
         return None
 
 
-def load_supervisor_state(backend: StateBackend | None, org_repo: str) -> SupervisorStateV1 | None:
-    state = load_prior_run_state(backend, org_repo)
+def load_supervisor_state(
+    backend: StateBackend | None,
+    org_repo: str,
+    *,
+    strict: bool = False,
+) -> SupervisorStateV1 | None:
+    state = load_prior_run_state(backend, org_repo, strict=strict)
     return state.supervisor_state if state else None
 
 
@@ -35,6 +47,7 @@ def record_supervisor_state(
     supervisor_state: SupervisorStateV1,
     *,
     failures: dict[str, DomainStateV1] | None = None,
+    strict: bool = False,
 ) -> None:
     """Best-effort CAS write-back for local profiles and terminal evidence."""
 
@@ -67,8 +80,14 @@ def record_supervisor_state(
                 reloaded.supervisor_state
                 and reloaded.supervisor_state.last_run_id != supervisor_state.last_run_id
             ):
+                if strict:
+                    raise StateBackendError(
+                        f"strict supervisor state write for {org_repo!r} lost a CAS race"
+                    )
                 return
     except StateBackendError as exc:
+        if strict:
+            raise
         print(
             f"warning: durable state write-back failed, continuing without it: {exc}",
             file=sys.stderr,

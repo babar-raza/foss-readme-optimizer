@@ -17,6 +17,7 @@ from readme_agent.state.freshness_contract import (
     DEFAULT_SURFACE_CONTRACTS,
     refresh_surface_contracts,
 )
+from readme_agent.state.lifecycle import current_lifecycle_recorder
 from readme_agent.state.schema import (
     DomainStateV1,
     SupervisorStateV1,
@@ -112,12 +113,19 @@ def supervise_repo(
     # from `--execution-profile` and passes it through; direct callers/tests
     # may pass it explicitly too.
     allowed_permission_classes: set[PermissionClass] | None = None,
+    fail_closed_on_state_failure: bool = False,
+    require_evidence_bundle: bool = False,
+    require_independent_verification: bool = False,
 ) -> SuperviseResult:
     # require_listed(), not require_permitted() (decision #40): most of a
     # supervised run is read-only planning/observation, so mode is not
     # itself a reason to refuse the whole run -- _dispatch_and_record()
     # is where a write-capable capability is actually mode-gated, per turn.
     entry = require_listed(org_repo)
+    if fail_closed_on_state_failure and state_backend is None:
+        raise RuntimeError("strict GitHub execution requires a durable state backend")
+    if require_evidence_bundle and not write_evidence_bundle:
+        raise RuntimeError("execution profile requires a terminal evidence bundle")
 
     if entry.ecosystem is None and entry.platform not in known_manifest_globs():
         return SuperviseResult(
@@ -183,7 +191,11 @@ def supervise_repo(
 
     baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
     current_control_plane_fingerprint = compute_control_plane_fingerprint(entry.policy_profile)
-    prior_full_state = _load_prior_run_state(state_backend, org_repo)
+    prior_full_state = _load_prior_run_state(
+        state_backend,
+        org_repo,
+        strict=fail_closed_on_state_failure,
+    )
     prior = prior_full_state.supervisor_state if prior_full_state else None
 
     # Wave 8.5 (`ORC-006`): a cheap pre-clone SHA probe, mirroring
@@ -245,6 +257,7 @@ def supervise_repo(
                     # at the moment this shortcut fired.
                     surface_freshness=prior.surface_freshness if prior else {},
                 ),
+                strict=fail_closed_on_state_failure,
             )
         probe_evidence_dir = None
         if write_evidence_bundle:
@@ -313,6 +326,12 @@ def supervise_repo(
             evidence_dir=clone_failure_evidence_dir,
         )
     current_revision = _current_upstream_revision(baseline_path)
+    lifecycle_recorder = current_lifecycle_recorder()
+    if lifecycle_recorder is not None:
+        lifecycle_recorder.checkpoint(
+            "snapshot_captured",
+            outputs={"upstream_revision": current_revision},
+        )
     # Wave 9.7 (`FRESH-010`): same 7-condition gate as the pre-clone probe
     # shortcut above, not the bare 3-condition `is_fresh()`.
     if no_change_gate_holds(
@@ -397,12 +416,64 @@ def supervise_repo(
             enable_specialist_skip=enable_specialist_skip,
             specialist_selection_client=specialist_selection_client,
             escalation_alert_threshold=ESCALATION_ALERT_THRESHOLD,
+            fail_closed_on_state_failure=fail_closed_on_state_failure,
         )
         specialist_domains = tier.domains
         specialist_results = tier.results
         unrecorded_failures = tier.unrecorded_failures
         escalation_alerts = tier.escalation_alerts
         retry_alerts = tier.retry_alerts
+        from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
+
+        verifier_result = specialist_results.get(INDEPENDENT_VERIFICATION)
+        if lifecycle_recorder is not None and verifier_result is not None:
+            lifecycle_recorder.checkpoint(
+                "verifier_result",
+                action=INDEPENDENT_VERIFICATION,
+                outputs={
+                    "accepted_status": verifier_result.accepted_status,
+                    "details": verifier_result.details,
+                },
+                failure_classification=(
+                    "validation_failed"
+                    if (verifier_result.accepted_status or "").startswith("ERROR:")
+                    else None
+                ),
+            )
+        if require_independent_verification and verifier_result is None:
+            missing_verifier = DomainStateV1(
+                domain=INDEPENDENT_VERIFICATION,
+                accepted_status="ERROR: independent verifier did not produce a result",
+                details={"failure": "required_independent_verifier_missing"},
+            )
+            specialist_results[INDEPENDENT_VERIFICATION] = missing_verifier
+            if lifecycle_recorder is not None:
+                lifecycle_recorder.checkpoint(
+                    "verifier_result",
+                    action=INDEPENDENT_VERIFICATION,
+                    outputs={
+                        "accepted_status": missing_verifier.accepted_status,
+                        "details": missing_verifier.details,
+                    },
+                    failure_classification="validation_failed",
+                )
+            # A GitHub execution profile declares the independent verifier as
+            # a precondition, not as a planner hint. Stop here so neither the
+            # deterministic planner nor an injected live planner can turn an
+            # unverified specialist result into a proposal or effect.
+            return SuperviseResult(
+                status="BLOCKED",
+                org_repo=org_repo,
+                task_graph=TaskGraph(),
+                decisions=[
+                    DecisionSummary(
+                        turn=0,
+                        kind="stop",
+                        detail="required independent verifier produced no result",
+                    )
+                ],
+                blocked_reason="required_independent_verifier_missing",
+            )
         # Wave 8.6 (`ORC-003` reversal): `and not r.skipped_this_run` is the
         # crux correctness guarantee -- a domain the skip mechanism carried
         # forward (never a fresh classification this run) must never
@@ -450,6 +521,7 @@ def supervise_repo(
                         surface_freshness=refreshed_surface_freshness,
                     ),
                     failures=unrecorded_failures,
+                    strict=fail_closed_on_state_failure,
                 )
             shortcut_evidence_dir = None
             if write_evidence_bundle:
@@ -550,6 +622,7 @@ def supervise_repo(
                         surface_freshness=refreshed_surface_freshness,
                     ),
                     failures=unrecorded_failures,
+                    strict=fail_closed_on_state_failure,
                 )
 
             evidence_path = None

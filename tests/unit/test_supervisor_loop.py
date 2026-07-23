@@ -1344,6 +1344,23 @@ class TestEvidenceCompletenessGate:
         with pytest.raises(RuntimeError, match="manifest.json"):
             assert_evidence_complete(tmp_path)
 
+    def test_assert_evidence_complete_rejects_checksum_corruption(self, tmp_path):
+        from readme_agent.evidence.writer import refresh_sha256sums
+        from readme_agent.supervisor.evidence import assert_evidence_complete
+
+        for name, content in {
+            "specialist_results.json": "{}",
+            "task_graph.json": "{}",
+            "decisions.json": "[]",
+            "manifest.json": "{}",
+        }.items():
+            (tmp_path / name).write_text(content, encoding="utf-8")
+        refresh_sha256sums(tmp_path)
+        (tmp_path / "decisions.json").write_text('[{"changed": true}]', encoding="utf-8")
+
+        with pytest.raises(RuntimeError, match="checksum mismatch.*decisions.json"):
+            assert_evidence_complete(tmp_path)
+
 
 class TestEscalationAlert:
     """Wave 8d (`VER-002`/"repair loops"): a domain crossing the failure-
@@ -1901,6 +1918,43 @@ class TestPlannerFailureEvidence:
             "manifest.json",
         ):
             assert (result.evidence_dir / name).exists()
+
+
+class TestRequiredIndependentVerificationGate:
+    def test_missing_verifier_blocks_before_planner_call(self, project, monkeypatch):
+        from readme_agent.supervisor import loop
+        from readme_agent.supervisor.specialist_tier import SpecialistTierResult
+
+        monkeypatch.setattr(
+            loop,
+            "run_specialist_tier",
+            lambda **kwargs: SpecialistTierResult(
+                domains=["readme_presentation"],
+                results={
+                    "readme_presentation": DomainStateV1(
+                        domain="readme_presentation",
+                        accepted_status="CHANGED",
+                    )
+                },
+                unrecorded_failures={},
+                escalation_alerts=[],
+                retry_alerts=[],
+            ),
+        )
+
+        class _PlannerMustNotRun:
+            def plan(self, messages, tools):
+                raise AssertionError("planner was called without required independent verification")
+
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=_PlannerMustNotRun(),
+            write_evidence_bundle=False,
+            require_independent_verification=True,
+        )
+
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason == "required_independent_verifier_missing"
 
 
 class TestMaxTurns:

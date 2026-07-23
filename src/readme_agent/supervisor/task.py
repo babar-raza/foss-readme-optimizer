@@ -170,6 +170,16 @@ class TaskGraph(BaseModel):
 
     def mark(self, task_id: str, state: TaskState, **updates) -> Task:
         task = self.tasks[task_id]
+        from readme_agent.state.lifecycle import current_lifecycle_recorder
+
+        recorder = current_lifecycle_recorder()
+        if recorder is not None and state == "EXECUTING":
+            recorder.checkpoint(
+                "task_started",
+                task_id=task_id,
+                action=task.capability_id,
+                inputs=task.arguments,
+            )
         payload = {"state": state, **updates}
         if state in TERMINAL_STATES:
             payload["terminal_at"] = datetime.now(UTC).isoformat()
@@ -177,6 +187,18 @@ class TaskGraph(BaseModel):
         self.tasks[task_id] = updated
         if state == "PASSED":
             self._passed_index[_canonical_key(updated.capability_id, updated.arguments)] = task_id
+        if recorder is not None and state in TERMINAL_STATES:
+            recorder.checkpoint(
+                "task_completed",
+                task_id=task_id,
+                action=updated.capability_id,
+                inputs=updated.arguments,
+                outputs={
+                    "state": updated.state,
+                    "result": updated.result,
+                    "blocked_reason": updated.blocked_reason,
+                },
+            )
         return updated
 
     def is_converged(self) -> bool:

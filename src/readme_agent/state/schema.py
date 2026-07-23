@@ -12,6 +12,8 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+from readme_agent.state.lifecycle_schema import CheckpointV1, TriggerLifecycleV2
+
 
 class HandoffFindingV1(BaseModel):
     """One-way handoff finding for a product-agent-owned surface (class D:
@@ -474,3 +476,16 @@ class RunStateV1(BaseModel):
     # repository key (`mission/<mission-id>`) through the same Git-ref CAS backend, so it cannot
     # collide with any product repository state and does not create a second continuation store.
     mission_execution: MissionExecutionStateV1 | None = None
+
+
+class RunStateV2(RunStateV1):
+    """Current state envelope with explicit schema version and lifecycle data.
+
+    `RunStateV1` remains the read-only migration source. New backend writes
+    always serialize this model, so an unknown future version cannot be
+    mistaken for a compatible additive V1 blob.
+    """
+
+    schema_version: Literal[2] = 2
+    trigger_lifecycles: dict[str, TriggerLifecycleV2] = Field(default_factory=dict)
+    checkpoints: dict[str, CheckpointV1] = Field(default_factory=dict)

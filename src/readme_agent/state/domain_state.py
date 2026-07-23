@@ -25,6 +25,7 @@ import sys
 from datetime import UTC, datetime
 
 from readme_agent.errors import StateBackendError
+from readme_agent.retry import RetryableOperationError, run_with_retry
 from readme_agent.state.backend import SaveResult, StateBackend, safe_release_lock
 from readme_agent.state.schema import DomainStateV1, RunStateV1, SupervisorStateV1
 
@@ -133,7 +134,8 @@ def save_domain(
             f"could not acquire lock for {org_repo!r} to save domain {domain!r}"
         )
     try:
-        for _ in range(max_retries):
+
+        def attempt() -> SaveResult:
             current = backend.load(org_repo)
             expected_version = current.state_version if current is not None else None
             base = current if current is not None else RunStateV1(org_repo=org_repo)
@@ -152,11 +154,17 @@ def save_domain(
                 update={"domain_states": {**base.domain_states, domain: stamped_state}}
             )
             result = backend.save(org_repo, updated, expected_version)
-            if result.outcome != "stale":
-                return result
-        raise StateBackendError(
-            f"save_domain for {org_repo!r}/{domain!r} did not converge after {max_retries} retries"
-        )
+            if result.outcome == "stale":
+                raise RetryableOperationError("domain-state CAS was stale")
+            return result
+
+        try:
+            return run_with_retry("state_cas", attempt, max_attempts=max_retries)
+        except RetryableOperationError as exc:
+            raise StateBackendError(
+                f"save_domain for {org_repo!r}/{domain!r} did not converge after "
+                f"{max_retries} retries"
+            ) from exc
     finally:
         safe_release_lock(backend.release_lock, lock, label="lock")
 
@@ -280,7 +288,8 @@ def save_domain_with_failure_tracking(
             f"could not acquire lock for {org_repo!r} to save domain {domain!r}"
         )
     try:
-        for _ in range(max_retries):
+
+        def attempt() -> SaveResult:
             current = backend.load(org_repo)
             expected_version = current.state_version if current is not None else None
             base = current if current is not None else RunStateV1(org_repo=org_repo)
@@ -291,12 +300,17 @@ def save_domain_with_failure_tracking(
                 update={"domain_states": {**base.domain_states, domain: next_state}}
             )
             result = backend.save(org_repo, updated, expected_version)
-            if result.outcome != "stale":
-                return result
-        raise StateBackendError(
-            f"save_domain_with_failure_tracking for {org_repo!r}/{domain!r} did not converge "
-            f"after {max_retries} retries"
-        )
+            if result.outcome == "stale":
+                raise RetryableOperationError("failure-tracking CAS was stale")
+            return result
+
+        try:
+            return run_with_retry("state_cas", attempt, max_attempts=max_retries)
+        except RetryableOperationError as exc:
+            raise StateBackendError(
+                f"save_domain_with_failure_tracking for {org_repo!r}/{domain!r} did not "
+                f"converge after {max_retries} retries"
+            ) from exc
     finally:
         safe_release_lock(backend.release_lock, lock, label="lock")
 
@@ -383,7 +397,12 @@ def compute_domain_coverage_complete(
 
 
 def mark_specialist_tier_started(
-    backend: StateBackend, org_repo: str, run_id: str, specialist_domains: list[str]
+    backend: StateBackend,
+    org_repo: str,
+    run_id: str,
+    specialist_domains: list[str],
+    *,
+    strict: bool = False,
 ) -> None:
     """TC-23 (decision #46/#48): a best-effort CAS write recording that a
     specialist tier for `run_id` is about to attempt `specialist_domains`,
@@ -420,6 +439,8 @@ def mark_specialist_tier_started(
         # (`SCL-004`/`SCL-005`'s own cost-consciousness).
         del result
     except StateBackendError as exc:
+        if strict:
+            raise
         print(
             f"warning: specialist-tier-started marker write failed for {org_repo!r}, "
             f"continuing without it: {exc}",
@@ -476,7 +497,8 @@ def mark_domain_skipped(
             f"could not acquire lock for {org_repo!r} to mark domain {domain!r} skipped"
         )
     try:
-        for _ in range(max_retries):
+
+        def attempt() -> DomainStateV1:
             current = backend.load(org_repo)
             expected_version = current.state_version if current is not None else None
             base = current if current is not None else RunStateV1(org_repo=org_repo)
@@ -503,11 +525,16 @@ def mark_domain_skipped(
                 update={"domain_states": {**base.domain_states, domain: skipped_state}}
             )
             result = backend.save(org_repo, updated, expected_version)
-            if result.outcome != "stale":
-                return skipped_state
-        raise StateBackendError(
-            f"mark_domain_skipped for {org_repo!r}/{domain!r} did not converge after "
-            f"{max_retries} retries"
-        )
+            if result.outcome == "stale":
+                raise RetryableOperationError("domain-skip CAS was stale")
+            return skipped_state
+
+        try:
+            return run_with_retry("state_cas", attempt, max_attempts=max_retries)
+        except RetryableOperationError as exc:
+            raise StateBackendError(
+                f"mark_domain_skipped for {org_repo!r}/{domain!r} did not converge after "
+                f"{max_retries} retries"
+            ) from exc
     finally:
         safe_release_lock(backend.release_lock, lock, label="lock")

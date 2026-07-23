@@ -29,8 +29,15 @@ from uuid import uuid4
 
 from readme_agent.errors import StateBackendError
 from readme_agent.gitsafety._git import run_git
+from readme_agent.retry import RetryableOperationError, run_with_retry
 from readme_agent.state.backend import Lock, SaveResult
-from readme_agent.state.schema import ModelRouteRegistryV1, ModelRouteStatusV1, RunStateV1
+from readme_agent.state.migrations import ensure_run_state_v2, load_run_state_json
+from readme_agent.state.schema import (
+    ModelRouteRegistryV1,
+    ModelRouteStatusV1,
+    RunStateV1,
+    RunStateV2,
+)
 
 STATE_REF_PREFIX = "refs/readme-agent-state"
 LOCK_REF_PREFIX = "refs/readme-agent-state/locks"
@@ -219,14 +226,19 @@ class GitStateBackend:
         # families' state simultaneously for the same repo.
         self._held_run_lock_commit_shas: dict[str, str] = {}
 
-    def load(self, org_repo: str) -> RunStateV1 | None:
+    def load(self, org_repo: str) -> RunStateV2 | None:
         remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
         sha = _fetch_remote_sha(remote_ref)
         if sha is None:
             return None
-        return RunStateV1.model_validate_json(_read_blob(sha, "state.json"))
+        return load_run_state_json(_read_blob(sha, "state.json"))
 
-    def save(self, org_repo: str, state: RunStateV1, expected_version: int | None) -> SaveResult:
+    def save(
+        self,
+        org_repo: str,
+        state: RunStateV1 | RunStateV2,
+        expected_version: int | None,
+    ) -> SaveResult:
         remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
         parent_sha = _fetch_remote_sha(remote_ref)
 
@@ -237,13 +249,15 @@ class GitStateBackend:
                 return SaveResult(outcome="stale", new_version=None)
             current_version = None
         else:
-            current = RunStateV1.model_validate_json(_read_blob(parent_sha, "state.json"))
+            current = load_run_state_json(_read_blob(parent_sha, "state.json"))
             if expected_version != current.state_version:
                 return SaveResult(outcome="stale", new_version=current.state_version)
             current_version = current.state_version
 
         new_version = (current_version or 0) + 1
-        new_state = state.model_copy(update={"org_repo": org_repo, "state_version": new_version})
+        new_state = ensure_run_state_v2(state).model_copy(
+            update={"org_repo": org_repo, "state_version": new_version}
+        )
         payload = json.dumps(new_state.model_dump(mode="json"), indent=2, sort_keys=True) + "\n"
         commit_sha = _write_commit(
             tree_path="state.json",
@@ -332,7 +346,7 @@ class GitStateBackend:
         return registry.routes.get(job)
 
     def save_model_route_status(self, status: ModelRouteStatusV1) -> None:
-        for _ in range(_MODEL_ROUTE_SAVE_MAX_RETRIES):
+        def attempt() -> None:
             sha = _fetch_remote_sha(MODEL_ROUTE_REF)
             current = (
                 ModelRouteRegistryV1.model_validate_json(_read_blob(sha, "model_routes.json"))
@@ -355,13 +369,21 @@ class GitStateBackend:
             push = run_git(["push", "origin", f"{commit_sha}:{MODEL_ROUTE_REF}"])
             if push.returncode == 0:
                 return
-            if not _is_non_fast_forward(push.stderr):
-                raise StateBackendError(f"push of {MODEL_ROUTE_REF} failed: {push.stderr}")
-            # CAS conflict -- another writer won this round; reload and retry.
-        raise StateBackendError(
-            f"save_model_route_status for {status.job!r} did not converge after "
-            f"{_MODEL_ROUTE_SAVE_MAX_RETRIES} retries"
-        )
+            if _is_non_fast_forward(push.stderr):
+                raise RetryableOperationError("model-route CAS push was stale")
+            raise StateBackendError(f"push of {MODEL_ROUTE_REF} failed: {push.stderr}")
+
+        try:
+            run_with_retry(
+                "state_cas",
+                attempt,
+                max_attempts=_MODEL_ROUTE_SAVE_MAX_RETRIES,
+            )
+        except RetryableOperationError as exc:
+            raise StateBackendError(
+                f"save_model_route_status for {status.job!r} did not converge after "
+                f"{_MODEL_ROUTE_SAVE_MAX_RETRIES} retries"
+            ) from exc
 
 
 def default_state_backend() -> GitStateBackend:

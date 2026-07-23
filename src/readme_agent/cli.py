@@ -150,6 +150,13 @@ def _build_parser() -> argparse.ArgumentParser:
         help="See `run --durable-state` -- same opt-in convention, same backend.",
     )
     p_supervise.add_argument(
+        "--resume-trigger-key",
+        help=(
+            "Resume one accepted/processing/retryable TriggerEnvelopeV2 from durable state. "
+            "Valid only with a github_* execution profile; used by the recovery matrix."
+        ),
+    )
+    p_supervise.add_argument(
         "--domain",
         default=None,
         help=(
@@ -202,6 +209,53 @@ def _build_parser() -> argparse.ArgumentParser:
             "GitHub-Actions path. Never a default -- omitting this flag preserves today's "
             "exact deterministic behavior (fixed specialist sweep, blind-retry-only repair)."
         ),
+    )
+
+    p_runtime_matrix = sub.add_parser(
+        "runtime-matrix",
+        help=(
+            "Emit the authoritative GitHub Actions matrix for every active registry entry, "
+            "including entries whose write mode is disabled"
+        ),
+    )
+    p_runtime_matrix.add_argument("--only", help="Comma-separated allow-listed repositories")
+    p_runtime_matrix.add_argument("--output", help="Also write the JSON payload to this path")
+
+    p_recovery_sweep = sub.add_parser(
+        "recovery-sweep",
+        help="Mark stale or lease-expired durable trigger work visibly retryable",
+    )
+    p_recovery_sweep.add_argument("--only", help="Comma-separated allow-listed repositories")
+    p_recovery_sweep.add_argument(
+        "--stale-after-seconds",
+        type=int,
+        default=900,
+        help="Age after which unfinished work is eligible for recovery (default: 900)",
+    )
+    p_recovery_sweep.add_argument("--output", help="Also write the JSON payload to this path")
+
+    p_health_report = sub.add_parser(
+        "health-report",
+        help="Aggregate portfolio lifecycle state into HealthReportV1",
+    )
+    p_health_report.add_argument("--only", help="Comma-separated allow-listed repositories")
+    p_health_report.add_argument(
+        "--expected-interval-hours",
+        type=float,
+        default=24.0,
+        help="Maximum expected time between successful runs (default: 24)",
+    )
+    p_health_report.add_argument(
+        "--repeated-failure-threshold",
+        type=int,
+        default=3,
+        help="Recovery count that becomes a repeated failure (default: 3)",
+    )
+    p_health_report.add_argument("--output", help="Also write the JSON payload to this path")
+    p_health_report.add_argument(
+        "--fail-unhealthy",
+        action="store_true",
+        help="Exit 1 when the generated health report is unhealthy",
     )
 
     p_report = sub.add_parser(
@@ -286,6 +340,9 @@ def main(argv: list[str] | None = None) -> int:
         "run-registry": commands.cmd_run_registry,
         "profile-registry": commands.cmd_profile_registry,
         "supervise": commands.cmd_supervise,
+        "runtime-matrix": commands.cmd_runtime_matrix,
+        "recovery-sweep": commands.cmd_recovery_sweep,
+        "health-report": commands.cmd_health_report,
         "report": commands.cmd_report,
         "authorization-validate": commands.cmd_authorization_validate,
         "golden-set-run": commands.cmd_golden_set_run,

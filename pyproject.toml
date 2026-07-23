@@ -19,6 +19,9 @@ dependencies = [
     # session's own direct-import audit found (grep across src/ against
     # pyproject.toml's own dependency list).
     "langchain-core>=1.0",
+    # Wave 2 lifecycle retries: bounded attempts plus exponential jitter use
+    # Tenacity's tested retry controller rather than another bespoke loop.
+    "tenacity>=9.0",
     "Pillow>=10.0",
 ]
 

@@ -33,6 +33,18 @@ from readme_agent.paths import baseline_dir
 from readme_agent.profile.detector import build_profile, resolve_unresolved_manifests
 from readme_agent.profile.schema import DetectedEcosystem, PackageRoot, RepositoryProfile
 from readme_agent.registry.models import ProductEntry
+from readme_agent.state.lifecycle import current_lifecycle_recorder
+
+
+def _checkpoint_profile(profile: RepositoryProfile, source: str) -> RepositoryProfile:
+    recorder = current_lifecycle_recorder()
+    if recorder is not None:
+        recorder.checkpoint(
+            "profile_completed",
+            action=source,
+            outputs=profile.model_dump(mode="json"),
+        )
+    return profile
 
 
 def _build_profile_via_api(
@@ -135,14 +147,17 @@ def get_or_build_profile(
         and current_revision == prior_upstream_revision
         and prior_profile_result is not None
     ):
-        return RepositoryProfile.model_validate(prior_profile_result)
+        return _checkpoint_profile(
+            RepositoryProfile.model_validate(prior_profile_result),
+            "durable_profile_cache",
+        )
 
     token = env.gh_token()
     if current_revision is not None and token:
         api_profile = _build_profile_via_api(entry, current_revision, token)
         if api_profile is not None:
-            return api_profile
+            return _checkpoint_profile(api_profile, "github_tree_api")
 
     path = baseline_dir(entry.org, entry.repo_name)
     clone_baseline(entry, path)
-    return build_profile(entry.org_repo, path)
+    return _checkpoint_profile(build_profile(entry.org_repo, path), "baseline_clone")

@@ -29,7 +29,9 @@ from readme_agent.capabilities.dispatcher import DispatchResult, dispatch_tool_c
 from readme_agent.capabilities.effect_identity import build_effect_identity
 from readme_agent.capabilities.schema import CapabilityManifest, PermissionClass
 from readme_agent.errors import StateBackendError
+from readme_agent.retry import RetryableOperationError, run_with_retry
 from readme_agent.state.backend import StateBackend, safe_release_lock
+from readme_agent.state.lifecycle import current_lifecycle_recorder
 from readme_agent.state.schema import CapabilityOutputCacheEntry, RunStateV1
 
 # side_effect_class values at or above this index require going through this
@@ -122,19 +124,30 @@ def _save_entry_with_retry(
     always carried forward, never overwritten by a stale retry -- re-reading
     `current` on *every* attempt, not just the first, is what makes that
     true."""
-    for _ in range(max_retries):
+
+    def attempt() -> None:
         current = backend.load(org_repo)
         expected_version = current.state_version if current is not None else None
         base = current if current is not None else RunStateV1(org_repo=org_repo)
         without = [e for e in base.capability_outputs if e.fingerprint != entry.fingerprint]
         updated = base.model_copy(update={"capability_outputs": [*without, entry]})
         result = backend.save(org_repo, updated, expected_version)
-        if result.outcome != "stale":
+        if result.outcome == "stale":
+            raise RetryableOperationError("effect-ledger CAS was stale")
+        if result.outcome == "saved":
             return
-    raise StateBackendError(
-        f"effect ledger save for {org_repo!r}/{entry.fingerprint!r} did not converge "
-        f"after {max_retries} retries"
-    )
+        raise StateBackendError(
+            f"effect ledger save for {org_repo!r}/{entry.fingerprint!r} was rejected "
+            f"as {result.outcome!r}"
+        )
+
+    try:
+        run_with_retry("state_cas", attempt, max_attempts=max_retries)
+    except RetryableOperationError as exc:
+        raise StateBackendError(
+            f"effect ledger save for {org_repo!r}/{entry.fingerprint!r} did not converge "
+            f"after {max_retries} retries"
+        ) from exc
 
 
 def dispatch_gated_effect(
@@ -301,6 +314,13 @@ def dispatch_gated_effect(
             capability_id=capability_id, fingerprint=key, result={}, status="pending"
         )
         _save_entry_with_retry(backend, org_repo, pending_entry, max_retries=max_retries)
+        lifecycle_recorder = current_lifecycle_recorder()
+        if lifecycle_recorder is not None:
+            lifecycle_recorder.checkpoint(
+                "effect_pending",
+                action=capability_id,
+                inputs={"arguments": arguments, "idempotency_key": key},
+            )
 
         dispatch = dispatch_tool_call(
             tool_call, allowed_permissions, caller_domain, state_backend=backend
@@ -325,6 +345,13 @@ def dispatch_gated_effect(
                     status="applied",
                 )
                 _save_entry_with_retry(backend, org_repo, applied_entry, max_retries=max_retries)
+                if lifecycle_recorder is not None:
+                    lifecycle_recorder.checkpoint(
+                        "effect_applied",
+                        action=capability_id,
+                        inputs={"idempotency_key": key},
+                        outputs=dispatch.result or {},
+                    )
             else:
                 # Leave the pending record exactly as-is -- do NOT write
                 # applied. A future dispatch attempt for this same key hits

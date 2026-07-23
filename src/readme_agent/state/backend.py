@@ -11,7 +11,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Literal, Protocol
 
-from readme_agent.state.schema import ModelRouteStatusV1, RunStateV1
+from readme_agent.state.schema import ModelRouteStatusV1, RunStateV1, RunStateV2
 
 SaveOutcome = Literal["saved", "stale", "lock_held"]
 
@@ -57,9 +57,14 @@ def safe_release_lock(release_fn: Callable[[Lock], None], lock: Lock, *, label: 
 
 
 class StateBackend(Protocol):
-    def load(self, org_repo: str) -> RunStateV1 | None: ...
+    def load(self, org_repo: str) -> RunStateV2 | None: ...
 
-    def save(self, org_repo: str, state: RunStateV1, expected_version: int | None) -> SaveResult:
+    def save(
+        self,
+        org_repo: str,
+        state: RunStateV1 | RunStateV2,
+        expected_version: int | None,
+    ) -> SaveResult:
         """CAS: rejected with `outcome="stale"` if the backend's current
         `state_version` no longer matches `expected_version`.
         `expected_version=None` is only valid for the first-ever write to a

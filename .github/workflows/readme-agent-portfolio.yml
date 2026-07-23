@@ -1,4 +1,4 @@
-name: README Agent Portfolio (dry-run)
+name: README Agent Portfolio (legacy manual diagnostic)
 
 # Wave 8.5 (SCL-008/ORC-006): the first CI entry point that fans out
 # `supervise` across the allow-list registry, rather than one repo per
@@ -15,8 +15,6 @@ name: README Agent Portfolio (dry-run)
 # Local test: act workflow_dispatch -W .github/workflows/readme-agent-portfolio.yml
 
 on:
-  schedule:
-    - cron: "0 6 * * *" # daily, distinct from update-products-registry.yml's weekly Monday 07:00
   workflow_dispatch:
 
 permissions:

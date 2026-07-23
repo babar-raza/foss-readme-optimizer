@@ -1,0 +1,6 @@
+paths:
+  .github/workflows/readme-agent-production.yml:
+    ignore:
+      # GitHub supports concurrency.queue: max as of 2026-04. The current
+      # released actionlint schema (v1.7.12) predates that syntax.
+      - 'unexpected key "queue" for "concurrency" section'

@@ -33,9 +33,12 @@ a caller checks whichever registry it has actual evidence for, never both
 folded into one ambiguous "cpp" verdict.
 """
 
+import time
 from dataclasses import dataclass
 
 import requests
+
+from readme_agent.retry import RetryableOperationError, run_http_with_retry
 
 _MAVEN_CENTRAL_SEARCH_URL = "https://search.maven.org/solrsearch/select"
 _PYPI_URL_TEMPLATE = "https://pypi.org/pypi/{name}/json"
@@ -56,6 +59,7 @@ _CONAN_CENTER_URL_TEMPLATE = (
 _VCPKG_URL_TEMPLATE = (
     "https://raw.githubusercontent.com/microsoft/vcpkg/master/ports/{name}/vcpkg.json"
 )
+_RETRYABLE_STATUS = {429, 502, 503, 504}
 
 
 @dataclass
@@ -71,13 +75,22 @@ class ResolutionResult:
     blocked: bool = False
 
 
+def _registry_get(url: str, *, timeout: float, params: dict | None = None) -> requests.Response:
+    return run_http_with_retry(
+        "package_registry",
+        lambda: requests.get(url, params=params, timeout=timeout),
+        retryable_statuses=_RETRYABLE_STATUS,
+        sleep=time.sleep,
+    )
+
+
 def _resolve_maven(manifest: dict[str, str], timeout: float = 10) -> ResolutionResult:
     group_id = manifest.get("group_id")
     artifact_id = manifest.get("artifact_id")
     if not group_id or not artifact_id:
         return ResolutionResult(False, "manifest missing group_id/artifact_id -- cannot resolve")
     try:
-        resp = requests.get(
+        resp = _registry_get(
             _MAVEN_CENTRAL_SEARCH_URL,
             params={"q": f"g:{group_id} AND a:{artifact_id}", "rows": "1", "wt": "json"},
             timeout=timeout,
@@ -89,7 +102,7 @@ def _resolve_maven(manifest: dict[str, str], timeout: float = 10) -> ResolutionR
             f"Maven Central: {group_id}:{artifact_id} "
             f"{'found' if found else 'NOT FOUND (0 results)'}",
         )
-    except requests.RequestException as exc:
+    except (requests.RequestException, RetryableOperationError) as exc:
         return ResolutionResult(
             False, f"network error resolving Maven Central: {exc}", blocked=True
         )
@@ -105,12 +118,12 @@ def _resolve_by_existence_url(
     not) -- every resolver here except Maven Central's own richer
     search-query API above."""
     try:
-        resp = requests.get(url, timeout=timeout)
+        resp = _registry_get(url, timeout=timeout)
         if resp.status_code == 404:
             return ResolutionResult(False, f"{label}: {subject} NOT FOUND (404)")
         resp.raise_for_status()
         return ResolutionResult(True, f"{label}: {subject} found")
-    except requests.RequestException as exc:
+    except (requests.RequestException, RetryableOperationError) as exc:
         return ResolutionResult(False, f"network error resolving {label}: {exc}", blocked=True)
 
 

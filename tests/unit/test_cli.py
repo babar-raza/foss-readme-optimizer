@@ -6,6 +6,39 @@ from readme_agent.cli import _build_parser, main
 from readme_agent.commands import cmd_supervise
 
 
+class _LifecycleFakeBackend:
+    def __init__(self):
+        self._state = None
+
+    def load(self, org_repo):
+        return self._state
+
+    def save(self, org_repo, state, expected_version):
+        from readme_agent.state.backend import SaveResult
+
+        current_version = self._state.state_version if self._state else None
+        if expected_version != current_version:
+            return SaveResult(outcome="stale", new_version=current_version)
+        new_version = (current_version or 0) + 1
+        self._state = state.model_copy(update={"state_version": new_version})
+        return SaveResult(outcome="saved", new_version=new_version)
+
+    def acquire_lock(self, org_repo):
+        from readme_agent.state.backend import Lock
+
+        return Lock(org_repo=org_repo, holder_id="fake", leased_until="9999-01-01T00:00:00")
+
+    def release_lock(self, lock):
+        pass
+
+
+def _terminal_supervise_result(status="CONVERGED_NO_CHANGE"):
+    from readme_agent.supervisor.models import SuperviseResult
+    from readme_agent.supervisor.task import TaskGraph
+
+    return SuperviseResult(status=status, org_repo="org/repo", task_graph=TaskGraph())
+
+
 @pytest.fixture(autouse=True)
 def _stub_registry_heal(monkeypatch):
     """CORE-034 (decision #47): `cmd_supervise` self-heals the registry before
@@ -445,33 +478,29 @@ class TestExecutionProfileFlag:
         )
         assert cmd_supervise(args) == 0
 
-    def test_github_profile_forces_a_durable_state_backend_without_the_flag(self, monkeypatch):
+    def test_github_profile_forces_a_durable_state_backend_without_the_flag(
+        self, monkeypatch, tmp_path
+    ):
         import readme_agent.env as env
+        import readme_agent.paths as paths
         import readme_agent.state.git_backend as git_backend_module
         import readme_agent.supervisor.loop as loop_module
 
         _stub_preflight_ok(monkeypatch)
-        sentinel_backend = object()
+        sentinel_backend = _LifecycleFakeBackend()
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: sentinel_backend)
-        # Isolate from the REAL CI environment this test suite may itself be
-        # running inside (`GITHUB_RUN_ID`/`GITHUB_EVENT_NAME` are ambient on
-        # any real Actions runner, including under `act`) -- found live via
-        # a real `act` proof run, Wave 13.6: without this, a `push`-triggered
-        # workflow's own `GITHUB_EVENT_NAME` leaks in and `TriggerRecordV1`
-        # rejects `event_type="push"` (not one of its four valid values),
-        # crashing a test that has nothing to do with trigger identity.
-        # `None` skips that whole branch entirely, matching real local-CLI
-        # use (`env.github_run_id()`'s own docstring: "None outside Actions").
-        monkeypatch.setattr(env, "github_run_id", lambda: None)
+        monkeypatch.setattr(env, "github_run_id", lambda: "run-profile")
+        monkeypatch.setattr(env, "github_event_name", lambda: "workflow_dispatch")
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
 
         captured: dict[str, object] = {}
 
-        def _fake_supervise_repo(repo, *, state_backend=None, allowed_permission_classes=None):
+        def _fake_supervise_repo(
+            repo, *, state_backend=None, allowed_permission_classes=None, **kwargs
+        ):
             captured["state_backend"] = state_backend
             captured["allowed_permission_classes"] = allowed_permission_classes
-            return argparse.Namespace(
-                status="CONVERGED_NO_CHANGE", blocked_reason=None, decisions=[]
-            )
+            return _terminal_supervise_result()
 
         monkeypatch.setattr(loop_module, "supervise_repo", _fake_supervise_repo)
 
@@ -485,56 +514,79 @@ class TestExecutionProfileFlag:
         assert captured["state_backend"] is sentinel_backend
         assert captured["allowed_permission_classes"] == {"read_only_local", "read_only_network"}
 
+    def test_state_outage_blocks_before_preflight_or_llm_connectivity(self, monkeypatch):
+        import readme_agent.env as env
+        import readme_agent.preflight.runner as preflight_module
+        import readme_agent.state.git_backend as git_backend_module
+        from readme_agent.errors import StateBackendError
+
+        class _UnavailableBackend(_LifecycleFakeBackend):
+            def load(self, org_repo):
+                raise StateBackendError("state service unavailable")
+
+        def _must_not_preflight(*args, **kwargs):
+            raise AssertionError("preflight/LLM connectivity ran while intake state was uncertain")
+
+        monkeypatch.setattr(git_backend_module, "default_state_backend", _UnavailableBackend)
+        monkeypatch.setattr(preflight_module, "run_preflight_for_repo", _must_not_preflight)
+        monkeypatch.setattr(env, "github_run_id", lambda: "run-state-outage")
+        monkeypatch.setattr(env, "github_event_name", lambda: "workflow_dispatch")
+
+        args = argparse.Namespace(
+            repo="org/repo", durable_state=False, domain=None, execution_profile="github_observe"
+        )
+        with pytest.raises(StateBackendError, match="state service unavailable"):
+            cmd_supervise(args)
+
+    def test_state_write_outage_blocks_before_preflight_or_llm_connectivity(self, monkeypatch):
+        import readme_agent.env as env
+        import readme_agent.preflight.runner as preflight_module
+        import readme_agent.state.git_backend as git_backend_module
+        from readme_agent.errors import StateBackendError
+
+        class _UnavailableBackend(_LifecycleFakeBackend):
+            def save(self, org_repo, state, expected_version):
+                raise StateBackendError("state write unavailable")
+
+        def _must_not_preflight(*args, **kwargs):
+            raise AssertionError("preflight/LLM connectivity ran while intake state was uncertain")
+
+        monkeypatch.setattr(git_backend_module, "default_state_backend", _UnavailableBackend)
+        monkeypatch.setattr(preflight_module, "run_preflight_for_repo", _must_not_preflight)
+        monkeypatch.setattr(env, "github_run_id", lambda: "run-state-write-outage")
+        monkeypatch.setattr(env, "github_event_name", lambda: "workflow_dispatch")
+
+        args = argparse.Namespace(
+            repo="org/repo", durable_state=False, domain=None, execution_profile="github_observe"
+        )
+        with pytest.raises(StateBackendError, match="state write unavailable"):
+            cmd_supervise(args)
+
     def test_duplicate_github_run_id_short_circuits_without_calling_supervise_repo(
-        self, monkeypatch
+        self, monkeypatch, tmp_path
     ):
         """Wave 9.5 (`RUN-006`): a re-dispatch of the SAME GitHub Actions run (identical
         `GITHUB_RUN_ID`) must not re-execute the full run."""
         import readme_agent.env as env
+        import readme_agent.paths as paths
         import readme_agent.state.git_backend as git_backend_module
         import readme_agent.supervisor.loop as loop_module
 
         _stub_preflight_ok(monkeypatch)
 
-        class _MiniFakeBackend:
-            """Just enough of the `StateBackend` Protocol for trigger recording."""
-
-            def __init__(self):
-                self._state = None
-
-            def load(self, org_repo):
-                return self._state
-
-            def save(self, org_repo, state, expected_version):
-                from readme_agent.state.backend import SaveResult
-
-                current_version = self._state.state_version if self._state else None
-                if expected_version != current_version:
-                    return SaveResult(outcome="stale", new_version=current_version)
-                new_version = (current_version or 0) + 1
-                self._state = state.model_copy(update={"state_version": new_version})
-                return SaveResult(outcome="saved", new_version=new_version)
-
-            def acquire_lock(self, org_repo):
-                from readme_agent.state.backend import Lock
-
-                return Lock(org_repo=org_repo, holder_id="fake", leased_until="9999-01-01T00:00:00")
-
-            def release_lock(self, lock):
-                pass
-
-        backend = _MiniFakeBackend()
+        backend = _LifecycleFakeBackend()
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
         monkeypatch.setattr(env, "github_run_id", lambda: "run-42")
         monkeypatch.setattr(env, "github_event_name", lambda: "workflow_dispatch")
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
 
         call_count = {"n": 0}
 
-        def _fake_supervise_repo(repo, *, state_backend=None, allowed_permission_classes=None):
+        def _fake_supervise_repo(
+            repo, *, state_backend=None, allowed_permission_classes=None, **kwargs
+        ):
             call_count["n"] += 1
-            return argparse.Namespace(
-                status="CONVERGED_NO_CHANGE", blocked_reason=None, decisions=[]
-            )
+            return _terminal_supervise_result()
 
         monkeypatch.setattr(loop_module, "supervise_repo", _fake_supervise_repo)
 
@@ -544,6 +596,54 @@ class TestExecutionProfileFlag:
         assert cmd_supervise(args) == 0
         assert cmd_supervise(args) == 0  # same GITHUB_RUN_ID -- must be deduplicated
         assert call_count["n"] == 1
+
+    def test_recovery_matrix_resumes_the_original_durable_trigger(self, monkeypatch, tmp_path):
+        import readme_agent.env as env
+        import readme_agent.paths as paths
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.loop as loop_module
+        from readme_agent.state.lifecycle import accept_trigger, transition_trigger
+        from readme_agent.state.trigger_v2 import normalize_trigger_envelope
+
+        _stub_preflight_ok(monkeypatch)
+        backend = _LifecycleFakeBackend()
+        original = normalize_trigger_envelope(
+            "org/repo",
+            event_type="repository_dispatch",
+            delivery_id="original-delivery",
+        )
+        accept_trigger(backend, original)
+        transition_trigger(backend, "org/repo", original.dedup_key, "processing")
+        transition_trigger(backend, "org/repo", original.dedup_key, "retryable")
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(env, "github_run_id", lambda: "recovery-run")
+        monkeypatch.setattr(env, "github_event_name", lambda: "schedule")
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+        monkeypatch.setattr(
+            loop_module, "supervise_repo", lambda *args, **kwargs: _terminal_supervise_result()
+        )
+
+        args = argparse.Namespace(
+            repo="org/repo",
+            durable_state=False,
+            domain=None,
+            execution_profile="github_observe",
+            resume_trigger_key=original.dedup_key,
+        )
+        assert cmd_supervise(args) == 0
+        assert list(backend._state.trigger_lifecycles) == [original.dedup_key]
+        assert backend._state.trigger_lifecycles[original.dedup_key].status == "completed"
+
+    def test_resume_trigger_key_requires_a_github_profile(self, capsys):
+        args = argparse.Namespace(
+            repo="org/repo",
+            durable_state=False,
+            domain=None,
+            execution_profile="local_inspect",
+            resume_trigger_key="delivery:original",
+        )
+        assert cmd_supervise(args) == 2
+        assert "requires a github_* execution profile" in capsys.readouterr().err
 
 
 class TestAuthorizationValidateCommand:

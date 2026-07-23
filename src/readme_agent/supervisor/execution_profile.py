@@ -37,7 +37,13 @@ ExecutionProfileName = Literal[
     "github_apply",
 ]
 
-Trigger = Literal["cli_manual", "workflow_dispatch", "schedule", "repository_dispatch"]
+Trigger = Literal[
+    "cli_manual",
+    "workflow_dispatch",
+    "workflow_call",
+    "schedule",
+    "repository_dispatch",
+]
 
 
 class ExecutionProfileV1(BaseModel):
@@ -86,7 +92,7 @@ _PROFILES: dict[ExecutionProfileName, ExecutionProfileV1] = {
         allowed_permission_classes=["read_only_local", "read_only_network"],
         require_evidence_bundle=True,
         require_independent_verification=False,
-        allowed_triggers=["workflow_dispatch", "schedule"],
+        allowed_triggers=["workflow_dispatch", "workflow_call", "schedule", "repository_dispatch"],
         rollback="none needed -- read-only",
         allows_domain_bypass=False,
     ),
@@ -102,7 +108,7 @@ _PROFILES: dict[ExecutionProfileName, ExecutionProfileV1] = {
         ],
         require_evidence_bundle=True,
         require_independent_verification=True,
-        allowed_triggers=["workflow_dispatch", "schedule"],
+        allowed_triggers=["workflow_dispatch", "workflow_call", "schedule", "repository_dispatch"],
         rollback=(
             "revert/close the prepared branch or PR (open_presentation_pr); never a default-"
             "branch write"

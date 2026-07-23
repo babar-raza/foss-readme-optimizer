@@ -9,6 +9,7 @@ instrumented at every stage, not just entry/exit) that stays open, tracked, not 
 """
 
 from readme_agent.errors import StateBackendError
+from readme_agent.retry import RetryableOperationError, run_with_retry
 from readme_agent.state.backend import StateBackend, safe_release_lock
 from readme_agent.state.schema import RunStateV1, TriggerRecordV1
 
@@ -52,7 +53,8 @@ def record_trigger(
     if lock is None:
         raise StateBackendError(f"could not acquire lock for {org_repo!r} to record trigger")
     try:
-        for _ in range(max_retries):
+
+        def attempt() -> TriggerRecordV1:
             current = backend.load(org_repo)
             expected_version = current.state_version if current is not None else None
             base = current if current is not None else RunStateV1(org_repo=org_repo)
@@ -70,10 +72,19 @@ def record_trigger(
 
             updated = base.model_copy(update={"trigger_records": pruned})
             result = backend.save(org_repo, updated, expected_version)
-            if result.outcome != "stale":
+            if result.outcome == "stale":
+                raise RetryableOperationError("legacy trigger CAS was stale")
+            if result.outcome == "saved":
                 return trigger
-        raise StateBackendError(
-            f"record_trigger for {org_repo!r} did not converge after {max_retries} retries"
-        )
+            raise StateBackendError(
+                f"record_trigger for {org_repo!r} was rejected as {result.outcome!r}"
+            )
+
+        try:
+            return run_with_retry("state_cas", attempt, max_attempts=max_retries)
+        except RetryableOperationError as exc:
+            raise StateBackendError(
+                f"record_trigger for {org_repo!r} did not converge after {max_retries} retries"
+            ) from exc
     finally:
         safe_release_lock(backend.release_lock, lock, label="lock")

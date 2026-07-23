@@ -16,6 +16,7 @@ from typing import Any
 
 from readme_agent import env
 from readme_agent.evidence.manifest_v2 import RunManifestV2
+from readme_agent.evidence.manifest_v3 import RunManifestV3
 from readme_agent.evidence.redaction import redact
 
 
@@ -145,6 +146,14 @@ def write_run_manifest_v2(evidence_dir: Path, manifest: RunManifestV2) -> None:
     Never a parallel writer: `_write_supervise_evidence()` calls this
     instead of constructing its own ad hoc dict."""
     _atomic_write_json(evidence_dir / "manifest.json", manifest)
+
+
+def write_run_manifest_v3(evidence_dir: Path, manifest: RunManifestV3) -> None:
+    _atomic_write_json(evidence_dir / "manifest.json", manifest)
+
+
+def refresh_sha256sums(evidence_dir: Path) -> None:
+    _write_sha256sums(evidence_dir)
 
 
 def _write_sha256sums(evidence_dir: Path) -> None:

@@ -1,0 +1,279 @@
+name: README Agent Production Runtime
+
+on:
+  schedule:
+    # Off the top of the hour because GitHub documents that scheduled runs
+    # can be delayed or dropped during high load.
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: "Optional allow-listed org/repo; empty means the active portfolio"
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      repository:
+        description: "Optional allow-listed org/repo; empty means the active portfolio"
+        required: false
+        type: string
+    secrets:
+      GH_APP_PRIVATE_KEY:
+        required: true
+      LLM_BASE_URL:
+        required: true
+      LLM_API_KEY:
+        required: true
+      DEAD_MAN_HEARTBEAT_URL:
+        required: false
+  repository_dispatch:
+    types: [readme_agent_repository_changed]
+
+permissions:
+  contents: read
+
+jobs:
+  recover:
+    name: Recover unfinished durable work
+    runs-on: ubuntu-latest
+    permissions:
+      # This token is scoped to this control repository and writes only the
+      # refs/readme-agent-state namespace through GitStateBackend.
+      contents: write
+    outputs:
+      matrix: ${{ steps.recovery-matrix.outputs.matrix }}
+      has_recovery: ${{ steps.recovery-matrix.outputs.has_recovery }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - name: Validate repository_dispatch identity
+        if: ${{ github.event_name == 'repository_dispatch' }}
+        env:
+          DELIVERY_ID: ${{ github.event.client_payload.delivery_id }}
+        run: |
+          if [ -z "$DELIVERY_ID" ]; then
+            echo "::error::repository_dispatch requires client_payload.delivery_id for durable deduplication"
+            exit 2
+          fi
+      - name: Recover stale accepted, processing, and retryable triggers
+        env:
+          REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
+        run: |
+          if [ -n "$REQUESTED_REPOSITORY" ]; then
+            readme-agent recovery-sweep --only "$REQUESTED_REPOSITORY" --output recovery-candidates.json
+          else
+            readme-agent recovery-sweep --output recovery-candidates.json
+          fi
+      - id: recovery-matrix
+        name: Emit resumable trigger matrix
+        run: |
+          matrix=$(jq -c '{include: [.recovery_candidates[] | {
+            repo: .repository,
+            dedup_key: .trigger_dedup_key,
+            owner: (.repository | split("/")[0]),
+            name: (.repository | split("/")[1])
+          }]}' recovery-candidates.json)
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          if [ "$(jq '.include | length' <<<"$matrix")" -gt 0 ]; then
+            echo "has_recovery=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_recovery=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lifecycle-recovery-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery-candidates.json
+
+  resume:
+    name: Resume ${{ matrix.repo }}
+    needs: recover
+    if: ${{ needs.recover.outputs.has_recovery == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix: ${{ fromJson(needs.recover.outputs.matrix) }}
+    concurrency:
+      group: readme-agent-${{ matrix.repo }}
+      queue: max
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - name: Mint repository-scoped read-only GitHub App token
+        id: target-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          owner: ${{ matrix.owner }}
+          repositories: ${{ matrix.name }}
+          permission-contents: read
+      - name: Resume the original durable trigger
+        run: >
+          readme-agent supervise --repo "${{ matrix.repo }}"
+          --resume-trigger-key "${{ matrix.dedup_key }}"
+          --no-registry-heal --execution-profile github_observe
+        env:
+          README_AGENT_PRODUCTION_AUTH: github_app
+          README_AGENT_GITHUB_APP_TOKEN: ${{ steps.target-token.outputs.token }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: recovery-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
+          path: runs/evidence/
+
+  plan:
+    name: Build authoritative repository matrix
+    needs: recover
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      schedule_window: ${{ steps.identity.outputs.schedule_window }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - id: matrix
+        name: Emit matrix from data/products.json
+        env:
+          REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
+        run: |
+          if [ -n "$REQUESTED_REPOSITORY" ]; then
+            matrix=$(readme-agent runtime-matrix --only "$REQUESTED_REPOSITORY" | jq -c .)
+          else
+            matrix=$(readme-agent runtime-matrix | jq -c .)
+          fi
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+      - id: identity
+        name: Derive stable schedule window
+        run: echo "schedule_window=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+  analyze:
+    name: Observe ${{ matrix.repo }}
+    needs: plan
+    runs-on: ubuntu-latest
+    permissions:
+      # Central-repository state refs only. Target-repository access uses
+      # the separately minted read-only App installation token below.
+      contents: write
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    concurrency:
+      group: readme-agent-${{ matrix.repo }}
+      queue: max
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - name: Mint repository-scoped read-only GitHub App token
+        id: target-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          owner: ${{ matrix.owner }}
+          repositories: ${{ matrix.name }}
+          permission-contents: read
+      - name: Run canonical fail-closed supervisor
+        run: >
+          readme-agent supervise --repo "${{ matrix.repo }}"
+          --no-registry-heal --execution-profile github_observe
+        env:
+          README_AGENT_PRODUCTION_AUTH: github_app
+          README_AGENT_GITHUB_APP_TOKEN: ${{ steps.target-token.outputs.token }}
+          README_AGENT_TRIGGER_ID: ${{ github.run_id }}
+          README_AGENT_DELIVERY_ID: ${{ github.event.client_payload.delivery_id }}
+          README_AGENT_SCHEDULE_WINDOW: ${{ needs.plan.outputs.schedule_window }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: run-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
+          path: runs/evidence/
+
+  health:
+    name: Portfolio health and alert
+    needs: [plan, analyze, resume]
+    if: ${{ always() && needs.plan.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - name: Aggregate durable health
+        env:
+          REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
+        run: |
+          if [ -n "$REQUESTED_REPOSITORY" ]; then
+            readme-agent health-report --only "$REQUESTED_REPOSITORY" --output health-report.json
+          else
+            readme-agent health-report --output health-report.json
+          fi
+      - id: health-state
+        run: echo "healthy=$(jq -r .healthy health-report.json)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-health-${{ github.run_id }}
+          path: health-report.json
+      - name: Create or update visible health issue
+        if: ${{ steps.health-state.outputs.healthy != 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: "README Agent production health is degraded"
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          issue=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number // empty')
+          body="Run $RUN_URL produced an unhealthy HealthReportV1. Download the portfolio-health artifact for backlog, stale-lease, missed-window, evidence, and state-failure details."
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" --body "$body"
+          else
+            gh issue create --title "$TITLE" --body "$body"
+          fi
+      - id: dead-man-config
+        name: Detect external dead-man configuration
+        env:
+          HEARTBEAT_URL: ${{ secrets.DEAD_MAN_HEARTBEAT_URL }}
+        run: |
+          if [ -n "$HEARTBEAT_URL" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Send external dead-man heartbeat
+        if: ${{ steps.dead-man-config.outputs.configured == 'true' }}
+        env:
+          HEARTBEAT_URL: ${{ secrets.DEAD_MAN_HEARTBEAT_URL }}
+        run: curl --fail-with-body --retry 3 --max-time 30 "$HEARTBEAT_URL"
+      - name: Warn when dead-man monitor is not configured
+        if: ${{ steps.dead-man-config.outputs.configured != 'true' }}
+        run: echo "::warning::DEAD_MAN_HEARTBEAT_URL is not configured; scheduler absence cannot be detected externally"
+      - name: Fail the Actions check when portfolio health is degraded
+        if: ${{ steps.health-state.outputs.healthy != 'true' }}
+        run: exit 1
