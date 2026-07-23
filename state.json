@@ -11,14 +11,14 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "9c72ed3526ea11ed0b0e54df3f694eebc255eade3585905eca1a8cf257b6149b",
-    "last_evaluated_at": "2026-07-23T10:02:32.961232+00:00",
+    "last_evaluated_at": "2026-07-23T10:02:48.308765+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
-      "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "IMPLEMENTED",
+      "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "VERIFIED",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "BLOCKED_EXTERNAL",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
@@ -285,13 +285,26 @@
         "reason": "Fresh no-local clone installed solely from committed lock; complete official suite passed",
         "task_id": "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave0-fresh-clone-head-reproduction/official-checks.stdout.log",
+          "plans/investigations/evidence/level8-wave0-fresh-clone-head-reproduction/official-checks.stderr.log",
+          "f137917"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-23T10:02:48.308758+00:00",
+        "reason": "Raw stdout/stderr checksums match manifest; 1196 tests, actionlint 9 workflows, and plan validation passed",
+        "task_id": "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
+        "to_status": "VERIFIED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 32,
+  "state_version": 33,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
