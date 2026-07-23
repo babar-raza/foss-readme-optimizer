@@ -226,7 +226,7 @@
       "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "1ffaaa7e4a040a644ab25fe08413ac091ce1c9101eed82d48aa32cc5ba06c29c",
+      "accepted_facts_hash": "7aefcd88f2fc0810cad71bf262c31d9c6d0d796826bc6aacc718ca1554c23a0c",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -249,46 +249,46 @@
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `go get github.com/aspose-pdf-foss/aspose-pdf-foss-for-go` uses real package coordinates that resolve against the live Go registry (pkg.go.dev).",
+            "note": "The install command `go get github.com/aspose-pdf-foss/aspose-pdf-foss-for-go` names real package coordinates that resolve against the live Go registry (pkg.go.dev).",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, the README includes multiple runnable code blocks (Quick Start, API Reference sections) with full working examples.",
+            "note": "Beyond the install snippet, the README includes multiple runnable code blocks (Quick Start, API Reference sections) with full, executable examples.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent Markdown levels (`##`, `###`), and the section order follows the expected flow: product description \u2192 install \u2192 examples \u2192 features \u2192 API reference \u2192 license.",
+            "note": "Headers use consistent Markdown levels (`##`, `###`), and the section order follows the expected flow: product description \u2192 install \u2192 quick start \u2192 features \u2192 API reference \u2192 license.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "The feature showcase image is product-illustrative (shows a generated PDF output), not decorative, and directly supports understanding the library's capabilities.",
+            "note": "The feature showcase image (`docs/feature_showcase-preview.png`) is used to illustrate the product's output (a generated PDF), not as decorative hero imagery \u2014 it directly demonstrates value.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README does not include recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY) \u2014 GitHub only shows README and LICENSE, and the repo's community health is likely low.",
+            "note": "The README does not include or reference a CODE_OF_CONDUCT or CONTRIBUTING file, and GitHub's quick-link row likely shows only README and License (per dimension 8 evidence).",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README includes GitHub action badges (test, lint) and references to recent activity, and the presence of a LICENSE and active examples implies maintenance.",
+            "note": "The README includes GitHub Actions badges for test and lint workflows, implying active maintenance, and the repository's recent activity is visible via badges (though not explicitly stated in prose).",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once at the end as a factual product-page link, in neutral language, after the product explanation \u2014 matching the n8n/iText pattern.",
+            "note": "The final 'Product Page' link is a single, factual mention of the commercial product, placed at the end after the product explanation \u2014 matching the n8n/iText pattern and avoiding promotional language.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README meets 9 of 10 dimensions of the presentation standard. It excels in product clarity, audience fit, trust signals, installation path, examples, navigation, visual usefulness, maintenance signals, and commercial context. The only gap is contribution readiness \u2014 missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files needed for full GitHub community-file recognition."
+        "overall_summary": "The README satisfies 9 of 10 dimensions of the presentation standard. It excels in product clarity, audience fit, trust signals, installation path, examples, navigation, visual usefulness, maintenance signals, and commercial context. The only gap is contribution readiness \u2014 missing CODE_OF_CONDUCT and CONTRIBUTING files needed for GitHub's full community-file quick-link row."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-23T06:59:47.295061+00:00",
+      "last_run_timestamp": "2026-07-23T07:17:11.254273+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
@@ -365,7 +365,7 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
-  "state_version": 46,
+  "state_version": 47,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
