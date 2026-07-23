@@ -2,6 +2,7 @@
 
 import argparse
 
+from readme_agent.cli import _build_parser
 from readme_agent.commands import cmd_generate, cmd_run, cmd_run_registry
 from readme_agent.supervisor.models import SuperviseResult
 from readme_agent.supervisor.task import TaskGraph
@@ -82,3 +83,10 @@ def test_registry_returns_nonzero_when_any_supervisor_run_is_blocked(monkeypatch
     result = cmd_run_registry(argparse.Namespace(only=None, durable_state=False))
 
     assert result == 1
+
+
+def test_top_level_help_identifies_all_legacy_verbs_as_read_only_facades():
+    help_text = _build_parser().format_help()
+
+    assert help_text.count("[read-only compatibility façade]") == 3
+    assert "legacy `run` engine" not in help_text

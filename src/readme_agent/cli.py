@@ -23,10 +23,18 @@ def _build_parser() -> argparse.ArgumentParser:
     )
 
     p_generate = sub.add_parser(
-        "generate", help="Detect gaps and render a fix (LLM only if needed)"
+        "generate",
+        help=(
+            "[read-only compatibility façade] Run the canonical supervisor and report its "
+            "proposal status; never write or commit"
+        ),
     )
     p_generate.add_argument("--repo", required=True)
-    p_generate.add_argument("--force-regenerate", action="store_true")
+    p_generate.add_argument(
+        "--force-regenerate",
+        action="store_true",
+        help="Compatibility-only accepted flag; cannot grant write permission",
+    )
 
     p_validate = sub.add_parser("validate", help="Re-run the validator registry offline")
     p_validate.add_argument("--repo", required=True)
@@ -35,14 +43,23 @@ def _build_parser() -> argparse.ArgumentParser:
     p_run = sub.add_parser(
         "run",
         help=(
-            "[compatibility/diagnostic -- not the primary production path, decision #46] "
-            "Full pipeline: preflight -> gitsafety -> inspect -> generate -> validate. "
-            "New GitHub production traffic uses `supervise --execution-profile ...` instead."
+            "[read-only compatibility façade] Route one repository through the canonical "
+            "supervisor and terminal classifier; never commit or push. New production traffic "
+            "uses `supervise --execution-profile ...`."
         ),
     )
     p_run.add_argument("--repo", required=True)
-    p_run.add_argument("--mode", choices=["full", "dry_run"], default="dry_run")
-    p_run.add_argument("--force-regenerate", action="store_true")
+    p_run.add_argument(
+        "--mode",
+        choices=["full", "dry_run"],
+        default="dry_run",
+        help="Compatibility-only label; even `full` grants no mutation permission",
+    )
+    p_run.add_argument(
+        "--force-regenerate",
+        action="store_true",
+        help="Compatibility-only accepted flag; cannot grant write permission",
+    )
     p_run.add_argument(
         "--durable-state",
         action="store_true",
@@ -56,8 +73,8 @@ def _build_parser() -> argparse.ArgumentParser:
     p_run_registry = sub.add_parser(
         "run-registry",
         help=(
-            "[compatibility/diagnostic -- not the primary production path, decision #46] "
-            "Run every enabled entry in data/products.json via the legacy `run` engine."
+            "[read-only compatibility façade] Route enabled registry entries through the "
+            "canonical supervisor and terminal classifier; never commit or push."
         ),
     )
     p_run_registry.add_argument("--only", help="Comma-separated org/repo list to restrict to")
