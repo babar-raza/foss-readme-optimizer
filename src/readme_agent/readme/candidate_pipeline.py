@@ -12,6 +12,7 @@ from readme_agent.gitsafety.hooks import install_pre_push_hook
 from readme_agent.gitsafety.neuter import neuter_push
 from readme_agent.gitsafety.verify import verify_push_blocked
 from readme_agent.inspection import file_inventory
+from readme_agent.inspection.git_metadata import get_git_metadata
 from readme_agent.license.auditor import detect_license
 from readme_agent.llm.client import GeneratedResult, LLMClient
 from readme_agent.llm.fixture_client import FixtureLLMClient
@@ -77,6 +78,9 @@ def prepare_readme_candidate(
     baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
     work_path = paths.work_dir(entry.org, entry.repo_name)
     clone_baseline(entry, baseline_path)
+    source_revision = get_git_metadata(baseline_path).commit_sha
+    if source_revision is None:
+        raise RuntimeError("baseline clone has no immutable source revision")
     # Computed from the baseline clone, which is always fresh (unlike
     # work_path) -- zero extra clone cost. The single canonical fingerprint
     # (decision #38): gates both the local work-clone reuse below and the
@@ -293,6 +297,7 @@ def prepare_readme_candidate(
         final_text=final_text,
         facts=facts,
         facts_hash=facts_hash,
+        source_revision=source_revision,
         fresh_fingerprint=fresh_fingerprint,
         gap_report=gap_report,
         skip_regeneration=skip_regeneration,

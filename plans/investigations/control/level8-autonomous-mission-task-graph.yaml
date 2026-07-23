@@ -969,6 +969,7 @@ taskcards:
   - config/authorization/
   dependencies:
   - L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+  - L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION
   expected_outputs:
   - RepositoryPresentationPlanV1.
   - markdown-it-py direct dependency and source-span patcher.
@@ -1111,6 +1112,76 @@ taskcards:
   - DOC-010
   - L8-007
   - L8-012
+- task_id: L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+  title: Build the repository-local structured presentation-plan and source-span foundation
+  source_audit_finding: Wave 2 production proof blocks the parent Wave 3 and Wave 4 production sequence,
+    but the closed local ProductFactsV2 foundation is sufficient to build and verify structured presentation
+    plans, Markdown source spans, and byte-preserving patch contracts.
+  audit_classification: partially_done
+  priority: P0
+  lane: presentation-intelligence
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Complete the safe repository-local Wave 4 planning and patch foundation while leaving production
+    proposals, model-route scoring, and full Wave 4 closure dependent on the blocked production chain.
+  why_it_matters: Repository-specific proposal quality depends on an explicit plan and bounded patch contract;
+    both can advance safely without credentials, publication authority, or target writes.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - docs/
+  - pyproject.toml
+  - requirements-lock.txt
+  - plans/requirements.md
+  - plans/investigations/
+  - plans/investigations/evidence/
+  - scripts/retrofits/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - config/authorization/
+  - target repository remotes
+  - target repository default branches
+  dependencies:
+  - L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION
+  expected_outputs:
+  - RepositoryPresentationPlanV1 with findings, actions, dependencies, fact citations, ownership, validators,
+    rollback, and stop conditions.
+  - Markdown-it-py-backed source-span inventory and bounded patch construction.
+  - Git-native patch validation with byte preservation outside approved spans.
+  - A registered deterministic planning capability integrated before README proposal verification.
+  acceptance_checks:
+  - Unsupported or uncited technical actions cannot enter an executable presentation plan.
+  - Unknown or incompatible surface ownership fails closed.
+  - Source-span edits preserve all bytes outside the approved spans.
+  - Stale-source and overlapping-span patches are rejected before candidate verification.
+  verification:
+  - Focused schema, planner, ownership, citation, Markdown-span, and patch negative controls.
+  - Real read-only plan against representative strong and conflicting repositories.
+  - Full official checks and checksum-complete local evidence.
+  negative_controls:
+  - Repository prompt text cannot add actions, validators, or fact citations.
+  - Social-preview preparation remains manual-only and cannot claim application.
+  - Package, release, and GitHub-generated surfaces remain audit-only.
+  - No production workflow, target effect, or master closure claim is changed by this child task.
+  regression_checks:
+  - Existing README marker, rendering, change-boundary, and factuality tests.
+  - Existing capability registry, verifier, allow-list, and push-block security tests.
+  - Requirement-task coverage and plan-structure validation.
+  evidence_requirements:
+  - Raw structured plans and before/after byte-boundary proof.
+  - Focused and full-suite logs.
+  - Independent verification of ownership, citations, and patch failure cases.
+  rollback_or_recovery: Keep the structured planner read-only and omit patch operations when spans or
+    facts cannot be resolved; revert only the bounded child-task changes if compatibility fails.
+  failure_reroute: Split plan schema, Markdown structure, patch construction, and capability integration
+    into independent repairs while production effects remain blocked.
+  closeout_rules:
+  - All repository-local acceptance checks pass with inspected evidence.
+  - Parent Wave 4 remains dependent on both this child and the production Wave 3 parent.
+  requirement_ids: []
 - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1415,7 +1486,7 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: b7e544c65abfa04017b7c212caac7b31f64f91300e39678ccba40d67ebae328f
+  source_sha256: 6209b755ed015b1211b6cab4dc2bc28d93d0fa42b9a6a1d1841d3dca21a23a16
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 390
   mandatory_requirement_rows: 367
@@ -1809,13 +1880,13 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: RDM-003
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: RDM-004
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
     disposition: open_mandatory
     semantic_findings: []

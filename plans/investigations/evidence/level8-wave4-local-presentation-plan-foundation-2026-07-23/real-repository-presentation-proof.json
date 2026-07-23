@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-07-23T19:15:29.415730+00:00",
+  "strong_existing_readme": {
+    "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+    "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+    "facts_hash": "2bc72fbda3f2008d2de24723518c2141d6ca4493b4e6dda34ba5e5cd5a07c810",
+    "finding_count": 10,
+    "finding_dimensions": [
+      "product_clarity",
+      "audience_fit",
+      "trust_signals",
+      "installation_path",
+      "verified_examples",
+      "navigation",
+      "visual_usefulness",
+      "contribution_readiness",
+      "maintenance_signals",
+      "commercial_context"
+    ],
+    "action_count": 0,
+    "unchanged_candidate": true,
+    "plan_executable": true
+  },
+  "conflicting_readme_candidate": {
+    "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+    "facts_hash": "8e94644319ef9a2974c516b699d227bf9f575f3463e2d853e181cf54cbf29ceb",
+    "finding_count": 10,
+    "action": {
+      "action_id": "readme.resources.bounded_patch",
+      "surface_id": "readme",
+      "region_id": "readme.resources",
+      "disposition": "eligible",
+      "depends_on": [],
+      "claims": [
+        {
+          "claim_id": "readme.resources.product_license",
+          "surface_id": "readme.license",
+          "text": "License: MIT",
+          "fact_ids": [
+            "product.license:primary"
+          ]
+        },
+        {
+          "claim_id": "readme.resources.documentation_links",
+          "surface_id": "readme.resources",
+          "text": "Documentation links: https://products.aspose.com/cells/java/, https://products.aspose.org/cells/java/",
+          "fact_ids": [
+            "documentation.links:primary"
+          ]
+        },
+        {
+          "claim_id": "readme.resources.commercial_foss_relationship",
+          "surface_id": "readme.relationship",
+          "text": "This repository is the open-source edition; the commercial edition provides broader support.",
+          "fact_ids": [
+            "relationship.commercial_foss:primary"
+          ]
+        }
+      ],
+      "fact_ids": [
+        "documentation.links:primary",
+        "product.license:primary",
+        "relationship.commercial_foss:primary"
+      ],
+      "ownership_class": "repository_file",
+      "proposed_operation": "local_patch",
+      "source_spans": [
+        {
+          "path": "README.md",
+          "byte_start": 9450,
+          "byte_end": 9450,
+          "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "replacement_sha256": "24f5b2a2ee8dfe5e7dbd05663ded57897790874fb7975dcf73a5b39855f8547b",
+          "purpose": "replace or append only the readme-agent-owned resources region"
+        }
+      ],
+      "validators": [
+        "claim_citations",
+        "candidate_claim_values",
+        "surface_ownership",
+        "source_span_hash",
+        "git_apply_check",
+        "protected_content",
+        "independent_verifier"
+      ],
+      "rollback": "revert the bounded file patch",
+      "stop_conditions": [
+        "immutable base revision changed",
+        "source span hash changed",
+        "fact citation is missing, stale, conflicting, or not selected",
+        "candidate claim value differs from its selected fact",
+        "surface ownership no longer permits local_patch",
+        "git apply check or independent verification fails"
+      ],
+      "patch_sha256": "f4c1361e2d4bc70e5272f15cfc48ba253c5116c16135befc08c5a76307b4ef97"
+    },
+    "plan_executable": true,
+    "git_apply_check_passed": true,
+    "outside_spans_preserved": true,
+    "source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+    "candidate_sha256": "77bd58dfeed17e92075b8ede66ec510dadfb19806be9b368b11c209cc8742b90",
+    "final_factuality_valid": false,
+    "positive_false_claims": [
+      {
+        "package_root_path": ".",
+        "ecosystem": "java",
+        "claimed_coordinate": "org.aspose:aspose-cells-foss",
+        "verification_outcome": "NOT_PUBLISHED",
+        "verification_detail": "Maven Central: org.aspose:aspose-cells-foss NOT FOUND (0 results)"
+      }
+    ]
+  }
+}

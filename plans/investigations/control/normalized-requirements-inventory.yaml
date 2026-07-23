@@ -4,7 +4,7 @@ governed_by:
 - plans/GOVERNANCE.md
 artifact_role: analysis_or_evidence_only
 source_document: plans/requirements.md
-source_head_commit: 9f06aa0c019c7af483be1519748263990411d9c6
+source_head_commit: a7ac3311debe3c1561711e639c59d225748d815e
 totals:
   requirements: 390
   unique_ids: 390
@@ -47,8 +47,8 @@ totals:
     BACKLOG: 23
     GOVERNANCE: 33
     IMPLEMENTED: 147
-    PARTIAL: 71
-    PLANNED: 110
+    PARTIAL: 73
+    PLANNED: 108
     RESEARCH-GATED: 6
   by_priority:
     P0: 143
@@ -734,9 +734,9 @@ requirements:
   section: 5. Scope, control, and ownership boundaries
   requirement: The central agent MAY improve organization, wording, navigation, and presentation only where verified facts
     and ownership rules permit.
-  acceptance_evidence: '`facts/gating.py` and `specialists/readme_factuality.py` now prevent metadata/README effects where
-    facts or protected-content rules do not permit them. General cross-specialist region ownership remains open. Local proof:
-    `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
+  acceptance_evidence: '`RepositoryPresentationPlanV1` now binds each README action to the policy-derived ownership class
+    and an operation matrix enforced by the typed contract before verification. Metadata and README are fact-gated; complete
+    cross-specialist region enforcement remains open. Local proof: `plans/investigations/evidence/level8-wave4-local-presentation-plan-foundation-2026-07-23/`.'
   traceability_raw: Decision 18; Phase 21e (deferred, design-only — needs `change_boundary`'s byte-identical-outside-spans
     contract to evolve first)
   decision_refs:
@@ -843,9 +843,10 @@ requirements:
   section: 6. Product-facts and provenance requirements
   requirement: Every technical claim introduced or materially changed by the central agent MUST map to one or more product-fact
     IDs or repository evidence locations.
-  acceptance_evidence: '`TechnicalClaimV1`/`validate_claim_citations()` enforce fact IDs, accepted verification state, and
-    affected-surface membership; metadata proposals emit citations. Coverage of every technical-claim producer remains open.
-    Local proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
+  acceptance_evidence: '`TechnicalClaimV1` citations now gate metadata proposals and every executable README resources action
+    in `RepositoryPresentationPlanV1`; the candidate''s actual license, URLs, and relationship prose must match their selected
+    fact values, and losing, missing, conflicting, or wrong-surface facts fail closed. Other technical-claim producers remain
+    open. Local proof: `plans/investigations/evidence/level8-wave4-local-presentation-plan-foundation-2026-07-23/`.'
   traceability_raw: Decisions 18, 22
   decision_refs:
   - '18'
@@ -1043,10 +1044,12 @@ requirements:
 - id: RDM-003
   group: RDM
   priority: P0
-  status: PLANNED
+  status: PARTIAL
   section: 7. README presentation requirements
   requirement: The central agent MUST NOT replace a complete README with a generic full-document template.
-  acceptance_evidence: Change-boundary and similarity checks pass.
+  acceptance_evidence: 'The structured README planner permits only one marker-owned source-span action and native Git proves
+    the candidate patch; whole-document or outside-span changes are rejected. Future approved regions and portfolio-level
+    template-similarity proof remain open. Local proof: `plans/investigations/evidence/level8-wave4-local-presentation-plan-foundation-2026-07-23/`.'
   traceability_raw: Decisions 9, 18
   decision_refs:
   - '9'
@@ -1055,10 +1058,13 @@ requirements:
 - id: RDM-004
   group: RDM
   priority: P0
-  status: PLANNED
+  status: PARTIAL
   section: 7. README presentation requirements
   requirement: README changes MUST be surgical, fact-backed, and limited to identified presentation gaps.
-  acceptance_evidence: Gap-to-diff map covers every change.
+  acceptance_evidence: 'Every executable README resources action now records its exact UTF-8 byte span, selected fact citations,
+    ownership class, operation, validators, rollback, and stop conditions; the render revision and source hash are bound into
+    the plan, while stale, overlapping, unsafe-path, malformed-hash, or outside-span edits fail before verification. Other
+    presentation surfaces remain open. Local proof: `plans/investigations/evidence/level8-wave4-local-presentation-plan-foundation-2026-07-23/`.'
   traceability_raw: Decisions 9, 18, 22
   decision_refs:
   - '9'
@@ -6174,9 +6180,10 @@ requirements:
     dependencies, fact citations, ownership class, operation, validators, rollback, and stop conditions. Protected terminology,
     commands, examples, limitations, and maintainer-authored regions MUST be fingerprinted; unapproved loss or weakening MUST
     fail validation.
-  acceptance_evidence: '`markdown-it-py` protected-content fingerprints and the README pre-effect rejection gate cover terminology,
-    commands, examples, limitations, and maintainer regions. `RepositoryPresentationPlanV1`, source-span planning, and full
-    golden-set proof remain open. Evidence: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
+  acceptance_evidence: '`RepositoryPresentationPlanV1` is built and wired before README candidate verification. It carries
+    ten-dimension findings plus revision-bound, semantically fact-backed, ownership-compatible, hash-guarded source-span actions
+    checked by native Git; protected-content loss remains a separate pre-effect rejection gate. Complete cross-surface plans,
+    archetype depth, and the governed golden-set threshold remain open. Evidence: `plans/investigations/evidence/level8-wave4-local-presentation-plan-foundation-2026-07-23/`.'
   traceability_raw: Decision 75; Waves 3–4
   decision_refs:
   - '75'

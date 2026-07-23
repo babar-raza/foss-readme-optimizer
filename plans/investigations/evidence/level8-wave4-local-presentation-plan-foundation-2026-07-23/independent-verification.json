@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent-audit-agent",
+  "task_id": "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION",
+  "reviewed_scope": {
+    "base_head": "8f739f1468aebc123261b68fb9197d9a01482e21",
+    "source_hashes": {
+      "src/readme_agent/presentation/schema.py": "998023b0b1b6077480a75da2b6268a46fa1871b9b31145431f9a5ac20aee6529",
+      "src/readme_agent/presentation/claim_validation.py": "ae7619a096e42ce5f346c8554a1ee965eddaa5d07475a89d1a0a6b98dce13ff2",
+      "src/readme_agent/presentation/planner.py": "e5c5c161acc4a15ad7181efc3ee4d5a0945b714bfa60b2892aa233a9d1c0c71c",
+      "src/readme_agent/capabilities/build_presentation_plan.py": "75a9deaa29e2514481d4ad403ea26161bad336a1abb0ef63337bce9baa605f5f",
+      "src/readme_agent/capabilities/render_readme_candidate.py": "9eea368a7316f54587c9b0a2c601805492190329cc95bdfde8e5aacf39e5a5a3",
+      "src/readme_agent/readme/candidate_models.py": "6bdfe1083f20c3a701e7bca05e7c442afa75a8e955f7ab6a133e7afb9274b5b2",
+      "src/readme_agent/readme/candidate_pipeline.py": "68bdf05db9df9c65b88b1df776e183772a87746d2bd993d564dd01b334a29b4a",
+      "src/readme_agent/specialists/readme_presentation.py": "68035944a304b170b53544b6749f8d419d8baf41ed612f42bed9d3cc13bcbb4e",
+      "tests/unit/test_presentation_plan_schema.py": "3dfa581a74efa4aafd2e53d485f7db5ae6346132f2391f37d88e0e210e50ba4a",
+      "tests/unit/test_presentation_planner.py": "2bd11b47561ad339b6684e6ccc9136744f98d5747540671fa4ab56c00a608c2c",
+      "tests/unit/test_build_presentation_plan_capability.py": "8ec29a99d418653324595d7983aae2bf4b9dab646dd367d44c9d4d2ee47b1a09",
+      "tests/unit/test_capabilities.py": "fec8d3a07840f2e8c07bbb0e8e7991fb667bfd0a4f38d8247ddb1c5252d61bda",
+      "tests/unit/test_specialists.py": "921eb9b5b77045fb85930aa6254743ed19119e9fc6f8153ddc666686ce2126a7",
+      "src/readme_agent/validation/registry.py": "e42b87232341f1a498f257dd5a4a24fcc1a8113b76601a64438a1e21dff441c5",
+      "src/readme_agent/validation/rules/talking_points.py": "2f9ac119ff7b3cb2ced9a2fe031801e444593ddba2cd4c362ac1e82faf4f06fe",
+      "tests/unit/test_mission_control.py": "a868bc89956df53ad16f24fd69129bb5c0f9a243dc479bd0a461f1a02f4e129b",
+      "tests/unit/test_validation_registry.py": "4268e1c6d78cb04158f73540f03610a13d8607f7f743494d1f58fe707a63540b",
+      "plans/investigations/control/level8-autonomous-mission-task-graph.yaml": "2645d3847f2f1a1b92cdf3697fb16cbe2371a6dfcd9025b4d99e9731fb080f49",
+      "plans/requirements.md": "6209b755ed015b1211b6cab4dc2bc28d93d0fa42b9a6a1d1841d3dca21a23a16"
+    }
+  },
+  "findings": [
+    {
+      "id": "W4-IV-001",
+      "severity": "P0",
+      "title": "Generic citations certify candidate claims that contradict the cited facts",
+      "disposition": "resolved",
+      "original_evidence": "A candidate asserting Apache-2.0, an unapproved URL, and an entirely-commercial relationship was previously marked eligible against MIT/approved-link/open-source facts.",
+      "resolution_evidence": "claim_validation.py now extracts the actual license line, Markdown link targets, and relationship prose from the owned resources span and compares them with selected fact values before citation validation. The original hostile candidate now produces a blocked action and executable=false; its regression test and independent rerun pass."
+    },
+    {
+      "id": "W4-IV-002",
+      "severity": "P1",
+      "title": "RepositoryPresentationPlanV1 accepts internally inconsistent eligible actions",
+      "disposition": "resolved",
+      "original_evidence": "The typed contract accepted citation-set mismatch, settings_api/local_patch incompatibility, traversal span paths, and malformed hashes.",
+      "resolution_evidence": "Schema validators now enforce exact claim-citation union, ownership/operation compatibility, safe POSIX-relative paths, ordered spans, and lowercase SHA-256 syntax for span, patch, source, candidate, and facts hashes. Independent forged-action and forged-span reproductions both raise ValidationError."
+    },
+    {
+      "id": "W4-IV-003",
+      "severity": "P1",
+      "title": "Immutable base revision is not bound to the rendered source snapshot",
+      "disposition": "resolved",
+      "original_evidence": "Planning independently observed a revision without receiving the revision that produced the rendered source.",
+      "resolution_evidence": "candidate_pipeline records the baseline commit SHA, render_readme_candidate exposes source_revision, the specialist passes it through wiring-only extra_kwargs, and build_presentation_plan rejects any mismatch with the independently observed facts revision. RepositoryPresentationPlanV1 also records source_sha256 derived from the exact original text. The mismatch regression and render-output contract tests pass."
+    },
+    {
+      "id": "W4-IV-004",
+      "severity": "P1",
+      "title": "Acceptance evidence is stale, checksum-inconsistent, and records a failing full suite",
+      "disposition": "resolved",
+      "evidence": "test_mission_control now asserts 17 taskcards and explicitly proves the local Wave-4 child depends on the local Wave-3 child and the parent Wave-4 task depends on the local child. The regenerated full suite records 1319 passed and 18 deselected; focused evidence records 211 passed; static gates are green. The regenerated real proof contains actual semantic claim text (MIT, the two selected product URLs, and the open-source/commercial relationship) plus candidate_claim_values and the new stop condition. All seven checksum entries independently matched before this report update. The acceptance summary now reports technical_acceptance_gates_passed=true while honestly leaving independent/all-local false pending this refreshed review."
+    }
+  ],
+  "independent_checks": {
+    "expanded_focused_suite": "203 passed in 112.70s",
+    "critical_repair_controls": "10 passed in 1.45s, including mission graph, ruleset tripwire, hostile claims, schema, and revision binding",
+    "ruff": "passed",
+    "mypy": "passed for 215 source files",
+    "original_exploits": "hostile candidate blocked; forged action rejected; traversal/bad-hash span rejected; revision mismatch rejected",
+    "specialist_order": "structured plan remains before factuality, independent verifier, prose quality, and gated effect",
+    "patch_persistence": "raw native Git patch remains removed from persisted presentation_plan state",
+    "validation_ruleset_tripwire": "VALIDATION_RULESET_VERSION=2; independently recomputed rule-source hash equals 0a8ffd442c352549d27fc70da8f6e2aae93f85614f9fc8fb2f5f31fa536a6a1c",
+    "final_evidence": "1319 passed/18 deselected full suite; 211 focused passed; static green; regenerated real proof; pre-report checksum inventory 7/7 verified"
+  },
+  "verdict": "accepted_no_blocking_findings",
+  "residual_blockers": [
+    "Parent Wave 4 remains blocked by the production Wave 3 chain, complete cross-surface/archetype planning, and the governed 100-case three-session golden-set threshold."
+  ],
+  "timestamp": "2026-07-23T19:12:24.6975380Z"
+}

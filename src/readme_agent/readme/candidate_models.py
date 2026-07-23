@@ -22,6 +22,7 @@ class ReadmeCandidate:
     final_text: str
     facts: RepositoryFacts
     facts_hash: str
+    source_revision: str
     fresh_fingerprint: str
     gap_report: GapReport
     skip_regeneration: bool

@@ -60,7 +60,7 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
 
     assert graph.mission_authority.mission_id == "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION"
     assert graph.autonomous_execution_contract.mechanism_locked is True
-    assert len(graph.taskcards) == 16
+    assert len(graph.taskcards) == 17
     assert len(graph_hash) == 64
     tasks = {task.task_id: task for task in graph.taskcards}
     local_wave3 = tasks["L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"]
@@ -68,6 +68,12 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert (
         "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"
         in tasks["L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP"].dependencies
+    )
+    local_wave4 = tasks["L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION"]
+    assert local_wave4.dependencies == ["L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"]
+    assert (
+        "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION"
+        in tasks["L8-WAVE4-PRESENTATION-INTELLIGENCE"].dependencies
     )
     coverage = graph.requirement_coverage
     assert coverage is not None

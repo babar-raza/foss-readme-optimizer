@@ -2,7 +2,7 @@
 
 governed_by: `plans/master.md + plans/requirements.md + plans/GOVERNANCE.md`  
 artifact_role: analysis_or_evidence_only  
-(390 requirements @ HEAD `9f06aa0`)
+(390 requirements @ HEAD `a7ac331`)
 
 Coverage counts a requirement only when this investigation defines all 10 elements (authoritative input, owner, current behavior, gap, target, state, failure handling, implementation direction, acceptance test, evidence). Judgments: per-ID overrides over status defaults, with an independent-review downgrade pass — see `tools/coverage_classify.py` for every note.
 

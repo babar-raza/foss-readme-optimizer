@@ -158,6 +158,27 @@ def _dispatch_verify_readme_candidate(org_repo: str, render_result: dict):
     )
 
 
+def _dispatch_build_presentation_plan(org_repo: str, render_result: dict):
+    """Build from independently re-derived facts; candidate text is wiring-only."""
+
+    tool_call = {
+        "function": {
+            "name": "build_presentation_plan",
+            "arguments": json.dumps({"org_repo": org_repo}),
+        }
+    }
+    return dispatch_tool_call(
+        tool_call,
+        _READ_ONLY_PERMISSIONS,
+        caller_domain=DOMAIN,
+        extra_kwargs={
+            "original_text": render_result["original_text"],
+            "candidate_text": render_result["final_text"],
+            "source_revision": render_result["source_revision"],
+        },
+    )
+
+
 def _dispatch_prose_quality_check(
     org_repo: str, final_text: str, state_backend: StateBackend | None = None
 ):
@@ -228,6 +249,33 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     run_nonce = generate_run_id()
 
     while True:
+        plan_dispatch = _dispatch_build_presentation_plan(org_repo, current_render_result)
+        if plan_dispatch.outcome != "executed":
+            return {
+                "accepted_status": (
+                    f"ERROR:presentation_plan:{plan_dispatch.outcome}:{plan_dispatch.error}"
+                )
+            }
+        assert plan_dispatch.result is not None
+        presentation_plan = plan_dispatch.result
+        presentation_plan_record = {
+            **presentation_plan,
+            "git_patch_proof": {
+                key: value
+                for key, value in presentation_plan["git_patch_proof"].items()
+                if key != "patch"
+            },
+        }
+        if not presentation_plan["executable"]:
+            return {
+                "accepted_status": "ERROR:presentation_plan:blocked",
+                "details": merge_details(
+                    state,
+                    render_result=current_render_result,
+                    presentation_plan=presentation_plan_record,
+                ),
+            }
+
         factuality = evaluate_candidate_factuality(
             org_repo,
             current_render_result["original_text"],
@@ -244,6 +292,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 "details": merge_details(
                     state,
                     render_result=current_render_result,
+                    presentation_plan=presentation_plan_record,
                     factuality=factuality.model_dump(mode="json"),
                 ),
             }
@@ -257,7 +306,10 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             return {
                 "accepted_status": f"ERROR:verification_rejected:{verification['reason']}",
                 "details": merge_details(
-                    state, render_result=current_render_result, verification=verification
+                    state,
+                    render_result=current_render_result,
+                    presentation_plan=presentation_plan_record,
+                    verification=verification,
                 ),
             }
 
@@ -287,6 +339,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
 
         details_update = {
             "render_result": current_render_result,
+            "presentation_plan": presentation_plan_record,
             "verification": verification,
             "factuality": factuality.model_dump(mode="json"),
             "prose_quality": prose_quality,

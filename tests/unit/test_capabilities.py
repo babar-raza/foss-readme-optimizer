@@ -165,7 +165,7 @@ class TestCapabilityGap:
 
 
 class TestRegistry:
-    def test_all_twenty_two_capabilities_registered(self):
+    def test_all_twenty_four_capabilities_registered(self):
         ids = {m.capability_id for m in registry.list_all()}
         assert ids == {
             "inspect_repository",
@@ -173,6 +173,7 @@ class TestRegistry:
             "check_install_path",
             "profile_repository",
             "get_product_facts",
+            "build_presentation_plan",
             "classify_upstream_change",
             "render_readme_candidate",
             "audit_github_generated_surfaces",
@@ -335,7 +336,7 @@ class TestRegistry:
 
     def test_filter_by_execution_type(self):
         tools = registry.filter_by(execution_type="deterministic_tool")
-        assert len(tools) == 11  # Wave 11.2 adds "verify_package_acquisition"
+        assert len(tools) == 12  # Wave 4 local foundation adds structured planning
 
     def test_filter_by_execution_type_manual_delivery_preparation(self):
         """Wave 7h: the first capability to use this execution_type,
@@ -517,11 +518,11 @@ class TestRegistryEff001RegistrationGate:
         )
         registry._build((mutator,))  # must not raise
 
-    def test_real_registry_of_twenty_two_capabilities_still_builds_cleanly(self):
-        """Regression: twenty-one read-only capabilities plus the two real
+    def test_real_registry_of_twenty_four_capabilities_still_builds_cleanly(self):
+        """Regression: twenty-two read-only capabilities plus the two real
         mutating capabilities (commit_readme_write, Wave 7g;
         open_presentation_pr, TC-08) all pass the mutating-only gate."""
-        assert len(registry.list_all()) == 23
+        assert len(registry.list_all()) == 24
 
 
 class TestInspectRepositoryCapability:
@@ -912,6 +913,7 @@ class TestRenderReadmeCandidateCapability:
     def test_execute_wraps_prepare_readme_candidate(self, monkeypatch):
         fake_candidate = SimpleNamespace(
             facts_hash="deadbeef",
+            source_revision="abc123",
             fresh_fingerprint="cafef00d",
             skip_regeneration=False,
             original_text="# Widget\n",
@@ -928,6 +930,7 @@ class TestRenderReadmeCandidateCapability:
         result = render_readme_candidate.execute("acme/widget")
         assert result == {
             "facts_hash": "deadbeef",
+            "source_revision": "abc123",
             "fresh_fingerprint": "cafef00d",
             "skip_regeneration": False,
             "needs_write": True,
@@ -941,6 +944,7 @@ class TestRenderReadmeCandidateCapability:
     def test_execute_needs_write_false_when_final_text_unchanged(self, monkeypatch):
         fake_candidate = SimpleNamespace(
             facts_hash="deadbeef",
+            source_revision="abc123",
             fresh_fingerprint="cafef00d",
             skip_regeneration=True,
             original_text="# Widget\n",

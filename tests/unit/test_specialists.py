@@ -956,6 +956,11 @@ class TestReadmePresentationSpecialist:
         assert result.accepted_status == "FIRST_OBSERVATION"
         assert result.details["written"] is True
         assert result.details["committed"] is True
+        plan_result = result.details["presentation_plan"]
+        assert plan_result["executable"] is True
+        assert plan_result["presentation_plan"]["actions"][0]["disposition"] == "eligible"
+        assert plan_result["git_patch_proof"]["git_apply_check_passed"] is True
+        assert "patch" not in plan_result["git_patch_proof"]
         stored = backend.load(ORG_REPO)
         assert stored.domain_states["readme_presentation"].accepted_status == "FIRST_OBSERVATION"
         # ORC-004: the flat accepted-state ledger is unified with the CLI

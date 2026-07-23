@@ -19,6 +19,12 @@ _KEYWORDS = {
 }
 
 
+def missing_talking_points(text: str, required: list[str]) -> list[str]:
+    """Return required talking points not evidenced by the actual prose."""
+
+    return [point for point in required if point in _KEYWORDS and not _KEYWORDS[point].search(text)]
+
+
 def check(ctx: ValidationContext) -> RuleResult:
     if ctx.llm_response is None:
         return RuleResult(NAME, True, "ERROR", "no LLM-authored prose this run -- nothing to check")
@@ -33,7 +39,7 @@ def check(ctx: ValidationContext) -> RuleResult:
         )
 
     prose = ctx.llm_response.relationship_paragraph
-    mismatches = [tp for tp in claimed if tp in _KEYWORDS and not _KEYWORDS[tp].search(prose)]
+    mismatches = missing_talking_points(prose, sorted(claimed))
     if mismatches:
         return RuleResult(
             NAME,

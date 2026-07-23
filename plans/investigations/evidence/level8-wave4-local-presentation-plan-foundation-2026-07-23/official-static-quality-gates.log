@@ -1,0 +1,110 @@
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m ruff check .
+return_code=0
+started_at=2026-07-23T19:13:14.389590+00:00
+finished_at=2026-07-23T19:13:14.613006+00:00
+
+All checks passed!
+
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m ruff format --check .
+return_code=0
+started_at=2026-07-23T19:13:14.613012+00:00
+finished_at=2026-07-23T19:13:14.827287+00:00
+
+365 files already formatted
+
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m mypy src
+return_code=0
+started_at=2026-07-23T19:13:14.827293+00:00
+finished_at=2026-07-23T19:13:16.291740+00:00
+
+Success: no issues found in 215 source files
+
+$ actionlint
+return_code=0
+started_at=2026-07-23T19:13:16.291746+00:00
+finished_at=2026-07-23T19:13:16.784445+00:00
+
+
+
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe scripts/governance/validate_plan_structure.py
+return_code=0
+started_at=2026-07-23T19:13:16.784457+00:00
+finished_at=2026-07-23T19:13:17.123053+00:00
+
+WARNING: plans/requirements.md:78 `GOV-018` row is 2121 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:83 `GOV-023` row is 1774 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:85 `GOV-024` row is 1841 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:137 `FACT-013` row is 1528 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:166 `RDM-024` row is 1704 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:226 `CORE-034` row is 1733 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:240 `OPS-009` row is 5097 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:242 `OPS-011` row is 2252 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:243 `OPS-012` row is 2411 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:251 `DEP-004` row is 1789 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:277 `LLM-019` row is 2103 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:278 `LLM-020` row is 2100 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:341 `AUTH-004` row is 2029 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:344 `AUTH-007` row is 1588 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:440 `AGT-002` row is 1678 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:443 `AGT-005` row is 2686 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:444 `AGT-006` row is 3018 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:445 `AGT-007` row is 1719 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:446 `AGT-008` row is 2255 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:457 `CAP-006` row is 3919 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:458 `CAP-007` row is 1701 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:460 `CAP-009` row is 1682 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:466 `RUN-001` row is 2569 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:484 `ECO-004` row is 3511 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:503 `ONB-004` row is 3073 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:510 `MEM-002` row is 2320 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:512 `MEM-004` row is 2958 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:513 `MEM-005` row is 1879 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:530 `EFF-001` row is 1953 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:531 `EFF-002` row is 1748 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:533 `EFF-004` row is 1770 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:534 `EFF-005` row is 1934 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:535 `EFF-006` row is 2641 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:554 `ORC-003` row is 5392 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:557 `ORC-006` row is 3580 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:566 `VER-002` row is 3385 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:567 `VER-003` row is 2249 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:568 `VER-004` row is 3403 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:569 `VER-005` row is 4430 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:570 `VER-006` row is 1733 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:572 `VER-008` row is 2570 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:590 `SCL-004` row is 2771 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:591 `SCL-005` row is 4020 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:592 `SCL-006` row is 2489 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:593 `SCL-007` row is 1664 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:595 `SCL-009` row is 5039 chars (over the 1500-char retrofit-on-touch guidance)
+Plan structure clean (46 warning(s)).
+
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe plans/investigations/tools/extract_requirements.py --check
+return_code=0
+started_at=2026-07-23T19:13:17.123063+00:00
+finished_at=2026-07-23T19:13:17.706224+00:00
+
+requirements: 390  unique: 390  dupes: none
+by_group: {'AGT': 8, 'AUTH': 7, 'BIZ': 8, 'CAP': 9, 'CORE': 34, 'DEP': 6, 'DOC': 10, 'ECO': 5, 'EFF': 6, 'EVID': 4, 'FACT': 13, 'FRESH': 6, 'GAP': 3, 'GOV': 26, 'INT': 10, 'L8': 13, 'LLM': 22, 'MEM': 5, 'MET': 8, 'NFR': 13, 'ONB': 4, 'OPS': 13, 'ORC': 8, 'OWN': 15, 'PIL': 14, 'PKG': 6, 'PRL': 9, 'RDM': 25, 'RUN': 10, 'SAFE': 19, 'SCL': 9, 'SURF': 15, 'VAL': 18, 'VER': 9}
+by_status: {'BACKLOG': 23, 'GOVERNANCE': 33, 'IMPLEMENTED': 147, 'PARTIAL': 73, 'PLANNED': 108, 'RESEARCH-GATED': 6}
+by_priority: {'P0': 143, 'P1': 170, 'P2': 72, 'P3': 5}
+problems: none
+current: plans\investigations\control\normalized-requirements-inventory.yaml
+
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe plans/investigations/tools/coverage_classify.py --check
+return_code=0
+started_at=2026-07-23T19:13:17.706232+00:00
+finished_at=2026-07-23T19:13:18.213737+00:00
+
+classified: 390  overrides: 121
+by class: {'ALREADY_PROVEN': 133, 'DEFERRED_WITHOUT_DESIGN': 13, 'DEFERRED_WITH_DESIGN': 82, 'FULLY_INVESTIGATED': 75, 'PARTIALLY_INVESTIGATED': 87}
+P0/P1 gaps: 7 (P0: 0) -> ['OPS-001', 'MET-001', 'MET-002', 'MET-006', 'DOC-003', 'DOC-004', 'DOC-007']
+current: plans\investigations\repository-presentation-requirements-coverage.md
+current: plans\investigations\control\requirements-coverage.csv
+
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe scripts/governance/build_level8_requirement_taskcard_coverage.py --check
+return_code=0
+started_at=2026-07-23T19:13:18.213743+00:00
+finished_at=2026-07-23T19:13:18.782662+00:00
+
+Level-8 requirement coverage current: 390 rows

@@ -57,6 +57,7 @@ MANIFEST = CapabilityManifest(
     optional_inputs={"force_regenerate": "boolean"},
     produced_outputs={
         "facts_hash": "string",
+        "source_revision": "string",
         "fresh_fingerprint": "string",
         "skip_regeneration": "boolean",
         "needs_write": "boolean",
@@ -96,6 +97,7 @@ def execute(
     )
     return {
         "facts_hash": candidate.facts_hash,
+        "source_revision": candidate.source_revision,
         "fresh_fingerprint": candidate.fresh_fingerprint,
         "skip_regeneration": candidate.skip_regeneration,
         "needs_write": candidate.final_text != candidate.original_text,

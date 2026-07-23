@@ -57,8 +57,8 @@ def registered_rule_ids() -> frozenset[str]:
 # forcing a conscious "does this need a version bump" decision on every rule
 # edit instead of a silent miss. Update it (via the helper below) whenever you
 # touch a rule module, whether or not VALIDATION_RULESET_VERSION also moves.
-VALIDATION_RULESET_VERSION = "1"
-_RULES_SOURCE_HASH_AT_VERSION = "bc10867cfe6316ba021d3578486011683e6f15762efba5d2fe94c64c1e35f499"
+VALIDATION_RULESET_VERSION = "2"
+_RULES_SOURCE_HASH_AT_VERSION = "0a8ffd442c352549d27fc70da8f6e2aae93f85614f9fc8fb2f5f31fa536a6a1c"
 
 
 def compute_rules_source_hash() -> str:
