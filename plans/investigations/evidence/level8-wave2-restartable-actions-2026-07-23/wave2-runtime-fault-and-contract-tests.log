@@ -1,0 +1,80 @@
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m pytest -vv tests/unit/test_lifecycle_state.py tests/unit/test_retry.py tests/unit/test_production_workflow.py tests/unit/test_commands_lifecycle.py tests/unit/test_cli.py::TestExecutionProfileFlag tests/unit/test_effect_ledger.py::TestDuplicateTriggerEffectComposition tests/unit/test_effect_ledger.py::TestLifecycleEffectCheckpointRecovery tests/unit/test_supervisor_loop.py::TestEvidenceCompletenessGate
+return_code=0
+started_at=2026-07-23T16:06:20.494440+00:00
+finished_at=2026-07-23T16:06:44.804705+00:00
+
+============================= test session starts =============================
+platform win32 -- Python 3.13.2, pytest-9.1.1, pluggy-1.6.0 -- D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer
+configfile: pyproject.toml
+plugins: anyio-4.14.2, langsmith-0.10.6, cov-7.1.0
+collecting ... collected 65 items
+
+tests/unit/test_lifecycle_state.py::TestLifecycleSchemasAndMigration::test_schedule_requires_a_window PASSED [  1%]
+tests/unit/test_lifecycle_state.py::TestLifecycleSchemasAndMigration::test_v1_trigger_migrates_to_v2_lifecycle_and_checkpoint PASSED [  3%]
+tests/unit/test_lifecycle_state.py::TestLifecycleSchemasAndMigration::test_unknown_newer_version_fails_closed PASSED [  4%]
+tests/unit/test_lifecycle_state.py::TestLifecycleSchemasAndMigration::test_v2_round_trip_is_explicitly_versioned PASSED [  6%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_full_lifecycle_is_terminal_and_checkpointed PASSED [  7%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_completed_duplicate_is_suppressed PASSED [  9%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_unfinished_duplicate_resumes_the_same_logical_execution PASSED [ 10%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_invalid_terminal_transition_fails_closed PASSED [ 12%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_replayed_checkpoint_is_idempotent_despite_fresh_timestamps PASSED [ 13%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_replayed_checkpoint_rejects_changed_output PASSED [ 15%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_recovery_sweep_marks_expired_processing_retryable PASSED [ 16%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[trigger_accepted] PASSED [ 18%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[run_started] PASSED [ 20%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[snapshot_captured] PASSED [ 21%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[profile_completed] PASSED [ 23%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[task_started] PASSED [ 24%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[task_completed] PASSED [ 26%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[verifier_result] PASSED [ 27%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[repair_plan] PASSED [ 29%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[effect_pending] PASSED [ 30%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[effect_applied] PASSED [ 32%]
+tests/unit/test_lifecycle_state.py::TestLifecycleTransitions::test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[final_acceptance] PASSED [ 33%]
+tests/unit/test_lifecycle_state.py::TestLifecycleHealth::test_report_exposes_backlog_stale_lease_and_open_state PASSED [ 35%]
+tests/unit/test_lifecycle_state.py::TestLifecycleHealth::test_recent_processing_is_visible_without_false_degradation PASSED [ 36%]
+tests/unit/test_lifecycle_state.py::TestLifecycleHealth::test_retryable_work_is_actionable_and_never_healthy PASSED [ 38%]
+tests/unit/test_lifecycle_state.py::TestLifecycleHealth::test_state_failure_is_visible_not_false_green PASSED [ 40%]
+tests/unit/test_retry.py::test_every_external_operation_has_a_bounded_policy PASSED [ 41%]
+tests/unit/test_retry.py::test_only_explicitly_retryable_failures_are_retried PASSED [ 43%]
+tests/unit/test_retry.py::test_caller_may_tighten_the_policy_attempt_bound PASSED [ 44%]
+tests/unit/test_retry.py::test_non_retryable_failure_is_not_replayed PASSED [ 46%]
+tests/unit/test_retry.py::test_retry_after_header_wins PASSED            [ 47%]
+tests/unit/test_retry.py::test_primary_limit_uses_reset_epoch PASSED     [ 49%]
+tests/unit/test_retry.py::test_429_without_headers_waits_one_minute PASSED [ 50%]
+tests/unit/test_retry.py::test_unmarked_403_is_not_misclassified_as_rate_limiting PASSED [ 52%]
+tests/unit/test_retry.py::test_unmarked_github_403_is_returned_without_replay PASSED [ 53%]
+tests/unit/test_production_workflow.py::test_production_workflow_has_all_trigger_and_recovery_surfaces PASSED [ 55%]
+tests/unit/test_production_workflow.py::test_analysis_uses_dedicated_read_only_app_token_and_observe_profile PASSED [ 56%]
+tests/unit/test_production_workflow.py::test_only_production_runtime_is_scheduled PASSED [ 58%]
+tests/unit/test_production_workflow.py::test_health_is_visible_as_artifact_issue_check_and_external_heartbeat PASSED [ 60%]
+tests/unit/test_commands_lifecycle.py::test_runtime_matrix_covers_every_active_registry_entry PASSED [ 61%]
+tests/unit/test_commands_lifecycle.py::test_recovery_sweep_marks_expired_trigger_retryable PASSED [ 63%]
+tests/unit/test_commands_lifecycle.py::test_health_report_exposes_missing_state_and_optional_failure PASSED [ 64%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_execution_profile_defaults_to_none PASSED [ 66%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_execution_profile_flag_sets_value PASSED [ 67%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_invalid_execution_profile_choice_rejected_by_argparse PASSED [ 69%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_domain_rejected_under_every_github_profile_before_heal_or_preflight_run[github_observe] PASSED [ 70%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_domain_rejected_under_every_github_profile_before_heal_or_preflight_run[github_proposal] PASSED [ 72%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_domain_rejected_under_every_github_profile_before_heal_or_preflight_run[github_apply] PASSED [ 73%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_domain_still_permitted_under_local_profiles[local_inspect] PASSED [ 75%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_domain_still_permitted_under_local_profiles[local_dry_run] PASSED [ 76%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_github_profile_forces_a_durable_state_backend_without_the_flag PASSED [ 78%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_state_outage_blocks_before_preflight_or_llm_connectivity PASSED [ 80%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_state_write_outage_blocks_before_preflight_or_llm_connectivity PASSED [ 81%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_duplicate_github_run_id_short_circuits_without_calling_supervise_repo PASSED [ 83%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_recovery_matrix_resumes_the_original_durable_trigger PASSED [ 84%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_terminal_evidence_failure_never_persists_completed PASSED [ 86%]
+tests/unit/test_cli.py::TestExecutionProfileFlag::test_resume_trigger_key_requires_a_github_profile PASSED [ 87%]
+tests/unit/test_effect_ledger.py::TestDuplicateTriggerEffectComposition::test_terminal_duplicate_produces_one_logical_execution_and_one_effect PASSED [ 89%]
+tests/unit/test_effect_ledger.py::TestLifecycleEffectCheckpointRecovery::test_effect_applied_checkpoint_restart_does_not_repeat_effect PASSED [ 90%]
+tests/unit/test_effect_ledger.py::TestLifecycleEffectCheckpointRecovery::test_effect_pending_checkpoint_restart_requires_reconciliation_without_reexecution PASSED [ 92%]
+tests/unit/test_supervisor_loop.py::TestEvidenceCompletenessGate::test_all_four_files_present_on_the_full_loop_path PASSED [ 93%]
+tests/unit/test_supervisor_loop.py::TestEvidenceCompletenessGate::test_all_four_files_present_on_the_shortcut_path PASSED [ 95%]
+tests/unit/test_supervisor_loop.py::TestEvidenceCompletenessGate::test_assert_evidence_complete_raises_on_a_missing_file PASSED [ 96%]
+tests/unit/test_supervisor_loop.py::TestEvidenceCompletenessGate::test_assert_evidence_complete_raises_on_invalid_json PASSED [ 98%]
+tests/unit/test_supervisor_loop.py::TestEvidenceCompletenessGate::test_assert_evidence_complete_rejects_checksum_corruption PASSED [100%]
+
+============================= 65 passed in 22.74s =============================

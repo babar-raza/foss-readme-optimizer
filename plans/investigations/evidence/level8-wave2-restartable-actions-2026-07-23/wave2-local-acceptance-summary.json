@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "producer": "plans/investigations/tools/collect_level8_wave2_restartable_runtime_evidence.py",
+  "generated_at": "2026-07-23T16:17:20.313996+00:00",
+  "wave": "Wave 2 \u2014 Restartable GitHub Actions runtime",
+  "production_like_act_plan_job_return_code": 0,
+  "official_static_quality_gates_passed": true,
+  "runtime_fault_and_contract_tests_passed": true,
+  "complete_non_live_test_suite_passed": true,
+  "all_local_acceptance_gates_passed": true,
+  "hosted_workflow_dispatch_proof": {
+    "run_id": 30023067487,
+    "url": "https://github.com/babar-raza/foss-readme-optimizer/actions/runs/30023067487",
+    "workflow_head_sha": "3c81a1e792ef4c12258ab3eb5ebfee20226fd7ed",
+    "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "recovery_job": "success",
+    "authoritative_matrix_job": "success",
+    "resume_job": "skipped_no_recovery_candidate",
+    "observe_job": "failed_closed_before_supervisor",
+    "failure": "GitHub App client ID input resolved empty",
+    "target_repository_write_or_effect_occurred": false,
+    "health_result": "degraded_and_visible",
+    "health_issue_url": "https://github.com/babar-raza/foss-readme-optimizer/issues/1",
+    "dead_man_heartbeat": "skipped_unconfigured",
+    "portfolio_health_artifact": {
+      "artifact_id": 8570137296,
+      "sha256": "c0be7e98a73c6dc26ebaa7a71d73c4330ce7320728f351917bae3ecf1835d326"
+    },
+    "lifecycle_recovery_artifact": {
+      "artifact_id": 8570097132,
+      "sha256": "357810a0f4faa43db5af8fc0688ae00ee686cf9be6d5d507851c39c1c1050fda"
+    },
+    "scope_note": "This hosted run exercised remote 3c81a1e. The client-id compatibility fix at local 14aceef00f767079d12e2be250319896b8edaebf remains unpublished."
+  },
+  "independent_verification": {
+    "verdict": "ACCEPTED_FOR_HANDOFF_NOT_PRODUCTION_COMPLETE",
+    "p0_findings": 0,
+    "p1_findings": 0,
+    "p2_findings": 0,
+    "verified_local_head": "14aceef00f767079d12e2be250319896b8edaebf",
+    "workflow_sha256": "0a49a484d2501239aaaf3aeec34cac624874b0c97c4f789de43b3c86c80b0a27",
+    "checksum_inventory": "19/19",
+    "non_live_suite": "1266 passed, 18 deselected",
+    "publication_state": "At independent implementation verification, local main was one commit ahead of remote main; the subsequent evidence commit is also unpublished.",
+    "closure_decision": "Wave 2 cannot close until the remaining production proofs succeed"
+  },
+  "external_proof_still_required": [
+    "fresh user authority to publish local commits 14aceef and the subsequent evidence commit; this evidence process did not push them",
+    "register and install the GitHub App, then configure GH_APP_CLIENT_ID and GH_APP_PRIVATE_KEY plus LLM_BASE_URL and LLM_API_KEY",
+    "real GitHub Actions run that reaches the supervisor with the installed App and required secrets",
+    "external dead-man endpoint heartbeat and absence alert",
+    "production scheduler recovery observed after an injected interruption",
+    "fresh approval for Wave 2 edits to plans/master.md Status, Build Checklist, and Verification Checklist after production proof exists"
+  ]
+}

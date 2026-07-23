@@ -1,0 +1,20 @@
+{
+  "source_workflow": ".github/workflows/readme-agent-production.yml",
+  "source_sha256": "0a49a484d2501239aaaf3aeec34cac624874b0c97c4f789de43b3c86c80b0a27",
+  "act_compatible_sha256": "ca455f4c52f097d33e744694fe758e13828360ef30a09cf87649bad7dfec11aa",
+  "only_removed_line": "queue: max",
+  "removed_occurrences": 2,
+  "reason": "GitHub supports concurrency.queue=max; local act 0.2.89 rejects that newer schema key before job execution.",
+  "repository_scope": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "command": [
+    "act",
+    "workflow_dispatch",
+    "-W",
+    "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-act-wave2-voh4jm9b\\readme-agent-production-act-compatible.yml",
+    "-e",
+    "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-act-wave2-voh4jm9b\\workflow-dispatch-event.json",
+    "-j",
+    "plan"
+  ],
+  "return_code": 0
+}

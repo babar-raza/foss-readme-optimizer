@@ -1,0 +1,332 @@
+time="2026-07-23T21:05:06+05:00" level=info msg="Using docker host 'npipe:////./pipe/docker_engine', and daemon socket 'npipe:////./pipe/docker_engine'"
+time="2026-07-23T21:05:06+05:00" level=info msg="Start server on http://192.168.1.2:34567"
+[README Agent Production Runtime/Recover unfinished durable work] ⭐ Run Set up job
+[README Agent Production Runtime/Recover unfinished durable work] 🚀  Start image=catthehacker/ubuntu:act-latest
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[README Agent Production Runtime/Recover unfinished durable work]   ✅  Success - Set up job
+[README Agent Production Runtime/Recover unfinished durable work]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[README Agent Production Runtime/Recover unfinished durable work] Non-terminating error while running 'git clone': some refs were not updated
+[README Agent Production Runtime/Recover unfinished durable work]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[README Agent Production Runtime/Recover unfinished durable work] ⭐ Run Main actions/checkout@v4
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker cp src=D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\. dst=/mnt/d/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
+[README Agent Production Runtime/Recover unfinished durable work]   ✅  Success - Main actions/checkout@v4 [2.6300685s]
+[README Agent Production Runtime/Recover unfinished durable work] ⭐ Run Main actions/setup-python@v5
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker cp src=C:\Users\prora\.cache\act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.18.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[README Agent Production Runtime/Recover unfinished durable work]   ❓  ::group::Installed versions
+[README Agent Production Runtime/Recover unfinished durable work]   | (node:32) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[README Agent Production Runtime/Recover unfinished durable work]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[README Agent Production Runtime/Recover unfinished durable work]   | Successfully set up CPython (3.12.13)
+[README Agent Production Runtime/Recover unfinished durable work]   ❓  ::endgroup::
+[README Agent Production Runtime/Recover unfinished durable work]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[README Agent Production Runtime/Recover unfinished durable work]   ✅  Success - Main actions/setup-python@v5 [3.810986s]
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.13/x64
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.13/x64
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.13/x64
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.13/x64/lib
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.13/x64
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.13/x64/lib/pkgconfig
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-output:: python-version=3.12.13
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.13/x64/bin/python
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.13/x64
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.13/x64/bin
+[README Agent Production Runtime/Recover unfinished durable work] ⭐ Run Main pip install -r requirements-lock.txt
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: annotated-types==0.7.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 4)) (0.7.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: anyio==4.14.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 5)) (4.14.2)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: ast_serialize==0.6.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 6)) (0.6.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: boolean.py==5.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 7)) (5.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: CacheControl==0.14.4 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 8)) (0.14.4)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: certifi==2026.6.17 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 9)) (2026.6.17)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: charset-normalizer==3.4.9 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 10)) (3.4.9)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: colorama==0.4.6 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 11)) (0.4.6)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: coverage==7.15.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 12)) (7.15.2)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: cyclonedx-python-lib==11.11.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 13)) (11.11.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: defusedxml==0.7.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 14)) (0.7.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: distro==1.9.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 15)) (1.9.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: filelock==3.32.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 16)) (3.32.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: h11==0.16.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 17)) (0.16.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: httpcore==1.0.9 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 18)) (1.0.9)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: httpx==0.28.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 19)) (0.28.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: idna==3.18 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 20)) (3.18)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: iniconfig==2.3.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 21)) (2.3.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: jsonpatch==1.33 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 22)) (1.33)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: jsonpointer==3.1.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 23)) (3.1.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: langchain-core==1.4.9 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 24)) (1.4.9)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: langchain-protocol==0.0.18 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 25)) (0.0.18)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: langgraph==1.2.9 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 26)) (1.2.9)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: langgraph-checkpoint==4.1.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 27)) (4.1.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: langgraph-prebuilt==1.1.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 28)) (1.1.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: langgraph-sdk==0.4.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 29)) (0.4.2)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: langsmith==0.10.6 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 30)) (0.10.6)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: librt==0.13.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 31)) (0.13.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: license-expression==30.4.4 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 32)) (30.4.4)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: markdown-it-py==4.2.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 33)) (4.2.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: marko==2.2.3 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 34)) (2.2.3)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: mdurl==0.1.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 35)) (0.1.2)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: mistune==3.3.3 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 36)) (3.3.3)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: msgpack==1.2.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 37)) (1.2.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: mypy==2.3.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 38)) (2.3.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: mypy_extensions==1.1.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 39)) (1.1.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: orjson==3.11.9 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 40)) (3.11.9)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: ormsgpack==1.12.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 41)) (1.12.2)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: packageurl-python==0.17.6 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 42)) (0.17.6)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: packaging==26.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 43)) (26.2)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pathspec==1.1.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 44)) (1.1.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pillow==12.3.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 45)) (12.3.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pip-api==0.0.34 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 46)) (0.0.34)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pip-requirements-parser==32.0.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 47)) (32.0.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pip_audit==2.10.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 48)) (2.10.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: platformdirs==4.11.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 49)) (4.11.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pluggy==1.6.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 50)) (1.6.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: py-serializable==2.1.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 51)) (2.1.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pydantic==2.13.4 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 52)) (2.13.4)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pydantic_core==2.46.4 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 53)) (2.46.4)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: Pygments==2.20.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 54)) (2.20.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pyparsing==3.3.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 55)) (3.3.2)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 56)) (9.1.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 57)) (7.1.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: PyYAML==6.0.3 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 58)) (6.0.3)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: requests==2.34.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 59)) (2.34.2)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: requests-toolbelt==1.0.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 60)) (1.0.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: rich==15.0.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 61)) (15.0.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: ruff==0.15.22 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 62)) (0.15.22)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: sniffio==1.3.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 63)) (1.3.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: sortedcontainers==2.4.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 64)) (2.4.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: tenacity==9.1.4 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 65)) (9.1.4)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: tomli==2.4.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 66)) (2.4.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: tomli_w==1.2.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 67)) (1.2.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: typing-inspection==0.4.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 68)) (0.4.2)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: typing_extensions==4.16.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 69)) (4.16.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: urllib3==2.7.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 70)) (2.7.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: uuid_utils==0.17.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 71)) (0.17.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: websockets==15.0.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 72)) (15.0.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: xxhash==3.8.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 73)) (3.8.1)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: zstandard==0.25.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 74)) (0.25.0)
+[README Agent Production Runtime/Recover unfinished durable work]   | Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from pip-api==0.0.34->-r requirements-lock.txt (line 46)) (26.1.2)
+[README Agent Production Runtime/Recover unfinished durable work]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[README Agent Production Runtime/Recover unfinished durable work]   ✅  Success - Main pip install -r requirements-lock.txt [1.4037195s]
+[README Agent Production Runtime/Recover unfinished durable work] ⭐ Run Main pip install -e . --no-deps
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=
+[README Agent Production Runtime/Recover unfinished durable work]   | Obtaining file:///mnt/d/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
+[README Agent Production Runtime/Recover unfinished durable work]   |   Installing build dependencies: started
+[README Agent Production Runtime/Recover unfinished durable work]   |   Installing build dependencies: finished with status 'done'
+[README Agent Production Runtime/Recover unfinished durable work]   |   Checking if build backend supports build_editable: started
+[README Agent Production Runtime/Recover unfinished durable work]   |   Checking if build backend supports build_editable: finished with status 'done'
+[README Agent Production Runtime/Recover unfinished durable work]   |   Getting requirements to build editable: started
+[README Agent Production Runtime/Recover unfinished durable work]   |   Getting requirements to build editable: finished with status 'done'
+[README Agent Production Runtime/Recover unfinished durable work]   |   Installing backend dependencies: started
+[README Agent Production Runtime/Recover unfinished durable work]   |   Installing backend dependencies: finished with status 'done'
+[README Agent Production Runtime/Recover unfinished durable work]   |   Preparing editable metadata (pyproject.toml): started
+[README Agent Production Runtime/Recover unfinished durable work]   |   Preparing editable metadata (pyproject.toml): finished with status 'done'
+[README Agent Production Runtime/Recover unfinished durable work]   | Building wheels for collected packages: readme-agent
+[README Agent Production Runtime/Recover unfinished durable work]   |   Building editable for readme-agent (pyproject.toml): started
+[README Agent Production Runtime/Recover unfinished durable work]   |   Building editable for readme-agent (pyproject.toml): finished with status 'done'
+[README Agent Production Runtime/Recover unfinished durable work]   |   Created wheel for readme-agent: filename=readme_agent-0.1.0-py3-none-any.whl size=2483 sha256=1e4e4792ed9daed5ab3ae5e4e3691d4c02947c556f6705e8ed9c5bfe66706795
+[README Agent Production Runtime/Recover unfinished durable work]   |   Stored in directory: /tmp/pip-ephem-wheel-cache-e2h7fdew/wheels/5e/fe/e9/c78a257c03c0f7154d20833b013eab0c602b8eabdebb07c33a
+[README Agent Production Runtime/Recover unfinished durable work]   | Successfully built readme-agent
+[README Agent Production Runtime/Recover unfinished durable work]   | Installing collected packages: readme-agent
+[README Agent Production Runtime/Recover unfinished durable work]   |   Attempting uninstall: readme-agent
+[README Agent Production Runtime/Recover unfinished durable work]   |     Found existing installation: readme-agent 0.1.0
+[README Agent Production Runtime/Recover unfinished durable work]   |     Uninstalling readme-agent-0.1.0:
+[README Agent Production Runtime/Recover unfinished durable work]   |       Successfully uninstalled readme-agent-0.1.0
+[README Agent Production Runtime/Recover unfinished durable work]   | Successfully installed readme-agent-0.1.0
+[README Agent Production Runtime/Recover unfinished durable work]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[README Agent Production Runtime/Recover unfinished durable work]   ✅  Success - Main pip install -e . --no-deps [9.8646213s]
+[README Agent Production Runtime/Recover unfinished durable work] ⭐ Run Main Recover stale accepted, processing, and retryable triggers
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/5] user= workdir=
+[README Agent Production Runtime/Recover unfinished durable work]   | {
+[README Agent Production Runtime/Recover unfinished durable work]   |   "recovery_candidates": [],
+[README Agent Production Runtime/Recover unfinished durable work]   |   "repositories_checked": 1
+[README Agent Production Runtime/Recover unfinished durable work]   | }
+[README Agent Production Runtime/Recover unfinished durable work]   ✅  Success - Main Recover stale accepted, processing, and retryable triggers [1.5551378s]
+[README Agent Production Runtime/Recover unfinished durable work] ⭐ Run Main Emit resumable trigger matrix
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/recovery-matrix] user= workdir=
+[README Agent Production Runtime/Recover unfinished durable work]   ✅  Success - Main Emit resumable trigger matrix [301.8832ms]
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-output:: matrix={"include":[]}
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-output:: has_recovery=false
+[README Agent Production Runtime/Recover unfinished durable work] ⭐ Run Main actions/upload-artifact@v4
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker cp src=C:\Users\prora\.cache\act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.18.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[README Agent Production Runtime/Recover unfinished durable work]   | (node:190) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[README Agent Production Runtime/Recover unfinished durable work]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[README Agent Production Runtime/Recover unfinished durable work]   | With the provided path, there will be 1 file uploaded
+[README Agent Production Runtime/Recover unfinished durable work]   | Artifact name is valid!
+[README Agent Production Runtime/Recover unfinished durable work]   | Root directory input is valid!
+[README Agent Production Runtime/Recover unfinished durable work]   | Beginning upload of artifact content to blob storage
+[README Agent Production Runtime/Recover unfinished durable work]   | (node:190) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[README Agent Production Runtime/Recover unfinished durable work]   | Uploaded bytes 221
+[README Agent Production Runtime/Recover unfinished durable work]   | Finished uploading artifact content to blob storage!
+[README Agent Production Runtime/Recover unfinished durable work]   | SHA256 digest of uploaded artifact zip is 0fe328937ba9d4ba20785a3dc8adcbfd77a8772453164cb4452a65616bd6bc86
+[README Agent Production Runtime/Recover unfinished durable work]   | Finalizing artifact upload
+[README Agent Production Runtime/Recover unfinished durable work]   | Artifact lifecycle-recovery-1-1.zip successfully finalized. Artifact ID 1179957045
+[README Agent Production Runtime/Recover unfinished durable work]   | Artifact lifecycle-recovery-1-1 has been successfully uploaded! Final size is 221 bytes. Artifact ID is 1179957045
+[README Agent Production Runtime/Recover unfinished durable work]   | Artifact download URL: https://github.com/babar-raza/foss-readme-optimizer/actions/runs/1/artifacts/1179957045
+[README Agent Production Runtime/Recover unfinished durable work]   ✅  Success - Main actions/upload-artifact@v4 [3.0966953s]
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-output:: artifact-id=1179957045
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-output:: artifact-digest=0fe328937ba9d4ba20785a3dc8adcbfd77a8772453164cb4452a65616bd6bc86
+[README Agent Production Runtime/Recover unfinished durable work]   ⚙  ::set-output:: artifact-url=https://github.com/babar-raza/foss-readme-optimizer/actions/runs/1/artifacts/1179957045
+[README Agent Production Runtime/Recover unfinished durable work] ⭐ Run Post actions/setup-python@v5
+[README Agent Production Runtime/Recover unfinished durable work]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.18.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[README Agent Production Runtime/Recover unfinished durable work]   | (node:207) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[README Agent Production Runtime/Recover unfinished durable work]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[README Agent Production Runtime/Recover unfinished durable work]   ✅  Success - Post actions/setup-python@v5 [345.3494ms]
+[README Agent Production Runtime/Recover unfinished durable work] ⭐ Run Complete job
+[README Agent Production Runtime/Recover unfinished durable work] Cleaning up container for job Recover unfinished durable work
+[README Agent Production Runtime/Recover unfinished durable work]   ✅  Success - Complete job
+[README Agent Production Runtime/Recover unfinished durable work] 🏁  Job succeeded
+[README Agent Production Runtime/Build authoritative repository matrix] ⭐ Run Set up job
+[README Agent Production Runtime/Build authoritative repository matrix] 🚀  Start image=catthehacker/ubuntu:act-latest
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[README Agent Production Runtime/Build authoritative repository matrix]   ✅  Success - Set up job
+[README Agent Production Runtime/Build authoritative repository matrix]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[README Agent Production Runtime/Build authoritative repository matrix] Non-terminating error while running 'git clone': some refs were not updated
+[README Agent Production Runtime/Build authoritative repository matrix] ⭐ Run Main actions/checkout@v4
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker cp src=D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\. dst=/mnt/d/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
+[README Agent Production Runtime/Build authoritative repository matrix]   ✅  Success - Main actions/checkout@v4 [2.9636332s]
+[README Agent Production Runtime/Build authoritative repository matrix] ⭐ Run Main actions/setup-python@v5
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker cp src=C:\Users\prora\.cache\act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.18.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[README Agent Production Runtime/Build authoritative repository matrix]   ❓  ::group::Installed versions
+[README Agent Production Runtime/Build authoritative repository matrix]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[README Agent Production Runtime/Build authoritative repository matrix]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Successfully set up CPython (3.12.13)
+[README Agent Production Runtime/Build authoritative repository matrix]   ❓  ::endgroup::
+[README Agent Production Runtime/Build authoritative repository matrix]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[README Agent Production Runtime/Build authoritative repository matrix]   ✅  Success - Main actions/setup-python@v5 [3.9382829s]
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.13/x64/lib
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.13/x64
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.13/x64/lib/pkgconfig
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.13/x64
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.13/x64
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.13/x64
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::set-output:: python-version=3.12.13
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.13/x64/bin/python
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.13/x64
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.13/x64/bin
+[README Agent Production Runtime/Build authoritative repository matrix] ⭐ Run Main pip install -r requirements-lock.txt
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: annotated-types==0.7.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 4)) (0.7.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: anyio==4.14.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 5)) (4.14.2)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: ast_serialize==0.6.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 6)) (0.6.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: boolean.py==5.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 7)) (5.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: CacheControl==0.14.4 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 8)) (0.14.4)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: certifi==2026.6.17 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 9)) (2026.6.17)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: charset-normalizer==3.4.9 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 10)) (3.4.9)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: colorama==0.4.6 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 11)) (0.4.6)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: coverage==7.15.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 12)) (7.15.2)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: cyclonedx-python-lib==11.11.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 13)) (11.11.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: defusedxml==0.7.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 14)) (0.7.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: distro==1.9.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 15)) (1.9.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: filelock==3.32.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 16)) (3.32.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: h11==0.16.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 17)) (0.16.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: httpcore==1.0.9 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 18)) (1.0.9)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: httpx==0.28.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 19)) (0.28.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: idna==3.18 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 20)) (3.18)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: iniconfig==2.3.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 21)) (2.3.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: jsonpatch==1.33 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 22)) (1.33)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: jsonpointer==3.1.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 23)) (3.1.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: langchain-core==1.4.9 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 24)) (1.4.9)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: langchain-protocol==0.0.18 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 25)) (0.0.18)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: langgraph==1.2.9 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 26)) (1.2.9)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: langgraph-checkpoint==4.1.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 27)) (4.1.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: langgraph-prebuilt==1.1.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 28)) (1.1.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: langgraph-sdk==0.4.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 29)) (0.4.2)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: langsmith==0.10.6 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 30)) (0.10.6)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: librt==0.13.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 31)) (0.13.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: license-expression==30.4.4 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 32)) (30.4.4)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: markdown-it-py==4.2.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 33)) (4.2.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: marko==2.2.3 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 34)) (2.2.3)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: mdurl==0.1.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 35)) (0.1.2)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: mistune==3.3.3 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 36)) (3.3.3)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: msgpack==1.2.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 37)) (1.2.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: mypy==2.3.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 38)) (2.3.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: mypy_extensions==1.1.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 39)) (1.1.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: orjson==3.11.9 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 40)) (3.11.9)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: ormsgpack==1.12.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 41)) (1.12.2)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: packageurl-python==0.17.6 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 42)) (0.17.6)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: packaging==26.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 43)) (26.2)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pathspec==1.1.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 44)) (1.1.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pillow==12.3.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 45)) (12.3.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pip-api==0.0.34 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 46)) (0.0.34)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pip-requirements-parser==32.0.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 47)) (32.0.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pip_audit==2.10.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 48)) (2.10.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: platformdirs==4.11.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 49)) (4.11.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pluggy==1.6.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 50)) (1.6.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: py-serializable==2.1.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 51)) (2.1.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pydantic==2.13.4 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 52)) (2.13.4)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pydantic_core==2.46.4 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 53)) (2.46.4)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: Pygments==2.20.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 54)) (2.20.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pyparsing==3.3.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 55)) (3.3.2)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 56)) (9.1.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 57)) (7.1.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: PyYAML==6.0.3 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 58)) (6.0.3)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: requests==2.34.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 59)) (2.34.2)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: requests-toolbelt==1.0.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 60)) (1.0.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: rich==15.0.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 61)) (15.0.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: ruff==0.15.22 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 62)) (0.15.22)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: sniffio==1.3.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 63)) (1.3.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: sortedcontainers==2.4.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 64)) (2.4.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: tenacity==9.1.4 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 65)) (9.1.4)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: tomli==2.4.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 66)) (2.4.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: tomli_w==1.2.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 67)) (1.2.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: typing-inspection==0.4.2 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 68)) (0.4.2)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: typing_extensions==4.16.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 69)) (4.16.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: urllib3==2.7.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 70)) (2.7.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: uuid_utils==0.17.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 71)) (0.17.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: websockets==15.0.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 72)) (15.0.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: xxhash==3.8.1 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 73)) (3.8.1)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: zstandard==0.25.0 in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from -r requirements-lock.txt (line 74)) (0.25.0)
+[README Agent Production Runtime/Build authoritative repository matrix]   | Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages (from pip-api==0.0.34->-r requirements-lock.txt (line 46)) (26.1.2)
+[README Agent Production Runtime/Build authoritative repository matrix]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[README Agent Production Runtime/Build authoritative repository matrix]   ✅  Success - Main pip install -r requirements-lock.txt [2.4012294s]
+[README Agent Production Runtime/Build authoritative repository matrix] ⭐ Run Main pip install -e . --no-deps
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=
+[README Agent Production Runtime/Build authoritative repository matrix]   | Obtaining file:///mnt/d/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Installing build dependencies: started
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Installing build dependencies: finished with status 'done'
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Checking if build backend supports build_editable: started
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Checking if build backend supports build_editable: finished with status 'done'
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Getting requirements to build editable: started
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Getting requirements to build editable: finished with status 'done'
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Installing backend dependencies: started
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Installing backend dependencies: finished with status 'done'
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Preparing editable metadata (pyproject.toml): started
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Preparing editable metadata (pyproject.toml): finished with status 'done'
+[README Agent Production Runtime/Build authoritative repository matrix]   | Building wheels for collected packages: readme-agent
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Building editable for readme-agent (pyproject.toml): started
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Building editable for readme-agent (pyproject.toml): finished with status 'done'
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Created wheel for readme-agent: filename=readme_agent-0.1.0-py3-none-any.whl size=2483 sha256=1e4e4792ed9daed5ab3ae5e4e3691d4c02947c556f6705e8ed9c5bfe66706795
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Stored in directory: /tmp/pip-ephem-wheel-cache-r7p4d586/wheels/5e/fe/e9/c78a257c03c0f7154d20833b013eab0c602b8eabdebb07c33a
+[README Agent Production Runtime/Build authoritative repository matrix]   | Successfully built readme-agent
+[README Agent Production Runtime/Build authoritative repository matrix]   | Installing collected packages: readme-agent
+[README Agent Production Runtime/Build authoritative repository matrix]   |   Attempting uninstall: readme-agent
+[README Agent Production Runtime/Build authoritative repository matrix]   |     Found existing installation: readme-agent 0.1.0
+[README Agent Production Runtime/Build authoritative repository matrix]   |     Uninstalling readme-agent-0.1.0:
+[README Agent Production Runtime/Build authoritative repository matrix]   |       Successfully uninstalled readme-agent-0.1.0
+[README Agent Production Runtime/Build authoritative repository matrix]   | Successfully installed readme-agent-0.1.0
+[README Agent Production Runtime/Build authoritative repository matrix]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[README Agent Production Runtime/Build authoritative repository matrix]   ✅  Success - Main pip install -e . --no-deps [10.7338769s]
+[README Agent Production Runtime/Build authoritative repository matrix] ⭐ Run Main Emit matrix from data/products.json
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/matrix] user= workdir=
+[README Agent Production Runtime/Build authoritative repository matrix]   ✅  Success - Main Emit matrix from data/products.json [450.5661ms]
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::set-output:: matrix={"include":[{"ecosystem":"java","mode":"full","name":"Aspose.Cells-FOSS-for-Java","owner":"aspose-cells-foss","repo":"aspose-cells-foss/Aspose.Cells-FOSS-for-Java"}]}
+[README Agent Production Runtime/Build authoritative repository matrix] ⭐ Run Main Derive stable schedule window
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/identity] user= workdir=
+[README Agent Production Runtime/Build authoritative repository matrix]   ✅  Success - Main Derive stable schedule window [220.9054ms]
+[README Agent Production Runtime/Build authoritative repository matrix]   ⚙  ::set-output:: schedule_window=2026-07-23
+[README Agent Production Runtime/Build authoritative repository matrix] ⭐ Run Post actions/setup-python@v5
+[README Agent Production Runtime/Build authoritative repository matrix]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.18.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[README Agent Production Runtime/Build authoritative repository matrix]   | (node:147) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[README Agent Production Runtime/Build authoritative repository matrix]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[README Agent Production Runtime/Build authoritative repository matrix]   ✅  Success - Post actions/setup-python@v5 [294.0556ms]
+[README Agent Production Runtime/Build authoritative repository matrix] ⭐ Run Complete job
+[README Agent Production Runtime/Build authoritative repository matrix] Cleaning up container for job Build authoritative repository matrix
+[README Agent Production Runtime/Build authoritative repository matrix]   ✅  Success - Complete job
+[README Agent Production Runtime/Build authoritative repository matrix] 🏁  Job succeeded

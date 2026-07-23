@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "checkpoint_stage": "run_started",
+  "injected_failure_boundary": "immediately_after_persisting_run_started",
+  "recovery_result": "same_logical_trigger_resumed_and_completed",
+  "resume_strategy": "canonical_restart_with_idempotent_reconciliation",
+  "stage_directed_skip_proven": false,
+  "test_node_fragment": "test_crash_after_every_checkpoint_resumes_on_the_same_logical_trigger[run_started] PASSED",
+  "source_log": "wave2-runtime-fault-and-contract-tests.log"
+}
