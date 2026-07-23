@@ -219,8 +219,8 @@
       "upstream_revision_at_accept": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "b6530ce17b8b11fa06cc92d5abba76f96fb3cc1712dd87f112e071c4ed8186f6",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "89c6bad22ef0e7fc52b49f2eceecb287146843df46c35d2dbb3b9d07dae19b29",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -237,32 +237,32 @@
           },
           {
             "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license is present and correctly linked, satisfying the highest-leverage trust signal.",
+            "note": "A visible, GitHub-recognized MIT license is present and correctly linked; however, no build/version/package-registry badges are included.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The installation instructions instruct cloning and `npm install`, but do not provide the real package coordinates (e.g., npm package name) or a `npm install <package>` command that resolves against the live npm registry.",
+            "note": "The installation instructions instruct cloning and `npm install`, but do not provide the actual npm package coordinates (e.g., `@aspose-cells-foss/cells`) or a `npm install @aspose-cells-foss/cells` command that resolves against the real npm registry.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "There are two runnable code blocks beyond the install snippet (Create/Style/Save and Load/Update), both clearly executable and illustrative.",
+            "note": "The README includes two runnable code examples beyond the install snippet, demonstrating workbook creation and loading.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (`##`, `###`), and the order follows the expected intent: product description \u2192 features \u2192 getting started \u2192 examples \u2192 build \u2192 compatibility \u2192 license \u2192 support.",
+            "note": "Section headers use consistent Markdown levels (`##`), and the order follows the expected intent: product description \u2192 features \u2192 installation \u2192 examples \u2192 build \u2192 compatibility \u2192 license \u2192 support.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is acceptable for a pure API library like this; the standard allows absence when visuals do not improve understanding.",
+            "note": "No visuals are present, which is appropriate for a pure API library like this; the standard allows absence where visuals would not improve understanding.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The repository is missing GitHub-recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub will not show the full quick-link row.",
+            "note": "The README lacks recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, and GitHub will only show README and License in the quick-link row.",
             "satisfied": false
           },
           {
@@ -272,16 +272,16 @@
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repository; if commercial context were present, it would need to follow the restraint rules.",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only offering; if commercial context were needed, it would be appropriately absent here.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 6 of 10 dimensions: it has strong product clarity, trust signals, verified examples, navigation, and avoids visual missteps, but fails on audience fit, installation path (no real registry coordinates), contribution readiness (missing community files), and maintenance signals (no activity evidence)."
+        "overall_summary": "The README satisfies product clarity, trust signals (license), verified examples, navigation, and appropriate absence of visuals, but fails on audience fit, installation path (no real npm coordinates), contribution readiness (missing community files), and maintenance signals (no activity evidence)."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:17:48.673978+00:00",
+      "last_run_timestamp": "2026-07-23T06:51:11.437935+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b"
@@ -389,7 +389,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 32,
+  "state_version": 33,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2ecc445e54a42fc39e1d4012c1cf4bf6a4fb3512564ca5a13a1bcb652fbbda2f",
