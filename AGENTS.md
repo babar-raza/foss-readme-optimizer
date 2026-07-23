@@ -224,8 +224,11 @@ building any feature, apply the doctrine:
 ## Extending the runtime
 
 Forward governance for the target architecture (decision #26). The capability registry landed in
-Wave 2 (`src/readme_agent/capabilities/`: `schema.py`, `registry.py`, `dispatcher.py`, four
-read-only capabilities registered, no mutating capability yet). The supervisor/task graph named
+Wave 2 (`src/readme_agent/capabilities/`: `schema.py`, `registry.py`, `dispatcher.py`) and has since
+grown to 22 registered capabilities across Waves 2-8, including two real mutating ones:
+`commit_readme_write` (`local_write`, Wave 7g) and `open_presentation_pr` (`remote_write`, decisions
+#51-52) — the latter live-proven with a real, independently-verified, open PR against
+`aspose-cells-foss/Aspose.Cells-FOSS-for-Java`. The supervisor/task graph named
 in rule 3 below landed in Wave 5 (decision #36, `src/readme_agent/supervisor/`,
 `readme-agent supervise --repo ...`) — additive alongside the untouched `generate`/`run`/
 `run-registry` pipeline, not a replacement for it. These rules are now current, binding guidance
@@ -263,8 +266,9 @@ for new capability work, not a future contingency:
     #34, `CAP-006`). Wave 8's `VER-001` independent-verifier guarantee depends on this directly.
 14. No capability may declare `side_effect_class` at `local_write` or `remote_write` without
     `idempotency_inputs` and `retry_policy` — enforced at registry build time (decision #26
-    addendum, `EFF-001`'s registration-time gate). This is a no-op until the first mutating
-    capability is registered; it exists so that gate can never be silently skipped later.
+    addendum, `EFF-001`'s registration-time gate). This is a live, active gate today — both real
+    mutating capabilities (`commit_readme_write`, `open_presentation_pr`) satisfy it, and it fails
+    closed at import time for any future one that doesn't.
 
 ## Repo layout — what goes where
 

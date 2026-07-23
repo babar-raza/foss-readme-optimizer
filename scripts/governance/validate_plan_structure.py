@@ -94,24 +94,58 @@ def check_master_section_order(result: Result) -> None:
         )
 
 
-def check_master_status_mentions_latest_decision(result: Result) -> None:
+STATUS_SECTION_LINE_CEILING = 40
+
+
+def check_master_status_section_stays_terse(result: Result) -> None:
+    """Wave 9.3 (2026-07-23) replaced `master.md`'s old hand-narrated Status section (251 lines,
+    every paragraph duplicating its own Decision Ledger entry) with a short pointer into the
+    generated `plans/status.md` (regenerate via `traceability_matrix.py`), `plans/roadmap.md`, and
+    `logs/` -- per `GOVERNANCE.md` rule 1 (this file holds current state, never history). The old
+    `check_master_status_mentions_latest_decision` check assumed Status would keep enumerating
+    decision numbers by hand and is retired: under the new design it never will, by design, so
+    that check would warn on every single future decision forever. This replacement check instead
+    guards the actual property Wave 9.3 established: Status stays a short pointer, not a creeping
+    re-narration of history that drifts back into what this file's Decision Ledger already
+    records."""
     if not MASTER_MD.exists():
         return
     text = MASTER_MD.read_text(encoding="utf-8")
-    decision_numbers = [int(n) for n in re.findall(r"^(\d+)\.\s+\*\*", text, flags=re.MULTILINE)]
-    if not decision_numbers:
-        return
-    latest = max(decision_numbers)
     status_start = text.find("\n## Status\n")
     ledger_start = text.find("\n## Decision Ledger\n")
     if status_start == -1 or ledger_start == -1:
         return
     status_text = text[status_start:ledger_start]
-    if f"#{latest}" not in status_text and f"decision {latest}" not in status_text.lower():
+    line_count = len([line for line in status_text.splitlines() if line.strip()])
+    if line_count > STATUS_SECTION_LINE_CEILING:
         result.warn(
-            f"plans/master.md's Status section does not mention decision #{latest} "
-            "(the highest-numbered entry in this same file) -- Status may be stale."
+            f"plans/master.md's Status section is {line_count} non-blank lines (over the "
+            f"{STATUS_SECTION_LINE_CEILING}-line ceiling Wave 9.3 established) -- it may be "
+            "drifting back into hand-narrated history instead of staying a pointer into "
+            "plans/status.md/plans/roadmap.md/logs/."
         )
+
+
+# ID | Priority | Status | Requirement | Acceptance evidence | Traceability
+REQUIREMENTS_TABLE_COLUMNS = 6
+
+_UNESCAPED_PIPE_RE = re.compile(r"(?<!\\)\|")
+
+
+def _split_table_row(line: str) -> list[str]:
+    """Split a Markdown table row into cells, honoring GFM's `\\|` escape -- a raw `.split("|")`
+    misreads any cell containing an escaped pipe (a shell command like `a | b`, a Python union
+    type like `str | None`) as an extra column boundary. Found live 2026-07-22: five real rows
+    (`OPS-009`, `EFF-004`, `ORC-006`, `VER-005`, `SCL-005`) had exactly this defect before their
+    pipes were escaped -- this splitter is what makes both this validator and any downstream
+    traceability tooling read them correctly instead of silently mis-parsing them."""
+    stripped = line.strip()
+    if stripped.startswith("|"):
+        stripped = stripped[1:]
+    if stripped.endswith("|"):
+        stripped = stripped[:-1]
+    cells = [cell.strip() for cell in _UNESCAPED_PIPE_RE.split(stripped)]
+    return cells
 
 
 def _requirement_rows(text: str) -> list[tuple[str, str, str, int, int]]:
@@ -120,7 +154,7 @@ def _requirement_rows(text: str) -> list[tuple[str, str, str, int, int]]:
     for lineno, line in enumerate(text.splitlines(), start=1):
         if not line.startswith("| "):
             continue
-        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        cells = _split_table_row(line)
         if len(cells) < 3:
             continue
         candidate_id = cells[0].strip("`")
@@ -130,6 +164,34 @@ def _requirement_rows(text: str) -> list[tuple[str, str, str, int, int]]:
         status = cells[2].strip("`")
         rows.append((candidate_id, status, priority, len(line), lineno))
     return rows
+
+
+def check_requirement_row_column_counts(result: Result) -> None:
+    """A data row must split into exactly `REQUIREMENTS_TABLE_COLUMNS` cells under a real,
+    escape-aware split -- an unescaped `|` inside a shell command or a Python union type (`str |
+    None`) silently shifts every later cell in that row by one column, and a naive `.split("|")`
+    (the exact bug this check exists to catch) would misread Acceptance-evidence content as
+    Traceability or vice versa. Found and fixed for five real rows, 2026-07-22 -- this is the
+    mechanical backstop so the class of defect fails CI/pre-commit instead of recurring silently."""
+    if not REQUIREMENTS_MD.exists():
+        return
+    text = REQUIREMENTS_MD.read_text(encoding="utf-8")
+    for lineno, line in enumerate(text.splitlines(), start=1):
+        if not line.startswith("| "):
+            continue
+        cells = _split_table_row(line)
+        if not cells:
+            continue
+        candidate_id = cells[0].strip("`")
+        if not ID_RE.match(candidate_id):
+            continue
+        if len(cells) != REQUIREMENTS_TABLE_COLUMNS:
+            result.error(
+                f"plans/requirements.md:{lineno} `{candidate_id}` splits into {len(cells)} cells, "
+                f"expected {REQUIREMENTS_TABLE_COLUMNS} -- an unescaped `|` inside inline code "
+                "(a shell pipe, a Python `X | None` union) is shifting later columns. Escape it "
+                "as `\\|`."
+            )
 
 
 def check_requirements(result: Result) -> None:
@@ -304,8 +366,9 @@ def check_wave_reconciliation_gate(
 def main() -> int:
     result = Result()
     check_master_section_order(result)
-    check_master_status_mentions_latest_decision(result)
+    check_master_status_section_stays_terse(result)
     check_requirements(result)
+    check_requirement_row_column_counts(result)
     check_logs_shard_index_consistency(result)
     check_specialist_module_map_completeness(result)
     check_wave_reconciliation_gate(result)

@@ -85,6 +85,23 @@ This will be an autonomous system that:
 Humans will periodically review its work, but their role will primarily be passive oversight
 rather than operating the system or initiating its routine work.
 
+### Execution Environments and GitHub Access
+
+Local testing will use a local GitHub Actions-compatible runner to reproduce the production
+workflow as closely as practical before changes are exercised on GitHub. Production workloads
+will run on actual GitHub Actions runners in the configured production workflows.
+
+GitHub authentication will be environment-specific:
+
+- local testing will use the operator-provided `GH_TOKEN` environment variable; and
+- production will use a dedicated GitHub App and its short-lived installation access tokens.
+
+Workflow behavior should remain consistent across local and production execution, while the
+credential provider stays explicit and isolated behind the GitHub access boundary. Credentials
+must never be embedded in workflow definitions, source code, caches, state, logs, or evidence.
+Production must fail closed if GitHub App authentication is unavailable; it must not silently
+fall back to a personal access token or local-development credential.
+
 ## Implementation Principles
 
 ### Deterministic and Agentic Approach
@@ -110,10 +127,27 @@ system's requirements and the reason for departing from them is documented.
 
 ## Responsibility Boundaries
 
+### Trust and Repository-Grounded Reconciliation
+
+Content supplied by a product agent, injected by an automated workflow, or already present in a
+README must be treated as an input to investigate, not as trusted truth. This applies equally to
+content maintained before the central agent was introduced.
+
+The central agent must independently reconcile product claims against evidence available from the
+repository, including its source code, manifests, configuration, examples, tests, documentation,
+license files, commit history, tags, and releases. Product-agent output may help locate relevant
+facts, but it must not override contradictory repository evidence or become the sole basis for a
+published claim.
+
+The agent must improve presentation using only claims that the repository evidence supports. It
+must correct or remove inaccurate, stale, contradictory, generic, or unsupported statements. When
+the available evidence cannot establish a claim, the agent must preserve the uncertainty and flag
+the gap for review rather than inventing, assuming, or presenting the claim as fact.
+
 ### Product Agents
 
-The individual product agents will continue to provide accurate, product-specific information,
-including:
+The individual product agents will continue to provide product-specific information for the
+central agent to reconcile, including:
 
 - features;
 - supported formats;
@@ -138,11 +172,32 @@ consistent quality standard across the FOSS repositories. Its responsibilities w
   inconsistent text; and
 - auditing GitHub-generated information without treating it as directly editable metadata.
 
+### Visual Assets and Social Preview
+
+Visual-asset and social-preview preparation is part of the central agent's intended responsibility,
+but it is not required to be fully delivered during the initial pilot. Repository-owned visual
+assets may be proposed through the normal bounded file-change lifecycle. A social-preview image is
+a manual-UI surface unless and until GitHub provides a documented, supported automation mechanism.
+
+During an interim phase, the agent may prepare a validated asset and a precise handoff when no
+safe, supported automation mechanism is available. That handoff is a bounded fallback, not the
+target operating model.
+
+The preparation capability must be autonomous and idempotent like the rest of the system. It must
+derive assets from verified repository facts, track desired and observed asset state, avoid
+regenerating or redelivering an unchanged asset, detect drift, and produce exact manual-application
+evidence where GitHub exposes no supported write interface. It must never claim that a social
+preview was applied merely because an asset was prepared. Human involvement remains passive
+oversight except for surfaces that are genuinely manual-UI-managed.
+
 ## Pilot and Research Approach
 
-I will begin by applying this approach to a small group of FOSS repositories as a pilot. I will
-further study n8n and other leading FOSS projects, together with our strongest NuGet product
-pages, to understand what makes their product presentation effective.
+I will begin by applying the core repository-presentation approach to a small group of FOSS
+repositories as a pilot. Full visual-asset and social-preview delivery is outside the initial
+pilot's required scope, but remains part of the intended autonomous system.
+
+I will further study n8n and other leading FOSS projects, together with our strongest NuGet
+product pages, to understand what makes their product presentation effective.
 
 Each repository will then be improved according to its own purpose, users, and capabilities
 rather than by copying a common template.

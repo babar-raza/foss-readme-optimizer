@@ -5,15 +5,17 @@
   "maturity_level": 3,
   "authoritative_plan": "plans/master.md",
   "requirements": "plans/requirements.md",
-  "current_wave": "truth-foundation-reconciliation",
-  "next_executable_task": "isolate and fix OPS-010 process-lifecycle behavior under overlapping or cancelled test runs",
+  "current_wave": "Wave 9 change-management and controlled-pilot readiness",
+  "next_executable_task": "integrate open_presentation_pr into the governed supervisor record path while preserving fresh per-instance write approval, then populate OpenProposalV1",
   "dependencies": [],
   "blocking_conditions": [
     "plans/master.md correction awaits its mandatory fresh section-specific approval",
     "OPS-010 process-lifecycle behavior remains unsafe under overlapping or cancelled test runs despite one clean 824-test pass",
     "product facts and ownership are not enforced before generation",
     "required durable state failures are best-effort",
-    "no product-remote branch or draft pull-request lifecycle exists"
+    "one real non-draft PR exists, but remote_write is manually dispatched and no automatic proposal-state/update/recovery lifecycle exists",
+    "only two of the three push-capable Java targets are mode=full",
+    "no non-Java registry repository currently reports write access"
   ],
   "repository_targets": [
     "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
@@ -27,11 +29,11 @@
     ".venv/Scripts/python -m pytest -q"
   ],
   "validation_gates": [
-    "OPS-010 repeated clean-process full-suite completion",
+    "OPS-010 repeated clean-process full-suite completion and cancellation cleanup",
     "RUN-005 fail-closed state failure injection",
     "FACT-001 through FACT-006 enforced provenance",
     "OWN-010 and OWN-011 conflict/protection proof",
-    "PIL-014 draft-PR create/update/dedup/recovery proof",
+    "PIL-014 supervisor-integrated draft-PR create/update/dedup/recovery proof",
     "PIL-013 independently reviewed three-repository evidence bundle"
   ],
   "evidence_locations": [

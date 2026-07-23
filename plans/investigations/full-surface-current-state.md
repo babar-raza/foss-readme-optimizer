@@ -167,8 +167,11 @@ the framework selection with this record as input.
 
 ## H. LLM gateway characterization (— summary; full report `llm-gateway-characterization.md`)
 
-L1 context NOT small (~96k ok on qwen3-next/VL) — prior assumption disconfirmed; L2 **`gpt-oss`
-(current default) is the unreliable model** (needle 0/6 sizes, JSON 1/10) → per-job model routing
-required; L3 `qwen3-next` 5/5 structured, ~2s; L4 `qwen3-embedding-8b` separates same-template
+L1 context NOT small (originally reported ~96k on qwen3-next/VL, **corrected 2026-07-21/22, `LLM-019`:
+the probe script had a filler-scaling bug; the real, live-proven ceiling is ~71,069 tokens**) — prior
+assumption disconfirmed; L2 **`gpt-oss` (current default) is the unreliable model** (needle 0/6 sizes,
+JSON validity poor and inconsistent across reruns — originally reported "1/10," **corrected 2026-07-22,
+`LLM-018`: a 0.4-0.8 swing across two single-session N=10 reruns, not a stable rate**) → per-job model
+routing required; L3 `qwen3-next` 5/5 structured, ~2s; L4 `qwen3-embedding-8b` separates same-template
 (0.79) from unrelated (0.45–0.55) → embedding-based template/drift detection viable; L5 gateway
 also hosts vision (VL) + image-gen (SD-3.5) → Phase-24 visuals can stay on-gateway.

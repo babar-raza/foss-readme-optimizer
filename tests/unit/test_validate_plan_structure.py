@@ -8,8 +8,10 @@ from pathlib import Path
 
 from governance.validate_plan_structure import (
     Result,
+    _split_table_row,
     check_logs_shard_index_consistency,
     check_master_section_order,
+    check_requirement_row_column_counts,
     check_requirements,
     check_specialist_module_map_completeness,
     check_wave_reconciliation_gate,
@@ -39,6 +41,85 @@ class TestRealRepoIsClean:
         result = Result()
         check_specialist_module_map_completeness(result)
         assert result.errors == []
+
+    def test_real_requirements_md_rows_have_correct_column_counts(self):
+        result = Result()
+        check_requirement_row_column_counts(result)
+        assert result.errors == []
+
+
+class TestRequirementRowColumnCounts:
+    """Found live 2026-07-22: five real `requirements.md` rows (`OPS-009`, `EFF-004`, `ORC-006`,
+    `VER-005`, `SCL-005`) had an unescaped `|` inside inline code (a shell pipe, a Python `str |
+    None` union) that silently split one cell into two, or merged two cells into one -- a naive
+    `.split("|")` misreads these rows; a real GFM-aware split, honoring `\\|` escaping, does not."""
+
+    def test_split_table_row_respects_escaped_pipes(self):
+        line = "| REQ-001 | P1 | IMPLEMENTED | uses `str \\| None` | evidence | Decision 1 |"
+        cells = _split_table_row(line)
+        assert len(cells) == 6
+        assert cells[3] == "uses `str \\| None`"
+
+    def test_split_table_row_naive_split_would_have_misread_it(self):
+        """Negative control: without escaping, the exact same content DOES split into 7 cells --
+        proving the escape (not incidental cell content) is what makes the count correct."""
+        line = "| REQ-001 | P1 | IMPLEMENTED | uses `str | None` | evidence | Decision 1 |"
+        cells = _split_table_row(line)
+        assert len(cells) == 7
+
+    def test_row_with_unescaped_pipe_in_inline_code_is_flagged(self, tmp_path, monkeypatch):
+        import governance.validate_plan_structure as vps
+
+        requirements = tmp_path / "requirements.md"
+        requirements.write_text(
+            "| ID | Priority | Status | Requirement | Acceptance evidence | Traceability |\n"
+            "|---|---|---|---|---|---|\n"
+            "| REQ-001 | P1 | IMPLEMENTED | text | uses `str | None` here | Decision 1 |\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(vps, "REQUIREMENTS_MD", requirements)
+
+        result = Result()
+        check_requirement_row_column_counts(result)
+
+        assert len(result.errors) == 1
+        assert "REQ-001" in result.errors[0]
+        assert "7 cells" in result.errors[0]
+
+    def test_row_with_escaped_pipe_is_not_flagged(self, tmp_path, monkeypatch):
+        import governance.validate_plan_structure as vps
+
+        requirements = tmp_path / "requirements.md"
+        requirements.write_text(
+            "| ID | Priority | Status | Requirement | Acceptance evidence | Traceability |\n"
+            "|---|---|---|---|---|---|\n"
+            "| REQ-001 | P1 | IMPLEMENTED | text | uses `str \\| None` here | Decision 1 |\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(vps, "REQUIREMENTS_MD", requirements)
+
+        result = Result()
+        check_requirement_row_column_counts(result)
+
+        assert result.errors == []
+
+    def test_row_with_a_missing_pipe_merging_two_cells_is_flagged(self, tmp_path, monkeypatch):
+        import governance.validate_plan_structure as vps
+
+        requirements = tmp_path / "requirements.md"
+        requirements.write_text(
+            "| ID | Priority | Status | Requirement | Acceptance evidence | Traceability |\n"
+            "|---|---|---|---|---|---|\n"
+            "| REQ-001 | P1 | IMPLEMENTED | text merged with evidence | Decision 1 |\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(vps, "REQUIREMENTS_MD", requirements)
+
+        result = Result()
+        check_requirement_row_column_counts(result)
+
+        assert len(result.errors) == 1
+        assert "5 cells" in result.errors[0]
 
 
 class TestWaveReconciliationGate:

@@ -2,10 +2,13 @@
 
 ## Verdict
 
-`NOT PRESENTABLE`. The working tree is a substantial Level-3 repository-presentation POC: it has
+`NOT PRESENTABLE` (repeat audit after decisions #46–#52). The project remains a substantial
+Level-3 repository-presentation POC: it has
 strong allow-list and push-blocking controls, a capability registry, a supervisor, nine specialist
 domains, git-ref state/CAS locks, local README commits, validation, and evidence. It is not a
-restartable autonomous service and cannot perform the required draft-PR pilot lifecycle. The
+restartable autonomous service. It now has one real `remote_write` capability and one real open
+Cells/Java PR, but that path is manually dispatched, is not draft, does not populate proposal
+state, and has not been proven across the three pilots. The
 default test suite is unusually slow and overlapping/terminated runs left blocked local git-clone
 descendants (`OPS-010`), although one clean single-process run did complete green.
 
@@ -21,19 +24,17 @@ pilot readiness 2/8; production readiness 1/8.
    whether that description is true.
 5. `logs/` records history; `plans/investigations/` records research and evidence, not completion.
 
-Wave-8 reconciliation found that the master status and checklist overclaim closure. The working
-tree has major Wave 7/8 additions, but it is uncommitted; 121 requirements remain `PLANNED`, 24
-were `BACKLOG`, and 21 were `PARTIAL` before this audit's surgical requirement updates. The master
-also reports a stale 622-test baseline. After removing overlapping audit processes, one clean
-`pytest -q` completed with 824 passed and 18 deselected in 410.22 seconds; the sequence/concurrency
-hazard documented by `OPS-010` remains open. Master correction is pending its mandatory fresh
-approval gate.
+The repeat audit found the Wave 6–8.6 implementation and prior audit corrections committed, plus
+real Wave-9/TC-08 remote-write progress. The register still contains 123 `PLANNED`, 24 `BACKLOG`,
+and 26 `PARTIAL` rows before this repeat audit's corrections. The master contains newer decisions
+and an uncommitted session-closure addition, but older status text still says no PR lifecycle
+exists. Master correction remains subject to its mandatory fresh approval gate.
 
 ## Capability inventory
 
 | Component | Intended responsibility | Actual implementation/evidence | Status |
 |---|---|---|---|
-| Registry/allow-list | Define all managed repositories and permissions | 25 entries; read/write intent gates in `registry/loader.py`; three enabled Java targets | PROVEN |
+| Registry/allow-list | Define all managed repositories and permissions | 31 entries; 27 non-disabled policy-backed entries, but only two `mode: full`; live access shows exactly three push/admin-capable Java repos | PROVEN |
 | Push blocking | Prevent product-remote pushes | disabled push URL, pre-push hook, security tests | PROVEN |
 | Inspection/profile | Extract repository/ecosystem facts | multi-ecosystem profiling, GitHub tree/cache path, unit and historical live evidence | PARTIAL |
 | Product truth | Provenance-bearing complete technical facts | narrow identity/license/link/talking-point record; not a generation precondition | PARTIAL |
@@ -45,7 +46,7 @@ approval gate.
 | Scheduling | Periodic portfolio operation | working-tree daily/manual Actions matrix for enabled entries | PARTIAL |
 | Trigger/queue lifecycle | Durable event intake, dedup, backpressure, recovery | no durable queue or event identity; other trigger types absent | MISSING |
 | Failure handling | Retry, isolation, rate limits, crash recovery | bounded LLM retry and matrix isolation; no lifecycle checkpoint/alert/missed-run recovery | PARTIAL |
-| PR lifecycle | Create/update/deduplicate safe review changes | no `remote_write` capability, product branch, or PR API path | MISSING |
+| PR lifecycle | Create/update/deduplicate safe review changes | `open_presentation_pr` created one real open Cells/Java PR with deterministic-branch dedup; manually dispatched, non-draft, no update/drift/state/automatic path | PARTIAL |
 | Observability | Health, metrics, alerts, audit trail | evidence files and summaries; no health/backlog/alert surface | PARTIAL |
 | Continuous deployment | Unattended service operation | CI workflow only; no restartable worker/service deployment | PLANNED_ONLY |
 
@@ -58,7 +59,8 @@ schedule/manual Actions -> enabled registry matrix -> supervise
   -> preflight/probe -> clone/cache -> specialist classify/run
   -> optional planner loop -> validators/verifier
   -> local push-blocked commit -> best-effort git-ref state + runs/ evidence
-  -> stop (no product branch/PR, no durable event record)
+  -> stop; separately, an explicitly confirmed retrofit can dispatch remote_write and open a PR
+     (not part of normal supervise, no durable event/proposal lifecycle)
 ```
 
 Intended:
@@ -87,10 +89,10 @@ minimum boundary between the actual POC and the intended service.
 | AUD-004 | Reliability | supervisor state load/save deliberately best-effort | `RUN-005` fail-closed semantics and failure-injection/resume proof | Foundation | yes | yes |
 | AUD-005 | Autonomy | schedule/manual matrix only; no durable event identity/queue | `RUN-002/006`, durable dedup queue and restart proof | Autonomous runtime | targeted demo yes | yes |
 | AUD-006 | Reliability | no missed-run recovery/backpressure; incomplete rate-limit proof | queue policy, retry/backoff budgets, controlled 429/outage tests | Autonomous runtime | failure demo yes | yes |
-| AUD-007 | Integration | no remote-write/branch/draft-PR capability | `PIL-014`: gated create/update/dedup/reconcile transaction | Change management | yes | yes |
+| AUD-007 | Integration | one manually dispatched, non-draft PR proof exists; automatic invocation, proposal state, update/supersede, drift and three-repo recovery remain absent | Complete `PIL-014`/`PRL-002/003/005/006` through the governed supervisor | Change management | yes | yes |
 | AUD-008 | Presentation quality | broad README edits and technical claim preservation remain planned | section-aware fact-linked proposals and before/after semantic checks | Presentation intelligence | yes | yes |
 | AUD-009 | Regression | one owned span and narrow license cross-check only | generalized protected-content baseline, semantic regression and provenance | Change management | yes | yes |
-| AUD-010 | Pilot readiness | only enabled targets are Java | label them controlled POC or onboard at least one non-Java target with verified access/policy | Pilot | yes | no |
+| AUD-010 | Pilot readiness | exactly three repos have live push/admin access and all are Java; only two are `mode: full` | label them controlled POC and explicitly authorize PDF/Java if selected for remote proof; heterogeneous pilot requires new non-Java write access | Pilot | yes | no |
 | AUD-011 | Evidence | no single three-repo lifecycle bundle | `PIL-013` committed manifest and independent reproduction | Pilot | yes | yes |
 | AUD-012 | Observability | evidence exists but no health/backlog/alert interface | `RUN-007` health report, last-success and alert tests | Production hardening | no | yes |
 | AUD-013 | Planning | closed-wave prose conflicts with open requirements and runtime | reopen/resequence master and refresh stale rows/traceability | Foundation | yes | yes |
@@ -104,8 +106,8 @@ minimum boundary between the actual POC and the intended service.
 | Complete product truth | `FACT-001`–`010` | narrow facts capability | unit + one historical live selection | PARTIAL/AUD-002 |
 | Autonomous runtime | `RUN-001`–`007`, `SCL-001`–`008` | Actions schedule, locks, state | static/unit; suite currently hangs | PARTIAL/AUD-004–006 |
 | Presentation intelligence | `RDM-*`, `SURF-*`, `OWN-*` | audits/proposals plus narrow README write | unit/historical live | PARTIAL/AUD-003/008/009 |
-| Reviewable delivery | `PIL-014`, `CORE-021/022`, `OWN-014/015` | none for product remote | none | MISSING/AUD-007 |
-| Three-repo acceptance | `PIL-001`–`014` | three enabled Java repos; historical individual runs | no complete bundle | MISSING/AUD-010/011 |
+| Reviewable delivery | `PIL-014`, `PRL-*`, `CORE-021/022`, `OWN-014/015` | one manually dispatched real open PR | real Cells/Java proof only | PARTIAL/AUD-007 |
+| Three-repo acceptance | `PIL-001`–`014` | three designated Java repos; one PR proof | no complete bundle | MISSING/AUD-010/011 |
 
 Correct order:
 
@@ -131,9 +133,15 @@ Live read-only GitHub API checks on 2026-07-22 returned `push=true`, `admin=true
 | `aspose-3d-foss/Aspose.3D-FOSS-for-Java` | zero-promotional-gap but bot-authored quality/regression case | controlled POC |
 | `aspose-pdf-foss/Aspose.PDF-FOSS-for-Java` | partial-gap deterministic case; registry mode is dry-run | controlled POC after exact write approval/config change if a PR is required |
 
-These are the only configured write/dry-run targets, but all are Java. They can honestly support a
-homogeneous engineering POC. A heterogeneous pilot requires onboarding and fresh write-access
-verification for at least one non-Java repository; disabled mode must never be silently bypassed.
+These are the only repositories for which the current token reports push/admin access, and all are
+Java. Cells/Java and 3D/Java are `mode: full`; PDF/Java is `dry_run`, so it cannot use the remote
+effector without a separate authorization/configuration change. The remaining registry entries
+are either `dry_run` without write access or `disabled`. They can support only a homogeneous
+engineering POC. A heterogeneous pilot requires fresh non-Java write access.
+
+Cells/Java PR #1 is currently open, unmerged, and **not draft** on branch
+`readme-agent/presentation-update-15f811d4cf8e`. It is genuine pilot progress, not three-repository
+acceptance evidence.
 
 Pilot demonstration and gate are exactly `PIL-013/014`: all three complete baseline through draft
 PR/no-op/recovery/failure isolation with no unsupported claims, no manual content repair, and one
@@ -153,7 +161,7 @@ defensible from repository evidence.
    local README mutation, validators/verifier, git-ref state/locks, scheduled enabled-repo matrix.
 3. Partial: facts, presentation intelligence, state/recovery, idempotency, scheduling, failure
    handling, evidence, ownership and regression protection.
-4. Planned only: unified triggers, full facts, broad surface management, PR lifecycle, monitoring,
+4. Planned only or incomplete: unified triggers, full facts, broad surface management, autonomous PR lifecycle, monitoring,
    deployment and portfolio production gates.
 5. Optimistic/manual: historical live claims without a current green suite; product-agent handoff;
    social preview delivery; product-remote changes; much acceptance evidence is mocked/unit-only.
@@ -169,8 +177,8 @@ defensible from repository evidence.
 13. Yes: many planned rows name outcomes without end-to-end failure and recovery evidence.
 14. Yes: legacy `run` and `supervise` overlap; plan counts/CLI descriptions are stale; historical
     closure claims coexist with open acceptance gates.
-15. Current blockers: unresolved suite process-lifecycle risk, incomplete facts/ownership/regression, best-effort state, no PR
-    lifecycle, and no complete three-repo bundle.
+15. Current blockers: unresolved suite process-lifecycle risk, incomplete facts/ownership/regression,
+    best-effort state, incomplete/manual PR lifecycle, and no complete three-repo bundle.
 16. Production blockers additionally include durable queue/triggers, rate-limit/backpressure proof,
     monitoring/alerts, deployment and soak testing.
 17. Fix the suite and truth claims first; freeze new specialist abstractions meanwhile.
@@ -206,11 +214,15 @@ which are production-only.
 - `ruff check .`: pass.
 - `ruff format --check .`: 229 files already formatted.
 - `mypy src`: pass across 144 source files.
-- Early overlapping `pytest -q`/unit runs were terminated and left pytest/git descendants in local
-  clone operations; those audit-created processes were cleaned up by PID. A subsequent clean,
-  single-process `pytest -q` passed: 824 passed, 18 deselected in 410.22 seconds. This establishes a
-  current green baseline but does not close the pre-existing `OPS-010` process-lifecycle risk.
+- The committed TC-08 baseline reports 938 passed, 18 deselected. During this repeat audit, a fresh
+  full run reached 69% before a second concurrent pytest process appeared; both were terminated so
+  clone-heavy concurrency would not manufacture a false result. Focused current-tree tests then
+  passed: 152 tests covering capability registration, state schema, and remote PR behavior. This
+  does not constitute a fresh full-suite pass and further corroborates the open `OPS-010` process-
+  lifecycle/concurrent-run risk.
 - `gh api repos/{repo}`: all three configured pilots currently report push/admin access and are not
   archived; this was read-only and made no remote changes.
-- Independent adversarial agent verdict: `NOT PRESENTABLE`, Level 3; it independently identified
-  no PR path, best-effort state, incomplete facts/ownership, homogeneous pilots, and the suite hang.
+- Independent repeat-audit verdict: `NOT PRESENTABLE`, Level 3. It credited the real remote-write
+  path and independently identified its manual-only wiring, absent proposal-state persistence,
+  best-effort state, incomplete facts/ownership, homogeneous write access, and recurring pytest
+  process-lifecycle evidence.
