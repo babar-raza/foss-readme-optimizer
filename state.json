@@ -230,7 +230,7 @@
       "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "3536c9e51143733f3c35dfb81d224d0aadbe820b34e449625870e5bde6f9aed4",
+      "accepted_facts_hash": "b52ebce10a83110bf5c0541c7afbc36ffdc3fe49d143ff5028efe950f3e5ba27",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -253,17 +253,17 @@
           },
           {
             "dimension": "installation_path",
-            "note": "The README provides build instructions (CMake) but no package-registry coordinate (e.g., vcpkg, Conan, or other real registry), and no badges linking to a live registry \u2014 failing the requirement for an install path that resolves against an actual package registry.",
+            "note": "The README provides build instructions (CMake) but does not name real package coordinates (e.g., vcpkg, Conan, or a registry like NuGet or npm) or provide a working install command against an actual package registry.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "The 'Quick Start' section includes a complete, runnable C++ example beyond the minimal install/build snippet.",
+            "note": "The 'Quick Start' section includes a complete, runnable C++ code example beyond the minimal install/build snippet.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (`##`), and the order follows the expected intent: product description \u2192 features \u2192 build/install \u2192 example \u2192 license \u2192 support.",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows expected sequencing: product description \u2192 features \u2192 build/install \u2192 example \u2192 features summary \u2192 license \u2192 support.",
             "satisfied": true
           },
           {
@@ -273,26 +273,26 @@
           },
           {
             "dimension": "contribution_readiness",
-            "note": "Missing GitHub-recognized community files: no `CONTRIBUTING`, `CODE_OF_CONDUCT`, or `SECURITY` files are referenced or present, limiting the quick-link row GitHub would show.",
+            "note": "The README lacks recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub will not show the full quick-link row (only README and License are recognized).",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not include or reference recent releases or commit activity, and no `pushed_at` or release badges are visible \u2014 maintenance status is not signaled.",
+            "note": "The README does not include or reference recent releases or commit activity, and no evidence of recent maintenance (e.g., release badges, 'pushed_at' context) is provided.",
             "satisfied": false
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repo; the standard permits absence when no commercial tier exists or is being promoted.",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repo; if commercial context were present, it would need to follow the single-mention, factual tone rule \u2014 and its absence here avoids violation.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies product clarity, trust signals (via license), verified examples, navigation, and visual appropriateness, but fails on audience fit, installation path (no registry-based install), contribution readiness (missing community files), and maintenance signals (no activity visibility)."
+        "overall_summary": "The README satisfies product clarity, trust signals (license), verified examples, navigation, and avoids commercial overreach, but fails on audience fit, installation path (no registry-based install), contribution readiness (missing community files), and maintenance signals (no activity visibility)."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-23T06:54:38.835086+00:00",
+      "last_run_timestamp": "2026-07-23T07:12:09.818468+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
@@ -370,7 +370,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 49,
+  "state_version": 50,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "48f1ece42ffbb0cdbb92cad8d638cc7dffb73b6230cf032a65893d22c5b305d6",
