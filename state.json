@@ -105,7 +105,7 @@
       "upstream_revision_at_accept": "5b5b28eb372c28f4529928ea81696a0031b68d60"
     },
     "independent_verification": {
-      "accepted_facts_hash": "26fe48f2e9611e24f32c3aa83721b96e2d11cb537b70a55a7364458ad40a4840",
+      "accepted_facts_hash": "ba881c7f8eba0a0fea1ef3dcc36668c7b7bfa91a86c08bacfd6db1dffe533a2a",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -117,12 +117,7 @@
           "adversarial_cross_domain"
         ],
         "completeness": {},
-        "failure_escalations": {
-          "readme_presentation": {
-            "consecutive_failure_count": 3,
-            "last_failure_reason": "verification_rejected"
-          }
-        },
+        "failure_escalations": {},
         "requirement_map": {
           "CAP-006": {
             "capability_id": "classify_upstream_change",
@@ -132,7 +127,7 @@
           "EFF-001": {
             "capability_id": "open_presentation_pr",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "LLM-010": {
             "capability_id": "review_visual_asset_accuracy",
@@ -142,32 +137,32 @@
           "PRL-001": {
             "capability_id": "open_presentation_pr",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "PRL-002": {
             "capability_id": "open_presentation_pr",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "PRL-004": {
             "capability_id": "open_presentation_pr",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "PRL-007": {
             "capability_id": "open_presentation_pr",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "PRL-008": {
             "capability_id": "open_presentation_pr",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "RDM-020": {
             "capability_id": "verify_prose_quality",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "VAL-005": {
             "capability_id": "compare_against_presentation_standard",
@@ -177,19 +172,19 @@
           "VER-001": {
             "capability_id": "verify_readme_candidate",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           },
           "VER-002": {
             "capability_id": "verify_readme_candidate",
             "domain": "readme_presentation",
-            "exercised_without_error": false
+            "exercised_without_error": true
           }
         }
       },
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-23T06:47:19.717852+00:00",
+      "last_run_timestamp": "2026-07-23T07:08:51.511414+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "5b5b28eb372c28f4529928ea81696a0031b68d60"
@@ -437,7 +432,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 47,
+  "state_version": 48,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
