@@ -258,6 +258,59 @@ class TestDispatchGatedEffectHappyPath:
         assert counter.applied == 1  # NOT re-executed -- this is the actual EFF-002 guarantee
 
 
+class TestDuplicateTriggerEffectComposition:
+    def test_terminal_duplicate_produces_one_logical_execution_and_one_effect(self, monkeypatch):
+        from readme_agent.state.lifecycle import (
+            accept_trigger,
+            transition_trigger,
+        )
+        from readme_agent.state.trigger_v2 import normalize_trigger_envelope
+
+        counter = _Counter()
+
+        def execute(org_repo):
+            counter.applied += 1
+            return {"applied": True, "count": counter.applied}
+
+        _register(monkeypatch, _effector_manifest(), execute)
+        backend = FakeStateBackend()
+        trigger = normalize_trigger_envelope(
+            ORG_REPO,
+            event_type="repository_dispatch",
+            delivery_id="delivery-exactly-once",
+        )
+        tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
+
+        first = accept_trigger(backend, trigger)
+        assert first.should_execute is True
+        transition_trigger(backend, ORG_REPO, trigger.dedup_key, "processing")
+        dispatch_gated_effect(
+            tool_call,
+            {"local_write"},
+            backend,
+            ORG_REPO,
+            caller_domain="readme_reconciliation",
+        )
+        transition_trigger(backend, ORG_REPO, trigger.dedup_key, "completed")
+
+        duplicate = accept_trigger(backend, trigger)
+        if duplicate.should_execute:  # pragma: no cover - assertion below is the contract
+            dispatch_gated_effect(
+                tool_call,
+                {"local_write"},
+                backend,
+                ORG_REPO,
+                caller_domain="readme_reconciliation",
+            )
+
+        state = backend.load(ORG_REPO)
+        assert duplicate.should_execute is False
+        assert len(state.trigger_lifecycles) == 1
+        assert len(state.capability_outputs) == 1
+        assert state.capability_outputs[0].status == "applied"
+        assert counter.applied == 1
+
+
 class TestDispatchGatedEffectCrashRecovery:
     def test_deterministic_interruption_between_pending_and_applied_is_not_reexecuted(
         self, monkeypatch
