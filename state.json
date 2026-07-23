@@ -205,8 +205,8 @@
       "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "7ca343e1e88d1b898f91a14607dc08f059f15a2890317a2f5eb5ff93a7b9b097",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "3536c9e51143733f3c35dfb81d224d0aadbe820b34e449625870e5bde6f9aed4",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -218,7 +218,7 @@
           },
           {
             "dimension": "audience_fit",
-            "note": "The README does not explicitly state who the library is for (e.g., C++ developers working with Excel files) or the specific situation that brings them here (e.g., needing Excel automation without Microsoft Excel installed).",
+            "note": "The README does not explicitly state who the library is for (e.g., C++ developers building Excel-based tools) or the specific situation that brings them here (e.g., needing Excel automation without Excel installed).",
             "satisfied": false
           },
           {
@@ -228,46 +228,46 @@
           },
           {
             "dimension": "installation_path",
-            "note": "The 'How to build' section describes a manual CMake build process but does not provide real package coordinates (e.g., vcpkg, Conan, or a registry like GitHub Packages) that resolve against an actual external package registry.",
+            "note": "The README provides build instructions (CMake) but no package-registry coordinate (e.g., vcpkg, Conan, or other real registry), and no badges linking to a live registry \u2014 failing the requirement for an install path that resolves against an actual package registry.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "The 'Quick Start' section includes a complete, runnable C++ code example beyond the minimal install/build snippet.",
+            "note": "The 'Quick Start' section includes a complete, runnable C++ example beyond the minimal install/build snippet.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (##), and the order follows logical sequencing: product description \u2192 features \u2192 build \u2192 example \u2192 features summary \u2192 license \u2192 support.",
+            "note": "Section headers use consistent Markdown levels (`##`), and the order follows the expected intent: product description \u2192 features \u2192 build/install \u2192 example \u2192 license \u2192 support.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is appropriate for a pure API library like this; the standard allows absence when visuals do not improve understanding.",
+            "note": "No visuals are present, which is acceptable for a pure API library like this; the standard allows absence when visuals do not improve understanding.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "Missing GitHub-recognized community files: no CONTRIBUTING, CODE_OF_CONDUCT, or SECURITY files are present, so GitHub will not show the full quick-link row below the repo header.",
+            "note": "Missing GitHub-recognized community files: no `CONTRIBUTING`, `CODE_OF_CONDUCT`, or `SECURITY` files are referenced or present, limiting the quick-link row GitHub would show.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not include or reference recent releases or commit activity, and no evidence of recent maintenance is visible in the provided text.",
+            "note": "The README does not include or reference recent releases or commit activity, and no `pushed_at` or release badges are visible \u2014 maintenance status is not signaled.",
             "satisfied": false
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repository; if commercial context were present, it would need to follow the restraint rules.",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repo; the standard permits absence when no commercial tier exists or is being promoted.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies product clarity, trust signals (via MIT license), verified examples, navigation, and appropriate absence of visuals, but fails on audience fit, installation path (no real registry coordinates), contribution readiness (missing community files), and maintenance signals (no activity evidence)."
+        "overall_summary": "The README satisfies product clarity, trust signals (via license), verified examples, navigation, and visual appropriateness, but fails on audience fit, installation path (no registry-based install), contribution readiness (missing community files), and maintenance signals (no activity visibility)."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:02:13.910448+00:00",
+      "last_run_timestamp": "2026-07-23T06:54:38.835086+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
@@ -345,7 +345,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 36,
+  "state_version": 37,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cc3cd1834a98e9be4149e8662a7ad9e92522650550c90850375dc72127d20d39",
