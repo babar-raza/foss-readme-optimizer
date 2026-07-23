@@ -149,7 +149,7 @@ and optionally pings an external dead-man monitor. Backlog is age/status classif
 SLA-aged work is actionable and makes the report unhealthy, while recent bounded in-flight work
 remains visible without creating a false incident.
 
-The control repository must configure the Actions variable `GH_APP_ID` and secrets
+The control repository must configure the Actions variable `GH_APP_CLIENT_ID` and secrets
 `GH_APP_PRIVATE_KEY`, `LLM_BASE_URL`, and `LLM_API_KEY`. `DEAD_MAN_HEARTBEAT_URL` is optional for
 local reproduction but required before Wave 2 can be production-proven, because an in-platform
 workflow cannot detect that its own scheduler never started. The GitHub App installation must

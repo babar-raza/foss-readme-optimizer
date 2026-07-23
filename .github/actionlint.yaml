@@ -4,3 +4,8 @@ paths:
       # GitHub supports concurrency.queue: max as of 2026-04. The current
       # released actionlint schema (v1.7.12) predates that syntax.
       - 'unexpected key "queue" for "concurrency" section'
+      # actions/create-github-app-token@v3.2 recommends client-id and retains
+      # app-id only as a deprecated alias. actionlint 1.7.12 embeds older
+      # action metadata; test_production_workflow enforces the current input.
+      - 'missing input "app-id" which is required by action'
+      - 'input "client-id" is not defined in action'

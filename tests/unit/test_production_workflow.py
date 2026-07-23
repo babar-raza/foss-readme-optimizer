@@ -25,6 +25,8 @@ def test_analysis_uses_dedicated_read_only_app_token_and_observe_profile():
     text = WORKFLOW.read_text(encoding="utf-8")
 
     assert "actions/create-github-app-token@v3" in text
+    assert text.count("client-id: ${{ vars.GH_APP_CLIENT_ID }}") == 2
+    assert "app-id:" not in text
     assert "permission-contents: read" in text
     assert "README_AGENT_PRODUCTION_AUTH: github_app" in text
     assert "README_AGENT_GITHUB_APP_TOKEN:" in text

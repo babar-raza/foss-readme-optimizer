@@ -248,7 +248,7 @@ def main() -> int:
         "local_environment_presence_only": {
             name: bool(os.environ.get(name))
             for name in (
-                "GH_APP_ID",
+                "GH_APP_CLIENT_ID",
                 "GH_APP_PRIVATE_KEY",
                 "LLM_BASE_URL",
                 "LLM_API_KEY",

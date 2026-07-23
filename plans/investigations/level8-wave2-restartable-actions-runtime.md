@@ -55,6 +55,9 @@ the user's unrelated `AGENTS.md`, `plans/idea.md`, `plans/changelog.md`, `plans/
     statuses. Both producers now cover the extractor's complete status vocabulary, expose
     non-mutating `--check` modes, regenerate all dependent outputs, and have an enforced
     producer-consumer status-contract test.
+12. The first real hosted run exposed `actions/create-github-app-token@v3`'s deprecated `app-id`
+    input. The workflow now uses the action's current `client-id` contract and the prerequisite
+    variable is `GH_APP_CLIENT_ID`; a static regression rejects the legacy input.
 
 ## Delivered runtime
 
@@ -109,7 +112,7 @@ hosted interruption and repetition evidence remains an open production acceptanc
 Wave 2 remains `PARTIAL` until all of the following external proofs exist:
 
 1. Register and install a GitHub App over the governed target repositories.
-2. Configure `GH_APP_ID`, `GH_APP_PRIVATE_KEY`, `LLM_BASE_URL`, `LLM_API_KEY`, and an external
+2. Configure `GH_APP_CLIENT_ID`, `GH_APP_PRIVATE_KEY`, `LLM_BASE_URL`, `LLM_API_KEY`, and an external
    `DEAD_MAN_HEARTBEAT_URL` in the control repository.
 3. Authorize publication of the committed production workflow to
    `babar-raza/foss-readme-optimizer`, then run the four trigger types on GitHub-hosted runners.

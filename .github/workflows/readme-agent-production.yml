@@ -113,7 +113,7 @@ jobs:
         id: target-token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ vars.GH_APP_ID }}
+          client-id: ${{ vars.GH_APP_CLIENT_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
           owner: ${{ matrix.owner }}
           repositories: ${{ matrix.name }}
@@ -189,7 +189,7 @@ jobs:
         id: target-token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ vars.GH_APP_ID }}
+          client-id: ${{ vars.GH_APP_CLIENT_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
           owner: ${{ matrix.owner }}
           repositories: ${{ matrix.name }}
