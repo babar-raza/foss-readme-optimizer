@@ -728,7 +728,9 @@ class TestSpecialistDrivenConvergence:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert second.status == "CONVERGED_NO_CHANGE"
+        assert second.status == "BLOCKED"
+        assert second.blocked_reason is not None
+        assert second.blocked_reason.startswith("specialist_failed:")
         # The bootstrap/planner loop actually ran this time, not short-circuited.
         assert "inspect_repository" in [t.capability_id for t in second.task_graph.tasks.values()]
 
@@ -1193,6 +1195,60 @@ class TestSpecialistResultsEvidence:
         assert payload["readme_reconciliation"]["accepted_status"] == "FIRST_OBSERVATION"
 
 
+class TestRunManifestV2Evidence:
+    """Wave 13.1 (`EVID-001`): `manifest.json` is now a typed `RunManifestV2`
+    -- proven here with real, non-`None` values on the full-loop path,
+    which has the richest context available."""
+
+    def test_manifest_json_carries_the_new_run_manifest_v2_fields(self, project):
+        backend = FakeStateBackend()
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(
+                [PlannerTurn(content="done", meta=LLMResponseMeta())]
+            ),
+            state_backend=backend,
+            write_evidence_bundle=True,
+        )
+        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.evidence_dir is not None
+
+        manifest = json.loads((result.evidence_dir / "manifest.json").read_text())
+        assert manifest["run_id"]
+        assert manifest["org_repo"] == ORG_REPO
+        assert manifest["control_plane_fingerprint"]  # a real, non-empty hash
+        assert manifest["upstream_revision"]  # a real commit SHA
+        assert manifest["prompt_registry_content_hash"]
+        assert isinstance(manifest["surface_freshness"], dict)
+        # Not yet threaded through this path -- explicit null, not faked.
+        assert manifest["authorization_record_id"] is None
+        assert manifest["trigger_dedup_key"] is None
+
+    def test_requirement_ids_exercised_reflects_independent_verifications_own_map(self, project):
+        backend = FakeStateBackend()
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(
+                [PlannerTurn(content="done", meta=LLMResponseMeta())]
+            ),
+            state_backend=backend,
+            write_evidence_bundle=True,
+        )
+        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.evidence_dir is not None
+
+        manifest = json.loads((result.evidence_dir / "manifest.json").read_text())
+        specialist_results = json.loads(
+            (result.evidence_dir / "specialist_results.json").read_text()
+        )
+        expected = specialist_results["independent_verification"]["details"]["requirement_map"]
+        assert manifest["requirement_ids_exercised"] == {
+            requirement_id: info["exercised_without_error"]
+            for requirement_id, info in expected.items()
+        }
+        assert len(manifest["requirement_ids_exercised"]) > 0
+
+
 class TestEvidenceCompletenessGate:
     """Wave 8d: the run-level meaning of "evidence completeness gates" --
     all four evidence files must exist and be valid JSON before
@@ -1358,8 +1414,11 @@ class TestSpecialistFailureIsolation:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        # The run completes -- it does not propagate the specialist's exception.
-        assert result.status in ("CONVERGED_NO_CHANGE", "CONVERGED_APPLIED")
+        # The run completes -- it does not propagate the specialist's
+        # exception -- but it must not misreport that failure as convergence.
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason is not None
+        assert result.blocked_reason.startswith("specialist_failed:")
 
     def test_a_raising_specialists_error_never_looks_like_no_change_to_the_shortcut(
         self, project, monkeypatch
@@ -1386,6 +1445,9 @@ class TestSpecialistFailureIsolation:
         )
 
         assert result.status != "CONVERGED_NO_TRACKED_CHANGE"
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason is not None
+        assert result.blocked_reason.startswith("specialist_failed:")
         # The bootstrap dispatch only happens past the shortcut -- direct
         # proof the full loop ran rather than short-circuiting.
         assert "inspect_repository" in [t.capability_id for t in result.task_graph.tasks.values()]
@@ -1932,7 +1994,7 @@ class TestWriteCapableModeGate:
         monkeypatch.setattr(registry, "get", lambda capability_id: fake_manifest)
         monkeypatch.setattr(
             "readme_agent.capabilities.dispatcher.dispatch_tool_call",
-            lambda tool_call, permissions, extra_kwargs=None: DispatchResult(
+            lambda tool_call, permissions, extra_kwargs=None, state_backend=None: DispatchResult(
                 outcome="executed", result={}
             ),
         )

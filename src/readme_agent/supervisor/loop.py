@@ -26,7 +26,8 @@ from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.capabilities.stop import CAPABILITY_ID as STOP_CAPABILITY_ID
 from readme_agent.errors import GitSafetyError, LLMError, StateBackendError
-from readme_agent.evidence.writer import generate_run_id
+from readme_agent.evidence.manifest_v2 import RunManifestV2
+from readme_agent.evidence.writer import generate_run_id, write_run_manifest_v2
 from readme_agent.gitsafety._git import run_git
 from readme_agent.gitsafety.clone import clone_baseline, remote_head_sha
 from readme_agent.llm import prompt_registry
@@ -36,19 +37,27 @@ from readme_agent.specialists import registry as specialists_registry
 from readme_agent.state.backend import StateBackend, safe_release_lock
 from readme_agent.state.domain_state import (
     compute_domain_coverage_complete,
-    effective_domain_coverage_complete,
     mark_domain_skipped,
     mark_specialist_tier_started,
     merge_unrecorded_failures,
 )
-from readme_agent.state.schema import DomainStateV1, RunStateV1, SupervisorStateV1
+from readme_agent.state.freshness_contract import (
+    DEFAULT_SURFACE_CONTRACTS,
+    refresh_surface_contracts,
+)
+from readme_agent.state.schema import (
+    DomainStateV1,
+    RunStateV1,
+    SupervisorStateV1,
+    SurfaceFreshnessContractV1,
+)
 from readme_agent.supervisor import dossier, repair, specialist_selection
 from readme_agent.supervisor.convergence import (
     ConvergenceOutcome,
     check_repair_exhausted,
     compute_control_plane_fingerprint,
     final_status,
-    is_fresh,
+    no_change_gate_holds,
 )
 from readme_agent.supervisor.task import Task, TaskGraph
 
@@ -106,15 +115,49 @@ def _current_upstream_revision(baseline_path: Path) -> str | None:
     return result.stdout.strip() if result.returncode == 0 else None
 
 
-def _load_supervisor_state(backend: StateBackend | None, org_repo: str) -> SupervisorStateV1 | None:
+def _load_prior_run_state(backend: StateBackend | None, org_repo: str) -> RunStateV1 | None:
+    """Wave 9.7 (`FRESH-010`): the full prior `RunStateV1`, not just its
+    `supervisor_state` slice -- `no_change_gate_holds()` also needs
+    `capability_outputs`/`open_proposals`/`trigger_records`, none of which
+    `_load_supervisor_state()`'s narrower return type can carry."""
     if backend is None:
         return None
     try:
-        state = backend.load(org_repo)
+        return backend.load(org_repo)
     except StateBackendError as exc:
         print(f"warning: durable state read failed, continuing without it: {exc}", file=sys.stderr)
         return None
+
+
+def _load_supervisor_state(backend: StateBackend | None, org_repo: str) -> SupervisorStateV1 | None:
+    state = _load_prior_run_state(backend, org_repo)
     return state.supervisor_state if state else None
+
+
+def _requirement_ids_exercised(specialist_results: dict[str, DomainStateV1]) -> dict[str, bool]:
+    """Wave 13.1 (`GOV-012`/`SAFE-014`/`SAFE-017`): reuses `independent_
+    verification`'s own already-built `requirement_map` (Wave 8c) -- `{}`
+    when that domain didn't run this turn, not recomputed here."""
+    result = specialist_results.get(INDEPENDENT_VERIFICATION)
+    requirement_map = result.details.get("requirement_map", {}) if result is not None else {}
+    return {
+        requirement_id: info["exercised_without_error"]
+        for requirement_id, info in requirement_map.items()
+    }
+
+
+def _surface_observed_hashes(
+    specialist_results: dict[str, DomainStateV1],
+) -> dict[str, str | None]:
+    """Wave 9.7 (`FRESH-010`): the four non-git-tracked domains' own
+    `accepted_facts_hash`, as just (re)computed by a real specialist-tier
+    run this turn -- fed to `refresh_surface_contracts()` so `observed_hash`
+    reflects what was actually seen, not merely that a check happened."""
+    return {
+        surface_id: specialist_results[surface_id].accepted_facts_hash
+        for surface_id in DEFAULT_SURFACE_CONTRACTS
+        if surface_id in specialist_results
+    }
 
 
 def _record_supervisor_state(
@@ -190,6 +233,7 @@ def _dispatch_and_record(
     extra_kwargs: dict | None = None,
     repair_planner_client: PlannerClient | None = None,
     tools: list[dict] | None = None,
+    allowed_permission_classes: set[PermissionClass] | None = None,
 ) -> Task:
     """Dispatches `task`, marks it terminal, and -- on a repairable failure
     -- creates and immediately dispatches a repair task, bounded by
@@ -214,7 +258,17 @@ def _dispatch_and_record(
     since `repair.create_repair_task()`'s existing blind `execution_error`
     retry is tried first, unchanged, and `repair.select_repair_alternative()`
     is only ever consulted when that returns `None` AND a client was
-    supplied."""
+    supplied.
+
+    `allowed_permission_classes` (Wave 9.4, execution profiles): optional,
+    defaulting to `None`, which preserves today's exact behavior (the
+    hardcoded read-only-plus-write set below) -- every existing caller is
+    unaffected. When supplied by a caller that resolved an `ExecutionProfileV1`
+    (`supervisor/execution_profile.py`), it narrows what a write-capable
+    dispatch may do independently of `mode == "full"` -- e.g. a
+    `github_observe` run structurally cannot dispatch a `local_write`/
+    `remote_write` effect even against a `mode: full` repo, closing the gap
+    where only the mode check governed this before."""
     graph.mark(task.task_id, "EXECUTING")
     tool_call = {"function": {"name": task.capability_id, "arguments": json.dumps(task.arguments)}}
     manifest = registry.get(task.capability_id) if task.capability_id else None
@@ -240,10 +294,11 @@ def _dispatch_and_record(
                 ),
             )
 
+    effective_write_permissions = allowed_permission_classes or (
+        _READ_ONLY_PERMISSIONS | {"local_write", "remote_write"}
+    )
     if backend is not None and write_capable:
-        gated = dispatch_gated_effect(
-            tool_call, _READ_ONLY_PERMISSIONS | {"local_write", "remote_write"}, backend, org_repo
-        )
+        gated = dispatch_gated_effect(tool_call, effective_write_permissions, backend, org_repo)
         if gated.outcome == "already_applied":
             return graph.mark(task.task_id, "PASSED", result=gated.cached_result)
         if gated.outcome == "blocked_pending_reconciliation":
@@ -252,7 +307,9 @@ def _dispatch_and_record(
     else:
         from readme_agent.capabilities.dispatcher import dispatch_tool_call
 
-        dispatch = dispatch_tool_call(tool_call, _READ_ONLY_PERMISSIONS, extra_kwargs=extra_kwargs)
+        dispatch = dispatch_tool_call(
+            tool_call, _READ_ONLY_PERMISSIONS, extra_kwargs=extra_kwargs, state_backend=backend
+        )
 
     assert dispatch is not None
     if dispatch.outcome == "executed":
@@ -302,6 +359,7 @@ def _dispatch_and_record(
                 extra_kwargs=extra_kwargs,
                 repair_planner_client=repair_planner_client,
                 tools=tools,
+                allowed_permission_classes=allowed_permission_classes,
             )
         if repair_planner_client is not None:
             decisions.append(
@@ -337,6 +395,12 @@ def supervise_repo(
     # When `None` (the default), `_dispatch_and_record()`'s own guard means
     # `repair.select_repair_alternative()` is never invoked.
     repair_planner_client: PlannerClient | None = None,
+    # Wave 9.4 (execution profiles): optional, defaulting to `None`, which
+    # preserves today's exact hardcoded permission set -- every existing
+    # caller/test is unaffected. `commands.py::cmd_supervise()` resolves this
+    # from `--execution-profile` and passes it through; direct callers/tests
+    # may pass it explicitly too.
+    allowed_permission_classes: set[PermissionClass] | None = None,
 ) -> SuperviseResult:
     # require_listed(), not require_permitted() (decision #40): most of a
     # supervised run is read-only planning/observation, so mode is not
@@ -390,7 +454,8 @@ def supervise_repo(
 
     baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
     current_control_plane_fingerprint = compute_control_plane_fingerprint(entry.policy_profile)
-    prior = _load_supervisor_state(state_backend, org_repo)
+    prior_full_state = _load_prior_run_state(state_backend, org_repo)
+    prior = prior_full_state.supervisor_state if prior_full_state else None
 
     # Wave 8.5 (`ORC-006`): a cheap pre-clone SHA probe, mirroring
     # `profile/cached.py::get_or_build_profile()`'s already-proven "probe ->
@@ -402,14 +467,18 @@ def supervise_repo(
     # one is ever trusted for state writes. `None` on any probe failure
     # (unreachable remote, no durable backend) falls through to the real
     # clone path unchanged, never treated as a false "unchanged" signal.
+    #
+    # Wave 9.7 (`FRESH-010`): uses the full 7-condition `no_change_gate_
+    # holds()`, not the bare 3-condition `is_fresh()` -- this is the
+    # cheapest, most-likely-to-fire shortcut (skips even cloning), so
+    # leaving it on the narrower gate would keep the "Git-SHA-only no-op"
+    # bug alive on the path most likely to hide it.
     probed_revision = remote_head_sha(entry.clone_url) if state_backend is not None else None
-    if probed_revision is not None and is_fresh(
-        prior.last_observed_upstream_revision if prior else None,
+    if probed_revision is not None and no_change_gate_holds(
+        prior_full_state,
         probed_revision,
-        recorded_control_plane_fingerprint=prior.control_plane_fingerprint if prior else None,
-        current_control_plane_fingerprint=current_control_plane_fingerprint,
-        recorded_domain_coverage_complete=effective_domain_coverage_complete(prior),
-        check_domain_coverage=True,
+        current_control_plane_fingerprint,
+        now=datetime.now(UTC),
     ):
         graph = TaskGraph()
         probe_decisions = [
@@ -440,6 +509,12 @@ def supervise_repo(
                     last_status="CONVERGED_NO_CHANGE",
                     last_run_timestamp=datetime.now(UTC).isoformat(),
                     control_plane_fingerprint=current_control_plane_fingerprint,
+                    # Wave 9.7: carried forward unchanged -- this shortcut never
+                    # runs the specialist tier, so nothing new was learned about
+                    # any non-git surface; `no_change_gate_holds()` already
+                    # confirmed every tracked surface was still within its TTL
+                    # at the moment this shortcut fired.
+                    surface_freshness=prior.surface_freshness if prior else {},
                 ),
             )
         probe_evidence_dir = None
@@ -453,6 +528,9 @@ def supervise_repo(
                 "CONVERGED_NO_CHANGE",
                 graph,
                 probe_decisions,
+                control_plane_fingerprint=current_control_plane_fingerprint,
+                upstream_revision=probed_revision,
+                surface_freshness=prior.surface_freshness if prior else {},
             )
             _assert_evidence_complete(probe_evidence_dir)
         return SuperviseResult(
@@ -494,6 +572,7 @@ def supervise_repo(
                 "BLOCKED",
                 TaskGraph(),
                 clone_failure_decisions,
+                control_plane_fingerprint=current_control_plane_fingerprint,
             )
             _assert_evidence_complete(clone_failure_evidence_dir)
         return SuperviseResult(
@@ -505,13 +584,13 @@ def supervise_repo(
             evidence_dir=clone_failure_evidence_dir,
         )
     current_revision = _current_upstream_revision(baseline_path)
-    if is_fresh(
-        prior.last_observed_upstream_revision if prior else None,
+    # Wave 9.7 (`FRESH-010`): same 7-condition gate as the pre-clone probe
+    # shortcut above, not the bare 3-condition `is_fresh()`.
+    if no_change_gate_holds(
+        prior_full_state,
         current_revision,
-        recorded_control_plane_fingerprint=prior.control_plane_fingerprint if prior else None,
-        current_control_plane_fingerprint=current_control_plane_fingerprint,
-        recorded_domain_coverage_complete=effective_domain_coverage_complete(prior),
-        check_domain_coverage=True,
+        current_control_plane_fingerprint,
+        now=datetime.now(UTC),
     ):
         graph = TaskGraph()
         return SuperviseResult(
@@ -758,6 +837,16 @@ def supervise_repo(
                 *escalation_alerts,
                 *retry_alerts,
             ]
+            # Wave 9.7: the specialist tier actually ran this turn (every
+            # domain reported NO_CHANGE) -- a real chance to observe every
+            # non-git surface, so refresh, not carry forward. Computed once,
+            # reused for both the durable-state write and the evidence
+            # bundle below, rather than recomputed twice.
+            refreshed_surface_freshness = refresh_surface_contracts(
+                prior.surface_freshness if prior else {},
+                _surface_observed_hashes(specialist_results),
+                datetime.now(UTC),
+            )
             if state_backend is not None and write_evidence_bundle:
                 _record_supervisor_state(
                     state_backend,
@@ -767,6 +856,7 @@ def supervise_repo(
                         last_status="CONVERGED_NO_TRACKED_CHANGE",
                         last_run_timestamp=datetime.now(UTC).isoformat(),
                         control_plane_fingerprint=current_control_plane_fingerprint,
+                        surface_freshness=refreshed_surface_freshness,
                     ),
                     failures=unrecorded_failures,
                 )
@@ -782,6 +872,14 @@ def supervise_repo(
                     graph,
                     shortcut_decisions,
                     specialist_results,
+                    control_plane_fingerprint=current_control_plane_fingerprint,
+                    upstream_revision=current_revision,
+                    # Wave 9.7: every domain reported a real, non-skipped
+                    # NO_CHANGE this turn (the condition that reached this
+                    # branch) -- domain coverage is complete by construction
+                    # here, not an inference across a helper boundary.
+                    domain_coverage_complete=True,
+                    surface_freshness=refreshed_surface_freshness,
                 )
                 _assert_evidence_complete(shortcut_evidence_dir)
             return SuperviseResult(
@@ -824,6 +922,7 @@ def supervise_repo(
                 turn=0,
                 repair_planner_client=repair_planner_client,
                 tools=registry.all_tool_schemas(),
+                allowed_permission_classes=allowed_permission_classes,
             )
             decisions.append(
                 DecisionSummary(
@@ -919,7 +1018,11 @@ def supervise_repo(
                             turn=turn, kind="stop", detail=plan.content or "planner stopped"
                         )
                     )
-                    outcome = final_status(graph, applied_any_effect=applied_any_effect)
+                    outcome = final_status(
+                        graph,
+                        applied_any_effect=applied_any_effect,
+                        specialist_results=specialist_results,
+                    )
                     break
 
                 function = plan.tool_call.get("function", {})
@@ -942,7 +1045,11 @@ def supervise_repo(
                             detail=(f"stop capability called: {stop_arguments.get('reason', '')}"),
                         )
                     )
-                    outcome = final_status(graph, applied_any_effect=applied_any_effect)
+                    outcome = final_status(
+                        graph,
+                        applied_any_effect=applied_any_effect,
+                        specialist_results=specialist_results,
+                    )
                     break
 
                 try:
@@ -981,7 +1088,11 @@ def supervise_repo(
                                 ),
                             )
                         )
-                        outcome = final_status(graph, applied_any_effect=applied_any_effect)
+                        outcome = final_status(
+                            graph,
+                            applied_any_effect=applied_any_effect,
+                            specialist_results=specialist_results,
+                        )
                         break
                     messages.append(
                         {
@@ -1014,6 +1125,7 @@ def supervise_repo(
                     extra_kwargs=extra_kwargs,
                     repair_planner_client=repair_planner_client,
                     tools=registry.all_tool_schemas(),
+                    allowed_permission_classes=allowed_permission_classes,
                 )
                 if resolved.state == "PASSED":
                     consecutive_no_progress_turns = 0
@@ -1057,7 +1169,11 @@ def supervise_repo(
                             ),
                         )
                     )
-                    outcome = final_status(graph, applied_any_effect=applied_any_effect)
+                    outcome = final_status(
+                        graph,
+                        applied_any_effect=applied_any_effect,
+                        specialist_results=specialist_results,
+                    )
                     break
 
                 # AGT-008/Wave 8.5: a defensive circuit breaker, not a
@@ -1086,6 +1202,15 @@ def supervise_repo(
                     break
 
             run_id = generate_run_id() if write_evidence_bundle else None
+            # Wave 9.7: the specialist tier ran this turn -- refresh every
+            # tracked non-git surface from what it actually saw. Computed
+            # once, reused for both the durable-state write and the
+            # evidence bundle below, rather than recomputed twice.
+            refreshed_surface_freshness = refresh_surface_contracts(
+                prior.surface_freshness if prior else {},
+                _surface_observed_hashes(specialist_results),
+                datetime.now(UTC),
+            )
             if state_backend is not None and write_evidence_bundle:
                 _record_supervisor_state(
                     state_backend,
@@ -1110,6 +1235,7 @@ def supervise_repo(
                             in ("repair", "repair_alternative_selected", "repair_escalated")
                         ],
                         control_plane_fingerprint=current_control_plane_fingerprint,
+                        surface_freshness=refreshed_surface_freshness,
                     ),
                     failures=unrecorded_failures,
                 )
@@ -1126,6 +1252,9 @@ def supervise_repo(
                     graph,
                     decisions,
                     specialist_results,
+                    control_plane_fingerprint=current_control_plane_fingerprint,
+                    upstream_revision=current_revision,
+                    surface_freshness=refreshed_surface_freshness,
                 )
                 _assert_evidence_complete(evidence_path)
 
@@ -1164,12 +1293,25 @@ def _write_supervise_evidence(
     graph: TaskGraph,
     decisions: list[DecisionSummary],
     specialist_results: dict[str, DomainStateV1] | None = None,
+    *,
+    # Wave 13.1 (`EVID-001`): additive -- every existing call site that
+    # doesn't pass these gets the exact prior `manifest.json` shape's
+    # information content, just now inside a typed `RunManifestV2` rather
+    # than an ad hoc dict literal. `None`/empty where a given call site
+    # genuinely has nothing to report (e.g. a clone failure has no
+    # upstream_revision), never faked.
+    control_plane_fingerprint: str | None = None,
+    upstream_revision: str | None = None,
+    domain_coverage_complete: bool | None = None,
+    surface_freshness: dict[str, SurfaceFreshnessContractV1] | None = None,
 ) -> None:
-    """Small, self-contained atomic-write helper -- duplicates
-    `evidence/writer.py`'s `.tmp` + `os.replace` pattern rather than reusing
-    its private `_atomic_write_json` (that function's redaction/jsonable
-    conversion is tailored to `generate_repo()`'s specific payload shape).
-    Flagged here rather than silently repeated uncredited.
+    """Small, self-contained atomic-write helper for the `specialist_
+    results.json`/`task_graph.json`/`decisions.json` trio -- `manifest.json`
+    itself is now written by `evidence/writer.py::write_run_manifest_v2()`
+    (Wave 13.1), not a fourth ad hoc dict literal here, closing the
+    duplication this function's own docstring used to flag ("duplicates
+    evidence/writer.py's .tmp + os.replace pattern rather than reusing its
+    private _atomic_write_json").
 
     Wave 7: `specialist_results.json` is always written here, from every
     caller, on both the `CONVERGED_NO_TRACKED_CHANGE` shortcut path and the
@@ -1178,10 +1320,7 @@ def _write_supervise_evidence(
     full-loop path, and not recorded as evidence at all on the shortcut path.
     One canonical file to audit "what did every specialist find this run"
     regardless of which path the run took, growing cleanly as domain count
-    increases. `manifest.json` also records `prompt_registry_content_hash`
-    (Wave 8.5) so a human debugging a behavior change months later can
-    directly check whether a prompt file changed, without recomputing the
-    whole control-plane fingerprint."""
+    increases."""
     evidence_dir.mkdir(parents=True, exist_ok=True)
 
     def _write(name: str, data: Any) -> None:
@@ -1207,15 +1346,20 @@ def _write_supervise_evidence(
         "decisions.json",
         [{"turn": d.turn, "kind": d.kind, "detail": d.detail} for d in decisions],
     )
-    _write(
-        "manifest.json",
-        {
-            "run_id": run_id,
-            "org_repo": org_repo,
-            "status": status,
-            "timestamp": datetime.now(UTC).isoformat(),
-            "prompt_registry_content_hash": prompt_registry.content_hash(),
-        },
+    write_run_manifest_v2(
+        evidence_dir,
+        RunManifestV2(
+            run_id=run_id,
+            org_repo=org_repo,
+            status=status,
+            timestamp=datetime.now(UTC).isoformat(),
+            prompt_registry_content_hash=prompt_registry.content_hash(),
+            control_plane_fingerprint=control_plane_fingerprint,
+            upstream_revision=upstream_revision,
+            domain_coverage_complete=domain_coverage_complete,
+            surface_freshness=surface_freshness or {},
+            requirement_ids_exercised=_requirement_ids_exercised(specialist_results or {}),
+        ),
     )
 
 

@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from readme_agent import env
+from readme_agent.evidence.manifest_v2 import RunManifestV2
 from readme_agent.evidence.redaction import redact
 
 
@@ -134,6 +135,16 @@ def write_evidence(
     _atomic_write_json(evidence_dir / "manifest.json", manifest)
 
     _write_sha256sums(evidence_dir)
+
+
+def write_run_manifest_v2(evidence_dir: Path, manifest: RunManifestV2) -> None:
+    """Wave 13.1 (`EVID-001`): the single, canonical `manifest.json` writer
+    for `supervisor/loop.py::supervise_repo()`'s evidence bundle -- reuses
+    this module's own redaction/atomic-write helpers, same as `write_
+    evidence()` above does for `orchestrator.generate_repo()`'s bundle.
+    Never a parallel writer: `_write_supervise_evidence()` calls this
+    instead of constructing its own ad hoc dict."""
+    _atomic_write_json(evidence_dir / "manifest.json", manifest)
 
 
 def _write_sha256sums(evidence_dir: Path) -> None:

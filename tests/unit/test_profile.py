@@ -1,8 +1,10 @@
+from pathlib import Path
+
 import pytest
 from pydantic import ValidationError
 
 from readme_agent.profile.detector import build_profile
-from readme_agent.profile.schema import DetectedEcosystem, RepositoryProfile
+from readme_agent.profile.schema import DetectedEcosystem, PackageRoot, RepositoryProfile
 
 
 class TestSchema:
@@ -10,10 +12,15 @@ class TestSchema:
         profile = RepositoryProfile(org_repo="acme/widget")
         assert profile.detected_ecosystems == []
         assert profile.unresolved_manifests == []
+        assert profile.package_roots == []
 
     def test_detected_ecosystem_requires_all_fields(self):
         with pytest.raises(ValidationError):
             DetectedEcosystem(ecosystem="java")
+
+    def test_package_root_requires_all_fields(self):
+        with pytest.raises(ValidationError):
+            PackageRoot(ecosystem="java")
 
 
 class TestBuildProfile:
@@ -76,3 +83,54 @@ class TestBuildProfile:
         detected = profile.detected_ecosystems[0]
         assert detected.confidence == 0.5
         assert "nothing parsed" in detected.evidence
+
+
+class TestBuildProfilePackageRoots:
+    """Wave 11.1 (`ECO-004`): `package_roots` is the additive, multi-root-
+    aware view -- `detected_ecosystems` above stays exactly "first match
+    per ecosystem," unaffected."""
+
+    def test_single_root_repo_has_exactly_one_package_root(self, tmp_path):
+        (tmp_path / "pom.xml").write_text("<project/>", encoding="utf-8")
+
+        profile = build_profile("acme/widget", tmp_path)
+
+        assert len(profile.package_roots) == 1
+        root = profile.package_roots[0]
+        assert root.path == "."
+        assert root.ecosystem == "java"
+        assert root.manifest_path == "pom.xml"
+
+    def test_multi_csproj_dotnet_solution_yields_one_root_per_project(self, tmp_path):
+        (tmp_path / "src" / "Widget.Core").mkdir(parents=True)
+        (tmp_path / "src" / "Widget.Core" / "Widget.Core.csproj").write_text(
+            "<Project/>", encoding="utf-8"
+        )
+        (tmp_path / "src" / "Widget.Cli").mkdir(parents=True)
+        (tmp_path / "src" / "Widget.Cli" / "Widget.Cli.csproj").write_text(
+            "<Project/>", encoding="utf-8"
+        )
+
+        profile = build_profile("acme/widget", tmp_path)
+
+        paths = {root.path for root in profile.package_roots}
+        assert paths == {
+            str(Path("src") / "Widget.Core"),
+            str(Path("src") / "Widget.Cli"),
+        }
+        assert all(root.ecosystem == "net" for root in profile.package_roots)
+
+    def test_multi_module_maven_yields_one_root_per_module(self, tmp_path):
+        (tmp_path / "pom.xml").write_text("<project/>", encoding="utf-8")
+        (tmp_path / "module-a").mkdir()
+        (tmp_path / "module-a" / "pom.xml").write_text("<project/>", encoding="utf-8")
+
+        profile = build_profile("acme/widget", tmp_path)
+
+        assert len(profile.package_roots) == 2
+        paths = {root.path for root in profile.package_roots}
+        assert paths == {".", "module-a"}
+
+    def test_no_manifests_yields_no_package_roots(self, tmp_path):
+        profile = build_profile("acme/widget", tmp_path)
+        assert profile.package_roots == []

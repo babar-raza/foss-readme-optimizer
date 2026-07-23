@@ -222,6 +222,12 @@ class _FakeStateBackend:
         # see the class docstring.
         return True
 
+    def load_model_route_status(self, job):
+        # Wave 13.4 (`LLM-020`): `None` means "enabled" (the permissive
+        # default) -- no test in this file exercises a disabled route via
+        # this fake; that's proven directly in test_capability_dispatcher.py.
+        return None
+
 
 class TestSpecialistsRegistry:
     def test_all_domains_includes_all_ten_registered_specialists(self):

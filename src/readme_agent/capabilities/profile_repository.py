@@ -11,7 +11,7 @@ same durable-skip signal as plain values (`prior_upstream_revision`/
 the deterministic wiring code that loads those from a real StateBackend and
 persists the fresh result back; this capability never touches one itself."""
 
-from readme_agent.capabilities.schema import CapabilityManifest
+from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInputV1
 from readme_agent.profile.cached import get_or_build_profile
 from readme_agent.registry.loader import require_listed
 
@@ -38,6 +38,9 @@ MANIFEST = CapabilityManifest(
     ],
     required_permissions=["read_only_local"],
     side_effect_class="read_only_local",
+    # Wave 11.4 (`CAP-008`): real structural validation of the one
+    # LLM-visible argument, `org_repo`.
+    input_model=OrgRepoOnlyInputV1,
     tools_used=["profile.cached.get_or_build_profile"],
     failure_modes=["NotAllowlistedError if org_repo is not listed in data/products.json"],
     rollback_behavior="not applicable -- read-only, nothing to roll back",

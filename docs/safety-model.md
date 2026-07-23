@@ -5,8 +5,9 @@ assumed.
 
 ## 1. Push-blocking
 
-Even though `GH_TOKEN`/`GITHUB_PAT` are write-capable on every target repo, this tool never
-issues a write verb. Defense in depth, two independent controls:
+Even though `GH_TOKEN`/`GITHUB_PAT` are write-capable on every target repo, the **default work
+clone** every capability shares never issues a write verb. Defense in depth, two independent
+controls:
 
 1. **Push-neutering** (`gitsafety/neuter.py`): `git remote set-url --push origin DISABLED` on
    every work clone. `DISABLED` is not a resolvable URL, so `git push` fails structurally, not by
@@ -27,11 +28,16 @@ On Windows, the hook's executable bit is meaningless (NTFS) and is recorded but 
 excluded from the pass/fail verdict — Git for Windows invokes hooks via its bundled shell
 regardless of the bit, not silently assumed to pass.
 
-**Any future exception is a human-confirmation gate, not a code toggle.** If a `gated_effector`
-capability is ever built to make a real write, lifting push-blocking for it is never a silent
-config flip: `GOV-018` (`plans/master.md` decision #33, `plans/GOVERNANCE.md` rule 10) requires an
-explicit, per-instance user confirmation naming exactly what is being pushed, why, and where,
-before that write happens — a standing or implied approval from earlier never substitutes.
+**Every exception is a human-confirmation gate, not a code toggle — proven, not hypothetical.**
+One capability, `open_presentation_pr` (decisions #51-52), has a real write path: a structurally
+separate, dedicated clone (`gitsafety/clone.py::create_pr_clone()`) that is deliberately never
+neutered, distinct from the default work clone every other capability shares. It does not weaken
+the push-blocking property above — it is a second, narrow, explicitly-scoped exception to it,
+gated by `GOV-018` (`plans/master.md` decision #33, `plans/GOVERNANCE.md` rule 10): an explicit,
+per-instance user confirmation naming exactly what is being pushed, why, and where, before that
+write happens — a standing or implied approval from earlier never substitutes. This is not a
+future contingency: it has already run once, live, against a real target
+(`aspose-cells-foss/Aspose.Cells-FOSS-for-Java#1`, a real, open, independently-verified PR).
 
 ## 2. The allow-list
 

@@ -24,7 +24,9 @@ up, if present, before concluding a stale `pending` record is unrecoverable.
 
 from collections.abc import Callable
 from types import ModuleType
+from typing import get_args
 
+from readme_agent.authorization.schema import EffectClass
 from readme_agent.capabilities import (
     audit_community_files,
     audit_github_generated_surfaces,
@@ -47,6 +49,7 @@ from readme_agent.capabilities import (
     render_readme_candidate,
     review_visual_asset_accuracy,
     stop,
+    verify_package_acquisition,
     verify_prose_quality,
     verify_readme_candidate,
 )
@@ -75,6 +78,7 @@ _MODULES = (
     compare_reference_repositories,
     review_visual_asset_accuracy,
     get_template_clone_findings,
+    verify_package_acquisition,
     stop,
 )
 
@@ -123,6 +127,17 @@ def _build(
             raise ConfigError(
                 f"{manifest.capability_id!r} declares allowed_domains {sorted(unknown_domains)} "
                 f"not registered in domains.KNOWN_DOMAINS"
+            )
+
+        # Wave 13.3 (`AUTH-004`): the same build-time membership check as
+        # allowed_domains above, for the new, separate effect_classes axis --
+        # a typo or stale value here would otherwise surface only as a
+        # confusing runtime KeyError-shaped miss deep inside authorized_for().
+        unknown_effect_classes = set(manifest.effect_classes) - set(get_args(EffectClass))
+        if unknown_effect_classes:
+            raise ConfigError(
+                f"{manifest.capability_id!r} declares effect_classes "
+                f"{sorted(unknown_effect_classes)} not in authorization.schema.EffectClass"
             )
 
         # Fail-closed sunset (Decision #33): once more than one domain is

@@ -13,7 +13,7 @@ from pathlib import Path
 
 from readme_agent.ecosystems.registry import parse_manifest
 from readme_agent.inspection import file_inventory
-from readme_agent.profile.schema import DetectedEcosystem, RepositoryProfile
+from readme_agent.profile.schema import DetectedEcosystem, PackageRoot, RepositoryProfile
 
 # Broad, best-effort scan for "looks like it could be a manifest" -- some
 # over-inclusion is expected and acceptable (e.g. tsconfig.json, a lockfile):
@@ -79,8 +79,25 @@ def build_profile(org_repo: str, repo_path: Path) -> RepositoryProfile:
             root_candidates.extend(candidate.name for candidate in repo_path.glob(pattern))
     unresolved = resolve_unresolved_manifests(root_candidates, matched_filenames)
 
+    package_roots = [
+        PackageRoot(
+            path=_relative_root_dir(manifest_path, repo_path),
+            ecosystem=ecosystem,
+            manifest_path=str(manifest_path.relative_to(repo_path)),
+            confidence=1.0,
+            evidence=f"found {manifest_path.name}",
+        )
+        for ecosystem, manifest_path in file_inventory.find_all_manifest_roots(repo_path)
+    ]
+
     return RepositoryProfile(
         org_repo=org_repo,
         detected_ecosystems=detected,
         unresolved_manifests=unresolved,
+        package_roots=package_roots,
     )
+
+
+def _relative_root_dir(manifest_path: Path, repo_path: Path) -> str:
+    parent = manifest_path.parent.relative_to(repo_path)
+    return "." if str(parent) == "." else str(parent)

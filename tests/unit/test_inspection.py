@@ -1,3 +1,5 @@
+import os
+
 from readme_agent.gitsafety._git import run_git
 from readme_agent.inspection import file_inventory
 from readme_agent.inspection.git_metadata import get_git_metadata
@@ -163,6 +165,44 @@ class TestFileInventoryManifests:
 
         assert "python" not in inv.manifest_paths
 
+    def test_bound_is_reached_deterministically_regardless_of_os_walk_order(
+        self, tmp_path, monkeypatch
+    ):
+        """Wave 13.6 (`DEP-004`): `os.walk()`'s own directory/file order is
+        filesystem-dependent, never guaranteed -- found live when a real
+        `act` (Linux/Docker) run of this exact test disagreed with its own
+        Windows-local result. Proven directly here by monkeypatching
+        `os.walk` to yield entries in a deliberately reversed order (the
+        opposite of this test's own construction order, simulating exactly
+        the divergence found) and confirming the bound still trips on the
+        same files regardless -- the fix (`dirs[:] = sorted(...)`/
+        `sorted(files)`) makes the walk's own effective order deterministic,
+        not dependent on whatever order the OS happens to hand back."""
+        monkeypatch.setattr(file_inventory, "_MAX_FILES_SCANNED", 50)
+
+        for d in range(6):
+            noisy = tmp_path / f"d{d}"
+            noisy.mkdir()
+            for f in range(10):
+                (noisy / f"noise{f}.txt").write_text("x", encoding="utf-8")
+        past_bound = tmp_path / "d6"
+        past_bound.mkdir()
+        (past_bound / "pyproject.toml").write_text("[project]\nname='x'\n", encoding="utf-8")
+
+        real_walk = os.walk
+
+        def _reversed_order_walk(path):
+            for root, dirs, files in real_walk(path):
+                dirs.reverse()
+                files.reverse()
+                yield root, dirs, files
+
+        monkeypatch.setattr(file_inventory.os, "walk", _reversed_order_walk)
+
+        inv = file_inventory.scan(tmp_path)
+
+        assert "python" not in inv.manifest_paths
+
     def test_walk_within_max_files_scanned_bound_still_finds_manifest(self, tmp_path, monkeypatch):
         """Control case: the bound doesn't break the common, well-within-
         bound case -- a manifest found before the ceiling is hit is
@@ -179,6 +219,92 @@ class TestFileInventoryManifests:
         inv = file_inventory.scan(tmp_path)
 
         assert inv.manifest_paths["python"] == tmp_path / "pyproject.toml"
+
+
+class TestFindAllManifestRoots:
+    """Wave 11.1 (`ECO-004`): unlike `scan().manifest_paths` (deliberately
+    "first match per ecosystem wins," unchanged), this finds every manifest
+    across the whole tree -- the monorepo-support gap
+    `resolve_manifest_candidates()`'s own docstring already names."""
+
+    def test_single_root_returns_exactly_one_entry(self, tmp_path):
+        (tmp_path / "pom.xml").write_text("<project/>", encoding="utf-8")
+
+        roots = file_inventory.find_all_manifest_roots(tmp_path)
+
+        assert roots == [("java", tmp_path / "pom.xml")]
+
+    def test_multiple_csproj_files_all_returned(self, tmp_path):
+        """A multi-project .NET solution -- the real, common layout this
+        project's own registry already has multiple entries for."""
+        (tmp_path / "src" / "Widget.Core").mkdir(parents=True)
+        (tmp_path / "src" / "Widget.Core" / "Widget.Core.csproj").write_text(
+            "<Project/>", encoding="utf-8"
+        )
+        (tmp_path / "src" / "Widget.Cli").mkdir(parents=True)
+        (tmp_path / "src" / "Widget.Cli" / "Widget.Cli.csproj").write_text(
+            "<Project/>", encoding="utf-8"
+        )
+
+        roots = file_inventory.find_all_manifest_roots(tmp_path)
+
+        paths = {path for _, path in roots}
+        assert paths == {
+            tmp_path / "src" / "Widget.Core" / "Widget.Core.csproj",
+            tmp_path / "src" / "Widget.Cli" / "Widget.Cli.csproj",
+        }
+        assert all(ecosystem == "net" for ecosystem, _ in roots)
+
+    def test_multi_module_maven_at_different_depths_all_returned(self, tmp_path):
+        (tmp_path / "pom.xml").write_text("<project/>", encoding="utf-8")
+        (tmp_path / "module-a").mkdir()
+        (tmp_path / "module-a" / "pom.xml").write_text("<project/>", encoding="utf-8")
+        (tmp_path / "module-b" / "nested").mkdir(parents=True)
+        (tmp_path / "module-b" / "nested" / "pom.xml").write_text("<project/>", encoding="utf-8")
+
+        roots = file_inventory.find_all_manifest_roots(tmp_path)
+
+        assert len(roots) == 3
+        assert all(ecosystem == "java" for ecosystem, _ in roots)
+
+    def test_mixed_ecosystem_roots_all_returned(self, tmp_path):
+        """An npm workspace root plus a Python subproject -- two different
+        ecosystems, each its own root, neither hiding the other."""
+        (tmp_path / "package.json").write_text("{}", encoding="utf-8")
+        (tmp_path / "tools" / "scripts").mkdir(parents=True)
+        (tmp_path / "tools" / "scripts" / "pyproject.toml").write_text(
+            "[project]\nname='x'\n", encoding="utf-8"
+        )
+
+        roots = file_inventory.find_all_manifest_roots(tmp_path)
+
+        ecosystems = {ecosystem for ecosystem, _ in roots}
+        assert ecosystems == {"typescript", "python"}
+        assert len(roots) == 2
+
+    def test_no_manifests_returns_empty_list(self, tmp_path):
+        assert file_inventory.find_all_manifest_roots(tmp_path) == []
+
+    def test_skips_noise_directories(self, tmp_path):
+        noisy = tmp_path / "node_modules" / "some-dep"
+        noisy.mkdir(parents=True)
+        (noisy / "package.json").write_text("{}", encoding="utf-8")
+
+        assert file_inventory.find_all_manifest_roots(tmp_path) == []
+
+    def test_does_not_mutate_scan_s_first_match_wins_behavior(self, tmp_path):
+        """The existing `scan()`/`manifest_paths` contract (first match per
+        ecosystem) must stay exactly as it was -- this new function is
+        additive, not a replacement."""
+        (tmp_path / "pom.xml").write_text("<project/>", encoding="utf-8")
+        (tmp_path / "module-a").mkdir()
+        (tmp_path / "module-a" / "pom.xml").write_text("<project/>", encoding="utf-8")
+
+        inv = file_inventory.scan(tmp_path)
+        roots = file_inventory.find_all_manifest_roots(tmp_path)
+
+        assert inv.manifest_paths["java"] == tmp_path / "pom.xml"  # unchanged: still one
+        assert len(roots) == 2  # new function: both
 
 
 class TestFileInventoryCommunityPaths:

@@ -178,6 +178,41 @@ class TestGetOrBuildProfileApiPath:
         assert result.org_repo == ORG_REPO
         assert [d.ecosystem for d in result.detected_ecosystems] == ["python"]
         assert result.detected_ecosystems[0].manifest_path == "pyproject.toml"
+        assert len(result.package_roots) == 1
+        assert result.package_roots[0].path == "."
+        assert result.package_roots[0].manifest_path == "pyproject.toml"
+
+    def test_api_path_multi_root_all_returned(self, monkeypatch):
+        """Wave 11.1 (`ECO-004`): the tree-API path must also see every
+        manifest, not just the first per ecosystem -- parity with the
+        filesystem-walk path's `find_all_manifest_roots()`."""
+        entry = _fake_entry()
+        monkeypatch.setattr(cached, "remote_head_sha", lambda clone_url: "new-sha")
+        monkeypatch.setattr(cached.env, "gh_token", lambda: "fake-token")
+        monkeypatch.setattr(cached, "clone_baseline", _fail_if_called)
+        monkeypatch.setattr(cached, "build_profile", _fail_if_called)
+        monkeypatch.setattr(
+            cached.github_api_client,
+            "get_tree",
+            lambda org_repo, sha, token: {
+                "truncated": False,
+                "tree": [
+                    {"path": "src/Widget.Core/Widget.Core.csproj", "type": "blob"},
+                    {"path": "src/Widget.Cli/Widget.Cli.csproj", "type": "blob"},
+                ],
+            },
+        )
+        monkeypatch.setattr(
+            cached.github_api_client,
+            "get_file_content",
+            lambda org_repo, path, token: b"<Project/>",
+        )
+
+        result = cached.get_or_build_profile(entry)
+
+        paths = {root.path for root in result.package_roots}
+        assert paths == {"src/Widget.Core", "src/Widget.Cli"}
+        assert all(root.ecosystem == "net" for root in result.package_roots)
 
     def test_truncated_tree_falls_back_to_clone(self, monkeypatch, tmp_path):
         entry = _fake_entry()

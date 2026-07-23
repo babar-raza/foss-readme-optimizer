@@ -36,6 +36,21 @@ pushing anything. `reconciliation_check()` below answers the effect
 ledger's own "did this already land" question the same way, for the
 `EFF-001` pending/applied lifecycle.
 
+**`idempotency_inputs` includes `final_text`** (Wave 9.6, `EFF-006`) in
+addition to `fresh_fingerprint`: `effect_ledger.py::idempotency_key()`
+hashes it via a typed `EffectIdentityV1` (`effect_identity.py`) rather than
+`fresh_fingerprint` alone, which is only the pre-render upstream baseline
+and cannot distinguish two different rendered candidates against the same
+unchanged upstream -- the confirmed bug this fixes. This makes the ledger
+itself correctly attempt a fresh `execute()` call for a second, differing
+candidate rather than silently returning a stale cached result. **Named
+honestly, not oversold**: `find_open_pr()`'s own branch-name dedup
+immediately above still keys on `facts_hash` alone (unchanged by this fix),
+so that second `execute()` attempt still finds the first candidate's
+still-open PR and returns `already_open` without pushing the new content --
+a separate, pre-existing gap this fix exposed but does not itself close
+(`PRL-009`).
+
 **`PRL-004` (write model)**: direct branch push, confirmed live (decision
 #46, `gh api` against the 3 confirmed pilots: `push=true`/`admin=true`) --
 no fork-and-PR fallback exists or is needed for those repos.
@@ -43,7 +58,25 @@ no fork-and-PR fallback exists or is needed for those repos.
 **`PRL-008` (lock revalidation)**: inherited for free -- `dispatch_gated_
 effect()` (`EFF-005`) already revalidates lock holder identity before its
 own terminal `applied` write, for every `remote_write`/`local_write`
-capability alike; nothing here needs to duplicate that."""
+capability alike; nothing here needs to duplicate that.
+
+**`AUTH-004`/`AUTH-005` (Wave 13.3, authorization enforcement cutover)**:
+declares `effect_classes=["PR_BRANCH_PUSH", "PR_CREATE_OR_UPDATE"]` -- the
+one real remote-write capability this project has, and the first (and, as
+of this wave, only) capability wired to `authorization.registry.
+authorized_for()`. `dispatch_gated_effect()` checks this *in addition to*
+`mode != 'full'` above, not instead of, until the two are proven
+equivalent. **No repo has a real authorization record filed yet** (a
+deliberate, human-confirmed choice, not an oversight -- see decision #69):
+granting one is a human-authored, asynchronously-reviewed act, and self-
+authoring it under this same commit authority would collapse the two-layer
+design back into one layer the agent alone controls, exactly the "infers
+authorization from `mode == 'full'` alone" failure `AUTH-004` exists to
+close. The practical consequence: this capability is now blocked
+(`blocked_pending_authorization`) for every repo, including
+`aspose-cells-foss/Aspose.Cells-FOSS-for-Java` (the one repo with a real
+merged-precedent PR) -- correct, not a regression, until a human files a
+real record for it."""
 
 from readme_agent import env, paths
 from readme_agent.capabilities.domains import README_PRESENTATION
@@ -108,7 +141,8 @@ MANIFEST = CapabilityManifest(
     required_permissions=["remote_write"],
     side_effect_class="remote_write",
     allowed_domains=[README_PRESENTATION],
-    idempotency_inputs=["org_repo", "facts_hash", "fresh_fingerprint"],
+    effect_classes=["PR_BRANCH_PUSH", "PR_CREATE_OR_UPDATE"],
+    idempotency_inputs=["org_repo", "facts_hash", "fresh_fingerprint", "final_text"],
     retry_policy="idempotent_only",
     tools_used=[
         "gitsafety.clone.create_pr_clone",

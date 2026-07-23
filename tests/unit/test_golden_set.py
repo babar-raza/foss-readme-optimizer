@@ -4,11 +4,11 @@ logic, and durable-metric aggregation."""
 import pytest
 
 from readme_agent.errors import LLMError
-from readme_agent.golden_set import aggregation, harness
+from readme_agent.golden_set import aggregation, auto_disable, harness
 from readme_agent.golden_set.scenarios import SCENARIOS, GoldenScenario
 from readme_agent.llm.planner_client import FixturePlannerClient, PlannerTurn
 from readme_agent.llm.schema import LLMResponseMeta, Usage
-from readme_agent.state.schema import RunStateV1, SupervisorStateV1
+from readme_agent.state.schema import ModelRouteStatusV1, RunStateV1, SupervisorStateV1
 
 
 def _tool_call(capability_id: str) -> dict:
@@ -269,3 +269,87 @@ class TestAggregateProductionMetrics:
         backend = _FakeStateBackend({})
         result = aggregation.aggregate_production_metrics(backend, ["acme/never-run"])
         assert result["repos_with_state"] == 0
+
+
+class _FakeModelRouteBackend:
+    def __init__(self, existing: ModelRouteStatusV1 | None = None):
+        self._routes: dict[str, ModelRouteStatusV1] = {}
+        if existing is not None:
+            self._routes[existing.job] = existing
+
+    def load_model_route_status(self, job):
+        return self._routes.get(job)
+
+    def save_model_route_status(self, status):
+        self._routes[status.job] = status
+
+
+def _results(*passed: bool) -> list[harness.ScenarioResult]:
+    return [
+        harness.ScenarioResult(f"s{i}", "cat", p, "cap", "detail") for i, p in enumerate(passed)
+    ]
+
+
+class TestEvaluateAndDisable:
+    """Wave 13.5 (`OPS-012`): the durable enforcement action `OPS-011`'s
+    measurement side made possible but never automated -- a real pass-rate
+    floor durably disables a job's route, never silently, never
+    auto-re-enabling."""
+
+    def test_pass_rate_above_floor_does_nothing(self):
+        backend = _FakeModelRouteBackend()
+        results = _results(True, True, True, True)  # 100%
+
+        outcome = auto_disable.evaluate_and_disable("supervisor_planning", results, backend)
+
+        assert outcome is None
+        assert backend.load_model_route_status("supervisor_planning") is None
+
+    def test_pass_rate_below_floor_disables_and_persists(self):
+        backend = _FakeModelRouteBackend()
+        results = _results(True, False, False, False)  # 25%, below PASS_RATE_FLOOR
+
+        outcome = auto_disable.evaluate_and_disable("supervisor_planning", results, backend)
+
+        assert outcome is not None
+        assert outcome.status == "disabled"
+        assert outcome.job == "supervisor_planning"
+        assert "0.25" in outcome.reason
+        stored = backend.load_model_route_status("supervisor_planning")
+        assert stored is not None
+        assert stored.status == "disabled"
+
+    def test_empty_results_does_nothing(self):
+        """`summarize([])`'s own `pass_rate: None` must never be treated as
+        "crossed the floor" -- no scenarios run is not evidence of failure."""
+        backend = _FakeModelRouteBackend()
+
+        outcome = auto_disable.evaluate_and_disable("supervisor_planning", [], backend)
+
+        assert outcome is None
+
+    def test_already_disabled_route_is_left_untouched(self):
+        """Never auto-re-enables and never overwrites a human's own recorded
+        reason with a fresh one, even on a second bad run."""
+        existing = ModelRouteStatusV1(
+            job="supervisor_planning", status="disabled", reason="a human's own reason"
+        )
+        backend = _FakeModelRouteBackend(existing)
+        results = _results(False, False, False, False)  # 0%
+
+        outcome = auto_disable.evaluate_and_disable("supervisor_planning", results, backend)
+
+        assert outcome is None
+        stored = backend.load_model_route_status("supervisor_planning")
+        assert stored.reason == "a human's own reason"
+
+    def test_evidence_ref_is_recorded_when_supplied(self):
+        backend = _FakeModelRouteBackend()
+        results = _results(False, False)  # 0%
+
+        outcome = auto_disable.evaluate_and_disable(
+            "supervisor_planning", results, backend, evidence_ref="runs/evidence/abc123"
+        )
+
+        assert outcome is not None
+        assert outcome.evidence_ref == "runs/evidence/abc123"

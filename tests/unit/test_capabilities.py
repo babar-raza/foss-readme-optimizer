@@ -37,7 +37,11 @@ from readme_agent.capabilities import (
     verify_prose_quality,
     verify_readme_candidate,
 )
-from readme_agent.capabilities.schema import CapabilityGap, CapabilityManifest
+from readme_agent.capabilities.schema import (
+    CapabilityGap,
+    CapabilityManifest,
+    OrgRepoOnlyInputV1,
+)
 from readme_agent.errors import NotAllowlistedError
 from readme_agent.state.schema import DomainStateV1, RunStateV1
 
@@ -85,6 +89,63 @@ class TestCapabilityManifestSchema:
         assert schema["function"]["parameters"]["required"] == ["org_repo"]
         assert set(schema["function"]["parameters"]["properties"]) == {"org_repo", "limit"}
 
+    def test_to_tool_schema_prefers_input_model_when_declared(self):
+        """Wave 11.4 (`CAP-008`): a manifest with `input_model` set uses
+        its real `model_json_schema()`, not the flat type-name map -- even
+        when `required_inputs` is also (redundantly) populated."""
+        m = _manifest(input_model=OrgRepoOnlyInputV1)
+        schema = m.to_tool_schema()
+        assert schema["function"]["parameters"]["required"] == ["org_repo"]
+        assert set(schema["function"]["parameters"]["properties"]) == {"org_repo"}
+
+    def test_to_tool_schema_strips_the_input_models_own_docstring_description(self):
+        """The generated schema's own `description` (Pydantic's default:
+        the model's docstring) must never leak into the LLM-facing schema
+        -- `function.description` (from `purpose`) is the one authoritative
+        description."""
+        m = _manifest(input_model=OrgRepoOnlyInputV1, purpose="the real purpose text")
+        schema = m.to_tool_schema()
+        assert schema["function"]["description"] == "the real purpose text"
+        assert "description" not in schema["function"]["parameters"]
+
+    def test_input_model_defaults_to_none(self):
+        assert _manifest().input_model is None
+        assert _manifest().output_model is None
+
+    def test_effect_classes_defaults_empty(self):
+        assert _manifest().effect_classes == []
+
+
+class TestOrgRepoRef:
+    """Wave 11.4 (`CAP-008`): the concrete "reject invalid repo refs"
+    validator -- proven both standalone and through the shared
+    `OrgRepoOnlyInputV1` input model three real capabilities now use."""
+
+    def test_valid_org_repo_passes(self):
+        model = OrgRepoOnlyInputV1(org_repo="acme/widget")
+        assert model.org_repo == "acme/widget"
+
+    def test_missing_slash_is_rejected(self):
+        with pytest.raises(ValidationError):
+            OrgRepoOnlyInputV1(org_repo="acme-widget")
+
+    def test_empty_string_is_rejected(self):
+        with pytest.raises(ValidationError):
+            OrgRepoOnlyInputV1(org_repo="")
+
+    def test_extra_path_segment_is_rejected(self):
+        with pytest.raises(ValidationError):
+            OrgRepoOnlyInputV1(org_repo="acme/widget/extra")
+
+    def test_dots_hyphens_and_underscores_are_permitted(self):
+        model = OrgRepoOnlyInputV1(org_repo="acme-org/widget_v2.foss")
+        assert model.org_repo == "acme-org/widget_v2.foss"
+
+    def test_error_message_names_the_offending_value(self):
+        with pytest.raises(ValidationError) as exc_info:
+            OrgRepoOnlyInputV1(org_repo="no-slash-here")
+        assert "no-slash-here" in str(exc_info.value)
+
 
 class TestCapabilityGap:
     def test_defaults_are_populated(self):
@@ -130,6 +191,8 @@ class TestRegistry:
             "get_template_clone_findings",
             # TC-17 (decision #46, AGT-006): the real, registered stop capability.
             "stop",
+            # Wave 11.2 (PKG-005): per-package-root live acquisition verification.
+            "verify_package_acquisition",
         }
 
     def test_get_returns_manifest(self):
@@ -153,6 +216,7 @@ class TestRegistry:
             "compare_against_presentation_standard",
             "compare_reference_repositories",
             "review_visual_asset_accuracy",
+            "verify_package_acquisition",
         }
 
     def test_filter_by_side_effect_class_local_write(self):
@@ -167,7 +231,7 @@ class TestRegistry:
 
     def test_filter_by_execution_type(self):
         tools = registry.filter_by(execution_type="deterministic_tool")
-        assert len(tools) == 10  # TC-17 adds the "stop" capability
+        assert len(tools) == 11  # Wave 11.2 adds "verify_package_acquisition"
 
     def test_filter_by_execution_type_manual_delivery_preparation(self):
         """Wave 7h: the first capability to use this execution_type,
@@ -196,6 +260,8 @@ class TestRegistry:
             "get_template_clone_findings",
             # TC-17 (decision #46, AGT-006): unscoped, general-planner-visible.
             "stop",
+            # Wave 11.2 (PKG-005): unscoped, general-planner-visible.
+            "verify_package_acquisition",
         }
         assert "classify_upstream_change" not in names
         # The one real mutating capability must never be offered to the
@@ -280,6 +346,40 @@ class TestRegistryDomainEnforcement:
         registry._build((mutating_unscoped,))  # must not raise -- only one domain registered
 
 
+class TestRegistryEffectClassEnforcement:
+    """Wave 13.3 (`AUTH-004`): the same build-time membership check pattern
+    `TestRegistryDomainEnforcement` above already established, for the
+    separate `effect_classes` axis (`authorization.schema.EffectClass`)."""
+
+    def test_unknown_effect_class_raises(self):
+        from readme_agent.errors import ConfigError
+
+        bad_module = SimpleNamespace(
+            MANIFEST=_manifest(capability_id="bad", effect_classes=["NOT_A_REAL_CLASS"]),
+            execute=lambda: {},
+        )
+        with pytest.raises(ConfigError):
+            registry._build((bad_module,))
+
+    def test_known_effect_class_does_not_raise(self):
+        ok_module = SimpleNamespace(
+            MANIFEST=_manifest(capability_id="ok", effect_classes=["PR_BRANCH_PUSH"]),
+            execute=lambda: {},
+        )
+        registry._build((ok_module,))  # must not raise
+
+    def test_the_real_open_presentation_pr_capability_declares_its_effect_classes(self):
+        manifest = registry.get("open_presentation_pr")
+        assert manifest.effect_classes == ["PR_BRANCH_PUSH", "PR_CREATE_OR_UPDATE"]
+
+    def test_the_real_commit_readme_write_capability_declares_no_effect_classes(self):
+        """Deliberate (see `commit_readme_write.py`'s own docstring) -- a
+        local-only, never-pushed commit has no external blast radius any
+        `EffectClass` value actually describes."""
+        manifest = registry.get("commit_readme_write")
+        assert manifest.effect_classes == []
+
+
 class TestRegistryEff001RegistrationGate:
     """Decision #26 addendum -- implements EFF-001's own already-specified
     acceptance criterion: a local_write+ manifest missing idempotency_inputs
@@ -314,10 +414,10 @@ class TestRegistryEff001RegistrationGate:
         registry._build((mutator,))  # must not raise
 
     def test_real_registry_of_twenty_two_capabilities_still_builds_cleanly(self):
-        """Regression: twenty read-only capabilities plus the two real
+        """Regression: twenty-one read-only capabilities plus the two real
         mutating capabilities (commit_readme_write, Wave 7g;
         open_presentation_pr, TC-08) all pass the mutating-only gate."""
-        assert len(registry.list_all()) == 22
+        assert len(registry.list_all()) == 23
 
 
 class TestInspectRepositoryCapability:
@@ -517,6 +617,86 @@ class TestGetProductFactsCapability:
         assert result["source"]["detected_ecosystems"] == (
             "live repository clone (repository inspection)"
         )
+
+    def test_execute_exposes_package_roots(self, monkeypatch, tmp_path):
+        """Wave 11.3 (`FACT-010`): additive -- `package_roots` was already
+        computed inside `profile` (Wave 11.1) but never exposed here."""
+        from readme_agent.profile.schema import PackageRoot, RepositoryProfile
+        from readme_agent.registry.models import (
+            BlockPolicy,
+            LicenseElement,
+            LinkSpec,
+            PolicyProfile,
+            RelationshipElement,
+            RequiredElements,
+            WordLimit,
+        )
+
+        fake_entry = SimpleNamespace(
+            org="acme",
+            repo_name="widget",
+            mode="full",
+            family="widget",
+            platform="java",
+            ecosystem="java",
+            policy_profile="acme-widget",
+        )
+        fake_policy = PolicyProfile(
+            schema_version=2,
+            policy_profile="acme-widget",
+            required_elements=RequiredElements(
+                license_mentioned=LicenseElement(detected_license="MIT"),
+                products_org_link=LinkSpec(
+                    url="https://products.acme.org/widget/java/",
+                    family_url="https://products.acme.org/widget/",
+                    label="Widget",
+                ),
+                products_com_link=LinkSpec(
+                    url="https://products.acme.com/widget/java/",
+                    family_url="https://products.acme.com/widget/",
+                    label="Widget",
+                ),
+                relationship_explained=RelationshipElement(
+                    min_sentences=2, talking_points=["open_source_scope"]
+                ),
+            ),
+            secondary_links=[],
+            block=BlockPolicy(
+                word_limit=WordLimit(min=10, max=200),
+                prohibited_terms=[],
+                link_whitelist_domains=[],
+            ),
+        )
+        fake_profile = RepositoryProfile(
+            org_repo="acme/widget",
+            package_roots=[
+                PackageRoot(
+                    path=".",
+                    ecosystem="java",
+                    manifest_path="pom.xml",
+                    confidence=1.0,
+                    evidence="found pom.xml",
+                )
+            ],
+        )
+        monkeypatch.setattr(get_product_facts, "require_listed", lambda org_repo: fake_entry)
+        monkeypatch.setattr(get_product_facts, "load_policy", lambda profile: fake_policy)
+        monkeypatch.setattr(
+            get_product_facts, "get_or_build_profile", lambda entry, **kwargs: fake_profile
+        )
+
+        result = get_product_facts.execute("acme/widget")
+
+        assert result["package_roots"] == [
+            {
+                "path": ".",
+                "ecosystem": "java",
+                "manifest_path": "pom.xml",
+                "confidence": 1.0,
+                "evidence": "found pom.xml",
+            }
+        ]
+        assert result["source"]["package_roots"] == "live repository clone (repository inspection)"
 
     def test_execute_allows_disabled_repo(self, monkeypatch, tmp_path):
         """Decision #40: mode == "disabled" means push access is unverified,
@@ -1762,6 +1942,7 @@ class TestCommitReadmeWriteCapability:
             "org_repo",
             "facts_hash",
             "fresh_fingerprint",
+            "final_text",
         ]
         assert commit_readme_write.MANIFEST.retry_policy == "idempotent_only"
 

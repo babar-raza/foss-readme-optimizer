@@ -93,13 +93,16 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         return {}
 
     org_repo = config["configurable"]["org_repo"]
+    backend: StateBackend | None = config["configurable"].get("backend")
     review_tool_call = {
         "function": {
             "name": "review_visual_asset_accuracy",
             "arguments": json.dumps({"org_repo": org_repo}),
         }
     }
-    dispatch = dispatch_tool_call(review_tool_call, _READ_ONLY_PERMISSIONS, caller_domain=DOMAIN)
+    dispatch = dispatch_tool_call(
+        review_tool_call, _READ_ONLY_PERMISSIONS, caller_domain=DOMAIN, state_backend=backend
+    )
     if dispatch.outcome != "executed":
         # Advisory only -- a review failure never escalates to blocking the
         # domain's own accepted classification, unlike a real gate failure.

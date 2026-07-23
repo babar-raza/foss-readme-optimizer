@@ -53,9 +53,23 @@ community-profile API, display via GitHub only.
 - **Apply:** operator, via Settings UI, from prepared asset + instructions. Status machine: `NOT_REQUIRED → ASSET_PROPOSED → ASSET_VALIDATED → AWAITING_APPROVAL → PREPARED_FOR_MANUAL_APPLY → MANUALLY_APPLIED_WITH_EVIDENCE | STALE | REJECTED`.
 - **Forbidden:** reporting applied without operator evidence (SAFE-011); claiming an upload API exists without documented proof (OWN-007); duplicate asset generation for an unchanged fingerprint.
 
-### Class D — product-agent owned
-- **Apply:** none by central. Findings flow through `HandoffFindingV1` with a response loop (receive → ack → correct/reject with evidence → central rerun) — a state transition, not prose.
-- **Forbidden:** any write handler existing at all (CORE-022, OWN-004); inferring release facts from stale prose (FACT-008); "fixing" a mismatch directly.
+### Class D — product-agent owned (the actual release/package registry only)
+- **Apply:** none by central to the release/package registry itself (an actual GitHub Release
+  object, actual package-registry metadata) — publishing or editing those stays forbidden exactly
+  as strictly as before. Findings flow through `HandoffFindingV1` as a **one-way record** (surface,
+  anomaly, evidence) — decision #37 found no real, responsive product-agent counterparty exists to
+  ack/reject/rerun against, so this is not a bidirectional state machine; it is a durable finding a
+  human or a later automated pass may act on, corrected 2026-07-22 from an earlier draft of this
+  doc that described a receive→ack→correct/reject→rerun loop.
+- **Corrected 2026-07-22 (`OWN-004` scope fix, not a weakening)**: `OWN-004`/`CORE-022` forbid a
+  write handler for the *registry/release objects themselves* — they do not forbid correcting the
+  *README's own prose* describing them (an install coordinate, a package name), which `OWN-002`/
+  `OWN-008` already classify as repository-file-managed, squarely the central agent's own editable
+  content. A verified recon result (e.g. a package coordinate confirmed not to resolve) may correct
+  that presentation text; it may never publish, replace, or edit the actual release/package.
+- **Forbidden:** any write handler touching the actual release/package registry (`CORE-022`,
+  `OWN-004`); inferring release facts from stale prose (`FACT-008`); silently guessing instead of
+  citing verified recon evidence when correcting presentation text.
 
 ### Class E — GitHub generated
 - **Apply:** none, ever (OWN-003/005). Findings explain the underlying cause (history, vendored files, Linguist rules) and route any legitimate source-tree remediation to the owning agent.

@@ -5,7 +5,8 @@ registry to prove the actual check_install_path manifest's permission class
 is honored, not just a mocked one."""
 
 from readme_agent.capabilities import dispatcher, registry
-from readme_agent.capabilities.schema import CapabilityManifest
+from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInputV1
+from readme_agent.state.schema import ModelRouteStatusV1
 
 
 def _manifest(**overrides) -> CapabilityManifest:
@@ -215,6 +216,192 @@ class TestDispatchInvalidArguments:
 
         assert result.outcome == "rejected_invalid_arguments"
         assert "org_repo" in result.error
+
+
+class TestDispatchInputModelValidation:
+    """Wave 11.4 (`CAP-008`): a capability declaring `input_model` gets
+    real structural validation -- not just presence -- before the executor
+    ever runs. A capability without `input_model` (every one that predates
+    this field) is completely unaffected (proven throughout this file's
+    other test classes, none of which set it)."""
+
+    def test_malformed_org_repo_is_rejected_before_execute_runs(self, monkeypatch):
+        manifest = _manifest(input_model=OrgRepoOnlyInputV1)
+
+        def fail_if_called(org_repo):
+            raise AssertionError("execute() must not run for a failed input_model validation")
+
+        monkeypatch.setattr(registry, "get", lambda cid: manifest)
+        monkeypatch.setattr(registry, "get_executor", lambda cid: fail_if_called)
+        tool_call = _tool_call("widget_capability", '{"org_repo": "not-a-valid-repo-ref"}')
+
+        result = dispatcher.dispatch_tool_call(tool_call, allowed_permissions={"read_only_local"})
+
+        assert result.outcome == "rejected_invalid_arguments"
+        assert "org_repo" in result.error
+
+    def test_valid_org_repo_still_executes(self, monkeypatch):
+        manifest = _manifest(input_model=OrgRepoOnlyInputV1)
+
+        def fake_execute(org_repo):
+            return {"org_repo": org_repo}
+
+        monkeypatch.setattr(registry, "get", lambda cid: manifest)
+        monkeypatch.setattr(registry, "get_executor", lambda cid: fake_execute)
+        tool_call = _tool_call("widget_capability", '{"org_repo": "acme/widget"}')
+
+        result = dispatcher.dispatch_tool_call(tool_call, allowed_permissions={"read_only_local"})
+
+        assert result.outcome == "executed"
+        assert result.result == {"org_repo": "acme/widget"}
+
+    def test_no_input_model_skips_structural_validation_entirely(self, monkeypatch):
+        """Backward compatibility: a manifest with `input_model=None` (the
+        default) never invokes Pydantic validation at all -- an
+        org_repo-shaped-oddly value that the old presence-only check would
+        have allowed through still executes, exactly as before."""
+        manifest = _manifest()  # input_model defaults to None
+        assert manifest.input_model is None
+
+        def fake_execute(org_repo):
+            return {"org_repo": org_repo}
+
+        monkeypatch.setattr(registry, "get", lambda cid: manifest)
+        monkeypatch.setattr(registry, "get_executor", lambda cid: fake_execute)
+        tool_call = _tool_call("widget_capability", '{"org_repo": "not-a-valid-repo-ref"}')
+
+        result = dispatcher.dispatch_tool_call(tool_call, allowed_permissions={"read_only_local"})
+
+        assert result.outcome == "executed"
+
+
+class _FakeModelRouteBackend:
+    def __init__(self, status: ModelRouteStatusV1 | None):
+        self._status = status
+
+    def load_model_route_status(self, job: str) -> ModelRouteStatusV1 | None:
+        return self._status
+
+
+class TestDispatchModelRouteGate:
+    """Wave 13.4 (`LLM-020`): a capability declaring `model_route` whose
+    route a human has durably disabled must not dispatch -- generalizes the
+    hardcoded `supervisor_planning`-only check `supervisor/loop.py` already
+    had to every capability that declares one. A no-op unless BOTH
+    `model_route` is declared AND a live `state_backend` is supplied --
+    every existing caller/test above (none of which pass `state_backend`)
+    is completely unaffected."""
+
+    def test_disabled_route_blocks_before_execute_runs(self, monkeypatch):
+        manifest = _manifest(model_route="some_job")
+
+        def fail_if_called(org_repo):
+            raise AssertionError("execute() must not run when the route is disabled")
+
+        monkeypatch.setattr(registry, "get", lambda cid: manifest)
+        monkeypatch.setattr(registry, "get_executor", lambda cid: fail_if_called)
+        tool_call = _tool_call("widget_capability", '{"org_repo": "acme/widget"}')
+        backend = _FakeModelRouteBackend(
+            ModelRouteStatusV1(job="some_job", status="disabled", reason="golden-set failure")
+        )
+
+        result = dispatcher.dispatch_tool_call(
+            tool_call, allowed_permissions={"read_only_local"}, state_backend=backend
+        )
+
+        assert result.outcome == "rejected_model_route_disabled"
+        assert "some_job" in result.error
+        assert "golden-set failure" in result.error
+
+    def test_enabled_route_proceeds_normally(self, monkeypatch):
+        manifest = _manifest(model_route="some_job")
+
+        def fake_execute(org_repo):
+            return {"org_repo": org_repo}
+
+        monkeypatch.setattr(registry, "get", lambda cid: manifest)
+        monkeypatch.setattr(registry, "get_executor", lambda cid: fake_execute)
+        tool_call = _tool_call("widget_capability", '{"org_repo": "acme/widget"}')
+        backend = _FakeModelRouteBackend(ModelRouteStatusV1(job="some_job", status="enabled"))
+
+        result = dispatcher.dispatch_tool_call(
+            tool_call, allowed_permissions={"read_only_local"}, state_backend=backend
+        )
+
+        assert result.outcome == "executed"
+
+    def test_no_recorded_status_at_all_proceeds_normally(self, monkeypatch):
+        """`load_model_route_status()` returning `None` means "enabled"
+        (the permissive default, per its own docstring) -- never itself a
+        block."""
+        manifest = _manifest(model_route="some_job")
+
+        def fake_execute(org_repo):
+            return {"org_repo": org_repo}
+
+        monkeypatch.setattr(registry, "get", lambda cid: manifest)
+        monkeypatch.setattr(registry, "get_executor", lambda cid: fake_execute)
+        tool_call = _tool_call("widget_capability", '{"org_repo": "acme/widget"}')
+        backend = _FakeModelRouteBackend(None)
+
+        result = dispatcher.dispatch_tool_call(
+            tool_call, allowed_permissions={"read_only_local"}, state_backend=backend
+        )
+
+        assert result.outcome == "executed"
+
+    def test_no_state_backend_supplied_is_a_no_op_even_for_a_routed_capability(self, monkeypatch):
+        """Regression guard: every existing caller in this file (none of
+        which pass `state_backend`) is completely unaffected, even for a
+        capability that DOES declare `model_route`."""
+        manifest = _manifest(model_route="some_job")
+
+        def fake_execute(org_repo):
+            return {"org_repo": org_repo}
+
+        monkeypatch.setattr(registry, "get", lambda cid: manifest)
+        monkeypatch.setattr(registry, "get_executor", lambda cid: fake_execute)
+        tool_call = _tool_call("widget_capability", '{"org_repo": "acme/widget"}')
+
+        result = dispatcher.dispatch_tool_call(tool_call, allowed_permissions={"read_only_local"})
+
+        assert result.outcome == "executed"
+
+    def test_capability_with_no_model_route_is_unaffected_even_with_a_disabled_backend(
+        self, monkeypatch
+    ):
+        manifest = _manifest()  # model_route defaults to None
+        assert manifest.model_route is None
+
+        def fake_execute(org_repo):
+            return {"org_repo": org_repo}
+
+        monkeypatch.setattr(registry, "get", lambda cid: manifest)
+        monkeypatch.setattr(registry, "get_executor", lambda cid: fake_execute)
+        tool_call = _tool_call("widget_capability", '{"org_repo": "acme/widget"}')
+        backend = _FakeModelRouteBackend(
+            ModelRouteStatusV1(job="unrelated_job", status="disabled", reason="n/a")
+        )
+
+        result = dispatcher.dispatch_tool_call(
+            tool_call, allowed_permissions={"read_only_local"}, state_backend=backend
+        )
+
+        assert result.outcome == "executed"
+
+    def test_the_real_verify_prose_quality_capability_declares_its_model_route(self):
+        manifest = registry.get("verify_prose_quality")
+        assert manifest.model_route == "prose_quality_check"
+
+    def test_the_real_compare_against_presentation_standard_capability_declares_its_model_route(
+        self,
+    ):
+        manifest = registry.get("compare_against_presentation_standard")
+        assert manifest.model_route == "presentation_standard_compliance"
+
+    def test_the_real_review_visual_asset_accuracy_capability_declares_its_model_route(self):
+        manifest = registry.get("review_visual_asset_accuracy")
+        assert manifest.model_route == "visual_asset_accuracy"
 
 
 class TestDispatchExecutionError:

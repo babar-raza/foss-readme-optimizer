@@ -166,14 +166,62 @@ def _find_manifest_paths(repo_path: Path) -> dict[str, Path]:
     def _bounded_walk() -> Iterable[tuple[str, Path]]:
         files_scanned = 0
         for root, dirs, files in os.walk(repo_path):
-            dirs[:] = [d for d in dirs if d not in NOISE_DIRS]
-            for filename in files:
+            # Wave 13.6 (`DEP-004`): `os.walk()`'s own traversal order is
+            # filesystem-dependent, never guaranteed -- found live via a
+            # real `act` (Linux/Docker) run reordering this exact walk
+            # relative to the same test's own Windows-local result,
+            # silently changing which files a `_MAX_FILES_SCANNED`-bounded
+            # scan reaches first. Sorting `dirs`/`files` in place makes
+            # which manifest a bounded scan finds (or misses) identical
+            # across every OS/filesystem this project's own CI or a real
+            # pilot repo might be scanned from, not an accident of the host.
+            dirs[:] = sorted(d for d in dirs if d not in NOISE_DIRS)
+            for filename in sorted(files):
                 files_scanned += 1
                 yield filename, Path(root) / filename
             if files_scanned >= _MAX_FILES_SCANNED:
                 return
 
     return resolve_manifest_candidates(_bounded_walk())
+
+
+def find_all_manifest_roots(repo_path: Path) -> list[tuple[str, Path]]:
+    """Wave 11.1 (`ECO-004`): every manifest match across the whole tree,
+    not just the first per ecosystem -- `resolve_manifest_candidates()`'s
+    own docstring already names this exact limitation ("one manifest path
+    per ecosystem" as the extent of this project's monorepo support). A
+    repository with N independently buildable modules (a multi-module
+    Maven/Gradle tree, a multi-`.csproj` .NET solution, an npm/Yarn
+    workspace) has N real package roots, not one flattened, potentially
+    misleading one.
+
+    Deliberately a separate function from `_find_manifest_paths()`/
+    `resolve_manifest_candidates()`, not a change to either: those two stay
+    exactly "first match per ecosystem wins" for every existing caller
+    (`FileInventory.manifest_paths`, `profile/cached.py`'s git-tree-API
+    path) -- changing their return shape would ripple into call sites this
+    phase does not need to touch. Reuses the identical bounded-walk/
+    `NOISE_DIRS` exclusion those functions already established -- a second,
+    independently-drifting traversal rule is exactly what this module's own
+    docstring warns against."""
+    if not repo_path.is_dir():
+        return []
+
+    globs = known_manifest_globs()
+    found: list[tuple[str, Path]] = []
+    files_scanned = 0
+    for root, dirs, files in os.walk(repo_path):
+        # Same deterministic-ordering fix as `_find_manifest_paths()`'s own
+        # `_bounded_walk()` above -- see that comment for why.
+        dirs[:] = sorted(d for d in dirs if d not in NOISE_DIRS)
+        for filename in sorted(files):
+            files_scanned += 1
+            for ecosystem, patterns in globs.items():
+                if any(fnmatch.fnmatch(filename, pattern) for pattern in patterns):
+                    found.append((ecosystem, Path(root) / filename))
+            if files_scanned >= _MAX_FILES_SCANNED:
+                return found
+    return found
 
 
 def scan(repo_path: Path) -> FileInventory:

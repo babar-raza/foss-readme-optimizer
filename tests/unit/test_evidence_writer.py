@@ -1,7 +1,15 @@
 import json
 import re
 
-from readme_agent.evidence.writer import generate_run_id, sha256_file, unified_diff, write_evidence
+from readme_agent.evidence.manifest_v2 import RunManifestV2
+from readme_agent.evidence.writer import (
+    generate_run_id,
+    sha256_file,
+    unified_diff,
+    write_evidence,
+    write_run_manifest_v2,
+)
+from readme_agent.state.schema import SurfaceFreshnessContractV1
 
 
 class TestGenerateRunId:
@@ -100,3 +108,60 @@ class TestWriteEvidence:
         facts_text = (evidence_dir / "facts.json").read_text(encoding="utf-8")
         assert "sk-abcdefghij1234567890" not in facts_text
         assert "[REDACTED]" in facts_text
+
+
+class TestWriteRunManifestV2:
+    """Wave 13.1 (`EVID-001`): the single, canonical `manifest.json` writer
+    for `supervisor/loop.py::supervise_repo()`'s evidence bundle."""
+
+    def test_writes_a_valid_json_manifest(self, tmp_path):
+        manifest = RunManifestV2(
+            run_id="run1",
+            org_repo="acme/widget",
+            status="CONVERGED_APPLIED",
+            timestamp="2026-07-23T00:00:00+00:00",
+            control_plane_fingerprint="fp1",
+            upstream_revision="abc123",
+            domain_coverage_complete=True,
+            surface_freshness={
+                "metadata_presentation": SurfaceFreshnessContractV1(
+                    surface_id="metadata_presentation",
+                    authoritative_source="github_api",
+                    ttl_seconds=3600,
+                )
+            },
+        )
+
+        write_run_manifest_v2(tmp_path, manifest)
+
+        written = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+        assert written["run_id"] == "run1"
+        assert written["control_plane_fingerprint"] == "fp1"
+        assert written["upstream_revision"] == "abc123"
+        assert written["domain_coverage_complete"] is True
+        assert written["surface_freshness"]["metadata_presentation"]["ttl_seconds"] == 3600
+        # Not yet populated by anything -- explicit null, not omitted or faked.
+        assert written["authorization_record_id"] is None
+        assert written["trigger_dedup_key"] is None
+
+    def test_secret_like_values_in_the_manifest_are_redacted(self, tmp_path):
+        manifest = RunManifestV2(
+            run_id="run1",
+            org_repo="acme/widget",
+            status="BLOCKED",
+            timestamp="t",
+            upstream_revision="sk-abcdefghij1234567890",
+        )
+
+        write_run_manifest_v2(tmp_path, manifest)
+
+        manifest_text = (tmp_path / "manifest.json").read_text(encoding="utf-8")
+        assert "sk-abcdefghij1234567890" not in manifest_text
+        assert "[REDACTED]" in manifest_text
+
+    def test_atomic_write_leaves_no_tmp_file_behind(self, tmp_path):
+        manifest = RunManifestV2(
+            run_id="run1", org_repo="acme/widget", status="CONVERGED_NO_CHANGE", timestamp="t"
+        )
+        write_run_manifest_v2(tmp_path, manifest)
+        assert not (tmp_path / "manifest.json.tmp").exists()

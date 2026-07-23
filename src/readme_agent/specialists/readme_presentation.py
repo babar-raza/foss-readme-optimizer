@@ -151,7 +151,9 @@ def _dispatch_verify_readme_candidate(org_repo: str, render_result: dict):
     )
 
 
-def _dispatch_prose_quality_check(org_repo: str, final_text: str):
+def _dispatch_prose_quality_check(
+    org_repo: str, final_text: str, state_backend: StateBackend | None = None
+):
     prose_tool_call = {
         "function": {
             "name": "verify_prose_quality",
@@ -159,7 +161,10 @@ def _dispatch_prose_quality_check(org_repo: str, final_text: str):
         }
     }
     return dispatch_tool_call(
-        prose_tool_call, _READ_ONLY_PERMISSIONS, caller_domain=INDEPENDENT_VERIFICATION
+        prose_tool_call,
+        _READ_ONLY_PERMISSIONS,
+        caller_domain=INDEPENDENT_VERIFICATION,
+        state_backend=state_backend,
     )
 
 
@@ -204,6 +209,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         return {}
 
     org_repo = config["configurable"]["org_repo"]
+    backend: StateBackend | None = config["configurable"].get("backend")
     current_render_result = render_result
     repair_attempts = 0
     # TC-28 (decision #46's own deferred scope from TC-15): one fresh value
@@ -245,7 +251,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         }
 
         prose_dispatch = _dispatch_prose_quality_check(
-            org_repo, current_render_result["final_text"]
+            org_repo, current_render_result["final_text"], state_backend=backend
         )
         if prose_dispatch.outcome != "executed":
             return {"accepted_status": f"ERROR:{prose_dispatch.outcome}:{prose_dispatch.error}"}

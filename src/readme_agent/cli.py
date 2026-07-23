@@ -33,7 +33,12 @@ def _build_parser() -> argparse.ArgumentParser:
     p_validate.add_argument("--check-links", action="store_true")
 
     p_run = sub.add_parser(
-        "run", help="Full pipeline: preflight -> gitsafety -> inspect -> generate -> validate"
+        "run",
+        help=(
+            "[compatibility/diagnostic -- not the primary production path, decision #46] "
+            "Full pipeline: preflight -> gitsafety -> inspect -> generate -> validate. "
+            "New GitHub production traffic uses `supervise --execution-profile ...` instead."
+        ),
     )
     p_run.add_argument("--repo", required=True)
     p_run.add_argument("--mode", choices=["full", "dry_run"], default="dry_run")
@@ -49,7 +54,11 @@ def _build_parser() -> argparse.ArgumentParser:
     )
 
     p_run_registry = sub.add_parser(
-        "run-registry", help="Run every enabled entry in data/products.json"
+        "run-registry",
+        help=(
+            "[compatibility/diagnostic -- not the primary production path, decision #46] "
+            "Run every enabled entry in data/products.json via the legacy `run` engine."
+        ),
     )
     p_run_registry.add_argument("--only", help="Comma-separated org/repo list to restrict to")
     p_run_registry.add_argument(
@@ -59,7 +68,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_profile_registry = sub.add_parser(
         "profile-registry",
         help=(
-            "Read-only: profile every data/products.json entry regardless of mode "
+            "[diagnostic] Read-only: profile every data/products.json entry regardless of mode "
             "(decision #40) -- with --durable-state, a repo whose upstream commit "
             "hasn't changed since the last run is a cache hit, not a re-clone"
         ),
@@ -102,11 +111,67 @@ def _build_parser() -> argparse.ArgumentParser:
             "a dedicated once-per-pass job heals instead."
         ),
     )
+    p_supervise.add_argument(
+        "--execution-profile",
+        choices=[
+            "local_inspect",
+            "local_dry_run",
+            "github_observe",
+            "github_proposal",
+            "github_apply",
+        ],
+        default=None,
+        help=(
+            "Wave 9.4: the explicit, typed execution profile this run operates under -- "
+            "declares required state, allowed permission classes, evidence/verification "
+            "requirements, valid triggers, and rollback (supervisor/execution_profile.py). "
+            "A `github_*` profile fails closed on any durable-state trouble and forbids "
+            "--domain (see below); omitting this flag preserves today's default, local, "
+            "best-effort behavior (compatibility-only -- new GitHub workflows must pass one)."
+        ),
+    )
+    p_supervise.add_argument(
+        "--enable-dynamic-planning",
+        action="store_true",
+        help=(
+            "Wave 12.2 (`ORC-003`/`AGT-008`): construct real LivePlannerClient instances "
+            "(job-routed via env.llm_model_for_job('specialist_selection')/"
+            "('repair_capability_selection'), both already live-tested routing entries) and "
+            "pass them into supervise_repo()'s specialist_selection_client/"
+            "repair_planner_client, plus enable_specialist_skip=True -- the dynamic "
+            "specialist-skip and repair-alternative-selection mechanisms (Wave 8.6), fully "
+            "built and unit-tested since, but never before wired into any shipped CLI/"
+            "GitHub-Actions path. Never a default -- omitting this flag preserves today's "
+            "exact deterministic behavior (fixed specialist sweep, blind-retry-only repair)."
+        ),
+    )
 
     p_report = sub.add_parser(
         "report", help="Render a human-readable summary from a prior evidence dir"
     )
     p_report.add_argument("--run-id", required=True)
+
+    p_authorization_validate = sub.add_parser(
+        "authorization-validate",
+        help=(
+            "Wave 13.2 (AUTH-001-006): diagnostic, read-only check of whether "
+            "config/authorization/<org>__<repo>.yml exists, is schema-valid, and which "
+            "EffectClass values it covers -- never itself grants authority."
+        ),
+    )
+    p_authorization_validate.add_argument("--repo", required=True)
+
+    p_golden_set_run = sub.add_parser(
+        "golden-set-run",
+        help=(
+            "Wave 13.5 (OPS-011/OPS-012): live, non-mutating golden-set run against a job's "
+            "currently-routed model -- auto-disables the route (durable state) if this run's "
+            "pass rate crosses the documented floor; never auto-re-enables."
+        ),
+    )
+    p_golden_set_run.add_argument(
+        "--job", required=True, help="e.g. supervisor_planning -- the scenario corpus's own target"
+    )
 
     p_model_route_enable = sub.add_parser(
         "model-route-enable",
@@ -164,6 +229,8 @@ def main(argv: list[str] | None = None) -> int:
         "profile-registry": commands.cmd_profile_registry,
         "supervise": commands.cmd_supervise,
         "report": commands.cmd_report,
+        "authorization-validate": commands.cmd_authorization_validate,
+        "golden-set-run": commands.cmd_golden_set_run,
         "model-route-enable": commands.cmd_model_route_enable,
         "scaffold-policy": commands.cmd_scaffold_policy,
     }[args.command]

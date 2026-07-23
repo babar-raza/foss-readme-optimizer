@@ -1,14 +1,29 @@
 """`AGT-004`: stop only on defined convergence, missing-permission, or
 genuine-blocker conditions -- never an arbitrary global iteration limit."""
 
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
+from readme_agent.capabilities.domains import METADATA_PRESENTATION, PACKAGE_RELEASE_AUDIT
 from readme_agent.capabilities.schema import CapabilityGap
+from readme_agent.state.freshness_contract import refresh_surface_contracts
+from readme_agent.state.schema import (
+    CapabilityOutputCacheEntry,
+    DomainStateV1,
+    OpenProposalV1,
+    RunStateV1,
+    SupervisorStateV1,
+    TriggerRecordV1,
+)
 from readme_agent.supervisor.convergence import (
     check_repair_exhausted,
     compute_control_plane_fingerprint,
     final_status,
+    has_open_proposal_needing_reconciliation,
+    has_pending_effect,
+    has_unfinished_trigger,
     is_fresh,
+    no_change_gate_holds,
 )
 from readme_agent.supervisor.task import Task, TaskGraph
 
@@ -268,6 +283,26 @@ class TestCheckRepairExhausted:
 
 
 class TestFinalStatus:
+    def test_unresolved_specialist_error_blocks_convergence(self):
+        graph = TaskGraph()
+        task = graph.add_task(Task(capability_id="inspect_repository"))
+        graph.mark(task.task_id, "PASSED")
+        outcome = final_status(
+            graph,
+            applied_any_effect=False,
+            specialist_results={
+                "readme_presentation": DomainStateV1(
+                    domain="readme_presentation",
+                    accepted_status="ERROR:verification_rejected:prose_quality_flagged",
+                )
+            },
+        )
+        assert outcome.status == "BLOCKED"
+        assert outcome.blocked_reason == (
+            "specialist_failed:readme_presentation:"
+            "ERROR:verification_rejected:prose_quality_flagged"
+        )
+
     def test_no_blocked_tasks_converges_no_change(self):
         graph = TaskGraph()
         t1 = graph.add_task(Task(capability_id="a"))
@@ -315,3 +350,218 @@ class TestFinalStatus:
         )
         outcome = final_status(graph, applied_any_effect=False)
         assert outcome.status == "BLOCKED"
+
+
+NOW = datetime(2026, 7, 23, 12, 0, 0, tzinfo=UTC)
+REVISION = "abc123"
+FINGERPRINT = "fp1"
+
+
+class TestHasPendingEffect:
+    def test_no_entries_has_no_pending_effect(self):
+        assert not has_pending_effect([])
+
+    def test_all_applied_has_no_pending_effect(self):
+        entries = [
+            CapabilityOutputCacheEntry(
+                capability_id="c", fingerprint="k1", result={}, status="applied"
+            )
+        ]
+        assert not has_pending_effect(entries)
+
+    def test_one_pending_entry_is_a_pending_effect(self):
+        entries = [
+            CapabilityOutputCacheEntry(
+                capability_id="c", fingerprint="k1", result={}, status="pending"
+            )
+        ]
+        assert has_pending_effect(entries)
+
+
+class TestHasOpenProposalNeedingReconciliation:
+    def test_no_proposals_is_vacuous(self):
+        """`PRL-002` is still `PARTIAL` -- no specialist populates
+        `open_proposals` in production today, so this is always vacuously
+        False for a real run right now."""
+        assert not has_open_proposal_needing_reconciliation({})
+
+    def test_an_open_proposal_needs_reconciliation(self):
+        proposals = {"readme_presentation": OpenProposalV1(domain="readme_presentation")}
+        assert has_open_proposal_needing_reconciliation(proposals)
+
+    def test_a_merged_proposal_does_not_need_reconciliation(self):
+        proposals = {
+            "readme_presentation": OpenProposalV1(domain="readme_presentation", state="merged")
+        }
+        assert not has_open_proposal_needing_reconciliation(proposals)
+
+
+class TestHasUnfinishedTrigger:
+    def test_no_triggers_has_none_unfinished(self):
+        assert not has_unfinished_trigger({})
+
+    def test_a_completed_trigger_is_not_unfinished(self):
+        records = {"k": TriggerRecordV1(org_repo="a/b", status="completed")}
+        assert not has_unfinished_trigger(records)
+
+    def test_a_deduplicated_trigger_is_not_unfinished(self):
+        records = {"k": TriggerRecordV1(org_repo="a/b", status="deduplicated")}
+        assert not has_unfinished_trigger(records)
+
+    def test_an_accepted_trigger_is_unfinished(self):
+        records = {"k": TriggerRecordV1(org_repo="a/b", status="accepted")}
+        assert has_unfinished_trigger(records)
+
+    def test_a_processing_trigger_is_unfinished(self):
+        records = {"k": TriggerRecordV1(org_repo="a/b", status="processing")}
+        assert has_unfinished_trigger(records)
+
+
+def _converged_run_state(**overrides) -> RunStateV1:
+    """A `RunStateV1` representing a genuinely converged prior run: Git
+    revision/control-plane fingerprint/domain coverage all match, every
+    non-git surface was checked `NOW`, no pending effect, no open proposal,
+    no unfinished trigger -- the baseline every negative test below
+    perturbs along exactly one dimension."""
+    base = RunStateV1(
+        org_repo="acme/widget",
+        supervisor_state=SupervisorStateV1(
+            last_observed_upstream_revision=REVISION,
+            control_plane_fingerprint=FINGERPRINT,
+            domain_coverage_complete=True,
+            surface_freshness=refresh_surface_contracts({}, {}, NOW),
+        ),
+        capability_outputs=[],
+        open_proposals={},
+        trigger_records={},
+    )
+    return base.model_copy(update=overrides)
+
+
+class TestNoChangeGateHolds:
+    """Wave 9.7 (`FRESH-010`): the full 7-condition gate. The 6 named
+    negative scenarios below are the sprint plan's own acceptance proof --
+    each perturbs the converged baseline along exactly one dimension a Git
+    SHA comparison alone could never see, and none may still shortcut to
+    `NO_CHANGE`."""
+
+    def test_a_genuinely_converged_state_holds(self):
+        assert no_change_gate_holds(_converged_run_state(), REVISION, FINGERPRINT, now=NOW)
+
+    def test_no_prior_state_at_all_does_not_hold(self):
+        assert not no_change_gate_holds(None, REVISION, FINGERPRINT, now=NOW)
+
+    def test_changed_git_revision_does_not_hold(self):
+        assert not no_change_gate_holds(_converged_run_state(), "def456", FINGERPRINT, now=NOW)
+
+    def test_negative_1_a_package_publish_forces_a_recheck(self):
+        """Git SHA unchanged, but a package published -- `PACKAGE_RELEASE_
+        AUDIT`'s own surface contract has gone stale (TTL elapsed)."""
+        state = _converged_run_state()
+        stale_freshness = dict(state.supervisor_state.surface_freshness)
+        stale_freshness[PACKAGE_RELEASE_AUDIT] = stale_freshness[PACKAGE_RELEASE_AUDIT].model_copy(
+            update={"last_checked_at": (NOW - timedelta(days=1)).isoformat()}
+        )
+        state = state.model_copy(
+            update={
+                "supervisor_state": state.supervisor_state.model_copy(
+                    update={"surface_freshness": stale_freshness}
+                )
+            }
+        )
+        assert not no_change_gate_holds(state, REVISION, FINGERPRINT, now=NOW)
+
+    def test_negative_2_a_description_change_forces_a_recheck(self):
+        """Git SHA unchanged, but the repository description may have
+        changed -- `METADATA_PRESENTATION`'s own contract is stale."""
+        state = _converged_run_state()
+        stale_freshness = dict(state.supervisor_state.surface_freshness)
+        stale_freshness[METADATA_PRESENTATION] = stale_freshness[METADATA_PRESENTATION].model_copy(
+            update={"last_checked_at": (NOW - timedelta(days=1)).isoformat()}
+        )
+        state = state.model_copy(
+            update={
+                "supervisor_state": state.supervisor_state.model_copy(
+                    update={"surface_freshness": stale_freshness}
+                )
+            }
+        )
+        assert not no_change_gate_holds(state, REVISION, FINGERPRINT, now=NOW)
+
+    def test_negative_3_a_topics_change_forces_a_recheck(self):
+        """Git SHA unchanged, but repository topics may have changed --
+        the same `METADATA_PRESENTATION` surface as description/homepage."""
+        state = _converged_run_state()
+        stale_freshness = dict(state.supervisor_state.surface_freshness)
+        stale_freshness[METADATA_PRESENTATION] = stale_freshness[METADATA_PRESENTATION].model_copy(
+            update={"last_checked_at": None}
+        )
+        state = state.model_copy(
+            update={
+                "supervisor_state": state.supervisor_state.model_copy(
+                    update={"surface_freshness": stale_freshness}
+                )
+            }
+        )
+        assert not no_change_gate_holds(state, REVISION, FINGERPRINT, now=NOW)
+
+    def test_negative_4_a_new_release_forces_a_recheck(self):
+        """Git SHA unchanged, but a new release was created -- the same
+        `PACKAGE_RELEASE_AUDIT` surface a package publish uses, a distinct
+        real-world trigger for it."""
+        state = _converged_run_state()
+        contracts = dict(state.supervisor_state.surface_freshness)
+        del contracts[PACKAGE_RELEASE_AUDIT]  # never checked at all
+        state = state.model_copy(
+            update={
+                "supervisor_state": state.supervisor_state.model_copy(
+                    update={"surface_freshness": contracts}
+                )
+            }
+        )
+        assert not no_change_gate_holds(state, REVISION, FINGERPRINT, now=NOW)
+
+    def test_negative_5_a_merged_pr_still_open_in_state_forces_a_recheck(self):
+        """Git SHA unchanged, but a proposed PR may have been merged/closed
+        on the remote side -- an open proposal recorded in state must
+        force a real check rather than being silently trusted as still
+        accurate."""
+        state = _converged_run_state(
+            open_proposals={"readme_presentation": OpenProposalV1(domain="readme_presentation")}
+        )
+        assert not no_change_gate_holds(state, REVISION, FINGERPRINT, now=NOW)
+
+    def test_negative_6_a_stale_social_preview_forces_a_recheck(self):
+        """Git SHA unchanged, but the visual/social-preview surface
+        (`VISUAL_PREPARATION`) was never actually observed by this
+        record."""
+        state = _converged_run_state()
+        contracts = {
+            k: v
+            for k, v in state.supervisor_state.surface_freshness.items()
+            if k != "visual_preparation"
+        }
+        state = state.model_copy(
+            update={
+                "supervisor_state": state.supervisor_state.model_copy(
+                    update={"surface_freshness": contracts}
+                )
+            }
+        )
+        assert not no_change_gate_holds(state, REVISION, FINGERPRINT, now=NOW)
+
+    def test_a_pending_effect_forces_a_recheck(self):
+        state = _converged_run_state(
+            capability_outputs=[
+                CapabilityOutputCacheEntry(
+                    capability_id="c", fingerprint="k1", result={}, status="pending"
+                )
+            ]
+        )
+        assert not no_change_gate_holds(state, REVISION, FINGERPRINT, now=NOW)
+
+    def test_an_unfinished_trigger_forces_a_recheck(self):
+        state = _converged_run_state(
+            trigger_records={"k": TriggerRecordV1(org_repo="acme/widget", status="processing")}
+        )
+        assert not no_change_gate_holds(state, REVISION, FINGERPRINT, now=NOW)

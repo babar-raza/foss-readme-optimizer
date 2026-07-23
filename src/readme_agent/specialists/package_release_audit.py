@@ -1,8 +1,19 @@
 """Package/release auditor (Wave 7c) -- domain `package_release_audit`, the
 third domain-scoped specialist. Class D per `docs/github-surface-control.md`/
 `repository-presentation-surface-model.md` (releases, packages):
-product-agent owned, audit/handoff only -- `OWN-004`/`OWN-013` forbid any
-renderer or write path here, and none exists.
+product-agent owned, audit/handoff only *for the actual release/package
+registry itself* -- `OWN-004`/`OWN-013` forbid this domain from publishing,
+replacing, or editing a real GitHub Release or package-registry entry, and
+this specialist has no such path. **Scope correction, 2026-07-22**: this does
+not mean a package-resolution finding is a permanent dead end -- the README's
+own presentation text describing a package coordinate is repository-file
+content (`OWN-002`/`OWN-008`), a different domain's job
+(`readme_presentation`/`readme_reconciliation`), not this one's. This
+specialist's `HandoffFindingV1` record is this domain's own correct,
+one-way output; a later reconciliation pass in the `readme_presentation`
+domain may use the same underlying `verify_package_acquisition` evidence to
+correct README prose -- that is not this specialist writing anything, it is
+a different domain consuming the same verified fact.
 
 Dispatches two capabilities: the new, domain-scoped `audit_package_release_
 surfaces` (GitHub Releases) and the existing, unscoped `check_install_path`

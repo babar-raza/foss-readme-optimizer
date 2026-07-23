@@ -21,9 +21,17 @@ the ending state, called only once the loop has actually stopped).
 import hashlib
 import json
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Literal
 
 from readme_agent.errors import ConfigError
+from readme_agent.state.schema import (
+    CapabilityOutputCacheEntry,
+    DomainStateV1,
+    OpenProposalV1,
+    RunStateV1,
+    TriggerRecordV1,
+)
 from readme_agent.supervisor.task import TaskGraph
 
 SuperviseStatus = Literal[
@@ -163,6 +171,81 @@ def compute_control_plane_fingerprint(policy_profile: str | None) -> str:
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
+def has_pending_effect(capability_outputs: list[CapabilityOutputCacheEntry]) -> bool:
+    """Condition 3 of 7 (`FRESH-007`): an effect that crashed mid-apply
+    (`EFF-002`'s own `pending` record) must never be silently papered over
+    by the coarse `NO_CHANGE` shortcut -- it needs `reconciliation_check()`
+    or a real retry, never a skip that leaves it stuck forever."""
+    return any(entry.status == "pending" for entry in capability_outputs)
+
+
+def has_open_proposal_needing_reconciliation(open_proposals: dict[str, OpenProposalV1]) -> bool:
+    """Condition 4 of 7 (`FRESH-008`): an open, unmerged proposal (`PRL-002`)
+    may have been merged/closed/superseded on the remote side independent
+    of anything this project tracks -- the coarse shortcut cannot know
+    without a real check. Currently always vacuous in production: `PRL-002`
+    is still `PARTIAL` (no specialist populates `RunStateV1.open_proposals`
+    yet), so this can never actually block a real run today -- built now so
+    the gate is already correct the moment a specialist starts populating
+    it, not retrofitted later."""
+    return any(proposal.state == "open" for proposal in open_proposals.values())
+
+
+def has_unfinished_trigger(trigger_records: dict[str, TriggerRecordV1]) -> bool:
+    """Condition 7 of 7 (`FRESH-009`): a trigger accepted but never marked
+    `completed`/`deduplicated` (`RUN-006`, Wave 9.5) means the run it
+    represents may still be in flight or may have died before recording its
+    own outcome -- the coarse shortcut must not treat that as settled."""
+    return any(record.status in ("accepted", "processing") for record in trigger_records.values())
+
+
+def no_change_gate_holds(
+    prior: RunStateV1 | None,
+    current_revision: str | None,
+    current_control_plane_fingerprint: str | None,
+    *,
+    now: datetime,
+) -> bool:
+    """Wave 9.7 (`FRESH-010`): the full 7-condition `NO_CHANGE` gate --
+    `is_fresh()`'s original 3 conditions (Git revision, control-plane
+    fingerprint, domain coverage) plus the 4 this phase adds (external
+    surfaces within TTL, no pending effect, no open proposal needing
+    reconciliation, no unfinished trigger). Replaces the bare `is_fresh()`
+    call at `supervisor/loop.py`'s post-clone coarse-shortcut call site,
+    which has the full `RunStateV1` on hand -- `is_fresh()` itself is
+    untouched (still directly unit-tested, still the right tool for the
+    cheap pre-clone probe shortcut, which has no full `RunStateV1` to
+    inspect and only ever needs the Git-revision-level question)."""
+    from readme_agent.state.domain_state import effective_domain_coverage_complete
+    from readme_agent.state.freshness_contract import any_surface_due_for_recheck
+
+    supervisor_state = prior.supervisor_state if prior is not None else None
+    if not is_fresh(
+        supervisor_state.last_observed_upstream_revision if supervisor_state else None,
+        current_revision,
+        recorded_control_plane_fingerprint=(
+            supervisor_state.control_plane_fingerprint if supervisor_state else None
+        ),
+        current_control_plane_fingerprint=current_control_plane_fingerprint,
+        recorded_domain_coverage_complete=effective_domain_coverage_complete(supervisor_state),
+        check_domain_coverage=True,
+    ):
+        return False
+    if prior is None:
+        return True
+    if any_surface_due_for_recheck(
+        supervisor_state.surface_freshness if supervisor_state else {}, now
+    ):
+        return False
+    if has_pending_effect(prior.capability_outputs):
+        return False
+    if has_open_proposal_needing_reconciliation(prior.open_proposals):
+        return False
+    if has_unfinished_trigger(prior.trigger_records):
+        return False
+    return True
+
+
 def check_repair_exhausted(turns_taken: int, max_turns: int) -> ConvergenceOutcome | None:
     """A **bug detector**, not the normal stop path: if the loop is still
     going after `max_turns`, that is itself evidence of a stuck planner (a
@@ -173,11 +256,31 @@ def check_repair_exhausted(turns_taken: int, max_turns: int) -> ConvergenceOutco
     return None
 
 
-def final_status(graph: TaskGraph, *, applied_any_effect: bool) -> ConvergenceOutcome:
+def final_status(
+    graph: TaskGraph,
+    *,
+    applied_any_effect: bool,
+    specialist_results: dict[str, DomainStateV1] | None = None,
+) -> ConvergenceOutcome:
     """Classifies the graph's ending state once the loop has actually
     stopped (the planner's own explicit turn with no tool call, or
     `check_repair_exhausted()` firing). Never called mid-loop to decide
     *whether* to stop -- only to decide *what happened* once it has."""
+    specialist_errors = sorted(
+        (
+            domain,
+            result.accepted_status,
+        )
+        for domain, result in (specialist_results or {}).items()
+        if (result.accepted_status or "").startswith("ERROR:")
+    )
+    if specialist_errors:
+        domain, status = specialist_errors[0]
+        return ConvergenceOutcome(
+            status="BLOCKED",
+            blocked_reason=f"specialist_failed:{domain}:{status}",
+        )
+
     blocked = [t for t in graph.tasks.values() if t.state == "BLOCKED"]
     if blocked:
         has_gap = any(t.gap is not None for t in blocked)

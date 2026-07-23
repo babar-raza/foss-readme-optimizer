@@ -17,8 +17,10 @@ DEFAULT_EMBEDDING_MODEL = "qwen3-embedding-8b"
 # gateway behavior in plans/investigations/llm-gateway-characterization.md,
 # not model-name folklore. A job not listed here falls back to
 # DEFAULT_LLM_MODEL. gpt-oss is not routed to any freeform/structured job --
-# it scored 1/10 on freeform-JSON validity there, though it tool-calls
-# reliably (5/5), which is a different mechanism this table does not cover.
+# its freeform-JSON validity is poor and inconsistent across reruns (LLM-018:
+# a 0.4-0.8 swing across two single-session N=10 runs, not a stable "1/10"
+# rate as originally reported), though it tool-calls reliably (5/5), which is
+# a different mechanism this table does not cover.
 JOB_MODEL_ROUTING: dict[str, str] = {
     "relationship_explained": "qwen3-next",
     # Wave 5's planner: qwen3-next is the routing-recommended model for
@@ -62,6 +64,20 @@ def gh_token() -> str | None:
     return os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_PAT") or None
 
 
+def github_run_id() -> str | None:
+    """`GITHUB_RUN_ID` -- GitHub Actions' own per-workflow-run identity, automatically set on every
+    real Actions runner, stable across a re-run of the *same* run (unlike `github.run_attempt`,
+    which changes). `None` outside Actions (local CLI use) -- Wave 9.5's trigger-dedup mechanism
+    (`state/trigger.py`) falls back to a manual/schedule identity in that case."""
+    return os.environ.get("GITHUB_RUN_ID") or None
+
+
+def github_event_name() -> str | None:
+    """`GITHUB_EVENT_NAME` -- one of `workflow_dispatch`/`schedule`/`repository_dispatch`/... on a
+    real Actions runner, `None` for local CLI use."""
+    return os.environ.get("GITHUB_EVENT_NAME") or None
+
+
 def llm_base_url() -> str:
     """LLM_BASE_URL > GPT_OSS_ENDPOINT > the documented professionalize default."""
     value = (
@@ -85,8 +101,24 @@ def llm_model() -> str:
 
 
 def llm_model_for_job(job: str) -> str:
-    """LLM_MODEL env override > per-job routing table > DEFAULT_LLM_MODEL."""
-    return os.environ.get("LLM_MODEL") or JOB_MODEL_ROUTING.get(job, DEFAULT_LLM_MODEL)
+    """Per-job routing table (`JOB_MODEL_ROUTING`) > `DEFAULT_LLM_MODEL`.
+
+    Wave 13.4 (`LLM-020`): `LLM_MODEL` no longer overrides a routed job by
+    default -- a stale/forgotten `LLM_MODEL` env var (local debugging
+    leftover, or a value carried over from an unrelated CI job) would
+    otherwise silently substitute a different model for a job whose route
+    was carefully evidence-selected (see `JOB_MODEL_ROUTING`'s own
+    docstring), including a job a golden-set run just disabled for cause --
+    exactly the "silent model substitution" `state/schema.py::
+    ModelRouteStatusV1`'s own docstring says a disabled route must never
+    permit. Requires an explicit, separate opt-in --
+    `READMEAGENT_DEBUG_MODEL_OVERRIDE=1` alongside `LLM_MODEL` -- for local
+    debugging only; never set together in a real workflow run."""
+    if os.environ.get("READMEAGENT_DEBUG_MODEL_OVERRIDE") == "1":
+        override = os.environ.get("LLM_MODEL")
+        if override:
+            return override
+    return JOB_MODEL_ROUTING.get(job, DEFAULT_LLM_MODEL)
 
 
 def llm_timeout_seconds() -> float:

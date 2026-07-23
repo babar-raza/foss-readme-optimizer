@@ -59,16 +59,34 @@ docstring states this precisely. Deliberately excluded from
 affect the idempotency key (that would break retries of the *same* pending
 effect across a lock-reclaim, EFF-005's whole point).
 
-**`idempotency_inputs` includes `fresh_fingerprint`** alongside `org_repo`/
-`facts_hash`: `facts_hash` deliberately excludes README content (decision
-#11) and can legitimately stay identical across two calls that produce a
-*different* `final_text` under `force_regenerate=True` combined with
-ordinary LLM sampling variance in the `relationship_explained` paragraph --
-without this, the second, newly-verified candidate would be silently
-discarded by the ledger's `already_applied` cache hit in favor of the first,
-stale one. `fresh_fingerprint` is already computed by `render_readme_
-candidate` for an unrelated Wave 7 drift-detection purpose; reused here
-rather than inventing a new hash."""
+**`idempotency_inputs` includes `fresh_fingerprint` AND `final_text`**
+alongside `org_repo`/`facts_hash`: `facts_hash` deliberately excludes README
+content (decision #11) and can legitimately stay identical across two calls
+that produce a *different* `final_text` under `force_regenerate=True`
+combined with ordinary LLM sampling variance in the
+`relationship_explained` paragraph -- without `final_text` participating,
+the second, newly-verified candidate would be silently discarded by the
+ledger's `already_applied` cache hit in favor of the first, stale one (the
+confirmed Wave 9.6 bug, `EFF-006`: `fresh_fingerprint` alone is only the
+PRE-RENDER upstream baseline hash, never a hash of the rendered candidate).
+`effect_ledger.py::idempotency_key()` hashes `final_text` via a typed
+`EffectIdentityV1` (`effect_identity.py`) rather than embedding it raw.
+`fresh_fingerprint` is already computed by `render_readme_candidate` for an
+unrelated Wave 7 drift-detection purpose; reused here rather than inventing
+a new hash.
+
+**Deliberately declares no `effect_classes` (Wave 13.3)**: unlike
+`open_presentation_pr`, none of `authorization.schema.EffectClass`'s 8
+values describes this capability's actual effect -- a commit into a local,
+disposable work clone that is never pushed anywhere (see this module's own
+rollback_behavior: "no remote effect exists to roll back"). Forcing a fit
+onto an existing value (or inventing a new one) would authorization-gate an
+action with zero external blast radius, which is scope creep of the
+taxonomy, not safety. `effect_classes` stays empty (its documented default,
+`capabilities/schema.py`), so this capability is unaffected by the Wave
+13.3 enforcement cutover -- gated only by `mode` (inside `execute()` via
+`commit_generated_readme()`) and `verification_verdict` (`precheck()`
+below), exactly as before."""
 
 from pathlib import Path
 
@@ -122,7 +140,7 @@ MANIFEST = CapabilityManifest(
     required_permissions=["local_write"],
     side_effect_class="local_write",
     allowed_domains=[README_PRESENTATION],
-    idempotency_inputs=["org_repo", "facts_hash", "fresh_fingerprint"],
+    idempotency_inputs=["org_repo", "facts_hash", "fresh_fingerprint", "final_text"],
     retry_policy="idempotent_only",
     tools_used=["orchestrator.commit_generated_readme"],
     failure_modes=["NotAllowlistedError if org_repo is not permitted with an enabled mode"],

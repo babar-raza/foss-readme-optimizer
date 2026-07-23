@@ -11,7 +11,8 @@ import pytest
 from readme_agent.errors import StateBackendError
 from readme_agent.state.backend import Lock, SaveResult
 from readme_agent.state.domain_state import save_domain
-from readme_agent.state.schema import DomainStateV1, RunStateV1
+from readme_agent.state.schema import DomainStateV1, RunStateV1, TriggerRecordV1
+from readme_agent.state.trigger import is_duplicate_trigger, record_trigger
 
 
 class FakeStateBackend:
@@ -492,3 +493,91 @@ class TestFakeStateBackendModelRoute:
         loaded = backend.load_model_route_status("supervisor_planning")
         assert loaded.status == "enabled"
         assert loaded.re_enabled_by == "human"
+
+
+class TestTriggerRecording:
+    """Wave 9.5 (`RUN-006`): trigger identity/dedup -- an equivalent event must not silently
+    re-execute already-accepted work."""
+
+    def test_first_trigger_is_recorded_accepted(self):
+        backend = FakeStateBackend()
+        trigger = TriggerRecordV1(org_repo="org/repo", manual_request_id="req-1")
+        result = record_trigger(backend, "org/repo", trigger)
+        assert result.status == "accepted"
+        loaded = backend.load("org/repo")
+        assert trigger.dedup_key() in loaded.trigger_records
+
+    def test_equivalent_manual_request_id_is_deduplicated(self):
+        backend = FakeStateBackend()
+        first = TriggerRecordV1(org_repo="org/repo", manual_request_id="req-1")
+        record_trigger(backend, "org/repo", first)
+
+        second = TriggerRecordV1(org_repo="org/repo", manual_request_id="req-1")
+        result = record_trigger(backend, "org/repo", second)
+        assert result.status == "deduplicated"
+        # Still exactly one record for this dedup key -- the second call never overwrote it
+        # with a fresh "accepted" status.
+        loaded = backend.load("org/repo")
+        assert len(loaded.trigger_records) == 1
+
+    def test_different_workflow_run_ids_are_not_deduplicated(self):
+        backend = FakeStateBackend()
+        record_trigger(
+            backend,
+            "org/repo",
+            TriggerRecordV1(
+                org_repo="org/repo", event_type="workflow_dispatch", workflow_run_id="run-1"
+            ),
+        )
+        result = record_trigger(
+            backend,
+            "org/repo",
+            TriggerRecordV1(
+                org_repo="org/repo", event_type="workflow_dispatch", workflow_run_id="run-2"
+            ),
+        )
+        assert result.status == "accepted"
+        loaded = backend.load("org/repo")
+        assert len(loaded.trigger_records) == 2
+
+    def test_is_duplicate_trigger_true_after_recording(self):
+        backend = FakeStateBackend()
+        trigger = TriggerRecordV1(org_repo="org/repo", manual_request_id="req-1")
+        assert is_duplicate_trigger(backend, "org/repo", trigger) is False
+        record_trigger(backend, "org/repo", trigger)
+        assert is_duplicate_trigger(backend, "org/repo", trigger) is True
+
+    def test_dedup_key_prefers_manual_request_id_over_workflow_run_id(self):
+        trigger = TriggerRecordV1(
+            org_repo="org/repo", workflow_run_id="run-1", manual_request_id="req-1"
+        )
+        assert trigger.dedup_key() == "manual:req-1"
+
+    def test_dedup_key_falls_back_to_schedule_window_when_nothing_else_given(self):
+        trigger = TriggerRecordV1(
+            org_repo="org/repo", event_type="schedule", schedule_window="2026-07-23T06:00"
+        )
+        assert trigger.dedup_key() == "schedule:org/repo:schedule:2026-07-23T06:00"
+
+    def test_recording_beyond_the_cap_prunes_the_oldest_entry(self):
+        from readme_agent.state import trigger as trigger_module
+
+        backend = FakeStateBackend()
+        original_cap = trigger_module.MAX_TRIGGER_RECORDS_PER_REPO
+        trigger_module.MAX_TRIGGER_RECORDS_PER_REPO = 2
+        try:
+            record_trigger(
+                backend, "org/repo", TriggerRecordV1(org_repo="org/repo", manual_request_id="1")
+            )
+            record_trigger(
+                backend, "org/repo", TriggerRecordV1(org_repo="org/repo", manual_request_id="2")
+            )
+            record_trigger(
+                backend, "org/repo", TriggerRecordV1(org_repo="org/repo", manual_request_id="3")
+            )
+            loaded = backend.load("org/repo")
+            assert len(loaded.trigger_records) == 2
+            assert "manual:1" not in loaded.trigger_records
+            assert "manual:3" in loaded.trigger_records
+        finally:
+            trigger_module.MAX_TRIGGER_RECORDS_PER_REPO = original_cap

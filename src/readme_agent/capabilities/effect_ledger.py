@@ -20,10 +20,13 @@ proved live, under the same per-repo lock (`MEM-002`).
 import hashlib
 import json
 from dataclasses import dataclass
-from typing import Literal
+from typing import Literal, cast
 
+from readme_agent.authorization import registry as authorization_registry
+from readme_agent.authorization.schema import EffectClass
 from readme_agent.capabilities import registry
 from readme_agent.capabilities.dispatcher import DispatchResult, dispatch_tool_call
+from readme_agent.capabilities.effect_identity import build_effect_identity
 from readme_agent.capabilities.schema import CapabilityManifest, PermissionClass
 from readme_agent.errors import StateBackendError
 from readme_agent.state.backend import StateBackend, safe_release_lock
@@ -40,6 +43,11 @@ GatedOutcome = Literal[
     # the attempt.
     "already_applied",
     "blocked_pending_reconciliation",
+    # Wave 13.3 (`AUTH-004`): a capability declaring one or more
+    # `effect_classes` has no authorization record covering all of them for
+    # this org_repo -- checked before any pending entry is written, same
+    # positioning/rationale as a rejecting precheck() below.
+    "blocked_pending_authorization",
 ]
 
 
@@ -57,7 +65,27 @@ def idempotency_key(capability_id: str, arguments: dict, idempotency_inputs: lis
     same inputs -> same key -> same decision about whether to act again.
     Only the *declared* fields participate (`idempotency_inputs`, already a
     manifest field), never every argument -- a documented per-case choice,
-    same as `facts_hash`'s deliberate exclusion of `gap_report`."""
+    same as `facts_hash`'s deliberate exclusion of `gap_report`.
+
+    Wave 9.6 (`EFF-006`): when `final_text` is one of the declared
+    `idempotency_inputs` -- today only `commit_readme_write`/
+    `open_presentation_pr` -- the key is built from a typed
+    `EffectIdentityV1` (`effect_identity.py`) instead of the plain per-field
+    dict below, so the *rendered candidate's own bytes*
+    (`candidate_byte_hash = sha256(final_text)`), not just the pre-render
+    upstream baseline (`fresh_fingerprint`), participate in the hash. This
+    fixes the confirmed live bug where two different generated candidates
+    against an unchanged upstream collided on one key -- see
+    `effect_identity.py`'s own docstring for the full trace."""
+    if "final_text" in idempotency_inputs:
+        identity = build_effect_identity(
+            effect_type=capability_id,
+            org_repo=arguments.get("org_repo", ""),
+            facts_hash=arguments.get("facts_hash", ""),
+            fresh_fingerprint=arguments.get("fresh_fingerprint", ""),
+            final_text=arguments.get("final_text", ""),
+        )
+        return hashlib.sha256(identity.canonical_json().encode()).hexdigest()
     selected = {name: arguments.get(name) for name in sorted(idempotency_inputs)}
     canonical = json.dumps(selected, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(f"{capability_id}:{canonical}".encode()).hexdigest()
@@ -138,7 +166,9 @@ def dispatch_gated_effect(
         # Not a gated effect at all -- plain dispatch, the ledger has nothing to add.
         return GatedDispatchResult(
             outcome="dispatched",
-            dispatch=dispatch_tool_call(tool_call, allowed_permissions, caller_domain),
+            dispatch=dispatch_tool_call(
+                tool_call, allowed_permissions, caller_domain, state_backend=backend
+            ),
         )
 
     raw_arguments = function.get("arguments")
@@ -148,6 +178,40 @@ def dispatch_gated_effect(
         )
     except json.JSONDecodeError:
         arguments = {}
+
+    # Wave 13.3 (`AUTH-004`, authorization enforcement cutover): checked
+    # first, ahead of precheck() below -- "is this action authorized at
+    # all" is a more fundamental gate than "is this specific call's payload
+    # valid," and both must run before the lock is acquired or any pending
+    # entry is written (same cheap, side-effect-free rationale as precheck()
+    # itself). Only a capability that actually declares `effect_classes`
+    # (today: only `open_presentation_pr`) is affected -- an empty list
+    # (every other capability's default) is a no-op here, unchanged from
+    # before this wave. `authorization_dir` is passed explicitly, re-reading
+    # the module attribute at call time, so a test can monkeypatch
+    # `authorization_registry.AUTHORIZATION_DIR` and have it actually take
+    # effect (its own bound-default parameter, evaluated once at import
+    # time, would not see a later monkeypatch -- the same hazard already
+    # found and fixed once in `commands.py::cmd_authorization_validate`).
+    unauthorized_effect_classes = [
+        effect_class
+        for effect_class in manifest.effect_classes
+        if authorization_registry.authorized_for(
+            org_repo,
+            cast(EffectClass, effect_class),
+            authorization_dir=authorization_registry.AUTHORIZATION_DIR,
+        )
+        is None
+    ]
+    if unauthorized_effect_classes:
+        return GatedDispatchResult(
+            outcome="blocked_pending_authorization",
+            detail=(
+                f"{org_repo!r} has no authorization record covering "
+                f"{unauthorized_effect_classes!r} for capability {capability_id!r} -- "
+                "AUTH-004: no capability may infer authorization from mode == 'full' alone"
+            ),
+        )
 
     # Wave 8 (production-reliability pass): checked BEFORE the lock/pending
     # write below, not after -- a cheap, side-effect-free rejection here
@@ -238,7 +302,9 @@ def dispatch_gated_effect(
         )
         _save_entry_with_retry(backend, org_repo, pending_entry, max_retries=max_retries)
 
-        dispatch = dispatch_tool_call(tool_call, allowed_permissions, caller_domain)
+        dispatch = dispatch_tool_call(
+            tool_call, allowed_permissions, caller_domain, state_backend=backend
+        )
 
         lock_loss_detail = None
         if dispatch.outcome == "executed":

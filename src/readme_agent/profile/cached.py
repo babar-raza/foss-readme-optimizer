@@ -25,10 +25,13 @@ from readme_agent import env
 from readme_agent.ecosystems.registry import parse_manifest
 from readme_agent.github_api import client as github_api_client
 from readme_agent.gitsafety.clone import clone_baseline, remote_head_sha
-from readme_agent.inspection.tree_paths import find_manifest_paths_from_tree
+from readme_agent.inspection.tree_paths import (
+    find_all_manifest_roots_from_tree,
+    find_manifest_paths_from_tree,
+)
 from readme_agent.paths import baseline_dir
 from readme_agent.profile.detector import build_profile, resolve_unresolved_manifests
-from readme_agent.profile.schema import DetectedEcosystem, RepositoryProfile
+from readme_agent.profile.schema import DetectedEcosystem, PackageRoot, RepositoryProfile
 from readme_agent.registry.models import ProductEntry
 
 
@@ -88,8 +91,22 @@ def _build_profile_via_api(
     ]
     unresolved = resolve_unresolved_manifests(root_candidates, matched_filenames)
 
+    package_roots = [
+        PackageRoot(
+            path=path.rsplit("/", 1)[0] if "/" in path else ".",
+            ecosystem=ecosystem,
+            manifest_path=path,
+            confidence=1.0,
+            evidence=f"found {path.rsplit('/', 1)[-1]} (via tree API)",
+        )
+        for ecosystem, path in find_all_manifest_roots_from_tree(tree_entries)
+    ]
+
     return RepositoryProfile(
-        org_repo=entry.org_repo, detected_ecosystems=detected, unresolved_manifests=unresolved
+        org_repo=entry.org_repo,
+        detected_ecosystems=detected,
+        unresolved_manifests=unresolved,
+        package_roots=package_roots,
     )
 
 

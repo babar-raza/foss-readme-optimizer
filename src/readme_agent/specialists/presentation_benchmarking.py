@@ -37,13 +37,16 @@ def _fingerprint(result: dict) -> str:
 
 def _classify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     org_repo = config["configurable"]["org_repo"]
+    backend: StateBackend | None = config["configurable"].get("backend")
     tool_call = {
         "function": {
             "name": "compare_against_presentation_standard",
             "arguments": json.dumps({"org_repo": org_repo}),
         }
     }
-    dispatch = dispatch_tool_call(tool_call, _READ_ONLY_PERMISSIONS, caller_domain=DOMAIN)
+    dispatch = dispatch_tool_call(
+        tool_call, _READ_ONLY_PERMISSIONS, caller_domain=DOMAIN, state_backend=backend
+    )
     if dispatch.outcome != "executed":
         return {"accepted_status": f"ERROR:{dispatch.outcome}:{dispatch.error}"}
 

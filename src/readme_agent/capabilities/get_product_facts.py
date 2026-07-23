@@ -18,7 +18,7 @@ same durable-skip signal as plain values (`prior_upstream_revision`/
 docstring for the full reasoning.
 """
 
-from readme_agent.capabilities.schema import CapabilityManifest
+from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInputV1
 from readme_agent.errors import NotAllowlistedError
 from readme_agent.profile.cached import get_or_build_profile
 from readme_agent.registry.loader import load_policy, require_listed
@@ -56,6 +56,7 @@ MANIFEST = CapabilityManifest(
         "link_whitelist_domains": "array",
         "detected_ecosystems": "array",
         "unresolved_manifests": "array",
+        "package_roots": "array",
         "source": "object",
     },
     preconditions=[
@@ -64,6 +65,9 @@ MANIFEST = CapabilityManifest(
     ],
     required_permissions=["read_only_local"],
     side_effect_class="read_only_local",
+    # Wave 11.4 (`CAP-008`): real structural validation of the one
+    # LLM-visible argument, `org_repo`.
+    input_model=OrgRepoOnlyInputV1,
     tools_used=[
         "registry.loader.require_listed",
         "registry.loader.load_policy",
@@ -115,11 +119,16 @@ def execute(
         "link_whitelist_domains": policy.block.link_whitelist_domains,
         "detected_ecosystems": [e.model_dump() for e in profile.detected_ecosystems],
         "unresolved_manifests": profile.unresolved_manifests,
+        # Wave 11.3 (`FACT-010`): additive -- Wave 11.1's multi-root package
+        # graph (`ECO-004`) was already computed inside `profile` above (no
+        # new clone/parse cost) but never exposed here until now.
+        "package_roots": [r.model_dump() for r in profile.package_roots],
         "source": {
             "identity_and_policy": (
                 f"data/products.json + config/policies/{entry.policy_profile}.yml"
             ),
             "detected_ecosystems": "live repository clone (repository inspection)",
             "unresolved_manifests": "live repository clone (repository inspection)",
+            "package_roots": "live repository clone (repository inspection)",
         },
     }

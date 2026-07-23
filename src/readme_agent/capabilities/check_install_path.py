@@ -30,12 +30,18 @@ MANIFEST = CapabilityManifest(
     ],
     required_permissions=["read_only_local", "read_only_network"],
     side_effect_class="read_only_network",
-    # Wave 3: statable now that RepositoryProfile's platform vocabulary exists --
-    # true today (only ecosystems/resolver.py's Maven Central resolver is
-    # implemented), not deferred further.
-    supported_build_systems=["maven"],
-    supported_package_managers=["maven"],
-    supported_registries=["maven_central"],
+    # Wave 11.2 (`PKG-001`-`004`): `orchestrator.inspect_repo()` dispatches
+    # `ecosystems.resolver.resolve(entry.ecosystem, manifest)` generically --
+    # no ecosystem-specific code in this capability or `inspect_repo()`
+    # itself -- so this list reflects every ecosystem `resolver.py` now
+    # registers, not just Maven. `cpp` is deliberately absent: it resolves
+    # under `"cpp_conan"`/`"cpp_vcpkg"`, not a direct `"cpp"` key
+    # (`resolver.py`'s own docstring explains why), so this generic
+    # ecosystem-keyed dispatch path cannot reach it without a caller first
+    # picking one -- a real, honest gap, not this capability's to close.
+    supported_build_systems=["maven", "pip", "npm", "msbuild", "go_modules"],
+    supported_package_managers=["maven", "pip", "npm", "nuget", "go_modules"],
+    supported_registries=["maven_central", "pypi", "npm_registry", "nuget", "go_proxy"],
     tools_used=["orchestrator.inspect_repo", "ecosystems.resolver.resolve"],
     failure_modes=["NotAllowlistedError if org_repo is not permitted", "package-registry timeout"],
     rollback_behavior="not applicable -- read-only, nothing to roll back",

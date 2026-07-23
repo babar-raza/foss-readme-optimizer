@@ -132,6 +132,25 @@ class DomainStateV1(BaseModel):
     consecutive_skip_count: int = 0
 
 
+class SurfaceFreshnessContractV1(BaseModel):
+    """Wave 9.7 (`FRESH-001`+, behavior in `state/freshness_contract.py`):
+    per-surface freshness for a surface the git-SHA-based coarse
+    `supervisor.convergence` shortcut cannot see at all -- description/
+    homepage/topics, package/release state, GitHub-generated audits, and
+    the visual/social-preview surface are none of them git-tracked, so an
+    unchanged upstream commit says nothing about whether any of them
+    changed. `last_checked_at`/`ttl_seconds` record when this surface was
+    last actually observed by its owning specialist and for how long that
+    observation may be trusted before the coarse shortcut must defer to a
+    real specialist-tier run again."""
+
+    surface_id: str
+    authoritative_source: str
+    ttl_seconds: int
+    last_checked_at: str | None = None
+    observed_hash: str | None = None
+
+
 class SupervisorStateV1(BaseModel):
     """Wave 5's own accepted record within a shared `RunStateV1` (`MEM-001`,
     `ORC-001`) -- deliberately separate from the flat `accepted_facts_hash`/
@@ -204,6 +223,16 @@ class SupervisorStateV1(BaseModel):
     # written before this field existed) or `False` forces one honest full
     # specialist-tier retry, never a silent, permanent freeze.
     domain_coverage_complete: bool | None = None
+    # Wave 9.7 (`FRESH-002`): keyed by domain (`GITHUB_GENERATED_SURFACE_AUDIT`/
+    # `PACKAGE_RELEASE_AUDIT`/`METADATA_PRESENTATION`/`VISUAL_PREPARATION` --
+    # the four non-git-tracked surfaces; README/community files are already
+    # covered by `last_observed_upstream_revision` above). Refreshed only when
+    # the specialist tier actually runs (`state/freshness_contract.py::
+    # refresh_surface_contracts()`); carried forward unchanged on the cheap
+    # pre-clone probe shortcut, which never runs the tier. Additive -- a
+    # record written before this field existed deserializes cleanly as "every
+    # surface due for an immediate recheck," the correct conservative default.
+    surface_freshness: dict[str, SurfaceFreshnessContractV1] = Field(default_factory=dict)
 
 
 class ModelRouteStatusV1(BaseModel):
@@ -257,6 +286,44 @@ class ProfileCacheV1(BaseModel):
     cached_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
 
 
+class TriggerRecordV1(BaseModel):
+    """Wave 9.5 (2026-07-22 convergence-sprint plan, `RUN-006`): a durable record of one accepted
+    trigger event, keyed by a natural dedup identity so equivalent events (a re-run of the same
+    `workflow_dispatch`, a duplicate `schedule` firing) do not silently re-execute already-accepted
+    work. This is the trigger-identity half of `RUN-006`; the durable, checkpointed intake queue
+    the row's full text also asks for is a larger, separate undertaking not built this pass -- see
+    `logs/` for exactly what this phase does and does not close.
+
+    `dedup_key()` is the identity a caller checks before accepting a new trigger: prefer
+    `manual_request_id` (an operator-supplied idempotency token) when given, else
+    `workflow_run_id` (GitHub's own per-run identity, stable across retries of the *same* run),
+    else `(event_type, delivery_id)` (a webhook's own delivery identity), else fall back to
+    `(org_repo, event_type, schedule_window)` for a bare `schedule` firing with none of the above.
+    """
+
+    org_repo: str
+    event_type: Literal["workflow_dispatch", "schedule", "repository_dispatch", "cli_manual"] = (
+        "cli_manual"
+    )
+    workflow_run_id: str | None = None
+    delivery_id: str | None = None
+    source_revision: str | None = None
+    product_change_id: str | None = None
+    schedule_window: str | None = None
+    manual_request_id: str | None = None
+    status: Literal["accepted", "processing", "completed", "deduplicated"] = "accepted"
+    accepted_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
+
+    def dedup_key(self) -> str:
+        if self.manual_request_id:
+            return f"manual:{self.manual_request_id}"
+        if self.workflow_run_id:
+            return f"run:{self.workflow_run_id}"
+        if self.delivery_id:
+            return f"delivery:{self.event_type}:{self.delivery_id}"
+        return f"schedule:{self.org_repo}:{self.event_type}:{self.schedule_window}"
+
+
 class OpenProposalV1(BaseModel):
     """`PRL-002` (decision #46): tracks one real, currently-open PR proposed
     against a target repo -- a state shape neither of this project's two
@@ -268,12 +335,11 @@ class OpenProposalV1(BaseModel):
     #46), not a crash signature, and recording it as `applied` would be
     false (the change hasn't landed; nothing has merged it yet).
 
-    Exists now, ahead of the `remote_write` capability that will populate it
-    (`TC-08`, not yet built -- Phase 13/14's own explicit sequencing: this
-    schema, the hardened lock (`EFF-005`), and the `PRL-*` requirement rows
-    all precede that capability, not follow it), so the capability's own
-    design has a real state shape to target instead of retrofitting one
-    later. Keyed by domain in a new `RunStateV1.open_proposals` dict,
+    Added ahead of `open_presentation_pr` (`TC-08`) so that capability had a
+    real state shape to target instead of retrofitting one later. The
+    capability now exists but deliberately remains stateless; a specialist
+    record node still needs to populate this model (`PRL-002`, PARTIAL).
+    Keyed by domain in a new `RunStateV1.open_proposals` dict,
     mirroring `domain_states`'s own per-domain-producer convention -- more
     than one domain (README content, metadata, community files) may each
     open its own independent PR against the same repo."""
@@ -350,3 +416,8 @@ class RunStateV1(BaseModel):
     # already uses -- a record written before this field existed
     # deserializes cleanly as "no open proposals recorded."
     open_proposals: dict[str, OpenProposalV1] = Field(default_factory=dict)
+    # Wave 9.5 (`RUN-006`): keyed by `TriggerRecordV1.dedup_key()`, bounded (see
+    # `state/trigger.py::record_trigger()`'s own pruning) so this dict cannot grow unbounded across
+    # a long-lived repo's history. Additive -- a record written before this field existed
+    # deserializes cleanly as "no trigger history recorded yet."
+    trigger_records: dict[str, TriggerRecordV1] = Field(default_factory=dict)

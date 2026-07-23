@@ -240,7 +240,12 @@ class TestManifest:
         manifest = open_presentation_pr.MANIFEST
         assert manifest.side_effect_class == "remote_write"
         assert manifest.allowed_domains == ["readme_presentation"]
-        assert manifest.idempotency_inputs == ["org_repo", "facts_hash", "fresh_fingerprint"]
+        assert manifest.idempotency_inputs == [
+            "org_repo",
+            "facts_hash",
+            "fresh_fingerprint",
+            "final_text",
+        ]
         assert manifest.retry_policy == "idempotent_only"
 
 
