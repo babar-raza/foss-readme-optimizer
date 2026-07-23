@@ -1,0 +1,77 @@
+{
+  "schema_version": "1",
+  "generated_by": "scripts/governance/run_official_checks.py",
+  "executed_at_local_date": "2026-07-23",
+  "repository_commit": "674285a7c1fd9df1308944f549a94b36f29f9c11",
+  "clone_kind": "fresh local clone with --no-local",
+  "clone_path": "runs/wave-0-fresh-clone-2026-07-23-20b1e98",
+  "dependency_install": {
+    "lock_file": "requirements-lock.txt",
+    "lock_sha256": "75fbac57d40f6e6d1a66cf58de06f850e087c40e82a673f2657d35ff80fb9e70",
+    "commands": [
+      "python -m venv .venv",
+      ".venv/Scripts/python -m pip install -r requirements-lock.txt",
+      ".venv/Scripts/python -m pip install --no-deps -e ."
+    ],
+    "result": "passed"
+  },
+  "tool_versions": {
+    "python": "3.13.2",
+    "ruff": "0.15.22",
+    "mypy": "2.3.0",
+    "pytest": "9.1.1",
+    "actionlint": "1.7.12"
+  },
+  "checks": [
+    {
+      "name": "ruff check",
+      "result": "passed"
+    },
+    {
+      "name": "ruff format --check",
+      "result": "passed",
+      "files_checked": 278
+    },
+    {
+      "name": "mypy src",
+      "result": "passed",
+      "source_files_checked": 165
+    },
+    {
+      "name": "pytest -q",
+      "result": "passed",
+      "passed": 1174,
+      "deselected": 18,
+      "duration_seconds": 425.40
+    },
+    {
+      "name": "validate_plan_structure.py",
+      "result": "passed",
+      "non_blocking_row_length_warnings": 51
+    },
+    {
+      "name": "actionlint",
+      "result": "passed",
+      "workflow_count": 9
+    }
+  ],
+  "defects_exposed_by_first_fresh_clone": [
+    {
+      "classification": "source_spec_split",
+      "symptom": "verify_package_acquisition cited PKG-005 before the requirement row was committed",
+      "resolution_commit": "058b863"
+    },
+    {
+      "classification": "checkout_line_ending_dependency",
+      "symptom": "generation-contract hashes differed after Git materialized CRLF",
+      "resolution_commit": "3311d34"
+    },
+    {
+      "classification": "log_index_split",
+      "symptom": "logs/README.md counted July 22 entries before the shard update was committed",
+      "resolution_commit": "674285a"
+    }
+  ],
+  "final_result": "passed",
+  "secrets_recorded": false
+}
