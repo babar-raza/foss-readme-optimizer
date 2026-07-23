@@ -56,7 +56,7 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert coverage is not None
     assert coverage.total_requirement_rows == 376
     assert coverage.mandatory_requirement_rows == 348
-    assert coverage.reopened_implemented_rows == 85
+    assert coverage.reopened_implemented_rows == 0
     assert len({mapping.requirement_id for mapping in coverage.mappings}) == 376
     requirements_path = REPO_ROOT / coverage.source_path
     assert coverage.source_sha256 == hashlib.sha256(requirements_path.read_bytes()).hexdigest()
@@ -205,9 +205,10 @@ def test_semantically_unsupported_implemented_requirement_cannot_be_preserved(tm
     mapping = next(
         item
         for item in raw["requirement_coverage"]["mappings"]
-        if item["disposition"] == "reopened_semantic_evidence_gap"
+        if item["requirement_status"] == "IMPLEMENTED"
+        and item["disposition"] == "preserved_verified"
     )
-    mapping["disposition"] = "preserved_verified"
+    mapping["semantic_findings"] = ["synthetic missing semantic proof"]
     invalid = tmp_path / "invalid-closure-mission.yaml"
     invalid.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
 

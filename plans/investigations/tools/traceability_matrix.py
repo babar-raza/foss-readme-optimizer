@@ -368,17 +368,24 @@ def build_status_markdown(matrix: dict) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument(
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument(
         "--check",
         action="store_true",
         help="validate without rewriting generated artifacts; exit non-zero on closure findings",
+    )
+    mode.add_argument(
+        "--matrix-only",
+        action="store_true",
+        help="refresh matrix.json without overwriting the separately gated status candidate",
     )
     args = parser.parse_args(argv)
     matrix = build_matrix()
     if not args.check:
         OUT_DIR.mkdir(parents=True, exist_ok=True)
         OUT_FILE.write_text(json.dumps(matrix, indent=2, sort_keys=False), encoding="utf-8")
-        STATUS_MD.write_text(build_status_markdown(matrix), encoding="utf-8")
+        if not args.matrix_only:
+            STATUS_MD.write_text(build_status_markdown(matrix), encoding="utf-8")
 
     total = matrix["total_implemented_rows_checked"]
     high = matrix["rows_with_high_confidence_findings"]
@@ -390,7 +397,8 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  {len(clean)} row(s) fully clean.")
     if not args.check:
         print(f"Written: {OUT_FILE.relative_to(REPO_ROOT)}")
-        print(f"Written: {STATUS_MD.relative_to(REPO_ROOT)}")
+        if not args.matrix_only:
+            print(f"Written: {STATUS_MD.relative_to(REPO_ROOT)}")
     if high:
         print("\nHigh-confidence findings (real, actionable):")
         for row in high:

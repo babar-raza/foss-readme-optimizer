@@ -4,19 +4,18 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "d34fb1acee5edc7a169e8c228509a4ff3ea9c6077044f237ad31874bec56da7c",
+  "source_sha256": "6f44d856c1bdde626c3fb179266a9cacad61e22023b3c4327d3e1ec65cd70166",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
   "total_requirement_rows": 376,
   "mandatory_requirement_rows": 348,
   "excluded_backlog_rows": 28,
   "excluded_deprecated_rows": 0,
-  "reopened_implemented_rows": 85,
+  "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 33,
     "excluded_backlog": 28,
-    "open_mandatory": 165,
-    "preserved_verified": 65,
-    "reopened_semantic_evidence_gap": 85
+    "open_mandatory": 174,
+    "preserved_verified": 141
   },
   "taskcard_counts": {
     "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 34,
@@ -99,12 +98,10 @@
     {
       "requirement_id": "GOV-009",
       "priority": "P1",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "open_mandatory",
+      "semantic_findings": []
     },
     {
       "requirement_id": "GOV-010",
@@ -223,10 +220,8 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "GOV-024",
@@ -337,10 +332,8 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "OWN-005",
@@ -403,10 +396,8 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "OWN-013",
@@ -539,22 +530,18 @@
     {
       "requirement_id": "RDM-001",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "open_mandatory",
+      "semantic_findings": []
     },
     {
       "requirement_id": "RDM-002",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "RDM-003",
@@ -617,10 +604,8 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "RDM-011",
@@ -643,20 +628,16 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "RDM-014",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "RDM-015",
@@ -869,152 +850,122 @@
     {
       "requirement_id": "CORE-001",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "open_mandatory",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-002",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-003",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-004",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-033",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-005",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-006",
       "priority": "P1",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "open_mandatory",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-007",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-008",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-009",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-010",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-011",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-012",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-013",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-014",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-015",
@@ -1029,40 +980,32 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-017",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-018",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-019",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-020",
@@ -1117,70 +1060,56 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-027",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-028",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-029",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-030",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-031",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-032",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "CORE-034",
@@ -1203,20 +1132,16 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "OPS-003",
       "priority": "P1",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "open_mandatory",
+      "semantic_findings": []
     },
     {
       "requirement_id": "OPS-004",
@@ -1247,20 +1172,16 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "OPS-008",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "OPS-009",
@@ -1331,10 +1252,8 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "DEP-005",
@@ -1357,40 +1276,32 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "LLM-002",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "LLM-003",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "LLM-004",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "LLM-005",
@@ -1413,20 +1324,16 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "LLM-008",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "LLM-009",
@@ -1465,20 +1372,16 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "LLM-014",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "LLM-015",
@@ -1517,10 +1420,8 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "LLM-020",
@@ -1551,40 +1452,32 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "VAL-002",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "VAL-003",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "VAL-004",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "VAL-005",
@@ -1599,10 +1492,8 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "VAL-007",
@@ -1705,50 +1596,40 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "SAFE-002",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "SAFE-003",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "SAFE-004",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "SAFE-005",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "open_mandatory",
+      "semantic_findings": []
     },
     {
       "requirement_id": "SAFE-006",
@@ -1763,30 +1644,24 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "SAFE-008",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "SAFE-009",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "SAFE-010",
@@ -1881,10 +1756,8 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "EVID-003",
@@ -1921,12 +1794,10 @@
     {
       "requirement_id": "AUTH-003",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "open_mandatory",
+      "semantic_findings": []
     },
     {
       "requirement_id": "AUTH-004",
@@ -2045,20 +1916,16 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "NFR-002",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "NFR-003",
@@ -2073,10 +1940,8 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "NFR-005",
@@ -2347,30 +2212,24 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "DOC-004",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "DOC-005",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "DOC-006",
@@ -2417,10 +2276,8 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "AGT-002",
@@ -2435,20 +2292,16 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "AGT-004",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "AGT-005",
@@ -2575,10 +2428,8 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "RUN-004",
@@ -2705,10 +2556,8 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "PKG-006",
@@ -2761,23 +2610,18 @@
     {
       "requirement_id": "MEM-002",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "open_mandatory",
+      "semantic_findings": []
     },
     {
       "requirement_id": "MEM-003",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "cited pytest suite `tests/unit/test_state_backend.py::FakeStateBackend` contains no tests",
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "MEM-004",
@@ -2800,10 +2644,8 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "EFF-002",
@@ -2842,20 +2684,16 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "FRESH-001",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "FRESH-002",
@@ -2902,10 +2740,8 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "ORC-002",
@@ -3048,10 +2884,8 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "GAP-003",
@@ -3136,12 +2970,10 @@
     {
       "requirement_id": "PRL-001",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "open_mandatory",
+      "semantic_findings": []
     },
     {
       "requirement_id": "PRL-002",
@@ -3164,10 +2996,8 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "PRL-005",
@@ -3198,10 +3028,8 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "PRL-009",

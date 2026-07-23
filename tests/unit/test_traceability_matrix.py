@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
 
 import pytest
@@ -80,3 +81,28 @@ def test_hashes_and_parses_cited_json_evidence(matrix_tool, tmp_path, monkeypatc
 )
 def test_detects_acceptance_text_that_contradicts_implemented_status(matrix_tool, evidence):
     assert matrix_tool.CONTRADICTED_IMPLEMENTATION_RE.search(evidence)
+
+
+def test_matrix_only_refresh_preserves_status_candidate(matrix_tool, tmp_path, monkeypatch):
+    matrix_file = tmp_path / "matrix.json"
+    status_file = tmp_path / "status.md"
+    status_file.write_text("valuable uncommitted candidate\n", encoding="utf-8")
+    monkeypatch.setattr(matrix_tool, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(matrix_tool, "OUT_DIR", tmp_path)
+    monkeypatch.setattr(matrix_tool, "OUT_FILE", matrix_file)
+    monkeypatch.setattr(matrix_tool, "STATUS_MD", status_file)
+    monkeypatch.setattr(
+        matrix_tool,
+        "build_matrix",
+        lambda: {
+            "total_implemented_rows_checked": 0,
+            "rows_with_high_confidence_findings": [],
+            "rows_with_informational_findings_only": [],
+            "rows_clean": [],
+            "all_rows": [],
+        },
+    )
+
+    assert matrix_tool.main(["--matrix-only"]) == 0
+    assert json.loads(matrix_file.read_text(encoding="utf-8"))["all_rows"] == []
+    assert status_file.read_text(encoding="utf-8") == "valuable uncommitted candidate\n"

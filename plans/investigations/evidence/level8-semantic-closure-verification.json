@@ -1,0 +1,1303 @@
+{
+  "schema_version": 1,
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "task_id": "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE",
+  "observed_at": "2026-07-23",
+  "result": "PASS",
+  "requirements_source_sha256_before": "6f44d856c1bdde626c3fb179266a9cacad61e22023b3c4327d3e1ec65cd70166",
+  "requirements_source_sha256_after": "6f44d856c1bdde626c3fb179266a9cacad61e22023b3c4327d3e1ec65cd70166",
+  "findings_consumed": 85,
+  "implemented_closures_preserved": 76,
+  "overclaims_downgraded_to_partial": 9,
+  "pytest": {
+    "command": [
+      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/security/test_no_secrets_in_evidence.py",
+      "tests/unit/test_capabilities.py::TestAuditGithubGeneratedSurfacesCapability",
+      "tests/unit/test_capabilities.py::TestAuditPackageReleaseSurfacesCapability",
+      "tests/unit/test_capabilities.py::TestProfileRepositoryCapability",
+      "tests/unit/test_capabilities.py::TestRegistryEff001RegistrationGate",
+      "tests/unit/test_cli.py::TestSuperviseCommand",
+      "tests/unit/test_cli.py::test_version_exits_zero",
+      "tests/unit/test_convergence.py::TestFinalStatus",
+      "tests/unit/test_ecosystems.py::TestJavaParser",
+      "tests/unit/test_effect_identity.py::TestBuildEffectIdentity",
+      "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectAuthorization",
+      "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectCandidateAwareness",
+      "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectLockRevalidation",
+      "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectReconciliationCheck",
+      "tests/unit/test_evidence_writer.py::TestWriteEvidence",
+      "tests/unit/test_evidence_writer.py::TestWriteRunManifestV2",
+      "tests/unit/test_freshness_contract.py",
+      "tests/unit/test_gap_detector.py::test_gap_report_matches_audit_table",
+      "tests/unit/test_generation_schema_version.py::test_owned_span_contract_files_changed_only_with_a_version_bump",
+      "tests/unit/test_gitsafety.py::TestCloneBaselineAndWork",
+      "tests/unit/test_gitsafety.py::TestHookActuallyBlocksARealPush",
+      "tests/unit/test_gitsafety.py::TestNeuterAndVerify",
+      "tests/unit/test_inspection.py::TestFileInventoryManifests::test_bound_is_reached_deterministically_regardless_of_os_walk_order",
+      "tests/unit/test_license_auditor.py::TestDetectLicense",
+      "tests/unit/test_llm_client.py::TestFixtureClient",
+      "tests/unit/test_llm_client.py::TestLiveClientHappyPath",
+      "tests/unit/test_llm_client.py::TestLiveClientRetry",
+      "tests/unit/test_open_presentation_pr.py::TestExecuteOrchestration",
+      "tests/unit/test_orchestrator.py::TestAllowList",
+      "tests/unit/test_orchestrator.py::TestBlankSlateRepo",
+      "tests/unit/test_orchestrator.py::TestFullyCompliantRepo",
+      "tests/unit/test_orchestrator.py::TestStaleNoncompliantAndForceRegenerate",
+      "tests/unit/test_preflight.py::TestGithubCheck",
+      "tests/unit/test_preflight.py::TestLlmCheck",
+      "tests/unit/test_presentation_report.py::TestDetectPresentation",
+      "tests/unit/test_readme_facts.py::TestComputeFactsHash",
+      "tests/unit/test_readme_facts.py::TestSha256Text",
+      "tests/unit/test_readme_markers.py::TestFindAndReplace",
+      "tests/unit/test_readme_markers.py::TestRemoveSpan",
+      "tests/unit/test_readme_renderer.py::TestFullGapRendersOneSpanWithEveryElement",
+      "tests/unit/test_readme_renderer.py::TestRendererNeverInventsUrls",
+      "tests/unit/test_registry_discovery.py::test_merge_new_entry_defaults_to_disabled",
+      "tests/unit/test_registry_discovery.py::test_merge_preserves_owned_fields_on_existing_entry",
+      "tests/unit/test_registry_discovery.py::test_real_families_json_covers_every_org_referenced_by_products_json",
+      "tests/unit/test_registry_discovery.py::test_real_families_json_has_26_entries_with_matching_org_convention",
+      "tests/unit/test_registry_loader.py::test_real_products_json_loads_and_has_at_least_the_known_entries",
+      "tests/unit/test_state_backend.py::TestFakeStateBackendCAS",
+      "tests/unit/test_supervisor_loop.py::TestMaxTurns",
+      "tests/unit/test_supervisor_loop.py::TestRunManifestV2Evidence",
+      "tests/unit/test_supervisor_loop.py::TestSpecialistResultsEvidence",
+      "tests/unit/test_supervisor_loop.py::TestWriteCapableModeGate",
+      "tests/unit/test_task_graph.py::TestCycleRejection",
+      "tests/unit/test_validate_plan_structure.py::TestRealRepoIsClean",
+      "tests/unit/test_validation_rules.py::TestChangeBoundary",
+      "tests/unit/test_validation_rules.py::TestCommercialMentionDiscipline",
+      "tests/unit/test_validation_rules.py::TestLinkWhitelist",
+      "tests/unit/test_validation_rules.py::TestProductFirstOpening",
+      "tests/unit/test_validation_rules.py::TestProhibitedTerms",
+      "tests/unit/test_validation_rules.py::TestReferentialIntegrity",
+      "tests/unit/test_validation_rules.py::TestRegistryAggregation",
+      "tests/unit/test_validation_rules.py::TestTalkingPoints",
+      "tests/unit/test_validation_rules.py::TestWordCount",
+      "tests/unit/test_verify_package_acquisition.py::TestExecuteMultiRoot"
+    ],
+    "selector_count": 63,
+    "returncode": 0,
+    "stdout": "........................................................................ [ 32%]\n........................................................................ [ 64%]\n........................................................................ [ 96%]\n........                                                                 [100%]\n224 passed in 74.82s (0:01:14)\n",
+    "stderr": ""
+  },
+  "proof_rows": [
+    {
+      "requirement_id": "AGT-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`AGT-001`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_cli.py::TestSuperviseCommand"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "AGT-003",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`AGT-003`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_supervisor_loop.py::TestSpecialistResultsEvidence"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "AGT-004",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`AGT-004`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_convergence.py::TestFinalStatus",
+        "tests/unit/test_supervisor_loop.py::TestMaxTurns"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "AUTH-003",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "downgraded_to_partial",
+      "note": "Audit correction: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`AUTH-003`).",
+      "downgrade_reason": "The loader targets config/authorization, but the claimed empty directory is not present in the committed tree and no committed profile demonstrates the location contract.",
+      "pytest_selectors": [],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "downgraded_to_partial",
+      "note": "Audit correction: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-001`).",
+      "downgrade_reason": "Aspose-specific facts remain in generic production modules including commands.py, readme/renderer.py, and validation/rules/prominence.py, so they are not confined to registry and policy data.",
+      "pytest_selectors": [],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-002",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-002`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_cli.py::test_version_exits_zero"
+      ],
+      "committed_references": [
+        {
+          "path": "src/readme_agent/cli.py",
+          "bytes": 12015,
+          "sha256": "f561096c6ac48050d13a216eadff35b1da4f36c4d3c62c913390b10945bebeb8"
+        }
+      ]
+    },
+    {
+      "requirement_id": "CORE-003",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-003`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_orchestrator.py::TestAllowList"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-004",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-004`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_supervisor_loop.py::TestWriteCapableModeGate",
+        "tests/unit/test_capabilities.py::TestProfileRepositoryCapability"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-005",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-005`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_registry_loader.py::test_real_products_json_loads_and_has_at_least_the_known_entries"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-006",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "downgraded_to_partial",
+      "note": "Audit correction: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-006`).",
+      "downgrade_reason": "The registry now contains 31 entries, 26 of them non-disabled; the three Java pilot roles remain identifiable, but the row's 'three enabled repositories' wording is no longer true.",
+      "pytest_selectors": [],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-007",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-007`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_license_auditor.py::TestDetectLicense"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-008",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-008`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_gap_detector.py::test_gap_report_matches_audit_table"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-009",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-009`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_readme_renderer.py::TestFullGapRendersOneSpanWithEveryElement"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-010",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-010`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [],
+      "committed_references": [
+        {
+          "path": "src/readme_agent/readme/gap_detector.py",
+          "bytes": 5971,
+          "sha256": "b793b3bfbbc2a4ff10d2b5b011d823e9ddcfe517348650a3c681b7dcfd37b006"
+        }
+      ]
+    },
+    {
+      "requirement_id": "CORE-011",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-011`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_readme_facts.py::TestComputeFactsHash"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-012",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-012`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_gitsafety.py::TestCloneBaselineAndWork"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-013",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-013`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [],
+      "committed_references": [
+        {
+          "path": "src/readme_agent/gitsafety/_git.py",
+          "bytes": 6584,
+          "sha256": "e121f3e6b9dd49fbe2f2d20eff7de2d7707118fffdbb9a63c9194833f60fd080"
+        }
+      ]
+    },
+    {
+      "requirement_id": "CORE-014",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-014`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_generation_schema_version.py::test_owned_span_contract_files_changed_only_with_a_version_bump"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-016",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-016`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_orchestrator.py::TestStaleNoncompliantAndForceRegenerate"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-017",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-017`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_orchestrator.py::TestStaleNoncompliantAndForceRegenerate"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-018",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-018`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_readme_renderer.py::TestRendererNeverInventsUrls"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-019",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-019`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_readme_facts.py::TestSha256Text"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-026",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-026`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_cli.py::test_version_exits_zero"
+      ],
+      "committed_references": [
+        {
+          "path": "src/readme_agent/cli.py",
+          "bytes": 12015,
+          "sha256": "f561096c6ac48050d13a216eadff35b1da4f36c4d3c62c913390b10945bebeb8"
+        }
+      ]
+    },
+    {
+      "requirement_id": "CORE-027",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-027`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_cli.py::TestSuperviseCommand"
+      ],
+      "committed_references": [
+        {
+          "path": "src/readme_agent/cli.py",
+          "bytes": 12015,
+          "sha256": "f561096c6ac48050d13a216eadff35b1da4f36c4d3c62c913390b10945bebeb8"
+        }
+      ]
+    },
+    {
+      "requirement_id": "CORE-028",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-028`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_preflight.py::TestGithubCheck",
+        "tests/unit/test_preflight.py::TestLlmCheck"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-029",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-029`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_ecosystems.py::TestJavaParser"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-030",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-030`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_readme_markers.py::TestFindAndReplace",
+        "tests/unit/test_readme_markers.py::TestRemoveSpan"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-031",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-031`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_gitsafety.py::TestCloneBaselineAndWork"
+      ],
+      "committed_references": [
+        {
+          "path": "src/readme_agent/paths.py",
+          "bytes": 1948,
+          "sha256": "ce594774844f95db6efe3a1727dc86e79c3cf3d4dab78d063ec049fd5fe085be"
+        }
+      ]
+    },
+    {
+      "requirement_id": "CORE-032",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-032`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_registry_discovery.py::test_merge_new_entry_defaults_to_disabled",
+        "tests/unit/test_registry_discovery.py::test_merge_preserves_owned_fields_on_existing_entry"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "CORE-033",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`CORE-033`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_supervisor_loop.py::TestWriteCapableModeGate",
+        "tests/unit/test_capabilities.py::TestProfileRepositoryCapability"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "DEP-004",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`DEP-004`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_inspection.py::TestFileInventoryManifests::test_bound_is_reached_deterministically_regardless_of_os_walk_order"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "DOC-003",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`DOC-003`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [],
+      "committed_references": [
+        {
+          "path": "docs/presentation-standard.md",
+          "bytes": 17097,
+          "sha256": "22b2596775f3f09d5f39510d5cd5ba3f6cba5d181bbbe326363759bdc18869a5"
+        },
+        {
+          "path": "plans/investigations/reference-repository-benchmark.md",
+          "bytes": 16124,
+          "sha256": "ec01aa8bf64640f9ad147866986153857a01f031fda7ce8aee275e8c8ce3779d"
+        }
+      ]
+    },
+    {
+      "requirement_id": "DOC-004",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`DOC-004`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [],
+      "committed_references": [
+        {
+          "path": "docs/presentation-standard.md",
+          "bytes": 17097,
+          "sha256": "22b2596775f3f09d5f39510d5cd5ba3f6cba5d181bbbe326363759bdc18869a5"
+        }
+      ]
+    },
+    {
+      "requirement_id": "DOC-005",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`DOC-005`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [],
+      "committed_references": [
+        {
+          "path": "docs/github-surface-control.md",
+          "bytes": 9364,
+          "sha256": "eda8f4191c1b098832ac010d4d7c30e366c3a89413714a12d0219a476374d050"
+        }
+      ]
+    },
+    {
+      "requirement_id": "EFF-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`EFF-001`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_capabilities.py::TestRegistryEff001RegistrationGate",
+        "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectReconciliationCheck"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "EFF-006",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`EFF-006`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_effect_identity.py::TestBuildEffectIdentity",
+        "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectCandidateAwareness"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "EVID-002",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`EVID-002`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_supervisor_loop.py::TestRunManifestV2Evidence"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "FRESH-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`FRESH-001`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_freshness_contract.py"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "GAP-002",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`GAP-002`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_convergence.py::TestFinalStatus"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "GOV-009",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "downgraded_to_partial",
+      "note": "Audit correction: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`GOV-009`).",
+      "downgrade_reason": "The validator checks IDs, enums, section order, logs, and module maps, but not the row's claimed phase/decision-reference validity or bidirectional master traceability.",
+      "pytest_selectors": [],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "GOV-026",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`GOV-026`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectAuthorization"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "LLM-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`LLM-001`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_readme_renderer.py::TestRendererNeverInventsUrls",
+        "tests/unit/test_orchestrator.py::TestFullyCompliantRepo"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "LLM-002",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`LLM-002`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_orchestrator.py::TestFullyCompliantRepo",
+        "tests/unit/test_orchestrator.py::TestBlankSlateRepo"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "LLM-003",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`LLM-003`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_llm_client.py::TestFixtureClient"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "LLM-004",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`LLM-004`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_validation_rules.py::TestReferentialIntegrity"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "LLM-007",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`LLM-007`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_llm_client.py::TestLiveClientRetry"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "LLM-008",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`LLM-008`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_preflight.py::TestLlmCheck"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "LLM-013",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`LLM-013`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/security/test_no_secrets_in_evidence.py"
+      ],
+      "committed_references": [
+        {
+          "path": "src/readme_agent/env.py",
+          "bytes": 7523,
+          "sha256": "d1bb1523eeeb1bcb065e977ee66f74626e82b324f0d46ec93a400ec4c2914a94"
+        }
+      ]
+    },
+    {
+      "requirement_id": "LLM-014",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`LLM-014`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_llm_client.py::TestLiveClientHappyPath"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "LLM-019",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`LLM-019`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [],
+      "committed_references": [
+        {
+          "path": "plans/investigations/llm-gateway-context-ceiling-corrected.md",
+          "bytes": 8807,
+          "sha256": "31688e12872a20758726ef53d9dc66b8c2a9a0837f2dea9a89aa80f77e6e9192"
+        }
+      ]
+    },
+    {
+      "requirement_id": "MEM-002",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "downgraded_to_partial",
+      "note": "Audit correction: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`MEM-002`).",
+      "downgrade_reason": "State-version CAS and per-repository locks exist, and domain acceptance records an upstream revision, but the backend CAS is not itself conditioned on a freshly re-read upstream revision.",
+      "pytest_selectors": [],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "MEM-003",
+      "prior_findings": [
+        "cited pytest suite `tests/unit/test_state_backend.py::FakeStateBackend` contains no tests",
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`MEM-003`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_state_backend.py::TestFakeStateBackendCAS"
+      ],
+      "committed_references": [
+        {
+          "path": "src/readme_agent/state/backend.py",
+          "bytes": 5306,
+          "sha256": "d19823e5517a0ed0ee3713d2171c237c004cf4955c7695083a6690d55e589b8c"
+        }
+      ]
+    },
+    {
+      "requirement_id": "NFR-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`NFR-001`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_readme_facts.py::TestComputeFactsHash"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "NFR-002",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`NFR-002`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_orchestrator.py::TestBlankSlateRepo"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "NFR-004",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`NFR-004`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_validate_plan_structure.py::TestRealRepoIsClean"
+      ],
+      "committed_references": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "bytes": 593,
+          "sha256": "d5666ca41e93a8f75de24496802e50879e42d1de629b06c40d763a851043c499"
+        }
+      ]
+    },
+    {
+      "requirement_id": "OPS-002",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`OPS-002`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [],
+      "committed_references": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "bytes": 593,
+          "sha256": "d5666ca41e93a8f75de24496802e50879e42d1de629b06c40d763a851043c499"
+        }
+      ]
+    },
+    {
+      "requirement_id": "OPS-003",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "downgraded_to_partial",
+      "note": "Audit correction: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`OPS-003`).",
+      "downgrade_reason": "readme-agent-run.yml is manual and dry-run, but its job grants contents: write for the Git-ref state backend and consumes secrets, so the literal read-only workflow claim is false.",
+      "pytest_selectors": [],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "OPS-007",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`OPS-007`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_registry_discovery.py::test_real_families_json_has_26_entries_with_matching_org_convention",
+        "tests/unit/test_registry_discovery.py::test_real_families_json_covers_every_org_referenced_by_products_json"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "OPS-008",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`OPS-008`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [],
+      "committed_references": [
+        {
+          "path": ".github/workflows/update-products-registry.yml",
+          "bytes": 1774,
+          "sha256": "87cf07170b3e0f78e581466c0e6576c9fede137451ebb75ad2d7d4fb5488a0d8"
+        }
+      ]
+    },
+    {
+      "requirement_id": "ORC-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`ORC-001`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_task_graph.py::TestCycleRejection"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "OWN-004",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`OWN-004`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_capabilities.py::TestAuditPackageReleaseSurfacesCapability"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "OWN-012",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`OWN-012`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_capabilities.py::TestAuditGithubGeneratedSurfacesCapability"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "PKG-005",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`PKG-005`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_verify_package_acquisition.py::TestExecuteMultiRoot"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "PRL-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "downgraded_to_partial",
+      "note": "Audit correction: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`PRL-001`).",
+      "downgrade_reason": "Identical facts_hash retries find the existing PR, but a changed candidate/facts hash can select a new branch; update/supersede/drift reconciliation remains open as PRL-009.",
+      "pytest_selectors": [],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "PRL-004",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`PRL-004`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_open_presentation_pr.py::TestExecuteOrchestration"
+      ],
+      "committed_references": [
+        {
+          "path": "scripts/retrofits/prove_open_presentation_pr_live.py",
+          "bytes": 5958,
+          "sha256": "92f4a41e1b383620980335bccee2fbac8855cf532b49e22ac3d750810baf026a"
+        }
+      ]
+    },
+    {
+      "requirement_id": "PRL-008",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`PRL-008`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectLockRevalidation"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "RDM-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "downgraded_to_partial",
+      "note": "Audit correction: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`RDM-001`).",
+      "downgrade_reason": "The renderer rejects new callouts and migration removes them, but overwrite-scenario fixtures intentionally still contain legacy callout spans, contradicting the literal claim that fixtures no longer contain them.",
+      "pytest_selectors": [],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "RDM-002",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`RDM-002`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_validation_rules.py::TestProductFirstOpening"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "RDM-010",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`RDM-010`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_validation_rules.py::TestCommercialMentionDiscipline"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "RDM-013",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`RDM-013`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_readme_renderer.py::TestFullGapRendersOneSpanWithEveryElement"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "RDM-014",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`RDM-014`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_presentation_report.py::TestDetectPresentation"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "RUN-003",
+      "prior_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`RUN-003`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [],
+      "committed_references": [
+        {
+          "path": "logs/2026-07-19.md",
+          "bytes": 98093,
+          "sha256": "94c98505f6785ca3a6d9cd6683702ec10e66b9e01850c5737c1918bbd1348291"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SAFE-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`SAFE-001`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_gitsafety.py::TestNeuterAndVerify",
+        "tests/unit/test_gitsafety.py::TestHookActuallyBlocksARealPush"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "SAFE-002",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`SAFE-002`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_gitsafety.py::TestNeuterAndVerify"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "SAFE-003",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`SAFE-003`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_orchestrator.py::TestAllowList"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "SAFE-004",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`SAFE-004`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [],
+      "committed_references": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "bytes": 593,
+          "sha256": "d5666ca41e93a8f75de24496802e50879e42d1de629b06c40d763a851043c499"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SAFE-005",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "downgraded_to_partial",
+      "note": "Audit correction: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`SAFE-005`).",
+      "downgrade_reason": "readme-agent-run.yml exposes only dry_run, but its run job overrides permissions to contents: write for durable state, contradicting the literal read-only-content claim.",
+      "pytest_selectors": [],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "SAFE-007",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`SAFE-007`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/security/test_no_secrets_in_evidence.py"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "SAFE-008",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`SAFE-008`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_evidence_writer.py::TestWriteRunManifestV2"
+      ],
+      "committed_references": [
+        {
+          "path": "src/readme_agent/evidence/writer.py",
+          "bytes": 5390,
+          "sha256": "b8d147523c849cf8c2859a08777ffabc739aef48089a59108541de4ba18767d4"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SAFE-009",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`SAFE-009`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_evidence_writer.py::TestWriteEvidence",
+        "tests/unit/test_evidence_writer.py::TestWriteRunManifestV2"
+      ],
+      "committed_references": [
+        {
+          "path": "src/readme_agent/evidence/writer.py",
+          "bytes": 5390,
+          "sha256": "b8d147523c849cf8c2859a08777ffabc739aef48089a59108541de4ba18767d4"
+        }
+      ]
+    },
+    {
+      "requirement_id": "VAL-001",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`VAL-001`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_validation_rules.py::TestRegistryAggregation"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "VAL-002",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`VAL-002`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_validation_rules.py::TestReferentialIntegrity"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "VAL-003",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`VAL-003`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_validation_rules.py::TestChangeBoundary"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "VAL-004",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`VAL-004`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_validation_rules.py::TestWordCount",
+        "tests/unit/test_validation_rules.py::TestProhibitedTerms",
+        "tests/unit/test_validation_rules.py::TestLinkWhitelist",
+        "tests/unit/test_validation_rules.py::TestTalkingPoints"
+      ],
+      "committed_references": []
+    },
+    {
+      "requirement_id": "VAL-006",
+      "prior_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "disposition": "preserved_implemented_with_exact_proof",
+      "note": "Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`VAL-006`).",
+      "downgrade_reason": null,
+      "pytest_selectors": [
+        "tests/unit/test_validation_rules.py::TestCommercialMentionDiscipline"
+      ],
+      "committed_references": []
+    }
+  ],
+  "negative_controls": [
+    "No finding is closed by a path-only citation without a requirement-specific report entry.",
+    "Every preserved IMPLEMENTED row maps to a focused pytest selector or checksum-addressed committed reference.",
+    "Every literal contradiction found during source/workflow inspection is downgraded, not explained away."
+  ]
+}
