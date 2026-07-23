@@ -11,7 +11,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "03bf3e3e79100bc19c32519d486f941866e107fa51036ff118589ef01fb30883",
-    "last_evaluated_at": "2026-07-23T13:36:23.447213+00:00",
+    "last_evaluated_at": "2026-07-23T13:36:54.035321+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -22,7 +22,7 @@
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "CLOSED",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
-      "L8-WAVE1-CANONICAL-SAFETY-SPINE": "SCORED",
+      "L8-WAVE1-CANONICAL-SAFETY-SPINE": "CLOSED",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "TODO",
       "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "TODO",
       "L8-WAVE4-PRESENTATION-INTELLIGENCE": "TODO",
@@ -434,13 +434,25 @@
         "reason": "Wave 1 scores full acceptance: 1,211/1,211 non-live tests pass; 4/4 historical false-success cases classify BLOCKED; every named exit gate has checksum-addressed evidence.",
         "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "commit:e74a3a2",
+          "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-23T13:36:54.035313+00:00",
+        "reason": "Wave 1 is implemented, independently verified, scored against all exit gates, synchronized across master/requirements/task graph/log, and committed green.",
+        "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+        "to_status": "CLOSED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 47,
+  "state_version": 48,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
