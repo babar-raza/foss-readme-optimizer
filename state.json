@@ -3,11 +3,14 @@
   "accepted_status": null,
   "capability_outputs": [
     {
-      "cached_at": "2026-07-23T07:07:17.388125+00:00",
+      "cached_at": "2026-07-23T07:07:23.326028+00:00",
       "capability_id": "commit_readme_write",
       "fingerprint": "8b0b8a26e57e8971ef81d3aeab59726addde374da2050404ce6e501f11298b54",
-      "result": {},
-      "status": "pending"
+      "result": {
+        "committed": false,
+        "written": true
+      },
+      "status": "applied"
     }
   ],
   "domain_states": {
@@ -402,7 +405,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 42,
+  "state_version": 43,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
