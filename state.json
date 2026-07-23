@@ -265,7 +265,7 @@
       "upstream_revision_at_accept": "5b5b28eb372c28f4529928ea81696a0031b68d60"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "fdc2509ef643d5aff858deb9fec0334dc21be40315de0161dddda72ad4864828",
+      "accepted_facts_hash": "86522880620a137277fafef5e4cd17c1be1b8b03197f451e78262eb1bf24d7a9",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -278,56 +278,56 @@
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph specifies the ecosystem (Python), file format (.xlsx), and common tasks (creating, reading, modifying Excel files), satisfying audience fit inline.",
+            "note": "The opening paragraph specifies the audience (Python developers), ecosystem (Python), format (.xlsx), and common tasks (creating, reading, modifying Excel files).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT license badge, PyPI version badge, and Python version badge \u2014 meeting the top trust signals.",
+            "note": "The README includes a visible, GitHub-recognized MIT license badge, PyPI version and Python version badges, and a working install path via pip.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `pip install aspose-cells-foss` uses real PyPI coordinates and resolves correctly against PyPI.",
+            "note": "The install command 'pip install aspose-cells-foss' uses real PyPI coordinates and resolves correctly.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there are six runnable code blocks demonstrating creation, reading, styling, validation, export, and encryption \u2014 exceeding the minimum of one.",
+            "note": "Beyond the install snippet, there are six runnable code blocks demonstrating creation, reading, styling, validation, export, and encryption.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (`##`), and the order follows the expected intent: product understanding and getting-started content precede reference/contributing/legal content.",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows the expected sequence: product description \u2192 features \u2192 install \u2192 examples \u2192 docs \u2192 contributing \u2192 license \u2192 support.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is appropriate for a pure API library like this; the standard allows absence when visuals do not improve understanding.",
+            "note": "No visuals are present, which is appropriate for a pure API library like this; none are needed to improve understanding of the product or workflow.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README mentions contributing but the repository is missing GitHub-recognized community files: LICENSE (though referenced), CODE_OF_CONDUCT, and CONTRIBUTING \u2014 only README and LICENSE (via link) are present, and GitHub may not recognize the LICENSE link as a recognized file.",
+            "note": "The README is present and GitHub-recognized, but the repository is missing LICENSE, CONTRIBUTING, and CODE_OF_CONDUCT files in GitHub's community health files \u2014 only README is recognized.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While not stated in prose, the README includes badges and links implying active maintenance; GitHub activity (commits/releases) is assumed per standard to be externally verifiable.",
+            "note": "While not stated in prose, recent activity is implied by the presence of a current PyPI version badge and active GitHub repository structure (though not verifiable from README alone).",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only offering; if commercial context were present, it would need to follow the single-mention, factual tone rule \u2014 and its absence here avoids violation.",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only presentation; if one were added, it would need to follow the restraint rules \u2014 but none is present, so this dimension passes by default.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the main gap being contribution readiness due to missing GitHub-recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, and possibly LICENSE as a top-level file rather than a link)."
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole failure being contribution readiness due to missing GitHub-recognized community files (LICENSE, CONTRIBUTING, CODE_OF_CONDUCT). All other criteria \u2014 especially product clarity, installation path, and verified examples \u2014 are well met."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-23T06:47:08.423306+00:00",
+      "last_run_timestamp": "2026-07-23T07:08:41.117667+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "5b5b28eb372c28f4529928ea81696a0031b68d60"
@@ -437,7 +437,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 46,
+  "state_version": 47,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
