@@ -1339,11 +1339,11 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 9c86ab2868f63c4f21621d8c8c82234b53fcf07a10d4dd704b2573af8834b364
+  source_sha256: 8b70b649982b1b56b6844f621d7ed5096f530487c4a772909dd46790850e07ea
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 389
-  mandatory_requirement_rows: 361
-  excluded_backlog_rows: 28
+  mandatory_requirement_rows: 362
+  excluded_backlog_rows: 27
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
   mappings:
@@ -2219,9 +2219,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: OPS-010
     priority: P2
-    requirement_status: PARTIAL
+    requirement_status: IMPLEMENTED
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
-    disposition: open_mandatory
+    disposition: preserved_verified
     semantic_findings: []
   - requirement_id: OPS-011
     priority: P2
@@ -3083,9 +3083,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: CAP-002
     priority: P0
-    requirement_status: PARTIAL
+    requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: open_mandatory
+    disposition: preserved_verified
     semantic_findings: []
   - requirement_id: CAP-003
     priority: P1
@@ -3401,9 +3401,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: ORC-005
     priority: P1
-    requirement_status: BACKLOG
+    requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: excluded_backlog
+    disposition: preserved_verified
     semantic_findings: []
   - requirement_id: ORC-006
     priority: P1
@@ -3425,9 +3425,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: VER-001
     priority: P0
-    requirement_status: PARTIAL
+    requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: open_mandatory
+    disposition: preserved_verified
     semantic_findings: []
   - requirement_id: VER-002
     priority: P0
@@ -3473,9 +3473,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: VER-009
     priority: P0
-    requirement_status: PARTIAL
+    requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: open_mandatory
+    disposition: preserved_verified
     semantic_findings: []
   - requirement_id: GAP-001
     priority: P0
@@ -3611,9 +3611,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-002
     priority: P0
-    requirement_status: PARTIAL
+    requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: open_mandatory
+    disposition: preserved_verified
     semantic_findings: []
   - requirement_id: L8-003
     priority: P0

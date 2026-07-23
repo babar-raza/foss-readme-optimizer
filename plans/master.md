@@ -64,12 +64,30 @@ Wave 0 truth consolidation completed on 2026-07-23:
   nine workflows; and
 - this approved consolidation replaces the obsolete phase/sprint tracks with one current program.
 
+Wave 1 canonical correctness and safety consolidation completed on 2026-07-23:
+
+- `supervise_repo()` is the only production repository runtime; legacy verbs are read-only
+  facades, and mutation primitives are reachable only through registered capabilities that cross
+  the verifier, authorization, and effect-ledger gates;
+- all 23 registered capabilities have concrete typed input and output models, while registry
+  construction rejects incomplete permissions, unknown validators or profile vocabulary, and
+  invalid mutation evidence contracts;
+- offline tests cannot inherit live credentials, and bounded git subprocess cancellation removes
+  the exact descendant tree;
+- the historical .NET, Python, C++, and Go false-success statuses replay 4/4 as `BLOCKED`; live
+  .NET and Go runs return non-zero `BLOCKED`; and Rust returns explicit unsupported/exit 1; and
+- commit `0169964` passes 1,211 non-live tests, Ruff, formatting, mypy, actionlint, plan
+  validation, live preflight, and checksum-complete Wave 1 evidence.
+
+Wave 2 — Restartable GitHub Actions runtime — is now the active implementation wave.
+
 Primary current evidence:
 
 - `plans/investigations/evidence/level8-semantic-closure-verification.json`
 - `plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json`
 - `plans/investigations/evidence/level8-requirement-taskcard-coverage/`
 - `plans/investigations/evidence/level8-wave0-fresh-clone-head-reproduction/`
+- `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
 - `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`
 
 `plans/requirements.md` is the normative obligation register. `logs/` is history.
@@ -2019,15 +2037,15 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - **Exit:** plan validation and semantic traceability pass; no master/requirements/task-graph
     contradiction remains; the code/dependency baseline reproduces cleanly.
 
-- [ ] **Wave 1 — Canonical correctness and safety spine**
-  - Split oversized supervisor/orchestrator/command responsibilities before extension.
-  - Make `supervise` the sole production path; turn legacy commands into read-only/compatibility
+- [x] **Wave 1 — Canonical correctness and safety spine**
+  - [x] Split oversized supervisor/orchestrator/command responsibilities before extension.
+  - [x] Make `supervise` the sole production path; turn legacy commands into read-only/compatibility
     façades through the same registry, authorization, ledger, and verifier.
-  - Eliminate the legacy unverified mutation path and enforce typed capability I/O plus complete
+  - [x] Eliminate the legacy unverified mutation path and enforce typed capability I/O plus complete
     terminal classification.
-  - Reprove .NET, Python, C++, and Go false-success scenarios fail closed; return explicit
+  - [x] Reprove .NET, Python, C++, and Go false-success scenarios fail closed; return explicit
     unsupported results for unimplemented ecosystems.
-  - Make offline cancellation credential-free and descendant-clean.
+  - [x] Make offline cancellation credential-free and descendant-clean.
   - **Exit:** no required failure exits zero or converges; no production mutation bypass exists.
 
 - [ ] **Wave 2 — Restartable GitHub Actions runtime**
@@ -2101,7 +2119,7 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 - [x] **Wave 0 authority gate:** the user explicitly approved Mission, Status, Decision Ledger,
       Architecture, Build Checklist, and Verification Checklist; this consolidation changes only
       those master sections.
-- [ ] **Wave 1 correctness gate:** every required specialist/task/validation/verifier/effect
+- [x] **Wave 1 correctness gate:** every required specialist/task/validation/verifier/effect
       failure is terminally non-successful; no alternate production mutation path remains.
 - [ ] **Wave 2 recovery gate:** checkpoint kill/resume, duplicate delivery, state outage, matrix
       isolation, missed-window recovery, and dead-man alert scenarios pass.
