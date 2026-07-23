@@ -449,7 +449,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 79,
+  "state_version": 80,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "16ac72e7decf4be9eb7d2864488cc7f7f0679704c94925e3f008c3e2914ebbc2",
@@ -457,8 +457,8 @@
     "in_flight_domains": [],
     "in_flight_run_id": null,
     "last_observed_upstream_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "last_run_id": "20260723-064004-2b9f",
-    "last_run_timestamp": "2026-07-23T06:40:04.225211+00:00",
+    "last_run_id": null,
+    "last_run_timestamp": "2026-07-23T07:02:31.546749+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
     "surface_freshness": {
@@ -491,129 +491,7 @@
         "ttl_seconds": 86400
       }
     },
-    "task_graph_snapshot": {
-      "tasks": [
-        {
-          "arguments": {
-            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
-          },
-          "blocked_reason": null,
-          "capability_id": "inspect_repository",
-          "created_at": "2026-07-23T06:39:20.487103+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "has_license_file": true,
-            "has_readme": true,
-            "manifest_keys": [
-              "artifact_id",
-              "group_id",
-              "license",
-              "name",
-              "runtime_min_version",
-              "version"
-            ],
-            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
-            "readme_length_chars": 9430
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "c0694fbb903543a8963467ca0dd21301",
-          "terminal_at": "2026-07-23T06:39:21.507588+00:00"
-        },
-        {
-          "arguments": {
-            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
-          },
-          "blocked_reason": null,
-          "capability_id": "check_install_path",
-          "created_at": "2026-07-23T06:39:24.025595+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "evidence": "Maven Central: org.aspose:aspose-cells-foss NOT FOUND (0 results)",
-            "install_path_resolved": false
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "99951a7995ba4eb48985085087dff043",
-          "terminal_at": "2026-07-23T06:39:26.132848+00:00"
-        },
-        {
-          "arguments": {
-            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
-          },
-          "blocked_reason": null,
-          "capability_id": "verify_package_acquisition",
-          "created_at": "2026-07-23T06:39:34.466594+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
-            "results": [
-              {
-                "detail": "Maven Central: org.aspose:aspose-cells-foss NOT FOUND (0 results)",
-                "ecosystem": "java",
-                "outcome": "NOT_PUBLISHED",
-                "path": "."
-              }
-            ]
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "82e7504b6e2b4ba7bfe09c09b8270fac",
-          "terminal_at": "2026-07-23T06:39:36.645047+00:00"
-        },
-        {
-          "arguments": {
-            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
-          },
-          "blocked_reason": null,
-          "capability_id": "detect_readme_gaps",
-          "created_at": "2026-07-23T06:39:44.063046+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "license_mentioned": true,
-            "products_com_link": false,
-            "products_org_link": false,
-            "relationship_explained": false,
-            "total_gaps": 3
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "e4a76d5996724623b64cffe06218c66d",
-          "terminal_at": "2026-07-23T06:39:45.073549+00:00"
-        },
-        {
-          "arguments": {
-            "force_regenerate": true,
-            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
-          },
-          "blocked_reason": null,
-          "capability_id": "render_readme_candidate",
-          "created_at": "2026-07-23T06:39:51.993015+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "facts_hash": "15f811d4cf8ec423a0839441e433b2320fcf655480da6457324fc3b6101e510b",
-            "final_text": "# Aspose.Cells FOSS for Java\n\nAspose.Cells FOSS for Java is a Java 17 spreadsheet library for creating, loading, modifying, and saving Excel `.xlsx` workbooks.\nIt exposes a user-facing API in `org.aspose.cells_foss` and keeps OOXML packaging, XML mapping, and XLSX serialization inside this repository.\n\n## Installation\n\nAdd the following dependency to your `pom.xml`:\n\n```xml\n<dependency>\n    <groupId>org.aspose</groupId>\n    <artifactId>aspose-cells-foss</artifactId>\n    <version>1.0.0</version>\n</dependency>\n```\n\n## Current Scope\n\n- Load formats: `AUTO`, `XLSX`\n- Save format: `XLSX`\n- Runtime target: Java 17\n- Build tool: Maven\n- Test framework: JUnit 5\n- Apache POI is used in `test` scope only for compatibility checks\n\nThe library stores and round-trips formulas, but it is not a full spreadsheet calculation engine.\n\n## Supported Features\n\n- Workbook and worksheet creation, loading, saving, add/remove/rename, active sheet selection, and visibility\n- Cell values for strings, numbers, booleans, date/time values, and formulas\n- Cell formatting for fonts, borders, fills, alignment, number formats, and cell protection flags\n- Row and column sizing, hiding, and outline grouping/collapsed state\n- Worksheet view settings such as tab color, zoom, gridlines, row/column headers, zeros, and right-to-left mode\n- Merged cells\n- Defined names\n- Hyperlinks\n- Data validation\n- Conditional formatting\n- Auto filters with color filters, dynamic filters, top-10 filters, custom filters, and sort conditions\n- Page setup\n- Worksheet protection\n- Freeze panes \u9225?freeze rows and/or columns by coordinate or cell name; inspect and clear frozen state\n- **Cell comments** \u9225?add, edit, and remove comments (notes) with author, text, visibility, and size\n- **Embedded pictures** \u9225?add images from bytes, streams, or file paths with two-cell anchor positioning; JPEG, PNG, GIF, and BMP detection\n- **Embedded charts** \u9225?read chart name, type, anchor, and extent; 21 standard chart types can be created programmatically via `ChartCollection.add()`; loaded charts are preserved verbatim across load/save\n- **Drawing shapes** \u9225?add, retrieve, and remove drawing objects with 35 preset geometries (`AutoShapeType`); complex shapes loaded from XLSX are preserved verbatim\n- **Excel tables (ListObjects)** \u9225?create, resize, style, and remove structured tables with column definitions and totals rows\n- **Workbook protection** \u9225?lock structure, windows, and revisions with separate passwords via `WorkbookProtection`\n- **Workbook view** \u9225?read and write window position, size, active tab, scroll bar and sheet tab visibility via `WorkbookView`\n- **Calculation properties** \u9225?configure calculation mode, reference mode, iterative calculation, and precision via `CalculationProperties`\n- **Error cell values** \u9225?`#N/A`, `#VALUE!`, `#REF!` and other error results are loaded, stored, and saved with the correct `t=\"e\"` cell type\n- Document properties and workbook property persistence for supported `workbookPr` attributes\n- `NumberFormat` utility for looking up and resolving built-in Excel format codes\n- Load diagnostics, repair reporting, and preservation of unsupported package parts during load/save flows\n\n## Known Limits\n\n- Saving is currently limited to `.xlsx`\n- ChartEx types (Waterfall, Treemap, Sunburst, Histogram, Box and Whisker, Funnel, Map) cannot be created programmatically; they are preserved verbatim across load/save\n- Some APIs exist mainly to preserve OOXML metadata and package fidelity rather than to provide full Excel feature parity\n\n## Build And Test\n\nRequirements:\n\n- JDK 17+\n- Maven 3.9+\n\nCommon commands:\n\n```bash\nmvn compile\nmvn test\nmvn clean package\nmvn javadoc:javadoc   # generates docs/apidocs/index.html\n```\n\n## Quick Start\n\nCreate a workbook, write values, style a cell, and save it:\n\n```java\nimport org.aspose.cells_foss.Cell;\nimport org.aspose.cells_foss.Style;\nimport org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class Main {\n    public static void main(String[] args) {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n            sheet.setName(\"Report\");\n\n            sheet.getCells().get(\"A1\").putValue(\"Revenue\");\n            sheet.getCells().get(\"B1\").putValue(12500.75);\n\n            Cell total = sheet.getCells().get(\"B1\");\n            Style style = total.getStyle();\n            style.getFont().setBold(true);\n            style.setCustom(\"#,##0.00\");\n            total.setStyle(style);\n\n            sheet.getCells().getRows().get(0).setHeight(22.0);\n            sheet.getCells().getColumns().get(1).setWidth(14.5);\n\n            workbook.save(\"report.xlsx\");\n        }\n    }\n}\n```\n\nLoad an existing workbook with options and inspect diagnostics:\n\n```java\nimport org.aspose.cells_foss.LoadIssue;\nimport org.aspose.cells_foss.LoadOptions;\nimport org.aspose.cells_foss.Workbook;\n\npublic class LoadWorkbook {\n    public static void main(String[] args) {\n        LoadOptions options = new LoadOptions();\n        options.setStrictMode(false);\n        options.setTryRepairPackage(true);\n        options.setTryRepairXml(true);\n\n        try (Workbook workbook = new Workbook(\"input.xlsx\", options)) {\n            if (workbook.getLoadDiagnostics().hasRepairs()) {\n                for (LoadIssue issue : workbook.getLoadDiagnostics().getIssues()) {\n                    System.out.println(issue.getMessage());\n                }\n            }\n\n            workbook.getDocumentProperties().setAuthor(\"cells-foss\");\n            workbook.save(\"output.xlsx\");\n        }\n    }\n}\n```\n\nAdd data validation and conditional formatting:\n\n```java\nimport org.aspose.cells_foss.CellArea;\nimport org.aspose.cells_foss.FormatCondition;\nimport org.aspose.cells_foss.FormatConditionCollection;\nimport org.aspose.cells_foss.FormatConditionType;\nimport org.aspose.cells_foss.OperatorType;\nimport org.aspose.cells_foss.Style;\nimport org.aspose.cells_foss.Validation;\nimport org.aspose.cells_foss.ValidationType;\nimport org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class RulesExample {\n    public static void main(String[] args) {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n\n            int validationIndex = sheet.getValidations().add(new CellArea(1, 0, 10, 1));\n            Validation validation = sheet.getValidations().get(validationIndex);\n            validation.setType(ValidationType.WHOLE_NUMBER);\n            validation.setOperator(OperatorType.BETWEEN);\n            validation.setFormula1(\"1\");\n            validation.setFormula2(\"100\");\n\n            int cfIndex = sheet.getConditionalFormattings().add();\n            FormatConditionCollection conditions = sheet.getConditionalFormattings().get(cfIndex);\n            conditions.addArea(CellArea.createCellArea(\"B2\", \"B11\"));\n            int conditionIndex = conditions.addCondition(\n                    FormatConditionType.CELL_VALUE,\n                    OperatorType.BETWEEN,\n                    \"1\",\n                    \"100\");\n\n            FormatCondition condition = conditions.get(conditionIndex);\n            Style style = condition.getStyle();\n            style.getFont().setBold(true);\n            condition.setStyle(style);\n\n            workbook.save(\"rules.xlsx\");\n        }\n    }\n}\n```\n\n## Project Layout\n\n```text\nsrc/main/java/com/aspose/cells_foss/\n  Public API surface: Workbook, Worksheet, Cell, Style, collections, enums, load/save options\n\nsrc/main/java/com/aspose/cells_foss/core/\n  Internal workbook, worksheet, style, validation, metadata, and packaging models\n\nsrc/main/java/com/aspose/cells_foss/packaging/\n  OOXML package and relationship abstractions\n\nsrc/main/java/com/aspose/cells_foss/xml/\n  XML mappers and parsing helpers\n\nsrc/main/java/com/aspose/cells_foss/validation/\n  Workbook validation messages and validation helpers\n\nsrc/test/java/com/aspose/cells_foss/\n  Scenario-driven integration tests for workbook behavior and XLSX round-tripping\n\nsrc/test/java/com/aspose/cells_foss/unit/\n  Fast, focused unit tests for individual API classes without XLSX I/O\n\ndocs/apidocs/\n  Generated HTML Javadoc for the public API. Run `mvn javadoc:javadoc` to regenerate.\n```\n\n## Testing Coverage\n\nRepresentative test areas include:\n\n- workbook and worksheet behavior\n- cell value handling\n- style round-tripping and display text formatting\n- page setup\n- hyperlinks\n- data validation\n- conditional formatting\n- auto filters\n- document and workbook properties\n- outline grouping\n- cell comments, embedded pictures, embedded charts, drawing shapes, and Excel tables\n- freeze panes, workbook protection, workbook view, and calculation properties\n- error cell value round-tripping\n- compatibility checks against generated XLSX output\n- focused unit tests in `src/test/java/com/aspose/cells_foss/unit/`\n\n## Notes For Contributors\n\n- The main public API lives in `org.aspose.cells_foss`\n- XLSX serialization and OOXML handling are implemented inside this repository\n- If you change supported behavior, update `README.md`, `Agents.md`, and tests together\n\n## License\n\nThis repository includes the MIT license at [`License/LICENSE.txt`](License/LICENSE.txt).\n\n## Support\n\nFor bug reports, feature requests, and project questions, use the GitHub issue tracker:\n\n- [Project issues](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/issues)\n\n\n<!-- readme-agent:resources hash=\"sha256:15f811d4cf8ec423a0839441e433b2320fcf655480da6457324fc3b6101e510b\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.Cells FOSS for Java](https://products.aspose.org/cells/java/)\n- **Commercial edition:** [Aspose.Cells for Java](https://products.aspose.com/cells/java/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository contains the free, open-source (FOSS) edition of Aspose.Cells for Java, which provides a subset of the functionality available in the commercial edition under the MIT License. Users seeking enhanced capabilities, additional features, and commercial support can upgrade to the full Aspose.Cells for Java product, which is distributed under a commercial license.\n<!-- readme-agent:resources:end -->\n",
-            "fresh_fingerprint": "bdd8cb73e9051847687888fc05a9464b1ab330798ec3aab36e13a9c5f22532ad",
-            "llm_called": true,
-            "llm_calls": [
-              "relationship_explained"
-            ],
-            "needs_write": false,
-            "skip_regeneration": false,
-            "status": "GENERATED"
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "4114c8a90abe4bd69a99581389bf045a",
-          "terminal_at": "2026-07-23T06:39:57.106520+00:00"
-        }
-      ]
-    }
+    "task_graph_snapshot": null
   },
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": "bdd8cb73e9051847687888fc05a9464b1ab330798ec3aab36e13a9c5f22532ad",
