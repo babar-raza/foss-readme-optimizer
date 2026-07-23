@@ -414,30 +414,48 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 34,
+  "state_version": 35,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "2ecc445e54a42fc39e1d4012c1cf4bf6a4fb3512564ca5a13a1bcb652fbbda2f",
+    "control_plane_fingerprint": "38e8e913956341f4407c728a26eeaf5638141b622cca1a73ebcd2e254e611afc",
     "domain_coverage_complete": true,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260723-064857-2758",
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b",
-    "last_run_id": "20260722-141834-534d",
-    "last_run_timestamp": "2026-07-22T14:18:34.524958+00:00",
+    "last_run_id": "20260723-065154-e23a",
+    "last_run_timestamp": "2026-07-23T06:51:54.439133+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
-    "surface_freshness": {},
+    "surface_freshness": {
+      "github_generated_surface_audit": {
+        "authoritative_source": "github_api",
+        "last_checked_at": "2026-07-23T06:51:54.439099+00:00",
+        "observed_hash": "4ed485e9c5c9ac045de0f4f8b4f2a3ed6b2a4f5b99ded0ef8ca04bf85c993ef0",
+        "surface_id": "github_generated_surface_audit",
+        "ttl_seconds": 86400
+      },
+      "metadata_presentation": {
+        "authoritative_source": "github_api",
+        "last_checked_at": "2026-07-23T06:51:54.439099+00:00",
+        "observed_hash": "ee514cbfda1656bacf468edd7892bcb483d3bcc58e54249a7293806ca5218dde",
+        "surface_id": "metadata_presentation",
+        "ttl_seconds": 86400
+      },
+      "package_release_audit": {
+        "authoritative_source": "registry_api",
+        "last_checked_at": "2026-07-23T06:51:54.439099+00:00",
+        "observed_hash": "7da866c4abfea71e5a62bac97758943aeeb7428c95baf50bf2bb326ab2526665",
+        "surface_id": "package_release_audit",
+        "ttl_seconds": 21600
+      },
+      "visual_preparation": {
+        "authoritative_source": "local_filesystem",
+        "last_checked_at": "2026-07-23T06:51:54.439099+00:00",
+        "observed_hash": "6dee2c5f85aa16eb5705a02bab6e5fc207e9131b03b17b7360237e4c308fb138",
+        "surface_id": "visual_preparation",
+        "ttl_seconds": 86400
+      }
+    },
     "task_graph_snapshot": {
       "tasks": [
         {
@@ -446,7 +464,7 @@
           },
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-22T14:18:13.400032+00:00",
+          "created_at": "2026-07-23T06:51:34.047226+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -461,8 +479,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "bdc22844a10a4d75aee4ec651eefa859",
-          "terminal_at": "2026-07-22T14:18:13.414464+00:00"
+          "task_id": "00657fd4a0524388990b641ba988df63",
+          "terminal_at": "2026-07-23T06:51:35.042590+00:00"
         },
         {
           "arguments": {
@@ -470,7 +488,7 @@
           },
           "blocked_reason": null,
           "capability_id": "detect_readme_gaps",
-          "created_at": "2026-07-22T14:18:16.038739+00:00",
+          "created_at": "2026-07-23T06:51:37.627428+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -482,8 +500,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "98f0b671e5024054b7ae77343b228385",
-          "terminal_at": "2026-07-22T14:18:16.054430+00:00"
+          "task_id": "e9f7d50f822f46c5b6bae9301564643b",
+          "terminal_at": "2026-07-23T06:51:38.643147+00:00"
         },
         {
           "arguments": {
@@ -492,25 +510,25 @@
           },
           "blocked_reason": null,
           "capability_id": "render_readme_candidate",
-          "created_at": "2026-07-22T14:18:22.007621+00:00",
+          "created_at": "2026-07-23T06:51:43.243465+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
             "facts_hash": "75260a0f27dde3f41e4e9aaede3680b1ba840dcaabc5e148b3933ae5fcf43e73",
-            "final_text": "# Aspose.Cells FOSS for TypeScript\n\nAspose.Cells FOSS is an open-source TypeScript library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.\n\n## Highlights\n\n- Aspose.Cells-compatible API surface for common XLSX scenarios\n- `.xlsx` load/save from file paths and streams\n- Cell values, formulas, styles, merges, and number formats comments, pictures\n- Conditional formatting, data validation, hyperlinks, names, tables, charts, shapes, comments, pictures\n- HTML import and export support\n\n## Installation\n\nClone the repository and install dependencies:\n\n```bash\ngit clone https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript.git\ncd Aspose.Cells-FOSS-for-TypeScript\nnpm install\n```\n\n## Quick Start\n\n### Create, style, and save a workbook\n\n```typescript\nimport { Workbook, Style } from \"./aspose_cells\";\n\nconst workbook = new Workbook();\nconst sheet = workbook.worksheets.get(0)!;\n\nsheet.name = \"Products\";\nsheet.putValue(\"A1\", \"Product\");\nsheet.putValue(\"B1\", \"Price\");\nsheet.putValue(\"A2\", \"Apple\");\nsheet.putValue(\"B2\", 2.99);\nsheet.putValue(\"A3\", \"Orange\");\nsheet.putValue(\"B3\", 1.99);\nconst cellB4 = sheet.getCell2(\"B4\");\ncellB4.setFormula(\"=SUM(B2:B3)\");\n\nconst headerStyle = new Style();\nheaderStyle.setBold(true);\nheaderStyle.setFontColor(\"FFFFFFFF\");\nheaderStyle.setForegroundColor(\"FF2278D4\");\n\nconst cellA1 = sheet.getCell2(\"A1\");\ncellA1.setStyle(headerStyle);\nconst cellB1 = sheet.getCell2(\"B1\");\ncellB1.setStyle(headerStyle);\n\nawait workbook.save(\"products.xlsx\");\n```\n\n### Load and update a workbook\n\n```typescript\nimport { Workbook } from \"./aspose_cells\";\n\nconst workbook = await Workbook.load(\"input.xlsx\");\nconst sheet = workbook.worksheets.get(0)!;\n\nconst cell = sheet.getCell2(\"A1\");\ncell.putValue(\"Updated\");\n\nconsole.log(\"Loaded value:\", sheet.getCell(0, 0)?.value);\n\nawait workbook.save(\"updated.xlsx\");\n```\n\n## Supported Areas\n\n- Workbook and worksheet management\n- Cells and formulas\n- Style model (font, fill, borders, alignment, number formats, protection)\n- Worksheet settings (column widths, row heights, merged cells, auto filter, hidden rows)\n- Hyperlinks and defined names\n- Data validation and conditional formatting\n- Page setup and print-related settings\n- Tables (`ListObjects`)\n- Pictures / images\n- Document properties\nFor runnable examples, see [`examples/`](examples/):\n\n- `examples/cell_values.ts`\n- `examples/styles.ts`\n- `examples/data_validation.ts`\n- `examples/auto_filter.ts`\n- `examples/hyperlinks.ts`\n- `examples/worksheet_management.ts`\n- `examples/protection.ts`\n- `examples/export.ts`\n- `examples/html_export.ts`\n\n## Build from Source\n\nRun commands from the repository root:\n\n```bash\nnpm install\nnpx tsc --noEmit\n```\n\n## Compatibility\n\n- Node.js 18+\n- TypeScript 5+\n\n## License\n\nMIT. See [License/LICENSE.txt](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/blob/master/License/LICENSE.txt).\n\n## Support\n\n- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/issues>\n\n<!-- readme-agent:resources hash=\"sha256:75260a0f27dde3f41e4e9aaede3680b1ba840dcaabc5e148b3933ae5fcf43e73\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.Cells FOSS for TypeScript](https://products.aspose.org/cells/typescript/)\n- **Commercial edition:** [Aspose.Cells for TypeScript](https://products.aspose.com/cells/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository, Aspose.Cells-FOSS-for-TypeScript, represents the free, open-source (FOSS) edition of Aspose.Cells for TypeScript, offering core functionality for working with Excel files under the permissive MIT license. Users seeking enhanced capabilities\u2014including advanced formatting, charting, pivot tables, and enterprise-grade support\u2014can upgrade to the commercial Aspose.Cells for TypeScript edition, which provides a broader feature set and official support channels.\n<!-- readme-agent:resources:end -->\n",
+            "final_text": "# Aspose.Cells FOSS for TypeScript\n\nAspose.Cells FOSS is an open-source TypeScript library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.\n\n## Highlights\n\n- Aspose.Cells-compatible API surface for common XLSX scenarios\n- `.xlsx` load/save from file paths and streams\n- Cell values, formulas, styles, merges, and number formats comments, pictures\n- Conditional formatting, data validation, hyperlinks, names, tables, charts, shapes, comments, pictures\n- HTML import and export support\n\n## Installation\n\nClone the repository and install dependencies:\n\n```bash\ngit clone https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript.git\ncd Aspose.Cells-FOSS-for-TypeScript\nnpm install\n```\n\n## Quick Start\n\n### Create, style, and save a workbook\n\n```typescript\nimport { Workbook, Style } from \"./aspose_cells\";\n\nconst workbook = new Workbook();\nconst sheet = workbook.worksheets.get(0)!;\n\nsheet.name = \"Products\";\nsheet.putValue(\"A1\", \"Product\");\nsheet.putValue(\"B1\", \"Price\");\nsheet.putValue(\"A2\", \"Apple\");\nsheet.putValue(\"B2\", 2.99);\nsheet.putValue(\"A3\", \"Orange\");\nsheet.putValue(\"B3\", 1.99);\nconst cellB4 = sheet.getCell2(\"B4\");\ncellB4.setFormula(\"=SUM(B2:B3)\");\n\nconst headerStyle = new Style();\nheaderStyle.setBold(true);\nheaderStyle.setFontColor(\"FFFFFFFF\");\nheaderStyle.setForegroundColor(\"FF2278D4\");\n\nconst cellA1 = sheet.getCell2(\"A1\");\ncellA1.setStyle(headerStyle);\nconst cellB1 = sheet.getCell2(\"B1\");\ncellB1.setStyle(headerStyle);\n\nawait workbook.save(\"products.xlsx\");\n```\n\n### Load and update a workbook\n\n```typescript\nimport { Workbook } from \"./aspose_cells\";\n\nconst workbook = await Workbook.load(\"input.xlsx\");\nconst sheet = workbook.worksheets.get(0)!;\n\nconst cell = sheet.getCell2(\"A1\");\ncell.putValue(\"Updated\");\n\nconsole.log(\"Loaded value:\", sheet.getCell(0, 0)?.value);\n\nawait workbook.save(\"updated.xlsx\");\n```\n\n## Supported Areas\n\n- Workbook and worksheet management\n- Cells and formulas\n- Style model (font, fill, borders, alignment, number formats, protection)\n- Worksheet settings (column widths, row heights, merged cells, auto filter, hidden rows)\n- Hyperlinks and defined names\n- Data validation and conditional formatting\n- Page setup and print-related settings\n- Tables (`ListObjects`)\n- Pictures / images\n- Document properties\nFor runnable examples, see [`examples/`](examples/):\n\n- `examples/cell_values.ts`\n- `examples/styles.ts`\n- `examples/data_validation.ts`\n- `examples/auto_filter.ts`\n- `examples/hyperlinks.ts`\n- `examples/worksheet_management.ts`\n- `examples/protection.ts`\n- `examples/export.ts`\n- `examples/html_export.ts`\n\n## Build from Source\n\nRun commands from the repository root:\n\n```bash\nnpm install\nnpx tsc --noEmit\n```\n\n## Compatibility\n\n- Node.js 18+\n- TypeScript 5+\n\n## License\n\nMIT. See [License/LICENSE.txt](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/blob/master/License/LICENSE.txt).\n\n## Support\n\n- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/issues>\n\n<!-- readme-agent:resources hash=\"sha256:75260a0f27dde3f41e4e9aaede3680b1ba840dcaabc5e148b3933ae5fcf43e73\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.Cells FOSS for TypeScript](https://products.aspose.org/cells/typescript/)\n- **Commercial edition:** [Aspose.Cells for TypeScript](https://products.aspose.com/cells/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository, Aspose.Cells-FOSS-for-TypeScript, represents the free, open-source (FOSS) edition of Aspose.Cells for TypeScript, offering core functionality for working with Excel files under the permissive MIT license. Users seeking enhanced capabilities\u2014including advanced formatting, charting, pivot tables, and enterprise-grade support\u2014can upgrade to the commercial Aspose.Cells for TypeScript edition, which provides a broader feature set and commercial licensing options.\n<!-- readme-agent:resources:end -->\n",
             "fresh_fingerprint": "7eff660d70827433eefa5d5a53ac9fa8c12932b9a0ded4b6b505db73c8666bdc",
             "llm_called": true,
             "llm_calls": [
               "relationship_explained"
             ],
-            "needs_write": false,
+            "needs_write": true,
             "skip_regeneration": false,
             "status": "GENERATED"
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "e1d96379edcb4a83adf1b41469eb61be",
-          "terminal_at": "2026-07-22T14:18:27.075047+00:00"
+          "task_id": "eece9486f9e149dcad558fd30b1ba9f1",
+          "terminal_at": "2026-07-23T06:51:48.616974+00:00"
         }
       ]
     }
