@@ -6,18 +6,18 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
-    "claim_id": "1e899c87880c47a585e3ab1570d26b69",
-    "claimed_at": "2026-07-23T09:04:50.310125+00:00",
-    "claimed_by": "codex-root",
+    "active_task_id": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "412e88f1657fe487b081c36e38cd9b8ce3d5737135306f18c61f4aab7b133a51",
-    "last_evaluated_at": "2026-07-23T09:04:50.310128+00:00",
+    "last_evaluated_at": "2026-07-23T09:08:14.277086+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
-      "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "IN_PROGRESS",
+      "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "IMPLEMENTED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "TODO",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "BLOCKED_EXTERNAL",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
@@ -158,13 +158,25 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave0-candidate-artifact-disposition/candidate-artifact-inventory.json",
+          "commit:f6927be"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex-root",
+        "occurred_at": "2026-07-23T09:08:14.277081+00:00",
+        "reason": "All five pre-existing candidate artifacts were inventoried, classified, and preserved without modification or staging.",
+        "task_id": "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 19,
+  "state_version": 20,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
