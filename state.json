@@ -11,11 +11,11 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "7e3f2b658be6bea560eefe130060cea9ebb1d574c00f97cab6e52488cf05b37a",
-    "last_evaluated_at": "2026-07-23T08:48:31.303483+00:00",
+    "last_evaluated_at": "2026-07-23T08:48:37.319585+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
-      "L8-MISSION-CONTROL-CONSUMER": "SCORED",
+      "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "TODO",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "TODO",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "TODO",
@@ -60,13 +60,24 @@
         "reason": "All material quality dimensions scored at least four of five",
         "task_id": "L8-MISSION-CONTROL-CONSUMER",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-autonomous-mission-control/mission-control-verification.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-23T08:48:37.319579+00:00",
+        "reason": "Acceptance, integration, regression, evidence, and downstream task obligations satisfied",
+        "task_id": "L8-MISSION-CONTROL-CONSUMER",
+        "to_status": "CLOSED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 8,
+  "state_version": 9,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
