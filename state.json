@@ -6,12 +6,12 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
-    "claim_id": "13aba8e8dd104d818c4f2b6c79b30563",
-    "claimed_at": "2026-07-23T10:54:59.023858+00:00",
-    "claimed_by": "readme-agent-supervisor",
+    "active_task_id": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "72c52eabbc445e7981dc17a5f67f872df466d3e652bda0ab1ff00d79898ceaa7",
-    "last_evaluated_at": "2026-07-23T11:04:05.721321+00:00",
+    "last_evaluated_at": "2026-07-23T11:04:21.432991+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -19,7 +19,7 @@
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
-      "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "IN_PROGRESS",
+      "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "IMPLEMENTED",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "TODO",
@@ -339,13 +339,25 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave0-master-structural-consolidation/master-section-consolidation.json",
+          "9376436"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-23T11:04:21.432984+00:00",
+        "reason": "Applied the user-approved six-section consolidation; preserved decisions through 72; added decisions 73-76 and L8-001 through L8-013",
+        "task_id": "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 38,
+  "state_version": 39,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
