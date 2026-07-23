@@ -341,17 +341,20 @@
         "size_within_reasonable_bounds": true,
         "visual_accuracy_review": {
           "asset_source": "existing",
-          "concerns": [],
-          "depicts_unsupported_content": false,
-          "rationale": "The image displays a feature showcase for Aspose.PDF FOSS for Go, which aligns with the product's supported family (PDF), platform (Go), and ecosystem (Go). All demonstrated features \u2014 including annotations, vector graphics, and multi-page reports \u2014 are consistent with the capabilities of the product as described in its official documentation and are not misleading or unsupported.",
-          "verdict": "accept"
+          "concerns": [
+            "The 'Annotation Gallery' slide lists 'Widget' as a supported annotation type, but the product facts state that 'Widget' is shown via AcroForm and not natively supported.",
+            "The 'Annotation Gallery' slide also mentions 'SetContents / SetRect / per-type props', which are not part of the product's actual API or supported features."
+          ],
+          "depicts_unsupported_content": true,
+          "rationale": "The image incorrectly claims support for 'Widget' annotations and references non-existent API methods like 'SetContents' and 'SetRect', which are not part of the actual Aspose.PDF FOSS for Go product's capabilities.",
+          "verdict": "flag"
         },
         "width": 1112
       },
       "domain": "visual_preparation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:38:34.710921+00:00",
+      "last_run_timestamp": "2026-07-23T06:59:09.305674+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
@@ -362,7 +365,7 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
-  "state_version": 32,
+  "state_version": 33,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "36599ca77c26a2591664fd06cd02a734dfc86b39fa9c1a1f4ef18a491964fccd",
