@@ -1,0 +1,141 @@
+{
+  "schema_version": 2,
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "task_id": "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
+  "executed_at_local_date": "2026-07-23",
+  "result": "PASS",
+  "repository": {
+    "commit": "146d81db949b03df0f24b9fe839d3c65efa925d9",
+    "clone_kind": "fresh local clone with --no-local and --no-hardlinks",
+    "clone_path": "runs/level8-wave0-fresh-clone-146d81d-lock-only",
+    "source_working_tree_used": false,
+    "porcelain_before": "",
+    "porcelain_after": ""
+  },
+  "dependency_install": {
+    "lock_file": "requirements-lock.txt",
+    "lock_git_blob_sha1": "6a2c42bfd42b5706d86e54190601cf0b0ebf6503",
+    "lock_fresh_clone_sha256": "75fbac57d40f6e6d1a66cf58de06f850e087c40e82a673f2657d35ff80fb9e70",
+    "commands": [
+      {
+        "command": "python -m venv .venv",
+        "exit_code": 0
+      },
+      {
+        "command": ".venv/Scripts/python -m pip install --disable-pip-version-check -r requirements-lock.txt",
+        "exit_code": 0
+      },
+      {
+        "command": "Compare-Object lock package lines against .venv/Scripts/python -m pip freeze --exclude-editable",
+        "exit_code": 0,
+        "result": "LOCK_MATCH package_lines=71"
+      },
+      {
+        "command": ".venv/Scripts/python -m pip check",
+        "exit_code": 0,
+        "result": "No broken requirements found."
+      }
+    ],
+    "editable_project_install_performed": false,
+    "ambient_or_unlocked_package_resolution": false,
+    "result": "PASS"
+  },
+  "official_check_command": {
+    "command": ".venv/Scripts/python scripts/governance/run_official_checks.py",
+    "exit_code": 0,
+    "exit_code_basis": "The script emitted its terminal 'All official checks passed.' marker, which is reachable only from its zero-return branch; every required subcommand emitted OK.",
+    "generated_by": "scripts/governance/run_official_checks.py"
+  },
+  "tool_versions": {
+    "python": "3.13.2",
+    "ruff": "0.15.22",
+    "mypy": "2.3.0",
+    "pytest": "9.1.1",
+    "actionlint": "1.7.12"
+  },
+  "checks": [
+    {
+      "name": "ruff check",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "name": "ruff format --check",
+      "exit_code": 0,
+      "result": "PASS",
+      "files_checked": 286
+    },
+    {
+      "name": "mypy src",
+      "exit_code": 0,
+      "result": "PASS",
+      "source_files_checked": 169
+    },
+    {
+      "name": "pytest -q full non-live suite",
+      "exit_code": 0,
+      "result": "PASS",
+      "passed": 1196,
+      "deselected": 18,
+      "duration_seconds": 432.35
+    },
+    {
+      "name": "validate_plan_structure.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "non_blocking_warnings": 52
+    },
+    {
+      "name": "actionlint",
+      "exit_code": 0,
+      "result": "PASS",
+      "workflow_count": 9
+    }
+  ],
+  "raw_artifacts": [
+    {
+      "path": "plans/investigations/evidence/level8-wave0-fresh-clone-head-reproduction/official-checks.stdout.log",
+      "bytes": 4303,
+      "sha256": "bffaaa6ec75ae630bb52fd5eeea1a8cf4eeefacc6df34e462e2652d4cdd5cc73",
+      "stream": "stdout"
+    },
+    {
+      "path": "plans/investigations/evidence/level8-wave0-fresh-clone-head-reproduction/official-checks.stderr.log",
+      "bytes": 5903,
+      "sha256": "4ce8f3fc68d852a05c8efd93a9a57ca15368a90c4ab0e8dd30bbb1bea951fbc7",
+      "stream": "stderr"
+    }
+  ],
+  "rejected_attempts": [
+    {
+      "clone_path": "runs/level8-wave0-fresh-clone-146d81d",
+      "result": "REJECTED_NEGATIVE_CONTROL",
+      "reason": "An editable install used PEP 517 build isolation and fetched undeclared Hatchling tooling; it was not accepted as lock-only proof."
+    },
+    {
+      "clone_path": "runs/level8-wave0-fresh-clone-146d81d-lock-only",
+      "result": "INTERRUPTED",
+      "reason": "The first foreground official-check invocation hit the 300-second harness timeout at 84% of pytest. Its partial output is not used as passing evidence."
+    }
+  ],
+  "comparison_to_prior_proof": {
+    "prior_artifact": "plans/investigations/evidence/wave-0-fresh-clone-reproduction-2026-07-23/official-checks.json",
+    "prior_commit": "674285a7c1fd9df1308944f549a94b36f29f9c11",
+    "prior_tests_passed": 1174,
+    "current_tests_passed": 1196,
+    "prior_source_files_checked": 165,
+    "current_source_files_checked": 169,
+    "prior_formatted_files_checked": 278,
+    "current_formatted_files_checked": 286,
+    "lock_sha256_unchanged": true,
+    "regression": false
+  },
+  "negative_controls": {
+    "dirty_source_plan_candidates_copied_into_clone": false,
+    "editable_install_used_in_accepted_proof": false,
+    "undeclared_package_resolution_used_in_accepted_proof": false,
+    "live_tests_run": false,
+    "product_remote_write_attempted": false,
+    "secrets_recorded": false
+  }
+}

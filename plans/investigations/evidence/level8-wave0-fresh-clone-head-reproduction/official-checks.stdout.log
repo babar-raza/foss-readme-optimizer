@@ -1,0 +1,49 @@
+All checks passed!
+286 files already formatted
+Success: no issues found in 169 source files
+........................................................................ [  6%]
+........................................................................ [ 12%]
+........................................................................ [ 18%]
+........................................................................ [ 24%]
+........................................................................ [ 30%]
+........................................................................ [ 36%]
+........................................................................ [ 42%]
+........................................................................ [ 48%]
+........................................................................ [ 54%]
+........................................................................ [ 60%]
+........................................................................ [ 66%]
+........................................................................ [ 72%]
+........................................................................ [ 78%]
+........................................................................ [ 84%]
+........................................................................ [ 90%]
+........................................................................ [ 96%]
+............................................                             [100%]
+1196 passed, 18 deselected in 432.35s (0:07:12)
+Plan structure clean (52 warning(s)).
+
+=== ruff check ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.venv\Scripts\python.exe -m ruff check .
+--- ruff check: OK
+
+=== ruff format --check ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.venv\Scripts\python.exe -m ruff format --check .
+--- ruff format --check: OK
+
+=== mypy src ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.venv\Scripts\python.exe -m mypy src
+--- mypy src: OK
+
+=== pytest -q (full non-live suite) ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.venv\Scripts\python.exe -m pytest -q
+--- pytest -q (full non-live suite): OK
+
+=== validate_plan_structure.py ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\scripts\governance\validate_plan_structure.py
+--- validate_plan_structure.py: OK
+
+=== actionlint (workflow syntax) ===
+$ C:\Users\prora\go\bin\actionlint.EXE D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.github\workflows\ci.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.github\workflows\dependency-check.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.github\workflows\detect-template-clones.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.github\workflows\golden-set-run.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.github\workflows\measure-clone-latency.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.github\workflows\readme-agent-portfolio.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.github\workflows\readme-agent-run.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.github\workflows\readme-agent-supervise.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\level8-wave0-fresh-clone-146d81d-lock-only\.github\workflows\update-products-registry.yml
+--- actionlint (workflow syntax): OK
+
+============================================================
+All official checks passed.
