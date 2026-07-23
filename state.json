@@ -205,23 +205,14 @@
       "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "f11c2b7dfe06b05fb720e1cfae2c40b43d2b9d9e9943b0d03a400297907d2ce3",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "43718eec10c4a0ffbc163e18c7c635a3fbcfcb8c4650a9ab61fe9368bbca99d8",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": "no live resolver registered for ecosystem 'go'",
-        "handoff_findings": [
-          {
-            "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-22T15:36:50.312424+00:00",
-            "evidence": {
-              "detail": "no live resolver registered for ecosystem 'go'"
-            },
-            "surface": "packages"
-          }
-        ],
-        "install_path_resolved": false,
+        "evidence": "Go proxy: github.com/aspose-pdf-foss/aspose-pdf-foss-for-go found",
+        "handoff_findings": [],
+        "install_path_resolved": true,
         "latest_release_name": "v0.6.0 \u2014 The AI & Markdown Release: copilots on any endpoint, searchable scans, 652/652 CommonMark",
         "latest_release_tag": "v0.6.0",
         "releases_count": 6
@@ -229,7 +220,7 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:36:50.312982+00:00",
+      "last_run_timestamp": "2026-07-23T06:57:16.813512+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ffbbd250e8a291f567d2574b39f4ee85bf9a99e0"
@@ -371,7 +362,7 @@
   "open_proposals": {},
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
-  "state_version": 27,
+  "state_version": 28,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "36599ca77c26a2591664fd06cd02a734dfc86b39fa9c1a1f4ef18a491964fccd",
