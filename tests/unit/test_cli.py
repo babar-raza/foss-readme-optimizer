@@ -68,6 +68,34 @@ class TestSuperviseCommand:
     """Wave 5: `supervise` is a new, additive verb -- `--durable-state`
     mirrors `run`'s opt-in convention, defaulting to False."""
 
+    def test_repo_and_mission_graph_are_mutually_exclusive(self):
+        parser = _build_parser()
+        with pytest.raises(SystemExit):
+            parser.parse_args(["supervise"])
+        with pytest.raises(SystemExit):
+            parser.parse_args(
+                [
+                    "supervise",
+                    "--repo",
+                    "org/repo",
+                    "--mission-task-graph",
+                    "mission.yaml",
+                ]
+            )
+
+    def test_mission_graph_does_not_require_a_repository(self):
+        args = _build_parser().parse_args(
+            [
+                "supervise",
+                "--mission-task-graph",
+                "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+                "--mission-action",
+                "status",
+            ]
+        )
+        assert args.repo is None
+        assert args.mission_task_graph.endswith("level8-autonomous-mission-task-graph.yaml")
+
     def test_repo_required(self):
         with pytest.raises(SystemExit):
             _build_parser().parse_args(["supervise"])

@@ -1,0 +1,739 @@
+schema_version: 1
+autonomous_execution_contract:
+  selected_mechanism: readme-agent-supervisor
+  mechanism_type: autonomous_supervision
+  entry_point: readme-agent supervise
+  invocation: >-
+    .venv/Scripts/readme-agent supervise
+    --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml
+  governing_state: >-
+    Versioned mission state persisted by the supervisor; the committed task graph is the
+    declarative source and audit record.
+  task_source: plans/investigations/control/level8-autonomous-mission-task-graph.yaml
+  continuation_source: dependency-ready taskcards in this graph
+  continuation_consumer: readme-agent supervisor mission controller
+  stop_evaluator: mission-aware supervisor task-graph evaluator
+  resume_strategy: >-
+    Reload the same task graph and versioned mission state, reconcile claimed work, and claim the
+    highest-priority dependency-ready task.
+  rejected_alternative: repository autonomous cycling mechanism
+  mechanism_locked: true
+
+mission_authority:
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  mission_summary: >-
+    Implement and verify the Level-8 Central Repository-Presentation System incrementally through
+    the repository's sole production supervisor, preserving the existing safety, registry,
+    validation, state, specialist, and evidence foundations.
+  governing_plan_path: plans/master.md
+  current_phase: Wave 0 - truth consolidation and shippable baseline
+  in_scope_outcomes:
+    - One canonical production supervisor and no alternate mutation path.
+    - Restartable GitHub Actions runtime with durable lifecycle recovery.
+    - Provenance-complete product facts and surface ownership.
+    - Repository-specific presentation intelligence across controlled surfaces.
+    - Verified proposal and authorized draft-PR effect lifecycle.
+    - Controlled three-repository Java pilot.
+    - Heterogeneous seven-ecosystem production portfolio.
+    - Ninety-day independently reproducible Level-8 production proof.
+  out_of_scope_items:
+    - Automatic merge or default-branch writes.
+    - Package or release publication.
+    - Writes to GitHub-generated surfaces.
+    - Unreviewed onboarding into write-enabled operation.
+  mandatory_acceptance_criteria:
+    - Every accepted trigger is terminal or visibly retryable or blocked.
+    - No unauthorized, duplicate, default-branch, package, release, or generated-surface write.
+    - No false-success terminal state.
+    - Every terminal run has a checksum-complete manifest.
+    - Deterministic validation remains at 100 percent.
+    - Agentic golden-set accuracy is at least 95 percent across the governed evaluation set.
+    - Level 7 has 30 consecutive production days meeting its gates.
+    - Level 8 has 90 consecutive production days meeting its gates.
+    - An independent audit reproduces the evidence and awards Level 8.
+  conflicts_found:
+    - >-
+      plans/master.md still contains the obsolete phase track and requires a fresh section-specific
+      approval before structural edits.
+    - >-
+      Uncommitted plans/status.md, plans/roadmap.md, and plans/changelog.md are not currently listed
+      as allowed plan homes by plans/GOVERNANCE.md.
+    - >-
+      The production supervisor owns product-repository capability tasks but has no consumer for
+      central-repository implementation taskcards.
+    - >-
+      Requirement closure prose and current repository evidence contain semantic contradictions,
+      including VER-001 and the still-live alternate mutation path.
+  mission_locked: true
+
+verified_baseline:
+  repository_root: D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
+  branch: main
+  head: 79c7beadbc0072714198e03a8f58b46c431d3a4a
+  upstream_head: 674285a7c1fd9df1308944f549a94b36f29f9c11
+  dirty_paths:
+    - plans/idea.md
+    - plans/master.md
+    - plans/changelog.md
+    - plans/roadmap.md
+    - plans/status.md
+  preserved_user_or_agent_work: true
+  evidence_roots:
+    - runs/
+    - plans/investigations/evidence/
+  fresh_clone_evidence: >-
+    plans/investigations/evidence/wave-0-fresh-clone-reproduction-2026-07-23/
+    official-checks.json
+  baseline_checks:
+    ruff: passed
+    format: passed
+    mypy: passed
+    pytest: 1174 passed, 18 deselected
+    plan_validation: passed with 51 warnings
+    actionlint: 9 workflows passed
+  baseline_commit_proven: 674285a7c1fd9df1308944f549a94b36f29f9c11
+  known_limitations:
+    - The fresh-clone proof predates the two local commits at current HEAD.
+    - The dirty plan candidate has not been accepted as authoritative current truth.
+    - GitHub App credentials and reviewed authorization records are not yet present.
+
+taskcards:
+  - task_id: L8-MISSION-CONTROL-CONSUMER
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Make the locked supervisor consume and persist central mission taskcards
+    source_audit_finding: >-
+      The selected supervisor has a runtime TaskGraph for repository capabilities but no loader,
+      claim transition, durable mission state, continuation consumer, or mission stop evaluator for
+      the Level-8 implementation graph.
+    audit_classification: final_outcome_blocker
+    priority: P0
+    lane: mission-control
+    owner: readme-agent-supervisor
+    status: IN_PROGRESS
+    objective: >-
+      Extend the existing supervisor, without creating another controller, so it loads this graph,
+      validates it, reconciles durable state, claims the next eligible task, and evaluates mission
+      completion.
+    why_it_matters: >-
+      A taskcard file without a consumer is not continuation proof and cannot be the single
+      autonomous authority required by the mission.
+    allowed_paths:
+      - src/readme_agent/supervisor/
+      - src/readme_agent/cli.py
+      - src/readme_agent/commands.py
+      - src/readme_agent/state/
+      - tests/unit/
+      - docs/architecture.md
+      - plans/investigations/control/level8-autonomous-mission-task-graph.yaml
+      - plans/investigations/evidence/level8-autonomous-mission-control/
+    forbidden_paths:
+      - plans/master.md
+      - config/authorization/
+      - data/products.json
+      - runs/*/work/
+    dependencies: []
+    expected_outputs:
+      - Typed mission/taskcard schema with the protocol's required fields and state vocabulary.
+      - Escape-safe YAML loader with referential-integrity and cycle validation.
+      - Deterministic eligibility, claim, transition, reconciliation, and stop evaluation.
+      - A supervise CLI entry that exercises the same supervisor authority.
+      - Versioned durable mission-state persistence.
+    acceptance_checks:
+      - Invalid schemas, dependencies, transitions, and cycles fail closed.
+      - Exactly one dependency-ready task is claimed deterministically.
+      - Restart reloads the same claim and does not duplicate dispatch.
+      - The evaluator refuses mission completion while mandatory work remains.
+    verification:
+      - Focused unit tests for schema, loader, transitions, selection, and resume.
+      - CLI integration test proving task selection and claim.
+      - Raw state inspection after a claim and after terminal transition.
+    negative_controls:
+      - A second mechanism cannot be selected while mechanism_locked is true.
+      - A task with unmet dependencies cannot be claimed.
+      - CLOSED cannot be reached directly from TODO or READY.
+    regression_checks:
+      - Existing supervisor task-graph tests.
+      - Existing CLI tests.
+      - Ruff, format, mypy, and the full non-live pytest suite.
+    evidence_requirements:
+      - Command log and serialized before/after state.
+      - Test results with exact counts.
+      - No-change reload proof.
+    rollback_or_recovery: >-
+      Remove only the new mission-control entry seam and leave the existing repository supervisor
+      behavior unchanged; preserve the committed task graph for diagnosis.
+    failure_reroute: >-
+      Attempt local schema/loader repair, then state-backend integration repair, then a governed
+      existing-library or Git-ref recovery path; never activate the rejected cycle mechanism.
+    closeout_rules:
+      - Implementation exists and all focused checks pass.
+      - A real CLI claim is observed in persisted state.
+      - An immediate rerun proves no duplicate claim.
+
+  - task_id: L8-REQUIREMENT-TO-TASKCARD-COVERAGE
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Map every mandatory normative requirement into the mission task graph
+    source_audit_finding: >-
+      plans/requirements.md contains 376 requirement rows, while no central mission task graph
+      previously existed.
+    audit_classification: not_attempted
+    priority: P0
+    lane: mission-control
+    owner: readme-agent-supervisor
+    status: TODO
+    objective: >-
+      Add stable, deduplicated taskcards for every mandatory non-deprecated requirement and record
+      verified completion without reopening valid evidence.
+    why_it_matters: >-
+      Mission completion cannot be evaluated if mandatory requirements have no task representation.
+    allowed_paths:
+      - plans/requirements.md
+      - plans/investigations/control/
+      - scripts/governance/
+      - tests/unit/
+    forbidden_paths:
+      - plans/master.md
+      - config/authorization/
+      - data/products.json
+    dependencies:
+      - L8-MISSION-CONTROL-CONSUMER
+    expected_outputs:
+      - Requirement-to-taskcard coverage report with no missing mandatory IDs.
+      - Stable task IDs and explicit wave/lane ownership.
+      - Reopened cards for semantically contradicted closure claims.
+    acceptance_checks:
+      - Every requirement ID resolves to exactly one primary taskcard.
+      - No duplicate or orphan taskcard exists.
+      - IMPLEMENTED rows are preserved only when semantic evidence passes.
+    verification:
+      - Coverage validator.
+      - Semantic implementation-truth matrix.
+      - Manual inspection of all P0 and P1 exceptions.
+    negative_controls:
+      - BACKLOG is not silently treated as mandatory accepted scope.
+      - DEPRECATED rows do not create executable work.
+      - A path-only citation cannot close a P0 or P1 task.
+    regression_checks:
+      - Existing plan-structure validator.
+      - Existing traceability-matrix check mode.
+    evidence_requirements:
+      - Machine-readable coverage report.
+      - Explicit list of reopened and preserved tasks.
+    rollback_or_recovery: Regenerate deterministically from the unchanged normative requirements.
+    failure_reroute: Repair parser, then malformed rows, then use the existing normalized inventory.
+    closeout_rules:
+      - Coverage is exactly 100 percent for mandatory requirements.
+      - All exceptions are classified and evidenced.
+
+  - task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Reconcile the dirty plan candidate into one truthful active Level-8 sequence
+    source_audit_finding: >-
+      The master, legacy phase checklist, candidate roadmap/status files, requirements, and
+      production evidence contradict one another; the master structural edit is separately gated.
+    audit_classification: partially_done
+    priority: P0
+    lane: governance-truth
+    owner: readme-agent-supervisor
+    status: TODO
+    objective: >-
+      Preserve the valuable dirty candidate, establish the Level-8 Waves 0-8 sequence as the sole
+      active program, and eliminate status and evidence overclaims after satisfying all edit gates.
+    why_it_matters: An autonomous controller cannot safely execute two contradictory active plans.
+    allowed_paths:
+      - plans/
+      - logs/
+      - scripts/governance/
+      - docs/
+    forbidden_paths:
+      - config/authorization/
+      - data/products.json
+      - runs/*/work/
+    dependencies:
+      - L8-REQUIREMENT-TO-TASKCARD-COVERAGE
+    expected_outputs:
+      - Approved surgical master amendments.
+      - One allowed active roadmap and generated current-status surface.
+      - Compact legacy phase summary.
+      - Reconciled normative requirement statuses.
+    acceptance_checks:
+      - No master, requirements, roadmap, status, or evidence contradiction remains.
+      - The plan-structure validator passes without new warnings.
+      - Every changed closure claim has semantic evidence.
+    verification:
+      - Plan structure and semantic matrix.
+      - Cross-document link and decision coverage checks.
+      - Independent diff review.
+    negative_controls:
+      - No master section is edited without its applicable explicit gate.
+      - Existing decision history is preserved in logs.
+      - Unrelated dirty content is not discarded.
+    regression_checks:
+      - Official governance checks.
+      - Fresh-clone reproduction after commit.
+    evidence_requirements:
+      - Before/after conflict inventory.
+      - Approval record for each gated master section.
+      - Fresh-clone official-check output.
+    rollback_or_recovery: Revert only the bounded plan-healing commit after preserving its audit log.
+    failure_reroute: >-
+      Use requirements and control artifacts for safe independent work while recording the master
+      gate as an authority blocker; do not rewrite master implicitly.
+    closeout_rules:
+      - All Wave 0 exit gates pass.
+      - The accepted plan and task graph agree.
+
+  - task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Make supervise the sole production mutation path and eliminate false success
+    source_audit_finding: >-
+      The legacy generate/run path can still mutate without the independent verifier and large
+      supervisor/orchestrator/command modules obscure responsibility boundaries.
+    audit_classification: final_outcome_blocker
+    priority: P0
+    lane: canonical-runtime
+    owner: readme-agent-supervisor
+    status: TODO
+    objective: >-
+      Decompose the runtime seams, route compatibility commands through the same capability,
+      authorization, effect-ledger, and verifier spine, and make every required failure fail closed.
+    why_it_matters: Level 8 is impossible while any production mutation can bypass verification.
+    allowed_paths:
+      - src/readme_agent/
+      - tests/
+      - docs/
+      - plans/investigations/evidence/
+    forbidden_paths:
+      - config/authorization/
+      - data/products.json
+      - target repository remotes
+    dependencies:
+      - L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    expected_outputs:
+      - Responsibility-sized runtime modules.
+      - Compatibility-only legacy commands or common supervised routing.
+      - Closed ORC-005 and OPS-010.
+      - Explicit unsupported Rust result until support exists.
+    acceptance_checks:
+      - No required failure exits zero or reports convergence.
+      - No mutation bypasses registry, authorization, effect ledger, or verifier.
+      - .NET, Python, C++, and Go false-success scenarios fail closed.
+    verification:
+      - Focused failure-classification tests.
+      - Process-descendant cancellation tests.
+      - Heterogeneous production-like reproductions.
+    negative_controls:
+      - Live credentials are removed from offline tests.
+      - Compatibility commands cannot acquire write permission independently.
+    regression_checks:
+      - Full official checks.
+      - Existing push-block and allow-list security tests.
+    evidence_requirements:
+      - Per-ecosystem raw terminal outcomes.
+      - Mutation-path inventory showing one production path.
+    rollback_or_recovery: Keep compatibility façades read-only if routing parity is not yet proven.
+    failure_reroute: Split by module responsibility and close one bypass at a time.
+    closeout_rules:
+      - All Wave 1 exit gates pass.
+      - Independent verifier confirms no alternate mutation route.
+
+  - task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Build restartable, deduplicated, fail-closed GitHub Actions lifecycle
+    source_audit_finding: >-
+      Trigger intake, lifecycle checkpoints, recovery sweeps, retry classes, health aggregation,
+      and dead-man monitoring are incomplete or absent.
+    audit_classification: partially_done
+    priority: P0
+    lane: durable-runtime
+    owner: readme-agent-supervisor
+    status: TODO
+    objective: >-
+      Introduce versioned trigger, checkpoint, health, and manifest contracts and prove recovery at
+      every lifecycle boundary under the Git-ref state backend.
+    why_it_matters: Scheduled autonomy is not credible if accepted work can disappear after a crash.
+    allowed_paths:
+      - src/readme_agent/
+      - tests/
+      - .github/workflows/
+      - docs/
+      - plans/investigations/evidence/
+    forbidden_paths:
+      - target repository default branches
+      - config/authorization/
+    dependencies:
+      - L8-WAVE1-CANONICAL-SAFETY-SPINE
+    expected_outputs:
+      - TriggerEnvelopeV2, CheckpointV1, HealthReportV1, and RunManifestV3.
+      - State migrations with fail-closed newer-version handling.
+      - Reusable production workflow and authoritative matrix.
+      - Recovery sweep, retry classes, alerts, and external dead-man signal.
+    acceptance_checks:
+      - Kill-and-resume passes at every checkpoint.
+      - Duplicate delivery creates one logical execution and one effect.
+      - State outage blocks effects and LLM calls.
+      - Every accepted trigger becomes terminal or visibly retryable.
+    verification:
+      - Checkpoint fault-injection suite.
+      - Workflow reproduction with act.
+      - State outage and duplicate-delivery integration tests.
+    negative_controls:
+      - No fallback to local/best-effort state in a GitHub profile.
+      - One repository failure cannot cancel unrelated matrix repositories.
+    regression_checks:
+      - Full official checks.
+      - Existing state CAS and lease tests.
+    evidence_requirements:
+      - One evidence bundle per injected checkpoint failure.
+      - Health report showing stale lease, backlog, and recovery.
+    rollback_or_recovery: Versioned migration rollback with old schema retained read-only.
+    failure_reroute: Repair schema, then state CAS, then workflow consumer boundaries independently.
+    closeout_rules:
+      - All Wave 2 exit gates pass.
+      - Recovery is proven in production-like execution.
+
+  - task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Make every technical presentation claim provenance-complete and ownership-safe
+    source_audit_finding: Product facts are partial and do not yet gate every claim or surface.
+    audit_classification: partially_done
+    priority: P0
+    lane: facts-and-ownership
+    owner: readme-agent-supervisor
+    status: TODO
+    objective: >-
+      Implement ProductFactsV2, precedence/conflict behavior, claim citations, surface ownership,
+      protected-content fingerprints, isolated example execution, and prompt-injection treatment.
+    why_it_matters: Presentation quality without factual provenance can confidently publish falsehoods.
+    allowed_paths:
+      - src/readme_agent/
+      - tests/
+      - config/policies/
+      - docs/
+      - plans/investigations/evidence/
+    forbidden_paths:
+      - config/authorization/
+      - target repository remotes
+    dependencies:
+      - L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    expected_outputs:
+      - ProductFactsV2 and migrations.
+      - Fact precedence, conflict, and dependent-action gating.
+      - Surface ownership map and protected-content fingerprints.
+      - Secret-free isolated example and acquisition verification.
+    acceptance_checks:
+      - False Maven coordinates cannot enter a verified proposal.
+      - Missing facts block only dependent actions.
+      - Removing a protected limitation, command, or example fails validation.
+    verification:
+      - False-coordinate and conflicting-fact negative controls.
+      - Isolated real package/example execution.
+      - Prompt-injection fixtures.
+    negative_controls:
+      - README prose is never accepted as authoritative truth by itself.
+      - Package execution never has a write token.
+    regression_checks:
+      - Existing facts-hash and prompt-hash tests.
+      - Full official checks.
+    evidence_requirements:
+      - Fact provenance graph for representative repositories.
+      - Protected-content loss rejection evidence.
+    rollback_or_recovery: Preserve ProductFactsV1 migration reader until all state is upgraded.
+    failure_reroute: Block only the affected surface and continue independent fact/surface audits.
+    closeout_rules:
+      - All Wave 3 exit gates pass.
+      - Independent factuality reviewer accepts representative facts.
+
+  - task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Produce repository-specific, source-span presentation plans across owned surfaces
+    source_audit_finding: >-
+      Current presentation logic covers only a subset of the ten standard dimensions and surfaces.
+    audit_classification: partially_done
+    priority: P1
+    lane: presentation-intelligence
+    owner: readme-agent-supervisor
+    status: TODO
+    objective: >-
+      Implement RepositoryPresentationPlanV1, AST/source-span README patches, archetype-specific
+      intelligence, metadata/community/visual proposals, ownership constraints, and governed golden
+      evaluation.
+    why_it_matters: Level 8 requires credible repository-specific proposals, not a repeated template.
+    allowed_paths:
+      - src/readme_agent/
+      - tests/
+      - templates/
+      - prompts/
+      - docs/
+      - plans/investigations/evidence/
+      - pyproject.toml
+      - requirements-lock.txt
+    forbidden_paths:
+      - target repository remotes
+      - config/authorization/
+    dependencies:
+      - L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    expected_outputs:
+      - RepositoryPresentationPlanV1.
+      - markdown-it-py direct dependency and source-span patcher.
+      - Ten-dimension README intelligence with differentiated archetypes.
+      - Complete controlled-surface proposal support.
+      - Golden set of at least 100 evaluations.
+    acceptance_checks:
+      - Deterministic validators pass 100 percent.
+      - Agentic plan selection reaches at least 95 percent in three sessions.
+      - No unsupported claim, template clone, protected loss, or ownership violation passes.
+    verification:
+      - Real regression fixtures and all named ecosystems/archetypes.
+      - Three independent golden-set sessions.
+      - Reviewer acceptance without prose repair.
+    negative_controls:
+      - Social preview is never claimed applied by asset preparation.
+      - Releases, packages, and GitHub-generated signals remain audit-only.
+    regression_checks:
+      - Byte-preservation tests outside source spans.
+      - Full official checks.
+    evidence_requirements:
+      - Golden-set raw results and route-disable proof.
+      - Before/after patch byte comparison.
+    rollback_or_recovery: Disable any model route falling below threshold; deterministic audits remain.
+    failure_reroute: Split by surface and archetype while preserving shared fact/ownership gates.
+    closeout_rules:
+      - All Wave 4 exit gates pass.
+      - Independent reviewers accept repository-specific proposals.
+
+  - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Complete verified proposal, draft-PR, drift, and reconciliation lifecycle
+    source_audit_finding: >-
+      The existing PR capability lacks the complete VerifiedProposalV1/OpenProposalV2 lifecycle,
+      drift rebuilding, and crash-boundary reconciliation required by the target.
+    audit_classification: partially_done
+    priority: P0
+    lane: proposal-effects
+    owner: readme-agent-supervisor
+    status: TODO
+    objective: >-
+      Separate verified proposal construction from terminal authorized effects and prove exactly-one
+      draft PR behavior across retries, drift, crashes, and authorization expiry.
+    why_it_matters: A safe proposal system must never turn stale analysis into duplicate effects.
+    allowed_paths:
+      - src/readme_agent/
+      - tests/
+      - .github/workflows/
+      - docs/
+      - plans/investigations/evidence/
+    forbidden_paths:
+      - target repository default branches
+      - package and release endpoints
+      - config/authorization/
+    dependencies:
+      - L8-WAVE4-PRESENTATION-INTELLIGENCE
+    expected_outputs:
+      - VerifiedProposalV1 and OpenProposalV2.
+      - One agent-owned branch per repository with fast-forward-only updates.
+      - Drift rebuild and re-verification.
+      - Crash-boundary and lost-response reconciliation.
+      - Fresh GitHub App token isolated to the effect job.
+    acceptance_checks:
+      - All named lifecycle scenarios produce exactly one correct proposal state.
+      - Missing or expired authorization blocks before pending effect creation.
+      - No write token exists in clone, LLM, package, or validation jobs.
+    verification:
+      - Local bare-remote lifecycle tests.
+      - Live authorized draft-PR pilot only when a reviewed record exists.
+      - Credential-boundary workflow inspection and negative tests.
+    negative_controls:
+      - No PAT or GH_TOKEN production fallback.
+      - No force push, ready-for-review, merge, close, or default-branch write.
+    regression_checks:
+      - Existing effect-ledger and PR dedup tests.
+      - Full official checks.
+    evidence_requirements:
+      - Per-scenario proposal state and remote observation.
+      - Token-exposure audit.
+    rollback_or_recovery: Close or supersede only through separately authorized lifecycle actions.
+    failure_reroute: Continue proposal generation in no-effect mode while authorization is unavailable.
+    closeout_rules:
+      - All Wave 5 exit gates pass.
+      - Independent verifier reproduces exactly-one behavior.
+
+  - task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Prove Level 5 across the governed three-repository Java pilot
+    source_audit_finding: No complete independently reproducible PIL-013 bundle exists.
+    audit_classification: not_attempted
+    priority: P1
+    lane: java-pilot
+    owner: readme-agent-supervisor
+    status: TODO
+    objective: >-
+      Execute the full baseline, facts, plan, surfaces, verified draft PR, rerun, overwrite,
+      interruption, duplicate, and isolated-failure matrix for 3D, Cells, and PDF Java.
+    why_it_matters: This is the first credible production-like demonstration of passive-review autonomy.
+    allowed_paths:
+      - runs/
+      - plans/investigations/evidence/
+      - tests/integration/
+      - target agent-owned presentation branches under valid authorization
+    forbidden_paths:
+      - target default branches
+      - merge operations
+      - package and release writes
+    dependencies:
+      - L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    expected_outputs:
+      - Complete PIL-013 bundle for all three repositories.
+      - Independent reviewer decision.
+      - No-op, upstream-change, overwrite, resume, duplicate, and failure evidence.
+    acceptance_checks:
+      - Every required repository/surface/scenario has terminal evidence.
+      - Draft PRs are independently verified and remain unmerged.
+      - Reviewer accepts without manual prose repair.
+    verification:
+      - Live governed pilot.
+      - Read-only remote reconciliation.
+      - Bundle checksum reproduction.
+    negative_controls:
+      - The pilot is called controlled Java, never heterogeneous.
+      - No write occurs without a reviewed authorization record.
+    regression_checks:
+      - Full official checks before and after pilot.
+      - Immediate unchanged reruns.
+    evidence_requirements:
+      - PIL-013 checksum-complete committed evidence bundle.
+      - Independent reviewer identity and verdict.
+    rollback_or_recovery: Revert agent branch commits or close drafts only under explicit authorization.
+    failure_reroute: Continue read-only and proposal-local scenarios while a repository write is blocked.
+    closeout_rules:
+      - All Wave 6 pilot obligations pass.
+      - Level 5 is awarded by independent review.
+
+  - task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Reach Levels 6 and 7 across the complete heterogeneous portfolio
+    source_audit_finding: >-
+      Existing production-like evidence is concentrated in Java and does not cover a full proposal
+      lifecycle in seven ecosystems or every active registry repository.
+    audit_classification: not_attempted
+    priority: P1
+    lane: heterogeneous-rollout
+    owner: readme-agent-supervisor
+    status: TODO
+    objective: >-
+      Prove observe/proposal mode for the full registry, then one authorized representative per
+      Java, .NET, Python, TypeScript, C++, Go, and Rust, followed by 30 clean production days.
+    why_it_matters: Level 7 is a portfolio property, not a three-Java-repository test count.
+    allowed_paths:
+      - runs/
+      - plans/investigations/evidence/
+      - tests/integration/
+      - target agent-owned presentation branches under valid authorization
+    forbidden_paths:
+      - target default branches
+      - merge operations
+      - unreviewed newly discovered repository writes
+    dependencies:
+      - L8-WAVE6-CONTROLLED-JAVA-PILOT
+    expected_outputs:
+      - Full-registry observe/proposal evidence.
+      - Seven-ecosystem full proposal lifecycle evidence.
+      - Operational health, backlog, alert, and recovery proof.
+      - Thirty-day Level-7 evidence series.
+    acceptance_checks:
+      - Every active registry repository has terminal heterogeneous evidence.
+      - At least one full lifecycle passes per ecosystem.
+      - Thirty days have zero unauthorized writes, duplicate effects, or false convergence.
+    verification:
+      - Scheduled and event-triggered production runs.
+      - Daily manifest and health reconciliation.
+      - Independent portfolio audit.
+    negative_controls:
+      - New discoveries remain observe-only.
+      - Unsupported Rust remains explicit until parser/policy support passes.
+    regression_checks:
+      - Weekly full official checks and golden set.
+      - Per-ecosystem no-op reruns.
+    evidence_requirements:
+      - Thirty-day immutable manifest series.
+      - Cohort and ecosystem acceptance reports.
+    rollback_or_recovery: Demote a failing cohort or route to observe-only without disabling audits.
+    failure_reroute: Continue safe ecosystems and cohorts while isolating the failing lane.
+    closeout_rules:
+      - Level 6 and Level 7 gates pass.
+      - Thirty-day evidence is independently reproduced.
+
+  - task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
+    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+    parent_task_id: null
+    title: Prove 90-day self-maintenance and obtain an independent Level-8 award
+    source_audit_finding: The mandatory 90-day unattended production proof has not begun.
+    audit_classification: not_attempted
+    priority: P1
+    lane: level8-operations
+    owner: readme-agent-supervisor
+    status: TODO
+    objective: >-
+      Operate the complete system for 90 consecutive days with weekly portfolio audits, automatic
+      regression disablement, dependency and authorization monitoring, recovery, proposal freshness,
+      dead-man monitoring, quality/traffic reporting, and independent audit.
+    why_it_matters: Level 8 is earned by sustained operation, not architecture or test volume.
+    allowed_paths:
+      - runs/
+      - plans/investigations/evidence/
+      - .github/workflows/
+      - docs/
+    forbidden_paths:
+      - target default branches
+      - automatic merge
+      - package and release writes
+    dependencies:
+      - L8-WAVE7-HETEROGENEOUS-PORTFOLIO
+    expected_outputs:
+      - Ninety-day checksum-complete manifest and health series.
+      - Weekly portfolio, quality, dependency, vulnerability, and traffic reports.
+      - Crash/outage recovery evidence.
+      - Independent Level-8 audit.
+    acceptance_checks:
+      - All quantitative Level-8 acceptance thresholds pass.
+      - At least 99 percent of eligible runs complete without human intervention.
+      - Every injected outage recovers within 24 hours.
+      - Independent audit awards Level 8.
+    verification:
+      - Daily automated reconciliation.
+      - Weekly independent evidence sampling.
+      - Final full replay and audit.
+    negative_controls:
+      - Traffic goals never override factuality or trust.
+      - Authorization-expired effects remain blocked and visible.
+    regression_checks:
+      - Deterministic validation remains 100 percent.
+      - Agentic golden accuracy remains at least 95 percent.
+    evidence_requirements:
+      - Ninety-day evidence root and checksum index.
+      - Independent audit report and award.
+    rollback_or_recovery: Demote affected route/repository to observe-only and preserve visible backlog.
+    failure_reroute: Extend the proof window after any acceptance-breaking day; do not hide the break.
+    closeout_rules:
+      - Every Level-8 acceptance criterion passes.
+      - The supervisor reevaluates the mission and finds no eligible work.
+
+continuation_state:
+  selected_task_id: L8-MISSION-CONTROL-CONSUMER
+  claim_status: bootstrapped_in_progress
+  claimed_by: readme-agent-supervisor
+  next_evaluation_after: mission-control consumer implementation and verification
+  eligible_after_current:
+    - L8-REQUIREMENT-TO-TASKCARD-COVERAGE
+  mission_complete: false
+  stop_reason: mandatory implementation and proof work remains

@@ -353,6 +353,55 @@ class OpenProposalV1(BaseModel):
     opened_at: str | None = None
 
 
+MissionTaskStatus = Literal[
+    "TODO",
+    "READY",
+    "IN_PROGRESS",
+    "IMPLEMENTED",
+    "VERIFIED",
+    "SCORED",
+    "CLOSED",
+    "BLOCKED",
+    "BLOCKED_EXTERNAL",
+    "REROUTED",
+    "DEFERRED_WITH_REASON",
+    "REOPENED",
+    "REGRESSED",
+]
+
+
+class MissionTransitionV1(BaseModel):
+    """One append-only mission-task transition in the durable state record."""
+
+    task_id: str
+    from_status: MissionTaskStatus
+    to_status: MissionTaskStatus
+    observed_by: str
+    evidence_refs: list[str] = Field(default_factory=list)
+    reason: str
+    occurred_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
+
+
+class MissionExecutionStateV1(BaseModel):
+    """Durable state for one central implementation mission.
+
+    This deliberately reuses the existing Git-ref CAS backend rather than introducing a second
+    controller/state system. The committed control graph remains the declarative task source;
+    this record contains only mutable execution state and append-only transition evidence.
+    """
+
+    mission_id: str
+    graph_sha256: str
+    task_statuses: dict[str, MissionTaskStatus] = Field(default_factory=dict)
+    active_task_id: str | None = None
+    claim_id: str | None = None
+    claimed_by: str | None = None
+    claimed_at: str | None = None
+    transition_history: list[MissionTransitionV1] = Field(default_factory=list)
+    mission_complete: bool = False
+    last_evaluated_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
+
+
 class RunStateV1(BaseModel):
     """The durable record of what has been accepted for one `org/repo`.
     Exists specifically so idempotency ("run twice, second run makes zero
@@ -421,3 +470,7 @@ class RunStateV1(BaseModel):
     # a long-lived repo's history. Additive -- a record written before this field existed
     # deserializes cleanly as "no trigger history recorded yet."
     trigger_records: dict[str, TriggerRecordV1] = Field(default_factory=dict)
+    # Central Level-8 implementation mission state. It is stored under a dedicated pseudo
+    # repository key (`mission/<mission-id>`) through the same Git-ref CAS backend, so it cannot
+    # collide with any product repository state and does not create a second continuation store.
+    mission_execution: MissionExecutionStateV1 | None = None

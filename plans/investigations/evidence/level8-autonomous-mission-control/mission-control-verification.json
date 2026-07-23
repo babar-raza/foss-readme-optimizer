@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "producer": "readme-agent supervise mission controller plus the cited official verification commands; collated by plans/investigations/level8-autonomous-mission-control-sprint-audit.md",
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "task_id": "L8-MISSION-CONTROL-CONSUMER",
+  "selected_mechanism": "readme-agent-supervisor",
+  "mechanism_locked": true,
+  "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+  "graph_sha256": "7e3f2b658be6bea560eefe130060cea9ebb1d574c00f97cab6e52488cf05b37a",
+  "durable_state_ref": "refs/readme-agent-state/mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "durable_state_observation": {
+    "state_version_after_initialization": 1,
+    "state_version_after_claim_metadata_repair": 4,
+    "state_version_after_idempotency_repair": 5,
+    "active_task_id": "L8-MISSION-CONTROL-CONSUMER",
+    "claim_id": "9ea80a1e00034d1d8cdd39ed36724ff8",
+    "claimed_by": "codex-level8-worker",
+    "repeated_claim_state_versions": [
+      5,
+      5
+    ],
+    "unresolved_tasks": 11,
+    "blocked_external_tasks": 0,
+    "mission_complete": false
+  },
+  "verification": {
+    "focused_pytest": {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_mission_control.py tests/unit/test_cli.py",
+      "result": "61 passed in 10.06s"
+    },
+    "ruff": {
+      "command": ".venv/Scripts/python -m ruff check .",
+      "result": "passed"
+    },
+    "format": {
+      "command": ".venv/Scripts/python -m ruff format --check .",
+      "result": "282 files already formatted"
+    },
+    "mypy": {
+      "command": ".venv/Scripts/python -m mypy src",
+      "result": "Success: no issues found in 169 source files"
+    },
+    "plan_structure": {
+      "command": ".venv/Scripts/python scripts/governance/validate_plan_structure.py",
+      "result": "clean with 51 pre-existing warnings"
+    },
+    "semantic_truth_matrix": {
+      "command": ".venv/Scripts/python plans/investigations/tools/traceability_matrix.py --check",
+      "result": "150 IMPLEMENTED rows checked; 85 semantic closure findings; 55 fully clean"
+    },
+    "full_non_live_pytest": {
+      "command": ".venv/Scripts/python -m pytest -q",
+      "result": "1189 passed, 18 deselected in 426.38s"
+    }
+  },
+  "negative_controls": [
+    "A graph selecting autonomous_cycle was rejected.",
+    "A cyclic task graph was rejected.",
+    "A direct IN_PROGRESS-to-CLOSED transition was rejected.",
+    "Closure without evidence was rejected.",
+    "A task with unmet dependencies was not eligible.",
+    "Competing claimers could not replace the active claim.",
+    "Repeated no-op claims did not create a new state version."
+  ],
+  "quality_scores_out_of_5": {
+    "correctness": 5,
+    "safety": 5,
+    "integration": 4,
+    "evidence": 4,
+    "maintainability": 4
+  },
+  "known_limitations": [
+    "The mission graph has wave-level taskcards; per-requirement expansion is the next claimed task.",
+    "The master-plan structural reconciliation remains separately gated.",
+    "This proof establishes mission continuation control, not completion of any Level-8 product wave."
+  ]
+}

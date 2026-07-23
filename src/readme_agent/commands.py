@@ -108,6 +108,11 @@ def cmd_profile_registry(args: argparse.Namespace) -> int:
 
 
 def cmd_supervise(args: argparse.Namespace) -> int:
+    if getattr(args, "mission_task_graph", None):
+        from readme_agent.supervisor.mission_command import run_mission_command
+
+        return run_mission_command(args)
+
     from readme_agent.preflight.runner import format_summary, run_preflight_for_repo
     from readme_agent.registry.self_heal import heal_registry_drift
 

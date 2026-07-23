@@ -85,7 +85,48 @@ def _build_parser() -> argparse.ArgumentParser:
             "capability registry, dynamic capability selection instead of a fixed pipeline"
         ),
     )
-    p_supervise.add_argument("--repo", required=True)
+    supervise_target = p_supervise.add_mutually_exclusive_group(required=True)
+    supervise_target.add_argument("--repo")
+    supervise_target.add_argument(
+        "--mission-task-graph",
+        help=(
+            "Central implementation-mission task graph consumed by this same supervisor. "
+            "Mutually exclusive with --repo; does not activate a second controller."
+        ),
+    )
+    p_supervise.add_argument(
+        "--mission-action",
+        choices=["status", "evaluate", "claim", "transition"],
+        default="evaluate",
+        help="Mission-controller action when --mission-task-graph is used.",
+    )
+    p_supervise.add_argument("--mission-task-id")
+    p_supervise.add_argument(
+        "--mission-to-status",
+        choices=[
+            "TODO",
+            "READY",
+            "IN_PROGRESS",
+            "IMPLEMENTED",
+            "VERIFIED",
+            "SCORED",
+            "CLOSED",
+            "BLOCKED",
+            "BLOCKED_EXTERNAL",
+            "REROUTED",
+            "DEFERRED_WITH_REASON",
+            "REOPENED",
+            "REGRESSED",
+        ],
+    )
+    p_supervise.add_argument("--mission-observer", default="readme-agent-supervisor")
+    p_supervise.add_argument("--mission-reason")
+    p_supervise.add_argument(
+        "--mission-evidence",
+        action="append",
+        default=[],
+        help="Repeatable evidence reference required for implementation/verification closure.",
+    )
     p_supervise.add_argument(
         "--durable-state",
         action="store_true",
