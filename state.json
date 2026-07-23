@@ -11,7 +11,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "9c72ed3526ea11ed0b0e54df3f694eebc255eade3585905eca1a8cf257b6149b",
-    "last_evaluated_at": "2026-07-23T10:03:11.286513+00:00",
+    "last_evaluated_at": "2026-07-23T10:54:45.738510+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -19,7 +19,7 @@
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
-      "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "BLOCKED_EXTERNAL",
+      "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "REOPENED",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "TODO",
@@ -321,13 +321,22 @@
         "reason": "Current committed baseline is reproducible from scratch without dirty-tree or ambient dependency leakage",
         "task_id": "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "BLOCKED_EXTERNAL",
+        "observed_by": "user",
+        "occurred_at": "2026-07-23T10:54:45.738503+00:00",
+        "reason": "User supplied fresh explicit approval for Mission, Status, Decision Ledger, Architecture, Build Checklist, and Verification Checklist in this turn",
+        "task_id": "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
+        "to_status": "REOPENED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 35,
+  "state_version": 36,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
