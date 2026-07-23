@@ -1,0 +1,47 @@
+[
+  {
+    "turn": 0,
+    "kind": "specialist_retry",
+    "detail": "'readme_presentation' reported an error on its first classify attempt this run; retried once, still failing (\"ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED\")"
+  },
+  {
+    "turn": 0,
+    "kind": "capability_selected",
+    "detail": "inspect_repository (bootstrap)"
+  },
+  {
+    "turn": 1,
+    "kind": "capability_selected",
+    "detail": "inspect_repository"
+  },
+  {
+    "turn": 2,
+    "kind": "capability_selected",
+    "detail": "detect_readme_gaps"
+  },
+  {
+    "turn": 3,
+    "kind": "capability_selected",
+    "detail": "render_readme_candidate"
+  },
+  {
+    "turn": 4,
+    "kind": "capability_selected",
+    "detail": "get_product_facts"
+  },
+  {
+    "turn": 5,
+    "kind": "capability_selected",
+    "detail": "verify_package_acquisition"
+  },
+  {
+    "turn": 6,
+    "kind": "capability_selected",
+    "detail": "get_domain_findings"
+  },
+  {
+    "turn": 7,
+    "kind": "capability_selected",
+    "detail": "get_template_clone_findings"
+  }
+]

@@ -1,0 +1,428 @@
+{
+  "tasks": [
+    {
+      "task_id": "9068b2ed0d4b462fba2b29125ad46ed7",
+      "capability_id": "inspect_repository",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "has_readme": true,
+        "has_license_file": true,
+        "readme_length_chars": 4254,
+        "manifest_keys": [
+          "min_framework",
+          "name",
+          "target_framework",
+          "version"
+        ]
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:48:20.415665+00:00",
+      "terminal_at": "2026-07-23T11:48:21.786956+00:00"
+    },
+    {
+      "task_id": "5a476789fa1145be91e1121d795e3599",
+      "capability_id": "detect_readme_gaps",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "license_mentioned": true,
+        "products_org_link": true,
+        "products_com_link": true,
+        "relationship_explained": false,
+        "total_gaps": 1
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:48:24.385954+00:00",
+      "terminal_at": "2026-07-23T11:48:25.691727+00:00"
+    },
+    {
+      "task_id": "806e3e6aa0554c7ca034522f988bdc15",
+      "capability_id": "render_readme_candidate",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "force_regenerate": true
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "facts_hash": "0c198432be9eebfe7577ac84dfe7cad6d90dfd6af3ddd381379ca1670a00e601",
+        "fresh_fingerprint": "214b82a545ef786fd2025412e99299d2d32a84612a788a87d06a30c1e854286c",
+        "skip_regeneration": false,
+        "needs_write": true,
+        "final_text": "# Aspose.Cells FOSS for .NET\n\nAspose.Cells FOSS is an open-source .NET library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.\n\n## Highlights\n\n- Aspose.Cells-compatible API surface for common XLSX scenarios\n- `.xlsx` load/save from file paths and streams\n- Cell values, formulas, styles, merges, and number formats\n- Conditional formatting, data validation, hyperlinks, names, tables, charts, shapes, comments, pictures\n- Recovery-oriented loading with diagnostics and warning callbacks\n- Multi-targeted library: `netstandard2.0` and `net8.0`\n\n## Installation\n\n```bash\ndotnet add package Aspose.Cells.FOSS\n```\n\n## Product Links\n\n- Open-source product page: <https://products.aspose.org/cells>\n- Aspose.Cells product page: <https://products.aspose.com/cells>\n\n## Quick Start\n\n### Create, style, and save a workbook\n\n```csharp\nusing Aspose.Cells_FOSS;\n\nvar workbook = new Workbook();\nvar sheet = workbook.Worksheets[0];\n\nsheet.Name = \"Products\";\nsheet.Cells[\"A1\"].PutValue(\"Product\");\nsheet.Cells[\"B1\"].PutValue(\"Price\");\nsheet.Cells[\"A2\"].PutValue(\"Apple\");\nsheet.Cells[\"B2\"].PutValue(2.99m);\nsheet.Cells[\"A3\"].PutValue(\"Orange\");\nsheet.Cells[\"B3\"].PutValue(1.99m);\nsheet.Cells[\"B4\"].Formula = \"=SUM(B2:B3)\";\n\nvar headerStyle = sheet.Cells[\"A1\"].GetStyle();\nheaderStyle.Font.IsBold = true;\nheaderStyle.Font.Color = Color.FromArgb(255, 255, 255, 255);\nheaderStyle.Pattern = FillPattern.Solid;\nheaderStyle.ForegroundColor = Color.FromArgb(255, 34, 120, 212);\nsheet.Cells[\"A1\"].SetStyle(headerStyle);\nsheet.Cells[\"B1\"].SetStyle(headerStyle);\n\nworkbook.Save(\"products.xlsx\");\n```\n\n### Load workbook with recovery options and diagnostics\n\n```csharp\nusing System;\nusing Aspose.Cells_FOSS;\n\npublic sealed class ConsoleWarningCallback : IWarningCallback\n{\n    public void Warning(WarningInfo warningInfo)\n    {\n        Console.WriteLine(\"[{0}] {1}: {2}\", warningInfo.Severity, warningInfo.Code, warningInfo.Message);\n    }\n}\n\nvar loadOptions = new LoadOptions\n{\n    TryRepairPackage = true,\n    TryRepairXml = true,\n    StrictMode = false,\n    WarningCallback = new ConsoleWarningCallback()\n};\n\nvar workbook = new Workbook(\"input.xlsx\", loadOptions);\n\nif (workbook.LoadDiagnostics.HasRepairs)\n{\n    Console.WriteLine(\"Load repairs were applied.\");\n}\n\nif (workbook.LoadDiagnostics.HasDataLossRisk)\n{\n    Console.WriteLine(\"Potential data loss risk detected during load.\");\n}\n\nworkbook.Worksheets[0].Cells[\"A1\"].PutValue(\"Updated\");\nworkbook.Save(\"updated.xlsx\");\n```\n\n## Supported Areas\n\n- Workbook and worksheet management\n- Cells and formulas\n- Style model (font, fill, borders, alignment, number formats)\n- Worksheet settings (visibility, zoom, RTL, gridlines, protection)\n- Hyperlinks and defined names\n- Data validation and conditional formatting\n- Page setup and print-related settings\n- Tables (`ListObjects`)\n- Pictures, shapes, and charts\n- Document properties\n\nFor runnable examples, see [`samples/`](samples/):\n\n- `Aspose.Cells_FOSS.Samples.Basic`\n- `Aspose.Cells_FOSS.Samples.Loading`\n- `Aspose.Cells_FOSS.Samples.Styles`\n- `Aspose.Cells_FOSS.Samples.WorksheetSettings`\n- `Aspose.Cells_FOSS.Samples.Validations`\n- `Aspose.Cells_FOSS.Samples.ConditionalFormatting`\n- `Aspose.Cells_FOSS.Samples.HyperlinksAndNames`\n- `Aspose.Cells_FOSS.Samples.PageSetup`\n- `Aspose.Cells_FOSS.Samples.Shapes`\n- `Aspose.Cells_FOSS.Samples.Charts`\n- `Aspose.Cells_FOSS.Samples.Comments`\n- `Aspose.Cells_FOSS.Samples.DocumentProperties`\n- `Aspose.Cells_FOSS.Samples.ListObjects`\n- `Aspose.Cells_FOSS.Samples.Pictures`\n\n## Build from Source\n\nRun commands from the repository root:\n\n```bash\ndotnet build src\\Aspose.Cells_FOSS\\Aspose.Cells_FOSS.csproj -c Debug\ndotnet build samples\\Aspose.Cells_FOSS.Samples.Basic\\Aspose.Cells_FOSS.Samples.Basic.csproj -c Debug\n```\n\n## Compatibility\n\nPrimary targets:\n\n- `netstandard2.0`\n- `net8.0`\n\nBecause the package targets `netstandard2.0`, it can also be consumed by many compatible runtimes (for example .NET Framework 4.6.1+ and modern .NET).\n\n## License\n\nMIT. See [License/LICENSE.txt](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET/blob/master/License/LICENSE.txt).\n\n## Support\n\n- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET/issues>\n\n<!-- readme-agent:resources hash=\"sha256:0c198432be9eebfe7577ac84dfe7cad6d90dfd6af3ddd381379ca1670a00e601\" schema=\"2\" -->\n### Related Aspose Resources\n\n\nThis repository, Aspose.Cells-FOSS-for-.NET, represents the free, open-source (FOSS) edition of Aspose.Cells for .NET, offering core functionality under the MIT license for community use and contribution. Users seeking enhanced capabilities, advanced features, and commercial support can upgrade to the commercial edition, which provides a broader feature set and is available through the official Aspose.Cells for .NET product page.\n<!-- readme-agent:resources:end -->\n",
+        "status": "BLOCKED_VALIDATION_FAILED",
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ]
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:48:29.783327+00:00",
+      "terminal_at": "2026-07-23T11:48:35.578440+00:00"
+    },
+    {
+      "task_id": "6113a9984fdb4bdea607b00339663f9b",
+      "capability_id": "get_product_facts",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "family": "cells",
+        "platform": "net",
+        "ecosystem": "net",
+        "policy_profile": "aspose-cells-foss-net",
+        "declared_license": "MIT",
+        "products_org_link": {
+          "url": "https://products.aspose.org/cells/net/",
+          "family_url": "https://products.aspose.org/cells/",
+          "label": "Aspose.Cells FOSS for .NET",
+          "utm": null
+        },
+        "products_com_link": {
+          "url": "https://products.aspose.com/cells/net/",
+          "family_url": "https://products.aspose.com/cells",
+          "label": "Aspose.Cells for .NET",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "relationship_talking_points": [
+          "open_source_scope",
+          "commercial_upgrade_path"
+        ],
+        "secondary_links": [
+          "docs.aspose.org",
+          "docs.aspose.com",
+          "reference.aspose.com",
+          "releases.aspose.com",
+          "blog.aspose.org",
+          "kb.aspose.org",
+          "forum.aspose.com"
+        ],
+        "word_limit": {
+          "min": 20,
+          "max": 120
+        },
+        "prohibited_terms": [
+          "guarantee",
+          "100%",
+          "best in the world",
+          "free forever",
+          "no bugs"
+        ],
+        "link_whitelist_domains": [
+          "products.aspose.com",
+          "docs.aspose.com",
+          "reference.aspose.com",
+          "releases.aspose.com",
+          "products.aspose.org",
+          "docs.aspose.org",
+          "kb.aspose.org",
+          "blog.aspose.org",
+          "forum.aspose.com"
+        ],
+        "detected_ecosystems": [
+          {
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.Basic/Aspose.Cells_FOSS.Samples.Basic.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.Basic.csproj; parsed 3 field(s)"
+          }
+        ],
+        "unresolved_manifests": [],
+        "package_roots": [
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.Basic",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.Basic/Aspose.Cells_FOSS.Samples.Basic.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.Basic.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.Charts",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.Charts/Aspose.Cells_FOSS.Samples.Charts.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.Charts.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.Comments",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.Comments/Aspose.Cells_FOSS.Samples.Comments.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.Comments.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.ConditionalFormatting",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.ConditionalFormatting/Aspose.Cells_FOSS.Samples.ConditionalFormatting.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.ConditionalFormatting.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.DocumentProperties",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.DocumentProperties/Aspose.Cells_FOSS.Samples.DocumentProperties.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.DocumentProperties.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.HyperlinksAndNames",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.HyperlinksAndNames/Aspose.Cells_FOSS.Samples.HyperlinksAndNames.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.HyperlinksAndNames.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.ListObjects",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.ListObjects/Aspose.Cells_FOSS.Samples.ListObjects.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.ListObjects.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.Loading",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.Loading/Aspose.Cells_FOSS.Samples.Loading.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.Loading.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.PageSetup",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.PageSetup/Aspose.Cells_FOSS.Samples.PageSetup.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.PageSetup.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.Pictures",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.Pictures/Aspose.Cells_FOSS.Samples.Pictures.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.Pictures.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.Shapes",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.Shapes/Aspose.Cells_FOSS.Samples.Shapes.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.Shapes.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.Styles",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.Styles/Aspose.Cells_FOSS.Samples.Styles.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.Styles.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.Validations",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.Validations/Aspose.Cells_FOSS.Samples.Validations.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.Validations.csproj (via tree API)"
+          },
+          {
+            "path": "samples/Aspose.Cells_FOSS.Samples.WorksheetSettings",
+            "ecosystem": "net",
+            "manifest_path": "samples/Aspose.Cells_FOSS.Samples.WorksheetSettings/Aspose.Cells_FOSS.Samples.WorksheetSettings.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.Samples.WorksheetSettings.csproj (via tree API)"
+          },
+          {
+            "path": "src/Aspose.Cells_FOSS",
+            "ecosystem": "net",
+            "manifest_path": "src/Aspose.Cells_FOSS/Aspose.Cells_FOSS.csproj",
+            "confidence": 1.0,
+            "evidence": "found Aspose.Cells_FOSS.csproj (via tree API)"
+          }
+        ],
+        "source": {
+          "identity_and_policy": "data/products.json + config/policies/aspose-cells-foss-net.yml",
+          "detected_ecosystems": "live repository clone (repository inspection)",
+          "unresolved_manifests": "live repository clone (repository inspection)",
+          "package_roots": "live repository clone (repository inspection)"
+        }
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:48:40.934058+00:00",
+      "terminal_at": "2026-07-23T11:48:45.642156+00:00"
+    },
+    {
+      "task_id": "f0db18ab0b3e42f494d9fa514e8863ff",
+      "capability_id": "render_readme_candidate",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "force_regenerate": true
+      },
+      "depends_on": [],
+      "state": "SUPERSEDED",
+      "result": {
+        "facts_hash": "0c198432be9eebfe7577ac84dfe7cad6d90dfd6af3ddd381379ca1670a00e601",
+        "fresh_fingerprint": "214b82a545ef786fd2025412e99299d2d32a84612a788a87d06a30c1e854286c",
+        "skip_regeneration": false,
+        "needs_write": true,
+        "final_text": "# Aspose.Cells FOSS for .NET\n\nAspose.Cells FOSS is an open-source .NET library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.\n\n## Highlights\n\n- Aspose.Cells-compatible API surface for common XLSX scenarios\n- `.xlsx` load/save from file paths and streams\n- Cell values, formulas, styles, merges, and number formats\n- Conditional formatting, data validation, hyperlinks, names, tables, charts, shapes, comments, pictures\n- Recovery-oriented loading with diagnostics and warning callbacks\n- Multi-targeted library: `netstandard2.0` and `net8.0`\n\n## Installation\n\n```bash\ndotnet add package Aspose.Cells.FOSS\n```\n\n## Product Links\n\n- Open-source product page: <https://products.aspose.org/cells>\n- Aspose.Cells product page: <https://products.aspose.com/cells>\n\n## Quick Start\n\n### Create, style, and save a workbook\n\n```csharp\nusing Aspose.Cells_FOSS;\n\nvar workbook = new Workbook();\nvar sheet = workbook.Worksheets[0];\n\nsheet.Name = \"Products\";\nsheet.Cells[\"A1\"].PutValue(\"Product\");\nsheet.Cells[\"B1\"].PutValue(\"Price\");\nsheet.Cells[\"A2\"].PutValue(\"Apple\");\nsheet.Cells[\"B2\"].PutValue(2.99m);\nsheet.Cells[\"A3\"].PutValue(\"Orange\");\nsheet.Cells[\"B3\"].PutValue(1.99m);\nsheet.Cells[\"B4\"].Formula = \"=SUM(B2:B3)\";\n\nvar headerStyle = sheet.Cells[\"A1\"].GetStyle();\nheaderStyle.Font.IsBold = true;\nheaderStyle.Font.Color = Color.FromArgb(255, 255, 255, 255);\nheaderStyle.Pattern = FillPattern.Solid;\nheaderStyle.ForegroundColor = Color.FromArgb(255, 34, 120, 212);\nsheet.Cells[\"A1\"].SetStyle(headerStyle);\nsheet.Cells[\"B1\"].SetStyle(headerStyle);\n\nworkbook.Save(\"products.xlsx\");\n```\n\n### Load workbook with recovery options and diagnostics\n\n```csharp\nusing System;\nusing Aspose.Cells_FOSS;\n\npublic sealed class ConsoleWarningCallback : IWarningCallback\n{\n    public void Warning(WarningInfo warningInfo)\n    {\n        Console.WriteLine(\"[{0}] {1}: {2}\", warningInfo.Severity, warningInfo.Code, warningInfo.Message);\n    }\n}\n\nvar loadOptions = new LoadOptions\n{\n    TryRepairPackage = true,\n    TryRepairXml = true,\n    StrictMode = false,\n    WarningCallback = new ConsoleWarningCallback()\n};\n\nvar workbook = new Workbook(\"input.xlsx\", loadOptions);\n\nif (workbook.LoadDiagnostics.HasRepairs)\n{\n    Console.WriteLine(\"Load repairs were applied.\");\n}\n\nif (workbook.LoadDiagnostics.HasDataLossRisk)\n{\n    Console.WriteLine(\"Potential data loss risk detected during load.\");\n}\n\nworkbook.Worksheets[0].Cells[\"A1\"].PutValue(\"Updated\");\nworkbook.Save(\"updated.xlsx\");\n```\n\n## Supported Areas\n\n- Workbook and worksheet management\n- Cells and formulas\n- Style model (font, fill, borders, alignment, number formats)\n- Worksheet settings (visibility, zoom, RTL, gridlines, protection)\n- Hyperlinks and defined names\n- Data validation and conditional formatting\n- Page setup and print-related settings\n- Tables (`ListObjects`)\n- Pictures, shapes, and charts\n- Document properties\n\nFor runnable examples, see [`samples/`](samples/):\n\n- `Aspose.Cells_FOSS.Samples.Basic`\n- `Aspose.Cells_FOSS.Samples.Loading`\n- `Aspose.Cells_FOSS.Samples.Styles`\n- `Aspose.Cells_FOSS.Samples.WorksheetSettings`\n- `Aspose.Cells_FOSS.Samples.Validations`\n- `Aspose.Cells_FOSS.Samples.ConditionalFormatting`\n- `Aspose.Cells_FOSS.Samples.HyperlinksAndNames`\n- `Aspose.Cells_FOSS.Samples.PageSetup`\n- `Aspose.Cells_FOSS.Samples.Shapes`\n- `Aspose.Cells_FOSS.Samples.Charts`\n- `Aspose.Cells_FOSS.Samples.Comments`\n- `Aspose.Cells_FOSS.Samples.DocumentProperties`\n- `Aspose.Cells_FOSS.Samples.ListObjects`\n- `Aspose.Cells_FOSS.Samples.Pictures`\n\n## Build from Source\n\nRun commands from the repository root:\n\n```bash\ndotnet build src\\Aspose.Cells_FOSS\\Aspose.Cells_FOSS.csproj -c Debug\ndotnet build samples\\Aspose.Cells_FOSS.Samples.Basic\\Aspose.Cells_FOSS.Samples.Basic.csproj -c Debug\n```\n\n## Compatibility\n\nPrimary targets:\n\n- `netstandard2.0`\n- `net8.0`\n\nBecause the package targets `netstandard2.0`, it can also be consumed by many compatible runtimes (for example .NET Framework 4.6.1+ and modern .NET).\n\n## License\n\nMIT. See [License/LICENSE.txt](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET/blob/master/License/LICENSE.txt).\n\n## Support\n\n- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET/issues>\n\n<!-- readme-agent:resources hash=\"sha256:0c198432be9eebfe7577ac84dfe7cad6d90dfd6af3ddd381379ca1670a00e601\" schema=\"2\" -->\n### Related Aspose Resources\n\n\nThis repository, Aspose.Cells-FOSS-for-.NET, represents the free, open-source (FOSS) edition of Aspose.Cells for .NET, offering core functionality under the MIT license for community use and contribution. Users seeking enhanced capabilities, advanced features, and commercial support can upgrade to the commercial edition, which provides a broader feature set and is available through the official Aspose.Cells for .NET product page.\n<!-- readme-agent:resources:end -->\n",
+        "status": "BLOCKED_VALIDATION_FAILED",
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ]
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": "806e3e6aa0554c7ca034522f988bdc15",
+      "created_at": "2026-07-23T11:48:52.446803+00:00",
+      "terminal_at": "2026-07-23T11:48:52.446891+00:00"
+    },
+    {
+      "task_id": "8e922780e0a6457f8fc8f5096ea32c10",
+      "capability_id": "get_domain_findings",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "domain": "presentation_benchmarking"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "found": false,
+        "reason": "no durable state backend configured for this run"
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:48:59.554262+00:00",
+      "terminal_at": "2026-07-23T11:48:59.555213+00:00"
+    },
+    {
+      "task_id": "60e1888b32024a75b9ccf1d345ce7622",
+      "capability_id": "verify_package_acquisition",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "results": [
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.Basic",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.Basic NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.Charts",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.Charts NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.Comments",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.Comments NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.ConditionalFormatting",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.ConditionalFormatting NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.DocumentProperties",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.DocumentProperties NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.HyperlinksAndNames",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.HyperlinksAndNames NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.ListObjects",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.ListObjects NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.Loading",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.Loading NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.PageSetup",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.PageSetup NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.Pictures",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.Pictures NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.Shapes",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.Shapes NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.Styles",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.Styles NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.Validations",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.Validations NOT FOUND (404)"
+          },
+          {
+            "path": "samples\\Aspose.Cells_FOSS.Samples.WorksheetSettings",
+            "ecosystem": "net",
+            "outcome": "NOT_PUBLISHED",
+            "detail": "NuGet: Aspose.Cells_FOSS.Samples.WorksheetSettings NOT FOUND (404)"
+          },
+          {
+            "path": "src\\Aspose.Cells_FOSS",
+            "ecosystem": "net",
+            "outcome": "REGISTRY_VERIFIED",
+            "detail": "NuGet: Aspose.Cells.FOSS found"
+          }
+        ]
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:49:06.224340+00:00",
+      "terminal_at": "2026-07-23T11:49:31.417677+00:00"
+    }
+  ]
+}

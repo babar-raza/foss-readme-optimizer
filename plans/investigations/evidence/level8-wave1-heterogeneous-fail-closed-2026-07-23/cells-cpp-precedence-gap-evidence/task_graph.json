@@ -1,0 +1,293 @@
+{
+  "tasks": [
+    {
+      "task_id": "21d803f9b7e049f0b533a59cc5394bec",
+      "capability_id": "inspect_repository",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "has_readme": true,
+        "has_license_file": true,
+        "readme_length_chars": 2396,
+        "manifest_keys": []
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:52:44.212406+00:00",
+      "terminal_at": "2026-07-23T11:52:45.439258+00:00"
+    },
+    {
+      "task_id": "a662f1d722634900968459360c89509d",
+      "capability_id": "inspect_repository",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"
+      },
+      "depends_on": [],
+      "state": "SUPERSEDED",
+      "result": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "has_readme": true,
+        "has_license_file": true,
+        "readme_length_chars": 2396,
+        "manifest_keys": []
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": "21d803f9b7e049f0b533a59cc5394bec",
+      "created_at": "2026-07-23T11:52:48.092330+00:00",
+      "terminal_at": "2026-07-23T11:52:48.092386+00:00"
+    },
+    {
+      "task_id": "54eb98138b25499d84faf2ccdd48e0bf",
+      "capability_id": "detect_readme_gaps",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "license_mentioned": true,
+        "products_org_link": false,
+        "products_com_link": false,
+        "relationship_explained": false,
+        "total_gaps": 3
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:52:58.542361+00:00",
+      "terminal_at": "2026-07-23T11:52:59.627411+00:00"
+    },
+    {
+      "task_id": "46a477a117e446d591f9a008bcdf0cef",
+      "capability_id": "render_readme_candidate",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "force_regenerate": true
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "facts_hash": "6c5c2130a90d91037d7c2b6c5169eeb9d0d5abbf651fda9012b3490a6a7b571a",
+        "fresh_fingerprint": "d91a1f62c5e7df6c1e27697fd80546fd54ecdb82338138805ae19d8f0d176fd4",
+        "skip_regeneration": false,
+        "needs_write": true,
+        "final_text": "# Aspose.Cells FOSS for C++\n\nAspose.Cells FOSS is an open-source C++ library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.\n\n## Highlights\n\n- Aspose.Cells-compatible API surface for common XLSX scenarios\n- `.xlsx` load/save from file paths and streams\n- Cell values, formulas, styles, merges, and number formats\n- Conditional formatting, data validation, hyperlinks, names, comments\n\n## How to build\n\n```bash\ncd samples\nmkdir build\ncd build\ncmake ..\ncmake --build .\n```\n\n## Quick Start\n\n### Create, style, and save a workbook\n\n```cpp\n#include \"aspose/cells_foss/Workbook.h\"\n#include \"aspose/cells_foss/WorksheetCollection.h\"\n#include \"aspose/cells_foss/Worksheet.h\"\n#include \"aspose/cells_foss/Cell.h\"\n#include \"aspose/cells_foss/Style.h\"\n#include \"aspose/cells_foss/Color.h\"\n#include \"aspose/cells_foss/Font.h\"\n\nusing namespace Aspose::Cells_FOSS;\n\nint main() {\n    Workbook workbook;\n    Worksheet& sheet = workbook.GetWorksheets()[0];\n\n    sheet.SetName(\"Products\");\n    sheet.GetCells()[\"A1\"].PutValue(\"Product\");\n    sheet.GetCells()[\"B1\"].PutValue(\"Price\");\n    sheet.GetCells()[\"A2\"].PutValue(\"Apple\");\n    sheet.GetCells()[\"B2\"].PutValue(2.99);\n    sheet.GetCells()[\"A3\"].PutValue(\"Orange\");\n    sheet.GetCells()[\"B3\"].PutValue(1.99);\n    sheet.GetCells()[\"B4\"].SetFormula(\"=SUM(B2:B3)\");\n\n    Style headerStyle = sheet.GetCells()[\"A1\"].GetStyle();\n    Font font;\n    font.SetBold(true);\n    font.SetColor(Color::FromArgb(255, 255, 255, 255));\n    headerStyle.SetFont(font);\n    headerStyle.SetPattern(FillPattern::Solid);\n    headerStyle.SetForegroundColor(Color::FromArgb(255, 34, 120, 212));\n    sheet.GetCells()[\"A1\"].SetStyle(headerStyle);\n    sheet.GetCells()[\"B1\"].SetStyle(headerStyle);\n\n    workbook.Save(\"products.xlsx\");\n    return 0;\n}\n\n```\n\n## Supported Areas\n\n- Workbook and worksheet management\n- Cells and formulas\n- Style model (font, fill, borders, alignment, number formats)\n- Worksheet settings (visibility, zoom, RTL, gridlines, protection)\n- Hyperlinks and defined names\n- Data validation and conditional formatting\n- Page setup and print-related settings\n- Document properties\n\n## License\n\nMIT. See [License/LICENSE.txt](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp/blob/main/License/LICENSE.txt).\n\n## Support\n\n- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp/issues>\n\n<!-- readme-agent:resources hash=\"sha256:6c5c2130a90d91037d7c2b6c5169eeb9d0d5abbf651fda9012b3490a6a7b571a\" schema=\"2\" -->\n### Related Aspose Resources\n\n- **Open-source (FOSS) catalog:** [Aspose.Cells FOSS for Cpp](https://products.aspose.org/cells/cpp/)\n- **Commercial edition:** [Aspose.Cells for Cpp](https://products.aspose.com/cells/cpp/?utm_source=github&utm_medium=readme&utm_campaign=foss-readme-optimizer)\n\nThis repository hosts the free, open-source (FOSS) edition of Aspose.Cells for C++, which provides core functionality for working with spreadsheet files in C++ applications under the MIT license. Users seeking additional features, enterprise support, or advanced capabilities can upgrade to the commercial edition, Aspose.Cells for C++, available through the official commercial product page.\n<!-- readme-agent:resources:end -->\n",
+        "status": "BLOCKED_VALIDATION_FAILED",
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ]
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:53:02.695722+00:00",
+      "terminal_at": "2026-07-23T11:53:08.154658+00:00"
+    },
+    {
+      "task_id": "6ebd7e9878714825ad15daeb237c1fb7",
+      "capability_id": "get_product_facts",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "family": "cells",
+        "platform": "cpp",
+        "ecosystem": "cpp",
+        "policy_profile": "aspose-cells-foss-cpp",
+        "declared_license": "MIT",
+        "products_org_link": {
+          "url": "https://products.aspose.org/cells/cpp/",
+          "family_url": "https://products.aspose.org/cells/",
+          "label": "Aspose.Cells FOSS for Cpp",
+          "utm": null
+        },
+        "products_com_link": {
+          "url": "https://products.aspose.com/cells/cpp/",
+          "family_url": "https://products.aspose.com/cells",
+          "label": "Aspose.Cells for Cpp",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "relationship_talking_points": [
+          "open_source_scope",
+          "commercial_upgrade_path"
+        ],
+        "secondary_links": [
+          "docs.aspose.org",
+          "docs.aspose.com",
+          "reference.aspose.com",
+          "releases.aspose.com",
+          "blog.aspose.org",
+          "kb.aspose.org",
+          "forum.aspose.com"
+        ],
+        "word_limit": {
+          "min": 20,
+          "max": 120
+        },
+        "prohibited_terms": [
+          "guarantee",
+          "100%",
+          "best in the world",
+          "free forever",
+          "no bugs"
+        ],
+        "link_whitelist_domains": [
+          "products.aspose.com",
+          "docs.aspose.com",
+          "reference.aspose.com",
+          "releases.aspose.com",
+          "products.aspose.org",
+          "docs.aspose.org",
+          "kb.aspose.org",
+          "blog.aspose.org",
+          "forum.aspose.com"
+        ],
+        "detected_ecosystems": [
+          {
+            "ecosystem": "cpp",
+            "manifest_path": "Aspose.Cells.Foss.Cpp.Tests/CMakeLists.txt",
+            "confidence": 0.5,
+            "evidence": "found CMakeLists.txt; nothing parsed"
+          }
+        ],
+        "unresolved_manifests": [],
+        "package_roots": [
+          {
+            "path": "Aspose.Cells.Foss.Cpp.Tests",
+            "ecosystem": "cpp",
+            "manifest_path": "Aspose.Cells.Foss.Cpp.Tests/CMakeLists.txt",
+            "confidence": 1.0,
+            "evidence": "found CMakeLists.txt (via tree API)"
+          },
+          {
+            "path": "Aspose.Cells.Foss.Cpp",
+            "ecosystem": "cpp",
+            "manifest_path": "Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+            "confidence": 1.0,
+            "evidence": "found CMakeLists.txt (via tree API)"
+          },
+          {
+            "path": "Aspose.Cells.Foss.Cpp/tests",
+            "ecosystem": "cpp",
+            "manifest_path": "Aspose.Cells.Foss.Cpp/tests/CMakeLists.txt",
+            "confidence": 1.0,
+            "evidence": "found CMakeLists.txt (via tree API)"
+          },
+          {
+            "path": "samples",
+            "ecosystem": "cpp",
+            "manifest_path": "samples/CMakeLists.txt",
+            "confidence": 1.0,
+            "evidence": "found CMakeLists.txt (via tree API)"
+          }
+        ],
+        "source": {
+          "identity_and_policy": "data/products.json + config/policies/aspose-cells-foss-cpp.yml",
+          "detected_ecosystems": "live repository clone (repository inspection)",
+          "unresolved_manifests": "live repository clone (repository inspection)",
+          "package_roots": "live repository clone (repository inspection)"
+        }
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:53:11.272337+00:00",
+      "terminal_at": "2026-07-23T11:53:15.104261+00:00"
+    },
+    {
+      "task_id": "5990a0a75d914a94b5898ee31a2ecac0",
+      "capability_id": "verify_package_acquisition",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "results": [
+          {
+            "path": "Aspose.Cells.Foss.Cpp",
+            "ecosystem": "cpp",
+            "outcome": "CAPABILITY_GAP",
+            "detail": "no unambiguous live resolver registered for ecosystem 'cpp'"
+          },
+          {
+            "path": "Aspose.Cells.Foss.Cpp\\tests",
+            "ecosystem": "cpp",
+            "outcome": "CAPABILITY_GAP",
+            "detail": "no unambiguous live resolver registered for ecosystem 'cpp'"
+          },
+          {
+            "path": "Aspose.Cells.Foss.Cpp.Tests",
+            "ecosystem": "cpp",
+            "outcome": "CAPABILITY_GAP",
+            "detail": "no unambiguous live resolver registered for ecosystem 'cpp'"
+          },
+          {
+            "path": "samples",
+            "ecosystem": "cpp",
+            "outcome": "CAPABILITY_GAP",
+            "detail": "no unambiguous live resolver registered for ecosystem 'cpp'"
+          }
+        ]
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:53:18.030979+00:00",
+      "terminal_at": "2026-07-23T11:53:19.192827+00:00"
+    },
+    {
+      "task_id": "c4b80ae66d4a409f8b1dc6fe965374d7",
+      "capability_id": "get_domain_findings",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "domain": "community_files_presentation"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "found": false,
+        "reason": "no durable state backend configured for this run"
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:53:22.339021+00:00",
+      "terminal_at": "2026-07-23T11:53:22.340000+00:00"
+    },
+    {
+      "task_id": "8a9119447fb84ed8873ac334452ed5b2",
+      "capability_id": "get_template_clone_findings",
+      "arguments": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "found": false,
+        "flagged": false,
+        "flagged_against": []
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "supersedes": null,
+      "created_at": "2026-07-23T11:53:25.370471+00:00",
+      "terminal_at": "2026-07-23T11:53:25.371588+00:00"
+    }
+  ]
+}

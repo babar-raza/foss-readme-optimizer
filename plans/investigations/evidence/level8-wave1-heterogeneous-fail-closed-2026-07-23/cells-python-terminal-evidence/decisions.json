@@ -1,0 +1,22 @@
+[
+  {
+    "turn": 0,
+    "kind": "capability_selected",
+    "detail": "inspect_repository (bootstrap)"
+  },
+  {
+    "turn": 1,
+    "kind": "capability_selected",
+    "detail": "detect_readme_gaps"
+  },
+  {
+    "turn": 2,
+    "kind": "capability_selected",
+    "detail": "render_readme_candidate"
+  },
+  {
+    "turn": 3,
+    "kind": "stop",
+    "detail": "stop capability called: All README gaps (products_org_link, products_com_link, relationship_explained) have been resolved in the generated candidate. The README now includes clear links to both the FOSS and commercial product pages, and explains the relationship between them. No further capabilities would meaningfully improve or verify this outcome."
+  }
+]

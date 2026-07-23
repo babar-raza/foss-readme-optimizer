@@ -43,10 +43,12 @@ from readme_agent.capabilities.schema import (
     OrgRepoOnlyInputV1,
 )
 from readme_agent.errors import NotAllowlistedError
+from readme_agent.profile.schema import DetectedEcosystem, RepositoryProfile
 from readme_agent.state.schema import DomainStateV1, RunStateV1
 
 
 def _manifest(**overrides) -> CapabilityManifest:
+    side_effect_class = overrides.get("side_effect_class", "read_only_local")
     defaults = dict(
         capability_id="dummy",
         version="1",
@@ -56,6 +58,9 @@ def _manifest(**overrides) -> CapabilityManifest:
         owner="tests",
         execution_type="deterministic_tool",
         required_inputs={"org_repo": "string"},
+        produced_outputs={"ok": "boolean"},
+        required_permissions=[side_effect_class],
+        evidence_outputs=["ok"] if side_effect_class in {"local_write", "remote_write"} else [],
     )
     return CapabilityManifest(**{**defaults, **overrides})
 
@@ -198,6 +203,101 @@ class TestRegistry:
     def test_get_returns_manifest(self):
         assert registry.get("inspect_repository") is not None
         assert registry.get("does_not_exist") is None
+
+    def test_every_registered_capability_has_typed_input_and_output_models(self):
+        manifests = registry.list_all()
+        assert manifests
+        assert all(manifest.input_model is not None for manifest in manifests)
+        assert all(manifest.output_model is not None for manifest in manifests)
+
+    def test_manifest_missing_its_side_effect_permission_is_rejected(self):
+        from readme_agent.errors import ConfigError
+
+        module = SimpleNamespace(
+            MANIFEST=_manifest(required_permissions=[]),
+            execute=lambda: {},
+        )
+        with pytest.raises(ConfigError, match="required_permissions"):
+            registry._build((module,))
+
+    def test_unknown_validator_is_rejected(self):
+        from readme_agent.errors import ConfigError
+
+        module = SimpleNamespace(
+            MANIFEST=_manifest(validators=["not_a_registered_rule"]),
+            execute=lambda: {},
+        )
+        with pytest.raises(ConfigError, match="unknown validators"):
+            registry._build((module,))
+
+    def test_mutating_manifest_without_evidence_outputs_is_rejected(self):
+        from readme_agent.errors import ConfigError
+
+        module = SimpleNamespace(
+            MANIFEST=_manifest(
+                side_effect_class="local_write",
+                evidence_outputs=[],
+                idempotency_inputs=["org_repo"],
+                retry_policy="idempotent_only",
+                allowed_domains=["readme_reconciliation"],
+            ),
+            execute=lambda: {},
+        )
+        with pytest.raises(ConfigError, match="no evidence_outputs"):
+            registry._build((module,))
+
+    def test_evidence_output_must_exist_in_output_contract(self):
+        from readme_agent.errors import ConfigError
+
+        module = SimpleNamespace(
+            MANIFEST=_manifest(evidence_outputs=["missing"]),
+            execute=lambda: {},
+        )
+        with pytest.raises(ConfigError, match="output contract"):
+            registry._build((module,))
+
+    def test_unknown_profile_compatibility_vocabulary_is_rejected(self):
+        from readme_agent.errors import ConfigError
+
+        module = SimpleNamespace(
+            MANIFEST=_manifest(supported_build_systems=["invented_build"]),
+            execute=lambda: {},
+        )
+        with pytest.raises(ConfigError, match="unknown supported_build_systems"):
+            registry._build((module,))
+
+    def test_repository_profile_compatibility_filter_is_data_driven(self):
+        java_profile = RepositoryProfile(
+            org_repo="acme/widget",
+            detected_ecosystems=[
+                DetectedEcosystem(
+                    ecosystem="java",
+                    manifest_path="pom.xml",
+                    confidence=1.0,
+                    evidence="test",
+                )
+            ],
+        )
+        cpp_profile = RepositoryProfile(
+            org_repo="acme/widget",
+            detected_ecosystems=[
+                DetectedEcosystem(
+                    ecosystem="cpp",
+                    manifest_path="CMakeLists.txt",
+                    confidence=1.0,
+                    evidence="test",
+                )
+            ],
+        )
+
+        java_ids = {manifest.capability_id for manifest in registry.filter_compatible(java_profile)}
+        cpp_ids = {manifest.capability_id for manifest in registry.filter_compatible(cpp_profile)}
+
+        assert "check_install_path" in java_ids
+        assert "verify_package_acquisition" in java_ids
+        assert "check_install_path" not in cpp_ids
+        assert "verify_package_acquisition" not in cpp_ids
+        assert "inspect_repository" in java_ids & cpp_ids
 
     def test_get_executor_returns_callable(self):
         assert registry.get_executor("inspect_repository") is inspect_repository.execute
@@ -1026,11 +1126,8 @@ class TestGetDomainFindings:
         assert result.outcome == "executed"
         assert result.result == {"found": True, "accepted_status": "NO_CHANGE", "details": {}}
 
-    def test_extra_kwargs_collision_with_llm_argument_fails_as_execution_error(self):
-        """A key collision between LLM-supplied arguments and wiring-supplied
-        extra_kwargs must raise TypeError at the call site (never one
-        silently shadowing the other), caught as a normal execution_error --
-        never propagating uncaught."""
+    def test_wiring_only_extra_kwarg_is_rejected_by_the_input_contract(self):
+        """The LLM cannot inject a wiring-only argument into a capability call."""
         from readme_agent.capabilities.dispatcher import dispatch_tool_call
 
         tool_call = {
@@ -1047,7 +1144,8 @@ class TestGetDomainFindings:
             {"read_only_network"},
             extra_kwargs={"state_backend": _FakeBackendForFindings(None)},
         )
-        assert result.outcome == "execution_error"
+        assert result.outcome == "rejected_invalid_arguments"
+        assert "state_backend" in result.error
 
 
 class TestVerifyProseQuality:

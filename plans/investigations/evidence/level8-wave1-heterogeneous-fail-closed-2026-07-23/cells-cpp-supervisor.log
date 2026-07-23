@@ -1,0 +1,12 @@
+registry-heal: SKIPPED_RECENT (last heal attempt 285s ago, interval 21600s)
+aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp: BLOCKED (repair_exhausted)
+  [0] specialist_retry: 'readme_presentation' reported an error on its first classify attempt this run; retried once, still failing ("ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED")
+  [0] capability_selected: inspect_repository (bootstrap)
+  [1] capability_selected: inspect_repository
+  [2] capability_selected: detect_readme_gaps
+  [3] capability_selected: render_readme_candidate
+  [4] capability_selected: get_product_facts
+  [5] capability_selected: verify_package_acquisition
+  [6] capability_selected: get_domain_findings
+  [7] capability_selected: get_template_clone_findings
+--- exit code: 1 ---

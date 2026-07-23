@@ -52,8 +52,12 @@ def _effector_manifest(**overrides) -> CapabilityManifest:
         execution_type="gated_effector",
         side_effect_class="local_write",
         required_inputs={"org_repo": "string"},
+        produced_outputs={"count": "integer"},
+        required_permissions=["local_write"],
+        evidence_outputs=["count"],
         idempotency_inputs=["org_repo"],
         retry_policy="idempotent_only",
+        allowed_domains=["readme_reconciliation"],
     )
     return CapabilityManifest(**{**defaults, **overrides})
 

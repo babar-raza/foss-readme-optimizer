@@ -1,0 +1,21 @@
+﻿registry-heal: SKIPPED_RECENT (last heal attempt 3944s ago, interval 21600s)
+aspose-cells-foss/Aspose.Cells-FOSS-for-.NET: BLOCKED (specialist_failed:readme_presentation:ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED)
+  [0] specialist_retry: 'readme_presentation' reported an error on its first classify attempt this run; retried once, still failing ("ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED")
+  [0] capability_selected: inspect_repository (bootstrap)
+  [1] capability_selected: detect_readme_gaps
+  [2] capability_selected: render_readme_candidate
+  [3] capability_selected: get_product_facts
+  [4] stop: The `get_product_facts` call reveals the policy profile `aspose-cells-foss-net`, including required links, allowed domains, prohibited terms, and relationship talking points. Notably:
+
+- **Required links**: `products_org_link` and `products_com_link` are both present and correctly formatted.
+- **Relationship talking points**: `"open_source_scope"` and `"commercial_upgrade_path"` ΓÇö aligning with the generated READMEΓÇÖs relationship paragraph.
+- **Word limit**: 20ΓÇô120 words ΓÇö the generated relationship paragraph is ~100 words, so it fits.
+- **Prohibited terms**: none appear in the generated text.
+- **Link whitelist**: all domains used are whitelisted.
+
+However, the `render_readme_candidate` returned `"status": "BLOCKED_VALIDATION_FAILED"`, which suggests a deeper validation issue ΓÇö possibly a mismatch between the generated text and the *exact* phrasing or structure expected by the policy engine (e.g., missing required phrasing like ΓÇ£free, open-source editionΓÇ¥ or ΓÇ£commercial editionΓÇ¥ in specific positions).
+
+Since the policy profile is now known and the generated README is close to compliant, the next best step is to **inspect the policy file directly** to understand the precise validation rules. The `get_domain_findings` tool can retrieve the full, untruncated findings for the `presentation_benchmarking` domain, which includes the validation logic used to assess README completeness and policy alignment.
+
+<tool_call>
+<function

@@ -144,6 +144,7 @@ MANIFEST = CapabilityManifest(
     effect_classes=["PR_BRANCH_PUSH", "PR_CREATE_OR_UPDATE"],
     idempotency_inputs=["org_repo", "facts_hash", "fresh_fingerprint", "final_text"],
     retry_policy="idempotent_only",
+    evidence_outputs=["opened", "already_open", "pr_number", "pr_url", "branch_name"],
     tools_used=[
         "gitsafety.clone.create_pr_clone",
         "gitsafety.clone.push_branch",

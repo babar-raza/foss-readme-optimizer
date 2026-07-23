@@ -1,0 +1,12 @@
+registry-heal: NO_DRIFT
+aspose-cells-foss/Aspose.Cells-FOSS-for-.NET: BLOCKED (specialist_failed:readme_presentation:ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED)
+  [0] specialist_retry: 'readme_presentation' reported an error on its first classify attempt this run; retried once, still failing ("ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED")
+  [0] capability_selected: inspect_repository (bootstrap)
+  [1] capability_selected: detect_readme_gaps
+  [2] capability_selected: render_readme_candidate
+  [3] capability_selected: get_product_facts
+  [4] capability_selected: render_readme_candidate
+  [5] capability_selected: get_domain_findings
+  [6] capability_selected: verify_package_acquisition
+  [7] stop: stop capability called: The README candidate includes a relationship explanation (LLM-generated), but it failed validation. We confirmed the package is published on NuGet, and all other required README elements (license, org/com links) are present. The only remaining issue is the phrasing of the relationship explanation, which depends on internal policy constraints not exposed via available tools. No further capability can resolve this gap without access to the exact approved phrasing.
+--- exit code: 1 ---

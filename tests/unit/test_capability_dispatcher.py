@@ -5,11 +5,13 @@ registry to prove the actual check_install_path manifest's permission class
 is honored, not just a mocked one."""
 
 from readme_agent.capabilities import dispatcher, registry
+from readme_agent.capabilities.contracts import materialize_contract_models
 from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInputV1
 from readme_agent.state.schema import ModelRouteStatusV1
 
 
 def _manifest(**overrides) -> CapabilityManifest:
+    side_effect_class = overrides.get("side_effect_class", "read_only_local")
     defaults = dict(
         capability_id="widget_capability",
         version="1",
@@ -19,7 +21,8 @@ def _manifest(**overrides) -> CapabilityManifest:
         owner="tests",
         execution_type="deterministic_tool",
         required_inputs={"org_repo": "string"},
-        side_effect_class="read_only_local",
+        required_permissions=[side_effect_class],
+        side_effect_class=side_effect_class,
     )
     return CapabilityManifest(**{**defaults, **overrides})
 
@@ -419,3 +422,20 @@ class TestDispatchExecutionError:
 
         assert result.outcome == "execution_error"
         assert "network exploded" in result.error
+
+    def test_invalid_executor_output_fails_the_typed_contract(self, monkeypatch):
+        manifest = materialize_contract_models(_manifest(produced_outputs={"ok": "boolean"}))
+        monkeypatch.setattr(registry, "get", lambda cid: manifest)
+        monkeypatch.setattr(
+            registry,
+            "get_executor",
+            lambda cid: lambda org_repo: {"ok": "not-a-boolean"},
+        )
+
+        result = dispatcher.dispatch_tool_call(
+            _tool_call("widget_capability", '{"org_repo": "acme/widget"}'),
+            allowed_permissions={"read_only_local"},
+        )
+
+        assert result.outcome == "execution_error"
+        assert "output contract failed" in result.error

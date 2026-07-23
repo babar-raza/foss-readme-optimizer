@@ -343,8 +343,8 @@ class TestAllowList:
             generate_repo(ORG_REPO, llm_mode="fixture", fixture_response_path=fixture_path)
 
 
-class TestRunModeFullCommitsLocally:
-    def test_full_mode_commits_locally_never_pushes(self, tmp_path, monkeypatch):
+class TestLegacyRunIsReadOnlyCompatibility:
+    def test_full_mode_never_commits_outside_registered_effect(self, tmp_path, monkeypatch):
         source = _init_source_repo(tmp_path / "source", BLANK_SLATE_README)
         fixture_path = _setup_project_root(tmp_path, str(source), mode="full")
         monkeypatch.chdir(tmp_path)
@@ -355,7 +355,7 @@ class TestRunModeFullCommitsLocally:
 
         assert result.ok
         assert result.status == "GENERATED"
-        assert result.committed
+        assert not result.committed
         assert result.push_block_ok
 
 
@@ -1022,18 +1022,16 @@ class TestEnsureWorkCloneValidity:
     valid one still is (no regression to the decision #38 fast path)."""
 
     def test_valid_clone_is_reused(self, tmp_path):
+        from readme_agent.readme.candidate_workspace import ensure_work_clone
+
         baseline = _init_git_repo(tmp_path / "baseline")
         work_path = tmp_path / "work"
         entry = SimpleNamespace(
             org_repo="acme/widget", repo_url="https://example.invalid/acme/widget"
         )
 
-        first = orchestrator._ensure_work_clone(
-            entry, baseline, work_path, fresh_fingerprint="fp-1"
-        )
-        second = orchestrator._ensure_work_clone(
-            entry, baseline, work_path, fresh_fingerprint="fp-1"
-        )
+        first = ensure_work_clone(entry, baseline, work_path, fresh_fingerprint="fp-1")
+        second = ensure_work_clone(entry, baseline, work_path, fresh_fingerprint="fp-1")
 
         assert first == work_path
         assert second == work_path
@@ -1049,16 +1047,19 @@ class TestEnsureWorkCloneValidity:
         work_path = tmp_path / "work"
         (work_path / ".git" / "hooks").mkdir(parents=True)
         (work_path / ".git" / "objects").mkdir(parents=True)
-        sidecar = orchestrator._work_clone_fingerprint_sidecar(work_path)
+        from readme_agent.readme.candidate_workspace import (
+            ensure_work_clone,
+            work_clone_fingerprint_sidecar,
+        )
+
+        sidecar = work_clone_fingerprint_sidecar(work_path)
         sidecar.parent.mkdir(parents=True, exist_ok=True)
         sidecar.write_text("fp-1", encoding="utf-8")
         entry = SimpleNamespace(
             org_repo="acme/widget", repo_url="https://example.invalid/acme/widget"
         )
 
-        result = orchestrator._ensure_work_clone(
-            entry, baseline, work_path, fresh_fingerprint="fp-1"
-        )
+        result = ensure_work_clone(entry, baseline, work_path, fresh_fingerprint="fp-1")
 
         # A real, complete clone was built instead of trusting the broken one.
         assert result == work_path
@@ -1075,14 +1076,21 @@ class TestEnsureWorkCloneValidity:
         (work_path / ".git" / "hooks").mkdir(parents=True)
         (work_path / ".git" / "objects").mkdir(parents=True)
 
-        assert orchestrator._is_valid_work_clone(work_path) is False
+        from readme_agent.readme.candidate_workspace import is_valid_work_clone
+
+        assert is_valid_work_clone(work_path) is False
 
     def test_is_valid_work_clone_accepts_a_real_clone(self, tmp_path):
+        from readme_agent.readme.candidate_workspace import (
+            ensure_work_clone,
+            is_valid_work_clone,
+        )
+
         baseline = _init_git_repo(tmp_path / "baseline")
         work_path = tmp_path / "work"
         entry = SimpleNamespace(
             org_repo="acme/widget", repo_url="https://example.invalid/acme/widget"
         )
-        orchestrator._ensure_work_clone(entry, baseline, work_path, fresh_fingerprint="fp-1")
+        ensure_work_clone(entry, baseline, work_path, fresh_fingerprint="fp-1")
 
-        assert orchestrator._is_valid_work_clone(work_path) is True
+        assert is_valid_work_clone(work_path) is True

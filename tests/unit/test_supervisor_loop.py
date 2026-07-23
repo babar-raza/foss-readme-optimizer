@@ -9,7 +9,6 @@ from pathlib import Path
 
 import pytest
 
-from readme_agent import orchestrator
 from readme_agent.capabilities import (
     audit_community_files,
     audit_github_generated_surfaces,
@@ -29,6 +28,7 @@ from readme_agent.llm.planner_client import FixturePlannerClient, PlannerTurn
 from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta, Usage
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
+from readme_agent.readme import candidate_pipeline
 from readme_agent.specialists import registry as specialists_registry
 from readme_agent.state.backend import Lock, SaveResult
 from readme_agent.state.schema import DomainStateV1, ModelRouteStatusV1, RunStateV1
@@ -367,7 +367,7 @@ def project(tmp_path, monkeypatch):
     # Wave 7g: readme_presentation is a sixth (and seventh, counting cross_
     # surface_validation) always-run specialist -- the first whose render
     # step can reach the one real LLM call, faked for the same reason.
-    monkeypatch.setattr(orchestrator, "LiveLLMClient", _FakeLiveLLMClient)
+    monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
     # Wave 8.6 (`VER-006` reversal): _verify_node now additionally dispatches
     # verify_prose_quality after a deterministic accept -- faked here (never
     # flagged) so this fixture's existing accept/commit assertions across
@@ -963,6 +963,20 @@ class TestNotOnboardedGate:
         assert result.status == "BLOCKED"
         assert result.blocked_reason == "not_onboarded"
 
+    def test_unregistered_rust_ecosystem_is_explicitly_unsupported(self, project):
+        self._rewrite_products_json(
+            project,
+            platform="rust",
+            ecosystem=None,
+            policy_profile=None,
+        )
+
+        result = supervise_repo(ORG_REPO, write_evidence_bundle=False)
+
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason == "unsupported_ecosystem:rust"
+        assert result.decisions[0].kind == "capability_gap"
+
     def test_fully_onboarded_entry_is_unaffected_by_the_new_gate(self, project):
         """Control case: the project fixture's default entry (ecosystem=
         "java", policy_profile="test-profile", matching the 3 real onboarded
@@ -1309,7 +1323,7 @@ class TestEvidenceCompletenessGate:
             json.loads(path.read_text())
 
     def test_assert_evidence_complete_raises_on_a_missing_file(self, tmp_path):
-        from readme_agent.supervisor.loop import _assert_evidence_complete
+        from readme_agent.supervisor.evidence import assert_evidence_complete
 
         (tmp_path / "specialist_results.json").write_text("{}", encoding="utf-8")
         (tmp_path / "task_graph.json").write_text("{}", encoding="utf-8")
@@ -1317,10 +1331,10 @@ class TestEvidenceCompletenessGate:
         # manifest.json deliberately never written.
 
         with pytest.raises(RuntimeError, match="manifest.json"):
-            _assert_evidence_complete(tmp_path)
+            assert_evidence_complete(tmp_path)
 
     def test_assert_evidence_complete_raises_on_invalid_json(self, tmp_path):
-        from readme_agent.supervisor.loop import _assert_evidence_complete
+        from readme_agent.supervisor.evidence import assert_evidence_complete
 
         (tmp_path / "specialist_results.json").write_text("{}", encoding="utf-8")
         (tmp_path / "task_graph.json").write_text("{}", encoding="utf-8")
@@ -1328,7 +1342,7 @@ class TestEvidenceCompletenessGate:
         (tmp_path / "manifest.json").write_text("not valid json", encoding="utf-8")
 
         with pytest.raises(RuntimeError, match="manifest.json"):
-            _assert_evidence_complete(tmp_path)
+            assert_evidence_complete(tmp_path)
 
 
 class TestEscalationAlert:
@@ -1921,19 +1935,51 @@ class TestMaxTurns:
         )
         assert result.status == "BLOCKED"
 
+    def test_known_specialist_failure_precedes_repair_exhaustion(self, project, monkeypatch):
+        from readme_agent.supervisor import loop
+        from readme_agent.supervisor.specialist_tier import SpecialistTierResult
+
+        specialist_error = DomainStateV1(
+            domain="readme_presentation",
+            accepted_status="ERROR:verification_rejected:controlled",
+        )
+        monkeypatch.setattr(
+            loop,
+            "run_specialist_tier",
+            lambda **kwargs: SpecialistTierResult(
+                domains=["readme_presentation"],
+                results={"readme_presentation": specialist_error},
+                unrecorded_failures={},
+                escalation_alerts=[],
+                retry_alerts=[],
+            ),
+        )
+
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient([]),
+            write_evidence_bundle=False,
+            max_turns=1,
+        )
+
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason == (
+            "specialist_failed:readme_presentation:ERROR:verification_rejected:controlled"
+        )
+
 
 class TestWriteCapableModeGate:
     """Decision #40's safety companion: supervise_repo()'s entry gate moved
     to require_listed() (mode is irrelevant for reads), so it no longer
     implies mode == "full" the way require_permitted() used to.
-    _dispatch_and_record() is the one place left that must still refuse to
+    dispatch_and_record() is the one place left that must still refuse to
     dispatch a local_write/remote_write capability against a repo whose push
     access hasn't been verified -- proven directly here since no real
     write-capable capability is registered yet to exercise it end to end."""
 
     def test_write_capable_capability_blocked_when_mode_not_full(self, project, monkeypatch):
         from readme_agent.capabilities.schema import CapabilityManifest
-        from readme_agent.supervisor.loop import _dispatch_and_record
+        from readme_agent.supervisor.action_dispatch import dispatch_and_record
         from readme_agent.supervisor.task import Task, TaskGraph
 
         products_path = project / "data" / "products.json"
@@ -1958,7 +2004,7 @@ class TestWriteCapableModeGate:
             Task(capability_id="fake_write_capability", arguments={"org_repo": ORG_REPO})
         )
 
-        result = _dispatch_and_record(
+        result = dispatch_and_record(
             graph, task, backend=None, org_repo=ORG_REPO, decisions=[], turn=1
         )
 
@@ -1973,7 +2019,7 @@ class TestWriteCapableModeGate:
         what decision #40 touched; this isolates just the new check.)"""
         from readme_agent.capabilities.dispatcher import DispatchResult
         from readme_agent.capabilities.schema import CapabilityManifest
-        from readme_agent.supervisor.loop import _dispatch_and_record
+        from readme_agent.supervisor.action_dispatch import dispatch_and_record
         from readme_agent.supervisor.task import Task, TaskGraph
 
         products_path = project / "data" / "products.json"
@@ -2004,7 +2050,7 @@ class TestWriteCapableModeGate:
             Task(capability_id="fake_write_capability", arguments={"org_repo": ORG_REPO})
         )
 
-        result = _dispatch_and_record(
+        result = dispatch_and_record(
             graph, task, backend=None, org_repo=ORG_REPO, decisions=[], turn=1
         )
 

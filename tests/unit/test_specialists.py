@@ -8,7 +8,6 @@ from pathlib import Path
 
 import pytest
 
-from readme_agent import orchestrator
 from readme_agent.capabilities import review_visual_asset_accuracy, verify_prose_quality
 from readme_agent.gitsafety._git import run_git
 from readme_agent.gitsafety.clone import reset_clone_memo
@@ -17,6 +16,7 @@ from readme_agent.llm.client import GeneratedResult
 from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
+from readme_agent.readme import candidate_pipeline
 from readme_agent.specialists import readme_reconciliation, registry
 from readme_agent.state.backend import SaveResult
 from readme_agent.state.schema import DomainStateV1, RunStateV1
@@ -837,7 +837,7 @@ class TestReadmePresentationSpecialist:
         source = _init_source_repo(tmp_path / "source", "# Widget\n\nA widget library.\n")
         _setup_project_root(tmp_path, str(source))  # mode: "full"
         monkeypatch.chdir(tmp_path)
-        monkeypatch.setattr(orchestrator, "LiveLLMClient", _FakeLiveLLMClient)
+        monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
@@ -882,7 +882,7 @@ class TestReadmePresentationSpecialist:
         source = _init_source_repo(tmp_path / "source", "# Widget\n\nA widget library.\n")
         _setup_project_root(tmp_path, str(source))
         monkeypatch.chdir(tmp_path)
-        monkeypatch.setattr(orchestrator, "LiveLLMClient", _FakeLiveLLMClient)
+        monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
@@ -905,7 +905,7 @@ class TestReadmePresentationSpecialist:
         source = _init_source_repo(tmp_path / "source", "# Widget\n\nA widget library.\n")
         _setup_project_root(tmp_path, str(source))  # mode: "full"
         monkeypatch.chdir(tmp_path)
-        monkeypatch.setattr(orchestrator, "LiveLLMClient", _FakeLiveLLMClient)
+        monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
@@ -937,7 +937,7 @@ class TestReadmePresentationSpecialist:
         source = _init_source_repo(tmp_path / "source", _BLANK_SLATE_WIDGET_README)
         _setup_project_root(tmp_path, str(source))  # mode: "full"
         monkeypatch.chdir(tmp_path)
-        monkeypatch.setattr(orchestrator, "LiveLLMClient", _FakeLiveLLMClient)
+        monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
@@ -982,7 +982,7 @@ class TestReadmePresentationSpecialist:
         source = _init_source_repo(tmp_path / "source", _BLANK_SLATE_WIDGET_README)
         _setup_project_root(tmp_path, str(source))  # mode: "full"
         monkeypatch.chdir(tmp_path)
-        monkeypatch.setattr(orchestrator, "LiveLLMClient", _FakeLiveLLMClient)
+        monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
@@ -1026,7 +1026,7 @@ class TestReadmePresentationSpecialist:
         products[0]["mode"] = "dry_run"
         products_path.write_text(json.dumps(products), encoding="utf-8")
         monkeypatch.chdir(tmp_path)
-        monkeypatch.setattr(orchestrator, "LiveLLMClient", _FakeLiveLLMClient)
+        monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
@@ -1047,7 +1047,7 @@ class TestReadmePresentationSpecialist:
         source = _init_source_repo(tmp_path / "source", _BLANK_SLATE_WIDGET_README)
         _setup_project_root(tmp_path, str(source))
         monkeypatch.chdir(tmp_path)
-        monkeypatch.setattr(orchestrator, "LiveLLMClient", _FakeLiveLLMClient)
+        monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
@@ -1064,7 +1064,7 @@ class TestReadmePresentationSpecialist:
         source = _init_source_repo(tmp_path / "source", _BLANK_SLATE_WIDGET_README)
         _setup_project_root(tmp_path, str(source))
         monkeypatch.chdir(tmp_path)
-        monkeypatch.setattr(orchestrator, "LiveLLMClient", _FakeLiveLLMClient)
+        monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )

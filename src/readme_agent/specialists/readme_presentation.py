@@ -100,6 +100,7 @@ MAX_PROSE_REPAIR_ATTEMPTS = 2
 def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     org_repo = config["configurable"]["org_repo"]
     arguments: dict = {"org_repo": org_repo}
+    wiring_arguments: dict = {}
     # Production-reliability fix (found by independent review, 2026-07-20):
     # without this, a fresh work clone -- the normal case on an ephemeral CI
     # runner, RUN-001 -- can never see this domain's own prior accepted
@@ -111,18 +112,23 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     # the accepted record needed -- supplied here as plain values, keeping
     # `render_readme_candidate` itself stateless (decision #26(b)).
     if state.accepted_facts_hash is not None:
-        arguments["prior_facts_hash"] = state.accepted_facts_hash
+        wiring_arguments["prior_facts_hash"] = state.accepted_facts_hash
         prior_fingerprint = state.details.get("fresh_fingerprint")
         if prior_fingerprint is not None:
-            arguments["prior_content_fingerprint"] = prior_fingerprint
+            wiring_arguments["prior_content_fingerprint"] = prior_fingerprint
         prior_status = state.details.get("render_status")
         if prior_status is not None:
-            arguments["prior_status"] = prior_status
+            wiring_arguments["prior_status"] = prior_status
 
     tool_call = {
         "function": {"name": "render_readme_candidate", "arguments": json.dumps(arguments)}
     }
-    dispatch = dispatch_tool_call(tool_call, _READ_ONLY_PERMISSIONS, caller_domain=DOMAIN)
+    dispatch = dispatch_tool_call(
+        tool_call,
+        _READ_ONLY_PERMISSIONS,
+        caller_domain=DOMAIN,
+        extra_kwargs=wiring_arguments,
+    )
     if dispatch.outcome != "executed":
         return {"accepted_status": f"ERROR:{dispatch.outcome}:{dispatch.error}"}
 

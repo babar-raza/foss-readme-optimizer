@@ -181,7 +181,7 @@ def create_work_clone(entry: ProductEntry, baseline_path: Path, work_path: Path)
     real-commit proof recorded in this project's history so far ran either on
     a locally-configured dev machine or via local `act` emulation -- never
     confirmed against a genuinely fresh, hosted GitHub Actions runner, which
-    has no default git identity. Without this, `commit_generated_readme()`/
+    has no default git identity. Without this, `commit_verified_readme()`/
     `commit_readme_write` would very likely fail there with a real commit
     attempt, on every run, since git refuses to commit with no identity
     configured anywhere in scope."""

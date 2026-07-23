@@ -1,0 +1,38 @@
+{
+  "all_fail_closed": true,
+  "case_count": 4,
+  "cases": [
+    {
+      "current_blocked_reason": "specialist_failed:readme_presentation:ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED",
+      "current_terminal_status": "BLOCKED",
+      "historical_specialist_status": "ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED",
+      "historical_terminal_status": "CONVERGED_NO_CHANGE",
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+    },
+    {
+      "current_blocked_reason": "specialist_failed:readme_presentation:ERROR:verification_rejected:prose_quality_flagged:The paragraph reads as generic and repetitive boilerplate. It redundantly explains the relationship between the FOSS and commercial editions using vague, marketing-style phrasing (e.g., 'lightweight, community-supported solution', 'advanced functionality, enterprise support, and additional features', 'clear upgrade path') without concrete details about differences in features, limitations, or use cases. The structure and wording closely resemble templated or automatically inserted content rather than tailored, specific documentation.",
+      "current_terminal_status": "BLOCKED",
+      "historical_specialist_status": "ERROR:verification_rejected:prose_quality_flagged:The paragraph reads as generic and repetitive boilerplate. It redundantly explains the relationship between the FOSS and commercial editions using vague, marketing-style phrasing (e.g., 'lightweight, community-supported solution', 'advanced functionality, enterprise support, and additional features', 'clear upgrade path') without concrete details about differences in features, limitations, or use cases. The structure and wording closely resemble templated or automatically inserted content rather than tailored, specific documentation.",
+      "historical_terminal_status": "CONVERGED_NO_CHANGE",
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
+    },
+    {
+      "current_blocked_reason": "specialist_failed:readme_presentation:ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED",
+      "current_terminal_status": "BLOCKED",
+      "historical_specialist_status": "ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED",
+      "historical_terminal_status": "CONVERGED_NO_CHANGE",
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"
+    },
+    {
+      "current_blocked_reason": "specialist_failed:readme_presentation:ERROR:verification_rejected:prose_quality_flagged:The sentence is repetitive and mechanically phrased: it redundantly repeats 'Aspose.PDF FOSS for Go' and 'open-source (FOSS)' in close proximity, and uses generic descriptors like 'core PDF processing capabilities' without specifying what those capabilities are. The structure reads like boilerplate copy-pasted from a template rather than tailored, specific prose.",
+      "current_terminal_status": "BLOCKED",
+      "historical_specialist_status": "ERROR:verification_rejected:prose_quality_flagged:The sentence is repetitive and mechanically phrased: it redundantly repeats 'Aspose.PDF FOSS for Go' and 'open-source (FOSS)' in close proximity, and uses generic descriptors like 'core PDF processing capabilities' without specifying what those capabilities are. The structure reads like boilerplate copy-pasted from a template rather than tailored, specific prose.",
+      "historical_terminal_status": "CONVERGED_NO_CHANGE",
+      "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go"
+    }
+  ],
+  "classifier": "readme_agent.supervisor.convergence.final_status",
+  "schema": "heterogeneous-false-success-classification-replay-v1",
+  "source_log": "plans/investigations/evidence/heterogeneous-portfolio-proof-2026-07-23/first-run-all-targets.log",
+  "source_sha256": "2a82d1dd52cef7236b43c2f3a738a075fca1e1de240591f15bcd074c0c12c3c4"
+}

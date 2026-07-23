@@ -4,6 +4,8 @@ import os
 import subprocess
 from pathlib import Path
 
+from readme_agent.gitsafety.process import run_bounded
+
 # Pinned per-invocation (never relies on the operator's/runner's ambient git
 # config) -- see the plan's "Consistency & Determinism" Tier 1 SS3: this is the
 # fix for cross-platform (Windows dev / Linux CI) line-ending nondeterminism at
@@ -88,34 +90,18 @@ def run_git(
     everywhere picks it up unchanged."""
     full_env = {**os.environ, **(env or {}), **GIT_SAFETY_ENV}
     git_args = ["git", *DETERMINISM_FLAGS, *args]
-    try:
-        if input_text is None:
-            return subprocess.run(
-                git_args,
-                cwd=str(cwd) if cwd else None,
-                capture_output=True,
-                text=True,
-                timeout=timeout,
-                env=full_env,
-            )
-        raw = subprocess.run(
-            git_args,
-            cwd=str(cwd) if cwd else None,
-            input=input_text.encode("utf-8"),
-            capture_output=True,
-            timeout=timeout,
-            env=full_env,
-        )
-        return subprocess.CompletedProcess(
-            args=raw.args,
-            returncode=raw.returncode,
-            stdout=raw.stdout.decode("utf-8", errors="replace"),
-            stderr=raw.stderr.decode("utf-8", errors="replace"),
-        )
-    except subprocess.TimeoutExpired:
+    result = run_bounded(
+        git_args,
+        cwd=cwd,
+        timeout=timeout,
+        input_bytes=input_text.encode("utf-8") if input_text is not None else None,
+        env=full_env,
+    )
+    if result.returncode == 124:
         return subprocess.CompletedProcess(
             args=git_args,
             returncode=124,
-            stdout="",
+            stdout=result.stdout,
             stderr=f"git {' '.join(args)} timed out after {timeout}s",
         )
+    return result

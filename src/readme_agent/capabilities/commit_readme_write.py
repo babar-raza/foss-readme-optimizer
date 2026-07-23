@@ -1,5 +1,6 @@
-"""The one real mutating capability this project registers (Wave 7g,
-`EFF-001`). Wraps `orchestrator.commit_generated_readme()` -- the actual
+"""The one local-work-clone mutating capability (`EFF-001`).
+
+Wraps `effects.local_readme_commit.commit_verified_readme()` -- the actual
 write plus, only when `mode == "full"` and `status == "GENERATED"`, one real
 local git commit into the local work clone, never pushed (`docs/safety-
 model.md`). Pairs with the read-only `render_readme_candidate`: the caller
@@ -21,7 +22,7 @@ capability's real call path, which is always the `readme_presentation`
 specialist calling `dispatch_gated_effect()` directly. Verified against the
 actual current code, not assumed from the plan's own text (which claimed
 this gate was "inherited for free" -- true for a hypothetical *unscoped*
-write-capable capability, not true for this one). `commit_generated_readme()`
+write-capable capability, not true for this one). `commit_verified_readme()`
 checks `mode` itself so every real caller, present and future, gets the
 same protection regardless of dispatch path.
 
@@ -85,7 +86,7 @@ action with zero external blast radius, which is scope creep of the
 taxonomy, not safety. `effect_classes` stays empty (its documented default,
 `capabilities/schema.py`), so this capability is unaffected by the Wave
 13.3 enforcement cutover -- gated only by `mode` (inside `execute()` via
-`commit_generated_readme()`) and `verification_verdict` (`precheck()`
+`commit_verified_readme()`) and `verification_verdict` (`precheck()`
 below), exactly as before."""
 
 from pathlib import Path
@@ -93,9 +94,10 @@ from pathlib import Path
 from readme_agent import paths
 from readme_agent.capabilities.domains import README_PRESENTATION
 from readme_agent.capabilities.schema import CapabilityManifest
+from readme_agent.effects.local_readme_commit import commit_verified_readme
 from readme_agent.gitsafety._git import run_git
 from readme_agent.inspection import file_inventory
-from readme_agent.orchestrator import commit_generated_readme, require_permitted
+from readme_agent.orchestrator import require_permitted
 from readme_agent.readme.markers import find_span
 from readme_agent.registry.loader import find_entry
 from readme_agent.verification.checks import compute_verification_token
@@ -112,7 +114,7 @@ MANIFEST = CapabilityManifest(
     "own completed output for this run directly. Requires a prior independent accept "
     "(verification_verdict) from the independent_verification domain (VER-001).",
     category="readme_presentation",
-    owner="readme_agent.orchestrator",
+    owner="readme_agent.effects.local_readme_commit",
     execution_type="gated_effector",
     required_inputs={
         "org_repo": "string",
@@ -142,7 +144,8 @@ MANIFEST = CapabilityManifest(
     allowed_domains=[README_PRESENTATION],
     idempotency_inputs=["org_repo", "facts_hash", "fresh_fingerprint", "final_text"],
     retry_policy="idempotent_only",
-    tools_used=["orchestrator.commit_generated_readme"],
+    evidence_outputs=["written", "committed"],
+    tools_used=["effects.local_readme_commit.commit_verified_readme"],
     failure_modes=["NotAllowlistedError if org_repo is not permitted with an enabled mode"],
     rollback_behavior="local git commit only, never pushed -- reversible via git reset in the "
     "local work clone; no remote effect exists to roll back",
@@ -177,7 +180,7 @@ def execute(
         readme_path.write_text(final_text, encoding="utf-8")
         written = True
 
-    committed = commit_generated_readme(work_path, facts_hash, status, mode=entry.mode)
+    committed = commit_verified_readme(work_path, facts_hash, status, mode=entry.mode)
 
     return {"written": written, "committed": committed}
 
@@ -220,7 +223,7 @@ def reconciliation_check(arguments: dict) -> dict | None:
     stale `pending` record backfills to `applied` instead of staying stuck
     forever. `committed` is reported conservatively: `True` only when the
     work clone's current HEAD commit message itself carries this exact
-    `facts_hash` prefix (the same message `commit_generated_readme()`
+    `facts_hash` prefix (the same message `commit_verified_readme()`
     writes) -- a clean-but-uncommitted write (e.g. `mode != "full"`, or a
     crash between file write and git commit) correctly reports `committed:
     False` here, matching reality rather than assuming the best case."""

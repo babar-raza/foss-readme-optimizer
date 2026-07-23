@@ -524,10 +524,12 @@ class TestRunGitTimeout:
 
         from readme_agent.gitsafety import _git as git_module
 
-        def _raise_timeout(*args, **kwargs):
-            raise subprocess.TimeoutExpired(cmd=["git", "push"], timeout=0.01)
+        def _timed_out(*args, **kwargs):
+            return subprocess.CompletedProcess(
+                args=args[0], returncode=124, stdout="", stderr="bounded timeout"
+            )
 
-        monkeypatch.setattr(git_module.subprocess, "run", _raise_timeout)
+        monkeypatch.setattr(git_module, "run_bounded", _timed_out)
 
         result = run_git(["push", "origin", "HEAD:refs/x"], timeout=0.01)
 
@@ -539,10 +541,12 @@ class TestRunGitTimeout:
 
         from readme_agent.gitsafety import _git as git_module
 
-        def _raise_timeout(*args, **kwargs):
-            raise subprocess.TimeoutExpired(cmd=["git", "commit-tree"], timeout=0.01)
+        def _timed_out(*args, **kwargs):
+            return subprocess.CompletedProcess(
+                args=args[0], returncode=124, stdout="", stderr="bounded timeout"
+            )
 
-        monkeypatch.setattr(git_module.subprocess, "run", _raise_timeout)
+        monkeypatch.setattr(git_module, "run_bounded", _timed_out)
 
         result = run_git(["commit-tree", "deadbeef"], input_text="msg", timeout=0.01)
 
@@ -569,7 +573,7 @@ class TestGitTerminalPromptDisabled:
             captured["env"] = kwargs.get("env")
             return subprocess.CompletedProcess(args=args[0], returncode=0, stdout="", stderr="")
 
-        monkeypatch.setattr(git_module.subprocess, "run", _spy)
+        monkeypatch.setattr(git_module, "run_bounded", _spy)
 
         run_git(["status"])
 
@@ -588,9 +592,9 @@ class TestGitTerminalPromptDisabled:
 
         def _spy(*args, **kwargs):
             captured["env"] = kwargs.get("env")
-            return subprocess.CompletedProcess(args=args[0], returncode=0, stdout=b"", stderr=b"")
+            return subprocess.CompletedProcess(args=args[0], returncode=0, stdout="", stderr="")
 
-        monkeypatch.setattr(git_module.subprocess, "run", _spy)
+        monkeypatch.setattr(git_module, "run_bounded", _spy)
 
         run_git(["commit-tree", "deadbeef"], input_text="msg")
 
@@ -610,7 +614,7 @@ class TestGitTerminalPromptDisabled:
             captured["env"] = kwargs.get("env")
             return subprocess.CompletedProcess(args=args[0], returncode=0, stdout="", stderr="")
 
-        monkeypatch.setattr(git_module.subprocess, "run", _spy)
+        monkeypatch.setattr(git_module, "run_bounded", _spy)
 
         run_git(["config", "--local", "user.name", "x"], env={"GIT_AUTHOR_NAME": "readme-agent"})
 
@@ -631,7 +635,7 @@ class TestGitTerminalPromptDisabled:
             captured["env"] = kwargs.get("env")
             return subprocess.CompletedProcess(args=args[0], returncode=0, stdout="", stderr="")
 
-        monkeypatch.setattr(git_module.subprocess, "run", _spy)
+        monkeypatch.setattr(git_module, "run_bounded", _spy)
 
         run_git(["status"], env={"GIT_TERMINAL_PROMPT": "1"})
 
@@ -654,7 +658,7 @@ class TestGitTerminalPromptDisabled:
             captured["env"] = kwargs.get("env")
             return subprocess.CompletedProcess(args=args[0], returncode=0, stdout="", stderr="")
 
-        monkeypatch.setattr(git_module.subprocess, "run", _spy)
+        monkeypatch.setattr(git_module, "run_bounded", _spy)
 
         run_git(["status"], env={"GCM_INTERACTIVE": "auto"})
 

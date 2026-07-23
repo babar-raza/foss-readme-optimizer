@@ -53,8 +53,15 @@ from readme_agent.capabilities import (
     verify_prose_quality,
     verify_readme_candidate,
 )
+from readme_agent.capabilities.compatibility import (
+    is_compatible,
+    validate_compatibility_declarations,
+)
+from readme_agent.capabilities.contracts import materialize_contract_models
 from readme_agent.capabilities.schema import CapabilityManifest, ExecutionType, PermissionClass
 from readme_agent.errors import ConfigError
+from readme_agent.profile.schema import RepositoryProfile
+from readme_agent.validation.registry import registered_rule_ids
 
 _MODULES = (
     inspect_repository,
@@ -116,7 +123,8 @@ def _build(
     reconciliation_checks: dict[str, ReconciliationCheck] = {}
     prechecks: dict[str, PrecheckFn] = {}
     for module in modules:
-        manifest = module.MANIFEST
+        manifest = materialize_contract_models(module.MANIFEST)
+        validate_compatibility_declarations(manifest)
         if manifest.capability_id in manifests:
             # GOVERNANCE.md "Capability and agentic-component lifecycle", rule 2: no silent
             # duplicates -- caught at build time, not left to surface as a runtime surprise.
@@ -138,6 +146,34 @@ def _build(
             raise ConfigError(
                 f"{manifest.capability_id!r} declares effect_classes "
                 f"{sorted(unknown_effect_classes)} not in authorization.schema.EffectClass"
+            )
+
+        required_permissions = set(manifest.required_permissions)
+        if not required_permissions or manifest.side_effect_class not in required_permissions:
+            raise ConfigError(
+                f"{manifest.capability_id!r} must declare its side_effect_class "
+                f"{manifest.side_effect_class!r} in non-empty required_permissions"
+            )
+
+        unknown_validators = set(manifest.validators) - registered_rule_ids()
+        if unknown_validators:
+            raise ConfigError(
+                f"{manifest.capability_id!r} declares unknown validators "
+                f"{sorted(unknown_validators)}"
+            )
+
+        unknown_evidence_outputs = set(manifest.evidence_outputs) - set(manifest.produced_outputs)
+        if unknown_evidence_outputs:
+            raise ConfigError(
+                f"{manifest.capability_id!r} declares evidence_outputs not present in its "
+                f"output contract: {sorted(unknown_evidence_outputs)}"
+            )
+        if (
+            manifest.side_effect_class in _MUTATING_PERMISSION_CLASSES
+            and not manifest.evidence_outputs
+        ):
+            raise ConfigError(
+                f"{manifest.capability_id!r} is mutating but declares no evidence_outputs"
             )
 
         # Fail-closed sunset (Decision #33): once more than one domain is
@@ -218,6 +254,12 @@ def filter_by(
     if category is not None:
         results = [m for m in results if m.category == category]
     return results
+
+
+def filter_compatible(profile: RepositoryProfile) -> list[CapabilityManifest]:
+    """Return registered capabilities whose declared axes match a repository profile."""
+
+    return [manifest for manifest in list_all() if is_compatible(manifest, profile)]
 
 
 def all_tool_schemas(caller_domain: str | None = None) -> list[dict]:

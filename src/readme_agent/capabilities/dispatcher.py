@@ -102,12 +102,14 @@ def dispatch_tool_call(
         )
         return DispatchResult(outcome="rejected_unknown_capability", gap=gap)
 
-    if manifest.side_effect_class not in allowed_permissions:
+    missing_permissions = sorted(set(manifest.required_permissions) - set(allowed_permissions))
+    if missing_permissions:
         return DispatchResult(
             outcome="rejected_permission_denied",
             error=(
-                f"{capability_id!r} requires {manifest.side_effect_class!r}, not in allowed "
-                f"permissions {sorted(allowed_permissions)}"
+                f"{capability_id!r} requires permissions {sorted(manifest.required_permissions)}, "
+                f"missing {missing_permissions} from allowed permissions "
+                f"{sorted(allowed_permissions)}"
             ),
         )
 
@@ -163,5 +165,19 @@ def dispatch_tool_call(
         result = executor(**arguments, **(extra_kwargs or {}))
     except Exception as e:  # noqa: BLE001 -- any wrapped-function failure becomes a typed outcome
         return DispatchResult(outcome="execution_error", error=f"{type(e).__name__}: {e}")
+
+    if not isinstance(result, dict):
+        return DispatchResult(
+            outcome="execution_error",
+            error=f"output contract failed: expected object, got {type(result).__name__}",
+        )
+    if manifest.output_model is not None:
+        try:
+            manifest.output_model.model_validate(result)
+        except ValidationError as e:
+            return DispatchResult(
+                outcome="execution_error",
+                error=f"output contract failed: {e}",
+            )
 
     return DispatchResult(outcome="executed", result=result)

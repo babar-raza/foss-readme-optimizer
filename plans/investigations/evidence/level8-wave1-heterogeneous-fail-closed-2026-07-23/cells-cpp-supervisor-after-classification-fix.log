@@ -1,0 +1,21 @@
+registry-heal: SKIPPED_RECENT (last heal attempt 482s ago, interval 21600s)
+aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp: BLOCKED (specialist_failed:readme_presentation:ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED)
+  [0] specialist_retry: 'readme_presentation' reported an error on its first classify attempt this run; retried once, still failing ("ERROR:verification_rejected:needs_write is True but claimed status='BLOCKED_VALIDATION_FAILED' is not GENERATED")
+  [0] capability_selected: inspect_repository (bootstrap)
+  [1] capability_selected: detect_readme_gaps
+  [2] capability_selected: render_readme_candidate
+  [3] capability_selected: inspect_repository
+  [4] capability_selected: profile_repository
+  [5] capability_selected: get_product_facts
+  [6] stop: The `get_product_facts` call reveals the **policy profile** (`aspose-cells-foss-cpp`) and confirms the exact URLs and UTM parameters expected for the org/com links — matching what’s in the regenerated README candidate. It also specifies required relationship talking points: `"open_source_scope"` and `"commercial_upgrade_path"`.
+
+The README candidate *does* include both:
+- **Open-source scope**: “This repository hosts the free, open-source (FOSS) edition… under the MIT license.”
+- **Commercial upgrade path**: “Users seeking additional features… can upgrade to the commercial edition…”
+
+However, the candidate was `BLOCKED_VALIDATION_FAILED`. Since the policy and links match, and the relationship explanation is present and aligned, the likely failure is due to **word count** — the policy specifies `word_limit: {min: 20, max: 120}` for the *relationship explanation section*, and the current candidate’s “Related Aspose Resources” block is likely too long.
+
+Let’s check the **exact length** of the relationship explanation in the candidate to confirm. Since `render_readme_candidate` already ran the LLM and produced the text, and `get_product_facts` gives us the policy constraints, the next best step is to **inspect the README candidate’s relationship section length** — but no tool directly exposes that.
+
+Instead, we can **regenerate the README with a stricter focus on the relationship section**, using `render
+--- exit code: 1 ---

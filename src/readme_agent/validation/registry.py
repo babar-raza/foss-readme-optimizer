@@ -37,6 +37,13 @@ RULES = (
     commercial_mention_discipline,
 )
 
+
+def registered_rule_ids() -> frozenset[str]:
+    """Return the stable module-name identifiers accepted by capability manifests."""
+
+    return frozenset(rule.__name__.rsplit(".", 1)[-1] for rule in RULES)
+
+
 # VER-004: bump whenever a rule module's pass/fail logic changes in a way that
 # could affect previously-accepted content (a stricter/looser check, a new
 # rule added/removed) -- folded into readme/facts.py::_HASH_FIELDS, the same

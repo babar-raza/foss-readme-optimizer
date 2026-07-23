@@ -88,6 +88,9 @@ def _effector_manifest(**overrides) -> CapabilityManifest:
         execution_type="gated_effector",
         side_effect_class="local_write",
         required_inputs={"org_repo": "string"},
+        produced_outputs={"applied": "boolean", "count": "integer"},
+        required_permissions=["local_write"],
+        evidence_outputs=["applied", "count"],
         idempotency_inputs=["org_repo"],
         retry_policy="idempotent_only",
         # Wave 7b: the real domains.KNOWN_DOMAINS now has 2 entries, so the

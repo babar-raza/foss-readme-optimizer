@@ -1,0 +1,47 @@
+{
+  "schema": "level8-wave1-verification-summary-v1",
+  "date": "2026-07-23",
+  "checks": [
+    {
+      "command": ".venv/Scripts/python -m ruff check .",
+      "exit_code": 0,
+      "result": "All checks passed"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff format --check .",
+      "exit_code": 0,
+      "result": "314 files already formatted"
+    },
+    {
+      "command": ".venv/Scripts/python -m mypy src",
+      "exit_code": 0,
+      "result": "Success: no issues found in 188 source files"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q",
+      "exit_code": 0,
+      "result": "1210 passed, 18 deselected in 491.36s"
+    },
+    {
+      "command": "actionlint",
+      "exit_code": 0,
+      "result": "all workflows valid"
+    },
+    {
+      "command": ".venv/Scripts/python scripts/governance/validate_plan_structure.py",
+      "exit_code": 0,
+      "result": "Plan structure clean; 51 pre-existing retrofit warnings"
+    },
+    {
+      "command": ".venv/Scripts/readme-agent preflight",
+      "exit_code": 0,
+      "result": "GitHub registry checks and live qwen3-next route passed"
+    },
+    {
+      "command": ".venv/Scripts/readme-agent supervise --repo aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+      "exit_code": 1,
+      "result": "BLOCKED with exact unresolved readme_presentation specialist failure"
+    }
+  ],
+  "product_repository_writes_attempted": 0
+}
