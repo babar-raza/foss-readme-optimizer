@@ -11,7 +11,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "03bf3e3e79100bc19c32519d486f941866e107fa51036ff118589ef01fb30883",
-    "last_evaluated_at": "2026-07-23T13:36:09.373452+00:00",
+    "last_evaluated_at": "2026-07-23T13:36:23.447213+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -22,7 +22,7 @@
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "CLOSED",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
-      "L8-WAVE1-CANONICAL-SAFETY-SPINE": "VERIFIED",
+      "L8-WAVE1-CANONICAL-SAFETY-SPINE": "SCORED",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "TODO",
       "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "TODO",
       "L8-WAVE4-PRESENTATION-INTELLIGENCE": "TODO",
@@ -422,13 +422,25 @@
         "reason": "Committed source and governance closure pass every official check; heterogeneous failures are terminally non-successful and the canonical mutation audit finds no bypass.",
         "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "commit:e74a3a2",
+          "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/verification-summary.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "wave1-acceptance-scorer",
+        "occurred_at": "2026-07-23T13:36:23.447206+00:00",
+        "reason": "Wave 1 scores full acceptance: 1,211/1,211 non-live tests pass; 4/4 historical false-success cases classify BLOCKED; every named exit gate has checksum-addressed evidence.",
+        "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+        "to_status": "SCORED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 46,
+  "state_version": 47,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
