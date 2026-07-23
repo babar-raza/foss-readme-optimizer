@@ -1,7 +1,15 @@
 {
   "accepted_facts_hash": null,
   "accepted_status": null,
-  "capability_outputs": [],
+  "capability_outputs": [
+    {
+      "cached_at": "2026-07-23T07:07:17.388125+00:00",
+      "capability_id": "commit_readme_write",
+      "fingerprint": "8b0b8a26e57e8971ef81d3aeab59726addde374da2050404ce6e501f11298b54",
+      "result": {},
+      "status": "pending"
+    }
+  ],
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "4f8aea4a7e306c8c40c87ed8fe0fe5ebe86c5f804c2f6389133a99c656ddbced",
@@ -394,7 +402,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 41,
+  "state_version": 42,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
