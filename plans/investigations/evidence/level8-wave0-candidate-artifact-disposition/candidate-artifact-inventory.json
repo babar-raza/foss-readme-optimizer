@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "task_id": "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
+  "observed_at": "2026-07-23",
+  "repository_head": "a1c93f1946e5090bbc5969dcc73a7500bccd64a2",
+  "result": "PASS_PRESERVED_UNCOMMITTED",
+  "artifacts": [
+    {
+      "path": "plans/idea.md",
+      "git_state": "tracked_modified",
+      "bytes": 9424,
+      "lines": 203,
+      "sha256": "bb63745b106c9c37ff5b8870ea9fc68d0c0290c3c3975934c93e54a9d0194506",
+      "base_blob_oid": "d81d85f1d28164c37df4118833e67f798c986cff",
+      "last_committed_change": "79c7beadbc0072714198e03a8f58b46c431d3a4a",
+      "diff_stat": "7 insertions, 7 deletions",
+      "classification": "valuable_nonstructural_candidate",
+      "findings": [
+        "The edit changes first-person wording to neutral project wording.",
+        "It does not change the Level-8 destination or create an alternate execution sequence.",
+        "Its author and exact creation time cannot be proven from Git because the change is uncommitted and predates this mission."
+      ],
+      "disposition": "Preserve byte-for-byte in the working tree; do not stage or implicitly accept it during Wave 0."
+    },
+    {
+      "path": "plans/master.md",
+      "git_state": "tracked_modified",
+      "bytes": 295182,
+      "lines": 2513,
+      "sha256": "84319379254cc5db1954d78014216f4a0158b5a161fc012713c52e36ba4a2430",
+      "base_blob_oid": "d27638e7de1a91a1c4a07d09050a0a245bbaf047",
+      "last_committed_change": "f9e389ed3f90ef39f3339238f9a6d8a716fbfa0e",
+      "diff_stat": "129 insertions, 245 deletions",
+      "classification": "valuable_but_gated_structural_candidate",
+      "findings": [
+        "The Status section is structurally replaced with links to three untracked plan files.",
+        "Decision Ledger entries 55 through 72 and several in-place decision amendments contain useful implementation history.",
+        "The candidate does not install the requested Level-8 Waves 0-8 as the sole active program.",
+        "Applying it requires fresh approval for Mission, Status, Decision Ledger, Architecture, Build Checklist, and Verification Checklist."
+      ],
+      "disposition": "Preserve byte-for-byte and leave unstaged; migrate useful history only after the exact master-section approval is received."
+    },
+    {
+      "path": "plans/changelog.md",
+      "git_state": "untracked",
+      "bytes": 258,
+      "lines": 5,
+      "sha256": "33b853f30426f6d2c3777554d5583bd2da74757d7cd329e9e59a9c177ded1884",
+      "base_blob_oid": null,
+      "last_committed_change": null,
+      "diff_stat": "new file",
+      "classification": "disallowed_redundant_pointer_candidate",
+      "findings": [
+        "The file only redirects history to logs/.",
+        "The current repository-layout table permits the plan spec, requirements, governance, and investigations under plans/; history already belongs under logs/."
+      ],
+      "disposition": "Preserve untracked for recoverability; do not commit. Its useful instruction is already authoritative in GOVERNANCE.md and logs/README.md."
+    },
+    {
+      "path": "plans/roadmap.md",
+      "git_state": "untracked",
+      "bytes": 5573,
+      "lines": 85,
+      "sha256": "5888f9265aa3399baa8346664a6b7ce2eb3c84b2fe41b93cd5eeffe8f0e779d0",
+      "base_blob_oid": null,
+      "last_committed_change": null,
+      "diff_stat": "new file",
+      "classification": "disallowed_stale_parallel-plan_candidate",
+      "findings": [
+        "It defines Waves 9-15 rather than the requested Level-8 Waves 0-8.",
+        "Many checkboxes remain open even though later candidate master decisions claim the same waves closed.",
+        "It creates a parallel active sequence and is not an allowed plans/ home under the current layout."
+      ],
+      "disposition": "Preserve untracked; do not commit or use as execution authority. Reconcile useful future-work statements into the approved master sequence after the master gate."
+    },
+    {
+      "path": "plans/status.md",
+      "git_state": "untracked",
+      "bytes": 1913,
+      "lines": 37,
+      "sha256": "9308f94b39a2c46d044052f4321f3bb018a23071cf3b660667521bdda0c9b7b1",
+      "base_blob_oid": null,
+      "last_committed_change": null,
+      "diff_stat": "new file",
+      "classification": "disallowed_generated-output-candidate",
+      "findings": [
+        "The requirement counts and 85 semantic findings match the current matrix snapshot.",
+        "Its Build Checklist summarizes the old Wave 0-9 program, not the requested Level-8 sequence.",
+        "The file is outside the current plans/ layout and depends on a gated Status-section replacement."
+      ],
+      "disposition": "Preserve untracked; do not commit. Its reproducible counts remain available from the committed matrix and Level-8 coverage reports."
+    }
+  ],
+  "governance_evidence": {
+    "layout_source": "plans/GOVERNANCE.md#repository-layout-what-goes-where",
+    "master_gate_source": "plans/GOVERNANCE.md rule 12",
+    "investigate_before_overwrite_source": "AGENTS.md#investigate-before-overwriting",
+    "checks_performed": [
+      "git status --porcelain=v2",
+      "git diff --numstat",
+      "git diff and hunk review",
+      "git log --follow",
+      "git blame on affected committed regions",
+      "SHA-256 inventory"
+    ]
+  },
+  "preservation_assertions": {
+    "files_deleted": [],
+    "files_reset_or_restored": [],
+    "candidate_files_staged": [],
+    "candidate_files_modified_by_this_task": [],
+    "all_original_sha256_values_rechecked": true
+  }
+}
