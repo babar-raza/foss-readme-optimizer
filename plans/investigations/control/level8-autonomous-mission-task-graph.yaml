@@ -3,87 +3,74 @@ autonomous_execution_contract:
   selected_mechanism: readme-agent-supervisor
   mechanism_type: autonomous_supervision
   entry_point: readme-agent supervise
-  invocation: >-
-    .venv/Scripts/readme-agent supervise
-    --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml
-  governing_state: >-
-    Versioned mission state persisted by the supervisor; the committed task graph is the
+  invocation: .venv/Scripts/readme-agent supervise --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml
+  governing_state: Versioned mission state persisted by the supervisor; the committed task graph is the
     declarative source and audit record.
   task_source: plans/investigations/control/level8-autonomous-mission-task-graph.yaml
   continuation_source: dependency-ready taskcards in this graph
   continuation_consumer: readme-agent supervisor mission controller
   stop_evaluator: mission-aware supervisor task-graph evaluator
-  resume_strategy: >-
-    Reload the same task graph and versioned mission state, reconcile claimed work, and claim the
-    highest-priority dependency-ready task.
+  resume_strategy: Reload the same task graph and versioned mission state, reconcile claimed work, and
+    claim the highest-priority dependency-ready task.
   rejected_alternative: repository autonomous cycling mechanism
   mechanism_locked: true
-
 mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  mission_summary: >-
-    Implement and verify the Level-8 Central Repository-Presentation System incrementally through
-    the repository's sole production supervisor, preserving the existing safety, registry,
-    validation, state, specialist, and evidence foundations.
+  mission_summary: Implement and verify the Level-8 Central Repository-Presentation System incrementally
+    through the repository's sole production supervisor, preserving the existing safety, registry, validation,
+    state, specialist, and evidence foundations.
   governing_plan_path: plans/master.md
   current_phase: Wave 0 - truth consolidation and shippable baseline
   in_scope_outcomes:
-    - One canonical production supervisor and no alternate mutation path.
-    - Restartable GitHub Actions runtime with durable lifecycle recovery.
-    - Provenance-complete product facts and surface ownership.
-    - Repository-specific presentation intelligence across controlled surfaces.
-    - Verified proposal and authorized draft-PR effect lifecycle.
-    - Controlled three-repository Java pilot.
-    - Heterogeneous seven-ecosystem production portfolio.
-    - Ninety-day independently reproducible Level-8 production proof.
+  - One canonical production supervisor and no alternate mutation path.
+  - Restartable GitHub Actions runtime with durable lifecycle recovery.
+  - Provenance-complete product facts and surface ownership.
+  - Repository-specific presentation intelligence across controlled surfaces.
+  - Verified proposal and authorized draft-PR effect lifecycle.
+  - Controlled three-repository Java pilot.
+  - Heterogeneous seven-ecosystem production portfolio.
+  - Ninety-day independently reproducible Level-8 production proof.
   out_of_scope_items:
-    - Automatic merge or default-branch writes.
-    - Package or release publication.
-    - Writes to GitHub-generated surfaces.
-    - Unreviewed onboarding into write-enabled operation.
+  - Automatic merge or default-branch writes.
+  - Package or release publication.
+  - Writes to GitHub-generated surfaces.
+  - Unreviewed onboarding into write-enabled operation.
   mandatory_acceptance_criteria:
-    - Every accepted trigger is terminal or visibly retryable or blocked.
-    - No unauthorized, duplicate, default-branch, package, release, or generated-surface write.
-    - No false-success terminal state.
-    - Every terminal run has a checksum-complete manifest.
-    - Deterministic validation remains at 100 percent.
-    - Agentic golden-set accuracy is at least 95 percent across the governed evaluation set.
-    - Level 7 has 30 consecutive production days meeting its gates.
-    - Level 8 has 90 consecutive production days meeting its gates.
-    - An independent audit reproduces the evidence and awards Level 8.
+  - Every accepted trigger is terminal or visibly retryable or blocked.
+  - No unauthorized, duplicate, default-branch, package, release, or generated-surface write.
+  - No false-success terminal state.
+  - Every terminal run has a checksum-complete manifest.
+  - Deterministic validation remains at 100 percent.
+  - Agentic golden-set accuracy is at least 95 percent across the governed evaluation set.
+  - Level 7 has 30 consecutive production days meeting its gates.
+  - Level 8 has 90 consecutive production days meeting its gates.
+  - An independent audit reproduces the evidence and awards Level 8.
   conflicts_found:
-    - >-
-      plans/master.md still contains the obsolete phase track and requires a fresh section-specific
-      approval before structural edits.
-    - >-
-      Uncommitted plans/status.md, plans/roadmap.md, and plans/changelog.md are not currently listed
-      as allowed plan homes by plans/GOVERNANCE.md.
-    - >-
-      The production supervisor owns product-repository capability tasks but has no consumer for
-      central-repository implementation taskcards.
-    - >-
-      Requirement closure prose and current repository evidence contain semantic contradictions,
-      including VER-001 and the still-live alternate mutation path.
+  - plans/master.md still contains the obsolete phase track and requires a fresh section-specific approval
+    before structural edits.
+  - Uncommitted plans/status.md, plans/roadmap.md, and plans/changelog.md are not currently listed as
+    allowed plan homes by plans/GOVERNANCE.md.
+  - The production supervisor owns product-repository capability tasks but has no consumer for central-repository
+    implementation taskcards.
+  - Requirement closure prose and current repository evidence contain semantic contradictions, including
+    VER-001 and the still-live alternate mutation path.
   mission_locked: true
-
 verified_baseline:
   repository_root: D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
   branch: main
   head: 79c7beadbc0072714198e03a8f58b46c431d3a4a
   upstream_head: 674285a7c1fd9df1308944f549a94b36f29f9c11
   dirty_paths:
-    - plans/idea.md
-    - plans/master.md
-    - plans/changelog.md
-    - plans/roadmap.md
-    - plans/status.md
+  - plans/idea.md
+  - plans/master.md
+  - plans/changelog.md
+  - plans/roadmap.md
+  - plans/status.md
   preserved_user_or_agent_work: true
   evidence_roots:
-    - runs/
-    - plans/investigations/evidence/
-  fresh_clone_evidence: >-
-    plans/investigations/evidence/wave-0-fresh-clone-reproduction-2026-07-23/
-    official-checks.json
+  - runs/
+  - plans/investigations/evidence/
+  fresh_clone_evidence: plans/investigations/evidence/wave-0-fresh-clone-reproduction-2026-07-23/ official-checks.json
   baseline_checks:
     ruff: passed
     format: passed
@@ -93,647 +80,3352 @@ verified_baseline:
     actionlint: 9 workflows passed
   baseline_commit_proven: 674285a7c1fd9df1308944f549a94b36f29f9c11
   known_limitations:
-    - The fresh-clone proof predates the two local commits at current HEAD.
-    - The dirty plan candidate has not been accepted as authoritative current truth.
-    - GitHub App credentials and reviewed authorization records are not yet present.
-
+  - The fresh-clone proof predates the two local commits at current HEAD.
+  - The dirty plan candidate has not been accepted as authoritative current truth.
+  - GitHub App credentials and reviewed authorization records are not yet present.
 taskcards:
-  - task_id: L8-MISSION-CONTROL-CONSUMER
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Make the locked supervisor consume and persist central mission taskcards
-    source_audit_finding: >-
-      The selected supervisor has a runtime TaskGraph for repository capabilities but no loader,
-      claim transition, durable mission state, continuation consumer, or mission stop evaluator for
-      the Level-8 implementation graph.
-    audit_classification: final_outcome_blocker
-    priority: P0
-    lane: mission-control
-    owner: readme-agent-supervisor
-    status: IN_PROGRESS
-    objective: >-
-      Extend the existing supervisor, without creating another controller, so it loads this graph,
-      validates it, reconciles durable state, claims the next eligible task, and evaluates mission
-      completion.
-    why_it_matters: >-
-      A taskcard file without a consumer is not continuation proof and cannot be the single
-      autonomous authority required by the mission.
-    allowed_paths:
-      - src/readme_agent/supervisor/
-      - src/readme_agent/cli.py
-      - src/readme_agent/commands.py
-      - src/readme_agent/state/
-      - tests/unit/
-      - docs/architecture.md
-      - plans/investigations/control/level8-autonomous-mission-task-graph.yaml
-      - plans/investigations/evidence/level8-autonomous-mission-control/
-    forbidden_paths:
-      - plans/master.md
-      - config/authorization/
-      - data/products.json
-      - runs/*/work/
-    dependencies: []
-    expected_outputs:
-      - Typed mission/taskcard schema with the protocol's required fields and state vocabulary.
-      - Escape-safe YAML loader with referential-integrity and cycle validation.
-      - Deterministic eligibility, claim, transition, reconciliation, and stop evaluation.
-      - A supervise CLI entry that exercises the same supervisor authority.
-      - Versioned durable mission-state persistence.
-    acceptance_checks:
-      - Invalid schemas, dependencies, transitions, and cycles fail closed.
-      - Exactly one dependency-ready task is claimed deterministically.
-      - Restart reloads the same claim and does not duplicate dispatch.
-      - The evaluator refuses mission completion while mandatory work remains.
-    verification:
-      - Focused unit tests for schema, loader, transitions, selection, and resume.
-      - CLI integration test proving task selection and claim.
-      - Raw state inspection after a claim and after terminal transition.
-    negative_controls:
-      - A second mechanism cannot be selected while mechanism_locked is true.
-      - A task with unmet dependencies cannot be claimed.
-      - CLOSED cannot be reached directly from TODO or READY.
-    regression_checks:
-      - Existing supervisor task-graph tests.
-      - Existing CLI tests.
-      - Ruff, format, mypy, and the full non-live pytest suite.
-    evidence_requirements:
-      - Command log and serialized before/after state.
-      - Test results with exact counts.
-      - No-change reload proof.
-    rollback_or_recovery: >-
-      Remove only the new mission-control entry seam and leave the existing repository supervisor
-      behavior unchanged; preserve the committed task graph for diagnosis.
-    failure_reroute: >-
-      Attempt local schema/loader repair, then state-backend integration repair, then a governed
-      existing-library or Git-ref recovery path; never activate the rejected cycle mechanism.
-    closeout_rules:
-      - Implementation exists and all focused checks pass.
-      - A real CLI claim is observed in persisted state.
-      - An immediate rerun proves no duplicate claim.
-
-  - task_id: L8-REQUIREMENT-TO-TASKCARD-COVERAGE
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Map every mandatory normative requirement into the mission task graph
-    source_audit_finding: >-
-      plans/requirements.md contains 376 requirement rows, while no central mission task graph
-      previously existed.
-    audit_classification: not_attempted
-    priority: P0
-    lane: mission-control
-    owner: readme-agent-supervisor
-    status: TODO
-    objective: >-
-      Add stable, deduplicated taskcards for every mandatory non-deprecated requirement and record
-      verified completion without reopening valid evidence.
-    why_it_matters: >-
-      Mission completion cannot be evaluated if mandatory requirements have no task representation.
-    allowed_paths:
-      - plans/requirements.md
-      - plans/investigations/control/
-      - scripts/governance/
-      - tests/unit/
-    forbidden_paths:
-      - plans/master.md
-      - config/authorization/
-      - data/products.json
-    dependencies:
-      - L8-MISSION-CONTROL-CONSUMER
-    expected_outputs:
-      - Requirement-to-taskcard coverage report with no missing mandatory IDs.
-      - Stable task IDs and explicit wave/lane ownership.
-      - Reopened cards for semantically contradicted closure claims.
-    acceptance_checks:
-      - Every requirement ID resolves to exactly one primary taskcard.
-      - No duplicate or orphan taskcard exists.
-      - IMPLEMENTED rows are preserved only when semantic evidence passes.
-    verification:
-      - Coverage validator.
-      - Semantic implementation-truth matrix.
-      - Manual inspection of all P0 and P1 exceptions.
-    negative_controls:
-      - BACKLOG is not silently treated as mandatory accepted scope.
-      - DEPRECATED rows do not create executable work.
-      - A path-only citation cannot close a P0 or P1 task.
-    regression_checks:
-      - Existing plan-structure validator.
-      - Existing traceability-matrix check mode.
-    evidence_requirements:
-      - Machine-readable coverage report.
-      - Explicit list of reopened and preserved tasks.
-    rollback_or_recovery: Regenerate deterministically from the unchanged normative requirements.
-    failure_reroute: Repair parser, then malformed rows, then use the existing normalized inventory.
-    closeout_rules:
-      - Coverage is exactly 100 percent for mandatory requirements.
-      - All exceptions are classified and evidenced.
-
-  - task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Reconcile the dirty plan candidate into one truthful active Level-8 sequence
-    source_audit_finding: >-
-      The master, legacy phase checklist, candidate roadmap/status files, requirements, and
-      production evidence contradict one another; the master structural edit is separately gated.
-    audit_classification: partially_done
-    priority: P0
-    lane: governance-truth
-    owner: readme-agent-supervisor
-    status: TODO
-    objective: >-
-      Preserve the valuable dirty candidate, establish the Level-8 Waves 0-8 sequence as the sole
-      active program, and eliminate status and evidence overclaims after satisfying all edit gates.
-    why_it_matters: An autonomous controller cannot safely execute two contradictory active plans.
-    allowed_paths:
-      - plans/
-      - logs/
-      - scripts/governance/
-      - docs/
-    forbidden_paths:
-      - config/authorization/
-      - data/products.json
-      - runs/*/work/
-    dependencies:
-      - L8-REQUIREMENT-TO-TASKCARD-COVERAGE
-    expected_outputs:
-      - Approved surgical master amendments.
-      - One allowed active roadmap and generated current-status surface.
-      - Compact legacy phase summary.
-      - Reconciled normative requirement statuses.
-    acceptance_checks:
-      - No master, requirements, roadmap, status, or evidence contradiction remains.
-      - The plan-structure validator passes without new warnings.
-      - Every changed closure claim has semantic evidence.
-    verification:
-      - Plan structure and semantic matrix.
-      - Cross-document link and decision coverage checks.
-      - Independent diff review.
-    negative_controls:
-      - No master section is edited without its applicable explicit gate.
-      - Existing decision history is preserved in logs.
-      - Unrelated dirty content is not discarded.
-    regression_checks:
-      - Official governance checks.
-      - Fresh-clone reproduction after commit.
-    evidence_requirements:
-      - Before/after conflict inventory.
-      - Approval record for each gated master section.
-      - Fresh-clone official-check output.
-    rollback_or_recovery: Revert only the bounded plan-healing commit after preserving its audit log.
-    failure_reroute: >-
-      Use requirements and control artifacts for safe independent work while recording the master
-      gate as an authority blocker; do not rewrite master implicitly.
-    closeout_rules:
-      - All Wave 0 exit gates pass.
-      - The accepted plan and task graph agree.
-
-  - task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Make supervise the sole production mutation path and eliminate false success
-    source_audit_finding: >-
-      The legacy generate/run path can still mutate without the independent verifier and large
-      supervisor/orchestrator/command modules obscure responsibility boundaries.
-    audit_classification: final_outcome_blocker
-    priority: P0
-    lane: canonical-runtime
-    owner: readme-agent-supervisor
-    status: TODO
-    objective: >-
-      Decompose the runtime seams, route compatibility commands through the same capability,
-      authorization, effect-ledger, and verifier spine, and make every required failure fail closed.
-    why_it_matters: Level 8 is impossible while any production mutation can bypass verification.
-    allowed_paths:
-      - src/readme_agent/
-      - tests/
-      - docs/
-      - plans/investigations/evidence/
-    forbidden_paths:
-      - config/authorization/
-      - data/products.json
-      - target repository remotes
-    dependencies:
-      - L8-WAVE0-PLAN-TRUTH-RECONCILIATION
-    expected_outputs:
-      - Responsibility-sized runtime modules.
-      - Compatibility-only legacy commands or common supervised routing.
-      - Closed ORC-005 and OPS-010.
-      - Explicit unsupported Rust result until support exists.
-    acceptance_checks:
-      - No required failure exits zero or reports convergence.
-      - No mutation bypasses registry, authorization, effect ledger, or verifier.
-      - .NET, Python, C++, and Go false-success scenarios fail closed.
-    verification:
-      - Focused failure-classification tests.
-      - Process-descendant cancellation tests.
-      - Heterogeneous production-like reproductions.
-    negative_controls:
-      - Live credentials are removed from offline tests.
-      - Compatibility commands cannot acquire write permission independently.
-    regression_checks:
-      - Full official checks.
-      - Existing push-block and allow-list security tests.
-    evidence_requirements:
-      - Per-ecosystem raw terminal outcomes.
-      - Mutation-path inventory showing one production path.
-    rollback_or_recovery: Keep compatibility façades read-only if routing parity is not yet proven.
-    failure_reroute: Split by module responsibility and close one bypass at a time.
-    closeout_rules:
-      - All Wave 1 exit gates pass.
-      - Independent verifier confirms no alternate mutation route.
-
-  - task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Build restartable, deduplicated, fail-closed GitHub Actions lifecycle
-    source_audit_finding: >-
-      Trigger intake, lifecycle checkpoints, recovery sweeps, retry classes, health aggregation,
-      and dead-man monitoring are incomplete or absent.
-    audit_classification: partially_done
-    priority: P0
-    lane: durable-runtime
-    owner: readme-agent-supervisor
-    status: TODO
-    objective: >-
-      Introduce versioned trigger, checkpoint, health, and manifest contracts and prove recovery at
-      every lifecycle boundary under the Git-ref state backend.
-    why_it_matters: Scheduled autonomy is not credible if accepted work can disappear after a crash.
-    allowed_paths:
-      - src/readme_agent/
-      - tests/
-      - .github/workflows/
-      - docs/
-      - plans/investigations/evidence/
-    forbidden_paths:
-      - target repository default branches
-      - config/authorization/
-    dependencies:
-      - L8-WAVE1-CANONICAL-SAFETY-SPINE
-    expected_outputs:
-      - TriggerEnvelopeV2, CheckpointV1, HealthReportV1, and RunManifestV3.
-      - State migrations with fail-closed newer-version handling.
-      - Reusable production workflow and authoritative matrix.
-      - Recovery sweep, retry classes, alerts, and external dead-man signal.
-    acceptance_checks:
-      - Kill-and-resume passes at every checkpoint.
-      - Duplicate delivery creates one logical execution and one effect.
-      - State outage blocks effects and LLM calls.
-      - Every accepted trigger becomes terminal or visibly retryable.
-    verification:
-      - Checkpoint fault-injection suite.
-      - Workflow reproduction with act.
-      - State outage and duplicate-delivery integration tests.
-    negative_controls:
-      - No fallback to local/best-effort state in a GitHub profile.
-      - One repository failure cannot cancel unrelated matrix repositories.
-    regression_checks:
-      - Full official checks.
-      - Existing state CAS and lease tests.
-    evidence_requirements:
-      - One evidence bundle per injected checkpoint failure.
-      - Health report showing stale lease, backlog, and recovery.
-    rollback_or_recovery: Versioned migration rollback with old schema retained read-only.
-    failure_reroute: Repair schema, then state CAS, then workflow consumer boundaries independently.
-    closeout_rules:
-      - All Wave 2 exit gates pass.
-      - Recovery is proven in production-like execution.
-
-  - task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Make every technical presentation claim provenance-complete and ownership-safe
-    source_audit_finding: Product facts are partial and do not yet gate every claim or surface.
-    audit_classification: partially_done
-    priority: P0
-    lane: facts-and-ownership
-    owner: readme-agent-supervisor
-    status: TODO
-    objective: >-
-      Implement ProductFactsV2, precedence/conflict behavior, claim citations, surface ownership,
-      protected-content fingerprints, isolated example execution, and prompt-injection treatment.
-    why_it_matters: Presentation quality without factual provenance can confidently publish falsehoods.
-    allowed_paths:
-      - src/readme_agent/
-      - tests/
-      - config/policies/
-      - docs/
-      - plans/investigations/evidence/
-    forbidden_paths:
-      - config/authorization/
-      - target repository remotes
-    dependencies:
-      - L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
-    expected_outputs:
-      - ProductFactsV2 and migrations.
-      - Fact precedence, conflict, and dependent-action gating.
-      - Surface ownership map and protected-content fingerprints.
-      - Secret-free isolated example and acquisition verification.
-    acceptance_checks:
-      - False Maven coordinates cannot enter a verified proposal.
-      - Missing facts block only dependent actions.
-      - Removing a protected limitation, command, or example fails validation.
-    verification:
-      - False-coordinate and conflicting-fact negative controls.
-      - Isolated real package/example execution.
-      - Prompt-injection fixtures.
-    negative_controls:
-      - README prose is never accepted as authoritative truth by itself.
-      - Package execution never has a write token.
-    regression_checks:
-      - Existing facts-hash and prompt-hash tests.
-      - Full official checks.
-    evidence_requirements:
-      - Fact provenance graph for representative repositories.
-      - Protected-content loss rejection evidence.
-    rollback_or_recovery: Preserve ProductFactsV1 migration reader until all state is upgraded.
-    failure_reroute: Block only the affected surface and continue independent fact/surface audits.
-    closeout_rules:
-      - All Wave 3 exit gates pass.
-      - Independent factuality reviewer accepts representative facts.
-
-  - task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Produce repository-specific, source-span presentation plans across owned surfaces
-    source_audit_finding: >-
-      Current presentation logic covers only a subset of the ten standard dimensions and surfaces.
-    audit_classification: partially_done
-    priority: P1
-    lane: presentation-intelligence
-    owner: readme-agent-supervisor
-    status: TODO
-    objective: >-
-      Implement RepositoryPresentationPlanV1, AST/source-span README patches, archetype-specific
-      intelligence, metadata/community/visual proposals, ownership constraints, and governed golden
-      evaluation.
-    why_it_matters: Level 8 requires credible repository-specific proposals, not a repeated template.
-    allowed_paths:
-      - src/readme_agent/
-      - tests/
-      - templates/
-      - prompts/
-      - docs/
-      - plans/investigations/evidence/
-      - pyproject.toml
-      - requirements-lock.txt
-    forbidden_paths:
-      - target repository remotes
-      - config/authorization/
-    dependencies:
-      - L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
-    expected_outputs:
-      - RepositoryPresentationPlanV1.
-      - markdown-it-py direct dependency and source-span patcher.
-      - Ten-dimension README intelligence with differentiated archetypes.
-      - Complete controlled-surface proposal support.
-      - Golden set of at least 100 evaluations.
-    acceptance_checks:
-      - Deterministic validators pass 100 percent.
-      - Agentic plan selection reaches at least 95 percent in three sessions.
-      - No unsupported claim, template clone, protected loss, or ownership violation passes.
-    verification:
-      - Real regression fixtures and all named ecosystems/archetypes.
-      - Three independent golden-set sessions.
-      - Reviewer acceptance without prose repair.
-    negative_controls:
-      - Social preview is never claimed applied by asset preparation.
-      - Releases, packages, and GitHub-generated signals remain audit-only.
-    regression_checks:
-      - Byte-preservation tests outside source spans.
-      - Full official checks.
-    evidence_requirements:
-      - Golden-set raw results and route-disable proof.
-      - Before/after patch byte comparison.
-    rollback_or_recovery: Disable any model route falling below threshold; deterministic audits remain.
-    failure_reroute: Split by surface and archetype while preserving shared fact/ownership gates.
-    closeout_rules:
-      - All Wave 4 exit gates pass.
-      - Independent reviewers accept repository-specific proposals.
-
-  - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Complete verified proposal, draft-PR, drift, and reconciliation lifecycle
-    source_audit_finding: >-
-      The existing PR capability lacks the complete VerifiedProposalV1/OpenProposalV2 lifecycle,
-      drift rebuilding, and crash-boundary reconciliation required by the target.
-    audit_classification: partially_done
-    priority: P0
-    lane: proposal-effects
-    owner: readme-agent-supervisor
-    status: TODO
-    objective: >-
-      Separate verified proposal construction from terminal authorized effects and prove exactly-one
-      draft PR behavior across retries, drift, crashes, and authorization expiry.
-    why_it_matters: A safe proposal system must never turn stale analysis into duplicate effects.
-    allowed_paths:
-      - src/readme_agent/
-      - tests/
-      - .github/workflows/
-      - docs/
-      - plans/investigations/evidence/
-    forbidden_paths:
-      - target repository default branches
-      - package and release endpoints
-      - config/authorization/
-    dependencies:
-      - L8-WAVE4-PRESENTATION-INTELLIGENCE
-    expected_outputs:
-      - VerifiedProposalV1 and OpenProposalV2.
-      - One agent-owned branch per repository with fast-forward-only updates.
-      - Drift rebuild and re-verification.
-      - Crash-boundary and lost-response reconciliation.
-      - Fresh GitHub App token isolated to the effect job.
-    acceptance_checks:
-      - All named lifecycle scenarios produce exactly one correct proposal state.
-      - Missing or expired authorization blocks before pending effect creation.
-      - No write token exists in clone, LLM, package, or validation jobs.
-    verification:
-      - Local bare-remote lifecycle tests.
-      - Live authorized draft-PR pilot only when a reviewed record exists.
-      - Credential-boundary workflow inspection and negative tests.
-    negative_controls:
-      - No PAT or GH_TOKEN production fallback.
-      - No force push, ready-for-review, merge, close, or default-branch write.
-    regression_checks:
-      - Existing effect-ledger and PR dedup tests.
-      - Full official checks.
-    evidence_requirements:
-      - Per-scenario proposal state and remote observation.
-      - Token-exposure audit.
-    rollback_or_recovery: Close or supersede only through separately authorized lifecycle actions.
-    failure_reroute: Continue proposal generation in no-effect mode while authorization is unavailable.
-    closeout_rules:
-      - All Wave 5 exit gates pass.
-      - Independent verifier reproduces exactly-one behavior.
-
-  - task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Prove Level 5 across the governed three-repository Java pilot
-    source_audit_finding: No complete independently reproducible PIL-013 bundle exists.
-    audit_classification: not_attempted
-    priority: P1
-    lane: java-pilot
-    owner: readme-agent-supervisor
-    status: TODO
-    objective: >-
-      Execute the full baseline, facts, plan, surfaces, verified draft PR, rerun, overwrite,
-      interruption, duplicate, and isolated-failure matrix for 3D, Cells, and PDF Java.
-    why_it_matters: This is the first credible production-like demonstration of passive-review autonomy.
-    allowed_paths:
-      - runs/
-      - plans/investigations/evidence/
-      - tests/integration/
-      - target agent-owned presentation branches under valid authorization
-    forbidden_paths:
-      - target default branches
-      - merge operations
-      - package and release writes
-    dependencies:
-      - L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
-    expected_outputs:
-      - Complete PIL-013 bundle for all three repositories.
-      - Independent reviewer decision.
-      - No-op, upstream-change, overwrite, resume, duplicate, and failure evidence.
-    acceptance_checks:
-      - Every required repository/surface/scenario has terminal evidence.
-      - Draft PRs are independently verified and remain unmerged.
-      - Reviewer accepts without manual prose repair.
-    verification:
-      - Live governed pilot.
-      - Read-only remote reconciliation.
-      - Bundle checksum reproduction.
-    negative_controls:
-      - The pilot is called controlled Java, never heterogeneous.
-      - No write occurs without a reviewed authorization record.
-    regression_checks:
-      - Full official checks before and after pilot.
-      - Immediate unchanged reruns.
-    evidence_requirements:
-      - PIL-013 checksum-complete committed evidence bundle.
-      - Independent reviewer identity and verdict.
-    rollback_or_recovery: Revert agent branch commits or close drafts only under explicit authorization.
-    failure_reroute: Continue read-only and proposal-local scenarios while a repository write is blocked.
-    closeout_rules:
-      - All Wave 6 pilot obligations pass.
-      - Level 5 is awarded by independent review.
-
-  - task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Reach Levels 6 and 7 across the complete heterogeneous portfolio
-    source_audit_finding: >-
-      Existing production-like evidence is concentrated in Java and does not cover a full proposal
-      lifecycle in seven ecosystems or every active registry repository.
-    audit_classification: not_attempted
-    priority: P1
-    lane: heterogeneous-rollout
-    owner: readme-agent-supervisor
-    status: TODO
-    objective: >-
-      Prove observe/proposal mode for the full registry, then one authorized representative per
-      Java, .NET, Python, TypeScript, C++, Go, and Rust, followed by 30 clean production days.
-    why_it_matters: Level 7 is a portfolio property, not a three-Java-repository test count.
-    allowed_paths:
-      - runs/
-      - plans/investigations/evidence/
-      - tests/integration/
-      - target agent-owned presentation branches under valid authorization
-    forbidden_paths:
-      - target default branches
-      - merge operations
-      - unreviewed newly discovered repository writes
-    dependencies:
-      - L8-WAVE6-CONTROLLED-JAVA-PILOT
-    expected_outputs:
-      - Full-registry observe/proposal evidence.
-      - Seven-ecosystem full proposal lifecycle evidence.
-      - Operational health, backlog, alert, and recovery proof.
-      - Thirty-day Level-7 evidence series.
-    acceptance_checks:
-      - Every active registry repository has terminal heterogeneous evidence.
-      - At least one full lifecycle passes per ecosystem.
-      - Thirty days have zero unauthorized writes, duplicate effects, or false convergence.
-    verification:
-      - Scheduled and event-triggered production runs.
-      - Daily manifest and health reconciliation.
-      - Independent portfolio audit.
-    negative_controls:
-      - New discoveries remain observe-only.
-      - Unsupported Rust remains explicit until parser/policy support passes.
-    regression_checks:
-      - Weekly full official checks and golden set.
-      - Per-ecosystem no-op reruns.
-    evidence_requirements:
-      - Thirty-day immutable manifest series.
-      - Cohort and ecosystem acceptance reports.
-    rollback_or_recovery: Demote a failing cohort or route to observe-only without disabling audits.
-    failure_reroute: Continue safe ecosystems and cohorts while isolating the failing lane.
-    closeout_rules:
-      - Level 6 and Level 7 gates pass.
-      - Thirty-day evidence is independently reproduced.
-
-  - task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
-    mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-    parent_task_id: null
-    title: Prove 90-day self-maintenance and obtain an independent Level-8 award
-    source_audit_finding: The mandatory 90-day unattended production proof has not begun.
-    audit_classification: not_attempted
-    priority: P1
-    lane: level8-operations
-    owner: readme-agent-supervisor
-    status: TODO
-    objective: >-
-      Operate the complete system for 90 consecutive days with weekly portfolio audits, automatic
-      regression disablement, dependency and authorization monitoring, recovery, proposal freshness,
-      dead-man monitoring, quality/traffic reporting, and independent audit.
-    why_it_matters: Level 8 is earned by sustained operation, not architecture or test volume.
-    allowed_paths:
-      - runs/
-      - plans/investigations/evidence/
-      - .github/workflows/
-      - docs/
-    forbidden_paths:
-      - target default branches
-      - automatic merge
-      - package and release writes
-    dependencies:
-      - L8-WAVE7-HETEROGENEOUS-PORTFOLIO
-    expected_outputs:
-      - Ninety-day checksum-complete manifest and health series.
-      - Weekly portfolio, quality, dependency, vulnerability, and traffic reports.
-      - Crash/outage recovery evidence.
-      - Independent Level-8 audit.
-    acceptance_checks:
-      - All quantitative Level-8 acceptance thresholds pass.
-      - At least 99 percent of eligible runs complete without human intervention.
-      - Every injected outage recovers within 24 hours.
-      - Independent audit awards Level 8.
-    verification:
-      - Daily automated reconciliation.
-      - Weekly independent evidence sampling.
-      - Final full replay and audit.
-    negative_controls:
-      - Traffic goals never override factuality or trust.
-      - Authorization-expired effects remain blocked and visible.
-    regression_checks:
-      - Deterministic validation remains 100 percent.
-      - Agentic golden accuracy remains at least 95 percent.
-    evidence_requirements:
-      - Ninety-day evidence root and checksum index.
-      - Independent audit report and award.
-    rollback_or_recovery: Demote affected route/repository to observe-only and preserve visible backlog.
-    failure_reroute: Extend the proof window after any acceptance-breaking day; do not hide the break.
-    closeout_rules:
-      - Every Level-8 acceptance criterion passes.
-      - The supervisor reevaluates the mission and finds no eligible work.
-
+- task_id: L8-MISSION-CONTROL-CONSUMER
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Make the locked supervisor consume and persist central mission taskcards
+  source_audit_finding: The selected supervisor has a runtime TaskGraph for repository capabilities but
+    no loader, claim transition, durable mission state, continuation consumer, or mission stop evaluator
+    for the Level-8 implementation graph.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: mission-control
+  owner: readme-agent-supervisor
+  status: IN_PROGRESS
+  objective: Extend the existing supervisor, without creating another controller, so it loads this graph,
+    validates it, reconciles durable state, claims the next eligible task, and evaluates mission completion.
+  why_it_matters: A taskcard file without a consumer is not continuation proof and cannot be the single
+    autonomous authority required by the mission.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/cli.py
+  - src/readme_agent/commands.py
+  - src/readme_agent/state/
+  - tests/unit/
+  - docs/architecture.md
+  - plans/investigations/control/level8-autonomous-mission-task-graph.yaml
+  - plans/investigations/evidence/level8-autonomous-mission-control/
+  forbidden_paths:
+  - plans/master.md
+  - config/authorization/
+  - data/products.json
+  - runs/*/work/
+  dependencies: []
+  expected_outputs:
+  - Typed mission/taskcard schema with the protocol's required fields and state vocabulary.
+  - Escape-safe YAML loader with referential-integrity and cycle validation.
+  - Deterministic eligibility, claim, transition, reconciliation, and stop evaluation.
+  - A supervise CLI entry that exercises the same supervisor authority.
+  - Versioned durable mission-state persistence.
+  acceptance_checks:
+  - Invalid schemas, dependencies, transitions, and cycles fail closed.
+  - Exactly one dependency-ready task is claimed deterministically.
+  - Restart reloads the same claim and does not duplicate dispatch.
+  - The evaluator refuses mission completion while mandatory work remains.
+  verification:
+  - Focused unit tests for schema, loader, transitions, selection, and resume.
+  - CLI integration test proving task selection and claim.
+  - Raw state inspection after a claim and after terminal transition.
+  negative_controls:
+  - A second mechanism cannot be selected while mechanism_locked is true.
+  - A task with unmet dependencies cannot be claimed.
+  - CLOSED cannot be reached directly from TODO or READY.
+  regression_checks:
+  - Existing supervisor task-graph tests.
+  - Existing CLI tests.
+  - Ruff, format, mypy, and the full non-live pytest suite.
+  evidence_requirements:
+  - Command log and serialized before/after state.
+  - Test results with exact counts.
+  - No-change reload proof.
+  rollback_or_recovery: Remove only the new mission-control entry seam and leave the existing repository
+    supervisor behavior unchanged; preserve the committed task graph for diagnosis.
+  failure_reroute: Attempt local schema/loader repair, then state-backend integration repair, then a governed
+    existing-library or Git-ref recovery path; never activate the rejected cycle mechanism.
+  closeout_rules:
+  - Implementation exists and all focused checks pass.
+  - A real CLI claim is observed in persisted state.
+  - An immediate rerun proves no duplicate claim.
+  requirement_ids: []
+- task_id: L8-REQUIREMENT-TO-TASKCARD-COVERAGE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Map every mandatory normative requirement into the mission task graph
+  source_audit_finding: plans/requirements.md contains 376 requirement rows, while no central mission
+    task graph previously existed.
+  audit_classification: not_attempted
+  priority: P0
+  lane: mission-control
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Add stable, deduplicated taskcards for every mandatory non-deprecated requirement and record
+    verified completion without reopening valid evidence.
+  why_it_matters: Mission completion cannot be evaluated if mandatory requirements have no task representation.
+  allowed_paths:
+  - plans/requirements.md
+  - plans/investigations/control/
+  - scripts/governance/
+  - src/readme_agent/supervisor/mission_schema.py
+  - src/readme_agent/supervisor/mission_graph.py
+  - tests/unit/
+  - docs/architecture.md
+  forbidden_paths:
+  - plans/master.md
+  - config/authorization/
+  - data/products.json
+  dependencies:
+  - L8-MISSION-CONTROL-CONSUMER
+  expected_outputs:
+  - Requirement-to-taskcard coverage report with no missing mandatory IDs.
+  - Stable task IDs and explicit wave/lane ownership.
+  - Reopened cards for semantically contradicted closure claims.
+  acceptance_checks:
+  - Every requirement ID resolves to exactly one primary taskcard.
+  - No duplicate or orphan taskcard exists.
+  - IMPLEMENTED rows are preserved only when semantic evidence passes.
+  verification:
+  - Coverage validator.
+  - Semantic implementation-truth matrix.
+  - Manual inspection of all P0 and P1 exceptions.
+  negative_controls:
+  - BACKLOG is not silently treated as mandatory accepted scope.
+  - DEPRECATED rows do not create executable work.
+  - A path-only citation cannot close a P0 or P1 task.
+  regression_checks:
+  - Existing plan-structure validator.
+  - Existing traceability-matrix check mode.
+  evidence_requirements:
+  - Machine-readable coverage report.
+  - Explicit list of reopened and preserved tasks.
+  rollback_or_recovery: Regenerate deterministically from the unchanged normative requirements.
+  failure_reroute: Repair parser, then malformed rows, then use the existing normalized inventory.
+  closeout_rules:
+  - Coverage is exactly 100 percent for mandatory requirements.
+  - All exceptions are classified and evidenced.
+  requirement_ids: []
+- task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Reconcile the dirty plan candidate into one truthful active Level-8 sequence
+  source_audit_finding: The master, legacy phase checklist, candidate roadmap/status files, requirements,
+    and production evidence contradict one another; the master structural edit is separately gated.
+  audit_classification: partially_done
+  priority: P0
+  lane: governance-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Preserve the valuable dirty candidate, establish the Level-8 Waves 0-8 sequence as the sole
+    active program, and eliminate status and evidence overclaims after satisfying all edit gates.
+  why_it_matters: An autonomous controller cannot safely execute two contradictory active plans.
+  allowed_paths:
+  - plans/
+  - logs/
+  - scripts/governance/
+  - docs/
+  forbidden_paths:
+  - config/authorization/
+  - data/products.json
+  - runs/*/work/
+  dependencies:
+  - L8-REQUIREMENT-TO-TASKCARD-COVERAGE
+  expected_outputs:
+  - Approved surgical master amendments.
+  - One allowed active roadmap and generated current-status surface.
+  - Compact legacy phase summary.
+  - Reconciled normative requirement statuses.
+  acceptance_checks:
+  - No master, requirements, roadmap, status, or evidence contradiction remains.
+  - The plan-structure validator passes without new warnings.
+  - Every changed closure claim has semantic evidence.
+  verification:
+  - Plan structure and semantic matrix.
+  - Cross-document link and decision coverage checks.
+  - Independent diff review.
+  negative_controls:
+  - No master section is edited without its applicable explicit gate.
+  - Existing decision history is preserved in logs.
+  - Unrelated dirty content is not discarded.
+  regression_checks:
+  - Official governance checks.
+  - Fresh-clone reproduction after commit.
+  evidence_requirements:
+  - Before/after conflict inventory.
+  - Approval record for each gated master section.
+  - Fresh-clone official-check output.
+  rollback_or_recovery: Revert only the bounded plan-healing commit after preserving its audit log.
+  failure_reroute: Use requirements and control artifacts for safe independent work while recording the
+    master gate as an authority blocker; do not rewrite master implicitly.
+  closeout_rules:
+  - All Wave 0 exit gates pass.
+  - The accepted plan and task graph agree.
+  requirement_ids:
+  - GOV-001
+  - GOV-002
+  - GOV-003
+  - GOV-004
+  - GOV-005
+  - GOV-006
+  - GOV-007
+  - GOV-008
+  - GOV-009
+  - GOV-010
+  - GOV-011
+  - GOV-012
+  - GOV-013
+  - GOV-014
+  - GOV-015
+  - GOV-016
+  - GOV-017
+  - GOV-018
+  - GOV-019
+  - GOV-020
+  - GOV-021
+  - GOV-022
+  - GOV-023
+  - GOV-026
+  - GOV-024
+  - GOV-025
+  - BIZ-001
+  - BIZ-002
+  - BIZ-003
+  - BIZ-004
+  - BIZ-005
+  - BIZ-006
+  - BIZ-007
+  - BIZ-008
+- task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Make supervise the sole production mutation path and eliminate false success
+  source_audit_finding: The legacy generate/run path can still mutate without the independent verifier
+    and large supervisor/orchestrator/command modules obscure responsibility boundaries.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: canonical-runtime
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Decompose the runtime seams, route compatibility commands through the same capability, authorization,
+    effect-ledger, and verifier spine, and make every required failure fail closed.
+  why_it_matters: Level 8 is impossible while any production mutation can bypass verification.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - docs/
+  - plans/investigations/evidence/
+  forbidden_paths:
+  - config/authorization/
+  - data/products.json
+  - target repository remotes
+  dependencies:
+  - L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  expected_outputs:
+  - Responsibility-sized runtime modules.
+  - Compatibility-only legacy commands or common supervised routing.
+  - Closed ORC-005 and OPS-010.
+  - Explicit unsupported Rust result until support exists.
+  acceptance_checks:
+  - No required failure exits zero or reports convergence.
+  - No mutation bypasses registry, authorization, effect ledger, or verifier.
+  - .NET, Python, C++, and Go false-success scenarios fail closed.
+  verification:
+  - Focused failure-classification tests.
+  - Process-descendant cancellation tests.
+  - Heterogeneous production-like reproductions.
+  negative_controls:
+  - Live credentials are removed from offline tests.
+  - Compatibility commands cannot acquire write permission independently.
+  regression_checks:
+  - Full official checks.
+  - Existing push-block and allow-list security tests.
+  evidence_requirements:
+  - Per-ecosystem raw terminal outcomes.
+  - Mutation-path inventory showing one production path.
+  rollback_or_recovery: Keep compatibility façades read-only if routing parity is not yet proven.
+  failure_reroute: Split by module responsibility and close one bypass at a time.
+  closeout_rules:
+  - All Wave 1 exit gates pass.
+  - Independent verifier confirms no alternate mutation route.
+  requirement_ids:
+  - CORE-001
+  - CORE-002
+  - CORE-003
+  - CORE-004
+  - CORE-033
+  - CORE-005
+  - CORE-006
+  - CORE-007
+  - CORE-008
+  - CORE-009
+  - CORE-010
+  - CORE-011
+  - CORE-012
+  - CORE-013
+  - CORE-014
+  - CORE-015
+  - CORE-016
+  - CORE-017
+  - CORE-018
+  - CORE-019
+  - CORE-020
+  - CORE-021
+  - CORE-022
+  - CORE-023
+  - CORE-024
+  - CORE-025
+  - CORE-026
+  - CORE-027
+  - CORE-028
+  - CORE-029
+  - CORE-030
+  - CORE-031
+  - CORE-032
+  - CORE-034
+  - AGT-001
+  - AGT-002
+  - AGT-003
+  - AGT-004
+  - AGT-005
+  - AGT-006
+  - AGT-007
+  - AGT-008
+  - CAP-001
+  - CAP-002
+  - CAP-003
+  - CAP-004
+  - CAP-005
+  - CAP-006
+  - CAP-007
+  - CAP-008
+  - CAP-009
+  - ORC-001
+  - ORC-002
+  - ORC-003
+  - ORC-004
+  - ORC-005
+  - ORC-006
+  - ORC-007
+  - ORC-008
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+  - VER-005
+  - VER-006
+  - VER-007
+  - VER-008
+  - VER-009
+  - GAP-001
+  - GAP-002
+  - GAP-003
+- task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Build restartable, deduplicated, fail-closed GitHub Actions lifecycle
+  source_audit_finding: Trigger intake, lifecycle checkpoints, recovery sweeps, retry classes, health
+    aggregation, and dead-man monitoring are incomplete or absent.
+  audit_classification: partially_done
+  priority: P0
+  lane: durable-runtime
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Introduce versioned trigger, checkpoint, health, and manifest contracts and prove recovery
+    at every lifecycle boundary under the Git-ref state backend.
+  why_it_matters: Scheduled autonomy is not credible if accepted work can disappear after a crash.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - .github/workflows/
+  - docs/
+  - plans/investigations/evidence/
+  forbidden_paths:
+  - target repository default branches
+  - config/authorization/
+  dependencies:
+  - L8-WAVE1-CANONICAL-SAFETY-SPINE
+  expected_outputs:
+  - TriggerEnvelopeV2, CheckpointV1, HealthReportV1, and RunManifestV3.
+  - State migrations with fail-closed newer-version handling.
+  - Reusable production workflow and authoritative matrix.
+  - Recovery sweep, retry classes, alerts, and external dead-man signal.
+  acceptance_checks:
+  - Kill-and-resume passes at every checkpoint.
+  - Duplicate delivery creates one logical execution and one effect.
+  - State outage blocks effects and LLM calls.
+  - Every accepted trigger becomes terminal or visibly retryable.
+  verification:
+  - Checkpoint fault-injection suite.
+  - Workflow reproduction with act.
+  - State outage and duplicate-delivery integration tests.
+  negative_controls:
+  - No fallback to local/best-effort state in a GitHub profile.
+  - One repository failure cannot cancel unrelated matrix repositories.
+  regression_checks:
+  - Full official checks.
+  - Existing state CAS and lease tests.
+  evidence_requirements:
+  - One evidence bundle per injected checkpoint failure.
+  - Health report showing stale lease, backlog, and recovery.
+  rollback_or_recovery: Versioned migration rollback with old schema retained read-only.
+  failure_reroute: Repair schema, then state CAS, then workflow consumer boundaries independently.
+  closeout_rules:
+  - All Wave 2 exit gates pass.
+  - Recovery is proven in production-like execution.
+  requirement_ids:
+  - OPS-001
+  - OPS-002
+  - OPS-003
+  - OPS-004
+  - OPS-005
+  - OPS-006
+  - OPS-007
+  - OPS-008
+  - OPS-009
+  - OPS-010
+  - OPS-011
+  - OPS-012
+  - OPS-013
+  - EVID-001
+  - EVID-002
+  - EVID-003
+  - EVID-004
+  - RUN-001
+  - RUN-002
+  - RUN-003
+  - RUN-004
+  - RUN-005
+  - RUN-006
+  - RUN-007
+  - RUN-008
+  - RUN-009
+  - MEM-001
+  - MEM-002
+  - MEM-003
+  - MEM-004
+  - MEM-005
+  - FRESH-001
+  - FRESH-002
+  - FRESH-003
+  - FRESH-004
+  - FRESH-005
+  - FRESH-006
+  - SCL-001
+  - SCL-002
+  - SCL-003
+  - SCL-004
+  - SCL-005
+  - SCL-006
+  - SCL-007
+  - SCL-008
+  - SCL-009
+- task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Make every technical presentation claim provenance-complete and ownership-safe
+  source_audit_finding: Product facts are partial and do not yet gate every claim or surface.
+  audit_classification: partially_done
+  priority: P0
+  lane: facts-and-ownership
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Implement ProductFactsV2, precedence/conflict behavior, claim citations, surface ownership,
+    protected-content fingerprints, isolated example execution, and prompt-injection treatment.
+  why_it_matters: Presentation quality without factual provenance can confidently publish falsehoods.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - config/policies/
+  - docs/
+  - plans/investigations/evidence/
+  forbidden_paths:
+  - config/authorization/
+  - target repository remotes
+  dependencies:
+  - L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+  expected_outputs:
+  - ProductFactsV2 and migrations.
+  - Fact precedence, conflict, and dependent-action gating.
+  - Surface ownership map and protected-content fingerprints.
+  - Secret-free isolated example and acquisition verification.
+  acceptance_checks:
+  - False Maven coordinates cannot enter a verified proposal.
+  - Missing facts block only dependent actions.
+  - Removing a protected limitation, command, or example fails validation.
+  verification:
+  - False-coordinate and conflicting-fact negative controls.
+  - Isolated real package/example execution.
+  - Prompt-injection fixtures.
+  negative_controls:
+  - README prose is never accepted as authoritative truth by itself.
+  - Package execution never has a write token.
+  regression_checks:
+  - Existing facts-hash and prompt-hash tests.
+  - Full official checks.
+  evidence_requirements:
+  - Fact provenance graph for representative repositories.
+  - Protected-content loss rejection evidence.
+  rollback_or_recovery: Preserve ProductFactsV1 migration reader until all state is upgraded.
+  failure_reroute: Block only the affected surface and continue independent fact/surface audits.
+  closeout_rules:
+  - All Wave 3 exit gates pass.
+  - Independent factuality reviewer accepts representative facts.
+  requirement_ids:
+  - OWN-001
+  - OWN-002
+  - OWN-003
+  - OWN-004
+  - OWN-005
+  - OWN-006
+  - OWN-007
+  - OWN-008
+  - OWN-009
+  - OWN-010
+  - OWN-011
+  - OWN-012
+  - OWN-013
+  - OWN-014
+  - OWN-015
+  - FACT-001
+  - FACT-002
+  - FACT-003
+  - FACT-004
+  - FACT-005
+  - FACT-006
+  - FACT-007
+  - FACT-008
+  - FACT-009
+  - FACT-010
+  - FACT-011
+  - FACT-012
+  - FACT-013
+  - ECO-001
+  - ECO-002
+  - ECO-003
+  - ECO-004
+  - ECO-005
+  - PKG-001
+  - PKG-002
+  - PKG-003
+  - PKG-004
+  - PKG-005
+  - PKG-006
+- task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Produce repository-specific, source-span presentation plans across owned surfaces
+  source_audit_finding: Current presentation logic covers only a subset of the ten standard dimensions
+    and surfaces.
+  audit_classification: partially_done
+  priority: P1
+  lane: presentation-intelligence
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Implement RepositoryPresentationPlanV1, AST/source-span README patches, archetype-specific
+    intelligence, metadata/community/visual proposals, ownership constraints, and governed golden evaluation.
+  why_it_matters: Level 8 requires credible repository-specific proposals, not a repeated template.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - templates/
+  - prompts/
+  - docs/
+  - plans/investigations/evidence/
+  - pyproject.toml
+  - requirements-lock.txt
+  forbidden_paths:
+  - target repository remotes
+  - config/authorization/
+  dependencies:
+  - L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+  expected_outputs:
+  - RepositoryPresentationPlanV1.
+  - markdown-it-py direct dependency and source-span patcher.
+  - Ten-dimension README intelligence with differentiated archetypes.
+  - Complete controlled-surface proposal support.
+  - Golden set of at least 100 evaluations.
+  acceptance_checks:
+  - Deterministic validators pass 100 percent.
+  - Agentic plan selection reaches at least 95 percent in three sessions.
+  - No unsupported claim, template clone, protected loss, or ownership violation passes.
+  verification:
+  - Real regression fixtures and all named ecosystems/archetypes.
+  - Three independent golden-set sessions.
+  - Reviewer acceptance without prose repair.
+  negative_controls:
+  - Social preview is never claimed applied by asset preparation.
+  - Releases, packages, and GitHub-generated signals remain audit-only.
+  regression_checks:
+  - Byte-preservation tests outside source spans.
+  - Full official checks.
+  evidence_requirements:
+  - Golden-set raw results and route-disable proof.
+  - Before/after patch byte comparison.
+  rollback_or_recovery: Disable any model route falling below threshold; deterministic audits remain.
+  failure_reroute: Split by surface and archetype while preserving shared fact/ownership gates.
+  closeout_rules:
+  - All Wave 4 exit gates pass.
+  - Independent reviewers accept repository-specific proposals.
+  requirement_ids:
+  - RDM-001
+  - RDM-002
+  - RDM-003
+  - RDM-004
+  - RDM-005
+  - RDM-006
+  - RDM-007
+  - RDM-008
+  - RDM-009
+  - RDM-010
+  - RDM-011
+  - RDM-012
+  - RDM-013
+  - RDM-014
+  - RDM-015
+  - RDM-016
+  - RDM-017
+  - RDM-018
+  - RDM-019
+  - RDM-020
+  - RDM-021
+  - RDM-022
+  - RDM-023
+  - RDM-024
+  - RDM-025
+  - SURF-001
+  - SURF-002
+  - SURF-003
+  - SURF-004
+  - SURF-005
+  - SURF-006
+  - SURF-007
+  - SURF-008
+  - SURF-009
+  - SURF-010
+  - SURF-011
+  - SURF-012
+  - SURF-013
+  - SURF-014
+  - SURF-015
+  - LLM-001
+  - LLM-002
+  - LLM-003
+  - LLM-004
+  - LLM-005
+  - LLM-006
+  - LLM-007
+  - LLM-008
+  - LLM-009
+  - LLM-010
+  - LLM-011
+  - LLM-012
+  - LLM-013
+  - LLM-014
+  - LLM-015
+  - LLM-016
+  - LLM-017
+  - LLM-018
+  - LLM-019
+  - LLM-020
+  - LLM-021
+  - LLM-022
+  - VAL-001
+  - VAL-002
+  - VAL-003
+  - VAL-004
+  - VAL-005
+  - VAL-006
+  - VAL-007
+  - VAL-008
+  - VAL-009
+  - VAL-010
+  - VAL-011
+  - VAL-012
+  - VAL-013
+  - VAL-014
+  - VAL-015
+  - VAL-016
+  - VAL-017
+  - VAL-018
+  - NFR-001
+  - NFR-002
+  - NFR-003
+  - NFR-004
+  - NFR-005
+  - NFR-006
+  - NFR-007
+  - NFR-008
+  - NFR-009
+  - NFR-010
+  - NFR-011
+  - NFR-012
+  - NFR-013
+  - MET-001
+  - MET-002
+  - MET-003
+  - MET-004
+  - MET-005
+  - MET-006
+  - MET-007
+  - MET-008
+  - DOC-001
+  - DOC-002
+  - DOC-003
+  - DOC-004
+  - DOC-005
+  - DOC-006
+  - DOC-007
+  - DOC-008
+  - DOC-009
+  - DOC-010
+- task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Complete verified proposal, draft-PR, drift, and reconciliation lifecycle
+  source_audit_finding: The existing PR capability lacks the complete VerifiedProposalV1/OpenProposalV2
+    lifecycle, drift rebuilding, and crash-boundary reconciliation required by the target.
+  audit_classification: partially_done
+  priority: P0
+  lane: proposal-effects
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Separate verified proposal construction from terminal authorized effects and prove exactly-one
+    draft PR behavior across retries, drift, crashes, and authorization expiry.
+  why_it_matters: A safe proposal system must never turn stale analysis into duplicate effects.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - .github/workflows/
+  - docs/
+  - plans/investigations/evidence/
+  forbidden_paths:
+  - target repository default branches
+  - package and release endpoints
+  - config/authorization/
+  dependencies:
+  - L8-WAVE4-PRESENTATION-INTELLIGENCE
+  expected_outputs:
+  - VerifiedProposalV1 and OpenProposalV2.
+  - One agent-owned branch per repository with fast-forward-only updates.
+  - Drift rebuild and re-verification.
+  - Crash-boundary and lost-response reconciliation.
+  - Fresh GitHub App token isolated to the effect job.
+  acceptance_checks:
+  - All named lifecycle scenarios produce exactly one correct proposal state.
+  - Missing or expired authorization blocks before pending effect creation.
+  - No write token exists in clone, LLM, package, or validation jobs.
+  verification:
+  - Local bare-remote lifecycle tests.
+  - Live authorized draft-PR pilot only when a reviewed record exists.
+  - Credential-boundary workflow inspection and negative tests.
+  negative_controls:
+  - No PAT or GH_TOKEN production fallback.
+  - No force push, ready-for-review, merge, close, or default-branch write.
+  regression_checks:
+  - Existing effect-ledger and PR dedup tests.
+  - Full official checks.
+  evidence_requirements:
+  - Per-scenario proposal state and remote observation.
+  - Token-exposure audit.
+  rollback_or_recovery: Close or supersede only through separately authorized lifecycle actions.
+  failure_reroute: Continue proposal generation in no-effect mode while authorization is unavailable.
+  closeout_rules:
+  - All Wave 5 exit gates pass.
+  - Independent verifier reproduces exactly-one behavior.
+  requirement_ids:
+  - SAFE-001
+  - SAFE-002
+  - SAFE-003
+  - SAFE-004
+  - SAFE-005
+  - SAFE-006
+  - SAFE-007
+  - SAFE-008
+  - SAFE-009
+  - SAFE-010
+  - SAFE-011
+  - SAFE-012
+  - SAFE-013
+  - SAFE-014
+  - SAFE-015
+  - SAFE-016
+  - SAFE-017
+  - SAFE-018
+  - SAFE-019
+  - AUTH-001
+  - AUTH-002
+  - AUTH-003
+  - AUTH-004
+  - AUTH-005
+  - AUTH-006
+  - AUTH-007
+  - INT-001
+  - INT-002
+  - INT-003
+  - INT-004
+  - INT-005
+  - INT-006
+  - INT-007
+  - INT-008
+  - INT-009
+  - INT-010
+  - EFF-001
+  - EFF-002
+  - EFF-003
+  - EFF-004
+  - EFF-005
+  - EFF-006
+  - PRL-001
+  - PRL-002
+  - PRL-003
+  - PRL-004
+  - PRL-005
+  - PRL-006
+  - PRL-007
+  - PRL-008
+  - PRL-009
+- task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Prove Level 5 across the governed three-repository Java pilot
+  source_audit_finding: No complete independently reproducible PIL-013 bundle exists.
+  audit_classification: not_attempted
+  priority: P1
+  lane: java-pilot
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Execute the full baseline, facts, plan, surfaces, verified draft PR, rerun, overwrite, interruption,
+    duplicate, and isolated-failure matrix for 3D, Cells, and PDF Java.
+  why_it_matters: This is the first credible production-like demonstration of passive-review autonomy.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - tests/integration/
+  - target agent-owned presentation branches under valid authorization
+  forbidden_paths:
+  - target default branches
+  - merge operations
+  - package and release writes
+  dependencies:
+  - L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+  expected_outputs:
+  - Complete PIL-013 bundle for all three repositories.
+  - Independent reviewer decision.
+  - No-op, upstream-change, overwrite, resume, duplicate, and failure evidence.
+  acceptance_checks:
+  - Every required repository/surface/scenario has terminal evidence.
+  - Draft PRs are independently verified and remain unmerged.
+  - Reviewer accepts without manual prose repair.
+  verification:
+  - Live governed pilot.
+  - Read-only remote reconciliation.
+  - Bundle checksum reproduction.
+  negative_controls:
+  - The pilot is called controlled Java, never heterogeneous.
+  - No write occurs without a reviewed authorization record.
+  regression_checks:
+  - Full official checks before and after pilot.
+  - Immediate unchanged reruns.
+  evidence_requirements:
+  - PIL-013 checksum-complete committed evidence bundle.
+  - Independent reviewer identity and verdict.
+  rollback_or_recovery: Revert agent branch commits or close drafts only under explicit authorization.
+  failure_reroute: Continue read-only and proposal-local scenarios while a repository write is blocked.
+  closeout_rules:
+  - All Wave 6 pilot obligations pass.
+  - Level 5 is awarded by independent review.
+  requirement_ids:
+  - PIL-001
+  - PIL-002
+  - PIL-003
+  - PIL-004
+  - PIL-005
+  - PIL-006
+  - PIL-007
+  - PIL-008
+  - PIL-009
+  - PIL-010
+  - PIL-011
+  - PIL-012
+  - PIL-013
+  - PIL-014
+- task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Reach Levels 6 and 7 across the complete heterogeneous portfolio
+  source_audit_finding: Existing production-like evidence is concentrated in Java and does not cover a
+    full proposal lifecycle in seven ecosystems or every active registry repository.
+  audit_classification: not_attempted
+  priority: P1
+  lane: heterogeneous-rollout
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Prove observe/proposal mode for the full registry, then one authorized representative per
+    Java, .NET, Python, TypeScript, C++, Go, and Rust, followed by 30 clean production days.
+  why_it_matters: Level 7 is a portfolio property, not a three-Java-repository test count.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - tests/integration/
+  - target agent-owned presentation branches under valid authorization
+  forbidden_paths:
+  - target default branches
+  - merge operations
+  - unreviewed newly discovered repository writes
+  dependencies:
+  - L8-WAVE6-CONTROLLED-JAVA-PILOT
+  expected_outputs:
+  - Full-registry observe/proposal evidence.
+  - Seven-ecosystem full proposal lifecycle evidence.
+  - Operational health, backlog, alert, and recovery proof.
+  - Thirty-day Level-7 evidence series.
+  acceptance_checks:
+  - Every active registry repository has terminal heterogeneous evidence.
+  - At least one full lifecycle passes per ecosystem.
+  - Thirty days have zero unauthorized writes, duplicate effects, or false convergence.
+  verification:
+  - Scheduled and event-triggered production runs.
+  - Daily manifest and health reconciliation.
+  - Independent portfolio audit.
+  negative_controls:
+  - New discoveries remain observe-only.
+  - Unsupported Rust remains explicit until parser/policy support passes.
+  regression_checks:
+  - Weekly full official checks and golden set.
+  - Per-ecosystem no-op reruns.
+  evidence_requirements:
+  - Thirty-day immutable manifest series.
+  - Cohort and ecosystem acceptance reports.
+  rollback_or_recovery: Demote a failing cohort or route to observe-only without disabling audits.
+  failure_reroute: Continue safe ecosystems and cohorts while isolating the failing lane.
+  closeout_rules:
+  - Level 6 and Level 7 gates pass.
+  - Thirty-day evidence is independently reproduced.
+  requirement_ids:
+  - ONB-001
+  - ONB-002
+  - ONB-003
+  - ONB-004
+- task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Prove 90-day self-maintenance and obtain an independent Level-8 award
+  source_audit_finding: The mandatory 90-day unattended production proof has not begun.
+  audit_classification: not_attempted
+  priority: P1
+  lane: level8-operations
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Operate the complete system for 90 consecutive days with weekly portfolio audits, automatic
+    regression disablement, dependency and authorization monitoring, recovery, proposal freshness, dead-man
+    monitoring, quality/traffic reporting, and independent audit.
+  why_it_matters: Level 8 is earned by sustained operation, not architecture or test volume.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - .github/workflows/
+  - docs/
+  forbidden_paths:
+  - target default branches
+  - automatic merge
+  - package and release writes
+  dependencies:
+  - L8-WAVE7-HETEROGENEOUS-PORTFOLIO
+  expected_outputs:
+  - Ninety-day checksum-complete manifest and health series.
+  - Weekly portfolio, quality, dependency, vulnerability, and traffic reports.
+  - Crash/outage recovery evidence.
+  - Independent Level-8 audit.
+  acceptance_checks:
+  - All quantitative Level-8 acceptance thresholds pass.
+  - At least 99 percent of eligible runs complete without human intervention.
+  - Every injected outage recovers within 24 hours.
+  - Independent audit awards Level 8.
+  verification:
+  - Daily automated reconciliation.
+  - Weekly independent evidence sampling.
+  - Final full replay and audit.
+  negative_controls:
+  - Traffic goals never override factuality or trust.
+  - Authorization-expired effects remain blocked and visible.
+  regression_checks:
+  - Deterministic validation remains 100 percent.
+  - Agentic golden accuracy remains at least 95 percent.
+  evidence_requirements:
+  - Ninety-day evidence root and checksum index.
+  - Independent audit report and award.
+  rollback_or_recovery: Demote affected route/repository to observe-only and preserve visible backlog.
+  failure_reroute: Extend the proof window after any acceptance-breaking day; do not hide the break.
+  closeout_rules:
+  - Every Level-8 acceptance criterion passes.
+  - The supervisor reevaluates the mission and finds no eligible work.
+  requirement_ids:
+  - DEP-001
+  - DEP-002
+  - DEP-003
+  - DEP-004
+  - DEP-005
+  - DEP-006
 continuation_state:
   selected_task_id: L8-MISSION-CONTROL-CONSUMER
   claim_status: bootstrapped_in_progress
   claimed_by: readme-agent-supervisor
   next_evaluation_after: mission-control consumer implementation and verification
   eligible_after_current:
-    - L8-REQUIREMENT-TO-TASKCARD-COVERAGE
+  - L8-REQUIREMENT-TO-TASKCARD-COVERAGE
   mission_complete: false
   stop_reason: mandatory implementation and proof work remains
+requirement_coverage:
+  source_path: plans/requirements.md
+  source_sha256: d34fb1acee5edc7a169e8c228509a4ff3ea9c6077044f237ad31874bec56da7c
+  semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
+  total_requirement_rows: 376
+  mandatory_requirement_rows: 348
+  excluded_backlog_rows: 28
+  excluded_deprecated_rows: 0
+  reopened_implemented_rows: 85
+  mappings:
+  - requirement_id: GOV-001
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-002
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-003
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-004
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-005
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-006
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-007
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-008
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-009
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: GOV-010
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-011
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-012
+    priority: P2
+    requirement_status: PARTIAL
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: GOV-013
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-014
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-015
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-016
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: GOV-017
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-018
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-019
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: GOV-020
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: GOV-021
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: GOV-022
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-023
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-026
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: GOV-024
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: GOV-025
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: BIZ-001
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: BIZ-002
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: BIZ-003
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: BIZ-004
+    priority: P1
+    requirement_status: RESEARCH-GATED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: BIZ-005
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: BIZ-006
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: BIZ-007
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: BIZ-008
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OWN-001
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: OWN-002
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: OWN-003
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OWN-004
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: OWN-005
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: OWN-006
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OWN-007
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OWN-008
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: OWN-009
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: OWN-010
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OWN-011
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OWN-012
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: OWN-013
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OWN-014
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OWN-015
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-001
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-002
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-003
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-004
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-005
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-006
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-007
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-008
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-009
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-010
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: FACT-011
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: FACT-012
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: FACT-013
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: RDM-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: RDM-002
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: RDM-003
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-004
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-005
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: RDM-006
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-007
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-008
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-009
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-010
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: RDM-011
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-012
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-013
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: RDM-014
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: RDM-015
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-016
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-017
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-018
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-019
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: RDM-020
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-021
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-022
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-023
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: RDM-024
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: RDM-025
+    priority: P1
+    requirement_status: BACKLOG
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: SURF-001
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-002
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-003
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-004
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-005
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-006
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-007
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-008
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: SURF-009
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-010
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-011
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-012
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-013
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-014
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SURF-015
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: CORE-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-002
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-003
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-004
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-033
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-005
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-006
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-007
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-008
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-009
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-010
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-011
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-012
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-013
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-014
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-015
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: CORE-016
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-017
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-018
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-019
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-020
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: CORE-021
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: CORE-022
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: CORE-023
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: CORE-024
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: CORE-025
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: CORE-026
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-027
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-028
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-029
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-030
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-031
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-032
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: CORE-034
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: OPS-001
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OPS-002
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: OPS-003
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: OPS-004
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OPS-005
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: OPS-006
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OPS-007
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: OPS-008
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: OPS-009
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: OPS-010
+    priority: P2
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OPS-011
+    priority: P2
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: OPS-012
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: OPS-013
+    priority: P3
+    requirement_status: BACKLOG
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: DEP-001
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: DEP-002
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: DEP-003
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: DEP-004
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: DEP-005
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: DEP-006
+    priority: P3
+    requirement_status: BACKLOG
+    task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: LLM-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: LLM-002
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: LLM-003
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: LLM-004
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: LLM-005
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: LLM-006
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: LLM-007
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: LLM-008
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: LLM-009
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: LLM-010
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: LLM-011
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: LLM-012
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: LLM-013
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: LLM-014
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: LLM-015
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: LLM-016
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: LLM-017
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: LLM-018
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: LLM-019
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: LLM-020
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: LLM-021
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: LLM-022
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: VAL-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: VAL-002
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: VAL-003
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: VAL-004
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: VAL-005
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-006
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: VAL-007
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-008
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-009
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-010
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-011
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-012
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-013
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-014
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-015
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-016
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-017
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VAL-018
+    priority: P3
+    requirement_status: BACKLOG
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: SAFE-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: SAFE-002
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: SAFE-003
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: SAFE-004
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: SAFE-005
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: SAFE-006
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SAFE-007
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: SAFE-008
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: SAFE-009
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: SAFE-010
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SAFE-011
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SAFE-012
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SAFE-013
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SAFE-014
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SAFE-015
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SAFE-016
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SAFE-017
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SAFE-018
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SAFE-019
+    priority: P3
+    requirement_status: BACKLOG
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: EVID-001
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: EVID-002
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: EVID-003
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: EVID-004
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: AUTH-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: AUTH-002
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: AUTH-003
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: AUTH-004
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: AUTH-005
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: AUTH-006
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: AUTH-007
+    priority: P1
+    requirement_status: BACKLOG
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: INT-001
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: INT-002
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: INT-003
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: INT-004
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: INT-005
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: INT-006
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: INT-007
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: INT-008
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: INT-009
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: INT-010
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: NFR-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: NFR-002
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: NFR-003
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: NFR-004
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: NFR-005
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: NFR-006
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: NFR-007
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: NFR-008
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: NFR-009
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: NFR-010
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: NFR-011
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: NFR-012
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: NFR-013
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: PIL-001
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: PIL-002
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PIL-003
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PIL-004
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PIL-005
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PIL-006
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PIL-007
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PIL-008
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PIL-009
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PIL-010
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PIL-011
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: PIL-012
+    priority: P0
+    requirement_status: BACKLOG
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: PIL-013
+    priority: P0
+    requirement_status: BACKLOG
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: PIL-014
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: MET-001
+    priority: P1
+    requirement_status: RESEARCH-GATED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: MET-002
+    priority: P1
+    requirement_status: RESEARCH-GATED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: MET-003
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: MET-004
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: MET-005
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: MET-006
+    priority: P1
+    requirement_status: RESEARCH-GATED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: MET-007
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: MET-008
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: DOC-001
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: DOC-002
+    priority: P0
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: active_governance
+    semantic_findings: []
+  - requirement_id: DOC-003
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: DOC-004
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: DOC-005
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: DOC-006
+    priority: P1
+    requirement_status: RESEARCH-GATED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: DOC-007
+    priority: P1
+    requirement_status: RESEARCH-GATED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: DOC-008
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: DOC-009
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: DOC-010
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: AGT-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: AGT-002
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: AGT-003
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: AGT-004
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: AGT-005
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: AGT-006
+    priority: P2
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: AGT-007
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: AGT-008
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: CAP-001
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: CAP-002
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: CAP-003
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: CAP-004
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: CAP-005
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: CAP-006
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: CAP-007
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: CAP-008
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: CAP-009
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: RUN-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: RUN-002
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RUN-003
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: RUN-004
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RUN-005
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RUN-006
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RUN-007
+    priority: P1
+    requirement_status: BACKLOG
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: RUN-008
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: RUN-009
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: ECO-001
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: ECO-002
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: ECO-003
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: ECO-004
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: ECO-005
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: PKG-001
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: PKG-002
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: PKG-003
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: PKG-004
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: PKG-005
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: PKG-006
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: ONB-001
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: ONB-002
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: ONB-003
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: ONB-004
+    priority: P2
+    requirement_status: PARTIAL
+    task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: MEM-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: MEM-002
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: MEM-003
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - cited pytest suite `tests/unit/test_state_backend.py::FakeStateBackend` contains no tests
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: MEM-004
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: MEM-005
+    priority: P2
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: EFF-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: EFF-002
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: EFF-003
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: EFF-004
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: EFF-005
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: EFF-006
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: FRESH-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: FRESH-002
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: FRESH-003
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: FRESH-004
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: FRESH-005
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: FRESH-006
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: ORC-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: ORC-002
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: ORC-003
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: ORC-004
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: ORC-005
+    priority: P1
+    requirement_status: BACKLOG
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: ORC-006
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: ORC-007
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: ORC-008
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: VER-001
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VER-002
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VER-003
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: VER-004
+    priority: P2
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: VER-005
+    priority: P2
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VER-006
+    priority: P1
+    requirement_status: BACKLOG
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: VER-007
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: VER-008
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: VER-009
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: GAP-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: GAP-002
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: GAP-003
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SCL-001
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SCL-002
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SCL-003
+    priority: P2
+    requirement_status: PLANNED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SCL-004
+    priority: P2
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SCL-005
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: SCL-006
+    priority: P2
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SCL-007
+    priority: P3
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: SCL-008
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SCL-009
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: PRL-001
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: PRL-002
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PRL-003
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PRL-004
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: PRL-005
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PRL-006
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PRL-007
+    priority: P0
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: PRL-008
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: PRL-009
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: excluded_backlog
+    semantic_findings: []

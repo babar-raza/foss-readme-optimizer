@@ -1,0 +1,3215 @@
+{
+  "schema_version": 1,
+  "producer": "scripts/governance/build_level8_requirement_taskcard_coverage.py",
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+  "source_path": "plans/requirements.md",
+  "source_sha256": "d34fb1acee5edc7a169e8c228509a4ff3ea9c6077044f237ad31874bec56da7c",
+  "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
+  "total_requirement_rows": 376,
+  "mandatory_requirement_rows": 348,
+  "excluded_backlog_rows": 28,
+  "excluded_deprecated_rows": 0,
+  "reopened_implemented_rows": 85,
+  "disposition_counts": {
+    "active_governance": 33,
+    "excluded_backlog": 28,
+    "open_mandatory": 165,
+    "preserved_verified": 65,
+    "reopened_semantic_evidence_gap": 85
+  },
+  "taskcard_counts": {
+    "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 34,
+    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 71,
+    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 46,
+    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 39,
+    "L8-WAVE4-PRESENTATION-INTELLIGENCE": 111,
+    "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 51,
+    "L8-WAVE6-CONTROLLED-JAVA-PILOT": 14,
+    "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": 4,
+    "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": 6
+  },
+  "unmapped_requirement_ids": [],
+  "duplicate_requirement_ids": [],
+  "mappings": [
+    {
+      "requirement_id": "GOV-001",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-002",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-003",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-004",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-005",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-006",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-007",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-008",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-009",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "GOV-010",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-011",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-012",
+      "priority": "P2",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-013",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-014",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-015",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-016",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-017",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-018",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-019",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-020",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-021",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-022",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-023",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-026",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "GOV-024",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-025",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "BIZ-001",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "BIZ-002",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "BIZ-003",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "BIZ-004",
+      "priority": "P1",
+      "requirement_status": "RESEARCH-GATED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "BIZ-005",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "BIZ-006",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "BIZ-007",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "BIZ-008",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-001",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-002",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-003",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-004",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "OWN-005",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-006",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-007",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-008",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-009",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-010",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-011",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-012",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "OWN-013",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-014",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OWN-015",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-001",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-002",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-003",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-004",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-005",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-006",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-007",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-008",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-009",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-010",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-011",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-012",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-013",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "RDM-002",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "RDM-003",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-004",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-005",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-006",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-007",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-008",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-009",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-010",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "RDM-011",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-012",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-013",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "RDM-014",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "RDM-015",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-016",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-017",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-018",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-019",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-020",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-021",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-022",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-023",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-024",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-025",
+      "priority": "P1",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-001",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-002",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-003",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-004",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-005",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-006",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-007",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-008",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-009",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-010",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-011",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-012",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-013",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-014",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SURF-015",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CORE-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-002",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-003",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-004",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-033",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-005",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-006",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-007",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-008",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-009",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-010",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-011",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-012",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-013",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-014",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-015",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CORE-016",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-017",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-018",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-019",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-020",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CORE-021",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CORE-022",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CORE-023",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CORE-024",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CORE-025",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CORE-026",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-027",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-028",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-029",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-030",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-031",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-032",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "CORE-034",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OPS-001",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OPS-002",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "OPS-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "OPS-004",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OPS-005",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OPS-006",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OPS-007",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "OPS-008",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "OPS-009",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OPS-010",
+      "priority": "P2",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OPS-011",
+      "priority": "P2",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OPS-012",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OPS-013",
+      "priority": "P3",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DEP-001",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DEP-002",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DEP-003",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DEP-004",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "DEP-005",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DEP-006",
+      "priority": "P3",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "LLM-002",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "LLM-003",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "LLM-004",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "LLM-005",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-006",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-007",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "LLM-008",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "LLM-009",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-010",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-011",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-012",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-013",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "LLM-014",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "LLM-015",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-016",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-017",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-018",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-019",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "LLM-020",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-021",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-022",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "VAL-002",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "VAL-003",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "VAL-004",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "VAL-005",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-006",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "VAL-007",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-008",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-009",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-010",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-011",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-012",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-013",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-014",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-015",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-016",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-017",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VAL-018",
+      "priority": "P3",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "SAFE-002",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "SAFE-003",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "SAFE-004",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "SAFE-005",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "SAFE-006",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-007",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "SAFE-008",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "SAFE-009",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "SAFE-010",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-011",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-012",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-013",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-014",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-015",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-016",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-017",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-018",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-019",
+      "priority": "P3",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "EVID-001",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "EVID-002",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "EVID-003",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "EVID-004",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AUTH-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AUTH-002",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AUTH-003",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "AUTH-004",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AUTH-005",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AUTH-006",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AUTH-007",
+      "priority": "P1",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "INT-001",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "INT-002",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "INT-003",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "INT-004",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "INT-005",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "INT-006",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "INT-007",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "INT-008",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "INT-009",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "INT-010",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "NFR-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "NFR-002",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "NFR-003",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "NFR-004",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "NFR-005",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "NFR-006",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "NFR-007",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "NFR-008",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "NFR-009",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "NFR-010",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "NFR-011",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "NFR-012",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "NFR-013",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-001",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-002",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-003",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-004",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-005",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-006",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-007",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-008",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-009",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-010",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-011",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-012",
+      "priority": "P0",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-013",
+      "priority": "P0",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-014",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MET-001",
+      "priority": "P1",
+      "requirement_status": "RESEARCH-GATED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MET-002",
+      "priority": "P1",
+      "requirement_status": "RESEARCH-GATED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MET-003",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MET-004",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MET-005",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MET-006",
+      "priority": "P1",
+      "requirement_status": "RESEARCH-GATED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MET-007",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MET-008",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DOC-001",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DOC-002",
+      "priority": "P0",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DOC-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "DOC-004",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "DOC-005",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "DOC-006",
+      "priority": "P1",
+      "requirement_status": "RESEARCH-GATED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DOC-007",
+      "priority": "P1",
+      "requirement_status": "RESEARCH-GATED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DOC-008",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DOC-009",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "DOC-010",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AGT-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "AGT-002",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AGT-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "AGT-004",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "AGT-005",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AGT-006",
+      "priority": "P2",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AGT-007",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AGT-008",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CAP-001",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CAP-002",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CAP-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CAP-004",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CAP-005",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CAP-006",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CAP-007",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CAP-008",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CAP-009",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RUN-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RUN-002",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RUN-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "RUN-004",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RUN-005",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RUN-006",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RUN-007",
+      "priority": "P1",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RUN-008",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RUN-009",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ECO-001",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ECO-002",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ECO-003",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ECO-004",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ECO-005",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PKG-001",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PKG-002",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PKG-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PKG-004",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PKG-005",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "PKG-006",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ONB-001",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE7-HETEROGENEOUS-PORTFOLIO",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ONB-002",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE7-HETEROGENEOUS-PORTFOLIO",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ONB-003",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE7-HETEROGENEOUS-PORTFOLIO",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ONB-004",
+      "priority": "P2",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE7-HETEROGENEOUS-PORTFOLIO",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MEM-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MEM-002",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "MEM-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "cited pytest suite `tests/unit/test_state_backend.py::FakeStateBackend` contains no tests",
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "MEM-004",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "MEM-005",
+      "priority": "P2",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "EFF-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "EFF-002",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "EFF-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "EFF-004",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "EFF-005",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "EFF-006",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "FRESH-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "FRESH-002",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FRESH-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FRESH-004",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FRESH-005",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FRESH-006",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ORC-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "ORC-002",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ORC-003",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ORC-004",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ORC-005",
+      "priority": "P1",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ORC-006",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ORC-007",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "ORC-008",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-001",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-002",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-004",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-005",
+      "priority": "P2",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-006",
+      "priority": "P1",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-007",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-008",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-009",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GAP-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GAP-002",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "GAP-003",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SCL-001",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SCL-002",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SCL-003",
+      "priority": "P2",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SCL-004",
+      "priority": "P2",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SCL-005",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SCL-006",
+      "priority": "P2",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SCL-007",
+      "priority": "P3",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SCL-008",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SCL-009",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PRL-001",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "PRL-002",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PRL-003",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PRL-004",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "PRL-005",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PRL-006",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PRL-007",
+      "priority": "P0",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PRL-008",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "PRL-009",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    }
+  ]
+}

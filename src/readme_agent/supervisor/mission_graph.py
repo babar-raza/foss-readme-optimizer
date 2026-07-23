@@ -68,3 +68,48 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
 
     for task_id in by_id:
         visit(task_id)
+
+    coverage = graph.requirement_coverage
+    if coverage is None:
+        return
+    mapped_ids: set[str] = set()
+    mapped_by_task: dict[str, set[str]] = {task_id: set() for task_id in by_id}
+    for mapping in coverage.mappings:
+        if mapping.requirement_id in mapped_ids:
+            raise ConfigError(f"duplicate requirement mapping {mapping.requirement_id!r}")
+        if mapping.task_id not in by_id:
+            raise ConfigError(
+                f"requirement {mapping.requirement_id!r} maps to unknown task {mapping.task_id!r}"
+            )
+        if mapping.requirement_status == "IMPLEMENTED":
+            if mapping.semantic_findings and mapping.disposition != (
+                "reopened_semantic_evidence_gap"
+            ):
+                raise ConfigError(
+                    f"implemented requirement {mapping.requirement_id!r} has semantic findings "
+                    "but was not reopened"
+                )
+            if not mapping.semantic_findings and mapping.disposition != "preserved_verified":
+                raise ConfigError(
+                    f"clean implemented requirement {mapping.requirement_id!r} was not preserved"
+                )
+        if mapping.requirement_status == "BACKLOG" and mapping.disposition != "excluded_backlog":
+            raise ConfigError(f"backlog requirement {mapping.requirement_id!r} was made executable")
+        if (
+            mapping.requirement_status == "DEPRECATED"
+            and mapping.disposition != "excluded_deprecated"
+        ):
+            raise ConfigError(
+                f"deprecated requirement {mapping.requirement_id!r} was made executable"
+            )
+        mapped_ids.add(mapping.requirement_id)
+        mapped_by_task[mapping.task_id].add(mapping.requirement_id)
+
+    if len(mapped_ids) != coverage.total_requirement_rows:
+        raise ConfigError(
+            "requirement coverage total does not match unique mappings: "
+            f"{coverage.total_requirement_rows} != {len(mapped_ids)}"
+        )
+    for task_id, task in by_id.items():
+        if set(task.requirement_ids) != mapped_by_task[task_id]:
+            raise ConfigError(f"task {task_id!r} requirement_ids disagree with coverage mappings")

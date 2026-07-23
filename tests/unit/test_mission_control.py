@@ -1,5 +1,6 @@
 """Offline tests for the supervisor's central mission-taskcard consumer."""
 
+import hashlib
 from copy import deepcopy
 from pathlib import Path
 
@@ -51,6 +52,14 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert graph.autonomous_execution_contract.mechanism_locked is True
     assert len(graph.taskcards) == 11
     assert len(graph_hash) == 64
+    coverage = graph.requirement_coverage
+    assert coverage is not None
+    assert coverage.total_requirement_rows == 376
+    assert coverage.mandatory_requirement_rows == 348
+    assert coverage.reopened_implemented_rows == 85
+    assert len({mapping.requirement_id for mapping in coverage.mappings}) == 376
+    requirements_path = REPO_ROOT / coverage.source_path
+    assert coverage.source_sha256 == hashlib.sha256(requirements_path.read_bytes()).hexdigest()
 
 
 def test_evaluate_initializes_and_preserves_the_bootstrap_claim():
@@ -164,6 +173,21 @@ def test_cycle_and_alternative_controller_fail_closed(tmp_path):
 
     with pytest.raises(ConfigError, match="locked to autonomous_supervision"):
         load_mission_graph(alternative)
+
+
+def test_semantically_unsupported_implemented_requirement_cannot_be_preserved(tmp_path):
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    mapping = next(
+        item
+        for item in raw["requirement_coverage"]["mappings"]
+        if item["disposition"] == "reopened_semantic_evidence_gap"
+    )
+    mapping["disposition"] = "preserved_verified"
+    invalid = tmp_path / "invalid-closure-mission.yaml"
+    invalid.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match="has semantic findings but was not reopened"):
+        load_mission_graph(invalid)
 
 
 def test_state_key_is_separate_from_every_product_repository():

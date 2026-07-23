@@ -75,10 +75,47 @@ class TaskCardV1(_StrictModel):
     requirement_ids: list[str] = Field(default_factory=list)
 
 
+class RequirementTaskMappingV1(_StrictModel):
+    requirement_id: str
+    priority: Literal["P0", "P1", "P2", "P3"]
+    requirement_status: Literal[
+        "IMPLEMENTED",
+        "PARTIAL",
+        "PLANNED",
+        "RESEARCH-GATED",
+        "GOVERNANCE",
+        "DEPRECATED",
+        "BACKLOG",
+    ]
+    task_id: str
+    disposition: Literal[
+        "preserved_verified",
+        "reopened_semantic_evidence_gap",
+        "active_governance",
+        "open_mandatory",
+        "excluded_backlog",
+        "excluded_deprecated",
+    ]
+    semantic_findings: list[str] = Field(default_factory=list)
+
+
+class RequirementCoverageV1(_StrictModel):
+    source_path: str
+    source_sha256: str
+    semantic_matrix_path: str
+    total_requirement_rows: int
+    mandatory_requirement_rows: int
+    excluded_backlog_rows: int
+    excluded_deprecated_rows: int
+    reopened_implemented_rows: int
+    mappings: list[RequirementTaskMappingV1]
+
+
 class MissionTaskGraphV1(_StrictModel):
     schema_version: Literal[1]
     autonomous_execution_contract: AutonomousExecutionContractV1
     mission_authority: MissionAuthorityV1
     verified_baseline: dict
     taskcards: list[TaskCardV1]
+    requirement_coverage: RequirementCoverageV1 | None = None
     continuation_state: dict
