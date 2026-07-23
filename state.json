@@ -12,7 +12,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "53515556cded520fb4b32a0b2c41b85370b94e650a0db8977d72e868896e7749",
-    "last_evaluated_at": "2026-07-23T17:56:21.361945+00:00",
+    "last_evaluated_at": "2026-07-23T17:56:53.636748+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -25,7 +25,7 @@
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "CLOSED",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "BLOCKED_EXTERNAL",
-      "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION": "SCORED",
+      "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION": "CLOSED",
       "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "TODO",
       "L8-WAVE4-PRESENTATION-INTELLIGENCE": "TODO",
       "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": "TODO",
@@ -512,6 +512,18 @@
         "reason": "Local child meets every bounded acceptance check with no independent P0/P1/P2 findings",
         "task_id": "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/independent-verification.json",
+          "plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/real-cells-java-factuality-proof.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-23T17:56:53.636741+00:00",
+        "reason": "Bounded repository-local Wave-3 foundation closed; Wave-2 and parent Wave-3 production dependencies remain blocked and unmodified",
+        "task_id": "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -519,7 +531,7 @@
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
   "schema_version": 2,
-  "state_version": 59,
+  "state_version": 60,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
