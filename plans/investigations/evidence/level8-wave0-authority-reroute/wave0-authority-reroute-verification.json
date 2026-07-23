@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+  "observed_at": "2026-07-23",
+  "result": "PASS_WITH_EXTERNAL_CHILD_BLOCKER",
+  "graph_sha256": "412e88f1657fe487b081c36e38cd9b8ce3d5737135306f18c61f4aab7b133a51",
+  "reroute": {
+    "parent_status": "REROUTED",
+    "blocked_child": "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
+    "independent_children": [
+      "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
+      "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE",
+      "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION"
+    ],
+    "downstream_gate": "L8-WAVE1-CANONICAL-SAFETY-SPINE depends on every Wave 0 child",
+    "exact_external_action": "The user must explicitly approve edits to these plans/master.md sections: Mission, Status, Decision Ledger, Architecture, Build Checklist, and Verification Checklist.",
+    "exact_resume_condition": "A fresh user message explicitly approving those six named sections."
+  },
+  "blocker_standard": {
+    "attempts_recorded": 3,
+    "materially_distinct": true,
+    "attempt_evidence_location": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml#L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
+    "validator_enforced": true
+  },
+  "checks": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_mission_control.py",
+      "result": "13 passed"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_cli.py tests/unit/test_mission_control.py -k \"mission or supervise\"",
+      "result": "34 passed, 33 deselected"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check src/readme_agent/supervisor/mission_control.py src/readme_agent/supervisor/mission_graph.py src/readme_agent/supervisor/mission_schema.py tests/unit/test_mission_control.py",
+      "result": "PASS"
+    },
+    {
+      "command": ".venv/Scripts/python -m mypy src",
+      "result": "PASS (169 source files)"
+    },
+    {
+      "command": ".venv/Scripts/python scripts/governance/build_level8_requirement_taskcard_coverage.py --check",
+      "result": "PASS (376 rows)"
+    },
+    {
+      "command": ".venv/Scripts/python scripts/governance/validate_plan_structure.py",
+      "result": "PASS_WITH_51_EXISTING_LENGTH_WARNINGS"
+    }
+  ],
+  "negative_controls": [
+    "A BLOCKED_EXTERNAL task with fewer than three attempts is rejected.",
+    "Non-sequential attempts are rejected.",
+    "Repeated hypotheses or actions are rejected as not materially distinct.",
+    "A blocker without an exact external action and resume condition is rejected.",
+    "Rerouting the Wave 0 parent unlocks only its independent children; Wave 1 remains gated."
+  ],
+  "safety": {
+    "master_md_modified_by_this_change": false,
+    "candidate_artifacts_modified": false,
+    "product_repository_write": false
+  }
+}

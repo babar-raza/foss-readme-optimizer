@@ -24,6 +24,7 @@ _TERMINAL_EXCEPTION = {
     "DEFERRED_WITH_REASON",
 }
 _TERMINAL = _TERMINAL_SUCCESS | _TERMINAL_EXCEPTION
+_DEPENDENCY_SATISFIED = _TERMINAL_SUCCESS | {"REROUTED"}
 _TRANSITIONS: dict[MissionTaskStatus, set[MissionTaskStatus]] = {
     "TODO": {"READY", "BLOCKED", "BLOCKED_EXTERNAL", "DEFERRED_WITH_REASON"},
     "READY": {"IN_PROGRESS", "BLOCKED", "BLOCKED_EXTERNAL", "DEFERRED_WITH_REASON"},
@@ -119,7 +120,10 @@ def _ready_tasks(graph: MissionTaskGraphV1, state: MissionExecutionStateV1) -> l
         status = state.task_statuses[task.task_id]
         if status not in {"TODO", "READY", "REOPENED", "REGRESSED"}:
             continue
-        if all(state.task_statuses[dependency] == "CLOSED" for dependency in task.dependencies):
+        if all(
+            state.task_statuses[dependency] in _DEPENDENCY_SATISFIED
+            for dependency in task.dependencies
+        ):
             ready.append(by_id[task.task_id])
     return sorted(ready, key=lambda task: (_PRIORITY_ORDER[task.priority], task.task_id))
 

@@ -51,6 +51,27 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
             raise ConfigError(
                 f"task {task.task_id!r} has unknown parent_task_id {task.parent_task_id!r}"
             )
+        if task.status == "BLOCKED_EXTERNAL":
+            if len(task.blocker_attempts) < 3:
+                raise ConfigError(
+                    f"externally blocked task {task.task_id!r} requires at least three attempts"
+                )
+            attempt_numbers = [attempt.attempt_number for attempt in task.blocker_attempts]
+            if attempt_numbers != list(range(1, len(task.blocker_attempts) + 1)):
+                raise ConfigError(
+                    f"externally blocked task {task.task_id!r} has non-sequential attempts"
+                )
+            distinct_hypotheses = {attempt.hypothesis for attempt in task.blocker_attempts}
+            distinct_actions = {attempt.action_taken for attempt in task.blocker_attempts}
+            if len(distinct_hypotheses) < 3 or len(distinct_actions) < 3:
+                raise ConfigError(
+                    f"externally blocked task {task.task_id!r} attempts are not materially distinct"
+                )
+            if not task.exact_external_action or not task.exact_resume_condition:
+                raise ConfigError(
+                    f"externally blocked task {task.task_id!r} requires an exact external action "
+                    "and resume condition"
+                )
 
     visiting: set[str] = set()
     visited: set[str] = set()

@@ -9,7 +9,7 @@ import yaml
 
 from readme_agent.errors import ConfigError
 from readme_agent.state.backend import SaveResult
-from readme_agent.state.schema import RunStateV1
+from readme_agent.state.schema import MissionExecutionStateV1, RunStateV1
 from readme_agent.supervisor.mission_control import (
     claim_next_task,
     evaluate_mission,
@@ -50,7 +50,7 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
 
     assert graph.mission_authority.mission_id == "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION"
     assert graph.autonomous_execution_contract.mechanism_locked is True
-    assert len(graph.taskcards) == 11
+    assert len(graph.taskcards) == 15
     assert len(graph_hash) == 64
     coverage = graph.requirement_coverage
     assert coverage is not None
@@ -125,6 +125,31 @@ def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task():
     assert claimed.mission_execution.active_task_id == "L8-REQUIREMENT-TO-TASKCARD-COVERAGE"
 
 
+def test_rerouted_wave0_parent_unlocks_children_but_not_wave1():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = {task.task_id: task.status for task in graph.taskcards}
+    statuses.update(
+        {
+            "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
+            "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
+            "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
+        }
+    )
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
+    )
+
+    eligible = [task.task_id for task in evaluate_mission(graph, state).eligible_tasks]
+
+    assert eligible == [
+        "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
+        "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE",
+    ]
+    assert "L8-WAVE1-CANONICAL-SAFETY-SPINE" not in eligible
+
+
 def test_direct_close_and_closure_without_evidence_fail_closed():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     backend = _MemoryStateBackend()
@@ -187,6 +212,36 @@ def test_semantically_unsupported_implemented_requirement_cannot_be_preserved(tm
     invalid.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
 
     with pytest.raises(ConfigError, match="has semantic findings but was not reopened"):
+        load_mission_graph(invalid)
+
+
+@pytest.mark.parametrize(
+    ("mutation", "message"),
+    [
+        (lambda task: task.update(blocker_attempts=task["blocker_attempts"][:2]), "three attempts"),
+        (
+            lambda task: task["blocker_attempts"][2].update(attempt_number=2),
+            "non-sequential attempts",
+        ),
+        (
+            lambda task: task["blocker_attempts"][2].update(
+                hypothesis=task["blocker_attempts"][1]["hypothesis"]
+            ),
+            "not materially distinct",
+        ),
+        (lambda task: task.update(exact_external_action=None), "exact external action"),
+    ],
+)
+def test_external_blocker_requires_three_distinct_attempts_and_resume_contract(
+    tmp_path, mutation, message
+):
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    task = next(item for item in raw["taskcards"] if item["status"] == "BLOCKED_EXTERNAL")
+    mutation(task)
+    invalid = tmp_path / "invalid-external-blocker.yaml"
+    invalid.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match=message):
         load_mission_graph(invalid)
 
 

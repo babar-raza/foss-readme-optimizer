@@ -38,6 +38,19 @@ class MissionAuthorityV1(_StrictModel):
     mission_locked: bool
 
 
+class BlockerAttemptV1(_StrictModel):
+    blocker_id: str
+    attempt_number: int
+    hypothesis: str
+    first_failing_boundary: str
+    evidence_considered: list[str]
+    action_taken: str
+    verification_run: list[str]
+    result: str
+    new_information: str
+    reason_for_next_attempt: str
+
+
 class TaskCardV1(_StrictModel):
     task_id: str
     mission_id: str
@@ -73,6 +86,9 @@ class TaskCardV1(_StrictModel):
     failure_reroute: str
     closeout_rules: list[str]
     requirement_ids: list[str] = Field(default_factory=list)
+    blocker_attempts: list[BlockerAttemptV1] = Field(default_factory=list)
+    exact_external_action: str | None = None
+    exact_resume_condition: str | None = None
 
 
 class RequirementTaskMappingV1(_StrictModel):

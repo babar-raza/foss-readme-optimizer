@@ -297,6 +297,250 @@ taskcards:
   - BIZ-006
   - BIZ-007
   - BIZ-008
+- task_id: L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  title: Apply the gated Level-8 structural amendments to the master plan
+  source_audit_finding: Mission, Status, Decision Ledger, Architecture, Build Checklist, and Verification
+    Checklist must be structurally reconciled, but GOVERNANCE.md rule 12 requires fresh section-specific
+    approval and decision 44 excludes restructuring from its standing-directive exception.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: governance-truth
+  owner: human-plan-authority
+  status: BLOCKED_EXTERNAL
+  objective: Replace the contradictory active execution tracks with the approved Level-8 Waves 0-8 while
+    preserving decision history and current evidence.
+  why_it_matters: Wave 0 and every downstream wave depend on one authoritative current plan.
+  allowed_paths:
+  - plans/master.md
+  - plans/requirements.md
+  - logs/
+  forbidden_paths:
+  - src/
+  - tests/
+  - config/
+  - data/
+  dependencies:
+  - L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  expected_outputs:
+  - Approved surgical edits to the six named master sections.
+  - Synchronized requirements and dated log entry.
+  acceptance_checks:
+  - Fresh explicit approval names all six sections.
+  - The resulting master contains one active Level-8 execution sequence.
+  - Plan structure and semantic traceability pass.
+  verification:
+  - Approval record inspection.
+  - Master/requirements diff review.
+  - Plan-structure validator.
+  negative_controls:
+  - Generic autonomy language is not treated as section-specific approval.
+  - No existing decision history is silently deleted.
+  regression_checks:
+  - Fixed section order.
+  - Bidirectional requirement traceability.
+  evidence_requirements:
+  - Exact approval message.
+  - Before/after conflict inventory.
+  - Validator output.
+  rollback_or_recovery: Revert only the structural plan-healing commit while preserving its log.
+  failure_reroute: Continue all safe non-master Wave 0 work and resume this same task after approval.
+  closeout_rules:
+  - The exact governance gate is satisfied.
+  - All six section amendments are independently reviewed.
+  requirement_ids: []
+  blocker_attempts:
+  - blocker_id: LEVEL8-MASTER-SECTION-APPROVAL
+    attempt_number: 1
+    hypothesis: The earlier PLEASE IMPLEMENT THIS PLAN instruction grants the structural edit.
+    first_failing_boundary: GOVERNANCE.md rule 12 fresh section-specific approval gate.
+    evidence_considered:
+    - User instruction containing the Level-8 plan.
+    - The plan's own instruction to request fresh approval before master changes.
+    action_taken: Compared the instruction's scope with the explicit gate text.
+    verification_run:
+    - Read GOVERNANCE.md rule 12.
+    - Read master decision 44.
+    result: Insufficient; the plan itself reserves a later fresh approval.
+    new_information: Implementation authority and master restructuring authority are distinct.
+    reason_for_next_attempt: Test whether the later continuous-autonomy directive supplies the gate.
+  - blocker_id: LEVEL8-MASTER-SECTION-APPROVAL
+    attempt_number: 2
+    hypothesis: The continuous audit and plan-hardening directive supplies fresh approval.
+    first_failing_boundary: The response does not explicitly name the six master sections.
+    evidence_considered:
+    - Continuous-autonomy protocol.
+    - Prior exact section list in the session.
+    action_taken: Compared the later directive with the same-turn and section-specific wording.
+    verification_run:
+    - Verified the directive authorizes autonomous plan hardening generally.
+    - Verified it does not answer yes to the named section list.
+    result: Insufficient under the literal gate.
+    new_information: The no-prompt continuation instruction does not silently weaken plan authority.
+    reason_for_next_attempt: Evaluate decision 44's task-scoped standing-directive exception.
+  - blocker_id: LEVEL8-MASTER-SECTION-APPROVAL
+    attempt_number: 3
+    hypothesis: Decision 44's standing directive exception covers the structural replacement.
+    first_failing_boundary: Decision 44 limits the exception to append-only decisions and routine Status/Build-Checklist
+      closure updates.
+    evidence_considered:
+    - Master decision 44 amendment.
+    - Required Level-8 master changes.
+    action_taken: Classified each required edit as routine closure or structural rewrite.
+    verification_run:
+    - Mission rewrite classified structural.
+    - Architecture replacement classified structural.
+    - Build and Verification Checklist replacement classified structural.
+    result: Insufficient; decision 44 explicitly leaves restructuring behind the fresh gate.
+    new_information: No repository-local workaround may legitimately manufacture this authority.
+    reason_for_next_attempt: No safe authority substitute remains; preserve the exact external action
+      and continue independent work.
+  exact_external_action: 'The user must explicitly approve edits to these plans/master.md sections: Mission,
+    Status, Decision Ledger, Architecture, Build Checklist, and Verification Checklist.'
+  exact_resume_condition: A fresh user message explicitly approving those six named sections; the same
+    supervisor then reopens this task and applies the already-bounded Level-8 amendments.
+- task_id: L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  title: Resolve all 85 semantically unsupported IMPLEMENTED closure claims
+  source_audit_finding: The implementation-truth matrix finds 85 P0/P1 closure claims without the exact
+    semantic test or committed evidence required by the current acceptance text.
+  audit_classification: claimed_unproven
+  priority: P0
+  lane: governance-truth
+  owner: readme-agent-supervisor
+  status: READY
+  objective: Investigate every finding, add exact existing evidence when genuine, downgrade unsupported
+    claims when permitted, and drive the semantic matrix to zero high-confidence findings.
+  why_it_matters: Wave 0 cannot establish a truthful shippable baseline while closure is path-only.
+  allowed_paths:
+  - plans/requirements.md
+  - plans/investigations/
+  - scripts/governance/
+  - tests/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - config/authorization/
+  - data/products.json
+  dependencies:
+  - L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  expected_outputs:
+  - Per-requirement evidence disposition for all 85 findings.
+  - Exact pytest nodes or committed evidence for genuine implementations.
+  - Honest status downgrades where proof does not exist and governance permits.
+  acceptance_checks:
+  - Semantic matrix has zero high-confidence findings.
+  - No irrelevant test or generic suite result is used as evidence.
+  verification:
+  - Traceability matrix check.
+  - Exact cited pytest-node resolution.
+  - Manual review of every P0/P1 disposition.
+  negative_controls:
+  - A path-only citation does not close a row.
+  - A passing unrelated test does not close a row.
+  regression_checks:
+  - Plan-structure validator.
+  - Requirements-source hash refresh in the mission graph.
+  evidence_requirements:
+  - Machine-readable disposition report.
+  - Raw focused test output for newly cited nodes.
+  rollback_or_recovery: Revert only an incorrect evidence citation or status disposition.
+  failure_reroute: Split by requirement family and continue independent families.
+  closeout_rules:
+  - All 85 findings are individually consumed.
+  - The semantic matrix is clean.
+  requirement_ids: []
+- task_id: L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  title: Classify and preserve the dirty plan/status/roadmap/changelog candidate
+  source_audit_finding: Four plan candidate files and master edits predate this mission; three new plan
+    files are not currently allowed homes under the repository layout.
+  audit_classification: partially_done
+  priority: P0
+  lane: governance-truth
+  owner: readme-agent-supervisor
+  status: READY
+  objective: Inventory provenance and useful content, preserve it without legitimizing a conflicting plan,
+    and record the exact gated migration/disposition.
+  why_it_matters: Wave 0 must neither discard valuable work nor commit layout violations.
+  allowed_paths:
+  - plans/
+  - logs/
+  - plans/investigations/
+  forbidden_paths:
+  - src/
+  - tests/
+  - config/
+  - data/
+  dependencies:
+  - L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  expected_outputs:
+  - Per-file provenance and disposition report.
+  - Preserved candidate content with no silent overwrite or deletion.
+  acceptance_checks:
+  - Every dirty/untracked plan artifact is classified.
+  - No disallowed plan home is committed without governance approval.
+  verification:
+  - Git status, diff, log, and blame inspection.
+  - Repository-layout comparison.
+  negative_controls:
+  - No reset, clean, restore, delete, or implicit acceptance.
+  regression_checks:
+  - Plan-structure validator.
+  evidence_requirements:
+  - Candidate inventory with hashes and provenance.
+  rollback_or_recovery: Leave the original working-tree artifacts untouched.
+  failure_reroute: Record gated migration paths and continue semantic evidence work.
+  closeout_rules:
+  - All artifacts have an evidence-backed disposition.
+  - Original content remains recoverable.
+  requirement_ids: []
+- task_id: L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  title: Reproduce the current committed Level-8 baseline from a fresh clone
+  source_audit_finding: The prior fresh-clone proof ends at commit 674285a and does not include the mission
+    controller or requirement-coverage commits.
+  audit_classification: completed_but_weakly_verified
+  priority: P0
+  lane: baseline-reproduction
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Clone the current committed HEAD into runs, install only from the committed lock, and rerun
+    all official checks without relying on the dirty source working tree.
+  why_it_matters: A shippable baseline must reproduce from committed state on a clean checkout.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  forbidden_paths:
+  - plans/master.md
+  - target repository remotes
+  dependencies:
+  - L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  - L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE
+  - L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION
+  expected_outputs:
+  - Fresh-clone official-check evidence for current HEAD.
+  acceptance_checks:
+  - Lockfile install succeeds.
+  - Ruff, format, mypy, plan validation, actionlint, and all non-live tests pass.
+  verification:
+  - Raw command log and exit codes.
+  - Commit and lockfile hashes.
+  negative_controls:
+  - No package resolves from an undeclared ambient environment.
+  regression_checks:
+  - Compare with the prior 674285a fresh-clone proof.
+  evidence_requirements:
+  - Checksum-complete official-check JSON.
+  rollback_or_recovery: Remove only the disposable fresh clone under runs.
+  failure_reroute: Repair the first failing committed boundary, then recreate a new fresh clone.
+  closeout_rules:
+  - Current HEAD reproduces cleanly from scratch.
+  requirement_ids: []
 - task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -321,7 +565,10 @@ taskcards:
   - data/products.json
   - target repository remotes
   dependencies:
-  - L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  - L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT
+  - L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE
+  - L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION
+  - L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION
   expected_outputs:
   - Responsibility-sized runtime modules.
   - Compatibility-only legacy commands or common supervised routing.
