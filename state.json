@@ -6,16 +6,16 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-MISSION-CONTROL-CONSUMER",
-    "claim_id": "9ea80a1e00034d1d8cdd39ed36724ff8",
-    "claimed_at": "2026-07-23T08:37:57.943182+00:00",
-    "claimed_by": "codex-level8-worker",
+    "active_task_id": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "7e3f2b658be6bea560eefe130060cea9ebb1d574c00f97cab6e52488cf05b37a",
-    "last_evaluated_at": "2026-07-23T08:38:04.551985+00:00",
+    "last_evaluated_at": "2026-07-23T08:48:17.855106+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
-      "L8-MISSION-CONTROL-CONSUMER": "IN_PROGRESS",
+      "L8-MISSION-CONTROL-CONSUMER": "IMPLEMENTED",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "TODO",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "TODO",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "TODO",
@@ -27,12 +27,24 @@
       "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": "TODO",
       "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": "TODO"
     },
-    "transition_history": []
+    "transition_history": [
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-autonomous-mission-control/mission-control-verification.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex-level8-worker",
+        "occurred_at": "2026-07-23T08:48:17.855100+00:00",
+        "reason": "Committed mission controller implementation a1a6551",
+        "task_id": "L8-MISSION-CONTROL-CONSUMER",
+        "to_status": "IMPLEMENTED"
+      }
+    ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 5,
+  "state_version": 6,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
