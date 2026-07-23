@@ -11,7 +11,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "03bf3e3e79100bc19c32519d486f941866e107fa51036ff118589ef01fb30883",
-    "last_evaluated_at": "2026-07-23T13:35:54.496317+00:00",
+    "last_evaluated_at": "2026-07-23T13:36:09.373452+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -22,7 +22,7 @@
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "CLOSED",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
-      "L8-WAVE1-CANONICAL-SAFETY-SPINE": "IMPLEMENTED",
+      "L8-WAVE1-CANONICAL-SAFETY-SPINE": "VERIFIED",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "TODO",
       "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "TODO",
       "L8-WAVE4-PRESENTATION-INTELLIGENCE": "TODO",
@@ -409,13 +409,26 @@
         "reason": "Canonical runtime, typed contracts, fail-closed classification, cancellation cleanup, and heterogeneous proofs are committed; governance closeout remains pending fresh master-section approval.",
         "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "commit:e74a3a2",
+          "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/verification-summary.json",
+          "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/canonical-mutation-path-audit.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "wave1-independent-verifier",
+        "occurred_at": "2026-07-23T13:36:09.373444+00:00",
+        "reason": "Committed source and governance closure pass every official check; heterogeneous failures are terminally non-successful and the canonical mutation audit finds no bypass.",
+        "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+        "to_status": "VERIFIED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 45,
+  "state_version": 46,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
