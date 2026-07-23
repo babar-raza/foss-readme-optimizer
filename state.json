@@ -189,18 +189,18 @@
       "upstream_revision_at_accept": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "b0cbd32b354971846f864e329cd5df5bf968e36c6e98b378fbe5474c42a5082e",
+      "accepted_facts_hash": "7da866c4abfea71e5a62bac97758943aeeb7428c95baf50bf2bb326ab2526665",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": "no live resolver registered for ecosystem 'typescript'",
+        "evidence": "npm: excel-cells NOT FOUND (404)",
         "handoff_findings": [
           {
             "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-22T14:15:43.920899+00:00",
+            "detected_at": "2026-07-23T06:49:33.994682+00:00",
             "evidence": {
-              "detail": "no live resolver registered for ecosystem 'typescript'"
+              "detail": "npm: excel-cells NOT FOUND (404)"
             },
             "surface": "packages"
           }
@@ -213,7 +213,7 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:15:43.921405+00:00",
+      "last_run_timestamp": "2026-07-23T06:49:33.995078+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b"
@@ -391,7 +391,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 26,
+  "state_version": 27,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2ecc445e54a42fc39e1d4012c1cf4bf6a4fb3512564ca5a13a1bcb652fbbda2f",
