@@ -18,7 +18,9 @@ Outputs:
 
 from __future__ import annotations
 
+import argparse
 import csv
+import io
 import sys
 from collections import Counter
 from pathlib import Path
@@ -43,6 +45,9 @@ GAP_CLASSES = {"NAMED_ONLY", "DEFERRED_WITHOUT_DESIGN", "MISSING"}
 #                      already enforce: permanent IDs, never-push, docs-change-together)
 #  - PLANNED        -> DEFERRED_WITH_DESIGN (this investigation's docs carry a design)
 #                      ... tightened or loosened per ID below
+#  - PARTIAL        -> PARTIALLY_INVESTIGATED (some implementation/proof exists)
+#  - BACKLOG        -> DEFERRED_WITH_DESIGN (explicitly tracked but not executable now)
+#  - DEPRECATED     -> NOT_APPLICABLE_WITH_EVIDENCE (retained historical obligation)
 #  - RESEARCH-GATED -> DEFERRED_WITHOUT_DESIGN (research not performed this sprint)
 #                      unless overridden
 STATUS_DEFAULT = {
@@ -55,7 +60,19 @@ STATUS_DEFAULT = {
         "FULLY_INVESTIGATED",
         "Active governance rule already enforced by this investigation's process",
     ),
+    "PARTIAL": (
+        "PARTIALLY_INVESTIGATED",
+        "Requirement has partial implementation or proof and retains an explicit open boundary",
+    ),
     "PLANNED": ("DEFERRED_WITH_DESIGN", "Carried by the governed roadmap"),
+    "BACKLOG": (
+        "DEFERRED_WITH_DESIGN",
+        "Explicitly tracked backlog item excluded from the active mandatory mission queue",
+    ),
+    "DEPRECATED": (
+        "NOT_APPLICABLE_WITH_EVIDENCE",
+        "Deprecated obligation retained for traceability rather than current execution",
+    ),
     "RESEARCH-GATED": (
         "DEFERRED_WITHOUT_DESIGN",
         "Research deliverable not performed in this sprint",
@@ -664,9 +681,16 @@ REVIEW_DOWNGRADES: dict[str, tuple[str, str]] = {
 }
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args(argv)
     inv = yaml.safe_load(INVENTORY.read_text(encoding="utf-8"))
     rows = inv["requirements"]
+    unknown_statuses = sorted({row["status"] for row in rows} - set(STATUS_DEFAULT))
+    if unknown_statuses:
+        print(f"ERROR: requirement statuses without coverage defaults: {unknown_statuses}")
+        return 1
     out_rows = []
     for r in rows:
         rid, status = r["id"], r["status"]
@@ -697,23 +721,24 @@ def main() -> int:
     p0_gaps = [x for x in p0p1_gaps if x["priority"] == "P0"]
 
     # CSV
-    with OUT_CSV.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(
-            f,
-            fieldnames=[
-                "id",
-                "group",
-                "priority",
-                "status",
-                "coverage",
-                "note",
-                "repair_route",
-                "section",
-            ],
-        )
-        w.writeheader()
-        for x in out_rows:
-            w.writerow({k: x[k] for k in w.fieldnames})
+    csv_buffer = io.StringIO(newline="")
+    writer = csv.DictWriter(
+        csv_buffer,
+        fieldnames=[
+            "id",
+            "group",
+            "priority",
+            "status",
+            "coverage",
+            "note",
+            "repair_route",
+            "section",
+        ],
+    )
+    writer.writeheader()
+    for x in out_rows:
+        writer.writerow({k: x[k] for k in writer.fieldnames})
+    csv_text = csv_buffer.getvalue().replace("\r\n", "\n")
 
     # Markdown report
     md = [
@@ -786,13 +811,26 @@ def main() -> int:
         "",
         "Full per-requirement rows: `control/requirements-coverage.csv`.",
     ]
-    OUT_MD.write_text("\n".join(md) + "\n", encoding="utf-8")
+    markdown_text = "\n".join(md) + "\n"
+    if args.check:
+        stale = [
+            path.relative_to(REPO_ROOT)
+            for path, expected in ((OUT_CSV, csv_text), (OUT_MD, markdown_text))
+            if not path.exists() or path.read_text(encoding="utf-8") != expected
+        ]
+        if stale:
+            print(f"stale: {', '.join(str(path) for path in stale)}")
+            return 1
+    else:
+        OUT_CSV.write_text(csv_text, encoding="utf-8", newline="")
+        OUT_MD.write_text(markdown_text, encoding="utf-8")
 
     print(f"classified: {len(out_rows)}  overrides: {len(OVERRIDES)}")
     print(f"by class: {dict(sorted(tot_cls.items()))}")
     print(f"P0/P1 gaps: {len(p0p1_gaps)} (P0: {len(p0_gaps)}) -> {[x['id'] for x in p0p1_gaps]}")
-    print(f"wrote: {OUT_MD.relative_to(REPO_ROOT)}")
-    print(f"wrote: {OUT_CSV.relative_to(REPO_ROOT)}")
+    verb = "current" if args.check else "wrote"
+    print(f"{verb}: {OUT_MD.relative_to(REPO_ROOT)}")
+    print(f"{verb}: {OUT_CSV.relative_to(REPO_ROOT)}")
     return 0
 
 

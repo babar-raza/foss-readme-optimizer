@@ -4,7 +4,7 @@ governed_by:
 - plans/GOVERNANCE.md
 artifact_role: analysis_or_evidence_only
 source_document: plans/requirements.md
-source_head_commit: eed220fb3cdb1d2b558c4f3e3d73694e023845b0
+source_head_commit: 9f06aa0c019c7af483be1519748263990411d9c6
 totals:
   requirements: 390
   unique_ids: 390
@@ -4505,7 +4505,8 @@ requirements:
   acceptance_evidence: '`TriggerEnvelopeV2`, seven-state `TriggerLifecycleV2`, `accept_trigger()`, and `recovery_sweep()`
     are wired into the canonical command and workflow. The sweep emits a per-repository recovery matrix, and `--resume-trigger-key`
     loads the original envelope rather than inventing a new logical trigger. Terminal duplicates suppress; unfinished duplicates
-    resume. Unit fault injection covers every checkpoint; hosted-runner loss proof remains open.'
+    restart canonical supervision under the same trigger and rely on idempotent checkpoints/effect reconciliation. Hosted-runner
+    loss proof remains open.'
   traceability_raw: Decisions 26, 74; Wave 2
   decision_refs:
   - '26'
@@ -4519,8 +4520,9 @@ requirements:
   requirement: The normal portfolio runtime MUST expose health and backlog state sufficient to detect missed schedules, stuck
     leases, repeated repository failures, rate-limit backoff, evidence-write failure, open proposals, and last success without
     reading raw runner logs.
-  acceptance_evidence: '`HealthReportV1` and `readme-agent health-report` expose durable portfolio state; the workflow uploads
-    it, creates/updates an issue, fails its Actions check, and supports an external dead-man heartbeat. Rate-limit/evidence-failure
+  acceptance_evidence: '`HealthReportV1` and `readme-agent health-report` expose durable portfolio state; retryable or SLA-aged
+    backlog is explicitly actionable and unhealthy, while recent bounded in-flight work remains visible. The workflow uploads
+    the report, creates/updates an issue, fails its Actions check, and supports an external dead-man heartbeat. Rate-limit/evidence-failure
     population and live alert proof remain open.'
   traceability_raw: Decisions 26, 74; Wave 2
   decision_refs:
@@ -4552,9 +4554,10 @@ requirements:
   requirement: 'Durable state MUST persist progress after 11 checkpoints: trigger accepted, run started, snapshot captured,
     profile completed, task started, task completed, verifier result, repair plan, effect pending, effect applied, and final
     acceptance, so a new runner can resume or reconcile unfinished work.'
-  acceptance_evidence: '`CheckpointV1` and `LifecycleRecorder` are wired at every named producer. A parameterized kill-after-persist
-    test recovers and completes the same logical trigger at all 11 boundaries. Real process-kill/runner reproduction remains
-    open.'
+  acceptance_evidence: '`CheckpointV1` and `LifecycleRecorder` are wired at every named producer. The parameterized local
+    fault test proves persistence, recovery eligibility, same-trigger restart, and eventual completion at all 11 boundaries;
+    it does not claim stage-directed skipping of earlier work. Current recovery restarts canonical supervision and relies
+    on checkpoint/effect idempotency and reconciliation. Producer-level hosted interruption/repetition proof remains open.'
   traceability_raw: Decision 74; Wave 2
   decision_refs:
   - '74'
@@ -6116,8 +6119,9 @@ requirements:
   section: 20. Level-8 consolidation gates
   requirement: Production lifecycle state MUST implement `TriggerEnvelopeV2`, `CheckpointV1`, seven trigger states, all named
     lifecycle checkpoints, and explicit migrations from supported earlier schemas; unknown/newer schemas MUST fail closed.
-  acceptance_evidence: V1-to-V2 and unknown-version tests pass; all 11 checkpoint fault injections resume one logical trigger;
-    intake state outage blocks preflight/LLM. Real runner-kill and state-outage proofs remain open.
+  acceptance_evidence: V1-to-V2 and unknown-version tests pass; all 11 checkpoint fault injections prove same-trigger canonical
+    restart rather than stage-directed continuation; intake state outage blocks preflight/LLM. Real producer interruption,
+    runner-kill, and state-outage proofs remain open.
   traceability_raw: Decisions 32, 74; Wave 2; RUN-006/009
   decision_refs:
   - '32'
@@ -6147,7 +6151,9 @@ requirements:
     facts, presentation plan, authorization, verifier, effects, and requirement-level results. Terminal classification MUST
     fail closed if required evidence is absent or invalid.
   acceptance_evidence: '`RunManifestV3`, atomic writer, checksum inventory, corruption gate, and GitHub-profile evidence requirement
-    are built. Retention policy and production-like 100%-terminal-manifest proof remain open.'
+    are built. Terminal state now follows final-acceptance checkpoint, manifest finalization, and checksum validation; an
+    injected finalization failure persists `retryable`, never `completed`. Retention policy and production-like 100%-terminal-manifest
+    proof remain open.'
   traceability_raw: Decision 74; Waves 2 and 8; EVID-*; SAFE-008/009
   decision_refs:
   - '74'

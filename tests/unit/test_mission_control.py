@@ -1,6 +1,7 @@
 """Offline tests for the supervisor's central mission-taskcard consumer."""
 
 import hashlib
+import importlib.util
 from copy import deepcopy
 from pathlib import Path
 
@@ -23,6 +24,15 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 REAL_GRAPH = (
     REPO_ROOT / "plans" / "investigations" / "control" / "level8-autonomous-mission-task-graph.yaml"
 )
+
+
+def _load_tool_module(name: str, relative_path: str):
+    module_path = REPO_ROOT / relative_path
+    spec = importlib.util.spec_from_file_location(name, module_path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 class _MemoryStateBackend:
@@ -64,6 +74,19 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert l8_mapping.task_id == "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"
     requirements_path = REPO_ROOT / coverage.source_path
     assert coverage.source_sha256 == hashlib.sha256(requirements_path.read_bytes()).hexdigest()
+
+
+def test_requirement_coverage_classifier_handles_every_extractor_status():
+    extractor = _load_tool_module(
+        "extract_requirements_for_status_contract",
+        "plans/investigations/tools/extract_requirements.py",
+    )
+    classifier = _load_tool_module(
+        "coverage_classify_for_status_contract",
+        "plans/investigations/tools/coverage_classify.py",
+    )
+
+    assert set(classifier.STATUS_DEFAULT) == extractor.VALID_STATUSES
 
 
 def test_evaluate_initializes_and_preserves_the_bootstrap_claim():

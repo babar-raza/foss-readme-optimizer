@@ -146,6 +146,13 @@ def main() -> int:
         [python, "-m", "mypy", "src"],
         ["actionlint"],
         [python, "scripts/governance/validate_plan_structure.py"],
+        [python, "plans/investigations/tools/extract_requirements.py", "--check"],
+        [python, "plans/investigations/tools/coverage_classify.py", "--check"],
+        [
+            python,
+            "scripts/governance/build_level8_requirement_taskcard_coverage.py",
+            "--check",
+        ],
     ]
     official_results = [_run(command, timeout_seconds=180) for command in official_commands]
     _write_log(evidence_dir / "official-static-quality-gates.log", official_results)

@@ -2,7 +2,7 @@
 
 governed_by: `plans/master.md + plans/requirements.md + plans/GOVERNANCE.md`  
 artifact_role: analysis_or_evidence_only  
-(223 requirements @ HEAD `4adbaaf`)
+(390 requirements @ HEAD `9f06aa0`)
 
 Coverage counts a requirement only when this investigation defines all 10 elements (authoritative input, owner, current behavior, gap, target, state, failure handling, implementation direction, acceptance test, evidence). Judgments: per-ID overrides over status defaults, with an independent-review downgrade pass — see `tools/coverage_classify.py` for every note.
 
@@ -10,40 +10,58 @@ Coverage counts a requirement only when this investigation defines all 10 elemen
 
 | Classification | Count |
 |---|---:|
-| FULLY_INVESTIGATED | 67 |
-| DEFERRED_WITH_DESIGN | 54 |
-| ALREADY_PROVEN | 52 |
-| PARTIALLY_INVESTIGATED | 37 |
+| ALREADY_PROVEN | 133 |
+| PARTIALLY_INVESTIGATED | 85 |
+| DEFERRED_WITH_DESIGN | 84 |
+| FULLY_INVESTIGATED | 75 |
 | DEFERRED_WITHOUT_DESIGN | 13 |
 
 ## Totals by group x classification
 
 | Group | ALREADY_PROVEN | DEFERRED_WITHOUT_DESIGN | DEFERRED_WITH_DESIGN | FULLY_INVESTIGATED | PARTIALLY_INVESTIGATED | Total |
 |---|---:|---:|---:|---:|---:|---:|
+| AGT | 5 | 0 | 0 | 0 | 3 | 8 |
+| AUTH | 5 | 0 | 1 | 0 | 1 | 7 |
 | BIZ | 0 | 0 | 2 | 4 | 2 | 8 |
-| CORE | 24 | 2 | 1 | 3 | 2 | 32 |
+| CAP | 5 | 0 | 3 | 0 | 1 | 9 |
+| CORE | 24 | 2 | 1 | 3 | 4 | 34 |
+| DEP | 5 | 0 | 1 | 0 | 0 | 6 |
 | DOC | 0 | 3 | 1 | 4 | 2 | 10 |
-| FACT | 0 | 0 | 4 | 3 | 3 | 10 |
-| GOV | 0 | 0 | 1 | 11 | 1 | 13 |
+| ECO | 4 | 0 | 1 | 0 | 0 | 5 |
+| EFF | 6 | 0 | 0 | 0 | 0 | 6 |
+| EVID | 2 | 0 | 0 | 0 | 2 | 4 |
+| FACT | 2 | 0 | 5 | 3 | 3 | 13 |
+| FRESH | 6 | 0 | 0 | 0 | 0 | 6 |
+| GAP | 2 | 0 | 1 | 0 | 0 | 3 |
+| GOV | 5 | 0 | 3 | 17 | 1 | 26 |
 | INT | 0 | 0 | 4 | 6 | 0 | 10 |
-| LLM | 8 | 0 | 3 | 0 | 3 | 14 |
+| L8 | 1 | 0 | 3 | 0 | 9 | 13 |
+| LLM | 14 | 0 | 5 | 0 | 3 | 22 |
+| MEM | 3 | 0 | 0 | 0 | 2 | 5 |
 | MET | 0 | 3 | 3 | 2 | 0 | 8 |
-| NFR | 2 | 0 | 0 | 3 | 7 | 12 |
-| OPS | 4 | 3 | 1 | 0 | 0 | 8 |
+| NFR | 2 | 0 | 0 | 4 | 7 | 13 |
+| ONB | 0 | 0 | 2 | 0 | 2 | 4 |
+| OPS | 5 | 3 | 3 | 0 | 2 | 13 |
+| ORC | 3 | 0 | 2 | 0 | 3 | 8 |
 | OWN | 0 | 0 | 0 | 12 | 3 | 15 |
-| PIL | 0 | 0 | 6 | 3 | 1 | 10 |
-| RDM | 2 | 1 | 14 | 3 | 3 | 23 |
-| SAFE | 8 | 1 | 2 | 3 | 4 | 18 |
-| SURF | 0 | 0 | 8 | 7 | 0 | 15 |
-| VAL | 4 | 0 | 4 | 3 | 6 | 17 |
+| PIL | 0 | 0 | 8 | 4 | 2 | 14 |
+| PKG | 5 | 0 | 1 | 0 | 0 | 6 |
+| PRL | 3 | 0 | 4 | 0 | 2 | 9 |
+| RDM | 5 | 1 | 11 | 3 | 5 | 25 |
+| RUN | 3 | 0 | 0 | 0 | 7 | 10 |
+| SAFE | 7 | 1 | 3 | 3 | 5 | 19 |
+| SCL | 2 | 0 | 4 | 0 | 3 | 9 |
+| SURF | 0 | 0 | 6 | 7 | 2 | 15 |
+| VAL | 4 | 0 | 5 | 3 | 6 | 18 |
+| VER | 5 | 0 | 1 | 0 | 3 | 9 |
 
 ## Totals by priority
 
 | Priority | Total | In gap classes (NAMED_ONLY/DEFERRED_WITHOUT_DESIGN/MISSING) |
 |---|---:|---:|
-| P0 | 87 | 0 |
-| P1 | 109 | 7 |
-| P2 | 27 | 6 |
+| P0 | 143 | 0 |
+| P1 | 170 | 7 |
+| P2 | 72 | 6 |
 
 ## P0/P1 requirements in gap classes -- 7 (P0: 0)
 

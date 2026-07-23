@@ -50,6 +50,11 @@ the user's unrelated `AGENTS.md`, `plans/idea.md`, `plans/changelog.md`, `plans/
 10. Health could report green while retryable backlog existed. Backlog now carries age,
     actionability, and reason; retryable or SLA-aged work makes `HealthReportV1` unhealthy, while
     recent bounded in-flight work stays visible without a false incident.
+11. The refreshed full suite rejected stale requirement-task coverage after the requirement truth
+    correction, then the historical coverage classifier crashed on governed `PARTIAL`/`BACKLOG`
+    statuses. Both producers now cover the extractor's complete status vocabulary, expose
+    non-mutating `--check` modes, regenerate all dependent outputs, and have an enforced
+    producer-consumer status-contract test.
 
 ## Delivered runtime
 

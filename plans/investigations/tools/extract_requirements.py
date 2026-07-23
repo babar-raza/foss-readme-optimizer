@@ -9,6 +9,7 @@ Read-only with respect to the governed documents. Output:
 
 from __future__ import annotations
 
+import argparse
 import re
 import subprocess
 import sys
@@ -62,7 +63,10 @@ def _expand_ref_list(raw: str) -> list[str]:
     return [x for x in out if not (x in seen or seen.add(x))]
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args(argv)
     text = REQUIREMENTS_MD.read_text(encoding="utf-8")
     rows: list[dict] = []
     section = ""
@@ -113,7 +117,7 @@ def main() -> int:
         "artifact_role": "analysis_or_evidence_only",
         "source_document": "plans/requirements.md",
         "source_head_commit": subprocess.check_output(
-            ["git", "rev-parse", "HEAD"],
+            ["git", "log", "-1", "--format=%H", "--", str(REQUIREMENTS_MD)],
             cwd=REPO_ROOT,
             text=True,
         ).strip(),
@@ -128,18 +132,21 @@ def main() -> int:
         "requirements": rows,
     }
 
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    OUT_FILE.write_text(
-        yaml.safe_dump(inventory, sort_keys=False, allow_unicode=True, width=120),
-        encoding="utf-8",
-    )
+    rendered = yaml.safe_dump(inventory, sort_keys=False, allow_unicode=True, width=120)
+    if args.check:
+        if not OUT_FILE.exists() or OUT_FILE.read_text(encoding="utf-8") != rendered:
+            print(f"stale: {OUT_FILE.relative_to(REPO_ROOT)}")
+            return 1
+    else:
+        OUT_DIR.mkdir(parents=True, exist_ok=True)
+        OUT_FILE.write_text(rendered, encoding="utf-8")
 
     print(f"requirements: {len(rows)}  unique: {len(set(ids))}  dupes: {dupes or 'none'}")
     print(f"by_group: {dict(sorted(by_group.items()))}")
     print(f"by_status: {dict(sorted(by_status.items()))}")
     print(f"by_priority: {dict(sorted(by_priority.items()))}")
     print(f"problems: {problems or 'none'}")
-    print(f"wrote: {OUT_FILE.relative_to(REPO_ROOT)}")
+    print(f"{'current' if args.check else 'wrote'}: {OUT_FILE.relative_to(REPO_ROOT)}")
     return 1 if problems else 0
 
 
