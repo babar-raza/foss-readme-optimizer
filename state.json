@@ -6,17 +6,17 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-REQUIREMENT-TO-TASKCARD-COVERAGE",
-    "claim_id": "099d2d7646a94b5187293a62fe86e8de",
-    "claimed_at": "2026-07-23T08:48:43.634025+00:00",
-    "claimed_by": "codex-level8-worker",
+    "active_task_id": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "2cd9c5306ca15dfd2b901b674c804127db4a23a5b93da2d14eebc3fdf2899973",
-    "last_evaluated_at": "2026-07-23T08:52:59.463973+00:00",
+    "last_evaluated_at": "2026-07-23T08:54:52.101872+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
-      "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "IN_PROGRESS",
+      "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "IMPLEMENTED",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "TODO",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "TODO",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "TODO",
@@ -80,13 +80,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-REQUIREMENT-TO-TASKCARD-COVERAGE",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex-level8-worker",
+        "occurred_at": "2026-07-23T08:54:52.101864+00:00",
+        "reason": "Committed complete requirement mapping 9cd7d7d",
+        "task_id": "L8-REQUIREMENT-TO-TASKCARD-COVERAGE",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 11,
+  "state_version": 12,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
