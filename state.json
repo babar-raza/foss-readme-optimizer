@@ -12,7 +12,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "53515556cded520fb4b32a0b2c41b85370b94e650a0db8977d72e868896e7749",
-    "last_evaluated_at": "2026-07-23T17:55:48.786763+00:00",
+    "last_evaluated_at": "2026-07-23T17:56:07.697809+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -25,7 +25,7 @@
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "CLOSED",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "BLOCKED_EXTERNAL",
-      "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION": "IMPLEMENTED",
+      "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION": "VERIFIED",
       "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "TODO",
       "L8-WAVE4-PRESENTATION-INTELLIGENCE": "TODO",
       "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": "TODO",
@@ -489,6 +489,18 @@
         "reason": "Repository-local ProductFactsV2, ownership, protected-content, and factuality boundaries implemented; parent production gates unchanged",
         "task_id": "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/independent-verification.json",
+          "plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/sha256sums.txt"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-23T17:56:07.697797+00:00",
+        "reason": "Static, focused, full-suite, live read-only, checksum, and independent acceptance evidence all pass",
+        "task_id": "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -496,7 +508,7 @@
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
   "schema_version": 2,
-  "state_version": 57,
+  "state_version": 58,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
