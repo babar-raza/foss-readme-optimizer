@@ -54,10 +54,10 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert len(graph_hash) == 64
     coverage = graph.requirement_coverage
     assert coverage is not None
-    assert coverage.total_requirement_rows == 389
-    assert coverage.mandatory_requirement_rows == 362
+    assert coverage.total_requirement_rows == 390
+    assert coverage.mandatory_requirement_rows == 366
     assert coverage.reopened_implemented_rows == 0
-    assert len({mapping.requirement_id for mapping in coverage.mappings}) == 389
+    assert len({mapping.requirement_id for mapping in coverage.mappings}) == 390
     l8_mapping = next(
         mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-011"
     )

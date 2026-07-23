@@ -10,6 +10,7 @@ Read-only with respect to the governed documents. Output:
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -22,7 +23,7 @@ OUT_FILE = OUT_DIR / "normalized-requirements-inventory.yaml"
 
 # A requirement row: | GOV-001 | P0 | GOVERNANCE | text | evidence | traceability |
 ROW_RE = re.compile(
-    r"^\|\s*(?P<id>[A-Z]+-\d{3})\s*"
+    r"^\|\s*(?P<id>[A-Z][A-Z0-9]{1,4}-\d{3})\s*"
     r"\|\s*(?P<priority>P\d)\s*"
     r"\|\s*(?P<status>[A-Z-]+)\s*"
     r"\|\s*(?P<requirement>.*?)\s*"
@@ -40,6 +41,7 @@ VALID_STATUSES = {
     "RESEARCH-GATED",
     "GOVERNANCE",
     "DEPRECATED",
+    "BACKLOG",
 }
 
 
@@ -110,7 +112,11 @@ def main() -> int:
         "governed_by": ["plans/master.md", "plans/requirements.md", "plans/GOVERNANCE.md"],
         "artifact_role": "analysis_or_evidence_only",
         "source_document": "plans/requirements.md",
-        "source_head_commit": "4adbaaf33d3c733afc8f9c9a14761f10e5b10d7c",
+        "source_head_commit": subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=REPO_ROOT,
+            text=True,
+        ).strip(),
         "totals": {
             "requirements": len(rows),
             "unique_ids": len(set(ids)),

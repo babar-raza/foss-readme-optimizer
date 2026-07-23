@@ -687,9 +687,14 @@ taskcards:
   allowed_paths:
   - src/readme_agent/
   - tests/
-  - .github/workflows/
+  - .github/
   - docs/
+  - pyproject.toml
+  - plans/requirements.md
+  - plans/investigations/
   - plans/investigations/evidence/
+  - scripts/retrofits/
+  - logs/
   forbidden_paths:
   - target repository default branches
   - config/authorization/
@@ -750,6 +755,7 @@ taskcards:
   - RUN-007
   - RUN-008
   - RUN-009
+  - RUN-010
   - MEM-001
   - MEM-002
   - MEM-003
@@ -1339,11 +1345,11 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 8b70b649982b1b56b6844f621d7ed5096f530487c4a772909dd46790850e07ea
+  source_sha256: 4a81c58d571dc5377d9ddc411bec452899de72d55ad377cf4cf6faa030259b09
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 389
-  mandatory_requirement_rows: 362
-  excluded_backlog_rows: 27
+  total_requirement_rows: 390
+  mandatory_requirement_rows: 366
+  excluded_backlog_rows: 24
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
   mappings:
@@ -2651,9 +2657,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: EVID-004
     priority: P2
-    requirement_status: BACKLOG
+    requirement_status: PARTIAL
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
-    disposition: excluded_backlog
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: AUTH-001
     priority: P0
@@ -3167,9 +3173,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: RUN-007
     priority: P1
-    requirement_status: BACKLOG
+    requirement_status: PARTIAL
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
-    disposition: excluded_backlog
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: RUN-008
     priority: P1
@@ -3179,9 +3185,15 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: RUN-009
     priority: P2
-    requirement_status: BACKLOG
+    requirement_status: PARTIAL
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
-    disposition: excluded_backlog
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RUN-010
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: ECO-001
     priority: P1
@@ -3605,7 +3617,7 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-001
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
     disposition: open_mandatory
     semantic_findings: []
@@ -3623,7 +3635,7 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-004
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
     disposition: open_mandatory
     semantic_findings: []
@@ -3677,7 +3689,7 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-013
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
     disposition: open_mandatory
     semantic_findings: []

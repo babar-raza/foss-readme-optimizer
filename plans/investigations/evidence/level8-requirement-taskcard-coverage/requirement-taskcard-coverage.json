@@ -4,23 +4,23 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "8b70b649982b1b56b6844f621d7ed5096f530487c4a772909dd46790850e07ea",
+  "source_sha256": "4a81c58d571dc5377d9ddc411bec452899de72d55ad377cf4cf6faa030259b09",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 389,
-  "mandatory_requirement_rows": 362,
-  "excluded_backlog_rows": 27,
+  "total_requirement_rows": 390,
+  "mandatory_requirement_rows": 366,
+  "excluded_backlog_rows": 24,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 33,
-    "excluded_backlog": 27,
-    "open_mandatory": 182,
+    "excluded_backlog": 24,
+    "open_mandatory": 186,
     "preserved_verified": 147
   },
   "taskcard_counts": {
     "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 34,
     "L8-WAVE1-CANONICAL-SAFETY-SPINE": 73,
-    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 49,
+    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 50,
     "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 40,
     "L8-WAVE4-PRESENTATION-INTELLIGENCE": 113,
     "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 54,
@@ -1770,9 +1770,9 @@
     {
       "requirement_id": "EVID-004",
       "priority": "P2",
-      "requirement_status": "BACKLOG",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "excluded_backlog",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -2458,9 +2458,9 @@
     {
       "requirement_id": "RUN-007",
       "priority": "P1",
-      "requirement_status": "BACKLOG",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "excluded_backlog",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -2474,9 +2474,17 @@
     {
       "requirement_id": "RUN-009",
       "priority": "P2",
-      "requirement_status": "BACKLOG",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "excluded_backlog",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RUN-010",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -3042,7 +3050,7 @@
     {
       "requirement_id": "L8-001",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
       "disposition": "open_mandatory",
       "semantic_findings": []
@@ -3066,7 +3074,7 @@
     {
       "requirement_id": "L8-004",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
       "disposition": "open_mandatory",
       "semantic_findings": []
@@ -3138,7 +3146,7 @@
     {
       "requirement_id": "L8-013",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
       "disposition": "open_mandatory",
       "semantic_findings": []
