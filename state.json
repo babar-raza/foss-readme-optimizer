@@ -333,18 +333,50 @@
       "upstream_revision_at_accept": "5b5b28eb372c28f4529928ea81696a0031b68d60"
     },
     "readme_presentation": {
-      "accepted_facts_hash": null,
-      "accepted_status": null,
-      "consecutive_failure_count": 4,
+      "accepted_facts_hash": "6d27138934cff08cf07ce0ed755faf2fd4ed5e82d898e245c29e1910873f789c",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "committed": false,
+        "fresh_fingerprint": "e254a50a8bc727a7542358338f141aa645e79af8faf6a57caf580a085e702ffc",
+        "llm_called": true,
+        "llm_calls": [
+          "relationship_explained"
+        ],
+        "prose_quality": {
+          "corroborated": false,
+          "flagged": false,
+          "quoted_span": "",
+          "reason": "The paragraph provides specific, non-repetitive information about the repository's purpose, distinguishing clearly between the open-source and commercial editions, including licensing and target use cases. It avoids generic boilerplate and reads as intentional, contextual documentation."
+        },
+        "prose_quality_repair_attempts": 0,
+        "render_status": "GENERATED",
+        "verification": {
+          "checks": {
+            "needs_write_matches": true,
+            "validation_passed": true
+          },
+          "nonce": "20260723-070709-25df",
+          "reason": null,
+          "requirement_map": {
+            "license_mentioned": true,
+            "products_com_link": true,
+            "products_org_link": true,
+            "relationship_explained": true
+          },
+          "token": "903f08caf4de15fa1225106477c9286f02c2b72996b374d7a8435a8e9f52b9bb",
+          "verdict": "accept"
+        },
+        "written": true
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "verification_rejected",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-23T06:48:02.992982+00:00",
+      "last_run_timestamp": "2026-07-23T07:07:34.270404+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "5b5b28eb372c28f4529928ea81696a0031b68d60"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
@@ -405,7 +437,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 44,
+  "state_version": 45,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
