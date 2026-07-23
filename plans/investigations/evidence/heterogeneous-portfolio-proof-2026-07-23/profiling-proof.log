@@ -1,0 +1,101 @@
+OK   aspose-cells-foss/Aspose.Cells-FOSS-for-Java                4.0s  detected_ecosystems=[{'ecosystem': 'java', 'manifest_path': 'pom.xml', 'confidence': 1.0, 'evidence': 'found pom.xml; parsed 6 field(s)'}] package_roots=1
+OK   aspose-cells-foss/Aspose.Cells-FOSS-for-.NET                5.0s  detected_ecosystems=[{'ecosystem': 'net', 'manifest_path': 'samples/Aspose.Cells_FOSS.Samples.Basic/Aspose.Cells_FOSS.Samples.Basic.csproj', 'confidence': 1.0, 'evidence': 'found Aspose.Cells_FOSS.Samples.Basic.csproj; parsed 3 field(s)'}] package_roots=15
+OK   aspose-cells-foss/Aspose.Cells-FOSS-for-Python              4.4s  detected_ecosystems=[{'ecosystem': 'python', 'manifest_path': 'pyproject.toml', 'confidence': 1.0, 'evidence': 'found pyproject.toml; parsed 5 field(s)'}] package_roots=1
+OK   aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript          5.9s  detected_ecosystems=[{'ecosystem': 'typescript', 'manifest_path': 'package.json', 'confidence': 1.0, 'evidence': 'found package.json; parsed 2 field(s)'}] package_roots=1
+OK   aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp                 4.6s  detected_ecosystems=[{'ecosystem': 'cpp', 'manifest_path': 'Aspose.Cells.Foss.Cpp.Tests/CMakeLists.txt', 'confidence': 0.5, 'evidence': 'found CMakeLists.txt; nothing parsed'}] package_roots=4
+OK   aspose-cells-foss/Aspose.Cells-FOSS-for-Rust                3.5s  detected_ecosystems=[] package_roots=0
+OK   aspose-pdf-foss/Aspose-PDF-FOSS-for-Go                      4.1s  detected_ecosystems=[{'ecosystem': 'go', 'manifest_path': 'go.mod', 'confidence': 1.0, 'evidence': 'found go.mod; parsed 3 field(s)'}] package_roots=1
+
+[
+  {
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "outcome": "ok",
+    "elapsed_seconds": 4.015458699999726,
+    "detected_ecosystems": [
+      {
+        "ecosystem": "java",
+        "manifest_path": "pom.xml",
+        "confidence": 1.0,
+        "evidence": "found pom.xml; parsed 6 field(s)"
+      }
+    ],
+    "package_root_count": 1
+  },
+  {
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+    "outcome": "ok",
+    "elapsed_seconds": 4.994828399998369,
+    "detected_ecosystems": [
+      {
+        "ecosystem": "net",
+        "manifest_path": "samples/Aspose.Cells_FOSS.Samples.Basic/Aspose.Cells_FOSS.Samples.Basic.csproj",
+        "confidence": 1.0,
+        "evidence": "found Aspose.Cells_FOSS.Samples.Basic.csproj; parsed 3 field(s)"
+      }
+    ],
+    "package_root_count": 15
+  },
+  {
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+    "outcome": "ok",
+    "elapsed_seconds": 4.445771400001831,
+    "detected_ecosystems": [
+      {
+        "ecosystem": "python",
+        "manifest_path": "pyproject.toml",
+        "confidence": 1.0,
+        "evidence": "found pyproject.toml; parsed 5 field(s)"
+      }
+    ],
+    "package_root_count": 1
+  },
+  {
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
+    "outcome": "ok",
+    "elapsed_seconds": 5.870878599991556,
+    "detected_ecosystems": [
+      {
+        "ecosystem": "typescript",
+        "manifest_path": "package.json",
+        "confidence": 1.0,
+        "evidence": "found package.json; parsed 2 field(s)"
+      }
+    ],
+    "package_root_count": 1
+  },
+  {
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+    "outcome": "ok",
+    "elapsed_seconds": 4.566050699999323,
+    "detected_ecosystems": [
+      {
+        "ecosystem": "cpp",
+        "manifest_path": "Aspose.Cells.Foss.Cpp.Tests/CMakeLists.txt",
+        "confidence": 0.5,
+        "evidence": "found CMakeLists.txt; nothing parsed"
+      }
+    ],
+    "package_root_count": 4
+  },
+  {
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+    "outcome": "ok",
+    "elapsed_seconds": 3.4960114999994403,
+    "detected_ecosystems": [],
+    "package_root_count": 0
+  },
+  {
+    "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+    "outcome": "ok",
+    "elapsed_seconds": 4.13750219999929,
+    "detected_ecosystems": [
+      {
+        "ecosystem": "go",
+        "manifest_path": "go.mod",
+        "confidence": 1.0,
+        "evidence": "found go.mod; parsed 3 field(s)"
+      }
+    ],
+    "package_root_count": 1
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-23",
+  "verdict": "NOT_PRESENTABLE",
+  "maturity_level": 3,
+  "authoritative_plan": "plans/master.md",
+  "requirements": "plans/requirements.md",
+  "audited_head": "f9e389e",
+  "working_tree_state": "materially_dirty_uncommitted_candidate",
+  "current_wave": "foundation correction before further autonomous-system expansion",
+  "next_executable_task": "rerun the previously false-success heterogeneous cases and prove VER-009 blocks every unresolved specialist error",
+  "blocking_conditions": [
+    "VER-009 code and unit regression exist but production-like heterogeneous rerun is outstanding",
+    "required durable-state failures remain best-effort",
+    "complete provenance-bearing product truth is not enforced before proposals",
+    "ownership and claim conflicts are diagnostic rather than blocking",
+    "remote_write is not automatically integrated with supervisor convergence or proposal state",
+    "no authorization records currently permit a product remote write",
+    "durable queue, checkpoint recovery, health, and alerting are incomplete",
+    "PIL-013 controlled three-pilot evidence bundle is absent",
+    "roadmap and master wave-closure claims disagree",
+    "July 23 implementation is uncommitted and therefore not shipped"
+  ],
+  "critical_finding": {
+    "requirement_id": "VER-009",
+    "symptom": "CONVERGED_NO_CHANGE and exit 0 despite unresolved README verification failure",
+    "affected_evidence": [
+      "plans/investigations/evidence/heterogeneous-portfolio-proof-2026-07-23/first-run-all-targets.log"
+    ],
+    "root_cause": "terminal convergence inspected planner task graph but not specialist results",
+    "candidate_fix": [
+      "src/readme_agent/supervisor/convergence.py",
+      "src/readme_agent/supervisor/loop.py",
+      "tests/unit/test_convergence.py",
+      "tests/unit/test_supervisor_loop.py"
+    ],
+    "acceptance_remaining": "repeat heterogeneous production-like proof with blocked/non-zero outcomes"
+  },
+  "repository_targets": [
+    "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java"
+  ],
+  "required_commands": [
+    ".venv/Scripts/python -m ruff check .",
+    ".venv/Scripts/python -m ruff format --check .",
+    ".venv/Scripts/python -m mypy src",
+    ".venv/Scripts/python -m pytest -q"
+  ],
+  "validation": {
+    "independent_focused_tests": "49 passed",
+    "plan_validator": "passed with 51 warnings",
+    "official_checks": "passed: ruff check, ruff format --check, mypy src, 1170 non-live tests passed with 18 deselected, plan structure, actionlint",
+    "post_fix_targeted_tests": "4 passed"
+  },
+  "evidence_locations": [
+    "plans/investigations/full-project-truth-audit-2026-07-23.md",
+    "plans/investigations/evidence/full-project-truth-audit-2026-07-23/execution-handoff.json"
+  ],
+  "resume_instructions": "Preserve the dirty worktree. Validate VER-009, rerun the heterogeneous cases, then close fail-closed state and facts/ownership gates before integrating remote proposal effects. Never write a product remote without fresh exact what/why/where approval."
+}

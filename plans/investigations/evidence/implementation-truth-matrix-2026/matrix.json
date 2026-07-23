@@ -1,0 +1,5492 @@
+{
+  "generated_by": "plans/investigations/tools/traceability_matrix.py",
+  "requirements_source": "plans/requirements.md",
+  "total_implemented_rows_checked": 150,
+  "rows_with_high_confidence_findings": [
+    {
+      "id": "GOV-009",
+      "line": 69,
+      "priority": "P1",
+      "cited_paths": [
+        "scripts/governance/validate_plan_structure.py",
+        "scripts/governance/install_hooks.py"
+      ],
+      "cited_paths_existing": [
+        "scripts/governance/validate_plan_structure.py",
+        "scripts/governance/install_hooks.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "GOV-026",
+      "line": 84,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "OWN-004",
+      "line": 108,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "OWN-012",
+      "line": 116,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "RDM-001",
+      "line": 143,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RDM-002",
+      "line": 144,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RDM-010",
+      "line": 152,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RDM-013",
+      "line": 155,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RDM-014",
+      "line": 156,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-001",
+      "line": 193,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-002",
+      "line": 194,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-003",
+      "line": 195,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-004",
+      "line": 196,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_supervisor_loop.py",
+        "tests/unit/test_capabilities.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_supervisor_loop.py",
+        "tests/unit/test_capabilities.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_supervisor_loop.py",
+        "tests/unit/test_capabilities.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "CORE-033",
+      "line": 197,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "CORE-005",
+      "line": 198,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-006",
+      "line": 199,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-007",
+      "line": 200,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-008",
+      "line": 201,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-009",
+      "line": 202,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-010",
+      "line": 203,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-011",
+      "line": 204,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-012",
+      "line": 205,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-013",
+      "line": 206,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-014",
+      "line": 207,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-016",
+      "line": 209,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-017",
+      "line": 210,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-018",
+      "line": 211,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-019",
+      "line": 212,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-026",
+      "line": 219,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-027",
+      "line": 220,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-028",
+      "line": 221,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-029",
+      "line": 222,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-030",
+      "line": 223,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-031",
+      "line": 224,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-032",
+      "line": 225,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_registry_discovery.py",
+        "src/readme_agent/registry/discovery.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_registry_discovery.py",
+        "src/readme_agent/registry/discovery.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_registry_discovery.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "OPS-002",
+      "line": 233,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "OPS-003",
+      "line": 234,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "OPS-007",
+      "line": 238,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "OPS-008",
+      "line": 239,
+      "priority": "P1",
+      "cited_paths": [
+        ".github/workflows/update-products-registry.yml"
+      ],
+      "cited_paths_existing": [
+        ".github/workflows/update-products-registry.yml"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "DEP-004",
+      "line": 251,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-001",
+      "line": 259,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-002",
+      "line": 260,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-003",
+      "line": 261,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-004",
+      "line": 262,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-007",
+      "line": 265,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-008",
+      "line": 266,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-013",
+      "line": 271,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-014",
+      "line": 272,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-019",
+      "line": 277,
+      "priority": "P0",
+      "cited_paths": [
+        "plans/investigations/llm-gateway-context-ceiling-corrected.md",
+        "plans/master.md",
+        "plans/investigations/full-surface-current-state.md"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/llm-gateway-context-ceiling-corrected.md",
+        "plans/master.md",
+        "plans/investigations/full-surface-current-state.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "VAL-001",
+      "line": 286,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "VAL-002",
+      "line": 287,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "VAL-003",
+      "line": 288,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "VAL-004",
+      "line": 289,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "VAL-006",
+      "line": 291,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-001",
+      "line": 309,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-002",
+      "line": 310,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-003",
+      "line": 311,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-004",
+      "line": 312,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-005",
+      "line": 313,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-007",
+      "line": 315,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-008",
+      "line": 316,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-009",
+      "line": 317,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "EVID-002",
+      "line": 332,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "AUTH-003",
+      "line": 340,
+      "priority": "P0",
+      "cited_paths": [
+        "config/authorization/"
+      ],
+      "cited_paths_existing": [
+        "config/authorization/"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "NFR-001",
+      "line": 365,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "NFR-002",
+      "line": 366,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "NFR-004",
+      "line": 368,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "DOC-003",
+      "line": 417,
+      "priority": "P1",
+      "cited_paths": [
+        "docs/presentation-standard.md",
+        "plans/investigations/reference-repository-benchmark.md"
+      ],
+      "cited_paths_existing": [
+        "docs/presentation-standard.md",
+        "plans/investigations/reference-repository-benchmark.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "DOC-004",
+      "line": 418,
+      "priority": "P1",
+      "cited_paths": [
+        "docs/presentation-standard.md"
+      ],
+      "cited_paths_existing": [
+        "docs/presentation-standard.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "DOC-005",
+      "line": 419,
+      "priority": "P1",
+      "cited_paths": [
+        "docs/github-surface-control.md"
+      ],
+      "cited_paths_existing": [
+        "docs/github-surface-control.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "AGT-001",
+      "line": 439,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "AGT-003",
+      "line": 441,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "AGT-004",
+      "line": 442,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_convergence.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "RUN-003",
+      "line": 468,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "PKG-005",
+      "line": 492,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_verify_package_acquisition.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_verify_package_acquisition.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_verify_package_acquisition.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "MEM-002",
+      "line": 509,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "MEM-003",
+      "line": 510,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [
+        "cited pytest suite `tests/unit/test_state_backend.py::FakeStateBackend` contains no tests"
+      ],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "cited pytest suite `tests/unit/test_state_backend.py::FakeStateBackend` contains no tests",
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "EFF-001",
+      "line": 529,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "EFF-006",
+      "line": 534,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_effect_identity.py",
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_effect_identity.py",
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_effect_identity.py",
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "FRESH-001",
+      "line": 540,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_freshness_contract.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_freshness_contract.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_freshness_contract.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "ORC-001",
+      "line": 551,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_task_graph.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_task_graph.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_task_graph.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "GAP-002",
+      "line": 579,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "PRL-001",
+      "line": 601,
+      "priority": "P0",
+      "cited_paths": [
+        "scripts/retrofits/prove_open_presentation_pr_live.py"
+      ],
+      "cited_paths_existing": [
+        "scripts/retrofits/prove_open_presentation_pr_live.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "PRL-004",
+      "line": 604,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "PRL-008",
+      "line": 608,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    }
+  ],
+  "rows_with_informational_findings_only": [
+    {
+      "id": "GOV-021",
+      "line": 81,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "GOV-024",
+      "line": 85,
+      "priority": "P2",
+      "cited_paths": [
+        "src/readme_agent/llm/prompt_registry.py"
+      ],
+      "cited_paths_existing": [
+        "src/readme_agent/llm/prompt_registry.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "GOV-025",
+      "line": 86,
+      "priority": "P1",
+      "cited_paths": [
+        "scripts/governance/run_official_checks.py",
+        "plans/investigations/evidence/verification-baseline-bootstrap/bootstrap-proof-2026-07-22.json"
+      ],
+      "cited_paths_existing": [
+        "scripts/governance/run_official_checks.py",
+        "plans/investigations/evidence/verification-baseline-bootstrap/bootstrap-proof-2026-07-22.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/verification-baseline-bootstrap/bootstrap-proof-2026-07-22.json",
+          "bytes": 3490,
+          "sha256": "242c6336c623b2ee740580d81b3dedb1ec9ca4c179e057e36876f183af89f504",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "RDM-019",
+      "line": 161,
+      "priority": "P2",
+      "cited_paths": [
+        "docs/presentation-standard.md"
+      ],
+      "cited_paths_existing": [
+        "docs/presentation-standard.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "RDM-023",
+      "line": 165,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "DEP-001",
+      "line": 248,
+      "priority": "P2",
+      "cited_paths": [
+        "plans/investigations/evidence/dependency-reproducibility-2026-07-23/sbom.cyclonedx.json"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/evidence/dependency-reproducibility-2026-07-23/sbom.cyclonedx.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/dependency-reproducibility-2026-07-23/sbom.cyclonedx.json",
+          "bytes": 12862,
+          "sha256": "6935a15937f7b73f1779b23897a8fe979ac9cf7a9db739de42a9cb3dca84981b",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "DEP-002",
+      "line": 249,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "DEP-003",
+      "line": 250,
+      "priority": "P2",
+      "cited_paths": [
+        ".github/workflows/dependency-check.yml"
+      ],
+      "cited_paths_existing": [
+        ".github/workflows/dependency-check.yml"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "DEP-005",
+      "line": 252,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-018",
+      "line": 276,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    }
+  ],
+  "rows_clean": [
+    "GOV-016",
+    "FACT-011",
+    "FACT-012",
+    "RDM-005",
+    "RDM-024",
+    "CORE-015",
+    "CORE-023",
+    "CORE-034",
+    "OPS-005",
+    "OPS-012",
+    "LLM-015",
+    "LLM-016",
+    "LLM-020",
+    "LLM-021",
+    "EVID-001",
+    "AUTH-001",
+    "AUTH-002",
+    "AUTH-004",
+    "AUTH-005",
+    "AUTH-006",
+    "AGT-002",
+    "AGT-007",
+    "CAP-003",
+    "CAP-004",
+    "CAP-006",
+    "CAP-008",
+    "RUN-001",
+    "RUN-008",
+    "ECO-001",
+    "ECO-002",
+    "ECO-003",
+    "ECO-004",
+    "PKG-001",
+    "PKG-002",
+    "PKG-003",
+    "PKG-004",
+    "MEM-001",
+    "MEM-004",
+    "EFF-002",
+    "EFF-003",
+    "EFF-004",
+    "EFF-005",
+    "FRESH-002",
+    "FRESH-003",
+    "FRESH-004",
+    "FRESH-005",
+    "FRESH-006",
+    "ORC-007",
+    "VER-003",
+    "VER-004",
+    "VER-007",
+    "GAP-001",
+    "SCL-007",
+    "SCL-009",
+    "PRL-007"
+  ],
+  "all_rows": [
+    {
+      "id": "GOV-009",
+      "line": 69,
+      "priority": "P1",
+      "cited_paths": [
+        "scripts/governance/validate_plan_structure.py",
+        "scripts/governance/install_hooks.py"
+      ],
+      "cited_paths_existing": [
+        "scripts/governance/validate_plan_structure.py",
+        "scripts/governance/install_hooks.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "GOV-016",
+      "line": 76,
+      "priority": "P2",
+      "cited_paths": [
+        "tests/unit/test_llm_prompts.py",
+        "tests/unit/test_prompt_hash_coupling.py",
+        "tests/unit/test_readme_facts.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_llm_prompts.py",
+        "tests/unit/test_prompt_hash_coupling.py",
+        "tests/unit/test_readme_facts.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_llm_prompts.py",
+        "tests/unit/test_prompt_hash_coupling.py",
+        "tests/unit/test_readme_facts.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "GOV-021",
+      "line": 81,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "GOV-026",
+      "line": 84,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "GOV-024",
+      "line": 85,
+      "priority": "P2",
+      "cited_paths": [
+        "src/readme_agent/llm/prompt_registry.py"
+      ],
+      "cited_paths_existing": [
+        "src/readme_agent/llm/prompt_registry.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "GOV-025",
+      "line": 86,
+      "priority": "P1",
+      "cited_paths": [
+        "scripts/governance/run_official_checks.py",
+        "plans/investigations/evidence/verification-baseline-bootstrap/bootstrap-proof-2026-07-22.json"
+      ],
+      "cited_paths_existing": [
+        "scripts/governance/run_official_checks.py",
+        "plans/investigations/evidence/verification-baseline-bootstrap/bootstrap-proof-2026-07-22.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/verification-baseline-bootstrap/bootstrap-proof-2026-07-22.json",
+          "bytes": 3490,
+          "sha256": "242c6336c623b2ee740580d81b3dedb1ec9ca4c179e057e36876f183af89f504",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "OWN-004",
+      "line": 108,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "OWN-012",
+      "line": 116,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "FACT-011",
+      "line": 135,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_facts_schema.py",
+        "tests/unit/test_capabilities.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_facts_schema.py",
+        "tests/unit/test_capabilities.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_facts_schema.py",
+        "tests/unit/test_capabilities.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_capabilities.py::TestGetProductFactsCapability::test_execute_exposes_package_roots"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "FACT-012",
+      "line": 136,
+      "priority": "P2",
+      "cited_paths": [
+        "tests/unit/test_facts_changeset.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_facts_changeset.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_facts_changeset.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "RDM-001",
+      "line": 143,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RDM-002",
+      "line": 144,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RDM-005",
+      "line": 147,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_presentation_report.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_presentation_report.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_presentation_report.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_presentation_report.py::TestDetectPresentation::test_states_ecosystem_when_platform_keyword_present"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "RDM-010",
+      "line": 152,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RDM-013",
+      "line": 155,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RDM-014",
+      "line": 156,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RDM-019",
+      "line": 161,
+      "priority": "P2",
+      "cited_paths": [
+        "docs/presentation-standard.md"
+      ],
+      "cited_paths_existing": [
+        "docs/presentation-standard.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "RDM-023",
+      "line": 165,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RDM-024",
+      "line": 166,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_claim_verification.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_claim_verification.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_claim_verification.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_claim_verification.py::TestFindClaimConflictsRealRegression"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "CORE-001",
+      "line": 193,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-002",
+      "line": 194,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-003",
+      "line": 195,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-004",
+      "line": 196,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_supervisor_loop.py",
+        "tests/unit/test_capabilities.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_supervisor_loop.py",
+        "tests/unit/test_capabilities.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_supervisor_loop.py",
+        "tests/unit/test_capabilities.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "CORE-033",
+      "line": 197,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "CORE-005",
+      "line": 198,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-006",
+      "line": 199,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-007",
+      "line": 200,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-008",
+      "line": 201,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-009",
+      "line": 202,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-010",
+      "line": 203,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-011",
+      "line": 204,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-012",
+      "line": 205,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-013",
+      "line": 206,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-014",
+      "line": 207,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-015",
+      "line": 208,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_orchestrator.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_orchestrator.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_orchestrator.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_orchestrator.py::TestStaleNoncompliantAndForceRegenerate::test_force_regenerate_preserves_previously_rendered_links"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "CORE-016",
+      "line": 209,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-017",
+      "line": 210,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-018",
+      "line": 211,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-019",
+      "line": 212,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-023",
+      "line": 216,
+      "priority": "P2",
+      "cited_paths": [
+        "src/readme_agent/registry/discovery.py",
+        "tests/unit/test_registry_discovery.py",
+        "scripts/data-refresh/update_products_registry.py",
+        "plans/master.md"
+      ],
+      "cited_paths_existing": [
+        "src/readme_agent/registry/discovery.py",
+        "tests/unit/test_registry_discovery.py",
+        "scripts/data-refresh/update_products_registry.py",
+        "plans/master.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_registry_discovery.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "CORE-026",
+      "line": 219,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-027",
+      "line": 220,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-028",
+      "line": 221,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-029",
+      "line": 222,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-030",
+      "line": 223,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-031",
+      "line": 224,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "CORE-032",
+      "line": 225,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_registry_discovery.py",
+        "src/readme_agent/registry/discovery.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_registry_discovery.py",
+        "src/readme_agent/registry/discovery.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_registry_discovery.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "CORE-034",
+      "line": 226,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_registry_self_heal.py",
+        "tests/unit/test_cli.py",
+        "data/products.json"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_registry_self_heal.py",
+        "tests/unit/test_cli.py",
+        "data/products.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_registry_self_heal.py",
+        "tests/unit/test_cli.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_cli.py::TestSuperviseRegistryHealHook"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "OPS-002",
+      "line": 233,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "OPS-003",
+      "line": 234,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "OPS-005",
+      "line": 236,
+      "priority": "P2",
+      "cited_paths": [
+        "src/readme_agent/registry/discovery.py",
+        "tests/unit/test_registry_discovery.py",
+        "scripts/data-refresh/update_products_registry.py"
+      ],
+      "cited_paths_existing": [
+        "src/readme_agent/registry/discovery.py",
+        "tests/unit/test_registry_discovery.py",
+        "scripts/data-refresh/update_products_registry.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_registry_discovery.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "OPS-007",
+      "line": 238,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "OPS-008",
+      "line": 239,
+      "priority": "P1",
+      "cited_paths": [
+        ".github/workflows/update-products-registry.yml"
+      ],
+      "cited_paths_existing": [
+        ".github/workflows/update-products-registry.yml"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "OPS-012",
+      "line": 243,
+      "priority": "P2",
+      "cited_paths": [
+        ".github/workflows/golden-set-run.yml",
+        "tests/unit/test_golden_set.py",
+        "tests/unit/test_cli.py"
+      ],
+      "cited_paths_existing": [
+        ".github/workflows/golden-set-run.yml",
+        "tests/unit/test_golden_set.py",
+        "tests/unit/test_cli.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_golden_set.py",
+        "tests/unit/test_cli.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_golden_set.py::TestEvaluateAndDisable",
+        "tests/unit/test_cli.py::TestGoldenSetRunCommand"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "DEP-001",
+      "line": 248,
+      "priority": "P2",
+      "cited_paths": [
+        "plans/investigations/evidence/dependency-reproducibility-2026-07-23/sbom.cyclonedx.json"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/evidence/dependency-reproducibility-2026-07-23/sbom.cyclonedx.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/dependency-reproducibility-2026-07-23/sbom.cyclonedx.json",
+          "bytes": 12862,
+          "sha256": "6935a15937f7b73f1779b23897a8fe979ac9cf7a9db739de42a9cb3dca84981b",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "DEP-002",
+      "line": 249,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "DEP-003",
+      "line": 250,
+      "priority": "P2",
+      "cited_paths": [
+        ".github/workflows/dependency-check.yml"
+      ],
+      "cited_paths_existing": [
+        ".github/workflows/dependency-check.yml"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "DEP-004",
+      "line": 251,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "DEP-005",
+      "line": 252,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-001",
+      "line": 259,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-002",
+      "line": 260,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-003",
+      "line": 261,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-004",
+      "line": 262,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-007",
+      "line": 265,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-008",
+      "line": 266,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-013",
+      "line": 271,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-014",
+      "line": 272,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-015",
+      "line": 273,
+      "priority": "P2",
+      "cited_paths": [
+        "tests/unit/test_evidence_writer.py",
+        "tests/unit/test_orchestrator.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_evidence_writer.py",
+        "tests/unit/test_orchestrator.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_evidence_writer.py",
+        "tests/unit/test_orchestrator.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_orchestrator.py::TestBlankSlateRepo"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "LLM-016",
+      "line": 274,
+      "priority": "P2",
+      "cited_paths": [
+        "tests/unit/test_env.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_env.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_env.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "LLM-018",
+      "line": 276,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "LLM-019",
+      "line": 277,
+      "priority": "P0",
+      "cited_paths": [
+        "plans/investigations/llm-gateway-context-ceiling-corrected.md",
+        "plans/master.md",
+        "plans/investigations/full-surface-current-state.md"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/llm-gateway-context-ceiling-corrected.md",
+        "plans/master.md",
+        "plans/investigations/full-surface-current-state.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "LLM-020",
+      "line": 278,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_capability_dispatcher.py::TestDispatchModelRouteGate"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "LLM-021",
+      "line": 279,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_env.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_env.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_env.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_env.py::TestLlmModelForJob"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "VAL-001",
+      "line": 286,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "VAL-002",
+      "line": 287,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "VAL-003",
+      "line": 288,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "VAL-004",
+      "line": 289,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "VAL-006",
+      "line": 291,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-001",
+      "line": 309,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-002",
+      "line": 310,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-003",
+      "line": 311,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-004",
+      "line": 312,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-005",
+      "line": 313,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-007",
+      "line": 315,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-008",
+      "line": 316,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SAFE-009",
+      "line": 317,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "EVID-001",
+      "line": 331,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_manifest_v2.py",
+        "tests/unit/test_evidence_writer.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_manifest_v2.py",
+        "tests/unit/test_evidence_writer.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_manifest_v2.py",
+        "tests/unit/test_evidence_writer.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_evidence_writer.py::TestWriteRunManifestV2",
+        "tests/unit/test_supervisor_loop.py::TestRunManifestV2Evidence"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "EVID-002",
+      "line": 332,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "AUTH-001",
+      "line": 338,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_authorization_registry.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_authorization_registry.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_authorization_registry.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_authorization_registry.py::TestAuthorizationRecordSchema"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "AUTH-002",
+      "line": 339,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_authorization_registry.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_authorization_registry.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_authorization_registry.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_authorization_registry.py::TestAuthorizationRecordSchema"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "AUTH-003",
+      "line": 340,
+      "priority": "P0",
+      "cited_paths": [
+        "config/authorization/"
+      ],
+      "cited_paths_existing": [
+        "config/authorization/"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "AUTH-004",
+      "line": 341,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_authorization_registry.py",
+        "tests/unit/test_capabilities.py",
+        "tests/unit/test_effect_ledger.py",
+        "config/authorization/"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_authorization_registry.py",
+        "tests/unit/test_capabilities.py",
+        "tests/unit/test_effect_ledger.py",
+        "config/authorization/"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_authorization_registry.py",
+        "tests/unit/test_capabilities.py",
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_authorization_registry.py::TestAuthorizedFor",
+        "tests/unit/test_capabilities.py::TestRegistryEffectClassEnforcement",
+        "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectAuthorization"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "AUTH-005",
+      "line": 342,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_authorization_registry.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_authorization_registry.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_authorization_registry.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_authorization_registry.py::TestLoadAuthorizationRecord"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "AUTH-006",
+      "line": 343,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_cli.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_cli.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_cli.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_cli.py::TestAuthorizationValidateCommand"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "NFR-001",
+      "line": 365,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "NFR-002",
+      "line": 366,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "NFR-004",
+      "line": 368,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "DOC-003",
+      "line": 417,
+      "priority": "P1",
+      "cited_paths": [
+        "docs/presentation-standard.md",
+        "plans/investigations/reference-repository-benchmark.md"
+      ],
+      "cited_paths_existing": [
+        "docs/presentation-standard.md",
+        "plans/investigations/reference-repository-benchmark.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "DOC-004",
+      "line": 418,
+      "priority": "P1",
+      "cited_paths": [
+        "docs/presentation-standard.md"
+      ],
+      "cited_paths_existing": [
+        "docs/presentation-standard.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "DOC-005",
+      "line": 419,
+      "priority": "P1",
+      "cited_paths": [
+        "docs/github-surface-control.md"
+      ],
+      "cited_paths_existing": [
+        "docs/github-surface-control.md"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "AGT-001",
+      "line": 439,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "AGT-002",
+      "line": 440,
+      "priority": "P0",
+      "cited_paths": [
+        "src/readme_agent/supervisor/",
+        "tests/unit/test_supervisor_loop.py",
+        "tests/integration/test_supervisor_live.py"
+      ],
+      "cited_paths_existing": [
+        "src/readme_agent/supervisor/",
+        "tests/unit/test_supervisor_loop.py",
+        "tests/integration/test_supervisor_live.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_supervisor_loop.py",
+        "tests/integration/test_supervisor_live.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_supervisor_loop.py::TestRepair"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "AGT-003",
+      "line": 441,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "AGT-004",
+      "line": 442,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_convergence.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "AGT-007",
+      "line": 445,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_supervisor_loop.py::TestOrgRepoTrustBoundary"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "CAP-003",
+      "line": 454,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_capability_dispatcher.py::TestDispatchUnknownCapability"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "CAP-004",
+      "line": 455,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_capabilities.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_capabilities.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_capabilities.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_capabilities.py::TestCapabilityManifestSchema::test_invalid_execution_type_rejected"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "CAP-006",
+      "line": 457,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_capabilities.py",
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_capabilities.py",
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_capabilities.py",
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_capabilities.py::TestRegistryDomainEnforcement",
+        "tests/unit/test_capability_dispatcher.py::TestDispatchDomainDenied"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "CAP-008",
+      "line": 459,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_capabilities.py",
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_capabilities.py",
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_capabilities.py",
+        "tests/unit/test_capability_dispatcher.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_capability_dispatcher.py::TestDispatchInputModelValidation"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "RUN-001",
+      "line": 466,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_gitsafety.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_gitsafety.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_gitsafety.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_gitsafety.py::TestWorkCloneGitIdentity"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "RUN-003",
+      "line": 468,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "RUN-008",
+      "line": 473,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_execution_profile.py",
+        "tests/unit/test_cli.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_execution_profile.py",
+        "tests/unit/test_cli.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_execution_profile.py",
+        "tests/unit/test_cli.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_cli.py::TestExecutionProfileFlag"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "ECO-001",
+      "line": 480,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_profile.py",
+        "tests/unit/test_inspection.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_profile.py",
+        "tests/unit/test_inspection.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_profile.py",
+        "tests/unit/test_inspection.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_profile.py::TestBuildProfile::test_synthetic_multi_ecosystem_fixture",
+        "tests/unit/test_inspection.py::TestFileInventoryManifests::test_synthetic_multi_ecosystem_fixture"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "ECO-002",
+      "line": 481,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_ecosystems.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_ecosystems.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_ecosystems.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_ecosystems.py::TestEcosystemRegistry"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "ECO-003",
+      "line": 482,
+      "priority": "P2",
+      "cited_paths": [
+        "tests/unit/test_profile.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_profile.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_profile.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_profile.py::TestBuildProfile::test_unresolved_manifest_recorded_not_guessed"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "ECO-004",
+      "line": 483,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_inspection.py",
+        "tests/unit/test_tree_paths.py",
+        "tests/unit/test_profile.py",
+        "tests/unit/test_profile_cached.py",
+        "scripts/retrofits/prove_heterogeneous_portfolio_profiling_live.py",
+        "plans/investigations/evidence/heterogeneous-portfolio-proof-2026-07-23/profiling-proof.log"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_inspection.py",
+        "tests/unit/test_tree_paths.py",
+        "tests/unit/test_profile.py",
+        "tests/unit/test_profile_cached.py",
+        "scripts/retrofits/prove_heterogeneous_portfolio_profiling_live.py",
+        "plans/investigations/evidence/heterogeneous-portfolio-proof-2026-07-23/profiling-proof.log"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_inspection.py",
+        "tests/unit/test_tree_paths.py",
+        "tests/unit/test_profile.py",
+        "tests/unit/test_profile_cached.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_inspection.py::TestFindAllManifestRoots",
+        "tests/unit/test_tree_paths.py::TestFindAllManifestRootsFromTree",
+        "tests/unit/test_profile.py::TestBuildProfilePackageRoots"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/heterogeneous-portfolio-proof-2026-07-23/profiling-proof.log",
+          "bytes": 4281,
+          "sha256": "59fae8ba8ba1df606eba615bf32ddb831fb33a738613c20e6523ad777c7e131e"
+        }
+      ],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "PKG-001",
+      "line": 488,
+      "priority": "P1",
+      "cited_paths": [
+        "scripts/retrofits/prove_multi_registry_resolvers_live.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_existing": [
+        "scripts/retrofits/prove_multi_registry_resolvers_live.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_ecosystem_resolver.py::TestResolvePypi"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "PKG-002",
+      "line": 489,
+      "priority": "P1",
+      "cited_paths": [
+        "scripts/retrofits/prove_multi_registry_resolvers_live.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_existing": [
+        "scripts/retrofits/prove_multi_registry_resolvers_live.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_ecosystem_resolver.py::TestResolveNpm"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "PKG-003",
+      "line": 490,
+      "priority": "P1",
+      "cited_paths": [
+        "scripts/retrofits/prove_multi_registry_resolvers_live.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_existing": [
+        "scripts/retrofits/prove_multi_registry_resolvers_live.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_ecosystem_resolver.py::TestResolveGoProxy"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "PKG-004",
+      "line": 491,
+      "priority": "P2",
+      "cited_paths": [
+        "scripts/retrofits/prove_multi_registry_resolvers_live.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_existing": [
+        "scripts/retrofits/prove_multi_registry_resolvers_live.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_ecosystem_resolver.py::TestResolveConan"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "PKG-005",
+      "line": 492,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_verify_package_acquisition.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_verify_package_acquisition.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_verify_package_acquisition.py",
+        "tests/unit/test_ecosystem_resolver.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "MEM-001",
+      "line": 508,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_orchestrator.py",
+        "tests/integration/test_supervisor_live.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_orchestrator.py",
+        "tests/integration/test_supervisor_live.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_orchestrator.py",
+        "tests/integration/test_supervisor_live.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_orchestrator.py::TestDurableStateFreshRunner",
+        "tests/integration/test_supervisor_live.py::test_live_second_call_converges_durably_with_zero_planning_calls"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "MEM-002",
+      "line": 509,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "MEM-003",
+      "line": 510,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_state_backend.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [
+        "cited pytest suite `tests/unit/test_state_backend.py::FakeStateBackend` contains no tests"
+      ],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "cited pytest suite `tests/unit/test_state_backend.py::FakeStateBackend` contains no tests",
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "MEM-004",
+      "line": 511,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_state_schema.py",
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_state_schema.py",
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_state_schema.py",
+        "tests/unit/test_state_backend.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_state_schema.py::TestRunStateV1DomainStates",
+        "tests/unit/test_state_backend.py::TestSaveDomain"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "EFF-001",
+      "line": 529,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "EFF-002",
+      "line": 530,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_effect_ledger.py",
+        "tests/integration/test_effect_ledger_live.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_effect_ledger.py",
+        "tests/integration/test_effect_ledger_live.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_effect_ledger.py",
+        "tests/integration/test_effect_ledger_live.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectCrashRecovery",
+        "tests/integration/test_effect_ledger_live.py::test_crash_between_pending_and_applied_survives_a_fresh_backend_instance"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "EFF-003",
+      "line": 531,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_repair.py",
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_repair.py",
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_repair.py",
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectRetryInertness"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "EFF-004",
+      "line": 532,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_effect_ledger.py::TestPrecheck"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "EFF-005",
+      "line": 533,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_effect_ledger.py",
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_effect_ledger.py",
+        "tests/unit/test_state_backend.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_effect_ledger.py",
+        "tests/unit/test_state_backend.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_effect_ledger.py::TestDispatchGatedEffectLockRevalidation",
+        "tests/unit/test_state_backend.py::TestFakeStateBackendLockRevalidation"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "EFF-006",
+      "line": 534,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_effect_identity.py",
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_effect_identity.py",
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_effect_identity.py",
+        "tests/unit/test_effect_ledger.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "FRESH-001",
+      "line": 540,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_freshness_contract.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_freshness_contract.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_freshness_contract.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "FRESH-002",
+      "line": 541,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_freshness_contract.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_freshness_contract.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_freshness_contract.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_freshness_contract.py::TestIsDueForRecheck"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "FRESH-003",
+      "line": 542,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_freshness_contract.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_freshness_contract.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_freshness_contract.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_freshness_contract.py::TestRefreshSurfaceContracts"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "FRESH-004",
+      "line": 543,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_convergence.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_convergence.py::TestHasPendingEffect"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "FRESH-005",
+      "line": 544,
+      "priority": "P2",
+      "cited_paths": [
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_convergence.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_convergence.py::TestHasOpenProposalNeedingReconciliation"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "FRESH-006",
+      "line": 545,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_convergence.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_convergence.py::TestHasUnfinishedTrigger"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "ORC-001",
+      "line": 551,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_task_graph.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_task_graph.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_task_graph.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "ORC-007",
+      "line": 557,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_cli.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_cli.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_cli.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_cli.py::TestExecutionProfileFlag::test_domain_rejected_under_every_github_profile_before_heal_or_preflight_run"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "VER-003",
+      "line": 566,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_supervisor_loop.py",
+        "tests/integration/test_supervisor_live.py",
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_supervisor_loop.py",
+        "tests/integration/test_supervisor_live.py",
+        "tests/unit/test_convergence.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_supervisor_loop.py",
+        "tests/integration/test_supervisor_live.py",
+        "tests/unit/test_convergence.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_supervisor_loop.py::TestDurableConvergence",
+        "tests/integration/test_supervisor_live.py::test_live_second_call_converges_durably_with_zero_planning_calls",
+        "tests/unit/test_convergence.py::TestControlPlaneFingerprint"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "VER-004",
+      "line": 567,
+      "priority": "P2",
+      "cited_paths": [
+        "tests/unit/test_validation_registry.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_validation_registry.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_validation_registry.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "VER-007",
+      "line": 570,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_convergence.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_convergence.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_convergence.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_convergence.py::TestNoChangeGateHolds"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "GAP-001",
+      "line": 578,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_capability_dispatcher.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_capability_dispatcher.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_capability_dispatcher.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_supervisor_loop.py::TestCapabilityGap"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "GAP-002",
+      "line": 579,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "SCL-007",
+      "line": 592,
+      "priority": "P3",
+      "cited_paths": [
+        "tests/unit/test_capabilities.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_capabilities.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_capabilities.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_capabilities.py::TestAuditPackageReleaseSurfacesCapability::test_latest_release_is_chosen_by_published_at_not_api_return_order"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "SCL-009",
+      "line": 594,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_gitsafety.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_gitsafety.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_gitsafety.py",
+        "tests/unit/test_supervisor_loop.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_gitsafety.py::TestCloneBaselineAndWork",
+        "tests/unit/test_supervisor_loop.py::TestBaselineCloneFailureDegradesGracefully"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "PRL-001",
+      "line": 601,
+      "priority": "P0",
+      "cited_paths": [
+        "scripts/retrofits/prove_open_presentation_pr_live.py"
+      ],
+      "cited_paths_existing": [
+        "scripts/retrofits/prove_open_presentation_pr_live.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "PRL-004",
+      "line": 604,
+      "priority": "P0",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    },
+    {
+      "id": "PRL-007",
+      "line": 607,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_open_presentation_pr.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_open_presentation_pr.py"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_open_presentation_pr.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_open_presentation_pr.py::TestCreatePrCloneAndPushBranch::test_clone_is_never_neutered_and_push_lands_a_real_branch"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "PRL-008",
+      "line": 608,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    }
+  ]
+}
