@@ -11,7 +11,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "72c52eabbc445e7981dc17a5f67f872df466d3e652bda0ab1ff00d79898ceaa7",
-    "last_evaluated_at": "2026-07-23T11:04:21.432991+00:00",
+    "last_evaluated_at": "2026-07-23T11:04:34.831315+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -19,7 +19,7 @@
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
-      "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "IMPLEMENTED",
+      "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "VERIFIED",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "TODO",
@@ -351,13 +351,26 @@
         "reason": "Applied the user-approved six-section consolidation; preserved decisions through 72; added decisions 73-76 and L8-001 through L8-013",
         "task_id": "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave0-master-structural-consolidation/master-section-consolidation.json",
+          "plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json",
+          "9376436"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-23T11:04:34.831308+00:00",
+        "reason": "Plan validation, semantic traceability, 389-row taskcard coverage, decision continuity, and focused controller tests all pass",
+        "task_id": "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
+        "to_status": "VERIFIED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 39,
+  "state_version": 40,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
