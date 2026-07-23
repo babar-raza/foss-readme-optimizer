@@ -246,6 +246,12 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Maximum expected time between successful runs (default: 24)",
     )
     p_health_report.add_argument(
+        "--backlog-sla-minutes",
+        type=float,
+        default=15.0,
+        help="Age after which unfinished work is actionable (default: 15)",
+    )
+    p_health_report.add_argument(
         "--repeated-failure-threshold",
         type=int,
         default=3,

@@ -82,6 +82,7 @@ def cmd_health_report(args: argparse.Namespace) -> int:
         default_state_backend(),
         repositories,
         expected_schedule_interval=timedelta(hours=args.expected_interval_hours),
+        backlog_sla=timedelta(minutes=args.backlog_sla_minutes),
         repeated_failure_threshold=args.repeated_failure_threshold,
     )
     _emit_json(report.model_dump(mode="json"), getattr(args, "output", None))

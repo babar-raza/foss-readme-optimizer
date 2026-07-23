@@ -165,11 +165,41 @@ class LifecycleRecorder:
         detail: str | None = None,
         failure_classification: FailureClassificationV1 | None = None,
     ) -> None:
-        self.checkpoint(
+        self.checkpoint_final_acceptance(
+            status,
+            detail=detail,
+            failure_classification=failure_classification,
+        )
+        self.transition(
+            status,
+            detail=detail,
+            failure_classification=failure_classification,
+        )
+
+    def checkpoint_final_acceptance(
+        self,
+        status: TriggerStatusV2,
+        *,
+        detail: str | None = None,
+        failure_classification: FailureClassificationV1 | None = None,
+    ) -> CheckpointV1:
+        """Persist the intended terminal result before evidence finalization."""
+
+        return self.checkpoint(
             "final_acceptance",
             outputs={"status": status, "detail": detail},
             failure_classification=failure_classification,
         )
+
+    def transition(
+        self,
+        status: TriggerStatusV2,
+        *,
+        detail: str | None = None,
+        failure_classification: FailureClassificationV1 | None = None,
+    ) -> None:
+        """Persist lifecycle status after all preceding acceptance gates pass."""
+
         transition_trigger(
             self.backend,
             self.envelope.repository_scope,

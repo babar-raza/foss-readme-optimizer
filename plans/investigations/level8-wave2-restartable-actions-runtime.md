@@ -1,7 +1,7 @@
 # Level-8 Wave 2 — Restartable GitHub Actions runtime
 
 Date: 2026-07-23
-Status: implementation complete locally; production acceptance blocked by external configuration
+Status: local repairs complete; refreshed independent acceptance pending; production acceptance blocked
 
 ## Scope and truth boundary
 
@@ -43,6 +43,13 @@ the user's unrelated `AGENTS.md`, `plans/idea.md`, `plans/changelog.md`, `plans/
    reconciliation, governed evidence tooling, and log updates. The same authoritative task graph
    was widened only to the paths actually required by this Wave-2 task; no competing task or plan
    was created.
+9. Independent review found the lifecycle could become `completed` before Manifest V3 finalization
+   and checksum validation. Final acceptance is now checkpointed first, evidence is finalized and
+   validated second, and durable terminal state is written last. An injected evidence failure
+   leaves the trigger `retryable`.
+10. Health could report green while retryable backlog existed. Backlog now carries age,
+    actionability, and reason; retryable or SLA-aged work makes `HealthReportV1` unhealthy, while
+    recent bounded in-flight work stays visible without a false incident.
 
 ## Delivered runtime
 
@@ -53,7 +60,9 @@ the user's unrelated `AGENTS.md`, `plans/idea.md`, `plans/changelog.md`, `plans/
   existing durable CAS/run leases.
 - Eleven named lifecycle checkpoints are persisted at their real producers.
 - Every scheduled pass recovers expired accepted/processing/retryable records and resumes each
-  original trigger in a separately serialized repository job.
+  original trigger in a separately serialized repository job. Resume restarts canonical
+  supervision and relies on idempotent checkpoints/effect reconciliation; it does not use the
+  checkpoint as a stage-skipping instruction pointer.
 - Analysis and recovery receive freshly minted repository-scoped contents-read GitHub App tokens.
   Production token resolution refuses ambient PAT/`GH_TOKEN` fallback.
 - `HealthReportV1` exposes missed windows, backlog, stale leases, repeated failures, open proposals,
@@ -70,6 +79,8 @@ The bundle records:
 - Ruff, format, mypy, actionlint, and plan validation;
 - named lifecycle/fault, retry, workflow, CLI, evidence, and health tests;
 - one checksum-addressed recovery record for each of the eleven injected checkpoint boundaries;
+- negative proof that failed terminal evidence leaves lifecycle state retryable, never completed;
+- health-policy proof distinguishing actionable backlog from bounded in-flight work;
 - the complete non-live test suite;
 - an `act` reproduction of the real recovery and authoritative-matrix path;
 - the exact parser-only compatibility transformation needed because local `act` 0.2.89 predates
@@ -81,6 +92,12 @@ The bundle records:
 The `act` transformation removes only the same parser-unsupported line (`queue: max`) from the two
 per-repository concurrency sections in a temporary copy. The production workflow itself remains
 unchanged and is separately accepted by actionlint with one documented schema-version suppression.
+
+The eleven local checkpoint records prove persistence, recovery eligibility, same-trigger restart,
+and eventual completion after each boundary. They deliberately do not claim stage-directed
+continuation or prove that every earlier producer is skipped; current recovery re-enters canonical
+supervision and depends on its existing idempotency and effect-reconciliation gates. Producer-level
+hosted interruption and repetition evidence remains an open production acceptance item.
 
 ## Remaining production acceptance
 

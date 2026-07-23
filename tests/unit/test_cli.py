@@ -634,6 +634,46 @@ class TestExecutionProfileFlag:
         assert list(backend._state.trigger_lifecycles) == [original.dedup_key]
         assert backend._state.trigger_lifecycles[original.dedup_key].status == "completed"
 
+    def test_terminal_evidence_failure_never_persists_completed(self, monkeypatch, tmp_path):
+        import readme_agent.env as env
+        import readme_agent.paths as paths
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.evidence as evidence_module
+        import readme_agent.supervisor.loop as loop_module
+
+        _stub_preflight_ok(monkeypatch)
+        backend = _LifecycleFakeBackend()
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(env, "github_run_id", lambda: "run-evidence-failure")
+        monkeypatch.setattr(env, "github_event_name", lambda: "workflow_dispatch")
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+        monkeypatch.setattr(
+            loop_module, "supervise_repo", lambda *args, **kwargs: _terminal_supervise_result()
+        )
+
+        def _fail_manifest_finalization(*args, **kwargs):
+            raise RuntimeError("checksum persistence failed")
+
+        monkeypatch.setattr(
+            evidence_module,
+            "finalize_run_manifest_v3",
+            _fail_manifest_finalization,
+        )
+        args = argparse.Namespace(
+            repo="org/repo",
+            durable_state=False,
+            domain=None,
+            execution_profile="github_observe",
+        )
+
+        with pytest.raises(RuntimeError, match="checksum persistence failed"):
+            cmd_supervise(args)
+
+        lifecycle = next(iter(backend._state.trigger_lifecycles.values()))
+        assert lifecycle.status == "retryable"
+        assert lifecycle.failure_classification == "validation_failed"
+        assert lifecycle.failure_detail == "terminal_evidence_failure:RuntimeError"
+
     def test_resume_trigger_key_requires_a_github_profile(self, capsys):
         args = argparse.Namespace(
             repo="org/repo",

@@ -148,6 +148,7 @@ class HealthReportV1(BaseModel):
     repositories_checked: int = Field(ge=0)
     missed_schedule_windows: list[dict] = Field(default_factory=list)
     backlog: list[dict] = Field(default_factory=list)
+    actionable_backlog: list[dict] = Field(default_factory=list)
     stale_leases: list[dict] = Field(default_factory=list)
     repeated_failures: list[dict] = Field(default_factory=list)
     rate_limit_state: dict[str, dict] = Field(default_factory=dict)

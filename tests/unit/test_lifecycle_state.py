@@ -291,8 +291,43 @@ class TestLifecycleHealth:
         )
         assert report.healthy is False
         assert report.backlog[0]["status"] == "processing"
+        assert report.backlog[0]["actionable"] is False
         assert report.stale_leases[0]["dedup_key"] == "delivery:1"
         assert report.missed_schedule_windows
+
+    def test_recent_processing_is_visible_without_false_degradation(self):
+        backend = LifecycleBackend()
+        successful = envelope(key="delivery:success")
+        accept_trigger(backend, successful)
+        transition_trigger(backend, "org/repo", successful.dedup_key, "processing")
+        transition_trigger(backend, "org/repo", successful.dedup_key, "completed")
+        in_flight = envelope(key="delivery:in-flight")
+        accept_trigger(backend, in_flight)
+        transition_trigger(backend, "org/repo", in_flight.dedup_key, "processing")
+
+        report = build_health_report(backend, ["org/repo"])
+
+        assert report.healthy is True
+        assert report.backlog[0]["reason"] == "bounded_in_flight_work"
+        assert report.actionable_backlog == []
+
+    def test_retryable_work_is_actionable_and_never_healthy(self):
+        backend = LifecycleBackend()
+        successful = envelope(key="delivery:success")
+        accept_trigger(backend, successful)
+        transition_trigger(backend, "org/repo", successful.dedup_key, "processing")
+        transition_trigger(backend, "org/repo", successful.dedup_key, "completed")
+        retryable = envelope(key="delivery:retryable")
+        accept_trigger(backend, retryable)
+        transition_trigger(backend, "org/repo", retryable.dedup_key, "processing")
+        transition_trigger(backend, "org/repo", retryable.dedup_key, "retryable")
+
+        report = build_health_report(backend, ["org/repo"])
+
+        assert report.healthy is False
+        assert report.missed_schedule_windows == []
+        assert report.actionable_backlog[0]["dedup_key"] == retryable.dedup_key
+        assert report.actionable_backlog[0]["reason"] == "retryable_work_requires_recovery"
 
     def test_state_failure_is_visible_not_false_green(self):
         class BrokenBackend(LifecycleBackend):

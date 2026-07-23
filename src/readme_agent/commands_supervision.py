@@ -4,6 +4,7 @@ import argparse
 import sys
 
 from readme_agent.commands_compatibility import _durable_state_backend
+from readme_agent.state.lifecycle_schema import FailureClassificationV1, TriggerStatusV2
 
 
 def cmd_supervise(args: argparse.Namespace) -> int:
@@ -231,9 +232,11 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             )
         assert_evidence_complete(result.evidence_dir)
 
-    lifecycle_status = None
+    lifecycle_status: TriggerStatusV2 | None = None
     if lifecycle_recorder is not None:
         assert state_backend is not None
+        failure_classification: FailureClassificationV1 | None = None
+        failure_detail: str | None = result.status
         if result.status == "BLOCKED":
             transient = bool(
                 result.blocked_reason
@@ -243,47 +246,62 @@ def cmd_supervise(args: argparse.Namespace) -> int:
                     or result.blocked_reason in {"lock_held", "run_lock_held"}
                 )
             )
+            failure_detail = result.blocked_reason
             if transient:
-                transition_trigger(
-                    state_backend,
-                    args.repo,
-                    lifecycle_recorder.envelope.dedup_key,
-                    "retryable",
-                    failure_classification="transient",
-                    failure_detail=result.blocked_reason,
-                )
                 lifecycle_status = "retryable"
+                failure_classification = "transient"
             else:
-                lifecycle_recorder.finish(
-                    "blocked",
-                    detail=result.blocked_reason,
-                    failure_classification=(
-                        "unsupported"
-                        if result.blocked_reason
-                        and (
-                            result.blocked_reason.startswith("unsupported_ecosystem:")
-                            or result.blocked_reason == "not_onboarded"
-                        )
-                        else "validation_failed"
-                    ),
+                failure_classification = (
+                    "unsupported"
+                    if result.blocked_reason
+                    and (
+                        result.blocked_reason.startswith("unsupported_ecosystem:")
+                        or result.blocked_reason == "not_onboarded"
+                    )
+                    else "validation_failed"
                 )
                 lifecycle_status = "blocked"
         else:
-            lifecycle_recorder.finish("completed", detail=result.status)
             lifecycle_status = "completed"
-        if result.evidence_dir is not None:
-            from readme_agent.supervisor.evidence import (
-                assert_evidence_complete,
-                finalize_run_manifest_v3,
-            )
 
-            assert lifecycle_status is not None
+        from readme_agent.supervisor.evidence import (
+            assert_evidence_complete,
+            finalize_run_manifest_v3,
+        )
+
+        assert lifecycle_status is not None
+        if lifecycle_status in {"blocked", "completed"}:
+            lifecycle_recorder.checkpoint_final_acceptance(
+                lifecycle_status,
+                detail=failure_detail,
+                failure_classification=failure_classification,
+            )
+        try:
+            if result.evidence_dir is None:
+                raise RuntimeError(
+                    "GitHub execution profile did not produce a terminal evidence bundle"
+                )
             finalize_run_manifest_v3(
                 result.evidence_dir,
                 lifecycle_recorder,
                 lifecycle_status,
             )
             assert_evidence_complete(result.evidence_dir)
+        except Exception as exc:
+            transition_trigger(
+                state_backend,
+                args.repo,
+                lifecycle_recorder.envelope.dedup_key,
+                "retryable",
+                failure_classification="validation_failed",
+                failure_detail=f"terminal_evidence_failure:{type(exc).__name__}",
+            )
+            raise
+        lifecycle_recorder.transition(
+            lifecycle_status,
+            detail=failure_detail,
+            failure_classification=failure_classification,
+        )
     print(
         f"{args.repo}: {result.status}"
         + (f" ({result.blocked_reason})" if result.blocked_reason else "")

@@ -347,6 +347,143 @@ class TestDispatchGatedEffectCrashRecovery:
         assert counter.applied == 1  # NOT re-executed -- refused to guess
 
 
+class TestLifecycleEffectCheckpointRecovery:
+    """Compose trigger recovery with the real effect checkpoint producers."""
+
+    def test_effect_applied_checkpoint_restart_does_not_repeat_effect(self, monkeypatch):
+        from readme_agent.state.lifecycle import (
+            LifecycleRecorder,
+            accept_trigger,
+            activate_lifecycle,
+        )
+        from readme_agent.state.recovery import recovery_sweep
+        from readme_agent.state.trigger_v2 import normalize_trigger_envelope
+
+        counter = _Counter()
+
+        def execute(org_repo):
+            counter.applied += 1
+            return {"applied": True, "count": counter.applied}
+
+        _register(monkeypatch, _effector_manifest(), execute)
+        backend = FakeStateBackend()
+        trigger = normalize_trigger_envelope(
+            ORG_REPO,
+            event_type="repository_dispatch",
+            delivery_id="delivery-effect-applied-recovery",
+        )
+        tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
+        accept_trigger(backend, trigger)
+        before_crash = LifecycleRecorder(backend, trigger, "run-before-crash")
+        before_crash.start()
+        with activate_lifecycle(before_crash):
+            first = dispatch_gated_effect(
+                tool_call,
+                {"local_write"},
+                backend,
+                ORG_REPO,
+                caller_domain="readme_reconciliation",
+            )
+        assert first.outcome == "dispatched"
+
+        recovered = recovery_sweep(
+            backend,
+            [ORG_REPO],
+            now=datetime.now(UTC) + timedelta(hours=1),
+        )
+        resumed = accept_trigger(backend, trigger)
+        after_restart = LifecycleRecorder(backend, trigger, "run-after-crash", attempt=2)
+        after_restart.start()
+        with activate_lifecycle(after_restart):
+            second = dispatch_gated_effect(
+                tool_call,
+                {"local_write"},
+                backend,
+                ORG_REPO,
+                caller_domain="readme_reconciliation",
+            )
+        after_restart.finish("completed")
+
+        checkpoints = [
+            checkpoint
+            for checkpoint in backend.load(ORG_REPO).checkpoints.values()
+            if checkpoint.trigger_dedup_key == trigger.dedup_key
+        ]
+        assert recovered[0].last_checkpoint_id is not None
+        assert resumed.resumed is True
+        assert second.outcome == "already_applied"
+        assert counter.applied == 1
+        assert sum(item.stage == "effect_pending" for item in checkpoints) == 1
+        assert sum(item.stage == "effect_applied" for item in checkpoints) == 1
+
+    def test_effect_pending_checkpoint_restart_requires_reconciliation_without_reexecution(
+        self, monkeypatch
+    ):
+        from readme_agent.state.lifecycle import (
+            LifecycleRecorder,
+            accept_trigger,
+            activate_lifecycle,
+        )
+        from readme_agent.state.recovery import recovery_sweep
+        from readme_agent.state.trigger_v2 import normalize_trigger_envelope
+
+        counter = _Counter()
+
+        def crashing_execute(org_repo):
+            counter.applied += 1
+            raise RuntimeError("simulated crash after the real side effect landed")
+
+        _register(monkeypatch, _effector_manifest(), crashing_execute)
+        backend = FakeStateBackend()
+        trigger = normalize_trigger_envelope(
+            ORG_REPO,
+            event_type="repository_dispatch",
+            delivery_id="delivery-effect-pending-recovery",
+        )
+        tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
+        accept_trigger(backend, trigger)
+        before_crash = LifecycleRecorder(backend, trigger, "run-before-crash")
+        before_crash.start()
+        with activate_lifecycle(before_crash):
+            first = dispatch_gated_effect(
+                tool_call,
+                {"local_write"},
+                backend,
+                ORG_REPO,
+                caller_domain="readme_reconciliation",
+            )
+        assert first.dispatch.outcome == "execution_error"
+
+        recovery_sweep(
+            backend,
+            [ORG_REPO],
+            now=datetime.now(UTC) + timedelta(hours=1),
+        )
+        resumed = accept_trigger(backend, trigger)
+        after_restart = LifecycleRecorder(backend, trigger, "run-after-crash", attempt=2)
+        after_restart.start()
+        with activate_lifecycle(after_restart):
+            second = dispatch_gated_effect(
+                tool_call,
+                {"local_write"},
+                backend,
+                ORG_REPO,
+                caller_domain="readme_reconciliation",
+            )
+        after_restart.finish("blocked", detail=second.detail, failure_classification="unknown")
+
+        checkpoints = [
+            checkpoint
+            for checkpoint in backend.load(ORG_REPO).checkpoints.values()
+            if checkpoint.trigger_dedup_key == trigger.dedup_key
+        ]
+        assert resumed.resumed is True
+        assert second.outcome == "blocked_pending_reconciliation"
+        assert counter.applied == 1
+        assert sum(item.stage == "effect_pending" for item in checkpoints) == 1
+        assert not any(item.stage == "effect_applied" for item in checkpoints)
+
+
 class TestDispatchGatedEffectLockRevalidation:
     """Decision #46/#48 (`EFF-005`, Phase 13 §13.1's F4 finding): a slow
     effector can outlive the lock's lease, letting a second runner reclaim

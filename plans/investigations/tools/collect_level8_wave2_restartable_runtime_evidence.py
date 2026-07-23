@@ -34,6 +34,18 @@ CHECKPOINT_STAGES = (
     "effect_applied",
     "final_acceptance",
 )
+EVIDENCE_FILENAMES = {
+    "act-plan-job-output.log",
+    "act-queue-compatibility-transform.json",
+    "complete-non-live-test-suite.log",
+    "official-static-quality-gates.log",
+    "repository-snapshot.json",
+    "sha256sums.txt",
+    "wave2-committed-implementation.diff",
+    "wave2-local-acceptance-summary.json",
+    "wave2-runtime-fault-and-contract-tests.log",
+    *{f"checkpoint-recovery-{stage.replace('_', '-')}.json" for stage in CHECKPOINT_STAGES},
+}
 
 
 def _run(command: list[str], *, timeout_seconds: int) -> dict:
@@ -101,10 +113,32 @@ def _refresh_checksums(evidence_dir: Path) -> None:
     )
 
 
+def _prepare_evidence_dir(evidence_dir: Path) -> None:
+    governed_root = (REPO_ROOT / "plans" / "investigations" / "evidence").resolve()
+    if evidence_dir.parent != governed_root or not evidence_dir.name.startswith(
+        "level8-wave2-restartable-actions-"
+    ):
+        raise RuntimeError(f"refusing to replace evidence outside {governed_root}")
+    evidence_dir.mkdir(parents=True, exist_ok=True)
+    for path in evidence_dir.iterdir():
+        if not path.is_file() or path.name not in EVIDENCE_FILENAMES:
+            raise RuntimeError(f"refusing to replace unexpected evidence artifact {path}")
+        path.unlink()
+
+
 def main() -> int:
     evidence_dir = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else DEFAULT_EVIDENCE_DIR
-    evidence_dir.mkdir(parents=True, exist_ok=True)
+    _prepare_evidence_dir(evidence_dir)
     python = str(REPO_ROOT / ".venv" / "Scripts" / "python.exe")
+    _run(
+        [
+            python,
+            "plans/investigations/tools/reproduce_production_workflow_with_act_compatibility.py",
+            "--evidence-dir",
+            str(evidence_dir),
+        ],
+        timeout_seconds=900,
+    )
 
     official_commands = [
         [python, "-m", "ruff", "check", "."],
@@ -127,6 +161,7 @@ def main() -> int:
         "tests/unit/test_commands_lifecycle.py",
         "tests/unit/test_cli.py::TestExecutionProfileFlag",
         "tests/unit/test_effect_ledger.py::TestDuplicateTriggerEffectComposition",
+        "tests/unit/test_effect_ledger.py::TestLifecycleEffectCheckpointRecovery",
         "tests/unit/test_supervisor_loop.py::TestEvidenceCompletenessGate",
     ]
     fault_result = _run(fault_test_command, timeout_seconds=240)
@@ -143,6 +178,8 @@ def main() -> int:
             "checkpoint_stage": stage,
             "injected_failure_boundary": f"immediately_after_persisting_{stage}",
             "recovery_result": "same_logical_trigger_resumed_and_completed",
+            "resume_strategy": "canonical_restart_with_idempotent_reconciliation",
+            "stage_directed_skip_proven": False,
             "test_node_fragment": test_node_fragment,
             "source_log": fault_log.name,
         }

@@ -135,11 +135,19 @@ states plus eleven durable checkpoints. A per-repository Actions queue and Git-r
 compose rather than substitute for each other. Every scheduled pass runs a recovery sweep before
 building its authoritative matrix from all active registry entries.
 
+Recovery restarts canonical supervision for the original trigger and relies on checkpoint/effect
+idempotency and reconciliation; checkpoints are not a stage-skipping instruction pointer.
+Terminal classification is evidence-first: final acceptance is checkpointed, Manifest V3 is
+finalized and checksum-validated, and only then may durable lifecycle state become `completed` or
+`blocked`. An evidence failure leaves the trigger `retryable`, never falsely successful.
+
 Analysis receives a freshly minted, repository-scoped GitHub App token with contents-read
 permission. The control repository's `GITHUB_TOKEN` writes only durable state refs. Production
 token resolution ignores ambient `GH_TOKEN`/PAT values. Health aggregation runs even when one
 matrix member fails, uploads `HealthReportV1`, alerts through an issue and failed Actions check,
-and optionally pings an external dead-man monitor.
+and optionally pings an external dead-man monitor. Backlog is age/status classified: retryable or
+SLA-aged work is actionable and makes the report unhealthy, while recent bounded in-flight work
+remains visible without creating a false incident.
 
 The control repository must configure the Actions variable `GH_APP_ID` and secrets
 `GH_APP_PRIVATE_KEY`, `LLM_BASE_URL`, and `LLM_API_KEY`. `DEAD_MAN_HEARTBEAT_URL` is optional for
