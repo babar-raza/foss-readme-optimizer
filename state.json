@@ -212,8 +212,8 @@
       "upstream_revision_at_accept": "9274b621ebd30f2aca692851bea29ff343a019d8"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "3a2f9544ea776bd582681853aca6a67a84920af285249e049129aed52d49bbcc",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "b694e49e41024422554f98c56be324c200adaf37a758c2d7422ea5c2a0f35d49",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -221,7 +221,7 @@
         "handoff_findings": [
           {
             "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-22T07:05:03.058730+00:00",
+            "detected_at": "2026-07-23T06:36:41.592031+00:00",
             "evidence": {
               "detail": "Maven Central: org.aspose:aspose-cells-foss NOT FOUND (0 results)"
             },
@@ -229,17 +229,17 @@
           }
         ],
         "install_path_resolved": false,
-        "latest_release_name": "V26.5.0",
-        "latest_release_tag": "V26.5.0",
-        "releases_count": 2
+        "latest_release_name": "V26.7.0",
+        "latest_release_tag": "V26.7.0",
+        "releases_count": 3
       },
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T07:05:03.059575+00:00",
+      "last_run_timestamp": "2026-07-23T06:36:41.592568+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "9274b621ebd30f2aca692851bea29ff343a019d8"
+      "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
     },
     "presentation_benchmarking": {
       "accepted_facts_hash": "1146e53aaaf473239015b8c5248d537cde66344584e2675cfc7298c72559a0c5",
@@ -412,7 +412,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 67,
+  "state_version": 68,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f5369e5b6b8d9d668818a537b4819ddf1edbdbb56bb9d75b85f1819a8a9dea53",
