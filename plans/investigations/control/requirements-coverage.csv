@@ -42,22 +42,22 @@ OWN-006,OWN,P0,PLANNED,FULLY_INVESTIGATED,The settings proof demonstrates a dry-
 OWN-007,OWN,P0,PLANNED,FULLY_INVESTIGATED,The social-preview proof demonstrates the manual-UI contract with PREPARED_FOR_MANUAL_APPLY,,"5. Scope, control, and ownership boundaries"
 OWN-008,OWN,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,"5. Scope, control, and ownership boundaries"
 OWN-009,OWN,P0,GOVERNANCE,FULLY_INVESTIGATED,Active governance rule already enforced by this investigation's process,,"5. Scope, control, and ownership boundaries"
-OWN-010,OWN,P0,PLANNED,FULLY_INVESTIGATED,Blocking handoff on ambiguous/missing facts in contracts + the handoff proof's response loop,,"5. Scope, control, and ownership boundaries"
-OWN-011,OWN,P1,PLANNED,PARTIALLY_INVESTIGATED,Editorial-authority bounds designed; fine-grained rules await Phase-20 presentation standard,,"5. Scope, control, and ownership boundaries"
+OWN-010,OWN,P0,PARTIAL,FULLY_INVESTIGATED,Blocking handoff on ambiguous/missing facts in contracts + the handoff proof's response loop,,"5. Scope, control, and ownership boundaries"
+OWN-011,OWN,P1,PARTIAL,PARTIALLY_INVESTIGATED,Editorial-authority bounds designed; fine-grained rules await Phase-20 presentation standard,,"5. Scope, control, and ownership boundaries"
 OWN-012,OWN,P1,IMPLEMENTED,FULLY_INVESTIGATED,The generated-surface audit names the underlying cause; no field edits,,"5. Scope, control, and ownership boundaries"
 OWN-013,OWN,P1,PARTIAL,FULLY_INVESTIGATED,The handoff proof: findings handed to product owner,,"5. Scope, control, and ownership boundaries"
-OWN-014,OWN,P1,PLANNED,PARTIALLY_INVESTIGATED,Permission+rollback recorded in the settings proof; full github-surface-control doc is Phase-20 research in roadmap,,"5. Scope, control, and ownership boundaries"
-OWN-015,OWN,P1,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] action_mode present in the prototype manifest; not frozen,,"5. Scope, control, and ownership boundaries"
+OWN-014,OWN,P1,PARTIAL,PARTIALLY_INVESTIGATED,Permission+rollback recorded in the settings proof; full github-surface-control doc is Phase-20 research in roadmap,,"5. Scope, control, and ownership boundaries"
+OWN-015,OWN,P1,PARTIAL,PARTIALLY_INVESTIGATED,[review-downgraded] action_mode present in the prototype manifest; not frozen,,"5. Scope, control, and ownership boundaries"
 FACT-001,FACT,P0,PARTIAL,PARTIALLY_INVESTIGATED,[review-downgraded] block-on-missing-facts behavior proven (the stale-facts and handoff proofs); ProductFactsV1 record not yet frozen,,6. Product-facts and provenance requirements
-FACT-002,FACT,P0,PLANNED,DEFERRED_WITH_DESIGN,[review-downgraded] minimum-fields listed but the schema is not yet frozen,,6. Product-facts and provenance requirements
-FACT-003,FACT,P0,PLANNED,PARTIALLY_INVESTIGATED,[review-downgraded] claim->fact matching is a prototype heading/bullet MVP; full contract pending,,6. Product-facts and provenance requirements
-FACT-004,FACT,P0,PLANNED,FULLY_INVESTIGATED,Missing facts => blocking finding (contracts + the handoff proof),,6. Product-facts and provenance requirements
-FACT-005,FACT,P0,PLANNED,FULLY_INVESTIGATED,Conflicting sources => owner resolution before change (contract + response loop),,6. Product-facts and provenance requirements
-FACT-006,FACT,P1,PLANNED,DEFERRED_WITH_DESIGN,[review-downgraded] provenance fields specified; ProductFactsV1 schema not written yet,,6. Product-facts and provenance requirements
-FACT-007,FACT,P1,PLANNED,PARTIALLY_INVESTIGATED,Verified-example field designed; execution/verification mechanics deferred to roadmap,,6. Product-facts and provenance requirements
+FACT-002,FACT,P0,PARTIAL,DEFERRED_WITH_DESIGN,[review-downgraded] minimum-fields listed but the schema is not yet frozen,,6. Product-facts and provenance requirements
+FACT-003,FACT,P0,PARTIAL,PARTIALLY_INVESTIGATED,[review-downgraded] claim->fact matching is a prototype heading/bullet MVP; full contract pending,,6. Product-facts and provenance requirements
+FACT-004,FACT,P0,PARTIAL,FULLY_INVESTIGATED,Missing facts => blocking finding (contracts + the handoff proof),,6. Product-facts and provenance requirements
+FACT-005,FACT,P0,PARTIAL,FULLY_INVESTIGATED,Conflicting sources => owner resolution before change (contract + response loop),,6. Product-facts and provenance requirements
+FACT-006,FACT,P1,PARTIAL,DEFERRED_WITH_DESIGN,[review-downgraded] provenance fields specified; ProductFactsV1 schema not written yet,,6. Product-facts and provenance requirements
+FACT-007,FACT,P1,PARTIAL,PARTIALLY_INVESTIGATED,Verified-example field designed; execution/verification mechanics deferred to roadmap,,6. Product-facts and provenance requirements
 FACT-008,FACT,P1,PLANNED,FULLY_INVESTIGATED,"Release facts via handoff, never stale prose (the handoff proof)",,6. Product-facts and provenance requirements
-FACT-009,FACT,P1,PLANNED,DEFERRED_WITH_DESIGN,[review-downgraded] limitation preservation designed; no dedicated proof this sprint,,6. Product-facts and provenance requirements
-FACT-010,FACT,P2,PLANNED,DEFERRED_WITH_DESIGN,[review-downgraded] dependency_fact_ids designed in the state model; targeted reevaluation not proven,,6. Product-facts and provenance requirements
+FACT-009,FACT,P1,PARTIAL,DEFERRED_WITH_DESIGN,[review-downgraded] limitation preservation designed; no dedicated proof this sprint,,6. Product-facts and provenance requirements
+FACT-010,FACT,P2,PARTIAL,DEFERRED_WITH_DESIGN,[review-downgraded] dependency_fact_ids designed in the state model; targeted reevaluation not proven,,6. Product-facts and provenance requirements
 FACT-011,FACT,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,6. Product-facts and provenance requirements
 FACT-012,FACT,P2,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,6. Product-facts and provenance requirements
 FACT-013,FACT,P2,BACKLOG,DEFERRED_WITH_DESIGN,Explicitly tracked backlog item excluded from the active mandatory mission queue,,6. Product-facts and provenance requirements
@@ -85,7 +85,7 @@ RDM-021,RDM,P2,PLANNED,PARTIALLY_INVESTIGATED,Markdown/anchor/fence validation d
 RDM-022,RDM,P2,PLANNED,DEFERRED_WITH_DESIGN,Per-change rationale field in proposals (RunManifestV1),,7. README presentation requirements
 RDM-023,RDM,P2,IMPLEMENTED,ALREADY_PROVEN,Secondary-links best-effort tracking shipped,,7. README presentation requirements
 RDM-024,RDM,P1,IMPLEMENTED,ALREADY_PROVEN,Phase 0-15 engine behavior; verified in the current-state reconstruction against code + tests + runs/ evidence,,7. README presentation requirements
-RDM-025,RDM,P1,BACKLOG,DEFERRED_WITH_DESIGN,Explicitly tracked backlog item excluded from the active mandatory mission queue,,7. README presentation requirements
+RDM-025,RDM,P1,PARTIAL,PARTIALLY_INVESTIGATED,Requirement has partial implementation or proof and retains an explicit open boundary,,7. README presentation requirements
 SURF-001,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
 SURF-002,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
 SURF-003,SURF,P1,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,8. Repository settings and supporting surfaces
@@ -382,7 +382,7 @@ L8-003,L8,P0,PARTIAL,PARTIALLY_INVESTIGATED,Requirement has partial implementati
 L8-004,L8,P0,PARTIAL,PARTIALLY_INVESTIGATED,Requirement has partial implementation or proof and retains an explicit open boundary,,20. Level-8 consolidation gates
 L8-005,L8,P0,PARTIAL,PARTIALLY_INVESTIGATED,Requirement has partial implementation or proof and retains an explicit open boundary,,20. Level-8 consolidation gates
 L8-006,L8,P0,PARTIAL,PARTIALLY_INVESTIGATED,Requirement has partial implementation or proof and retains an explicit open boundary,,20. Level-8 consolidation gates
-L8-007,L8,P0,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,20. Level-8 consolidation gates
+L8-007,L8,P0,PARTIAL,PARTIALLY_INVESTIGATED,Requirement has partial implementation or proof and retains an explicit open boundary,,20. Level-8 consolidation gates
 L8-008,L8,P0,PARTIAL,PARTIALLY_INVESTIGATED,Requirement has partial implementation or proof and retains an explicit open boundary,,20. Level-8 consolidation gates
 L8-009,L8,P0,PARTIAL,PARTIALLY_INVESTIGATED,Requirement has partial implementation or proof and retains an explicit open boundary,,20. Level-8 consolidation gates
 L8-010,L8,P0,PLANNED,DEFERRED_WITH_DESIGN,Carried by the governed roadmap,,20. Level-8 consolidation gates

@@ -803,6 +803,7 @@ taskcards:
   - target repository remotes
   dependencies:
   - L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+  - L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION
   expected_outputs:
   - ProductFactsV2 and migrations.
   - Fact precedence, conflict, and dependent-action gating.
@@ -871,6 +872,75 @@ taskcards:
   - PKG-005
   - PKG-006
   - L8-006
+- task_id: L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+  title: Build the repository-local ProductFactsV2 and ownership foundation
+  source_audit_finding: Wave 2 production proof is externally blocked, but ProductFactsV2 schema, migration,
+    precedence, conflict, dependent-action gating, ownership, and protected-content work can be built
+    and verified locally without weakening or bypassing that production gate.
+  audit_classification: partially_done
+  priority: P0
+  lane: facts-and-ownership
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Complete the safe repository-local Wave 3 foundation while leaving hosted execution, production
+    effects, and Wave 3 closure dependent on the blocked Wave 2 production proof.
+  why_it_matters: A blocked infrastructure lane must not leave independent factuality and ownership safety
+    work idle, and the parent Wave 3 task must still fail closed until both foundations pass.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - config/policies/
+  - docs/
+  - pyproject.toml
+  - requirements-lock.txt
+  - plans/requirements.md
+  - plans/investigations/
+  - plans/investigations/evidence/
+  - scripts/retrofits/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - config/authorization/
+  - target repository remotes
+  - target repository default branches
+  dependencies:
+  - L8-WAVE1-CANONICAL-SAFETY-SPINE
+  expected_outputs:
+  - ProductFactsV2 typed contract and explicit ProductFactsV1 migration.
+  - Mechanically testable precedence, conflict, and dependent-surface gating.
+  - Policy-driven per-surface ownership and protected-content fingerprints.
+  - Prompt-injection-as-data and secret-free example-execution boundaries.
+  acceptance_checks:
+  - Known-false package coordinates cannot enter an affected verified proposal.
+  - Missing or conflicting facts block only dependent surfaces.
+  - Protected limitations, commands, examples, and terminology cannot disappear undetected.
+  - ProductFactsV1 state remains readable through an explicit migration.
+  verification:
+  - Focused schema, migration, precedence, conflict, ownership, and protected-content tests.
+  - False-coordinate, prompt-injection, and protected-loss negative controls.
+  - Full official checks and checksum-complete local evidence.
+  negative_controls:
+  - README prose is never promoted to mechanically verified truth by itself.
+  - No package/example execution receives a write token or inherited live credential.
+  - No production workflow, target effect, or master closure claim is changed by this child task.
+  regression_checks:
+  - Existing ProductFactsV1 and facts-hash consumers.
+  - Existing capability registry, verifier, allow-list, and push-block security tests.
+  - Requirement-task coverage and plan-structure validation.
+  evidence_requirements:
+  - Consumer inventory and migration matrix.
+  - Raw focused and full-suite logs.
+  - Independent verification of factuality and protected-content failure cases.
+  rollback_or_recovery: Preserve the V1 reader and isolate incomplete fact fields behind dependent-surface
+    blocks; revert only the bounded V2 child-task changes if compatibility cannot be proven.
+  failure_reroute: Split schema/migration, provenance precedence, ownership, protected content, and isolated
+    execution into independent repository-local repairs while keeping production effects blocked.
+  closeout_rules:
+  - All repository-local acceptance checks pass with inspected evidence.
+  - The parent Wave 3 task remains dependent on both this child and Wave 2 production closure.
+  requirement_ids: []
 - task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1345,11 +1415,11 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 6e4a8dcc2329314f6186c125071333660b6578136645cd3141988b910d0151ea
+  source_sha256: b7e544c65abfa04017b7c212caac7b31f64f91300e39678ccba40d67ebae328f
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 390
-  mandatory_requirement_rows: 366
-  excluded_backlog_rows: 24
+  mandatory_requirement_rows: 367
+  excluded_backlog_rows: 23
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
   mappings:
@@ -1613,13 +1683,13 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: OWN-010
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: OWN-011
     priority: P1
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
@@ -1637,13 +1707,13 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: OWN-014
     priority: P1
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: OWN-015
     priority: P1
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
@@ -1655,37 +1725,37 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: FACT-002
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: FACT-003
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: FACT-004
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: FACT-005
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: FACT-006
     priority: P1
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: FACT-007
     priority: P1
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
@@ -1697,13 +1767,13 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: FACT-009
     priority: P1
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: FACT-010
     priority: P2
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: open_mandatory
     semantic_findings: []
@@ -1871,9 +1941,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: RDM-025
     priority: P1
-    requirement_status: BACKLOG
+    requirement_status: PARTIAL
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
-    disposition: excluded_backlog
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: SURF-001
     priority: P1
@@ -3653,7 +3723,7 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-007
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
     disposition: open_mandatory
     semantic_findings: []

@@ -521,7 +521,9 @@ class TestMetadataPresentationSpecialist:
             },
         )
 
-    def test_first_run_proposes_missing_description_and_records_state(self, tmp_path, monkeypatch):
+    def test_first_run_blocks_generic_description_but_proposes_cited_homepage(
+        self, tmp_path, monkeypatch
+    ):
         from readme_agent.specialists import metadata_presentation
 
         source = _init_source_repo(tmp_path / "source", "# Widget\n\nA widget library.\n")
@@ -533,8 +535,14 @@ class TestMetadataPresentationSpecialist:
         result = metadata_presentation.run(ORG_REPO, backend)
 
         assert result.accepted_status == "FIRST_OBSERVATION"
-        assert result.details["proposed_description"] == "widget FOSS library for java"
+        assert result.details["proposed_description"] is None
+        assert result.details["proposed_homepage"] == ("https://products.example.org/widget/java/")
         assert result.details["has_proposal"] is True
+        assert {finding["surface_id"] for finding in result.details["blocked_findings"]} == {
+            "metadata.description",
+            "metadata.topics",
+        }
+        assert result.details["fact_citations"]["metadata.homepage"]
         stored = backend.load(ORG_REPO)
         assert stored.domain_states["metadata_presentation"].accepted_status == "FIRST_OBSERVATION"
 
@@ -560,7 +568,7 @@ class TestMetadataPresentationSpecialist:
         self, tmp_path, monkeypatch
     ):
         """The specific correctness property: an *unaddressed* proposal
-        (description still missing both runs) must not permanently block
+        (homepage still missing both runs) must not permanently block
         the supervisor's convergence shortcut -- `accepted_status` tracks
         "did anything change," not "is there still something to fix"."""
         from readme_agent.specialists import metadata_presentation

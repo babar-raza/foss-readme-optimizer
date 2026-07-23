@@ -116,6 +116,7 @@ def _build_profile_via_api(
 
     return RepositoryProfile(
         org_repo=entry.org_repo,
+        source_revision=current_revision,
         detected_ecosystems=detected,
         unresolved_manifests=unresolved,
         package_roots=package_roots,
@@ -148,7 +149,9 @@ def get_or_build_profile(
         and prior_profile_result is not None
     ):
         return _checkpoint_profile(
-            RepositoryProfile.model_validate(prior_profile_result),
+            RepositoryProfile.model_validate(prior_profile_result).model_copy(
+                update={"source_revision": current_revision}
+            ),
             "durable_profile_cache",
         )
 
@@ -160,4 +163,7 @@ def get_or_build_profile(
 
     path = baseline_dir(entry.org, entry.repo_name)
     clone_baseline(entry, path)
-    return _checkpoint_profile(build_profile(entry.org_repo, path), "baseline_clone")
+    profile = build_profile(entry.org_repo, path).model_copy(
+        update={"source_revision": current_revision}
+    )
+    return _checkpoint_profile(profile, "baseline_clone")

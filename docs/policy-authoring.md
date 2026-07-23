@@ -47,6 +47,17 @@ block:
   link_whitelist_domains: [products.aspose.com, docs.aspose.com, ...]
 ```
 
+The runtime materializes a versioned `surface_ownership` map for every loaded policy. The map
+assigns each known presentation surface to exactly one of `repository_file`, `settings_api`,
+`manual_ui`, `product_owned`, or `github_generated`, together with the allowed operation,
+permission class, and rollback method. Policy authors do not duplicate that invariant map in each
+YAML file; an unknown surface fails closed in `registry/surface_ownership.py`.
+
+Policy values are intent/positioning evidence, not proof of mechanically testable claims. The
+`ProductFactsV2` resolver ranks verified repository, manifest, test, and package-registry evidence
+above policy; conflicts block only the affected presentation surfaces. Existing README prose is
+always treated as a claim to verify and cannot verify itself.
+
 **Why one file per product, not one shared file per org**: promotional links are inherently
 per-product (3D vs Cells vs PDF each point somewhere different). `block`/`secondary_links`
 boilerplate duplication across profiles is accepted debt, not worth a config-inheritance system at

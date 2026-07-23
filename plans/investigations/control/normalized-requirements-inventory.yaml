@@ -44,11 +44,11 @@ totals:
     VAL: 18
     VER: 9
   by_status:
-    BACKLOG: 24
+    BACKLOG: 23
     GOVERNANCE: 33
     IMPLEMENTED: 147
-    PARTIAL: 57
-    PLANNED: 123
+    PARTIAL: 71
+    PLANNED: 110
     RESEARCH-GATED: 6
   by_priority:
     P0: 143
@@ -600,7 +600,8 @@ requirements:
   status: GOVERNANCE
   section: 5. Scope, control, and ownership boundaries
   requirement: Every visible GitHub surface MUST be assigned exactly one control class before the system proposes an action.
-  acceptance_evidence: Surface-control matrix contains one classification per surface.
+  acceptance_evidence: '`registry/surface_ownership.py` materializes exactly one class for every known surface; unknown surfaces
+    fail closed. Local proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decision 19
   decision_refs:
   - '19'
@@ -612,7 +613,8 @@ requirements:
   section: 5. Scope, control, and ownership boundaries
   requirement: 'Supported control classes MUST be: repository-file managed, GitHub API/settings managed, manual UI managed,
     product-agent owned, or GitHub generated.'
-  acceptance_evidence: Schema and documentation enumerate only these classes unless a ledger decision adds another.
+  acceptance_evidence: 'The typed ownership schema permits only `repository_file`, `settings_api`, `manual_ui`, `product_owned`,
+    and `github_generated`; tested in `tests/unit/test_surface_ownership.py`. Local proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decision 19
   decision_refs:
   - '19'
@@ -714,11 +716,12 @@ requirements:
 - id: OWN-010
   group: OWN
   priority: P0
-  status: PLANNED
+  status: PARTIAL
   section: 5. Scope, control, and ownership boundaries
   requirement: Ambiguous or conflicting product facts MUST be returned to the owning product agent as a finding; the central
     agent MUST NOT guess.
-  acceptance_evidence: Proposal status is blocked/pending-facts with evidence.
+  acceptance_evidence: '`facts/resolution.py` records same-precedence disagreement as unresolved and `facts/gating.py` blocks
+    affected surfaces. A real external product-owner handoff and owner-resolution lifecycle remain open. Local proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decisions 18, 22
   decision_refs:
   - '18'
@@ -727,23 +730,13 @@ requirements:
 - id: OWN-011
   group: OWN
   priority: P1
-  status: PLANNED
+  status: PARTIAL
   section: 5. Scope, control, and ownership boundaries
   requirement: The central agent MAY improve organization, wording, navigation, and presentation only where verified facts
     and ownership rules permit.
-  acceptance_evidence: 'Diff provenance map and change-boundary review. **Multi-specialist risk noted, not designed** (2026-07-19,
-    specialist-domain-isolation pass): `markers.py`''s single-owned-span pattern (`SPAN_NAMES = ("resources",)`) has no generalized
-    concept of "specialist X owns file-region/surface Y" — once Wave 7 introduces multiple specialists with plausibly-overlapping
-    outputs (e.g. a README specialist and a metadata specialist both touching `README.md`), a cross-specialist surface collision
-    is possible and currently undetected by anything except the existing whole-file validators. Deliberately not designed
-    here: Wave 7''s real specialist-to-surface mapping doesn''t exist yet, and guessing at the mechanism now risks repeating
-    decision #32''s first-draft granularity mistake. **First real, narrow mitigation built and live-proven 2026-07-20** (Wave
-    7f, decision 41): `specialists/cross_surface_validation.py` reads `readme_reconciliation`''s and `community_files_presentation`''s
-    already-recorded state directly (no new capability) and flags a real README-license-claim-vs-LICENSE-file-classification
-    disagreement -- proven against a real local git repo with a deliberately introduced mismatch, through unmocked comparison
-    logic. Stays `PLANNED`, not `IMPLEMENTED`: this is one specific fact pair (license), not the general "any two specialists''
-    overlapping facts" mechanism this row describes -- that broader design question remains open, per the same reasoning that
-    deferred it in the first place.'
+  acceptance_evidence: '`facts/gating.py` and `specialists/readme_factuality.py` now prevent metadata/README effects where
+    facts or protected-content rules do not permit them. General cross-specialist region ownership remains open. Local proof:
+    `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decision 18; Phase 21e (deferred, design-only — needs `change_boundary`'s byte-identical-outside-spans
     contract to evolve first)
   decision_refs:
@@ -786,10 +779,11 @@ requirements:
 - id: OWN-014
   group: OWN
   priority: P1
-  status: PLANNED
+  status: PARTIAL
   section: 5. Scope, control, and ownership boundaries
   requirement: The system MUST record the required permission and rollback method for every API/settings-managed action.
-  acceptance_evidence: '`github-surface-control.md` and proposal evidence include permission/rollback.'
+  acceptance_evidence: '`SurfaceOwnershipMapV1` records required permission and rollback for every settings/API surface. Propagation
+    into every proposal/effect manifest remains open. Local proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Phase 20, 22
   decision_refs: []
   phase_refs:
@@ -798,10 +792,11 @@ requirements:
 - id: OWN-015
   group: OWN
   priority: P1
-  status: PLANNED
+  status: PARTIAL
   section: 5. Scope, control, and ownership boundaries
   requirement: The system MUST identify whether an action is local-only, proposal-only, manually applied, or remotely applied.
-  acceptance_evidence: Every evidence manifest has an action mode.
+  acceptance_evidence: 'The ownership map distinguishes audit, proposal, local patch, manual apply, and remote apply modes.
+    Every terminal evidence manifest does not yet carry this classification. Local proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Phases 21–24
   decision_refs: []
   phase_refs:
@@ -816,14 +811,9 @@ requirements:
   section: 6. Product-facts and provenance requirements
   requirement: Before changing product-facing content, the system MUST obtain a provenance-bearing product-facts record from
     repository inspection, an owning product agent, or both.
-  acceptance_evidence: '`capabilities/get_product_facts.py` (2026-07-19, decision #37/#39) combines the product inventory
-    (`data/products.json`+`config/policies/*.yml`) with live repository profiling, both sources every call, with a `source`
-    dict recording provenance per field — `tests/unit/test_capabilities.py::TestGetProductFactsCapability`. **Live-proven
-    2026-07-19**: the real gateway planner chose and successfully dispatched `get_product_facts` against `aspose-cells-foss/Aspose.Cells-FOSS-for-Java`
-    during a real `supervise --durable-state` run, correctly identifying the README''s missing `products_org_link`/`products_com_link`/`relationship_explained`
-    against the real policy facts. `PARTIAL` not `IMPLEMENTED`: not yet an enforced precondition inside `generate_repo()`/the
-    specialist layer, and covers only today''s narrow field set (identity, license, links, talking points) — the full decision
-    #22 list (audience, verified example, release info, limitations) stays unbuilt, `DOC-006` still `RESEARCH-GATED`.'
+  acceptance_evidence: '`get_product_facts` now emits provenance-complete `ProductFactsV2`; the README specialist obtains
+    it before its verifier/effect boundary. Full-field ingestion and every product-facing specialist remain open. Real read-only
+    proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decision 22/37; Phase 20/25; Sprint Wave 6
   decision_refs:
   - '22'
@@ -834,12 +824,14 @@ requirements:
 - id: FACT-002
   group: FACT
   priority: P0
-  status: PLANNED
+  status: PARTIAL
   section: 6. Product-facts and provenance requirements
   requirement: The minimum product-facts record MUST include product identity, audience, supported capabilities, supported
     formats, installation/package coordinates, a minimal verified example, documentation links, current release information,
     and known limitations.
-  acceptance_evidence: Schema validation passes.
+  acceptance_evidence: '`schema_v2.py` requires identity, audience, problems, capabilities, formats, platforms, installation/acquisition,
+    example, docs, release, limitations, compatibility, license, support, and commercial/FOSS relationship selections. Unavailable
+    values remain explicit `missing`, not invented; their ingestion is open. Local proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decision 22
   decision_refs:
   - '22'
@@ -847,11 +839,13 @@ requirements:
 - id: FACT-003
   group: FACT
   priority: P0
-  status: PLANNED
+  status: PARTIAL
   section: 6. Product-facts and provenance requirements
   requirement: Every technical claim introduced or materially changed by the central agent MUST map to one or more product-fact
     IDs or repository evidence locations.
-  acceptance_evidence: Claim-to-source map has no unmapped claim.
+  acceptance_evidence: '`TechnicalClaimV1`/`validate_claim_citations()` enforce fact IDs, accepted verification state, and
+    affected-surface membership; metadata proposals emit citations. Coverage of every technical-claim producer remains open.
+    Local proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decisions 18, 22
   decision_refs:
   - '18'
@@ -860,11 +854,13 @@ requirements:
 - id: FACT-004
   group: FACT
   priority: P0
-  status: PLANNED
+  status: PARTIAL
   section: 6. Product-facts and provenance requirements
   requirement: Missing required facts MUST produce a blocking finding or product-agent handoff, not a placeholder, broad marketing
     statement, or invented capability.
-  acceptance_evidence: Negative tests and pilot evidence.
+  acceptance_evidence: 'Missing facts block dependent metadata actions and prevent generic description/topic replacement while
+    an independent homepage action can continue. All surfaces and a real product-owner handoff remain open. Real isolation
+    proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decision 22
   decision_refs:
   - '22'
@@ -872,10 +868,12 @@ requirements:
 - id: FACT-005
   group: FACT
   priority: P0
-  status: PLANNED
+  status: PARTIAL
   section: 6. Product-facts and provenance requirements
   requirement: Conflicting sources MUST be recorded and resolved by an authoritative owner before affected content is changed.
-  acceptance_evidence: Conflict record and resolution evidence.
+  acceptance_evidence: '`resolve_product_facts()` applies explicit precedence, preserves conflicting provenance, and marks
+    same-rank disagreement unresolved; affected-surface gating is built. External owner resolution remains open. Local proof:
+    `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decisions 18, 22
   decision_refs:
   - '18'
@@ -884,11 +882,13 @@ requirements:
 - id: FACT-006
   group: FACT
   priority: P1
-  status: PLANNED
+  status: PARTIAL
   section: 6. Product-facts and provenance requirements
   requirement: Product facts MUST include source type, source location, source revision or retrieval time, owning agent/team,
     and confidence or verification state.
-  acceptance_evidence: Schema fields present and validated.
+  acceptance_evidence: '`FactRecordV2` requires stable ID/field, value, source type/location/revision or retrieval time, owner,
+    confidence, state, conflicts, and affected surfaces. Portfolio-wide real fact population remains open. Local and Cells/Java
+    proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decision 22; Phase 25
   decision_refs:
   - '22'
@@ -897,10 +897,12 @@ requirements:
 - id: FACT-007
   group: FACT
   priority: P1
-  status: PLANNED
+  status: PARTIAL
   section: 6. Product-facts and provenance requirements
   requirement: Examples presented as working examples MUST be executable or otherwise verified against the referenced package/version.
-  acceptance_evidence: Example-validation evidence.
+  acceptance_evidence: '`facts/example_execution.py` provides a bounded, secret-free, no-shell process boundary with descendant
+    cleanup and redacted output. Real isolated per-ecosystem example execution in disposable Actions jobs remains open. Security
+    tests: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Phase 21
   decision_refs: []
   phase_refs:
@@ -921,11 +923,12 @@ requirements:
 - id: FACT-009
   group: FACT
   priority: P1
-  status: PLANNED
+  status: PARTIAL
   section: 6. Product-facts and provenance requirements
   requirement: Known limitations MUST be preserved where relevant and MUST NOT be removed merely to make the presentation
     more attractive.
-  acceptance_evidence: Before/after fact comparison.
+  acceptance_evidence: '`facts/protected_content.py` fingerprints limitation sections, and the README pre-effect gate rejects
+    their removal. Semantic weakening beyond removal and portfolio proof remain open. Local protected-loss proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decisions 18, 22
   decision_refs:
   - '18'
@@ -934,15 +937,11 @@ requirements:
 - id: FACT-010
   group: FACT
   priority: P2
-  status: PLANNED
+  status: PARTIAL
   section: 6. Product-facts and provenance requirements
   requirement: Product-facts changes SHOULD trigger only the presentation sections that depend on the changed facts.
-  acceptance_evidence: Dependency map and surgical diff evidence. Wave 11.3's new `facts/changeset.py::diff_product_facts()`
-    (`FACT-012`) provides the "surgical diff" half of this row's own acceptance evidence -- the dependency-map half (which
-    presentation section depends on which fact) is Wave 12.1's `readme/structure.py::SectionModel.fact_dependencies[]` job,
-    not yet built; nothing is wired to actually trigger a targeted rerun yet either. Stays `PLANNED`, not `PARTIAL` -- a diff
-    mechanism with nothing consuming it to trigger anything is not yet a partial implementation of "trigger only the sections
-    that depend."
+  acceptance_evidence: '`facts/gating.py` supplies the fact-to-surface dependency map and metadata consumes it for independent
+    blocking. Fact-change-driven targeted scheduling for every presentation section remains open. Local proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decision 21; Phase 25; `FACT-012`
   decision_refs:
   - '21'
@@ -1344,21 +1343,13 @@ requirements:
 - id: RDM-025
   group: RDM
   priority: P1
-  status: BACKLOG
+  status: PARTIAL
   section: 7. README presentation requirements
   requirement: '`find_claim_conflicts()`''s findings SHOULD actually correct the README''s rendered text (not just report
     the conflict), wired into `orchestrator.prepare_readme_candidate()`''s normal render pipeline.'
-  acceptance_evidence: '**Scope note, verified not assumed, two real design blockers found while scoping this, not a deferral
-    for effort**: (1) `readme/facts.py::compute_facts_hash()` deliberately excludes both README content and `gap_report` (decision
-    #11) — a claim-conflict finding depends on live network state (a resolver result) that can change with zero local file
-    change and zero `facts_hash` change, exactly the blind spot Wave 9.7''s `state/freshness_contract.py` had to solve at
-    the *supervisor* level for non-git surfaces; no render-level equivalent exists yet, so wiring this in now would either
-    force a live network call on every render (an unmeasured architecture change to a pipeline that is deliberately 100% offline
-    today) or silently miss a conflict on the skip path. (2) `prepare_readme_candidate()` is one of this project''s most heavily
-    load-bearing functions (idempotency/durable-skip/span-stripped re-detection/hash exclusions all precisely balanced) —
-    correctly integrating a new signal is real, separate design work. Also out of scope here: deciding what corrected text
-    should actually *say* when a coordinate doesn''t resolve (an honest caveat vs. a substitute instruction) needs product-aware
-    judgment this phase does not attempt to automate. Not built this pass; a real gap, named honestly.'
+  acceptance_evidence: '`specialists/readme_factuality.py` now dispatches live package acquisition before a README effect
+    and rejects a candidate retaining a positively false coordinate; the real Cells/Java claim is proven blocked. Product-aware
+    corrective wording and freshness-triggered rerendering remain open. Real proof: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: '`RDM-024`; Wave 9.7; decision 11'
   decision_refs: []
   phase_refs: []
@@ -6166,8 +6157,9 @@ requirements:
   requirement: '`ProductFactsV2` MUST give every fact a stable ID/field, value, source/location, source revision or retrieval
     time, verification state, authoritative owner, confidence, conflicts, and affected surfaces. Mechanically verified repository/package
     evidence MUST outrank prose; missing facts block only dependent actions and conflicts block affected proposals.'
-  acceptance_evidence: False-coordinate, fact-conflict, missing-fact isolation, provenance, ownership, and README-claim-precedence
-    tests plus real-repository evidence. `ProductFactsV1` is partial.
+  acceptance_evidence: '`ProductFactsV2`, explicit V1 migration, precedence/conflicts, dependent-surface gating, ownership,
+    README-claim distrust, and a real Cells/Java false-coordinate rejection are built and checksum-proven. Full-field ingestion,
+    external owner resolution, and portfolio production proof remain open. Evidence: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decisions 37, 75; Wave 3; FACT-*
   decision_refs:
   - '37'
@@ -6176,14 +6168,15 @@ requirements:
 - id: L8-007
   group: L8
   priority: P0
-  status: PLANNED
+  status: PARTIAL
   section: 20. Level-8 consolidation gates
   requirement: Every candidate MUST derive from a typed `RepositoryPresentationPlanV1` containing findings, per-surface actions,
     dependencies, fact citations, ownership class, operation, validators, rollback, and stop conditions. Protected terminology,
     commands, examples, limitations, and maintainer-authored regions MUST be fingerprinted; unapproved loss or weakening MUST
     fail validation.
-  acceptance_evidence: Golden-set tests cover strong existing content, removals, prompt injection, malformed and multi-root
-    repositories; independent reviewers require no manual prose repair.
+  acceptance_evidence: '`markdown-it-py` protected-content fingerprints and the README pre-effect rejection gate cover terminology,
+    commands, examples, limitations, and maintainer regions. `RepositoryPresentationPlanV1`, source-span planning, and full
+    golden-set proof remain open. Evidence: `plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/`.'
   traceability_raw: Decision 75; Waves 3–4
   decision_refs:
   - '75'

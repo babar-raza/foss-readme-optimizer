@@ -48,7 +48,7 @@ class TestGetOrBuildProfileCacheHit:
             prior_profile_result=prior_profile.model_dump(mode="json"),
         )
 
-        assert result == prior_profile
+        assert result == prior_profile.model_copy(update={"source_revision": "deadbeef"})
 
     def test_sha_mismatch_clones_fresh(self, monkeypatch, tmp_path):
         entry = _fake_entry()
@@ -70,7 +70,7 @@ class TestGetOrBuildProfileCacheHit:
             prior_profile_result=stale_profile.model_dump(mode="json"),
         )
 
-        assert result == fresh_profile
+        assert result == fresh_profile.model_copy(update={"source_revision": "new-sha"})
 
     def test_no_prior_value_always_clones_fresh(self, monkeypatch, tmp_path):
         entry = _fake_entry()
@@ -85,7 +85,7 @@ class TestGetOrBuildProfileCacheHit:
 
         result = cached.get_or_build_profile(entry)
 
-        assert result == fresh_profile
+        assert result == fresh_profile.model_copy(update={"source_revision": "some-sha"})
 
     def test_prior_revision_without_prior_result_clones_fresh(self, monkeypatch, tmp_path):
         """A prior_upstream_revision with no matching prior_profile_result
@@ -105,7 +105,7 @@ class TestGetOrBuildProfileCacheHit:
             entry, prior_upstream_revision="deadbeef", prior_profile_result=None
         )
 
-        assert result == fresh_profile
+        assert result == fresh_profile.model_copy(update={"source_revision": "deadbeef"})
 
     def test_remote_head_sha_failure_falls_back_to_clone(self, monkeypatch, tmp_path):
         """remote_head_sha() returning None (unreachable remote, timeout,
@@ -151,7 +151,7 @@ class TestGetOrBuildProfileApiPath:
 
         result = cached.get_or_build_profile(entry)
 
-        assert result == fresh_profile
+        assert result == fresh_profile.model_copy(update={"source_revision": "new-sha"})
 
     def test_api_path_used_when_token_available_no_clone(self, monkeypatch):
         entry = _fake_entry()
@@ -176,6 +176,7 @@ class TestGetOrBuildProfileApiPath:
         result = cached.get_or_build_profile(entry)
 
         assert result.org_repo == ORG_REPO
+        assert result.source_revision == "new-sha"
         assert [d.ecosystem for d in result.detected_ecosystems] == ["python"]
         assert result.detected_ecosystems[0].manifest_path == "pyproject.toml"
         assert len(result.package_roots) == 1
@@ -232,7 +233,7 @@ class TestGetOrBuildProfileApiPath:
 
         result = cached.get_or_build_profile(entry)
 
-        assert result == fresh_profile
+        assert result == fresh_profile.model_copy(update={"source_revision": "new-sha"})
 
     def test_api_failure_falls_back_to_clone(self, monkeypatch, tmp_path):
         entry = _fake_entry()
@@ -254,4 +255,4 @@ class TestGetOrBuildProfileApiPath:
 
         result = cached.get_or_build_profile(entry)
 
-        assert result == fresh_profile
+        assert result == fresh_profile.model_copy(update={"source_revision": "new-sha"})

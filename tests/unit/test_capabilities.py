@@ -43,6 +43,10 @@ from readme_agent.capabilities.schema import (
     OrgRepoOnlyInputV1,
 )
 from readme_agent.errors import NotAllowlistedError
+from readme_agent.facts import provider as facts_provider
+from readme_agent.facts.migration import migrate_product_facts_v1
+from readme_agent.facts.schema import ProductFactsV1
+from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.profile.schema import DetectedEcosystem, RepositoryProfile
 from readme_agent.state.schema import DomainStateV1, RunStateV1
 
@@ -702,10 +706,10 @@ class TestGetProductFactsCapability:
             ],
             unresolved_manifests=[],
         )
-        monkeypatch.setattr(get_product_facts, "require_listed", lambda org_repo: fake_entry)
-        monkeypatch.setattr(get_product_facts, "load_policy", lambda profile: fake_policy)
+        monkeypatch.setattr(facts_provider, "require_listed", lambda org_repo: fake_entry)
+        monkeypatch.setattr(facts_provider, "load_policy", lambda profile: fake_policy)
         monkeypatch.setattr(
-            get_product_facts, "get_or_build_profile", lambda entry, **kwargs: fake_profile
+            facts_provider, "get_or_build_profile", lambda entry, **kwargs: fake_profile
         )
 
         result = get_product_facts.execute("acme/widget")
@@ -717,6 +721,16 @@ class TestGetProductFactsCapability:
         assert result["source"]["detected_ecosystems"] == (
             "live repository clone (repository inspection)"
         )
+        assert result["surface_ownership"]["schema_version"] == 1
+        assert result["product_facts_v2"]["schema_version"] == 2
+        assert "product.identity" in result["product_facts_v2"]["selected_fact_ids"]
+        limitations_id = result["product_facts_v2"]["selected_fact_ids"]["product.limitations"]
+        limitations = next(
+            fact
+            for fact in result["product_facts_v2"]["facts"]
+            if fact["fact_id"] == limitations_id
+        )
+        assert limitations["verification_state"] == "missing"
 
     def test_execute_exposes_package_roots(self, monkeypatch, tmp_path):
         """Wave 11.3 (`FACT-010`): additive -- `package_roots` was already
@@ -779,10 +793,10 @@ class TestGetProductFactsCapability:
                 )
             ],
         )
-        monkeypatch.setattr(get_product_facts, "require_listed", lambda org_repo: fake_entry)
-        monkeypatch.setattr(get_product_facts, "load_policy", lambda profile: fake_policy)
+        monkeypatch.setattr(facts_provider, "require_listed", lambda org_repo: fake_entry)
+        monkeypatch.setattr(facts_provider, "load_policy", lambda profile: fake_policy)
         monkeypatch.setattr(
-            get_product_facts, "get_or_build_profile", lambda entry, **kwargs: fake_profile
+            facts_provider, "get_or_build_profile", lambda entry, **kwargs: fake_profile
         )
 
         result = get_product_facts.execute("acme/widget")
@@ -851,10 +865,10 @@ class TestGetProductFactsCapability:
         fake_profile = RepositoryProfile(
             org_repo="acme/widget", detected_ecosystems=[], unresolved_manifests=[]
         )
-        monkeypatch.setattr(get_product_facts, "require_listed", lambda org_repo: fake_entry)
-        monkeypatch.setattr(get_product_facts, "load_policy", lambda profile: fake_policy)
+        monkeypatch.setattr(facts_provider, "require_listed", lambda org_repo: fake_entry)
+        monkeypatch.setattr(facts_provider, "load_policy", lambda profile: fake_policy)
         monkeypatch.setattr(
-            get_product_facts, "get_or_build_profile", lambda entry, **kwargs: fake_profile
+            facts_provider, "get_or_build_profile", lambda entry, **kwargs: fake_profile
         )
 
         result = get_product_facts.execute("acme/widget")
@@ -865,7 +879,7 @@ class TestGetProductFactsCapability:
         def _raise(org_repo):
             raise NotAllowlistedError(f"{org_repo} is not in data/products.json")
 
-        monkeypatch.setattr(get_product_facts, "require_listed", _raise)
+        monkeypatch.setattr(facts_provider, "require_listed", _raise)
 
         with pytest.raises(NotAllowlistedError):
             get_product_facts.execute("acme/widget")
@@ -883,7 +897,7 @@ class TestGetProductFactsCapability:
             ecosystem="java",
             policy_profile=None,
         )
-        monkeypatch.setattr(get_product_facts, "require_listed", lambda org_repo: fake_entry)
+        monkeypatch.setattr(facts_provider, "require_listed", lambda org_repo: fake_entry)
 
         with pytest.raises(NotAllowlistedError):
             get_product_facts.execute("acme/widget")
@@ -917,6 +931,7 @@ class TestRenderReadmeCandidateCapability:
             "fresh_fingerprint": "cafef00d",
             "skip_regeneration": False,
             "needs_write": True,
+            "original_text": "# Widget\n",
             "final_text": "# Widget\n\n<!-- resources -->\n",
             "status": "GENERATED",
             "llm_called": True,
@@ -1710,9 +1725,67 @@ class TestProposeMetadataChangesCapability:
     docs/github-surface-control.md -- dry-run proposal only; no PATCH is
     ever issued anywhere in this capability."""
 
-    def _mock(self, monkeypatch, *, description, homepage, topics):
-        fake_entry = SimpleNamespace(org="acme", repo_name="widget", mode="dry_run")
-        monkeypatch.setattr(propose_metadata_changes, "require_listed", lambda org_repo: fake_entry)
+    @staticmethod
+    def _facts_result(*, all_metadata_facts: bool) -> dict:
+        product_facts = migrate_product_facts_v1(
+            ProductFactsV1(
+                org_repo="acme/widget",
+                family="widget",
+                platform="java",
+                ecosystem="java",
+                products_org_link={"url": "https://products.example.org/widget/java/"},
+            ),
+            source_revision="abc123",
+        )
+        if all_metadata_facts:
+            required_values = {
+                "product.audience": ["Java developers"],
+                "product.problems_solved": ["document processing"],
+                "product.capabilities": ["read workbooks"],
+                "product.formats": ["XLSX"],
+            }
+            facts = [
+                (
+                    fact.model_copy(
+                        update={
+                            "value": required_values[fact.field],
+                            "verification_state": "policy_approved",
+                            "confidence": 0.9,
+                        }
+                    )
+                    if fact.field in required_values
+                    else fact
+                )
+                for fact in product_facts.facts
+            ]
+            product_facts = ProductFactsV2(
+                org_repo=product_facts.org_repo,
+                facts=facts,
+                selected_fact_ids=product_facts.selected_fact_ids,
+            )
+        return {
+            "org_repo": "acme/widget",
+            "family": "widget",
+            "platform": "java",
+            "ecosystem": "java",
+            "products_org_link": {"url": "https://products.example.org/widget/java/"},
+            "product_facts_v2": product_facts.model_dump(mode="json"),
+        }
+
+    def _mock(
+        self,
+        monkeypatch,
+        *,
+        description,
+        homepage,
+        topics,
+        all_metadata_facts=True,
+    ):
+        monkeypatch.setattr(
+            propose_metadata_changes,
+            "collect_product_facts",
+            lambda org_repo: self._facts_result(all_metadata_facts=all_metadata_facts),
+        )
         monkeypatch.setattr(propose_metadata_changes.env, "gh_token", lambda: "fake-token")
         monkeypatch.setattr(
             propose_metadata_changes,
@@ -1727,18 +1800,14 @@ class TestProposeMetadataChangesCapability:
     def test_proposes_description_and_homepage_when_both_missing(self, monkeypatch):
         self._mock(monkeypatch, description=None, homepage=None, topics=["java"])
 
-        result = propose_metadata_changes.execute(
-            "acme/widget",
-            family="widget",
-            platform="java",
-            ecosystem="java",
-            products_org_url="https://products.example.org/widget/java/",
-        )
+        result = propose_metadata_changes.execute("acme/widget")
 
         assert result["proposed_description"] == "widget FOSS library for java"
         assert result["proposed_homepage"] == "https://products.example.org/widget/java/"
         assert result["proposed_topics"] is None  # "java" already present
         assert result["has_proposal"] is True
+        assert result["blocked_findings"] == []
+        assert result["fact_citations"]["metadata.homepage"] == ["documentation.links:primary"]
 
     def test_proposes_nothing_when_everything_already_present(self, monkeypatch):
         self._mock(
@@ -1748,13 +1817,7 @@ class TestProposeMetadataChangesCapability:
             topics=["java", "pdf"],
         )
 
-        result = propose_metadata_changes.execute(
-            "acme/widget",
-            family="widget",
-            platform="java",
-            ecosystem="pdf",
-            products_org_url="https://products.example.org/widget/java/",
-        )
+        result = propose_metadata_changes.execute("acme/widget")
 
         assert result["proposed_description"] is None
         assert result["proposed_homepage"] is None
@@ -1766,26 +1829,67 @@ class TestProposeMetadataChangesCapability:
         overwritten or judged -- only a missing field gets a proposal."""
         self._mock(monkeypatch, description="Already has one", homepage=None, topics=[])
 
-        result = propose_metadata_changes.execute(
-            "acme/widget", family="widget", platform="java", products_org_url="https://x.org"
-        )
+        result = propose_metadata_changes.execute("acme/widget")
 
         assert result["proposed_description"] is None
-        assert result["proposed_homepage"] == "https://x.org"
+        assert result["proposed_homepage"] == "https://products.example.org/widget/java/"
 
     def test_proposes_missing_topics_only(self, monkeypatch):
         self._mock(monkeypatch, description="x", homepage="https://x.org", topics=["unrelated"])
 
-        result = propose_metadata_changes.execute("acme/widget", ecosystem="java", platform="java")
+        result = propose_metadata_changes.execute("acme/widget")
 
         assert result["proposed_topics"] == ["java", "unrelated"]
         assert result["has_proposal"] is True
+
+    def test_missing_fact_eligibility_blocks_generic_replacements(self, monkeypatch):
+        self._mock(
+            monkeypatch,
+            description=None,
+            homepage=None,
+            topics=[],
+            all_metadata_facts=False,
+        )
+
+        result = propose_metadata_changes.execute("acme/widget")
+
+        assert result["has_proposal"] is True
+        assert result["proposed_description"] is None
+        assert result["proposed_homepage"] == "https://products.example.org/widget/java/"
+        assert result["proposed_topics"] is None
+        assert {finding["surface_id"] for finding in result["blocked_findings"]} == {
+            "metadata.description",
+            "metadata.topics",
+        }
+
+    def test_direct_dispatch_rejects_forged_eligibility_and_citations(self, monkeypatch):
+        from readme_agent.capabilities.dispatcher import dispatch_tool_call
+
+        self._mock(monkeypatch, description=None, homepage=None, topics=[])
+        result = dispatch_tool_call(
+            {
+                "function": {
+                    "name": "propose_metadata_changes",
+                    "arguments": json.dumps(
+                        {
+                            "org_repo": "acme/widget",
+                            "surface_eligibility": {"metadata.description": True},
+                            "fact_citations": {"metadata.description": ["attacker:invented"]},
+                        }
+                    ),
+                }
+            },
+            {"read_only_network"},
+            caller_domain="metadata_presentation",
+        )
+
+        assert result.outcome == "rejected_invalid_arguments"
 
     def test_execute_rejects_unknown_repo(self, monkeypatch):
         def _raise(org_repo):
             raise NotAllowlistedError(f"{org_repo} is not in data/products.json")
 
-        monkeypatch.setattr(propose_metadata_changes, "require_listed", _raise)
+        monkeypatch.setattr(propose_metadata_changes, "collect_product_facts", _raise)
 
         with pytest.raises(NotAllowlistedError):
             propose_metadata_changes.execute("acme/widget")

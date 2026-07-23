@@ -5,6 +5,11 @@ from urllib.parse import urlparse
 
 from pydantic import BaseModel, Field, field_validator
 
+from readme_agent.registry.surface_ownership import (
+    SurfaceOwnershipMapV1,
+    default_surface_ownership_map,
+)
+
 Mode = Literal["full", "dry_run", "disabled"]
 
 
@@ -81,6 +86,7 @@ class PolicyProfile(BaseModel):
     required_elements: RequiredElements
     secondary_links: list[str] = Field(default_factory=list)
     block: BlockPolicy
+    surface_ownership: SurfaceOwnershipMapV1 = Field(default_factory=default_surface_ownership_map)
 
     @field_validator("schema_version")
     @classmethod

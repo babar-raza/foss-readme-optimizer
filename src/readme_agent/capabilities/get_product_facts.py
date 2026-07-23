@@ -19,15 +19,13 @@ docstring for the full reasoning.
 """
 
 from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInputV1
-from readme_agent.errors import NotAllowlistedError
-from readme_agent.profile.cached import get_or_build_profile
-from readme_agent.registry.loader import load_policy, require_listed
+from readme_agent.facts.provider import collect_product_facts
 
 CAPABILITY_ID = "get_product_facts"
 
 MANIFEST = CapabilityManifest(
     capability_id=CAPABILITY_ID,
-    version="1",
+    version="2",
     name="Get product facts",
     purpose="Read-only: combines the product inventory (data/products.json + its "
     "config/policies/*.yml profile -- identity, declared license, required-link specs, "
@@ -57,6 +55,8 @@ MANIFEST = CapabilityManifest(
         "detected_ecosystems": "array",
         "unresolved_manifests": "array",
         "package_roots": "array",
+        "surface_ownership": "object",
+        "product_facts_v2": "object",
         "source": "object",
     },
     preconditions=[
@@ -91,44 +91,8 @@ def execute(
     profile_repository.execute()'s matching docstring -- same deliberately
     undeclared-in-schema plain-value convention, same wiring caller
     (profile_repo_with_cache())."""
-    entry = require_listed(org_repo)
-    if entry.policy_profile is None:
-        raise NotAllowlistedError(f"{org_repo} has no policy_profile configured")
-    policy = load_policy(entry.policy_profile)
-
-    profile = get_or_build_profile(
-        entry,
+    return collect_product_facts(
+        org_repo,
         prior_upstream_revision=prior_upstream_revision,
         prior_profile_result=prior_profile_result,
     )
-
-    required = policy.required_elements
-    return {
-        "org_repo": org_repo,
-        "family": entry.family,
-        "platform": entry.platform,
-        "ecosystem": entry.ecosystem,
-        "policy_profile": entry.policy_profile,
-        "declared_license": required.license_mentioned.detected_license,
-        "products_org_link": required.products_org_link.model_dump(),
-        "products_com_link": required.products_com_link.model_dump(),
-        "relationship_talking_points": required.relationship_explained.talking_points,
-        "secondary_links": policy.secondary_links,
-        "word_limit": policy.block.word_limit.model_dump(),
-        "prohibited_terms": policy.block.prohibited_terms,
-        "link_whitelist_domains": policy.block.link_whitelist_domains,
-        "detected_ecosystems": [e.model_dump() for e in profile.detected_ecosystems],
-        "unresolved_manifests": profile.unresolved_manifests,
-        # Wave 11.3 (`FACT-010`): additive -- Wave 11.1's multi-root package
-        # graph (`ECO-004`) was already computed inside `profile` above (no
-        # new clone/parse cost) but never exposed here until now.
-        "package_roots": [r.model_dump() for r in profile.package_roots],
-        "source": {
-            "identity_and_policy": (
-                f"data/products.json + config/policies/{entry.policy_profile}.yml"
-            ),
-            "detected_ecosystems": "live repository clone (repository inspection)",
-            "unresolved_manifests": "live repository clone (repository inspection)",
-            "package_roots": "live repository clone (repository inspection)",
-        },
-    }

@@ -11,8 +11,8 @@ Coverage counts a requirement only when this investigation defines all 10 elemen
 | Classification | Count |
 |---|---:|
 | ALREADY_PROVEN | 133 |
-| PARTIALLY_INVESTIGATED | 85 |
-| DEFERRED_WITH_DESIGN | 84 |
+| PARTIALLY_INVESTIGATED | 87 |
+| DEFERRED_WITH_DESIGN | 82 |
 | FULLY_INVESTIGATED | 75 |
 | DEFERRED_WITHOUT_DESIGN | 13 |
 
@@ -35,7 +35,7 @@ Coverage counts a requirement only when this investigation defines all 10 elemen
 | GAP | 2 | 0 | 1 | 0 | 0 | 3 |
 | GOV | 5 | 0 | 3 | 17 | 1 | 26 |
 | INT | 0 | 0 | 4 | 6 | 0 | 10 |
-| L8 | 1 | 0 | 3 | 0 | 9 | 13 |
+| L8 | 1 | 0 | 2 | 0 | 10 | 13 |
 | LLM | 14 | 0 | 5 | 0 | 3 | 22 |
 | MEM | 3 | 0 | 0 | 0 | 2 | 5 |
 | MET | 0 | 3 | 3 | 2 | 0 | 8 |
@@ -47,7 +47,7 @@ Coverage counts a requirement only when this investigation defines all 10 elemen
 | PIL | 0 | 0 | 8 | 4 | 2 | 14 |
 | PKG | 5 | 0 | 1 | 0 | 0 | 6 |
 | PRL | 3 | 0 | 4 | 0 | 2 | 9 |
-| RDM | 5 | 1 | 11 | 3 | 5 | 25 |
+| RDM | 5 | 1 | 10 | 3 | 6 | 25 |
 | RUN | 3 | 0 | 0 | 0 | 7 | 10 |
 | SAFE | 7 | 1 | 3 | 3 | 5 | 19 |
 | SCL | 2 | 0 | 4 | 0 | 3 | 9 |

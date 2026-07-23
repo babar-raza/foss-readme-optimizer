@@ -77,6 +77,7 @@ from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import StateBackendError
 from readme_agent.evidence.writer import generate_run_id
 from readme_agent.orchestrator import record_accepted_readme_state
+from readme_agent.specialists.readme_factuality import evaluate_candidate_factuality
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.change_detection import classify_surface
 from readme_agent.state.domain_state import merge_details, save_domain_with_failure_tracking
@@ -227,6 +228,26 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     run_nonce = generate_run_id()
 
     while True:
+        factuality = evaluate_candidate_factuality(
+            org_repo,
+            current_render_result["original_text"],
+            current_render_result["final_text"],
+            _READ_ONLY_PERMISSIONS,
+        )
+        if not factuality.valid:
+            reason = factuality.error or (
+                f"claim_conflicts={len(factuality.claim_conflicts)},"
+                f"protected_losses={len(factuality.protected_content_losses)}"
+            )
+            return {
+                "accepted_status": f"ERROR:factuality_rejected:{reason}",
+                "details": merge_details(
+                    state,
+                    render_result=current_render_result,
+                    factuality=factuality.model_dump(mode="json"),
+                ),
+            }
+
         dispatch = _dispatch_verify_readme_candidate(org_repo, current_render_result)
         if dispatch.outcome != "executed":
             return {"accepted_status": f"ERROR:{dispatch.outcome}:{dispatch.error}"}
@@ -267,6 +288,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         details_update = {
             "render_result": current_render_result,
             "verification": verification,
+            "factuality": factuality.model_dump(mode="json"),
             "prose_quality": prose_quality,
             "prose_quality_repair_attempts": repair_attempts,
         }

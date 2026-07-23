@@ -23,6 +23,9 @@ dependencies = [
     # Tenacity's tested retry controller rather than another bespoke loop.
     "tenacity>=9.0",
     "Pillow>=10.0",
+    # Wave 3 protected-content semantics use the CommonMark token stream;
+    # Wave 4 source-span patching will reuse the same declared parser.
+    "markdown-it-py>=4.0",
 ]
 
 [project.optional-dependencies]

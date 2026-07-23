@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent-audit-agent",
+  "reviewed_scope": {
+    "task_id": "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION",
+    "base_head": "8f739f1468aebc123261b68fb9197d9a01482e21",
+    "source_hashes": {
+      "src/readme_agent/facts/schema_v2.py": "afa429a3f86fe6506212ab6fe2a635fc83216119dfbcbaf4d612ee598d0d55e8",
+      "src/readme_agent/facts/resolution.py": "8b4c66a43e2eb6baf845008a513dcaa2276fc8b1e66df3abe0838eaec4e07c72",
+      "src/readme_agent/facts/gating.py": "3673ef15e1d1c771d3d5c506af69bd639d4343411c4f4d49f38519a4797f3752",
+      "src/readme_agent/facts/migration.py": "5f0736b4ef58823b9d1a5ef7e134540b3c20ece6bfde826dd8cfefa7a274426d",
+      "src/readme_agent/facts/provider.py": "0d8847fe5cafd44e2fef507c1f42147435ee4914ed6ae5dcaeacf8a5194dc929",
+      "src/readme_agent/facts/protected_content.py": "14b83bbb62a01c375a7ef5d5f23f531faad2af6677daa4dffe7382adde63b03a",
+      "src/readme_agent/facts/example_execution.py": "d7a5758137a09d9e4a097df651073d5a3fe165d6a101e67653eb8c829c86f357",
+      "src/readme_agent/registry/surface_ownership.py": "ea71f3d50de627dbcab849d21a66b037cb0d39137b3e786779d71fdc2e63434d",
+      "src/readme_agent/specialists/readme_factuality.py": "1524454c2235238c0566489e8f5350e2205601d7ef4ce0e6c331f1b25cfa7c88",
+      "src/readme_agent/capabilities/get_product_facts.py": "20cd19f0e886af58ca1bb8169214618f8e73c91244cabae4684d63fa5d5ae347",
+      "src/readme_agent/capabilities/propose_metadata_changes.py": "b84633322044c31a47cc336fd0b692a44f3c457f6d7687f0ed5242fc59b817fd",
+      "src/readme_agent/specialists/metadata_presentation.py": "9705a3af3f852bab302f63c03b2c5b3745a57e1315cf028942e1f2e65784727e",
+      "tests/unit/test_facts_resolution.py": "21de809f5b9433af744a4140da51902e7ce8395940b218d7698061425e3a28e1",
+      "tests/unit/test_capabilities.py": "51348c0baeb177eae892bbf787be823cebc6e2c132f9b60efb7c2d5deee0dfbe",
+      "docs/architecture.md": "b529f1424c431bfe0969778f61d5f40eece6135de1e4606319740cd06a28f4eb",
+      "plans/investigations/control/level8-autonomous-mission-task-graph.yaml": "53515556cded520fb4b32a0b2c41b85370b94e650a0db8977d72e868896e7749",
+      "plans/requirements.md": "b7e544c65abfa04017b7c212caac7b31f64f91300e39678ccba40d67ebae328f"
+    }
+  },
+  "findings": [
+    {
+      "id": "W3-IV-001",
+      "severity": "P0",
+      "title": "Claim citations can select a losing conflicting fact",
+      "disposition": "resolved",
+      "original_evidence": "A mechanical MIT winner plus lower-precedence Proprietary documentation loser previously allowed a Proprietary claim citing the loser to validate.",
+      "resolution_evidence": "validate_claim_citations now requires each cited fact ID to equal selected_fact_ids for its field. Independent focused execution passed the lower-precedence and same-rank loser negative controls in tests/unit/test_facts_resolution.py.",
+      "locations": [
+        "src/readme_agent/facts/gating.py:83",
+        "tests/unit/test_facts_resolution.py:170",
+        "tests/unit/test_facts_resolution.py:201"
+      ]
+    },
+    {
+      "id": "W3-IV-002",
+      "severity": "P0",
+      "title": "Metadata proposal capability trusts caller-supplied factuality gates and citations",
+      "disposition": "resolved",
+      "original_evidence": "The capability previously accepted forgeable surface_eligibility and fact_citations arguments.",
+      "resolution_evidence": "The manifest and execute signature now accept only org_repo. The capability re-derives facts through facts.provider.collect_product_facts and computes eligibility/citations internally. Direct dispatch with forged arguments returns rejected_invalid_arguments. facts/provider.py imports no capability or dispatcher module, while get_product_facts and propose_metadata_changes both depend downward on the provider, so no capability-to-capability dispatch dependency or cycle was introduced.",
+      "locations": [
+        "src/readme_agent/capabilities/propose_metadata_changes.py:59",
+        "src/readme_agent/capabilities/propose_metadata_changes.py:86",
+        "src/readme_agent/facts/provider.py:1",
+        "tests/unit/test_capabilities.py:1865"
+      ]
+    },
+    {
+      "id": "W3-IV-003",
+      "severity": "P2",
+      "title": "Metadata proposal module contract still documents the removed caller-supplied-facts architecture",
+      "disposition": "resolved",
+      "evidence": "The capability module docstring accurately describes the shared provider architecture. The guarded module-map retrofit now makes both docs/architecture.md rows agree that metadata_presentation dispatches only propose_metadata_changes(org_repo), which independently derives facts through facts/provider.py. Current imports and dispatch wiring match those descriptions, and plan-structure validation is clean.",
+      "locations": [
+        "docs/architecture.md:263",
+        "docs/architecture.md:265",
+        "src/readme_agent/specialists/metadata_presentation.py:43"
+      ]
+    }
+  ],
+  "verdict": "accepted_no_blocking_findings",
+  "residual_blockers": [
+    "The parent Wave 3 remains blocked by Wave 2 hosted GitHub App/LLM/recovery proof, full ProductFactsV2 ingestion for explicit missing fields, real isolated example execution, and external product-owner conflict resolution."
+  ],
+  "evidence_consistency": {
+    "focused_tests": "46 passed in 7.77s",
+    "full_non_live_suite": "1300 passed, 18 deselected in 499.03s",
+    "static_gates": "all return_code=0; ruff and mypy independently reconfirmed",
+    "live_cells_java_proof": "source revision 2be25d979d1f3bf2875a1798aed62a16efab6619; false-coordinate, prompt-injection, protected-loss, and missing-fact isolation controls passed",
+    "pre_review_checksum_inventory": "7/7 verified before this permitted report update; sha256sums.txt intentionally not modified",
+    "acceptance_summary": "technical gates true; this refreshed independent verification accepts the local child task; collector summary/checksums require the planned post-review refresh"
+  },
+  "timestamp": "2026-07-23T17:53:31.8524934Z"
+}

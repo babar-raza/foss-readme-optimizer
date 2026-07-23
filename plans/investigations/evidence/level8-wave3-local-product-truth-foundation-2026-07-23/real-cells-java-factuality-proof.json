@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-07-23T17:57:42.993022+00:00",
+  "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+  "product_facts_v2_hash": "8e94644319ef9a2974c516b699d227bf9f575f3463e2d853e181cf54cbf29ceb",
+  "required_fact_fields": [
+    "documentation.links",
+    "example.minimal",
+    "installation.coordinates",
+    "installation.verified_acquisition",
+    "product.audience",
+    "product.capabilities",
+    "product.compatibility",
+    "product.formats",
+    "product.identity",
+    "product.license",
+    "product.limitations",
+    "product.platforms",
+    "product.problems_solved",
+    "relationship.commercial_foss",
+    "release.state",
+    "support.routes"
+  ],
+  "false_coordinate_gate": {
+    "candidate_valid": false,
+    "conflicts": [
+      {
+        "package_root_path": ".",
+        "ecosystem": "java",
+        "claimed_coordinate": "org.aspose:aspose-cells-foss",
+        "verification_outcome": "NOT_PUBLISHED",
+        "verification_detail": "Maven Central: org.aspose:aspose-cells-foss NOT FOUND (0 results)"
+      }
+    ],
+    "passed": true
+  },
+  "missing_fact_isolation": {
+    "metadata.description": {
+      "eligible": false,
+      "blocking_fact_ids": [
+        "product.audience:primary",
+        "product.problems_solved:primary"
+      ]
+    },
+    "metadata.homepage": {
+      "eligible": true,
+      "blocking_fact_ids": []
+    }
+  },
+  "readme_prompt_injection_rejected": true,
+  "protected_content_loss_rejected": true,
+  "protected_loss_kinds": [
+    "command",
+    "example",
+    "limitation",
+    "maintainer_region"
+  ]
+}

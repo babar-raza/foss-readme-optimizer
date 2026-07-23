@@ -39,6 +39,7 @@ class RepositoryProfile(BaseModel):
     multi-root-aware view -- see `PackageRoot`'s own docstring."""
 
     org_repo: str
+    source_revision: str | None = None
     detected_ecosystems: list[DetectedEcosystem] = Field(default_factory=list)
     unresolved_manifests: list[str] = Field(default_factory=list)
     package_roots: list[PackageRoot] = Field(default_factory=list)

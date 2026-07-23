@@ -45,7 +45,9 @@ class ProductFactsV1(BaseModel):
     declared_license: str | None = None
     package_coordinates: list[PackageCoordinateFactV1] = Field(default_factory=list)
     relationship_talking_points: list[str] = Field(default_factory=list)
-    secondary_links: list[dict] = Field(default_factory=list)
+    products_org_link: dict | None = None
+    products_com_link: dict | None = None
+    secondary_links: list[str | dict] = Field(default_factory=list)
     unresolved_manifests: list[str] = Field(default_factory=list)
 
     @classmethod
@@ -84,6 +86,8 @@ class ProductFactsV1(BaseModel):
             declared_license=facts_result.get("declared_license"),
             package_coordinates=coordinates,
             relationship_talking_points=facts_result.get("relationship_talking_points", []),
+            products_org_link=facts_result.get("products_org_link"),
+            products_com_link=facts_result.get("products_com_link"),
             secondary_links=facts_result.get("secondary_links", []),
             unresolved_manifests=facts_result.get("unresolved_manifests", []),
         )

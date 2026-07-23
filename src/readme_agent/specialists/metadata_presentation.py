@@ -5,11 +5,10 @@ explicitly gated proposal workflow -- **no GitHub API PATCH is attempted
 this wave, or anywhere in this specialist**; the real write-scoped apply
 gate is a later phase's job.
 
-Dispatches two capabilities: the existing, unscoped `get_product_facts`
-(family/platform/ecosystem/products-org-link) and the new, domain-scoped
-`propose_metadata_changes` (current GitHub metadata + a deterministic,
-template-based proposal for any field currently missing) -- rather than one
-capability reaching into another's dispatch path (decision #26(b))."""
+Dispatches the domain-scoped `propose_metadata_changes`, whose registered
+boundary independently re-derives ProductFactsV2 through the shared facts
+provider before reading current metadata or emitting a proposal. It accepts
+no caller-supplied facts, eligibility, or citations."""
 
 import json
 import sys
@@ -40,28 +39,10 @@ def _fingerprint(current_metadata: dict) -> str:
 def _classify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     org_repo = config["configurable"]["org_repo"]
 
-    facts_tool_call = {
-        "function": {"name": "get_product_facts", "arguments": json.dumps({"org_repo": org_repo})}
-    }
-    facts_dispatch = dispatch_tool_call(
-        facts_tool_call, _READ_ONLY_PERMISSIONS, caller_domain=DOMAIN
-    )
-    if facts_dispatch.outcome != "executed":
-        return {"accepted_status": f"ERROR:{facts_dispatch.outcome}:{facts_dispatch.error}"}
-    assert facts_dispatch.result is not None
-    facts = facts_dispatch.result
-
-    proposal_arguments = {
-        "org_repo": org_repo,
-        "family": facts.get("family"),
-        "platform": facts.get("platform"),
-        "ecosystem": facts.get("ecosystem"),
-        "products_org_url": (facts.get("products_org_link") or {}).get("url"),
-    }
     proposal_tool_call = {
         "function": {
             "name": "propose_metadata_changes",
-            "arguments": json.dumps(proposal_arguments),
+            "arguments": json.dumps({"org_repo": org_repo}),
         }
     }
     proposal_dispatch = dispatch_tool_call(
