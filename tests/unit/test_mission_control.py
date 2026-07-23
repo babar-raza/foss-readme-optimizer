@@ -54,10 +54,14 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert len(graph_hash) == 64
     coverage = graph.requirement_coverage
     assert coverage is not None
-    assert coverage.total_requirement_rows == 376
-    assert coverage.mandatory_requirement_rows == 348
+    assert coverage.total_requirement_rows == 389
+    assert coverage.mandatory_requirement_rows == 361
     assert coverage.reopened_implemented_rows == 0
-    assert len({mapping.requirement_id for mapping in coverage.mappings}) == 376
+    assert len({mapping.requirement_id for mapping in coverage.mappings}) == 389
+    l8_mapping = next(
+        mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-011"
+    )
+    assert l8_mapping.task_id == "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"
     requirements_path = REPO_ROOT / coverage.source_path
     assert coverage.source_sha256 == hashlib.sha256(requirements_path.read_bytes()).hexdigest()
 

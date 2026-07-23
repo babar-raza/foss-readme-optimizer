@@ -668,6 +668,8 @@ taskcards:
   - GAP-001
   - GAP-002
   - GAP-003
+  - L8-002
+  - L8-013
 - task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -768,6 +770,9 @@ taskcards:
   - SCL-007
   - SCL-008
   - SCL-009
+  - L8-003
+  - L8-004
+  - L8-005
 - task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -859,6 +864,7 @@ taskcards:
   - PKG-004
   - PKG-005
   - PKG-006
+  - L8-006
 - task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1027,6 +1033,8 @@ taskcards:
   - DOC-008
   - DOC-009
   - DOC-010
+  - L8-007
+  - L8-012
 - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1133,6 +1141,9 @@ taskcards:
   - PRL-007
   - PRL-008
   - PRL-009
+  - L8-001
+  - L8-008
+  - L8-009
 - task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1255,6 +1266,7 @@ taskcards:
   - ONB-002
   - ONB-003
   - ONB-004
+  - L8-010
 - task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1315,6 +1327,7 @@ taskcards:
   - DEP-004
   - DEP-005
   - DEP-006
+  - L8-011
 continuation_state:
   selected_task_id: L8-MISSION-CONTROL-CONSUMER
   claim_status: bootstrapped_in_progress
@@ -1326,10 +1339,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 6f44d856c1bdde626c3fb179266a9cacad61e22023b3c4327d3e1ec65cd70166
+  source_sha256: 9c86ab2868f63c4f21621d8c8c82234b53fcf07a10d4dd704b2573af8834b364
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 376
-  mandatory_requirement_rows: 348
+  total_requirement_rows: 389
+  mandatory_requirement_rows: 361
   excluded_backlog_rows: 28
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -3589,4 +3602,82 @@ requirement_coverage:
     requirement_status: BACKLOG
     task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
     disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: L8-001
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-002
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-003
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-004
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-005
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-006
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-007
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-008
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-009
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-010
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-011
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-012
+    priority: P1
+    requirement_status: PARTIAL
+    task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-013
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
     semantic_findings: []

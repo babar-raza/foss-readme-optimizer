@@ -16,302 +16,66 @@ criteria change (decision #25).
 
 ## Mission
 
-Source: "GitHub Readme Agent – 2026.07.17" and its
-2026-07-18 follow-up comments. Owner: Babar Raza.
+Source: "GitHub Readme Agent – 2026.07.17", the 2026-07-18 follow-up comments, and the
+approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
 
-- **Outcome hierarchy: credibility first, referral value second.** The business goal remains
-  consistent, measurable traffic from github.com to aspose.org and aspose.com, but traffic is not
-  pursued by placing promotional links before the product has earned attention. The repository
-  must first help an external developer understand and trust the FOSS product. Relevant Aspose
-  links then provide context, support, and a commercial path without dominating the page.
-  **Initial success metric: ≥ 10 visitors per week from github.com to aspose.org**, measured via
-  the weekly "aspose.org Top 50 Sources" report and the
-  `utm_campaign=foss-readme-optimizer` tag on eligible links. Phase 20 must test whether this
-  target is realistic and define the coverage and timing needed to reach it (decision #20).
-- **Product first, promotion second** (2026-07-18 sponsor guidance): a visitor should quickly
-  understand what the library does, which problem it solves, what it supports, how to install and
-  use it, and whether it is maintained. Aspose.org, Aspose.com, and commercial-product links must
-  appear only where they add useful context. n8n, other leading FOSS repositories, and Aspose's
-  strongest nuget.org pages are quality references to study, not layouts or templates to copy.
-- **The GitHub page is not one fully editable "profile."** The plan distinguishes repository
-  files, API/settings-managed fields, manual UI-only settings, product-agent-owned publishing
-  surfaces, and GitHub-generated information. The agent must never claim direct control over
-  contributors, language percentages, stars, forks, activity, or GitHub's layout. It may only
-  audit those surfaces and investigate unexpected results (decisions #19 and #23).
-- **Central repository-presentation agent, not a generic README rewriter.** Individual product
-  agents remain the authoritative source for features, supported formats, installation,
-  APIs, examples, packages, and release changes. The central agent improves how verified facts
-  are presented, manages the presentation surfaces it is authorized to manage, audits the rest,
-  and protects strong content from later automated regressions (decisions #18, #21, and #22).
-- **Target architecture: an autonomous, capability-driven GitHub-runner system** (2026-07-18
-  sponsor directive, `AUTONOMOUS-REPOSITORY-PRESENTER-RESET-001`), not a fixed deterministic
-  script or a manually-operated skills system. The mission is understanding heterogeneous product
-  repositories — starting with the Aspose FOSS portfolio as the first deployed profile, not the
-  ceiling of what the engine can address — dynamically selecting registered capabilities,
-  coordinating specialized analysis and execution, and maintaining credible, repository-specific
-  presentation across every authorized GitHub surface, running primarily from GitHub Actions with
-  no human selecting a prompt, skill, command, or next action during a normal run. The Phase 0–21
-  engine described in Status/Architecture below is the current, proven implementation and the
-  first capability surface this target runtime will wrap — see Decision #26 for the precise
-  architectural doctrine this supersedes and what is preserved.
-- **Per-repository tailoring.** Each repository is improved for its own product, audience,
-  maturity, ecosystem, and capabilities. Shared standards define quality and safety; they do not
-  force one common README structure or prose template. However, for consistent branding and presentation, we have to follow some set of layouts.
-- **Pilot first.** Apply the new standard to the three existing engineering pilots as a small,
-  varied group: blank-slate, partial-gap, and already-populated cases. Scale beyond them only
-  after the product-first presentation, ownership boundaries, safety gates, and measurement
-  approach are independently verified (decision #24).
+- **Evidence-first product truth.** Repository source, manifests, tests, and verified package
+  registries are authoritative for mechanically testable claims. Human-approved policy owns
+  intent and positioning that code cannot prove. Existing README prose is a claim to verify,
+  never truth merely because it already exists.
+- **Credibility first, referral value second.** The system helps a developer understand,
+  acquire, use, and trust each FOSS product before presenting relevant commercial context.
+  Referral reporting is an outcome metric; it may never override factuality, ownership, or trust.
+- **Central repository-presentation system, not a generic README rewriter.** The system assesses
+  every applicable presentation surface, produces repository-specific plans, changes only
+  authorized surfaces, and records findings for surfaces it cannot own.
+- **Autonomous operation with passive human review.** `supervise` is the only production runtime.
+  Normal authorized operation may create or update draft pull requests without synchronous
+  operator initiation. Humans review proposals, authorization changes, blocked facts, and manual
+  UI work; they do not select capabilities or drive normal runs command-by-command.
+- **GitHub App production identity.** Production write jobs mint fresh, short-lived GitHub App
+  tokens. Analysis, repository inspection, package/example execution, LLM work, and validation
+  never receive a target-write token. Production profiles never fall back to `GH_TOKEN` or a PAT.
+- **Bounded effects, never silent publication.** The system never auto-merges, marks a proposal
+  ready, force-pushes, writes a target default branch, publishes packages/releases, or writes
+  GitHub-generated surfaces. Repository settings require a distinct `github_apply`
+  authorization after file-proposal review.
+- **Per-repository quality, shared safety.** Each result is tailored to the product, ecosystem,
+  audience, maturity, and verified facts. Shared standards define evidence and safety, not a
+  cloned README template.
+- **Measured maturity, not a feature-count claim.** The three Java repositories establish the
+  controlled Level-5 pilot; heterogeneous production evidence and 30 clean days establish
+  Levels 6–7; Level 8 requires an independently reproducible 90-day unattended proof.
 
 ## Status
 
-**Phases 0–15 done**, committed locally (commit `4adbaaf`), proven live against the real repos:
-173 tests passing (unit + `@pytest.mark.live` integration + security), ruff/mypy clean.
-`readme-agent run` has actually been executed against `aspose-cells-foss/Aspose.Cells-FOSS-for-Java`
-(real LLM call, real local commit, push blocked, idempotent on rerun),
-`aspose-3d-foss/Aspose.3D-FOSS-for-Java` (correctly zero-touched), and
-`aspose-pdf-foss/Aspose.PDF-FOSS-for-Java` (deterministic one-line fix, zero LLM calls), plus
-`run-registry` and the allow-list block proof.
+The repository has a substantial capability, safety, authorization, state, specialist, evidence,
+and proposal foundation, but it is **not Level 8**. The only active execution sequence is the
+Waves 0–8 Build Checklist below.
 
-**2026-07-18 re-scope and control-boundary correction**: the sponsor's follow-up guidance
-retires the callout-after-H1 placement shipped in Phases 0–15 and expands the goal from closing
-four README link gaps to improving credible product presentation across the controllable parts of
-a GitHub repository. Today's follow-up discussion also corrects an important overreach: the agent
-cannot design or populate every element visible on GitHub. README and community files are
-repository content; description, homepage, and topics are API/settings-managed; the social
-preview is a separate manual UI setting unless GitHub adds a documented API; releases and
-packages remain product-agent-owned; contributors, languages, activity, stars, and forks are
-GitHub-generated and audit-only.
+Wave 0 truth consolidation completed on 2026-07-23:
 
-The shipped engine core — allow-list, git safety, deterministic inspection, gap detection,
-validation, evidence, redaction, and idempotency — remains valid and is preserved. Its current
-four-element README policy is retained as proven Phase 0–15 functionality, but it is no longer the
-definition of a professional repository. Phase 21 (21a–21d) has retired the promotional callout,
-added a product-first README presentation report, and added two hard validator gates
-(`product_first_opening`, `commercial_mention_discipline`) implementing decision #9. Because
-nothing has been pushed, the retired callout existed only in local work clones; the orchestrator
-now migrates any already-materialized callout span away on its next run. The section-aware change
-plan that preserves product-specific facts while improving in-section wording (21e) remains a
-proposal-only design, not yet built — see Build Checklist. The Aspose.3D FOSS for Python README
-discussed by the sponsor was produced by lexchou's bot, not this agent, and remains evidence of why
-a central quality standard is needed — not an example of that standard.
+- all preserved working-tree candidates were inventoried without deletion or implicit acceptance;
+- all 85 high-confidence semantic closure findings were consumed: 76 `IMPLEMENTED` claims gained
+  exact proof and 9 literal overclaims were downgraded to `PARTIAL`;
+- the implementation-truth matrix now reports zero high-confidence closure findings;
+- a clean `--no-local` clone of commit `146d81d` installed solely from the committed lock and
+  passed 1,196 non-live tests, Ruff, formatting, mypy, plan validation, and actionlint for all
+  nine workflows; and
+- this approved consolidation replaces the obsolete phase/sprint tracks with one current program.
 
-**Not yet done** — see Build Checklist for the full list: `act` local CI simulation (Phase 16),
-adversarial review (Phase 17), durability controls (Phase 18), insertion corpus (Phase 19),
-traffic homework and the product-facts schema freeze (Phase 20 — presentation standard and
-GitHub control mapping are now delivered, see Reference Data), the section-aware change plan
-(Phase 21e — 21a–21d are done, see above), API-managed fields and audits (Phase 22), community
-files (Phase 23), README and social-preview visuals (Phase 24), publishing integration and drift
-protection (Phase 25), pilot evaluation before wider rollout (Phase 26), and sprint Waves 3–9
-(see below).
+Primary current evidence:
 
-[`plans/requirements.md`](requirements.md) is the normative requirements companion to this
-file. `docs/architecture.md`, `docs/safety-model.md`, `docs/policy-authoring.md`,
-`docs/presentation-standard.md`, and `docs/github-surface-control.md` are implementation-level
-companions. The requirements document defines **what** is required, this master plan defines
-**why and when**, and the implementation documents define **how**. They must remain mutually
-consistent.
+- `plans/investigations/evidence/level8-semantic-closure-verification.json`
+- `plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json`
+- `plans/investigations/evidence/level8-requirement-taskcard-coverage/`
+- `plans/investigations/evidence/level8-wave0-fresh-clone-head-reproduction/`
+- `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`
 
-**2026-07-18 — sprint reset** (`AUTONOMOUS-REPOSITORY-PRESENTER-RESET-001`, sponsor directive):
-narrow README-phrase-rule and single-ecosystem feature expansion is superseded by the Wave-based
-capability track below, not merely paused — Wave 0's doc repair (this plan trio + `AGENTS.md`
-corrected to the autonomous-capability-driven doctrine) is done, so that prerequisite is satisfied
-and the Wave track is the active track going forward. See Decision #26 for the corrected
-architecture doctrine. This governed plan trio and `AGENTS.md` already existed (in progress,
-uncommitted) before this reset; nothing here was rebuilt from scratch. No "select a
-skill/command" requirement exists anywhere in this repo to remove.
-`plans/investigations/llm-gateway-characterization.md` already empirically characterizes
-`llm.professionalize.com` (model inventory, context limits, structured-output reliability,
-model-routing recommendation) — folded into Decision #26 below rather than redone.
-
-**Sprint waves: 5 of 9 done** (Waves 0–5; see Build Checklist's "Sprint waves" subsection for
-per-wave detail and Decisions #26–36 for the governing architecture choices). **Wave 6 is done**:
-rescoped (decision #37: "product agent" is an organizational label, not a real cooperating system --
-no handoff schema is built; Wave 6 is now "upstream-change watch and reconciliation"), its
-prerequisite correctness fix built and unit-proven (decision #38: `orchestrator.generate_repo()`'s
-durable-skip fast path was permanently blind to real upstream README changes on the actual production
-runner topology -- root-caused and fixed, sequenced standalone ahead of Wave 6's own feature work per
-user directive), and its remaining feature work built and **live-proven against real pilots**
-(decision #39: `get_product_facts`/`classify_upstream_change` capabilities, the `readme_reconciliation`
-LangGraph specialist, the specialist registry, `supervisor.loop.supervise_repo()`'s new registry-driven
-convergence tier, the first CI entry point for `supervise`). Unlike the committed Phase 0–15 baseline,
-this sprint work — plus the Phase 18/20/21a–21d work above — sits **uncommitted** in the working tree;
-the last real commit is still `4adbaaf`. Current verified baseline (2026-07-19, after decision #39):
-`pytest -q` → 437 passed (up from 396 before decisions #38/#39), 15 deselected (`live` — Wave 5's
-`test_effect_ledger_live.py`/`test_supervisor_live.py` have run for real with explicit confirmation,
-per `GOVERNANCE.md` rule 10, and pass (4/4: pending→applied, crash-between-
-pending-and-applied-survives-a-fresh-backend-instance, real multi-round `pdf/java` convergence,
-real durable zero-planning-call second call); like every other `live`-marked test from prior
-waves, they stay excluded from default `pytest -q`. Rediscovered the documented `OPS-009` local
-push-credential prerequisite mid-run for the third time this project (`git push` hangs silently and
-indefinitely without it) — caught within minutes this time, not an hour, since the fix is now a
-one-line reflex, not a fresh diagnosis; `ruff check .`, `ruff format --check .`, and `mypy src` all
-clean; `act workflow_dispatch -W .github/workflows/readme-agent-run.yml` has run for real too (`Job
-succeeded`, Wave 4). **decision #39's real-gateway live proof, 2026-07-19**: `readme-agent supervise
---repo aspose-cells-foss/Aspose.Cells-FOSS-for-Java --durable-state` run for real (with the `OPS-009`
-credential workaround, removed immediately after) — a real gateway planner dispatched
-`inspect_repository` -> `detect_readme_gaps` -> `get_product_facts` and correctly stopped once every
-gap and product fact was known; the `readme_reconciliation` specialist ran first (as designed, before
-the planner loop), recording a real `DomainStateV1(accepted_status="FIRST_OBSERVATION")` entry
-alongside a real `SupervisorStateV1` write in the *same* durable record — confirmed by reading the
-record back, proving decision #38's multi-producer coexistence fix under a genuine second producer,
-not just a fake backend. An immediate rerun correctly short-circuited via the coarse tier with zero
-planning calls. `readme-agent-supervise.yml`'s own `act workflow_dispatch` reproduction also ran for
-real (against the now-converged `cells/java` state) — `Job succeeded`. Nothing was pushed to either
-target repo (`aspose-pdf-foss`/`aspose-cells-foss`) at any point — only to this project's own
-`refs/readme-agent-state/...` ref, per the user's explicit instruction.
-
-**Updated baseline (2026-07-20, after decision #40)**: `pytest -q` → 451 passed (up from 437),
-15 deselected (`live`, unchanged); `ruff check .`, `ruff format --check .`, `mypy src` all clean.
-See the Changelog's matching 2026-07-20 entry for what changed (mode-gate split, the
-`aspose-page-foss` profiling-latency fix, and the `GOV-014` compliance sweep).
-
-**Wave 7 (7a-7h) closed in full on 2026-07-20** (see the Changelog's own tail for the full,
-sub-wave-by-sub-wave record, ending in a consolidated final live-proof pass) -- `CAP-006`/
-`MEM-004` reached `IMPLEMENTED`, `AGT-005` reached `PARTIAL` with substantially extended evidence.
-**Sprint waves: Wave 8 closed in full on 2026-07-21** (decision #42, 8a-8e; see the Changelog's own
-tail for the full record). Two immediate corrections landed first (an unconditional `org_repo`
-override closing a planner-trust gap in `supervisor/loop.py`, and a `--local` git identity set on
-every work clone, closing a real gap where no shipped CI workflow configures one), then Wave
-8a-8d -- see decision #42 for the full design (including the two independent-review passes that
-corrected the first-round design before any of it shipped). **8e's live-proof pass closed for
-real, 2026-07-21**: a direct before/after comparison of the verify gate against a real pilot
-(`aspose-cells-foss/...Java`, both accept and reject paths, including a real local git commit,
-never pushed), plus the explicit "full `data/products.json` pilot" ask -- all 25 registry entries
-run through `supervise --durable-state` in a single verified-clean pass, all reaching
-`CONVERGED_NO_CHANGE`, the 3 non-`disabled` entries each recording all 9 real domains with zero
-collision. `VER-001`/`VER-002` → `IMPLEMENTED`. A real `disabled_mode` failure-escalation
-carve-out gap was found live during this pass and fixed (`state/domain_state.py`); a new `BACKLOG`
-row (`VER-004`, durable-skip masking stale compliance) and `VER-005` (the coarse shortcut's
-blindness to partial per-domain recording failure) were found and logged, not fixed, out of scope
-for this pass. Getting a trustworthy full-registry result took three attempts -- a push-URL
-misconfiguration on this project's own repo and a `TaskStop`-didn't-kill-the-child-process race
-between two concurrent instances, both found and fixed rather than hidden -- see the matching
-Changelog entries for the full, honest record. `pytest -q` → 622 passed, 16 deselected (`live`,
-unchanged) as of 2026-07-21's close; `ruff check .`, `ruff format --check .`, `mypy src` all clean.
-
-**Wave-entry reconciliation gate adopted (decision #43)**, and the Changelog relocated to `logs/`
-with `master.md` gated behind explicit per-instance edit confirmation (decision #44) -- both now
-binding process, not narrated further here per rule 6. **Production-hardening reconciliation for
-the autonomous supervisor loop (decision #45, 2026-07-21)**: an external review named seven
-previously-unlogged LLM-gateway-usage gaps; reconciled and corrected a real measurement-script bug
-(the "~96k-token" context-ceiling claim was invalid; the real, live-proven ceiling is ~71,069
-tokens). A corrected ten-part hardening design was recorded, but **remains entirely `BACKLOG`/
-`PARTIAL`, not built** -- decision #45 was a docs-only pass, and its own wave-sequencing
-recommendation (a new foundational sub-wave prepended to Wave 9, renumbering `9a`-`9f` to `9b`-`9g`)
-has not been actioned; Wave 9's own detailed design lives outside this repository.
-
-**2026-07-22 -- master-plan structural-integrity incident and formal anchoring of the full-project
-truth audit (decision #46)**. A concurrent agent session appended ten foreign, misplaced sections
-to this file without the decision-#44 edit-confirmation gate; triaged and removed (four claims
-were already tracked, one was factually wrong). A mechanical backstop replaces the prose-only rule
-going forward: `scripts/governance/validate_plan_structure.py`, wired as both a local pre-commit
-hook and a required CI step, checking `master.md`'s section order, `requirements.md`'s row
-validity, `logs/` index consistency, and specialist/module-map completeness -- `GOV-009` moves
-toward `IMPLEMENTED` once both mechanisms are proven running (see Build Checklist). Separately, an
-independent "full-project truth audit" the same day
-(`plans/investigations/full-project-truth-audit-2026-07-22.md`) delivered this project's most
-thorough external verdict to date: **`NOT PRESENTABLE`**, a Level-3 proof-of-concept (scores:
-overall 3/8, presentation intelligence 3/8, autonomous runtime 3/8, reliability 2/8, pilot
-readiness 2/8, production readiness 1/8). It independently confirmed, by different means, several
-of this project's own known gaps (a fresh, clean `pytest -q` run -- re-verified again just now,
-directly, at **834 passed, 18 deselected**, superseding every earlier count in this section -- and
-live `gh api` confirmation that the acting identity has `push=true`/`admin=true` on all three
-enabled pilot repositories, resolving the previously-open fork-vs-direct-branch question in favor
-of direct branch/PR access) and named genuinely new gaps this project had not yet logged: no
-`remote_write`/PR-lifecycle capability exists at all (`PIL-014`); durable state failure is
-currently best-effort, not fail-closed (`RUN-005`); no durable, deduplicating trigger-intake queue
-exists (`RUN-006`); no health/backlog observability surface exists (`RUN-007`); the three enabled
-pilots are all Java, so "heterogeneous" would currently be a false claim about them (`PIL-012`);
-and no committed, independently-reproducible three-repository acceptance bundle exists (`PIL-013`).
-**This project adopts that audit's drastic-action recommendation as its current position**: freeze
-new specialist/domain abstractions until `AUD-001`-`007` close; retain the registry, safety model,
-state/CAS primitives, deterministic rendering, validators, and supervisor (all independently
-confirmed sound); use `supervise` as the sole pilot path and label `run` compatibility-only for the
-duration of the pilot, without deleting or rewriting either path until parity/migration evidence
-exists; replace closure-by-unit-test with a real `PIL-013` lifecycle bundle as the pilot acceptance
-bar. **Wave 9 has not started.**
-
-**2026-07-22, same-day follow-up (decisions #47, #48)**: a third concurrent session shipped a real,
-tested supervise-time registry drift self-heal (`CORE-033`, decision #47). Separately, this
-project's own Phase 13 machinery-audit findings (F3, F4) were closed: the effect-ledger lock now
-revalidates holder identity before its terminal write (`EFF-005`, decision #48), and the verifier-
-accept gate moved from a plain string comparison to a re-derivable token
-(`commit_readme_write.py::precheck()`, also decision #48) — both proven by new tests, not just
-argued fixed. `pytest -q` → 851 passed, 3 failed (unrelated to this work -- see below), 18
-deselected. `ruff check .`, `ruff format --check .`, `mypy src` all clean. **A separate, fourth
-concurrent session broadened `data/products.json` from 3 to 25 non-`disabled` entries** (still only
-2 `mode: "full"` -- the original 3-pilot write/dry-run boundary is unchanged); 3 pre-existing
-`test_registry_loader.py` tests hardcoding "exactly 3 enabled" broke as a result. **User confirmed
-2026-07-22 the broadening is intentional** (consistent with decision #24/`PIL-011`'s existing
-"research/dev scope is the full registry" position) -- the 3 tests were rewritten to assert the
-real invariant (enabled == every non-`disabled` entry, computed fresh from the file) instead of a
-point-in-time count, so they cannot drift out of sync the next time the registry legitimately grows
-again; the original 3-pilot subset is still asserted as a floor. Full suite re-verified green after
-the fix: `pytest -q` → 867 passed, 18 deselected, 0 failed (557s).
-
-**2026-07-22, same-day continuation (decisions #49, #50)**: a concurrent session's registry-
-onboarding push (`ONB-004`, `scaffold-policy` CLI) and clone-reliability redesign (`SCL-009`,
-probe-validated `clone_baseline()`) landed alongside this session's own plan-file-hardening
-execution — `GOV-022`'s mechanical wave-reconciliation check, `VER-001`'s replay-closing nonce
-(`TC-28`), `SCL-006`'s bounded specialist retry (`TC-19`), `AGT-006`'s deterministic termination
-backstop (`TC-18`), the pre-commit hook now also gating on ruff/mypy (`TC-30`), and TC-01's
-remaining push to `origin/main`, now complete. Both sessions independently found and fixed the
-same `test_specialists.py` clone-staleness bug by the same mechanism before either read the
-other's work — reconciled, not duplicated, in decision #50. Fresh, real, this-session-verified
-full suite: `pytest -q` → **919 passed, 0 failed, 18 deselected** (421s). Wave 9 (the heterogeneous
-portfolio proof) has still not started; `TC-08` (the remote-write PR-opener capability) is now the
-single remaining blocker to a live 3-repo presentation proof, with all four of its prerequisites
-closed.
-
-**2026-07-22, same-day continuation (decision #51)**: `TC-08` built -- `open_presentation_pr`, the
-one real `remote_write` capability this project registers, plus its own dedicated, never-neutered
-clone/remote path and write-verb GitHub API layer. Unit-proven (17 new tests, including real local
-git clone/branch/push mechanics against a bare-repo stand-in), not yet live-proven -- a real PR
-against a real pilot needs its own separate, explicit confirmation before the retrofit script that
-would open one is ever run. Full suite: `pytest -q` → **938 passed, 0 failed, 18 deselected**
-(287s). This is now, genuinely, the last built prerequisite before `TC-13`'s own live 3-repo proof
--- what remains is proving it live, not building anything further.
-
-**2026-07-22, same-day continuation (decision #52)**: `TC-08` live-proven. User confirmed the
-target (`aspose-cells-foss/Aspose.Cells-FOSS-for-Java`); a real Basic-vs-Bearer auth-header bug was
-found and fixed live along the way (see `OPS-009`, updated); the resulting real PR
-(`aspose-cells-foss/Aspose.Cells-FOSS-for-Java#1`) is open and unmerged, independently re-verified
-via a read-only `GET`. `TC-08` is now `completed_verified` in full. One PR against one pilot --
-`TC-13`'s own full 3-repo, 10-domain proof is still open.
-
-**2026-07-22, same-day continuation (decision #53)**: `ORC-006`/`ORC-003` corrected from stale
-`BACKLOG`/"evaluated, rejected" text to `PARTIAL` with real, repeated live evidence -- both rows
-described work (the SHA-probe shortcut, the specialist-skip reversal) that Waves 8.5/8.6 already
-built and this same day's live-proof pass already re-confirmed, but neither row had been updated to
-say so. The SHA-probe shortcut's own remaining evidence gap (it wrote no `manifest.json`/
-`decisions.json` at all, only a console line) is now closed with a distinguishing
-`kind="sha_probe_shortcut"` decision. Separately, `aspose-3d-foss`'s earlier `STALE_NONCOMPLIANT` →
-`BLOCKED/repair_exhausted` incident was investigated (re-run twice more, live) and found
-non-reproducing -- most likely the real upstream README changed independently since the original
-incident -- so no fix was designed or shipped against a condition current evidence no longer shows.
-Full suite: `pytest -q` → **938 passed, 0 failed, 18 deselected**; `ruff check .`,
-`ruff format --check .`, `mypy src` clean.
-
-**2026-07-22, session closure (decision #54)**: closing out this session's own work arc --
-plan-file-hardening execution (`TC-01` remainder, `TC-14`, `TC-18`, `TC-19`, `TC-28`, `TC-29`,
-`TC-30`, decisions #49-50) through `TC-08`'s full build and live proof (decisions #51-52). Nothing
-new built in this closing pass; this is a verification-and-record-keeping close, not additional
-implementation. Re-verified before closing: working tree clean (aside from an unrelated,
-transient, untracked file from a concurrent session, left untouched -- not this session's own
-output), `git log` confirms all of this session's own commits are present and in order
-(`fa3cf28`..`19b17f9`, 6 commits, local `main` ahead of `origin/main` by the same 6 -- still
-unpushed, unchanged from decision #52's own note, still needing its own fresh `GOV-018`
-confirmation before pushing). `scripts/governance/validate_plan_structure.py` clean. No further
-`pytest`/lint/type re-run performed in this closing pass beyond what decisions #51/#52 already
-recorded (**938 passed, 0 failed, 18 deselected**, `ruff`/`mypy` clean) -- nothing has changed in
-this repo's own source/test files since that verification ran, so re-running it would reconfirm,
-not newly verify, the same state. **Remaining, unchanged from decision #52**: `TC-02` (token
-rotation, human-only, no agent-side path); `TC-08`'s own live proof is one PR against one pilot,
-not `TC-13`'s full 3-repo/10-domain proof, which stays open; `TC-09` (blocked on `TC-08`, now
-unblocked in principle, not yet attempted); `TC-20` (deliberately deferred, its own taskcard's
-explicit caution); `TC-21`/`TC-22`'s own live-gateway measurement (no `LLM_BASE_URL`/`LLM_API_KEY`
-in this environment) -- all logged as open follow-ups, not silently dropped, and none of them
-block calling this session's own requested work (the plan-hardening execution and `TC-08`) closed.
+`plans/requirements.md` is the normative obligation register. `logs/` is history.
+`docs/architecture.md`, `docs/safety-model.md`, `docs/policy-authoring.md`,
+`docs/presentation-standard.md`, and `docs/github-surface-control.md` describe current
+implementation contracts. No untracked plan candidate is execution authority.
 
 ## Decision Ledger
 
@@ -546,7 +310,9 @@ that is the only permanence they carry; text is always the decision as it stands
     routing is chosen per job from live-tested gateway behavior (see
     `plans/investigations/llm-gateway-characterization.md`: `qwen3-next` for structured/planning
     work, `gpt-oss` avoided for instruction-critical steps since it never recovered a needle at
-    any context size tested and scored 1/10 on structured-output validity, `qwen3-embedding-8b`
+    any context size tested and scored poorly and inconsistently on structured-output validity
+    (corrected 2026-07-22 per `LLM-018`: the original single-run "1/10" figure had a 0.4-0.8
+    swing across reruns and is not a stable rate — see `LLM-019`), `qwen3-embedding-8b`
     for similarity/template-clone detection), not model-name folklore;
     (f) no human selects a capability, skill, or command during a normal run — capability
     discovery and selection are automatic; humans review proposals and authorize gated effects,
@@ -587,11 +353,20 @@ that is the only permanence they carry; text is always the decision as it stands
     by Wave 5's dispatcher-retry-wrapper work; only the registration-time declaration gate is built.
     See `plans/investigations/specialist-domain-isolation-production-readiness.md`.
 
+    **Amended 2026-07-23 for the Level-8 consolidation:** `supervise` is the sole production
+    runtime and controller. `generate`, `run`, and `run-registry` may remain only as read-only or
+    compatibility façades routed through the same registered capabilities, authorization checks,
+    effect ledger, and independent final verifier; they may not retain an alternate production
+    mutation path. Normal production work is schedule/event driven and humans passively review
+    verified proposals rather than selecting capabilities or invoking pipeline stages.
+
 27. **Runtime task-graph/dispatcher: extend the existing orchestrator, no new agent framework —
     native tool-calling is the structured-action mechanism.** Wave 1 (sprint Tasks 9–14) live-
     tested `llm.professionalize.com`'s native OpenAI-style tool-calling (`tools`/`tool_choice`)
     and found it reliable for both chat models — `qwen3-next` 5/5 and, surprisingly, `gpt-oss`
-    also 5/5 for single-step tool calls despite scoring only 1/10 on freeform structured JSON
+    also 5/5 for single-step tool calls despite scoring poorly and inconsistently on freeform
+    structured JSON (corrected 2026-07-22 per `LLM-018`: the original single-run "1/10" figure
+    swung to 0.8 on an independent rerun and is not a stable rate — see `LLM-019`)
     (decision #26(e); full findings L6–L8 in `plans/investigations/llm-gateway-characterization.md`).
     Parallel tool-calling was observed once per model — `qwen3-next` returned both calls,
     `gpt-oss` returned only one (`probe_llm_gateway.py:366-399`, a single trial per model, not a
@@ -760,6 +535,14 @@ that is the only permanence they carry; text is always the decision as it stands
     (Added 2026-07-19, sponsor directive `AUTONOMOUS-REPOSITORY-PRESENTER-RESET-001` Wave 4 — see
     Changelog.)
 
+    **Amended 2026-07-23 for restartable production operation:** the per-repository Git-ref backend
+    remains the selected store, but production correctness now requires versioned state migrations,
+    durable trigger intake, all lifecycle checkpoints, expired-lease recovery, proposal
+    reconciliation, and fail-closed behavior whenever state is uncertain. GitHub-native
+    concurrency queues jobs; it does not replace durable recovery because scheduled jobs can be
+    delayed or dropped. Revisit the backend only when measured scale, state size, or cross-repo
+    query/dashboard needs exceed the Git-ref design.
+
 33. **Prove it in production — GOVERNANCE.md rule 10.** Prompted by a direct user instruction
     ("prove it in production... make it a rule in governance") naming a discipline this project
     had already practiced repeatedly but never written down: every phase in this project's own
@@ -793,6 +576,41 @@ that is the only permanence they carry; text is always the decision as it stands
     an agent (human or AI) working in the repo directly, and any future `gated_effector` capability
     — with no exception for a standing or implied consent from earlier in a session. (Added
     2026-07-19, user directive.)
+
+    **Amended 2026-07-23 (Wave 13.7): the per-instance push-approval clause above is superseded by
+    bounded, verified authorization — the live-proof clause this decision is actually named for
+    ("prove it in production") is untouched.** The original text required the user's separate,
+    explicit, per-instance approval, naming exactly what/why/where, before any real write to a
+    managed remote — correct discipline for the pilot/POC phase this project has been in, with no
+    working alternative yet built. Wave 13.2/13.3 built and live-proved that alternative: a human
+    grants/renews a bounded `AuthorizationRecordV1` (`authorization/schema.py`) asynchronously — a
+    reviewable config change (`config/authorization/<org>__<repo>.yml`), never a runtime prompt —
+    naming the repository, effect classes, branch pattern, allowed surfaces, expiration, max change
+    size, required validators/verifier, approving identity, and rollback plan. Every capability
+    dispatch declaring an `effect_class` (today: `open_presentation_pr`'s own
+    `PR_BRANCH_PUSH`/`PR_CREATE_OR_UPDATE`) is checked against `authorization.registry.
+    authorized_for()` by `effect_ledger.py::dispatch_gated_effect()` before even a pending ledger
+    entry is written (`AUTH-004`) — an action outside any granted scope produces a
+    `blocked_pending_authorization` finding, never invented authority, never a hang waiting for a
+    reply a scheduled run has no one to give. The what/why/where discipline this decision always
+    required is preserved, not dropped: it is now structured into every `RunManifestV2`
+    (`authorization_record_id`) and PR description automatically, rather than a synchronous chat
+    message. **No real authorization record has been filed for any repo as of this amendment** (a
+    deliberate choice, decision #69) — so today, this amendment changes nothing about what can
+    actually happen: `open_presentation_pr` remains blocked for every repo, including the one with a
+    real merged-PR precedent, exactly as under the old clause (a human's explicit act was always
+    required either way; only the *form* of that act has changed, from a synchronous chat
+    confirmation to an asynchronously-reviewed config file). `GOV-026` names this mechanism formally;
+    `AUTH-007` tracks the still-open step of a human actually filing the first real record.
+
+    **Amended 2026-07-23 for the final production authorization model:** reviewed, expiring
+    authorization records may permit normal automation to create or update **draft** pull
+    requests without a synchronous per-run confirmation. This never authorizes auto-merge,
+    ready-for-review transitions, force pushes, default-branch writes, package/release writes, or
+    GitHub-generated-surface writes. Repository settings require a separate `github_apply`
+    authorization and effect. Production write jobs use a fresh GitHub App installation token;
+    production profiles do not accept PAT/`GH_TOKEN` fallback. Every proposal still records exact
+    what/why/where, fact sources, validation, verifier result, rollback, and authorization ID.
 
 34. **Specialist domain-invocation enforcement: a second, orthogonal axis on `CapabilityManifest`,
     checked dispatcher-side — not a proven authorization library, not framework tool-scoping
@@ -971,6 +789,39 @@ that is the only permanence they carry; text is always the decision as it stands
     polling/detection, decision #38) and sources facts from its own already-built product inventory
     (`data/products.json` + `config/policies/*.yml`) and capability system, rather than waiting on
     or designing for a handoff from a system that does not exist. (Added 2026-07-19, user directive.)
+    **Amended in place, 2026-07-22 (`GOVERNANCE.md` rule 4 — conclusion sharpened, historical
+    reasoning above retained unchanged)**: the exhaustive check above still stands and this
+    decision's core finding is unchanged — no real, responsive product-agent counterparty exists.
+    What changes is what follows from that finding. The original conclusion implicitly treated an
+    existing README's product-maintainer prose as authoritative simply because a human maintainer
+    owns the repository, with repository inspection cast as a fallback used only when a handoff is
+    absent. That framing produced a real, live failure: this project's own remote-write capability
+    opened a real PR (`aspose-cells-foss/Aspose.Cells-FOSS-for-Java#1`) that left a Maven
+    dependency coordinate untouched even though this project's own resolver (`RDM-007`) had already
+    verified it does not resolve on Maven Central — the README's existing prose was trusted over
+    already-possessed, verified evidence. **Corrected conclusion**: product maintainers/workflows
+    are the *initial source* of technical facts, not an unquestionable one. Repository
+    inspection/recon is the primary, active arbiter for any objectively, mechanically checkable
+    claim (does a package coordinate resolve, does a code example match the actual API/manifest,
+    does a stated capability exist in the source) — not a passive fallback reached only when a
+    handoff is absent, precisely because this decision's own finding means no handoff will ever
+    arrive to adjudicate a conflict instead. Product-agent-authored prose stays authoritative only
+    for what recon cannot independently verify — stated intent, roadmap, subjective positioning,
+    the licensing choice itself. A formal handoff contract is still built (`DOC-006` stays
+    `RESEARCH-GATED`, not rejected, until Wave 11's `ProductFactsV1`/`ProductChangeSetV1` build it);
+    handoff-present/absent/conflict cases stay named explicitly; a complete README overwrite stays
+    a first-class lifecycle event. `OWN-004`/`OWN-013`'s "audit/handoff only" boundary is
+    correspondingly clarified (not weakened) to apply to the actual release/package registry, never
+    to the README's own presentation text describing it — see the matching correction in
+    `docs/repository-presentation-surface-model.md` and `specialists/package_release_audit.py`.
+
+    **Amended 2026-07-23 for `ProductFactsV2`:** repository/source/manifests/tests and verified
+    external registries take precedence for mechanically testable facts; approved policy facts
+    own intent or positioning that code cannot prove; releases and approved documentation follow;
+    existing README prose is only a claim to verify. Every fact carries provenance, revision or
+    retrieval time, verification state, authoritative owner, confidence, conflicts, and affected
+    surfaces. Missing facts block only dependent actions; conflicts block affected proposals and
+    produce actionable findings.
 
 38. **Durable-skip fast path was blind to real upstream README changes on the actual production
     runner topology — found, root-caused, and fixed ahead of the rest of Wave 6.** Surfaced while
@@ -1428,6 +1279,27 @@ that is the only permanence they carry; text is always the decision as it stands
     routine history writes is its whole purpose. `requirements.md`'s own editing procedure is
     unchanged — only its Changelog section moved. (2026-07-21, user directive.)
 
+    **Amended 2026-07-23 (Wave 13.7): a task-scoped standing directive can satisfy the per-instance
+    go-ahead above, for a bounded class of edit — found and corrected honestly, not silently
+    assumed.** Direct verification (prompted by drafting this Wave 13.7 amendment) found this
+    session had been appending a new numbered Decision Ledger entry at the close of every wave
+    (dozens by this point) under the user's own standing instruction to "execute the plan e2e
+    autonomously, keep docs/logs updated" — never re-asking per-instance for each one, which the
+    original text above ("a standing or implied yes... does NOT satisfy this") reads as
+    non-compliant if taken literally. Rather than silently continue an undocumented departure, or
+    retroactively invent a justification, this is named explicitly per `GOV-008`'s own rule that a
+    change touching a safety/governance requirement carries a reasoned ledger entry: an explicit,
+    task-scoped standing directive that names a specific plan/scope to execute and explicitly asks
+    for docs/logs to be kept current — as distinct from a vague or general "go ahead," which still
+    does not qualify — satisfies the per-instance go-ahead for the routine, append-only class of edit
+    that class of directive implies: adding a new numbered Decision Ledger entry documenting a
+    wave's own already-completed, tested, and verified work, plus the routine Status/Build-Checklist
+    updates that accompany it. It does **not** extend to deleting or rewriting an existing decision's
+    substance (surgical, explicitly-requested amendments like this one and the `GOV-018` amendment
+    above are their own, separately-confirmed case, not covered by the standing directive), to
+    restructuring a section, or to any edit outside the routine wave-closure pattern — those still
+    need a fresh, per-instance go-ahead, exactly as the original text requires.
+
 45. **Production-hardening reconciliation for the autonomous supervisor loop — why seven LLM-gateway-usage gaps went unlogged, a corrected 10-part target design, and a probe-script bug found and fixed live.** An external analysis (not authored by this project) reviewed how the `supervise` loop actually uses `llm.professionalize.com` versus its own aspirational description and named seven gaps (G1–G7: hardcoded/unhashed supervisor prompt; a shallow planner dossier; deterministic-not-agentic specialist selection; blind-retry-only repair; a deterministic-not-LLM verifier; unwired `qwen3-embedding-8b`; no agentic-loop golden-set). Reconciled against the live text of this ledger, `requirements.md`, and `GOVERNANCE.md` before designing anything (per rule 11's own reconciliation discipline, applied here proactively rather than only at a wave boundary): G3 was already tracked (`ORC-003`, `PARTIAL`); the other six were genuinely unlogged, each falling in the same class of seam GOV-019/GOV-020 already named — a review pass scoped to *correctness* (Wave 7's reliability review, Wave 8's two adversarial passes) never asked whether the *mechanism itself* was sufficient, and the one 2026-07-19 assessment that did produce `GOV-016`/`LLM-016` from `llm-gateway-characterization.md` swept that document only partially, missing its embedding-model recommendation entirely.
 
     A full research → design → adversarial-review pipeline followed (three research passes over the real execution flow, the governance documents, and the gateway's own evidence; one design pass; one independent adversarial-review pass, mirroring decision #42's own two-pass precedent). The adversarial pass found two defects serious enough to change the design before anything was written down, both personally re-verified against the code/evidence before being accepted: (1) the proposed lock-race fix (`SCL-005`) would have leaked a new run-scoped lock for its full ~900s lease on the `CONVERGED_NO_TRACKED_CHANGE` shortcut path — confirmed directly: that shortcut (`supervisor/loop.py`) returns *before* today's existing lock is ever acquired, so a naive widening that didn't also cover it would introduce a worse race than the one it fixed; (2) the "~96k-token proven-safe context ceiling" the design's token-budget item leaned on (`llm-gateway-characterization.md` L1) was traced to `plans/investigations/tools/probe_llm_gateway.py:157` and found to rest on a real, one-line bug — a fixed-length filler string whose repeat count never scaled with the ladder variable before slicing, so every rung from 2k to 96k "approx tokens" silently sent the same ~1,400 real tokens. The script was fixed and re-run live against the real gateway this session (not deferred): `qwen3-next`'s real, proven ceiling is ~71,069 tokens with perfect needle recall; `gpt-oss` fails needle recall at every real size tested, including the smallest (~1,494 tokens); a new multi-turn conversation-growth probe measured a realistic dossier-shaped planner turn at 639→686 real tokens across one tool-call round trip — three orders of magnitude below the proven ceiling. Full results: `plans/investigations/llm-gateway-context-ceiling-corrected.md` (supersedes L1). `LLM-018`/`LLM-019` track the correction; `LLM-018` also found the resulting "1/10" `gpt-oss` structured-output figure is itself misreported in four sites (real evidence: 0.4, and a second independent run this session measured 0.8 — a swing large enough that neither number should be trusted in isolation without the N≥20/≥3-session follow-up this project's own investigations already recommended).
@@ -1591,114 +1463,170 @@ that is the only permanence they carry; text is always the decision as it stands
 
 54. **Session closure: plan-file-hardening execution through `TC-08`'s full build and live proof, verified and recorded, nothing left uncommitted.** Closes the work arc opened by this session's "execute" and "TC-08, execute it, and finish e2e" instructions. **Completed**: `TC-01` remainder (3 earlier commits pushed to `origin/main`), `TC-14` (`GOV-022` mechanical wave-reconciliation gate), `TC-18` (deterministic termination backstop), `TC-19` (graduated specialist-retry shortcut), `TC-28` (verification-token nonce), `TC-29` (golden-set harness review), `TC-30` (ruff/mypy in the pre-commit hook) -- decisions #49-50; then `TC-08` in full -- the `open_presentation_pr` `remote_write` capability built, unit-tested (17 new tests), and live-proven with a real, independently-verified, open, unmerged PR (`aspose-cells-foss/Aspose.Cells-FOSS-for-Java#1`) -- decisions #51-52, plus a real Bearer-vs-Basic auth bug found and fixed live along the way. **Changed**: see decisions #49-52's own file-level detail; six commits this arc, `fa3cf28` through `19b17f9` (registry onboarding, runtime/reliability fixes, `TC-08` capability + tests, docs/decisions ×2, the auth-header fix), all on local `main`, none yet pushed. **Verification performed**: `pytest -q` full suite green at each commit (final state 938 passed, 0 failed, 18 deselected), `ruff check`/`ruff format --check`/`mypy src` clean throughout, `scripts/governance/validate_plan_structure.py` clean throughout (including catching and this session correctly fixing one real, live `logs/README.md` staleness the validator itself found), the live PR independently re-confirmed via a read-only GitHub API call after the fact (not just trusted from the dispatch's own return value). **Remaining follow-ups (non-blocking to this closure)**: `TC-02` (`GH_TOKEN` rotation, human-only); `TC-13`'s own full 3-repo/10-domain live proof (this session delivered its first data point, not the whole thing); `TC-09` (PR-age staleness surfacing, unblocked, not yet attempted); `TC-20` (CLI/supervise pipeline unification, deliberately deferred); `TC-21`/`TC-22` (live-gateway seed-pinning measurement and golden-set replay, blocked on missing `LLM_BASE_URL`/`LLM_API_KEY` in this environment); pushing these 6 local commits to `origin/main`, which needs its own fresh, per-instance `GOV-018` confirmation, not implied by this closure. This session's own scope (the plan-hardening register plus `TC-08`, built and proven) is closed; the project's own larger `TC-13` presentation goal is not. (2026-07-22.)
 
+55. **Convergence-sprint execution begins (Wave 9.1 closed): verification baseline, lockfile, malformed-table-row fix, `GOV-024` reclassified.** Per explicit user direction ("execute the plan e2e autonomously. keep docs/logs updated"), autonomous execution of the 2026-07-22 convergence-sprint plan (Waves 9–15, `plans/investigations/full-project-truth-audit-2026-07-22.md`'s own six-stage "correct order") begins. Wave 9.1 (Verification Baseline & Clean-Environment Bootstrap) closed: a real baseline established first (`ruff`/`mypy` clean; `pytest -q` run 3 consecutive times in the existing `.venv`, 938 passed/0 failed each time, zero orphaned `git`/`python` processes after each, `tasklist`-confirmed); `requirements-lock.txt` built (`pip freeze`-based, chosen over `uv`/pip-tools per `GOV-015` -- zero new tooling dependency) and proven end to end against a genuinely fresh venv (clean import, clean ruff/mypy, 944 passed including 6 new tests); `scripts/governance/run_official_checks.py` built and run end to end (all 6 checks green). Two real, previously-undetected defects found and fixed independently this pass, one in each direction: (1) five `plans/requirements.md` rows (`OPS-009`, `EFF-004`, `ORC-006`, `VER-005`, `SCL-005`) had a broken Markdown table structure from unescaped `|` characters inside inline code (shell pipes, Python `X | None` unions) -- fixed, and `validate_plan_structure.py` hardened with a real escape-aware `_split_table_row()` splitter plus a new `check_requirement_row_column_counts()` gate (6 new tests) so this class of defect fails CI/pre-commit going forward; (2) `GOV-024` was itself stale in the *underclaiming* direction -- it claimed the supervisor's planner prompt was still a Python string literal, but direct source verification found the migration (`prompt_registry.get("supervisor_turn")`) and the control-plane-fingerprint hash-coupling (`compute_control_plane_fingerprint()`'s own docstring explicitly cites "`GOV-024`/Wave 8.5") were already fully built -- reclassified `IMPLEMENTED`, no new code needed. `OPS-010` got new corroborating evidence (4 consecutive clean full-suite runs this session) appended, deliberately not reclassified to `IMPLEMENTED` on that basis alone -- a clean small sample does not establish a root cause for a previously intermittent, load-correlated issue. New row `GOV-025` (`IMPLEMENTED`) for the scripted checks suite + lockfile. Full suite re-verified clean after every change. Remaining Wave 9 phases (9.2–9.7) and Waves 11–15 are in progress across this and subsequent sessions, per the plan's own design ("picked up and executed by an autonomous agent across many sessions"). (2026-07-22.)
+
+56. **Wave 9.2 and 9.3 closed: implementation-truth matrix built and run, authoritative documents repaired, decision #37 amended in place.** Continuing decision #55's arc. **Wave 9.2**: `plans/investigations/tools/traceability_matrix.py` built and run against all 114 `IMPLEMENTED` requirement rows — 0 cite a nonexistent file (a genuinely clean result), 77 have informational-only findings (no `tests/` path cited, mostly Phase 0-15 rows predating this project's later per-row citation convention, not real overclaims), 37 fully clean. The deeper semantic reclassification sweep across the ~170 `PLANNED`/`BACKLOG`/`PARTIAL` rows stays open for future sessions. **Wave 9.3**: targeted correction of `AGENTS.md` (stale "no mutating capability yet" language, twice) and `docs/safety-model.md` (a hypothetical framing for an already-live-proven real write path); `GOV-021` fixed and reclassified `IMPLEMENTED` (`docs/repository-presentation-surface-model.md`'s Class D section no longer describes a bidirectional response loop decision #37 already ruled out); a real `OWN-004` scope-correction (not a weakening) fixing `specialists/package_release_audit.py`'s docstring, which over-extended "audit-only" from the actual release/package registry to README presentation text describing it; `LLM-018`/`LLM-019` citation sweep across all four named sites (`plans/master.md`, `plans/investigations/full-surface-current-state.md`, `env.py`, `requirements.md`'s own `LLM-016` row), both reclassified `IMPLEMENTED`. **Decision #37 amended in place** (`GOVERNANCE.md` rule 4 — historical reasoning retained, conclusion sharpened): repository inspection/recon is now the primary, active arbiter for any objectively checkable claim, not a passive fallback, since this decision's own finding means no responsive product-agent counterparty will ever arrive to resolve a conflict otherwise — motivated by the real, live failure of the `aspose-cells-foss/Aspose.Cells-FOSS-for-Java#1` PR leaving an already-verified-broken Maven coordinate untouched. **Doc-set split**: `plans/status.md` (new, generated by `traceability_matrix.py`), `plans/roadmap.md` (new, hand-maintained), `plans/changelog.md` (new, one-line stub — `logs/` remains the real history per decision #44) created; this file's own 251-line Status section (every paragraph already duplicated by its own Decision Ledger entry) replaced with a short pointer, per `GOVERNANCE.md` rule 1. Full official-checks suite (`scripts/governance/run_official_checks.py`, built in Wave 9.1) re-run clean after every change in both phases. (2026-07-23.)
+
+57. **Wave 9.4 and 9.5 closed: execution profiles built and enforced, trigger identity/dedup built and wired.** Continuing decisions #55/#56's arc. **Wave 9.4**: `supervisor/execution_profile.py::ExecutionProfileV1` (5 typed profiles: `local_inspect`/`local_dry_run`/`github_observe`/`github_proposal`/`github_apply`, each declaring required state, allowed permission classes, evidence/verification requirements, valid triggers, rollback). `--execution-profile` CLI flag; `commands.py::cmd_supervise()` rejects `--domain` outright under any `github_*` profile (`ORC-007`, new, `IMPLEMENTED`) before any registry heal/preflight/clone runs, forces a real durable-state backend when a profile requires one regardless of `--durable-state`, and threads a new `allowed_permission_classes` parameter into `supervisor/loop.py::supervise_repo()`/`_dispatch_and_record()` (additive -- every existing caller/test unaffected) so a `github_observe` run structurally cannot dispatch a `local_write`/`remote_write` effect even against a `mode: full` repo, closing a real gap where only `mode` governed this before. All three GitHub workflows updated: `readme-agent-supervise.yml`→`github_proposal`, `readme-agent-portfolio.yml`→`github_observe`, `readme-agent-run.yml` relabeled compatibility/diagnostic-only in its own name (decision #46's doctrine, now structural, not just a paragraph) -- its actual `run`-engine invocation deliberately left unchanged, since proving the compatibility path still works is this workflow's own job. `RUN-008` (new) → `IMPLEMENTED`; `RUN-002` → `PARTIAL` (workflow_dispatch/schedule proven, workflow_call/repository_dispatch type-represented but not exercised). 9+9 new tests (`tests/unit/test_execution_profile.py`, `tests/unit/test_cli.py::TestExecutionProfileFlag`), all passing; the full `test_supervisor_loop.py` suite (49 tests) re-run clean after the permission-threading change. **Wave 9.5**: `state/schema.py::TriggerRecordV1` + `state/trigger.py::record_trigger()`/`is_duplicate_trigger()` (`RUN-006`'s trigger-identity/dedup half, real and tested -- 7 new tests in `test_state_backend.py::TestTriggerRecording`) wired into `cmd_supervise()` via new `env.py::github_run_id()`/`github_event_name()` helpers: a re-dispatched GitHub Actions run with the same `GITHUB_RUN_ID` short-circuits to a deduplicated result instead of re-executing, proven end to end (`test_cli.py::test_duplicate_github_run_id_short_circuits_without_calling_supervise_repo`). `RUN-005`/`RUN-006` both move `BACKLOG`→`PARTIAL` with an honest accounting of what's covered (construction-time fail-closed state backend creation; trigger-identity/dedup) versus what stays open (internal best-effort degradation inside `supervise_repo()`'s own state reads; a durable checkpointed intake queue for runner-loss recovery) -- new `RUN-009` (`BACKLOG`) names the second gap explicitly rather than leaving it unstated, per `GOV-014`. Full suite re-verified clean after every change in both phases. (2026-07-23.)
+
+58. **Wave 9.6 closed: candidate-byte-aware effect identity, fixing the confirmed live idempotency-key collision.** Direct trace confirmed the bug the sprint plan flagged going in: `capabilities/effect_ledger.py::idempotency_key()`'s `fresh_fingerprint` input (`readme/facts.py::compute_tracked_content_hash()`) is the PRE-RENDER upstream baseline hash, computed by `orchestrator.py::prepare_readme_candidate()` before the LLM ever runs -- never a hash of the rendered candidate/`final_text`. Two different generated candidates against the same unchanged upstream (`force_regenerate=True` plus ordinary LLM sampling variance, or a repaired candidate after a verifier rejection) collided on one key, so the ledger's own `already_applied` cache hit silently discarded the second, newly-verified candidate in favor of the first, stale one. **Fixed**: new `capabilities/effect_identity.py::EffectIdentityV1` (`candidate_byte_hash = sha256(final_text)`, `upstream_surface_hash` = `fresh_fingerprint`, `product_facts_hash` reuses `facts_hash` wholesale -- `readme/facts.py::compute_facts_hash()` already folds `policy_content_hash`/`prompt_content_hash`/`GENERATION_SCHEMA_VERSION`/`VALIDATION_RULESET_VERSION` into it, so naming those again as separate fields would add no discriminating power `facts_hash` doesn't already have; a deliberate, source-grounded scope narrowing from the plan's original longer field list). `idempotency_key()` now builds this typed identity and hashes its canonical JSON whenever `final_text` is one of a manifest's declared `idempotency_inputs` -- fully backward compatible (every other capability's plain per-field selection is untouched, proven by a dedicated test). `commit_readme_write.py`/`open_presentation_pr.py` both now declare `final_text` in `idempotency_inputs`. New `EFF-006` → `IMPLEMENTED`, proven by `tests/unit/test_effect_identity.py` (9 tests) and `tests/unit/test_effect_ledger.py`'s new `TestCandidateAwareIdempotencyKey`/`TestDispatchGatedEffectCandidateAwareness` classes covering all 6 of the plan's named regression scenarios at both the pure-function and dispatch level. **Scope correction found during this same verification pass, logged not silently absorbed**: the fix fully closes the gap for `commit_readme_write` (the local write always applies `final_text` directly to the file); for `open_presentation_pr`, the ledger now correctly attempts a real second `execute()` call for a differing candidate, but that capability's own pre-push `find_open_pr()` dedup (`PRL-001`) still keys on `facts_hash[:12]` alone, so it finds the first candidate's still-open PR and returns `already_open` without ever pushing the repaired content -- the same visible outcome as before this fix (a stale PR persists), just reached by a different code path, so nothing regresses. New `PRL-009` (`BACKLOG`) names this pre-existing, separate gap explicitly rather than silently expanding Wave 9.6's scope to fix GitHub branch-naming semantics. Full suite re-verified clean. (2026-07-23.)
+
+59. **Wave 9.7 closed: per-surface freshness contracts and the corrected 7-condition `NO_CHANGE` gate.** Closes the "repository-level no-op based only on Git SHA" prohibited outcome (Wave 9.7 sprint plan §22): before this fix, `supervisor/loop.py`'s coarse pre-specialist-tier shortcuts could return `CONVERGED_NO_CHANGE` from a Git-SHA/control-plane/domain-coverage match alone, permanently skipping the entire specialist tier -- including the four domains (`GITHUB_GENERATED_SURFACE_AUDIT`/`PACKAGE_RELEASE_AUDIT`/`METADATA_PRESENTATION`/`VISUAL_PREPARATION`) whose own live queries are the *only* way this project ever observes a package publish, a topics edit, a new release, or a stale social-preview image -- for as long as upstream stayed unchanged. **Built**: new `state/schema.py::SurfaceFreshnessContractV1` + `state/freshness_contract.py` (`DEFAULT_SURFACE_CONTRACTS` for exactly those 4 non-git-tracked domains, `is_due_for_recheck()`/`any_surface_due_for_recheck()`/`refresh_surface_contracts()`); new `SupervisorStateV1.surface_freshness` field (additive, safe-default). New `supervisor/convergence.py::no_change_gate_holds()` composes the original `is_fresh()` (Git revision/control-plane fingerprint/domain coverage) with 4 more conditions this phase adds: `has_pending_effect()`, `has_open_proposal_needing_reconciliation()`, `has_unfinished_trigger()`, and the new surface-freshness check -- replacing the bare `is_fresh()` call at both of `loop.py`'s coarse-shortcut sites (the pre-clone probe and the post-clone check). `loop.py` now loads the full prior `RunStateV1` (new `_load_prior_run_state()`, `_load_supervisor_state()` now a thin wrapper over it) and refreshes `surface_freshness` from real `specialist_results` at both write sites where the tier actually ran, while the cheap pre-clone probe's own write (which never runs the tier) carries the prior value forward unchanged. **Scope correction, verified not assumed**: the sprint plan named 11 surfaces; direct trace found README/community files already covered by the existing Git-revision comparison and open proposals better modeled as a boolean condition than a TTL contract (nothing to periodically recheck until `PRL-002` populates `open_proposals` for real) -- narrowed to the 4 genuinely-missing surfaces plus 3 non-TTL conditions, logged as new `FRESH-001`–`006` rather than a partial build of all 11. New `VER-007` → `IMPLEMENTED` for the composed gate itself. **`GOV-024`'s own Wave 9.7 contingency confirmed, no new code needed**: `compute_control_plane_fingerprint()`'s docstring already states it hashes `prompt_registry.content_hash()` covering the supervisor's own `supervisor_turn` prompt, and Wave 9.3 already reclassified `GOV-024` to `IMPLEMENTED` on this exact basis -- re-verified true, nothing left open here. Proven by `tests/unit/test_freshness_contract.py` (24 tests, new) and `tests/unit/test_convergence.py`'s new classes including `TestNoChangeGateHolds`'s 6 named negative scenarios (package publish / description change / topics change / new release / merged PR / stale social preview -- none may shortcut to `NO_CHANGE`); the full `run_official_checks.py` suite re-run clean, including the complete `test_supervisor_loop.py` (49 tests) and `test_convergence.py` (36 tests) with zero regressions. (2026-07-23.)
+
+60. **Wave 11.1 closed: multi-root package detection (`ECO-004`), the first Wave 11 phase -- decision #46's `AUD-001`–`007` freeze lifted by Wave 9's closure (decisions #55–#59).** Direct trace confirmed a real, already-self-documented gap: `inspection/file_inventory.py::resolve_manifest_candidates()`'s own docstring already named "one manifest path per ecosystem" as the extent of this project's monorepo support -- a multi-module Maven/Gradle tree, a multi-`.csproj` .NET solution, or an npm/Yarn workspace with more than one manifest of the same ecosystem had every match after the first silently discarded. **Fixed, additively**: new `find_all_manifest_roots()` (filesystem walk, `inspection/file_inventory.py`) and `find_all_manifest_roots_from_tree()` (git-tree-API, `inspection/tree_paths.py`) -- both new, separate functions sharing their sibling's exact traversal/exclusion rules, never touching `resolve_manifest_candidates()`/`find_manifest_paths_from_tree()`, which stay "first match wins" for every existing caller. New `profile/schema.py::PackageRoot` + additive `RepositoryProfile.package_roots`, populated by both `profile/detector.py::build_profile()` and `profile/cached.py::_build_profile_via_api()` -- full parity between the clone-based and git-tree-API-based profiling paths. **Scope correction, verified not assumed**: the sprint plan's original ask named a richer per-root schema (languages/build-systems/registries/test-systems/etc.) plus 8 checked-in fixture archetypes and `SharedSurface`/`UnresolvedFinding` records -- narrowed to the detection layer alone (does a root exist, where, which ecosystem), since per-root fact-parsing would add N real GitHub-API-fetch costs per repo on the tree-API path that this phase did not sign up to add unmeasured; synthetic `tmp_path`-constructed test scenarios used instead of checked-in fixture directories, matching this project's own existing test-authoring convention (`test_convergence.py`'s `_setup_project_root`, etc.), not the 8 elaborate archetypes literally. New `ECO-004` → `IMPLEMENTED`; new `ECO-005` (`BACKLOG`) names the deferred richer schema honestly rather than silently expanding `ECO-004`'s scope. 20 new tests across `test_inspection.py`/`test_tree_paths.py`/`test_profile.py`/`test_profile_cached.py`; full official-checks suite re-run clean. (2026-07-23.)
+
+61. **Wave 11.2 closed: multi-registry acquisition verification (`PKG-001`–`006`) -- five more live resolvers, all live-verified over the real network, plus a new per-package-root capability.** `ecosystems/resolver.py` gained PyPI (python), npm (typescript), NuGet (net), the Go module proxy (go), and Conan Center/vcpkg (`cpp_conan`/`cpp_vcpkg`) -- every URL/status-code shape confirmed live 2026-07-23 against a real known-good package and a real known-empty name before any code was written (`scripts/retrofits/prove_multi_registry_resolvers_live.py`, kept as the executable record): PyPI/npm/NuGet all 200/404 exactly as expected; the Go proxy required live-discovering its `!`-escaping convention for uppercase module-path letters (unescaped mixed-case 404s, escaped resolves); Conan Center/vcpkg have no package-existence REST API at all (both are community-curated, git-hosted recipe indices) -- the real, working check turned out to be the recipe/port path itself as a raw GitHub file fetch, found live, not assumed from either registry's docs. `cpp` deliberately has no direct `"cpp"` resolver key -- two independent, unrelated registries with no manifest signal indicating which a repo actually uses would make a direct key an `ECO-003`-violating guess; callers pick `"cpp_conan"`/`"cpp_vcpkg"` explicitly. `orchestrator.inspect_repo()`'s existing generic `resolve(ecosystem, manifest)` dispatch (already ecosystem-agnostic, unchanged) automatically gained python/typescript/net/go coverage the moment these were registered -- zero wiring changes needed there; `check_install_path.py`'s manifest metadata updated to reflect the real, broader coverage. New `capabilities/verify_package_acquisition.py` (`PKG-005`): reports one outcome per Wave 11.1 `PackageRoot` (`REGISTRY_VERIFIED`/`NOT_PUBLISHED`/`CAPABILITY_GAP`/`BLOCKED_NETWORK`/`NOT_APPLICABLE`), not one repo-wide boolean -- a `cpp` root always reports `CAPABILITY_GAP`, never a guessed registry. New `ResolutionResult.blocked: bool` field (additive, default `False`) distinguishes a genuine "not found" from a real network failure. **Scope correction, verified not assumed**: `PKG-006` (`BACKLOG`) names `INSTALL_VERIFIED`/`SOURCE_BUILD_VERIFIED` as deliberately not built -- those would require actually invoking a package manager against arbitrary resolved coordinates, a materially larger and different risk (real command execution against untrusted input) than every other outcome's read-only HTTP GET; not expanded into `PKG-005` unmeasured. 12 new tests (`test_verify_package_acquisition.py`) + resolver tests (`test_ecosystem_resolver.py`, including the new `blocked` field); full official-checks suite re-run clean. (2026-07-23.)
+
+62. **Wave 11.3 closed: a typed, honestly-scoped `ProductFactsV1` schema, a facts diff mechanism, and `package_roots` finally exposed through `get_product_facts`.** New `facts/schema.py::ProductFactsV1`/`PackageCoordinateFactV1` (`FACT-011`): `ProductFactsV1.from_capability_results()` combines `capabilities/get_product_facts.py`'s own dict output with an optional `capabilities/verify_package_acquisition.py` result, merged by package-root path -- deliberately does not call either capability itself (decision #26(b)) and does not touch either one's declared `side_effect_class` (`get_product_facts` stays `read_only_local`, zero new network calls). `get_product_facts.py` additively gained a `package_roots` output key (Wave 11.1's multi-root graph was already computed inside its own `profile` object but never surfaced). New `facts/changeset.py::ProductChangeSetV1`/`diff_product_facts()` (`FACT-012`): a pure diff between two `ProductFactsV1` snapshots, catching the concrete, load-bearing case of a package-root verification outcome flipping (e.g. `REGISTRY_VERIFIED` -> `NOT_PUBLISHED`, a real yanked/removed package) -- feeds `FACT-010`'s own "surgical diff evidence" acceptance criterion (that row's text updated to cite it, status left `PLANNED`: the dependency-map half and any actual triggering wiring are still Wave 12.1's job). **Scope correction, verified not assumed**: new `FACT-013` (`BACKLOG`) names the sprint plan's original 3-mode ingestion ask (handoff+repo-verification / repo-only / conflict-mode-against-a-handoff) as not built beyond repo-only reconstruction -- decision #37's own amendment already established no real, responsive external handoff-receiving system exists to integrate with, so building ingestion code paths for an unreachable input source would be untested, unreachable code, not a real capability; the concrete corrective mechanism decision #37 actually calls for (recon evidence as primary arbiter for checkable claims) is exactly what `FACT-011`/`PKG-005` together provide as inputs to Wave 12.1's future semantic-reconciliation correction pass. 16 new tests (`test_facts_schema.py`, `test_facts_changeset.py`, plus one extension to `test_capabilities.py`); full official-checks suite re-run clean. (2026-07-23.)
+
+63. **Wave 11.4 closed: real structural (type/nested-shape) capability-argument validation, additive alongside the flat maps -- closes Wave 11 (11.1-11.4 all done).** New `capabilities/schema.py::CapabilityManifest.input_model`/`output_model: type[BaseModel] | None` (additive, defaults `None`, every pre-existing capability completely unaffected). `to_tool_schema()` prefers `input_model.model_json_schema()` when declared, stripping the model's own docstring-derived `description` key first (would otherwise leak an internal-implementation-detail explanation into LLM-facing schema; `function.description` from `purpose` stays the one authoritative description). New `dispatcher.py::dispatch_tool_call()` check: `input_model.model_validate(arguments)` runs before the executor when declared, turning a Pydantic `ValidationError` into a clear `rejected_invalid_arguments` instead of an opaque `execution_error` surfacing deep inside `require_listed()`. New `OrgRepoRef` (a real, reusable `"org/repo"`-shape-validated `str` type) and shared `OrgRepoOnlyInputV1` input model, retrofitted onto exactly this session's own three `org_repo`-only capabilities (`get_product_facts`, `profile_repository`, `verify_package_acquisition`) -- not all 22+ registered capabilities, per the sprint plan's own explicit "no breaking rewrite of all at once" instruction. **Scope correction, verified not assumed**: while scoping the plan's "reject incompatible profiles/stale state refs" ask, found a real, concrete design blocker, not just deferred for effort -- `supported_build_systems`/`supported_package_managers`/`supported_registries` (Wave 11.2) use an invented registry-name vocabulary (`"maven_central"`, `"pypi"`) with no declared mapping to `RepositoryProfile`'s own ecosystem-key vocabulary (`"java"`, `"python"`), and "stale state ref" has an unresolved design question (which of `RunStateV1`'s several revision fields to key off, context-dependent). New `CAP-009` (`BACKLOG`) names both blockers explicitly rather than hacking around them. New `CAP-008` -> `IMPLEMENTED`. New tests across `test_capabilities.py` (`TestOrgRepoRef` + schema cases) and `test_capability_dispatcher.py::TestDispatchInputModelValidation`; full official-checks suite plus `test_specialists.py`/`test_orchestrator.py` re-run clean, zero regressions. (2026-07-23.)
+
+64. **Wave 12.1 closed, deliberately narrowed after a deep investigation found the full sprint-plan ask carries real, unresolved architectural risk -- a real, evidence-backed claim-conflict detector, not the full `SectionModel`/recompile rewrite.** Direct investigation of `readme/renderer.py::render_missing_elements()` confirmed the sprint plan's own diagnosis exactly: a pure function of a 4-boolean `GapReport` that never receives the rest of the README and can only splice inside one owned span. Live-refetched the real `aspose-cells-foss/Aspose.Cells-FOSS-for-Java` README (2026-07-23) and confirmed it still carries the identical, unresolving `<groupId>org.aspose</groupId><artifactId>aspose-cells-foss</artifactId>` Maven coordinate the original PR shipped untouched. **Built**: new `readme/claim_verification.py::find_claim_conflicts()` -- cross-checks README install-command text (Maven/pip/npm/NuGet shapes) against Wave 11.3's `ProductFactsV1.package_coordinates`, producing a `ClaimConflictFinding` only for a positively-confirmed `NOT_PUBLISHED` outcome, never for `CAPABILITY_GAP`/`BLOCKED_NETWORK` (couldn't check). The named regression proof uses the real, live-fetched README text, not a synthetic fixture -- confirms a finding is correctly produced for the exact real coordinate. New `RDM-024` -> `IMPLEMENTED`. **Scope correction, verified not assumed, two real blockers found while scoping the full rewrite, not a deferral for effort**: (1) `readme/facts.py::compute_facts_hash()` deliberately excludes README content and `gap_report` (decision #11) -- a claim conflict depends on live network state with zero local-file/facts_hash correlate, exactly the blind spot Wave 9.7 solved at the *supervisor* level (`state/freshness_contract.py`) but with no render-level equivalent yet; wiring this into `orchestrator.prepare_readme_candidate()` today would either force a live network call on every offline render or silently miss conflicts on the skip path. (2) `prepare_readme_candidate()` is one of this project's most heavily load-bearing functions (idempotency/durable-skip/span-stripped re-detection/hash exclusions precisely balanced) -- correctly integrating a new signal is real, separate design work, confirmed by direct reading, not assumed. New `RDM-025` (`BACKLOG`) names this explicitly, plus the further-out question of what corrected text should actually *say* (needs product-aware judgment, not automated here). The full `SectionModel`/8-golden-fixture recompile rewrite the sprint plan originally asked for is NOT built this pass -- a deliberate, evidence-grounded narrowing, not a silent gap. 12 new tests (`test_claim_verification.py`); full official-checks suite re-run clean. (2026-07-23.)
+
+65. **Wave 12.2 closed: real dynamic specialist-selection/repair-planner client wiring reaches the shipped CLI for the first time, plus a stale-in-the-under-claiming-direction `AGT-008` correction.** Direct verification confirmed the sprint plan's own "verified correction to scope" exactly: `supervise_repo()` has accepted `specialist_selection_client`/`repair_planner_client`/`enable_specialist_skip` since Wave 8.6, but `commands.py::cmd_supervise()` never constructed real client instances or passed them through -- meaning the fully-built, unit-tested dynamic specialist-skip and repair-alternative-selection mechanisms had zero effect in any shipped CLI/GitHub-Actions run, exactly the "specialist selection available only to Python tests" guard the original sprint context named. **Fixed**: new `--enable-dynamic-planning` CLI flag (never a default, matching `--durable-state`'s own convention) constructs real `LivePlannerClient` instances job-routed via `env.llm_model_for_job("specialist_selection")`/`("repair_capability_selection")` -- both already-live-tested routing entries (`LLM-016`) that simply had no caller before this. `ORC-003`'s own row updated with this evidence (status unchanged, `PARTIAL` -- the flag is unit-proven, not yet exercised in a real live pilot run, named honestly as still-open). **`AGT-008` reclassified `BACKLOG` -> `PARTIAL`**: direct source verification found 2 of its 3 acceptance criteria already built (`get_domain_findings` capability registered; `DOSSIER_TOKEN_BUDGET` already gates on real `usage.prompt_tokens`, not a hardcoded constant) -- only the third (a required, bounded `planner_summary` per specialist) is genuinely still missing, named precisely rather than the whole row staying incorrectly `BACKLOG`. **Scope correction, verified not assumed**: new `ORC-008` (`BACKLOG`) confirms `Task.depends_on`/`TaskGraph.validate_acyclic()` already exist (the sprint plan's claim was accurate) but declines to add the 7 further `Task` fields (`expected_outputs`/`required_evidence`/etc.) this pass -- no planner-prompt-building code anywhere reads or acts on them yet, so adding them now would be exactly the unused-field/half-finished-implementation pattern this project's own conventions warn against. 4 new tests (`test_cli.py::TestEnableDynamicPlanningFlag`); full official-checks suite re-run clean. (2026-07-23.)
+
+66. **Wave 12.3 closed with zero code changes -- a deep investigation found the "verification reordering" half of the ask already true in production, and precisely named the real remaining gap instead of building a shallow wiring fix for it. Wave 12 (12.1-12.3) is now fully closed.** Direct source verification confirmed `specialists/independent_verification.py` already runs strictly after every other specialist domain within the same pass: `specialists/registry.py::_SPECIALISTS` registers it last, `DEPENDS_ON` covers all 9 siblings, and `_build()`'s own import-time gate (already tested: `test_dependency_registered_earlier_does_not_raise`/`test_dependency_not_yet_registered_raises`/`test_real_registry_satisfies_its_own_declared_dependencies`) would fail loudly if this ever regressed. Since the specialist tier dispatches domains sequentially with each one's own `record` node writing through to the backend first, `independent_verification.run()`'s own `backend.load()` genuinely observes every sibling's same-run state -- not the gap the sprint plan's text assumed. **The real, deeper gap, found by continuing the investigation rather than stopping at "ordering is fine"**: `details["adversarial_findings"]`/`details["completeness"]` are recorded as evidence but nothing turns them into an automatic corrective action, because `supervisor/repair.py::create_repair_task()`'s existing shape (retry the same capability/arguments) does not fit a cross-domain finding at all -- there is no single capability to retry when the finding is "readme_presentation committed a change despite an unresolved cross_surface_validation inconsistency." Closing this needs either a new capability shaped to address a cross-domain finding, or a preventive gate inside `readme_presentation`'s own graph -- genuinely new design work. New `VER-008` (`PARTIAL`) documents both halves precisely rather than either overclaiming a shallow fix or silently doing nothing. No source code changed this phase -- the value delivered is a corrected, evidence-grounded understanding of what's actually built, exactly the kind of finding this project's own truth-closure discipline exists to produce. (2026-07-23.)
+
+67. **Wave 13.1 closed: `RunManifestV2`, a single typed evidence-manifest schema, replaces `supervisor/loop.py::_write_supervise_evidence()`'s own ad hoc `manifest.json` dict -- closing a duplication that module's own docstring already flagged, and giving `GOV-012`/`SAFE-014`/`SAFE-017` their first real (if partial) evidence.** New `evidence/manifest_v2.py::RunManifestV2` + `evidence/writer.py::write_run_manifest_v2()`, reusing the writer's existing redaction/atomic-write/checksum helpers -- no parallel writer. Wired into all 4 of `supervise_repo()`'s evidence-writing call sites (pre-clone probe, clone-failure, `CONVERGED_NO_TRACKED_CHANGE` shortcut, full planner-loop completion); each populates `control_plane_fingerprint`/`upstream_revision`/`domain_coverage_complete`/`surface_freshness` from whatever it genuinely has locally available -- `domain_coverage_complete=True` set only at the one call site (the NO_TRACKED_CHANGE shortcut) where it's directly, locally derivable from the same condition that reached that branch, `None` elsewhere rather than an inferred guess across a helper-function boundary. New `requirement_ids_exercised: dict[str, bool]` reuses `independent_verification`'s own already-built `requirement_map` (Wave 8c) -- the first real (if partial) closure of `GOV-012`'s "evidence records requirement IDs" ask, and `SAFE-014`'s requirement-ID half (its decision/phase-traceability half stays open, named honestly). `SAFE-017` stays `PLANNED`, not silently upgraded: this row's own field doesn't yet correlate a specific validation *failure* to its requirement ID, only exercised-without-error at the whole-run level. New `EVID-001`-`003` -> `IMPLEMENTED`/`PARTIAL`; `EVID-004` (`BACKLOG`) names the two still-unpopulated fields (`authorization_record_id` awaiting Wave 13.2/13.3; `trigger_dedup_key` awaiting `commands.py` threading `TriggerRecordV1` through) with the schema already declaring them, matching this project's own "declare the field, populate it honestly later" convention. 8 new tests (`test_manifest_v2.py`, `test_evidence_writer.py::TestWriteRunManifestV2`, `test_supervisor_loop.py::TestRunManifestV2Evidence`); full official-checks suite re-run clean (1116 passed). (2026-07-23.)
+
+68. **Wave 13.2 closed: the effect-class taxonomy and authorization-record schema/loader this project's Execution Readiness model needs before Wave 13.7 can evolve `GOV-018`/`GOV-023` for real.** New `authorization/schema.py::EffectClass` (8 named classes: `STATE_REF_WRITE`/`EVIDENCE_WRITE`/`PR_BRANCH_PUSH`/`PR_CREATE_OR_UPDATE`/`DEFAULT_BRANCH_WRITE`/`REPOSITORY_SETTINGS_WRITE`/`PACKAGE_PUBLICATION`/`MANUAL_UI_PREPARATION`) -- additive alongside, never a replacement for, `capabilities/schema.py::PermissionClass`'s existing `side_effect_class` (that field keeps deciding *whether* a dispatch is mutating; `EffectClass` decides *which* authorization record it must additionally satisfy). New `AuthorizationRecordV1` (repository -- reusing Wave 11.4's `OrgRepoRef` shape validation, not a second check -- effect_classes/branch_pattern/allowed_surfaces/expiration/max_change_size/required_validators/required_verifier/approving_identity/rollback). New `authorization/registry.py::load_authorization_record()`/`authorized_for()`, mirroring `registry/loader.py::load_policy()`'s own fail-closed shape exactly, plus one addition beyond that precedent: a filename/`repository`-field cross-check catching a real copy/paste hazard (a record authored for one repo filed under another's filename). Config lives at `config/authorization/<org>__<repo>.yml`, reusing `paths.py`'s own established `f"{org}__{repo}"` naming convention, sibling to (never merged with) `config/policies/*.yml`. New `readme-agent authorization-validate --repo <org/repo>` CLI command -- purely diagnostic, never itself grants authority -- live-run against all 3 real pilots, each correctly and honestly reporting "no authorization record filed" (this mechanism is new; no human has authored a real grant yet, which is the correct current state, not a gap). New `AUTH-001`-`006` -> `IMPLEMENTED`. 20 new tests (`test_authorization_registry.py`: 15, `test_cli.py::TestAuthorizationValidateCommand`: 5); full official-checks suite re-run clean (1136 passed). (2026-07-23.)
+
+69. **Wave 13.3 closed: the authorization enforcement cutover (`AUTH-004` wired for real), plus a real, user-decided policy fork on how the first authorization record gets populated.** Before writing any code, verified this wave's own load-bearing premise directly against source (`open_presentation_pr.py`, `commit_readme_write.py`, `effect_ledger.py::dispatch_gated_effect()`) rather than trusting the sprint plan's literal text, and found the plan's assumption that both write capabilities need the same gate does not survive that check: none of `authorization.schema.EffectClass`'s 8 values describes `commit_readme_write`'s actual effect (a commit into a disposable local clone, never pushed, "no remote effect exists to roll back" per its own long-standing docstring) -- forcing a fit would be taxonomy scope creep for zero external blast radius. **Scope narrowed accordingly**: only `open_presentation_pr` (the one real `remote_write` capability) is wired, declaring `effect_classes=["PR_BRANCH_PUSH", "PR_CREATE_OR_UPDATE"]`; `commit_readme_write` deliberately declares none, documented in its own docstring. New additive `CapabilityManifest.effect_classes: list[str]` field (empty-by-default, mirrors `allowed_domains`' own "empty = unscoped" convention; kept as bare `str`, not the `EffectClass` Literal, to avoid a `capabilities/schema.py` <-> `authorization/schema.py` import cycle -- membership validated once, at capability-registration time, by `registry.py`, the same pattern already established for `allowed_domains`). `effect_ledger.py::dispatch_gated_effect()` now checks `authorization.registry.authorized_for()` for every declared effect class -- ahead of `precheck()`, before the lock is acquired or any pending entry is written -- returning a new `blocked_pending_authorization` outcome; a no-op for every capability that doesn't declare `effect_classes` (everything except `open_presentation_pr`, today). Checked *in addition to* `mode != 'full'`, not instead of, per the sprint plan's own instruction. **The real policy fork**: the cutover's own "no regression against the real PR precedent" proof needs an actual `AuthorizationRecordV1` filed for `aspose-cells-foss/Aspose.Cells-FOSS-for-Java` -- but self-authoring one under this same agent's commit authority would collapse the intended two-layer design (mode + authorization) back into one layer the agent alone controls, exactly the failure `AUTH-004` exists to close. Presented to the user directly rather than assumed; the user chose **"build the mechanism only, no real record."** Concrete, correct-not-regressive consequence: `open_presentation_pr` is now blocked (`blocked_pending_authorization`) for every repo, including the one with a real merged-PR precedent, until a human files a real record -- logged honestly as new `BACKLOG` row `AUTH-007`, not silently left implied by `AUTH-004`'s own `IMPLEMENTED` status. `AUTH-004` -> `IMPLEMENTED` for the full wiring (loader + enforcement); new `AUTH-007` -> `BACKLOG`. 11 new tests (`test_capabilities.py`: 5 -- 1 schema-default plus `TestRegistryEffectClassEnforcement`'s 4; `test_effect_ledger.py::TestDispatchGatedEffectAuthorization`: 6, including one live negative-control run against the real capability, the real `aspose-cells-foss/Aspose.Cells-FOSS-for-Java` org_repo, and the real, genuinely-empty `config/authorization/` directory, with zero monkeypatching); full official-checks suite re-run clean. (2026-07-23.)
+
+70. **Wave 13.4 closed: model-routing governance wiring (`LLM-020`/`LLM-021`), generalized from the one hardcoded `supervisor_planning` check to every real capability that declares a `model_route`.** Live-verification-before-code found the real call graph was more scattered than the sprint plan's brief text implied: the 3 real `model_route`-declaring capabilities (`verify_prose_quality`, `compare_against_presentation_standard`, `review_visual_asset_accuracy`) each dispatch via a plain `dispatch_tool_call()` call made directly inside their own specialist LangGraph node (`readme_presentation.py::_verify_node`, `presentation_benchmarking.py::_classify_node`, `visual_preparation.py::_review_node`) -- never through `supervisor/loop.py::_dispatch_and_record()`, which is only the general planner's own dispatch path. The gate therefore had to live in `capabilities/dispatcher.py::dispatch_tool_call()` itself (the one chokepoint every real call crosses), not in `_dispatch_and_record()` alone. New optional `state_backend: StateBackend | None = None` keyword param there -- a no-op unless both `manifest.model_route` is declared and a live backend is supplied, so every pre-existing caller/test is byte-for-byte unaffected by default -- checks `state_backend.load_model_route_status(manifest.model_route)` and rejects with a new, distinct `rejected_model_route_disabled` outcome on a durably-disabled route. Threaded through all 3 real specialist call sites (each now reads `backend` from `config["configurable"]`, the same pattern their own `_record_node`s already use) plus, for completeness, `effect_ledger.py::dispatch_gated_effect()`'s two internal dispatch calls and `_dispatch_and_record()`'s own general-planner path (a no-op today since no mutating capability declares `model_route`, but future-proofed rather than left a silent gap). Separately, `env.py::llm_model_for_job()`'s global `LLM_MODEL` override now requires an explicit, additional `READMEAGENT_DEBUG_MODEL_OVERRIDE=1` opt-in -- previously a bare `LLM_MODEL` env var silently won over the evidence-selected per-job routing table unconditionally, which would have silently masked exactly the kind of disabled-route enforcement this same wave just built. The plan's own named "LLM-017/VAL-016 reconciliation" entry-gate task was checked and found already accurate (`LLM-017` already `BACKLOG`, `VAL-016` already `PLANNED` -- no mismatch existed to log), recorded honestly as new `LLM-022` rather than silently skipped. New `LLM-020`/`LLM-021` -> `IMPLEMENTED`; new `LLM-022` -> `BACKLOG`. 11 new tests (`test_capability_dispatcher.py::TestDispatchModelRouteGate`: 8; `test_env.py::TestLlmModelForJob`: 3 new) plus 1 existing test rewritten to match the corrected default behavior; two pre-existing test fakes (`test_specialists.py::_FakeStateBackend`, a monkeypatched `dispatch_tool_call` lambda in `test_supervisor_loop.py`) needed updating for the new call shape -- found and fixed via the full regression run, not silently left broken. Full official-checks suite re-run clean. (2026-07-23.)
+
+71. **Wave 13.5 closed: the live, enforced golden-set pipeline (`OPS-011`/`OPS-012`) -- turning Wave 8.6's offline-only scoring harness into a real, CI-invokable, auto-disabling monitor.** New `golden_set/auto_disable.py::evaluate_and_disable()`: durably flips a job's `ModelRouteStatusV1` to `disabled` when a real run's pass rate crosses `PASS_RATE_FLOOR = 0.5` -- a real, evidence-derived floor (`LLM-018`'s own characterized 0.4-0.8 swing for an already-unrouted model; 0.5 sits below even that model's worst measured swing), never re-touches an already-disabled record. New `readme-agent golden-set-run --job <job>` CLI command (`commands.py::cmd_golden_set_run`) wiring a real `LivePlannerClient` through the existing harness, then through the new auto-disable check; exit code itself is the CI signal (1 when a route was just disabled, so degradation shows as a failed workflow run, not just a log line a human has to notice). New `.github/workflows/golden-set-run.yml` -- `workflow_dispatch` only, deliberately not scheduled yet, per `GOVERNANCE.md` rule 10 ("prove it in production before automating"), the same maturation posture `readme-agent-supervise.yml`/`measure-clone-latency.yml` are themselves still on; new `OPS-013` tracks the eventual `schedule:` addition. **Live-verified for real, 2026-07-23**: ran the new command against `supervisor_planning`'s real routed model (`qwen3-next`) -- scored 4/5 (0.8 pass rate), correctly stayed enabled, and surfaced one genuine, previously-unknown planner weakness (`stop_decision_accuracy_everything_unchanged`: the live model called `profile_repository` instead of stopping) -- an honest new finding, not swept aside. **Deliberately did not attempt a live seeded-bad-scenario proving a real threshold breach flips real durable state**: doing so would durably disable this project's own real, currently-working `supervisor_planning` route in production until a human manually re-enabled it -- a real, if reversible, degradation of live operating capability with no benefit over the mechanism already being proven against a fake backend in tests; a considered scope boundary, logged honestly rather than silently skipped or silently attempted. `OPS-011` re-verified against the full 6-metric acceptance text named in its own row and found to cover only 4 of 6 (no "verifier agreement" metric anywhere in this pipeline; "latency/cost per run" captured only per-scenario, never aggregated across real production runs) -- corrected to `PARTIAL`, not the plan's own suggested `IMPLEMENTED`, an honest downgrade from what the sprint plan assumed. New `OPS-012` -> `IMPLEMENTED`; new `OPS-013` -> `BACKLOG`. 10 new tests (`test_golden_set.py::TestEvaluateAndDisable`: 5; `test_cli.py::TestGoldenSetRunCommand`: 5, including one deterministically-constructed all-scenarios-correct run built from the real scenario corpus's own expected/forbidden fields, not a hand-waved guess). Full official-checks suite re-run clean. (2026-07-23.)
+
+72. **Wave 13.6 closed: dependency & runner reproducibility (`DEP-001`-`006`) -- and, via its own required `act` proof, two genuinely live, previously-undetected "runner depends on an accidental global environment" bugs found and fixed, not just a checkbox SBOM exercise.** New `pip-audit>=2.7` (a real declared dev dependency, not an ad hoc script) generating a real CycloneDX SBOM (`plans/investigations/evidence/dependency-reproducibility-2026-07-23/sbom.cyclonedx.json`) -- found and fixed 6 real CVEs in the local dev venv's bootstrap `pip` and, separately, a real `setuptools` CVE on a fresh Python 3.11 image (reproduced directly via `docker run python:3.11`), both now fixed proactively inside the new CI workflow itself. Direct-import audit (`grep` across `src/` against `pyproject.toml`'s declared deps) found one real gap: `langchain_core`, imported directly by every specialist module, was undeclared, working only via `langgraph`'s own transitive pin -- added as an explicit direct dependency; `requirements-lock.txt` regenerated to match. New `.github/workflows/dependency-check.yml`: a real clean-install-from-lockfile (never `ci.yml`'s own fresh unpinned resolve) across the full Python 3.11/3.12/3.13 matrix -- `workflow_dispatch` only, deliberately not `push`/`pull_request` yet (`GOVERNANCE.md` rule 10, the same first-run discipline every other new workflow in this repo has followed; new `DEP-006` tracks the eventual promotion). **Live-verified via real local `act` runs (Docker) against all 3 Python versions, every step green, including the SBOM/audit step** -- and along the way, `act`'s real Linux/Docker environment surfaced two genuine bugs invisible on the local Windows dev machine: (1) `inspection/file_inventory.py`'s `_MAX_FILES_SCANNED`-bounded `os.walk()` traversal order is filesystem-dependent and was never sorted, meaning which manifest a bounded scan finds (or silently misses) depended on which OS/filesystem performed the scan -- fixed by sorting `dirs`/`files` at both `os.walk()` call sites, a real production-correctness fix (`DEP-004`), proven by a new regression test that monkeypatches a deliberately reversed walk order and confirms the bound still trips identically; (2) `test_cli.py::TestExecutionProfileFlag::test_github_profile_forces_a_durable_state_backend_without_the_flag` didn't isolate itself from the real ambient `GITHUB_EVENT_NAME`/`GITHUB_RUN_ID` a real Actions/`act` runner sets, unlike its own sibling test -- the real `push` event leaked in and `TriggerRecordV1.event_type`'s `Literal` correctly rejected it, crashing a test that has nothing to do with trigger identity; confirmed via direct check that every REAL workflow invoking this code path triggers only on `schedule`/`workflow_dispatch` (both already valid), so this was a genuine test-isolation bug, not a schema gap -- fixed by mocking `env.github_run_id()` to `None` (`DEP-005`). Both are exactly the literal guard this wave's own plan named ("a runner depending on an accidental global environment") -- found because the plan's own required `act` proof step was actually run, not skipped as a formality. New `DEP-001`-`005` -> `IMPLEMENTED`; new `DEP-006` -> `BACKLOG`. 1 new test (`test_inspection.py::test_bound_is_reached_deterministically_regardless_of_os_walk_order`); full official-checks suite re-run clean. (2026-07-23.)
+
+73. **One production runtime and one write boundary.** `supervise` consumes every production
+    trigger and is the only runtime allowed to reach a target-repository effect. All mutations pass
+    through the capability registry, typed profile/permission checks, authorization registry,
+    effect ledger, independent verifier, and terminal classifier. Analysis and effect execution
+    are separate GitHub Actions jobs; only the effect job receives a fresh GitHub App token.
+    Compatibility commands cannot independently acquire write authority. Production never falls
+    back to a PAT or `GH_TOKEN`, never auto-merges, and never writes a target default branch.
+
+74. **Versioned lifecycle and checkpoint recovery are production contracts.**
+    `TriggerEnvelopeV2`, `CheckpointV1`, and schema migrations define durable intake and progress.
+    Trigger states are `accepted`, `processing`, `blocked`, `retryable`, `failed`, `completed`, and
+    `deduplicated`; unknown/newer schema versions fail closed. Every scheduled sweep recovers
+    accepted/processing/retryable work whose lease expired. `HealthReportV1` exposes missed
+    windows, backlog, stale leases, repeated failures, rate limits, evidence failures, open
+    proposals, and last success. `RunManifestV3` binds trigger, checkpoints, facts, plan,
+    authorization, verifier, effects, and requirement results.
+
+75. **Verified proposal is the immutable boundary before an effect.** `ProductFactsV2` feeds a
+    repository-specific `RepositoryPresentationPlanV1`; bounded renderers produce candidates;
+    factuality, ownership, regression validators, and an independent verifier produce
+    `VerifiedProposalV1` against an immutable base revision. `open_presentation_pr` is a separately
+    authorized terminal effect. It refetches the target head before every push, rebuilds and
+    reverifies on drift, uses one agent-owned branch without force push, and reconciles branch,
+    commit, and PR crash boundaries into `OpenProposalV2`. Settings remain separate effects.
+
+76. **Maturity levels are awarded only by elapsed production evidence.** Level 5 requires the
+    complete controlled three-Java-repository pilot. Level 6 requires restartable scheduled/event
+    operation with passive human review. Level 7 requires terminal evidence across every active
+    registry repository, one full lifecycle per supported ecosystem, operational health/recovery,
+    and 30 consecutive production days with zero unauthorized writes, duplicate effects, or false
+    convergence. Level 8 requires 90 consecutive production days, at least 99% eligible-run
+    completion without human intervention, checksum-complete manifests for every terminal run,
+    recovery within 24 hours, visible proposal age/drift, 100% deterministic validation, at least
+    95% agentic golden-set accuracy, and an independent reproducible audit.
+
 ## Architecture
 
-### Pipeline order
+### Canonical production flow
 
+```text
+schedule / repository_dispatch / workflow_call / operator request
+  → normalize TriggerEnvelopeV2
+  → persist and deduplicate trigger
+  → acquire per-repository lease
+  → capture immutable repository snapshot
+  → profile repository and every package root
+  → build provenance-complete ProductFactsV2
+  → assess every applicable presentation surface
+  → build RepositoryPresentationPlanV1
+  → render bounded candidates/proposals
+  → factuality + ownership + regression validators
+  → independent final verifier
+  → persist VerifiedProposalV1 / effect request
+  → separately authorized effect job with fresh GitHub App token
+      → create or update draft PR
+      → or apply separately authorized repository settings
+      → never merge, force-push, or write a default branch
+  → reconcile effect and OpenProposalV2 state
+  → write checksum-complete RunManifestV3 and terminal checkpoint
+  → aggregate health, backlog, proposal age, and drift
 ```
-allow-list check (data/products.json, decision #4)
-  -> preflight (GitHub read + LLM /models, both fail-closed)
-  -> git safety (clone baseline fresh, clone/reuse work clone, neuter push, install pre-push
-     hook, verify — decisions #12, #14)
-  -> inspect (git metadata, file inventory, ecosystem manifest parse)
-  -> gap-detect (scan the *whole* README, not just our own marker span)
-  -> facts + facts_hash (decision #11)
-  -> decide: skip (zero gaps, or hash-matches-and-still-valid) vs regenerate (decision #16)
-  -> LLM call *only* if relationship_explained is a gap (decision #8)
-  -> render missing elements into the one owned `resources` span (decision #9, Phase 21b)
-  -> validate (10 deterministic rules, always run — decision #16)
-  -> evidence (redacted, atomic writes)
-  -> commit locally if mode=full and status=GENERATED (never pushed)
-```
 
-Phases 21+ reuse the common orchestration stages — allow-list, inspect, compare, propose,
-validate, evidence, and gated apply — but they do **not** pretend every surface has the same write
-mechanism. Repository files use the push-blocked git path; API/settings fields use dry-run
-proposals and an explicit remote-write gate; manual UI surfaces produce validated assets and
-operator instructions; product-agent-owned surfaces produce handoff findings; GitHub-generated
-surfaces produce audit evidence only. Audit-only findings never enter a renderer.
+GitHub Actions is the production compute platform. A planning job emits the authoritative
+repository matrix; per-repository jobs use GitHub concurrency queuing plus durable CAS leases.
+GitHub concurrency is an optimization and overlap guard, not the recovery system.
 
-### Marker format
+### Trust and token boundaries
 
-One pair, one owned span: `<!-- readme-agent:resources hash="sha256:<hex>" schema="2" -->` … `<!--
-readme-agent:resources:end -->`. Phase 21b retired the `readme-agent:callout` pair from
-`upsert_span()` — it can no longer be created. `readme/markers.py`'s `remove_span()` permanently
-keeps recognizing the legacy `"callout"` name (not a transitional shim to delete later): the
-orchestrator calls it unconditionally on every run so any work clone still holding a
-pre-Phase-21 callout span gets it stripped on its next run, regardless of whether that run
-otherwise skips or regenerates. `remove_span()` is the exact inverse of `upsert_span()`'s insertion
-(including the blank-line separators it adds), which is what makes the `change_boundary` validator
-rule a fixed trim-and-compare rather than a heuristic diff: strip the owned span (plus any legacy
-callout) from the current README and confirm what's left is byte-identical to the baseline.
+| Boundary | Allowed identity and behavior |
+|---|---|
+| Analysis | Read-only repository/package access; no target-write token; repository text is untrusted data |
+| LLM planning | Structured proposals/actions only; no credentials or direct effects |
+| Validation | Secret-free, isolated examples/install checks; deterministic factuality, ownership, and regression gates |
+| Verification | Independent from the proposal author; produces a candidate-bound verdict |
+| Effect job | Fresh, short-lived GitHub App installation token; exact authorization/effect scope only |
+| Default branch, merge, releases/packages, GitHub-generated surfaces | No autonomous write path |
 
-### Runtime layout
+Every GitHub production profile fails closed if durable state, authorization, facts, verification,
+or effect identity is uncertain. Production profiles never accept PAT/`GH_TOKEN` fallback.
 
-`paths.py` resolution: env var `README_AGENT_RUNS_DIR` if set, else `Path.cwd() / "runs"` —
-purely `cwd`-relative so local dev and a GitHub Actions runner (checkout puts `cwd` at repo root)
-behave identically.
+### Versioned lifecycle contracts
 
-```
-runs/baseline/{org}__{repo}/     # pristine clone, read-only reference, re-cloned fresh every run
-runs/work/{org}__{repo}/         # mutable clone, STABLE across runs (decision #12) -- never pushes
-runs/evidence/{run_id}/          # manifest.json, facts.json, llm_request/response.json, block.md,
-                                  #   diff.patch, validation_report.json, sha256sums.txt
-```
-`{org}__{repo}` (double underscore) keeps names filesystem-safe/identical on Windows and Linux.
-`runs/` is git-ignored (matches aspose.org's own `.gitignore` convention: plain `/runs/`, not a
-dotfile).
+- `TriggerEnvelopeV2`: provider event ID, event type, repository scope, delivery/run ID, source
+  revision, schedule window, occurrence time, and deduplication key.
+- `CheckpointV1`: trigger, run, repository, stage, task/action, attempt, input/output hashes,
+  timestamps, and failure classification.
+- `ProductFactsV2`: stable fact IDs, values, provenance, revision/time, verification, owner,
+  confidence, conflicts, and affected surfaces.
+- `RepositoryPresentationPlanV1`: findings, surface actions, dependencies, fact citations,
+  ownership class, operation, validators, rollback, and stop conditions.
+- `VerifiedProposalV1`: immutable base revision, facts/plan/candidate hashes, validation and
+  verifier results, authorization ID, and expiry.
+- `OpenProposalV2`: stable proposal/PR/branch identity, base/head/candidate revisions, state, age,
+  drift, authorization, and reconciliation result.
+- `HealthReportV1`: schedule/backlog/lease/failure/rate-limit/evidence/proposal health.
+- `RunManifestV3`: the checksum-complete terminal evidence index.
 
-### Module responsibilities
+All contracts have explicit migrations from supported older schemas. Unknown/newer versions fail
+closed. Recovery resumes or reconciles from checkpoints; it does not infer success from absence.
 
-| Module | Responsibility | Notes |
-|---|---|---|
-| `registry/loader.py`, `registry/models.py` | Load+validate `data/products.json` + policies; `is_permitted()` allow-list gate | pydantic `ProductEntry`, `PolicyProfile` |
-| `preflight/*` | GitHub read-check + LLM `/models` check, fail-closed | run before any clone/generation |
-| `inspection/*` | git metadata + generic multi-manifest file inventory (`FileInventory.manifest_paths: dict[str, Path]`, Wave 3) from a clone; no LLM | case-insensitive LICENSE/README matching; manifest detection is data-driven from `ecosystems.registry.known_manifest_globs()`, not hardcoded to one filename |
-| `ecosystems/java.py` (Maven `pom.xml` or Gradle `build.gradle`), `ecosystems/python.py`, `ecosystems/dotnet.py`, `ecosystems/typescript.py`, `ecosystems/go.py`, `ecosystems/cpp.py`, `ecosystems/registry.py` | Parse each platform's manifest (identity fields; Java also extracts `runtime_min_version`); dispatch by platform string, keyed to match `ProductEntry.platform`'s vocabulary | Wave 3: six real adapters (was one, `"maven"` only), all adapted from aspose.org's proven `scripts/pipeline/extraction/package_manifest.py` (GOVERNANCE.md rule 8, decision #30) — proves `ECO-002`'s "new adapter = new registry entry, never a new call site" with real second-through-sixth entries |
-| `ecosystems/resolver.py` | Live install-path resolution against the real package registry, dispatched by platform string (Phase 21d) | only `"java"` implemented (Maven Central search API; renamed from `"maven"` in Wave 3 to match the registry rename); opt-in via `--check-install`, never a default; same never-a-default pattern as `links/validator.py` |
-| `profile/schema.py`, `profile/detector.py` | `RepositoryProfile`/`DetectedEcosystem` (Wave 3, `ECO-001`/`ECO-003`); `build_profile()` — one `file_inventory.scan()` call, one `DetectedEcosystem` per detected platform, unresolved manifest-shaped files recorded not guessed | built on the same generalized `inspection`/`ecosystems` detection above, not a second parallel scanner; exposed as the `profile_repository` capability |
-| `readme/gap_detector.py` | Scans the **entire README** for each of the 4 required elements; produces `GapReport` (per-element bool + evidence excerpt) | the module the rest of the pipeline hinges on; calibrated against 14 real READMEs (see Reference Data) |
-| `readme/markers.py` | The one owned README span (`resources`); find/insert/remove, exact-inverse round-trip | see Marker format above; `remove_span` permanently also recognizes the legacy `callout` name for migration cleanup |
-| `readme/facts.py` | `RepositoryFacts`, `compute_facts_hash()` (decision #11); sole permitted input to `llm/prompts.py`'s `build_prompt()` | `sha256_text()` CRLF-normalizes before hashing; `generation_schema_version` at `"3"` since Phase 21b's owned-span contract change |
-| `readme/renderer.py` | Purely additive; renders only missing elements into the one `resources` span; substitutes policy's canonical URLs, never LLM-supplied ones | |
-| `readme/presentation_report.py` | Read-only `READMEPresentationReport` (Phase 21a): opening explanation, audience/ecosystem statement, install-path resolution (via `ecosystems/resolver.py` if opted in), runnable example, heading-level consistency | never gates a run by itself; surfaced through `inspect`/`report` |
-| `llm/prompts.py` | `build_prompt(facts: RepositoryFacts, policy: PolicyProfile) -> list[dict]` — no other parameters, mechanically enforced by `tests/unit/test_prompt_hash_coupling.py` | invoked only when `relationship_explained` is a gap |
-| `llm/live_client.py`, `llm/fixture_client.py`, `llm/schema.py`, `llm/client.py` | Strict-schema client (live + fixture behind one `LLMClient` Protocol); bounded retry | see LLM Contract |
-| `validation/registry.py`, `validation/rules/*` | 10 deterministic checks, always run (decision #16) | see Validator Registry; Phase 21c added `product_first_opening` and `commercial_mention_discipline`, both ERROR severity |
-| `license/auditor.py` | License facts from GitHub API + LICENSE file content classification; never crashes on null | decision #5 |
-| `links/validator.py` | HTTPS/domain checks; optional live HEAD/GET reachability, opt-in only, WARNING severity | never a default hard gate |
-| `gitsafety/clone.py`, `neuter.py`, `hooks.py`, `verify.py`, `_git.py` | Baseline/work clone (toplevel-mismatch guard, pinned determinism — decision #14), push-neuter, pre-push hook, independent verification | see CI & Safety |
-| `evidence/writer.py`, `evidence/redaction.py` | Atomic writes (`.tmp` + `os.replace`), `sha256_file()` (CRLF-normalized), redaction (verbatim secret-pattern regex + exact live-secret-value masking) | `unified_diff()` uses `difflib`, deliberately not `git diff` |
-| `orchestrator.py` | Wires everything into `generate_repo`, `run_repo`, `run_registry`, `inspect_repo`, `report`, `validate_repo` | the one place that knows the full pipeline order |
-| `cli.py`, `commands.py` | argparse subparsers; thin command handlers over `orchestrator.py` | exit codes: `0` pass, `1` validation/policy failure, `2` usage/config error, `3` preflight/git-safety/allow-list failure |
+### Facts and surface ownership
 
-### Repository presentation control matrix (scope added 2026-07-18 — decisions #18–#24)
+Fact precedence is:
 
-| Surface | Control class | What the agent may do | Delivery |
-|---|---|---|---|
-| README content and structure | Repository-file managed | Audit the full README; make surgical, fact-backed presentation changes; retain the proven `resources` span where needed; never apply a generic full rewrite | Push-blocked work clone, diff, validation, evidence |
-| README product illustration/hero | Repository-file managed | Generate or prepare a product-specific visual, validate dimensions/alt text/claims, embed through a relative path | Push-blocked work clone |
-| Repository description (About) | API/settings managed | Draft from verified product facts; validate length, clarity, and unsupported claims | `PATCH /repos/{org}/{repo}`, dry-run first, explicit apply gate |
-| Homepage/website | API/settings managed | Propose the canonical useful destination from policy | Same gated repository update endpoint |
-| Topics | API/settings managed | Propose relevant product, format, language, and ecosystem topics; reject keyword stuffing | `PUT /repos/{org}/{repo}/topics`, dry-run first |
-| Community files and templates | Repository-file managed | Audit/create/improve approved files; GitHub decides how it surfaces their tabs and links | Push-blocked work clone |
-| Social-preview image | Manual UI managed | Prepare the approved social-sharing asset and upload instructions; do not claim API automation without a documented endpoint | Repository Settings UI |
-| Releases and packages | Product-agent owned | Audit availability, naming, links, descriptions, and consistency; send actionable findings to the publishing owner | Report/handoff only |
-| Contributors and languages | GitHub generated | Audit unexpected output and investigate underlying repository history/files; never set values | Evidence only |
-| Stars, forks, watchers, activity, counts, GitHub tabs/layout | GitHub generated | Observe for context only; never treat as editable metadata or quality gates | Evidence only |
+1. mechanically verified repository/source/manifests/tests and external package registries;
+2. approved policy facts for intent or positioning code cannot prove;
+3. releases and approved documentation;
+4. existing README prose as a claim requiring verification.
 
-GitHub automatically surfaces recognized community files in supported places such as the
-repository overview, community profile, contribution flow, and sidebar. The exact tabs, links,
-layout, and placement are controlled by GitHub and may change. The agent controls only the files
-and their quality.
+Each surface is classified as repository-file, settings/API, manual UI, product-owned, or
+GitHub-generated. Missing facts block only dependent actions. Conflicts block affected proposals.
+Protected terminology, commands, examples, limitations, and maintainer-authored regions receive
+fingerprints; removing or weakening protected content fails validation.
 
-The common control flow is:
+### Proposal and effect lifecycle
 
-`classify surface -> inspect authoritative source -> detect a real gap -> create proposal only if
-authorized -> validate claims and change boundary -> write evidence -> apply through the surface's
-allowed gate`.
+File proposals use one agent-owned presentation branch per repository and draft PRs only. Before
+each push the effect job refetches the target head; drift invalidates the candidate and requires a
+new snapshot, plan, render, and verification. Durable state and GitHub are both reconciled after
+crashes at branch-created, commit-pushed, and PR-created boundaries. No force push is permitted.
 
-No renderer or write path may exist for a GitHub-generated or product-agent-owned surface.
+Repository description, homepage, and topics are separate fact-backed proposals and require
+distinct `github_apply` authorization. Social preview is a prepared asset plus manual-application
+evidence. Releases/packages are audit and owner findings only. GitHub-generated signals are
+observations only.
+
+Detailed current module placement and the preserved shipped-engine seams live in
+`docs/architecture.md`; safety properties remain normative in `docs/safety-model.md`.
 
 ## Registry & Policy Config
 
@@ -2074,553 +2002,129 @@ open, blocked on analytics access this environment does not have.**
 
 ## Build Checklist
 
-### Sprint waves (`AUTONOMOUS-REPOSITORY-PRESENTER-RESET-001`)
+This is the only active execution sequence. The former Phases 0–26 and Waves 0–15 are retained
+only as historical implementation evidence in decisions and `logs/`; they are not parallel plans.
 
-Tracks the sponsor-directive sprint (decision #26) separately from the Phase list below, which
-predates it and remains the shipped-engine track. See the Changelog entries dated 2026-07-18 for
-full detail on each wave; this checklist gives at-a-glance status only.
+- [x] **Wave 0 — Truth consolidation and shippable baseline**
+  - [x] Preserve and classify every dirty/untracked artifact without reset, restore, clean, or
+        implicit acceptance.
+  - [x] Commit the controller, requirement coverage, semantic closure, and fresh-clone evidence in
+        coherent green commits.
+  - [x] Reduce active planning authority to `idea.md` (vision), this file (architecture/sequence),
+        `requirements.md` (normative obligations), the durable task graph (execution state), and
+        `logs/` (history). Untracked `roadmap.md`, `status.md`, and `changelog.md` are not authority.
+  - [x] Replace path-only closure with semantic proof; downgrade unsupported `IMPLEMENTED` claims.
+  - [x] Reproduce the committed code/dependency baseline from a fresh lock-only clone.
+  - [x] Install this approved Waves 0–8 sequence and synchronize requirements.
+  - **Exit:** plan validation and semantic traceability pass; no master/requirements/task-graph
+    contradiction remains; the code/dependency baseline reproduces cleanly.
 
-- [x] Wave 0 — Doctrine correction, truthful green baseline restored, `AGT-*`/`CAP-*`/`RUN-*`/
-      `ECO-*`/`ONB-*`/`MEM-*`/`ORC-*`/`VER-*`/`GAP-*`/`SCL-*` requirement groups seeded
-      (`PLANNED`), project identity corrected (`README.md`, `pyproject.toml`,
-      `docs/architecture.md`, `AGENTS.md`, `GOVERNANCE.md`). No runtime code — decision #26.
-- [x] Wave 1 — Gateway tool-calling spike (L6–L8), runtime framework evaluation and choice
-      (decision #27, extend the orchestrator, no new framework), one live
-      observe→plan→execute→observe→replan loop iteration proven (`AGT-002` → `PARTIAL`). No
-      production capability registry or supervisor yet — spike-only, lives in
-      `plans/investigations/`.
-- [x] Wave 2 — Capability foundation: `CapabilityManifest`/`CapabilityGap` schema
-      (`src/readme_agent/capabilities/schema.py`), capability registry (`registry.py`,
-      mirrors `ecosystems/registry.py`'s dispatch-table pattern), permission-aware dispatcher
-      (`dispatcher.py`), three existing safe modules exposed as real capabilities
-      (`inspect_repository.py`, `detect_readme_gaps.py`, `check_install_path.py` — all
-      `read_only_local`/`read_only_network`, no mutating capability yet), capability-gap records
-      on unknown-`capability_id` dispatch. Live-proven end to end
-      (`tests/integration/test_capabilities_live.py`), 22 new offline unit tests. Repository-
-      profile compatibility filtering (`CAP-002`'s second clause) stays open until Wave 3's
-      `RepositoryProfile` exists to filter against. **Extended 2026-07-19** with the
-      domain-invocation axis and the `EFF-001` registration gate — see decision #34, `CAP-006`.
-- [x] Wave 3 — Heterogeneous repository profiling: `RepositoryProfile` schema (`profile/schema.py`),
-      generic multi-manifest inventory (`inspection/file_inventory.py`'s `manifest_paths`,
-      data-driven from `ecosystems.registry.known_manifest_globs()`), six real platform parsers
-      (Java — Maven or Gradle, Python, .NET, TypeScript, Go, C++) adapted from aspose.org's
-      proven `package_manifest.py` (decision #30), `profile_repository` capability, live-proven
-      against the real `pdf/java` pilot through the real dispatcher. `data/products.json`'s three
-      real Java entries migrated `ecosystem: "maven"` → `"java"` in the same change (byte-for-byte
-      regression-proven against all three real pilots — see Changelog). Governance additions:
-      GOVERNANCE.md rule 8 + decision #30 ("prefer proven tools"), `GOV-015`, a `BACKLOG` row for
-      the previously-unlogged prominence bug (`VAL-018`, decision #29/`GOV-014`). Hardened same
-      day against all 25 real registry entries (not just the 3 pilots): found and fixed a real
-      crash (Python's flat `packages = [...]` config shape) and a systemic detection gap (every
-      `.NET` repo's manifest lives in a subdirectory, missed by a root-only check) — see the
-      matching Changelog entry and
-      `plans/investigations/full-registry-ecosystem-detection-survey.md`.
-- [x] Wave 4 — Durable runner state: `state/schema.py` (`RunStateV1`,
-      `CapabilityOutputCacheEntry`), backend-independent `state/backend.py` (`StateBackend`
-      Protocol, `MEM-003`), the real backend `state/git_backend.py` — one git ref per `org_repo`
-      on this project's own remote, not a shared branch (decision #32, reassessed after a first
-      draft's granularity mismatch would have produced false-positive `STALE_INPUT` across
-      unrelated repos), locks + reclaim-after-lease-expiry, all via git plumbing with no
-      per-write working-tree checkout. Wired into `orchestrator.generate_repo()` additively
-      alongside the existing local-work-clone check (decision #12 unchanged), opt-in via CLI
-      `--durable-state` (mirrors `--check-install`'s never-a-default convention);
-      `readme-agent-run.yml` updated with job-level `contents: write` and passes the flag.
-      `CapabilityOutputCacheEntry.fingerprint` deliberately doubles as `EFF-001`'s idempotency
-      key for Wave 5 to reuse. New tests: `test_state_schema.py`, `test_state_backend.py` (fake
-      backend proves the CAS/lock contract), `test_orchestrator.py`'s simulated-fresh-runner
-      case (two separate working directories sharing one durable backend — the concrete
-      regression test for `RUN-001`), `tests/integration/test_state_git_backend_live.py`
-      (`@pytest.mark.live`, run with explicit confirmation, 4/4 passed after fixing a real bug
-      found live — `gitsafety/_git.py`'s text-mode stdin write silently corrupted `mktree`'s
-      tree-entry paths on Windows; see Changelog). **`RUN-003` closed same day**: a real `act`
-      reproduction of `readme-agent-run.yml` (`Job succeeded` on the third attempt) found and
-      fixed two more real bugs — durable-state read/write-back are now best-effort (never abort
-      the run, mirrors `check_install`'s convention) and `upload-artifact`'s name is sanitized
-      (`inputs.repo_key`'s `/` is invalid there) — `RUN-001` → `IMPLEMENTED`; see Changelog.
-      **Extended 2026-07-19** with `DomainStateV1`/`RunStateV1.domain_states` and
-      `state/domain_state.py::save_domain()` — see decision #35, `MEM-004`.
-- [x] Wave 5 — Autonomous planning: production supervisor, task graph, dynamic capability
-      selection, replanning, failure classification, repair-task creation, convergence status
-      (decision #36). `src/readme_agent/supervisor/` (`task.py`/`convergence.py`/`repair.py`/
-      `loop.py`), `llm/planner_client.py`, `capabilities/effect_ledger.py` (`EFF-002`/`003`). New
-      CLI `supervise` verb, additive alongside `run`/`run-registry`. `AGT-001`/`003`/`004`,
-      `ORC-001`, `GAP-001`/`002`, `EFF-003` → `IMPLEMENTED` on unit proof alone (deterministic
-      code-path properties, `GOVERNANCE.md` rule 10's "matched to what it claims"). 52 new tests
-      (396 passed, up from 335). **Live-proven 2026-07-19**: `test_effect_ledger_live.py` (2/2) and
-      `test_supervisor_live.py` (2/2) run for real with explicit confirmation, against the real
-      `pdf/java` pilot and this project's own remote — `AGT-002`, `MEM-001`, `EFF-002`, `VER-003` →
-      `IMPLEMENTED`; `EFF-001`, `ORC-002`/`003`, `VER-002` stay `PARTIAL` (each has a real remaining
-      gap the live run didn't close: `EFF-001`/no real mutating capability yet blocked on Wave 7;
-      `ORC-002`/`VER-002`/live pilot never actually failed, so the repair path stayed unit-proven
-      only; `ORC-003`/no real specialist roles exist yet, also Wave 7). Rediscovered the documented
-      `OPS-009` local push-credential hang mid-run; fixed by applying the known one-time fix, and
-      added the same `OPS-009` docstring pointer to `test_supervisor_live.py` that
-      `test_state_git_backend_live.py` already carried. See decision #36 and `requirements.md`'s
-      Changelog for the resolved planning-time conflict, the corrected effect-ledger storage
-      design, and the bugs found via direct testing.
-- [x] Wave 6 — Upstream-change watch and reconciliation (rescoped, decision #37: "product agent" is
-      an organizational label, not a real cooperating system -- no handoff schema is built). All
-      code built, unit-proven, and live-proven this pass (decisions #38/#39) — see the Changelog's
-      2026-07-19 "live proof" entry for the real `supervise`/`act` runs against `cells/java`.
-  - [x] Prerequisite correctness fix (decision #38): `orchestrator.py`'s durable-skip fast path no
-        longer blind to real upstream content changes (`compute_tracked_content_hash` +
-        `RunStateV1.upstream_content_fingerprint_at_accept`); `_record_accepted_state()` no longer
-        silently drops `domain_states`/`supervisor_state` on every write. Unit-proven (408 tests, up
-        from 396); the specific durable-skip fingerprint-mismatch branch stays unit-only (safely
-        unreproducible live without a real upstream edit to a product repo) — the multi-producer
-        coexistence half of the fix is live-proven (see below).
-  - [x] `get_product_facts` capability exposing the existing product inventory
-        (`data/products.json` + `config/policies/*.yml` + live repository profiling, mandatory
-        both, per user direction) as a read-only fact source. Live-proven: the real gateway planner
-        selected and dispatched it against `cells/java`.
-  - [x] Reconciliation classifier + `classify_upstream_change` capability, the first capability
-        scoped to a real domain (`readme_reconciliation`, decision #34/`CAP-006`). Live-proven: the
-        specialist dispatched it for real, correctly scoped, recording `FIRST_OBSERVATION`.
-  - [x] Specialist registry (`src/readme_agent/specialists/`, mirrors `capabilities/registry.py`'s
-        pattern) + `langgraph` adopted for real for the first time, executing decision #27's Wave
-        6-8 commitment. Each specialist's own accepted result writes into `RunStateV1.domain_states`
-        via `save_domain()` (decision #35, `MEM-004`). Live-proven against a real remote.
-  - [x] `supervisor/loop.py::supervise_repo()` gains a registry-driven second convergence tier
-        (`CONVERGED_NO_TRACKED_CHANGE`) ahead of the existing coarse commit-SHA check. The coarse
-        tier itself was live-exercised (immediate rerun, zero planning calls); the fine-grained
-        tier's own `NO_CHANGE`-only short-circuit stays unit-proven (needs a real "commit changed,
-        tracked content didn't" scenario this session's runs never happened to hit).
-  - [x] `readme-agent-supervise.yml` (`workflow_dispatch` only, schedule still deferred pending
-        further live history) — the first CI entry point for `supervise`. Its own `act` reproduction
-        ran for real (`Job succeeded`) against `cells/java`.
-  - [x] Full-registry hardening pass (2026-07-20, user directive), mirroring Wave 3's own survey
-        discipline: `compute_tracked_content_hash`/`readme.reconciliation.classify`/community-file
-        detection run read-only against all 25 real registry entries regardless of mode (decision
-        24/`PIL-011`) — 25/25 clean, zero bugs found, zero code changes needed. All 3 enabled
-        pilots now have a real, live `supervise --durable-state` run recorded (`3d/java` newly
-        added this pass — the real planner dispatched 5 of 6 registered capabilities in one run).
-        See `plans/investigations/full-registry-wave6-survey.md`.
-- [x] Wave 7 — Repository-presentation specialists (README, metadata, community files, visuals,
-      package/release auditor, GitHub-generated-surface auditor, cross-surface validator),
-      LangGraph-scoped (decision #27) with dispatcher-enforced domain isolation (decision #34,
-      `CAP-006`). No specialist may declare `side_effect_class >= local_write` until `EFF-001`
-      reaches `IMPLEMENTED` (decision #26 addendum). Decomposed by risk, mirroring Phase 21's
-      a-e decomposition — see decision #41 for the full design and the production-reliability/
-      agility findings that shaped it.
-  - [x] 7a — Eight foundational fixes, before any of the seven specialist domains exist: the
-        `EFF-001` render/commit decomposition (`orchestrator.py::ReadmeCandidate`/
-        `prepare_readme_candidate()`/`commit_readme_candidate()`, `capabilities/
-        render_readme_candidate.py`, a registered `reconciliation_check` hook in
-        `capabilities/registry.py`/`effect_ledger.py`) plus seven agility/reliability fixes found
-        by direct code verification, not assumed: per-specialist failure isolation in
-        `supervisor/loop.py`'s specialist tier, domain-aware filtering on
-        `registry.all_tool_schemas(caller_domain=)`, a shared change-detection primitive
-        (`state/change_detection.py::classify_surface()`, `readme/reconciliation.py` refactored
-        onto it with zero behavior change), `DomainStateV1.details` (generic structured-payload
-        field), a domain/specialist registration completeness gate
-        (`specialists/registry.py::_build()`), a `--domain` flag on the `supervise` CLI verb, and
-        an always-written `specialist_results.json` evidence artifact. 43 new tests (480 passed,
-        up from 437, 15 deselected unchanged); `ruff check .`, `ruff format --check .`, `mypy src`
-        all clean; the full existing test_orchestrator.py suite passed unmodified, proving the
-        `generate_repo()` refactor changed nothing observable.
-  - [x] 7b — GitHub-generated-surface auditor (domain 2) + shared GitHub API client module
-        (`github_api/client.py`, extending `scripts/update_products_registry.py`'s live-proven
-        pagination/rate-limit pattern). Class E, audit-only forever (`OWN-005`/`OWN-012`).
-        `len(KNOWN_DOMAINS) > 1` is real for the first time. 7 new tests (487 passed, up from 480);
-        two new cross-domain-denial tests proving `CAP-006`'s denial path against *both* real
-        domains (not just one repeated capability); a `TestMultiDomainCoexistence` class proving
-        both domains' `DomainStateV1` entries coexist without collision in one run, against a fake
-        backend. **Live-proven against the real `pdf/java` pilot** (no `--durable-state`): the real
-        gateway planner correctly dispatched `render_readme_candidate` (7a's new capability)
-        alongside the existing tool menu and converged; the specialist tier (both domains) ran
-        against the real repo with no failure-isolation warning surfacing, evidence the new
-        capability's real GitHub API calls succeeded. **Still open, not yet proven live**: the
-        durable git-backed multi-domain persistence proof itself (`--durable-state`, requiring the
-        `OPS-009` push-credential workaround) — deferred to a consolidated live-proof pass once
-        more specialists exist, rather than repeating the credential dance per sub-wave. `CAP-006`/
-        `MEM-004` stay `PARTIAL` until that pass.
-  - [x] 7c — Package/release auditor (domain 3) + narrow one-way `HandoffFindingV1`
-        (`github_api/client.py::list_releases()`, `capabilities/audit_package_release_surfaces.py`,
-        `specialists/package_release_audit.py` — reuses the existing, unscoped `check_install_path`
-        for package resolution rather than duplicating `ecosystems/resolver.py` logic). Class D,
-        audit/handoff only (`OWN-004`/`OWN-013`) — `OWN-004`/`OWN-012` now `IMPLEMENTED`, `OWN-013`
-        stays `PARTIAL` (no real receiving system for the handoff loop, per decision #37). New
-        `BACKLOG` row `GOV-021` for the surface-model doc's stale bidirectional-handoff framing.
-        11 new tests (498 passed, up from 487). **Live-proven against the real `pdf/java` pilot**:
-        all three specialists (readme, GitHub-surface, package/release) ran together against real
-        data with no failure-isolation warning.
-  - [x] 7d — Metadata specialist (domain 4), dry-run proposal only
-        (`capabilities/propose_metadata_changes.py`, `specialists/metadata_presentation.py` --
-        dispatches the existing unscoped `get_product_facts` plus the new domain-scoped proposal
-        capability; proposes description/homepage/topics only where a field is currently missing,
-        never second-guesses an existing value; no GitHub API PATCH exists anywhere). `accepted_
-        status` deliberately stays the generic change/no-change verdict even when a proposal is
-        unaddressed, so the convergence shortcut still fires correctly on an otherwise-unchanged
-        rerun -- the proposal itself always stays visible in `details`. 9 new tests (507 passed,
-        up from 498). **Live-proven against the real `pdf/java` pilot**: all 5 real capabilities
-        the planner needed ran correctly; the planner itself twice failed to emit a clean stop
-        signal after gathering everything it needed (new `BACKLOG` row `AGT-006`, confirmed
-        unrelated to Wave 7's own additions -- the general planner's tool set was unchanged from
-        7b/7c's cleanly-converging runs). `AGT-005` gets its first real evidence from this same
-        live-proof.
-  - [x] 7e — Community-files specialist (domain 5), audit + prepared content only
-        (`github_api/client.py::get_community_profile()`, `capabilities/audit_community_files.py`,
-        `specialists/community_files_presentation.py` -- correlates local LICENSE/CONTRIBUTING/
-        CODE_OF_CONDUCT/SECURITY/SUPPORT presence, via the already-proven `inspection.
-        file_inventory.scan()`, against GitHub's Community Profile API recognition; prepares real,
-        proven-source candidate content -- the unmodified Contributor Covenant v2.1 -- only for a
-        missing `CODE_OF_CONDUCT.md`, deliberately never fabricating a template for the other
-        three, since no equally canonical source exists for them). Class 1, a real eventual write
-        path exists, but this wave stops at audit + prepare -- no write into any work clone, since
-        7g owns this project's first real `local_write` capability, not a second one registered
-        here. `SURF-007` -> `PARTIAL` (was `PLANNED`). 8 new tests (515 passed, up from 507).
-        **Live-proven across 6 real registry repos spanning 5 families/platforms**, including
-        `mode: "disabled"` entries (confirming decision #40's `require_listed()` reachability fix
-        in practice): reproduced the exact, previously-documented `docs/github-surface-control.md`
-        PF-3 finding live on `aspose-cells-foss/Aspose.Cells-FOSS-for-Java`
-        (`presence_recognition_gaps: ["LICENSE"]`) and found a second, independent instance on
-        `aspose-words-foss/Aspose.Words-FOSS-for-Python`.
-  - [x] 7f — Cross-surface validator (domain 6) + `depends_on` specialist-ordering fix
-        (`specialists/cross_surface_validation.py` -- no capability of its own, reads sibling
-        domains' already-recorded `DomainStateV1` entries directly via `backend.load()`; today's
-        one real comparison is `readme_reconciliation`'s new `details["license_claim"]`
-        (`classify_upstream_change.py`'s regex classifier over the README's own text) against
-        `community_files_presentation`'s new `details["detected_license"]` (reuses `license.
-        auditor.detect_license()`, GitHub's SPDX classification first, LICENSE-file-content
-        fallback) -- both minimal, additive enrichments of two already-shipped specialists, not a
-        new business-logic capability. `SpecialistManifest.depends_on` (new field) + a build-time
-        ordering gate in `specialists/registry.py::_build()` turn "registered last sees siblings'
-        this-run state" from an unstated assumption into an enforced invariant. Degrades honestly
-        with no durable-state backend (a fixed fingerprint, empty `inconsistencies`, never a
-        fabricated comparison) -- `OWN-011`'s "multi-specialist surface collision... currently
-        undetected" gap gets a first, narrow, real mitigation instance (stays `PLANNED`, not
-        `IMPLEMENTED`: this is one specific fact pair, not the general mechanism that row
-        describes). 11 new tests (526 passed, up from 515); full-tree `ruff check .`,
-        `ruff format --check .`, `mypy src` all clean. **Live-proven**: a real local git repo with
-        a deliberately introduced README-vs-LICENSE mismatch produces a real `inconsistencies`
-        finding through the unmocked comparison logic (only the Community Profile API network call
-        is mocked); the full 6-domain specialist tier runs clean end-to-end against 3 real registry
-        pilots (`pdf/java`, `cells/java`, `3d/java`) with the new domain's honest no-backend degrade
-        confirmed live. The genuine backend-driven sibling-comparison proof against real registry
-        data (needing `--durable-state`/the `OPS-009` credential workaround) stays deferred to the
-        consolidated final live-proof pass, same precedent as 7b-7e.
-  - [x] 7g — README presentation specialist (domain 7) — the one real mutating capability
-        (`commit_readme_write`, registered together with the `readme_presentation` domain);
-        closes `EFF-001` → `IMPLEMENTED` on live proof. Three-node graph (`render` -> `commit` ->
-        `record`, `specialists/readme_presentation.py`) -- `render` dispatches the existing
-        `render_readme_candidate`; `commit` dispatches the new `commit_readme_write` via
-        `dispatch_gated_effect()`, only when `needs_write` and only with a real durable backend
-        (no ledger without one -- refuses to mutate rather than mutate unsafely, an honest
-        `details["note"]` degrade otherwise). `orchestrator.commit_generated_readme()` extracted
-        unchanged from `run_repo()`'s own inline git-add/commit logic (zero behavior change,
-        proven by `TestRunModeFullCommitsLocally` passing unmodified) so both the CLI path and the
-        new capability call the identical real-commit logic. **Corrected two plan assumptions
-        during build, not silently followed**: (1) the `mode == "full"` gate does NOT come free
-        from `supervisor/loop.py::_dispatch_and_record()`'s own check, since `commit_readme_write`
-        is domain-scoped and that check only runs on the general planner's dispatch path, which
-        can never reach a domain-scoped capability -- the gate is checked inside
-        `commit_generated_readme()`/the capability itself instead, protecting every real caller
-        regardless of dispatch path; (2) `commit_readme_write` stays fully stateless (decision
-        #26(b)) -- `record_accepted_readme_state()` (unifying `ORC-004`'s two ledgers) is called by
-        the specialist's own `commit` node, not inside the capability, matching every other
-        specialist's `record` node being the sole durable-state writer. 15 new tests (541 passed,
-        up from 526); full-tree `ruff check .`, `ruff format --check .`, `mypy src` all clean.
-        **Live-proven for real, with the user's explicit go-ahead for the `--durable-state`
-        push** (the OPS-009 local git-credential workaround, applied and removed immediately
-        after): a real local git commit landed in `aspose-cells-foss/Aspose.Cells-FOSS-for-Java`'s
-        local work clone (`f1a4117 readme-agent: close promotional gaps (11407c2e0372)`, real live
-        LLM call), confirmed never pushed (`git remote -v` shows `origin` push URL `DISABLED`); a
-        rerun converged cleanly to `NO_CHANGE`/no duplicate commit; and the real crash-recovery
-        path was proven by flipping the real ledger's `commit_readme_write` entry back to
-        `pending` (simulating a crash between the real commit and the ledger's own applied-write)
-        and confirming `dispatch_gated_effect()` reconciled it to `applied` without re-executing
-        or re-writing the README a second time.
-  - [x] 7h — Visuals specialist (domain 8), prepare-only; embed-write into README.md deferred
-        (`capabilities/prepare_visual_asset.py` -- the first capability to use `execution_type=
-        "manual_delivery_preparation"`, declared since the Wave 2 sprint but unused until now;
-        `specialists/visual_preparation.py`). Validates an existing image asset (dimensions/
-        format/size via Pillow, a new dependency per `GOV-015`) if one exists, or prepares a real,
-        freshly-generated candidate banner from the pilot's own product facts if none does --
-        confirmed live via a real GitHub code search that zero image assets exist across the
-        sampled registry pilots, so the generated-candidate path is the common case this wave, not
-        a rare fallback. `alt_text` and `license_status` are always real (never placeholders):
-        derived from real product facts, and honestly distinguishing "generated, no licensing
-        concern" from "existing asset found, human review required" rather than guessing at
-        provenance. `SURF-010`/`SURF-011` → `PARTIAL` (both were `PLANNED`). Never embeds into
-        `README.md` -- the same real precedent the plan named going in: `readme/markers.py`'s
-        retired `callout` span's confirmed link-duplication bug. 9 new tests (550 passed, up
-        from 541); full-tree `ruff check .`, `ruff format --check .`, `mypy src` all clean.
-        **Live-proven against 3 real registry pilots** (`pdf/java`, `cells/java`, `3d/java`): each
-        correctly found no existing asset and prepared a real candidate banner from that pilot's
-        actual family/platform facts, with real dimension/format/size validation -- no write
-        attempted anywhere, matching this sub-wave's own explicit scope. **Closes Wave 7's Build
-        Checklist entirely -- 7a through 7h all shipped, each individually live-proven per its own
-        stated scope.** At the time this line was first checked off, `CAP-006`/`MEM-004` still
-        stayed `PARTIAL` pending a real multi-domain write under a real `GitStateBackend` in one
-        live run -- closed for real in the same session's consolidated final live-proof pass (see
-        that Changelog entry and both rows' own updated text): both are now `IMPLEMENTED`.
-- [x] Wave 8 — Verification and repair: independent verifier (LangGraph-scoped, decision #27;
-      domain-isolated from the capabilities it verifies, decision #34 — `VER-001`'s guarantee
-      depends on this), adversarial checks, requirement mapping, repair loops, rerun convergence,
-      evidence completeness gates. Design in decision #42, including two independent-review passes
-      that corrected the first-round design before any of it shipped. Two immediate corrections
-      landed first, standalone (an `org_repo` planner-trust fix in `supervisor/loop.py`; a
-      `--local` git identity on every work clone in `gitsafety/clone.py`) — see decision #42.
-  - [x] 8a — Foundational: `state/domain_state.py::merge_details()`/`record_failure_or_reset()`/
-        `save_domain_with_failure_tracking()`, `DomainStateV1.consecutive_failure_count`/
-        `last_failure_reason`, `SupervisorStateV1.control_plane_fingerprint` +
-        `supervisor/convergence.py::compute_control_plane_fingerprint()` (closes the coarse
-        `is_fresh()` blindness to a policy/prompt/capability-version change with no new upstream
-        commit), `supervisor/repair.py::classify_verification()`, the new `verification/` package
-        (`schema.py`/`checks.py`/`completeness.py`), the `precheck()` mechanism (`capabilities/
-        dispatcher.py`'s new `rejected_precondition_failed` outcome, `registry.py` resolution,
-        `effect_ledger.py` calling it before any pending write — `EFF-004`), `MEM-005`'s
-        `stale_sibling_data` fix in `cross_surface_validation.py`, and a `requirement_ids` drift
-        test against `plans/investigations/tools/extract_requirements.py`'s own proven regex.
-  - [x] 8b — The `independent_verification` domain (ninth), `verify_readme_candidate` capability
-        (first real use of `execution_type="validator"` since `CAP-004`), `readme_presentation`'s
-        graph extended to `render -> verify -> commit -> record`, `commit_readme_write`'s new
-        required `verification_verdict` argument + `precheck()` — the literal, strongest reading
-        of `VER-001` for the one real write this project has. Found and fixed the already-known
-        defect (a `BLOCKED_VALIDATION_FAILED` candidate durably accepted unconditionally) as its
-        own concrete regression target, proven with a real, unmocked invalid render.
-  - [x] 8c — `independent_verification` extended with evidence completeness across every other
-        domain, requirement mapping (`CapabilityManifest.requirement_ids`, populated for three
-        capabilities with an unambiguous domain attribution), adversarial cross-domain checks (a
-        second-order check on `cross_surface_validation`'s own `inconsistencies`), and
-        failure-escalation visibility.
-  - [x] 8d — Failure-escalation counting wired into `readme_presentation` (the one domain that
-        writes; the other eight specialists are a named, deferred follow-up, not silently claimed
-        done), the auditor's findings surfaced in the planner conversation, a distinct
-        `escalation_alert` decision when a domain crosses the threshold, and a run-level
-        evidence-completeness gate (`_assert_evidence_complete()`).
-  - [x] 8e — Consolidated live-proof pass (deferred here per the same "one credential dance, not
-        one per sub-wave" precedent Wave 7b-7e established): the 8b accept/reject gate against a
-        real `mode: "full"` pilot, the 9-domain coexistence proof, and the explicit "full
-        `data/products.json` pilot" ask — read-only/audit-scoped machinery exercised against all 25
-        real registry entries regardless of mode (decision #24/`PIL-011`), the one real write
-        exercised only against the 2 `mode: "full"` entries (the unchanged access constraint named
-        in `AGENTS.md` — never described as proof of 25 real commits). `VER-001`/`VER-002` reach
-        `IMPLEMENTED` only once this runs (`GOV-018`). **Closed for real, 2026-07-21** (see the two
-        matching Changelog entries): the 8b accept/reject gate proven live via a direct before/after
-        comparison against a real pilot (`aspose-cells-foss/...Java`), and all 25 registry entries
-        run through `supervise --durable-state` in a single verified-clean pass (25/25
-        `CONVERGED_NO_CHANGE`, the 3 non-`disabled` entries each recording all 9 real domains with
-        zero collision). `VER-001`/`VER-002` → `IMPLEMENTED`. Getting there took three attempts (a
-        push-URL misconfiguration on this project's own repo, then a `TaskStop`-didn't-kill-the-
-        child-process race between two concurrent instances), both found and fixed rather than
-        hidden; a real `disabled_mode` escalation-carve-out gap found live and fixed along the way
-        (`state/domain_state.py`); a new `BACKLOG` row (`VER-005`) for a structural interaction
-        between the coarse freshness shortcut and partial per-domain recording failure, found but
-        not fixed this pass.
-- [ ] Wave 9 — Heterogeneous portfolio proof (JVM, .NET, Python, JS/TS, Go, C/C++, multi-ecosystem,
-      unknown/synthetic repository, full portfolio dry run, controlled rollout plan).
+- [ ] **Wave 1 — Canonical correctness and safety spine**
+  - Split oversized supervisor/orchestrator/command responsibilities before extension.
+  - Make `supervise` the sole production path; turn legacy commands into read-only/compatibility
+    façades through the same registry, authorization, ledger, and verifier.
+  - Eliminate the legacy unverified mutation path and enforce typed capability I/O plus complete
+    terminal classification.
+  - Reprove .NET, Python, C++, and Go false-success scenarios fail closed; return explicit
+    unsupported results for unimplemented ecosystems.
+  - Make offline cancellation credential-free and descendant-clean.
+  - **Exit:** no required failure exits zero or converges; no production mutation bypass exists.
 
-### Phases (shipped-engine track, predates the sprint reset)
+- [ ] **Wave 2 — Restartable GitHub Actions runtime**
+  - Ship `TriggerEnvelopeV2`, `CheckpointV1`, migrations, seven trigger states, and all lifecycle
+    checkpoints.
+  - Ship one reusable production workflow, authoritative planning matrix, per-repo queueing/CAS
+    leases, recovery sweeps, typed retry policies, rate-limit handling, and fail-closed state.
+  - Ship `HealthReportV1`, alerts, external dead-man monitoring, and `RunManifestV3`.
+  - **Exit:** kill/resume passes at every checkpoint; duplicate delivery creates one logical
+    execution/effect; every accepted trigger is terminal or visibly retryable/blocked.
 
-- [x] Phase 0 — Scaffolding (`pyproject.toml`, `.gitignore`, `paths.py`, `errors.py`, CLI
-      `--version`, `ci.yml` green on a trivial test)
-- [x] Phase 1 — `data/products.json` + 3 policy files + `registry/loader.py`
-- [x] Phase 2 — Preflight
-- [x] Phase 3 — Git safety (clone/neuter/hook/verify, proven against a real `git push` attempt)
-- [x] Phase 4 — Inspection + `ecosystems/maven.py`
-- [x] Phase 5 — LLM client (fixture + live); empirically confirmed no separate model-version
-      field beyond the requested `model` string
-- [x] Phase 6 — `readme/gap_detector.py`, calibrated against the 14-repo audit corpus
-- [x] Phase 7 — Markers/facts/renderer, `test_prompt_hash_coupling.py`
-- [x] Phase 8 — `generate`/`run` orchestrator control flow, `--force-regenerate`
-- [x] Phase 9 — Validation registry, all 8 rules, `STALE_NONCOMPLIANT` fixture
-- [x] Phase 10 — License auditor + link validator
-- [x] Phase 11 — Evidence writer + redaction + two-layer secret-scan test
-- [x] Phase 12 — CLI completion, all 7 subcommands, exit codes
-- [x] Phase 13 — `run` end-to-end on both `mode: full` pilots, proven against real repos
-- [x] Phase 14 — `run-registry` including `pdf/java` `dry_run` partial-gap proof
-- [x] Phase 15 — Docs (`architecture.md`, `safety-model.md`, `policy-authoring.md`) +
-      `readme-agent-run.yml`
-- [x] Requirements baseline (2026-07-18; governance artifact, not a new implementation
-      phase) — created `plans/requirements.md` with permanent requirement IDs, implementation
-      status, priority, acceptance evidence, decision/phase traceability, and document-sync rules.
-- [ ] Phase 16:
-  - [x] Install `act` (winget `nektos.act`, with explicit user sign-off — asked first per the
-        system-package-change rule; used to prove the Phase 18 registry-update workflow below)
-  - [ ] `act workflow_dispatch -W .github/workflows/readme-agent-run.yml --input
-        repo_key=aspose-3d-foss/Aspose.3D-FOSS-for-Java` end-to-end
-- [ ] Phase 17 — Adversarial fixture review: prompt-injection content in repo files,
-      schema/policy-violating LLM fixtures, hand-corrupted markers, malformed/missing README,
-      non-UTF8 content
-- [ ] Phase 18 (Tier 2):
-  - [x] `data/families.json` + `scripts/update_products_registry.py` (live GitHub-API discovery,
-        not the local-checkout copy originally planned) + `.github/workflows/
-        update-products-registry.yml` (weekly + `workflow_dispatch`, PR-only, never pushes to
-        `main`) — unit-tested (merge/classify/schema-validation), live-`--dry-run` proven against
-        real orgs, `act -n` structural dry-run passes, and a full containerized `act` run proved
-        the scan step end-to-end against all 26 real orgs (see Verification Checklist for the
-        PR-step caveat, which is a local-checkout artifact, not a workflow defect)
-  - [ ] Dependency lockfile + `.github/dependabot.yml`
-  - [ ] `golden-set-monitor.yml` + `evidence/run_history.py` + `history/run-history.jsonl`
-- [ ] Phase 19 (Tier 3) — Insertion-point regression corpus for the ~11 registry repos not
-      already captured in `tests/fixtures/readmes/real_audit_2026-07-17/` (mostly .NET entries)
-- [ ] Phase 20 (research and requirements control — **required before Phases 21+**):
-  - [x] `docs/presentation-standard.md` — n8n, four additional leading FOSS/dual-license
-        repositories, and the NuGet Aspose.Cells page studied; principles, review criteria, and
-        differentiated reference patterns delivered, not a template (see Reference Data)
-  - [x] `docs/github-surface-control.md` — every surface verified against official GitHub
-        documentation plus live confirmation across six reference repos and the full registry
-        (see Reference Data)
-  - [ ] Numbered traffic-feasibility study — blocked: no aspose.org referral-report or GitHub
-        Traffic API access from this environment
-  - [ ] Freeze the product-facts contract (`DOC-006`) — not started
-  - [ ] Automated requirements traceability check (`GOV-009`) for unique IDs, required fields,
-        valid references, and master-plan/requirements consistency — not started
-- [ ] Phase 21 — Product-first README audit and rework. Decomposed by risk, per the approved
-      design in the investigation history record's "Phase 21 design proposal" section. Not
-      Phase 21's job (belongs to Phases 23/24/25 instead, to keep the five-control-class boundary
-      clean): license-recognition-as-a-community-file fact, visual usefulness, and no-fact-lost
-      drift protection.
-  - [x] 21a — `READMEPresentationReport` (`readme/presentation_report.py`): read-only diagnostic
-        covering opening explanation, audience/ecosystem statement, install-path resolution,
-        runnable-example presence, heading-level consistency; wired into `inspect_repo`; never
-        gates a run by itself
-  - [x] 21b — Callout retirement: `renderer.py`/`markers.py` merged to the one `resources` span;
-        `upsert_span` no longer accepts `"callout"`; orchestrator migrates any already-materialized
-        callout span out of a work clone unconditionally on next run; `GENERATION_SCHEMA_VERSION`
-        bumped to `"3"`
-  - [x] 21c — Two new ERROR-severity validator rules implementing decision #9/`BIZ-001`/`RDM-002`/
-        `VAL-006`: `product_first_opening`, `commercial_mention_discipline`; both check the whole
-        current README text, not just newly-rendered content; both verified against real pilot
-        evidence (`pdf/java`'s legitimate 2×`.com`-mention README) before shipping to avoid a
-        false-positive
-  - [x] 21d — `ecosystems/resolver.py`: live install-path resolution, Maven Central implemented
-        first, opt-in only (never a default hard gate, matching `links/validator.py`'s pattern);
-        wired into `inspect_repo` and exposed as the `inspect` verb's `--check-install` CLI flag
-  - [ ] 21e — Section-aware change plan (product explanation, audience/problem, installation,
-        capabilities, verified example, navigation, visuals, maintenance/contribution signals,
-        natural link placement): deferred, design-only. Ships as a structured, evidenced
-        *proposal* a human applies — `change_boundary`'s byte-identical-outside-spans contract
-        needs its own scoped evolution first before any in-section auto-apply is safe
-  - [x] Re-run all three pilot proofs (`cells/java`, `3d/java`, `pdf/java`) end to end against
-        21a–21d — live, against the real GitHub repos, not synthetic fixtures. Results:
-        `cells/java` → `GENERATED`, committed locally (evidence `20260718-165448-0a06`); all
-        ERROR-severity rules pass. `3d/java` → `STALE_NONCOMPLIANT`, zero LLM calls, block
-        untouched (evidence `20260718-165516-1729`) — the expected, accepted behavior change:
-        its bot-authored resources section (3 list-item-formatted commercial links) now fails
-        `commercial_mention_discipline`, exactly as decision #9 requires; needs a manual trim to
-        the evidenced one-paragraph density before it can pass again. `pdf/java` → `GENERATED`,
-        dry-run (evidence `20260718-165558-c33e`) — its real, pre-existing legacy `callout` span
-        (uncommitted, from before this session's Phase 21 work) was migrated away live, proving
-        the migration step against genuine on-disk pre-Phase-21 state, not just a synthetic test.
-        This re-proof run surfaced and led to fixing two real, previously-undetected orchestrator
-        bugs — see the Changelog entry below and `RDM-001`'s/`VAL-002`'s evidence.
-- [ ] Phase 22 — API/settings-managed fields plus audit-only reports: description, homepage, and
-      topics audit/dry-run proposals; explicit permission and apply gate before any remote write;
-      releases/packages handoff report to product agents; GitHub-generated surfaces recorded as
-      observations only. Implement policy `schema_version: 3`.
-- [ ] Phase 23 — Community files and GitHub-recognized supporting content: detect presence and
-      quality of LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, SUPPORT, issue templates, and
-      PR templates as policy requires. Prepare changes in push-blocked clones and verify GitHub
-      recognition through the community-profile API where available; never claim control over
-      GitHub's tabs or layout.
-- [ ] Phase 24 — Visuals as two separate deliverables: product-specific README illustration/hero
-      embedded as a repository asset, and a social-preview asset prepared for manual Settings UI
-      upload. Validate factual accuracy, accessibility/alt text, dimensions, file size, licensing,
-      repository fit, and idempotent asset naming. No decorative image is accepted unless it helps
-      explain the product.
-- [ ] Phase 25 — Product-agent integration and drift protection: define the machine-readable facts
-      and change-handoff contract; run the presentation audit after product publishing; detect
-      later overwrites, stale facts, broken links, removed visuals/files, and generic regressions;
-      route technical discrepancies back to the owning product agent and presentation repairs
-      through normal evidence and apply gates.
-- [ ] Phase 26 — Pilot evaluation and controlled rollout: independently review the three pilots,
-      compare before/after developer comprehension and repository quality, prove no unsupported
-      GitHub writes exist, confirm updates survive a simulated product-agent refresh, collect the
-      initial traffic baseline, obtain sponsor acceptance, and only then enable additional
-      registry entries in small waves.
-- [ ] Not evaluated yet: `readme-agent validate`'s "fully offline against a prior evidence dir"
-      design point — current implementation re-derives from the work clone instead of reloading a
-      historical evidence bundle (a known, documented simplification, not a bug)
+- [ ] **Wave 3 — Product truth and ownership**
+  - Ship `ProductFactsV2`, precedence/conflict behavior, per-surface ownership, fact citations,
+    protected-content fingerprints, and prompt-injection treatment.
+  - Execute examples/package acquisition in isolated, secret-free jobs.
+  - **Exit:** false coordinates cannot reach proposals; missing/conflicting facts cannot create
+    generic replacement prose; removing protected facts fails.
+
+- [ ] **Wave 4 — Presentation intelligence and complete surfaces**
+  - Ship `RepositoryPresentationPlanV1`, source-span README patches with `markdown-it-py`, Git
+    three-way application, ten presentation dimensions, and differentiated archetypes.
+  - Implement fact-backed metadata/community/visual proposals and audit-only package/release and
+    GitHub-generated surfaces.
+  - Establish the real/synthetic golden set, 100% deterministic validation, and ≥95% agentic
+    selection over at least 100 evaluations across three sessions; auto-disable regressed routes.
+  - **Exit:** independent reviewers need no prose repair and no unsupported/template/ownership
+    violation passes.
+
+- [ ] **Wave 5 — Verified proposal and effect lifecycle**
+  - Ship `VerifiedProposalV1`, `OpenProposalV2`, automatic draft-PR terminal effects, stale-head
+    rebuild/reverification, branch/commit/PR crash reconciliation, and proposal age/drift.
+  - Separate file PR authorization from later settings authorization; mint GitHub App tokens only
+    in the effect job; prohibit production PAT fallback.
+  - **Exit:** create/no-op/update/drift/duplicate/lost-response/expired-auth/crash scenarios each
+    produce exactly one correct proposal state with zero write-token exposure before effect.
+
+- [ ] **Wave 6 — Controlled three-repository Java pilot (Level 5)**
+  - Prove the governed 3D, Cells, and PDF Java cases across facts, every surface, verified draft
+    PR, no-op, upstream change, maintainer overwrite, interruption, deduplication, controlled
+    failure, evidence bundle, and independent review.
+  - **Exit:** all three complete the full production-like acceptance bundle. This is a controlled
+    Java pilot, not heterogeneous proof.
+
+- [ ] **Wave 7 — Heterogeneous production portfolio (Levels 6 and 7)**
+  - Run all registry repositories in observe/proposal mode; then prove one authorized repository
+    per Java, .NET, Python, TypeScript, C++, Go, and supported Rust ecosystem.
+  - Roll out by Java pilots, seven-ecosystem set, remaining families, then observe-only discovery.
+  - **Level 6 exit:** restartable schedule/event operation creates draft proposals without routine
+    human initiation; humans only review proposals, authorization, blocked facts, and manual UI.
+  - **Level 7 exit:** every active repository has terminal evidence, each ecosystem has a full
+    lifecycle, health/recovery is operational, and 30 consecutive production days have zero
+    unauthorized writes, duplicate effects, or false convergence.
+
+- [ ] **Wave 8 — Proven self-maintenance (Level 8)**
+  - Run weekly full-portfolio and incremental reevaluation, observe-only discovery proposals,
+    golden-set route disablement, dependency/SBOM/vulnerability monitoring, authorization expiry,
+    schema migrations, stale-proposal reconciliation, freshness, dead-man monitoring, and weekly
+    quality/traffic reporting.
+  - **Exit after 90 consecutive production days:** zero prohibited writes/duplicate effects/false
+    success; all accepted triggers terminal or visible; all terminal manifests checksum-complete;
+    ≥99% eligible runs autonomous; crash/outage recovery ≤24h; proposal age/drift visible ≤24h;
+    deterministic validation 100%; agentic accuracy ≥95%; independent audit awards Level 8.
 
 ## Verification Checklist
 
-- [x] `pytest -q -m "not live"` green locally and in `ci.yml`
-- [x] `readme-agent preflight` against real live env — all 3 enabled repos `HTTP 200`, selected
-      LLM model live
-- [x] Allow-list proof — unlisted and `disabled` repos both yield `BLOCKED_NOT_ALLOWLISTED`, no
-      clone/network call
-- [x] Push-block proof — `verify_push_blocked()` output inspected directly, plus a real `git
-      push` attempt against a real local bare repo confirmed blocked
-- [x] Idempotency proof — `cells/java` `mode: full` run twice: second run `COMPLIANT_NO_CHANGE`,
-      zero LLM calls, zero new diff
-- [x] Secret-leak test — both deterministic and opportunistic layers pass
-- [x] Gap-detection accuracy proof — `gap_detector` output matches the 14-repo audit table exactly
-- [x] False-positive-avoidance proof — `3d/java` `mode: full` produces zero gaps, zero LLM calls,
-      zero changes, zero commit, on the real repo
-- [x] Partial-gap precision proof — `pdf/java` detects exactly `products_org_link`, zero LLM
-      calls, diff contains only the new `.org` link
-- [x] Value-proof — `cells/java` `mode: full` renders both spans, exactly one LLM call, human
-      review of the actual rendered prose against the real existing README
-- [x] Compliance-vs-idempotency proof — tightening `word_limit` after generation yields
-      `STALE_NONCOMPLIANT`, zero LLM calls, block untouched; `--force-regenerate` overrides
-- [x] Facts↔prompt coupling proof — `test_prompt_hash_coupling.py` signature + per-field checks
-- [x] Clone determinism proof — pinned `-c core.autocrlf=false -c core.eol=lf` verified in
-      `gitsafety` tests
-- [x] Version-tripwire proof — editing `prompts.py`/`renderer.py` without bumping
-      `generation_schema_version` fails the tripwire test
-- [ ] `act workflow_dispatch -W readme-agent-run.yml` end-to-end (blocked on Phase 16)
-- [x] `act -n` structural dry-run of `update-products-registry.yml` passes (all steps validate,
-      job succeeds)
-- [x] `act workflow_dispatch -W update-products-registry.yml` full containerized run: checkout,
-      `setup-python`, `pip install -e .`, and the scan step all succeeded — live-scanned all 26
-      real orgs (one, `aspose-imaging-foss`, 404s: the org doesn't currently exist on GitHub;
-      the per-org `try/except` logged a `WARN` and continued, proving the fail-soft design under
-      a real fault, not just a fixture), matched 31 repos, wrote 31 entries (6 new) inside the
-      container. The final `create-pull-request` step then failed — but only because the local
-      dev checkout's `main` (commit `4adbaaf`) is ahead of/diverged from the actual GitHub
-      remote's `main` (`fd36cc4`), so the action's `git reset --hard origin/main` +
-      `git stash pop` hit real merge conflicts against files this session added. This is an
-      artifact of testing against a real remote from an uncommitted local working copy, not a
-      defect in the workflow — it would run cleanly in real CI, where checkout always starts from
-      the actual current remote `main` with no local drift. Confirmed the host repo was
-      completely unaffected throughout (`git status`/`git log`/`git diff data/products.json` all
-      clean before and after — `act` copies the repo into the container via `docker cp`, it does
-      not touch the host working tree)
-- [x] `scripts/update_products_registry.py` round-trip proof — live `--dry-run` against
-      `aspose-3d-foss`/`aspose-cells-foss`/`aspose-pdf-foss` correctly preserved the three
-      non-`disabled` entries' `mode`/`ecosystem`/`policy_profile` unchanged while refreshing
-      upstream fields and adding newly discovered repos (e.g. `Aspose.Cells-FOSS-for-Go`) as
-      `disabled`; a second live run scanning all 26 real orgs reproduced this against the full
-      registry; `tests/unit/test_update_products_registry.py` covers merge/classify/schema
-      validation without live network
-- [ ] `golden-set-monitor.yml` manual-trigger proof (blocked on Phase 18)
-- [x] Requirements baseline exists at `plans/requirements.md`, links back to this plan, and
-      covers ledger decisions #1–#25 and Phases 0–26 with stable IDs and acceptance evidence
-- [ ] Automated requirements traceability check passes: unique IDs, valid statuses/priorities,
-      required acceptance fields, valid decision/phase references, and no orphan master-plan
-      obligation or orphan requirement
-- [ ] Phase 20 deliverables delivered and accepted:
-  - [x] `docs/presentation-standard.md` delivered, evidenced against `DOC-003`/`DOC-004`
-  - [x] `docs/github-surface-control.md` delivered, evidenced against `DOC-005`
-  - [ ] Product-facts contract frozen
-  - [ ] Numbered traffic-feasibility study delivered
-  - [ ] Sponsor review/acceptance of the two delivered documents recorded
-- [ ] Control-boundary proof: each surface is classified; no renderer/write path exists for
-      contributors, languages, stars, forks, activity, GitHub layout, releases, or packages
-- [ ] GitHub recognition proof: community files are detected correctly, while tests and docs make
-      clear that GitHub — not the agent — decides where and how they are surfaced
-- [x] Post-rework pilot proofs re-pass with no `callout` span; each README explains the product
-      before promotion; diffs preserve verified technical facts and are not template clones.
-      Verified live against all three real registry repos (2026-07-18): zero `readme-agent:callout`
-      markers remain in any of the three work clones; `product_first_opening` passes for all
-      three. "Re-pass" means each produces the correct, evidenced outcome for its actual
-      state, not that every rule passes for every repo — `3d/java`'s `STALE_NONCOMPLIANT` result
-      (its bot-authored resources section fails `commercial_mention_discipline`) is the intended,
-      correct signal per decision #9, not a defect. See Build Checklist for evidence run IDs.
-- [ ] Product-fact provenance proof: every changed technical claim maps to repository evidence or
-      a product-agent handoff; missing facts produce findings rather than invented copy
-- [ ] API-managed dry run produces correct description/homepage/topics proposals with zero actual
-      writes; the apply gate requires explicit authorized action
-- [ ] Visual separation proof: README illustration is embedded and validated independently from
-      the separately prepared social-preview asset and UI instructions
-- [ ] Publishing-integration proof: a simulated product-agent README refresh triggers drift
-      detection and an evidence-backed proposal without silent revert
-- [ ] Independent pilot review accepts all three repository-specific outcomes and confirms they
-      were tailored rather than copied from n8n, NuGet, or one another
-- [ ] Weekly github.com→aspose.org referrals are tracked against the ≥10/week target after approved
-      improvements land, together with README-quality and destination-relevance checks
+- [x] **Wave 0 truth gate:** candidate inventory is checksum-addressed and originals remain
+      recoverable; semantic matrix has zero high-confidence closure findings; unsupported claims
+      are downgraded.
+- [x] **Wave 0 reproducibility gate:** lock-only fresh clone passes Ruff, formatting, mypy,
+      1,196 non-live tests, plan validation, and actionlint for nine workflows.
+- [x] **Wave 0 authority gate:** the user explicitly approved Mission, Status, Decision Ledger,
+      Architecture, Build Checklist, and Verification Checklist; this consolidation changes only
+      those master sections.
+- [ ] **Wave 1 correctness gate:** every required specialist/task/validation/verifier/effect
+      failure is terminally non-successful; no alternate production mutation path remains.
+- [ ] **Wave 2 recovery gate:** checkpoint kill/resume, duplicate delivery, state outage, matrix
+      isolation, missed-window recovery, and dead-man alert scenarios pass.
+- [ ] **Wave 3 truth gate:** fact provenance/conflict/ownership, false package coordinate,
+      protected-content loss, isolated example execution, and prompt-injection scenarios pass.
+- [ ] **Wave 4 presentation gate:** golden set covers real and heterogeneous/malformed/
+      multi-root/prompt-injected/strong-content cases; deterministic validators score 100% and
+      agentic plan selection scores ≥95% across three sessions.
+- [ ] **Wave 5 proposal gate:** create, unchanged retry, changed-candidate update, drift,
+      duplicate delivery, lost response, authorization expiry, and every crash boundary reconcile
+      to one correct draft proposal without pre-effect write-token exposure.
+- [ ] **Wave 6 pilot gate:** all three Java repositories pass baseline, facts, surface plan,
+      verified draft PR, no-op, targeted change, overwrite, resume, deduplication, controlled
+      failure, complete evidence, and independent acceptance.
+- [ ] **Wave 7 Level-6 gate:** scheduled/event-triggered restartable operation creates proposals
+      without routine human initiation and keeps every block visible.
+- [ ] **Wave 7 Level-7 gate:** all active registry repositories have terminal evidence, at least
+      one lifecycle per supported ecosystem is proven, operations/alerts/recovery are live, and
+      the 30-day clean-production window completes.
+- [ ] **Wave 8 Level-8 gate:** the 90-day window satisfies every decision #76 metric and an
+      independent auditor reproduces the evidence and awards Level 8.
+- [ ] **Business measurement gate:** weekly github.com referral reporting is operational and
+      reported beside quality/factuality measures; traffic never overrides trust gates.
 
 ## Changelog
 

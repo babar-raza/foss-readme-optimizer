@@ -4,29 +4,29 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "6f44d856c1bdde626c3fb179266a9cacad61e22023b3c4327d3e1ec65cd70166",
+  "source_sha256": "9c86ab2868f63c4f21621d8c8c82234b53fcf07a10d4dd704b2573af8834b364",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 376,
-  "mandatory_requirement_rows": 348,
+  "total_requirement_rows": 389,
+  "mandatory_requirement_rows": 361,
   "excluded_backlog_rows": 28,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 33,
     "excluded_backlog": 28,
-    "open_mandatory": 174,
+    "open_mandatory": 187,
     "preserved_verified": 141
   },
   "taskcard_counts": {
     "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 34,
-    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 71,
-    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 46,
-    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 39,
-    "L8-WAVE4-PRESENTATION-INTELLIGENCE": 111,
-    "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 51,
+    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 73,
+    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 49,
+    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 40,
+    "L8-WAVE4-PRESENTATION-INTELLIGENCE": 113,
+    "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 54,
     "L8-WAVE6-CONTROLLED-JAVA-PILOT": 14,
-    "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": 4,
-    "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": 6
+    "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": 5,
+    "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": 7
   },
   "unmapped_requirement_ids": [],
   "duplicate_requirement_ids": [],
@@ -3037,6 +3037,110 @@
       "requirement_status": "BACKLOG",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
       "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-001",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-002",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-003",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-004",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-005",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-006",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-007",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-008",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-009",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-010",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE7-HETEROGENEOUS-PORTFOLIO",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-011",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-012",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-013",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     }
   ]

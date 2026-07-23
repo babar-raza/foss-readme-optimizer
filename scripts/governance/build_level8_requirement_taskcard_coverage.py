@@ -32,7 +32,7 @@ REPORT_PATH = (
     / "requirement-taskcard-coverage.json"
 )
 
-ID_RE = re.compile(r"^[A-Z]{2,5}-\d{3}$")
+ID_RE = re.compile(r"^[A-Z][A-Z0-9]{1,4}-\d{3}$")
 UNESCAPED_PIPE_RE = re.compile(r"(?<!\\)\|")
 
 PREFIX_TO_TASK = {
@@ -69,6 +69,22 @@ PREFIX_TO_TASK = {
     "PIL": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
     "ONB": "L8-WAVE7-HETEROGENEOUS-PORTFOLIO",
     "DEP": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+}
+
+L8_TO_TASK = {
+    "L8-001": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+    "L8-002": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+    "L8-003": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+    "L8-004": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+    "L8-005": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+    "L8-006": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+    "L8-007": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+    "L8-008": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+    "L8-009": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+    "L8-010": "L8-WAVE7-HETEROGENEOUS-PORTFOLIO",
+    "L8-011": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+    "L8-012": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+    "L8-013": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
 }
 
 
@@ -124,7 +140,7 @@ def build_coverage() -> tuple[dict, dict]:
     if graph["mission_authority"]["mission_id"] != "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION":
         raise ValueError("refusing to update a different mission graph")
     tasks = {task["task_id"]: task for task in graph["taskcards"]}
-    unknown_targets = set(PREFIX_TO_TASK.values()) - set(tasks)
+    unknown_targets = (set(PREFIX_TO_TASK.values()) | set(L8_TO_TASK.values())) - set(tasks)
     if unknown_targets:
         raise ValueError(f"mapping references unknown taskcards: {sorted(unknown_targets)}")
 
@@ -134,7 +150,7 @@ def build_coverage() -> tuple[dict, dict]:
     mappings = []
     for row in rows:
         prefix = row["requirement_id"].split("-", 1)[0]
-        task_id = PREFIX_TO_TASK.get(prefix)
+        task_id = L8_TO_TASK.get(row["requirement_id"], PREFIX_TO_TASK.get(prefix))
         if task_id is None:
             raise ValueError(f"no task mapping declared for requirement prefix {prefix!r}")
         findings = findings_by_id.get(row["requirement_id"], [])

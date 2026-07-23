@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "task_id": "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
+  "observed_at": "2026-07-23",
+  "result": "PASS",
+  "authority": {
+    "exact_user_approval": "I approve edits to plans/master.md sections Mission, Status, Decision Ledger, Architecture, Build Checklist, and Verification Checklist for the Level-8 consolidation.",
+    "approved_sections": [
+      "Mission",
+      "Status",
+      "Decision Ledger",
+      "Architecture",
+      "Build Checklist",
+      "Verification Checklist"
+    ],
+    "unapproved_master_sections_changed_by_consolidation": []
+  },
+  "preserved_candidate": {
+    "path": "plans/master.md",
+    "audited_candidate_sha256": "84319379254cc5db1954d78014216f4a0158b5a161fc012713c52e36ba4a2430",
+    "candidate_decisions_preserved_through": 72,
+    "precondition_enforced_by": "scripts/retrofits/consolidate_level8_master_program.py",
+    "investigate_before_overwrite_checks": [
+      "git diff and diff-stat inspection",
+      "git log inspection",
+      "git blame inspection",
+      "candidate artifact inventory review",
+      "exact candidate SHA-256 precondition"
+    ]
+  },
+  "resulting_artifacts": {
+    "master_sha256": "eb09a8731cdb41f785aae5782f03c5e943301436dc0b6387380f6beb4b8a5f4f",
+    "requirements_sha256": "9c86ab2868f63c4f21621d8c8c82234b53fcf07a10d4dd704b2573af8834b364",
+    "mission_graph_sha256": "72c52eabbc445e7981dc17a5f67f872df466d3e652bda0ab1ff00d79898ceaa7",
+    "control_source": "plans/investigations/control/level8-master-consolidation-sections.md",
+    "application_script": "scripts/retrofits/consolidate_level8_master_program.py"
+  },
+  "conflict_inventory": [
+    {
+      "before": "Status delegated authority to untracked plans/status.md and plans/roadmap.md candidates.",
+      "after": "Status uses committed evidence, requirements, the durable task graph, and logs; untracked candidates are explicitly non-authoritative."
+    },
+    {
+      "before": "Architecture described the shipped fixed README pipeline as the current target.",
+      "after": "Architecture defines the canonical supervised facts-plan-verify-effect-reconcile production flow and token boundaries."
+    },
+    {
+      "before": "Build Checklist contained an active sprint Wave 0-9 track and a parallel Phase 0-26 track.",
+      "after": "Build Checklist contains exactly one active Wave 0-8 sequence; older tracks are historical evidence only."
+    },
+    {
+      "before": "Verification Checklist mixed historical phase checks with future presentation outcomes.",
+      "after": "Verification Checklist mirrors the Wave 0-8 exit gates and elapsed Level-7/Level-8 evidence."
+    },
+    {
+      "before": "The decision ledger lacked current canonical-runtime, checkpoint, verified-proposal, and maturity decisions.",
+      "after": "Decisions 26, 32, 33, and 37 are amended in place and decisions 73-76 add the four non-conflicting current contracts."
+    },
+    {
+      "before": "No normative requirement rows captured the complete Level-8 production and elapsed-evidence gates.",
+      "after": "L8-001 through L8-013 are mapped into the single durable Waves 1-8 task sequence."
+    }
+  ],
+  "structural_assertions": {
+    "decision_count": 76,
+    "decision_ids_contiguous_1_through_76": true,
+    "duplicate_decision_ids": [],
+    "active_wave_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "parallel_sprint_track_present": false,
+    "parallel_phase_track_present": false,
+    "status_references_untracked_candidates": false,
+    "requirement_rows": 389,
+    "mandatory_requirement_rows": 361,
+    "reopened_implemented_rows": 0
+  },
+  "verification": {
+    "plan_structure": "PASS with 51 pre-existing non-blocking row-length warnings",
+    "semantic_traceability": "PASS: 141 IMPLEMENTED rows checked, zero high-confidence findings",
+    "requirement_taskcard_coverage": "PASS: 389 rows mapped, zero unmapped or duplicate IDs",
+    "focused_tests": "PASS: 23",
+    "ruff": "PASS",
+    "format": "PASS",
+    "mypy": "PASS"
+  },
+  "negative_controls": {
+    "candidate_files_deleted_or_reset": [],
+    "product_remote_write_attempted": false,
+    "default_branch_write_attempted": false,
+    "untracked_roadmap_status_changelog_committed": false,
+    "decision_history_silently_deleted": false
+  }
+}

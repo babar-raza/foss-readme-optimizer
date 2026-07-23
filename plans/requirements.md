@@ -608,27 +608,44 @@ drift/backoff, and three-repository acceptance work. `PIL-014` is the pilot-leve
 | PRL-008 | P1 | IMPLEMENTED | The effect-ledger lock guarding a `remote_write` dispatch MUST be revalidated (renewed lease or holder-identity check) immediately before the terminal effect-applied write, closing the lease-expiry double-invocation window. | The mechanism itself is built and proven (see `EFF-005`, `test_effect_ledger.py::TestDispatchGatedEffectLockRevalidation`), generic to every `local_write`/`remote_write` capability alike -- **exercised live against a real `remote_write` capability, 2026-07-22** (`TC-08`): `open_presentation_pr` registers `side_effect_class="remote_write"` and dispatched through the real `dispatch_gated_effect()` path against the real `GitStateBackend` -- a first attempt's `pending` entry (left by a real, understood failure, see `EFF-001`'s own row) correctly produced `blocked_pending_reconciliation` on retry rather than a silent re-attempt, exactly the behavior this row requires. Proof: `plans/investigations/evidence/level8-semantic-closure-verification.json` (`PRL-008`). | Decision 48; decision 51 |
 | PRL-009 | P2 | BACKLOG | `open_presentation_pr`'s branch-name dedup (`PRL-001`, keyed on `facts_hash[:12]` alone) SHOULD distinguish two different rendered candidates that share the same `facts_hash` -- today a second, differently-rendered candidate (e.g. a post-repair re-render) finds the first candidate's still-open PR via `find_open_pr()` and reports `already_open` without ever pushing the new content, silently leaving the stale candidate live on GitHub. | Found while fixing `EFF-006` (Wave 9.6, 2026-07-23): the effect ledger no longer hides this case behind `already_applied` (a real second `execute()` attempt now happens), but `execute()`'s own pre-push `find_open_pr()` short-circuit (`PRL-001`) still finds the existing branch/PR by name alone and returns early -- the same visible outcome as before the ledger fix (the stale PR persists), just reached by a different code path, so `EFF-006` does not regress anything here. Deliberately not fixed in this pass: out of Wave 9.6's scope (that phase is about the ledger's idempotency key, not GitHub branch-naming semantics) -- resolving it requires a `PRL-001` design decision (e.g. folding `candidate_byte_hash` into the branch name, trading unbounded branch growth across sampling retries for always-fresh content) this session does not make unilaterally. | This session's `EFF-006` fix; `PRL-001` |
 
-## 20. Phase traceability summary
+## 20. Level-8 consolidation gates
+
+These requirements are the normative maturity and production-boundary additions for the approved
+Waves 0–8 program. Existing rows remain authoritative for their detailed component contracts.
+
+| ID | Priority | Status | Requirement | Acceptance evidence | Traceability |
+|---|---:|---|---|---|---|
+| L8-001 | P0 | PLANNED | Every production target-write job MUST authenticate with a freshly minted, short-lived GitHub App installation token. A production profile MUST NOT accept PAT or `GH_TOKEN` fallback. | Production workflow test proves App-token minting; missing/expired App credentials fail before any pending effect; negative test proves PAT/`GH_TOKEN` rejection. | Decisions 33, 73; Wave 5 |
+| L8-002 | P0 | PARTIAL | `supervise` MUST be the sole production runtime. `generate`, `run`, and `run-registry` MAY remain only as read-only or compatibility façades routed through the same capability registry, authorization, effect ledger, independent verifier, and terminal classifier; they MUST NOT retain an alternate mutation path. | Static call-path audit plus negative tests demonstrate that every production mutation crosses all five gates and every legacy command is non-mutating or supervised. Current `supervise` runtime exists, but legacy mutation paths remain. | Decisions 26, 73; Wave 1; ORC-005 |
+| L8-003 | P0 | PARTIAL | Production lifecycle state MUST implement `TriggerEnvelopeV2`, `CheckpointV1`, the seven trigger states, all named lifecycle checkpoints, and explicit migrations from supported earlier schemas; unknown/newer schemas MUST fail closed. | Migration tests plus kill/resume tests at every checkpoint; state read/write outage blocks LLM and effects. Current trigger V1 and one accepted checkpoint are partial foundations. | Decisions 32, 74; Wave 2; RUN-006; RUN-009 |
+| L8-004 | P0 | PLANNED | Every scheduled run MUST perform recovery of accepted/processing/retryable work with expired leases, and `HealthReportV1` plus an external dead-man monitor MUST expose missed windows, backlog, stale leases, repeated failures, rate limits, evidence failures, open proposals, and last success. | Dropped-schedule, stale-lease, total-scheduler-absence, and recovery-sweep production-like tests; issue/check alert evidence. | Decision 74; Wave 2 |
+| L8-005 | P0 | PARTIAL | Every terminal run MUST produce a retention-governed, checksum-complete `RunManifestV3` binding trigger, checkpoints, facts, presentation plan, authorization, verifier, effects, and requirement-level results. A terminal classification MUST fail closed if required evidence is absent or invalid. | Schema/retention tests, checksum corruption negative test, and production-like proof that 100% of terminal runs have valid manifests. `RunManifestV2` is the partial existing foundation. | Decision 74; Waves 2 and 8; EVID-002; SAFE-008/009 |
+| L8-006 | P0 | PARTIAL | `ProductFactsV2` MUST give every fact a stable ID/field, value, source/location, source revision or retrieval time, verification state, authoritative owner, confidence, conflicts, and affected surfaces. Mechanically verified repository/package evidence MUST outrank prose; missing facts block only dependent actions and conflicts block affected proposals. | False-coordinate, fact-conflict, missing-fact isolation, provenance, ownership, and README-claim-precedence tests plus real-repository evidence. `ProductFactsV1` is partial. | Decisions 37, 75; Wave 3; FACT-* |
+| L8-007 | P0 | PLANNED | Every candidate MUST derive from a typed `RepositoryPresentationPlanV1` containing findings, per-surface actions, dependencies, fact citations, ownership class, operation, validators, rollback, and stop conditions. Protected terminology, commands, examples, limitations, and maintainer-authored regions MUST be fingerprinted; unapproved loss or weakening MUST fail validation. | Golden-set tests cover strong existing content, removals, prompt injection, malformed and multi-root repositories; independent reviewers require no manual prose repair. | Decision 75; Waves 3–4 |
+| L8-008 | P0 | PARTIAL | A target write MUST consume an unexpired `VerifiedProposalV1` bound to immutable base revision, facts/plan/candidate hashes, validation, verifier, and authorization. `OpenProposalV2` MUST reconcile create, no-op, changed-candidate update, target drift, duplicate delivery, lost response, authorization expiry, and crashes after branch/commit/PR boundaries into exactly one correct draft-proposal state. | Full scenario matrix with durable state plus real pilot proof; proposal age/drift visible within 24 hours. Existing PR opener and `OpenProposalV1` are partial. | Decision 75; Wave 5; PRL-*; PIL-014 |
+| L8-009 | P0 | PARTIAL | Automation MUST NOT auto-merge, mark a draft ready, force-push, write a target default branch, publish packages/releases, or write GitHub-generated surfaces. Repository settings writes require a separate `github_apply` authorization after the file proposal; analysis/LLM/validation jobs MUST NOT receive a target-write token. | Workflow-permission inspection and negative effect tests for every prohibited class; separate settings authorization proof; zero prohibited writes during pilot and elapsed production windows. Existing safety boundaries are partial pending production workflow proof. | Decisions 33, 73, 75; Waves 1, 5–8; SAFE-*; AUTH-* |
+| L8-010 | P0 | PLANNED | Level 5 MUST require the complete controlled three-Java-repository pilot. Levels 6–7 MUST require restartable schedule/event operation, passive human review, terminal evidence for every active registry repository, and at least one full proposal lifecycle per supported Java, .NET, Python, TypeScript, C++, Go, and Rust ecosystem after support exists. Level 7 additionally requires 30 consecutive clean production days. | Complete pilot bundles, heterogeneous portfolio manifests, lifecycle proof per ecosystem, operational health/alerts/recovery, and a 30-day report with zero unauthorized writes, duplicate effects, or false convergence. | Decision 76; Waves 6–7 |
+| L8-011 | P0 | PLANNED | Level 8 MUST NOT be awarded before 90 consecutive production days with zero prohibited writes, duplicate effects, or false-success states; every accepted trigger terminal or visible; 100% valid terminal manifests; at least 99% eligible runs autonomous; crash/outage recovery and proposal age/drift visibility within 24 hours; and independent audit reproduction. | Signed 90-day report, independently reproduced evidence, and explicit Level-8 award. Fact/authorization/manual-UI blocks are excluded from the 99% denominator but remain visible. | Decision 76; Wave 8 |
+| L8-012 | P1 | PARTIAL | Deterministic validation MUST remain 100%. Agentic plan selection MUST score at least 95% on a minimum of 100 evaluations across three sessions before production use, and a route falling below threshold MUST disable itself automatically. | Three-session golden-set reports, route-disable proof, and production monitor evidence. Existing golden-set and auto-disable mechanisms are partial pending the required evaluation volume and production window. | Decisions 26, 76; Waves 4 and 8; OPS-011/012 |
+| L8-013 | P0 | PLANNED | The production workflow MUST separate analysis and effect jobs so repository content, package/example execution, LLM planning, and validation run without a target-write token; only the final authorized effect job may mint and receive one. | Workflow graph/permission test, secret-exposure negative tests, and production-like proof that an analysis compromise cannot reach a write credential. | Decisions 73, 75; Waves 1, 2, and 5 |
+
+## 21. Level-8 wave traceability summary
 
 This summary does not replace the detailed requirement rows.
 
-| Master-plan phase | Primary requirement groups |
+| Master-plan wave | Primary requirement groups and gates |
 |---|---|
-| Phases 0–15 — completed engine | CORE-001–019, LLM-001–004/007–008, VAL-001–004, SAFE-001–009, NFR-001–004/009/012 |
-| Phase 16 — local Actions simulation | OPS-001/003, SAFE-004–005, NFR-004 |
-| Phase 17 — adversarial review | LLM-006/011, VAL-017, RDM-021 |
-| Phase 18 — durability and monitoring | CORE-023/032, LLM-012, OPS-004–008, SAFE-006/018, INT-007, NFR-011 |
-| Phase 19 — broader README corpus | CORE-024, RDM-021 |
-| Phase 20 — research and requirements controls | GOV-009, RDM-019, OWN-014, MET-001/002/006, DOC-003–007 |
-| Phase 21 — product-first README | BIZ-002/006/007, OWN-011, RDM-001–012/014–022, VAL-005–007/014–015 |
-| Phase 22 — settings and audit-only surfaces | OWN-003/006/012–015, SURF-001–005/014–015, VAL-008–011, SAFE-010/013/015 |
-| Phase 23 — community files | SURF-006–009, VAL-012 |
-| Phase 24 — visuals | RDM-017, SURF-010–013, VAL-013, SAFE-016 |
-| Phase 25 — product-agent integration and drift | FACT-006/008/010, INT-001–010, SAFE-012, RDM-020 |
-| Phase 26 — pilot acceptance and rollout | BIZ-006, PIL-001–010, VAL-016, MET-003–004/007 |
-| Sprint Waves 1–9 — autonomous capability-driven runtime | AGT-*, CAP-*, RUN-*, ECO-*, ONB-*, MEM-*, EFF-*, ORC-*, VER-*, GAP-*, SCL-* (see §19) |
+| Wave 0 — truth consolidation | GOV-*, L8 semantic evidence, candidate inventory, lock-only fresh-clone evidence |
+| Wave 1 — canonical safety spine | L8-002/009/013; ORC-005; OPS-010; VER-009; CAP-*; SAFE-* |
+| Wave 2 — restartable Actions runtime | L8-003–005/013; RUN-*; MEM-*; SCL-001–003/005/008 |
+| Wave 3 — product truth and ownership | L8-006/007; FACT-*; OWN-*; ECO-*; PKG-* |
+| Wave 4 — presentation intelligence | L8-007/012; RDM-*; SURF-*; VAL-*; OPS-011/012 |
+| Wave 5 — proposal/effect lifecycle | L8-001/005/008/009/013; AUTH-*; EFF-*; PRL-* |
+| Wave 6 — controlled Java pilot | L8-010; PIL-*; BIZ-*; MET-* |
+| Wave 7 — heterogeneous Levels 6–7 | L8-010; SCL-*; ECO-*; RUN-*; VER-009 |
+| Wave 8 — 90-day Level 8 | L8-004/005/009–012; NFR-*; MET-*; OPS-* |
 
-## 21. Decision-ledger coverage
+## 22. Decision-ledger coverage
 
 | Decision | Covered by requirements |
 |---|---|
@@ -673,8 +690,17 @@ This summary does not replace the detailed requirement rows.
 | 43 | GOV-022 |
 | 44 | GOV-023 (new: master.md edits gated behind per-instance confirmation) |
 | 45 | `GOV-024` (new, supervisor-prompt placement-rule gap); `AGT-008` (new, dossier token-budget/richness gap); `ORC-003` (extended: dynamic specialist selection evaluated, rejected in favor of `ORC-006`); `ORC-006` (new, SHA-probe short-circuit + rejected-with-trigger dynamic selection); `VER-006` (new, falsifiable revisit trigger for deterministic verifier/blind-retry repair); `LLM-017` (new, embeddings unwired); `LLM-018` (new, `gpt-oss` citation-accuracy fix); `LLM-019` (new, corrected context-ceiling evidence, supersedes stale L1); `OPS-011` (new, agentic-loop golden-set); `SCL-005` (extended: corrected two-lock-ref design + shared CI concurrency group); `SCL-008` (new, CI fan-out prerequisite); `ONB-004` (new, `policy_profile` authoring bottleneck) |
+| 46–54 | PRL-*; EFF-*; AUTH-*; GOV-022/023; VER-*; SCL-*; the detailed rows retain the production-hardening and first-real-PR history. |
+| 55–59 | GOV-024; RUN-006/009; FRESH-*; EFF-006; EVID-002; Wave-9 implementation-truth and execution-profile foundations. |
+| 60–63 | ECO-004/005; PKG-*; FACT-*; CAP-*; multi-root, multi-registry, facts-V1, and structural capability-schema foundations. |
+| 64–66 | FACT-*; AGT-008; ORC-003/006; VER-*; conflict detection, dynamic planning wiring, and verifier-ordering evidence. |
+| 67–72 | EVID-002; AUTH-*; LLM-020/021; OPS-011/012; DEP-*; manifest, authorization, routing, golden-set, and reproducibility foundations. |
+| 73 | L8-001/002/009/013 |
+| 74 | L8-003/004/005 |
+| 75 | L8-006/007/008/009/013 |
+| 76 | L8-010/011/012 |
 
-## 22. Open research questions
+## 23. Open research questions
 
 These are controlled uncertainties, not permission to guess:
 
@@ -687,13 +713,13 @@ These are controlled uncertainties, not permission to guess:
 3. Is the ≥10 visitors/week target feasible from the pilot and eventual 25-repository portfolio,
    and over what observation period? Still open — requires aspose.org referral-report and GitHub
    Traffic API access not available in this environment.
-4. What is the exact versioned product-facts/change-handoff schema? Still open — a separate
-   schema-freeze deliverable (`DOC-006`), not addressed by the presentation-standard or
-   surface-control research.
+4. The required `ProductFactsV2` fields and precedence are now fixed by `L8-006` and decisions
+   #37/#75; the exact migration from the partial V1 implementation and the final serialized schema
+   remain Wave 3 work.
 5. Should historical evidence validation become fully offline and independent from the current
    work clone? This remains an explicitly documented design item.
 
-## 23. Changelog
+## 24. Changelog
 
 Full history relocated to `logs/` (2026-07-21, index at `logs/README.md`). New entries are
 appended there, not here — see GOVERNANCE.md rule 6 and rule 12.
