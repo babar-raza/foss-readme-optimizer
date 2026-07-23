@@ -6,12 +6,12 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
-    "claim_id": "f9a12b16785641e6be87da192de0647b",
-    "claimed_at": "2026-07-23T08:55:19.204802+00:00",
-    "claimed_by": "codex-level8-worker",
+    "active_task_id": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "412e88f1657fe487b081c36e38cd9b8ce3d5737135306f18c61f4aab7b133a51",
-    "last_evaluated_at": "2026-07-23T09:04:29.896946+00:00",
+    "last_evaluated_at": "2026-07-23T09:04:43.552793+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -20,7 +20,7 @@
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "READY",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "TODO",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "BLOCKED_EXTERNAL",
-      "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "IN_PROGRESS",
+      "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "READY",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "TODO",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "TODO",
@@ -137,13 +137,25 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave0-authority-reroute/wave0-authority-reroute-verification.json",
+          "commit:a1c93f1"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex-root",
+        "occurred_at": "2026-07-23T09:04:43.552786+00:00",
+        "reason": "Master restructuring is isolated behind its proven section-specific authority blocker; independent Wave 0 work is decomposed into durable child taskcards and Wave 1 remains directly gated on all children.",
+        "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+        "to_status": "REROUTED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 17,
+  "state_version": 18,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
