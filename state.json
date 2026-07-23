@@ -11,7 +11,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "9c72ed3526ea11ed0b0e54df3f694eebc255eade3585905eca1a8cf257b6149b",
-    "last_evaluated_at": "2026-07-23T09:41:21.039169+00:00",
+    "last_evaluated_at": "2026-07-23T09:41:50.780847+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -21,7 +21,7 @@
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "TODO",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "BLOCKED_EXTERNAL",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
-      "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "VERIFIED",
+      "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "SCORED",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "TODO",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "TODO",
       "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "TODO",
@@ -240,13 +240,25 @@
         "reason": "Independent focused proof run passed 224 selectors; traceability matrix reports zero high-confidence findings",
         "task_id": "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-semantic-closure-verification.json",
+          "plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-23T09:41:50.780841+00:00",
+        "reason": "Pass: 85 of 85 findings consumed, 0 high-confidence closure findings remain, 0 implemented rows reopened",
+        "task_id": "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE",
+        "to_status": "SCORED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 27,
+  "state_version": 28,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
