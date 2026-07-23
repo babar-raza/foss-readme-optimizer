@@ -11,14 +11,14 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "9c72ed3526ea11ed0b0e54df3f694eebc255eade3585905eca1a8cf257b6149b",
-    "last_evaluated_at": "2026-07-23T10:02:59.775467+00:00",
+    "last_evaluated_at": "2026-07-23T10:03:11.286513+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
-      "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "SCORED",
+      "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "BLOCKED_EXTERNAL",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
@@ -309,13 +309,25 @@
         "reason": "PASS: lock matches 71 installed packages, clean clone remained clean, and all six official gates exited zero",
         "task_id": "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave0-fresh-clone-head-reproduction/official-checks.json",
+          "f137917"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-23T10:03:11.286507+00:00",
+        "reason": "Current committed baseline is reproducible from scratch without dirty-tree or ambient dependency leakage",
+        "task_id": "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
+        "to_status": "CLOSED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 34,
+  "state_version": 35,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
