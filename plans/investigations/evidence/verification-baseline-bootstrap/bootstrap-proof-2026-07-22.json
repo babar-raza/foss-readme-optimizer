@@ -1,0 +1,38 @@
+{
+  "date": "2026-07-22",
+  "wave": "Wave 9.1 -- Verification Baseline & Clean-Environment Bootstrap",
+  "purpose": "Establish a trustworthy verification baseline before any Wave 9+ code change, and produce a clean-environment bootstrap proof against the new requirements-lock.txt.",
+  "existing_venv_runs": {
+    "environment": ".venv (repo's existing development venv)",
+    "ruff_check": "All checks passed!",
+    "ruff_format_check": "250 files already formatted",
+    "mypy_src": "Success: no issues found in 151 source files",
+    "pytest_runs": [
+      {"run": 1, "result": "938 passed, 18 deselected", "duration_seconds": 352.11, "orphaned_processes_after": 0},
+      {"run": 2, "result": "938 passed, 18 deselected", "duration_seconds": 325.65, "orphaned_processes_after": 0},
+      {"run": 3, "result": "938 passed, 18 deselected", "duration_seconds": 300.57, "orphaned_processes_after": 0}
+    ],
+    "run_official_checks_py_end_to_end": "All official checks passed (ruff check, ruff format --check, mypy src, pytest -q, validate_plan_structure.py, actionlint against all 6 workflow files)."
+  },
+  "fresh_venv_bootstrap_proof": {
+    "environment": "genuinely fresh venv created via `python -m venv`, dependencies installed ONLY from requirements-lock.txt plus `pip install --no-deps -e .`",
+    "import_check": "import readme_agent; from readme_agent import cli -- clean, no errors",
+    "ruff_check": "All checks passed!",
+    "mypy_src": "Success: no issues found in 151 source files",
+    "pytest_full_suite": "944 passed, 18 deselected, duration_seconds 297.60 (938 baseline + 6 new tests added this session for the requirements.md column-count check)",
+    "conclusion": "The lockfile is complete and sufficient -- a fresh Python environment built only from requirements-lock.txt (no floating version resolution, no reliance on an already-populated global environment) reproduces every official check green."
+  },
+  "ops_010_relevance": {
+    "requirement": "OPS-010",
+    "prior_status": "PARTIAL -- two of three known hang variants already fixed/worked-around; one sequence-dependent create_work_clone() subprocess hang in test_supervisor_loop.py's full-file run never reproduced in isolation, root cause not yet isolated.",
+    "new_evidence_this_session": "4 consecutive full-suite runs this session (3 in the existing .venv, 1 in a genuinely fresh venv) all completed clean with zero hangs and zero orphaned git/python processes (tasklist-checked after each of the 3 .venv runs).",
+    "honest_assessment": "This is corroborating evidence that the issue is real but low-frequency/intermittent, consistent with the row's own prior finding that it never reproduces in isolation and is plausibly linked to concurrent host load rather than a deterministic code bug. This does NOT constitute a root-cause fix and does not by itself justify reclassifying OPS-010 to IMPLEMENTED -- the row stays PARTIAL with this new evidence appended, per this project's own discipline against overclaiming from a small, if clean, sample."
+  },
+  "artifacts_produced_this_phase": [
+    "requirements-lock.txt (new, root of repo)",
+    "scripts/governance/run_official_checks.py (new)",
+    "scripts/governance/validate_plan_structure.py (extended: check_requirement_row_column_counts, _split_table_row)",
+    "tests/unit/test_validate_plan_structure.py (extended: 6 new tests)",
+    "plans/requirements.md (5 malformed table rows fixed: OPS-009, EFF-004, ORC-006, VER-005, SCL-005)"
+  ]
+}

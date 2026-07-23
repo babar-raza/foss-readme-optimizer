@@ -1,0 +1,59 @@
+name: Dependency Check (reproducibility + SBOM)
+
+# Wave 13.6 (DEP-001-006): proves the LOCKED dependency set
+# (requirements-lock.txt), not a fresh unpinned resolve, actually installs
+# cleanly and passes the real test suite on every supported Python version.
+# ci.yml's own matrix installs via `pip install -e ".[dev]"` (a fresh resolve
+# every run) -- that catches correctness regressions, but not "today's fresh
+# resolve silently differs from the pinned set a human last reviewed" drift,
+# which is what this workflow exists to catch. Complementary to, not a
+# duplicate of, ci.yml -- deliberately a separate job/file.
+#
+# workflow_dispatch only, deliberately NOT on push/pull_request yet --
+# GOVERNANCE.md rule 10 ("prove it in production before automating"), the
+# same first-run discipline every other new workflow in this repo has
+# followed (readme-agent-supervise.yml, measure-clone-latency.yml,
+# golden-set-run.yml). See `DEP-006` for the tracked promotion to
+# push/pull_request triggers once this has run live a handful of times.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "${{ matrix.python-version }}"
+      # Found live (Wave 13.6, `act` proof on Python 3.11, then reproduced
+      # directly via `docker run python:3.11`): the runner's own bundled
+      # `pip`/`setuptools` -- neither a project dependency, neither ever in
+      # requirements-lock.txt (`pip freeze` excludes both by default) -- can
+      # carry known CVEs independent of Python version (found: `pip`
+      # 6 CVEs on the local dev venv; `setuptools` 79.0.1's `PYSEC-2026-3447`
+      # on a fresh Python 3.11 image). Upgrading both first is cheap and
+      # keeps the audit step below focused on this project's own locked
+      # dependencies, not the bootstrap tools used to install them.
+      - run: pip install --upgrade pip setuptools
+      # Clean install from the pinned lockfile only -- never `.[dev]`'s own
+      # fresh resolve, which is what ci.yml already exercises separately.
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - run: pytest -q
+      - name: SBOM + vulnerability scan (advisory)
+        # A known CVE with no available fix in a transitive dependency must
+        # never permanently block CI -- this step's own findings are a
+        # human-reviewed artifact (below), not a merge gate.
+        continue-on-error: true
+        run: pip-audit --format=cyclonedx-json -o sbom.cyclonedx.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "sbom-py${{ matrix.python-version }}"
+          path: sbom.cyclonedx.json

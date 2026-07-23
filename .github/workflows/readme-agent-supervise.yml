@@ -49,7 +49,12 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e .
-      - run: readme-agent supervise --repo "${{ inputs.repo_key }}" --durable-state
+      # Wave 9.4: explicit `--execution-profile github_proposal` -- this workflow's own
+      # `pull-requests: write` permission and durable-state requirement match the proposal
+      # profile exactly (local_write/remote_write allowed, evidence+verification required,
+      # fails closed on any durable-state trouble). Superseded reliance on `--durable-state`
+      # alone: the profile now forces durable state itself even if this flag were ever dropped.
+      - run: readme-agent supervise --repo "${{ inputs.repo_key }}" --durable-state --execution-profile github_proposal
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}

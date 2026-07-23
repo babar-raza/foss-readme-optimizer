@@ -13,6 +13,12 @@ dependencies = [
     "PyYAML>=6.0",
     "pydantic>=2.0",
     "langgraph>=1.0",
+    # Wave 13.6 (`DEP-002`): imported directly (`from langchain_core.runnables
+    # import RunnableConfig`, every specialist module) -- previously relied on
+    # langgraph's own transitive pin rather than declaring it, a real gap this
+    # session's own direct-import audit found (grep across src/ against
+    # pyproject.toml's own dependency list).
+    "langchain-core>=1.0",
     "Pillow>=10.0",
 ]
 
@@ -22,6 +28,11 @@ dev = [
     "pytest-cov>=5.0",
     "ruff>=0.6",
     "mypy>=1.10",
+    # Wave 13.6 (`DEP-001`): SBOM generation (`pip-audit --format=cyclonedx-
+    # json`) plus vulnerability scanning for the locked dependency set --
+    # already found and fixed one real issue (6 known CVEs in the venv's
+    # own bootstrap `pip`) the first time it ran.
+    "pip-audit>=2.7",
 ]
 
 [project.scripts]

@@ -112,7 +112,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e .
-      - run: readme-agent supervise --repo "${{ matrix.repo_key }}" --durable-state --no-registry-heal
+      # Wave 9.4: `github_observe` matches this workflow's own stated "dry-run" intent and its
+      # job-level permissions (no pull-requests: write) -- now structurally enforced, not just
+      # implied: a local_write/remote_write dispatch is rejected regardless of any repo's `mode`.
+      - run: readme-agent supervise --repo "${{ matrix.repo_key }}" --durable-state --no-registry-heal --execution-profile github_observe
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}

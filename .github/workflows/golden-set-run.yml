@@ -1,0 +1,44 @@
+name: Golden-Set Run (diagnostic, auto-disable)
+
+# Wave 13.5 (OPS-011/OPS-012): the live counterpart to golden_set/harness.py's
+# already-proven-offline (FixturePlannerClient) scoring logic -- runs the real
+# scenario corpus against args.job's own currently-routed model via a real
+# LivePlannerClient call. Structurally non-mutating in the sense that matters
+# most (run_golden_set() never dispatches a real capability against any
+# target repo) -- but this command's own auto-disable follow-up DOES durably
+# write this project's own model-route registry (a git ref on THIS repo, not
+# a target pilot) when a route's pass rate crosses the documented floor.
+#
+# workflow_dispatch only, deliberately NOT scheduled yet -- GOVERNANCE.md rule
+# 10 ("prove it in production before automating"), the same discipline
+# readme-agent-supervise.yml and measure-clone-latency.yml already follow:
+# this is the first time `readme-agent golden-set-run` runs anywhere outside
+# unit tests. A `schedule:` trigger is a real, tracked follow-up (BACKLOG,
+# OPS-012), added once a handful of manual runs confirm real gateway latency/
+# reliability under CI, not assumed now.
+on:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "model_route job to evaluate -- the scenario corpus targets supervisor_planning"
+        required: false
+        default: "supervisor_planning"
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  golden-set-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: readme-agent golden-set-run --job "${{ inputs.job }}"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}

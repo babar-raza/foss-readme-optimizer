@@ -1,5 +1,12 @@
-name: README Agent Run (dry-run)
+name: README Agent Run (compatibility/diagnostic -- not the primary production path)
 
+# Wave 9.4 (execution profiles): decision #46 already adopted `supervise` as the sole pilot path
+# and `run` as compatibility-only doctrine; this workflow's name/description now says so
+# structurally, not just in a decision-ledger paragraph. It deliberately keeps invoking the
+# legacy `run` engine (not `supervise --execution-profile ...`) -- that is this workflow's own
+# job: proving the compatibility path still works, not exercising production behavior. New
+# production traffic goes through readme-agent-supervise.yml/readme-agent-portfolio.yml, both on
+# `supervise --execution-profile ...`.
 on:
   workflow_dispatch:
     inputs:
