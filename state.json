@@ -362,18 +362,30 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 19,
+  "state_version": 20,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4ed4b1e7ba6c7551afcf0bc19efd3b3e7e61ac9fddeef1f3b900c416cede1597",
     "domain_coverage_complete": false,
-    "in_flight_domains": [],
-    "in_flight_run_id": null,
+    "in_flight_domains": [
+      "readme_reconciliation",
+      "github_generated_surface_audit",
+      "package_release_audit",
+      "metadata_presentation",
+      "community_files_presentation",
+      "cross_surface_validation",
+      "readme_presentation",
+      "visual_preparation",
+      "presentation_benchmarking",
+      "independent_verification"
+    ],
+    "in_flight_run_id": "20260723-064028-e3f7",
     "last_observed_upstream_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
     "last_run_id": "20260722-140910-46e7",
     "last_run_timestamp": "2026-07-22T14:09:10.472693+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
+    "surface_freshness": {},
     "task_graph_snapshot": {
       "tasks": [
         {
@@ -473,6 +485,7 @@
       ]
     }
   },
+  "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
 }
