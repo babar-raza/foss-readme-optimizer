@@ -12,7 +12,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "2645d3847f2f1a1b92cdf3697fb16cbe2371a6dfcd9025b4d99e9731fb080f49",
-    "last_evaluated_at": "2026-07-23T19:16:11.218782+00:00",
+    "last_evaluated_at": "2026-07-23T19:16:18.458162+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -27,7 +27,7 @@
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "BLOCKED_EXTERNAL",
       "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION": "CLOSED",
       "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "TODO",
-      "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION": "IMPLEMENTED",
+      "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION": "VERIFIED",
       "L8-WAVE4-PRESENTATION-INTELLIGENCE": "TODO",
       "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": "TODO",
       "L8-WAVE6-CONTROLLED-JAVA-PILOT": "TODO",
@@ -545,6 +545,17 @@
         "reason": "Structured presentation planning, semantic claim validation, bounded native-Git patch proof, typed integrity, and revision binding are implemented with green local evidence.",
         "task_id": "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave4-local-presentation-plan-foundation-2026-07-23/"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-23T19:16:18.458150+00:00",
+        "reason": "Independent reviewer accepted all four findings as resolved; static, focused, full-suite, and real read-only proofs pass.",
+        "task_id": "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -552,7 +563,7 @@
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
   "schema_version": 2,
-  "state_version": 64,
+  "state_version": 65,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
