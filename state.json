@@ -6,19 +6,19 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
-    "claim_id": "00b0b203affe43c1b413b69c958ede5f",
-    "claimed_at": "2026-07-23T09:42:21.571407+00:00",
-    "claimed_by": "readme-agent-supervisor",
+    "active_task_id": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "9c72ed3526ea11ed0b0e54df3f694eebc255eade3585905eca1a8cf257b6149b",
-    "last_evaluated_at": "2026-07-23T10:02:20.058842+00:00",
+    "last_evaluated_at": "2026-07-23T10:02:32.961232+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
-      "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "IN_PROGRESS",
+      "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "IMPLEMENTED",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "BLOCKED_EXTERNAL",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
@@ -273,13 +273,25 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave0-fresh-clone-head-reproduction/official-checks.json",
+          "f137917"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-23T10:02:32.961225+00:00",
+        "reason": "Fresh no-local clone installed solely from committed lock; complete official suite passed",
+        "task_id": "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 31,
+  "state_version": 32,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
