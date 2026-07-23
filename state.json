@@ -11,13 +11,13 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "412e88f1657fe487b081c36e38cd9b8ce3d5737135306f18c61f4aab7b133a51",
-    "last_evaluated_at": "2026-07-23T09:09:00.684434+00:00",
+    "last_evaluated_at": "2026-07-23T09:09:13.545235+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
-      "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "SCORED",
+      "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "TODO",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "BLOCKED_EXTERNAL",
       "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
@@ -194,13 +194,25 @@
         "reason": "All task acceptance checks and the no-reset/no-delete/no-implicit-acceptance negative control passed.",
         "task_id": "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-wave0-candidate-artifact-disposition/candidate-artifact-inventory.json",
+          "commit:f6927be"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex-root",
+        "occurred_at": "2026-07-23T09:09:13.545224+00:00",
+        "reason": "Machine-readable disposition is committed and every original remains recoverable.",
+        "task_id": "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
+        "to_status": "CLOSED"
       }
     ]
   },
   "open_proposals": {},
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
-  "state_version": 22,
+  "state_version": 23,
   "supervisor_state": null,
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
