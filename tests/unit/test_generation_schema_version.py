@@ -24,7 +24,20 @@ WATCHED_FILES = {
 
 
 def _sha256_file(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    # Git may materialize the same tracked blob with LF or CRLF depending on checkout settings.
+    # The contract is the Python source text, not a workstation's line-ending policy.
+    with path.open("r", encoding="utf-8", newline=None) as source:
+        normalized = source.read()
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
+def test_contract_hash_is_checkout_line_ending_invariant(tmp_path):
+    lf = tmp_path / "lf.py"
+    crlf = tmp_path / "crlf.py"
+    lf.write_bytes(b"first = 1\nsecond = 2\n")
+    crlf.write_bytes(b"first = 1\r\nsecond = 2\r\n")
+
+    assert _sha256_file(lf) == _sha256_file(crlf)
 
 
 def test_owned_span_contract_files_changed_only_with_a_version_bump():
