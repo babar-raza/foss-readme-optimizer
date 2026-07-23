@@ -288,16 +288,14 @@
     },
     "readme_presentation": {
       "accepted_facts_hash": "75260a0f27dde3f41e4e9aaede3680b1ba840dcaabc5e148b3933ae5fcf43e73",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "committed": false,
         "fresh_fingerprint": "7eff660d70827433eefa5d5a53ac9fa8c12932b9a0ded4b6b505db73c8666bdc",
-        "llm_called": true,
-        "llm_calls": [
-          "relationship_explained"
-        ],
+        "llm_called": false,
+        "llm_calls": [],
         "prose_quality": {
           "corroborated": false,
           "flagged": false,
@@ -305,7 +303,7 @@
           "reason": "The paragraph provides specific, non-repetitive information about the open-source and commercial editions of Aspose.Cells for TypeScript, clearly distinguishing their features, licensing, and target use cases. It avoids generic boilerplate and reads as intentional, contextual documentation."
         },
         "prose_quality_repair_attempts": 0,
-        "render_status": "GENERATED",
+        "render_status": "COMPLIANT_NO_CHANGE",
         "verification": {
           "checks": {
             "needs_write_matches": true,
@@ -322,12 +320,12 @@
           "token": "010c2dbf1ad7c3dc377b497fd693959f9d889c2697dbf0a7910a5a93032d59f9",
           "verdict": "accept"
         },
-        "written": true
+        "written": false
       },
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:17:05.226086+00:00",
+      "last_run_timestamp": "2026-07-23T06:50:23.238453+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b"
@@ -391,7 +389,7 @@
   "open_proposals": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 30,
+  "state_version": 31,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2ecc445e54a42fc39e1d4012c1cf4bf6a4fb3512564ca5a13a1bcb652fbbda2f",
