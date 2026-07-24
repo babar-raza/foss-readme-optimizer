@@ -12,13 +12,13 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "2ea570475bd6afbe733338e9b4ef3b87e42ede59a9f13140903772b18db0db82",
-    "last_evaluated_at": "2026-07-24T09:54:44.368047+00:00",
+    "last_evaluated_at": "2026-07-24T09:55:04.016046+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
-      "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "VERIFIED",
+      "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "SCORED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "TODO",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
@@ -694,6 +694,17 @@
         "reason": "Independent factuality review accepted all three immutable pilot proofs and final canonical checks are green.",
         "task_id": "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-2026-07-24/independent-factuality-review.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-24T09:55:04.016037+00:00",
+        "reason": "Acceptance is complete for the bounded local three-pilot child; portfolio, proposal, act, and production scope remains explicitly open.",
+        "task_id": "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -701,7 +712,7 @@
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
   "schema_version": 2,
-  "state_version": 78,
+  "state_version": 79,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
