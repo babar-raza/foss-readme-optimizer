@@ -1,33 +1,46 @@
 from readme_agent.ecosystems import resolver
 
 
-class FakeResponse:
-    def __init__(self, num_found: int, status_code: int = 200):
-        self._num_found = num_found
+class _StatusResponse:
+    """Generic 200/404 fake -- every resolver resolves purely from the status
+    code, including Maven since 2026-07-24 (authoritative repo1.maven.org
+    metadata endpoint, no longer search.maven.org's JSON-query Solr index)."""
+
+    def __init__(self, status_code: int):
         self.status_code = status_code
 
     def raise_for_status(self):
         if self.status_code >= 400:
             raise resolver.requests.HTTPError(f"HTTP {self.status_code}")
 
-    def json(self):
-        return {"response": {"numFound": self._num_found}}
-
 
 class TestResolveJava:
-    def test_found(self, monkeypatch):
-        monkeypatch.setattr(resolver.requests, "get", lambda *a, **k: FakeResponse(num_found=1))
-        result = resolver.resolve("java", {"group_id": "org.aspose", "artifact_id": "aspose-pdf"})
-        assert result.found
-        assert "found" in result.detail
+    def test_published_package_is_found(self, monkeypatch):
+        """A real published Aspose Java package (e.g. org.aspose:aspose-cells-foss)
+        resolves 200 on repo1.maven.org -- the exact case the old search.maven.org
+        Solr endpoint falsely reported as NOT FOUND. See
+        plans/investigations/evidence/package-acquisition-ground-truth-2026-07-24/."""
+        captured = []
 
-    def test_not_found_matches_the_real_cells_java_finding(self, monkeypatch):
-        """Real evidence this test is modeled on: org.aspose:aspose-cells-foss
-        returns zero results on Maven Central (verified live, 2026-07-18,
-        plans/investigations/full-registry-portfolio-survey.md finding D-2)."""
-        monkeypatch.setattr(resolver.requests, "get", lambda *a, **k: FakeResponse(num_found=0))
+        def fake_get(url, *a, **k):
+            captured.append(url)
+            return _StatusResponse(200)
+
+        monkeypatch.setattr(resolver.requests, "get", fake_get)
         result = resolver.resolve(
             "java", {"group_id": "org.aspose", "artifact_id": "aspose-cells-foss"}
+        )
+        assert result.found
+        assert "found" in result.detail
+        # authoritative endpoint, group dotted-path -> slashed
+        assert captured[0] == (
+            "https://repo1.maven.org/maven2/org/aspose/aspose-cells-foss/maven-metadata.xml"
+        )
+
+    def test_unpublished_package_is_not_found(self, monkeypatch):
+        monkeypatch.setattr(resolver.requests, "get", lambda *a, **k: _StatusResponse(404))
+        result = resolver.resolve(
+            "java", {"group_id": "org.aspose", "artifact_id": "aspose-not-real-zzz"}
         )
         assert not result.found
         assert "NOT FOUND" in result.detail
@@ -63,7 +76,7 @@ class TestResolveJava:
         assert result.blocked
 
     def test_genuine_not_found_does_not_set_blocked(self, monkeypatch):
-        monkeypatch.setattr(resolver.requests, "get", lambda *a, **k: FakeResponse(num_found=0))
+        monkeypatch.setattr(resolver.requests, "get", lambda *a, **k: _StatusResponse(404))
         result = resolver.resolve("java", {"group_id": "org.aspose", "artifact_id": "x"})
         assert not result.blocked
 
@@ -73,18 +86,6 @@ class TestResolveDispatch:
         result = resolver.resolve("pypi", {"name": "aspose-cells-foss"})
         assert not result.found
         assert "no live resolver registered" in result.detail
-
-
-class _StatusResponse:
-    """Generic 200/404 fake -- every resolver below except Maven's own
-    richer JSON-query shape resolves purely from the status code."""
-
-    def __init__(self, status_code: int):
-        self.status_code = status_code
-
-    def raise_for_status(self):
-        if self.status_code >= 400:
-            raise resolver.requests.HTTPError(f"HTTP {self.status_code}")
 
 
 class TestResolvePypi:

@@ -9,9 +9,13 @@ parser today); Python is next in priority by repository count (10 of 25
 registry entries), not before -- see the portfolio-survey finding this
 session recorded (plans/investigations/full-registry-portfolio-survey.md).
 
-This is the concrete mechanism that would have caught the real cells-java
-finding automatically: its README instructs a Maven Central dependency
-(org.aspose:aspose-cells-foss) that returns zero results.
+Maven resolution uses the AUTHORITATIVE `repo1.maven.org` metadata endpoint
+(200 => published, 404 => not), NOT `search.maven.org`'s Solr index. Corrected
+2026-07-24: the Solr index does not index the `org.aspose` group at all, so it
+falsely reported every published Aspose Java package (3d/cells/pdf, all live on
+`repo1.maven.org`) as "0 results" -- inverting the README pipeline into stripping
+correct Maven installs. See
+plans/investigations/evidence/package-acquisition-ground-truth-2026-07-24/.
 
 Wave 11.2 (`PKG-001`-`004`): five more registries, one per remaining
 ecosystem parser (`ecosystems/registry.py::_PARSERS`) -- PyPI (python), npm
@@ -40,7 +44,9 @@ import requests
 
 from readme_agent.retry import RetryableOperationError, run_http_with_retry
 
-_MAVEN_CENTRAL_SEARCH_URL = "https://search.maven.org/solrsearch/select"
+_MAVEN_METADATA_URL_TEMPLATE = (
+    "https://repo1.maven.org/maven2/{group_path}/{artifact}/maven-metadata.xml"
+)
 _PYPI_URL_TEMPLATE = "https://pypi.org/pypi/{name}/json"
 _NPM_URL_TEMPLATE = "https://registry.npmjs.org/{name}"
 _NUGET_URL_TEMPLATE = "https://api.nuget.org/v3-flatcontainer/{name}/index.json"
@@ -89,25 +95,10 @@ def _resolve_maven(manifest: dict[str, str], timeout: float = 10) -> ResolutionR
     artifact_id = manifest.get("artifact_id")
     if not group_id or not artifact_id:
         return ResolutionResult(False, "manifest missing group_id/artifact_id -- cannot resolve")
-    try:
-        resp = _registry_get(
-            _MAVEN_CENTRAL_SEARCH_URL,
-            params={"q": f"g:{group_id} AND a:{artifact_id}", "rows": "1", "wt": "json"},
-            timeout=timeout,
-        )
-        resp.raise_for_status()
-        found = resp.json()["response"]["numFound"] > 0
-        return ResolutionResult(
-            found,
-            f"Maven Central: {group_id}:{artifact_id} "
-            f"{'found' if found else 'NOT FOUND (0 results)'}",
-        )
-    except (requests.RequestException, RetryableOperationError) as exc:
-        return ResolutionResult(
-            False, f"network error resolving Maven Central: {exc}", blocked=True
-        )
-    except (KeyError, ValueError) as exc:
-        return ResolutionResult(False, f"unexpected Maven Central response shape: {exc}")
+    url = _MAVEN_METADATA_URL_TEMPLATE.format(
+        group_path=group_id.replace(".", "/"), artifact=artifact_id
+    )
+    return _resolve_by_existence_url(url, "Maven Central", f"{group_id}:{artifact_id}", timeout)
 
 
 def _resolve_by_existence_url(
