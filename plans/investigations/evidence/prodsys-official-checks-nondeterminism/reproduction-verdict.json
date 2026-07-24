@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-25T00:00:00+00:00",
+  "control_revision": "2a7c6e8",
+  "attempts_requested": 10,
+  "attempts_completed": 7,
+  "interruption_cause": "Host PC restarted mid-run; the background process was killed before attempts 8-10 ran. Not resumable from a partial state -- the completed 7 attempts are preserved as-is, not padded or extrapolated.",
+  "distinct_exit_codes": [0],
+  "distinct_pytest_summaries": [
+    "{\"deselected\": 18, \"failed\": 0, \"passed\": 1388, \"skipped\": 0}"
+  ],
+  "all_7_completed_attempts_agree": true,
+  "elapsed_seconds": [535.4, 429.0, 451.5, 438.7, 400.9, 407.2, 427.8],
+  "elapsed_seconds_min": 400.9,
+  "elapsed_seconds_max": 535.4,
+  "elapsed_seconds_swing_pct": 33.5,
+  "verdict": "PARTIAL_NOT_REPRODUCED_UNDER_CONTROLLED_SINGLE_PROCESS_CONDITIONS",
+  "verdict_detail": "7 of the planned 10 single-process, no-concurrent-activity runs completed before interruption; all 7 agree exactly (exit 0, identical pytest counts). No pass/fail non-determinism was observed in what ran. The elapsed-time swing (400.9s-535.4s, ~33.5%) is itself a real, if secondary, finding -- wall-clock is not perfectly stable even absent any observed correctness flakiness. This is NOT the full 10x proof PRODSYS-P0-T1 specifies and should not be cited as such; a full rerun would strengthen but is not required to update the OFFICIAL-CHECKS-NONDETERMINISM finding's conclusion, since a separate, independently-verified root cause for the ORIGINAL historical incident was found in parallel (see reconciliation note below) that does not depend on this reproduction completing.",
+  "reconciliation_note": "A separate, more specific investigation (surfaced via an independent review) directly re-examined the 4 historical official-checks logs this finding was originally based on and found the tree was NOT actually frozen during those attempts: ruff-format's own file-scan totals climbed 377 (attempt 2) -> 378 (attempt 3, one reformat) -> 379 (attempt 4) files, and the commit later cited as 'the unchanged tree under test' (5e31f9c1, timestamp 2026-07-24T14:53:31+05:00) was made 68 seconds AFTER attempt 4's own log was written (14:52:23+05:00) -- independently reverified directly against the repository's git history and the raw log files as part of this reconciliation, not merely quoted. The original 4-attempt incident is therefore better explained by mislabeled evidence (the tree was being actively edited during the run, and the log format never recorded git status at invocation time) than by inherent tooling non-determinism or cross-session concurrency. This reproduction's own 7 clean, consistent single-process results are consistent with that corrected explanation. See the amended OFFICIAL-CHECKS-NONDETERMINISM finding in plans/codex/production-system-redesign.md.",
+  "attempts": [
+    {"attempt": 1, "elapsed_seconds": 535.4, "exit_code": 0, "pytest_summary": {"failed": 0, "passed": 1388, "deselected": 18, "skipped": 0}},
+    {"attempt": 2, "elapsed_seconds": 429.0, "exit_code": 0, "pytest_summary": {"failed": 0, "passed": 1388, "deselected": 18, "skipped": 0}},
+    {"attempt": 3, "elapsed_seconds": 451.5, "exit_code": 0, "pytest_summary": {"failed": 0, "passed": 1388, "deselected": 18, "skipped": 0}},
+    {"attempt": 4, "elapsed_seconds": 438.7, "exit_code": 0, "pytest_summary": {"failed": 0, "passed": 1388, "deselected": 18, "skipped": 0}},
+    {"attempt": 5, "elapsed_seconds": 400.9, "exit_code": 0, "pytest_summary": {"failed": 0, "passed": 1388, "deselected": 18, "skipped": 0}},
+    {"attempt": 6, "elapsed_seconds": 407.2, "exit_code": 0, "pytest_summary": {"failed": 0, "passed": 1388, "deselected": 18, "skipped": 0}},
+    {"attempt": 7, "elapsed_seconds": 427.8, "exit_code": 0, "pytest_summary": {"failed": 0, "passed": 1388, "deselected": 18, "skipped": 0}}
+  ]
+}

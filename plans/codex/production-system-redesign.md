@@ -28,8 +28,26 @@ mission state advanced to version 82; the handover trio was finalized/corrected,
 proposal bundle verifier is now the producer's real acceptance gate, commit `de7ff3d`) — the
 broader `DD-VERIFIER-ENFORCEMENT-PARITY` pattern (generalizing this to a `dispatch_gated_effect`-
 style gate for other read-derived-evidence classes) remains open as Phase 2 describes it.
-`OFFICIAL-CHECKS-NONDETERMINISM` and the test-suite-scoped remainder of `LOG-LAGS-GIT-HEAD`
-discipline remain fully open and are this document's primary remaining scope.
+
+**Second update (2026-07-24/25, PRODSYS-P0-T1 in progress):** two further, materially corrective
+findings landed. First, `LOCKED-GRAPH-NEVER-RECONCILED`'s remaining live instance (the active
+taskcard's own `status: TODO`/`audit_classification: not_attempted`, still stale after multiple
+same-day edits to the surrounding file) was found still current and hand-corrected
+(`status: IN_PROGRESS`, `audit_classification: partially_done`) — direct, current confirmation the
+mechanism-not-automatic gap (`PRODSYS-P1-T3`) is real, not historical. Second, and more
+significantly, `OFFICIAL-CHECKS-NONDETERMINISM`'s original 4-attempt historical incident was
+independently re-examined and re-verified directly against raw git history and log files: the tree
+was never actually frozen during those attempts (ruff-format's own file count climbed
+377→378→379 mid-sequence) and the commit cited as "the unchanged tree under test" was made 68
+seconds *after* the last attempt finished, not before the first. This is now `PROVEN`, not
+`STRONGLY_INFERRED` — see the finding's own updated section below, which also folds in a
+controlled, single-process reproduction (7 of 10 planned attempts completed before an unrelated
+host restart interrupted the run; all 7 agreed exactly) that is consistent with, though does not by
+itself prove, the corrected explanation. A related, newly-surfaced finding
+(`MISSION-CLAIM-NO-LEASE-PARITY`) is added on the same pass. `LOG-LAGS-GIT-HEAD`'s test-suite-scoped
+remainder and the generalized verifier-enforcement pattern remain open and are this document's
+primary remaining scope, now joined by the corrected official-checks fix (evidence-precondition
+recording, not a concurrency lock) and claim-lease parity.
 
 ## 2. Scope and authority
 
@@ -166,27 +184,79 @@ applied per finding, each with a direct citation.
   primary resume mechanism), but undermines its own stated purpose if not cross-checked against
   `git log` directly.
 
-### `OFFICIAL-CHECKS-NONDETERMINISM` — P0, `PROVEN` (occurrence) / `STRONGLY_INFERRED` (cause) — **open, this document's primary remaining scope**
+### `OFFICIAL-CHECKS-NONDETERMINISM` — P0, `PROVEN` (occurrence and, now, cause) — **corrected 2026-07-24/25; root cause is evidence mislabeling, not concurrency**
 
-- **Symptom**: 4 consecutive `run_official_checks.py` runs against one unchanged, already-committed
-  tree produced 4 different results (see §4). A further data point this session: a check run
-  launched concurrently with a heavy live-network background process took roughly 10x longer than
-  a typical clean run before completing successfully (no failure, but a large, otherwise
-  unexplained latency swing).
-- **Immediate cause**: `UNKNOWN` from log content alone — the logs show *what* differed, not *why*.
-- **Root cause hypothesis** (`STRONGLY_INFERRED`, not proven): this repo's own `plans/requirements.md`
-  (`VER-005`'s row) already documents a precedent for exactly this shape of bug — two uncoordinated
-  `supervise` processes racing on the same directories — and this repo routinely has concurrent
-  multi-agent/multi-session activity in the same working tree (observed directly this session: a
-  working tree with simultaneous uncommitted edits across unrelated files at session start, and a
-  directly-observed slowdown when two heavy commands ran concurrently). A shared working tree,
-  shared `.venv`, and no documented single-writer discipline for `ruff`/`pytest`/`mypy` invocations
-  is a plausible, not-yet-isolated mechanism.
-- **Structural weakness**: this project's entire evidence model (`GOV-007`/`GOV-018`) assumes a
-  green `pytest -q`/official-checks run means what it says. If the oracle itself is unstable under
-  real operating conditions (concurrent sessions), every downstream `IMPLEMENTED`/`VERIFIED` claim
-  gated on it inherits that instability silently.
-- **Blast radius**: highest of all findings if the concurrency hypothesis holds.
+- **Symptom (original)**: 4 consecutive `run_official_checks.py` runs against a tree claimed to be
+  "unchanged, already-committed" produced 4 different results (see §4).
+- **Corrected root cause (`PROVEN`, re-verified directly against raw git history and log files,
+  not merely quoted from a prior pass)**: the tree was never actually frozen during those 4
+  attempts. `ruff format --check .`'s own reported file-scan total climbed mid-sequence — 377 files
+  (attempt 2) → 378 files, one reformatted (attempt 3) → 379 files (attempt 4) — meaning real `.py`
+  files materialized in the tree *between* attempts. The commit later cited as "the unchanged tree
+  under test" (`5e31f9c1`) has timestamp `2026-07-24T14:53:31+05:00`; attempt 4's own log file has
+  mtime `14:52:23+05:00` — the commit was made **68 seconds after the last attempt finished**, not
+  before the first one started. `run_official_checks.py` has no concept of "the tree must be
+  clean/committed before this run counts as evidence" and never records `git status --porcelain` at
+  invocation time — so a dirty, actively-edited-mid-run tree produced a log that was later cited as
+  proof about a specific commit it never actually tested. The two `ruff format` failures map exactly
+  onto files that were genuinely being edited in that window, not to flaky tooling.
+- **Concurrency verdict for this specific incident**: `DISCONFIRMED`. The edit/re-run gaps are
+  tight-but-plausible within one continuous single-session working pattern (down to 44 seconds
+  apart); no other session's commit falls inside the window. Concurrency remains real and
+  documented elsewhere in this repo's history (a Decision Ledger number collision, an uncommitted
+  cross-session edit breaking another session's tests — `logs/2026-07-22.md`), and remains a
+  plausible **amplifier** for a *future* incident of this same class, but it was not the cause of
+  *this* one.
+- **Corroborating, not confirmatory, further evidence**: a controlled, single-process reproduction
+  (`PRODSYS-P0-T1`, this same pass) ran the real official-checks suite repeatedly with no concurrent
+  session activity; 7 of the planned 10 attempts completed before an unrelated host restart
+  interrupted the run, and all 7 agreed exactly (`exit 0`, identical pytest counts every time — see
+  `plans/investigations/evidence/prodsys-official-checks-nondeterminism/reproduction-verdict.json`).
+  This is consistent with "the checks are stable when the tree is genuinely stable," matching the
+  corrected explanation, but a 7/10 partial run does not by itself prove the general case, and is
+  recorded honestly as partial, not padded to a false 10/10.
+- **What remains genuinely open (not resolved by this correction)**: one pytest failure in the
+  original attempt 1 (`test_specialists.py::TestCommunityFilesPresentationSpecialist::
+  test_first_run_...`) traces through code that is byte-identical between the pre-attempt-1 state
+  and the final commit — ruling out "a committed code fix" as the explanation, but not distinguishing
+  an edit-then-revert cycle mid-session from a genuine transient test-isolation issue. The
+  intermediate dirty-tree state that would resolve this no longer exists; recorded as `UNKNOWN`, not
+  assumed either way. The controlled reproduction's own elapsed-time swing (400.9s-535.4s, ~33.5%
+  across the 7 completed attempts) is a separate, secondary, still-real finding — wall-clock is not
+  perfectly stable even where pass/fail correctness is.
+- **Structural weakness (revised)**: not "the oracle is unstable under concurrent sessions" as
+  originally framed — the oracle's own real defect is narrower and cheaper to fix: **it never records
+  its own preconditions**, so a run against an unstable tree cannot be told apart, after the fact,
+  from a run against a stable one. `GOV-007`/`GOV-018`'s assumption that a green run "means what it
+  says" fails specifically when nobody checks whether the tree was clean at invocation time, not
+  because the checks themselves are unreliable.
+- **Blast radius**: same as originally assessed (every downstream `IMPLEMENTED`/`VERIFIED` claim
+  gated on this oracle), but the fix is now known to be a cheap, targeted precondition-recording
+  change (`DD-RECORD-EVIDENCE-PRECONDITIONS`), not a heavier concurrency-control mechanism that the
+  disconfirmed hypothesis would have motivated building.
+
+### `MISSION-CLAIM-NO-LEASE-PARITY` — P2, `PROVEN`, new finding this pass
+
+- **Symptom**: live durable mission state (fetched from the real `origin` ref, version 83 as of this
+  pass) shows a `claimed_by`/`claimed_at` pair from an earlier session, while multiple commits
+  co-authored under a different agent identity did the actual claimed work afterward — the claim
+  field never updated to reflect who was really working the task.
+- **Immediate cause**: `MissionExecutionStateV1`'s `claim_id`/`claimed_by`/`claimed_at`
+  (`src/readme_agent/state/schema.py:399-401`, directly re-read and confirmed this pass) are plain
+  nullable strings with **no lease/expiry field** — contrast the sibling per-repo lock
+  (`state/git_backend.py`'s `Lock` dataclass, `PRESERVE-REPO-LOCK-LEASE`), which **does** carry
+  `leased_until` and a real lease-based compare-and-swap release. `claim_next_task()` silently
+  no-ops if a task is already claimed rather than detecting or flagging staleness.
+- **Root cause**: the correct pattern (lease + expiry) already exists in this exact codebase, one
+  layer down, for a sibling concept (the per-repo lock) — it was just never applied to the
+  mission-level claim. An inconsistency within an otherwise-sound pattern, not a missing pattern.
+- **Structural weakness**: the mission claim is the one durable-state field this whole redesign
+  otherwise treats as trustworthy (`PRESERVE-MISSION-CAS`) — but its own "who is working this and
+  since when" field can silently go stale exactly like the handover docs and the task-graph status
+  field did, for the identical underlying reason (no freshness contract).
+- **Blast radius**: low today (the CAS write path already prevents a literal race at the write
+  instant; this is about the claim *field* lying about who/when, not about losing a real write) but
+  grows with session count and duration.
 
 ### `VERIFIER-BUILT-NOT-WIRED` — P1, `PROVEN` — **closed for the one artifact class found; pattern-generalization remains open**
 
@@ -233,7 +303,8 @@ applied per finding, each with a direct citation.
 |---|---|---|---|---|
 | `PRESERVE-TASKGRAPH` | Ordinary capability-dispatch `TaskGraph`/`Task` — proven, tested, unrelated to mission bookkeeping | `task.py`; existing test suite | Powers every non-mission `supervise` run today | A redesign must not conflate this with the separate mission taskcard system |
 | `PRESERVE-VER001-GATE` | `dispatch_gated_effect()`-enforced independent verification for `commit_readme_write`/`open_presentation_pr` | `plans/requirements.md` `VER-001` row | The one proven pattern this redesign explicitly extends, not replaces | Do not build a second, incompatible enforcement mechanism |
-| `PRESERVE-MISSION-CAS` | CAS-backed, evidence-gated `MissionExecutionStateV1` transitions | `mission_control.py`, directly re-read and exercised this session (`evaluate` call, version 81→82) | Already the correct design for "one durable, race-safe source of truth" | A rewrite-from-scratch would be strictly worse than reusing this |
+| `PRESERVE-MISSION-CAS` | CAS-backed, evidence-gated `MissionExecutionStateV1` transitions | `mission_control.py`, directly re-read and exercised this session (`evaluate` calls, version 81→82→83) | Already the correct design for "one durable, race-safe source of truth" | A rewrite-from-scratch would be strictly worse than reusing this |
+| `PRESERVE-REPO-LOCK-LEASE` | `state/git_backend.py`'s `leased_until`/CAS-delete per-repo lock (`Lock` dataclass) | Directly re-read this session | The proven lease pattern `MISSION-CLAIM-NO-LEASE-PARITY`'s fix should copy, not reinvent | Don't build a second, incompatible lease mechanism |
 | `PRESERVE-RENDERER-SPLIT` | `document_renderer.py` split into focused modules, byte-identical candidate hashes preserved | commit `76e88b1` | Real, already-verified no-monolith fix | Must not be re-touched as part of this redesign |
 | `PRESERVE-BUNDLE-VERIFIER-LOGIC` | `verify_readme_proposal_bundle()`'s re-derivation logic (rebuilds candidate from scratch, live ground-truth check) | `readme_proposal_bundle.py`, commits `ff77c5f`/`de7ff3d` | The verification *logic* is sound and now wired for its own artifact class | Generalizing the wiring pattern must reuse this function, not rewrite it |
 | `PRESERVE-LOGS-SHARD-TOOLING` | `scripts/governance/append_log_entry.py` + dated shard convention | `logs/README.md`, script source | Good, already-working discipline; the gap is currency, not mechanism | Don't replace the tool — fix when it's invoked |
@@ -300,15 +371,43 @@ design_decision:
   decision_id: DD-INVESTIGATE-BEFORE-LOCKING
   problem_addressed: OFFICIAL-CHECKS-NONDETERMINISM
   chosen_design: Time-boxed, controlled-reproduction root-cause investigation (Phase 0) before designing any concurrency-control mechanism.
-  alternatives_considered: [Assume concurrency and build a lock immediately (rejected -- hypothesis is STRONGLY_INFERRED, not PROVEN, even after one further corroborating data point this session; risks solving the wrong problem and shipping unnecessary complexity)]
-  reason: This plan's own evidence-class standard forbids treating an inferred cause as proven.
+  alternatives_considered: [Assume concurrency and build a lock immediately (rejected -- would have been the WRONG fix, confirmed after investigation: the concurrency hypothesis is now DISCONFIRMED for the historical incident that motivated it)]
+  reason: This plan's own evidence-class standard forbids treating an inferred cause as proven -- vindicated by outcome, not just by principle.
   preserved_behavior: run_official_checks.py itself is not replaced, only its invocation discipline
-  tradeoffs: Delays a fix until RCA completes; acceptable given Phase 0 is explicitly a baseline/investigation phase.
-  risks: [R-RCA-INCONCLUSIVE]
+  tradeoffs: Delayed a fix until RCA completed; the delay was worth it -- a concurrency lock would have added real complexity to fix a cause that turned out not to be the real one.
+  risks: []
   migration_impact: none
   verification: [T0.1]
   related_finding_ids: [OFFICIAL-CHECKS-NONDETERMINISM]
   related_task_ids: [PRODSYS-P0-T1]
+
+design_decision:
+  decision_id: DD-RECORD-EVIDENCE-PRECONDITIONS
+  problem_addressed: OFFICIAL-CHECKS-NONDETERMINISM (corrected root cause)
+  chosen_design: run_official_checks.py records `git status --porcelain` (clean/dirty + file list) at invocation start into its own log output; a dirty-tree run is explicitly labeled as such and must never be cited as evidence about a specific commit's state.
+  alternatives_considered: [A full concurrency lock over official-checks invocations (rejected -- the concurrency hypothesis was DISCONFIRMED for the incident that motivated it; building heavy machinery for a disconfirmed cause would be exactly the "solve the wrong problem" failure mode DD-INVESTIGATE-BEFORE-LOCKING exists to avoid. If a genuinely concurrent double-run is later observed with real evidence, a lock can be added then.)]
+  reason: Directly targets the PROVEN mechanism (a labeling gap -- evidence not recording its own preconditions), not a plausible-but-disconfirmed one.
+  preserved_behavior: run_official_checks.py's actual check logic is unchanged; only its logged preconditions gain a new field.
+  tradeoffs: none material -- cheap, additive, low-risk.
+  risks: []
+  migration_impact: none -- new log field only.
+  verification: [T3.1]
+  related_finding_ids: [OFFICIAL-CHECKS-NONDETERMINISM]
+  related_task_ids: [PRODSYS-P3-T1]
+
+design_decision:
+  decision_id: DD-CLAIM-LEASE-PARITY
+  problem_addressed: MISSION-CLAIM-NO-LEASE-PARITY
+  chosen_design: Add `leased_until` to MissionExecutionStateV1's claim fields, mirroring git_backend.py's own Lock dataclass; make claim_next_task() detect an expired or clearly-stale claim and either reassign with a logged warning or surface staleness explicitly instead of silently no-op-ing.
+  alternatives_considered: [A full session-identity/mutex system across agent tools (rejected -- heavier than the evidence calls for; the existing CAS write-path already prevents a literal race at the write instant, this only closes the "claim field lies for hours/days" gap)]
+  reason: Copies an already-proven, already-in-this-exact-codebase pattern (the per-repo lock's lease) rather than inventing a new one -- GOVERNANCE.md rule 8.
+  preserved_behavior: [PRESERVE-MISSION-CAS, PRESERVE-REPO-LOCK-LEASE]
+  tradeoffs: none material.
+  risks: []
+  migration_impact: Schema addition to MissionExecutionStateV1; existing durable state without the field defaults to no-lease (treated as always-stale-checkable, never a hard break).
+  verification: [T1.4]
+  related_finding_ids: [MISSION-CLAIM-NO-LEASE-PARITY]
+  related_task_ids: [PRODSYS-P1-T4]
 ```
 
 ## 9. Phased implementation plan
@@ -320,16 +419,16 @@ phase: PRODSYS-P0 -- Baseline and safety net
   preserved_capabilities: [PRESERVE-MISSION-CAS, PRESERVE-TASKGRAPH]
   entry_conditions: [This plan approved]
   task_ids: [PRODSYS-P0-T1, PRODSYS-P0-T2]
-  exit_conditions: [official-checks flakiness either reproduced+root-caused or bounded+documented; a frozen snapshot of all three current "truth" artifacts exists]
+  exit_conditions: [official-checks non-determinism root-caused (DONE -- evidence mislabeling, not concurrency, PROVEN) or bounded+documented; a frozen snapshot of all three current "truth" artifacts exists]
   rollback_conditions: [N/A -- read-only investigation phase]
-  status: NOT_STARTED
+  status: PRODSYS-P0-T1_SUBSTANTIALLY_COMPLETE
 
 phase: PRODSYS-P1 -- Authority, contracts, and state
-  objective: Make mission CAS state the sole runtime authority; demote the locked YAML's requirement_coverage to a gated-regeneration artifact; register this redesign under the existing mission machinery.
-  root_causes_addressed: [LOCKED-GRAPH-NEVER-RECONCILED, STALE-HANDOVER-VS-GIT-HEAD]
-  preserved_capabilities: [PRESERVE-MISSION-CAS, PRESERVE-REQUIREMENT-COVERAGE-TOOL]
-  task_ids: [PRODSYS-P1-T1, PRODSYS-P1-T2, PRODSYS-P1-T3]
-  exit_conditions: [A generated handover snapshot command exists and passes against live state; the coverage-regeneration tool runs automatically (not just manually) on requirements.md/graph drift]
+  objective: Make mission CAS state the sole runtime authority; demote the locked YAML's requirement_coverage to a gated-regeneration artifact; register this redesign under the existing mission machinery; close the mission-claim lease gap.
+  root_causes_addressed: [LOCKED-GRAPH-NEVER-RECONCILED, STALE-HANDOVER-VS-GIT-HEAD, MISSION-CLAIM-NO-LEASE-PARITY]
+  preserved_capabilities: [PRESERVE-MISSION-CAS, PRESERVE-REQUIREMENT-COVERAGE-TOOL, PRESERVE-REPO-LOCK-LEASE]
+  task_ids: [PRODSYS-P1-T1, PRODSYS-P1-T2, PRODSYS-P1-T3, PRODSYS-P1-T4]
+  exit_conditions: [A generated handover snapshot command exists and passes against live state; the coverage-regeneration tool runs automatically (not just manually) on requirements.md/graph drift; the mission claim field has lease/expiry parity with the sibling repo lock]
   rollback_conditions: [Revert new diagnostic/generator commands only -- no schema changes to roll back]
   status: NOT_STARTED
 
@@ -373,10 +472,12 @@ phase: PRODSYS-P6 -- Final reconciliation and closure
   status: NOT_STARTED
 ```
 
-## 10. Taskcard ledger (15 taskcards, each tied to a named root cause)
+## 10. Taskcard ledger (16 taskcards, each tied to a named root cause)
 
 *(Corrected from the reviewed draft's "12" — the phase table above and the dependency graph in §11
-both reference 15 distinct task IDs; this is the accurate count, not a re-scoping.)*
+both reference 16 distinct task IDs (15 from the original authoring pass, plus `PRODSYS-P1-T4`
+added when `MISSION-CLAIM-NO-LEASE-PARITY` was found); this is the accurate count, not a
+re-scoping.)*
 
 ```
 taskcard:
@@ -385,28 +486,28 @@ taskcard:
   title: Reproduce and root-cause official-checks non-determinism under controlled conditions
   objective: Determine whether OFFICIAL-CHECKS-NONDETERMINISM is caused by concurrent-workspace access, a ruff/pytest cache defect, or a Windows filesystem-ordering issue -- with direct evidence, not inference.
   root_cause_ids: [OFFICIAL-CHECKS-NONDETERMINISM]
-  design_decision_ids: [DD-INVESTIGATE-BEFORE-LOCKING]
+  design_decision_ids: [DD-INVESTIGATE-BEFORE-LOCKING, DD-RECORD-EVIDENCE-PRECONDITIONS]
   requirements: []
   owner_role: implementer
   reviewer_role: independent-verifier
-  allowed_paths: [plans/investigations/evidence/prodsys-official-checks-nondeterminism/]
+  allowed_paths: [plans/investigations/evidence/prodsys-official-checks-nondeterminism/, plans/investigations/tools/measure_official_checks_reproducibility.py]
   forbidden_paths: [src/readme_agent/]
   dependencies: []
   preconditions: [This plan approved]
-  implementation_steps: [Run run_official_checks.py 10x sequentially, single-process, no other agent session active, against an unchanged tree; if reproduced, run once more with a filesystem-order-sorted rerun and once more with a second process deliberately overlapped to test the concurrency hypothesis directly]
+  implementation_steps: [DONE for the root-cause half -- direct re-examination of the 4 original historical logs plus git history (file-count climb 377->378->379, commit timestamp 68s after the last attempt) independently confirmed the cause is evidence mislabeling (dirty tree, uncaptured), not concurrency. PARTIAL for the fresh-reproduction half -- measure_official_checks_reproducibility.py built and run for 10 sequential single-process attempts; 7 completed (all agreeing exactly) before an unrelated host restart killed the run. Remaining, optional: a full clean 10/10 rerun would strengthen but is not required to close this taskcard, since the corrected root cause does not depend on it]
   schemas_or_contracts: []
   migration_steps: []
   focused_tests: []
   integration_tests: []
   regression_tests: []
-  negative_controls: [A run with a second process deliberately writing to the same tree mid-check, to test whether that alone reproduces the symptom]
-  e2e_or_pilot_proof: [10 clean single-process reruns as the acceptance bar]
-  observability_and_evidence: [plans/investigations/evidence/prodsys-official-checks-nondeterminism/*.log, a written root-cause verdict]
+  negative_controls: [A run with a second process deliberately writing to the same tree mid-check, to test whether that alone reproduces the symptom -- not yet run, now lower priority given the disconfirmed concurrency hypothesis]
+  e2e_or_pilot_proof: [7/7 completed single-process attempts agreed exactly (partial, not the full 10x target)]
+  observability_and_evidence: [plans/investigations/evidence/prodsys-official-checks-nondeterminism/reproduction-verdict.json (honest partial result, interruption cause recorded), partial-run-2026-07-24-interrupted-by-restart.log, plans/investigations/tools/measure_official_checks_reproducibility.py]
   rollback: N/A -- investigation only, no code change
   acceptance_criteria: [A named cause is PROVEN or the hypothesis is explicitly left STRONGLY_INFERRED/UNKNOWN with a documented containment recommendation]
-  proof_target: 10/10 consistent single-process runs
-  current_state: TODO
-  next_transition: READY on plan approval
+  proof_target: 10/10 consistent single-process runs (achieved 7/10 before interruption; root cause independently PROVEN via a separate, direct historical-log re-examination that does not depend on the full 10x completing)
+  current_state: IMPLEMENTED
+  next_transition: VERIFIED once an independent reviewer (not this pass's own author) re-confirms the git-timestamp/file-count evidence chain
 
 taskcard:
   task_id: PRODSYS-P0-T2
@@ -525,6 +626,35 @@ taskcard:
   next_transition: READY after PRODSYS-P0-T2
 
 taskcard:
+  task_id: PRODSYS-P1-T4
+  phase_id: PRODSYS-P1
+  title: Add lease/expiry parity to the mission claim, mirroring the sibling repo-lock pattern
+  objective: Close MISSION-CLAIM-NO-LEASE-PARITY -- a stale claim currently lies silently about who is working a task and since when.
+  root_cause_ids: [MISSION-CLAIM-NO-LEASE-PARITY]
+  design_decision_ids: [DD-CLAIM-LEASE-PARITY]
+  requirements: []
+  owner_role: implementer
+  reviewer_role: independent-verifier
+  allowed_paths: [src/readme_agent/state/schema.py, src/readme_agent/supervisor/mission_control.py]
+  forbidden_paths: [src/readme_agent/state/git_backend.py]
+  dependencies: []
+  preconditions: []
+  implementation_steps: [Add an optional `leased_until` field to MissionExecutionStateV1's claim fields, defaulting to None for backward compatibility with existing durable state; update claim_next_task() to treat a claim with an expired (or absent, for pre-migration state) lease as reclaimable, logging a warning naming the prior claimant rather than silently no-op-ing]
+  schemas_or_contracts: [MissionExecutionStateV1 -- additive field only, no breaking change]
+  migration_steps: [None required -- existing durable state without the field is handled by the None-default path]
+  focused_tests: [New: an expired-lease claim is detected and reassigned with a logged warning; a live-lease claim is correctly left alone; a pre-migration claim with no lease field is handled without raising]
+  integration_tests: [claim_next_task() against real durable state with each of the three cases above]
+  regression_tests: [Existing test_mission_control.py suite unaffected for every other claim/transition path]
+  negative_controls: [A claim leased 1 second in the future is correctly NOT reassigned]
+  e2e_or_pilot_proof: [One real claim/expire/reclaim cycle against the durable mission state]
+  observability_and_evidence: [Test output, dated log entry]
+  rollback: Revert the schema addition -- no data loss, field is additive
+  acceptance_criteria: [An expired claim is detected and reassignable, matching the sibling repo-lock's own proven lease behavior]
+  proof_target: One passing expired-claim reassignment test plus one passing live-claim non-reassignment test
+  current_state: TODO
+  next_transition: READY on plan approval
+
+taskcard:
   task_id: PRODSYS-P2-T1
   phase_id: PRODSYS-P2
   title: Cheap interim gate -- CI/lint check that every verify_* function has a detected call site
@@ -585,31 +715,31 @@ taskcard:
 taskcard:
   task_id: PRODSYS-P3-T1
   phase_id: PRODSYS-P3
-  title: Ship the official-checks concurrency/nondeterminism fix identified by PRODSYS-P0-T1
-  objective: Resolve OFFICIAL-CHECKS-NONDETERMINISM for real, per whatever PRODSYS-P0-T1 actually finds.
+  title: Ship the evidence-precondition-recording fix identified by PRODSYS-P0-T1 (corrected from a concurrency lock)
+  objective: Close OFFICIAL-CHECKS-NONDETERMINISM's real, proven mechanism -- evidence not recording its own preconditions -- per DD-RECORD-EVIDENCE-PRECONDITIONS, not the originally-hypothesized (now disconfirmed) concurrency cause.
   root_cause_ids: [OFFICIAL-CHECKS-NONDETERMINISM]
-  design_decision_ids: [DD-INVESTIGATE-BEFORE-LOCKING]
+  design_decision_ids: [DD-RECORD-EVIDENCE-PRECONDITIONS]
   requirements: []
   owner_role: implementer
   reviewer_role: independent-verifier
   allowed_paths: [scripts/governance/run_official_checks.py]
   forbidden_paths: [src/readme_agent/]
   dependencies: [PRODSYS-P0-T1]
-  preconditions: [PRODSYS-P0-T1 has a named cause or a documented containment recommendation]
-  implementation_steps: [If concurrency-confirmed: add a simple file-lock or single-writer advisory around run_official_checks.py's invocation; if cache-confirmed: fix or disable the offending cache; if inconclusive: ship the documented containment (retry-with-quarantine) from PRODSYS-P0-T1]
+  preconditions: [PRODSYS-P0-T1 IMPLEMENTED -- satisfied]
+  implementation_steps: [Add a `git status --porcelain` capture at the start of run_official_checks.py's main(); print a clear "TREE DIRTY" / "TREE CLEAN" label with the dirty file list (if any) at both the start and end of the log output; document in the script's own docstring that a dirty-tree run must never be cited as evidence about a specific commit]
   schemas_or_contracts: []
   migration_steps: []
-  focused_tests: []
-  integration_tests: [10 consecutive runs, single-process, matching PRODSYS-P0-T1's acceptance bar]
+  focused_tests: [New: a deliberately dirty tree produces the TREE DIRTY label with the correct file list]
+  integration_tests: [A clean-tree run produces the TREE CLEAN label; existing official-checks suite unaffected]
   regression_tests: [Existing official-checks suite unaffected]
-  negative_controls: [The negative control from PRODSYS-P0-T1 (deliberately overlapped run) now behaves correctly -- either serialized safely or clearly reported as contended, never silently flaky]
-  e2e_or_pilot_proof: [10/10 consistent runs, repeated once more after a real concurrent-session day to confirm real-world stability]
-  observability_and_evidence: [plans/investigations/evidence/prodsys-official-checks-nondeterminism/ updated with the fix's proof]
-  rollback: Revert the fix, fall back to documented containment
-  acceptance_criteria: [10/10 consistent pass counts and wall-clock within a bounded, documented range]
-  proof_target: 10/10 consistent single-process runs; overlapped-run negative control behaves predictably
+  negative_controls: [A run against a tree dirtied mid-execution (a file touched between the start-of-run and end-of-run precondition capture) is still distinguishable after the fact from a genuinely stable run]
+  e2e_or_pilot_proof: [One real dirty-tree run and one real clean-tree run, both correctly labeled]
+  observability_and_evidence: [Updated run_official_checks.py output showing the new label; a dated log entry]
+  rollback: Revert the new logging step -- no behavior change to the checks themselves
+  acceptance_criteria: [A rerun of the exact historical scenario (edits landing mid-sequence) would now be correctly labeled dirty in its own log, preventing the original mislabeling from recurring]
+  proof_target: Dirty and clean tree states both correctly and visibly labeled in the official-checks log
   current_state: TODO
-  next_transition: READY after PRODSYS-P0-T1
+  next_transition: READY (dependency already satisfied)
 
 taskcard:
   task_id: PRODSYS-P3-T2
@@ -881,8 +1011,14 @@ What remains is making that invocation automatic rather than incidental, general
 closed verifier-wiring gap into a structural convention, and root-causing the official-checks oracle's
 observed instability before building anything further on top of it.
 
-**Confidence**: High on root-cause identification for the three bookkeeping findings (each closed or
-substantially reconciled this same session, with direct before/after evidence). Medium on
-`OFFICIAL-CHECKS-NONDETERMINISM`'s exact cause — still `STRONGLY_INFERRED`, now with one additional
-corroborating (not confirmatory) data point from this session; Phase 0's controlled investigation
-remains the correct next step before any fix is designed.
+**Confidence**: High on root-cause identification for four of the six findings (`LOCKED-GRAPH-
+NEVER-RECONCILED`, `STALE-HANDOVER-VS-GIT-HEAD`, `VERIFIER-BUILT-NOT-WIRED`'s closed instance, and
+now `OFFICIAL-CHECKS-NONDETERMINISM`), each with direct before/after evidence independently
+re-verified against raw git history and log files, not merely asserted. `OFFICIAL-CHECKS-
+NONDETERMINISM` moved from `STRONGLY_INFERRED` to `PROVEN` this same pass — the concurrency
+hypothesis that motivated the original Phase 0 design is `DISCONFIRMED` for the incident that
+produced it; the actual, cheaper fix (`DD-RECORD-EVIDENCE-PRECONDITIONS`) is now well-justified.
+`MISSION-CLAIM-NO-LEASE-PARITY` is a new, directly-confirmed finding from the same pass. Medium
+confidence remains on two narrower points: whether a residual, unrelated cause explains the one
+still-`UNKNOWN` pytest flip inside the original 4-attempt incident, and on the achievable xdist/
+concurrency-tuning figures this document does not itself estimate.

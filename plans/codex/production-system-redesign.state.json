@@ -2,7 +2,7 @@
   "schema_version": 1,
   "document": "plans/codex/production-system-redesign.md",
   "created_at": "2026-07-24T00:00:00+00:00",
-  "last_amended_at": "2026-07-24T00:00:00+00:00",
+  "last_amended_at": "2026-07-25T00:00:00+00:00",
   "status": "REASSESSMENT_COMPLETE_PARTIAL_REMEDIATION",
   "mission_registration": {
     "parent_mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
@@ -16,7 +16,8 @@
       "confidence": "PROVEN",
       "status": "RECONCILED_FOR_SNAPSHOT_MECHANISM_OPEN",
       "resolved_by_commits": ["1551bab", "40c241c"],
-      "remaining_task_ids": ["PRODSYS-P1-T3"]
+      "remaining_task_ids": ["PRODSYS-P1-T3"],
+      "note": "The active taskcard's own static status/audit_classification fields were reconfirmed stale on 2026-07-25 (still not_attempted/TODO after multiple same-day edits to the surrounding file) and hand-corrected in the same pass -- direct, current proof this gap is live, not historical."
     },
     {
       "id": "STALE-HANDOVER-VS-GIT-HEAD",
@@ -37,10 +38,11 @@
     {
       "id": "OFFICIAL-CHECKS-NONDETERMINISM",
       "severity": "P0",
-      "confidence": "PROVEN_OCCURRENCE_STRONGLY_INFERRED_CAUSE",
-      "status": "OPEN",
+      "confidence": "PROVEN",
+      "status": "ROOT_CAUSE_PROVEN_FIX_TASKCARDED",
       "resolved_by_commits": [],
-      "remaining_task_ids": ["PRODSYS-P0-T1", "PRODSYS-P3-T1", "PRODSYS-P5-T2"]
+      "remaining_task_ids": ["PRODSYS-P3-T1", "PRODSYS-P5-T2"],
+      "note": "Corrected 2026-07-25: the concurrency hypothesis is DISCONFIRMED for the original historical incident. Re-verified directly against git history and log files: the tree was actively edited during the original 4 attempts (ruff-format file count climbed 377->378->379) and the commit cited as 'the unchanged tree' postdates the last attempt by 68 seconds. Real cause: evidence not recording its own preconditions. A controlled single-process reproduction (measure_official_checks_reproducibility.py) ran 7 of a planned 10 attempts (interrupted by an unrelated host restart) with all 7 agreeing exactly -- consistent with, not required to prove, the corrected explanation. See plans/investigations/evidence/prodsys-official-checks-nondeterminism/reproduction-verdict.json."
     },
     {
       "id": "VERIFIER-BUILT-NOT-WIRED",
@@ -57,13 +59,24 @@
       "status": "OPEN",
       "resolved_by_commits": [],
       "remaining_task_ids": ["PRODSYS-P3-T2"]
+    },
+    {
+      "id": "MISSION-CLAIM-NO-LEASE-PARITY",
+      "severity": "P2",
+      "confidence": "PROVEN",
+      "status": "OPEN",
+      "resolved_by_commits": [],
+      "remaining_task_ids": ["PRODSYS-P1-T4"],
+      "note": "New finding, 2026-07-25. Directly confirmed: MissionExecutionStateV1's claim_id/claimed_by/claimed_at have no lease/expiry field, unlike the sibling per-repo lock (git_backend.py's Lock dataclass, which does)."
     }
   ],
   "design_decisions": [
     "DD-SINGLE-AUTHORITY",
     "DD-REUSE-MISSION-MACHINERY",
     "DD-VERIFIER-ENFORCEMENT-PARITY",
-    "DD-INVESTIGATE-BEFORE-LOCKING"
+    "DD-INVESTIGATE-BEFORE-LOCKING",
+    "DD-RECORD-EVIDENCE-PRECONDITIONS",
+    "DD-CLAIM-LEASE-PARITY"
   ],
   "preserved_capabilities": [
     "PRESERVE-TASKGRAPH",
@@ -73,11 +86,12 @@
     "PRESERVE-BUNDLE-VERIFIER-LOGIC",
     "PRESERVE-LOGS-SHARD-TOOLING",
     "PRESERVE-REQUIREMENT-COVERAGE-TOOL",
-    "PRESERVE-SAFETY-INVARIANTS"
+    "PRESERVE-SAFETY-INVARIANTS",
+    "PRESERVE-REPO-LOCK-LEASE"
   ],
   "phases": [
-    { "id": "PRODSYS-P0", "title": "Baseline and safety net", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P0-T1", "PRODSYS-P0-T2"] },
-    { "id": "PRODSYS-P1", "title": "Authority, contracts, and state", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P1-T3"] },
+    { "id": "PRODSYS-P0", "title": "Baseline and safety net", "status": "P0-T1_SUBSTANTIALLY_COMPLETE", "task_ids": ["PRODSYS-P0-T1", "PRODSYS-P0-T2"] },
+    { "id": "PRODSYS-P1", "title": "Authority, contracts, and state", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P1-T3", "PRODSYS-P1-T4"] },
     { "id": "PRODSYS-P2", "title": "Verifier-enforcement generalization", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P2-T1", "PRODSYS-P2-T2"] },
     { "id": "PRODSYS-P3", "title": "Validation, evidence, and recovery", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P3-T1", "PRODSYS-P3-T2"] },
     { "id": "PRODSYS-P4", "title": "Migration and compatibility", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P4-T1", "PRODSYS-P4-T2"] },
@@ -85,11 +99,12 @@
     { "id": "PRODSYS-P6", "title": "Final reconciliation and closure", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P6-T1", "PRODSYS-P6-T2"] }
   ],
   "taskcards": [
-    { "id": "PRODSYS-P0-T1", "phase_id": "PRODSYS-P0", "state": "TODO", "dependencies": [] },
+    { "id": "PRODSYS-P0-T1", "phase_id": "PRODSYS-P0", "state": "IMPLEMENTED", "dependencies": [] },
     { "id": "PRODSYS-P0-T2", "phase_id": "PRODSYS-P0", "state": "TODO", "dependencies": [] },
     { "id": "PRODSYS-P1-T1", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": ["PRODSYS-P0-T2"] },
     { "id": "PRODSYS-P1-T2", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": ["PRODSYS-P1-T1"] },
     { "id": "PRODSYS-P1-T3", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": ["PRODSYS-P0-T2"] },
+    { "id": "PRODSYS-P1-T4", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": [] },
     { "id": "PRODSYS-P2-T1", "phase_id": "PRODSYS-P2", "state": "TODO", "dependencies": [] },
     { "id": "PRODSYS-P2-T2", "phase_id": "PRODSYS-P2", "state": "TODO", "dependencies": ["PRODSYS-P2-T1"] },
     { "id": "PRODSYS-P3-T1", "phase_id": "PRODSYS-P3", "state": "TODO", "dependencies": ["PRODSYS-P0-T1"] },
@@ -99,7 +114,7 @@
     { "id": "PRODSYS-P5-T1", "phase_id": "PRODSYS-P5", "state": "TODO", "dependencies": ["PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P1-T3", "PRODSYS-P4-T1", "PRODSYS-P4-T2"] },
     { "id": "PRODSYS-P5-T2", "phase_id": "PRODSYS-P5", "state": "TODO", "dependencies": ["PRODSYS-P3-T1"] },
     { "id": "PRODSYS-P6-T1", "phase_id": "PRODSYS-P6", "state": "TODO", "dependencies": [
-      "PRODSYS-P0-T1", "PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P1-T3",
+      "PRODSYS-P0-T1", "PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P1-T3", "PRODSYS-P1-T4",
       "PRODSYS-P2-T1", "PRODSYS-P2-T2", "PRODSYS-P3-T1", "PRODSYS-P3-T2",
       "PRODSYS-P4-T1", "PRODSYS-P4-T2", "PRODSYS-P5-T1", "PRODSYS-P5-T2"
     ] },
@@ -109,5 +124,6 @@
     "PRODSYS-P0-T1", "PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P4-T1",
     "PRODSYS-P2-T1", "PRODSYS-P2-T2", "PRODSYS-P5-T1", "PRODSYS-P6-T1", "PRODSYS-P6-T2"
   ],
+  "off_critical_path_independent_tasks": ["PRODSYS-P1-T4"],
   "note": "This state file is a static index accompanying the markdown document above, not a second durable-state store: real taskcard-state mutation happens through the existing mission_control.py machinery once PRODSYS-P1-T1 registers these taskcards (DD-REUSE-MISSION-MACHINERY). Update this file's per-taskcard `state` field manually in lockstep with real transitions until PRODSYS-P1-T1 lands; treat any divergence between this file and the durable CAS state as this file being wrong."
 }

@@ -9,6 +9,15 @@ This replaces manually re-typing the same five commands at every wave boundary -
 Wave 9.1 of the 2026-07-22 convergence-sprint plan calls for, so a wave never starts (or is
 declared closed) against an unverified suite.
 
+**Tree-precondition recording** (`DD-RECORD-EVIDENCE-PRECONDITIONS`, `plans/codex/production-
+system-redesign.md`): every run records `git status --porcelain` at both start and end and labels
+itself TREE CLEAN / TREE DIRTY / TREE MODIFIED DURING RUN accordingly. This closes a real, PROVEN
+incident: 4 historical runs once produced 4 different results and were cited as "against the same
+unchanged, already-committed tree" -- re-examination showed the tree was never actually frozen (the
+ruff-format file count climbed mid-sequence, and the commit later cited as "the unchanged tree" was
+made 68 seconds *after* the last attempt finished, not before the first). A dirty-tree or
+modified-during-run label makes that class of mislabeling impossible to miss in the log again.
+
 Usage: `.venv/Scripts/python.exe scripts/governance/run_official_checks.py`
 Exit code 0 = every check passed. Exit code 1 = at least one check failed.
 """
@@ -34,6 +43,27 @@ def _python() -> str:
     return sys.executable
 
 
+def _git_status_porcelain() -> str:
+    result = subprocess.run(
+        ["git", "status", "--porcelain"],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return result.stdout
+
+
+def _print_tree_precondition(label: str, status: str) -> None:
+    print(f"\n=== Tree precondition ({label}) ===")
+    if not status.strip():
+        print("TREE CLEAN")
+    else:
+        print("TREE DIRTY -- this run's evidence is NOT proof about any specific committed state:")
+        for line in status.splitlines():
+            print(f"  {line}")
+
+
 def _run(label: str, command: list[str], *, required: bool = True) -> bool:
     print(f"\n=== {label} ===")
     print(f"$ {' '.join(command)}")
@@ -50,6 +80,9 @@ def _run(label: str, command: list[str], *, required: bool = True) -> bool:
 def main() -> int:
     python = _python()
     all_ok = True
+
+    status_at_start = _git_status_porcelain()
+    _print_tree_precondition("start", status_at_start)
 
     all_ok &= _run("ruff check", [python, "-m", "ruff", "check", "."])
     all_ok &= _run("ruff format --check", [python, "-m", "ruff", "format", "--check", "."])
@@ -78,7 +111,23 @@ def main() -> int:
                 required=False,
             )
 
+    status_at_end = _git_status_porcelain()
+    _print_tree_precondition("end", status_at_end)
+    tree_modified_during_run = status_at_start != status_at_end
+    if tree_modified_during_run:
+        print(
+            "TREE MODIFIED DURING THIS RUN -- the start and end git status differ. This run's "
+            "results must not be cited as evidence about any single, specific commit; the tree "
+            "changed while the checks were executing."
+        )
+
     print("\n" + ("=" * 60))
+    tree_label = (
+        "TREE MODIFIED DURING RUN"
+        if tree_modified_during_run
+        else ("TREE DIRTY" if status_at_start.strip() else "TREE CLEAN")
+    )
+    print(f"Tree state: {tree_label}")
     if all_ok:
         print("All official checks passed.")
         return 0
