@@ -12,13 +12,13 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "2ea570475bd6afbe733338e9b4ef3b87e42ede59a9f13140903772b18db0db82",
-    "last_evaluated_at": "2026-07-24T09:55:04.016046+00:00",
+    "last_evaluated_at": "2026-07-24T09:55:23.462847+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
-      "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "SCORED",
+      "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "CLOSED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "TODO",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
@@ -705,6 +705,18 @@
         "reason": "Acceptance is complete for the bounded local three-pilot child; portfolio, proposal, act, and production scope remains explicitly open.",
         "task_id": "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "commit:5e31f9c",
+          "plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-2026-07-24/"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-24T09:55:23.462841+00:00",
+        "reason": "Bounded child exit gate satisfied with green official checks, independently accepted evidence, and truthful requirement reconciliation.",
+        "task_id": "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -712,7 +724,7 @@
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
   "schema_version": 2,
-  "state_version": 79,
+  "state_version": 80,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
