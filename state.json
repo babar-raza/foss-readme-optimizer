@@ -12,7 +12,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "997c1dd3a04f0f5593e9509aa87d7ca62665961c813657580f0ae86b6f77dc42",
-    "last_evaluated_at": "2026-07-24T08:00:30.368775+00:00",
+    "last_evaluated_at": "2026-07-24T08:00:37.227884+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -22,7 +22,7 @@
       "L8-LOCAL-README-PROPOSAL-PROOF": "TODO",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
-      "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "IMPLEMENTED",
+      "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "VERIFIED",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-STAGING-VERIFIED-PROPOSAL-PROOF": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -626,6 +626,17 @@
         "reason": "WorkLedgerV1, truthful terminal classes, guarded stop handling, and cwd-independent prompt loading are implemented on main.",
         "task_id": "L8-PREPRODUCTION-TRUTHFUL-BASELINE",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-preproduction-truthful-baseline-2026-07-24/truthful-baseline-acceptance.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-24T08:00:37.227879+00:00",
+        "reason": "Focused runtime tests and the complete official suite pass against immutable implementation commit 946081e.",
+        "task_id": "L8-PREPRODUCTION-TRUTHFUL-BASELINE",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -633,7 +644,7 @@
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
   "schema_version": 2,
-  "state_version": 71,
+  "state_version": 72,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
