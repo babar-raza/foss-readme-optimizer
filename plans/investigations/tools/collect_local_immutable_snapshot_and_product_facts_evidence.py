@@ -224,14 +224,22 @@ def main() -> int:
         for proof in pilots
         if proof["org_repo"] == "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
     )
+    # Corrected 2026-07-24: the prior acceptance gate REQUIRED cells' Maven package to
+    # resolve NOT_PUBLISHED and its README claim to be flagged conflicting. That premise was
+    # itself wrong -- org.aspose:aspose-cells-foss IS published on Maven Central; the old
+    # search.maven.org Solr endpoint just never indexed the org.aspose group. With the fixed
+    # resolver (repo1.maven.org), the correct, honest outcome is REGISTRY_VERIFIED and an
+    # EMPTY conflict list -- the opposite assertion. See
+    # plans/investigations/evidence/package-acquisition-ground-truth-2026-07-24/.
     accepted = (
         all(item["verified"] for item in historical)
         and all(item["snapshot_matches_current_upstream"] for item in pilots)
         and all(item["core_facts_accepted"] for item in pilots)
         and any(
-            item["outcome"] == "NOT_PUBLISHED" for item in cells["package_acquisition"]["results"]
+            item["outcome"] == "REGISTRY_VERIFIED"
+            for item in cells["package_acquisition"]["results"]
         )
-        and bool(cells["readme_claim_conflicts"])
+        and not cells["readme_claim_conflicts"]
     )
     proof = {
         "schema_version": 1,

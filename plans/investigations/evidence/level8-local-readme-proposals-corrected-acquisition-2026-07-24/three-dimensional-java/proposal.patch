@@ -1,0 +1,76 @@
+diff --git a/README.md b/README.md
+index 4b3f079..e1772a5 100644
+--- a/README.md
++++ b/README.md
+@@ -1,8 +1,42 @@
++<!-- readme-agent:presentation hash="sha256:0f034d95184e2212233120d48115f686aed7857b819f0ec2ef5d1a7ff4d66c54" schema="3" inner-bytes="5339" -->
+ # Aspose.3D FOSS for Java
+ 
+ A free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library.
+ 
+-> 🏠 **Aspose.3D FOSS** lives on [aspose.org](https://products.aspose.org/3d/java/) — Aspose's home for free, open-source file-format libraries. The full commercial edition, [Aspose.3D for Java](https://products.aspose.com/3d/java/), is available on [aspose.com](https://products.aspose.com/3d).
++## At a glance
++
++- **For:** Java developers building 3D import, export, and scene-processing applications.
++- **Problem solved:** Create, load, inspect, transform, and save 3D scenes with an open-source Java API.
++- **Verified capabilities:** Create, load, inspect, transform, and save 3D scenes. Model scene geometry and materials through mesh and material APIs.
++- **Verified formats:** Import and export glTF and GLB scenes. Import and export binary and ASCII STL scenes. Import and export Collada scenes.
++- **Runtime:** Java 21+
++- **Current verified limitation:** Rendering and full commercial-API parity remain incomplete.
++
++## In this README
++
++- [About Aspose.3D FOSS](#about-aspose3d-foss)
++- [Project Status](#project-status)
++- [API Compatibility](#api-compatibility)
++- [Building](#building)
++- [Usage](#usage)
++- [Contributing](#contributing)
++- [License](#license)
++- [Resources](#resources)
++- [Acknowledgments](#acknowledgments)
++
++## Installation
++
++Build the verified repository revision from source:
++
++```bash
++git clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Java.git
++cd Aspose.3D-FOSS-for-Java
++git checkout 605f67d1192fee1881078dfd53d37b8cb29623ba
++mvn clean install
++```
++
++This path requires JDK 21+ and Maven. The source build and the minimal example
++below were verified together at revision `605f67d1192fee1881078dfd53d37b8cb29623ba`.
+ 
+ ## About Aspose.3D FOSS
+ 
+@@ -43,6 +77,22 @@ mvn test
+ 
+ ## Usage
+ 
++### Minimal verified example
++
++```java
++import com.aspose.threed.Scene;
++
++public class ReadmeExample {
++    public static void main(String[] args) throws Exception {
++        Scene scene = new Scene();
++        scene.save("scene.stl");
++    }
++}
++```
++
++This exact example was compiled against the source build at revision `605f67d1192fee1881078dfd53d37b8cb29623ba`.
++
++
+ ```java
+ import com.aspose.threed.Scene;
+ 
+@@ -84,3 +134,4 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
+ ## Acknowledgments
+ 
+ This is a clean-room FOSS implementation designed for API compatibility with Aspose.3D for Java.
++<!-- readme-agent:presentation:end -->

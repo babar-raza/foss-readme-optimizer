@@ -861,6 +861,7 @@ taskcards:
   - FACT-011
   - FACT-012
   - FACT-013
+  - FACT-014
   - ECO-001
   - ECO-002
   - ECO-003
@@ -1888,11 +1889,11 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 2fdf55ff4c880966c19afa539bc8ca23091164783adad938ebabdf1f1672e4cd
+  source_sha256: a887a1d593c34730ea33a3335791a0becc63844f1085a546b9444f1c3a21ebac
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 391
+  total_requirement_rows: 392
   mandatory_requirement_rows: 368
-  excluded_backlog_rows: 23
+  excluded_backlog_rows: 24
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
   mappings:
@@ -2264,6 +2265,12 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: FACT-013
     priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: FACT-014
+    priority: P3
     requirement_status: BACKLOG
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: excluded_backlog

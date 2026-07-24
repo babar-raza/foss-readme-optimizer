@@ -1,0 +1,1658 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-24T16:43:26.530262+00:00",
+  "task_id": "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS",
+  "accepted": false,
+  "historical_scenarios": [
+    {
+      "scenario_id": "cells-java-complex-false-acquisition",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "readme_git_blob": "afb99b98c91ba4b9bbe02cefc7b4314619fab569",
+      "readme_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+      "expected_characteristics": [
+        "complex_existing_readme",
+        "false_maven_acquisition_claim"
+      ],
+      "actual_readme_git_blob": "afb99b98c91ba4b9bbe02cefc7b4314619fab569",
+      "actual_readme_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+      "readme_bytes": 9450,
+      "verified": true
+    },
+    {
+      "scenario_id": "three-d-java-strong-promotional-density",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "source_revision": "c6473f62c592295f9b60bf525804f55cb089f028",
+      "readme_git_blob": "4b3f07965325b98b1be141dac311849384432265",
+      "readme_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
+      "expected_characteristics": [
+        "strong_existing_content",
+        "promotional_density"
+      ],
+      "actual_readme_git_blob": "4b3f07965325b98b1be141dac311849384432265",
+      "actual_readme_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
+      "readme_bytes": 3933,
+      "verified": true
+    },
+    {
+      "scenario_id": "pdf-java-partial-presentation-gap",
+      "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+      "source_revision": "3fb5414b6ed0ccbdd71aadecb2df6d0849dcf13f",
+      "readme_git_blob": "9b339488940eeeec22625b703e5d1dba53e4f2e5",
+      "readme_sha256": "8cec8c365707437102773ef42d196600392aab8df7776d8095286d538ba74083",
+      "expected_characteristics": [
+        "partial_presentation_gap",
+        "existing_product_content"
+      ],
+      "actual_readme_git_blob": "9b339488940eeeec22625b703e5d1dba53e4f2e5",
+      "actual_readme_sha256": "8cec8c365707437102773ef42d196600392aab8df7776d8095286d538ba74083",
+      "readme_bytes": 8159,
+      "verified": true
+    }
+  ],
+  "current_pilots": [
+    {
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "snapshot": {
+        "schema_version": 1,
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "snapshot_root": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\baseline\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java",
+        "readme_path": "README.md",
+        "readme_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+        "inventory_sha256": "6c2c3ade6b7b0f192e1076dc2684cba6f5c6fab3cd07d96cef331e806cc93d19",
+        "package_roots": [
+          {
+            "path": ".",
+            "ecosystem": "java",
+            "manifest_path": "pom.xml",
+            "confidence": 1.0,
+            "evidence": "found pom.xml"
+          }
+        ],
+        "captured_at": "2026-07-24T16:41:07.074608+00:00",
+        "provenance": {
+          "source_type": "baseline_clone",
+          "clone_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java.git",
+          "source_ref": "HEAD",
+          "git_tree_sha256": "6c2c3ade6b7b0f192e1076dc2684cba6f5c6fab3cd07d96cef331e806cc93d19"
+        }
+      },
+      "current_upstream_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "snapshot_matches_current_upstream": true,
+      "product_facts_v2": {
+        "schema_version": 2,
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "facts": [
+          {
+            "fact_id": "product.identity:manifest-and-registry",
+            "field": "product.identity",
+            "value": {
+              "family": "cells",
+              "platform": "java",
+              "ecosystem": "java",
+              "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+              "manifest_names": [
+                "Aspose.Cells FOSS for Java"
+              ]
+            },
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.opening",
+              "metadata.description"
+            ]
+          },
+          {
+            "fact_id": "product.audience:approved-policy",
+            "field": "product.audience",
+            "value": [
+              "Java developers creating, loading, modifying, and saving spreadsheet workbooks."
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "config/policies/aspose-cells-foss.yml",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "product-policy-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.opening",
+              "metadata.description"
+            ]
+          },
+          {
+            "fact_id": "product.problems_solved:approved-policy",
+            "field": "product.problems_solved",
+            "value": [
+              "Process XLSX workbooks with an open-source Java API without requiring Microsoft Excel."
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "config/policies/aspose-cells-foss.yml",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "product-policy-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.opening",
+              "metadata.description"
+            ]
+          },
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "value": [
+              "Create, load, modify, and save workbooks and worksheets.",
+              "Read and write cell values and apply spreadsheet styles."
+            ],
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://src/main/java/org/aspose/cells_foss/Cell.java,src/main/java/org/aspose/cells_foss/Style.java,src/main/java/org/aspose/cells_foss/Workbook.java,src/main/java/org/aspose/cells_foss/Worksheet.java,src/test/java/org/aspose/cells_foss/CompatibilityTest.java",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "metadata.description",
+              "metadata.topics"
+            ]
+          },
+          {
+            "fact_id": "product.formats:repository-evidence",
+            "field": "product.formats",
+            "value": [
+              "Load and save XLSX workbooks."
+            ],
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://src/main/java/org/aspose/cells_foss/LoadFormat.java,src/main/java/org/aspose/cells_foss/SaveFormat.java,src/test/java/org/aspose/cells_foss/CompatibilityTest.java",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "metadata.topics"
+            ]
+          },
+          {
+            "fact_id": "product.platforms:manifest",
+            "field": "product.platforms",
+            "value": [
+              "java"
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "metadata.topics"
+            ]
+          },
+          {
+            "fact_id": "installation.coordinates:manifest",
+            "field": "installation.coordinates",
+            "value": [
+              {
+                "path": ".",
+                "ecosystem": "java",
+                "manifest_path": "pom.xml",
+                "group_id": "org.aspose",
+                "artifact_id": "aspose-cells-foss",
+                "name": "Aspose.Cells FOSS for Java",
+                "version": "26.7.0"
+              }
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.installation"
+            ]
+          },
+          {
+            "fact_id": "installation.verified_acquisition:registry-maven_central",
+            "field": "installation.verified_acquisition",
+            "value": {
+              "method": "maven_central",
+              "outcome": "REGISTRY_VERIFIED",
+              "detail": "Maven Central: org.aspose:aspose-cells-foss found",
+              "coordinate": {
+                "group_id": "org.aspose",
+                "artifact_id": "aspose-cells-foss"
+              }
+            },
+            "source": {
+              "source_type": "external_registry",
+              "location": "registry-acquisition://java",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.installation",
+              "readme.example"
+            ]
+          },
+          {
+            "fact_id": "example.minimal:compiled-policy-example",
+            "field": "example.minimal",
+            "value": {
+              "language": "java",
+              "class_name": "ReadmeExample",
+              "code": "import org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class ReadmeExample {\n    public static void main(String[] args) throws Exception {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n            sheet.getCells().get(\"A1\").putValue(\"Hello\");\n            workbook.save(\"hello.xlsx\");\n        }\n    }\n}\n",
+              "verification_outcome": "SOURCE_BUILD_VERIFIED",
+              "verification_detail": "source build and exact README example compilation passed"
+            },
+            "source": {
+              "source_type": "mechanical_test",
+              "location": "local-product-verification://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.example"
+            ]
+          },
+          {
+            "fact_id": "documentation.links:primary",
+            "field": "documentation.links",
+            "value": [
+              {
+                "url": "https://products.aspose.org/cells/java/",
+                "family_url": "https://products.aspose.org/cells/",
+                "label": "Aspose.Cells FOSS for Java",
+                "utm": null
+              },
+              {
+                "url": "https://products.aspose.com/cells/java/",
+                "family_url": "https://products.aspose.com/cells",
+                "label": "Aspose.Cells for Java",
+                "utm": {
+                  "utm_source": "github",
+                  "utm_medium": "readme",
+                  "utm_campaign": "foss-readme-optimizer"
+                }
+              },
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "documentation-policy-owner",
+            "confidence": 0.75,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.resources",
+              "metadata.homepage"
+            ]
+          },
+          {
+            "fact_id": "release.state:manifest-and-registry",
+            "field": "release.state",
+            "value": [
+              {
+                "path": ".",
+                "version": "26.7.0",
+                "active": true
+              }
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.release"
+            ]
+          },
+          {
+            "fact_id": "product.limitations:repository-evidence",
+            "field": "product.limitations",
+            "value": [
+              "The verified load and save surface is limited to XLSX workbooks."
+            ],
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://src/main/java/org/aspose/cells_foss/LoadFormat.java,src/main/java/org/aspose/cells_foss/SaveFormat.java",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.limitations"
+            ]
+          },
+          {
+            "fact_id": "product.compatibility:manifest",
+            "field": "product.compatibility",
+            "value": [
+              {
+                "ecosystem": "java",
+                "minimum_runtime": "17",
+                "manifest_path": "pom.xml"
+              }
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "readme.installation"
+            ]
+          },
+          {
+            "fact_id": "product.license:license-file",
+            "field": "product.license",
+            "value": "MIT",
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://License/LICENSE.txt",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.license",
+              "community.license"
+            ]
+          },
+          {
+            "fact_id": "support.routes:primary",
+            "field": "support.routes",
+            "value": [
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "support-policy-owner",
+            "confidence": 0.75,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.resources",
+              "community.support"
+            ]
+          },
+          {
+            "fact_id": "relationship.commercial_foss:primary",
+            "field": "relationship.commercial_foss",
+            "value": [
+              "open_source_scope",
+              "commercial_upgrade_path"
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+              "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "portfolio-policy-owner",
+            "confidence": 0.9,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.relationship"
+            ]
+          }
+        ],
+        "selected_fact_ids": {
+          "product.identity": "product.identity:manifest-and-registry",
+          "product.audience": "product.audience:approved-policy",
+          "product.problems_solved": "product.problems_solved:approved-policy",
+          "product.capabilities": "product.capabilities:repository-evidence",
+          "product.formats": "product.formats:repository-evidence",
+          "product.platforms": "product.platforms:manifest",
+          "installation.coordinates": "installation.coordinates:manifest",
+          "installation.verified_acquisition": "installation.verified_acquisition:registry-maven_central",
+          "example.minimal": "example.minimal:compiled-policy-example",
+          "documentation.links": "documentation.links:primary",
+          "release.state": "release.state:manifest-and-registry",
+          "product.limitations": "product.limitations:repository-evidence",
+          "product.compatibility": "product.compatibility:manifest",
+          "product.license": "product.license:license-file",
+          "support.routes": "support.routes:primary",
+          "relationship.commercial_foss": "relationship.commercial_foss:primary"
+        }
+      },
+      "product_facts_v2_hash": "c76dd01e204931b768089ea143a9e751d1c68ffc709442fa8c9e30535bb48111",
+      "selected_fact_states": {
+        "product.identity": "verified",
+        "product.audience": "policy_approved",
+        "product.problems_solved": "policy_approved",
+        "product.capabilities": "verified",
+        "product.formats": "verified",
+        "product.platforms": "verified",
+        "installation.coordinates": "verified",
+        "installation.verified_acquisition": "verified",
+        "example.minimal": "verified",
+        "documentation.links": "policy_approved",
+        "release.state": "verified",
+        "product.limitations": "verified",
+        "product.compatibility": "verified",
+        "product.license": "verified",
+        "support.routes": "policy_approved",
+        "relationship.commercial_foss": "policy_approved"
+      },
+      "local_product_verification": {
+        "schema_version": 1,
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "ecosystem": "java",
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "detail": "source build and exact README example compilation passed",
+        "build": {
+          "argv": [
+            "C:\\tools\\apache-maven-3.9.16\\bin\\mvn.CMD",
+            "-q",
+            "-DskipTests",
+            "package"
+          ],
+          "return_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "timed_out": false,
+          "environment_names": [
+            "CI",
+            "COMSPEC",
+            "GCM_INTERACTIVE",
+            "GIT_TERMINAL_PROMPT",
+            "JAVA_HOME",
+            "PATH",
+            "PATHEXT",
+            "SYSTEMROOT",
+            "TEMP",
+            "TMP",
+            "WINDIR"
+          ]
+        },
+        "example_compile": {
+          "argv": [
+            "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.19.10-hotspot\\bin\\javac.EXE",
+            "-cp",
+            "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-azsfvwyy\\repository\\target\\classes",
+            "-d",
+            "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-azsfvwyy\\repository\\target\\readme-agent-example",
+            "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-azsfvwyy\\repository\\ReadmeExample.java"
+          ],
+          "return_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "timed_out": false,
+          "environment_names": [
+            "CI",
+            "COMSPEC",
+            "GCM_INTERACTIVE",
+            "GIT_TERMINAL_PROMPT",
+            "JAVA_HOME",
+            "PATH",
+            "PATHEXT",
+            "SYSTEMROOT",
+            "TEMP",
+            "TMP",
+            "WINDIR"
+          ]
+        }
+      },
+      "package_acquisition": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "results": [
+          {
+            "path": ".",
+            "ecosystem": "java",
+            "outcome": "REGISTRY_VERIFIED",
+            "detail": "Maven Central: org.aspose:aspose-cells-foss found",
+            "coordinate": {
+              "group_id": "org.aspose",
+              "artifact_id": "aspose-cells-foss"
+            }
+          }
+        ]
+      },
+      "readme_claim_conflicts": [],
+      "core_facts_accepted": true
+    },
+    {
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "snapshot": {
+        "schema_version": 1,
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+        "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+        "snapshot_root": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\baseline\\aspose-3d-foss__Aspose.3D-FOSS-for-Java",
+        "readme_path": "README.md",
+        "readme_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
+        "inventory_sha256": "87af7acdb78af80f519c029bd4a0030ba57c42590ce8698d3535972c65ea72eb",
+        "package_roots": [
+          {
+            "path": ".",
+            "ecosystem": "java",
+            "manifest_path": "pom.xml",
+            "confidence": 1.0,
+            "evidence": "found pom.xml"
+          }
+        ],
+        "captured_at": "2026-07-24T16:41:40.546034+00:00",
+        "provenance": {
+          "source_type": "baseline_clone",
+          "clone_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Java.git",
+          "source_ref": "HEAD",
+          "git_tree_sha256": "87af7acdb78af80f519c029bd4a0030ba57c42590ce8698d3535972c65ea72eb"
+        }
+      },
+      "current_upstream_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+      "snapshot_matches_current_upstream": true,
+      "product_facts_v2": {
+        "schema_version": 2,
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+        "facts": [
+          {
+            "fact_id": "product.identity:manifest-and-registry",
+            "field": "product.identity",
+            "value": {
+              "family": "3d",
+              "platform": "java",
+              "ecosystem": "java",
+              "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+              "manifest_names": [
+                "Aspose.3D FOSS"
+              ]
+            },
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.opening",
+              "metadata.description"
+            ]
+          },
+          {
+            "fact_id": "product.audience:approved-policy",
+            "field": "product.audience",
+            "value": [
+              "Java developers building 3D import, export, and scene-processing applications."
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "config/policies/aspose-3d-foss.yml",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "product-policy-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.opening",
+              "metadata.description"
+            ]
+          },
+          {
+            "fact_id": "product.problems_solved:approved-policy",
+            "field": "product.problems_solved",
+            "value": [
+              "Create, load, inspect, transform, and save 3D scenes with an open-source Java API."
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "config/policies/aspose-3d-foss.yml",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "product-policy-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.opening",
+              "metadata.description"
+            ]
+          },
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "value": [
+              "Create, load, inspect, transform, and save 3D scenes.",
+              "Model scene geometry and materials through mesh and material APIs."
+            ],
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://src/main/java/com/aspose/threed/Material.java,src/main/java/com/aspose/threed/Mesh.java,src/main/java/com/aspose/threed/Scene.java,src/test/java/com/aspose/threed/MaterialTests.java,src/test/java/com/aspose/threed/SceneTest.java",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "metadata.description",
+              "metadata.topics"
+            ]
+          },
+          {
+            "fact_id": "product.formats:repository-evidence",
+            "field": "product.formats",
+            "value": [
+              "Import and export glTF and GLB scenes.",
+              "Import and export binary and ASCII STL scenes.",
+              "Import and export Collada scenes."
+            ],
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://FILE_FORMATS.md,src/test/java/com/aspose/threed/ColladaTests.java,src/test/java/com/aspose/threed/GltfFormatTest.java,src/test/java/com/aspose/threed/StlFormatTest.java",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "metadata.topics"
+            ]
+          },
+          {
+            "fact_id": "product.platforms:manifest",
+            "field": "product.platforms",
+            "value": [
+              "java"
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "metadata.topics"
+            ]
+          },
+          {
+            "fact_id": "installation.coordinates:manifest",
+            "field": "installation.coordinates",
+            "value": [
+              {
+                "path": ".",
+                "ecosystem": "java",
+                "manifest_path": "pom.xml",
+                "group_id": "org.aspose",
+                "artifact_id": "aspose-3d-foss",
+                "name": "Aspose.3D FOSS",
+                "version": "26.5.0"
+              }
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.installation"
+            ]
+          },
+          {
+            "fact_id": "installation.verified_acquisition:registry-maven_central",
+            "field": "installation.verified_acquisition",
+            "value": {
+              "method": "maven_central",
+              "outcome": "REGISTRY_VERIFIED",
+              "detail": "Maven Central: org.aspose:aspose-3d-foss found",
+              "coordinate": {
+                "group_id": "org.aspose",
+                "artifact_id": "aspose-3d-foss"
+              }
+            },
+            "source": {
+              "source_type": "external_registry",
+              "location": "registry-acquisition://java",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.installation",
+              "readme.example"
+            ]
+          },
+          {
+            "fact_id": "example.minimal:compiled-policy-example",
+            "field": "example.minimal",
+            "value": {
+              "language": "java",
+              "class_name": "ReadmeExample",
+              "code": "import com.aspose.threed.Scene;\n\npublic class ReadmeExample {\n    public static void main(String[] args) throws Exception {\n        Scene scene = new Scene();\n        scene.save(\"scene.stl\");\n    }\n}\n",
+              "verification_outcome": "BLOCKED_TOOLCHAIN",
+              "verification_detail": "required Java/Maven toolchain is unavailable or incompatible"
+            },
+            "source": {
+              "source_type": "mechanical_test",
+              "location": "local-product-verification://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "blocked",
+            "authoritative_owner": "repository-owner",
+            "confidence": 0.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.example"
+            ]
+          },
+          {
+            "fact_id": "documentation.links:primary",
+            "field": "documentation.links",
+            "value": [
+              {
+                "url": "https://products.aspose.org/3d/java/",
+                "family_url": "https://products.aspose.org/3d/",
+                "label": "Aspose.3D FOSS for Java",
+                "utm": null
+              },
+              {
+                "url": "https://products.aspose.com/3d/java/",
+                "family_url": "https://products.aspose.com/3d",
+                "label": "Aspose.3D for Java",
+                "utm": {
+                  "utm_source": "github",
+                  "utm_medium": "readme",
+                  "utm_campaign": "foss-readme-optimizer"
+                }
+              },
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "documentation-policy-owner",
+            "confidence": 0.75,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.resources",
+              "metadata.homepage"
+            ]
+          },
+          {
+            "fact_id": "release.state:manifest-and-registry",
+            "field": "release.state",
+            "value": [
+              {
+                "path": ".",
+                "version": "26.5.0",
+                "active": true
+              }
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.release"
+            ]
+          },
+          {
+            "fact_id": "product.limitations:repository-evidence",
+            "field": "product.limitations",
+            "value": [
+              "Rendering and full commercial-API parity remain incomplete."
+            ],
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://TODO.md,docs/foss-java-progress.md",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.limitations"
+            ]
+          },
+          {
+            "fact_id": "product.compatibility:manifest",
+            "field": "product.compatibility",
+            "value": [
+              {
+                "ecosystem": "java",
+                "minimum_runtime": "21",
+                "manifest_path": "pom.xml"
+              }
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "readme.installation"
+            ]
+          },
+          {
+            "fact_id": "product.license:license-file",
+            "field": "product.license",
+            "value": "MIT",
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://LICENSE",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.license",
+              "community.license"
+            ]
+          },
+          {
+            "fact_id": "support.routes:primary",
+            "field": "support.routes",
+            "value": [
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "support-policy-owner",
+            "confidence": 0.75,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.resources",
+              "community.support"
+            ]
+          },
+          {
+            "fact_id": "relationship.commercial_foss:primary",
+            "field": "relationship.commercial_foss",
+            "value": [
+              "open_source_scope",
+              "commercial_upgrade_path"
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+              "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "portfolio-policy-owner",
+            "confidence": 0.9,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.relationship"
+            ]
+          }
+        ],
+        "selected_fact_ids": {
+          "product.identity": "product.identity:manifest-and-registry",
+          "product.audience": "product.audience:approved-policy",
+          "product.problems_solved": "product.problems_solved:approved-policy",
+          "product.capabilities": "product.capabilities:repository-evidence",
+          "product.formats": "product.formats:repository-evidence",
+          "product.platforms": "product.platforms:manifest",
+          "installation.coordinates": "installation.coordinates:manifest",
+          "installation.verified_acquisition": "installation.verified_acquisition:registry-maven_central",
+          "example.minimal": "example.minimal:compiled-policy-example",
+          "documentation.links": "documentation.links:primary",
+          "release.state": "release.state:manifest-and-registry",
+          "product.limitations": "product.limitations:repository-evidence",
+          "product.compatibility": "product.compatibility:manifest",
+          "product.license": "product.license:license-file",
+          "support.routes": "support.routes:primary",
+          "relationship.commercial_foss": "relationship.commercial_foss:primary"
+        }
+      },
+      "product_facts_v2_hash": "0f034d95184e2212233120d48115f686aed7857b819f0ec2ef5d1a7ff4d66c54",
+      "selected_fact_states": {
+        "product.identity": "verified",
+        "product.audience": "policy_approved",
+        "product.problems_solved": "policy_approved",
+        "product.capabilities": "verified",
+        "product.formats": "verified",
+        "product.platforms": "verified",
+        "installation.coordinates": "verified",
+        "installation.verified_acquisition": "verified",
+        "example.minimal": "blocked",
+        "documentation.links": "policy_approved",
+        "release.state": "verified",
+        "product.limitations": "verified",
+        "product.compatibility": "verified",
+        "product.license": "verified",
+        "support.routes": "policy_approved",
+        "relationship.commercial_foss": "policy_approved"
+      },
+      "local_product_verification": {
+        "schema_version": 1,
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+        "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+        "ecosystem": "java",
+        "outcome": "BLOCKED_TOOLCHAIN",
+        "detail": "required Java/Maven toolchain is unavailable or incompatible",
+        "build": {
+          "argv": [
+            "C:\\tools\\apache-maven-3.9.16\\bin\\mvn.CMD",
+            "-q",
+            "-DskipTests",
+            "package"
+          ],
+          "return_code": 1,
+          "stdout": "[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project aspose-3d-foss: Fatal error compiling: error: invalid target release: 21 -> [Help 1]\r\n[ERROR] \r\n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\r\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\r\n[ERROR] \r\n[ERROR] For more information about the errors and possible solutions, please read the following articles:\r\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException\r\n",
+          "stderr": "",
+          "timed_out": false,
+          "environment_names": [
+            "CI",
+            "COMSPEC",
+            "GCM_INTERACTIVE",
+            "GIT_TERMINAL_PROMPT",
+            "JAVA_HOME",
+            "PATH",
+            "PATHEXT",
+            "SYSTEMROOT",
+            "TEMP",
+            "TMP",
+            "WINDIR"
+          ]
+        },
+        "example_compile": null
+      },
+      "package_acquisition": {
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+        "results": [
+          {
+            "path": ".",
+            "ecosystem": "java",
+            "outcome": "REGISTRY_VERIFIED",
+            "detail": "Maven Central: org.aspose:aspose-3d-foss found",
+            "coordinate": {
+              "group_id": "org.aspose",
+              "artifact_id": "aspose-3d-foss"
+            }
+          }
+        ]
+      },
+      "readme_claim_conflicts": [],
+      "core_facts_accepted": false
+    },
+    {
+      "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+      "snapshot": {
+        "schema_version": 1,
+        "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "snapshot_root": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\baseline\\aspose-pdf-foss__Aspose.PDF-FOSS-for-Java",
+        "readme_path": "README.md",
+        "readme_sha256": "8cec8c365707437102773ef42d196600392aab8df7776d8095286d538ba74083",
+        "inventory_sha256": "0160b82a2e9ba785fdbe7fd461e768283ebcff78b6f635ea54b2ef0cb350bbcd",
+        "package_roots": [
+          {
+            "path": ".",
+            "ecosystem": "java",
+            "manifest_path": "pom.xml",
+            "confidence": 1.0,
+            "evidence": "found pom.xml"
+          }
+        ],
+        "captured_at": "2026-07-24T16:42:00.316697+00:00",
+        "provenance": {
+          "source_type": "baseline_clone",
+          "clone_url": "https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java.git",
+          "source_ref": "HEAD",
+          "git_tree_sha256": "0160b82a2e9ba785fdbe7fd461e768283ebcff78b6f635ea54b2ef0cb350bbcd"
+        }
+      },
+      "current_upstream_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+      "snapshot_matches_current_upstream": true,
+      "product_facts_v2": {
+        "schema_version": 2,
+        "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "facts": [
+          {
+            "fact_id": "product.identity:manifest-and-registry",
+            "field": "product.identity",
+            "value": {
+              "family": "pdf",
+              "platform": "java",
+              "ecosystem": "java",
+              "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+              "manifest_names": [
+                "Aspose.PDF FOSS"
+              ]
+            },
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.opening",
+              "metadata.description"
+            ]
+          },
+          {
+            "fact_id": "product.audience:approved-policy",
+            "field": "product.audience",
+            "value": [
+              "Java developers creating, reading, modifying, and saving PDF documents."
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "config/policies/aspose-pdf-foss.yml",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "product-policy-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.opening",
+              "metadata.description"
+            ]
+          },
+          {
+            "fact_id": "product.problems_solved:approved-policy",
+            "field": "product.problems_solved",
+            "value": [
+              "Process PDF documents with an open-source Java API focused on the core PDF specification."
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "config/policies/aspose-pdf-foss.yml",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "product-policy-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.opening",
+              "metadata.description"
+            ]
+          },
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "value": [
+              "Create, open, modify, and save PDF documents.",
+              "Add pages and text content to PDF documents."
+            ],
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://src/main/java/org/aspose/pdf/Document.java,src/main/java/org/aspose/pdf/Page.java,src/main/java/org/aspose/pdf/PageCollection.java,src/main/java/org/aspose/pdf/text/TextFragment.java,src/test/java/org/aspose/pdf/tests/DocumentTest.java,src/test/java/org/aspose/pdf/tests/generation/DocumentSaveIdempotenceTest.java",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "metadata.description",
+              "metadata.topics"
+            ]
+          },
+          {
+            "fact_id": "product.formats:repository-evidence",
+            "field": "product.formats",
+            "value": [
+              "Read and write PDF documents.",
+              "Produce PDF/A documents for long-term preservation workflows."
+            ],
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://docs/limitations.md,docs/pdfa.md,src/main/java/org/aspose/pdf/Document.java,src/main/java/org/aspose/pdf/PdfFormat.java",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "metadata.topics"
+            ]
+          },
+          {
+            "fact_id": "product.platforms:manifest",
+            "field": "product.platforms",
+            "value": [
+              "java"
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "metadata.topics"
+            ]
+          },
+          {
+            "fact_id": "installation.coordinates:manifest",
+            "field": "installation.coordinates",
+            "value": [
+              {
+                "path": ".",
+                "ecosystem": "java",
+                "manifest_path": "pom.xml",
+                "group_id": "org.aspose",
+                "artifact_id": "aspose-pdf-foss",
+                "name": "Aspose.PDF FOSS",
+                "version": "26.6.0"
+              }
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.installation"
+            ]
+          },
+          {
+            "fact_id": "installation.verified_acquisition:registry-maven_central",
+            "field": "installation.verified_acquisition",
+            "value": {
+              "method": "maven_central",
+              "outcome": "REGISTRY_VERIFIED",
+              "detail": "Maven Central: org.aspose:aspose-pdf-foss found",
+              "coordinate": {
+                "group_id": "org.aspose",
+                "artifact_id": "aspose-pdf-foss"
+              }
+            },
+            "source": {
+              "source_type": "external_registry",
+              "location": "registry-acquisition://java",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.installation",
+              "readme.example"
+            ]
+          },
+          {
+            "fact_id": "example.minimal:compiled-policy-example",
+            "field": "example.minimal",
+            "value": {
+              "language": "java",
+              "class_name": "ReadmeExample",
+              "code": "import org.aspose.pdf.Document;\nimport org.aspose.pdf.Page;\nimport org.aspose.pdf.text.TextFragment;\n\npublic class ReadmeExample {\n    public static void main(String[] args) throws Exception {\n        try (Document document = new Document()) {\n            Page page = document.getPages().add();\n            page.getParagraphs().add(new TextFragment(\"Hello, PDF\"));\n            document.save(\"hello.pdf\");\n        }\n    }\n}\n",
+              "verification_outcome": "SOURCE_BUILD_VERIFIED",
+              "verification_detail": "source build and exact README example compilation passed"
+            },
+            "source": {
+              "source_type": "mechanical_test",
+              "location": "local-product-verification://aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.example"
+            ]
+          },
+          {
+            "fact_id": "documentation.links:primary",
+            "field": "documentation.links",
+            "value": [
+              {
+                "url": "https://products.aspose.org/pdf/java/",
+                "family_url": "https://products.aspose.org/pdf/",
+                "label": "Aspose.PDF FOSS for Java",
+                "utm": null
+              },
+              {
+                "url": "https://products.aspose.com/pdf/java/",
+                "family_url": "https://products.aspose.com/pdf",
+                "label": "Aspose.PDF for Java",
+                "utm": {
+                  "utm_source": "github",
+                  "utm_medium": "readme",
+                  "utm_campaign": "foss-readme-optimizer"
+                }
+              },
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "registry-policy://aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "documentation-policy-owner",
+            "confidence": 0.75,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.resources",
+              "metadata.homepage"
+            ]
+          },
+          {
+            "fact_id": "release.state:manifest-and-registry",
+            "field": "release.state",
+            "value": [
+              {
+                "path": ".",
+                "version": "26.6.0",
+                "active": true
+              }
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.release"
+            ]
+          },
+          {
+            "fact_id": "product.limitations:repository-evidence",
+            "field": "product.limitations",
+            "value": [
+              "OCR, non-PDF conversion, XFA rendering, 3D annotations, and PDF/X are out of scope."
+            ],
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://docs/limitations.md",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.limitations"
+            ]
+          },
+          {
+            "fact_id": "product.compatibility:manifest",
+            "field": "product.compatibility",
+            "value": [
+              {
+                "ecosystem": "java",
+                "minimum_runtime": "11",
+                "manifest_path": "pom.xml"
+              }
+            ],
+            "source": {
+              "source_type": "mechanical_manifest",
+              "location": "repository://pom.xml",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.capabilities",
+              "readme.installation"
+            ]
+          },
+          {
+            "fact_id": "product.license:license-file",
+            "field": "product.license",
+            "value": "MIT",
+            "source": {
+              "source_type": "mechanical_repository",
+              "location": "repository://LICENSE",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "verified",
+            "authoritative_owner": "repository-owner",
+            "confidence": 1.0,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.license",
+              "community.license"
+            ]
+          },
+          {
+            "fact_id": "support.routes:primary",
+            "field": "support.routes",
+            "value": [
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "registry-policy://aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "support-policy-owner",
+            "confidence": 0.75,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.resources",
+              "community.support"
+            ]
+          },
+          {
+            "fact_id": "relationship.commercial_foss:primary",
+            "field": "relationship.commercial_foss",
+            "value": [
+              "open_source_scope",
+              "commercial_upgrade_path"
+            ],
+            "source": {
+              "source_type": "approved_policy",
+              "location": "registry-policy://aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+              "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+              "retrieved_at": null
+            },
+            "verification_state": "policy_approved",
+            "authoritative_owner": "portfolio-policy-owner",
+            "confidence": 0.9,
+            "conflicts": [],
+            "affected_surfaces": [
+              "readme.relationship"
+            ]
+          }
+        ],
+        "selected_fact_ids": {
+          "product.identity": "product.identity:manifest-and-registry",
+          "product.audience": "product.audience:approved-policy",
+          "product.problems_solved": "product.problems_solved:approved-policy",
+          "product.capabilities": "product.capabilities:repository-evidence",
+          "product.formats": "product.formats:repository-evidence",
+          "product.platforms": "product.platforms:manifest",
+          "installation.coordinates": "installation.coordinates:manifest",
+          "installation.verified_acquisition": "installation.verified_acquisition:registry-maven_central",
+          "example.minimal": "example.minimal:compiled-policy-example",
+          "documentation.links": "documentation.links:primary",
+          "release.state": "release.state:manifest-and-registry",
+          "product.limitations": "product.limitations:repository-evidence",
+          "product.compatibility": "product.compatibility:manifest",
+          "product.license": "product.license:license-file",
+          "support.routes": "support.routes:primary",
+          "relationship.commercial_foss": "relationship.commercial_foss:primary"
+        }
+      },
+      "product_facts_v2_hash": "5d4201993958f11575040ede1ebe628955a18862ea348340f7f554fa06406f73",
+      "selected_fact_states": {
+        "product.identity": "verified",
+        "product.audience": "policy_approved",
+        "product.problems_solved": "policy_approved",
+        "product.capabilities": "verified",
+        "product.formats": "verified",
+        "product.platforms": "verified",
+        "installation.coordinates": "verified",
+        "installation.verified_acquisition": "verified",
+        "example.minimal": "verified",
+        "documentation.links": "policy_approved",
+        "release.state": "verified",
+        "product.limitations": "verified",
+        "product.compatibility": "verified",
+        "product.license": "verified",
+        "support.routes": "policy_approved",
+        "relationship.commercial_foss": "policy_approved"
+      },
+      "local_product_verification": {
+        "schema_version": 1,
+        "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "ecosystem": "java",
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "detail": "source build and exact README example compilation passed",
+        "build": {
+          "argv": [
+            "C:\\tools\\apache-maven-3.9.16\\bin\\mvn.CMD",
+            "-q",
+            "-DskipTests",
+            "package"
+          ],
+          "return_code": 0,
+          "stdout": "[ERROR] MavenReportException: Error while generating Javadoc: \nExit code: 1\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\DocumentActions.java:26: error: reference not found\n * {@code null} for {@link #getOpenAction()}; see {@link Document#setOpenAction}\n                                                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\Hyperlink.java:5: error: reference not found\n * {@link TextFragment}, {@link Image} and {@code Heading}.\n          ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\ImagePlacementAbsorber.java:31: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\Matrix.java:20: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\RgbToDeviceGrayConversionStrategy.java:33: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\WebHyperlink.java:5: error: reference not found\n * {@link TextFragment} (or {@link Image}, {@code Heading}, etc.) has a\n          ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\ColorSpaceBase.java:26: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\CmykDisplay.java:20: error: tag not allowed here: <sub>\n *   channel = 255 \ufffd ?<sub>ink?{C,M,Y,K}</sub> ( 1 ? amount<sub>ink</sub> \ufffd a<sub>ink,channel</sub> )\n                      ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\CmykDisplay.java:20: error: tag not allowed here: <sub>\n *   channel = 255 \ufffd ?<sub>ink?{C,M,Y,K}</sub> ( 1 ? amount<sub>ink</sub> \ufffd a<sub>ink,channel</sub> )\n                                                           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\CmykDisplay.java:20: error: tag not allowed here: <sub>\n *   channel = 255 \ufffd ?<sub>ink?{C,M,Y,K}</sub> ( 1 ? amount<sub>ink</sub> \ufffd a<sub>ink,channel</sub> )\n                                                                             ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\CmykDisplay.java:21: error: tag not allowed here: <sub>\n *   where a<sub>ink,channel</sub> = 1 ? solid<sub>ink,channel</sub> / 255\n            ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\CmykDisplay.java:21: error: tag not allowed here: <sub>\n *   where a<sub>ink,channel</sub> = 1 ? solid<sub>ink,channel</sub> / 255\n                                              ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\filter\\RunLengthFilter.java:19: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\font\\ttf\\TrueTypeReader.java:21: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\layout\\LayoutEngine.java:51: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\render\\PdfPageRenderer.java:54: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\PDFEncryptor.java:23: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\signature\\PdfSigner.java:34: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\flatten\\layout\\XfaPaginator.java:40: error: unexpected end tag: </p>\n * </ul></p>\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\facades\\PdfExtractor.java:42: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\Signature.java:19: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\xfa\\XfaForm.java:29: error: reference not found\n * @see Form#getXFA()\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\html\\PdfToHtmlConverter.java:24: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\operators\\MoveTextPosition.java:19: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\operators\\MoveTextPositionSetLeading.java:18: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\operators\\MoveToNextLineShowText.java:19: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\operators\\SetSpacingMoveToNextLineShowText.java:21: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\text\\RichTextFontStyles.java:16: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\text\\TextAbsorber.java:21: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\text\\TextExtractionOptions.java:11: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\text\\TextFragmentAbsorber.java:32: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\AESCipher.java:138: warning: no @param for key\n    public static byte[] decryptWithIV(byte[] key, byte[] iv, byte[] cipherText) {\n                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\AESCipher.java:138: warning: no @param for iv\n    public static byte[] decryptWithIV(byte[] key, byte[] iv, byte[] cipherText) {\n                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\AESCipher.java:138: warning: no @param for cipherText\n    public static byte[] decryptWithIV(byte[] key, byte[] iv, byte[] cipherText) {\n                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\AESCipher.java:138: warning: no @return\n    public static byte[] decryptWithIV(byte[] key, byte[] iv, byte[] cipherText) {\n                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\annotations\\Annotation.java:14: warning: no comment\n    protected PdfDictionary dict;\n                            ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\annotations\\Annotation.java:15: warning: no comment\n    protected Page page;\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:88: warning: no @return\n    public String getCaption() { return readString(\"CA\"); }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:95: warning: no @return\n    public String getRolloverCaption() { return readString(\"RC\"); }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:102: warning: no @return\n    public String getAlternateCaption() { return readString(\"AC\"); }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:37: warning: no comment\n    public AppearanceCharacteristics(PdfDictionary owner) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:41: warning: no comment\n    public Color getBackground() {\n                 ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:49: warning: no comment\n    public Color getBorder() {\n                 ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:104: warning: no comment\n    public void setAlternateCaption(String caption) { writeString(\"AC\", caption); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:45: warning: no comment\n    public void setBackground(Color color) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:53: warning: no comment\n    public void setBorder(Color color) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:90: warning: no comment\n    public void setCaption(String caption) { writeString(\"CA\", caption); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:97: warning: no comment\n    public void setRolloverCaption(String caption) { writeString(\"RC\", caption); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\XfaNode.java:93: warning: no @param for name\n    public String getString(String name) {\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\XfaNode.java:148: warning: no @param for name\n    public void setMeasurement(String name, XfaMeasurement m) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\XfaNode.java:148: warning: no @param for m\n    public void setMeasurement(String name, XfaMeasurement m) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:14: warning: no @param for element\n    public AppearanceFilter(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:14: warning: no @param for parent\n    public AppearanceFilter(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:21: warning: no @param for value\n    public void setId(String value) { setAttribute(\"id\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:43: warning: no @param for value\n    public void setType(TypeValue value) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:52: warning: no @param for value\n    public void setUse(String value) { setAttribute(\"use\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:57: warning: no @param for value\n    public void setUsehref(String value) { setAttribute(\"usehref\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:62: warning: no @param for value\n    public void setValue(String value) { setTextContent(value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:32: warning: no @return\n        public static TypeValue fromValue(String s) {\n                                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:25: warning: no comment\n        OPTIONAL(\"optional\"),\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:26: warning: no comment\n        REQUIRED(\"required\");\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:14: warning: no @param for element\n    public Arc(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:14: warning: no @param for parent\n    public Arc(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:38: warning: no @param for value\n    public void setCircular(CircularValue value) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:65: warning: no @param for value\n    public void setHand(HandValue value) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:74: warning: no @param for value\n    public void setId(String value) { setAttribute(\"id\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:79: warning: no @param for value\n    public void setStartAngle(String value) { setAttribute(\"startAngle\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:84: warning: no @param for value\n    public void setSweepAngle(String value) { setAttribute(\"sweepAngle\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:89: warning: no @param for value\n    public void setUse(String value) { setAttribute(\"use\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:94: warning: no @param for value\n    public void setUsehref(String value) { setAttribute(\"usehref\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:99: warning: no @return\n    public Edge ensureEdge() { return (Edge) ensureChild(\"edge\"); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:104: warning: no @return\n    public Fill ensureFill() { return (Fill) ensureChild(\"fill\"); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:27: warning: no @return\n        public static CircularValue fromValue(String s) {\n                                    ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:20: warning: no comment\n        V_0(\"0\"),\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:21: warning: no comment\n        V_1(\"1\");\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:54: warning: no @return\n        public static HandValue fromValue(String s) {\n                                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:46: warning: no comment\n        EVEN(\"even\"),\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:47: warning: no comment\n        LEFT(\"left\"),\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:48: warning: no comment\n        RIGHT(\"right\");\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:14: warning: no @param for element\n    public Area(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:14: warning: no @param for parent\n    public Area(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:21: warning: no @param for value\n    public void setColSpan(java.lang.Integer value) { setAttribute(\"colSpan\", value == null ? null : value.toString()); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:26: warning: no @param for value\n    public void setId(String value) { setAttribute(\"id\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:31: warning: no @param for value\n    public void setName(String value) { setAttribute(\"name\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:36: warning: no @param for value\n    public void setRelevant(String value) { setAttribute(\"relevant\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:41: warning: no @param for value\n    public void setUse(String value) { setAttribute(\"use\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:46: warning: no @param for value\n    public void setUsehref(String value) { setAttribute(\"usehref\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:51: warning: no @param for value\n    public void setX(XfaMeasurement value) { setAttribute(\"x\", value == null ? null : value.format()); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:56: warning: no @param for value\n    public void setY(XfaMeasurement value) { setAttribute(\"y\", value == null ? null : value.format()); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:61: warning: no @return\n    public Desc ensureDesc() { return (Desc) ensureChild(\"desc\"); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:66: warning: no @return\n    public Extras ensureExtras() { return (Extras) ensureChild(\"extras\"); }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:75: warning: no @return\n    public Area addArea() { return (Area) addChild(\"area\"); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:84: warning: no @return\n    public Draw addDraw() { return (Draw) addChild(\"draw\"); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:93: warning: no @return\n    public ExclGroup addExclGroup() { return (ExclGroup) addChild(\"exclGroup\"); }\n                     ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:102: warning: no @return\n    public ExObject addExObject() { return (ExObject) addChild(\"exObject\"); }\n                    ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:111: warning: no @return\n    public Field addField() { return (Field) addChild(\"field\"); }\n                 ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:120: warning: no @return\n    public Subform addSubform() { return (Subform) addChild(\"subform\"); }\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:129: warning: no @return\n    public SubformSet addSubformSet() { return (SubformSet) addChild(\"subformSet\"); }\n                      ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\Artifact.java:102: error: unexpected end tag: </p>\n     * </p>\n       ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:14: warning: no @param for element\n    public Assist(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:14: warning: no @param for parent\n    public Assist(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:21: warning: no @param for value\n    public void setId(String value) { setAttribute(\"id\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:26: warning: no @param for value\n    public void setRole(String value) { setAttribute(\"role\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:31: warning: no @param for value\n    public void setUse(String value) { setAttribute(\"use\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:36: warning: no @param for value\n    public void setUsehref(String value) { setAttribute(\"usehref\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:41: warning: no @return\n    public Speak ensureSpeak() { return (Speak) ensureChild(\"speak\"); }\n                 ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:46: warning: no @return\n    public ToolTip ensureToolTip() { return (ToolTip) ensureChild(\"toolTip\"); }\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:75: warning: no @return\n    public ColorSpaceBase getColorSpace() { return colorSpace; }\n                          ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:78: warning: no @return\n    public double[] getBackground() { return background; }\n                    ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:81: warning: no @return\n    public Rectangle getBBox() { return bbox; }\n                     ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:84: warning: no @return\n    public boolean isAntiAlias() { return antiAlias; }\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:87: warning: no @return\n    public PdfDictionary getPdfDictionary() { return dict; }\n                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:117: warning: no @param for obj\n    protected static PdfBase resolveRef(PdfBase obj) {\n                             ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:117: warning: no @return\n    protected static PdfBase resolveRef(PdfBase obj) {\n                             ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:126: warning: no @param for dict\n    protected static double[] getNumberArray(PdfDictionary dict, String key) {\n                              ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:126: warning: no @param for key\n    protected static double[] getNumberArray(PdfDictionary dict, String key) {\n                              ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:126: warning: no @return\n    protected static double[] getNumberArray(PdfDictionary dict, String key) {\n                              ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:138: warning: no @param for dict\n    protected static boolean[] getBooleanArray(PdfDictionary dict, String key) {\n                               ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:138: warning: no @param for key\n    protected static boolean[] getBooleanArray(PdfDictionary dict, String key) {\n                               ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:138: warning: no @return\n    protected static boolean[] getBooleanArray(PdfDictionary dict, String key) {\n                               ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:83: warning: no @return\n    public double getX0() { return x0; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:85: warning: no @return\n    public double getY0() { return y0; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:87: warning: no @return\n    public double getX1() { return x1; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:89: warning: no @return\n    public double getY1() { return y1; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:91: warning: no @return\n    public double getT0() { return t0; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:93: warning: no @return\n    public double getT1() { return t1; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:95: warning: no @return\n    public boolean isExtendStart() { return extendStart; }\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:97: warning: no @return\n    public boolean isExtendEnd() { return extendEnd; }\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Barcode.java:14: warning: no @param for element\n    public Barcode(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Barcode.java:14: warning: no @param for parent\n    public Barcode(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Barcode.java:21: warning: no @param for value\n    public void setCharEncoding(String value) { setAttribute(\"charEncoding\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Barcode.java:46: warning: no @param for value\n    public void setChecksum(ChecksumValue value) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\html\\CssContext.java:69: error: unexpected end tag: </p>\n     * </p>\n       ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\html\\CssStyleParser.java:159: error: unexpected end tag: </p>\n     * </p>\n       ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\html\\CssStyleParser.java:216: error: unexpected end tag: </p>\n     * </p>\n       ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\html\\CssStyleParser.java:356: error: unexpected end tag: </p>\n     * </p>\n       ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\OperatorCollection.java:209: error: reference not found\n     * Visitor entry point: invokes {@link IOperatorSelector#visit(Operator)}\n                                           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\layout\\LayoutContext.java:58: error: unexpected end tag: </p>\n     * </p>\n       ^\n38 errors\n100 warnings\nCommand line was: cmd.exe /X /D /C \"\"C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.19.10-hotspot\\bin\\javadoc.exe\" -J-Duser.language= -J-Duser.country= @options @packages\"\n\nRefer to the generated Javadoc files in 'C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\target\\apidocs\\apidocs' dir.\n\r\norg.apache.maven.reporting.MavenReportException: \nExit code: 1\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\DocumentActions.java:26: error: reference not found\n * {@code null} for {@link #getOpenAction()}; see {@link Document#setOpenAction}\n                                                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\Hyperlink.java:5: error: reference not found\n * {@link TextFragment}, {@link Image} and {@code Heading}.\n          ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\ImagePlacementAbsorber.java:31: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\Matrix.java:20: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\RgbToDeviceGrayConversionStrategy.java:33: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\WebHyperlink.java:5: error: reference not found\n * {@link TextFragment} (or {@link Image}, {@code Heading}, etc.) has a\n          ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\ColorSpaceBase.java:26: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\CmykDisplay.java:20: error: tag not allowed here: <sub>\n *   channel = 255 \ufffd ?<sub>ink?{C,M,Y,K}</sub> ( 1 ? amount<sub>ink</sub> \ufffd a<sub>ink,channel</sub> )\n                      ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\CmykDisplay.java:20: error: tag not allowed here: <sub>\n *   channel = 255 \ufffd ?<sub>ink?{C,M,Y,K}</sub> ( 1 ? amount<sub>ink</sub> \ufffd a<sub>ink,channel</sub> )\n                                                           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\CmykDisplay.java:20: error: tag not allowed here: <sub>\n *   channel = 255 \ufffd ?<sub>ink?{C,M,Y,K}</sub> ( 1 ? amount<sub>ink</sub> \ufffd a<sub>ink,channel</sub> )\n                                                                             ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\CmykDisplay.java:21: error: tag not allowed here: <sub>\n *   where a<sub>ink,channel</sub> = 1 ? solid<sub>ink,channel</sub> / 255\n            ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\colorspace\\CmykDisplay.java:21: error: tag not allowed here: <sub>\n *   where a<sub>ink,channel</sub> = 1 ? solid<sub>ink,channel</sub> / 255\n                                              ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\filter\\RunLengthFilter.java:19: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\font\\ttf\\TrueTypeReader.java:21: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\layout\\LayoutEngine.java:51: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\render\\PdfPageRenderer.java:54: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\PDFEncryptor.java:23: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\signature\\PdfSigner.java:34: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\flatten\\layout\\XfaPaginator.java:40: error: unexpected end tag: </p>\n * </ul></p>\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\facades\\PdfExtractor.java:42: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\Signature.java:19: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\xfa\\XfaForm.java:29: error: reference not found\n * @see Form#getXFA()\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\html\\PdfToHtmlConverter.java:24: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\operators\\MoveTextPosition.java:19: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\operators\\MoveTextPositionSetLeading.java:18: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\operators\\MoveToNextLineShowText.java:19: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\operators\\SetSpacingMoveToNextLineShowText.java:21: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\text\\RichTextFontStyles.java:16: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\text\\TextAbsorber.java:21: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\text\\TextExtractionOptions.java:11: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\text\\TextFragmentAbsorber.java:32: error: unexpected end tag: </p>\n * </p>\n   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\AESCipher.java:138: warning: no @param for key\n    public static byte[] decryptWithIV(byte[] key, byte[] iv, byte[] cipherText) {\n                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\AESCipher.java:138: warning: no @param for iv\n    public static byte[] decryptWithIV(byte[] key, byte[] iv, byte[] cipherText) {\n                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\AESCipher.java:138: warning: no @param for cipherText\n    public static byte[] decryptWithIV(byte[] key, byte[] iv, byte[] cipherText) {\n                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\security\\AESCipher.java:138: warning: no @return\n    public static byte[] decryptWithIV(byte[] key, byte[] iv, byte[] cipherText) {\n                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\annotations\\Annotation.java:14: warning: no comment\n    protected PdfDictionary dict;\n                            ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\annotations\\Annotation.java:15: warning: no comment\n    protected Page page;\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:88: warning: no @return\n    public String getCaption() { return readString(\"CA\"); }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:95: warning: no @return\n    public String getRolloverCaption() { return readString(\"RC\"); }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:102: warning: no @return\n    public String getAlternateCaption() { return readString(\"AC\"); }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:37: warning: no comment\n    public AppearanceCharacteristics(PdfDictionary owner) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:41: warning: no comment\n    public Color getBackground() {\n                 ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:49: warning: no comment\n    public Color getBorder() {\n                 ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:104: warning: no comment\n    public void setAlternateCaption(String caption) { writeString(\"AC\", caption); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:45: warning: no comment\n    public void setBackground(Color color) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:53: warning: no comment\n    public void setBorder(Color color) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:90: warning: no comment\n    public void setCaption(String caption) { writeString(\"CA\", caption); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\forms\\AppearanceCharacteristics.java:97: warning: no comment\n    public void setRolloverCaption(String caption) { writeString(\"RC\", caption); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\XfaNode.java:93: warning: no @param for name\n    public String getString(String name) {\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\XfaNode.java:148: warning: no @param for name\n    public void setMeasurement(String name, XfaMeasurement m) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\XfaNode.java:148: warning: no @param for m\n    public void setMeasurement(String name, XfaMeasurement m) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:14: warning: no @param for element\n    public AppearanceFilter(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:14: warning: no @param for parent\n    public AppearanceFilter(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:21: warning: no @param for value\n    public void setId(String value) { setAttribute(\"id\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:43: warning: no @param for value\n    public void setType(TypeValue value) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:52: warning: no @param for value\n    public void setUse(String value) { setAttribute(\"use\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:57: warning: no @param for value\n    public void setUsehref(String value) { setAttribute(\"usehref\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:62: warning: no @param for value\n    public void setValue(String value) { setTextContent(value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:32: warning: no @return\n        public static TypeValue fromValue(String s) {\n                                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:25: warning: no comment\n        OPTIONAL(\"optional\"),\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\AppearanceFilter.java:26: warning: no comment\n        REQUIRED(\"required\");\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:14: warning: no @param for element\n    public Arc(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:14: warning: no @param for parent\n    public Arc(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:38: warning: no @param for value\n    public void setCircular(CircularValue value) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:65: warning: no @param for value\n    public void setHand(HandValue value) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:74: warning: no @param for value\n    public void setId(String value) { setAttribute(\"id\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:79: warning: no @param for value\n    public void setStartAngle(String value) { setAttribute(\"startAngle\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:84: warning: no @param for value\n    public void setSweepAngle(String value) { setAttribute(\"sweepAngle\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:89: warning: no @param for value\n    public void setUse(String value) { setAttribute(\"use\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:94: warning: no @param for value\n    public void setUsehref(String value) { setAttribute(\"usehref\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:99: warning: no @return\n    public Edge ensureEdge() { return (Edge) ensureChild(\"edge\"); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:104: warning: no @return\n    public Fill ensureFill() { return (Fill) ensureChild(\"fill\"); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:27: warning: no @return\n        public static CircularValue fromValue(String s) {\n                                    ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:20: warning: no comment\n        V_0(\"0\"),\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:21: warning: no comment\n        V_1(\"1\");\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:54: warning: no @return\n        public static HandValue fromValue(String s) {\n                                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:46: warning: no comment\n        EVEN(\"even\"),\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:47: warning: no comment\n        LEFT(\"left\"),\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Arc.java:48: warning: no comment\n        RIGHT(\"right\");\n        ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:14: warning: no @param for element\n    public Area(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:14: warning: no @param for parent\n    public Area(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:21: warning: no @param for value\n    public void setColSpan(java.lang.Integer value) { setAttribute(\"colSpan\", value == null ? null : value.toString()); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:26: warning: no @param for value\n    public void setId(String value) { setAttribute(\"id\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:31: warning: no @param for value\n    public void setName(String value) { setAttribute(\"name\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:36: warning: no @param for value\n    public void setRelevant(String value) { setAttribute(\"relevant\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:41: warning: no @param for value\n    public void setUse(String value) { setAttribute(\"use\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:46: warning: no @param for value\n    public void setUsehref(String value) { setAttribute(\"usehref\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:51: warning: no @param for value\n    public void setX(XfaMeasurement value) { setAttribute(\"x\", value == null ? null : value.format()); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:56: warning: no @param for value\n    public void setY(XfaMeasurement value) { setAttribute(\"y\", value == null ? null : value.format()); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:61: warning: no @return\n    public Desc ensureDesc() { return (Desc) ensureChild(\"desc\"); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:66: warning: no @return\n    public Extras ensureExtras() { return (Extras) ensureChild(\"extras\"); }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:75: warning: no @return\n    public Area addArea() { return (Area) addChild(\"area\"); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:84: warning: no @return\n    public Draw addDraw() { return (Draw) addChild(\"draw\"); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:93: warning: no @return\n    public ExclGroup addExclGroup() { return (ExclGroup) addChild(\"exclGroup\"); }\n                     ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:102: warning: no @return\n    public ExObject addExObject() { return (ExObject) addChild(\"exObject\"); }\n                    ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:111: warning: no @return\n    public Field addField() { return (Field) addChild(\"field\"); }\n                 ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:120: warning: no @return\n    public Subform addSubform() { return (Subform) addChild(\"subform\"); }\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Area.java:129: warning: no @return\n    public SubformSet addSubformSet() { return (SubformSet) addChild(\"subformSet\"); }\n                      ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\Artifact.java:102: error: unexpected end tag: </p>\n     * </p>\n       ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:14: warning: no @param for element\n    public Assist(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:14: warning: no @param for parent\n    public Assist(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:21: warning: no @param for value\n    public void setId(String value) { setAttribute(\"id\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:26: warning: no @param for value\n    public void setRole(String value) { setAttribute(\"role\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:31: warning: no @param for value\n    public void setUse(String value) { setAttribute(\"use\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:36: warning: no @param for value\n    public void setUsehref(String value) { setAttribute(\"usehref\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:41: warning: no @return\n    public Speak ensureSpeak() { return (Speak) ensureChild(\"speak\"); }\n                 ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Assist.java:46: warning: no @return\n    public ToolTip ensureToolTip() { return (ToolTip) ensureChild(\"toolTip\"); }\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:75: warning: no @return\n    public ColorSpaceBase getColorSpace() { return colorSpace; }\n                          ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:78: warning: no @return\n    public double[] getBackground() { return background; }\n                    ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:81: warning: no @return\n    public Rectangle getBBox() { return bbox; }\n                     ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:84: warning: no @return\n    public boolean isAntiAlias() { return antiAlias; }\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:87: warning: no @return\n    public PdfDictionary getPdfDictionary() { return dict; }\n                         ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:117: warning: no @param for obj\n    protected static PdfBase resolveRef(PdfBase obj) {\n                             ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:117: warning: no @return\n    protected static PdfBase resolveRef(PdfBase obj) {\n                             ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:126: warning: no @param for dict\n    protected static double[] getNumberArray(PdfDictionary dict, String key) {\n                              ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:126: warning: no @param for key\n    protected static double[] getNumberArray(PdfDictionary dict, String key) {\n                              ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:126: warning: no @return\n    protected static double[] getNumberArray(PdfDictionary dict, String key) {\n                              ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:138: warning: no @param for dict\n    protected static boolean[] getBooleanArray(PdfDictionary dict, String key) {\n                               ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:138: warning: no @param for key\n    protected static boolean[] getBooleanArray(PdfDictionary dict, String key) {\n                               ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\Shading.java:138: warning: no @return\n    protected static boolean[] getBooleanArray(PdfDictionary dict, String key) {\n                               ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:83: warning: no @return\n    public double getX0() { return x0; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:85: warning: no @return\n    public double getY0() { return y0; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:87: warning: no @return\n    public double getX1() { return x1; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:89: warning: no @return\n    public double getY1() { return y1; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:91: warning: no @return\n    public double getT0() { return t0; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:93: warning: no @return\n    public double getT1() { return t1; }\n                  ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:95: warning: no @return\n    public boolean isExtendStart() { return extendStart; }\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\pattern\\AxialShading.java:97: warning: no @return\n    public boolean isExtendEnd() { return extendEnd; }\n                   ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Barcode.java:14: warning: no @param for element\n    public Barcode(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Barcode.java:14: warning: no @param for parent\n    public Barcode(Element element, XfaNode parent) {\n           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Barcode.java:21: warning: no @param for value\n    public void setCharEncoding(String value) { setAttribute(\"charEncoding\", value); }\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\xfa\\model\\template\\Barcode.java:46: warning: no @param for value\n    public void setChecksum(ChecksumValue value) {\n                ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\html\\CssContext.java:69: error: unexpected end tag: </p>\n     * </p>\n       ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\html\\CssStyleParser.java:159: error: unexpected end tag: </p>\n     * </p>\n       ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\html\\CssStyleParser.java:216: error: unexpected end tag: </p>\n     * </p>\n       ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\html\\CssStyleParser.java:356: error: unexpected end tag: </p>\n     * </p>\n       ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\OperatorCollection.java:209: error: reference not found\n     * Visitor entry point: invokes {@link IOperatorSelector#visit(Operator)}\n                                           ^\nC:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\src\\main\\java\\org\\aspose\\pdf\\engine\\layout\\LayoutContext.java:58: error: unexpected end tag: </p>\n     * </p>\n       ^\n38 errors\n100 warnings\nCommand line was: cmd.exe /X /D /C \"\"C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.19.10-hotspot\\bin\\javadoc.exe\" -J-Duser.language= -J-Duser.country= @options @packages\"\n\nRefer to the generated Javadoc files in 'C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\target\\apidocs\\apidocs' dir.\n\r\n    at org.apache.maven.plugins.javadoc.AbstractJavadocMojo.doExecuteJavadocCommandLine (AbstractJavadocMojo.java:5114)\r\n    at org.apache.maven.plugins.javadoc.AbstractJavadocMojo.executeJavadocCommandLine (AbstractJavadocMojo.java:4987)\r\n    at org.apache.maven.plugins.javadoc.AbstractJavadocMojo.executeReport (AbstractJavadocMojo.java:2059)\r\n    at org.apache.maven.plugins.javadoc.JavadocJarMojo.doExecute (JavadocJarMojo.java:215)\r\n    at org.apache.maven.plugins.javadoc.AbstractJavadocMojo.execute (AbstractJavadocMojo.java:1851)\r\n    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)\r\n    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)\r\n    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)\r\n    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)\r\n    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)\r\n    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)\r\n    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)\r\n    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)\r\n    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)\r\n    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)\r\n    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)\r\n    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)\r\n    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)\r\n    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)\r\n    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)\r\n    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)\r\n    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:919)\r\n    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:285)\r\n    at org.apache.maven.cli.MavenCli.main (MavenCli.java:207)\r\n    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)\r\n    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:77)\r\n    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)\r\n    at java.lang.reflect.Method.invoke (Method.java:569)\r\n    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)\r\n    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)\r\n    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:362)\r\n    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)\r\n",
+          "stderr": "",
+          "timed_out": false,
+          "environment_names": [
+            "CI",
+            "COMSPEC",
+            "GCM_INTERACTIVE",
+            "GIT_TERMINAL_PROMPT",
+            "JAVA_HOME",
+            "PATH",
+            "PATHEXT",
+            "SYSTEMROOT",
+            "TEMP",
+            "TMP",
+            "WINDIR"
+          ]
+        },
+        "example_compile": {
+          "argv": [
+            "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.19.10-hotspot\\bin\\javac.EXE",
+            "-cp",
+            "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\target\\classes",
+            "-d",
+            "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\target\\readme-agent-example",
+            "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-gv9tkh5t\\repository\\ReadmeExample.java"
+          ],
+          "return_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "timed_out": false,
+          "environment_names": [
+            "CI",
+            "COMSPEC",
+            "GCM_INTERACTIVE",
+            "GIT_TERMINAL_PROMPT",
+            "JAVA_HOME",
+            "PATH",
+            "PATHEXT",
+            "SYSTEMROOT",
+            "TEMP",
+            "TMP",
+            "WINDIR"
+          ]
+        }
+      },
+      "package_acquisition": {
+        "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "results": [
+          {
+            "path": ".",
+            "ecosystem": "java",
+            "outcome": "REGISTRY_VERIFIED",
+            "detail": "Maven Central: org.aspose:aspose-pdf-foss found",
+            "coordinate": {
+              "group_id": "org.aspose",
+              "artifact_id": "aspose-pdf-foss"
+            }
+          }
+        ]
+      },
+      "readme_claim_conflicts": [],
+      "core_facts_accepted": true
+    }
+  ]
+}

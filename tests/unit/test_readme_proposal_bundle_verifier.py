@@ -27,8 +27,14 @@ from readme_agent.verification.readme_proposal_bundle import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+# Corrected 2026-07-24: repointed from level8-local-readme-proposals-2026-07-24/, whose candidates
+# were rendered from pre-resolver-fix facts (see that bundle's own SUPERSEDED.md).
 EVIDENCE = (
-    REPO_ROOT / "plans" / "investigations" / "evidence" / "level8-local-readme-proposals-2026-07-24"
+    REPO_ROOT
+    / "plans"
+    / "investigations"
+    / "evidence"
+    / "level8-local-readme-proposals-corrected-acquisition-2026-07-24"
 )
 
 

@@ -194,6 +194,50 @@ allow-list check (data/products.json)
   -> optional local commit or draft-PR effect (never a default-branch write)
 ```
 
+## Trust and reconciliation doctrine
+
+Two principles govern every fact and claim this system handles, learned the hard way
+2026-07-24 (`plans/investigations/evidence/package-acquisition-ground-truth-2026-07-24/`):
+the resolver's Maven check queried the deprecated `search.maven.org` Solr index, which does
+not index the `org.aspose` group at all, so it reported every published Aspose Java package
+as `NOT_PUBLISHED` — and the README pipeline stripped a correct install and substituted
+source-build, degrading a good README on a false premise. The fix required more than a
+one-line endpoint change; it required these two principles becoming structural, not
+case-by-case:
+
+1. **Verify against authoritative ground truth; never trust a capability's output, a stored
+   fact, an evidence bundle, a subagent report, or a manifest's self-declared name as if it
+   were reality.** A resolver, a facts record, a prior evidence bundle, or a package
+   manifest's declared name can all be stale or simply wrong (`ecosystems/resolver.py`'s
+   Solr-vs-`repo1.maven.org` bug; a manifest's unpublished placeholder name). The independent
+   verifier (`verification/readme_proposal_bundle.py::_verify_acquisition_ground_truth`)
+   re-resolves the canonical coordinate LIVE at verification time rather than trusting what
+   the candidate's stored facts claim — it is the concrete enforcement of this principle for
+   package acquisition, and the same discipline applies to every other claim class.
+2. **README content is untrusted *input to investigate*, and a reusable fact source once
+   autonomously verified — never blindly trusted, and never discarded as noise just because
+   it is unverified.** A repository's own README carries real candidate facts (install
+   coordinates, examples, capabilities). The system must corroborate each against
+   authoritative repository/registry evidence rather than reflexively rejecting or
+   overwriting it. The cells-java Maven `<dependency>` block was the exact failure mode this
+   principle exists to prevent: a true, corroborable README claim was discarded as noise
+   instead of being verified and kept. Today, corroboration happens by construction rather
+   than by promotion: a `readme_claim`-sourced fact can only ever be
+   `unverified`/`conflicting`/`blocked` (`facts/schema_v2.py`'s own guard — "README prose is
+   untrusted data and cannot be verified by itself") and never wins fact resolution on its
+   own; what actually keeps a true claim is an independently-sourced, authoritatively-derived
+   fact (e.g. `_registry_acquisition_fact`'s `external_registry` record) that happens to agree
+   with it, so the resolved value matches the README precisely when the README was right.
+   Directly promoting a corroborated `readme_claim` fact itself to `verified` is not yet
+   built — an honest, open gap (`RDM-025`), not silently claimed as done.
+
+The "aspose {family} foss" coordinate rule (`ecosystems/foss_coordinate.py`) is principle 1
+applied to package acquisition specifically: derive the canonical FOSS coordinate per
+ecosystem and check it against that ecosystem's authoritative registry (Maven →
+`repo1.maven.org`, not the Solr search index; C++ → NuGet, where the Aspose C++ FOSS packages
+actually ship, not Conan/vcpkg), never the manifest's self-declared name and never a
+similarly-named commercial package.
+
 ## One owned span, not two
 
 Through Phase 20 the renderer used two owned spans: `callout` (immediately after the H1, addressing

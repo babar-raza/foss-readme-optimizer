@@ -5,12 +5,20 @@ Wave 11.3's `ProductFactsV1.package_coordinates` (populated from Wave
 mechanism the real `aspose-cells-foss/Aspose.Cells-FOSS-for-Java#1` PR
 failure names as missing: `readme/renderer.py::render_missing_elements()`
 is a pure function of a 4-boolean `GapReport` that never reads the rest of
-the README, so a known-false Maven coordinate
-(`<groupId>org.aspose</groupId><artifactId>aspose-cells-foss</artifactId>`,
-confirmed live 2026-07-23 to still be the real README's own text, and
-confirmed via `PKG-005`'s `verify_package_acquisition` to resolve to
-`NOT_PUBLISHED` on Maven Central) can ship untouched even though the
-system already possesses the evidence proving it false.
+the README, so a genuinely false coordinate claim could ship untouched even
+though the system already possesses the evidence proving it false.
+
+**Corrected 2026-07-24**: an earlier version of this docstring cited the real
+README's Maven coordinate (`<groupId>org.aspose</groupId><artifactId>aspose-
+cells-foss</artifactId>`) as the worked example of a "known-false" claim. It is
+not false -- `org.aspose:aspose-cells-foss` IS published on Maven Central; the
+prior resolver queried the deprecated `search.maven.org` Solr index, which does
+not index the `org.aspose` group at all, and reported a false `NOT_PUBLISHED`.
+See `plans/investigations/evidence/package-acquisition-ground-truth-2026-07-24/`.
+The mechanism below is unaffected by that correction -- it only ever raises a
+finding for a resolver-confirmed `NOT_PUBLISHED` outcome (§`find_claim_conflicts`),
+so fixing the resolver's endpoint fixed this module's behavior for free; nothing
+here needed to change.
 
 **Read-only, produces evidence-backed findings -- deliberately NOT wired
 into `orchestrator.prepare_readme_candidate()`'s render/skip pipeline this

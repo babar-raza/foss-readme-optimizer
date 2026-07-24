@@ -11,12 +11,16 @@ from readme_agent.readme.document_validation import validate_readme_document_can
 from readme_agent.readme.markers import find_presentation_span, render_presentation_span
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+# Corrected 2026-07-24: repointed from level8-local-immutable-snapshot-and-facts-2026-07-24/,
+# captured before the Maven resolver fix (search.maven.org never indexed the org.aspose group,
+# so it falsely reported every Java pilot's package NOT_PUBLISHED). See
+# plans/investigations/evidence/package-acquisition-ground-truth-2026-07-24/.
 PROOF_PATH = (
     PROJECT_ROOT
     / "plans"
     / "investigations"
     / "evidence"
-    / "level8-local-immutable-snapshot-and-facts-2026-07-24"
+    / "level8-local-immutable-snapshot-and-facts-corrected-acquisition-2026-07-24"
     / "immutable-snapshot-and-product-facts-proof.json"
 )
 
@@ -30,6 +34,26 @@ def _facts(org_repo: str) -> tuple[ProductFactsV2, str]:
     )
 
 
+def _force_source_build_acquisition(facts: ProductFactsV2) -> ProductFactsV2:
+    """Return a copy of ``facts`` with the acquisition fact forced to a genuinely-
+    unpublished (source_build) outcome -- a synthetic override proving the renderer's
+    fallback path still works for a package that really isn't published, independent of
+    real current registry state (see ecosystems/foss_coordinate.py's own "when no FOSS
+    package exists, source_build is the correct outcome" rule)."""
+    acquisition = facts.selected_fact("installation.verified_acquisition")
+    forced = acquisition.model_copy(
+        update={
+            "value": {
+                "method": "source_build",
+                "outcome": "SOURCE_BUILD_VERIFIED",
+                "detail": "synthetic: forced unpublished for this test",
+            }
+        }
+    )
+    other_facts = [fact for fact in facts.facts if fact.fact_id != acquisition.fact_id]
+    return facts.model_copy(update={"facts": [*other_facts, forced]})
+
+
 def test_presentation_span_preserves_inner_bytes_without_final_newline():
     source = "# Product\n\nExact bytes"
     candidate = render_presentation_span(source, "a" * 64)
@@ -41,9 +65,16 @@ def test_presentation_span_preserves_inner_bytes_without_final_newline():
     assert span.content_bytes == source.encode("utf-8")
 
 
-def test_cells_replaces_false_install_and_adds_verified_example():
+def test_cells_keeps_verified_maven_install_and_adds_verified_example():
+    """Corrected 2026-07-24: org.aspose:aspose-cells-foss IS published on Maven
+    Central (the prior resolver queried the wrong endpoint) -- the renderer must
+    KEEP a correct install claim, not strip it. See test_genuinely_unpublished_
+    package_still_replaces_install_with_source_build below for the fallback path."""
     org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
     facts, revision = _facts(org_repo)
+    assert facts.selected_fact("installation.verified_acquisition").value["method"] == (
+        "maven_central"
+    )
     source = """# Aspose.Cells FOSS for Java
 
 Spreadsheet library for Java developers.
@@ -73,9 +104,48 @@ Only XLSX is supported.
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
     assert decision.valid, decision.errors
+    assert "<artifactId>aspose-cells-foss</artifactId>" in candidate
+    assert "mvn clean install" not in candidate
+    assert facts.selected_fact("example.minimal").value["code"].rstrip() in candidate
+    assert not any(
+        operation.operation_id == "readme.installation.verified-source-replacement"
+        for operation in plan.operations
+    )
+
+
+def test_genuinely_unpublished_package_still_replaces_install_with_source_build():
+    """The fallback path this session's fix preserves: a package that really
+    is NOT published still gets its install claim corrected to source-build."""
+    org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    facts, revision = _facts(org_repo)
+    facts = _force_source_build_acquisition(facts)
+    source = """# Aspose.Cells FOSS for Java
+
+Spreadsheet library for Java developers.
+
+## Installation
+
+```xml
+<dependency>
+  <groupId>org.aspose</groupId>
+  <artifactId>aspose-cells-foss</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+## Quick Start
+
+Existing guidance.
+"""
+
+    candidate, plan = build_readme_document_candidate(
+        org_repo, source, facts, base_revision=revision
+    )
+    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert decision.valid, decision.errors
     assert "<artifactId>aspose-cells-foss</artifactId>" not in candidate
     assert "mvn clean install" in candidate
-    assert facts.selected_fact("example.minimal").value["code"].rstrip() in candidate
     assert any(
         operation.operation_id == "readme.installation.verified-source-replacement"
         and operation.protected_content_treatment == "authoritative_fact_correction"
@@ -83,7 +153,10 @@ Only XLSX is supported.
     )
 
 
-def test_pdf_removes_false_registry_badge_and_corrects_manifest_version():
+def test_pdf_keeps_verified_registry_badge_and_corrects_manifest_version():
+    """Corrected 2026-07-24: org.aspose:aspose-pdf-foss IS published -- the
+    Maven Central badge is a correct claim and must be kept. The manifest-
+    version correction op is independent of acquisition method and unaffected."""
     org_repo = "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java"
     facts, revision = _facts(org_repo)
     source = """# Aspose.PDF FOSS for Java
@@ -116,19 +189,23 @@ Existing guidance.
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
     assert decision.valid, decision.errors
-    assert "maven-central" not in candidate.lower()
+    assert "maven-central" in candidate.lower()
     assert "**Version 26.6.0**" in candidate
     assert "**Version 26.7**" not in candidate
 
 
-def test_3d_removes_promotional_callout_but_preserves_relationship_section():
-    org_repo = "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+def test_promotional_callout_is_removed_but_relationship_section_preserved():
+    """Uses cells-java facts (not 3D): this test is about the promotional-callout
+    op, orthogonal to which pilot's facts are used, and cells' example.minimal is
+    locally verified in this environment while 3D's needs a Java 21 toolchain this
+    session's environment lacks (FACT-014, unrelated pre-existing gap)."""
+    org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
     facts, revision = _facts(org_repo)
-    source = """# Aspose.3D FOSS for Java
+    source = """# Aspose.Cells FOSS for Java
 
-Open-source 3D scene processing for Java.
+Open-source spreadsheet processing for Java.
 
-> FOSS is on https://products.aspose.org/3d/java/ and commercial is on https://products.aspose.com/3d/java/.
+> FOSS is on https://products.aspose.org/cells/java/ and commercial is on https://products.aspose.com/cells/java/.
 
 ## About
 

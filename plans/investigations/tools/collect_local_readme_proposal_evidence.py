@@ -32,12 +32,17 @@ from readme_agent.verification.readme_proposal_bundle import (  # noqa: E402
     verify_readme_proposal_bundle,
 )
 
+# Corrected 2026-07-24: repointed from level8-local-immutable-snapshot-and-facts-2026-07-24/,
+# which was captured before the Maven resolver fix and records a false NOT_PUBLISHED for every
+# Java pilot's package. See package-acquisition-ground-truth-2026-07-24/ for the authoritative
+# matrix and level8-local-immutable-snapshot-and-facts-corrected-acquisition-2026-07-24/ for the
+# re-derived facts. The prior bundle is preserved, not deleted (GOV-003/017).
 FACT_PROOF = (
     REPO_ROOT
     / "plans"
     / "investigations"
     / "evidence"
-    / "level8-local-immutable-snapshot-and-facts-2026-07-24"
+    / "level8-local-immutable-snapshot-and-facts-corrected-acquisition-2026-07-24"
     / "immutable-snapshot-and-product-facts-proof.json"
 )
 EVIDENCE_ROOT = (REPO_ROOT / "plans" / "investigations" / "evidence").resolve()
@@ -124,9 +129,17 @@ def _pilot_bundle(output: Path, pilot: dict) -> LocalPilotProposalProofV1:
         repository_plan.model_dump(mode="json"),
     )
     _json(bundle / "document-validation.json", records["document_validation"])
+    # artifact-sha256.json never hashes itself (self-referential -- overwriting it after
+    # computing its own entry would immediately invalidate that entry); both writes below
+    # exclude it from the listing, matching verify_local_readme_proposal_evidence.py's own
+    # _refresh_checksums() convention.
     _json(
         bundle / "artifact-sha256.json",
-        {path.name: _sha256(path) for path in sorted(bundle.iterdir()) if path.is_file()},
+        {
+            path.name: _sha256(path)
+            for path in sorted(bundle.iterdir())
+            if path.is_file() and path.name != "artifact-sha256.json"
+        },
     )
 
     review = verify_readme_proposal_bundle(bundle)
@@ -140,7 +153,11 @@ def _pilot_bundle(output: Path, pilot: dict) -> LocalPilotProposalProofV1:
             "failures": review.failures,
         },
     )
-    artifacts = {path.name: _sha256(path) for path in sorted(bundle.iterdir()) if path.is_file()}
+    artifacts = {
+        path.name: _sha256(path)
+        for path in sorted(bundle.iterdir())
+        if path.is_file() and path.name != "artifact-sha256.json"
+    }
     _json(bundle / "artifact-sha256.json", artifacts)
     return LocalPilotProposalProofV1(
         org_repo=org_repo,

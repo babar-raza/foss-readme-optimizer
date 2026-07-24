@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-07-24T16:54:07.982822+00:00",
+  "reviewer": "independent-readme-proposal-bundle-verifier",
+  "verdict": "rejected",
+  "failures": [
+    "three-dimensional-java: an operation cites an unaccepted fact",
+    "three-dimensional-java: independent validation failed: ['readme.example.insert-verified-minimal: example.minimal:compiled-policy-example is blocked']"
+  ],
+  "pilot_count": 3,
+  "bundle_reports": [
+    {
+      "slug": "cells-java",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "verified": true,
+      "checks": {
+        "all_artifacts_present": true,
+        "artifact_checksums_match": true,
+        "schemas_valid": true,
+        "source_hash_matches_plan": true,
+        "facts_hash_matches_plan": true,
+        "candidate_hash_matches_plan": true,
+        "independent_reconstruction_byte_identical": true,
+        "reconstructed_plan_matches": true,
+        "operations_cite_selected_facts": true,
+        "cited_facts_accepted": true,
+        "independent_validation_valid": true,
+        "recomputed_validation_consistent_with_stored": true,
+        "native_git_apply_produces_candidate": true,
+        "acquisition_matches_live_registry": true
+      },
+      "failures": []
+    },
+    {
+      "slug": "pdf-java",
+      "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+      "verified": true,
+      "checks": {
+        "all_artifacts_present": true,
+        "artifact_checksums_match": true,
+        "schemas_valid": true,
+        "source_hash_matches_plan": true,
+        "facts_hash_matches_plan": true,
+        "candidate_hash_matches_plan": true,
+        "independent_reconstruction_byte_identical": true,
+        "reconstructed_plan_matches": true,
+        "operations_cite_selected_facts": true,
+        "cited_facts_accepted": true,
+        "independent_validation_valid": true,
+        "recomputed_validation_consistent_with_stored": true,
+        "native_git_apply_produces_candidate": true,
+        "acquisition_matches_live_registry": true
+      },
+      "failures": []
+    },
+    {
+      "slug": "three-dimensional-java",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "verified": false,
+      "checks": {
+        "all_artifacts_present": true,
+        "artifact_checksums_match": true,
+        "schemas_valid": true,
+        "source_hash_matches_plan": true,
+        "facts_hash_matches_plan": true,
+        "candidate_hash_matches_plan": true,
+        "independent_reconstruction_byte_identical": true,
+        "reconstructed_plan_matches": true,
+        "operations_cite_selected_facts": true,
+        "cited_facts_accepted": false,
+        "independent_validation_valid": false,
+        "recomputed_validation_consistent_with_stored": true,
+        "native_git_apply_produces_candidate": true,
+        "acquisition_matches_live_registry": true
+      },
+      "failures": [
+        "three-dimensional-java: an operation cites an unaccepted fact",
+        "three-dimensional-java: independent validation failed: ['readme.example.insert-verified-minimal: example.minimal:compiled-policy-example is blocked']"
+      ]
+    }
+  ],
+  "cross_pilot": {
+    "verified": true,
+    "checks": {
+      "candidates_distinct": true,
+      "each_candidate_has_own_identity": true,
+      "no_cross_pilot_identity_leak": true
+    },
+    "failures": []
+  }
+}

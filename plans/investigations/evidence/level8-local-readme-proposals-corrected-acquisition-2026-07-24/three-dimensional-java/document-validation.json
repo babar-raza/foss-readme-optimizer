@@ -1,0 +1,24 @@
+{
+  "valid": false,
+  "checks": {
+    "source_document_hash": true,
+    "adoption_preserved_source": true,
+    "candidate_has_presentation_span": true,
+    "facts_hash_matches": true,
+    "template_hash_matches": true,
+    "candidate_hash_matches": true,
+    "source_span_hashes": true,
+    "fact_citations": false,
+    "document_reconstruction": true,
+    "protected_content": true,
+    "verified_example_present": true,
+    "verified_overview_present": true
+  },
+  "errors": [
+    "readme.example.insert-verified-minimal: example.minimal:compiled-policy-example is blocked"
+  ],
+  "authorized_protected_corrections": [],
+  "citation_errors": [
+    "readme.example.insert-verified-minimal.example.minimal: fact example.minimal:compiled-policy-example is blocked"
+  ]
+}

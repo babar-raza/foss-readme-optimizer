@@ -1,0 +1,24 @@
+{
+  "reviewer": "independent-readme-proposal-bundle-verifier",
+  "verdict": "rejected",
+  "checks": {
+    "all_artifacts_present": true,
+    "artifact_checksums_match": true,
+    "schemas_valid": true,
+    "source_hash_matches_plan": true,
+    "facts_hash_matches_plan": true,
+    "candidate_hash_matches_plan": true,
+    "independent_reconstruction_byte_identical": true,
+    "reconstructed_plan_matches": true,
+    "operations_cite_selected_facts": true,
+    "cited_facts_accepted": false,
+    "independent_validation_valid": false,
+    "recomputed_validation_consistent_with_stored": true,
+    "native_git_apply_produces_candidate": true,
+    "acquisition_matches_live_registry": true
+  },
+  "failures": [
+    "three-dimensional-java: an operation cites an unaccepted fact",
+    "three-dimensional-java: independent validation failed: ['readme.example.insert-verified-minimal: example.minimal:compiled-policy-example is blocked']"
+  ]
+}

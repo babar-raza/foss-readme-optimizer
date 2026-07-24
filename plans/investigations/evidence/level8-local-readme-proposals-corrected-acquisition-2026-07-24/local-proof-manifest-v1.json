@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-24T16:53:48.041243+00:00",
+  "control_revision": "de7ff3d6e4ce219f9f82e63889d79936532412dc",
+  "source_facts_bundle_sha256": "5ee0615b39e48f42e401b625c76fa2ce21c197bea9cdcfdf67d3f189cbc8bec7",
+  "runtime_authority": "readme-agent supervise",
+  "proof_execution": "canonical deterministic proposal contracts",
+  "product_remote_writes": 0,
+  "pilots": [
+    {
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "facts_hash": "c76dd01e204931b768089ea143a9e751d1c68ffc709442fa8c9e30535bb48111",
+      "candidate_sha256": "79f41857725cc49e015841263ad8be7102f89b5d4de73bbccd8261f00e89f3a4",
+      "operation_ids": [
+        "readme.overview-navigation-and-acquisition",
+        "readme.example.insert-verified-minimal"
+      ],
+      "first_run_executable": true,
+      "independent_verdict": "accepted",
+      "identical_rerun_noop": true,
+      "artifact_sha256": {
+        "candidate-readme.md": "79f41857725cc49e015841263ad8be7102f89b5d4de73bbccd8261f00e89f3a4",
+        "document-validation.json": "f39579014b7e061434bbb038bafaadac3dcd7ceb8432149f216d8879903ca361",
+        "independent-review.json": "ab5b32ed1c72a36772b98cba916323c4daec0082cf1aaa182ed7f58c59ba08e6",
+        "original-readme.md": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+        "product-facts-v2.json": "415b16e58862867276e52841b9b6dd641a38d30d957a2f9c6d733d044169dbed",
+        "proposal.patch": "1e112fc6d50062c2932faa5aa5cb965359183ec05fa6b6b885f9658be9df7733",
+        "readme-document-plan-v1.json": "6403094ddc6e73f3c1e0fdefaa7774a52a6c6d30a07163406cecb23c53f23e89",
+        "repository-presentation-plan-v1.json": "22d397c089a447a51da76a3eead959097ad7ceb3821981e8382ff9e4a8122b24"
+      }
+    },
+    {
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "source_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+      "facts_hash": "0f034d95184e2212233120d48115f686aed7857b819f0ec2ef5d1a7ff4d66c54",
+      "candidate_sha256": "5d32e190c08f6c923de8fbbfd58201c27256737984d8b0a25b8dd125abca7db5",
+      "operation_ids": [
+        "readme.overview-navigation-and-acquisition",
+        "readme.example.insert-verified-minimal",
+        "readme.opening.remove-promotional-callout"
+      ],
+      "first_run_executable": false,
+      "independent_verdict": "rejected",
+      "identical_rerun_noop": true,
+      "artifact_sha256": {
+        "candidate-readme.md": "5d32e190c08f6c923de8fbbfd58201c27256737984d8b0a25b8dd125abca7db5",
+        "document-validation.json": "21b9136969ef7f48099f0b451c3e99c5b60d7c945bfaff0f572ad80c644d452f",
+        "independent-review.json": "7a484308d059b64e1e48d4f96fc01be64d5b424896e6554e25db238986fb2c45",
+        "original-readme.md": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
+        "product-facts-v2.json": "b37fba0642ec1d6b0e566e8ea46231e5360b3c33972a11047eb639e14095e2ab",
+        "proposal.patch": "7638e1225a520fe7d2ed2a4d8bfa8fc486097fd920e9a3194ce7ff320281f799",
+        "readme-document-plan-v1.json": "99b900ef935354be8215bf27d6f69c8dcb8ffcaba3a9d5b25d791e65b8254fdb",
+        "repository-presentation-plan-v1.json": "005665a9c16bb477e780320eca4237a7b2375099d4985b1f9fc971febeafe4b8"
+      }
+    },
+    {
+      "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+      "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+      "facts_hash": "5d4201993958f11575040ede1ebe628955a18862ea348340f7f554fa06406f73",
+      "candidate_sha256": "1bf4d77c060afc9ef197bba1b6dd09e8c8e7429d80930a1481b58d0482e079a0",
+      "operation_ids": [
+        "readme.overview-navigation-and-acquisition",
+        "readme.example.insert-verified-minimal",
+        "readme.release.correct-manifest-version"
+      ],
+      "first_run_executable": true,
+      "independent_verdict": "accepted",
+      "identical_rerun_noop": true,
+      "artifact_sha256": {
+        "candidate-readme.md": "1bf4d77c060afc9ef197bba1b6dd09e8c8e7429d80930a1481b58d0482e079a0",
+        "document-validation.json": "f39579014b7e061434bbb038bafaadac3dcd7ceb8432149f216d8879903ca361",
+        "independent-review.json": "ab5b32ed1c72a36772b98cba916323c4daec0082cf1aaa182ed7f58c59ba08e6",
+        "original-readme.md": "8cec8c365707437102773ef42d196600392aab8df7776d8095286d538ba74083",
+        "product-facts-v2.json": "ed01cb16ba66d7c4190915dcfb9cf5465e96326a410af5c859b95a3fd6b30de5",
+        "proposal.patch": "73629d963dd3dc371cd15b1c152b05631d636a7a00487abc2e3764280cae8354",
+        "readme-document-plan-v1.json": "a7436029f84238f4b77ef58fa30675477d2253e8389dae355afea42a8d24564e",
+        "repository-presentation-plan-v1.json": "7e662cbe50bdccbc34a32758524cd723011a2925fe8e2a70c02b6799ed9793b8"
+      }
+    }
+  ],
+  "accepted": false
+}

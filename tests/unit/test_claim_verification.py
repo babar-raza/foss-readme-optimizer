@@ -2,17 +2,24 @@
 install claims against Wave 11.3's live-verified `ProductFactsV1.
 package_coordinates`. Read-only, no network -- `ProductFactsV1` is
 constructed directly from plain data, matching this project's own
-established capability-boundary test convention (no real dispatch)."""
+established capability-boundary test convention (no real dispatch).
+
+Every fixture here is SYNTHETIC: `PackageCoordinateFactV1.verification_outcome`
+is forced to a fixed value directly, never fetched live. `_CELLS_JAVA_INSTALL_
+EXCERPT` below is real README text, but its NOT_PUBLISHED framing is a
+hypothetical -- corrected 2026-07-24: org.aspose:aspose-cells-foss IS actually
+published on Maven Central; the prior resolver queried the wrong endpoint (see
+plans/investigations/evidence/package-acquisition-ground-truth-2026-07-24/).
+These tests exercise the conflict-detection mechanism given a *hypothetical*
+NOT_PUBLISHED result, not a claim about this package's real, current state."""
 
 from readme_agent.facts.schema import PackageCoordinateFactV1, ProductFactsV1
 from readme_agent.readme.claim_verification import find_claim_conflicts
 
-# The real, live-fetched README excerpt (2026-07-23) from
-# aspose-cells-foss/Aspose.Cells-FOSS-for-Java's own `master` branch --
-# the exact text the real PR (#1) shipped without correcting, confirmed
-# live via `verify_package_acquisition` to resolve to `NOT_PUBLISHED` on
-# Maven Central (`RDM-007`'s own already-recorded finding).
-_REAL_CELLS_JAVA_INSTALL_EXCERPT = """## Installation
+# Real README install-section text (structure only) -- the NOT_PUBLISHED outcome
+# forced onto it below is a synthetic negative control, not this package's real
+# status (see module docstring).
+_CELLS_JAVA_INSTALL_EXCERPT = """## Installation
 
 Add the following dependency to your `pom.xml`:
 
@@ -40,14 +47,17 @@ def _facts(**coord_overrides) -> ProductFactsV1:
     )
 
 
-class TestFindClaimConflictsRealRegression:
-    """The named regression case: a real fixture reproducing the actual
-    PR's exact starting state must produce a finding, not silence."""
+class TestFindClaimConflictsSyntheticNotPublishedScenario:
+    """A synthetic NOT_PUBLISHED regression case: real README install text,
+    a fabricated resolver outcome -- proves the mechanism produces a
+    finding rather than silence when a coordinate is genuinely confirmed
+    false. Not a claim about this package's real, current publication
+    status (see module docstring -- it IS published)."""
 
-    def test_real_cells_java_readme_produces_a_conflict_finding(self):
+    def test_not_published_coordinate_produces_a_conflict_finding(self):
         facts = _facts()
 
-        findings = find_claim_conflicts(_REAL_CELLS_JAVA_INSTALL_EXCERPT, facts)
+        findings = find_claim_conflicts(_CELLS_JAVA_INSTALL_EXCERPT, facts)
 
         assert len(findings) == 1
         finding = findings[0]
@@ -60,24 +70,24 @@ class TestFindClaimConflictsRealRegression:
 class TestFindClaimConflictsGuards:
     def test_registry_verified_never_produces_a_finding(self):
         facts = _facts(verification_outcome="REGISTRY_VERIFIED", verification_detail="found")
-        findings = find_claim_conflicts(_REAL_CELLS_JAVA_INSTALL_EXCERPT, facts)
+        findings = find_claim_conflicts(_CELLS_JAVA_INSTALL_EXCERPT, facts)
         assert findings == []
 
     def test_capability_gap_never_produces_a_finding(self):
         """A capability gap means "couldn't check," never a confirmed
         false claim -- must not be treated as evidence of one."""
         facts = _facts(verification_outcome="CAPABILITY_GAP", verification_detail="no resolver")
-        findings = find_claim_conflicts(_REAL_CELLS_JAVA_INSTALL_EXCERPT, facts)
+        findings = find_claim_conflicts(_CELLS_JAVA_INSTALL_EXCERPT, facts)
         assert findings == []
 
     def test_blocked_network_never_produces_a_finding(self):
         facts = _facts(verification_outcome="BLOCKED_NETWORK", verification_detail="timeout")
-        findings = find_claim_conflicts(_REAL_CELLS_JAVA_INSTALL_EXCERPT, facts)
+        findings = find_claim_conflicts(_CELLS_JAVA_INSTALL_EXCERPT, facts)
         assert findings == []
 
     def test_none_outcome_never_produces_a_finding(self):
         facts = _facts(verification_outcome=None, verification_detail=None)
-        findings = find_claim_conflicts(_REAL_CELLS_JAVA_INSTALL_EXCERPT, facts)
+        findings = find_claim_conflicts(_CELLS_JAVA_INSTALL_EXCERPT, facts)
         assert findings == []
 
     def test_no_readme_claim_at_all_produces_no_finding(self):
@@ -87,7 +97,7 @@ class TestFindClaimConflictsGuards:
 
     def test_no_package_coordinates_produces_no_finding(self):
         facts = ProductFactsV1(org_repo="acme/widget")
-        findings = find_claim_conflicts(_REAL_CELLS_JAVA_INSTALL_EXCERPT, facts)
+        findings = find_claim_conflicts(_CELLS_JAVA_INSTALL_EXCERPT, facts)
         assert findings == []
 
 
@@ -145,7 +155,7 @@ class TestFindClaimConflictsMultiRoot:
         )
         facts = ProductFactsV1(org_repo="acme/widget", package_coordinates=[broken, working])
 
-        findings = find_claim_conflicts(_REAL_CELLS_JAVA_INSTALL_EXCERPT, facts)
+        findings = find_claim_conflicts(_CELLS_JAVA_INSTALL_EXCERPT, facts)
 
         assert len(findings) == 1
         assert findings[0].package_root_path == "module-a"
