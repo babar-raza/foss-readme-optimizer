@@ -305,7 +305,11 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         )
     print(
         f"{args.repo}: {result.status}"
-        + (f" ({result.blocked_reason})" if result.blocked_reason else "")
+        + (
+            f" ({result.blocked_reason}; category={result.blocked_category})"
+            if result.blocked_reason
+            else ""
+        )
     )
     for d in result.decisions:
         print(f"  [{d.turn}] {d.kind}: {d.detail}")

@@ -289,6 +289,7 @@ taskcards:
   - GOV-026
   - GOV-024
   - GOV-025
+  - GOV-028
   - BIZ-001
   - BIZ-002
   - BIZ-003
@@ -638,6 +639,8 @@ taskcards:
   - AGT-005
   - AGT-006
   - AGT-007
+  - AGT-009
+  - AGT-010
   - AGT-008
   - CAP-001
   - CAP-002
@@ -1889,10 +1892,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: a887a1d593c34730ea33a3335791a0becc63844f1085a546b9444f1c3a21ebac
+  source_sha256: cf3dc0d8df786506941e3d7363efc65f1c6ad03dbcb78e63b01457cbf0b13594
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 392
-  mandatory_requirement_rows: 368
+  total_requirement_rows: 395
+  mandatory_requirement_rows: 371
   excluded_backlog_rows: 24
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -2048,6 +2051,12 @@ requirement_coverage:
     disposition: preserved_verified
     semantic_findings: []
   - requirement_id: GOV-025
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: GOV-028
     priority: P1
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
@@ -3624,6 +3633,18 @@ requirement_coverage:
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
     disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: AGT-009
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: AGT-010
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: AGT-008
     priority: P1

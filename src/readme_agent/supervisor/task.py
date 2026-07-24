@@ -25,6 +25,14 @@ TERMINAL_STATES: frozenset[TaskState] = frozenset(
     {"PASSED", "FAILED", "BLOCKED", "STALE", "SUPERSEDED"}
 )
 
+# Decision #77, AGT-009/GOV-028: a block caused by infra/external conditions
+# (network/gateway outage, a legitimate concurrent lock holder, a human-gated
+# authority boundary) is acceptable as a terminal BLOCKED outcome; every other
+# block is agent-fixable and must route toward a fix, not quiet acceptance.
+# The full producer-by-producer classification table lives in the AGT-009
+# requirements.md row, not scattered as per-site comments.
+BlockedCategory = Literal["infra_external", "agent_fixable"]
+
 
 class Task(BaseModel):
     task_id: str = Field(default_factory=lambda: uuid4().hex)
@@ -35,6 +43,7 @@ class Task(BaseModel):
     result: dict | None = None
     gap: CapabilityGap | None = None
     blocked_reason: str | None = None
+    blocked_category: BlockedCategory | None = None
     supersedes: str | None = None
     created_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
     terminal_at: str | None = None

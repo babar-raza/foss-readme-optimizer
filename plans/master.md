@@ -1537,6 +1537,20 @@ that is the only permanence they carry; text is always the decision as it stands
     recovery within 24 hours, visible proposal age/drift, 100% deterministic validation, at least
     95% agentic golden-set accuracy, and an independent reproducible audit.
 
+77. **A terminal `BLOCKED` supervisor outcome is acceptable as-is only for infra/external causes;
+    every other block is agent-fixable and must route toward a fix, not quiet acceptance.** New
+    `BlockedCategory = Literal["infra_external", "agent_fixable"]`, classified explicitly at every
+    real `BLOCKED`-producing site (never inferred from a reason-string prefix) and threaded through
+    `Task`/`ConvergenceOutcome`/`SuperviseResult`: `infra_external` covers a legitimate
+    infrastructure or external-authority condition (LLM/gateway outage, a genuinely concurrent lock
+    holder, a human-gated onboarding/authorization/mode boundary, a missing permission);
+    `agent_fixable` covers everything else (a wiring bug, a build-it gap, a planner defect, an
+    ambiguous dispatch failure after retry). An unclassified block defaults to `agent_fixable` —
+    nothing becomes "understandable" by omission. The runtime mechanism that automatically appoints
+    a resolver before accepting a terminal `agent_fixable` block is registered as a planned
+    requirement (`AGT-010`) and deliberately **not** built in this decision — this decision is the
+    taxonomy and its propagation only. See `GOVERNANCE.md` rule 13, `GOV-028`, `AGT-009`/`AGT-010`.
+
 ## Architecture
 
 ### Canonical production flow

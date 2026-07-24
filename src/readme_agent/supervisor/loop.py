@@ -131,6 +131,7 @@ def supervise_repo(
             org_repo=org_repo,
             task_graph=TaskGraph(),
             blocked_reason=f"unsupported_ecosystem:{entry.platform}",
+            blocked_category="agent_fixable",
             decisions=[
                 DecisionSummary(
                     turn=0,
@@ -169,6 +170,7 @@ def supervise_repo(
             org_repo=org_repo,
             task_graph=TaskGraph(),
             blocked_reason="not_onboarded",
+            blocked_category="infra_external",
         )
 
     # Wave 8.6 (`OPS-011` extension): checked before any clone/specialist
@@ -185,6 +187,7 @@ def supervise_repo(
                 org_repo=org_repo,
                 task_graph=TaskGraph(),
                 blocked_reason=f"model_route_disabled:supervisor_planning:{route_status.reason}",
+                blocked_category="infra_external",
             )
 
     baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
@@ -321,6 +324,7 @@ def supervise_repo(
             task_graph=TaskGraph(),
             decisions=clone_failure_decisions,
             blocked_reason=f"baseline_clone_failed:{exc}",
+            blocked_category="infra_external",
             evidence_dir=clone_failure_evidence_dir,
         )
     repository_snapshot = capture_repository_snapshot(entry, baseline_path)
@@ -384,6 +388,7 @@ def supervise_repo(
                 org_repo=org_repo,
                 task_graph=TaskGraph(),
                 blocked_reason="run_lock_held",
+                blocked_category="infra_external",
             )
     try:
         # Wave 6 (decision #39): a second, finer-grained convergence tier, run
@@ -479,6 +484,7 @@ def supervise_repo(
                     )
                 ],
                 blocked_reason="required_independent_verifier_missing",
+                blocked_category="agent_fixable",
             )
         # Wave 8.6 (`ORC-003` reversal): `and not r.skipped_this_run` is the
         # crux correctness guarantee -- a domain the skip mechanism carried
@@ -574,6 +580,7 @@ def supervise_repo(
                     org_repo=org_repo,
                     task_graph=TaskGraph(),
                     blocked_reason="lock_held",
+                    blocked_category="infra_external",
                 )
         try:
             with repository_snapshot_scope(
@@ -661,6 +668,7 @@ def supervise_repo(
                 task_graph=graph,
                 decisions=decisions,
                 blocked_reason=outcome.blocked_reason,
+                blocked_category=outcome.blocked_category,
                 evidence_dir=evidence_path,
             )
         finally:

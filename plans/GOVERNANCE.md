@@ -114,6 +114,20 @@ to add a project fact here, it belongs in `master.md` instead.
     what it exists for. `plans/requirements.md` is also unaffected — its own editing procedure
     (`GOV-004`/`GOV-005`) is unchanged; only its Changelog section moved. (Added 2026-07-21, user
     directive — see Decision #44, `GOV-023`.)
+13. **"Blocked" is acceptable only for infra/external causes; every other block gets a resolver,
+    not acceptance.** A terminal `BLOCKED` supervisor outcome falls into exactly one of two
+    categories, classified explicitly at the site that produces it — never inferred by sniffing a
+    reason string. **`infra_external`**: a legitimate infrastructure or external-authority
+    condition (an LLM/gateway outage, a genuinely concurrent lock holder whose lease will self-heal,
+    a human-gated onboarding/authorization/mode boundary, a missing permission). Recording this and
+    retrying where retryable is the correct, complete response — no fix is owed beyond that.
+    **`agent_fixable`**: everything else — a wiring bug, a build-it gap, a planner defect, an
+    ambiguous failure after retry. This must never be accepted as a final answer; an agent must be
+    appointed to triage and fix it, and execution continues as normal once it is. **An unclassified
+    block always defaults to `agent_fixable`** — nothing becomes "understandable" by omission. This
+    generalizes `CONTINUE.md`'s own prior, narrower statement ("local difficulty … is not an
+    external blocker; repair root causes") into a named, propagated, machine-readable policy. (Added
+    2026-07-25, user directive — see Decision #77, `AGT-009`/`AGT-010`, `GOV-028`.)
 
 ## Applying a new requirement (the actual procedure)
 

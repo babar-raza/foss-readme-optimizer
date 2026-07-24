@@ -507,6 +507,7 @@ class TestBasicLoop:
         assert result.status == "BLOCKED"
         assert result.blocked_reason is not None
         assert result.blocked_reason.startswith("planner_stop_rejected_with_eligible_work:")
+        assert result.blocked_category == "agent_fixable"
         assert [decision.kind for decision in result.decisions].count("stop_rejected") == 3
         assert all(decision.kind != "stop" for decision in result.decisions)
 
@@ -798,6 +799,7 @@ class TestSpecialistDrivenConvergence:
         assert second.status == "BLOCKED"
         assert second.blocked_reason is not None
         assert second.blocked_reason.startswith("specialist_failed:")
+        assert second.blocked_category == "agent_fixable"
         # The bootstrap/planner loop actually ran this time, not short-circuited.
         assert "inspect_repository" in [t.capability_id for t in second.task_graph.tasks.values()]
 
@@ -932,6 +934,7 @@ class TestModelRouteDisablement:
         assert result.blocked_reason == (
             "model_route_disabled:supervisor_planning:golden-set pass-rate below threshold"
         )
+        assert result.blocked_category == "infra_external"
 
     def test_no_recorded_status_proceeds_normally(self, project):
         backend = FakeStateBackend()
@@ -1002,6 +1005,7 @@ class TestNotOnboardedGate:
 
         assert result.status == "BLOCKED"
         assert result.blocked_reason == "not_onboarded"
+        assert result.blocked_category == "infra_external"
         assert result.task_graph.tasks == {}
 
     def test_missing_ecosystem_only_still_blocks(self, project):
@@ -1016,6 +1020,7 @@ class TestNotOnboardedGate:
         )
         assert result.status == "BLOCKED"
         assert result.blocked_reason == "not_onboarded"
+        assert result.blocked_category == "infra_external"
 
     def test_missing_policy_profile_only_still_blocks(self, project):
         self._rewrite_products_json(project, policy_profile=None)
@@ -1029,6 +1034,7 @@ class TestNotOnboardedGate:
         )
         assert result.status == "BLOCKED"
         assert result.blocked_reason == "not_onboarded"
+        assert result.blocked_category == "infra_external"
 
     def test_unregistered_rust_ecosystem_is_explicitly_unsupported(self, project):
         self._rewrite_products_json(
@@ -1042,6 +1048,7 @@ class TestNotOnboardedGate:
 
         assert result.status == "BLOCKED"
         assert result.blocked_reason == "unsupported_ecosystem:rust"
+        assert result.blocked_category == "agent_fixable"
         assert result.decisions[0].kind == "capability_gap"
 
     def test_fully_onboarded_entry_is_unaffected_by_the_new_gate(self, project):
@@ -1089,6 +1096,7 @@ class TestBaselineCloneFailureDegradesGracefully:
         assert result.blocked_reason is not None
         assert "baseline_clone_failed" in result.blocked_reason
         assert "timed out after 600s" in result.blocked_reason
+        assert result.blocked_category == "infra_external"
         assert result.evidence_dir is not None
         assert (result.evidence_dir / "manifest.json").exists()
         assert (result.evidence_dir / "decisions.json").exists()
@@ -1523,6 +1531,7 @@ class TestSpecialistFailureIsolation:
         assert result.status == "BLOCKED"
         assert result.blocked_reason is not None
         assert result.blocked_reason.startswith("specialist_failed:")
+        assert result.blocked_category == "agent_fixable"
 
     def test_a_raising_specialists_error_never_looks_like_no_change_to_the_shortcut(
         self, project, monkeypatch
@@ -1552,6 +1561,7 @@ class TestSpecialistFailureIsolation:
         assert result.status == "BLOCKED"
         assert result.blocked_reason is not None
         assert result.blocked_reason.startswith("specialist_failed:")
+        assert result.blocked_category == "agent_fixable"
         # The bootstrap dispatch only happens past the shortcut -- direct
         # proof the full loop ran rather than short-circuiting.
         assert "inspect_repository" in [t.capability_id for t in result.task_graph.tasks.values()]
@@ -1691,6 +1701,7 @@ class TestLockContention:
         )
         assert result.status == "BLOCKED"
         assert result.blocked_reason == "lock_held"
+        assert result.blocked_category == "infra_external"
 
 
 class TestRunLockContention:
@@ -1723,6 +1734,7 @@ class TestRunLockContention:
         )
         assert result.status == "BLOCKED"
         assert result.blocked_reason == "run_lock_held"
+        assert result.blocked_category == "infra_external"
 
     def test_run_lock_is_released_after_converged_no_tracked_change(self, project):
         backend = FakeStateBackend()
@@ -1947,6 +1959,7 @@ class TestTokenBudget:
         assert result.status == "BLOCKED"
         assert result.blocked_reason is not None
         assert result.blocked_reason.startswith("dossier_token_budget_exceeded")
+        assert result.blocked_category == "agent_fixable"
 
     def test_missing_usage_never_trips_the_breaker_or_crashes(self, project):
         turns = [
@@ -1983,6 +1996,7 @@ class TestPlannerFailureEvidence:
         assert result.status == "BLOCKED"
         assert result.blocked_reason is not None
         assert result.blocked_reason.startswith("planner_llm_failure")
+        assert result.blocked_category == "infra_external"
         assert result.evidence_dir is not None
         for name in (
             "specialist_results.json",
@@ -2028,9 +2042,33 @@ class TestRequiredIndependentVerificationGate:
 
         assert result.status == "BLOCKED"
         assert result.blocked_reason == "required_independent_verifier_missing"
+        assert result.blocked_category == "agent_fixable"
 
 
 class TestMaxTurns:
+    def test_planner_receives_the_advertised_final_turn_and_can_stop(self, project):
+        turns = [
+            PlannerTurn(
+                tool_call=_tool_call(
+                    "c1",
+                    "detect_readme_gaps",
+                    {"org_repo": ORG_REPO},
+                ),
+                meta=LLMResponseMeta(),
+            ),
+            PlannerTurn(content="No further capability would help.", meta=LLMResponseMeta()),
+        ]
+
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(turns),
+            write_evidence_bundle=False,
+            max_turns=2,
+        )
+
+        assert result.status != "BLOCKED"
+        assert result.blocked_reason != "repair_exhausted"
+
     def test_a_planner_that_never_stops_is_blocked_as_repair_exhausted_not_silently_capped(
         self, project
     ):
@@ -2058,9 +2096,11 @@ class TestMaxTurns:
             ORG_REPO,
             planner_client=FixturePlannerClient(turns),
             write_evidence_bundle=False,
-            max_turns=3,
+            max_turns=2,
         )
         assert result.status == "BLOCKED"
+        assert result.blocked_reason == "repair_exhausted"
+        assert result.blocked_category == "agent_fixable"
 
     def test_known_specialist_failure_precedes_repair_exhaustion(self, project, monkeypatch):
         from readme_agent.supervisor import loop
@@ -2093,6 +2133,7 @@ class TestMaxTurns:
         assert result.blocked_reason == (
             "specialist_failed:readme_presentation:ERROR:verification_rejected:controlled"
         )
+        assert result.blocked_category == "agent_fixable"
 
 
 class TestWriteCapableModeGate:
@@ -2137,6 +2178,7 @@ class TestWriteCapableModeGate:
 
         assert result.state == "BLOCKED"
         assert "mode" in result.blocked_reason
+        assert result.blocked_category == "infra_external"
 
     def test_write_capable_capability_not_mode_blocked_when_mode_full(self, project, monkeypatch):
         """Control case: mode == "full" is unaffected -- the new mode check
@@ -2182,3 +2224,47 @@ class TestWriteCapableModeGate:
         )
 
         assert result.state == "PASSED"
+
+    def test_write_capable_dispatch_denied_permission_is_infra_external(self, project, monkeypatch):
+        """AGT-009: the one producer no existing test pinned -- a write-capable
+        capability that clears the mode gate (mode == "full") but is dispatched
+        under read-only-only permissions (backend=None routes through
+        dispatch_tool_call(..., READ_ONLY_PERMISSIONS, ...) unconditionally)
+        is denied with rejected_permission_denied, which AUTH-004's own
+        legitimate-stop framing classifies infra_external, not agent_fixable --
+        missing permission is a human authorization boundary, not a bug."""
+        from readme_agent.capabilities.schema import CapabilityManifest
+        from readme_agent.supervisor.action_dispatch import dispatch_and_record
+        from readme_agent.supervisor.task import Task, TaskGraph
+
+        products_path = project / "data" / "products.json"
+        products = json.loads(products_path.read_text(encoding="utf-8"))
+        products[0]["mode"] = "full"
+        products_path.write_text(json.dumps(products), encoding="utf-8")
+
+        fake_manifest = CapabilityManifest(
+            capability_id="fake_write_capability",
+            version="1",
+            name="Fake write capability",
+            purpose="test fixture",
+            category="test",
+            owner="tests",
+            execution_type="deterministic_tool",
+            side_effect_class="local_write",
+            required_permissions=["local_write"],
+        )
+        monkeypatch.setattr(registry, "get", lambda capability_id: fake_manifest)
+
+        graph = TaskGraph()
+        task = graph.add_task(
+            Task(capability_id="fake_write_capability", arguments={"org_repo": ORG_REPO})
+        )
+
+        result = dispatch_and_record(
+            graph, task, backend=None, org_repo=ORG_REPO, decisions=[], turn=1
+        )
+
+        assert result.state == "BLOCKED"
+        assert result.blocked_reason is not None
+        assert "missing" in result.blocked_reason and "local_write" in result.blocked_reason
+        assert result.blocked_category == "infra_external"

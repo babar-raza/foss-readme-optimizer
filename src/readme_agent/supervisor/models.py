@@ -24,4 +24,5 @@ class SuperviseResult:
     task_graph: TaskGraph
     decisions: list[DecisionSummary] = field(default_factory=list)
     blocked_reason: str | None = None
+    blocked_category: str | None = None
     evidence_dir: Path | None = None

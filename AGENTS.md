@@ -81,6 +81,22 @@ CI (`.github/workflows/ci.yml`) runs exactly: `ruff check`, `ruff format --check
   with no upward or cyclic imports; and when a change would push a non-wiring module past
   ~300 lines or add a second concern, split first — tests split along the same line.
 
+## Commit attribution
+
+Every commit that includes work performed by an AI coding agent must carry a `Co-Authored-By:`
+git trailer identifying that agent, appended to the commit message body (not the summary line).
+Claude Code already does this automatically — visible throughout this repo's history as
+`Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>`. Codex does not add this on its own and
+must add it explicitly on every commit it authors or materially contributes to:
+
+```
+Co-Authored-By: Codex <noreply@openai.com>
+```
+
+If more than one agent contributed to the same commit, include one `Co-Authored-By:` trailer per
+agent, so history accurately reflects who did the work regardless of which agent's session ran
+`git commit`.
+
 ## Safety invariants — never weaken these
 
 Two named safety properties from `docs/safety-model.md`. Any change that touches them needs the
@@ -136,6 +152,18 @@ currently doing, log it as a new row with status `BACKLOG` (open) in `plans/requ
 the section matching its topic — do not fix it as unrequested scope creep, and do not silently
 drop it. If the issue **does** block the current task's correctness, safety, or acceptance, fix it
 first, before considering the task done. See `GOV-014` (`plans/master.md` decision #29).
+
+## Blocked means classify, then fix — not stop
+
+A terminal `BLOCKED` supervisor outcome is acceptable as-is only when it's `infra_external`: a
+genuine infrastructure or external-authority condition (an LLM/gateway outage, a legitimate
+concurrent lock holder, a human-gated onboarding/authorization/mode boundary, a missing
+permission). Every other `BLOCKED` — a wiring bug, a build-it gap, a planner defect, an ambiguous
+dispatch failure — is `agent_fixable`: don't accept it as final, appoint an agent to triage and fix
+it, and continue execution once it's resolved. `SuperviseResult`/`ConvergenceOutcome`/`Task` all
+carry a `blocked_category` field for exactly this; **an unclassified block defaults to
+`agent_fixable`**, never silently "understandable" by omission. See `GOV-028`
+(`plans/GOVERNANCE.md` rule 13, `plans/master.md` decision #77, `AGT-009`/`AGT-010`).
 
 ## Prefer battle-tested tools over hand-rolling
 

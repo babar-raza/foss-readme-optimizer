@@ -121,6 +121,19 @@ def run_planner_loop(
             # enough because the planner never emitted a stop.
             outcome = classified if classified.status == "BLOCKED" else exhausted
             break
+        if turn == max_turns:
+            # Preserve a known specialist/task failure without making a
+            # planner call merely to rediscover it. This is separate from
+            # exhaustion: a healthy run is still allowed to execute the
+            # advertised final planner turn and can stop normally there.
+            classified = final_status(
+                graph,
+                applied_any_effect=applied_any_effect,
+                specialist_results=specialist_results,
+            )
+            if classified.status == "BLOCKED":
+                outcome = classified
+                break
         messages[1]["content"] = dossier.render_turn_context(
             supervisor_prompt,
             org_repo=org_repo,
@@ -139,6 +152,7 @@ def run_planner_loop(
             outcome = ConvergenceOutcome(
                 status="BLOCKED",
                 blocked_reason=f"planner_llm_failure: {exc}",
+                blocked_category="infra_external",
             )
             break
 
@@ -161,6 +175,7 @@ def run_planner_loop(
                     outcome = ConvergenceOutcome(
                         status="BLOCKED",
                         blocked_reason=f"planner_stop_rejected_with_eligible_work:{remaining}",
+                        blocked_category="agent_fixable",
                     )
                     break
                 messages.append(
@@ -200,6 +215,7 @@ def run_planner_loop(
                     outcome = ConvergenceOutcome(
                         status="BLOCKED",
                         blocked_reason=f"planner_stop_rejected_with_eligible_work:{remaining}",
+                        blocked_category="agent_fixable",
                     )
                     break
                 messages.append(
@@ -357,6 +373,7 @@ def run_planner_loop(
             outcome = ConvergenceOutcome(
                 status="BLOCKED",
                 blocked_reason=f"dossier_token_budget_exceeded:{usage.prompt_tokens}",
+                blocked_category="agent_fixable",
             )
 
     assert outcome is not None

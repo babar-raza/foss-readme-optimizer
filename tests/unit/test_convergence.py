@@ -16,6 +16,7 @@ from readme_agent.state.schema import (
     TriggerRecordV1,
 )
 from readme_agent.supervisor.convergence import (
+    ConvergenceOutcome,
     check_repair_exhausted,
     compute_control_plane_fingerprint,
     final_status,
@@ -275,11 +276,34 @@ class TestCheckRepairExhausted:
     def test_under_max_turns_returns_none(self):
         assert check_repair_exhausted(turns_taken=1, max_turns=8) is None
 
-    def test_at_max_turns_is_blocked_as_a_bug_detector_not_a_normal_stop(self):
-        outcome = check_repair_exhausted(turns_taken=8, max_turns=8)
+    def test_final_permitted_turn_is_not_exhausted(self):
+        assert check_repair_exhausted(turns_taken=8, max_turns=8) is None
+
+    def test_after_max_turns_is_blocked_as_a_bug_detector_not_a_normal_stop(self):
+        outcome = check_repair_exhausted(turns_taken=9, max_turns=8)
         assert outcome is not None
         assert outcome.status == "BLOCKED"
         assert outcome.blocked_reason == "repair_exhausted"
+        assert outcome.blocked_category == "agent_fixable"
+
+
+class TestBlockedCategoryDefaulting:
+    """AGT-009/GOV-028: an unclassified block can never silently become
+    "understandable" -- ConvergenceOutcome.__post_init__ fails toward the
+    actionable (agent_fixable) category for any BLOCKED outcome that didn't
+    name one explicitly; non-BLOCKED statuses never get a category at all."""
+
+    def test_bare_blocked_outcome_defaults_to_agent_fixable(self):
+        outcome = ConvergenceOutcome(status="BLOCKED")
+        assert outcome.blocked_category == "agent_fixable"
+
+    def test_explicit_infra_external_is_not_overridden_by_the_default(self):
+        outcome = ConvergenceOutcome(status="BLOCKED", blocked_category="infra_external")
+        assert outcome.blocked_category == "infra_external"
+
+    def test_a_converged_outcome_never_gets_a_category(self):
+        outcome = ConvergenceOutcome(status="CONVERGED_NO_CHANGE")
+        assert outcome.blocked_category is None
 
 
 class TestFinalStatus:
@@ -302,6 +326,7 @@ class TestFinalStatus:
             "specialist_failed:readme_presentation:"
             "ERROR:verification_rejected:prose_quality_flagged"
         )
+        assert outcome.blocked_category == "agent_fixable"
 
     def test_no_blocked_tasks_converges_no_change(self):
         graph = TaskGraph()
@@ -390,6 +415,23 @@ class TestFinalStatus:
         outcome = final_status(graph, applied_any_effect=False)
         assert outcome.status == "BLOCKED"
         assert outcome.blocked_reason == "rejected_permission_denied"
+        assert outcome.blocked_category == "agent_fixable"
+
+    def test_blocked_task_carrying_a_category_passes_it_through_intact(self):
+        """AGT-009: an infra_external task's own category must survive
+        final_status() unchanged, never overridden by the agent_fixable
+        default -- the default only fires for an unclassified task."""
+        graph = TaskGraph()
+        t1 = graph.add_task(Task(capability_id="a"))
+        graph.mark(
+            t1.task_id,
+            "BLOCKED",
+            blocked_reason="lock_held",
+            blocked_category="infra_external",
+        )
+        outcome = final_status(graph, applied_any_effect=False)
+        assert outcome.status == "BLOCKED"
+        assert outcome.blocked_category == "infra_external"
 
     def test_blocked_gap_alongside_independent_passed_work_is_partial_with_gap(self):
         """GAP-001's 'continue independent supported work' + GAP-002's exact
@@ -416,6 +458,7 @@ class TestFinalStatus:
         )
         outcome = final_status(graph, applied_any_effect=False)
         assert outcome.status == "BLOCKED"
+        assert outcome.blocked_category == "agent_fixable"
 
 
 NOW = datetime(2026, 7, 23, 12, 0, 0, tzinfo=UTC)

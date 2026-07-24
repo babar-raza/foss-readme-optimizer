@@ -32,7 +32,7 @@ from readme_agent.state.schema import (
     RunStateV1,
     TriggerRecordV1,
 )
-from readme_agent.supervisor.task import TaskGraph
+from readme_agent.supervisor.task import BlockedCategory, TaskGraph
 from readme_agent.supervisor.work_ledger import build_work_ledger
 
 SuperviseStatus = Literal[
@@ -56,6 +56,14 @@ SuperviseStatus = Literal[
 class ConvergenceOutcome:
     status: SuperviseStatus
     blocked_reason: str | None = None
+    # AGT-009/GOV-028: BLOCKED-only semantics -- stays None for every other
+    # status. Default rule: an unclassified block can never silently become
+    # "understandable" -- __post_init__ fails toward the actionable category.
+    blocked_category: BlockedCategory | None = None
+
+    def __post_init__(self) -> None:
+        if self.status == "BLOCKED" and self.blocked_category is None:
+            self.blocked_category = "agent_fixable"
 
 
 def is_fresh(
@@ -253,9 +261,16 @@ def check_repair_exhausted(turns_taken: int, max_turns: int) -> ConvergenceOutco
     """A **bug detector**, not the normal stop path: if the loop is still
     going after `max_turns`, that is itself evidence of a stuck planner (a
     genuine-blocker condition, `AGT-004`'s own wording), recorded as a
-    distinct `BLOCKED` reason -- never a silent, arbitrary stop."""
-    if turns_taken >= max_turns:
-        return ConvergenceOutcome(status="BLOCKED", blocked_reason="repair_exhausted")
+    distinct `BLOCKED` reason -- never a silent, arbitrary stop.
+
+    `max_turns` is the number of planner turns the caller permits, not the
+    first disallowed turn number. The check therefore fires on turn
+    `max_turns + 1`; firing at equality advertises "turn N of N" in the
+    prompt while preventing turn N from ever reaching the planner."""
+    if turns_taken > max_turns:
+        return ConvergenceOutcome(
+            status="BLOCKED", blocked_reason="repair_exhausted", blocked_category="agent_fixable"
+        )
     return None
 
 
@@ -282,6 +297,7 @@ def final_status(
         return ConvergenceOutcome(
             status="BLOCKED",
             blocked_reason=f"specialist_failed:{domain}:{status}",
+            blocked_category="agent_fixable",
         )
 
     blocked = [t for t in graph.tasks.values() if t.state == "BLOCKED"]
@@ -292,7 +308,9 @@ def final_status(
             # branch genuinely converged despite the gap.
             return ConvergenceOutcome(status="PARTIAL_WITH_CAPABILITY_GAP")
         return ConvergenceOutcome(
-            status="BLOCKED", blocked_reason=blocked[0].blocked_reason or "blocked"
+            status="BLOCKED",
+            blocked_reason=blocked[0].blocked_reason or "blocked",
+            blocked_category=blocked[0].blocked_category or "agent_fixable",
         )
 
     work_ledger = build_work_ledger(specialist_results)

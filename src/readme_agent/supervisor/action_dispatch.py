@@ -51,6 +51,7 @@ def dispatch_and_record(
                     f"{task.capability_id!r} is write-capable but {org_repo} has "
                     f"mode={mode!r}, not 'full' -- refusing to dispatch"
                 ),
+                blocked_category="infra_external",
             )
 
     effective_write_permissions = allowed_permission_classes or (
@@ -61,7 +62,12 @@ def dispatch_and_record(
         if gated.outcome == "already_applied":
             return graph.mark(task.task_id, "PASSED", result=gated.cached_result)
         if gated.outcome == "blocked_pending_reconciliation":
-            return graph.mark(task.task_id, "BLOCKED", blocked_reason=gated.outcome)
+            return graph.mark(
+                task.task_id,
+                "BLOCKED",
+                blocked_reason=gated.outcome,
+                blocked_category="agent_fixable",
+            )
         dispatch = gated.dispatch
     else:
         from readme_agent.capabilities.dispatcher import dispatch_tool_call
@@ -76,7 +82,13 @@ def dispatch_and_record(
 
     classification = repair.classify_failure(dispatch)
     if dispatch.outcome == "rejected_unknown_capability":
-        return graph.mark(task.task_id, "BLOCKED", blocked_reason=classification, gap=dispatch.gap)
+        return graph.mark(
+            task.task_id,
+            "BLOCKED",
+            blocked_reason=classification,
+            gap=dispatch.gap,
+            blocked_category="agent_fixable",
+        )
 
     if depth < repair.MAX_REPAIR_ATTEMPTS:
         repair_task = repair.create_repair_task(graph, task, classification, manifest)
@@ -142,4 +154,13 @@ def dispatch_and_record(
                 )
             )
 
-    return graph.mark(task.task_id, "BLOCKED", blocked_reason=dispatch.error or classification)
+    return graph.mark(
+        task.task_id,
+        "BLOCKED",
+        blocked_reason=dispatch.error or classification,
+        blocked_category=(
+            "infra_external"
+            if dispatch.outcome == "rejected_permission_denied"
+            else "agent_fixable"
+        ),
+    )
