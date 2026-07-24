@@ -51,33 +51,18 @@ approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
 
 The repository has a substantial capability, safety, authorization, state, specialist, evidence,
 and proposal foundation, but it is **not Level 8**. The only active execution sequence is the
-Waves 0–8 Build Checklist below.
+Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-requirement counts,
+`logs/` for dated history, and the `plans/investigations/evidence/` bundles for proof.
 
-Wave 0 truth consolidation completed on 2026-07-23:
-
-- all preserved working-tree candidates were inventoried without deletion or implicit acceptance;
-- all 85 high-confidence semantic closure findings were consumed: 76 `IMPLEMENTED` claims gained
-  exact proof and 9 literal overclaims were downgraded to `PARTIAL`;
-- the implementation-truth matrix now reports zero high-confidence closure findings;
-- a clean `--no-local` clone of commit `146d81d` installed solely from the committed lock and
-  passed 1,196 non-live tests, Ruff, formatting, mypy, plan validation, and actionlint for all
-  nine workflows; and
-- this approved consolidation replaces the obsolete phase/sprint tracks with one current program.
-
-Wave 1 canonical correctness and safety consolidation completed on 2026-07-23:
-
-- `supervise_repo()` is the only production repository runtime; legacy verbs are read-only
-  facades, and mutation primitives are reachable only through registered capabilities that cross
-  the verifier, authorization, and effect-ledger gates;
-- all 23 registered capabilities have concrete typed input and output models, while registry
-  construction rejects incomplete permissions, unknown validators or profile vocabulary, and
-  invalid mutation evidence contracts;
-- offline tests cannot inherit live credentials, and bounded git subprocess cancellation removes
-  the exact descendant tree;
-- the historical .NET, Python, C++, and Go false-success statuses replay 4/4 as `BLOCKED`; live
-  .NET and Go runs return non-zero `BLOCKED`; and Rust returns explicit unsupported/exit 1; and
-- commit `0169964` passes 1,211 non-live tests, Ruff, formatting, mypy, actionlint, plan
-  validation, live preflight, and checksum-complete Wave 1 evidence.
+- **Wave 0 — truth consolidation** (2026-07-23, complete): working-tree candidates inventoried
+  without implicit acceptance; all 85 semantic-closure findings consumed (76 proven, 9 downgraded
+  to `PARTIAL`); a fresh `--no-local` clone of `146d81d` passed the full check suite. Evidence:
+  `level8-semantic-closure-verification.json`, `implementation-truth-matrix-2026/`,
+  `level8-requirement-taskcard-coverage/`, `level8-wave0-fresh-clone-head-reproduction/`.
+- **Wave 1 — canonical correctness & safety spine** (2026-07-23, complete): `supervise_repo()` is
+  the only production runtime; all 23 capabilities are typed and gated (verifier, authorization,
+  effect ledger); heterogeneous false-success statuses replay as `BLOCKED`. Commit `0169964`;
+  evidence `level8-wave1-heterogeneous-fail-closed-2026-07-23/`.
 
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Per `plans/investigations/preproduction-idea-fidelity-gate-2026-07-24.md`,
@@ -89,19 +74,11 @@ Restartable GitHub Actions runtime — remains gated (`BLOCKED_EXTERNAL`) behind
 gates and the `preproduction-wave2-dependency-gate` repair; it is not yet the active implementation
 wave.**
 
-Primary current evidence:
-
-- `plans/investigations/evidence/level8-semantic-closure-verification.json`
-- `plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json`
-- `plans/investigations/evidence/level8-requirement-taskcard-coverage/`
-- `plans/investigations/evidence/level8-wave0-fresh-clone-head-reproduction/`
-- `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
-- `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`
-
-`plans/requirements.md` is the normative obligation register. `logs/` is history.
-`docs/architecture.md`, `docs/safety-model.md`, `docs/policy-authoring.md`,
-`docs/presentation-standard.md`, and `docs/github-surface-control.md` describe current
-implementation contracts. No untracked plan candidate is execution authority.
+`plans/requirements.md` is the normative obligation register; `logs/` is history;
+`plans/investigations/control/level8-autonomous-mission-task-graph.yaml` is the execution overlay
+that drives the single `supervise` controller. `docs/architecture.md`, `docs/safety-model.md`,
+`docs/policy-authoring.md`, `docs/presentation-standard.md`, and `docs/github-surface-control.md`
+describe implementation contracts. No untracked plan candidate is execution authority.
 
 ## Decision Ledger
 
