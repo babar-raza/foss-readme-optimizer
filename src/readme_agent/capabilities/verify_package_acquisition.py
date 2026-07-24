@@ -23,25 +23,17 @@ risk than the read-only HTTP GETs every other capability in this project
 performs. Deliberately not built this pass; `PKG-006` names the gap
 honestly rather than silently expanding this capability's blast radius."""
 
-from pathlib import Path
-
 from readme_agent import paths
 from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInputV1
-from readme_agent.ecosystems.registry import parse_manifest
+from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
 from readme_agent.ecosystems.resolver import resolve
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.profile.detector import build_profile
 from readme_agent.profile.schema import PackageRoot
 from readme_agent.registry.loader import require_listed
+from readme_agent.registry.models import ProductEntry
 
 CAPABILITY_ID = "verify_package_acquisition"
-
-# Ecosystems `ecosystems/resolver.py` can resolve directly, one registry per
-# key. `cpp` is deliberately absent -- `resolver.py`'s own docstring explains
-# why (two independent, unrelated registries, no manifest evidence saying
-# which one a given repo actually uses); a `cpp` root always reports
-# CAPABILITY_GAP here rather than guessing Conan vs vcpkg.
-_DIRECTLY_RESOLVABLE_ECOSYSTEMS = frozenset({"java", "python", "typescript", "net", "go"})
 
 MANIFEST = CapabilityManifest(
     capability_id=CAPABILITY_ID,
@@ -61,8 +53,8 @@ MANIFEST = CapabilityManifest(
     },
     preconditions=[
         "org_repo must be listed in data/products.json (mode is irrelevant -- read-only)",
-        "a root's ecosystem must be one of java/python/typescript/net/go for a real "
-        "registry check to run -- cpp and any unregistered ecosystem report CAPABILITY_GAP",
+        "a root's ecosystem must have a canonical FOSS coordinate (java/python/typescript/net/"
+        "cpp/go); cpp resolves via NuGet, and any other ecosystem reports CAPABILITY_GAP",
     ],
     required_permissions=["read_only_local", "read_only_network"],
     side_effect_class="read_only_network",
@@ -76,7 +68,7 @@ MANIFEST = CapabilityManifest(
     input_model=OrgRepoOnlyInputV1,
     tools_used=[
         "profile.detector.build_profile",
-        "ecosystems.registry.parse_manifest",
+        "ecosystems.foss_coordinate.canonical_foss_coordinate",
         "ecosystems.resolver.resolve",
     ],
     failure_modes=["NotAllowlistedError if org_repo is not listed in data/products.json"],
@@ -86,25 +78,28 @@ MANIFEST = CapabilityManifest(
 )
 
 
-def _root_outcome(root: PackageRoot, repo_root: Path) -> dict:
-    if root.ecosystem not in _DIRECTLY_RESOLVABLE_ECOSYSTEMS:
+def _root_outcome(root: PackageRoot, entry: ProductEntry) -> dict:
+    # The "aspose {family} foss" rule: resolve the canonical FOSS coordinate against the
+    # AUTHORITATIVE registry, never the manifest's self-declared name (which may be an
+    # unpublished placeholder) and never a similarly-named commercial package. C++ resolves
+    # via NuGet, where the Aspose C++ FOSS packages ship.
+    resolver_ecosystem, coordinate = canonical_foss_coordinate(
+        entry.family, root.ecosystem, entry.org, entry.repo_name
+    )
+    if resolver_ecosystem is None:
         return {
             "path": root.path,
             "ecosystem": root.ecosystem,
             "outcome": "CAPABILITY_GAP",
-            "detail": f"no unambiguous live resolver registered for ecosystem {root.ecosystem!r}",
+            "detail": f"no canonical FOSS coordinate for ecosystem {root.ecosystem!r}",
         }
 
-    root_dir = repo_root if root.path == "." else repo_root / root.path
-    manifest = parse_manifest(root.ecosystem, root_dir)
-    result = resolve(root.ecosystem, manifest)
+    result = resolve(resolver_ecosystem, coordinate)
 
     if result.blocked:
         outcome = "BLOCKED_NETWORK"
     elif result.found:
         outcome = "REGISTRY_VERIFIED"
-    elif "manifest missing" in result.detail:
-        outcome = "CAPABILITY_GAP"
     else:
         outcome = "NOT_PUBLISHED"
 
@@ -113,6 +108,7 @@ def _root_outcome(root: PackageRoot, repo_root: Path) -> dict:
         "ecosystem": root.ecosystem,
         "outcome": outcome,
         "detail": result.detail,
+        "coordinate": coordinate,
     }
 
 
@@ -137,5 +133,5 @@ def execute(org_repo: str) -> dict:
 
     return {
         "org_repo": org_repo,
-        "results": [_root_outcome(root, baseline_path) for root in profile.package_roots],
+        "results": [_root_outcome(root, entry) for root in profile.package_roots],
     }

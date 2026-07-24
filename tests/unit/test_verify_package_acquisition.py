@@ -1,8 +1,7 @@
-"""`PKG-005` (Wave 11.2): per-package-root acquisition verification --
-unlike `check_install_path.py`'s single boolean, one outcome per detected
-`PackageRoot`. All network/filesystem boundaries (`clone_baseline`,
-`build_profile`, `parse_manifest`, `resolve`) are monkeypatched -- no real
-network or clone in this file."""
+"""`PKG-005`: per-package-root acquisition verification -- one outcome per detected
+`PackageRoot`, resolving the canonical "aspose {family} foss" coordinate against the
+authoritative registry (never the manifest's self-declared name). All network/clone
+boundaries are monkeypatched -- no real network or clone in this file."""
 
 from types import SimpleNamespace
 
@@ -11,12 +10,20 @@ from readme_agent.ecosystems.resolver import ResolutionResult
 from readme_agent.profile.schema import PackageRoot, RepositoryProfile
 
 
-def _fake_entry():
-    return SimpleNamespace(org="acme", repo_name="widget", org_repo="acme/widget", mode="full")
+def _fake_entry(family="cells", ecosystem="java"):
+    return SimpleNamespace(
+        org="aspose-cells-foss",
+        repo_name="Aspose.Cells-FOSS-for-Java",
+        org_repo="aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        mode="full",
+        family=family,
+        ecosystem=ecosystem,
+    )
 
 
-def _stub_common(monkeypatch, tmp_path, package_roots):
-    monkeypatch.setattr(vpa, "require_listed", lambda org_repo: _fake_entry())
+def _stub_common(monkeypatch, tmp_path, package_roots, entry=None):
+    entry = entry or _fake_entry()
+    monkeypatch.setattr(vpa, "require_listed", lambda org_repo: entry)
     monkeypatch.setattr(vpa.paths, "baseline_dir", lambda org, repo: tmp_path)
     monkeypatch.setattr(vpa, "clone_baseline", lambda entry, path: None)
     monkeypatch.setattr(
@@ -36,9 +43,7 @@ class TestManifest:
 class TestExecuteNoPackageRoots:
     def test_reports_not_applicable(self, monkeypatch, tmp_path):
         _stub_common(monkeypatch, tmp_path, [])
-
         result = vpa.execute("acme/widget")
-
         assert result["org_repo"] == "acme/widget"
         assert len(result["results"]) == 1
         assert result["results"][0]["outcome"] == "NOT_APPLICABLE"
@@ -54,70 +59,46 @@ class TestExecuteSingleRoot:
             evidence="found pom.xml",
         )
 
-    def test_registry_verified(self, monkeypatch, tmp_path):
+    def test_registry_verified_resolves_canonical_coordinate(self, monkeypatch, tmp_path):
         _stub_common(monkeypatch, tmp_path, [self._java_root()])
-        monkeypatch.setattr(vpa, "parse_manifest", lambda eco, path: {"group_id": "org.acme"})
-        monkeypatch.setattr(
-            vpa, "resolve", lambda eco, manifest: ResolutionResult(True, "Maven Central: found")
-        )
+        captured = []
 
+        def fake_resolve(eco, manifest):
+            captured.append((eco, manifest))
+            return ResolutionResult(True, "Maven Central: org.aspose:aspose-cells-foss found")
+
+        monkeypatch.setattr(vpa, "resolve", fake_resolve)
         result = vpa.execute("acme/widget")
-
-        assert result["results"] == [
-            {
-                "path": ".",
-                "ecosystem": "java",
-                "outcome": "REGISTRY_VERIFIED",
-                "detail": "Maven Central: found",
-            }
-        ]
+        assert result["results"][0]["outcome"] == "REGISTRY_VERIFIED"
+        # Resolved the canonical FOSS coordinate, NOT any manifest-declared name.
+        assert captured[0] == (
+            "java",
+            {"group_id": "org.aspose", "artifact_id": "aspose-cells-foss"},
+        )
 
     def test_not_published(self, monkeypatch, tmp_path):
         _stub_common(monkeypatch, tmp_path, [self._java_root()])
-        monkeypatch.setattr(vpa, "parse_manifest", lambda eco, path: {"group_id": "org.acme"})
         monkeypatch.setattr(
             vpa,
             "resolve",
-            lambda eco, manifest: ResolutionResult(False, "Maven Central: NOT FOUND (0 results)"),
+            lambda eco, m: ResolutionResult(False, "Maven Central: NOT FOUND (404)"),
         )
-
         result = vpa.execute("acme/widget")
-
         assert result["results"][0]["outcome"] == "NOT_PUBLISHED"
 
     def test_blocked_network(self, monkeypatch, tmp_path):
         _stub_common(monkeypatch, tmp_path, [self._java_root()])
-        monkeypatch.setattr(vpa, "parse_manifest", lambda eco, path: {"group_id": "org.acme"})
         monkeypatch.setattr(
             vpa,
             "resolve",
-            lambda eco, manifest: ResolutionResult(
-                False, "network error resolving Maven Central: timeout", blocked=True
-            ),
+            lambda eco, m: ResolutionResult(False, "network error: timeout", blocked=True),
         )
-
         result = vpa.execute("acme/widget")
-
         assert result["results"][0]["outcome"] == "BLOCKED_NETWORK"
 
-    def test_missing_manifest_fields_maps_to_capability_gap(self, monkeypatch, tmp_path):
-        _stub_common(monkeypatch, tmp_path, [self._java_root()])
-        monkeypatch.setattr(vpa, "parse_manifest", lambda eco, path: {})
-        monkeypatch.setattr(
-            vpa,
-            "resolve",
-            lambda eco, manifest: ResolutionResult(
-                False, "manifest missing group_id/artifact_id -- cannot resolve"
-            ),
-        )
-
-        result = vpa.execute("acme/widget")
-
-        assert result["results"][0]["outcome"] == "CAPABILITY_GAP"
-
-    def test_cpp_root_is_capability_gap_without_calling_resolve(self, monkeypatch, tmp_path):
-        """`cpp` has no unambiguous resolver (Conan vs vcpkg) -- must never
-        guess, and must never even attempt a network call."""
+    def test_cpp_resolves_via_nuget(self, monkeypatch, tmp_path):
+        """C++ FOSS ships on NuGet -- it resolves via the NuGet (net) resolver with the
+        Aspose.{Family}.Cpp.FOSS coordinate, no longer a CAPABILITY_GAP."""
         cpp_root = PackageRoot(
             path=".",
             ecosystem="cpp",
@@ -125,50 +106,63 @@ class TestExecuteSingleRoot:
             confidence=1.0,
             evidence="found CMakeLists.txt",
         )
-        _stub_common(monkeypatch, tmp_path, [cpp_root])
+        _stub_common(monkeypatch, tmp_path, [cpp_root], entry=_fake_entry("cells", "cpp"))
+        captured = []
+
+        def fake_resolve(eco, manifest):
+            captured.append((eco, manifest))
+            return ResolutionResult(True, "NuGet: Aspose.cells.Cpp.FOSS found")
+
+        monkeypatch.setattr(vpa, "resolve", fake_resolve)
+        result = vpa.execute("acme/widget")
+        assert result["results"][0]["outcome"] == "REGISTRY_VERIFIED"
+        assert captured[0] == ("net", {"name": "Aspose.cells.Cpp.FOSS"})
+
+    def test_unsupported_ecosystem_is_capability_gap_without_network(self, monkeypatch, tmp_path):
+        rust_root = PackageRoot(
+            path=".",
+            ecosystem="rust",
+            manifest_path="Cargo.toml",
+            confidence=1.0,
+            evidence="found Cargo.toml",
+        )
+        _stub_common(monkeypatch, tmp_path, [rust_root], entry=_fake_entry("cells", "rust"))
 
         def fail_if_called(*a, **k):
-            raise AssertionError("must not call resolve() for an ambiguous ecosystem")
+            raise AssertionError("must not resolve an ecosystem with no canonical FOSS coordinate")
 
         monkeypatch.setattr(vpa, "resolve", fail_if_called)
-
         result = vpa.execute("acme/widget")
-
         assert result["results"][0]["outcome"] == "CAPABILITY_GAP"
-        assert "cpp" in result["results"][0]["detail"]
 
 
 class TestExecuteMultiRoot:
     def test_one_outcome_per_root(self, monkeypatch, tmp_path):
         roots = [
             PackageRoot(
-                path="src/Widget.Core",
-                ecosystem="net",
-                manifest_path="src/Widget.Core/Widget.Core.csproj",
+                path=".",
+                ecosystem="java",
+                manifest_path="pom.xml",
                 confidence=1.0,
-                evidence="found Widget.Core.csproj",
+                evidence="found pom.xml",
             ),
             PackageRoot(
-                path="src/Widget.Cli",
+                path="dotnet",
                 ecosystem="net",
-                manifest_path="src/Widget.Cli/Widget.Cli.csproj",
+                manifest_path="dotnet/x.csproj",
                 confidence=1.0,
-                evidence="found Widget.Cli.csproj",
+                evidence="found x.csproj",
             ),
         ]
         _stub_common(monkeypatch, tmp_path, roots)
-        monkeypatch.setattr(vpa, "parse_manifest", lambda eco, path: {"name": str(path)})
-
-        def fake_resolve(eco, manifest):
-            found = "Core" in manifest["name"]
-            return ResolutionResult(found, "found" if found else "NOT FOUND")
-
-        monkeypatch.setattr(vpa, "resolve", fake_resolve)
-
+        # Different ecosystems -> different canonical coordinates -> independent outcomes.
+        monkeypatch.setattr(
+            vpa,
+            "resolve",
+            lambda eco, m: ResolutionResult(
+                eco == "java", "found" if eco == "java" else "NOT FOUND"
+            ),
+        )
         result = vpa.execute("acme/widget")
-
         outcomes = {r["path"]: r["outcome"] for r in result["results"]}
-        assert outcomes == {
-            "src/Widget.Core": "REGISTRY_VERIFIED",
-            "src/Widget.Cli": "NOT_PUBLISHED",
-        }
+        assert outcomes == {".": "REGISTRY_VERIFIED", "dotnet": "NOT_PUBLISHED"}

@@ -5,6 +5,8 @@ from __future__ import annotations
 from datetime import UTC, datetime
 
 from readme_agent import paths
+from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
+from readme_agent.ecosystems.resolver import resolve
 from readme_agent.errors import NotAllowlistedError
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
@@ -19,10 +21,67 @@ from readme_agent.facts.schema_v2 import (
 )
 from readme_agent.profile.cached import get_or_build_profile
 from readme_agent.registry.loader import load_policy, require_listed
+from readme_agent.registry.models import ProductEntry
 from readme_agent.repository_snapshot import (
     current_repository_snapshot,
     local_fact_verification_allowed,
 )
+
+# ecosystems/resolver.py's dispatch key -> the acquisition method name recorded on the fact.
+# cpp resolves through the "net" (NuGet) resolver (see foss_coordinate.py) but the method name
+# stays "nuget", accurately describing where the package is actually installed from.
+_REGISTRY_METHOD_NAMES = {
+    "java": "maven_central",
+    "python": "pypi",
+    "net": "nuget",
+    "typescript": "npm",
+    "go": "go_proxy",
+}
+
+
+def _registry_acquisition_fact(
+    entry: ProductEntry,
+    source_revision: str | None,
+    observed_at: str | None,
+) -> FactRecordV2 | None:
+    """Resolve the canonical "aspose {family} foss" coordinate against the AUTHORITATIVE
+    registry (never the manifest's self-declared name, never a commercial package -- see
+    ecosystems/foss_coordinate.py). Returns a verified registry-acquisition fact when the
+    package IS published; ``None`` when it is genuinely not published, the check was
+    network-blocked, or the ecosystem has no canonical FOSS coordinate -- callers fall back
+    to source-build verification in every ``None`` case."""
+    if entry.ecosystem is None:
+        return None
+    resolver_ecosystem, coordinate = canonical_foss_coordinate(
+        entry.family, entry.ecosystem, entry.org, entry.repo_name
+    )
+    if resolver_ecosystem is None:
+        return None
+    result = resolve(resolver_ecosystem, coordinate)
+    if not result.found:
+        return None
+    method = _REGISTRY_METHOD_NAMES.get(resolver_ecosystem, resolver_ecosystem)
+    source = FactSourceV2(
+        source_type="external_registry",
+        location=f"registry-acquisition://{resolver_ecosystem}",
+        source_revision=source_revision,
+        retrieved_at=observed_at,
+    )
+    return FactRecordV2(
+        fact_id=descriptive_fact_id("installation.verified_acquisition", f"registry-{method}"),
+        field="installation.verified_acquisition",
+        value={
+            "method": method,
+            "outcome": "REGISTRY_VERIFIED",
+            "detail": result.detail,
+            "coordinate": coordinate,
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=SURFACE_DEPENDENCIES["installation.verified_acquisition"],
+    )
 
 
 def _local_verification_facts(
@@ -31,6 +90,7 @@ def _local_verification_facts(
     observed_at: str | None,
     root,
     policy,
+    entry: ProductEntry,
 ) -> tuple[list[FactRecordV2], dict | None]:
     truth = policy.product_truth
     snapshot = current_repository_snapshot(org_repo)
@@ -77,7 +137,12 @@ def _local_verification_facts(
         confidence=1.0 if verified else 0.0,
         affected_surfaces=SURFACE_DEPENDENCIES["example.minimal"],
     )
-    acquisition = FactRecordV2(
+    # The "aspose {family} foss" rule: a genuinely published package is verified against its
+    # AUTHORITATIVE registry and its install claim is kept, never stripped in favor of a
+    # source-build substitute the package doesn't need. Only when the package is genuinely not
+    # published (or the check is network-blocked) does source-build remain the verified
+    # acquisition path -- see foss_coordinate.py and the ground-truth evidence bundle.
+    acquisition = _registry_acquisition_fact(entry, source_revision, observed_at) or FactRecordV2(
         fact_id=descriptive_fact_id(
             "installation.verified_acquisition",
             "disposable-source-build",
@@ -198,6 +263,7 @@ def collect_product_facts(
         observed_at,
         root,
         policy,
+        entry,
     )
     candidates.extend(local_candidates)
     resolved = resolve_product_facts(

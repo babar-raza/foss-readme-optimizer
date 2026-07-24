@@ -124,9 +124,17 @@ def build_readme_document_candidate(
             )
         )
 
+    acquisition = fact(facts, "installation.verified_acquisition")
+    acquisition_value = mapping_value(acquisition.value)
+    # The "aspose {family} foss" rule: only replace a registry install with source-build when
+    # the package is genuinely NOT published (method == "source_build"). A registry-verified
+    # package's correct install claim must never be stripped just because the README text
+    # happens to match one of these markers -- see foss_coordinate.py and provider.py.
+    package_genuinely_not_published = acquisition_value.get("method") == "source_build"
+
     if installation is not None:
         installation_body = inner_text[installation.heading_end : installation.section_end]
-        contains_unverified_package_install = any(
+        contains_unverified_package_install = package_genuinely_not_published and any(
             marker in installation_body
             for marker in ("<dependency>", "implementation 'org.", 'implementation "org.')
         )
@@ -207,9 +215,7 @@ def build_readme_document_candidate(
             )
         )
 
-    acquisition = fact(facts, "installation.verified_acquisition")
-    acquisition_value = mapping_value(acquisition.value)
-    if acquisition_value.get("method") == "source_build":
+    if package_genuinely_not_published:
         maven_badge = _MAVEN_CENTRAL_BADGE.search(inner_text)
         if maven_badge is not None:
             start = len(inner_text[: maven_badge.start()].encode("utf-8"))

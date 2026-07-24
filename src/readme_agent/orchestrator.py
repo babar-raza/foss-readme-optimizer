@@ -144,17 +144,26 @@ def inspect_repo(org_repo: str, *, check_install: bool = False) -> dict:
     readme_text = inventory.readme_path.read_text(encoding="utf-8") if inventory.readme_path else ""
 
     resolver = None
-    if check_install:
+    resolver_ecosystem: str | None = None
+    resolver_coordinate: dict[str, str] = {}
+    if check_install and entry.ecosystem:
         # Import scoped to the opt-in path -- inspect never depends on network otherwise.
+        from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
         from readme_agent.ecosystems.resolver import resolve
 
         resolver = resolve
+        # The "aspose {family} foss" rule: resolve the canonical FOSS coordinate, never
+        # the raw manifest's self-declared name (may be an unpublished placeholder or a
+        # commercial-package match) -- see ecosystems/foss_coordinate.py.
+        resolver_ecosystem, resolver_coordinate = canonical_foss_coordinate(
+            entry.family, entry.ecosystem, entry.org, entry.repo_name
+        )
 
     presentation = detect_presentation(
         readme_text,
         platform=entry.platform,
-        ecosystem=entry.ecosystem,
-        manifest=manifest,
+        ecosystem=resolver_ecosystem,
+        manifest=resolver_coordinate,
         resolver=resolver,
     )
 
