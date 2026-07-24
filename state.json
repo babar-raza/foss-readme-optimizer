@@ -12,7 +12,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "997c1dd3a04f0f5593e9509aa87d7ca62665961c813657580f0ae86b6f77dc42",
-    "last_evaluated_at": "2026-07-24T08:00:49.054287+00:00",
+    "last_evaluated_at": "2026-07-24T08:01:00.781471+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -22,7 +22,7 @@
       "L8-LOCAL-README-PROPOSAL-PROOF": "TODO",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
-      "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "SCORED",
+      "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "CLOSED",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-STAGING-VERIFIED-PROPOSAL-PROOF": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -648,6 +648,17 @@
         "reason": "All baseline acceptance checks are true and all preserved pilot bundle checksums validate.",
         "task_id": "L8-PREPRODUCTION-TRUTHFUL-BASELINE",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-preproduction-truthful-baseline-2026-07-24/truthful-baseline-acceptance.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-24T08:01:00.781466+00:00",
+        "reason": "Truthful, green, resumable baseline accepted; advance to immutable snapshot and pilot product truth.",
+        "task_id": "L8-PREPRODUCTION-TRUTHFUL-BASELINE",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -655,7 +666,7 @@
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
   "schema_version": 2,
-  "state_version": 73,
+  "state_version": 74,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
