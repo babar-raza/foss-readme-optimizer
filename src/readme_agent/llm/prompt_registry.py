@@ -26,9 +26,25 @@ from readme_agent.llm.prompt_schema import PromptManifest
 from readme_agent.readme.facts import sha256_text
 
 
+def _default_prompts_dir() -> Path:
+    """Resolve real prompt assets independently of the caller's current directory."""
+
+    cwd_candidate = Path("prompts")
+    if cwd_candidate.is_dir():
+        return cwd_candidate
+    source_candidate = Path(__file__).resolve().parents[3] / "prompts"
+    if source_candidate.is_dir():
+        return source_candidate
+    raise ConfigError(
+        "real prompt registry is unavailable: no prompts/ directory exists in the "
+        "current project or alongside the source checkout"
+    )
+
+
 def _build(
-    prompts_dir: Path = Path("prompts"),
+    prompts_dir: Path | None = None,
 ) -> tuple[dict[str, PromptManifest], dict[str, str]]:
+    prompts_dir = prompts_dir or _default_prompts_dir()
     manifests: dict[str, PromptManifest] = {}
     raw_content: dict[str, str] = {}
     for path in sorted(prompts_dir.glob("*/*.yaml")):

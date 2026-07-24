@@ -148,3 +148,9 @@ class TestRealRegistry:
         manifest = prompt_registry.get("relationship_explained")
         assert manifest is not None
         assert manifest.user_template is not None
+
+    def test_default_build_is_independent_of_current_directory(self, tmp_path, monkeypatch):
+        monkeypatch.chdir(tmp_path)
+        manifests, _ = prompt_registry._build()
+        assert "supervisor_turn" in manifests
+        assert "relationship_explained" in manifests

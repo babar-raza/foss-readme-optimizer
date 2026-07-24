@@ -21,6 +21,7 @@ from readme_agent.capabilities import (
     verify_prose_quality,
 )
 from readme_agent.errors import LLMError
+from readme_agent.facts.provider import collect_product_facts
 from readme_agent.gitsafety._git import run_git
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.client import GeneratedResult
@@ -351,6 +352,38 @@ def project(tmp_path, monkeypatch):
             "topics": ["java"],
         },
     )
+    real_collect_product_facts = propose_metadata_changes.collect_product_facts
+
+    def _complete_fixture_product_facts(org_repo):
+        """Keep unrelated supervisor tests focused on runtime behavior.
+
+        The synthetic repository intentionally represents a complete product.
+        Populate the four metadata-dependent facts that the repository-local
+        V1-to-V2 migration cannot infer, while dedicated facts tests continue
+        to cover missing/conflicting behavior.
+        """
+
+        result = real_collect_product_facts(org_repo)
+        values = {
+            "product.audience": ["Java developers"],
+            "product.problems_solved": ["creating, reading, and modifying document files"],
+            "product.capabilities": ["create documents", "read documents", "modify documents"],
+            "product.formats": ["document files"],
+        }
+        for fact in result["product_facts_v2"]["facts"]:
+            value = values.get(fact["field"])
+            if value is None:
+                continue
+            fact["value"] = value
+            fact["verification_state"] = "verified"
+            fact["confidence"] = 1.0
+        return result
+
+    monkeypatch.setattr(
+        propose_metadata_changes,
+        "collect_product_facts",
+        _complete_fixture_product_facts,
+    )
     # Wave 7e: community_files_presentation is a fifth always-run specialist,
     # dispatching audit_community_files -- its local clone+scan half runs for
     # real against the local file:// source (same as readme_reconciliation's
@@ -416,7 +449,7 @@ class TestBasicLoop:
             ORG_REPO, planner_client=FixturePlannerClient(turns), write_evidence_bundle=False
         )
 
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
         capability_ids = [t.capability_id for t in result.task_graph.tasks.values()]
         assert "inspect_repository" in capability_ids  # the deterministic bootstrap
         assert "detect_readme_gaps" in capability_ids  # the planner's own choice
@@ -437,11 +470,45 @@ class TestBasicLoop:
             ORG_REPO, planner_client=FixturePlannerClient(turns), write_evidence_bundle=False
         )
 
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
         capability_ids = [t.capability_id for t in result.task_graph.tasks.values()]
         assert "stop" not in capability_ids  # never dispatched as an ordinary task
         stop_decisions = [d for d in result.decisions if d.kind == "stop"]
         assert any("stop capability called" in d.detail for d in stop_decisions)
+
+    @pytest.mark.parametrize("stop_style", ["implicit", "capability"])
+    def test_stop_is_rejected_while_deterministic_work_remains(
+        self, project, monkeypatch, stop_style
+    ):
+        """Planner prose and the stop tool are advisory; the work ledger is authoritative."""
+
+        monkeypatch.setattr(
+            propose_metadata_changes,
+            "collect_product_facts",
+            collect_product_facts,
+        )
+        if stop_style == "implicit":
+            turns = [PlannerTurn(content="done", meta=LLMResponseMeta()) for _ in range(3)]
+        else:
+            turns = [
+                PlannerTurn(
+                    tool_call=_tool_call(f"stop-{index}", "stop", {"reason": "done"}),
+                    meta=LLMResponseMeta(),
+                )
+                for index in range(3)
+            ]
+
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(turns),
+            write_evidence_bundle=False,
+        )
+
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason is not None
+        assert result.blocked_reason.startswith("planner_stop_rejected_with_eligible_work:")
+        assert [decision.kind for decision in result.decisions].count("stop_rejected") == 3
+        assert all(decision.kind != "stop" for decision in result.decisions)
 
     def test_deterministic_backstop_ends_a_run_of_repeated_duplicate_calls_early(self, project):
         """TC-18 (Pillar A.2, decision #46's own rerun-consistency redesign):
@@ -460,7 +527,7 @@ class TestBasicLoop:
             ORG_REPO, planner_client=FixturePlannerClient(turns), write_evidence_bundle=False
         )
 
-        assert result.status in ("CONVERGED_NO_CHANGE", "CONVERGED_APPLIED")
+        assert result.status == "CONVERGED_PROPOSAL_READY"
         backstop_decisions = [
             d
             for d in result.decisions
@@ -616,7 +683,7 @@ class TestRepair:
         )
 
         assert calls["n"] == 2  # the original attempt + exactly one auto-repair
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
         assert any(t.state == "FAILED" for t in result.task_graph.tasks.values())
         assert any(
             t.state == "PASSED" and t.capability_id == "detect_readme_gaps"
@@ -646,7 +713,7 @@ class TestDurableConvergence:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert first.status == "CONVERGED_NO_CHANGE"
+        assert first.status == "CONVERGED_PROPOSAL_READY"
 
         class _RaisingPlanner:
             def plan(self, messages, tools):
@@ -680,7 +747,7 @@ class TestSpecialistDrivenConvergence:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert first.status == "CONVERGED_NO_CHANGE"
+        assert first.status == "CONVERGED_PROPOSAL_READY"
 
         # An upstream commit that touches nothing the fingerprint tracks.
         source = project / "source"
@@ -711,7 +778,7 @@ class TestSpecialistDrivenConvergence:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert first.status == "CONVERGED_NO_CHANGE"
+        assert first.status == "CONVERGED_PROPOSAL_READY"
 
         source = project / "source"
         (source / "README.md").write_text(
@@ -758,7 +825,7 @@ class TestSpecialistSkipIntegration:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert first.status == "CONVERGED_NO_CHANGE"
+        assert first.status == "CONVERGED_PROPOSAL_READY"
 
         # An upstream commit that touches nothing any domain's own
         # fingerprint tracks -- same shape as TestSpecialistDrivenConvergence's
@@ -814,7 +881,7 @@ class TestSpecialistSkipIntegration:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert first.status == "CONVERGED_NO_CHANGE"
+        assert first.status == "CONVERGED_PROPOSAL_READY"
 
         source = project / "source"
         (source / "CHANGELOG.md").write_text("Unrelated changelog entry.\n", encoding="utf-8")
@@ -875,7 +942,7 @@ class TestModelRouteDisablement:
             ),
             state_backend=backend,
         )
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
 
     def test_enabled_status_proceeds_normally(self, project):
         backend = FakeStateBackend()
@@ -889,7 +956,7 @@ class TestModelRouteDisablement:
             ),
             state_backend=backend,
         )
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
 
 
 class TestNotOnboardedGate:
@@ -1061,7 +1128,7 @@ class TestMultiDomainCoexistence:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
 
         state = backend.load(ORG_REPO)
         assert state is not None
@@ -1172,7 +1239,7 @@ class TestSpecialistResultsEvidence:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert first.status == "CONVERGED_NO_CHANGE"
+        assert first.status == "CONVERGED_PROPOSAL_READY"
 
         source = project / "source"
         (source / "CHANGELOG.md").write_text("Unrelated changelog entry.\n", encoding="utf-8")
@@ -1202,7 +1269,7 @@ class TestSpecialistResultsEvidence:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
         assert result.evidence_dir is not None
 
         payload = json.loads((result.evidence_dir / "specialist_results.json").read_text())
@@ -1224,7 +1291,7 @@ class TestRunManifestV2Evidence:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
         assert result.evidence_dir is not None
 
         manifest = json.loads((result.evidence_dir / "manifest.json").read_text())
@@ -1248,7 +1315,7 @@ class TestRunManifestV2Evidence:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
         assert result.evidence_dir is not None
 
         manifest = json.loads((result.evidence_dir / "manifest.json").read_text())
@@ -1550,7 +1617,7 @@ class TestDomainCoverageTracking:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert first.status == "CONVERGED_NO_CHANGE"
+        assert first.status == "CONVERGED_PROPOSAL_READY"
         stored = backend.load(ORG_REPO)
         assert stored.supervisor_state.domain_coverage_complete is True
 
@@ -1661,7 +1728,7 @@ class TestRunLockContention:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert first.status == "CONVERGED_NO_CHANGE"
+        assert first.status == "CONVERGED_PROPOSAL_READY"
 
         source = project / "source"
         (source / "CHANGELOG.md").write_text("Unrelated changelog entry.\n", encoding="utf-8")
@@ -1697,7 +1764,7 @@ class TestRunLockContention:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert first.status == "CONVERGED_NO_CHANGE"
+        assert first.status == "CONVERGED_PROPOSAL_READY"
 
         call_counts = {"acquire_lock": 0, "acquire_run_lock": 0}
         original_acquire_lock = backend.acquire_lock
@@ -1764,7 +1831,7 @@ class TestLockReleaseFailureDoesNotDiscardResult:
             write_evidence_bundle=True,
         )
 
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
         assert "warning: releasing lock" in capsys.readouterr().err
 
     def test_release_run_lock_failure_does_not_discard_a_successful_result(self, project, capsys):
@@ -1784,7 +1851,7 @@ class TestLockReleaseFailureDoesNotDiscardResult:
             write_evidence_bundle=True,
         )
 
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
         assert "warning: releasing run-lock" in capsys.readouterr().err
 
 
@@ -1807,7 +1874,7 @@ class TestPreCloneShortcut:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert first.status == "CONVERGED_NO_CHANGE"
+        assert first.status == "CONVERGED_PROPOSAL_READY"
 
         clone_calls: list[str] = []
         original_clone_baseline = loop_module.clone_baseline
@@ -1888,7 +1955,7 @@ class TestTokenBudget:
             planner_client=FixturePlannerClient(turns),
             write_evidence_bundle=False,
         )
-        assert result.status == "CONVERGED_NO_CHANGE"
+        assert result.status == "CONVERGED_PROPOSAL_READY"
 
 
 class TestPlannerFailureEvidence:

@@ -115,15 +115,17 @@ def _load_or_initialize(
 
 def _ready_tasks(graph: MissionTaskGraphV1, state: MissionExecutionStateV1) -> list[TaskCardV1]:
     by_id = {task.task_id: task for task in graph.taskcards}
+
+    def status_for(task_id: str) -> MissionTaskStatus:
+        task = by_id[task_id]
+        return state.task_statuses.get(task_id, task.status)
+
     ready: list[TaskCardV1] = []
     for task in graph.taskcards:
-        status = state.task_statuses[task.task_id]
+        status = status_for(task.task_id)
         if status not in {"TODO", "READY", "REOPENED", "REGRESSED"}:
             continue
-        if all(
-            state.task_statuses[dependency] in _DEPENDENCY_SATISFIED
-            for dependency in task.dependencies
-        ):
+        if all(status_for(dependency) in _DEPENDENCY_SATISFIED for dependency in task.dependencies):
             ready.append(by_id[task.task_id])
     return sorted(ready, key=lambda task: (_PRIORITY_ORDER[task.priority], task.task_id))
 
@@ -132,22 +134,25 @@ def evaluate_mission(
     graph: MissionTaskGraphV1, state: MissionExecutionStateV1
 ) -> MissionEvaluation:
     by_id = {task.task_id: task for task in graph.taskcards}
+
+    def status_for(task: TaskCardV1) -> MissionTaskStatus:
+        # `status` is intentionally read-only in the CLI. A newly governed
+        # taskcard may therefore appear in the graph before the next
+        # evaluate/claim/transition call has reconciled and persisted it.
+        # Use the graph's declared status for that additive case; mutating
+        # paths still merge it durably in `_load_or_initialize()`.
+        return state.task_statuses.get(task.task_id, task.status)
+
     active = by_id.get(state.active_task_id) if state.active_task_id else None
     eligible = [] if active else _ready_tasks(graph, state)
-    unresolved = [
-        task.task_id
-        for task in graph.taskcards
-        if state.task_statuses[task.task_id] not in _TERMINAL
-    ]
+    unresolved = [task.task_id for task in graph.taskcards if status_for(task) not in _TERMINAL]
     blocked_external = [
-        task.task_id
-        for task in graph.taskcards
-        if state.task_statuses[task.task_id] == "BLOCKED_EXTERNAL"
+        task.task_id for task in graph.taskcards if status_for(task) == "BLOCKED_EXTERNAL"
     ]
     complete = (
         not unresolved
         and not blocked_external
-        and all(state.task_statuses[task.task_id] == "CLOSED" for task in graph.taskcards)
+        and all(status_for(task) == "CLOSED" for task in graph.taskcards)
     )
     return MissionEvaluation(
         mission_id=graph.mission_authority.mission_id,

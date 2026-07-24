@@ -22,6 +22,7 @@ from readme_agent.supervisor.convergence import (
 )
 from readme_agent.supervisor.models import DecisionSummary
 from readme_agent.supervisor.task import Task, TaskGraph
+from readme_agent.supervisor.work_ledger import build_work_ledger
 
 
 @dataclass
@@ -141,7 +142,37 @@ def run_planner_loop(
             )
             break
 
+        work_ledger = build_work_ledger(
+            specialist_results,
+            attempted_capability_ids=tried_capability_ids,
+        )
         if plan.tool_call is None:
+            if not work_ledger.stop_allowed:
+                consecutive_no_progress_turns += 1
+                remaining = ",".join(work_ledger.eligible_capability_ids)
+                decisions.append(
+                    DecisionSummary(
+                        turn=turn,
+                        kind="stop_rejected",
+                        detail=f"eligible work remains: {remaining}",
+                    )
+                )
+                if consecutive_no_progress_turns >= no_progress_turn_limit:
+                    outcome = ConvergenceOutcome(
+                        status="BLOCKED",
+                        blocked_reason=f"planner_stop_rejected_with_eligible_work:{remaining}",
+                    )
+                    break
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "Your stop request was rejected because deterministic work remains. "
+                            f"Choose one of these capabilities: {remaining}."
+                        ),
+                    }
+                )
+                continue
             decisions.append(
                 DecisionSummary(turn=turn, kind="stop", detail=plan.content or "planner stopped")
             )
@@ -155,6 +186,32 @@ def run_planner_loop(
         function = plan.tool_call.get("function", {})
         capability_id = function.get("name")
         if capability_id == STOP_CAPABILITY_ID:
+            if not work_ledger.stop_allowed:
+                consecutive_no_progress_turns += 1
+                remaining = ",".join(work_ledger.eligible_capability_ids)
+                decisions.append(
+                    DecisionSummary(
+                        turn=turn,
+                        kind="stop_rejected",
+                        detail=f"stop capability rejected; eligible work remains: {remaining}",
+                    )
+                )
+                if consecutive_no_progress_turns >= no_progress_turn_limit:
+                    outcome = ConvergenceOutcome(
+                        status="BLOCKED",
+                        blocked_reason=f"planner_stop_rejected_with_eligible_work:{remaining}",
+                    )
+                    break
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "The stop capability was rejected because deterministic work remains. "
+                            f"Choose one of these capabilities: {remaining}."
+                        ),
+                    }
+                )
+                continue
             try:
                 stop_arguments = json.loads(function.get("arguments") or "{}")
             except json.JSONDecodeError:

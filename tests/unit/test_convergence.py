@@ -317,6 +317,72 @@ class TestFinalStatus:
         outcome = final_status(graph, applied_any_effect=True)
         assert outcome.status == "CONVERGED_APPLIED"
 
+    def test_stale_readme_specialist_cannot_false_converge(self):
+        graph = TaskGraph()
+        task = graph.add_task(Task(capability_id="inspect_repository"))
+        graph.mark(task.task_id, "PASSED")
+
+        outcome = final_status(
+            graph,
+            applied_any_effect=False,
+            specialist_results={
+                "readme_presentation": DomainStateV1(
+                    domain="readme_presentation",
+                    accepted_status="FIRST_OBSERVATION",
+                    details={"render_status": "STALE_NONCOMPLIANT"},
+                )
+            },
+        )
+
+        assert outcome.status == "PARTIAL_WITH_FINDINGS"
+        assert outcome.blocked_reason == (
+            "unresolved_findings:readme_presentation:STALE_NONCOMPLIANT"
+        )
+
+    def test_blocked_metadata_facts_cannot_false_converge(self):
+        graph = TaskGraph()
+        task = graph.add_task(Task(capability_id="inspect_repository"))
+        graph.mark(task.task_id, "PASSED")
+
+        outcome = final_status(
+            graph,
+            applied_any_effect=False,
+            specialist_results={
+                "metadata_presentation": DomainStateV1(
+                    domain="metadata_presentation",
+                    accepted_status="FIRST_OBSERVATION",
+                    details={
+                        "blocked_findings": [
+                            {"surface_id": "metadata.description", "reason": "missing facts"}
+                        ]
+                    },
+                )
+            },
+        )
+
+        assert outcome.status == "PARTIAL_WITH_FINDINGS"
+        assert outcome.blocked_reason == "unresolved_findings:metadata_presentation:1_blocked"
+
+    def test_completed_specialist_proposal_is_not_mislabeled_no_change(self):
+        graph = TaskGraph()
+        task = graph.add_task(Task(capability_id="inspect_repository"))
+        graph.mark(task.task_id, "PASSED")
+
+        outcome = final_status(
+            graph,
+            applied_any_effect=False,
+            specialist_results={
+                "metadata_presentation": DomainStateV1(
+                    domain="metadata_presentation",
+                    accepted_status="FIRST_OBSERVATION",
+                    details={"has_proposal": True, "blocked_findings": []},
+                )
+            },
+        )
+
+        assert outcome.status == "CONVERGED_PROPOSAL_READY"
+        assert outcome.blocked_reason == "proposals:metadata_presentation:proposal_ready"
+
     def test_blocked_task_with_no_other_passed_work_is_blocked(self):
         graph = TaskGraph()
         t1 = graph.add_task(Task(capability_id="a"))

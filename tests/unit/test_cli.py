@@ -146,11 +146,13 @@ class TestSuperviseCommand:
         [
             ("CONVERGED_NO_CHANGE", 0),
             ("CONVERGED_APPLIED", 0),
+            ("CONVERGED_PROPOSAL_READY", 0),
             # Wave 6 (decision #39): the registry-driven specialist tier's
             # own converged outcome -- must exit 0 like the other converged
             # statuses, not be treated as a failure.
             ("CONVERGED_NO_TRACKED_CHANGE", 0),
             ("PARTIAL_WITH_CAPABILITY_GAP", 1),
+            ("PARTIAL_WITH_FINDINGS", 1),
             ("BLOCKED", 1),
         ],
     )

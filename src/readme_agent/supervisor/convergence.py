@@ -33,11 +33,14 @@ from readme_agent.state.schema import (
     TriggerRecordV1,
 )
 from readme_agent.supervisor.task import TaskGraph
+from readme_agent.supervisor.work_ledger import build_work_ledger
 
 SuperviseStatus = Literal[
     "CONVERGED_NO_CHANGE",
     "CONVERGED_APPLIED",
+    "CONVERGED_PROPOSAL_READY",
     "PARTIAL_WITH_CAPABILITY_GAP",
+    "PARTIAL_WITH_FINDINGS",
     "BLOCKED",
     # Wave 6 (decision #39): the coarse `is_fresh()` check below found the
     # upstream commit had moved, but every registered specialist domain's
@@ -290,6 +293,18 @@ def final_status(
             return ConvergenceOutcome(status="PARTIAL_WITH_CAPABILITY_GAP")
         return ConvergenceOutcome(
             status="BLOCKED", blocked_reason=blocked[0].blocked_reason or "blocked"
+        )
+
+    work_ledger = build_work_ledger(specialist_results)
+    if work_ledger.unresolved_findings:
+        return ConvergenceOutcome(
+            status="PARTIAL_WITH_FINDINGS",
+            blocked_reason="unresolved_findings:" + ";".join(work_ledger.unresolved_findings),
+        )
+    if work_ledger.ready_proposals and not applied_any_effect:
+        return ConvergenceOutcome(
+            status="CONVERGED_PROPOSAL_READY",
+            blocked_reason="proposals:" + ";".join(work_ledger.ready_proposals),
         )
 
     return ConvergenceOutcome(

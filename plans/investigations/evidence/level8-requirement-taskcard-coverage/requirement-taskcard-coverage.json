@@ -4,18 +4,18 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "6209b755ed015b1211b6cab4dc2bc28d93d0fa42b9a6a1d1841d3dca21a23a16",
+  "source_sha256": "8d216ef0d84e0a4ec7eda207caafb65e38af2a938c4ed3d716a8045c6ec1e325",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 390,
-  "mandatory_requirement_rows": 367,
+  "total_requirement_rows": 391,
+  "mandatory_requirement_rows": 368,
   "excluded_backlog_rows": 23,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 33,
     "excluded_backlog": 23,
-    "open_mandatory": 187,
-    "preserved_verified": 147
+    "open_mandatory": 189,
+    "preserved_verified": 146
   },
   "taskcard_counts": {
     "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 34,
@@ -23,6 +23,7 @@
     "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 50,
     "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 40,
     "L8-WAVE4-PRESENTATION-INTELLIGENCE": 113,
+    "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": 1,
     "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 54,
     "L8-WAVE6-CONTROLLED-JAVA-PILOT": 14,
     "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": 5,
@@ -2298,9 +2299,9 @@
     {
       "requirement_id": "AGT-004",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -3148,6 +3149,14 @@
       "priority": "P0",
       "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-014",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-PREPRODUCTION-IDEA-FIDELITY-GATE",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }

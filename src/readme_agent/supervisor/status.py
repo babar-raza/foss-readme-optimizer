@@ -3,7 +3,12 @@
 from readme_agent.supervisor.models import SuperviseResult
 
 CONVERGED_STATUSES = frozenset(
-    {"CONVERGED_NO_CHANGE", "CONVERGED_APPLIED", "CONVERGED_NO_TRACKED_CHANGE"}
+    {
+        "CONVERGED_NO_CHANGE",
+        "CONVERGED_APPLIED",
+        "CONVERGED_PROPOSAL_READY",
+        "CONVERGED_NO_TRACKED_CHANGE",
+    }
 )
 
 

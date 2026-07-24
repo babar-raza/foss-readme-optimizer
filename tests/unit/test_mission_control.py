@@ -60,7 +60,7 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
 
     assert graph.mission_authority.mission_id == "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION"
     assert graph.autonomous_execution_contract.mechanism_locked is True
-    assert len(graph.taskcards) == 17
+    assert len(graph.taskcards) == 24
     assert len(graph_hash) == 64
     tasks = {task.task_id: task for task in graph.taskcards}
     local_wave3 = tasks["L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"]
@@ -75,16 +75,26 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION"
         in tasks["L8-WAVE4-PRESENTATION-INTELLIGENCE"].dependencies
     )
+    preproduction = tasks["L8-PREPRODUCTION-IDEA-FIDELITY-GATE"]
+    assert preproduction.dependencies == ["L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION"]
+    assert (
+        "L8-PREPRODUCTION-IDEA-FIDELITY-GATE"
+        in tasks["L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME"].dependencies
+    )
     coverage = graph.requirement_coverage
     assert coverage is not None
-    assert coverage.total_requirement_rows == 390
-    assert coverage.mandatory_requirement_rows == 367
+    assert coverage.total_requirement_rows == 391
+    assert coverage.mandatory_requirement_rows == 368
     assert coverage.reopened_implemented_rows == 0
-    assert len({mapping.requirement_id for mapping in coverage.mappings}) == 390
+    assert len({mapping.requirement_id for mapping in coverage.mappings}) == 391
     l8_mapping = next(
         mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-011"
     )
     assert l8_mapping.task_id == "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"
+    preproduction_mapping = next(
+        mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-014"
+    )
+    assert preproduction_mapping.task_id == "L8-PREPRODUCTION-IDEA-FIDELITY-GATE"
     requirements_path = REPO_ROOT / coverage.source_path
     assert coverage.source_sha256 == hashlib.sha256(requirements_path.read_bytes()).hexdigest()
 
@@ -116,6 +126,22 @@ def test_evaluate_initializes_and_preserves_the_bootstrap_claim():
     assert state.active_task_id == "L8-MISSION-CONTROL-CONSUMER"
     assert state.task_statuses[state.active_task_id] == "IN_PROGRESS"
     assert evaluate_mission(graph, state).mission_complete is False
+
+
+def test_read_only_evaluation_accepts_a_new_graph_task_before_state_reconciliation():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = {task.task_id: task.status for task in graph.taskcards}
+    statuses.pop("L8-PREPRODUCTION-IDEA-FIDELITY-GATE")
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
+    )
+
+    evaluation = evaluate_mission(graph, state)
+
+    assert "L8-PREPRODUCTION-IDEA-FIDELITY-GATE" in evaluation.unresolved_task_ids
+    assert evaluation.mission_complete is False
 
 
 def test_claim_is_idempotent_while_a_task_is_already_active():

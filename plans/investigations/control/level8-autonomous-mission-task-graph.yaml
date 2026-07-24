@@ -700,6 +700,7 @@ taskcards:
   - config/authorization/
   dependencies:
   - L8-WAVE1-CANONICAL-SAFETY-SPINE
+  - L8-PREPRODUCTION-IDEA-FIDELITY-GATE
   expected_outputs:
   - TriggerEnvelopeV2, CheckpointV1, HealthReportV1, and RunManifestV3.
   - State migrations with fail-closed newer-version handling.
@@ -1182,6 +1183,407 @@ taskcards:
   - All repository-local acceptance checks pass with inspected evidence.
   - Parent Wave 4 remains dependent on both this child and the production Wave 3 parent.
   requirement_ids: []
+- task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Prove idea-faithful behavior locally, under act, and in isolated staging
+  source_audit_finding: Existing local evidence proves individual foundations, the current act evidence
+    executes only the authoritative-matrix job, and the hosted workflow stopped before supervise; the
+    system has therefore not yet demonstrated the complete operating model in any pre-production environment.
+  audit_classification: partially_done
+  priority: P0
+  lane: preproduction-fidelity
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Make direct local, complete current-workflow act, and isolated staging execution pass in
+    that order against one canonical runtime before any production credential or production-pilot work
+    resumes.
+  why_it_matters: Production infrastructure cannot compensate for an operating model that has not yet
+    been shown to work end to end under controlled, reproducible conditions.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - .github/workflows/
+  - config/
+  - docs/
+  - pyproject.toml
+  - requirements-lock.txt
+  - plans/requirements.md
+  - plans/investigations/
+  - plans/investigations/evidence/
+  - scripts/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - plans/idea.md
+  - config/authorization/
+  - production GitHub App configuration
+  - production target repository remotes
+  - target repository default branches
+  dependencies:
+  - L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION
+  expected_outputs:
+  - A clause-level plans/idea.md fidelity matrix separating pre-production proof from production-only
+    elapsed-time and identity gates.
+  - Direct local evidence for the three Java pilot archetypes through facts, presentation planning, candidate
+    verification, honest terminal classification, and unchanged convergence.
+  - Complete act execution of the current workflow's applicable recovery, plan, analyze/resume, evidence,
+    and health paths using an isolated durable-state remote.
+  - An isolated staging draft-proposal lifecycle with production-equivalent safety and no production repository
+    access.
+  acceptance_checks:
+  - Local proof covers no-op, false package claim, upstream change, maintainer overwrite, malformed or
+    prompt-injected content, state outage, duplicate trigger, and checkpoint interruption.
+  - Act runs the current workflow through supervise and terminal evidence; a plan-job-only run does not
+    count.
+  - Staging proves create, unchanged retry, changed-candidate update, target drift, lost response, authorization
+    expiry, and crash recovery as exactly one proposal state.
+  - Repository description, homepage, topics, community, visual/manual-UI, package/release, and GitHub-generated
+    ownership outcomes are present and honest even when the correct result is blocked, audit-only, or
+    manual handoff.
+  - All evidence is checksum-complete, secret-redacted, and independently reproducible.
+  verification:
+  - Focused direct-local integration suite for the three pilot archetypes.
+  - Full current-workflow act reproduction for workflow_dispatch and repository_dispatch, plus simulated
+    schedule recovery.
+  - Isolated staging API/git integration tests and a real staging draft PR before production.
+  - Full official checks and independent evidence review.
+  negative_controls:
+  - No production GitHub App, production secret, or production target write is needed to close this task.
+  - No production profile may accept GH_TOKEN or a staging credential.
+  - No control-repository feature branch is created; work is committed only on main.
+  - A target proposal never writes, merges, force-pushes, or directly commits its default branch.
+  regression_checks:
+  - Existing allow-list, push-blocking, authorization, effect-ledger, verifier, state-CAS, and evidence
+    security tests.
+  - Existing ProductFactsV2 and RepositoryPresentationPlanV1 evidence suites.
+  - Requirement-task coverage and plan-structure validation.
+  evidence_requirements:
+  - Separate local, act, and staging bundles with immutable input revisions and SHA-256 inventories.
+  - A consolidated pre-production acceptance report naming every remaining production-only gate.
+  - Independent verdict that rejects closure if any applicable workflow job or core idea obligation is
+    represented only by mocks or unit tests.
+  rollback_or_recovery: Keep production provisioning deferred, preserve all diagnostic evidence, and reroute
+    a failing layer to a bounded repair task without weakening the later layer's gate.
+  failure_reroute: Repair local behavior before act parity; repair act parity before staging; do not skip
+    a failed layer by moving to production.
+  closeout_rules:
+  - All local, act, and isolated staging acceptance checks pass in order.
+  - Remaining GitHub App, real scheduler, external dead-man, 30-day, and 90-day proofs stay explicitly
+    open as production gates.
+  requirement_ids:
+  - L8-014
+- task_id: L8-PREPRODUCTION-TRUTHFUL-BASELINE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
+  title: Restore truthful terminal decisions and a green resumable baseline
+  source_audit_finding: Three live local pilots exposed false no-change results, premature planner stops,
+    and an order-dependent prompt-registry failure before idea-level work could be trusted.
+  audit_classification: partially_done
+  priority: P0
+  lane: preproduction-fidelity
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Finish deterministic finding, proposal, remaining-work, and stop classification and restore
+    every official local check without weakening any safety boundary.
+  why_it_matters: Later facts and presentation evidence are invalid if the runtime can call an incomplete
+    run successful or tests depend on incidental process state.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - docs/
+  - plans/requirements.md
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - plans/idea.md
+  - config/authorization/
+  - production target repository remotes
+  dependencies:
+  - L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION
+  expected_outputs:
+  - WorkLedgerV1-backed terminal and stop decisions.
+  - Green supervisor, prompt-registry, CLI, and mission-controller tests.
+  - A clean official local verification bundle.
+  acceptance_checks:
+  - Unresolved findings exit nonzero and verified proposals are not labeled no-change.
+  - Planner prose and stop capability calls cannot terminate while eligible work remains.
+  - Prompt loading is independent of test import order and current directory.
+  verification:
+  - Focused supervisor and work-ledger tests.
+  - Complete non-live suite and all official static checks.
+  negative_controls:
+  - No test expectation is changed without inspecting the fixture's real specialist outputs.
+  - No product remote or production credential is used.
+  regression_checks:
+  - Existing false-success, capability-gap, verifier, permission, and evidence tests.
+  evidence_requirements:
+  - Raw focused and official-check logs with SHA-256 inventory.
+  - Exact terminal results for the three prior live pilot evidence bundles.
+  rollback_or_recovery: Preserve the restart checkpoint and keep every incomplete outcome visibly partial
+    or blocked.
+  failure_reroute: Repair the first failing producer or consumer before extending the runtime.
+  closeout_rules:
+  - All official checks pass.
+  - Independent review accepts the terminal and stop semantics.
+  requirement_ids: []
+- task_id: L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
+  title: Build one immutable repository snapshot and complete pilot product truth
+  source_audit_finding: Capabilities can re-observe a repository independently and ProductFactsV2 currently
+    migrates most idea-level fields to honest but unusable missing records.
+  audit_classification: partially_done
+  priority: P0
+  lane: facts-and-ownership
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Make every fact, plan, render, and verifier consume one revision and populate enough verified
+    truth to author the three Java pilot READMEs.
+  why_it_matters: A polished candidate assembled from missing or mixed-revision facts is not a truthful
+    repository-presentation result.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - config/
+  - data/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - plans/idea.md
+  - production target repository remotes
+  dependencies:
+  - L8-PREPRODUCTION-TRUTHFUL-BASELINE
+  expected_outputs:
+  - RepositorySnapshotV1 and same-snapshot capability wiring.
+  - Complete pilot ProductFactsV2 records and conflict/handoff evidence.
+  - Isolated acquisition and example-verification results.
+  acceptance_checks:
+  - Every selected fact cites the same immutable repository revision or an explicit timed external source.
+  - False Maven publication claims are rejected and a verified source-build path is selected.
+  - Missing facts block only dependent actions.
+  verification:
+  - Snapshot-consistency, fact-precedence, false-coordinate, and example-execution tests.
+  - Read-only proof against all three current pilot revisions.
+  negative_controls:
+  - README prose cannot verify itself.
+  - No package/example process receives a write credential.
+  regression_checks:
+  - Existing ProductFactsV2, profiling, acquisition, and protected-content tests.
+  evidence_requirements:
+  - Per-pilot snapshot and provenance graph with checksums.
+  - Raw acquisition and example-execution results.
+  rollback_or_recovery: Retain ProductFactsV1 migration reading until every consumer uses V2.
+  failure_reroute: Emit a scoped fact handoff and continue independent surfaces.
+  closeout_rules:
+  - All three pilots have sufficient verified core README facts.
+  - Independent factuality review accepts the provenance.
+  requirement_ids: []
+- task_id: L8-LOCAL-README-PROPOSAL-PROOF
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
+  title: Produce three fact-backed repository-specific README proposals
+  source_audit_finding: The current executable presentation action changes only the legacy resources block
+    and cannot repair the opening, installation, capabilities, examples, navigation, or stale claims.
+  audit_classification: not_attempted
+  priority: P0
+  lane: presentation-intelligence
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Implement a protected section-level README document plan and independently verify one reviewer-ready
+    proposal for Cells, 3D, and PDF Java.
+  why_it_matters: README health is idea.md's non-negotiable product outcome and the first visible proof
+    that the system, rather than its infrastructure, works.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - plans/idea.md
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS
+  expected_outputs:
+  - ReadmeDocumentPlanV1 and one-span byte-preserving adoption.
+  - Three original/candidate/patch/fact/plan/verifier proposal bundles.
+  - Identical-rerun no-op evidence.
+  acceptance_checks:
+  - Cells cannot retain the known false package claim.
+  - Protected examples, commands, terminology, and limitations are preserved or authoritatively corrected.
+  - The three outputs are repository-specific and require no manual prose repair.
+  verification:
+  - Section-operation, source-span, Git-apply, factuality, and independent-verifier tests.
+  - Live-routed local proposal generation followed by deterministic reruns.
+  negative_controls:
+  - No whole-document free-form LLM effect.
+  - No edit outside the one adopted presentation span.
+  regression_checks:
+  - Existing marker, change-boundary, idempotency, safety, and verifier tests.
+  evidence_requirements:
+  - Complete per-pilot proposal bundles and cross-pilot template-clone review.
+  rollback_or_recovery: Reapply the original bytes and remove only the adoption markers.
+  failure_reroute: Block the affected section and continue safe preserved sections.
+  closeout_rules:
+  - All three proposals pass deterministic and independent verification.
+  - Unchanged reruns produce zero diff and zero unnecessary LLM calls.
+  requirement_ids: []
+- task_id: L8-LOCAL-CENTRAL-AGENT-RESILIENCE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
+  title: Prove complete local multi-surface behavior and recovery
+  source_audit_finding: Individual surface foundations exist, but no complete local run proves every applicable
+    surface, fault, resume, and evidence obligation together.
+  audit_classification: not_attempted
+  priority: P0
+  lane: preproduction-fidelity
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Produce one-command local proof across README, metadata, community, visual handoff, package/release,
+    generated signals, cross-surface validation, and recovery scenarios.
+  why_it_matters: Static proposals alone do not prove the autonomous central-agent operating model.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - config/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - plans/idea.md
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-README-PROPOSAL-PROOF
+  expected_outputs:
+  - LocalProofManifestV1 and consolidated three-pilot acceptance report.
+  - Multi-surface findings/proposals/handoffs and complete recovery evidence.
+  acceptance_checks:
+  - No-op, upstream change, overwrite, injection, fact conflict, duplicate, outage, interruption, controlled
+    specialist failure, and evidence-corruption scenarios are terminal and reproducible.
+  - No product remote is touched.
+  verification:
+  - Local end-to-end integration and fault-injection suites.
+  - Independent evidence reproduction.
+  negative_controls:
+  - A blocked or manual-only surface cannot be reported applied.
+  - Mocks alone cannot close the task.
+  regression_checks:
+  - Full official checks and every existing safety-property test.
+  evidence_requirements:
+  - Checksum-complete local evidence with one-command reproduction.
+  - Independent locally-proven pre-production verdict.
+  rollback_or_recovery: Preserve immutable inputs and restart from the last verified checkpoint.
+  failure_reroute: Repair local behavior before any act execution.
+  closeout_rules:
+  - Every locally applicable idea.md obligation passes.
+  - Remaining obligations are explicitly production-only or manual-UI.
+  requirement_ids: []
+- task_id: L8-ACT-CANONICAL-WORKFLOW-PARITY
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
+  title: Reproduce the complete canonical workflow under act
+  source_audit_finding: Existing act evidence executed only matrix planning and therefore did not prove
+    supervise, recovery, evidence, or health behavior.
+  audit_classification: partially_done
+  priority: P0
+  lane: actions-runtime
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run the same reusable workflow through every applicable job and trigger path with isolated
+    local state and no production authentication fallback.
+  why_it_matters: Local CLI success does not prove GitHub Actions-compatible orchestration.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - .github/workflows/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - plans/idea.md
+  - production GitHub App configuration
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-CENTRAL-AGENT-RESILIENCE
+  expected_outputs:
+  - Full workflow_dispatch, repository_dispatch, and simulated recovery evidence.
+  - Isolated Git state and matrix failure-isolation proof.
+  acceptance_checks:
+  - Supervise, evidence upload, recovery, and health jobs all execute.
+  - Planning-only or fixture-controller-only execution fails the gate.
+  verification:
+  - Real Docker/act runs and workflow contract tests.
+  negative_controls:
+  - Production profiles reject GH_TOKEN or PAT fallback.
+  - No product remote is touched.
+  regression_checks:
+  - Actionlint and complete official checks.
+  evidence_requirements:
+  - Raw act logs, container versions, job outcomes, and checksums.
+  rollback_or_recovery: Recreate isolated remotes and resume from the failed workflow checkpoint.
+  failure_reroute: Repair act parity before staging.
+  closeout_rules:
+  - Every applicable current-workflow job reaches an honest terminal result.
+  requirement_ids: []
+- task_id: L8-STAGING-VERIFIED-PROPOSAL-PROOF
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
+  title: Prove exactly-once draft proposals in disposable GitHub staging
+  source_audit_finding: The verified proposal, drift, durable open-proposal, and crash-boundary lifecycle
+    has not been exercised end to end outside a product repository.
+  audit_classification: not_attempted
+  priority: P0
+  lane: proposal-effects
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Create disposable staging targets and prove the production-equivalent proposal lifecycle
+    without changing any target default branch.
+  why_it_matters: Production credentials must not be requested before exactly-once effects work in isolation.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - .github/workflows/
+  - config/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - plans/idea.md
+  - production target repository remotes
+  - target repository default branches
+  dependencies:
+  - L8-ACT-CANONICAL-WORKFLOW-PARITY
+  expected_outputs:
+  - VerifiedPresentationCandidateV1, VerifiedProposalV1, and OpenProposalV2.
+  - Staging create/no-op/update/drift/dedup/lost-response/expiry/crash evidence.
+  acceptance_checks:
+  - Exactly one correct draft proposal state exists after every scenario.
+  - Default branches remain byte-identical.
+  verification:
+  - Local bare-remote tests followed by real disposable GitHub staging proof.
+  - Independent proposal review.
+  negative_controls:
+  - No product repository, force push, merge, ready-for-review, package, or release effect.
+  regression_checks:
+  - Existing authorization, effect-ledger, PR, and credential-boundary tests.
+  evidence_requirements:
+  - Remote observations, state records, token-boundary audit, and checksums.
+  rollback_or_recovery: Archive or remove disposable staging resources only after evidence retention and
+    explicit destructive-action authorization.
+  failure_reroute: Keep verified candidates in no-effect mode while access is unavailable.
+  closeout_rules:
+  - Staging acceptance passes before production App provisioning begins.
+  requirement_ids: []
 - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1486,10 +1888,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 6209b755ed015b1211b6cab4dc2bc28d93d0fa42b9a6a1d1841d3dca21a23a16
+  source_sha256: 8d216ef0d84e0a4ec7eda207caafb65e38af2a938c4ed3d716a8045c6ec1e325
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 390
-  mandatory_requirement_rows: 367
+  total_requirement_rows: 391
+  mandatory_requirement_rows: 368
   excluded_backlog_rows: 23
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -3194,9 +3596,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: AGT-004
     priority: P0
-    requirement_status: IMPLEMENTED
+    requirement_status: PARTIAL
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: preserved_verified
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: AGT-005
     priority: P1
@@ -3832,5 +4234,11 @@ requirement_coverage:
     priority: P0
     requirement_status: PARTIAL
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-014
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
     disposition: open_mandatory
     semantic_findings: []
