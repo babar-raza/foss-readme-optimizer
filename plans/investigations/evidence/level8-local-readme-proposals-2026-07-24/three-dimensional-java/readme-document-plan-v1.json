@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+  "immutable_base_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+  "facts_hash": "c95f627a411cc22b5a93fe27c51245a92d39565d3da3cd80f895d6bae1766d86",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
+    "source_inner_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
+    "source_inner_bytes": 3933,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 622,
+      "source_byte_end": 622,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** Java developers building 3D import, export, and scene-processing applications.\n- **Problem solved:** Create, load, inspect, transform, and save 3D scenes with an open-source Java API.\n- **Verified capabilities:** Create, load, inspect, transform, and save 3D scenes. Model scene geometry and materials through mesh and material APIs.\n- **Verified formats:** Import and export glTF and GLB scenes. Import and export binary and ASCII STL scenes. Import and export Collada scenes.\n- **Runtime:** Java 21+\n- **Current verified limitation:** Rendering and full commercial-API parity remain incomplete.\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Project Status](#project-status)\n- [API Compatibility](#api-compatibility)\n- [Building](#building)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n## Installation\n\nBuild the verified repository revision from source:\n\n```bash\ngit clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Java.git\ncd Aspose.3D-FOSS-for-Java\ngit checkout 605f67d1192fee1881078dfd53d37b8cb29623ba\nmvn clean install\n```\n\nThis path requires JDK 21+ and Maven. The source build and the minimal example\nbelow were verified together at revision `605f67d1192fee1881078dfd53d37b8cb29623ba`.\n\n",
+      "replacement_sha256": "9e5f05aa57d62c3d0263714c81b61bb379124c898cc92c00c7b4c414d293a53e",
+      "fact_ids": [
+        "installation.verified_acquisition:disposable-source-build",
+        "product.audience:approved-policy",
+        "product.capabilities:repository-evidence",
+        "product.compatibility:manifest",
+        "product.formats:repository-evidence",
+        "product.limitations:repository-evidence",
+        "product.problems_solved:approved-policy"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.example.insert-verified-minimal",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2209,
+      "source_byte_end": 2209,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n### Minimal verified example\n\n```java\nimport com.aspose.threed.Scene;\n\npublic class ReadmeExample {\n    public static void main(String[] args) throws Exception {\n        Scene scene = new Scene();\n        scene.save(\"scene.stl\");\n    }\n}\n```\n\nThis exact example was compiled against the source build at revision `605f67d1192fee1881078dfd53d37b8cb29623ba`.\n\n",
+      "replacement_sha256": "daa315b4797e1a574ecf56b27855df31d0f692b4f285f56a2c360faee00be335",
+      "fact_ids": [
+        "example.minimal:compiled-policy-example"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Lead the usage section with the exact minimal example compiled against the verified source build.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.opening.remove-promotional-callout",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 321,
+      "source_byte_end": 622,
+      "expected_sha256": "0649e2636c8002f673268d43d02b5f7bf43abb083239756b26e4ab75b0bba11b",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Keep the first screen product-first; the existing relationship section continues to carry restrained commercial context.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "9ed32c5eeabfb70f6e0fc98c607b337dbb1944b1fb2eb5dc0d7cdef971ccee8b"
+}

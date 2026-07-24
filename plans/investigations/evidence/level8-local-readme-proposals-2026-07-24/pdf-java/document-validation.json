@@ -1,0 +1,27 @@
+{
+  "valid": true,
+  "checks": {
+    "source_document_hash": true,
+    "adoption_preserved_source": true,
+    "candidate_has_presentation_span": true,
+    "facts_hash_matches": true,
+    "template_hash_matches": true,
+    "candidate_hash_matches": true,
+    "source_span_hashes": true,
+    "fact_citations": true,
+    "document_reconstruction": true,
+    "protected_content": true,
+    "verified_example_present": true,
+    "verified_overview_present": true
+  },
+  "errors": [],
+  "authorized_protected_corrections": [
+    "command:055491e6cdeb934e",
+    "command:b0f330a41c375529",
+    "example:18fb8e9c84532d79",
+    "example:41c8f534c511b918",
+    "example:eb3e5d6ce05f350e",
+    "technical_terminology:9c5fb3d1b7e3b0f5"
+  ],
+  "citation_errors": []
+}

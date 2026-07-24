@@ -1,0 +1,413 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "pdf",
+        "platform": "java",
+        "ecosystem": "java",
+        "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "manifest_names": [
+          "Aspose.PDF FOSS"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:approved-policy",
+      "field": "product.audience",
+      "value": [
+        "Java developers creating, reading, modifying, and saving PDF documents."
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "config/policies/aspose-pdf-foss.yml",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "product-policy-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:approved-policy",
+      "field": "product.problems_solved",
+      "value": [
+        "Process PDF documents with an open-source Java API focused on the core PDF specification."
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "config/policies/aspose-pdf-foss.yml",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "product-policy-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": [
+        "Create, open, modify, and save PDF documents.",
+        "Add pages and text content to PDF documents."
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/main/java/org/aspose/pdf/Document.java,src/main/java/org/aspose/pdf/Page.java,src/main/java/org/aspose/pdf/PageCollection.java,src/main/java/org/aspose/pdf/text/TextFragment.java,src/test/java/org/aspose/pdf/tests/DocumentTest.java,src/test/java/org/aspose/pdf/tests/generation/DocumentSaveIdempotenceTest.java",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": [
+        "Read and write PDF documents.",
+        "Produce PDF/A documents for long-term preservation workflows."
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://docs/limitations.md,docs/pdfa.md,src/main/java/org/aspose/pdf/Document.java,src/main/java/org/aspose/pdf/PdfFormat.java",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "java"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "java",
+          "manifest_path": "pom.xml",
+          "group_id": "org.aspose",
+          "artifact_id": "aspose-pdf-foss",
+          "name": "Aspose.PDF FOSS",
+          "version": "26.6.0"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:disposable-source-build",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "source_build",
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "detail": "source build and exact README example compilation passed"
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-product-verification://aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:compiled-policy-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "java",
+        "class_name": "ReadmeExample",
+        "code": "import org.aspose.pdf.Document;\nimport org.aspose.pdf.Page;\nimport org.aspose.pdf.text.TextFragment;\n\npublic class ReadmeExample {\n    public static void main(String[] args) throws Exception {\n        try (Document document = new Document()) {\n            Page page = document.getPages().add();\n            page.getParagraphs().add(new TextFragment(\"Hello, PDF\"));\n            document.save(\"hello.pdf\");\n        }\n    }\n}\n",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED",
+        "verification_detail": "source build and exact README example compilation passed"
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-product-verification://aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/pdf/java/",
+          "family_url": "https://products.aspose.org/pdf/",
+          "label": "Aspose.PDF FOSS for Java",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/pdf/java/",
+          "family_url": "https://products.aspose.com/pdf",
+          "label": "Aspose.PDF for Java",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "version": "26.6.0",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": [
+        "OCR, non-PDF conversion, XFA rendering, 3D annotations, and PDF/X are out of scope."
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://docs/limitations.md",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:manifest",
+      "field": "product.compatibility",
+      "value": [
+        {
+          "ecosystem": "java",
+          "minimum_runtime": "11",
+          "manifest_path": "pom.xml"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "source_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:approved-policy",
+    "product.problems_solved": "product.problems_solved:approved-policy",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:disposable-source-build",
+    "example.minimal": "example.minimal:compiled-policy-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:manifest",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

@@ -1,0 +1,104 @@
+diff --git a/README.md b/README.md
+index 9b33948..b39fbd2 100644
+--- a/README.md
++++ b/README.md
+@@ -1,17 +1,38 @@
++<!-- readme-agent:presentation hash="sha256:00711aed76ea11eb6eddcf4bd2fbe216f5506979abda1868318a5839fe50474b" schema="3" inner-bytes="9379" -->
+ # Aspose.PDF FOSS for Java
+ 
+ > Pure Java PDF library, zero third-party dependencies
+ 
+ [![Build Status](https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java/actions/workflows/build.yml/badge.svg)](https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java/actions/workflows/build.yml)
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+-[![Maven Central](https://img.shields.io/maven-central/v/org.aspose/aspose-pdf.svg)](https://search.maven.org/artifact/org.aspose/aspose-pdf)
+ [![Java Version](https://img.shields.io/badge/Java-11%2B-blue.svg)](https://openjdk.org/projects/jdk/11/)
+ 
+ Aspose.PDF FOSS for Java is an open-source Java library for working with PDF documents. It is API-compatible with [Aspose.PDF for Java](https://products.aspose.com/pdf/java/), targets ISO 32000-1:2008 compliance, and depends only on the standard Java platform — no third-party libraries required.
+ 
++## At a glance
++
++- **For:** Java developers creating, reading, modifying, and saving PDF documents.
++- **Problem solved:** Process PDF documents with an open-source Java API focused on the core PDF specification.
++- **Verified capabilities:** Create, open, modify, and save PDF documents. Add pages and text content to PDF documents.
++- **Verified formats:** Read and write PDF documents. Produce PDF/A documents for long-term preservation workflows.
++- **Runtime:** Java 11+
++- **Current verified limitation:** OCR, non-PDF conversion, XFA rendering, 3D annotations, and PDF/X are out of scope.
++
++## In this README
++
++- [Status](#status)
++- [Features](#features)
++- [Installation](#installation)
++- [Quick Start](#quick-start)
++- [Documentation](#documentation)
++- [Status & Roadmap](#status-roadmap)
++- [Contributing](#contributing)
++- [License](#license)
++- [Related projects](#related-projects)
++
+ ## Status
+ 
+-**Version 26.7** (Aspose-style year.month versioning). The library is functional for many common workflows but breaking changes may still happen between releases. See the [roadmap](#status--roadmap) below for current coverage.
++**Version 26.6.0** (Aspose-style year.month versioning). The library is functional for many common workflows but breaking changes may still happen between releases. See the [roadmap](#status--roadmap) below for current coverage.
+ 
+ ## Features
+ 
+@@ -38,31 +59,40 @@ Aspose.PDF FOSS for Java is an open-source Java library for working with PDF doc
+ 
+ ## Installation
+ 
+-Maven Central publication is planned but the artifact is **not yet available** on Central. For now, build from source:
++Build the verified repository revision from source:
+ 
+ ```bash
+ git clone https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java.git
+ cd Aspose.PDF-FOSS-for-Java
++git checkout 1ed0a411171e49758b462321ed24bff568bb4444
+ mvn clean install
+ ```
+ 
+-Once on Maven Central, add to your `pom.xml`:
++This path requires JDK 11+ and Maven. The source build and the minimal example
++below were verified together at revision `1ed0a411171e49758b462321ed24bff568bb4444`.
+ 
+-```xml
+-<dependency>
+-    <groupId>org.aspose</groupId>
+-    <artifactId>aspose-pdf</artifactId>
+-    <version>26.7</version>
+-</dependency>
+-```
++## Quick Start
+ 
+-Gradle:
++### Minimal verified example
++
++```java
++import org.aspose.pdf.Document;
++import org.aspose.pdf.Page;
++import org.aspose.pdf.text.TextFragment;
+ 
+-```groovy
+-implementation 'org.aspose:aspose-pdf:26.7'
++public class ReadmeExample {
++    public static void main(String[] args) throws Exception {
++        try (Document document = new Document()) {
++            Page page = document.getPages().add();
++            page.getParagraphs().add(new TextFragment("Hello, PDF"));
++            document.save("hello.pdf");
++        }
++    }
++}
+ ```
+ 
+-## Quick Start
++This exact example was compiled against the source build at revision `1ed0a411171e49758b462321ed24bff568bb4444`.
++
+ 
+ ### Extract text from an existing PDF
+ 
+@@ -191,3 +221,4 @@ This project is licensed under the **MIT License** — see [LICENSE](LICENSE) fo
+ ## Related projects
+ 
+ [Aspose.PDF for Java](https://products.aspose.com/pdf/java/) is a commercial library from Aspose Pty Ltd that offers a broader feature set, including OCR and conversion to many non-PDF formats. The FOSS edition shares the same API shape, so user code can often migrate between the two with minimal changes.
++<!-- readme-agent:presentation:end -->

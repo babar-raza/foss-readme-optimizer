@@ -1,0 +1,90 @@
+diff --git a/README.md b/README.md
+index afb99b9..4a30829 100644
+--- a/README.md
++++ b/README.md
+@@ -1,20 +1,46 @@
++<!-- readme-agent:presentation hash="sha256:5e68905f297e42fafa87a3e53fcdc65ab1cf5763dd1b0a03e1259db2c4510136" schema="3" inner-bytes="11161" -->
+ # Aspose.Cells FOSS for Java
+ 
+ Aspose.Cells FOSS for Java is a Java 17 spreadsheet library for creating, loading, modifying, and saving Excel `.xlsx` workbooks.
+ It exposes a user-facing API in `org.aspose.cells_foss` and keeps OOXML packaging, XML mapping, and XLSX serialization inside this repository.
+ 
++## At a glance
++
++- **For:** Java developers creating, loading, modifying, and saving spreadsheet workbooks.
++- **Problem solved:** Process XLSX workbooks with an open-source Java API without requiring Microsoft Excel.
++- **Verified capabilities:** Create, load, modify, and save workbooks and worksheets. Read and write cell values and apply spreadsheet styles.
++- **Verified formats:** Load and save XLSX workbooks.
++- **Runtime:** Java 17+
++- **Current verified limitation:** The verified load and save surface is limited to XLSX workbooks.
++
++## In this README
++
++- [Installation](#installation)
++- [Current Scope](#current-scope)
++- [Supported Features](#supported-features)
++- [Known Limits](#known-limits)
++- [Build And Test](#build-and-test)
++- [Quick Start](#quick-start)
++- [Project Layout](#project-layout)
++- [Testing Coverage](#testing-coverage)
++- [Notes For Contributors](#notes-for-contributors)
++- [License](#license)
++- [Support](#support)
++
+ ## Installation
+ 
+-Add the following dependency to your `pom.xml`:
++Build the verified repository revision from source:
+ 
+-```xml
+-<dependency>
+-    <groupId>org.aspose</groupId>
+-    <artifactId>aspose-cells-foss</artifactId>
+-    <version>1.0.0</version>
+-</dependency>
++```bash
++git clone https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java.git
++cd Aspose.Cells-FOSS-for-Java
++git checkout 2be25d979d1f3bf2875a1798aed62a16efab6619
++mvn clean install
+ ```
+ 
++This path requires JDK 17+ and Maven. The source build and the minimal example
++below were verified together at revision `2be25d979d1f3bf2875a1798aed62a16efab6619`.
++
+ ## Current Scope
+ 
+ - Load formats: `AUTO`, `XLSX`
+@@ -79,6 +105,26 @@ mvn javadoc:javadoc   # generates docs/apidocs/index.html
+ 
+ ## Quick Start
+ 
++### Minimal verified example
++
++```java
++import org.aspose.cells_foss.Workbook;
++import org.aspose.cells_foss.Worksheet;
++
++public class ReadmeExample {
++    public static void main(String[] args) throws Exception {
++        try (Workbook workbook = new Workbook()) {
++            Worksheet sheet = workbook.getWorksheets().get(0);
++            sheet.getCells().get("A1").putValue("Hello");
++            workbook.save("hello.xlsx");
++        }
++    }
++}
++```
++
++This exact example was compiled against the source build at revision `2be25d979d1f3bf2875a1798aed62a16efab6619`.
++
++
+ Create a workbook, write values, style a cell, and save it:
+ 
+ ```java
+@@ -249,3 +295,4 @@ For bug reports, feature requests, and project questions, use the GitHub issue t
+ 
+ - [Project issues](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/issues)
+ 
++<!-- readme-agent:presentation:end -->
