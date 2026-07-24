@@ -26,11 +26,11 @@ from readme_agent.presentation.document_planner import (  # noqa: E402
 from readme_agent.readme.document_renderer import (  # noqa: E402
     build_readme_document_candidate,
 )
-from readme_agent.readme.document_validation import (  # noqa: E402
-    validate_readme_document_candidate,
-)
-from readme_agent.readme.markers import find_presentation_span  # noqa: E402
 from readme_agent.registry.loader import find_entry, load_policy  # noqa: E402
+from readme_agent.verification.readme_proposal_bundle import (  # noqa: E402
+    VERIFIER_IDENTITY,
+    verify_readme_proposal_bundle,
+)
 
 FACT_PROOF = (
     REPO_ROOT
@@ -100,50 +100,20 @@ def _pilot_bundle(output: Path, pilot: dict) -> LocalPilotProposalProofV1:
         ownership,
         base_revision=snapshot["source_revision"],
     )
-    validation = validate_readme_document_candidate(
-        source,
-        candidate,
-        document_plan,
-        facts,
-    )
     rerendered, rerun_plan = build_readme_document_candidate(
         org_repo,
         candidate,
         facts,
         base_revision=snapshot["source_revision"],
     )
-    span = find_presentation_span(candidate)
-    identity = facts.selected_fact("product.identity").value
-    product_names = identity.get("manifest_names", []) if isinstance(identity, dict) else []
-    coordinate = facts.selected_fact("installation.coordinates").value
-    artifact_id = coordinate.get("artifact_id") if isinstance(coordinate, dict) else None
-    not_published = any(
-        result["outcome"] == "NOT_PUBLISHED" for result in pilot["package_acquisition"]["results"]
-    )
-    false_claim_absent = not (
-        not_published
-        and (
-            (artifact_id and f"<artifactId>{artifact_id}</artifactId>" in candidate)
-            or "maven-central" in candidate.lower()
-        )
-    )
-    reviewer_checks = {
-        "document_validation": validation.valid,
-        "repository_plan_executable": executable,
-        "product_specific_identity": bool(
-            span is not None and any(name in span.content for name in product_names)
-        ),
-        "false_package_claim_absent": false_claim_absent,
-        "no_placeholder_runtime": "unknown+" not in candidate,
-        "source_build_present": "mvn clean install" in candidate,
-        "verified_example_present": validation.checks["verified_example_present"],
-        "protected_content_valid": validation.checks["protected_content"],
-        "identical_rerun_noop": rerendered == candidate and not rerun_plan.operations,
-        "no_llm_required_for_deterministic_rerun": True,
-        "no_product_remote_writes": True,
-    }
-    verdict = "accepted" if all(reviewer_checks.values()) else "rejected"
+    identical_rerun_noop = rerendered == candidate and not rerun_plan.operations
 
+    # Write the core artifacts FIRST, then hand the finished bundle to the real,
+    # separately-authored verifier (VERIFIER-BUILT-NOT-WIRED, closed): this producer
+    # no longer computes its own accept/reject verdict. A provisional checksum
+    # manifest (covering just these files) satisfies the verifier's own required-
+    # artifact precondition; the final manifest below covers the complete bundle
+    # including the verifier's own review.
     _write(bundle / "original-readme.md", source)
     _write(bundle / "candidate-readme.md", candidate)
     _write(bundle / "proposal.patch", patch["patch"])
@@ -155,11 +125,19 @@ def _pilot_bundle(output: Path, pilot: dict) -> LocalPilotProposalProofV1:
     )
     _json(bundle / "document-validation.json", records["document_validation"])
     _json(
+        bundle / "artifact-sha256.json",
+        {path.name: _sha256(path) for path in sorted(bundle.iterdir()) if path.is_file()},
+    )
+
+    review = verify_readme_proposal_bundle(bundle)
+    verdict = "accepted" if review.verified else "rejected"
+    _json(
         bundle / "independent-review.json",
         {
-            "reviewer": "deterministic-independent-local-proposal-reviewer",
+            "reviewer": VERIFIER_IDENTITY,
             "verdict": verdict,
-            "checks": reviewer_checks,
+            "checks": review.checks,
+            "failures": review.failures,
         },
     )
     artifacts = {path.name: _sha256(path) for path in sorted(bundle.iterdir()) if path.is_file()}
@@ -172,7 +150,7 @@ def _pilot_bundle(output: Path, pilot: dict) -> LocalPilotProposalProofV1:
         operation_ids=[operation.operation_id for operation in document_plan.operations],
         first_run_executable=executable,
         independent_verdict=verdict,
-        identical_rerun_noop=reviewer_checks["identical_rerun_noop"],
+        identical_rerun_noop=identical_rerun_noop,
         artifact_sha256=artifacts,
     )
 
