@@ -62,7 +62,7 @@ def _installation_satisfied(facts: ProductFactsV2) -> tuple[bool, str]:
     return not rejected, f"{fact.fact_id}:outcomes={rejected or ['accepted']}"
 
 
-def _findings(readme_text: str, facts: ProductFactsV2) -> list[PresentationFindingV1]:
+def build_readme_findings(readme_text: str, facts: ProductFactsV2) -> list[PresentationFindingV1]:
     structure = parse_markdown_structure(readme_text)
     identity = facts.selected_fact("product.identity").value
     platform = identity.get("platform") if isinstance(identity, dict) else None
@@ -177,7 +177,7 @@ def _resources_edit(original_text: str, candidate_text: str) -> SourceSpanEditV1
     )
 
 
-def _archetype(facts: ProductFactsV2) -> str:
+def classify_archetype(facts: ProductFactsV2) -> str:
     identity = facts.selected_fact("product.identity").value
     if isinstance(identity, dict):
         ecosystem = identity.get("ecosystem") or identity.get("platform") or "unknown"
@@ -197,14 +197,14 @@ def build_repository_presentation_plan(
 ) -> tuple[RepositoryPresentationPlanV1, GitPatchProofV1 | None, bool]:
     """Build a plan whose only executable action is fully bounded and cited."""
 
-    findings = _findings(original_text, facts)
+    findings = build_readme_findings(original_text, facts)
     if original_text == candidate_text:
         plan = RepositoryPresentationPlanV1(
             org_repo=org_repo,
             immutable_base_revision=base_revision,
             facts_hash=facts.canonical_hash(),
             source_sha256=sha256_text(original_text),
-            archetype=_archetype(facts),
+            archetype=classify_archetype(facts),
             findings=findings,
             actions=[],
             candidate_sha256=sha256_text(candidate_text),
@@ -276,7 +276,7 @@ def build_repository_presentation_plan(
         immutable_base_revision=base_revision,
         facts_hash=facts.canonical_hash(),
         source_sha256=proof.source_sha256,
-        archetype=_archetype(facts),
+        archetype=classify_archetype(facts),
         findings=findings,
         actions=[action],
         candidate_sha256=proof.candidate_sha256,

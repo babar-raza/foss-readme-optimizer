@@ -25,9 +25,15 @@ import hashlib
 
 from readme_agent import paths
 from readme_agent.errors import NotAllowlistedError
+from readme_agent.facts.provider import collect_product_facts
+from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.inspection import file_inventory
+from readme_agent.readme.document_renderer import build_readme_document_candidate
+from readme_agent.readme.document_validation import validate_readme_document_candidate
 from readme_agent.readme.gap_detector import detect as detect_gaps
+from readme_agent.readme.markers import find_presentation_span
 from readme_agent.registry.loader import load_policy, require_listed
+from readme_agent.repository_snapshot import current_repository_snapshot
 from readme_agent.validation import registry as validation_registry
 from readme_agent.validation.context import ValidationContext
 
@@ -76,6 +82,65 @@ _NO_WRITE_ELIGIBLE_STATUSES = frozenset({"COMPLIANT_NO_CHANGE"})
 _WRITE_ELIGIBLE_STATUS = "GENERATED"
 
 
+def _verify_presentation_candidate(org_repo: str, final_text: str) -> dict:
+    facts_result = collect_product_facts(org_repo)
+    facts = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
+    identity = facts.selected_fact("product.identity")
+    source_revision = identity.source.source_revision
+    if source_revision is None:
+        return {
+            "verdict": "reject",
+            "reason": "product identity has no immutable source revision",
+            "checks": {"immutable_source_revision": False},
+            "requirement_map": {},
+        }
+    snapshot = current_repository_snapshot(org_repo)
+    if snapshot is not None:
+        source_path = (
+            snapshot.root_path / snapshot.readme_path
+            if snapshot.readme_path is not None
+            else snapshot.root_path / "README.md"
+        )
+    else:
+        entry = require_listed(org_repo)
+        source_path = paths.baseline_dir(entry.org, entry.repo_name) / "README.md"
+    source_text = source_path.read_text(encoding="utf-8") if source_path.exists() else ""
+    expected, plan = build_readme_document_candidate(
+        org_repo,
+        source_text,
+        facts,
+        base_revision=source_revision,
+    )
+    validation = validate_readme_document_candidate(
+        source_text,
+        final_text,
+        plan,
+        facts,
+    )
+    checks = {"candidate_matches_independent_render": expected == final_text, **validation.checks}
+    if expected != final_text or not validation.valid:
+        return {
+            "verdict": "reject",
+            "reason": "; ".join(
+                (["candidate differs from independent render"] if expected != final_text else [])
+                + validation.errors
+            ),
+            "checks": checks,
+            "requirement_map": {},
+        }
+    return {
+        "verdict": "accept",
+        "reason": None,
+        "checks": checks,
+        "requirement_map": {
+            "immutable_snapshot": True,
+            "fact_backed_document_plan": True,
+            "verified_example": validation.checks["verified_example_present"],
+            "protected_content": validation.checks["protected_content"],
+        },
+    }
+
+
 def independently_verify_readme_candidate(
     org_repo: str, final_text: str, status: str, needs_write: bool
 ) -> dict:
@@ -110,6 +175,7 @@ def independently_verify_readme_candidate(
             "requirement_map": {},
         }
 
+    presentation_candidate = find_presentation_span(final_text) is not None
     if not needs_write:
         if status not in _NO_WRITE_ELIGIBLE_STATUSES:
             return {
@@ -121,12 +187,28 @@ def independently_verify_readme_candidate(
                 "checks": {"needs_write_matches": True},
                 "requirement_map": {},
             }
+        if presentation_candidate:
+            result = _verify_presentation_candidate(org_repo, final_text)
+            result["checks"]["needs_write_matches"] = True
+            return result
         return {
             "verdict": "accept",
             "reason": None,
             "checks": {"needs_write_matches": True},
             "requirement_map": {},
         }
+
+    if presentation_candidate:
+        if status != _WRITE_ELIGIBLE_STATUS:
+            return {
+                "verdict": "reject",
+                "reason": f"needs_write is True but claimed status={status!r} is not GENERATED",
+                "checks": {"needs_write_matches": True},
+                "requirement_map": {},
+            }
+        result = _verify_presentation_candidate(org_repo, final_text)
+        result["checks"]["needs_write_matches"] = True
+        return result
 
     declared_license = policy.required_elements.license_mentioned.detected_license
     gap_report = detect_gaps(final_text, detected_license=declared_license)

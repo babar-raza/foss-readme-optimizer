@@ -15,6 +15,13 @@ from dataclasses import dataclass
 
 SCHEMA_VERSION = "2"
 SPAN_NAMES = ("resources",)
+PRESENTATION_SCHEMA_VERSION = "3"
+PRESENTATION_SPAN_NAME = "presentation"
+_PRESENTATION_START = re.compile(
+    r'^<!-- readme-agent:presentation hash="sha256:([0-9a-f]{64})" '
+    r'schema="3" inner-bytes="([0-9]+)" -->\n'
+)
+_PRESENTATION_END = "<!-- readme-agent:presentation:end -->\n"
 
 
 def _span_pattern(span_name: str) -> re.Pattern:
@@ -33,6 +40,16 @@ class SpanMatch:
     facts_hash: str
     schema_version: str
     content: str
+
+
+@dataclass
+class PresentationSpanMatch:
+    start: int
+    end: int
+    facts_hash: str
+    schema_version: str
+    content: str
+    content_bytes: bytes
 
 
 def find_span(text: str, span_name: str) -> SpanMatch | None:
@@ -86,3 +103,45 @@ def remove_span(text: str, span_name: str) -> str:
     if span_name == "callout" and end < len(text) and text[end] == "\n":
         end += 1
     return text[:start] + text[end:]
+
+
+def find_presentation_span(text: str) -> PresentationSpanMatch | None:
+    """Return the complete-document span without normalizing one source byte."""
+
+    start_match = _PRESENTATION_START.match(text)
+    if start_match is None or not text.endswith(_PRESENTATION_END):
+        return None
+    content_start = start_match.end()
+    end_start = len(text) - len(_PRESENTATION_END)
+    encoded_tail = text[content_start:end_start].encode("utf-8")
+    inner_bytes = int(start_match.group(2))
+    if inner_bytes > len(encoded_tail):
+        return None
+    content_bytes = encoded_tail[:inner_bytes]
+    separator = encoded_tail[inner_bytes:]
+    if separator not in {b"", b"\n"}:
+        return None
+    try:
+        content = content_bytes.decode("utf-8")
+    except UnicodeDecodeError:
+        return None
+    return PresentationSpanMatch(
+        start=0,
+        end=len(text),
+        facts_hash=start_match.group(1),
+        schema_version=PRESENTATION_SCHEMA_VERSION,
+        content=content,
+        content_bytes=content_bytes,
+    )
+
+
+def render_presentation_span(content: str, facts_hash: str) -> str:
+    """Wrap a complete README while preserving every UTF-8 content byte."""
+
+    encoded = content.encode("utf-8")
+    separator = "" if content.endswith("\n") or not content else "\n"
+    return (
+        f'<!-- readme-agent:presentation hash="sha256:{facts_hash}" '
+        f'schema="{PRESENTATION_SCHEMA_VERSION}" inner-bytes="{len(encoded)}" -->\n'
+        f"{content}{separator}{_PRESENTATION_END}"
+    )

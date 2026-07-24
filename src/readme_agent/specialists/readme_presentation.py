@@ -173,6 +173,7 @@ def _dispatch_build_presentation_plan(org_repo: str, render_result: dict):
         caller_domain=DOMAIN,
         extra_kwargs={
             "original_text": render_result["original_text"],
+            "source_text": render_result.get("source_text", render_result["original_text"]),
             "candidate_text": render_result["final_text"],
             "source_revision": render_result["source_revision"],
         },
@@ -281,6 +282,9 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             current_render_result["original_text"],
             current_render_result["final_text"],
             _READ_ONLY_PERMISSIONS,
+            source_text=current_render_result.get(
+                "source_text", current_render_result["original_text"]
+            ),
         )
         if not factuality.valid:
             reason = factuality.error or (

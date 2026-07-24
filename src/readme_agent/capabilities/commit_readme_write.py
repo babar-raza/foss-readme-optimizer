@@ -98,7 +98,7 @@ from readme_agent.effects.local_readme_commit import commit_verified_readme
 from readme_agent.gitsafety._git import run_git
 from readme_agent.inspection import file_inventory
 from readme_agent.orchestrator import require_permitted
-from readme_agent.readme.markers import find_span
+from readme_agent.readme.markers import find_presentation_span, find_span
 from readme_agent.registry.loader import find_entry
 from readme_agent.verification.checks import compute_verification_token
 
@@ -245,7 +245,7 @@ def reconciliation_check(arguments: dict) -> dict | None:
         return None
 
     text = inventory.readme_path.read_text(encoding="utf-8")
-    span = find_span(text, "resources")
+    span = find_presentation_span(text) or find_span(text, "resources")
     if span is None or span.facts_hash != facts_hash:
         return None
 

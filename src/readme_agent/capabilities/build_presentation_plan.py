@@ -8,7 +8,11 @@ from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.inspection.file_inventory import scan
+from readme_agent.presentation.document_planner import (
+    build_document_repository_presentation_plan,
+)
 from readme_agent.presentation.planner import build_repository_presentation_plan
+from readme_agent.readme.markers import find_presentation_span
 from readme_agent.registry.loader import require_listed
 from readme_agent.registry.surface_ownership import SurfaceOwnershipMapV1
 
@@ -28,6 +32,8 @@ MANIFEST = CapabilityManifest(
     produced_outputs={
         "presentation_plan": "object",
         "git_patch_proof": "object",
+        "readme_document_plan": "object",
+        "document_validation": "object",
         "executable": "boolean",
     },
     preconditions=["org_repo must be listed in data/products.json"],
@@ -57,6 +63,7 @@ def execute(
     original_text: str | None = None,
     candidate_text: str | None = None,
     source_revision: str | None = None,
+    source_text: str | None = None,
 ) -> dict:
     facts_result = collect_product_facts(org_repo)
     facts = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
@@ -82,7 +89,26 @@ def execute(
     if candidate_text is None:
         candidate_text = original_text
 
-    plan, patch_proof, executable = build_repository_presentation_plan(
+    if find_presentation_span(candidate_text) is not None:
+        plan, document_patch_record, executable, document_records = (
+            build_document_repository_presentation_plan(
+                org_repo,
+                source_text if source_text is not None else original_text,
+                original_text,
+                candidate_text,
+                facts,
+                ownership,
+                base_revision=base_revision,
+            )
+        )
+        return {
+            "presentation_plan": plan.model_dump(mode="json"),
+            "git_patch_proof": document_patch_record,
+            "executable": executable,
+            **document_records,
+        }
+
+    plan, legacy_patch_proof, executable = build_repository_presentation_plan(
         org_repo,
         original_text,
         candidate_text,
@@ -92,6 +118,10 @@ def execute(
     )
     return {
         "presentation_plan": plan.model_dump(mode="json"),
-        "git_patch_proof": (patch_proof.model_dump(mode="json") if patch_proof is not None else {}),
+        "git_patch_proof": (
+            legacy_patch_proof.model_dump(mode="json") if legacy_patch_proof is not None else {}
+        ),
+        "readme_document_plan": {},
+        "document_validation": {},
         "executable": executable,
     }

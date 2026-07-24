@@ -36,6 +36,7 @@ One subdirectory per surface (e.g. `readme/`), named for what it templates (nami
 
 ## Current state
 
-The span skeletons are still embedded in `src/readme_agent/readme/renderer.py` (structure) and
-`src/readme_agent/readme/markers.py` (span markers); they migrate here on next substantive
-touch. New template content starts here from day one.
+Complete-document presentation content is loaded from `templates/readme/` by
+`readme/document_renderer.py`; all three inputs are included in `ReadmeDocumentPlanV1`'s
+`template_sha256`. Legacy `resources` content remains embedded in `readme/renderer.py` until that
+compatibility path is retired.

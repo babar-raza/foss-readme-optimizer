@@ -15,6 +15,9 @@ from readme_agent.facts.protected_content import (
 from readme_agent.facts.schema import ProductFactsV1
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.claim_verification import find_claim_conflicts
+from readme_agent.readme.document_renderer import build_readme_document_candidate
+from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.readme.markers import find_presentation_span
 
 
 class CandidateFactualityDecisionV1(BaseModel):
@@ -32,6 +35,8 @@ def evaluate_candidate_factuality(
     original_text: str,
     final_text: str,
     permissions: set[PermissionClass],
+    *,
+    source_text: str | None = None,
 ) -> CandidateFactualityDecisionV1:
     """Dispatch independent fact producers, then reject unsupported loss/claims."""
 
@@ -86,13 +91,41 @@ def evaluate_candidate_factuality(
         }
         for finding in find_claim_conflicts(final_text, facts_v1)
     ]
-    protected = validate_protected_content(
-        fingerprint_protected_content(original_text),
-        fingerprint_protected_content(final_text),
-    )
-    losses = [loss.model_dump(mode="json") for loss in protected.losses]
+    if find_presentation_span(final_text) is not None:
+        immutable_source = source_text if source_text is not None else original_text
+        identity = current_v2.selected_fact("product.identity")
+        source_revision = identity.source.source_revision
+        if source_revision is None:
+            return CandidateFactualityDecisionV1(
+                valid=False,
+                product_facts_v2_hash=current_v2.canonical_hash(),
+                error="product identity has no immutable source revision",
+            )
+        expected, document_plan = build_readme_document_candidate(
+            org_repo,
+            immutable_source,
+            current_v2,
+            base_revision=source_revision,
+        )
+        document_validation = validate_readme_document_candidate(
+            immutable_source,
+            final_text,
+            document_plan,
+            current_v2,
+        )
+        losses = [
+            {"category": "document_plan", "reason": error} for error in document_validation.errors
+        ]
+        protected_valid = document_validation.valid and expected == final_text
+    else:
+        protected = validate_protected_content(
+            fingerprint_protected_content(original_text),
+            fingerprint_protected_content(final_text),
+        )
+        losses = [loss.model_dump(mode="json") for loss in protected.losses]
+        protected_valid = protected.valid
     return CandidateFactualityDecisionV1(
-        valid=not claim_conflicts and protected.valid,
+        valid=not claim_conflicts and protected_valid,
         product_facts_v2_hash=current_v2.canonical_hash(),
         claim_conflicts=claim_conflicts,
         protected_content_losses=losses,

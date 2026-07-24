@@ -39,6 +39,8 @@ from pathlib import Path
 
 from readme_agent.capabilities.schema import CapabilityManifest
 from readme_agent.orchestrator import prepare_readme_candidate
+from readme_agent.readme.idea_candidate import prepare_idea_fidelity_candidate
+from readme_agent.registry.loader import find_entry, load_policy
 
 CAPABILITY_ID = "render_readme_candidate"
 
@@ -66,6 +68,7 @@ MANIFEST = CapabilityManifest(
         "status": "string",
         "llm_called": "boolean",
         "llm_calls": "array",
+        "readme_document_plan": "object",
     },
     preconditions=["org_repo must be listed in data/products.json with a non-disabled mode"],
     required_permissions=["read_only_local"],
@@ -86,6 +89,11 @@ def execute(
     prior_content_fingerprint: str | None = None,
     prior_status: str | None = None,
 ) -> dict:
+    entry = find_entry(org_repo)
+    if entry is not None and entry.policy_profile is not None:
+        policy = load_policy(entry.policy_profile)
+        if policy.product_truth is not None:
+            return prepare_idea_fidelity_candidate(org_repo)
     candidate = prepare_readme_candidate(
         org_repo,
         force_regenerate=force_regenerate,
@@ -106,4 +114,5 @@ def execute(
         "status": candidate.status,
         "llm_called": candidate.llm_called,
         "llm_calls": candidate.llm_calls,
+        "readme_document_plan": {},
     }

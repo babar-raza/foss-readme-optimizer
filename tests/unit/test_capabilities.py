@@ -939,6 +939,7 @@ class TestRenderReadmeCandidateCapability:
             "status": "GENERATED",
             "llm_called": True,
             "llm_calls": ["relationship_explained"],
+            "readme_document_plan": {},
         }
 
     def test_execute_needs_write_false_when_final_text_unchanged(self, monkeypatch):
