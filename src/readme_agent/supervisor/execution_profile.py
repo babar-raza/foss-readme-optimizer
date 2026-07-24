@@ -53,6 +53,7 @@ class ExecutionProfileV1(BaseModel):
     allowed_permission_classes: list[PermissionClass]
     require_evidence_bundle: bool
     require_independent_verification: bool
+    verify_local_product_facts: bool
     allowed_triggers: list[Trigger]
     rollback: str
     allows_domain_bypass: bool
@@ -70,6 +71,7 @@ _PROFILES: dict[ExecutionProfileName, ExecutionProfileV1] = {
         allowed_permission_classes=["read_only_local", "read_only_network"],
         require_evidence_bundle=False,
         require_independent_verification=False,
+        verify_local_product_facts=False,
         allowed_triggers=["cli_manual"],
         rollback="none needed -- read-only",
         allows_domain_bypass=True,
@@ -81,6 +83,7 @@ _PROFILES: dict[ExecutionProfileName, ExecutionProfileV1] = {
         allowed_permission_classes=["read_only_local", "read_only_network", "local_write"],
         require_evidence_bundle=True,
         require_independent_verification=False,
+        verify_local_product_facts=True,
         allowed_triggers=["cli_manual"],
         rollback="local work-clone commit only, never pushed (docs/safety-model.md)",
         allows_domain_bypass=True,
@@ -92,6 +95,7 @@ _PROFILES: dict[ExecutionProfileName, ExecutionProfileV1] = {
         allowed_permission_classes=["read_only_local", "read_only_network"],
         require_evidence_bundle=True,
         require_independent_verification=False,
+        verify_local_product_facts=False,
         allowed_triggers=["workflow_dispatch", "workflow_call", "schedule", "repository_dispatch"],
         rollback="none needed -- read-only",
         allows_domain_bypass=False,
@@ -108,6 +112,7 @@ _PROFILES: dict[ExecutionProfileName, ExecutionProfileV1] = {
         ],
         require_evidence_bundle=True,
         require_independent_verification=True,
+        verify_local_product_facts=False,
         allowed_triggers=["workflow_dispatch", "workflow_call", "schedule", "repository_dispatch"],
         rollback=(
             "revert/close the prepared branch or PR (open_presentation_pr); never a default-"
@@ -127,6 +132,7 @@ _PROFILES: dict[ExecutionProfileName, ExecutionProfileV1] = {
         ],
         require_evidence_bundle=True,
         require_independent_verification=True,
+        verify_local_product_facts=False,
         allowed_triggers=["workflow_dispatch"],
         rollback=(
             "same as github_proposal today -- no capability yet completes a further apply step "

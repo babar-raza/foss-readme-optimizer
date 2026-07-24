@@ -53,3 +53,78 @@ block:
     - kb.aspose.org
     - blog.aspose.org
     - forum.aspose.com
+
+product_truth:
+  audience:
+    - Java developers creating, reading, modifying, and saving PDF documents.
+  problems_solved:
+    - Process PDF documents with an open-source Java API focused on the core PDF specification.
+  capabilities:
+    - value: Create, open, modify, and save PDF documents.
+      evidence_paths:
+        - src/main/java/org/aspose/pdf/Document.java
+        - src/test/java/org/aspose/pdf/tests/DocumentTest.java
+        - src/test/java/org/aspose/pdf/tests/generation/DocumentSaveIdempotenceTest.java
+      required_symbols:
+        - "public class Document"
+        - "public Document()"
+        - "public void save(String filePath)"
+    - value: Add pages and text content to PDF documents.
+      evidence_paths:
+        - src/main/java/org/aspose/pdf/PageCollection.java
+        - src/main/java/org/aspose/pdf/Page.java
+        - src/main/java/org/aspose/pdf/text/TextFragment.java
+      required_symbols:
+        - "public class PageCollection"
+        - "public Page add()"
+        - "public class TextFragment"
+  formats:
+    - value: Read and write PDF documents.
+      evidence_paths:
+        - src/main/java/org/aspose/pdf/Document.java
+        - docs/limitations.md
+      required_symbols:
+        - "PDF in / PDF out"
+        - "public void save(String filePath)"
+    - value: Produce PDF/A documents for long-term preservation workflows.
+      evidence_paths:
+        - docs/pdfa.md
+        - src/main/java/org/aspose/pdf/PdfFormat.java
+      required_symbols:
+        - "PDF/A"
+        - "PDF_A"
+  limitations:
+    - value: OCR, non-PDF conversion, XFA rendering, 3D annotations, and PDF/X are out of scope.
+      evidence_paths:
+        - docs/limitations.md
+      required_symbols:
+        - "OCR"
+        - "XFA forms"
+        - "PDF/X"
+  minimal_example:
+    language: java
+    class_name: ReadmeExample
+    code: |
+      import org.aspose.pdf.Document;
+      import org.aspose.pdf.Page;
+      import org.aspose.pdf.text.TextFragment;
+
+      public class ReadmeExample {
+          public static void main(String[] args) throws Exception {
+              try (Document document = new Document()) {
+                  Page page = document.getPages().add();
+                  page.getParagraphs().add(new TextFragment("Hello, PDF"));
+                  document.save("hello.pdf");
+              }
+          }
+      }
+    evidence_paths:
+      - src/main/java/org/aspose/pdf/Document.java
+      - src/main/java/org/aspose/pdf/PageCollection.java
+      - src/main/java/org/aspose/pdf/Page.java
+      - src/main/java/org/aspose/pdf/text/TextFragment.java
+    required_symbols:
+      - "public Document()"
+      - "public Page add()"
+      - "public TextFragment(String text)"
+      - "public void save(String filePath)"

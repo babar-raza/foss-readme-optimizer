@@ -1,0 +1,103 @@
+command=D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\run_official_checks.py
+started_at=2026-07-24T09:31:28.468889+00:00
+finished_at=2026-07-24T09:42:02.853699+00:00
+return_code=1
+
+All checks passed!
+Would reformat: scripts\retrofits\record_local_snapshot_and_facts_requirement_truth.py
+1 file would be reformatted, 378 files already formatted
+Success: no issues found in 221 source files
+........................................................................ [  5%]
+........................................................................ [ 10%]
+........................................................................ [ 16%]
+........................................................................ [ 21%]
+........................................................................ [ 26%]
+........................................................................ [ 32%]
+........................................................................ [ 37%]
+........................................................................ [ 43%]
+........................................................................ [ 48%]
+........................................................................ [ 53%]
+........................................................................ [ 59%]
+........................................................................ [ 64%]
+........................................................................ [ 69%]
+........................................................................ [ 75%]
+........................................................................ [ 80%]
+........................................................................ [ 86%]
+........................................................................ [ 91%]
+........................................................................ [ 96%]
+..........................................                               [100%]
+1338 passed, 18 deselected in 630.68s (0:10:30)
+Plan structure clean (46 warning(s)).
+
+=== ruff check ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m ruff check .
+--- ruff check: OK
+
+=== ruff format --check ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m ruff format --check .
+--- ruff format --check: FAILED (exit 1)
+
+=== mypy src ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m mypy src
+--- mypy src: OK
+
+=== pytest -q (full non-live suite) ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m pytest -q
+--- pytest -q (full non-live suite): OK
+
+=== validate_plan_structure.py ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\validate_plan_structure.py
+--- validate_plan_structure.py: OK
+
+=== actionlint (workflow syntax) ===
+$ C:\Users\prora\go\bin\actionlint.EXE D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.github\workflows\ci.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.github\workflows\dependency-check.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.github\workflows\detect-template-clones.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.github\workflows\golden-set-run.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.github\workflows\measure-clone-latency.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.github\workflows\readme-agent-portfolio.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.github\workflows\readme-agent-production.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.github\workflows\readme-agent-run.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.github\workflows\readme-agent-supervise.yml D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.github\workflows\update-products-registry.yml
+--- actionlint (workflow syntax): OK
+
+============================================================
+At least one required official check failed -- see output above.
+WARNING: plans/requirements.md:78 `GOV-018` row is 2121 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:83 `GOV-023` row is 1774 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:85 `GOV-024` row is 1841 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:137 `FACT-013` row is 1528 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:166 `RDM-024` row is 1704 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:226 `CORE-034` row is 1733 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:240 `OPS-009` row is 5097 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:242 `OPS-011` row is 2252 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:243 `OPS-012` row is 2411 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:251 `DEP-004` row is 1789 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:277 `LLM-019` row is 2103 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:278 `LLM-020` row is 2100 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:341 `AUTH-004` row is 2029 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:344 `AUTH-007` row is 1588 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:440 `AGT-002` row is 1678 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:443 `AGT-005` row is 2686 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:444 `AGT-006` row is 3018 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:445 `AGT-007` row is 1719 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:446 `AGT-008` row is 2255 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:457 `CAP-006` row is 3919 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:458 `CAP-007` row is 1701 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:460 `CAP-009` row is 1682 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:466 `RUN-001` row is 2569 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:484 `ECO-004` row is 3511 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:503 `ONB-004` row is 3073 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:510 `MEM-002` row is 2320 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:512 `MEM-004` row is 2958 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:513 `MEM-005` row is 1879 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:530 `EFF-001` row is 1953 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:531 `EFF-002` row is 1748 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:533 `EFF-004` row is 1770 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:534 `EFF-005` row is 1934 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:535 `EFF-006` row is 2641 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:554 `ORC-003` row is 5392 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:557 `ORC-006` row is 3580 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:566 `VER-002` row is 3385 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:567 `VER-003` row is 2249 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:568 `VER-004` row is 3403 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:569 `VER-005` row is 4430 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:570 `VER-006` row is 1733 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:572 `VER-008` row is 2570 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:590 `SCL-004` row is 2771 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:591 `SCL-005` row is 4020 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:592 `SCL-006` row is 2489 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:593 `SCL-007` row is 1664 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:595 `SCL-009` row is 5039 chars (over the 1500-char retrofit-on-touch guidance)

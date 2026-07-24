@@ -80,6 +80,35 @@ class BlockPolicy(BaseModel):
     link_whitelist_domains: list[str] = Field(default_factory=list)
 
 
+class EvidenceBackedProductFact(BaseModel):
+    """A policy-selected technical statement that repository files must prove."""
+
+    value: str
+    evidence_paths: list[str] = Field(min_length=1)
+    required_symbols: list[str] = Field(default_factory=list)
+
+
+class MinimalExamplePolicy(BaseModel):
+    """Exact example text compiled in a disposable, secret-free workspace."""
+
+    language: Literal["java"]
+    class_name: str
+    code: str
+    evidence_paths: list[str] = Field(min_length=1)
+    required_symbols: list[str] = Field(default_factory=list)
+
+
+class ProductTruthPolicy(BaseModel):
+    """Subjective positioning plus repository-verifiable technical assertions."""
+
+    audience: list[str] = Field(min_length=1)
+    problems_solved: list[str] = Field(min_length=1)
+    capabilities: list[EvidenceBackedProductFact] = Field(min_length=1)
+    formats: list[EvidenceBackedProductFact] = Field(min_length=1)
+    limitations: list[EvidenceBackedProductFact] = Field(default_factory=list)
+    minimal_example: MinimalExamplePolicy
+
+
 class PolicyProfile(BaseModel):
     schema_version: int
     policy_profile: str
@@ -87,6 +116,7 @@ class PolicyProfile(BaseModel):
     secondary_links: list[str] = Field(default_factory=list)
     block: BlockPolicy
     surface_ownership: SurfaceOwnershipMapV1 = Field(default_factory=default_surface_ownership_map)
+    product_truth: ProductTruthPolicy | None = None
 
     @field_validator("schema_version")
     @classmethod

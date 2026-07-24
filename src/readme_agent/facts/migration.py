@@ -13,7 +13,7 @@ from readme_agent.facts.schema_v2 import (
     descriptive_fact_id,
 )
 
-_SURFACE_DEPENDENCIES = {
+SURFACE_DEPENDENCIES = {
     "product.identity": ["readme.opening", "metadata.description"],
     "product.audience": ["readme.opening", "metadata.description"],
     "product.problems_solved": ["readme.opening", "metadata.description"],
@@ -66,7 +66,7 @@ def _known_fact(
         verification_state=state,
         authoritative_owner=owner,
         confidence=confidence,
-        affected_surfaces=_SURFACE_DEPENDENCIES[field_name],
+        affected_surfaces=SURFACE_DEPENDENCIES[field_name],
     )
 
 

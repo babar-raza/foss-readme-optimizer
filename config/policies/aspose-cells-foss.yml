@@ -52,3 +52,68 @@ block:
     - kb.aspose.org
     - blog.aspose.org
     - forum.aspose.com
+
+product_truth:
+  audience:
+    - Java developers creating, loading, modifying, and saving spreadsheet workbooks.
+  problems_solved:
+    - Process XLSX workbooks with an open-source Java API without requiring Microsoft Excel.
+  capabilities:
+    - value: Create, load, modify, and save workbooks and worksheets.
+      evidence_paths:
+        - src/main/java/org/aspose/cells_foss/Workbook.java
+        - src/main/java/org/aspose/cells_foss/Worksheet.java
+        - src/test/java/org/aspose/cells_foss/CompatibilityTest.java
+      required_symbols:
+        - "public class Workbook"
+        - "public class Worksheet"
+        - "public void save(String fileName)"
+    - value: Read and write cell values and apply spreadsheet styles.
+      evidence_paths:
+        - src/main/java/org/aspose/cells_foss/Cell.java
+        - src/main/java/org/aspose/cells_foss/Style.java
+        - src/test/java/org/aspose/cells_foss/CompatibilityTest.java
+      required_symbols:
+        - "public class Cell"
+        - "public void putValue(String value)"
+        - "public class Style"
+  formats:
+    - value: Load and save XLSX workbooks.
+      evidence_paths:
+        - src/main/java/org/aspose/cells_foss/LoadFormat.java
+        - src/main/java/org/aspose/cells_foss/SaveFormat.java
+        - src/test/java/org/aspose/cells_foss/CompatibilityTest.java
+      required_symbols:
+        - "XLSX"
+  limitations:
+    - value: The verified load and save surface is limited to XLSX workbooks.
+      evidence_paths:
+        - src/main/java/org/aspose/cells_foss/LoadFormat.java
+        - src/main/java/org/aspose/cells_foss/SaveFormat.java
+      required_symbols:
+        - "XLSX"
+  minimal_example:
+    language: java
+    class_name: ReadmeExample
+    code: |
+      import org.aspose.cells_foss.Workbook;
+      import org.aspose.cells_foss.Worksheet;
+
+      public class ReadmeExample {
+          public static void main(String[] args) throws Exception {
+              try (Workbook workbook = new Workbook()) {
+                  Worksheet sheet = workbook.getWorksheets().get(0);
+                  sheet.getCells().get("A1").putValue("Hello");
+                  workbook.save("hello.xlsx");
+              }
+          }
+      }
+    evidence_paths:
+      - src/main/java/org/aspose/cells_foss/Workbook.java
+      - src/main/java/org/aspose/cells_foss/Worksheet.java
+      - src/main/java/org/aspose/cells_foss/Cell.java
+    required_symbols:
+      - "public Workbook()"
+      - "public WorksheetCollection getWorksheets()"
+      - "public void putValue(String value)"
+      - "public void save(String fileName)"

@@ -15,6 +15,10 @@ from readme_agent import env
 from readme_agent.errors import GitSafetyError
 from readme_agent.gitsafety._git import run_git
 from readme_agent.registry.models import ProductEntry
+from readme_agent.repository_snapshot import (
+    current_repository_snapshot,
+    verify_repository_snapshot,
+)
 from readme_agent.retry import (
     RETRY_POLICIES,
     RetryableOperationError,
@@ -121,6 +125,17 @@ def clone_baseline(entry: ProductEntry, baseline_path: Path) -> Path:
     reuse, not caller-remembered invalidation, is the correct design. A
     failed probe (unreachable remote, timeout) is treated the same as a
     stale one -- "clone anyway" is always the safe fallback."""
+    snapshot = current_repository_snapshot(entry.org_repo)
+    if snapshot is not None:
+        snapshot_path = snapshot.root_path.resolve()
+        if baseline_path.resolve() != snapshot_path:
+            raise GitSafetyError(
+                f"active snapshot path {snapshot_path} does not match requested baseline "
+                f"path {baseline_path.resolve()}"
+            )
+        verify_repository_snapshot(snapshot)
+        return snapshot_path
+
     memoized_sha = _baseline_clone_memo.get(baseline_path)
     if memoized_sha is not None and baseline_path.is_dir() and any(baseline_path.iterdir()):
         probed_sha = remote_head_sha(entry.clone_url)

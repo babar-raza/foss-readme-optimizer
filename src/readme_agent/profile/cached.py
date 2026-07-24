@@ -33,6 +33,10 @@ from readme_agent.paths import baseline_dir
 from readme_agent.profile.detector import build_profile, resolve_unresolved_manifests
 from readme_agent.profile.schema import DetectedEcosystem, PackageRoot, RepositoryProfile
 from readme_agent.registry.models import ProductEntry
+from readme_agent.repository_snapshot import (
+    current_repository_snapshot,
+    verify_repository_snapshot,
+)
 from readme_agent.state.lifecycle import current_lifecycle_recorder
 
 
@@ -141,6 +145,16 @@ def get_or_build_profile(
     reading prior_* from durable state and writing the fresh result back
     (mirrors orchestrator.py's own record_accepted_readme_state()
     write-back pattern, one level up)."""
+    snapshot = current_repository_snapshot(entry.org_repo)
+    if snapshot is not None:
+        verify_repository_snapshot(snapshot)
+        return _checkpoint_profile(
+            build_profile(entry.org_repo, snapshot.root_path).model_copy(
+                update={"source_revision": snapshot.source_revision}
+            ),
+            "repository_snapshot_v1",
+        )
+
     current_revision = remote_head_sha(entry.clone_url)
     if (
         current_revision is not None

@@ -195,6 +195,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
                     fail_closed_on_state_failure=profile.fail_closed_on_state_failure,
                     require_evidence_bundle=profile.require_evidence_bundle,
                     require_independent_verification=profile.require_independent_verification,
+                    verify_local_product_facts=profile.verify_local_product_facts,
                     **dynamic_planning_kwargs,
                 )
     except Exception as exc:

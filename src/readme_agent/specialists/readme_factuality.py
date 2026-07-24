@@ -8,7 +8,6 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.schema import PermissionClass
-from readme_agent.facts.migration import migrate_product_facts_v1
 from readme_agent.facts.protected_content import (
     fingerprint_protected_content,
     validate_protected_content,
@@ -71,15 +70,9 @@ def evaluate_candidate_factuality(
 
     facts_result = facts_dispatch.result
     current_v2 = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
-    provenance_fact = current_v2.selected_fact("product.identity")
     facts_v1 = ProductFactsV1.from_capability_results(
         facts_result,
         acquisition_results=acquisition_dispatch.result["results"],
-    )
-    product_facts = migrate_product_facts_v1(
-        facts_v1,
-        source_revision=provenance_fact.source.source_revision,
-        observed_at=provenance_fact.source.retrieved_at,
     )
 
     claim_conflicts = [
@@ -100,7 +93,7 @@ def evaluate_candidate_factuality(
     losses = [loss.model_dump(mode="json") for loss in protected.losses]
     return CandidateFactualityDecisionV1(
         valid=not claim_conflicts and protected.valid,
-        product_facts_v2_hash=product_facts.canonical_hash(),
+        product_facts_v2_hash=current_v2.canonical_hash(),
         claim_conflicts=claim_conflicts,
         protected_content_losses=losses,
     )

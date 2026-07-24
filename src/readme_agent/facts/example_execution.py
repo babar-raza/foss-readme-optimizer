@@ -14,6 +14,7 @@ from readme_agent.gitsafety.process import run_bounded
 _SAFE_ENV_NAMES = {
     "CI",
     "COMSPEC",
+    "JAVA_HOME",
     "LANG",
     "LC_ALL",
     "PATH",

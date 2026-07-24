@@ -26,11 +26,19 @@ class TestPlatformLabel:
 class TestGeneratePolicyProfileGoldenFixtures:
     """Each existing real profile was authored for the org's one already-
     onboarded (Java) platform -- the generator must reproduce all three
-    exactly, proving its mechanical derivation matches real, human-authored
-    content before it's trusted for entries no human has reviewed yet."""
+    for every mechanically derivable field. Curated ``product_truth`` is
+    removed before comparison because a generic onboarding generator must
+    never invent repository-specific source paths, symbols, or examples."""
+
+    @staticmethod
+    def _mechanical_expected(profile_name: str):
+        expected = yaml.safe_load((POLICIES_DIR / f"{profile_name}.yml").read_text("utf-8"))
+        assert "product_truth" in expected
+        expected.pop("product_truth")
+        return expected
 
     def test_reproduces_aspose_3d_foss(self):
-        expected = yaml.safe_load((POLICIES_DIR / "aspose-3d-foss.yml").read_text("utf-8"))
+        expected = self._mechanical_expected("aspose-3d-foss")
         generated = generate_policy_profile(
             profile_name="aspose-3d-foss",
             family="3d",
@@ -42,7 +50,7 @@ class TestGeneratePolicyProfileGoldenFixtures:
         assert generated == expected
 
     def test_reproduces_aspose_cells_foss(self):
-        expected = yaml.safe_load((POLICIES_DIR / "aspose-cells-foss.yml").read_text("utf-8"))
+        expected = self._mechanical_expected("aspose-cells-foss")
         generated = generate_policy_profile(
             profile_name="aspose-cells-foss",
             family="cells",
@@ -54,7 +62,7 @@ class TestGeneratePolicyProfileGoldenFixtures:
         assert generated == expected
 
     def test_reproduces_aspose_pdf_foss(self):
-        expected = yaml.safe_load((POLICIES_DIR / "aspose-pdf-foss.yml").read_text("utf-8"))
+        expected = self._mechanical_expected("aspose-pdf-foss")
         generated = generate_policy_profile(
             profile_name="aspose-pdf-foss",
             family="pdf",

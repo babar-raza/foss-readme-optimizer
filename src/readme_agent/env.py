@@ -170,6 +170,12 @@ def git_clone_timeout_seconds() -> float:
     return float(raw) if raw else DEFAULT_GIT_CLONE_TIMEOUT_SECONDS
 
 
+def java_home() -> str | None:
+    """Optional disposable JDK override for local product-fact verification."""
+
+    return os.environ.get("README_AGENT_JAVA_HOME") or None
+
+
 def llm_embedding_model() -> str:
     return os.environ.get("LLM_EMBEDDING_MODEL") or DEFAULT_EMBEDDING_MODEL
 

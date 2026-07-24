@@ -49,3 +49,70 @@ block:
     - kb.aspose.org
     - blog.aspose.org
     - forum.aspose.com
+
+product_truth:
+  audience:
+    - Java developers building 3D import, export, and scene-processing applications.
+  problems_solved:
+    - Create, load, inspect, transform, and save 3D scenes with an open-source Java API.
+  capabilities:
+    - value: Create, load, inspect, transform, and save 3D scenes.
+      evidence_paths:
+        - src/main/java/com/aspose/threed/Scene.java
+        - src/test/java/com/aspose/threed/SceneTest.java
+      required_symbols:
+        - "public class Scene"
+        - "public void save(String filePath)"
+    - value: Model scene geometry and materials through mesh and material APIs.
+      evidence_paths:
+        - src/main/java/com/aspose/threed/Mesh.java
+        - src/main/java/com/aspose/threed/Material.java
+        - src/test/java/com/aspose/threed/MaterialTests.java
+      required_symbols:
+        - "public class Mesh"
+        - "public abstract class Material"
+  formats:
+    - value: Import and export glTF and GLB scenes.
+      evidence_paths:
+        - FILE_FORMATS.md
+        - src/test/java/com/aspose/threed/GltfFormatTest.java
+      required_symbols:
+        - "glTF/GLB"
+        - "GltfFormatTest"
+    - value: Import and export binary and ASCII STL scenes.
+      evidence_paths:
+        - FILE_FORMATS.md
+        - src/test/java/com/aspose/threed/StlFormatTest.java
+      required_symbols:
+        - "STL"
+        - "StlFormatTest"
+    - value: Import and export Collada scenes.
+      evidence_paths:
+        - src/test/java/com/aspose/threed/ColladaTests.java
+      required_symbols:
+        - "ColladaTests"
+  limitations:
+    - value: Rendering and full commercial-API parity remain incomplete.
+      evidence_paths:
+        - TODO.md
+        - docs/foss-java-progress.md
+      required_symbols:
+        - "render"
+        - "UnsupportedOperationException"
+  minimal_example:
+    language: java
+    class_name: ReadmeExample
+    code: |
+      import com.aspose.threed.Scene;
+
+      public class ReadmeExample {
+          public static void main(String[] args) throws Exception {
+              Scene scene = new Scene();
+              scene.save("scene.stl");
+          }
+      }
+    evidence_paths:
+      - src/main/java/com/aspose/threed/Scene.java
+    required_symbols:
+      - "public Scene()"
+      - "public void save(String filePath)"

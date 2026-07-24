@@ -114,12 +114,18 @@ class _FakeNonFlaggingAnalysisClient:
         )
 
 
-def _init_source_repo(path, readme_text: str):
+def _init_source_repo(path, readme_text: str, *, include_license: bool = False):
     path.mkdir(parents=True, exist_ok=True)
     run_git(["init", "-b", "main"], cwd=path)
     run_git(["config", "user.email", "test@example.com"], cwd=path)
     run_git(["config", "user.name", "Test"], cwd=path)
     (path / "README.md").write_text(readme_text, encoding="utf-8")
+    if include_license:
+        (path / "LICENSE").write_text(
+            "MIT License\n\nPermission is hereby granted, free of charge, to any person obtaining "
+            "a copy of this software.\n",
+            encoding="utf-8",
+        )
     run_git(["add", "."], cwd=path)
     run_git(["commit", "-m", "initial"], cwd=path)
     return path
@@ -842,7 +848,11 @@ class TestReadmePresentationSpecialist:
         rendering and validation pipeline runs for real."""
         from readme_agent.specialists import readme_presentation
 
-        source = _init_source_repo(tmp_path / "source", "# Widget\n\nA widget library.\n")
+        source = _init_source_repo(
+            tmp_path / "source",
+            "# Widget\n\nA widget library.\n",
+            include_license=True,
+        )
         _setup_project_root(tmp_path, str(source))  # mode: "full"
         monkeypatch.chdir(tmp_path)
         monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
@@ -887,7 +897,11 @@ class TestReadmePresentationSpecialist:
         actually incrementing, not just landing at 1 once."""
         from readme_agent.specialists import readme_presentation
 
-        source = _init_source_repo(tmp_path / "source", "# Widget\n\nA widget library.\n")
+        source = _init_source_repo(
+            tmp_path / "source",
+            "# Widget\n\nA widget library.\n",
+            include_license=True,
+        )
         _setup_project_root(tmp_path, str(source))
         monkeypatch.chdir(tmp_path)
         monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
@@ -910,7 +924,11 @@ class TestReadmePresentationSpecialist:
         from readme_agent.gitsafety.clone import force_rmtree
         from readme_agent.specialists import readme_presentation
 
-        source = _init_source_repo(tmp_path / "source", "# Widget\n\nA widget library.\n")
+        source = _init_source_repo(
+            tmp_path / "source",
+            "# Widget\n\nA widget library.\n",
+            include_license=True,
+        )
         _setup_project_root(tmp_path, str(source))  # mode: "full"
         monkeypatch.chdir(tmp_path)
         monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
@@ -942,7 +960,11 @@ class TestReadmePresentationSpecialist:
     def test_mode_full_writes_and_commits_for_real(self, tmp_path, monkeypatch):
         from readme_agent.specialists import readme_presentation
 
-        source = _init_source_repo(tmp_path / "source", _BLANK_SLATE_WIDGET_README)
+        source = _init_source_repo(
+            tmp_path / "source",
+            _BLANK_SLATE_WIDGET_README,
+            include_license=True,
+        )
         _setup_project_root(tmp_path, str(source))  # mode: "full"
         monkeypatch.chdir(tmp_path)
         monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
@@ -992,7 +1014,11 @@ class TestReadmePresentationSpecialist:
         from readme_agent.gitsafety.clone import force_rmtree
         from readme_agent.specialists import readme_presentation
 
-        source = _init_source_repo(tmp_path / "source", _BLANK_SLATE_WIDGET_README)
+        source = _init_source_repo(
+            tmp_path / "source",
+            _BLANK_SLATE_WIDGET_README,
+            include_license=True,
+        )
         _setup_project_root(tmp_path, str(source))  # mode: "full"
         monkeypatch.chdir(tmp_path)
         monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
@@ -1032,7 +1058,11 @@ class TestReadmePresentationSpecialist:
     def test_mode_dry_run_writes_but_never_commits(self, tmp_path, monkeypatch):
         from readme_agent.specialists import readme_presentation
 
-        source = _init_source_repo(tmp_path / "source", _BLANK_SLATE_WIDGET_README)
+        source = _init_source_repo(
+            tmp_path / "source",
+            _BLANK_SLATE_WIDGET_README,
+            include_license=True,
+        )
         _setup_project_root(tmp_path, str(source))  # mode: "full"
         products_path = tmp_path / "data" / "products.json"
         products = json.loads(products_path.read_text(encoding="utf-8"))
@@ -1057,7 +1087,11 @@ class TestReadmePresentationSpecialist:
         degrade (a clear note), never a crash and never an unsafe write."""
         from readme_agent.specialists import readme_presentation
 
-        source = _init_source_repo(tmp_path / "source", _BLANK_SLATE_WIDGET_README)
+        source = _init_source_repo(
+            tmp_path / "source",
+            _BLANK_SLATE_WIDGET_README,
+            include_license=True,
+        )
         _setup_project_root(tmp_path, str(source))
         monkeypatch.chdir(tmp_path)
         monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
@@ -1074,7 +1108,11 @@ class TestReadmePresentationSpecialist:
     def test_second_run_with_unchanged_content_is_no_change(self, tmp_path, monkeypatch):
         from readme_agent.specialists import readme_presentation
 
-        source = _init_source_repo(tmp_path / "source", _BLANK_SLATE_WIDGET_README)
+        source = _init_source_repo(
+            tmp_path / "source",
+            _BLANK_SLATE_WIDGET_README,
+            include_license=True,
+        )
         _setup_project_root(tmp_path, str(source))
         monkeypatch.chdir(tmp_path)
         monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)

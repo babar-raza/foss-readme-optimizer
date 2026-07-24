@@ -1301,6 +1301,12 @@ class TestRunManifestV2Evidence:
         assert manifest["upstream_revision"]  # a real commit SHA
         assert manifest["prompt_registry_content_hash"]
         assert isinstance(manifest["surface_freshness"], dict)
+        snapshot = manifest["facts"]["repository_snapshot_v1"]
+        assert snapshot["org_repo"] == ORG_REPO
+        assert snapshot["source_revision"] == manifest["upstream_revision"]
+        assert snapshot["readme_path"] == "README.md"
+        assert len(snapshot["readme_sha256"]) == 64
+        assert len(snapshot["inventory_sha256"]) == 64
         # Not yet threaded through this path -- explicit null, not faked.
         assert manifest["authorization_record_id"] is None
         assert manifest["trigger_dedup_key"] is None

@@ -4,11 +4,99 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
+from readme_agent import paths
 from readme_agent.errors import NotAllowlistedError
-from readme_agent.facts.migration import migrate_product_facts_v1
+from readme_agent.facts.local_verification import verify_local_product_example
+from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
+from readme_agent.facts.policy_evidence import evidence_failures
+from readme_agent.facts.repository_ingestion import ingest_repository_product_facts
+from readme_agent.facts.resolution import resolve_product_facts
 from readme_agent.facts.schema import ProductFactsV1
+from readme_agent.facts.schema_v2 import (
+    FactRecordV2,
+    FactSourceV2,
+    descriptive_fact_id,
+)
 from readme_agent.profile.cached import get_or_build_profile
 from readme_agent.registry.loader import load_policy, require_listed
+from readme_agent.repository_snapshot import (
+    current_repository_snapshot,
+    local_fact_verification_allowed,
+)
+
+
+def _local_verification_facts(
+    org_repo: str,
+    source_revision: str | None,
+    observed_at: str | None,
+    root,
+    policy,
+) -> tuple[list[FactRecordV2], dict | None]:
+    truth = policy.product_truth
+    snapshot = current_repository_snapshot(org_repo)
+    if truth is None:
+        return [], None
+    failures = evidence_failures(
+        root,
+        truth.minimal_example.evidence_paths,
+        truth.minimal_example.required_symbols,
+    )
+    local_result = None
+    if snapshot is not None and local_fact_verification_allowed() and not failures:
+        local_result = verify_local_product_example(snapshot, truth.minimal_example)
+    if local_result is None:
+        outcome = "BLOCKED_LOCAL_VERIFICATION"
+        detail = (
+            "; ".join(failures)
+            if failures
+            else "local build/example execution is disabled for this execution profile"
+        )
+    else:
+        outcome = local_result.outcome
+        detail = local_result.detail
+    verified = outcome == "SOURCE_BUILD_VERIFIED"
+    source = FactSourceV2(
+        source_type="mechanical_test",
+        location=f"local-product-verification://{org_repo}",
+        source_revision=source_revision,
+        retrieved_at=observed_at,
+    )
+    example = FactRecordV2(
+        fact_id=descriptive_fact_id("example.minimal", "compiled-policy-example"),
+        field="example.minimal",
+        value={
+            "language": truth.minimal_example.language,
+            "class_name": truth.minimal_example.class_name,
+            "code": truth.minimal_example.code,
+            "verification_outcome": outcome,
+            "verification_detail": detail,
+        },
+        source=source,
+        verification_state="verified" if verified else "blocked",
+        authoritative_owner="repository-owner",
+        confidence=1.0 if verified else 0.0,
+        affected_surfaces=SURFACE_DEPENDENCIES["example.minimal"],
+    )
+    acquisition = FactRecordV2(
+        fact_id=descriptive_fact_id(
+            "installation.verified_acquisition",
+            "disposable-source-build",
+        ),
+        field="installation.verified_acquisition",
+        value={
+            "method": "source_build",
+            "outcome": outcome,
+            "detail": detail,
+        },
+        source=source,
+        verification_state="verified" if verified else "blocked",
+        authoritative_owner="repository-owner",
+        confidence=1.0 if verified else 0.0,
+        affected_surfaces=SURFACE_DEPENDENCIES["installation.verified_acquisition"],
+    )
+    return [example, acquisition], (
+        local_result.model_dump(mode="json") if local_result is not None else None
+    )
 
 
 def collect_product_facts(
@@ -28,6 +116,14 @@ def collect_product_facts(
         prior_upstream_revision=prior_upstream_revision,
         prior_profile_result=prior_profile_result,
     )
+    snapshot = current_repository_snapshot(org_repo)
+    root = (
+        snapshot.root_path
+        if snapshot is not None
+        else paths.baseline_dir(entry.org, entry.repo_name)
+    )
+    source_revision = snapshot.source_revision if snapshot is not None else profile.source_revision
+    observed_at = None if source_revision is not None else datetime.now(UTC).isoformat()
 
     required = policy.required_elements
     result = {
@@ -62,10 +158,62 @@ def collect_product_facts(
     product_facts_v1 = ProductFactsV1.from_capability_results(result)
     product_facts_v2 = migrate_product_facts_v1(
         product_facts_v1,
-        source_revision=profile.source_revision,
-        observed_at=(
-            None if profile.source_revision is not None else datetime.now(UTC).isoformat()
-        ),
+        source_revision=source_revision,
+        observed_at=observed_at,
     )
-    result["product_facts_v2"] = product_facts_v2.model_dump(mode="json")
+    candidates = [
+        fact
+        for fact in product_facts_v2.facts
+        if fact.verification_state != "missing"
+        and fact.field
+        not in {
+            "product.identity",
+            "product.platforms",
+            "installation.coordinates",
+            "installation.verified_acquisition",
+            "release.state",
+            "product.compatibility",
+            "product.license",
+            "example.minimal",
+            "product.audience",
+            "product.problems_solved",
+            "product.capabilities",
+            "product.formats",
+            "product.limitations",
+        }
+    ]
+    candidates.extend(
+        ingest_repository_product_facts(
+            entry,
+            policy,
+            profile,
+            root,
+            source_revision,
+            observed_at,
+        )
+    )
+    local_candidates, local_verification = _local_verification_facts(
+        org_repo,
+        source_revision,
+        observed_at,
+        root,
+        policy,
+    )
+    candidates.extend(local_candidates)
+    resolved = resolve_product_facts(
+        org_repo,
+        candidates,
+        missing_source=FactSourceV2(
+            source_type="mechanical_repository",
+            location=f"repository://{org_repo}",
+            source_revision=source_revision,
+            retrieved_at=observed_at,
+        ),
+        missing_field_surfaces=SURFACE_DEPENDENCIES,
+    )
+    result["product_facts_v2"] = resolved.model_dump(mode="json")
+    result["local_product_verification"] = local_verification or {
+        "outcome": "NOT_RUN",
+        "detail": "local build/example verification was not executed",
+    }
     return result

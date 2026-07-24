@@ -11,6 +11,7 @@ from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.evidence.manifest_v3 import RunManifestV3
 from readme_agent.evidence.writer import refresh_sha256sums, write_run_manifest_v3
 from readme_agent.llm import prompt_registry
+from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.lifecycle import LifecycleRecorder, current_lifecycle_recorder
 from readme_agent.state.schema import DomainStateV1, SurfaceFreshnessContractV1
 from readme_agent.supervisor.models import DecisionSummary
@@ -49,6 +50,7 @@ def write_supervise_evidence(
     upstream_revision: str | None = None,
     domain_coverage_complete: bool | None = None,
     surface_freshness: dict[str, SurfaceFreshnessContractV1] | None = None,
+    repository_snapshot: RepositorySnapshotV1 | None = None,
 ) -> None:
     """Atomically write the complete evidence bundle for one terminal run."""
 
@@ -81,11 +83,14 @@ def write_supervise_evidence(
     verifier_result = (specialist_results or {}).get(INDEPENDENT_VERIFICATION)
     requirement_results = requirement_ids_exercised(specialist_results or {})
     facts = {
+        "repository_snapshot_v1": (
+            repository_snapshot.model_dump(mode="json") if repository_snapshot is not None else None
+        ),
         "specialist_fact_hashes": {
             domain: result.accepted_facts_hash
             for domain, result in (specialist_results or {}).items()
             if result.accepted_facts_hash is not None
-        }
+        },
     }
     effects = [
         {

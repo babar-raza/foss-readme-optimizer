@@ -1,17 +1,19 @@
 """Canonical repository supervisor: observe, plan, verify, effect, reconcile."""
 
 from datetime import UTC, datetime
-from pathlib import Path
 
 from readme_agent import paths
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.ecosystems.registry import known_manifest_globs
 from readme_agent.errors import GitSafetyError
 from readme_agent.evidence.writer import generate_run_id
-from readme_agent.gitsafety._git import run_git
 from readme_agent.gitsafety.clone import clone_baseline, remote_head_sha
 from readme_agent.llm.planner_client import PlannerClient
 from readme_agent.registry.loader import require_listed
+from readme_agent.repository_snapshot import (
+    capture_repository_snapshot,
+    repository_snapshot_scope,
+)
 from readme_agent.state.backend import StateBackend, safe_release_lock
 from readme_agent.state.freshness_contract import (
     DEFAULT_SURFACE_CONTRACTS,
@@ -69,11 +71,6 @@ ESCALATION_ALERT_THRESHOLD = 3
 DOSSIER_TOKEN_BUDGET = 25_000
 
 
-def _current_upstream_revision(baseline_path: Path) -> str | None:
-    result = run_git(["rev-parse", "HEAD"], cwd=baseline_path)
-    return result.stdout.strip() if result.returncode == 0 else None
-
-
 def _surface_observed_hashes(
     specialist_results: dict[str, DomainStateV1],
 ) -> dict[str, str | None]:
@@ -116,6 +113,7 @@ def supervise_repo(
     fail_closed_on_state_failure: bool = False,
     require_evidence_bundle: bool = False,
     require_independent_verification: bool = False,
+    verify_local_product_facts: bool = False,
 ) -> SuperviseResult:
     # require_listed(), not require_permitted() (decision #40): most of a
     # supervised run is read-only planning/observation, so mode is not
@@ -203,7 +201,7 @@ def supervise_repo(
     # compare to prior -> return cached on match -> else fall through" shape.
     # Only ever used for THIS early-return comparison -- anything persisted
     # downstream always comes from the post-clone, authoritative value below
-    # (`_current_upstream_revision()`), preserving today's trust boundary
+    # (`RepositorySnapshotV1.source_revision`), preserving today's trust boundary
     # exactly: the two SHAs should normally agree, but only the clone-derived
     # one is ever trusted for state writes. `None` on any probe failure
     # (unreachable remote, no durable backend) falls through to the real
@@ -325,12 +323,16 @@ def supervise_repo(
             blocked_reason=f"baseline_clone_failed:{exc}",
             evidence_dir=clone_failure_evidence_dir,
         )
-    current_revision = _current_upstream_revision(baseline_path)
+    repository_snapshot = capture_repository_snapshot(entry, baseline_path)
+    current_revision = repository_snapshot.source_revision
     lifecycle_recorder = current_lifecycle_recorder()
     if lifecycle_recorder is not None:
         lifecycle_recorder.checkpoint(
             "snapshot_captured",
-            outputs={"upstream_revision": current_revision},
+            outputs={
+                "upstream_revision": current_revision,
+                "repository_snapshot_v1": repository_snapshot.model_dump(mode="json"),
+            },
         )
     # Wave 9.7 (`FRESH-010`): same 7-condition gate as the pre-clone probe
     # shortcut above, not the bare 3-condition `is_fresh()`.
@@ -408,16 +410,20 @@ def supervise_repo(
         # tier loop, so a skip decision can be enforced inside it. Empty
         # unless the caller explicitly opts in -- see `enable_specialist_
         # skip`'s own docstring above.
-        tier = run_specialist_tier(
-            org_repo=org_repo,
-            baseline_path=baseline_path,
-            state_backend=state_backend,
-            current_revision=current_revision,
-            enable_specialist_skip=enable_specialist_skip,
-            specialist_selection_client=specialist_selection_client,
-            escalation_alert_threshold=ESCALATION_ALERT_THRESHOLD,
-            fail_closed_on_state_failure=fail_closed_on_state_failure,
-        )
+        with repository_snapshot_scope(
+            repository_snapshot,
+            allow_local_fact_verification=verify_local_product_facts,
+        ):
+            tier = run_specialist_tier(
+                org_repo=org_repo,
+                baseline_path=baseline_path,
+                state_backend=state_backend,
+                current_revision=current_revision,
+                enable_specialist_skip=enable_specialist_skip,
+                specialist_selection_client=specialist_selection_client,
+                escalation_alert_threshold=ESCALATION_ALERT_THRESHOLD,
+                fail_closed_on_state_failure=fail_closed_on_state_failure,
+            )
         specialist_domains = tier.domains
         specialist_results = tier.results
         unrecorded_failures = tier.unrecorded_failures
@@ -543,6 +549,7 @@ def supervise_repo(
                     # here, not an inference across a helper boundary.
                     domain_coverage_complete=True,
                     surface_freshness=refreshed_surface_freshness,
+                    repository_snapshot=repository_snapshot,
                 )
                 _assert_evidence_complete(shortcut_evidence_dir)
             return SuperviseResult(
@@ -569,18 +576,22 @@ def supervise_repo(
                     blocked_reason="lock_held",
                 )
         try:
-            planner = run_planner_loop(
-                org_repo=org_repo,
-                specialist_results=specialist_results,
-                initial_decisions=[*escalation_alerts, *retry_alerts],
-                state_backend=state_backend,
-                planner_client=planner_client,
-                repair_planner_client=repair_planner_client,
-                allowed_permission_classes=allowed_permission_classes,
-                max_turns=max_turns,
-                no_progress_turn_limit=NO_PROGRESS_TURN_LIMIT,
-                dossier_token_budget=DOSSIER_TOKEN_BUDGET,
-            )
+            with repository_snapshot_scope(
+                repository_snapshot,
+                allow_local_fact_verification=verify_local_product_facts,
+            ):
+                planner = run_planner_loop(
+                    org_repo=org_repo,
+                    specialist_results=specialist_results,
+                    initial_decisions=[*escalation_alerts, *retry_alerts],
+                    state_backend=state_backend,
+                    planner_client=planner_client,
+                    repair_planner_client=repair_planner_client,
+                    allowed_permission_classes=allowed_permission_classes,
+                    max_turns=max_turns,
+                    no_progress_turn_limit=NO_PROGRESS_TURN_LIMIT,
+                    dossier_token_budget=DOSSIER_TOKEN_BUDGET,
+                )
             graph = planner.graph
             decisions = planner.decisions
             outcome = planner.outcome
@@ -640,6 +651,7 @@ def supervise_repo(
                     control_plane_fingerprint=current_control_plane_fingerprint,
                     upstream_revision=current_revision,
                     surface_freshness=refreshed_surface_freshness,
+                    repository_snapshot=repository_snapshot,
                 )
                 _assert_evidence_complete(evidence_path)
 

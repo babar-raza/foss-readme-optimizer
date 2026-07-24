@@ -1,15 +1,10 @@
-"""Wave 6 (decision #37): since no external "product agent" handoff system
-exists (FACT-001's "repository inspection, an owning product agent, or both"
-is read here as "both, always" -- there is no cooperating counterparty to
-integrate with), this capability combines this project's own already-built
-product inventory (data/products.json + config/policies/*.yml) with live
-repository profiling into one product-facts record. Both sources every call,
-mandatory -- never offered as two alternative paths behind a flag.
+"""Build ProductFactsV2 from one repository snapshot and approved policy.
 
-Explicitly not the full decision #22 product-facts list: audience, a
-verified example, release information, and known limitations remain unbuilt.
-`DOC-006` (the schema that would freeze the complete list) stays
-RESEARCH-GATED; this is a thin wrapper around today's real, narrower data.
+Subjective positioning comes from policy; technical statements remain blocked
+until their declared repository files and symbols exist. A local-dry-run
+snapshot additionally builds the source and compiles the exact minimal example
+inside a disposable, secret-free copy. Package-registry truth remains the
+independently dispatched ``verify_package_acquisition`` capability.
 
 No live `state_backend` object here (decision #26(b), matching
 render_readme_candidate.py's own established convention) -- accepts the
@@ -25,15 +20,13 @@ CAPABILITY_ID = "get_product_facts"
 
 MANIFEST = CapabilityManifest(
     capability_id=CAPABILITY_ID,
-    version="2",
+    version="3",
     name="Get product facts",
-    purpose="Read-only: combines the product inventory (data/products.json + its "
-    "config/policies/*.yml profile -- identity, declared license, required-link specs, "
-    "relationship talking points, secondary links, block policy) with live repository "
-    "profiling (detected ecosystems, unresolved manifests) into one record. Both sources "
-    "every call, never one or the other. NOT the full decision #22 schema (audience, "
-    "verified example, release info, limitations remain unbuilt -- DOC-006 stays "
-    "RESEARCH-GATED).",
+    purpose="Read-only: produces provenance-complete ProductFactsV2 from the bound immutable "
+    "repository snapshot, mechanically parsed manifests/source/tests/license, and approved "
+    "policy positioning. Technical assertions fail closed when evidence is missing. Under "
+    "the local_dry_run profile it also verifies a source build and exact minimal example in "
+    "a disposable secret-free copy.",
     category="product_facts",
     owner="readme_agent.registry.loader",
     execution_type="deterministic_tool",
@@ -57,6 +50,7 @@ MANIFEST = CapabilityManifest(
         "package_roots": "array",
         "surface_ownership": "object",
         "product_facts_v2": "object",
+        "local_product_verification": "object",
         "source": "object",
     },
     preconditions=[
@@ -72,6 +66,8 @@ MANIFEST = CapabilityManifest(
         "registry.loader.require_listed",
         "registry.loader.load_policy",
         "profile.cached.get_or_build_profile",
+        "facts.repository_ingestion.ingest_repository_product_facts",
+        "facts.local_verification.verify_local_product_example",
     ],
     failure_modes=[
         "NotAllowlistedError if org_repo is not listed in data/products.json",

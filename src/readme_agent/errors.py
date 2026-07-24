@@ -25,6 +25,10 @@ class GitSafetyError(ReadmeAgentError):
     exit_code = 3
 
 
+class RepositorySnapshotError(GitSafetyError):
+    """One logical run's immutable repository view is absent or has drifted."""
+
+
 class StateBackendError(ReadmeAgentError):
     exit_code = 3
 
