@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PREPRODUCTION-TRUTHFUL-BASELINE",
+  "generated_at": "2026-07-24T08:00:03.248092+00:00",
+  "source_head": "946081e81c670d84d49604b1fefb712226eb886c",
+  "implementation_input_sha256": {
+    "docs/architecture.md": "d54fdffc760e2d6bb1f2d1f3782efd9a1d97bbb763e9240db28015e0a98fde02",
+    "plans/investigations/control/level8-autonomous-mission-task-graph.yaml": "1ad4b38f92b3f2cdddcbe558ff0324439e2c71d0e91018941ad31e69f1da28a2",
+    "plans/requirements.md": "8d216ef0d84e0a4ec7eda207caafb65e38af2a938c4ed3d716a8045c6ec1e325",
+    "scripts/governance/build_level8_requirement_taskcard_coverage.py": "538607166a3631dbea68e538b54639ba210eb23bc05561aa36ba4c9e4ad105ab",
+    "src/readme_agent/llm/prompt_registry.py": "9c678c9091199e0832dfc0d579330f7c6ee140c606074e78629caf6ef2a2adbe",
+    "src/readme_agent/supervisor/convergence.py": "6ecd37e108ec907a34409efae6c1b15d0bee8fcbcfe3c574191213bcb2f3b213",
+    "src/readme_agent/supervisor/finding_status.py": "ca6012fb863beb7e088ba6deff2cb6375b39fa4b325b79ca39c28f36bb83afab",
+    "src/readme_agent/supervisor/mission_control.py": "9dc356abbf585b918b52171048fd51956ab21031a423fdfbc16d802c8ce47a72",
+    "src/readme_agent/supervisor/planner_loop.py": "e10bb715f859f629fe64593ed351ddb160ea958762014dac7b6fb150567a71d4",
+    "src/readme_agent/supervisor/status.py": "e81f4c3b87693e7e335206dea9ef927190a9326a206f4d86132deceb1af690b2",
+    "src/readme_agent/supervisor/work_ledger.py": "c3022237d39cf300ad3dbecfa0797521f0a92c45718f25eff8d9ad0c72067319",
+    "tests/unit/test_cli.py": "1249502cd7d0f06790a307a4265df16e569a25b20a2f0d9ad6cdbb72f5d6a62d",
+    "tests/unit/test_convergence.py": "826d7c61769dd66ee3349590a350ac843e5b5a321a1f6b780d51d82bc313c2f6",
+    "tests/unit/test_mission_control.py": "312706a97b10997ac8d491854ccc2c94c67848242e78cedef2d6aaab8836ca0f",
+    "tests/unit/test_prompt_registry.py": "85d9df83ba0818d53ae9bd171b279fdd23fe2473b61a61079ca24646a48e0ae1",
+    "tests/unit/test_supervisor_loop.py": "22eb7bdc6095ae0b5b6908793c661d2cd491c5e571b4bd98d26848a7bd653c68",
+    "tests/unit/test_work_ledger.py": "e690d98dacedc3939caa7f2df221ca27b629a70ed03c6498e14da3feead6a3b1"
+  },
+  "working_tree_status": [
+    " M AGENTS.md",
+    " M plans/idea.md",
+    "?? plans/changelog.md",
+    "?? plans/investigations/evidence/level8-preproduction-truthful-baseline-2026-07-24/",
+    "?? plans/roadmap.md",
+    "?? plans/status.md"
+  ],
+  "focused_tests_passed": true,
+  "official_checks_passed": true,
+  "pilot_terminal_observations": [
+    {
+      "label": "false-success-before-repair",
+      "run_id": "20260723-230757-082f",
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "upstream_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+      "status": "CONVERGED_NO_CHANGE",
+      "expected_status": "CONVERGED_NO_CHANGE",
+      "status_matches": true,
+      "bundle_checksums_valid": true
+    },
+    {
+      "label": "3d-java-after-repair",
+      "run_id": "20260723-231310-624b",
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "upstream_revision": "605f67d1192fee1881078dfd53d37b8cb29623ba",
+      "status": "PARTIAL_WITH_FINDINGS",
+      "expected_status": "PARTIAL_WITH_FINDINGS",
+      "status_matches": true,
+      "bundle_checksums_valid": true
+    },
+    {
+      "label": "cells-java-after-repair",
+      "run_id": "20260723-231434-0dba",
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "upstream_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "status": "PARTIAL_WITH_FINDINGS",
+      "expected_status": "PARTIAL_WITH_FINDINGS",
+      "status_matches": true,
+      "bundle_checksums_valid": true
+    },
+    {
+      "label": "pdf-java-after-repair",
+      "run_id": "20260723-231612-3132",
+      "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+      "upstream_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
+      "status": "PARTIAL_WITH_FINDINGS",
+      "expected_status": "PARTIAL_WITH_FINDINGS",
+      "status_matches": true,
+      "bundle_checksums_valid": true
+    }
+  ],
+  "false_success_correction_preserved": true,
+  "independent_acceptance_checks": {
+    "unresolved_findings_are_nonzero": true,
+    "proposal_ready_is_distinct_from_no_change": true,
+    "planner_stop_is_not_authoritative": true,
+    "prompt_loading_is_order_and_cwd_independent": true,
+    "mission_resumption_is_durable": true
+  },
+  "accepted": true
+}
