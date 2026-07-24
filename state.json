@@ -7,19 +7,19 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-LOCAL-README-PROPOSAL-PROOF",
+    "claim_id": "7fe22ed54ab14e89bfd412eeabe73f7a",
+    "claimed_at": "2026-07-24T09:55:42.134252+00:00",
+    "claimed_by": "Codex",
     "graph_sha256": "2ea570475bd6afbe733338e9b4ef3b87e42ede59a9f13140903772b18db0db82",
-    "last_evaluated_at": "2026-07-24T09:55:23.462847+00:00",
+    "last_evaluated_at": "2026-07-24T09:55:42.134257+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
       "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "CLOSED",
-      "L8-LOCAL-README-PROPOSAL-PROOF": "TODO",
+      "L8-LOCAL-README-PROPOSAL-PROOF": "IN_PROGRESS",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
       "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "CLOSED",
@@ -717,6 +717,15 @@
         "reason": "Bounded child exit gate satisfied with green official checks, independently accepted evidence, and truthful requirement reconciliation.",
         "task_id": "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-24T09:55:42.134217+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-LOCAL-README-PROPOSAL-PROOF",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -724,7 +733,7 @@
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
   "schema_version": 2,
-  "state_version": 80,
+  "state_version": 81,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
