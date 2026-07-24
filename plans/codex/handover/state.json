@@ -1,0 +1,201 @@
+{
+  "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
+  "branch": "main",
+  "head": "265bd971bcae13edfff1daa147b5999c758b3261",
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "authoritative_plan": "plans/master.md",
+  "authoritative_plan_hash": "193a5eef5f9578791477faac2ffe4b3a871dbff205a85a65808ffb7a9236c767",
+  "requirements_hash": "a887a1d593c34730ea33a3335791a0becc63844f1085a546b9444f1c3a21ebac",
+  "durable_mission_state_version": 82,
+  "current_phase": "Pre-production Gate A: direct local idea-fidelity proof",
+  "current_task": "L8-LOCAL-README-PROPOSAL-PROOF",
+  "next_action": "Run the canonical readme-agent supervise --execution-profile local_dry_run against the three Java pilots (cells, 3D, PDF) on the now-corrected package-acquisition pipeline, capture terminal state/zero-product-writes/deterministic-rerun evidence, then legally transition this task through IMPLEMENTED->VERIFIED->SCORED->CLOSED with real evidence_refs.",
+  "mandatory_outcomes": [
+    "L8-014: complete direct local, full act, and isolated staging proof before production provisioning",
+    "L8-007: fact-cited repository-specific presentation plans with protected-content enforcement",
+    "L8-008: exactly-once verified draft-proposal lifecycle",
+    "L8-010: controlled Level-5 Java pilot and heterogeneous Levels 6-7",
+    "L8-011: independently reproduced 90-day Level-8 production proof",
+    "No unauthorized, default-branch, merge, package, release, or GitHub-generated-surface write",
+    "No false-success terminal state or duplicate effect",
+    "Every accepted trigger terminal or visibly retryable or blocked"
+  ],
+  "completed_verified": [
+    "L8-MISSION-CONTROL-CONSUMER",
+    "L8-REQUIREMENT-TO-TASKCARD-COVERAGE",
+    "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
+    "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE",
+    "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
+    "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
+    "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+    "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION",
+    "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION",
+    "L8-PREPRODUCTION-TRUTHFUL-BASELINE",
+    "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS"
+  ],
+  "implemented_unverified": [
+    "L8-LOCAL-README-PROPOSAL-PROOF: renderer split (76e88b1), independent bundle verifier wired into the producer (ff77c5f/de7ff3d), a critical package-acquisition-truth bug found and fixed at every layer resolver/facts/renderer (b6739ad/d881a9b), and evidence regenerated through the corrected pipeline (1551bab) -- cells-java and pdf-java bundles are independently ACCEPTED and keep their correct Maven install; 3D-java is honestly REJECTED on an unrelated, pre-existing local JDK-21 toolchain gap (FACT-014), not a verification failure of the fix itself. Still missing for this task's own closure: a canonical `supervise` E2E run (the candidates above were built via direct contract calls, not replayed through the production runtime) and the cross-pilot/editorial acceptance this task's own closeout rules require."
+  ],
+  "remaining_tasks": [
+    {
+      "id": "L8-LOCAL-README-PROPOSAL-PROOF",
+      "status": "IN_PROGRESS",
+      "depends_on": [
+        "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS"
+      ],
+      "next_boundary": "Renderer split, separate verifier, cross-pilot editorial/clone review, canonical supervisor proof, and unchanged-rerun proof"
+    },
+    {
+      "id": "L8-LOCAL-CENTRAL-AGENT-RESILIENCE",
+      "status": "TODO",
+      "depends_on": [
+        "L8-LOCAL-README-PROPOSAL-PROOF"
+      ],
+      "next_boundary": "One-command local multi-surface and fault/recovery proof"
+    },
+    {
+      "id": "L8-ACT-CANONICAL-WORKFLOW-PARITY",
+      "status": "TODO",
+      "depends_on": [
+        "L8-LOCAL-CENTRAL-AGENT-RESILIENCE"
+      ],
+      "next_boundary": "Complete real Docker/act workflow, not planning-only"
+    },
+    {
+      "id": "L8-STAGING-VERIFIED-PROPOSAL-PROOF",
+      "status": "TODO",
+      "depends_on": [
+        "L8-ACT-CANONICAL-WORKFLOW-PARITY"
+      ],
+      "next_boundary": "Exactly-once draft PR lifecycle in disposable GitHub staging"
+    },
+    {
+      "id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "status": "BLOCKED_EXTERNAL",
+      "depends_on": [
+        "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+        "L8-PREPRODUCTION-IDEA-FIDELITY-GATE"
+      ],
+      "next_boundary": "Repair dependency gating, then obtain production GitHub App and hosted recovery evidence only after staging"
+    },
+    {
+      "id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "status": "TODO",
+      "depends_on": [
+        "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+        "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"
+      ],
+      "next_boundary": "Portfolio-wide provenance, ownership, conflicts, protected content, and isolated acquisition/examples"
+    },
+    {
+      "id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "status": "TODO",
+      "depends_on": [
+        "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+        "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION"
+      ],
+      "next_boundary": "Complete surfaces, archetypes, 100% deterministic validation, and at least 95% agentic accuracy"
+    },
+    {
+      "id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "status": "TODO",
+      "depends_on": [
+        "L8-WAVE4-PRESENTATION-INTELLIGENCE"
+      ],
+      "next_boundary": "VerifiedProposalV1/OpenProposalV2 drift, retry, expiry, lost-response, and crash reconciliation"
+    },
+    {
+      "id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "status": "TODO",
+      "depends_on": [
+        "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"
+      ],
+      "next_boundary": "Three-repository production-like pilot and independent Level-5 award"
+    },
+    {
+      "id": "L8-WAVE7-HETEROGENEOUS-PORTFOLIO",
+      "status": "TODO",
+      "depends_on": [
+        "L8-WAVE6-CONTROLLED-JAVA-PILOT"
+      ],
+      "next_boundary": "Full active registry, one lifecycle per ecosystem, and 30 clean production days"
+    },
+    {
+      "id": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+      "status": "TODO",
+      "depends_on": [
+        "L8-WAVE7-HETEROGENEOUS-PORTFOLIO"
+      ],
+      "next_boundary": "90-day autonomous evidence series and independent Level-8 award"
+    }
+  ],
+  "blockers": [
+    {
+      "id": "separate-readme-proposal-verification",
+      "type": "local_engineering",
+      "status": "RESOLVED",
+      "detail": "verification/readme_proposal_bundle.py::verify_readme_proposal_bundle() re-derives every claim from scratch under a distinct reviewer identity; the producer now defers to it instead of self-reviewing (commits ff77c5f, de7ff3d)."
+    },
+    {
+      "id": "readme-renderer-responsibility-split",
+      "type": "local_engineering",
+      "status": "RESOLVED",
+      "detail": "document_renderer.py split into 5 focused modules (76e88b1); byte-identical, all three original candidate hashes reproduced."
+    },
+    {
+      "id": "package-acquisition-truth",
+      "type": "local_engineering",
+      "status": "RESOLVED",
+      "detail": "The Maven resolver queried search.maven.org (never indexed org.aspose), falsely reporting every Java pilot's package NOT_PUBLISHED; facts/renderer then stripped correct Maven installs. Fixed at every layer (resolver endpoint, cpp->NuGet, canonical aspose-{family}-foss coordinate rule, facts authoritative, renderer gates on real outcome) and live-verified against the real cells-java repo (commits b6739ad, d881a9b, de7ff3d, 1551bab). See plans/investigations/evidence/package-acquisition-ground-truth-2026-07-24/."
+    },
+    {
+      "id": "canonical-supervisor-proposal-proof",
+      "type": "local_engineering",
+      "status": "OPEN",
+      "detail": "The corrected candidates were produced by direct deterministic contract calls, not yet reproduced through a complete canonical supervise run. Next action for this task."
+    },
+    {
+      "id": "3d-java-jdk21-toolchain-gap",
+      "type": "local_environment",
+      "status": "OPEN",
+      "detail": "aspose-3d-foss/Aspose.3D-FOSS-for-Java's disposable Maven build requires a Java 21 toolchain; this execution environment has only JDK 17. BLOCKED_TOOLCHAIN is correctly reported, not a false success. Filed FACT-014 (BACKLOG)."
+    },
+    {
+      "id": "preproduction-wave2-dependency-gate",
+      "type": "local_engineering",
+      "status": "OPEN",
+      "detail": "Wave 2 depends on a parent whose durable REROUTED status counts as dependency-satisfied instead of depending on the final staging child."
+    },
+    {
+      "id": "production-github-app-and-authority",
+      "type": "external_authority",
+      "status": "DEFERRED_UNTIL_PREPRODUCTION_PASSES",
+      "detail": "Production App registration, installation, secrets, authorizations, and push confirmations are intentionally not requested before local, act, and staging gates pass."
+    }
+  ],
+  "critical_references": [
+    "plans/idea.md",
+    "plans/master.md",
+    "plans/requirements.md",
+    "plans/GOVERNANCE.md",
+    "AGENTS.md",
+    "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+    "plans/investigations/preproduction-idea-fidelity-gate-2026-07-24.md",
+    "logs/2026-07-24.md",
+    "docs/architecture.md",
+    "docs/safety-model.md"
+  ],
+  "evidence_paths": [
+    "plans/investigations/evidence/level8-preproduction-truthful-baseline-2026-07-24/",
+    "plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-2026-07-24/ (SUPERSEDED, see its own SUPERSEDED.md)",
+    "plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-corrected-acquisition-2026-07-24/",
+    "plans/investigations/evidence/level8-local-readme-proposals-2026-07-24/ (SUPERSEDED, see its own SUPERSEDED.md)",
+    "plans/investigations/evidence/level8-local-readme-proposals-corrected-acquisition-2026-07-24/",
+    "plans/investigations/evidence/package-acquisition-ground-truth-2026-07-24/",
+    "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/",
+    "plans/investigations/evidence/level8-wave2-restartable-actions-2026-07-23/",
+    "plans/investigations/evidence/level8-wave3-local-product-truth-foundation-2026-07-23/",
+    "plans/investigations/evidence/level8-wave4-local-presentation-plan-foundation-2026-07-23/"
+  ],
+  "handover_status": "HANDOVER_READY"
+}
