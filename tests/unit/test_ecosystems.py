@@ -1,6 +1,6 @@
 import pytest
 
-from readme_agent.ecosystems import cpp, dotnet, go, java, python, registry, typescript
+from readme_agent.ecosystems import cpp, dotnet, go, java, python, registry, rust, typescript
 from readme_agent.errors import ConfigError
 
 SIMPLE_POM = """<?xml version="1.0" encoding="UTF-8"?>
@@ -289,6 +289,45 @@ class TestCppParser:
         assert cpp.parse(tmp_path) == {}
 
 
+class TestRustParser:
+    def test_parses_package_table(self, tmp_path):
+        (tmp_path / "Cargo.toml").write_text(
+            "[package]\n"
+            'name = "aspose-cells-foss-rust"\n'
+            'version = "26.7.0"\n'
+            'edition = "2021"\n'
+            'license = "MIT"\n\n'
+            "[lib]\n"
+            'name = "aspose_cells_foss_rust"\n'
+            'path = "src/lib.rs"\n',
+            encoding="utf-8",
+        )
+
+        info = rust.parse(tmp_path)
+
+        assert info["name"] == "aspose-cells-foss-rust"
+        assert info["version"] == "26.7.0"
+        assert info["edition"] == "2021"
+        assert info["license"] == "MIT"
+        assert info["lib_name"] == "aspose_cells_foss_rust"
+
+    def test_license_file_key_is_not_read_as_license(self, tmp_path):
+        """Cargo.toml's `license-file` is a distinct key from `license` (never
+        a `license = {file = ...}` table the way pyproject.toml allows) --
+        a crate using it has no `license` entry, which is correct."""
+        (tmp_path / "Cargo.toml").write_text(
+            '[package]\nname = "widget"\nlicense-file = "LICENSE"\n', encoding="utf-8"
+        )
+
+        info = rust.parse(tmp_path)
+
+        assert info["name"] == "widget"
+        assert "license" not in info
+
+    def test_no_cargo_toml_returns_empty(self, tmp_path):
+        assert rust.parse(tmp_path) == {}
+
+
 class TestEcosystemRegistry:
     def test_java_dispatch(self, tmp_path):
         (tmp_path / "pom.xml").write_text(SIMPLE_POM, encoding="utf-8")
@@ -306,4 +345,13 @@ class TestEcosystemRegistry:
 
     def test_known_manifest_globs_covers_all_registered_platforms(self):
         globs = registry.known_manifest_globs()
-        assert set(globs) == {"java", "python", "net", "typescript", "go", "cpp"}
+        assert set(globs) == {"java", "python", "net", "typescript", "go", "cpp", "rust"}
+
+    def test_rust_dispatch(self, tmp_path):
+        (tmp_path / "Cargo.toml").write_text(
+            '[package]\nname = "aspose-cells-foss-rust"\nversion = "26.7.0"\n', encoding="utf-8"
+        )
+
+        info = registry.parse_manifest("rust", tmp_path)
+
+        assert info["name"] == "aspose-cells-foss-rust"

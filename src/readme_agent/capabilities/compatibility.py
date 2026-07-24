@@ -37,6 +37,11 @@ _ECOSYSTEM_COMPATIBILITY: dict[str, dict[str, frozenset[str]]] = {
         "package_managers": frozenset(),
         "registries": frozenset(),
     },
+    "rust": {
+        "build_systems": frozenset({"cargo"}),
+        "package_managers": frozenset({"cargo"}),
+        "registries": frozenset({"crates_io"}),
+    },
 }
 
 

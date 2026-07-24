@@ -86,13 +86,38 @@ def test_is_permitted_allows_enabled_repo(monkeypatch):
     assert entry.mode == "full"
 
 
-def test_is_permitted_blocks_disabled_repo(monkeypatch):
-    monkeypatch.chdir(REPO_ROOT)
-    # aspose-cells-foss/Aspose.Cells-FOSS-for-Go: confirmed `mode: "disabled"`
-    # directly against the real file at the time this test was written --
-    # aspose-slides-foss/Aspose.Slides-FOSS-for-Java (this test's prior
-    # example) moved to `dry_run` in the 2026-07-22 registry broadening.
-    assert loader.is_permitted("aspose-cells-foss/Aspose.Cells-FOSS-for-Go") is None
+def test_is_permitted_blocks_disabled_repo(tmp_path, monkeypatch):
+    """A synthetic fixture, not a real registry entry -- this test previously
+    pinned a real repo (`aspose-slides-foss/...Java`, then
+    `aspose-cells-foss/...Go`, then `...Rust`) as "the disabled one," and
+    churned every time that repo was legitimately onboarded (three times by
+    2026-07-25, when the last real disabled entry in `data/products.json` was
+    onboarded, leaving none). A synthetic entry can never be onboarded out
+    from under this test again."""
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "data").mkdir()
+    (tmp_path / "data" / "products.json").write_text(
+        json.dumps(
+            [
+                {
+                    "family": "widget",
+                    "platform": "java",
+                    "repo_name": "Aspose.Widget-FOSS-for-Java",
+                    "repo_url": "https://github.com/aspose-widget-foss/Aspose.Widget-FOSS-for-Java",
+                    "clone_url": (
+                        "https://github.com/aspose-widget-foss/Aspose.Widget-FOSS-for-Java.git"
+                    ),
+                    "active": True,
+                    "discovered_via": "github",
+                    "mode": "disabled",
+                    "ecosystem": None,
+                    "policy_profile": None,
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+    assert loader.is_permitted("aspose-widget-foss/Aspose.Widget-FOSS-for-Java") is None
 
 
 def test_is_permitted_blocks_unknown_repo(monkeypatch):

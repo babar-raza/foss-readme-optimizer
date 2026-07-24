@@ -119,14 +119,17 @@ class TestExecuteSingleRoot:
         assert captured[0] == ("net", {"name": "Aspose.cells.Cpp.FOSS"})
 
     def test_unsupported_ecosystem_is_capability_gap_without_network(self, monkeypatch, tmp_path):
-        rust_root = PackageRoot(
+        """`ruby`, not `rust` -- `canonical_foss_coordinate()` gained a rust
+        mapping 2026-07-25 (crates.io), which would otherwise make this
+        fixture assert the opposite of what it's meant to test."""
+        ruby_root = PackageRoot(
             path=".",
-            ecosystem="rust",
-            manifest_path="Cargo.toml",
+            ecosystem="ruby",
+            manifest_path="widget.gemspec",
             confidence=1.0,
-            evidence="found Cargo.toml",
+            evidence="found widget.gemspec",
         )
-        _stub_common(monkeypatch, tmp_path, [rust_root], entry=_fake_entry("cells", "rust"))
+        _stub_common(monkeypatch, tmp_path, [ruby_root], entry=_fake_entry("cells", "ruby"))
 
         def fail_if_called(*a, **k):
             raise AssertionError("must not resolve an ecosystem with no canonical FOSS coordinate")

@@ -51,6 +51,13 @@ _PYPI_URL_TEMPLATE = "https://pypi.org/pypi/{name}/json"
 _NPM_URL_TEMPLATE = "https://registry.npmjs.org/{name}"
 _NUGET_URL_TEMPLATE = "https://api.nuget.org/v3-flatcontainer/{name}/index.json"
 _GO_PROXY_URL_TEMPLATE = "https://proxy.golang.org/{module}/@v/list"
+_CRATES_IO_URL_TEMPLATE = "https://crates.io/api/v1/crates/{name}"
+# crates.io's crawler policy rejects generic library User-Agents outright --
+# live-verified 2026-07-25: the default `python-requests/x.y` UA gets 403 for
+# BOTH an existing crate (serde) and a made-up name, which would otherwise be
+# misread as a real network failure (blocked=True) rather than the true
+# found/not-found answer. A descriptive UA naming this project fixes it.
+_CRATES_IO_HEADERS = {"User-Agent": "readme-agent-foss-optimizer (github.com/aspose-cells-foss)"}
 # Neither Conan Center nor vcpkg exposes a simple package-existence REST API
 # (both are community-curated, git-hosted *recipe* indices, not centralized
 # binary hosts the way PyPI/npm/NuGet are) -- live-verified 2026-07-23 that
@@ -81,10 +88,16 @@ class ResolutionResult:
     blocked: bool = False
 
 
-def _registry_get(url: str, *, timeout: float, params: dict | None = None) -> requests.Response:
+def _registry_get(
+    url: str,
+    *,
+    timeout: float,
+    params: dict | None = None,
+    headers: dict | None = None,
+) -> requests.Response:
     return run_http_with_retry(
         "package_registry",
-        lambda: requests.get(url, params=params, timeout=timeout),
+        lambda: requests.get(url, params=params, timeout=timeout, headers=headers),
         retryable_statuses=_RETRYABLE_STATUS,
         sleep=time.sleep,
     )
@@ -102,14 +115,14 @@ def _resolve_maven(manifest: dict[str, str], timeout: float = 10) -> ResolutionR
 
 
 def _resolve_by_existence_url(
-    url: str, label: str, subject: str, timeout: float = 10
+    url: str, label: str, subject: str, timeout: float = 10, *, headers: dict | None = None
 ) -> ResolutionResult:
     """Shared shape for every registry below whose "does this exist"
     question is answered by one GET returning 200 (exists) or 404 (does
     not) -- every resolver here except Maven Central's own richer
     search-query API above."""
     try:
-        resp = _registry_get(url, timeout=timeout)
+        resp = _registry_get(url, timeout=timeout, headers=headers)
         if resp.status_code == 404:
             return ResolutionResult(False, f"{label}: {subject} NOT FOUND (404)")
         resp.raise_for_status()
@@ -169,6 +182,22 @@ def _resolve_go_proxy(manifest: dict[str, str], timeout: float = 10) -> Resoluti
     )
 
 
+def _resolve_crates_io(manifest: dict[str, str], timeout: float = 10) -> ResolutionResult:
+    """Live-verified 2026-07-25: `crates.io/api/v1/crates/serde` -> 200 (with
+    the required custom User-Agent -- see `_CRATES_IO_HEADERS`); a made-up
+    name -> 404."""
+    name = manifest.get("name")
+    if not name:
+        return ResolutionResult(False, "manifest missing name -- cannot resolve")
+    return _resolve_by_existence_url(
+        _CRATES_IO_URL_TEMPLATE.format(name=name),
+        "crates.io",
+        name,
+        timeout,
+        headers=_CRATES_IO_HEADERS,
+    )
+
+
 def _resolve_conan(manifest: dict[str, str], timeout: float = 10) -> ResolutionResult:
     """Live-verified 2026-07-23: the `zlib` recipe path -> 200; a made-up
     name -> 404. See this module's own docstring for why this checks the
@@ -199,6 +228,7 @@ _RESOLVERS = {
     "typescript": _resolve_npm,
     "net": _resolve_nuget,
     "go": _resolve_go_proxy,
+    "rust": _resolve_crates_io,
     "cpp_conan": _resolve_conan,
     "cpp_vcpkg": _resolve_vcpkg,
 }

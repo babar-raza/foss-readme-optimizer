@@ -54,13 +54,20 @@ MANIFEST = CapabilityManifest(
     preconditions=[
         "org_repo must be listed in data/products.json (mode is irrelevant -- read-only)",
         "a root's ecosystem must have a canonical FOSS coordinate (java/python/typescript/net/"
-        "cpp/go); cpp resolves via NuGet, and any other ecosystem reports CAPABILITY_GAP",
+        "cpp/go/rust); cpp resolves via NuGet, and any other ecosystem reports CAPABILITY_GAP",
     ],
     required_permissions=["read_only_local", "read_only_network"],
     side_effect_class="read_only_network",
-    supported_build_systems=["maven", "pip", "npm", "msbuild", "go_modules"],
-    supported_package_managers=["maven", "pip", "npm", "nuget", "go_modules"],
-    supported_registries=["maven_central", "pypi", "npm_registry", "nuget", "go_proxy"],
+    supported_build_systems=["maven", "pip", "npm", "msbuild", "go_modules", "cargo"],
+    supported_package_managers=["maven", "pip", "npm", "nuget", "go_modules", "cargo"],
+    supported_registries=[
+        "maven_central",
+        "pypi",
+        "npm_registry",
+        "nuget",
+        "go_proxy",
+        "crates_io",
+    ],
     # Wave 11.4 (`CAP-008`): real structural validation of the one LLM-
     # visible argument, `org_repo` -- a malformed value (no slash, empty
     # segment) is now rejected by the dispatcher before this capability's

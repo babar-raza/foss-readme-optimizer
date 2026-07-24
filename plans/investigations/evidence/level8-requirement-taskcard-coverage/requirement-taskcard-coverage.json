@@ -4,17 +4,17 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "cf3dc0d8df786506941e3d7363efc65f1c6ad03dbcb78e63b01457cbf0b13594",
+  "source_sha256": "6fc0c3fb4149c9add5061d28b2123e54724447cf0394f2e826e62cda0e2ff3b0",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
   "total_requirement_rows": 395,
-  "mandatory_requirement_rows": 371,
-  "excluded_backlog_rows": 24,
+  "mandatory_requirement_rows": 372,
+  "excluded_backlog_rows": 23,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 33,
-    "excluded_backlog": 24,
-    "open_mandatory": 190,
+    "excluded_backlog": 23,
+    "open_mandatory": 191,
     "preserved_verified": 148
   },
   "taskcard_counts": {
@@ -539,9 +539,9 @@
     {
       "requirement_id": "FACT-014",
       "priority": "P3",
-      "requirement_status": "BACKLOG",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
-      "disposition": "excluded_backlog",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {

@@ -42,8 +42,13 @@ class TestCanonicalFossCoordinate:
         assert eco is None
         assert coord == {}
 
-    def test_unsupported_ecosystem_has_no_coordinate(self):
+    def test_rust_crates_io(self):
         eco, coord = canonical_foss_coordinate("cells", "rust")
+        assert eco == "rust"
+        assert coord == {"name": "aspose-cells-foss"}
+
+    def test_unsupported_ecosystem_has_no_coordinate(self):
+        eco, coord = canonical_foss_coordinate("cells", "ruby")
         assert eco is None
         assert coord == {}
 

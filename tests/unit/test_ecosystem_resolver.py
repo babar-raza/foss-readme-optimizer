@@ -184,6 +184,44 @@ class TestResolveGoProxy:
         assert "!puerkito!bio" in captured_urls[0]
 
 
+class TestResolveCratesIo:
+    def test_found(self, monkeypatch):
+        monkeypatch.setattr(resolver.requests, "get", lambda *a, **k: _StatusResponse(200))
+        result = resolver.resolve("rust", {"name": "serde"})
+        assert result.found
+        assert "crates.io" in result.detail
+
+    def test_not_found(self, monkeypatch):
+        monkeypatch.setattr(resolver.requests, "get", lambda *a, **k: _StatusResponse(404))
+        result = resolver.resolve("rust", {"name": "aspose-cells-foss"})
+        assert not result.found
+
+    def test_missing_name_fails_without_a_network_call(self, monkeypatch):
+        def fail_if_called(*a, **k):
+            raise AssertionError("must not call the network with no name")
+
+        monkeypatch.setattr(resolver.requests, "get", fail_if_called)
+        result = resolver.resolve("rust", {})
+        assert not result.found
+
+    def test_sends_the_required_descriptive_user_agent(self, monkeypatch):
+        """crates.io's crawler policy rejects the default `python-requests`
+        User-Agent with 403 (live-verified 2026-07-25 -- see resolver.py's
+        own `_CRATES_IO_HEADERS` docstring); a request missing this header
+        would silently misreport a real crate as blocked/not-found."""
+        captured_headers = []
+
+        def fake_get(url, *a, headers=None, **k):
+            captured_headers.append(headers)
+            return _StatusResponse(200)
+
+        monkeypatch.setattr(resolver.requests, "get", fake_get)
+        resolver.resolve("rust", {"name": "serde"})
+        assert captured_headers[0] is not None
+        assert "User-Agent" in captured_headers[0]
+        assert captured_headers[0]["User-Agent"] != ""
+
+
 class TestResolveConan:
     def test_found(self, monkeypatch):
         monkeypatch.setattr(resolver.requests, "get", lambda *a, **k: _StatusResponse(200))

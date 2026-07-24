@@ -11,6 +11,7 @@ AUTHORITATIVE registry for that ecosystem:
   cpp    -> NuGet           Aspose.{Family}.Cpp.FOSS           (C++ ships on NuGet, not Conan/vcpkg)
   typescript -> npm         aspose-{family}-foss
   go     -> Go proxy        github.com/{org}/{repo-lower}
+  rust   -> crates.io       aspose-{family}-foss
 
 It is NEVER the manifest's self-declared name (e.g. the npm placeholder ``excel-cells``) and NEVER
 the similarly-named *commercial* package (``aspose.cells`` / ``aspose.cells.node`` /
@@ -46,4 +47,6 @@ def canonical_foss_coordinate(
         return "typescript", {"name": f"aspose-{fam}-foss"}
     if ecosystem == "go" and org and repo:
         return "go", {"name": f"github.com/{org}/{repo.lower()}"}
+    if ecosystem == "rust":
+        return "rust", {"name": f"aspose-{fam}-foss"}
     return None, {}

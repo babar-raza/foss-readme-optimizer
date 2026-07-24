@@ -54,13 +54,16 @@ class TestBuildProfile:
 
     def test_unresolved_manifest_recorded_not_guessed(self, tmp_path):
         """ECO-003: a manifest-shaped file matching no registered ecosystem
-        is recorded, never silently dropped."""
-        (tmp_path / "Cargo.toml").write_text('[package]\nname = "widget"\n', encoding="utf-8")
+        is recorded, never silently dropped. `composer.json` (PHP), not
+        `Cargo.toml` (Rust) -- Rust gained a registered parser 2026-07-25,
+        which would otherwise make this fixture assert the opposite of what
+        it's meant to test."""
+        (tmp_path / "composer.json").write_text('{"name": "acme/widget"}\n', encoding="utf-8")
 
         profile = build_profile("acme/widget", tmp_path)
 
         assert profile.detected_ecosystems == []
-        assert "Cargo.toml" in profile.unresolved_manifests
+        assert "composer.json" in profile.unresolved_manifests
 
     def test_known_non_manifest_files_excluded_from_unresolved(self, tmp_path):
         (tmp_path / "package-lock.json").write_text("{}", encoding="utf-8")

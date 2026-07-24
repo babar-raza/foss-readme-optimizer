@@ -36,6 +36,7 @@ _REGISTRY_METHOD_NAMES = {
     "net": "nuget",
     "typescript": "npm",
     "go": "go_proxy",
+    "rust": "crates_io",
 }
 
 

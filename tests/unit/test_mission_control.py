@@ -85,9 +85,10 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert coverage is not None
     # Corrected 2026-07-25: requirements.md gained AGT-009/AGT-010/GOV-028 (all mandatory)
     # for the blocked-state classification policy (decision #77) -- 392 -> 395 total rows,
-    # mandatory 368 -> 371.
+    # mandatory 368 -> 371. FACT-014 reclassified BACKLOG -> PARTIAL (live-closed via the
+    # pre-existing JDK-21 toolchain) -- now counted as mandatory too, 371 -> 372.
     assert coverage.total_requirement_rows == 395
-    assert coverage.mandatory_requirement_rows == 371
+    assert coverage.mandatory_requirement_rows == 372
     assert coverage.reopened_implemented_rows == 0
     assert len({mapping.requirement_id for mapping in coverage.mappings}) == 395
     l8_mapping = next(

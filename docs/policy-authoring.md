@@ -14,8 +14,8 @@ scheduled discovery workflow do that automatically, always as `disabled`. To ena
    `aspose-3d-foss` profile (`products.aspose.org/{family}/{platform}/`,
    `products.aspose.com/{family}/{platform}/`).
 3. In `data/products.json`, flip that entry's `mode` to `"dry_run"` (recommended first) and set
-   `ecosystem` (only `"maven"` is implemented today — see `ecosystems/registry.py`) and
-   `policy_profile` to match the file from step 2.
+   `ecosystem` (`java`/`python`/`net`/`typescript`/`go`/`cpp`/`rust` are implemented today — see
+   `ecosystems/registry.py`) and `policy_profile` to match the file from step 2.
 4. Run `readme-agent inspect --repo {org}/{repo}` to confirm the clone + manifest parse works.
 5. Run `readme-agent generate --repo {org}/{repo}` (defaults to live LLM) and review the rendered
    spans by hand before ever setting `mode: "full"`.

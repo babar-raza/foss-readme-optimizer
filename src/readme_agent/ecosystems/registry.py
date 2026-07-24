@@ -6,7 +6,7 @@ and this module both read it, never duplicated between them.
 
 from pathlib import Path
 
-from readme_agent.ecosystems import cpp, dotnet, go, java, python, typescript
+from readme_agent.ecosystems import cpp, dotnet, go, java, python, rust, typescript
 from readme_agent.errors import ConfigError
 
 _PARSERS = {
@@ -16,6 +16,7 @@ _PARSERS = {
     "typescript": typescript.parse,
     "go": go.parse,
     "cpp": cpp.parse,
+    "rust": rust.parse,
 }
 
 # Candidate manifest filenames/globs per platform, in priority order.
@@ -29,6 +30,7 @@ _MANIFEST_GLOBS: dict[str, tuple[str, ...]] = {
     "typescript": ("package.json",),
     "go": ("go.mod",),
     "cpp": ("CMakeLists.txt",),
+    "rust": ("Cargo.toml",),
 }
 
 

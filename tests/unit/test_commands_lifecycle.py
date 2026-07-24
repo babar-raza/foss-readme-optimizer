@@ -46,7 +46,16 @@ def test_runtime_matrix_covers_every_active_registry_entry(capsys):
     assert {item["repo"] for item in payload["include"]} == {
         entry.org_repo for entry in load_products() if entry.active
     }
-    assert any(item["mode"] == "disabled" for item in payload["include"])
+    # The set-equality assertion above already proves inclusion is mode-blind (every
+    # active entry appears, regardless of its mode) -- this used to additionally spot-
+    # check that a real `disabled` entry was among them, but as of the 2026-07-25
+    # zero-code disabled-entry onboarding pass, no registry entry is `disabled` anymore
+    # (all 31 are now onboarded). Asserting "the matrix never filters by mode" directly,
+    # rather than depending on a specific mode value existing in live data, so this
+    # can't churn again the next time the registry's mode distribution changes.
+    modes_present = {item["mode"] for item in payload["include"]}
+    live_modes = {entry.mode for entry in load_products() if entry.active}
+    assert modes_present == live_modes
 
 
 def test_recovery_sweep_marks_expired_trigger_retryable(monkeypatch, capsys):

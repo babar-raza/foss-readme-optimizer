@@ -1036,10 +1036,19 @@ class TestNotOnboardedGate:
         assert result.blocked_reason == "not_onboarded"
         assert result.blocked_category == "infra_external"
 
-    def test_unregistered_rust_ecosystem_is_explicitly_unsupported(self, project):
+    def test_unregistered_ruby_ecosystem_is_explicitly_unsupported(self, project):
+        """`platform` here must be one with no registered manifest glob at
+        all (`known_manifest_globs()`), not merely an entry missing its own
+        `ecosystem`/`policy_profile` config -- `rust` was this test's example
+        until it gained a registered parser 2026-07-25, which made
+        `known_manifest_globs()` contain it and silently changed which
+        BLOCKED branch this fixture actually exercised (falls through to
+        `not_onboarded` instead of `unsupported_ecosystem` once a platform is
+        registered). `ruby` has no parser at all, so this stays a real test
+        of the unsupported-platform branch specifically."""
         self._rewrite_products_json(
             project,
-            platform="rust",
+            platform="ruby",
             ecosystem=None,
             policy_profile=None,
         )
@@ -1047,7 +1056,7 @@ class TestNotOnboardedGate:
         result = supervise_repo(ORG_REPO, write_evidence_bundle=False)
 
         assert result.status == "BLOCKED"
-        assert result.blocked_reason == "unsupported_ecosystem:rust"
+        assert result.blocked_reason == "unsupported_ecosystem:ruby"
         assert result.blocked_category == "agent_fixable"
         assert result.decisions[0].kind == "capability_gap"
 
