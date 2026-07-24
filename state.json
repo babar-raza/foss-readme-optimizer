@@ -7,18 +7,18 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS",
-    "claim_id": "5f02021c114a4977b08af69618fdba0a",
-    "claimed_at": "2026-07-24T08:01:24.583955+00:00",
-    "claimed_by": "codex",
+    "active_task_id": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "2ea570475bd6afbe733338e9b4ef3b87e42ede59a9f13140903772b18db0db82",
-    "last_evaluated_at": "2026-07-24T09:53:43.752339+00:00",
+    "last_evaluated_at": "2026-07-24T09:54:17.473895+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
-      "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "IN_PROGRESS",
+      "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "IMPLEMENTED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "TODO",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
@@ -668,6 +668,19 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "commit:5e31f9c",
+          "plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-2026-07-24/immutable-snapshot-and-product-facts-proof.json",
+          "plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-2026-07-24/official-checks-attempt-4.log"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-24T09:54:17.473889+00:00",
+        "reason": "RepositorySnapshotV1 and complete pilot ProductFactsV2 ingestion are committed on main.",
+        "task_id": "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -675,7 +688,7 @@
   "org_repo": "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "profile_cache": null,
   "schema_version": 2,
-  "state_version": 76,
+  "state_version": 77,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
