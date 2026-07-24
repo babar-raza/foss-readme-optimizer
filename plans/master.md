@@ -79,7 +79,15 @@ Wave 1 canonical correctness and safety consolidation completed on 2026-07-23:
 - commit `0169964` passes 1,211 non-live tests, Ruff, formatting, mypy, actionlint, plan
   validation, live preflight, and checksum-complete Wave 1 evidence.
 
-Wave 2 — Restartable GitHub Actions runtime — is now the active implementation wave.
+The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
+which **precedes** Wave 2. Per `plans/investigations/preproduction-idea-fidelity-gate-2026-07-24.md`,
+execution proceeds **direct local proof → complete current workflow under `act` → isolated staging →
+production**. The durable mission state
+(`refs/readme-agent-state/mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`, version 81) has active
+task `L8-LOCAL-README-PROPOSAL-PROOF` at Gate A (direct local README-proposal proof). **Wave 2 —
+Restartable GitHub Actions runtime — remains gated (`BLOCKED_EXTERNAL`) behind these pre-production
+gates and the `preproduction-wave2-dependency-gate` repair; it is not yet the active implementation
+wave.**
 
 Primary current evidence:
 
