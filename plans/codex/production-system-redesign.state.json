@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "document": "plans/codex/production-system-redesign.md",
+  "created_at": "2026-07-24T00:00:00+00:00",
+  "last_amended_at": "2026-07-24T00:00:00+00:00",
+  "status": "REASSESSMENT_COMPLETE_PARTIAL_REMEDIATION",
+  "mission_registration": {
+    "parent_mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+    "registered_as": "PRODSYS-* taskcard subset (see PRODSYS-P1-T1 for the registration mechanism decision)",
+    "not_a_competing_controller": true
+  },
+  "findings": [
+    {
+      "id": "LOCKED-GRAPH-NEVER-RECONCILED",
+      "severity": "P0",
+      "confidence": "PROVEN",
+      "status": "RECONCILED_FOR_SNAPSHOT_MECHANISM_OPEN",
+      "resolved_by_commits": ["1551bab", "40c241c"],
+      "remaining_task_ids": ["PRODSYS-P1-T3"]
+    },
+    {
+      "id": "STALE-HANDOVER-VS-GIT-HEAD",
+      "severity": "P0",
+      "confidence": "PROVEN",
+      "status": "RECONCILED_FOR_SNAPSHOT_MECHANISM_OPEN",
+      "resolved_by_commits": ["40c241c"],
+      "remaining_task_ids": ["PRODSYS-P1-T2", "PRODSYS-P4-T1"]
+    },
+    {
+      "id": "LOG-LAGS-GIT-HEAD",
+      "severity": "P1",
+      "confidence": "PROVEN",
+      "status": "PARTIALLY_CLOSED_PATTERN_REMAINS",
+      "resolved_by_commits": ["c57423c"],
+      "remaining_task_ids": ["PRODSYS-P4-T1"]
+    },
+    {
+      "id": "OFFICIAL-CHECKS-NONDETERMINISM",
+      "severity": "P0",
+      "confidence": "PROVEN_OCCURRENCE_STRONGLY_INFERRED_CAUSE",
+      "status": "OPEN",
+      "resolved_by_commits": [],
+      "remaining_task_ids": ["PRODSYS-P0-T1", "PRODSYS-P3-T1", "PRODSYS-P5-T2"]
+    },
+    {
+      "id": "VERIFIER-BUILT-NOT-WIRED",
+      "severity": "P1",
+      "confidence": "PROVEN",
+      "status": "CLOSED_FOR_ONE_INSTANCE_PATTERN_OPEN",
+      "resolved_by_commits": ["de7ff3d"],
+      "remaining_task_ids": ["PRODSYS-P2-T1", "PRODSYS-P2-T2"]
+    },
+    {
+      "id": "VER009-REPROOF-OWED",
+      "severity": "P2",
+      "confidence": "PROVEN",
+      "status": "OPEN",
+      "resolved_by_commits": [],
+      "remaining_task_ids": ["PRODSYS-P3-T2"]
+    }
+  ],
+  "design_decisions": [
+    "DD-SINGLE-AUTHORITY",
+    "DD-REUSE-MISSION-MACHINERY",
+    "DD-VERIFIER-ENFORCEMENT-PARITY",
+    "DD-INVESTIGATE-BEFORE-LOCKING"
+  ],
+  "preserved_capabilities": [
+    "PRESERVE-TASKGRAPH",
+    "PRESERVE-VER001-GATE",
+    "PRESERVE-MISSION-CAS",
+    "PRESERVE-RENDERER-SPLIT",
+    "PRESERVE-BUNDLE-VERIFIER-LOGIC",
+    "PRESERVE-LOGS-SHARD-TOOLING",
+    "PRESERVE-REQUIREMENT-COVERAGE-TOOL",
+    "PRESERVE-SAFETY-INVARIANTS"
+  ],
+  "phases": [
+    { "id": "PRODSYS-P0", "title": "Baseline and safety net", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P0-T1", "PRODSYS-P0-T2"] },
+    { "id": "PRODSYS-P1", "title": "Authority, contracts, and state", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P1-T3"] },
+    { "id": "PRODSYS-P2", "title": "Verifier-enforcement generalization", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P2-T1", "PRODSYS-P2-T2"] },
+    { "id": "PRODSYS-P3", "title": "Validation, evidence, and recovery", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P3-T1", "PRODSYS-P3-T2"] },
+    { "id": "PRODSYS-P4", "title": "Migration and compatibility", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P4-T1", "PRODSYS-P4-T2"] },
+    { "id": "PRODSYS-P5", "title": "E2E, pilots, and rollout", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P5-T1", "PRODSYS-P5-T2"] },
+    { "id": "PRODSYS-P6", "title": "Final reconciliation and closure", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P6-T1", "PRODSYS-P6-T2"] }
+  ],
+  "taskcards": [
+    { "id": "PRODSYS-P0-T1", "phase_id": "PRODSYS-P0", "state": "TODO", "dependencies": [] },
+    { "id": "PRODSYS-P0-T2", "phase_id": "PRODSYS-P0", "state": "TODO", "dependencies": [] },
+    { "id": "PRODSYS-P1-T1", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": ["PRODSYS-P0-T2"] },
+    { "id": "PRODSYS-P1-T2", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": ["PRODSYS-P1-T1"] },
+    { "id": "PRODSYS-P1-T3", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": ["PRODSYS-P0-T2"] },
+    { "id": "PRODSYS-P2-T1", "phase_id": "PRODSYS-P2", "state": "TODO", "dependencies": [] },
+    { "id": "PRODSYS-P2-T2", "phase_id": "PRODSYS-P2", "state": "TODO", "dependencies": ["PRODSYS-P2-T1"] },
+    { "id": "PRODSYS-P3-T1", "phase_id": "PRODSYS-P3", "state": "TODO", "dependencies": ["PRODSYS-P0-T1"] },
+    { "id": "PRODSYS-P3-T2", "phase_id": "PRODSYS-P3", "state": "TODO", "dependencies": ["PRODSYS-P3-T1"] },
+    { "id": "PRODSYS-P4-T1", "phase_id": "PRODSYS-P4", "state": "TODO", "dependencies": ["PRODSYS-P1-T2"] },
+    { "id": "PRODSYS-P4-T2", "phase_id": "PRODSYS-P4", "state": "TODO", "dependencies": ["PRODSYS-P1-T1"] },
+    { "id": "PRODSYS-P5-T1", "phase_id": "PRODSYS-P5", "state": "TODO", "dependencies": ["PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P1-T3", "PRODSYS-P4-T1", "PRODSYS-P4-T2"] },
+    { "id": "PRODSYS-P5-T2", "phase_id": "PRODSYS-P5", "state": "TODO", "dependencies": ["PRODSYS-P3-T1"] },
+    { "id": "PRODSYS-P6-T1", "phase_id": "PRODSYS-P6", "state": "TODO", "dependencies": [
+      "PRODSYS-P0-T1", "PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P1-T3",
+      "PRODSYS-P2-T1", "PRODSYS-P2-T2", "PRODSYS-P3-T1", "PRODSYS-P3-T2",
+      "PRODSYS-P4-T1", "PRODSYS-P4-T2", "PRODSYS-P5-T1", "PRODSYS-P5-T2"
+    ] },
+    { "id": "PRODSYS-P6-T2", "phase_id": "PRODSYS-P6", "state": "TODO", "dependencies": ["PRODSYS-P6-T1"] }
+  ],
+  "critical_path": [
+    "PRODSYS-P0-T1", "PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P4-T1",
+    "PRODSYS-P2-T1", "PRODSYS-P2-T2", "PRODSYS-P5-T1", "PRODSYS-P6-T1", "PRODSYS-P6-T2"
+  ],
+  "note": "This state file is a static index accompanying the markdown document above, not a second durable-state store: real taskcard-state mutation happens through the existing mission_control.py machinery once PRODSYS-P1-T1 registers these taskcards (DD-REUSE-MISSION-MACHINERY). Update this file's per-taskcard `state` field manually in lockstep with real transitions until PRODSYS-P1-T1 lands; treat any divergence between this file and the durable CAS state as this file being wrong."
+}
