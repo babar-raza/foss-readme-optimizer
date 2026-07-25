@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+  "immutable_base_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+  "facts_hash": "b45b00ec3e13a04b46830910acc867aa321dbbcca2aa9761c7e76014f4c306b2",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "40a0d44e62344a1a40fd0908091ff033a8faadc70b1ebff1dddf11e21973366d",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "40a0d44e62344a1a40fd0908091ff033a8faadc70b1ebff1dddf11e21973366d",
+    "source_inner_sha256": "40a0d44e62344a1a40fd0908091ff033a8faadc70b1ebff1dddf11e21973366d",
+    "source_inner_bytes": 2137,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 194,
+      "source_byte_end": 194,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [Features](#features)\n- [Build](#build)\n- [Install](#install)\n- [Quick Start](#quick-start)\n- [Examples](#examples)\n\n## Installation\n\nBuild the verified repository revision from source:\n\n```bash\ngit clone https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp.git\ncd Aspose.Email-FOSS-for-Cpp\ngit checkout c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2\nmvn clean install\n```\n\nThis path requires JDK unknown+ and Maven. The source build and the minimal example\nbelow were verified together at revision `c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2`.\n\n",
+      "replacement_sha256": "40d9fd8ba128f9495c13966bc766896fb3224c9e4984ed5dae3c3b5bdc090aa9",
+      "fact_ids": [
+        "installation.verified_acquisition:disposable-source-build",
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "856e096df29483debd45ef0c42762d62099965460dbf72f65aacd5e88375430d"
+}

@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "immutable_base_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+  "facts_hash": "543b667609231785cdd15aa0c4c471b180695e8656703aba3a580bb0625259f1",
+  "source_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+  "archetype": "go-library",
+  "findings": [
+    {
+      "finding_id": "readme.product_clarity",
+      "dimension": "product_clarity",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "product clarity is satisfied",
+      "evidence": [
+        "<!-- readme-agent:presentation hash=\"sha256:543b667609231785cdd15aa0c4c471b180695e8656703aba3a580bb0625259f1\" schema=\"3\" inner-bytes=\"103012\" --> A **pure Go PDF library** \u2014 **no CGo, no native libraries, no external dependencies** (standard library only), MIT-licensed. Create, edit, render, sign, encrypt, convert, and validate PDF documents: split/merge/extract pages, extract and search text, fill and build AcroForms, draw text/vector graphics/tables, embed and subset fonts, apply digital signatures (PKCS#7, PAdES, timestamps), validate and convert PDF/A, author accessible Tagged PDF, and render pages to images (PNG/JPEG/GIF/BMP, multi-page TIFF) with a built-in dependency-free rasterizer. Convert **Markdown \u21c4 PDF** (652/652 official CommonMark suite), export **PDF \u2192 HTML** (with fillable forms), **PDF \u2192 SVG**, **PDF \u2192 Markdown**, and place **SVG** or images onto pages. The `ai` subpackage adds AI copilots \u2014 summarization, OCR with a searchable-PDF pipeline, document Q&A \u2014 over any OpenAI-compatible endpoint. Spec references throughout follow ISO 32000-1 (PDF 1.7) and ISO 32000-2 (PDF 2.0). The API shape mirrors Aspose.PDF for .NET where natural, so concepts transfer directly for migrants. Not to be confused with `aspose-pdf-go-cpp` (a CGo wrapper around a native library) \u2014 this project is 100% Go source, `go get` and cross-compile anywhere."
+      ]
+    },
+    {
+      "finding_id": "readme.audience_fit",
+      "dimension": "audience_fit",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "audience fit is satisfied",
+      "evidence": [
+        "<!-- readme-agent:presentation hash=\"sha256:543b667609231785cdd15aa0c4c471b180695e8656703aba3a580bb0625259f1\" schema=\"3\" inner-bytes=\"103012\" --> A **pure Go PDF library** \u2014 **no CGo, no native libraries, no external dependencies** (standard library only), MIT-licensed. Create, edit, render, sign, encrypt, convert, and validate PDF documents: split/merge/extract pages, extract and search text, fill and build AcroForms, draw text/vector graphics/tables, embed and subset fonts, apply digital signatures (PKCS#7, PAdES, timestamps), validate and convert PDF/A, author accessible Tagged PDF, and render pages to images (PNG/JPEG/GIF/BMP, multi-page TIFF) with a built-in dependency-free rasterizer. Convert **Markdown \u21c4 PDF** (652/652 official CommonMark suite), export **PDF \u2192 HTML** (with fillable forms), **PDF \u2192 SVG**, **PDF \u2192 Markdown**, and place **SVG** or images onto pages. The `ai` subpackage adds AI copilots \u2014 summarization, OCR with a searchable-PDF pipeline, document Q&A \u2014 over any OpenAI-compatible endpoint. Spec references throughout follow ISO 32000-1 (PDF 1.7) and ISO 32000-2 (PDF 2.0). The API shape mirrors Aspose.PDF for .NET where natural, so concepts transfer directly for migrants. Not to be confused with `aspose-pdf-go-cpp` (a CGo wrapper around a native library) \u2014 this project is 100% Go source, `go get` and cross-compile anywhere."
+      ]
+    },
+    {
+      "finding_id": "readme.trust_signals",
+      "dimension": "trust_signals",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "trust signals is satisfied",
+      "evidence": [
+        "product.license:license-file:verified"
+      ]
+    },
+    {
+      "finding_id": "readme.installation_path",
+      "dimension": "installation_path",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "installation path is satisfied",
+      "evidence": [
+        "installation.verified_acquisition:registry-go_proxy:outcomes=['accepted']"
+      ]
+    },
+    {
+      "finding_id": "readme.verified_examples",
+      "dimension": "verified_examples",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "verified examples is satisfied",
+      "evidence": [
+        "73 fenced code blocks found"
+      ]
+    },
+    {
+      "finding_id": "readme.navigation",
+      "dimension": "navigation",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "navigation is satisfied",
+      "evidence": [
+        "None"
+      ]
+    },
+    {
+      "finding_id": "readme.visual_usefulness",
+      "dimension": "visual_usefulness",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "visual usefulness is observation-only here",
+      "evidence": [
+        "markdown images=6; factual review is separate"
+      ]
+    },
+    {
+      "finding_id": "readme.contribution_readiness",
+      "dimension": "contribution_readiness",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "contribution readiness is observation-only here",
+      "evidence": [
+        "repository-file recognition belongs to the community-files specialist"
+      ]
+    },
+    {
+      "finding_id": "readme.maintenance_signals",
+      "dimension": "maintenance_signals",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "maintenance signals is observation-only here",
+      "evidence": [
+        "GitHub-generated activity remains audit-only"
+      ]
+    },
+    {
+      "finding_id": "readme.commercial_context",
+      "dimension": "commercial_context",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "commercial context is satisfied",
+      "evidence": [
+        "commercial_links=1; explanation_offset=923"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "readme.presentation.document-plan",
+      "surface_id": "readme",
+      "region_id": "readme.presentation",
+      "disposition": "blocked",
+      "depends_on": [],
+      "claims": [
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.installation.verified_acquisition",
+          "surface_id": "readme.installation",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [installation.verified_acquisition]",
+          "fact_ids": [
+            "installation.verified_acquisition:registry-go_proxy"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.audience",
+          "surface_id": "readme.opening",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.audience]",
+          "fact_ids": [
+            "product.audience:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.capabilities",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.capabilities]",
+          "fact_ids": [
+            "product.capabilities:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.compatibility",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.compatibility]",
+          "fact_ids": [
+            "product.compatibility:manifest"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.formats",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.formats]",
+          "fact_ids": [
+            "product.formats:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.limitations",
+          "surface_id": "readme.limitations",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.limitations]",
+          "fact_ids": [
+            "product.limitations:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.problems_solved",
+          "surface_id": "readme.opening",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.problems_solved]",
+          "fact_ids": [
+            "product.problems_solved:missing"
+          ]
+        }
+      ],
+      "fact_ids": [
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:manifest",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "ownership_class": "repository_file",
+      "proposed_operation": "local_patch",
+      "source_spans": [
+        {
+          "path": "README.md",
+          "byte_start": 0,
+          "byte_end": 102171,
+          "expected_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+          "replacement_sha256": "13487f6793a3320ad24a301d49453ea0eca4c99c3c1657d5857c0992684e02d9",
+          "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations"
+        }
+      ],
+      "validators": [
+        "claim_citations",
+        "surface_ownership",
+        "source_span_hash",
+        "git_apply_check",
+        "protected_content",
+        "independent_verifier"
+      ],
+      "rollback": "revert the bounded file patch",
+      "stop_conditions": [
+        "immutable base revision changed",
+        "source or work-tree README hash changed",
+        "document reconstruction differs",
+        "a fact citation becomes unselected, unresolved, or unverified",
+        "protected content outside a cited authoritative correction is lost",
+        "Git apply or independent verification fails"
+      ],
+      "patch_sha256": "d5582b38ac6c32178899186adab16eaed22a3c49b032beb6009076c6c9146ca9"
+    }
+  ],
+  "candidate_sha256": "13487f6793a3320ad24a301d49453ea0eca4c99c3c1657d5857c0992684e02d9"
+}

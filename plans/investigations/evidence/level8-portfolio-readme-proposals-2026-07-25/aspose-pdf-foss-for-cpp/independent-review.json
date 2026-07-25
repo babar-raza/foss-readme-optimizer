@@ -1,0 +1,24 @@
+{
+  "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp",
+  "verified": false,
+  "checks": {
+    "all_artifacts_present": true,
+    "artifact_checksums_match": true,
+    "schemas_valid": true,
+    "source_hash_matches_plan": true,
+    "facts_hash_matches_plan": true,
+    "candidate_hash_matches_plan": true,
+    "independent_reconstruction_byte_identical": true,
+    "reconstructed_plan_matches": true,
+    "operations_cite_selected_facts": true,
+    "cited_facts_accepted": false,
+    "independent_validation_valid": false,
+    "recomputed_validation_consistent_with_stored": true,
+    "native_git_apply_produces_candidate": true,
+    "acquisition_matches_live_registry": true
+  },
+  "failures": [
+    "aspose-pdf-foss-for-cpp: an operation cites an unaccepted fact",
+    "aspose-pdf-foss-for-cpp: independent validation failed: ['readme.overview-navigation-and-acquisition: installation.verified_acquisition:disposable-source-build is blocked', 'readme.overview-navigation-and-acquisition: product.audience:missing is missing', 'readme.overview-navigation-and-acquisition: product.capabilities:missing is missing', 'readme.overview-navigation-and-acquisition: product.compatibility:missing is missing', 'readme.overview-navigation-and-acquisition: product.formats:missing is missing', 'readme.overview-navigation-and-acquisition: product.limitations:missing is missing', 'readme.overview-navigation-and-acquisition: product.problems_solved:missing is missing', 'selected verified minimal example is absent']"
+  ]
+}

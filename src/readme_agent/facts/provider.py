@@ -93,56 +93,77 @@ def _local_verification_facts(
     policy,
     entry: ProductEntry,
 ) -> tuple[list[FactRecordV2], dict | None]:
+    """Package-acquisition verification (`installation.verified_acquisition`) and local
+    minimal-example verification (`example.minimal`) are two independent questions --
+    "is this package published on its authoritative registry" never needed a
+    `product_truth.minimal_example` to answer, so it must not be skipped just because no
+    example has been authored yet. Found live 2026-07-25 running the portfolio-wide
+    local-proposal pipeline (Level-5 program): every one of the 28 non-pilot repos, none of
+    which have `product_truth` authored, was silently getting NO acquisition fact at all
+    (not even the honest `source_build` fallback) -- the whole function used to return
+    `[], None` before ever reaching the acquisition check below."""
     truth = policy.product_truth
-    snapshot = current_repository_snapshot(org_repo)
-    if truth is None:
-        return [], None
-    failures = evidence_failures(
-        root,
-        truth.minimal_example.evidence_paths,
-        truth.minimal_example.required_symbols,
-    )
-    local_result = None
-    if snapshot is not None and local_fact_verification_allowed() and not failures:
-        local_result = verify_local_product_example(snapshot, truth.minimal_example)
-    if local_result is None:
-        outcome = "BLOCKED_LOCAL_VERIFICATION"
-        detail = (
-            "; ".join(failures)
-            if failures
-            else "local build/example execution is disabled for this execution profile"
-        )
-    else:
-        outcome = local_result.outcome
-        detail = local_result.detail
-    verified = outcome == "SOURCE_BUILD_VERIFIED"
     source = FactSourceV2(
         source_type="mechanical_test",
         location=f"local-product-verification://{org_repo}",
         source_revision=source_revision,
         retrieved_at=observed_at,
     )
-    example = FactRecordV2(
-        fact_id=descriptive_fact_id("example.minimal", "compiled-policy-example"),
-        field="example.minimal",
-        value={
-            "language": truth.minimal_example.language,
-            "class_name": truth.minimal_example.class_name,
-            "code": truth.minimal_example.code,
-            "verification_outcome": outcome,
-            "verification_detail": detail,
-        },
-        source=source,
-        verification_state="verified" if verified else "blocked",
-        authoritative_owner="repository-owner",
-        confidence=1.0 if verified else 0.0,
-        affected_surfaces=SURFACE_DEPENDENCIES["example.minimal"],
-    )
+
+    facts: list[FactRecordV2] = []
+    local_result = None
+    if truth is not None:
+        snapshot = current_repository_snapshot(org_repo)
+        failures = evidence_failures(
+            root,
+            truth.minimal_example.evidence_paths,
+            truth.minimal_example.required_symbols,
+        )
+        if snapshot is not None and local_fact_verification_allowed() and not failures:
+            local_result = verify_local_product_example(snapshot, truth.minimal_example)
+        if local_result is None:
+            example_outcome = "BLOCKED_LOCAL_VERIFICATION"
+            example_detail = (
+                "; ".join(failures)
+                if failures
+                else "local build/example execution is disabled for this execution profile"
+            )
+        else:
+            example_outcome = local_result.outcome
+            example_detail = local_result.detail
+        example_verified = example_outcome == "SOURCE_BUILD_VERIFIED"
+        facts.append(
+            FactRecordV2(
+                fact_id=descriptive_fact_id("example.minimal", "compiled-policy-example"),
+                field="example.minimal",
+                value={
+                    "language": truth.minimal_example.language,
+                    "class_name": truth.minimal_example.class_name,
+                    "code": truth.minimal_example.code,
+                    "verification_outcome": example_outcome,
+                    "verification_detail": example_detail,
+                },
+                source=source,
+                verification_state="verified" if example_verified else "blocked",
+                authoritative_owner="repository-owner",
+                confidence=1.0 if example_verified else 0.0,
+                affected_surfaces=SURFACE_DEPENDENCIES["example.minimal"],
+            )
+        )
+    else:
+        example_outcome = "BLOCKED_LOCAL_VERIFICATION"
+        example_detail = (
+            "no product_truth.minimal_example configured for this policy profile -- "
+            "nothing to compile/run locally yet"
+        )
+        example_verified = False
+
     # The "aspose {family} foss" rule: a genuinely published package is verified against its
     # AUTHORITATIVE registry and its install claim is kept, never stripped in favor of a
     # source-build substitute the package doesn't need. Only when the package is genuinely not
     # published (or the check is network-blocked) does source-build remain the verified
-    # acquisition path -- see foss_coordinate.py and the ground-truth evidence bundle.
+    # acquisition path -- see foss_coordinate.py and the ground-truth evidence bundle. This
+    # check runs regardless of whether product_truth exists -- see the function's own docstring.
     acquisition = _registry_acquisition_fact(entry, source_revision, observed_at) or FactRecordV2(
         fact_id=descriptive_fact_id(
             "installation.verified_acquisition",
@@ -151,18 +172,17 @@ def _local_verification_facts(
         field="installation.verified_acquisition",
         value={
             "method": "source_build",
-            "outcome": outcome,
-            "detail": detail,
+            "outcome": example_outcome,
+            "detail": example_detail,
         },
         source=source,
-        verification_state="verified" if verified else "blocked",
+        verification_state="verified" if example_verified else "blocked",
         authoritative_owner="repository-owner",
-        confidence=1.0 if verified else 0.0,
+        confidence=1.0 if example_verified else 0.0,
         affected_surfaces=SURFACE_DEPENDENCIES["installation.verified_acquisition"],
     )
-    return [example, acquisition], (
-        local_result.model_dump(mode="json") if local_result is not None else None
-    )
+    facts.append(acquisition)
+    return facts, (local_result.model_dump(mode="json") if local_result is not None else None)
 
 
 def collect_product_facts(

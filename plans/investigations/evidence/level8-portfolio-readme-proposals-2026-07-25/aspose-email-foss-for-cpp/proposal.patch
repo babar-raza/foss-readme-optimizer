@@ -1,0 +1,49 @@
+diff --git a/README.md b/README.md
+index b923de1..faea18b 100644
+--- a/README.md
++++ b/README.md
+@@ -1,7 +1,39 @@
++<!-- readme-agent:presentation hash="sha256:b45b00ec3e13a04b46830910acc867aa321dbbcca2aa9761c7e76014f4c306b2" schema="3" inner-bytes="2898" -->
+ # Aspose.Email FOSS for C++
+ 
+ Aspose.Email FOSS for C++ is a dependency-free C++17 library for deterministic binary email container and message processing without external runtime dependencies.
+ 
++## At a glance
++
++- **For:** None
++- **Problem solved:** None
++- **Verified capabilities:** None
++- **Verified formats:** None
++- **Runtime:** Java unknown+
++- **Current verified limitation:** None
++
++## In this README
++
++- [Features](#features)
++- [Build](#build)
++- [Install](#install)
++- [Quick Start](#quick-start)
++- [Examples](#examples)
++
++## Installation
++
++Build the verified repository revision from source:
++
++```bash
++git clone https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp.git
++cd Aspose.Email-FOSS-for-Cpp
++git checkout c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2
++mvn clean install
++```
++
++This path requires JDK unknown+ and Maven. The source build and the minimal example
++below were verified together at revision `c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2`.
++
+ ## Features
+ 
+ - Read CFB containers from file paths, streams, and in-memory byte buffers
+@@ -75,3 +107,4 @@ Examples are available under `cpp/examples/`:
+ - `create_msg_and_eml.cpp`
+ - `msg_reader.cpp`
+ - `msg_summary.cpp`
++<!-- readme-agent:presentation:end -->

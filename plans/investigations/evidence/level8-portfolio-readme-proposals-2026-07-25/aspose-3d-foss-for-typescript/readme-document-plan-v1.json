@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+  "immutable_base_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+  "facts_hash": "a50220000b9df2a2963c4154350d67c43b2f8dbb2b31aee428597ce6d75fbe6d",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+    "source_inner_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+    "source_inner_bytes": 6582,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 339,
+      "source_byte_end": 339,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [Features](#features)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Supported Formats](#supported-formats)\n- [Documentation](#documentation)\n- [TypeScript Version Support](#typescript-version-support)\n- [Build & Test](#build-test)\n- [Format-Specific Features](#format-specific-features)\n- [Architecture](#architecture)\n- [Examples](#examples)\n- [Contributing](#contributing)\n- [License](#license)\n- [Acknowledgments](#acknowledgments)\n\n",
+      "replacement_sha256": "82ca75d157a44d954b450f2dd824b8a8f88986aa86ef8be7bc0fa121ef843ecd",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "ea4886547f3f5db21ec548052cd5c5c0f3a1bd37c46a445bca4d73260c0ba31f"
+}

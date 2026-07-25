@@ -1,0 +1,16 @@
+{
+  "verified": false,
+  "checks": {
+    "candidates_distinct": true,
+    "each_candidate_has_own_identity": false,
+    "no_cross_pilot_identity_leak": false
+  },
+  "failures": [
+    "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python: candidate is missing its own product token 'Aspose.BarCode'",
+    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go: candidate leaks another pilot's product token 'Aspose.PDF'",
+    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go: candidate leaks another pilot's product token 'Aspose.PDF'",
+    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: candidate leaks another pilot's product token 'Aspose.PDF'",
+    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: candidate leaks another pilot's product token 'Aspose.PDF'",
+    "aspose-tex-foss/Aspose.TeX-FOSS-for-Python: candidate is missing its own product token 'Aspose.TeX'"
+  ]
+}

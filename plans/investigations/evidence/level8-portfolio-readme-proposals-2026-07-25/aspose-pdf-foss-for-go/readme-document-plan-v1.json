@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "immutable_base_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+  "facts_hash": "543b667609231785cdd15aa0c4c471b180695e8656703aba3a580bb0625259f1",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+    "source_inner_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+    "source_inner_bytes": 102171,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2014,
+      "source_byte_end": 2014,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java Go 1.24++\n- **Current verified limitation:** None\n\n## In this README\n\n- [Install](#install)\n- [Quick Start](#quick-start)\n- [Feature Showcase](#feature-showcase)\n- [Features](#features)\n- [API Reference](#api-reference)\n- [License](#license)\n- [Product Page](#product-page)\n\n## Installation\n\nBuild the verified repository revision from source:\n\n```bash\ngit clone https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Go.git\ncd Aspose-PDF-FOSS-for-Go\ngit checkout f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69\nmvn clean install\n```\n\nThis path requires JDK Go 1.24++ and Maven. The source build and the minimal example\nbelow were verified together at revision `f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69`.\n\n",
+      "replacement_sha256": "d8f3c989b0d67baf8b608522fca772de7fa721efcd6e8093efd117a5b98b364e",
+      "fact_ids": [
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:manifest",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "13487f6793a3320ad24a301d49453ea0eca4c99c3c1657d5857c0992684e02d9"
+}

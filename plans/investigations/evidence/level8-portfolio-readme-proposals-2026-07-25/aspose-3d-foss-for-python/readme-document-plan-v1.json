@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "immutable_base_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+  "facts_hash": "d8e0ed5010b6a8f5799cebb10b7fcb8a2b686e12f0c2eec329d5c9d4c10c521f",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+    "source_inner_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+    "source_inner_bytes": 6908,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 669,
+      "source_byte_end": 669,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Features](#features)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Supported Formats](#supported-formats)\n- [Python Version Support](#python-version-support)\n- [Format-Specific Features](#format-specific-features)\n- [Architecture](#architecture)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n",
+      "replacement_sha256": "0455532dac593c02e85f8412a75847905d13dfbf9dbaef9ec00fc56295e62640",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.opening.remove-promotional-callout",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 349,
+      "source_byte_end": 669,
+      "expected_sha256": "76ed0afc2e1f6a926975f468eb63e5cb93e22d0150a1d73747e31561802c1f05",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Keep the first screen product-first; the existing relationship section continues to carry restrained commercial context.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "cf420bb177f90ce4cdd3be668bffcbbca2d0704fae46ceebb5b8f5b1d08bdeba"
+}

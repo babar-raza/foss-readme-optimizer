@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+  "immutable_base_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
+  "facts_hash": "86be0a946d511ef57d8c3c7e7110e56d6b37b576f3d23d1835fff3f520b394a2",
+  "source_sha256": "44887b26fb4eee19c5c01d24274f26bb6f47f12b1e3156139a8a20e61facd69b",
+  "archetype": "net-library",
+  "findings": [
+    {
+      "finding_id": "readme.product_clarity",
+      "dimension": "product_clarity",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "product clarity is satisfied",
+      "evidence": [
+        "<!-- readme-agent:presentation hash=\"sha256:86be0a946d511ef57d8c3c7e7110e56d6b37b576f3d23d1835fff3f520b394a2\" schema=\"3\" inner-bytes=\"3174\" --> Aspose.Email FOSS for .NET is a dependency-free C# library for working with: - Compound File Binary (CFB) containers"
+      ]
+    },
+    {
+      "finding_id": "readme.audience_fit",
+      "dimension": "audience_fit",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "audience fit is satisfied",
+      "evidence": [
+        "<!-- readme-agent:presentation hash=\"sha256:86be0a946d511ef57d8c3c7e7110e56d6b37b576f3d23d1835fff3f520b394a2\" schema=\"3\" inner-bytes=\"3174\" --> Aspose.Email FOSS for .NET is a dependency-free C# library for working with: - Compound File Binary (CFB) containers"
+      ]
+    },
+    {
+      "finding_id": "readme.trust_signals",
+      "dimension": "trust_signals",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "trust signals is satisfied",
+      "evidence": [
+        "product.license:license-file:verified"
+      ]
+    },
+    {
+      "finding_id": "readme.installation_path",
+      "dimension": "installation_path",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "installation path is satisfied",
+      "evidence": [
+        "installation.verified_acquisition:registry-nuget:outcomes=['accepted']"
+      ]
+    },
+    {
+      "finding_id": "readme.verified_examples",
+      "dimension": "verified_examples",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "verified examples is satisfied",
+      "evidence": [
+        "6 fenced code blocks found"
+      ]
+    },
+    {
+      "finding_id": "readme.navigation",
+      "dimension": "navigation",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "navigation is satisfied",
+      "evidence": [
+        "None"
+      ]
+    },
+    {
+      "finding_id": "readme.visual_usefulness",
+      "dimension": "visual_usefulness",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "visual usefulness is observation-only here",
+      "evidence": [
+        "markdown images=0; factual review is separate"
+      ]
+    },
+    {
+      "finding_id": "readme.contribution_readiness",
+      "dimension": "contribution_readiness",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "contribution readiness is observation-only here",
+      "evidence": [
+        "repository-file recognition belongs to the community-files specialist"
+      ]
+    },
+    {
+      "finding_id": "readme.maintenance_signals",
+      "dimension": "maintenance_signals",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "maintenance signals is observation-only here",
+      "evidence": [
+        "GitHub-generated activity remains audit-only"
+      ]
+    },
+    {
+      "finding_id": "readme.commercial_context",
+      "dimension": "commercial_context",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "commercial context is satisfied",
+      "evidence": [
+        "commercial_links=0; explanation_offset=174"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "readme.presentation.document-plan",
+      "surface_id": "readme",
+      "region_id": "readme.presentation",
+      "disposition": "blocked",
+      "depends_on": [],
+      "claims": [
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.installation.verified_acquisition",
+          "surface_id": "readme.installation",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [installation.verified_acquisition]",
+          "fact_ids": [
+            "installation.verified_acquisition:registry-nuget"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.audience",
+          "surface_id": "readme.opening",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.audience]",
+          "fact_ids": [
+            "product.audience:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.capabilities",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.capabilities]",
+          "fact_ids": [
+            "product.capabilities:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.compatibility",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.compatibility]",
+          "fact_ids": [
+            "product.compatibility:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.formats",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.formats]",
+          "fact_ids": [
+            "product.formats:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.limitations",
+          "surface_id": "readme.limitations",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.limitations]",
+          "fact_ids": [
+            "product.limitations:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.problems_solved",
+          "surface_id": "readme.opening",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.problems_solved]",
+          "fact_ids": [
+            "product.problems_solved:missing"
+          ]
+        }
+      ],
+      "fact_ids": [
+        "installation.verified_acquisition:registry-nuget",
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "ownership_class": "repository_file",
+      "proposed_operation": "local_patch",
+      "source_spans": [
+        {
+          "path": "README.md",
+          "byte_start": 0,
+          "byte_end": 2355,
+          "expected_sha256": "44887b26fb4eee19c5c01d24274f26bb6f47f12b1e3156139a8a20e61facd69b",
+          "replacement_sha256": "de557ee00dd46f3ba89a48a1521e948992f305002677e936161fc61c608a8edb",
+          "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations"
+        }
+      ],
+      "validators": [
+        "claim_citations",
+        "surface_ownership",
+        "source_span_hash",
+        "git_apply_check",
+        "protected_content",
+        "independent_verifier"
+      ],
+      "rollback": "revert the bounded file patch",
+      "stop_conditions": [
+        "immutable base revision changed",
+        "source or work-tree README hash changed",
+        "document reconstruction differs",
+        "a fact citation becomes unselected, unresolved, or unverified",
+        "protected content outside a cited authoritative correction is lost",
+        "Git apply or independent verification fails"
+      ],
+      "patch_sha256": "d0888d78841bd15d62dedbb58c15e3b213b4ea11233fa470851312f65e2bbd65"
+    }
+  ],
+  "candidate_sha256": "de557ee00dd46f3ba89a48a1521e948992f305002677e936161fc61c608a8edb"
+}

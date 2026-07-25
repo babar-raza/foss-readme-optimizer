@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+  "immutable_base_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+  "facts_hash": "ee878c403df6f28ca701404ffbee39cd3d02ba4ccad91a7cc94c9e5eeac8758a",
+  "source_sha256": "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683",
+  "archetype": "python-library",
+  "findings": [
+    {
+      "finding_id": "readme.product_clarity",
+      "dimension": "product_clarity",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "product clarity is satisfied",
+      "evidence": [
+        "<!-- readme-agent:presentation hash=\"sha256:ee878c403df6f28ca701404ffbee39cd3d02ba4ccad91a7cc94c9e5eeac8758a\" schema=\"3\" inner-bytes=\"3696\" --> Aspose.Page FOSS for Python is an open-source Python document conversion library for developers who need PostScript (PS), Encapsulated PostScript (EPS), and XPS conversion in backend services, automation pipelines, and document workflows. - **For:** None"
+      ]
+    },
+    {
+      "finding_id": "readme.audience_fit",
+      "dimension": "audience_fit",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "audience fit is satisfied",
+      "evidence": [
+        "<!-- readme-agent:presentation hash=\"sha256:ee878c403df6f28ca701404ffbee39cd3d02ba4ccad91a7cc94c9e5eeac8758a\" schema=\"3\" inner-bytes=\"3696\" --> Aspose.Page FOSS for Python is an open-source Python document conversion library for developers who need PostScript (PS), Encapsulated PostScript (EPS), and XPS conversion in backend services, automation pipelines, and document workflows. - **For:** None"
+      ]
+    },
+    {
+      "finding_id": "readme.trust_signals",
+      "dimension": "trust_signals",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "trust signals is satisfied",
+      "evidence": [
+        "product.license:license-file:verified"
+      ]
+    },
+    {
+      "finding_id": "readme.installation_path",
+      "dimension": "installation_path",
+      "surface_id": "readme",
+      "disposition": "gap",
+      "summary": "installation path needs review",
+      "evidence": [
+        "installation.verified_acquisition:disposable-source-build:blocked"
+      ]
+    },
+    {
+      "finding_id": "readme.verified_examples",
+      "dimension": "verified_examples",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "verified examples is satisfied",
+      "evidence": [
+        "13 fenced code blocks found"
+      ]
+    },
+    {
+      "finding_id": "readme.navigation",
+      "dimension": "navigation",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "navigation is satisfied",
+      "evidence": [
+        "None"
+      ]
+    },
+    {
+      "finding_id": "readme.visual_usefulness",
+      "dimension": "visual_usefulness",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "visual usefulness is observation-only here",
+      "evidence": [
+        "markdown images=3; factual review is separate"
+      ]
+    },
+    {
+      "finding_id": "readme.contribution_readiness",
+      "dimension": "contribution_readiness",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "contribution readiness is observation-only here",
+      "evidence": [
+        "repository-file recognition belongs to the community-files specialist"
+      ]
+    },
+    {
+      "finding_id": "readme.maintenance_signals",
+      "dimension": "maintenance_signals",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "maintenance signals is observation-only here",
+      "evidence": [
+        "GitHub-generated activity remains audit-only"
+      ]
+    },
+    {
+      "finding_id": "readme.commercial_context",
+      "dimension": "commercial_context",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "commercial context is satisfied",
+      "evidence": [
+        "commercial_links=0; explanation_offset=218"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "readme.presentation.document-plan",
+      "surface_id": "readme",
+      "region_id": "readme.presentation",
+      "disposition": "blocked",
+      "depends_on": [],
+      "claims": [
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.audience",
+          "surface_id": "readme.opening",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.audience]",
+          "fact_ids": [
+            "product.audience:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.capabilities",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.capabilities]",
+          "fact_ids": [
+            "product.capabilities:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.compatibility",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.compatibility]",
+          "fact_ids": [
+            "product.compatibility:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.formats",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.formats]",
+          "fact_ids": [
+            "product.formats:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.limitations",
+          "surface_id": "readme.limitations",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.limitations]",
+          "fact_ids": [
+            "product.limitations:missing"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.problems_solved",
+          "surface_id": "readme.opening",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.problems_solved]",
+          "fact_ids": [
+            "product.problems_solved:missing"
+          ]
+        }
+      ],
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "ownership_class": "repository_file",
+      "proposed_operation": "local_patch",
+      "source_spans": [
+        {
+          "path": "README.md",
+          "byte_start": 0,
+          "byte_end": 3151,
+          "expected_sha256": "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683",
+          "replacement_sha256": "0fb5ef1262e485f6c7b06cf5bcc13bddfe9353c4c67d831bef1d3816b0b1852e",
+          "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations"
+        }
+      ],
+      "validators": [
+        "claim_citations",
+        "surface_ownership",
+        "source_span_hash",
+        "git_apply_check",
+        "protected_content",
+        "independent_verifier"
+      ],
+      "rollback": "revert the bounded file patch",
+      "stop_conditions": [
+        "immutable base revision changed",
+        "source or work-tree README hash changed",
+        "document reconstruction differs",
+        "a fact citation becomes unselected, unresolved, or unverified",
+        "protected content outside a cited authoritative correction is lost",
+        "Git apply or independent verification fails"
+      ],
+      "patch_sha256": "5a6afc4226edc17b265cc9741f7ddd7c1caf3c1c6892b9f7e8b98baae2202d74"
+    }
+  ],
+  "candidate_sha256": "0fb5ef1262e485f6c7b06cf5bcc13bddfe9353c4c67d831bef1d3816b0b1852e"
+}

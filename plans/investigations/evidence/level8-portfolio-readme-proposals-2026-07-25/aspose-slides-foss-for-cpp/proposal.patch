@@ -1,0 +1,53 @@
+diff --git a/README.md b/README.md
+index 4c3bf80..188fa9f 100644
+--- a/README.md
++++ b/README.md
+@@ -1,9 +1,43 @@
++<!-- readme-agent:presentation hash="sha256:b61180d433e34a88836489a11ac94b8d2e2779fd82aa0d30a3d522370eb2d1c4" schema="3" inner-bytes="8799" -->
+ # Aspose.Slides FOSS for C++
+ 
+ The official open-source C++ library by Aspose.Slides for creating, reading, and editing PowerPoint (`.pptx`) presentations.
+ 
+ ---
+ 
++## At a glance
++
++- **For:** None
++- **Problem solved:** None
++- **Verified capabilities:** None
++- **Verified formats:** None
++- **Runtime:** Java unknown+
++- **Current verified limitation:** None
++
++## In this README
++
++- [Quick Start](#quick-start)
++- [Features](#features)
++- [Usage Examples](#usage-examples)
++- [Building](#building)
++- [Limitations](#limitations)
++- [Links](#links)
++- [License](#license)
++
++## Installation
++
++Build the verified repository revision from source:
++
++```bash
++git clone https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp.git
++cd Aspose.Slides-FOSS-for-Cpp
++git checkout 25adb25c8796f06d9b89cd5f8093e490091195ef
++mvn clean install
++```
++
++This path requires JDK unknown+ and Maven. The source build and the minimal example
++below were verified together at revision `25adb25c8796f06d9b89cd5f8093e490091195ef`.
++
+ ## Quick Start
+ 
+ ```cpp
+@@ -255,3 +289,4 @@ opening and re-saving a file will never strip content this library does not yet
+ ## License
+ 
+ [MIT License](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp/blob/main/LICENSE)
++<!-- readme-agent:presentation:end -->

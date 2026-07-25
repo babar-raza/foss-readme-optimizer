@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+  "immutable_base_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
+  "facts_hash": "42d6d3d68dfda094a4f88a28511df34c2f7f240e303603e9cfa56c752c759593",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "c6d75e19ed4a647f4d833b96dd366657ef15170f96e933b5b24cd696e8549658",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "c6d75e19ed4a647f4d833b96dd366657ef15170f96e933b5b24cd696e8549658",
+    "source_inner_sha256": "c6d75e19ed4a647f4d833b96dd366657ef15170f96e933b5b24cd696e8549658",
+    "source_inner_bytes": 4254,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 182,
+      "source_byte_end": 182,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [Highlights](#highlights)\n- [Installation](#installation)\n- [Product Links](#product-links)\n- [Quick Start](#quick-start)\n- [Supported Areas](#supported-areas)\n- [Build from Source](#build-from-source)\n- [Compatibility](#compatibility)\n- [License](#license)\n- [Support](#support)\n\n",
+      "replacement_sha256": "faa6c3d14b774692259c9fb2b0081e2fa2085a231d7a7f63e4b302ae3784fe9f",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "70d9807316b27565e38dfbcc91e107f309798412fc0a509f795ed070d66b9a19"
+}

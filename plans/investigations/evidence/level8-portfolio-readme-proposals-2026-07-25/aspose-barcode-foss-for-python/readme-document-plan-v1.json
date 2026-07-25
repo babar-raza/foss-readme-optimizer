@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+  "immutable_base_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+  "facts_hash": "6aa83de5c1cd17cc660388b2d4432ca025eee1f02961cedecfab27a96272b61f",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
+    "source_inner_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
+    "source_inner_bytes": 6602,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 402,
+      "source_byte_end": 402,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Supported Symbologies](#supported-symbologies)\n- [Render Options](#render-options)\n- [Encoding Options](#encoding-options)\n- [Custom Renderer](#custom-renderer)\n- [Error Handling](#error-handling)\n- [Requirements](#requirements)\n- [License](#license)\n\n",
+      "replacement_sha256": "b9fa3997ea37dbe62dafa94648dcf28ae31d2210e3354244fa945e65dc8a4c30",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "a6fcce6e4b448cbedc707455873a34665b64ceec1011436d6f15515a5e885db2"
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+  "immutable_base_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+  "facts_hash": "66db9bfa65a880123bfc3b636b2db5878d6f98f46e439004714c4a15094f6d2e",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+    "source_inner_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+    "source_inner_bytes": 3900,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 596,
+      "source_byte_end": 596,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Status](#status)\n- [Limitations](#limitations)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Documentation & Resources](#documentation-resources)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n",
+      "replacement_sha256": "367ddc71840d482a6d9769ae9bb5d4a7283491020ae7dcc444e118b97ea1090d",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.opening.remove-promotional-callout",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 297,
+      "source_byte_end": 596,
+      "expected_sha256": "81bdc155f1ab6526a591ebb0675ccf9adc77de002dd627b43106a0db77582241",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Keep the first screen product-first; the existing relationship section continues to carry restrained commercial context.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "5b1712a9f4a0b8f5aec60d459dd36bc7b687333307d0d50006668d303a92300d"
+}

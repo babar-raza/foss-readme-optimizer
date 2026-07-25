@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+  "immutable_base_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+  "facts_hash": "9dbb73ec22ccc9ea7fe7c4a9205cd6edcf8944380c84edc3db7122aae38763fd",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
+    "source_inner_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
+    "source_inner_bytes": 14703,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 1103,
+      "source_byte_end": 1103,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [\u2728 Features](#features)\n- [\ud83d\ude80 Quick start](#quick-start)\n- [\ud83d\udce6 Installation](#installation)\n- [PDF golden workflow](#pdf-golden-workflow)\n- [\ud83e\udde9 Public API (what is considered supported)](#public-api-what-is-considered-supported)\n- [\ud83d\udcda MS OneNote Examples](#ms-onenote-examples)\n- [\u26a0\ufe0f Current limitations](#current-limitations)\n- [\ud83c\udf10 Other platforms (official Aspose.Note)](#other-platforms-official-asposenote)\n- [\ud83d\udee0\ufe0f Development](#development)\n\n## Installation\n\nBuild the verified repository revision from source:\n\n```bash\ngit clone https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python.git\ncd Aspose.Note-FOSS-for-Python\ngit checkout 6d97a522a9ed24708687911f1aabb76e2dea2da7\nmvn clean install\n```\n\nThis path requires JDK unknown+ and Maven. The source build and the minimal example\nbelow were verified together at revision `6d97a522a9ed24708687911f1aabb76e2dea2da7`.\n\n",
+      "replacement_sha256": "c6dd4cab5be85433601d904511e68f83a4f2ec1683c1e5af8d0e4d933ac7fd1a",
+      "fact_ids": [
+        "installation.verified_acquisition:disposable-source-build",
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "81707b1f63962093b29c7bea9ad556a797c797adbac9b573d7c7fff1559fcb47"
+}

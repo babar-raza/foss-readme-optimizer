@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
+  "immutable_base_revision": "6c7ddfd801d2e2dfea35d1ca2b7e80134616d778",
+  "facts_hash": "205cbf2bf2aa958019ff1906b3200a993890adbb6471e45f9394701b3f9ce1e6",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "3de44e203b62696c90a3e09aa95587feb78c1fbd2a51c16b8cdd0183f47522cf",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "3de44e203b62696c90a3e09aa95587feb78c1fbd2a51c16b8cdd0183f47522cf",
+    "source_inner_sha256": "3de44e203b62696c90a3e09aa95587feb78c1fbd2a51c16b8cdd0183f47522cf",
+    "source_inner_bytes": 21994,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 453,
+      "source_byte_end": 453,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [What You Get](#what-you-get)\n- [Why Teams Use It](#why-teams-use-it)\n- [Install](#install)\n- [Quick Start](#quick-start)\n- [Real Outputs](#real-outputs)\n- [Capability Snapshot](#capability-snapshot)\n- [Variable-Font-First Workflows](#variable-font-first-workflows)\n- [Variable Font Discovery](#variable-font-discovery)\n- [Python API Highlights](#python-api-highlights)\n- [CLI Highlights](#cli-highlights)\n- [MCP Server](#mcp-server)\n- [Development](#development)\n- [License](#license)\n\n## Installation\n\nBuild the verified repository revision from source:\n\n```bash\ngit clone https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python.git\ncd Aspose.Font-FOSS-for-Python\ngit checkout 6c7ddfd801d2e2dfea35d1ca2b7e80134616d778\nmvn clean install\n```\n\nThis path requires JDK unknown+ and Maven. The source build and the minimal example\nbelow were verified together at revision `6c7ddfd801d2e2dfea35d1ca2b7e80134616d778`.\n\n",
+      "replacement_sha256": "d0eeaa4c04a33f1823e9fa350c30c15459eed3e30b3a706e781403f1fb1e93db",
+      "fact_ids": [
+        "installation.verified_acquisition:disposable-source-build",
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "030d5de8b5558e5065effff0d5a39531371fca3d663f2eb937c3ade70d1a0006"
+}

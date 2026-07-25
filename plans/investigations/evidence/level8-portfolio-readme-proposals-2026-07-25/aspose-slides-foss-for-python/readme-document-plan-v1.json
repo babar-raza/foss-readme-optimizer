@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+  "immutable_base_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+  "facts_hash": "6198f72f81181a6496ad565828ba93a17c2c9b6ef4b1c7c4d6d4d5aa26425b0d",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "72530dbe96a0a23ecd2d4ac4008a7bb7b86a8d3eb1e749a06830bf016f40dad9",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "72530dbe96a0a23ecd2d4ac4008a7bb7b86a8d3eb1e749a06830bf016f40dad9",
+    "source_inner_sha256": "72530dbe96a0a23ecd2d4ac4008a7bb7b86a8d3eb1e749a06830bf016f40dad9",
+    "source_inner_bytes": 9620,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 156,
+      "source_byte_end": 156,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Features](#features)\n- [Usage Examples](#usage-examples)\n- [Limitations](#limitations)\n- [Links](#links)\n- [License](#license)\n\n",
+      "replacement_sha256": "346e71ef8b6ec80042bf1a84756bcc957bee5e17cad241a057d27b3cfb02c85b",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "62a65d41f5f1112728ca65ba2e5404f2ae649dca8df1de3c833a8c1fe2933d7a"
+}

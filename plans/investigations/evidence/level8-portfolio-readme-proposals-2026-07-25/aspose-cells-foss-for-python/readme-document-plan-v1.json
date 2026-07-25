@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+  "immutable_base_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+  "facts_hash": "38a6ac15383b7058a42eb08487fd5a15a8a0a5f2eb0a39fc7c1548ed42f0f2d6",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
+    "source_inner_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
+    "source_inner_bytes": 4580,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 476,
+      "source_byte_end": 476,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [Features](#features)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Requirements](#requirements)\n- [Documentation](#documentation)\n- [Contributing](#contributing)\n- [License](#license)\n- [Support](#support)\n\n",
+      "replacement_sha256": "a3365ca5c0313606762045bb2b50b87a62da42868a70e66d487f106aa647d1b9",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "4e833d013961ab42adf622535036ead87c804fdb4aa9019c00c593053e88ec22"
+}

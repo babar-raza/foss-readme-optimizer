@@ -1,0 +1,390 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "slides",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "manifest_names": [
+          "aspose-slides-foss"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:missing",
+      "field": "product.audience",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:missing",
+      "field": "product.problems_solved",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:missing",
+      "field": "product.capabilities",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:missing",
+      "field": "product.formats",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "python"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "python",
+          "manifest_path": "pyproject.toml",
+          "name": "aspose-slides-foss",
+          "version": "26.4.0"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:registry-pypi",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "pypi",
+        "outcome": "REGISTRY_VERIFIED",
+        "detail": "PyPI: aspose-slides-foss found",
+        "coordinate": {
+          "name": "aspose-slides-foss"
+        }
+      },
+      "source": {
+        "source_type": "external_registry",
+        "location": "registry-acquisition://python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:missing",
+      "field": "example.minimal",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/slides/python/",
+          "family_url": "https://products.aspose.org/slides/",
+          "label": "Aspose.Slides FOSS for Python",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/slides/python/",
+          "family_url": "https://products.aspose.com/slides",
+          "label": "Aspose.Slides for Python",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "version": "26.4.0",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:missing",
+      "field": "product.limitations",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:missing",
+      "field": "product.compatibility",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "source_revision": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:missing",
+    "product.problems_solved": "product.problems_solved:missing",
+    "product.capabilities": "product.capabilities:missing",
+    "product.formats": "product.formats:missing",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:registry-pypi",
+    "example.minimal": "example.minimal:missing",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:missing",
+    "product.compatibility": "product.compatibility:missing",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

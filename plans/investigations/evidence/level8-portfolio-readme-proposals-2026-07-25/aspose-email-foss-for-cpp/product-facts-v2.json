@@ -1,0 +1,407 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "email",
+        "platform": "cpp",
+        "ecosystem": "cpp",
+        "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "manifest_names": [
+          "AsposeEmailFoss"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://CMakeLists.txt,examples\\CMakeLists.txt,tests\\CMakeLists.txt",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:missing",
+      "field": "product.audience",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:missing",
+      "field": "product.problems_solved",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:missing",
+      "field": "product.capabilities",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:missing",
+      "field": "product.formats",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "cpp"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://CMakeLists.txt,examples\\CMakeLists.txt,tests\\CMakeLists.txt",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "cpp",
+          "manifest_path": "CMakeLists.txt",
+          "name": "AsposeEmailFoss",
+          "version": "0.1.0"
+        },
+        {
+          "path": "examples",
+          "ecosystem": "cpp",
+          "manifest_path": "examples\\CMakeLists.txt"
+        },
+        {
+          "path": "tests",
+          "ecosystem": "cpp",
+          "manifest_path": "tests\\CMakeLists.txt"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://CMakeLists.txt,examples\\CMakeLists.txt,tests\\CMakeLists.txt",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:disposable-source-build",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "source_build",
+        "outcome": "BLOCKED_LOCAL_VERIFICATION",
+        "detail": "no product_truth.minimal_example configured for this policy profile -- nothing to compile/run locally yet"
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-product-verification://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:missing",
+      "field": "example.minimal",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/email/cpp/",
+          "family_url": "https://products.aspose.org/email/",
+          "label": "Aspose.Email FOSS for Cpp",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/email/cpp/",
+          "family_url": "https://products.aspose.com/email",
+          "label": "Aspose.Email for Cpp",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "version": "0.1.0",
+          "active": true
+        },
+        {
+          "path": "examples",
+          "version": "unknown",
+          "active": true
+        },
+        {
+          "path": "tests",
+          "version": "unknown",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://CMakeLists.txt,examples\\CMakeLists.txt,tests\\CMakeLists.txt",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:missing",
+      "field": "product.limitations",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:missing",
+      "field": "product.compatibility",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:missing",
+    "product.problems_solved": "product.problems_solved:missing",
+    "product.capabilities": "product.capabilities:missing",
+    "product.formats": "product.formats:missing",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:disposable-source-build",
+    "example.minimal": "example.minimal:missing",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:missing",
+    "product.compatibility": "product.compatibility:missing",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

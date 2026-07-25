@@ -1,0 +1,52 @@
+diff --git a/README.md b/README.md
+index 13b11fd..47bc3a1 100644
+--- a/README.md
++++ b/README.md
+@@ -1,9 +1,42 @@
++<!-- readme-agent:presentation hash="sha256:beaf6a550e49e27575df6f1538b5d2c2ea4c47b0235acad58327919725c42c1e" schema="3" inner-bytes="6230" -->
+ # Aspose.Slides FOSS
+ 
+ The official open-source .NET library by Aspose.Slides for creating, reading, and editing PowerPoint (`.pptx`) presentations.
+ 
+ ---
+ 
++## At a glance
++
++- **For:** None
++- **Problem solved:** None
++- **Verified capabilities:** None
++- **Verified formats:** None
++- **Runtime:** Java unknown+
++- **Current verified limitation:** None
++
++## In this README
++
++- [Quick Start](#quick-start)
++- [Features](#features)
++- [Usage Examples](#usage-examples)
++- [Limitations](#limitations)
++- [Links](#links)
++- [License](#license)
++
++## Installation
++
++Build the verified repository revision from source:
++
++```bash
++git clone https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET.git
++cd Aspose.Slides-FOSS-for-.NET
++git checkout bd19e16057b628310b4a04330585d366cb40e9b7
++mvn clean install
++```
++
++This path requires JDK unknown+ and Maven. The source build and the minimal example
++below were verified together at revision `bd19e16057b628310b4a04330585d366cb40e9b7`.
++
+ ## Quick Start
+ 
+ ```csharp
+@@ -184,3 +217,4 @@ opening and re-saving a file will never strip content this library does not yet
+ ## License
+ 
+ [MIT License](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/blob/main/LICENSE)
++<!-- readme-agent:presentation:end -->

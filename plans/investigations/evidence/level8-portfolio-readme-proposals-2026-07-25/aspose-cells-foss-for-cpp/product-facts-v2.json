@@ -1,0 +1,423 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "cells",
+        "platform": "cpp",
+        "ecosystem": "cpp",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "manifest_names": [
+          "aspose_cells_foss_cpp",
+          "Aspose.Cells.Foss.Cpp.Tests",
+          "Aspose.Cells.Foss.Cpp.Samples"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Aspose.Cells.Foss.Cpp.Tests\\CMakeLists.txt,Aspose.Cells.Foss.Cpp\\CMakeLists.txt,Aspose.Cells.Foss.Cpp\\tests\\CMakeLists.txt,samples\\CMakeLists.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:missing",
+      "field": "product.audience",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:missing",
+      "field": "product.problems_solved",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:missing",
+      "field": "product.capabilities",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:missing",
+      "field": "product.formats",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "cpp"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Aspose.Cells.Foss.Cpp.Tests\\CMakeLists.txt,Aspose.Cells.Foss.Cpp\\CMakeLists.txt,Aspose.Cells.Foss.Cpp\\tests\\CMakeLists.txt,samples\\CMakeLists.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": "Aspose.Cells.Foss.Cpp",
+          "ecosystem": "cpp",
+          "manifest_path": "Aspose.Cells.Foss.Cpp\\CMakeLists.txt",
+          "name": "aspose_cells_foss_cpp"
+        },
+        {
+          "path": "Aspose.Cells.Foss.Cpp\\tests",
+          "ecosystem": "cpp",
+          "manifest_path": "Aspose.Cells.Foss.Cpp\\tests\\CMakeLists.txt"
+        },
+        {
+          "path": "Aspose.Cells.Foss.Cpp.Tests",
+          "ecosystem": "cpp",
+          "manifest_path": "Aspose.Cells.Foss.Cpp.Tests\\CMakeLists.txt",
+          "name": "Aspose.Cells.Foss.Cpp.Tests"
+        },
+        {
+          "path": "samples",
+          "ecosystem": "cpp",
+          "manifest_path": "samples\\CMakeLists.txt",
+          "name": "Aspose.Cells.Foss.Cpp.Samples"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Aspose.Cells.Foss.Cpp.Tests\\CMakeLists.txt,Aspose.Cells.Foss.Cpp\\CMakeLists.txt,Aspose.Cells.Foss.Cpp\\tests\\CMakeLists.txt,samples\\CMakeLists.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:registry-nuget",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "nuget",
+        "outcome": "REGISTRY_VERIFIED",
+        "detail": "NuGet: Aspose.cells.Cpp.FOSS found",
+        "coordinate": {
+          "name": "Aspose.cells.Cpp.FOSS"
+        }
+      },
+      "source": {
+        "source_type": "external_registry",
+        "location": "registry-acquisition://net",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:missing",
+      "field": "example.minimal",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/cells/cpp/",
+          "family_url": "https://products.aspose.org/cells/",
+          "label": "Aspose.Cells FOSS for Cpp",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/cells/cpp/",
+          "family_url": "https://products.aspose.com/cells",
+          "label": "Aspose.Cells for Cpp",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": "Aspose.Cells.Foss.Cpp",
+          "version": "unknown",
+          "active": true
+        },
+        {
+          "path": "Aspose.Cells.Foss.Cpp\\tests",
+          "version": "unknown",
+          "active": true
+        },
+        {
+          "path": "Aspose.Cells.Foss.Cpp.Tests",
+          "version": "unknown",
+          "active": true
+        },
+        {
+          "path": "samples",
+          "version": "unknown",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Aspose.Cells.Foss.Cpp.Tests\\CMakeLists.txt,Aspose.Cells.Foss.Cpp\\CMakeLists.txt,Aspose.Cells.Foss.Cpp\\tests\\CMakeLists.txt,samples\\CMakeLists.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:missing",
+      "field": "product.limitations",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:missing",
+      "field": "product.compatibility",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://License/LICENSE.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:missing",
+    "product.problems_solved": "product.problems_solved:missing",
+    "product.capabilities": "product.capabilities:missing",
+    "product.formats": "product.formats:missing",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:registry-nuget",
+    "example.minimal": "example.minimal:missing",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:missing",
+    "product.compatibility": "product.compatibility:missing",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

@@ -1,0 +1,53 @@
+diff --git a/README.md b/README.md
+index 75aa443..cc85342 100644
+--- a/README.md
++++ b/README.md
+@@ -1,7 +1,40 @@
++<!-- readme-agent:presentation hash="sha256:a9554035968fa51ed7525aee00574a8bb17c27c16b9675cb92135cd4f8c87403" schema="3" inner-bytes="3211" -->
+ # Aspose.Cells FOSS for C++
+ 
+ Aspose.Cells FOSS is an open-source C++ library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.
+ 
++## At a glance
++
++- **For:** None
++- **Problem solved:** None
++- **Verified capabilities:** None
++- **Verified formats:** None
++- **Runtime:** Java unknown+
++- **Current verified limitation:** None
++
++## In this README
++
++- [Highlights](#highlights)
++- [How to build](#how-to-build)
++- [Quick Start](#quick-start)
++- [Supported Areas](#supported-areas)
++- [License](#license)
++- [Support](#support)
++
++## Installation
++
++Build the verified repository revision from source:
++
++```bash
++git clone https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp.git
++cd Aspose.Cells-FOSS-for-Cpp
++git checkout 3e1edeacd4c1600507009c3fd3bf122d54f5d3a9
++mvn clean install
++```
++
++This path requires JDK unknown+ and Maven. The source build and the minimal example
++below were verified together at revision `3e1edeacd4c1600507009c3fd3bf122d54f5d3a9`.
++
+ ## Highlights
+ 
+ - Aspose.Cells-compatible API surface for common XLSX scenarios
+@@ -80,4 +113,5 @@ MIT. See [License/LICENSE.txt](https://github.com/aspose-cells-foss/Aspose.Cells
+ 
+ ## Support
+ 
+-- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp/issues>
+\ No newline at end of file
++- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp/issues>
++<!-- readme-agent:presentation:end -->

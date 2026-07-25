@@ -4,24 +4,24 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "6fc0c3fb4149c9add5061d28b2123e54724447cf0394f2e826e62cda0e2ff3b0",
+  "source_sha256": "44bfbae853446c6c7af25d1cb6299712cfb6656996b4fa9ef93ac27d5cd010fa",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 395,
-  "mandatory_requirement_rows": 372,
-  "excluded_backlog_rows": 23,
+  "total_requirement_rows": 399,
+  "mandatory_requirement_rows": 373,
+  "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 33,
-    "excluded_backlog": 23,
+    "excluded_backlog": 26,
     "open_mandatory": 191,
-    "preserved_verified": 148
+    "preserved_verified": 149
   },
   "taskcard_counts": {
     "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 35,
-    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 75,
-    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 50,
-    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 41,
+    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 76,
+    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 51,
+    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 43,
     "L8-WAVE4-PRESENTATION-INTELLIGENCE": 113,
     "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": 1,
     "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 54,
@@ -534,6 +534,14 @@
       "requirement_status": "BACKLOG",
       "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
       "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-015",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "preserved_verified",
       "semantic_findings": []
     },
     {
@@ -2905,6 +2913,14 @@
       "semantic_findings": []
     },
     {
+      "requirement_id": "VER-010",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
       "requirement_id": "VER-009",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
@@ -2998,6 +3014,22 @@
       "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
       "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SCL-010",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-016",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "excluded_backlog",
       "semantic_findings": []
     },
     {

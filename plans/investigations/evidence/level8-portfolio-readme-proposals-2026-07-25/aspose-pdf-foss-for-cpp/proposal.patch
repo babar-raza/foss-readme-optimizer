@@ -1,0 +1,56 @@
+diff --git a/README.md b/README.md
+index 56d38d7..675a373 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,4 @@
++<!-- readme-agent:presentation hash="sha256:5189f97b25f6bbdd25e507028f49a5b006978da0300bce7a0e320d1ad96adccb" schema="3" inner-bytes="20101" -->
+ # Aspose.PDF FOSS for C++
+ 
+ [![CI](https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp/actions/workflows/ci.yml)
+@@ -9,6 +10,41 @@ A free, open-source PDF library for modern C++ — open and save PDFs, extract t
+ 
+ The public API is a strict subset of the public API of the commercial [Aspose.PDF for .NET](https://products.aspose.com/pdf/) library — class names, method names, and shapes mirror it where natural for migrants. Spec references throughout follow ISO 32000-1 (PDF 1.7) and ISO 32000-2 (PDF 2.0).
+ 
++## At a glance
++
++- **For:** None
++- **Problem solved:** None
++- **Verified capabilities:** None
++- **Verified formats:** None
++- **Runtime:** Java unknown+
++- **Current verified limitation:** None
++
++## In this README
++
++- [Install](#install)
++- [Quick Start](#quick-start)
++- [Features](#features)
++- [Build](#build)
++- [API Reference](#api-reference)
++- [Examples](#examples)
++- [Project structure](#project-structure)
++- [Tests](#tests)
++- [License](#license)
++
++## Installation
++
++Build the verified repository revision from source:
++
++```bash
++git clone https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp.git
++cd Aspose.PDF-FOSS-for-Cpp
++git checkout 40858b60e9babbab4865180e00e2db39f2ba27f8
++mvn clean install
++```
++
++This path requires JDK unknown+ and Maven. The source build and the minimal example
++below were verified together at revision `40858b60e9babbab4865180e00e2db39f2ba27f8`.
++
+ ## Install
+ 
+ The library builds as a static library you link into your project. Add it as a subdirectory of your CMake build, or build and install it standalone (see [Build](#build)).
+@@ -398,3 +434,4 @@ A GoogleTest suite covers both the public-API surface and the foundation primiti
+ This project is licensed under the [MIT License](LICENSE).
+ 
+ It bundles metric-compatible **Liberation** fonts (Sans / Serif / Mono), compiled into the static library to render the PDF Standard-14 fonts when no embedded or system font is available. These are licensed under the SIL Open Font License 1.1, which permits bundling with software under any license — see [`src/internal/standard14_outlines.fonts/OFL.txt`](src/internal/standard14_outlines.fonts/OFL.txt). The MIT license covers the library's own code (SPDX: `MIT AND OFL-1.1` for the distribution as a whole).
++<!-- readme-agent:presentation:end -->

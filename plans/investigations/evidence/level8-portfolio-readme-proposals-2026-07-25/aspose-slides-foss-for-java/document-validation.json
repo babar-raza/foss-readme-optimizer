@@ -1,0 +1,35 @@
+{
+  "valid": false,
+  "checks": {
+    "source_document_hash": true,
+    "adoption_preserved_source": true,
+    "candidate_has_presentation_span": true,
+    "facts_hash_matches": true,
+    "template_hash_matches": true,
+    "candidate_hash_matches": true,
+    "source_span_hashes": true,
+    "fact_citations": false,
+    "document_reconstruction": true,
+    "protected_content": true,
+    "verified_example_present": false,
+    "verified_overview_present": true
+  },
+  "errors": [
+    "readme.overview-navigation-and-acquisition: installation.verified_acquisition:disposable-source-build is blocked",
+    "readme.overview-navigation-and-acquisition: product.audience:missing is missing",
+    "readme.overview-navigation-and-acquisition: product.capabilities:missing is missing",
+    "readme.overview-navigation-and-acquisition: product.formats:missing is missing",
+    "readme.overview-navigation-and-acquisition: product.limitations:missing is missing",
+    "readme.overview-navigation-and-acquisition: product.problems_solved:missing is missing",
+    "selected verified minimal example is absent"
+  ],
+  "authorized_protected_corrections": [],
+  "citation_errors": [
+    "readme.overview-navigation-and-acquisition.installation.verified_acquisition: fact installation.verified_acquisition:disposable-source-build is blocked",
+    "readme.overview-navigation-and-acquisition.product.audience: fact product.audience:missing is missing",
+    "readme.overview-navigation-and-acquisition.product.capabilities: fact product.capabilities:missing is missing",
+    "readme.overview-navigation-and-acquisition.product.formats: fact product.formats:missing is missing",
+    "readme.overview-navigation-and-acquisition.product.limitations: fact product.limitations:missing is missing",
+    "readme.overview-navigation-and-acquisition.product.problems_solved: fact product.problems_solved:missing is missing"
+  ]
+}

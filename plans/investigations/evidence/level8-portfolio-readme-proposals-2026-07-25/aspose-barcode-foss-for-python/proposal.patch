@@ -1,0 +1,42 @@
+diff --git a/README.md b/README.md
+index 0692057..d6f06c1 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,4 @@
++<!-- readme-agent:presentation hash="sha256:6aa83de5c1cd17cc660388b2d4432ca025eee1f02961cedecfab27a96272b61f" schema="3" inner-bytes="7130" -->
+ # aspose-barcode-foss
+ 
+ A pure-Python library for barcode generation. It produces deterministic,
+@@ -7,6 +8,27 @@ standards-compliant barcodes and renders them as SVG or PNG.
+ - Fully typed (ships a `py.typed` marker).
+ - Linear and 2D symbologies: Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code.
+ 
++## At a glance
++
++- **For:** None
++- **Problem solved:** None
++- **Verified capabilities:** None
++- **Verified formats:** None
++- **Runtime:** Java unknown+
++- **Current verified limitation:** None
++
++## In this README
++
++- [Installation](#installation)
++- [Quick Start](#quick-start)
++- [Supported Symbologies](#supported-symbologies)
++- [Render Options](#render-options)
++- [Encoding Options](#encoding-options)
++- [Custom Renderer](#custom-renderer)
++- [Error Handling](#error-handling)
++- [Requirements](#requirements)
++- [License](#license)
++
+ ## Installation
+ 
+ The package is not yet published to PyPI. Install it from a source checkout (run from
+@@ -213,3 +235,4 @@ Exception hierarchy (all inherit from `BarcodeError`):
+ ## License
+ 
+ Released under the [MIT License](LICENSE).
++<!-- readme-agent:presentation:end -->

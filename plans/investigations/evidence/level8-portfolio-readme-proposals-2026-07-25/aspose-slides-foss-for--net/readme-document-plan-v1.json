@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+  "immutable_base_revision": "bd19e16057b628310b4a04330585d366cb40e9b7",
+  "facts_hash": "beaf6a550e49e27575df6f1538b5d2c2ea4c47b0235acad58327919725c42c1e",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "e5a6eb9f52a1c7d3dcfb7f1eb143db81e7b28ac9cf10df6d6948870d9dfe190a",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "e5a6eb9f52a1c7d3dcfb7f1eb143db81e7b28ac9cf10df6d6948870d9dfe190a",
+    "source_inner_sha256": "e5a6eb9f52a1c7d3dcfb7f1eb143db81e7b28ac9cf10df6d6948870d9dfe190a",
+    "source_inner_bytes": 5422,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 154,
+      "source_byte_end": 154,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [Quick Start](#quick-start)\n- [Features](#features)\n- [Usage Examples](#usage-examples)\n- [Limitations](#limitations)\n- [Links](#links)\n- [License](#license)\n\n## Installation\n\nBuild the verified repository revision from source:\n\n```bash\ngit clone https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET.git\ncd Aspose.Slides-FOSS-for-.NET\ngit checkout bd19e16057b628310b4a04330585d366cb40e9b7\nmvn clean install\n```\n\nThis path requires JDK unknown+ and Maven. The source build and the minimal example\nbelow were verified together at revision `bd19e16057b628310b4a04330585d366cb40e9b7`.\n\n",
+      "replacement_sha256": "b3b9e0732dc3edc4264fc5b1f48030bc12335fb8ac01b76321c90ed32994a264",
+      "fact_ids": [
+        "installation.verified_acquisition:disposable-source-build",
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "ff2c0de5470f54bee2df1ced5a9eff06cbce51b674f8c1addb1c44cf2e768bcc"
+}

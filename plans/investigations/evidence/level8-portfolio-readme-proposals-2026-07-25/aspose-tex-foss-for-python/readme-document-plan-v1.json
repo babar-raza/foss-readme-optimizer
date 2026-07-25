@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
+  "immutable_base_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+  "facts_hash": "b86db45ed40747690655d693831db683247783a93a6b35fd18731b5aff68db6c",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "0f8e3f03ac0a413aff727165002559a641b972edb1b2a5fc1c15d8a90368f4a9",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "0f8e3f03ac0a413aff727165002559a641b972edb1b2a5fc1c15d8a90368f4a9",
+    "source_inner_sha256": "0f8e3f03ac0a413aff727165002559a641b972edb1b2a5fc1c15d8a90368f4a9",
+    "source_inner_bytes": 4420,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 348,
+      "source_byte_end": 348,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [Requirements](#requirements)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [License](#license)\n\n",
+      "replacement_sha256": "b3841203723d836d59f0c4d9246082d11ad289cedbde98153545ba4f87ba735f",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "237c26b637ae0994bc1d90235d1e98d3b633e5c0435af9a25d813c6e7fde9b99"
+}

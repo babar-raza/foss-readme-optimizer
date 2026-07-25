@@ -667,6 +667,7 @@ taskcards:
   - VER-006
   - VER-007
   - VER-008
+  - VER-010
   - VER-009
   - GAP-001
   - GAP-002
@@ -779,6 +780,7 @@ taskcards:
   - SCL-006
   - SCL-007
   - SCL-008
+  - SCL-010
   - SCL-009
   - L8-003
   - L8-004
@@ -864,6 +866,7 @@ taskcards:
   - FACT-011
   - FACT-012
   - FACT-013
+  - FACT-015
   - FACT-014
   - ECO-001
   - ECO-002
@@ -876,6 +879,7 @@ taskcards:
   - PKG-004
   - PKG-005
   - PKG-006
+  - FACT-016
   - L8-006
 - task_id: L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1892,11 +1896,11 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 6fc0c3fb4149c9add5061d28b2123e54724447cf0394f2e826e62cda0e2ff3b0
+  source_sha256: 44bfbae853446c6c7af25d1cb6299712cfb6656996b4fa9ef93ac27d5cd010fa
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 395
-  mandatory_requirement_rows: 372
-  excluded_backlog_rows: 23
+  total_requirement_rows: 399
+  mandatory_requirement_rows: 373
+  excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
   mappings:
@@ -2277,6 +2281,12 @@ requirement_coverage:
     requirement_status: BACKLOG
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: FACT-015
+    priority: P1
+    requirement_status: IMPLEMENTED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: preserved_verified
     semantic_findings: []
   - requirement_id: FACT-014
     priority: P3
@@ -4054,6 +4064,12 @@ requirement_coverage:
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
     disposition: open_mandatory
     semantic_findings: []
+  - requirement_id: VER-010
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: excluded_backlog
+    semantic_findings: []
   - requirement_id: VER-009
     priority: P0
     requirement_status: IMPLEMENTED
@@ -4125,6 +4141,18 @@ requirement_coverage:
     requirement_status: PARTIAL
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
     disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: SCL-010
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: FACT-016
+    priority: P2
+    requirement_status: BACKLOG
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: excluded_backlog
     semantic_findings: []
   - requirement_id: SCL-009
     priority: P1

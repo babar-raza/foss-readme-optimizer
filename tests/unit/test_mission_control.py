@@ -86,11 +86,15 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     # Corrected 2026-07-25: requirements.md gained AGT-009/AGT-010/GOV-028 (all mandatory)
     # for the blocked-state classification policy (decision #77) -- 392 -> 395 total rows,
     # mandatory 368 -> 371. FACT-014 reclassified BACKLOG -> PARTIAL (live-closed via the
-    # pre-existing JDK-21 toolchain) -- now counted as mandatory too, 371 -> 372.
-    assert coverage.total_requirement_rows == 395
-    assert coverage.mandatory_requirement_rows == 372
+    # pre-existing JDK-21 toolchain) -- now counted as mandatory too, 371 -> 372. FACT-015
+    # (IMPLEMENTED), SCL-010/FACT-016/VER-010 (all BACKLOG) added for the portfolio-wide
+    # acquisition-fact fix and its three follow-on findings -- 395 -> 399 total (SCL-010/
+    # FACT-016/VER-010 stay BACKLOG, excluded from mandatory; only FACT-015 is mandatory),
+    # mandatory 372 -> 373.
+    assert coverage.total_requirement_rows == 399
+    assert coverage.mandatory_requirement_rows == 373
     assert coverage.reopened_implemented_rows == 0
-    assert len({mapping.requirement_id for mapping in coverage.mappings}) == 395
+    assert len({mapping.requirement_id for mapping in coverage.mappings}) == 399
     l8_mapping = next(
         mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-011"
     )

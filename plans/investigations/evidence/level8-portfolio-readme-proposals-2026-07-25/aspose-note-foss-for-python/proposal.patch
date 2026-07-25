@@ -1,0 +1,56 @@
+diff --git a/README.md b/README.md
+index 629a970..cd44f7c 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,4 @@
++<!-- readme-agent:presentation hash="sha256:9dbb73ec22ccc9ea7fe7c4a9205cd6edcf8944380c84edc3db7122aae38763fd" schema="3" inner-bytes="15816" -->
+ # 🗒️ Aspose.Note FOSS for Python
+ 
+ [![CI](https://github.com/aspose-note/aspose-note-python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note/aspose-note-python/actions/workflows/ci.yml)
+@@ -13,6 +14,41 @@ This repository provides a Python library with a **subset-compatible Aspose.Note
+ 
+ The goal is to offer a familiar surface (`aspose.note.*`) inspired by [Aspose.Note for .NET](https://products.aspose.com/note/net/), backed by this repository’s built-in MS-ONE/OneStore parser.
+ 
++## At a glance
++
++- **For:** None
++- **Problem solved:** None
++- **Verified capabilities:** None
++- **Verified formats:** None
++- **Runtime:** Java unknown+
++- **Current verified limitation:** None
++
++## In this README
++
++- [✨ Features](#features)
++- [🚀 Quick start](#quick-start)
++- [📦 Installation](#installation)
++- [PDF golden workflow](#pdf-golden-workflow)
++- [🧩 Public API (what is considered supported)](#public-api-what-is-considered-supported)
++- [📚 MS OneNote Examples](#ms-onenote-examples)
++- [⚠️ Current limitations](#current-limitations)
++- [🌐 Other platforms (official Aspose.Note)](#other-platforms-official-asposenote)
++- [🛠️ Development](#development)
++
++## Installation
++
++Build the verified repository revision from source:
++
++```bash
++git clone https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python.git
++cd Aspose.Note-FOSS-for-Python
++git checkout 6d97a522a9ed24708687911f1aabb76e2dea2da7
++mvn clean install
++```
++
++This path requires JDK unknown+ and Maven. The source build and the minimal example
++below were verified together at revision `6d97a522a9ed24708687911f1aabb76e2dea2da7`.
++
+ ## ✨ Features
+ 
+ - ✅ Read `.one` from a file path or a binary stream
+@@ -476,3 +512,4 @@ python -m pytest -q
+ ```
+ 
+ Third-party license notices (e.g., ReportLab used for PDF export) are in [THIRD_PARTY_NOTICES.md](https://github.com/aspose-note/aspose-note-python/blob/main/THIRD_PARTY_NOTICES.md).
++<!-- readme-agent:presentation:end -->

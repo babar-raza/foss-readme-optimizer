@@ -1,0 +1,409 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "cells",
+        "platform": "go",
+        "ecosystem": "go",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "manifest_names": [
+          "github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Go/v26",
+          "github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Go/v26/examples"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://examples\\go.mod,go.mod",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:missing",
+      "field": "product.audience",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:missing",
+      "field": "product.problems_solved",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:missing",
+      "field": "product.capabilities",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:missing",
+      "field": "product.formats",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "go"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://examples\\go.mod,go.mod",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "go",
+          "manifest_path": "go.mod",
+          "name": "github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Go/v26"
+        },
+        {
+          "path": "examples",
+          "ecosystem": "go",
+          "manifest_path": "examples\\go.mod",
+          "name": "github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Go/v26/examples"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://examples\\go.mod,go.mod",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:disposable-source-build",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "source_build",
+        "outcome": "BLOCKED_LOCAL_VERIFICATION",
+        "detail": "no product_truth.minimal_example configured for this policy profile -- nothing to compile/run locally yet"
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-product-verification://aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:missing",
+      "field": "example.minimal",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/cells/",
+          "family_url": "https://products.aspose.org/cells/",
+          "label": "Aspose.Cells FOSS for Go",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/cells/go/",
+          "family_url": "https://products.aspose.com/cells",
+          "label": "Aspose.Cells for Go",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "version": "unknown",
+          "active": true
+        },
+        {
+          "path": "examples",
+          "version": "unknown",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://examples\\go.mod,go.mod",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:missing",
+      "field": "product.limitations",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:manifest",
+      "field": "product.compatibility",
+      "value": [
+        {
+          "ecosystem": "go",
+          "minimum_runtime": "Go 1.24.5+",
+          "manifest_path": "go.mod"
+        },
+        {
+          "ecosystem": "go",
+          "minimum_runtime": "Go 1.24.5+",
+          "manifest_path": "examples\\go.mod"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://examples\\go.mod,go.mod",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:missing",
+    "product.problems_solved": "product.problems_solved:missing",
+    "product.capabilities": "product.capabilities:missing",
+    "product.formats": "product.formats:missing",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:disposable-source-build",
+    "example.minimal": "example.minimal:missing",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:missing",
+    "product.compatibility": "product.compatibility:manifest",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

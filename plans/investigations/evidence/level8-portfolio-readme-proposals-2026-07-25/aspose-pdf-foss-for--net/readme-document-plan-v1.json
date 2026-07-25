@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
+  "immutable_base_revision": "8a3131b9a6f7e97c20214896c615dbee86272459",
+  "facts_hash": "592924933373c7b76202276601e2de220faa1bb74f509bdd4d38b9a4bea77fe6",
+  "template_sha256": "79c07f9dd667e161f0ec54a41353cec15e3064b7517bc91a5335fbf62f9ce81e",
+  "source_sha256": "2425cb3cbf4031927981b32f53cf17b7a90f2885d574b95eb2c9186ca97725f6",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "2425cb3cbf4031927981b32f53cf17b7a90f2885d574b95eb2c9186ca97725f6",
+    "source_inner_sha256": "2425cb3cbf4031927981b32f53cf17b7a90f2885d574b95eb2c9186ca97725f6",
+    "source_inner_bytes": 15513,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 1213,
+      "source_byte_end": 1213,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** None\n- **Problem solved:** None\n- **Verified capabilities:** None\n- **Verified formats:** None\n- **Runtime:** Java unknown+\n- **Current verified limitation:** None\n\n## In this README\n\n- [Requirements](#requirements)\n- [Installation](#installation)\n- [What's included](#whats-included)\n- [What's not included (vs. Aspose.PDF for .NET)](#whats-not-included-vs-asposepdf-for-net)\n- [Quick start](#quick-start)\n- [Documentation](#documentation)\n- [API overview](#api-overview)\n- [Running tests](#running-tests)\n- [Related projects](#related-projects)\n- [License](#license)\n\n",
+      "replacement_sha256": "30a3dd3b99dea0be8e87abc5b4a982d752a4ffa0433b88a2b454063eb64c3930",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.limitations:missing",
+        "product.problems_solved:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "99c1d96a042be16d56e52f8e210fb47382fedfc82b7539692cc76f1d5dd10dc6"
+}

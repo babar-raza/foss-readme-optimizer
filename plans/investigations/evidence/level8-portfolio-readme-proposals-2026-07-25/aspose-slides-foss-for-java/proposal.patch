@@ -1,0 +1,52 @@
+diff --git a/README.md b/README.md
+index e96011e..962e530 100644
+--- a/README.md
++++ b/README.md
+@@ -1,9 +1,42 @@
++<!-- readme-agent:presentation hash="sha256:bd819325ebfebd88f1a63a8feb3a3c3ffb68ed59fee68f246d4a5be89cb8da66" schema="3" inner-bytes="7345" -->
+ # Aspose.Slides FOSS
+ 
+ The official open-source Java library by Aspose.Slides for creating, reading, and editing PowerPoint (`.pptx`) presentations.
+ 
+ ---
+ 
++## At a glance
++
++- **For:** None
++- **Problem solved:** None
++- **Verified capabilities:** None
++- **Verified formats:** None
++- **Runtime:** Java 21+
++- **Current verified limitation:** None
++
++## In this README
++
++- [Quick Start](#quick-start)
++- [Features](#features)
++- [Usage Examples](#usage-examples)
++- [Limitations](#limitations)
++- [Links](#links)
++- [License](#license)
++
++## Installation
++
++Build the verified repository revision from source:
++
++```bash
++git clone https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java.git
++cd Aspose.Slides-FOSS-for-Java
++git checkout 44597f1a09feb16ed1b6f29a1c6b939df4415863
++mvn clean install
++```
++
++This path requires JDK 21+ and Maven. The source build and the minimal example
++below were verified together at revision `44597f1a09feb16ed1b6f29a1c6b939df4415863`.
++
+ ## Quick Start
+ 
+ ```java
+@@ -204,3 +237,4 @@ opening and re-saving a file will never strip content this library does not unde
+ ## License
+ 
+ [MIT License](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/blob/main/LICENSE)
++<!-- readme-agent:presentation:end -->
