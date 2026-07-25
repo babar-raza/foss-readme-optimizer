@@ -1026,10 +1026,9 @@ class TestReadmePresentationSpecialist:
         assert plan_result["git_patch_proof"]["git_apply_check_passed"] is True
         assert "patch" not in plan_result["git_patch_proof"]
         # RPOC-050/051: `review` runs between `verify` and `commit` -- the
-        # deterministic bundle re-check is honestly reported as skipped for
-        # this fixture (no `readme_document_plan`, see `_review_node`'s own
-        # docstring for why), and the agentic independent reviewer's real
-        # ACCEPT verdict (faked above, never live) is recorded either way.
+        # This direct compatibility invocation has no governed README-POC
+        # lifecycle/document plan, so it records the verifier as skipped.
+        # The canonical local_poc supervisor test proves the checked gate.
         assert result.details["bundle_verification"]["status"] == "skipped"
         assert result.details["independent_review"]["outcome_kind"] == "accepted"
         assert result.details["independent_review"]["final_review"]["verdict"] == "ACCEPT"

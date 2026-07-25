@@ -90,7 +90,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from readme_agent import env
 from readme_agent.capabilities.dispatcher import DispatchResult, dispatch_tool_call
-from readme_agent.capabilities.domains import README_PRESENTATION
+from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_PRESENTATION
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import LLMError
 from readme_agent.facts.schema_v2 import ProductFactsV2
@@ -221,6 +221,7 @@ def run_independent_readme_review(
                 }
             },
             _READ_ONLY_PERMISSIONS,
+            caller_domain=INDEPENDENT_VERIFICATION,
         )
         if facts_dispatch.outcome == "executed" and facts_dispatch.result is not None:
             product_facts = ProductFactsV2.model_validate(facts_dispatch.result["product_facts_v2"])
@@ -344,6 +345,7 @@ def _dispatch_render(
         {"function": {"name": "render_readme_candidate", "arguments": json.dumps(arguments)}},
         _READ_ONLY_PERMISSIONS,
         extra_kwargs={"product_facts_v2": product_facts_v2},
+        caller_domain=README_PRESENTATION,
     )
 
 
@@ -385,6 +387,7 @@ def _dispatch_deterministic_validation(org_repo: str, render_result: dict) -> Di
             }
         },
         _READ_ONLY_PERMISSIONS,
+        caller_domain=INDEPENDENT_VERIFICATION,
     )
 
 

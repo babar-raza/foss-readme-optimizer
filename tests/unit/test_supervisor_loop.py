@@ -142,13 +142,22 @@ class _FakeCompositionForcedToolClient:
         properties = tool_schema["function"]["parameters"]["properties"]
         section_ids = properties["section_decisions"]["items"]["properties"]["section_id"]["enum"]
         overview_fact_ids = properties["overview_fact_ids"]["items"]["enum"]
+        user_content = messages[-1]["content"]
+        assessment_json = user_content.split(
+            "Deterministic source-bound assessment:\n",
+            1,
+        )[1].split("\n\nExact accepted overview phrase options:", 1)[0]
+        assessment = json.loads(assessment_json)
+        dispositions = {
+            section["section_id"]: section["disposition"] for section in assessment["sections"]
+        }
         return ForcedToolResult(
             arguments={
                 "repository_summary": "Fixture-specific fact-bound composition.",
                 "section_decisions": [
                     {
                         "section_id": section_id,
-                        "disposition": "preserve",
+                        "disposition": dispositions[section_id],
                         "priority": 100 if index == 0 else 50,
                         "supporting_fact_ids": [],
                         "rationale": "Retain the deterministic source-bound disposition.",
@@ -614,7 +623,7 @@ class TestBasicLoop:
         state = backend.load(ORG_REPO)
         lifecycle = state.readme_poc_lifecycle
         assert lifecycle is not None
-        assert lifecycle.status == "CANDIDATE_GENERATED", (
+        assert lifecycle.status == "NO_OP_PROVEN", (
             first.blocked_reason,
             first_domain_details,
         )
@@ -626,6 +635,10 @@ class TestBasicLoop:
             "README_ASSESSED",
             "PLAN_READY",
             "CANDIDATE_GENERATED",
+            "DETERMINISTIC_VALIDATED",
+            "AGENT_REVIEWING",
+            "AGENT_APPROVED",
+            "NO_OP_PROVEN",
         ]
         assert first.status == "CONVERGED_PROPOSAL_READY", (
             first.blocked_reason,
@@ -635,7 +648,14 @@ class TestBasicLoop:
         assert first_domain_details["proposal_only"] is True
         assert first_domain_details["written"] is False
         assert first_domain_details["committed"] is False
-        assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
+        assert first_domain_details["bundle_verification"]["status"] == "checked"
+        assert first_domain_details["bundle_verification"]["verified"] is True
+        assert first_domain_details["independent_review"]["outcome_kind"] == "accepted"
+        assert first_domain_details["independent_review"]["final_review"]["verdict"] == "ACCEPT"
+        assert second.status == "CONVERGED_NO_TRACKED_CHANGE", (
+            second.blocked_reason,
+            second.blocked_category,
+        )
         assert first_composition_call_count == 1
         assert _FakeCompositionForcedToolClient.calls == first_composition_call_count
         assert (
@@ -722,7 +742,7 @@ class TestBasicLoop:
                 result.decisions,
             )
             assert lifecycle is not None
-            assert lifecycle.status == "CANDIDATE_GENERATED"
+            assert lifecycle.status == "AGENT_APPROVED"
             assert result.evidence_dir is not None
 
     def test_bootstrap_then_planner_capability_then_stop_converges(self, project):

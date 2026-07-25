@@ -89,8 +89,9 @@ def _facts_result() -> dict:
 
 
 def _mock_get_product_facts(monkeypatch, *, outcome: str = "executed") -> None:
-    def dispatch(tool_call, permissions):
+    def dispatch(tool_call, permissions, *, caller_domain=None):
         assert tool_call["function"]["name"] == "get_product_facts"
+        assert caller_domain == "independent_verification"
         if outcome != "executed":
             return SimpleNamespace(outcome=outcome, result=None, error="state unavailable")
         return SimpleNamespace(outcome="executed", result=_facts_result(), error=None)

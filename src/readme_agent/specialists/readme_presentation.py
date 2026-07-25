@@ -108,7 +108,10 @@ from readme_agent.specialists.readme_factuality import evaluate_candidate_factua
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.change_detection import classify_surface
 from readme_agent.state.domain_state import merge_details, save_domain_with_failure_tracking
-from readme_agent.state.readme_poc_lifecycle import record_readme_candidate_artifacts
+from readme_agent.state.readme_poc_lifecycle import (
+    record_readme_candidate_artifacts,
+    transition_readme_poc_status,
+)
 from readme_agent.state.schema import DomainStateV1
 from readme_agent.supervisor.execution_context import proposal_only_active
 from readme_agent.supervisor.local_poc_evidence import write_local_poc_readme_candidate
@@ -648,6 +651,13 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     )
 
     org_repo = config["configurable"]["org_repo"]
+    backend: StateBackend | None = config["configurable"].get("backend")
+    durable_state = backend.load(org_repo) if backend is not None else None
+    lifecycle_backend = (
+        backend
+        if durable_state is not None and durable_state.readme_poc_lifecycle is not None
+        else None
+    )
 
     # RPOC-051(a)/(b): the deterministic bundle re-check can only run when
     # `_verify_node`'s own `build_presentation_plan` dispatch actually took
@@ -707,6 +717,20 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             **bundle_verdict,
         }
         if not bundle_verdict["verified"]:
+            if (
+                lifecycle_backend is not None
+                and durable_state is not None
+                and durable_state.readme_poc_lifecycle is not None
+                and durable_state.readme_poc_lifecycle.status == "CANDIDATE_GENERATED"
+            ):
+                transition_readme_poc_status(
+                    lifecycle_backend,
+                    org_repo,
+                    "DETERMINISTIC_VALIDATION_FAILED",
+                    observed_by=INDEPENDENT_VERIFICATION,
+                    reason="deterministic README proposal bundle verification rejected candidate",
+                    evidence_refs=[str(bundle_dir)],
+                )
             return {
                 "accepted_status": (
                     f"ERROR:bundle_verification_rejected:{'; '.join(bundle_verdict['failures'])}"
@@ -716,33 +740,66 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 ),
             }
     else:
+        if lifecycle_backend is not None:
+            return {
+                "accepted_status": "ERROR:bundle_verification_requires_readme_document_plan",
+                "details": merge_details(
+                    state_without_patch,
+                    bundle_verification={
+                        "status": "blocked",
+                        "reason": "deterministic bundle verification requires a structured "
+                        "readme_document_plan",
+                    },
+                ),
+            }
         bundle_verification_record = {
-            "status": "skipped",
-            "reason": "no readme_document_plan for this candidate -- build_presentation_plan "
-            "took its legacy, non-document-plan branch (no whole-document presentation-span "
-            "wrapper on the candidate), which verify_readme_proposal_bundle's own schema "
-            "cannot verify",
+            "status": "not_applicable",
+            "reason": "compatibility candidate has no governed README-POC lifecycle",
         }
 
-    # `backend` is deliberately NOT threaded through here, even though a real
-    # one is available in `config["configurable"]` -- `run_independent_
-    # review_with_repair_loop()` records its verdict via `record_review_
-    # verdict()` -> `transition_readme_poc_status()`, which enforces
-    # `state/readme_poc_lifecycle.py::_README_POC_TRANSITIONS` strictly:
-    # `AGENT_APPROVED`/`AGENT_REVIEW_REJECTED` are only legal moves FROM
-    # `CANDIDATE_GENERATED`. Nothing in production today drives an org_repo's
-    # `readme_poc_lifecycle` through `DISCOVERED -> SNAPSHOTTED -> ... ->
-    # CANDIDATE_GENERATED` first (confirmed: no call site anywhere in `src/`
-    # outside this module's own siblings) -- RPOC-070's lifecycle-driving
-    # wiring is a separate, not-yet-built concern, out of RPOC-050/051's own
-    # scope. Passing the real backend through here would make every real
-    # accept path raise `StateBackendError` (`DISCOVERED -> AGENT_APPROVED`
-    # is not a legal transition) instead of returning a verdict -- a crash
-    # this taskcard exists to prevent, not cause. `backend=None` degrades
-    # exactly as `run_independent_readme_review()`'s own docstring already
-    # documents for an absent backend: the real verdict is still returned
-    # and still recorded in this node's own `details` below, just without
-    # the separate RPOC-070 durable lifecycle side record.
+    if lifecycle_backend is not None:
+        current = lifecycle_backend.load(org_repo)
+        lifecycle = current.readme_poc_lifecycle if current is not None else None
+        if lifecycle is None:
+            raise StateBackendError("durable README-POC lifecycle disappeared before review")
+        if lifecycle.status == "AGENT_APPROVED":
+            transition_readme_poc_status(
+                lifecycle_backend,
+                org_repo,
+                "NO_OP_PROVEN",
+                observed_by=INDEPENDENT_VERIFICATION,
+                reason="unchanged candidate bundle reproduced without another agentic review",
+                evidence_refs=[str(bundle_dir)],
+            )
+            return {
+                "details": merge_details(
+                    state_without_patch,
+                    bundle_verification=bundle_verification_record,
+                    independent_review={
+                        "outcome_kind": "unchanged_no_op",
+                        "agentic_review_reused": True,
+                    },
+                )
+            }
+        if lifecycle.status == "CANDIDATE_GENERATED":
+            lifecycle = transition_readme_poc_status(
+                lifecycle_backend,
+                org_repo,
+                "DETERMINISTIC_VALIDATED",
+                observed_by=INDEPENDENT_VERIFICATION,
+                reason="deterministic README proposal bundle verification passed",
+                evidence_refs=[str(bundle_dir)],
+            )
+        if lifecycle.status == "DETERMINISTIC_VALIDATED":
+            transition_readme_poc_status(
+                lifecycle_backend,
+                org_repo,
+                "AGENT_REVIEWING",
+                observed_by=INDEPENDENT_VERIFICATION,
+                reason="independent README review started after deterministic validation",
+                evidence_refs=[str(bundle_dir)],
+            )
+
     # Wrapped in try/except (not bare -- every other failure mode in this
     # graph is a checked outcome, never an uncaught exception): `run_
     # independent_review_with_repair_loop()`'s own default `regenerate_
@@ -762,7 +819,7 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     try:
         review_outcome = run_independent_review_with_repair_loop(
             org_repo,
-            None,
+            lifecycle_backend,
             {
                 "original_text": render_result["original_text"],
                 "final_text": render_result["final_text"],
