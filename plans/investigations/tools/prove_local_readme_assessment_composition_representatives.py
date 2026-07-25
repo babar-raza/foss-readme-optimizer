@@ -133,7 +133,7 @@ def _one_representative(ecosystem: str, org_repo: str) -> tuple[dict, str]:
     assessment = planned["readme_assessment"]
     claim_map = planned["claim_map"]
     blocked_ids = _blocked_fact_ids(facts)
-    cited_ids = {fact_id for claim in claim_map["claims"] for fact_id in claim["fact_ids"]}
+    cited_ids = {claim["fact_id"] for claim in claim_map["claims"]}
     result = {
         "ecosystem": ecosystem,
         "org_repo": org_repo,
@@ -180,13 +180,19 @@ def _prompt_injection_control(java_facts: ProductFactsV2, source_text: str, revi
             java_facts,
             base_revision=revision,
         )
+    instruction_end = len(PROMPT_INJECTION.encode("utf-8"))
+    instruction_claims = [
+        claim for claim in assessment.material_claims if claim.source_byte_start < instruction_end
+    ]
     return {
         "repository_instruction_detected_as_untrusted": bool(
             assessment.untrusted_repository_instructions
         ),
         "repository_instruction_preserved_as_data": PROMPT_INJECTION.strip() in candidate,
-        "repository_instruction_not_used_as_claim": all(
-            PROMPT_INJECTION.strip() not in claim.claim_text for claim in assessment.material_claims
+        "repository_instruction_not_used_as_verified_fact": bool(instruction_claims)
+        and all(
+            claim.disposition == "investigate" and not claim.fact_ids
+            for claim in instruction_claims
         ),
     }
 
