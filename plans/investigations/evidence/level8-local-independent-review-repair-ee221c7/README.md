@@ -1,0 +1,24 @@
+# Local Independent README Review and Repair Proof
+
+This evidence binds task `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR` to control-repository
+commit `ee221c7480402234acaba2e121ae7724b4560d96`.
+
+The controlled local-POC run proves:
+
+- deterministic proposal-bundle validation precedes independent review;
+- `REJECT_REPAIRABLE` supplies section-scoped feedback to a distinct authoring pass;
+- the repaired candidate is regenerated, deterministically revalidated, and independently
+  rereviewed before `AGENT_APPROVED`;
+- the accepted repaired candidate hash is the hash persisted in the revision-addressed bundle;
+- exact fact-block, missing-evidence, and system-failure verdicts remain distinct;
+- an identical rerun reaches `NO_OP_PROVEN` without another author call, reviewer call, patch,
+  lifecycle event, or run-scoped proposal bundle;
+- the local profile dispatches no write effect.
+
+The `readme-poc/` subtree is the revision-addressed final bundle. The
+`readme-proposal-bundles/` subtree retains the initial and repaired immutable attempts. The
+`evidence/` subtree contains the supervisor run manifests. `focused-acceptance-tests.log`
+records the focused controlled proof.
+
+The official repository-wide check log is added only after this evidence slice is committed and
+the checks can run against a clean, stable HEAD.

@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "org_repo": "example-foss/Example-FOSS-for-Java",
+  "source_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+  "facts_hash": "ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd",
+  "assessment_hash": "980fe543c3d048a17a5cca5c3b7970b478792fabc46f7e21a68b97d5d9f2b147",
+  "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+  "tool_schema_sha256": "c6a8f324959cfca20a45f8004dbc249de793c4f4f385200e313c297c22e43868",
+  "input_sha256": "98d850ba904a303d6edac2c704f5d6ac60aca82f6b870c55f9b2aa40e2a75a82",
+  "model": "fixture-composition",
+  "attempt_count": 1,
+  "repository_summary": "Fixture-specific fact-bound composition.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "priority": 100,
+      "supporting_fact_ids": [],
+      "rationale": "Retain the deterministic source-bound disposition."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 50,
+      "supporting_fact_ids": [],
+      "rationale": "Retain the deterministic source-bound disposition."
+    },
+    {
+      "section_id": "heading:119",
+      "disposition": "repair",
+      "priority": 50,
+      "supporting_fact_ids": [],
+      "rationale": "Retain the deterministic source-bound disposition."
+    },
+    {
+      "section_id": "missing:at-a-glance",
+      "disposition": "add",
+      "priority": 50,
+      "supporting_fact_ids": [],
+      "rationale": "Retain the deterministic source-bound disposition."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Java developers",
+      "supporting_fact_ids": [
+        "product.audience:missing"
+      ]
+    },
+    {
+      "text": "creating, reading, and modifying document files",
+      "supporting_fact_ids": [
+        "product.problems_solved:missing"
+      ]
+    },
+    {
+      "text": "create documents",
+      "supporting_fact_ids": [
+        "product.capabilities:missing"
+      ]
+    },
+    {
+      "text": "document files",
+      "supporting_fact_ids": [
+        "product.formats:missing"
+      ]
+    },
+    {
+      "text": "Fixture scope is intentionally minimal",
+      "supporting_fact_ids": [
+        "product.limitations:missing"
+      ]
+    },
+    {
+      "text": "Java 11 or later",
+      "supporting_fact_ids": [
+        "product.compatibility:missing"
+      ]
+    },
+    {
+      "text": "thing",
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    },
+    {
+      "text": "Open-source scope with a separate commercial edition.",
+      "supporting_fact_ids": [
+        "relationship.commercial_foss:primary"
+      ]
+    }
+  ]
+}

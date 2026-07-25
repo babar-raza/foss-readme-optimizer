@@ -1,0 +1,68 @@
+{
+  "coordinates": {
+    "fact_id": "installation.coordinates:missing",
+    "field": "installation.coordinates",
+    "value": null,
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "c961e643078f9b1abeac691565acf4ee9f6ab3d5",
+      "retrieved_at": null
+    },
+    "verification_state": "missing",
+    "authoritative_owner": "repository-owner",
+    "confidence": 0.0,
+    "conflicts": [],
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "verified_acquisition": {
+    "fact_id": "installation.verified_acquisition:registry-maven_central",
+    "field": "installation.verified_acquisition",
+    "value": {
+      "method": "source_build",
+      "outcome": "SOURCE_BUILD_VERIFIED",
+      "detail": "verified by the synthetic local fixture"
+    },
+    "source": {
+      "source_type": "external_registry",
+      "location": "registry-acquisition://java",
+      "source_revision": "c961e643078f9b1abeac691565acf4ee9f6ab3d5",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "authoritative_owner": "repository-owner",
+    "confidence": 1.0,
+    "conflicts": [],
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  },
+  "minimal_example": {
+    "fact_id": "example.minimal:missing",
+    "field": "example.minimal",
+    "value": {
+      "language": "java",
+      "class_name": "Example",
+      "code": "public class Example {}",
+      "verification": {
+        "status": "verified_fixture"
+      }
+    },
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "c961e643078f9b1abeac691565acf4ee9f6ab3d5",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "authoritative_owner": "repository-owner",
+    "confidence": 1.0,
+    "conflicts": [],
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  }
+}

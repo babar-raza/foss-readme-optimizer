@@ -1,0 +1,33 @@
+<!-- readme-agent:presentation hash="sha256:ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd" schema="3" inner-bytes="637" -->
+# Example FOSS for Java
+
+Example FOSS for Java is a Java library for creating, reading, and modifying document files.
+
+## At a glance
+
+- Open-source scope with a separate commercial edition.
+- thing
+- Java 11 or later
+- Fixture scope is intentionally minimal
+- document files
+- create documents
+- creating, reading, and modifying document files
+- Java developers
+
+## In this README
+
+- [Quick Start](#quick-start)
+
+## Quick Start
+
+### Minimal verified example
+
+```java
+public class Example {}
+```
+
+This exact example was compiled against the source build at revision `c961e643078f9b1abeac691565acf4ee9f6ab3d5`.
+
+
+Existing local guidance.
+<!-- readme-agent:presentation:end -->

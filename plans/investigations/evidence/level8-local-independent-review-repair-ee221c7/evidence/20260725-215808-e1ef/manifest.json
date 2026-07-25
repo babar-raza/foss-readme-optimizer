@@ -1,0 +1,251 @@
+{
+  "run_id": "20260725-215808-e1ef",
+  "org_repo": "example-foss/Example-FOSS-for-Java",
+  "status": "CONVERGED_PROPOSAL_READY",
+  "timestamp": "2026-07-25T21:58:08.317040+00:00",
+  "prompt_registry_content_hash": "2e7d42cdce3a0807bf0f235d3d3f005c4c221564444abaef308b9e0ab3ef1a36",
+  "control_plane_fingerprint": "7d20a803c495c60e861e49945e949b69b0e635b82df04f2767ec63362df4de95",
+  "upstream_revision": "c961e643078f9b1abeac691565acf4ee9f6ab3d5",
+  "domain_coverage_complete": null,
+  "surface_freshness": {
+    "github_generated_surface_audit": {
+      "surface_id": "github_generated_surface_audit",
+      "authoritative_source": "github_api",
+      "ttl_seconds": 86400,
+      "last_checked_at": "2026-07-25T21:58:08.292076+00:00",
+      "observed_hash": "8f1bf7739d5fa0707b7a8668af3f2a5973184b6311d5452b600ae7f73673ba91"
+    },
+    "package_release_audit": {
+      "surface_id": "package_release_audit",
+      "authoritative_source": "registry_api",
+      "ttl_seconds": 21600,
+      "last_checked_at": "2026-07-25T21:58:08.292076+00:00",
+      "observed_hash": "9fb1cc5f08d8516cc2ae68d4d44c36e75bfcfd9067d4a58b86f15c663282d933"
+    },
+    "metadata_presentation": {
+      "surface_id": "metadata_presentation",
+      "authoritative_source": "github_api",
+      "ttl_seconds": 86400,
+      "last_checked_at": "2026-07-25T21:58:08.292076+00:00",
+      "observed_hash": "d195f075cead9ce221eae67b86cb9e9c912141832a5a8f0f47592988fd9b2ba4"
+    },
+    "visual_preparation": {
+      "surface_id": "visual_preparation",
+      "authoritative_source": "local_filesystem",
+      "ttl_seconds": 86400,
+      "last_checked_at": "2026-07-25T21:58:08.292076+00:00",
+      "observed_hash": "f6658564ec23f65c3a754ec0f9284b6d2bea2fe7a140cb3c6bbba0e23adcb148"
+    }
+  },
+  "facts_hash": null,
+  "llm_call_count": 0,
+  "llm_calls": [],
+  "requirement_ids_exercised": {
+    "RDM-003": true,
+    "RDM-004": true,
+    "FACT-003": true,
+    "OWN-011": true,
+    "L8-007": true,
+    "CAP-006": true,
+    "EFF-001": true,
+    "VER-001": true,
+    "PRL-001": true,
+    "PRL-002": true,
+    "PRL-004": true,
+    "PRL-007": true,
+    "PRL-008": true,
+    "VER-002": true,
+    "RDM-020": true,
+    "VAL-005": true,
+    "LLM-010": true
+  },
+  "authorization_record_id": null,
+  "trigger_dedup_key": null,
+  "manifest_version": 3,
+  "trigger": null,
+  "trigger_status": null,
+  "checkpoints": [],
+  "facts": {
+    "repository_snapshot_v1": {
+      "schema_version": 1,
+      "org_repo": "example-foss/Example-FOSS-for-Java",
+      "source_revision": "c961e643078f9b1abeac691565acf4ee9f6ab3d5",
+      "snapshot_root": "C:\\tmp\\rr-ee221c7-20260726\\test_local_poc_repairs_revalid0\\runs\\baseline\\example-foss__Example-FOSS-for-Java",
+      "readme_path": "README.md",
+      "readme_sha256": "feef0e115f8540b998a1e38695847ebb41c9bd1618c2d37402db6d9bae280fe0",
+      "inventory_sha256": "a6f5277970bece5dc93cf50d7c04559d017054846f791ee577458d1ff515150a",
+      "package_roots": [],
+      "captured_at": "2026-07-25T21:57:59.741586+00:00",
+      "provenance": {
+        "source_type": "baseline_clone",
+        "clone_url": "C:\\tmp\\rr-ee221c7-20260726\\test_local_poc_repairs_revalid0\\source",
+        "source_ref": "HEAD",
+        "git_tree_sha256": "a6f5277970bece5dc93cf50d7c04559d017054846f791ee577458d1ff515150a"
+      }
+    },
+    "specialist_fact_hashes": {
+      "readme_reconciliation": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+      "github_generated_surface_audit": "8f1bf7739d5fa0707b7a8668af3f2a5973184b6311d5452b600ae7f73673ba91",
+      "package_release_audit": "9fb1cc5f08d8516cc2ae68d4d44c36e75bfcfd9067d4a58b86f15c663282d933",
+      "metadata_presentation": "d195f075cead9ce221eae67b86cb9e9c912141832a5a8f0f47592988fd9b2ba4",
+      "community_files_presentation": "bf0cd82f441dd1529961652f556dbe943cfe0d775af717f9e4c202794705d2f2",
+      "cross_surface_validation": "3cccb9928d5ab6e6331b0657151e31046f8211b605c55dccd5a8801e29db674b",
+      "readme_presentation": "ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd",
+      "visual_preparation": "f6658564ec23f65c3a754ec0f9284b6d2bea2fe7a140cb3c6bbba0e23adcb148",
+      "presentation_benchmarking": "4a44dbada43b1a519377719ecf52dac87d4df9480ba5f63ecb37b5492fd0ff2b",
+      "independent_verification": "91c2ff9f404aa76998a235daffc52c82b85864abc1ec903ecb9328c450254cbc"
+    }
+  },
+  "presentation_plan": {
+    "tasks": [
+      {
+        "task_id": "67cef1d80c3f492b8137af84980cd71c",
+        "capability_id": "inspect_repository",
+        "arguments": {
+          "org_repo": "example-foss/Example-FOSS-for-Java"
+        },
+        "depends_on": [],
+        "state": "PASSED",
+        "result": {
+          "org_repo": "example-foss/Example-FOSS-for-Java",
+          "has_readme": true,
+          "has_license_file": true,
+          "readme_length_chars": 160,
+          "manifest_keys": []
+        },
+        "gap": null,
+        "blocked_reason": null,
+        "blocked_category": null,
+        "supersedes": null,
+        "created_at": "2026-07-25T21:58:07.949769+00:00",
+        "terminal_at": "2026-07-25T21:58:08.119804+00:00"
+      }
+    ]
+  },
+  "authorization": {
+    "record_id": null,
+    "status": "not_evaluated"
+  },
+  "verifier": {
+    "accepted_status": "FIRST_OBSERVATION",
+    "details": {
+      "checks_performed": [
+        "evidence_completeness",
+        "requirement_mapping",
+        "adversarial_cross_domain"
+      ],
+      "completeness": {},
+      "requirement_map": {
+        "RDM-003": {
+          "domain": "readme_presentation",
+          "capability_id": "build_presentation_plan",
+          "exercised_without_error": true
+        },
+        "RDM-004": {
+          "domain": "readme_presentation",
+          "capability_id": "build_presentation_plan",
+          "exercised_without_error": true
+        },
+        "FACT-003": {
+          "domain": "readme_presentation",
+          "capability_id": "build_presentation_plan",
+          "exercised_without_error": true
+        },
+        "OWN-011": {
+          "domain": "readme_presentation",
+          "capability_id": "build_presentation_plan",
+          "exercised_without_error": true
+        },
+        "L8-007": {
+          "domain": "readme_presentation",
+          "capability_id": "build_presentation_plan",
+          "exercised_without_error": true
+        },
+        "CAP-006": {
+          "domain": "readme_reconciliation",
+          "capability_id": "classify_upstream_change",
+          "exercised_without_error": true
+        },
+        "EFF-001": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "VER-001": {
+          "domain": "independent_verification",
+          "capability_id": "verify_readme_proposal_bundle",
+          "exercised_without_error": true
+        },
+        "PRL-001": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "PRL-002": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "PRL-004": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "PRL-007": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "PRL-008": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "VER-002": {
+          "domain": "readme_presentation",
+          "capability_id": "verify_readme_candidate",
+          "exercised_without_error": true
+        },
+        "RDM-020": {
+          "domain": "readme_presentation",
+          "capability_id": "verify_prose_quality",
+          "exercised_without_error": true
+        },
+        "VAL-005": {
+          "domain": "presentation_benchmarking",
+          "capability_id": "compare_against_presentation_standard",
+          "exercised_without_error": true
+        },
+        "LLM-010": {
+          "domain": "visual_preparation",
+          "capability_id": "review_visual_asset_accuracy",
+          "exercised_without_error": true
+        }
+      },
+      "adversarial_findings": [],
+      "failure_escalations": {}
+    }
+  },
+  "effects": [],
+  "requirement_results": {
+    "RDM-003": true,
+    "RDM-004": true,
+    "FACT-003": true,
+    "OWN-011": true,
+    "L8-007": true,
+    "CAP-006": true,
+    "EFF-001": true,
+    "VER-001": true,
+    "PRL-001": true,
+    "PRL-002": true,
+    "PRL-004": true,
+    "PRL-007": true,
+    "PRL-008": true,
+    "VER-002": true,
+    "RDM-020": true,
+    "VAL-005": true,
+    "LLM-010": true
+  },
+  "readme_poc_status": null,
+  "readme_poc_transitions": []
+}

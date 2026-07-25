@@ -1,0 +1,1113 @@
+{
+  "readme_reconciliation": {
+    "accepted_status": "NO_CHANGE",
+    "skipped_this_run": false,
+    "details": {
+      "license_claim": null
+    }
+  },
+  "github_generated_surface_audit": {
+    "accepted_status": "NO_CHANGE",
+    "skipped_this_run": false,
+    "details": {
+      "contributors_count": 0,
+      "primary_language": "Java",
+      "languages": {
+        "Java": 100
+      },
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "watchers_count": 0,
+      "open_issues_count": 0
+    }
+  },
+  "package_release_audit": {
+    "accepted_status": "NO_CHANGE",
+    "skipped_this_run": false,
+    "details": {
+      "releases_count": 0,
+      "latest_release_tag": null,
+      "latest_release_name": null,
+      "install_path_resolved": null,
+      "evidence": "not checked",
+      "handoff_findings": []
+    }
+  },
+  "metadata_presentation": {
+    "accepted_status": "NO_CHANGE",
+    "skipped_this_run": false,
+    "details": {
+      "current_description": "An existing description",
+      "current_homepage": "https://example.org",
+      "current_topics": [
+        "java"
+      ],
+      "proposed_description": null,
+      "proposed_homepage": null,
+      "proposed_topics": null,
+      "has_proposal": false,
+      "blocked_findings": [],
+      "fact_citations": {
+        "metadata.description": [
+          "product.identity:manifest-and-registry",
+          "product.audience:missing",
+          "product.problems_solved:missing"
+        ],
+        "metadata.homepage": [
+          "documentation.links:primary"
+        ],
+        "metadata.topics": [
+          "product.capabilities:missing",
+          "product.formats:missing",
+          "product.platforms:manifest"
+        ]
+      }
+    }
+  },
+  "community_files_presentation": {
+    "accepted_status": "NO_CHANGE",
+    "skipped_this_run": false,
+    "details": {
+      "present_files": {
+        "LICENSE": true,
+        "CONTRIBUTING": false,
+        "CODE_OF_CONDUCT": false,
+        "SECURITY": false,
+        "SUPPORT": false
+      },
+      "recognized_files": {
+        "LICENSE": true,
+        "CONTRIBUTING": false,
+        "CODE_OF_CONDUCT": false
+      },
+      "community_profile_health_percentage": 40,
+      "presence_recognition_gaps": [],
+      "missing_files": [
+        "CODE_OF_CONDUCT",
+        "CONTRIBUTING",
+        "SECURITY",
+        "SUPPORT"
+      ],
+      "prepared_candidates": {
+        "CODE_OF_CONDUCT": {
+          "filename": "CODE_OF_CONDUCT.md",
+          "content": "# Contributor Covenant Code of Conduct\n\n## Our Pledge\n\nWe as members, contributors, and leaders pledge to make participation in our community a\nharassment-free experience for everyone, regardless of age, body size, visible or invisible\ndisability, ethnicity, sex characteristics, gender identity and expression, level of experience,\neducation, socio-economic status, nationality, personal appearance, race, caste, color, religion,\nor sexual identity and orientation.\n\nWe pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive,\nand healthy community.\n\n## Our Standards\n\nExamples of behavior that contributes to a positive environment for our community include:\n\n* Demonstrating empathy and kindness toward other people\n* Being respectful of differing opinions, viewpoints, and experiences\n* Giving and gracefully accepting constructive feedback\n* Accepting responsibility and apologizing to those affected by our mistakes, and learning from\n  the experience\n* Focusing on what is best not just for us as individuals, but for the overall community\n\nExamples of unacceptable behavior include:\n\n* The use of sexualized language or imagery, and sexual attention or advances of any kind\n* Trolling, insulting or derogatory comments, and personal or political attacks\n* Public or private harassment\n* Publishing others' private information, such as a physical or email address, without their\n  explicit permission\n* Other conduct which could reasonably be considered inappropriate in a professional setting\n\n## Enforcement Responsibilities\n\nCommunity leaders are responsible for clarifying and enforcing our standards of acceptable\nbehavior and will take appropriate and fair corrective action in response to any behavior that\nthey deem inappropriate, threatening, offensive, or harmful.\n\nCommunity leaders have the right and responsibility to remove, edit, or reject comments, commits,\ncode, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct,\nand will communicate reasons for moderation decisions when appropriate.\n\n## Scope\n\nThis Code of Conduct applies within all community spaces, and also applies when an individual is\nofficially representing the community in public spaces. Examples of representing our community\ninclude using an official e-mail address, posting via an official social media account, or acting\nas an appointed representative at an online or offline event.\n\n## Enforcement\n\nInstances of abusive, harassing, or otherwise unacceptable behavior may be reported to the\ncommunity leaders responsible for enforcement at [INSERT CONTACT METHOD]. All complaints will be\nreviewed and investigated promptly and fairly.\n\nAll community leaders are obligated to respect the privacy and security of the reporter of any\nincident.\n\n## Enforcement Guidelines\n\nCommunity leaders will follow these Community Impact Guidelines in determining the consequences\nfor any action they deem in violation of this Code of Conduct:\n\n### 1. Correction\n\n**Community Impact**: Use of inappropriate language or other behavior deemed unprofessional or\nunwelcome in the community.\n\n**Consequence**: A private, written warning from community leaders, providing clarity around the\nnature of the violation and an explanation of why the behavior was inappropriate. A public\napology may be requested.\n\n### 2. Warning\n\n**Community Impact**: A violation through a single incident or series of actions.\n\n**Consequence**: A warning with consequences for continued behavior. No interaction with the\npeople involved, including unsolicited interaction with those enforcing the Code of Conduct, for\na specified period of time. This includes avoiding interactions in community spaces as well as\nexternal channels like social media. Violating these terms may lead to a temporary or permanent\nban.\n\n### 3. Temporary Ban\n\n**Community Impact**: A serious violation of community standards, including sustained\ninappropriate behavior.\n\n**Consequence**: A temporary ban from any sort of interaction or public communication with the\ncommunity for a specified period of time. No public or private interaction with the people\ninvolved, including unsolicited interaction with those enforcing the Code of Conduct, is allowed\nduring this period. Violating these terms may lead to a permanent ban.\n\n### 4. Permanent Ban\n\n**Community Impact**: Demonstrating a pattern of violation of community standards, including\nsustained inappropriate behavior, harassment of an individual, or aggression toward or\ndisparagement of classes of individuals.\n\n**Consequence**: A permanent ban from any sort of public interaction within the community.\n\n## Attribution\n\nThis Code of Conduct is adapted from the [Contributor Covenant][homepage], version 2.1,\navailable at [https://www.contributor-covenant.org/version/2/1/code_of_conduct.html][v2.1].\n\nCommunity Impact Guidelines were inspired by [Mozilla's code of conduct enforcement\nladder][Mozilla CoC].\n\nFor answers to common questions about this code of conduct, see the FAQ at\n[https://www.contributor-covenant.org/faq][FAQ]. Translations are available at\n[https://www.contributor-covenant.org/translations][translations].\n\n[homepage]: https://www.contributor-covenant.org\n[v2.1]: https://www.contributor-covenant.org/version/2/1/code_of_conduct.html\n[Mozilla CoC]: https://github.com/mozilla/diversity\n[FAQ]: https://www.contributor-covenant.org/faq\n[translations]: https://www.contributor-covenant.org/translations\n",
+          "source": "Contributor Covenant v2.1 (https://www.contributor-covenant.org/version/2/1/code_of_conduct/) -- verbatim, requires filling in the [INSERT CONTACT METHOD] placeholder before use"
+        }
+      },
+      "detected_license": "MIT"
+    }
+  },
+  "cross_surface_validation": {
+    "accepted_status": "NO_CHANGE",
+    "skipped_this_run": false,
+    "details": {
+      "inconsistencies": [],
+      "compared": {
+        "readme_reconciliation_license_claim": null,
+        "community_files_presentation_detected_license": "MIT"
+      },
+      "stale_sibling_data": {}
+    }
+  },
+  "readme_presentation": {
+    "accepted_status": "NO_CHANGE",
+    "skipped_this_run": false,
+    "details": {
+      "presentation_plan": {
+        "presentation_plan": {
+          "schema_version": 1,
+          "org_repo": "example-foss/Example-FOSS-for-Java",
+          "immutable_base_revision": "c961e643078f9b1abeac691565acf4ee9f6ab3d5",
+          "facts_hash": "ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd",
+          "source_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+          "archetype": "java-library",
+          "findings": [
+            {
+              "finding_id": "readme.product_clarity",
+              "dimension": "product_clarity",
+              "surface_id": "readme",
+              "disposition": "satisfied",
+              "summary": "product clarity is satisfied",
+              "evidence": [
+                "<!-- readme-agent:presentation hash=\"sha256:ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd\" schema=\"3\" inner-bytes=\"637\" --> Example FOSS for Java is a Java library for creating, reading, and modifying document files. - Open-source scope with a separate commercial edition."
+              ]
+            },
+            {
+              "finding_id": "readme.audience_fit",
+              "dimension": "audience_fit",
+              "surface_id": "readme",
+              "disposition": "satisfied",
+              "summary": "audience fit is satisfied",
+              "evidence": [
+                "<!-- readme-agent:presentation hash=\"sha256:ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd\" schema=\"3\" inner-bytes=\"637\" --> Example FOSS for Java is a Java library for creating, reading, and modifying document files. - Open-source scope with a separate commercial edition."
+              ]
+            },
+            {
+              "finding_id": "readme.trust_signals",
+              "dimension": "trust_signals",
+              "surface_id": "readme",
+              "disposition": "satisfied",
+              "summary": "trust signals is satisfied",
+              "evidence": [
+                "product.license:license-file:verified"
+              ]
+            },
+            {
+              "finding_id": "readme.installation_path",
+              "dimension": "installation_path",
+              "surface_id": "readme",
+              "disposition": "satisfied",
+              "summary": "installation path is satisfied",
+              "evidence": [
+                "installation.verified_acquisition:registry-maven_central:outcomes=['accepted']"
+              ]
+            },
+            {
+              "finding_id": "readme.verified_examples",
+              "dimension": "verified_examples",
+              "surface_id": "readme",
+              "disposition": "gap",
+              "summary": "verified examples needs review",
+              "evidence": [
+                "only 1 fenced code block(s) found"
+              ]
+            },
+            {
+              "finding_id": "readme.navigation",
+              "dimension": "navigation",
+              "surface_id": "readme",
+              "disposition": "satisfied",
+              "summary": "navigation is satisfied",
+              "evidence": [
+                "None"
+              ]
+            },
+            {
+              "finding_id": "readme.visual_usefulness",
+              "dimension": "visual_usefulness",
+              "surface_id": "readme",
+              "disposition": "observation",
+              "summary": "visual usefulness is observation-only here",
+              "evidence": [
+                "markdown images=0; factual review is separate"
+              ]
+            },
+            {
+              "finding_id": "readme.contribution_readiness",
+              "dimension": "contribution_readiness",
+              "surface_id": "readme",
+              "disposition": "observation",
+              "summary": "contribution readiness is observation-only here",
+              "evidence": [
+                "repository-file recognition belongs to the community-files specialist"
+              ]
+            },
+            {
+              "finding_id": "readme.maintenance_signals",
+              "dimension": "maintenance_signals",
+              "surface_id": "readme",
+              "disposition": "observation",
+              "summary": "maintenance signals is observation-only here",
+              "evidence": [
+                "GitHub-generated activity remains audit-only"
+              ]
+            },
+            {
+              "finding_id": "readme.commercial_context",
+              "dimension": "commercial_context",
+              "surface_id": "readme",
+              "disposition": "satisfied",
+              "summary": "commercial context is satisfied",
+              "evidence": [
+                "commercial_links=0; explanation_offset=168"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "action_id": "readme.presentation.document-plan",
+              "surface_id": "readme",
+              "region_id": "readme.presentation",
+              "disposition": "eligible",
+              "depends_on": [],
+              "claims": [
+                {
+                  "claim_id": "readme.overview-navigation-and-acquisition.product.audience",
+                  "surface_id": "readme.opening",
+                  "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.audience]",
+                  "fact_ids": [
+                    "product.audience:missing"
+                  ]
+                },
+                {
+                  "claim_id": "readme.overview-navigation-and-acquisition.product.capabilities",
+                  "surface_id": "readme.capabilities",
+                  "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.capabilities]",
+                  "fact_ids": [
+                    "product.capabilities:missing"
+                  ]
+                },
+                {
+                  "claim_id": "readme.overview-navigation-and-acquisition.product.compatibility",
+                  "surface_id": "readme.capabilities",
+                  "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.compatibility]",
+                  "fact_ids": [
+                    "product.compatibility:missing"
+                  ]
+                },
+                {
+                  "claim_id": "readme.overview-navigation-and-acquisition.product.formats",
+                  "surface_id": "readme.capabilities",
+                  "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.formats]",
+                  "fact_ids": [
+                    "product.formats:missing"
+                  ]
+                },
+                {
+                  "claim_id": "readme.overview-navigation-and-acquisition.product.identity",
+                  "surface_id": "readme.opening",
+                  "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.identity]",
+                  "fact_ids": [
+                    "product.identity:manifest-and-registry"
+                  ]
+                },
+                {
+                  "claim_id": "readme.overview-navigation-and-acquisition.product.limitations",
+                  "surface_id": "readme.limitations",
+                  "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.limitations]",
+                  "fact_ids": [
+                    "product.limitations:missing"
+                  ]
+                },
+                {
+                  "claim_id": "readme.overview-navigation-and-acquisition.product.problems_solved",
+                  "surface_id": "readme.opening",
+                  "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.problems_solved]",
+                  "fact_ids": [
+                    "product.problems_solved:missing"
+                  ]
+                },
+                {
+                  "claim_id": "readme.overview-navigation-and-acquisition.relationship.commercial_foss",
+                  "surface_id": "readme.relationship",
+                  "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [relationship.commercial_foss]",
+                  "fact_ids": [
+                    "relationship.commercial_foss:primary"
+                  ]
+                },
+                {
+                  "claim_id": "readme.example.insert-verified-minimal.example.minimal",
+                  "surface_id": "readme.example",
+                  "text": "Lead the usage section with the exact minimal example compiled against the verified source build. [example.minimal]",
+                  "fact_ids": [
+                    "example.minimal:missing"
+                  ]
+                }
+              ],
+              "fact_ids": [
+                "example.minimal:missing",
+                "product.audience:missing",
+                "product.capabilities:missing",
+                "product.compatibility:missing",
+                "product.formats:missing",
+                "product.identity:manifest-and-registry",
+                "product.limitations:missing",
+                "product.problems_solved:missing",
+                "relationship.commercial_foss:primary"
+              ],
+              "ownership_class": "repository_file",
+              "proposed_operation": "local_patch",
+              "source_spans": [
+                {
+                  "path": "README.md",
+                  "byte_start": 0,
+                  "byte_end": 160,
+                  "expected_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+                  "replacement_sha256": "9c55f9d45b0ff5b3f05af57798e6d34230160ac0e030eaa5850482ba10c5f9e9",
+                  "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations"
+                }
+              ],
+              "validators": [
+                "claim_citations",
+                "surface_ownership",
+                "source_span_hash",
+                "git_apply_check",
+                "protected_content",
+                "independent_verifier"
+              ],
+              "rollback": "revert the bounded file patch",
+              "stop_conditions": [
+                "immutable base revision changed",
+                "source or work-tree README hash changed",
+                "document reconstruction differs",
+                "a fact citation becomes unselected, unresolved, or unverified",
+                "protected content outside a cited authoritative correction is lost",
+                "Git apply or independent verification fails"
+              ],
+              "patch_sha256": "891e4fa382e141673cd65a7e957ab16238859260367ff0100fac7bb4f15e31fb"
+            }
+          ],
+          "candidate_sha256": "9c55f9d45b0ff5b3f05af57798e6d34230160ac0e030eaa5850482ba10c5f9e9"
+        },
+        "git_patch_proof": {
+          "path": "README.md",
+          "source_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+          "candidate_sha256": "9c55f9d45b0ff5b3f05af57798e6d34230160ac0e030eaa5850482ba10c5f9e9",
+          "patch_sha256": "891e4fa382e141673cd65a7e957ab16238859260367ff0100fac7bb4f15e31fb",
+          "git_apply_check_passed": true,
+          "outside_spans_preserved": true
+        },
+        "executable": true,
+        "agentic_composition_plan": {
+          "schema_version": 1,
+          "org_repo": "example-foss/Example-FOSS-for-Java",
+          "source_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+          "facts_hash": "ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd",
+          "assessment_hash": "980fe543c3d048a17a5cca5c3b7970b478792fabc46f7e21a68b97d5d9f2b147",
+          "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+          "tool_schema_sha256": "c6a8f324959cfca20a45f8004dbc249de793c4f4f385200e313c297c22e43868",
+          "input_sha256": "4a11e1c3159629b928e9c0675863aab46c64df511aaacf2aefed2f1561f04717",
+          "model": "fixture-composition",
+          "attempt_count": 1,
+          "repository_summary": "Fixture-specific fact-bound composition.",
+          "section_decisions": [
+            {
+              "section_id": "opening",
+              "disposition": "preserve",
+              "priority": 100,
+              "supporting_fact_ids": [],
+              "rationale": "Retain the deterministic source-bound disposition."
+            },
+            {
+              "section_id": "heading:0",
+              "disposition": "preserve",
+              "priority": 50,
+              "supporting_fact_ids": [],
+              "rationale": "Retain the deterministic source-bound disposition."
+            },
+            {
+              "section_id": "heading:119",
+              "disposition": "repair",
+              "priority": 50,
+              "supporting_fact_ids": [],
+              "rationale": "Retain the deterministic source-bound disposition."
+            },
+            {
+              "section_id": "missing:at-a-glance",
+              "disposition": "add",
+              "priority": 50,
+              "supporting_fact_ids": [],
+              "rationale": "Retain the deterministic source-bound disposition."
+            }
+          ],
+          "overview_sentences": [
+            {
+              "text": "Open-source scope with a separate commercial edition.",
+              "supporting_fact_ids": [
+                "relationship.commercial_foss:primary"
+              ]
+            },
+            {
+              "text": "thing",
+              "supporting_fact_ids": [
+                "product.identity:manifest-and-registry"
+              ]
+            },
+            {
+              "text": "Java 11 or later",
+              "supporting_fact_ids": [
+                "product.compatibility:missing"
+              ]
+            },
+            {
+              "text": "Fixture scope is intentionally minimal",
+              "supporting_fact_ids": [
+                "product.limitations:missing"
+              ]
+            },
+            {
+              "text": "document files",
+              "supporting_fact_ids": [
+                "product.formats:missing"
+              ]
+            },
+            {
+              "text": "create documents",
+              "supporting_fact_ids": [
+                "product.capabilities:missing"
+              ]
+            },
+            {
+              "text": "creating, reading, and modifying document files",
+              "supporting_fact_ids": [
+                "product.problems_solved:missing"
+              ]
+            },
+            {
+              "text": "Java developers",
+              "supporting_fact_ids": [
+                "product.audience:missing"
+              ]
+            }
+          ]
+        },
+        "readme_assessment": {
+          "schema_version": 1,
+          "org_repo": "example-foss/Example-FOSS-for-Java",
+          "immutable_base_revision": "c961e643078f9b1abeac691565acf4ee9f6ab3d5",
+          "source_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+          "facts_hash": "ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd",
+          "sections": [
+            {
+              "section_id": "opening",
+              "heading": "Opening",
+              "level": 0,
+              "source_byte_start": 0,
+              "source_byte_end": 119,
+              "disposition": "preserve",
+              "fact_ids": [
+                "product.identity:manifest-and-registry",
+                "relationship.commercial_foss:primary"
+              ],
+              "protected_fragment_ids": [],
+              "evidence": [
+                "README.md:0:119"
+              ],
+              "rationale": "Remove only a detected promotional callout; otherwise preserve the opening."
+            },
+            {
+              "section_id": "heading:0",
+              "heading": "Example FOSS for Java",
+              "level": 1,
+              "source_byte_start": 0,
+              "source_byte_end": 160,
+              "disposition": "preserve",
+              "fact_ids": [],
+              "protected_fragment_ids": [],
+              "evidence": [
+                "README.md:0:160"
+              ],
+              "rationale": "Maintainer-authored content is preserved by default."
+            },
+            {
+              "section_id": "heading:119",
+              "heading": "Quick Start",
+              "level": 2,
+              "source_byte_start": 119,
+              "source_byte_end": 160,
+              "disposition": "repair",
+              "fact_ids": [
+                "example.minimal:missing"
+              ],
+              "protected_fragment_ids": [],
+              "evidence": [
+                "README.md:119:160"
+              ],
+              "rationale": "The section is assessed against the exact locally verified minimal example."
+            },
+            {
+              "section_id": "missing:at-a-glance",
+              "heading": "At a glance",
+              "level": 2,
+              "source_byte_start": 119,
+              "source_byte_end": 119,
+              "disposition": "add",
+              "fact_ids": [
+                "product.audience:missing",
+                "product.problems_solved:missing",
+                "product.capabilities:missing"
+              ],
+              "protected_fragment_ids": [],
+              "evidence": [
+                "verified ProductFactsV2 and Markdown section inventory"
+              ],
+              "rationale": "Add a fact-backed overview when verified descriptive facts are available."
+            }
+          ],
+          "material_claims": [
+            {
+              "claim_id": "claim:25:a1666e6b9c390f59",
+              "source_byte_start": 25,
+              "source_byte_end": 118,
+              "content_sha256": "a1666e6b9c390f59c161bea8fa630832b52875a6f46237b21451c45376a4ec7e",
+              "disposition": "preserve",
+              "fact_ids": [],
+              "evidence": [
+                "README.md:25:118"
+              ],
+              "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+            },
+            {
+              "claim_id": "claim:135:3c0310ce6026e5fc",
+              "source_byte_start": 135,
+              "source_byte_end": 160,
+              "content_sha256": "3c0310ce6026e5fc0a2ccda813ca00262c725c41c94e385585495f9fea1fad20",
+              "disposition": "preserve",
+              "fact_ids": [],
+              "evidence": [
+                "README.md:135:160"
+              ],
+              "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+            }
+          ],
+          "untrusted_repository_instructions": []
+        },
+        "readme_document_plan": {
+          "schema_version": 1,
+          "org_repo": "example-foss/Example-FOSS-for-Java",
+          "immutable_base_revision": "c961e643078f9b1abeac691565acf4ee9f6ab3d5",
+          "facts_hash": "ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd",
+          "template_sha256": "0ce252a2ba8e36b10737bbe73a1c968aa6bcaeb6be00df5f0b8ef2e2e7dd847c",
+          "source_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+          "adoption": {
+            "marker_schema_version": 3,
+            "already_adopted": false,
+            "source_document_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+            "source_inner_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+            "source_inner_bytes": 160,
+            "preservation_check": "byte_identical"
+          },
+          "operations": [
+            {
+              "operation_id": "readme.overview-navigation-and-acquisition",
+              "operation": "insert_before",
+              "path": "README.md",
+              "coordinate_space": "presentation_inner_utf8",
+              "source_byte_start": 119,
+              "source_byte_end": 119,
+              "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "replacement_text": "## At a glance\n\n- Open-source scope with a separate commercial edition.\n- thing\n- Java 11 or later\n- Fixture scope is intentionally minimal\n- document files\n- create documents\n- creating, reading, and modifying document files\n- Java developers\n\n## In this README\n\n- [Quick Start](#quick-start)\n\n",
+              "replacement_sha256": "0784c7a0d19c6d536073d0a975ef7a4dcd20551602871347dad37f157398fef1",
+              "fact_ids": [
+                "product.audience:missing",
+                "product.capabilities:missing",
+                "product.compatibility:missing",
+                "product.formats:missing",
+                "product.identity:manifest-and-registry",
+                "product.limitations:missing",
+                "product.problems_solved:missing",
+                "relationship.commercial_foss:primary"
+              ],
+              "protected_content_treatment": "additive",
+              "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+              "validators": [
+                "source_span_hash",
+                "fact_citations",
+                "protected_content",
+                "document_reconstruction",
+                "independent_verifier"
+              ],
+              "rollback": "Restore the exact immutable source bytes for this operation.",
+              "stop_conditions": [
+                "immutable source revision changed",
+                "source span checksum changed",
+                "a cited fact is no longer selected and accepted",
+                "protected content outside an authoritative correction would be lost"
+              ]
+            },
+            {
+              "operation_id": "readme.example.insert-verified-minimal",
+              "operation": "insert_after",
+              "path": "README.md",
+              "coordinate_space": "presentation_inner_utf8",
+              "source_byte_start": 134,
+              "source_byte_end": 134,
+              "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "replacement_text": "\n### Minimal verified example\n\n```java\npublic class Example {}\n```\n\nThis exact example was compiled against the source build at revision `c961e643078f9b1abeac691565acf4ee9f6ab3d5`.\n\n",
+              "replacement_sha256": "e1fb9091710493454834e8df05a69e3b7308e4050f89b0804e735b43674a7a2f",
+              "fact_ids": [
+                "example.minimal:missing"
+              ],
+              "protected_content_treatment": "additive",
+              "rationale": "Lead the usage section with the exact minimal example compiled against the verified source build.",
+              "validators": [
+                "source_span_hash",
+                "fact_citations",
+                "protected_content",
+                "document_reconstruction",
+                "independent_verifier"
+              ],
+              "rollback": "Restore the exact immutable source bytes for this operation.",
+              "stop_conditions": [
+                "immutable source revision changed",
+                "source span checksum changed",
+                "a cited fact is no longer selected and accepted",
+                "protected content outside an authoritative correction would be lost"
+              ]
+            }
+          ],
+          "candidate_sha256": "9c55f9d45b0ff5b3f05af57798e6d34230160ac0e030eaa5850482ba10c5f9e9"
+        },
+        "claim_map": {
+          "schema_version": 1,
+          "org_repo": "example-foss/Example-FOSS-for-Java",
+          "facts_hash": "ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd",
+          "candidate_sha256": "9c55f9d45b0ff5b3f05af57798e6d34230160ac0e030eaa5850482ba10c5f9e9",
+          "claims": [
+            {
+              "claim_id": "readme.overview-navigation-and-acquisition:product.audience",
+              "operation_id": "readme.overview-navigation-and-acquisition",
+              "fact_id": "product.audience:missing",
+              "field": "product.audience",
+              "verification_state": "verified",
+              "fact_value_sha256": "db028993912b5a28a883bc08adf6145f304e2752e43078ae791d07d7290350cd",
+              "introduced_text_sha256": "0784c7a0d19c6d536073d0a975ef7a4dcd20551602871347dad37f157398fef1",
+              "coordinate_space": "candidate_utf8",
+              "byte_start": 488,
+              "byte_end": 505,
+              "claim_text_sha256": "cf22f6a15f4e2a0d60058eeb36e03c26dd92f36f5ef35b8752dce731483295fd",
+              "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail."
+            },
+            {
+              "claim_id": "readme.overview-navigation-and-acquisition:product.capabilities",
+              "operation_id": "readme.overview-navigation-and-acquisition",
+              "fact_id": "product.capabilities:missing",
+              "field": "product.capabilities",
+              "verification_state": "verified",
+              "fact_value_sha256": "4ac54bf2c592d44e5318a0754e4e1c2ecd74f5d85f7c8475507643744dc7f9f8",
+              "introduced_text_sha256": "0784c7a0d19c6d536073d0a975ef7a4dcd20551602871347dad37f157398fef1",
+              "coordinate_space": "candidate_utf8",
+              "byte_start": 419,
+              "byte_end": 437,
+              "claim_text_sha256": "b3ff87998fb64e661bebe5c7f53859184c0abc8d476eb56a21e9da255bc06049",
+              "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail."
+            },
+            {
+              "claim_id": "readme.overview-navigation-and-acquisition:product.compatibility",
+              "operation_id": "readme.overview-navigation-and-acquisition",
+              "fact_id": "product.compatibility:missing",
+              "field": "product.compatibility",
+              "verification_state": "verified",
+              "fact_value_sha256": "897340d9646917ed5b4072d01ec5146f07f04a88ce2f5bff2cd94244e9f89e80",
+              "introduced_text_sha256": "0784c7a0d19c6d536073d0a975ef7a4dcd20551602871347dad37f157398fef1",
+              "coordinate_space": "candidate_utf8",
+              "byte_start": 342,
+              "byte_end": 360,
+              "claim_text_sha256": "7ee5fa67fbc4cd15f924f63d9981d742f25999b22bdacf8b5d926eddb4cb2ef0",
+              "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail."
+            },
+            {
+              "claim_id": "readme.overview-navigation-and-acquisition:product.formats",
+              "operation_id": "readme.overview-navigation-and-acquisition",
+              "fact_id": "product.formats:missing",
+              "field": "product.formats",
+              "verification_state": "verified",
+              "fact_value_sha256": "45f9e30518b38ea8bc896ff010bcc37acd03c8cda89014e4bf3b7a042a2b3969",
+              "introduced_text_sha256": "0784c7a0d19c6d536073d0a975ef7a4dcd20551602871347dad37f157398fef1",
+              "coordinate_space": "candidate_utf8",
+              "byte_start": 402,
+              "byte_end": 418,
+              "claim_text_sha256": "07f779da4500e7863104b53d1f00f3d81fa38ddf493eef185c1a68757f3bf523",
+              "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail."
+            },
+            {
+              "claim_id": "readme.overview-navigation-and-acquisition:product.identity",
+              "operation_id": "readme.overview-navigation-and-acquisition",
+              "fact_id": "product.identity:manifest-and-registry",
+              "field": "product.identity",
+              "verification_state": "verified",
+              "fact_value_sha256": "52dd5df1abc77ad7dbfd4eb62b76d67c6e1db6c31444b846ce93c7926d3f7390",
+              "introduced_text_sha256": "0784c7a0d19c6d536073d0a975ef7a4dcd20551602871347dad37f157398fef1",
+              "coordinate_space": "candidate_utf8",
+              "byte_start": 334,
+              "byte_end": 341,
+              "claim_text_sha256": "f85dd2b48873ed149c4ba794e1379999e91506267f303bd8528ccb4083400fc0",
+              "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail."
+            },
+            {
+              "claim_id": "readme.overview-navigation-and-acquisition:product.limitations",
+              "operation_id": "readme.overview-navigation-and-acquisition",
+              "fact_id": "product.limitations:missing",
+              "field": "product.limitations",
+              "verification_state": "verified",
+              "fact_value_sha256": "7545f7021fb8030aed2d14300026cf30189c36ef98ec99980390d4542d210d2d",
+              "introduced_text_sha256": "0784c7a0d19c6d536073d0a975ef7a4dcd20551602871347dad37f157398fef1",
+              "coordinate_space": "candidate_utf8",
+              "byte_start": 361,
+              "byte_end": 401,
+              "claim_text_sha256": "bdcf366116201f0749a741be1e0ccc49529d8ea55f6cc1331188b5435b2c8fe8",
+              "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail."
+            },
+            {
+              "claim_id": "readme.overview-navigation-and-acquisition:product.problems_solved",
+              "operation_id": "readme.overview-navigation-and-acquisition",
+              "fact_id": "product.problems_solved:missing",
+              "field": "product.problems_solved",
+              "verification_state": "verified",
+              "fact_value_sha256": "adb47f26a3ad2be60c3590f82358f085a5114f38f7178c709d6049a9bc16f929",
+              "introduced_text_sha256": "0784c7a0d19c6d536073d0a975ef7a4dcd20551602871347dad37f157398fef1",
+              "coordinate_space": "candidate_utf8",
+              "byte_start": 438,
+              "byte_end": 487,
+              "claim_text_sha256": "40daea6ba067275519f3156a9395e77e71d7c70ac0f4e6b9dba447b75e0fe94a",
+              "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail."
+            },
+            {
+              "claim_id": "readme.overview-navigation-and-acquisition:relationship.commercial_foss",
+              "operation_id": "readme.overview-navigation-and-acquisition",
+              "fact_id": "relationship.commercial_foss:primary",
+              "field": "relationship.commercial_foss",
+              "verification_state": "verified",
+              "fact_value_sha256": "1364c3b97182c93bfe185eafea9702162544fb9ac517cf0fa4795dbf60a14136",
+              "introduced_text_sha256": "0784c7a0d19c6d536073d0a975ef7a4dcd20551602871347dad37f157398fef1",
+              "coordinate_space": "candidate_utf8",
+              "byte_start": 278,
+              "byte_end": 333,
+              "claim_text_sha256": "63ae7d151c24007b830be6aaa9b336d64f7bef8e1c7307159b23bc33f8df85f8",
+              "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail."
+            },
+            {
+              "claim_id": "readme.example.insert-verified-minimal:example.minimal",
+              "operation_id": "readme.example.insert-verified-minimal",
+              "fact_id": "example.minimal:missing",
+              "field": "example.minimal",
+              "verification_state": "verified",
+              "fact_value_sha256": "b1ddaee7d9109c27ca71fe25e917ea1046a23a823ece637c4e76d0d56ce79ee2",
+              "introduced_text_sha256": "e1fb9091710493454834e8df05a69e3b7308e4050f89b0804e735b43674a7a2f",
+              "coordinate_space": "candidate_utf8",
+              "byte_start": 573,
+              "byte_end": 601,
+              "claim_text_sha256": "472baccf1f1faa20cda7b352375b5abab20b27321edf64bf460169d43224d0f0",
+              "rationale": "Lead the usage section with the exact minimal example compiled against the verified source build."
+            }
+          ]
+        },
+        "document_validation": {
+          "valid": true,
+          "checks": {
+            "source_document_hash": true,
+            "adoption_preserved_source": true,
+            "candidate_has_presentation_span": true,
+            "facts_hash_matches": true,
+            "template_hash_matches": true,
+            "candidate_hash_matches": true,
+            "source_span_hashes": true,
+            "fact_citations": true,
+            "document_reconstruction": true,
+            "protected_content": true,
+            "verified_example_present": true,
+            "verified_overview_present": true
+          },
+          "errors": [],
+          "authorized_protected_corrections": [],
+          "citation_errors": []
+        }
+      },
+      "verification": {
+        "verdict": "accept",
+        "reason": null,
+        "checks": {
+          "candidate_matches_independent_render": true,
+          "source_document_hash": true,
+          "adoption_preserved_source": true,
+          "candidate_has_presentation_span": true,
+          "facts_hash_matches": true,
+          "template_hash_matches": true,
+          "candidate_hash_matches": true,
+          "source_span_hashes": true,
+          "fact_citations": true,
+          "document_reconstruction": true,
+          "protected_content": true,
+          "verified_example_present": true,
+          "verified_overview_present": true,
+          "needs_write_matches": true
+        },
+        "requirement_map": {
+          "immutable_snapshot": true,
+          "fact_backed_document_plan": true,
+          "verified_example": true,
+          "protected_content": true
+        },
+        "nonce": "20260725-215810-3e33",
+        "token": "85cde21bcac92d9ca2e5293632de8c3ec0f4d161394bb37bf526696bd8249f87"
+      },
+      "factuality": {
+        "valid": true,
+        "product_facts_v2_hash": "ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd",
+        "claim_conflicts": [],
+        "protected_content_losses": [],
+        "error": null
+      },
+      "prose_quality": {
+        "flagged": false,
+        "corroborated": false,
+        "quoted_span": "",
+        "reason": "no resources span present -- nothing LLM-authored to review"
+      },
+      "prose_quality_repair_attempts": 0,
+      "bundle_verification": {
+        "status": "checked",
+        "bundle_dir": "C:\\tmp\\rr-ee221c7-20260726\\test_local_poc_repairs_revalid0\\runs\\readme-proposal-bundles\\example-foss__Example-FOSS-for-Java\\20260725-215806-768e-repair-1",
+        "org_repo": "example-foss/Example-FOSS-for-Java",
+        "verified": true,
+        "checks": {
+          "all_artifacts_present": true,
+          "artifact_checksums_match": true,
+          "schemas_valid": true,
+          "source_hash_matches_plan": true,
+          "facts_hash_matches_plan": true,
+          "candidate_hash_matches_plan": true,
+          "agentic_plan_repository_matches": true,
+          "agentic_plan_source_hash_matches": true,
+          "agentic_plan_facts_hash_matches": true,
+          "agentic_plan_assessment_hash_matches": true,
+          "independent_reconstruction_byte_identical": true,
+          "reconstructed_plan_matches": true,
+          "assessment_reconstructed": true,
+          "claim_map_reconstructed": true,
+          "operations_cite_selected_facts": true,
+          "cited_facts_accepted": true,
+          "independent_validation_valid": true,
+          "recomputed_validation_consistent_with_stored": true,
+          "native_git_apply_produces_candidate": true,
+          "acquisition_matches_live_registry": true
+        },
+        "failures": []
+      },
+      "independent_review": {
+        "outcome_kind": "unchanged_no_op",
+        "agentic_review_reused": true
+      },
+      "render_status": "GENERATED",
+      "llm_called": false,
+      "llm_calls": [],
+      "agentic_composition_plan": {
+        "schema_version": 1,
+        "org_repo": "example-foss/Example-FOSS-for-Java",
+        "source_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+        "facts_hash": "ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd",
+        "assessment_hash": "980fe543c3d048a17a5cca5c3b7970b478792fabc46f7e21a68b97d5d9f2b147",
+        "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+        "tool_schema_sha256": "c6a8f324959cfca20a45f8004dbc249de793c4f4f385200e313c297c22e43868",
+        "input_sha256": "4a11e1c3159629b928e9c0675863aab46c64df511aaacf2aefed2f1561f04717",
+        "model": "fixture-composition",
+        "attempt_count": 1,
+        "repository_summary": "Fixture-specific fact-bound composition.",
+        "section_decisions": [
+          {
+            "section_id": "opening",
+            "disposition": "preserve",
+            "priority": 100,
+            "supporting_fact_ids": [],
+            "rationale": "Retain the deterministic source-bound disposition."
+          },
+          {
+            "section_id": "heading:0",
+            "disposition": "preserve",
+            "priority": 50,
+            "supporting_fact_ids": [],
+            "rationale": "Retain the deterministic source-bound disposition."
+          },
+          {
+            "section_id": "heading:119",
+            "disposition": "repair",
+            "priority": 50,
+            "supporting_fact_ids": [],
+            "rationale": "Retain the deterministic source-bound disposition."
+          },
+          {
+            "section_id": "missing:at-a-glance",
+            "disposition": "add",
+            "priority": 50,
+            "supporting_fact_ids": [],
+            "rationale": "Retain the deterministic source-bound disposition."
+          }
+        ],
+        "overview_sentences": [
+          {
+            "text": "Open-source scope with a separate commercial edition.",
+            "supporting_fact_ids": [
+              "relationship.commercial_foss:primary"
+            ]
+          },
+          {
+            "text": "thing",
+            "supporting_fact_ids": [
+              "product.identity:manifest-and-registry"
+            ]
+          },
+          {
+            "text": "Java 11 or later",
+            "supporting_fact_ids": [
+              "product.compatibility:missing"
+            ]
+          },
+          {
+            "text": "Fixture scope is intentionally minimal",
+            "supporting_fact_ids": [
+              "product.limitations:missing"
+            ]
+          },
+          {
+            "text": "document files",
+            "supporting_fact_ids": [
+              "product.formats:missing"
+            ]
+          },
+          {
+            "text": "create documents",
+            "supporting_fact_ids": [
+              "product.capabilities:missing"
+            ]
+          },
+          {
+            "text": "creating, reading, and modifying document files",
+            "supporting_fact_ids": [
+              "product.problems_solved:missing"
+            ]
+          },
+          {
+            "text": "Java developers",
+            "supporting_fact_ids": [
+              "product.audience:missing"
+            ]
+          }
+        ]
+      },
+      "agentic_composition_reused": true,
+      "fresh_fingerprint": "ecb694eba556c78c84ab8900a93f6188d11f48b42bf84c3029e623c07bf83d14",
+      "written": false,
+      "committed": false,
+      "proposal_only": true,
+      "note": "local-POC profile stops at an independently reviewed proposal"
+    }
+  },
+  "visual_preparation": {
+    "accepted_status": "NO_CHANGE",
+    "skipped_this_run": false,
+    "details": {
+      "existing_asset_found": false,
+      "existing_asset_path": null,
+      "width": 800,
+      "height": 200,
+      "format": "PNG",
+      "size_bytes": 2159,
+      "size_within_reasonable_bounds": true,
+      "concerns": [],
+      "alt_text": "thing FOSS for java logo",
+      "license_status": "generated by readme-agent -- plain text on a plain background, no external or copied content, no licensing concern",
+      "prepared_candidate": {
+        "filename": "banner.png",
+        "recipe": "plain white 800x200px PNG, centered black text: 'thing FOSS for java'",
+        "proposed_placement": "top of README, immediately after the H1 -- not written this wave, pending a real per-region ownership design (see module docstring)"
+      },
+      "visual_accuracy_review": {
+        "asset_source": "generated_candidate",
+        "depicts_unsupported_content": false,
+        "concerns": [],
+        "verdict": "accept",
+        "rationale": "fixture: not reviewed"
+      }
+    }
+  },
+  "presentation_benchmarking": {
+    "accepted_status": "NO_CHANGE",
+    "skipped_this_run": false,
+    "details": {
+      "criteria_results": [],
+      "overall_summary": "fixture: not evaluated"
+    }
+  },
+  "independent_verification": {
+    "accepted_status": "NO_CHANGE",
+    "skipped_this_run": false,
+    "details": {
+      "checks_performed": [
+        "evidence_completeness",
+        "requirement_mapping",
+        "adversarial_cross_domain"
+      ],
+      "completeness": {},
+      "requirement_map": {
+        "RDM-003": {
+          "domain": "readme_presentation",
+          "capability_id": "build_presentation_plan",
+          "exercised_without_error": true
+        },
+        "RDM-004": {
+          "domain": "readme_presentation",
+          "capability_id": "build_presentation_plan",
+          "exercised_without_error": true
+        },
+        "FACT-003": {
+          "domain": "readme_presentation",
+          "capability_id": "build_presentation_plan",
+          "exercised_without_error": true
+        },
+        "OWN-011": {
+          "domain": "readme_presentation",
+          "capability_id": "build_presentation_plan",
+          "exercised_without_error": true
+        },
+        "L8-007": {
+          "domain": "readme_presentation",
+          "capability_id": "build_presentation_plan",
+          "exercised_without_error": true
+        },
+        "CAP-006": {
+          "domain": "readme_reconciliation",
+          "capability_id": "classify_upstream_change",
+          "exercised_without_error": true
+        },
+        "EFF-001": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "VER-001": {
+          "domain": "independent_verification",
+          "capability_id": "verify_readme_proposal_bundle",
+          "exercised_without_error": true
+        },
+        "PRL-001": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "PRL-002": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "PRL-004": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "PRL-007": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "PRL-008": {
+          "domain": "readme_presentation",
+          "capability_id": "open_presentation_pr",
+          "exercised_without_error": true
+        },
+        "VER-002": {
+          "domain": "readme_presentation",
+          "capability_id": "verify_readme_candidate",
+          "exercised_without_error": true
+        },
+        "RDM-020": {
+          "domain": "readme_presentation",
+          "capability_id": "verify_prose_quality",
+          "exercised_without_error": true
+        },
+        "VAL-005": {
+          "domain": "presentation_benchmarking",
+          "capability_id": "compare_against_presentation_standard",
+          "exercised_without_error": true
+        },
+        "LLM-010": {
+          "domain": "visual_preparation",
+          "capability_id": "review_visual_asset_accuracy",
+          "exercised_without_error": true
+        }
+      },
+      "adversarial_findings": [],
+      "failure_escalations": {}
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "org_repo": "example-foss/Example-FOSS-for-Java",
+  "immutable_base_revision": "c961e643078f9b1abeac691565acf4ee9f6ab3d5",
+  "facts_hash": "ecd40a32d9368ffe903191f0b88d409db277c7f30994268bbd1f807d64e48edd",
+  "template_sha256": "0ce252a2ba8e36b10737bbe73a1c968aa6bcaeb6be00df5f0b8ef2e2e7dd847c",
+  "source_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+    "source_inner_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+    "source_inner_bytes": 160,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 119,
+      "source_byte_end": 119,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- Java developers\n- creating, reading, and modifying document files\n- create documents\n- document files\n- Fixture scope is intentionally minimal\n- Java 11 or later\n- thing\n- Open-source scope with a separate commercial edition.\n\n## In this README\n\n- [Quick Start](#quick-start)\n\n",
+      "replacement_sha256": "acaeaaaa2cc31ddc26bc155826fea62b05ce71c7a27b44831508a74854a47ac1",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.capabilities:missing",
+        "product.compatibility:missing",
+        "product.formats:missing",
+        "product.identity:manifest-and-registry",
+        "product.limitations:missing",
+        "product.problems_solved:missing",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.example.insert-verified-minimal",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 134,
+      "source_byte_end": 134,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n### Minimal verified example\n\n```java\npublic class Example {}\n```\n\nThis exact example was compiled against the source build at revision `c961e643078f9b1abeac691565acf4ee9f6ab3d5`.\n\n",
+      "replacement_sha256": "e1fb9091710493454834e8df05a69e3b7308e4050f89b0804e735b43674a7a2f",
+      "fact_ids": [
+        "example.minimal:missing"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Lead the usage section with the exact minimal example compiled against the verified source build.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "ed0dbdf46294dcea1a52b37c099aa3009d7fab24163ded24403060738b0245f5"
+}
