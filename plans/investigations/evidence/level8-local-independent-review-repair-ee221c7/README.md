@@ -20,5 +20,6 @@ The `readme-poc/` subtree is the revision-addressed final bundle. The
 `evidence/` subtree contains the supervisor run manifests. `focused-acceptance-tests.log`
 records the focused controlled proof.
 
-The official repository-wide check log is added only after this evidence slice is committed and
-the checks can run against a clean, stable HEAD.
+`official-checks-invalidated-by-concurrent-edit.log` records a passing diagnostic suite whose
+own end precondition says `TREE MODIFIED DURING RUN`; it is retained for truthfulness and is not
+acceptance proof. `official-checks-attempt-1.log` is reserved for the later clean-tree rerun.
