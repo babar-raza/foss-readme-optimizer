@@ -14,6 +14,11 @@ act, per `OPS-011`'s own extension decision."""
 from datetime import UTC, datetime
 
 from readme_agent.golden_set.harness import ScenarioResult, summarize
+from readme_agent.golden_set.qualification import (
+    MINIMUM_EVALUATIONS,
+    MINIMUM_SESSIONS,
+    QUALIFICATION_PASS_RATE_FLOOR,
+)
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.schema import ModelRouteStatusV1
 
@@ -26,7 +31,10 @@ from readme_agent.state.schema import ModelRouteStatusV1
 # 0.5 sits below even gpt-oss's worst measured swing, so it only fires for
 # a real, unambiguous regression in an already-trusted route, never
 # ordinary single-run sampling noise.
-PASS_RATE_FLOOR = 0.5
+# Level-8 acceptance (`L8-012`) is explicit: a route below 95% disables
+# itself. The prior 0.5 diagnostic floor predated that governed requirement
+# and allowed a live 4/5 result to remain enabled.
+PASS_RATE_FLOOR = 0.95
 
 
 def evaluate_and_disable(
@@ -42,14 +50,27 @@ def evaluate_and_disable(
     their record again" (an idempotent, side-effect-free no-op in the
     second case, not a silent overwrite of their own recorded reason)."""
     summary = summarize(results)
-    pass_rate = summary["pass_rate"]
+    return evaluate_pass_rate_and_disable(
+        job,
+        summary["pass_rate"],
+        backend,
+        evidence_ref=evidence_ref,
+    )
+
+
+def evaluate_pass_rate_and_disable(
+    job: str,
+    pass_rate: float | None,
+    backend: StateBackend,
+    *,
+    evidence_ref: str | None = None,
+) -> ModelRouteStatusV1 | None:
+    """Apply the same route gate to an already-aggregated qualification rate."""
     if pass_rate is None or pass_rate >= PASS_RATE_FLOOR:
         return None
-
     existing = backend.load_model_route_status(job)
     if existing is not None and existing.status == "disabled":
         return None
-
     status = ModelRouteStatusV1(
         job=job,
         status="disabled",
@@ -59,3 +80,41 @@ def evaluate_and_disable(
     )
     backend.save_model_route_status(status)
     return status
+
+
+def evaluate_qualification_and_disable(
+    summary: dict,
+    backend: StateBackend,
+    *,
+    evidence_ref: str,
+) -> list[ModelRouteStatusV1]:
+    """Disable each route below the governed Level-8 qualification floor."""
+
+    if (
+        summary.get("sessions", 0) < MINIMUM_SESSIONS
+        or summary.get("total", 0) < MINIMUM_EVALUATIONS
+    ):
+        return []
+
+    disabled: list[ModelRouteStatusV1] = []
+    for job, route in summary.get("jobs", {}).items():
+        pass_rate = route.get("pass_rate")
+        if pass_rate is None or pass_rate >= QUALIFICATION_PASS_RATE_FLOOR:
+            continue
+        existing = backend.load_model_route_status(job)
+        if existing is not None and existing.status == "disabled":
+            continue
+        status = ModelRouteStatusV1(
+            job=job,
+            status="disabled",
+            reason=(
+                f"qualification pass_rate {pass_rate:.2f} below "
+                f"{QUALIFICATION_PASS_RATE_FLOOR:.2f} across "
+                f"{summary['sessions']} sessions"
+            ),
+            disabled_at=datetime.now(UTC).isoformat(),
+            evidence_ref=evidence_ref,
+        )
+        backend.save_model_route_status(status)
+        disabled.append(status)
+    return disabled

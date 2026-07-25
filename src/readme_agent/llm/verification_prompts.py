@@ -42,6 +42,45 @@ PROSE_QUALITY_TOOL_SCHEMA = {
     },
 }
 
+INDEPENDENT_README_REVIEW_TOOL_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "report_independent_readme_review",
+        "description": (
+            "Return the independent, evidence-grounded quality verdict for one README candidate."
+        ),
+        "parameters": {
+            "type": "object",
+            "additionalProperties": False,
+            "properties": {
+                "verdict": {
+                    "type": "string",
+                    "enum": [
+                        "ACCEPT",
+                        "REJECT_REPAIRABLE",
+                        "BLOCKED_FACT_CONFLICT",
+                        "BLOCKED_MISSING_EVIDENCE",
+                        "SYSTEM_FAILURE",
+                    ],
+                },
+                "reasoning": {"type": "string"},
+                "failed_criteria": {"type": "array", "items": {"type": "string"}},
+                "sections_affected": {"type": "array", "items": {"type": "string"}},
+                "required_repair": {"type": "string"},
+                "preserve": {"type": "array", "items": {"type": "string"}},
+            },
+            "required": [
+                "verdict",
+                "reasoning",
+                "failed_criteria",
+                "sections_affected",
+                "required_repair",
+                "preserve",
+            ],
+        },
+    },
+}
+
 
 def build_prose_quality_messages(paragraph_text: str) -> list[dict]:
     manifest = prompt_registry.get("prose_quality_check")

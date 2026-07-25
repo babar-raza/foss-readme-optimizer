@@ -299,7 +299,23 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
     p_golden_set_run.add_argument(
-        "--job", required=True, help="e.g. supervisor_planning -- the scenario corpus's own target"
+        "--job",
+        required=True,
+        help=(
+            "supervisor_planning for the legacy one-route diagnostic, or all for the governed "
+            "planner + independent-review qualification"
+        ),
+    )
+    p_golden_set_run.add_argument(
+        "--sessions",
+        type=int,
+        default=3,
+        help="independent sessions for --job all (default: 3; governed minimum: 3)",
+    )
+    p_golden_set_run.add_argument(
+        "--output",
+        default="runs/golden-set/qualification-report-v1.json",
+        help="redacted, atomic report path for --job all",
     )
 
     p_model_route_enable = sub.add_parser(

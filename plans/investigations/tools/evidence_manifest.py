@@ -8,10 +8,12 @@ result in the manifest."""
 from __future__ import annotations
 
 import hashlib
+import io
 import json
 import re
 import subprocess
 import sys
+import tarfile
 from argparse import ArgumentParser
 from pathlib import Path
 
@@ -25,8 +27,12 @@ SECRET_RE = re.compile(
 )
 
 
+def _sha256_norm(raw: bytes) -> str:
+    return hashlib.sha256(raw.replace(b"\r\n", b"\n").replace(b"\r", b"\n")).hexdigest()
+
+
 def sha256_norm(p: Path) -> str:
-    return hashlib.sha256(p.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+    return _sha256_norm(p.read_bytes())
 
 
 def _source_head() -> str:
@@ -82,6 +88,43 @@ def _build_manifest(*, source_head_commit: str) -> dict[str, object]:
     }
 
 
+def _build_committed_manifest(*, source_head_commit: str) -> dict[str, object]:
+    """Build the inventory from Git blobs, not filesystem hydration state.
+
+    `git ls-files` identifies tracked paths but a sparse, placeholder, or
+    partially hydrated working tree can make an existing committed file fail
+    `Path.is_file()`.  A committed-evidence check must therefore inspect the
+    immutable Git tree directly.
+    """
+
+    archive = subprocess.check_output(
+        ["git", "archive", "--format=tar", "HEAD", "plans/investigations"],
+        cwd=REPO_ROOT,
+    )
+    entries: dict[str, str] = {}
+    secret_hits: list[str] = []
+    out_relative = OUT.relative_to(REPO_ROOT).as_posix()
+    with tarfile.open(fileobj=io.BytesIO(archive), mode="r:") as tree:
+        for member in sorted(tree.getmembers(), key=lambda item: item.name):
+            if not member.isfile() or member.name == out_relative:
+                continue
+            extracted = tree.extractfile(member)
+            if extracted is None:
+                raise RuntimeError(f"unable to read committed evidence blob {member.name!r}")
+            raw = extracted.read()
+            entries[member.name] = _sha256_norm(raw)
+            if SECRET_RE.search(raw.decode("utf-8", errors="ignore")):
+                secret_hits.append(member.name)
+    return {
+        "governed_by": ["plans/master.md", "plans/requirements.md", "plans/GOVERNANCE.md"],
+        "artifact_role": "analysis_or_evidence_only",
+        "source_head_commit": source_head_commit,
+        "file_count": len(entries),
+        "secret_scan_hits": secret_hits,
+        "sha256_crlf_normalized": entries,
+    }
+
+
 def _verify_committed_manifest(actual: dict[str, object]) -> list[str]:
     if not OUT.is_file():
         return [f"missing manifest: {OUT.relative_to(REPO_ROOT)}"]
@@ -117,7 +160,12 @@ def main(argv: list[str] | None = None) -> int:
         help="verify the existing manifest without rewriting it",
     )
     args = parser.parse_args(argv)
-    manifest = _build_manifest(source_head_commit=_source_head())
+    source_head = _source_head()
+    manifest = (
+        _build_committed_manifest(source_head_commit=source_head)
+        if args.check
+        else _build_manifest(source_head_commit=source_head)
+    )
     if args.check:
         failures = _verify_committed_manifest(manifest)
         if failures:

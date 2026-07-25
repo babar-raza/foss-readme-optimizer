@@ -43,26 +43,16 @@ independent-readme-reviewer-route-characterization-2026-07-25/
 characterization-and-recommendation.md` (RPOC-020) against this exact 5-way
 verdict shape.
 
-**LLM client: `llm/analysis_client.py::LiveAnalysisClient`, not `llm/
-live_client.py::LiveLLMClient`** -- a deliberate, documented deviation from
-this taskcard's own literal wording. `LiveLLMClient._parse_response()` is
-hardcoded to validate every response against `llm/schema.py::
-LLMBlockResponse` (`relationship_paragraph`/`talking_points_covered`/
-`claims`) -- the one narrow schema `relationship_explained` alone needs.
-This job's real output is a freeform 5-way verdict object with entirely
-different fields; routing it through `LiveLLMClient` would raise a
-`ValidationError` on every real response. `LiveAnalysisClient` is this
-project's own existing, already-proven-live sibling for exactly this shape
-("freeform-structured-analysis client family... each capability validates
-the shape it actually expects itself", its own module docstring) --
-`compare_against_presentation_standard.py`/`review_visual_asset_accuracy.py`
-are its two prior callers, both freeform structured-JSON verdicts from a
-prompt in this same `prompts/verification`/`prompts/analysis` family. This
-module reuses the SAME `string.Template`-substitution-via-`prompt_registry`
-discipline the taskcard asked for (`llm/verification_prompts.py::
-build_independent_readme_review_messages()`), never hand-rolling fence-
-stripping or JSON parsing itself -- that part of the instruction is followed
-exactly; only the specific client class differs, for the reason above.
+**LLM client: `llm/reviewer_client.py::LiveIndependentReviewClient`** --
+the reviewer uses the existing forced-native-tool transport rather than
+freeform JSON. The governed heterogeneous qualification exposed malformed
+or duplicated JSON responses at portfolio scale even though the earlier
+small route probe passed. Forced tool calling was already the project's
+live-proven structured-output mechanism (`llm/verifier_client.py`), so the
+review adapter reuses it with a strict five-way verdict schema and preserves
+the existing `AnalysisResult` seam for fixture clients. Prompt content still
+comes only from `prompts/verification/independent_readme_review.yaml` through
+`llm/verification_prompts.py`.
 
 **Repair loop (`RPOC-023`)**: `run_independent_review_with_repair_loop()`
 bounds regeneration to `MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS` (see its own
@@ -95,7 +85,8 @@ from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_P
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import LLMError
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.llm.analysis_client import AnalysisResult, LiveAnalysisClient
+from readme_agent.llm.analysis_client import AnalysisResult
+from readme_agent.llm.reviewer_client import LiveIndependentReviewClient
 from readme_agent.llm.verification_prompts import build_independent_readme_review_messages
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2, ReadmePocStatusV2
@@ -109,6 +100,10 @@ _READ_ONLY_PERMISSIONS: set[PermissionClass] = {"read_only_local", "read_only_ne
 # traceable back to this specific reviewer without guessing among several
 # plausible spellings.
 _OBSERVED_BY = "independent_readme_review"
+# Compatibility seam for existing fixture injection. The implementation is
+# now the forced-schema reviewer client, but callers that monkeypatch the
+# specialist's historical client name continue to replace the real transport.
+LiveAnalysisClient = LiveIndependentReviewClient
 
 IndependentReviewVerdictV1 = Literal[
     "ACCEPT",
@@ -256,6 +251,7 @@ def run_independent_readme_review(
             env.llm_base_url(),
             env.llm_api_key(),
             env.llm_model_for_job("independent_readme_review"),
+            max_tokens=2400,
         )
         messages = build_independent_readme_review_messages(
             org_repo,

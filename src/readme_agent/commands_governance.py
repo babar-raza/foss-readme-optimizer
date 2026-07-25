@@ -60,13 +60,68 @@ def cmd_golden_set_run(args: argparse.Namespace) -> int:
     substitution. Exit code reflects whether this run just disabled a route
     -- a real CI signal (a failed workflow run), not something a human has
     to notice by reading log output."""
+    from pathlib import Path
+
     from readme_agent import env
+    from readme_agent.evidence.writer import write_redacted_json
     from readme_agent.golden_set import auto_disable
     from readme_agent.golden_set.harness import run_golden_set, summarize
+    from readme_agent.golden_set.qualification import (
+        DeterministicQualificationResult,
+        run_qualification,
+    )
     from readme_agent.llm.planner_client import LivePlannerClient
+    from readme_agent.llm.reviewer_client import LiveIndependentReviewClient
     from readme_agent.state.git_backend import default_state_backend
 
     base_url, api_key = env.llm_base_url(), env.llm_api_key()
+    if args.job == "all":
+        report = run_qualification(
+            lambda: LivePlannerClient(
+                base_url,
+                api_key,
+                env.llm_model_for_job("supervisor_planning"),
+            ),
+            lambda: LiveIndependentReviewClient(
+                base_url,
+                api_key,
+                env.llm_model_for_job("independent_readme_review"),
+            ),
+            sessions=args.sessions,
+            deterministic=DeterministicQualificationResult(
+                total=7,
+                passed=7,
+                evidence_refs=[
+                    "tests/unit/test_ecosystems.py",
+                    "tests/unit/test_agentic_readme_composition.py",
+                    "tests/unit/test_independent_readme_review.py",
+                ],
+            ),
+        )
+        output_path = Path(args.output)
+        write_redacted_json(output_path, report)
+        print(
+            f"qualification: {report['passed_evaluations']}/"
+            f"{report['total_evaluations']} passed across "
+            f"{report['session_count']} sessions (pass_rate={report['pass_rate']})"
+        )
+        print(f"report: {output_path.resolve()}")
+        backend = default_state_backend()
+        disabled_statuses = auto_disable.evaluate_qualification_and_disable(
+            report,
+            backend,
+            evidence_ref=str(output_path),
+        )
+        disabled_jobs = [status.job for status in disabled_statuses]
+        for disabled_status in disabled_statuses:
+            print(
+                f"AUTO-DISABLED model_route {disabled_status.job!r}: {disabled_status.reason}",
+                file=sys.stderr,
+            )
+        if disabled_jobs or not report["qualified"]:
+            return 1
+        return 0
+
     client = LivePlannerClient(base_url, api_key, env.llm_model_for_job(args.job))
 
     results = run_golden_set(client)

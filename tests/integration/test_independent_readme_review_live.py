@@ -8,7 +8,7 @@ apart from a generic, templated, marketing-fluff one against the REAL
 `prompts/verification/independent_readme_review.yaml` prompt -- not a mock
 standing in for the exact thing being proven.
 
-Exercises the prompt-fill -> `LiveAnalysisClient` -> schema-validate chain
+Exercises the prompt-fill -> forced-tool reviewer client -> schema-validate chain
 directly (mirrors `test_llm_live.py`'s own pattern of calling the client
 against a hand-built prompt rather than the full org_repo/registry-dispatch
 pipeline) -- the AcmeCells fixtures are fictional and not listed in
@@ -29,7 +29,7 @@ import json
 import pytest
 
 from readme_agent import env
-from readme_agent.llm.analysis_client import LiveAnalysisClient
+from readme_agent.llm.reviewer_client import LiveIndependentReviewClient
 from readme_agent.llm.verification_prompts import build_independent_readme_review_messages
 from readme_agent.specialists.independent_readme_review import IndependentReadmeReviewResultV1
 
@@ -127,7 +127,7 @@ _DETERMINISTIC_VALIDATION_RESULT_JSON = json.dumps(
 
 
 def _review(candidate_text: str) -> IndependentReadmeReviewResultV1:
-    client = LiveAnalysisClient(
+    client = LiveIndependentReviewClient(
         env.llm_base_url(), env.llm_api_key(), env.llm_model_for_job("independent_readme_review")
     )
     messages = build_independent_readme_review_messages(

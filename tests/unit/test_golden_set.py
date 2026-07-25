@@ -305,6 +305,23 @@ class TestEvaluateAndDisable:
         assert outcome is None
         assert backend.load_model_route_status("supervisor_planning") is None
 
+    def test_exact_governed_threshold_remains_enabled(self):
+        backend = _FakeModelRouteBackend()
+        results = _results(*([True] * 95), *([False] * 5))
+
+        outcome = auto_disable.evaluate_and_disable("supervisor_planning", results, backend)
+
+        assert outcome is None
+
+    def test_one_result_below_governed_threshold_disables(self):
+        backend = _FakeModelRouteBackend()
+        results = _results(*([True] * 94), *([False] * 6))
+
+        outcome = auto_disable.evaluate_and_disable("supervisor_planning", results, backend)
+
+        assert outcome is not None
+        assert "0.94" in outcome.reason
+
     def test_pass_rate_below_floor_disables_and_persists(self):
         backend = _FakeModelRouteBackend()
         results = _results(True, False, False, False)  # 25%, below PASS_RATE_FLOOR
@@ -353,3 +370,23 @@ class TestEvaluateAndDisable:
 
         assert outcome is not None
         assert outcome.evidence_ref == "runs/evidence/abc123"
+
+    def test_incomplete_qualification_never_disables_a_route(self):
+        backend = _FakeModelRouteBackend()
+        summary = {
+            "sessions": 1,
+            "total": 52,
+            "jobs": {
+                "supervisor_planning": {"pass_rate": 0.0},
+                "independent_readme_review": {"pass_rate": 0.0},
+            },
+        }
+
+        outcomes = auto_disable.evaluate_qualification_and_disable(
+            summary,
+            backend,
+            evidence_ref="runs/incomplete-diagnostic.json",
+        )
+
+        assert outcomes == []
+        assert backend._routes == {}

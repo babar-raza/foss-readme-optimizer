@@ -32,7 +32,11 @@ class ScenarioResult:
 def _score(scenario: GoldenScenario, actual_capability_id: str | None) -> tuple[bool, str]:
     if scenario.expected_capability_id is not None:
         expected = scenario.expected_capability_id
-        actual = STOP if actual_capability_id is None else actual_capability_id
+        actual = (
+            STOP
+            if actual_capability_id is None or actual_capability_id == "stop"
+            else actual_capability_id
+        )
         passed = actual == expected
         return passed, f"expected {expected!r}, got {actual!r}"
 
