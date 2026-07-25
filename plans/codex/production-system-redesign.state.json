@@ -2,7 +2,7 @@
   "schema_version": 1,
   "document": "plans/codex/production-system-redesign.md",
   "created_at": "2026-07-24T00:00:00+00:00",
-  "last_amended_at": "2026-07-25T00:00:00+00:00",
+  "last_amended_at": "2026-07-25T04:35:08+00:00",
   "status": "REASSESSMENT_COMPLETE_PARTIAL_REMEDIATION",
   "mission_registration": {
     "parent_mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
@@ -49,8 +49,9 @@
       "severity": "P1",
       "confidence": "PROVEN",
       "status": "CLOSED_FOR_ONE_INSTANCE_PATTERN_OPEN",
-      "resolved_by_commits": ["de7ff3d"],
-      "remaining_task_ids": ["PRODSYS-P2-T1", "PRODSYS-P2-T2"]
+      "resolved_by_commits": ["de7ff3d", "558bddc"],
+      "remaining_task_ids": ["PRODSYS-P2-T2"],
+      "note": "PRODSYS-P2-T1 (warn-only lint) shipped 2026-07-25. PRODSYS-P2-T2 (the heavier registry-level dispatch_gated_verification() wrapper) remains open -- deferred to Wave 2, not blocking Level-5: its actual protection target (a capability-dispatched verifier) does not yet exist for the readme-proposal-bundle artifact class, which is still invoked as a plain function call from standalone evidence tooling, not through capability dispatch."
     },
     {
       "id": "VER009-REPROOF-OWED",
@@ -90,9 +91,9 @@
     "PRESERVE-REPO-LOCK-LEASE"
   ],
   "phases": [
-    { "id": "PRODSYS-P0", "title": "Baseline and safety net", "status": "P0-T1_SUBSTANTIALLY_COMPLETE", "task_ids": ["PRODSYS-P0-T1", "PRODSYS-P0-T2"] },
+    { "id": "PRODSYS-P0", "title": "Baseline and safety net", "status": "COMPLETE", "task_ids": ["PRODSYS-P0-T1", "PRODSYS-P0-T2"] },
     { "id": "PRODSYS-P1", "title": "Authority, contracts, and state", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P1-T1", "PRODSYS-P1-T2", "PRODSYS-P1-T3", "PRODSYS-P1-T4"] },
-    { "id": "PRODSYS-P2", "title": "Verifier-enforcement generalization", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P2-T1", "PRODSYS-P2-T2"] },
+    { "id": "PRODSYS-P2", "title": "Verifier-enforcement generalization", "status": "P2-T1_COMPLETE", "task_ids": ["PRODSYS-P2-T1", "PRODSYS-P2-T2"] },
     { "id": "PRODSYS-P3", "title": "Validation, evidence, and recovery", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P3-T1", "PRODSYS-P3-T2"] },
     { "id": "PRODSYS-P4", "title": "Migration and compatibility", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P4-T1", "PRODSYS-P4-T2"] },
     { "id": "PRODSYS-P5", "title": "E2E, pilots, and rollout", "status": "NOT_STARTED", "task_ids": ["PRODSYS-P5-T1", "PRODSYS-P5-T2"] },
@@ -100,12 +101,12 @@
   ],
   "taskcards": [
     { "id": "PRODSYS-P0-T1", "phase_id": "PRODSYS-P0", "state": "IMPLEMENTED", "dependencies": [] },
-    { "id": "PRODSYS-P0-T2", "phase_id": "PRODSYS-P0", "state": "TODO", "dependencies": [] },
-    { "id": "PRODSYS-P1-T1", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": ["PRODSYS-P0-T2"] },
+    { "id": "PRODSYS-P0-T2", "phase_id": "PRODSYS-P0", "state": "IMPLEMENTED", "dependencies": [] },
+    { "id": "PRODSYS-P1-T1", "phase_id": "PRODSYS-P1", "state": "READY", "dependencies": ["PRODSYS-P0-T2"] },
     { "id": "PRODSYS-P1-T2", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": ["PRODSYS-P1-T1"] },
-    { "id": "PRODSYS-P1-T3", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": ["PRODSYS-P0-T2"] },
+    { "id": "PRODSYS-P1-T3", "phase_id": "PRODSYS-P1", "state": "READY", "dependencies": ["PRODSYS-P0-T2"] },
     { "id": "PRODSYS-P1-T4", "phase_id": "PRODSYS-P1", "state": "TODO", "dependencies": [] },
-    { "id": "PRODSYS-P2-T1", "phase_id": "PRODSYS-P2", "state": "TODO", "dependencies": [] },
+    { "id": "PRODSYS-P2-T1", "phase_id": "PRODSYS-P2", "state": "IMPLEMENTED", "dependencies": [] },
     { "id": "PRODSYS-P2-T2", "phase_id": "PRODSYS-P2", "state": "TODO", "dependencies": ["PRODSYS-P2-T1"] },
     { "id": "PRODSYS-P3-T1", "phase_id": "PRODSYS-P3", "state": "TODO", "dependencies": ["PRODSYS-P0-T1"] },
     { "id": "PRODSYS-P3-T2", "phase_id": "PRODSYS-P3", "state": "TODO", "dependencies": ["PRODSYS-P3-T1"] },

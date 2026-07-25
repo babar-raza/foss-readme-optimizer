@@ -1,0 +1,47 @@
+# DRAFT -- proposed by the agent for human review only, per decision #69 / AUTH-004:
+# "a capability never constructs or infers [an authorization record] for itself." This file has
+# no effect until a human reviews it, edits any bound they disagree with, sets a real
+# approving_identity, and the repo owner explicitly confirms it should be committed. Not staged,
+# not committed, not acted on by this session.
+#
+# Context: aspose-cells-foss/Aspose.Cells-FOSS-for-Java already has one real, human-confirmed live
+# PR (#1, master.md decision #52, GOV-018 per-instance confirmation) opened before this
+# authorization-record gate existed. This record would restore that same repo's ability to receive
+# a *new* open_presentation_pr dispatch (e.g. a refreshed candidate), not grant anything beyond
+# what was already demonstrated live once.
+
+repository: aspose-cells-foss/Aspose.Cells-FOSS-for-Java
+
+# Matches open_presentation_pr.py's own MANIFEST.effect_classes exactly -- this is the one
+# capability that checks these today.
+effect_classes:
+  - PR_BRANCH_PUSH
+  - PR_CREATE_OR_UPDATE
+
+# Matches open_presentation_pr.py's own deterministic branch prefix
+# (_BRANCH_PREFIX = "readme-agent/presentation-update-").
+branch_pattern: "readme-agent/presentation-update-*"
+
+# Empty = whole-document authority, matching what open_presentation_pr actually does today (writes
+# the full rendered final_text, no per-surface restriction exists in the capability yet).
+allowed_surfaces: []
+
+# DRAFT default: 90 days from 2026-07-25. Adjust to whatever renewal cadence you actually want.
+expiration: "2026-10-23T00:00:00+00:00"
+
+# DRAFT heuristic bound on lines changed in the proposed README. Adjust to taste -- not yet
+# mechanically enforced by authorized_for() (schema field exists ahead of that enforcement).
+max_change_size: 800
+
+required_validators: []
+
+# The real capability_id this project's own independent verifier is dispatched under
+# (VER-001) -- open_presentation_pr already requires this verifier's accept before it will run,
+# independent of this field.
+required_verifier: verify_readme_candidate
+
+# REPLACE ME -- must be a real human identity, not filled in by the agent.
+approving_identity: "REPLACE ME (e.g. Babar Raza <prorata.net@gmail.com>)"
+
+rollback: "Close the PR (and optionally delete the branch) on GitHub. open_presentation_pr never
+  merges and never writes the default branch, so nothing else needs reverting."

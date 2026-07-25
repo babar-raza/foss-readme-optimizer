@@ -421,7 +421,7 @@ phase: PRODSYS-P0 -- Baseline and safety net
   task_ids: [PRODSYS-P0-T1, PRODSYS-P0-T2]
   exit_conditions: [official-checks non-determinism root-caused (DONE -- evidence mislabeling, not concurrency, PROVEN) or bounded+documented; a frozen snapshot of all three current "truth" artifacts exists]
   rollback_conditions: [N/A -- read-only investigation phase]
-  status: PRODSYS-P0-T1_SUBSTANTIALLY_COMPLETE
+  status: COMPLETE
 
 phase: PRODSYS-P1 -- Authority, contracts, and state
   objective: Make mission CAS state the sole runtime authority; demote the locked YAML's requirement_coverage to a gated-regeneration artifact; register this redesign under the existing mission machinery; close the mission-claim lease gap.
@@ -535,8 +535,8 @@ taskcard:
   rollback: N/A -- read-only snapshot
   acceptance_criteria: [Snapshot exists, checksummed, referenced by every later phase's before/after diff]
   proof_target: One complete, checksummed snapshot
-  current_state: TODO
-  next_transition: READY on plan approval
+  current_state: IMPLEMENTED
+  next_transition: CLOSED -- plans/investigations/evidence/prodsys-baseline-truth-snapshot/ (mission-graph copy, handover trio copy, a `supervise --mission-action status` capture, control-revision.txt, captured-at-utc.txt, sha256sums.txt over all of the above), 2026-07-25
 
 taskcard:
   task_id: PRODSYS-P1-T1
@@ -680,8 +680,8 @@ taskcard:
   rollback: Remove the script from the official-checks chain
   acceptance_criteria: [The script would have caught the original VERIFIER-BUILT-NOT-WIRED gap if run at the time]
   proof_target: Zero false positives against the current tree; the original gap reproduced against a synthetic fixture
-  current_state: TODO
-  next_transition: READY on plan approval
+  current_state: IMPLEMENTED
+  next_transition: CLOSED -- scripts/governance/check_verifiers_are_wired.py + tests/unit/test_check_verifiers_are_wired.py, wired into run_official_checks.py as a warn-only step, commit 558bddc, 2026-07-25
 
 taskcard:
   task_id: PRODSYS-P2-T2
