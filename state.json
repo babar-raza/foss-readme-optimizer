@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
-    "claim_expires_at": "2026-07-25T17:35:16.624410+00:00",
-    "claim_id": "45f5c0a4c372473e8723b45b21b5fe3d",
-    "claimed_at": "2026-07-25T17:05:16.624410+00:00",
-    "claimed_by": "codex-primary",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f",
-    "last_evaluated_at": "2026-07-25T20:01:21.497692+00:00",
+    "last_evaluated_at": "2026-07-25T20:01:45.358848+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -27,7 +27,7 @@
       "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "TODO",
       "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "CLOSED",
       "L8-LOCAL-PORTFOLIO-RUNTIME": "CLOSED",
-      "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "IN_PROGRESS",
+      "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "IMPLEMENTED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
@@ -872,6 +872,20 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-local-readme-assessment-composition-b2679e4/acceptance-manifest.json",
+          "plans/investigations/evidence/level8-local-readme-assessment-composition-b2679e4/sha256sums.txt",
+          "tests/unit/test_agentic_readme_composition.py",
+          "tests/unit/test_readme_document_plan.py"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-25T20:01:45.358841+00:00",
+        "reason": "Fact-bound structured agentic README assessment and composition is implemented through the canonical local path with deterministic source/fact binding, bounded retry, protected-content preservation, native patches, and seven-ecosystem proof; official checks pass on clean commit 9ed0d7481200641f1b0f8398b27ba6f49d714d87.",
+        "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -880,7 +894,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 100,
+  "state_version": 101,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
