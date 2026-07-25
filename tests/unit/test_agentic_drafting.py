@@ -236,6 +236,9 @@ def _draft_payload(**overrides) -> dict:
 
 
 class TestDraftProductTruth:
+    def test_net_registry_key_uses_the_dotnet_typed_example_language(self):
+        assert agentic_drafting._draft_language("net") == "dotnet"
+
     def test_valid_response_parses_into_draft_product_truth_v1(self, tmp_path, monkeypatch):
         monkeypatch.setattr(
             agentic_drafting,

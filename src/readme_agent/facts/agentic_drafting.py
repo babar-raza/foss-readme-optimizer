@@ -160,6 +160,11 @@ _SELF_REFERENTIAL_FIELDS = frozenset(
 )
 
 
+def _draft_language(ecosystem: str | None) -> str:
+    """Translate registry ecosystem keys to the typed example-language contract."""
+    return "dotnet" if ecosystem == "net" else (ecosystem or "unknown")
+
+
 class DraftProductTruthV1(BaseModel):
     """See this module's own docstring for why each field type is reused,
     not reinvented, from `facts/interpretive_evidence.py`/`registry/
@@ -330,7 +335,7 @@ def draft_product_truth(
     )
     messages = build_draft_product_truth_messages(
         org_repo,
-        entry.ecosystem or "unknown",
+        _draft_language(entry.ecosystem),
         objective_facts_json,
         repository_context,
         _format_repair_hints(repair_hints),

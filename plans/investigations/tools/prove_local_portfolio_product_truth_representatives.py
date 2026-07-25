@@ -104,12 +104,13 @@ def main() -> int:
     started_at = datetime.now(UTC).isoformat()
     results = []
     for ecosystem, org_repo in REPRESENTATIVES.items():
-        entry = require_listed(org_repo)
-        baseline = paths.baseline_dir(entry.org, entry.repo_name)
-        clone_baseline(entry, baseline)
-        snapshot = capture_repository_snapshot(entry, baseline)
-        backend = _LocalProofBackend()
+        snapshot = None
         try:
+            entry = require_listed(org_repo)
+            baseline = paths.baseline_dir(entry.org, entry.repo_name)
+            clone_baseline(entry, baseline)
+            snapshot = capture_repository_snapshot(entry, baseline)
+            backend = _LocalProofBackend()
             record_repository_snapshot(
                 backend,
                 org_repo,
@@ -135,7 +136,7 @@ def main() -> int:
             record = {
                 "ecosystem": ecosystem,
                 "org_repo": org_repo,
-                "source_revision": snapshot.source_revision,
+                "source_revision": snapshot.source_revision if snapshot is not None else None,
                 "outcome": "FACT_GRAPH_PRODUCED",
                 "lifecycle_status": prepared.lifecycle_status,
                 "resolution_source": prepared.resolution_source,
