@@ -220,6 +220,57 @@ class _FakeAcceptingIndependentReviewClient:
         )
 
 
+class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
+    """Change the plan only when the independent review supplies repair instructions."""
+
+    calls = 0
+    saw_repair_hint = False
+
+    def call(self, messages, tool_schema):
+        result = super().call(messages, tool_schema)
+        if "INDEPENDENT REVIEW REPAIR" not in messages[-1]["content"]:
+            return result
+        type(self).saw_repair_hint = True
+        arguments = dict(result.arguments)
+        arguments["overview_fact_ids"] = list(reversed(arguments["overview_fact_ids"]))
+        return ForcedToolResult(arguments=arguments, meta=result.meta)
+
+
+class _RejectThenAcceptIndependentReviewClient:
+    """Controlled quality defect: one bounded rejection followed by acceptance."""
+
+    calls = 0
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def analyze(self, messages):
+        type(self).calls += 1
+        if type(self).calls == 1:
+            parsed = {
+                "verdict": "REJECT_REPAIRABLE",
+                "reasoning": (
+                    "The overview ordering is generic and should lead with product evidence."
+                ),
+                "failed_criteria": ["product_specificity"],
+                "sections_affected": ["Overview"],
+                "required_repair": "Re-plan the overview to lead with product-specific facts.",
+                "preserve": ["Existing local guidance."],
+            }
+        else:
+            parsed = {
+                "verdict": "ACCEPT",
+                "reasoning": (
+                    "The repaired overview is product-specific and preserves existing guidance."
+                ),
+                "failed_criteria": [],
+                "sections_affected": [],
+                "required_repair": "",
+                "preserve": [],
+            }
+        return AnalysisResult(parsed=parsed, meta=LLMResponseMeta(model="fixture-reviewer"))
+
+
 ORG_REPO = "example-foss/Example-FOSS-for-Java"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -610,6 +661,12 @@ class TestBasicLoop:
         )
         first_domain_details = backend.load(ORG_REPO).domain_states["readme_presentation"].details
         first_composition_call_count = _FakeCompositionForcedToolClient.calls
+        proposal_root = (
+            project / "runs" / "readme-proposal-bundles" / "example-foss__Example-FOSS-for-Java"
+        )
+        proposal_bundles_after_first = sorted(
+            path.name for path in proposal_root.iterdir() if path.is_dir()
+        )
         second = supervise_repo(
             ORG_REPO,
             planner_client=FixturePlannerClient(
@@ -658,9 +715,117 @@ class TestBasicLoop:
         )
         assert first_composition_call_count == 1
         assert _FakeCompositionForcedToolClient.calls == first_composition_call_count
+        assert sorted(path.name for path in proposal_root.iterdir() if path.is_dir()) == (
+            proposal_bundles_after_first
+        )
         assert (
             state.domain_states["readme_presentation"].details["agentic_composition_reused"] is True
         )
+        lifecycle_bundle = (
+            project
+            / "runs"
+            / "readme-poc"
+            / "example-foss__Example-FOSS-for-Java"
+            / lifecycle.source_revision
+        )
+        assert (lifecycle_bundle / "review" / "deterministic-validation.json").is_file()
+        assert (lifecycle_bundle / "review" / "independent-agent-review.json").is_file()
+        assert (lifecycle_bundle / "review" / "repair-history.json").is_file()
+        assert (lifecycle_bundle / "review" / "final-verdict.json").is_file()
+        assert (lifecycle_bundle / "review" / "no-op-proof.json").is_file()
+        manifest = json.loads((lifecycle_bundle / "manifest.json").read_text(encoding="utf-8"))
+        assert manifest["lifecycle_status"] == "NO_OP_PROVEN"
+        assert manifest["complete"] is True
+
+    def test_local_poc_repairs_revalidates_and_rereviews_before_accepting(
+        self,
+        project,
+        monkeypatch,
+    ):
+        backend = FakeStateBackend()
+        _RepairAwareCompositionForcedToolClient.calls = 0
+        _RepairAwareCompositionForcedToolClient.saw_repair_hint = False
+        _RejectThenAcceptIndependentReviewClient.calls = 0
+        monkeypatch.setattr(
+            agentic_composition,
+            "LiveForcedToolClient",
+            _RepairAwareCompositionForcedToolClient,
+        )
+        monkeypatch.setattr(
+            independent_readme_review,
+            "LiveAnalysisClient",
+            _RejectThenAcceptIndependentReviewClient,
+        )
+        monkeypatch.setattr(
+            readme_presentation,
+            "dispatch_gated_effect",
+            lambda *args, **kwargs: pytest.fail("local POC must stop before a write effect"),
+        )
+
+        first = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(
+                [PlannerTurn(content="done", meta=LLMResponseMeta())]
+            ),
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+        )
+
+        state = backend.load(ORG_REPO)
+        lifecycle = state.readme_poc_lifecycle
+        assert lifecycle is not None
+        assert first.status == "CONVERGED_PROPOSAL_READY"
+        assert lifecycle.status == "AGENT_APPROVED"
+        statuses = [item.to_status for item in lifecycle.history]
+        assert statuses.count("AGENT_REVIEWING") == 2
+        assert "AGENT_REVIEW_REJECTED" in statuses
+        assert "REPAIRING" in statuses
+        assert statuses[-1] == "AGENT_APPROVED"
+        assert _RepairAwareCompositionForcedToolClient.calls == 2
+        assert _RepairAwareCompositionForcedToolClient.saw_repair_hint is True
+        assert _RejectThenAcceptIndependentReviewClient.calls == 2
+
+        details = state.domain_states["readme_presentation"].details
+        review = details["independent_review"]
+        assert review["outcome_kind"] == "accepted"
+        assert review["attempts"] == 1
+        assert len(review["repair_history"]) == 2
+        assert (
+            review["repair_history"][0]["candidate_sha256"]
+            != review["repair_history"][1]["candidate_sha256"]
+        )
+        lifecycle_bundle = (
+            project
+            / "runs"
+            / "readme-poc"
+            / "example-foss__Example-FOSS-for-Java"
+            / lifecycle.source_revision
+        )
+        repair_history = json.loads(
+            (lifecycle_bundle / "review" / "repair-history.json").read_text(encoding="utf-8")
+        )
+        assert len(repair_history) == 2
+        final_candidate_hash = (
+            (lifecycle_bundle / "candidate" / "candidate-hash.txt")
+            .read_text(encoding="utf-8")
+            .strip()
+        )
+        assert final_candidate_hash == repair_history[-1]["candidate_sha256"]
+
+        second = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(
+                [PlannerTurn(content="done", meta=LLMResponseMeta())]
+            ),
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+        )
+        assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
+        assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "NO_OP_PROVEN"
+        assert _RejectThenAcceptIndependentReviewClient.calls == 2
+        assert _RepairAwareCompositionForcedToolClient.calls == 2
 
     def test_heterogeneous_local_poc_members_share_the_real_supervisor_path(self, project):
         products_path = project / "data" / "products.json"

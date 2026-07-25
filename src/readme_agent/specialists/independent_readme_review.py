@@ -82,11 +82,12 @@ making the distinction real and durable, not just documented in a comment.
 
 from __future__ import annotations
 
+import hashlib
 import json
 from collections.abc import Callable
 from typing import Literal, Protocol
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
 from readme_agent import env
 from readme_agent.capabilities.dispatcher import DispatchResult, dispatch_tool_call
@@ -133,13 +134,8 @@ _BLOCKED_VERDICTS: frozenset[str] = frozenset(
 # a different value, and every attempt costs one more live LLM call plus one
 # more real candidate regeneration. Known, honest limitation, the same shape
 # as `MAX_PROSE_REPAIR_ATTEMPTS`'s own docstring: `render_readme_candidate`
-# has no repair-hint input yet (checked directly against its own
-# `execute()` signature -- only `org_repo`/`force_regenerate`), so a
-# regenerated candidate may reproduce the same `REJECT_REPAIRABLE` problem
-# at `temperature=0.0`. Still safe either way: bounded, always escalates
-# rather than looping forever, and never silently drops a still-rejected
-# repo (see `_build_backlog_finding()`) -- just not guaranteed to actually
-# fix anything without a future hint-threading follow-up.
+# remains deliberately small because each attempt repeats composition,
+# deterministic validation, bundle verification, and independent review.
 MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS = 2
 
 
@@ -157,6 +153,26 @@ class IndependentReadmeReviewResultV1(BaseModel):
     sections_affected: list[str] = Field(default_factory=list)
     required_repair: str = ""
     preserve: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _validate_verdict_payload(self) -> IndependentReadmeReviewResultV1:
+        if self.verdict == "ACCEPT":
+            if self.failed_criteria or self.sections_affected or self.required_repair:
+                raise ValueError("ACCEPT cannot carry failure or repair instructions")
+            return self
+        if self.verdict == "REJECT_REPAIRABLE" and (
+            not self.failed_criteria
+            or not self.sections_affected
+            or not self.required_repair.strip()
+        ):
+            raise ValueError(
+                "REJECT_REPAIRABLE requires failed criteria, affected sections, and repair text"
+            )
+        if self.verdict in {"BLOCKED_FACT_CONFLICT", "BLOCKED_MISSING_EVIDENCE"} and (
+            not self.failed_criteria or not self.sections_affected
+        ):
+            raise ValueError("fact-blocking verdicts require failed criteria and affected sections")
+        return self
 
 
 class _AnalysisClientLike(Protocol):
@@ -330,6 +346,10 @@ class RepairLoopOutcomeV1(BaseModel):
     final_review: IndependentReadmeReviewResultV1
     attempts: int
     escalation: dict | None = None
+    repair_history: list[dict] = Field(default_factory=list)
+    # The caller must continue with the accepted repaired candidate.  This is
+    # runtime wiring, not evidence payload, so model_dump() excludes it.
+    final_context: dict = Field(default_factory=dict, exclude=True, repr=False)
 
 
 def _dispatch_render(
@@ -483,7 +503,7 @@ def run_independent_review_with_repair_loop(
     initial_context: dict,
     *,
     client: _AnalysisClientLike | None = None,
-    regenerate_context: Callable[[], dict] | None = None,
+    regenerate_context: Callable[[IndependentReadmeReviewResultV1, int], dict] | None = None,
 ) -> RepairLoopOutcomeV1:
     """`RPOC-023`: the bounded regenerate-and-re-review cycle on top of the
     single check `run_independent_readme_review()` performs.
@@ -496,9 +516,9 @@ def run_independent_review_with_repair_loop(
     `CANDIDATE_GENERATED`), the same division of labor `readme_factuality.
     py::evaluate_candidate_factuality()` already keeps from ITS caller.
 
-    `regenerate_context` (dependency injection, defaults to
-    `independent_render_context(org_repo, force_regenerate=True)`): a
-    zero-argument callable producing the same dict shape as
+    `regenerate_context` (dependency injection, defaults to a compatibility
+    force-regeneration): a callable receiving the rejected review and the
+    one-based repair attempt, and producing the same dict shape as
     `initial_context` for one more repair attempt. Injectable so a test can
     prove the bound and escalation behavior deterministically, without a
     real product-registry entry, git clone, or live LLM call for the
@@ -514,7 +534,7 @@ def run_independent_review_with_repair_loop(
     regenerating prose against the same facts is not expected to fix
     either."""
     regenerate = regenerate_context or (
-        lambda: independent_render_context(
+        lambda _review, _attempt: independent_render_context(
             org_repo,
             force_regenerate=True,
             product_facts_v2=initial_context.get("product_facts_v2"),
@@ -522,6 +542,7 @@ def run_independent_review_with_repair_loop(
     )
     ctx = initial_context
     attempts = 0
+    repair_history: list[dict] = []
     while True:
         review = run_independent_readme_review(
             org_repo,
@@ -534,15 +555,32 @@ def run_independent_review_with_repair_loop(
             repair_attempt=attempts,
             product_facts_v2=ctx.get("product_facts_v2"),
         )
+        review_record = {
+            "review_pass": len(repair_history) + 1,
+            "repair_attempt": attempts,
+            "candidate_sha256": hashlib.sha256(str(ctx["final_text"]).encode("utf-8")).hexdigest(),
+            "review": review.model_dump(mode="json"),
+            "deterministic_validation": ctx["deterministic_validation_result"],
+            "evidence_refs": list(ctx.get("evidence_refs", [])),
+        }
+        repair_history.append(review_record)
 
         if review.verdict == "ACCEPT":
             return RepairLoopOutcomeV1(
-                outcome_kind="accepted", final_review=review, attempts=attempts
+                outcome_kind="accepted",
+                final_review=review,
+                attempts=attempts,
+                repair_history=repair_history,
+                final_context=ctx,
             )
 
         if review.verdict in _BLOCKED_VERDICTS:
             return RepairLoopOutcomeV1(
-                outcome_kind="blocked", final_review=review, attempts=attempts
+                outcome_kind="blocked",
+                final_review=review,
+                attempts=attempts,
+                repair_history=repair_history,
+                final_context=ctx,
             )
 
         # REJECT_REPAIRABLE from here on -- the only verdict eligible for a
@@ -554,44 +592,99 @@ def run_independent_review_with_repair_loop(
                 final_review=review,
                 attempts=attempts,
                 escalation=escalation,
+                repair_history=repair_history,
+                final_context=ctx,
             )
 
-        if backend is not None:
-            transition_readme_poc_status(
-                backend,
-                org_repo,
-                "REPAIRING",
-                observed_by=_OBSERVED_BY,
-                reason=(
-                    f"entering repair attempt {attempts + 1}/"
-                    f"{MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS}: {review.required_repair}"
-                ),
-                evidence_refs=list(review.failed_criteria),
+        while attempts < MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS:
+            next_attempt = attempts + 1
+            if backend is not None:
+                transition_readme_poc_status(
+                    backend,
+                    org_repo,
+                    "REPAIRING",
+                    observed_by=_OBSERVED_BY,
+                    reason=(
+                        f"entering repair attempt {next_attempt}/"
+                        f"{MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS}: {review.required_repair}"
+                    ),
+                    evidence_refs=list(review.failed_criteria),
+                )
+            ctx = regenerate(review, next_attempt)
+            attempts = next_attempt
+            deterministic_passed = ctx.get("deterministic_validation_passed")
+            if deterministic_passed is None:
+                deterministic_passed = (
+                    ctx.get("deterministic_validation_result", {}).get("verdict") == "accept"
+                )
+            if backend is not None:
+                current = backend.load(org_repo)
+                lifecycle = current.readme_poc_lifecycle if current is not None else None
+                if lifecycle is None:
+                    raise RuntimeError("README-POC lifecycle disappeared during repair")
+                if lifecycle.status == "REPAIRING":
+                    transition_readme_poc_status(
+                        backend,
+                        org_repo,
+                        "CANDIDATE_GENERATED",
+                        observed_by=_OBSERVED_BY,
+                        reason=(
+                            f"candidate regenerated for repair attempt {attempts}/"
+                            f"{MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS}"
+                        ),
+                        evidence_refs=list(ctx.get("evidence_refs", [])),
+                    )
+                if not deterministic_passed:
+                    transition_readme_poc_status(
+                        backend,
+                        org_repo,
+                        "DETERMINISTIC_VALIDATION_FAILED",
+                        observed_by=_OBSERVED_BY,
+                        reason="repaired candidate failed deterministic validation",
+                        evidence_refs=list(ctx.get("evidence_refs", [])),
+                    )
+                else:
+                    transition_readme_poc_status(
+                        backend,
+                        org_repo,
+                        "DETERMINISTIC_VALIDATED",
+                        observed_by=_OBSERVED_BY,
+                        reason="repaired candidate passed all deterministic validation gates",
+                        evidence_refs=list(ctx.get("evidence_refs", [])),
+                    )
+                    transition_readme_poc_status(
+                        backend,
+                        org_repo,
+                        "AGENT_REVIEWING",
+                        observed_by=_OBSERVED_BY,
+                        reason="independent review restarted after deterministic validation",
+                        evidence_refs=list(ctx.get("evidence_refs", [])),
+                    )
+            if deterministic_passed:
+                break
+            repair_history.append(
+                {
+                    "review_pass": len(repair_history) + 1,
+                    "repair_attempt": attempts,
+                    "candidate_sha256": hashlib.sha256(
+                        str(ctx.get("final_text", "")).encode("utf-8")
+                    ).hexdigest(),
+                    "review": None,
+                    "deterministic_validation": ctx.get("deterministic_validation_result", {}),
+                    "evidence_refs": list(ctx.get("evidence_refs", [])),
+                }
             )
-        ctx = regenerate()
-        if backend is not None:
-            transition_readme_poc_status(
-                backend,
-                org_repo,
-                "CANDIDATE_GENERATED",
-                observed_by=_OBSERVED_BY,
-                reason=(
-                    f"candidate regenerated for repair attempt {attempts + 1}/"
-                    f"{MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS}"
-                ),
-            )
-            transition_readme_poc_status(
-                backend,
-                org_repo,
-                "DETERMINISTIC_VALIDATED",
-                observed_by=_OBSERVED_BY,
-                reason="regenerated candidate supplied a deterministic validation result",
-            )
-            transition_readme_poc_status(
-                backend,
-                org_repo,
-                "AGENT_REVIEWING",
-                observed_by=_OBSERVED_BY,
-                reason="independent review restarted after deterministic validation",
-            )
-        attempts += 1
+            if attempts >= MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS:
+                escalation = _build_backlog_finding(org_repo, review, attempts)
+                escalation["reason"] = (
+                    "independent_readme_review: repaired candidate still failed "
+                    f"deterministic validation after {attempts} attempts"
+                )
+                return RepairLoopOutcomeV1(
+                    outcome_kind="repair_exhausted",
+                    final_review=review,
+                    attempts=attempts,
+                    escalation=escalation,
+                    repair_history=repair_history,
+                    final_context=ctx,
+                )

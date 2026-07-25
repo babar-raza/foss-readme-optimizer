@@ -83,6 +83,15 @@ class ReadmeAgenticCompositionPlanV1(_StrictModel):
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+class ReadmeCompositionRepairRequestV1(_StrictModel):
+    """Bounded instructions from the independent reviewer to the authoring pass."""
+
+    failed_criteria: list[str] = Field(min_length=1)
+    sections_affected: list[str] = Field(min_length=1)
+    required_repair: str = Field(min_length=1)
+    preserve: list[str] = Field(default_factory=list)
+
+
 def _accepted_fact_ids(facts: ProductFactsV2) -> set[str]:
     return {
         fact.fact_id
@@ -308,8 +317,15 @@ def plan_readme_composition(
     *,
     client: ForcedToolClient | None = None,
     max_attempts: int = _MAX_AUTHORING_ATTEMPTS,
+    review_repair: ReadmeCompositionRepairRequestV1 | dict | None = None,
 ) -> ReadmeAgenticCompositionPlanV1:
-    """Call the authoring model once and fail closed on unbound editorial output."""
+    """Call the authoring model and fail closed on unbound editorial output.
+
+    ``review_repair`` is internal wiring from the independent reviewer, not a
+    planner-selectable argument.  It changes the authoring input hash and is
+    included in the prompt from the first attempt, while the same deterministic
+    section/fact/reference validators remain authoritative.
+    """
 
     if max_attempts < 1:
         raise ValueError("max_attempts must be at least 1")
@@ -335,7 +351,19 @@ def plan_readme_composition(
         accepted_fact_ids=sorted(accepted_ids),
         overview_fact_ids=[option["fact_id"] for option in overview_phrase_options],
     )
-    repair_hints_section = ""
+    repair_request = (
+        ReadmeCompositionRepairRequestV1.model_validate(review_repair)
+        if review_repair is not None
+        else None
+    )
+    repair_hints_section = (
+        "INDEPENDENT REVIEW REPAIR. The prior candidate was rejected. "
+        "Address only the bounded findings below, preserve the named content, "
+        "and still obey every deterministic section disposition and fact-ID constraint:\n"
+        + json.dumps(repair_request.model_dump(mode="json"), sort_keys=True, ensure_ascii=False)
+        if repair_request is not None
+        else ""
+    )
     last_error: LLMError | None = None
     for attempt in range(1, max_attempts + 1):
         input_payload = {

@@ -30,11 +30,9 @@ backend and `mode == "full"`, unlike a plain classify-then-persist domain):
   materializes the real 8-file proposal-evidence bundle and dispatches the
   new, domain-scoped `verify_readme_proposal_bundle` capability against it
   (a second, independent, from-scratch deterministic re-check: schema/
-  checksum/citation/reconstruction) WHEN a real `ReadmeDocumentPlanV1` is
-  available (today, honestly, never -- see `_review_node`'s own docstring
-  for the found, already-tracked, out-of-scope reason: `RDM-003`/`RDM-004`/
-  `OWN-011`/`L8-007`), then calls `specialists/independent_readme_review.
-  py::run_independent_review_with_repair_loop()` directly, unconditionally
+  checksum/citation/reconstruction) when a real `ReadmeDocumentPlanV1` is
+  available, then calls `specialists/independent_readme_review.py::
+  run_independent_review_with_repair_loop()` directly, unconditionally
   (an AGENTIC quality review -- product specificity, overpromotion,
   generic-template symptoms -- deliberately not itself a domain/capability,
   see that module's own docstring). Either check rejecting sets
@@ -89,28 +87,27 @@ from datetime import UTC, datetime
 from langchain_core.runnables import RunnableConfig
 from langgraph.graph import END, START, StateGraph
 
-from readme_agent import paths
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_PRESENTATION
 from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import LLMError, StateBackendError
-from readme_agent.evidence.writer import generate_run_id, write_readme_proposal_bundle
+from readme_agent.evidence.writer import generate_run_id
 from readme_agent.orchestrator import record_accepted_readme_state
 from readme_agent.readme.agentic_composition import validate_readme_composition_plan
 from readme_agent.readme.assessment import assess_readme_document
-from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import current_repository_snapshot
-from readme_agent.specialists.independent_readme_review import (
-    run_independent_review_with_repair_loop,
-)
 from readme_agent.specialists.readme_factuality import evaluate_candidate_factuality
+from readme_agent.specialists.readme_presentation_review import review_candidate_node
+from readme_agent.specialists.readme_review_validation import (
+    dispatch_build_presentation_plan,
+    dispatch_verify_readme_candidate,
+)
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.change_detection import classify_surface
 from readme_agent.state.domain_state import merge_details, save_domain_with_failure_tracking
 from readme_agent.state.readme_poc_lifecycle import (
     record_readme_candidate_artifacts,
-    transition_readme_poc_status,
 )
 from readme_agent.state.schema import DomainStateV1
 from readme_agent.supervisor.execution_context import proposal_only_active
@@ -123,12 +120,8 @@ _READ_ONLY_PERMISSIONS: set[PermissionClass] = {"read_only_local", "read_only_ne
 _WRITE_PERMISSIONS: set[PermissionClass] = _READ_ONLY_PERMISSIONS | {"local_write"}
 # Wave 8.6 (`VER-006` reversal): no operational history yet to justify a
 # different value -- mirrors ESCALATION_ALERT_THRESHOLD's/DOSSIER_TOKEN_
-# BUDGET's own precedent. Known, honest limitation: `render_readme_candidate`
-# has no "repair hint" input yet, so a bounded regenerate-and-reverify retry
-# may re-produce an identical paragraph at temperature=0.0 -- still safe
-# (bounded, never silently commits a still-flagged candidate, correctly
-# escalates to BLOCKED once exhausted), just not guaranteed to *fix*
-# anything without a future hint-threading follow-up.
+# BUDGET's own precedent. This earlier prose-quality gate remains bounded;
+# the later independent-review gate owns structured reviewer-hint repair.
 MAX_PROSE_REPAIR_ATTEMPTS = 2
 
 
@@ -238,56 +231,6 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     return {"details": merge_details(state, render_result=render_result)}
 
 
-def _dispatch_verify_readme_candidate(org_repo: str, render_result: dict):
-    verify_tool_call = {
-        "function": {
-            "name": "verify_readme_candidate",
-            "arguments": json.dumps(
-                {
-                    "org_repo": org_repo,
-                    "facts_hash": render_result["facts_hash"],
-                    "fresh_fingerprint": render_result["fresh_fingerprint"],
-                    "status": render_result["status"],
-                    "needs_write": render_result["needs_write"],
-                    "final_text": render_result["final_text"],
-                }
-            ),
-        }
-    }
-    return dispatch_tool_call(
-        verify_tool_call,
-        _READ_ONLY_PERMISSIONS,
-        caller_domain=INDEPENDENT_VERIFICATION,
-        extra_kwargs={
-            "agentic_composition_plan": render_result.get("agentic_composition_plan"),
-        },
-    )
-
-
-def _dispatch_build_presentation_plan(org_repo: str, render_result: dict):
-    """Build from independently re-derived facts; candidate text is wiring-only."""
-
-    tool_call = {
-        "function": {
-            "name": "build_presentation_plan",
-            "arguments": json.dumps({"org_repo": org_repo}),
-        }
-    }
-    return dispatch_tool_call(
-        tool_call,
-        _READ_ONLY_PERMISSIONS,
-        caller_domain=DOMAIN,
-        extra_kwargs={
-            "original_text": render_result["original_text"],
-            "source_text": render_result.get("source_text", render_result["original_text"]),
-            "candidate_text": render_result["final_text"],
-            "source_revision": render_result["source_revision"],
-            "product_facts_v2": render_result.get("product_facts_v2"),
-            "agentic_composition_plan": render_result.get("agentic_composition_plan"),
-        },
-    )
-
-
 def _dispatch_prose_quality_check(
     org_repo: str, final_text: str, state_backend: StateBackend | None = None
 ):
@@ -342,10 +285,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     deterministic reject, protecting VER-003's "no unnecessary work". A
     corroborated prose-quality flag triggers a bounded regenerate-and-
     reverify retry (both gates re-run fresh against the new candidate, never
-    just the prose check alone) before finally escalating to BLOCKED --
-    `MAX_PROSE_REPAIR_ATTEMPTS`'s own comment states the known limitation
-    (no hint-threading yet, so a retry may reproduce an identical paragraph
-    at temperature=0.0 -- still safe, just not guaranteed to fix anything)."""
+    just the prose check alone) before finally escalating to BLOCKED."""
     if (state.accepted_status or "").startswith("ERROR:"):
         return {}
 
@@ -370,7 +310,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     run_nonce = generate_run_id()
 
     while True:
-        plan_dispatch = _dispatch_build_presentation_plan(org_repo, current_render_result)
+        plan_dispatch = dispatch_build_presentation_plan(org_repo, current_render_result)
         if plan_dispatch.outcome != "executed":
             return {
                 "accepted_status": (
@@ -479,7 +419,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 ),
             }
 
-        dispatch = _dispatch_verify_readme_candidate(org_repo, current_render_result)
+        dispatch = dispatch_verify_readme_candidate(org_repo, current_render_result)
         if dispatch.outcome != "executed":
             return {"accepted_status": f"ERROR:{dispatch.outcome}:{dispatch.error}"}
         assert dispatch.result is not None
@@ -560,302 +500,6 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         assert regenerate_dispatch.result is not None
         current_render_result = regenerate_dispatch.result
         repair_attempts += 1
-
-
-def _dispatch_verify_readme_proposal_bundle(bundle_dir):
-    tool_call = {
-        "function": {
-            "name": "verify_readme_proposal_bundle",
-            "arguments": json.dumps({"bundle_dir": str(bundle_dir)}),
-        }
-    }
-    return dispatch_tool_call(
-        tool_call, _READ_ONLY_PERMISSIONS, caller_domain=INDEPENDENT_VERIFICATION
-    )
-
-
-def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
-    """RPOC-050/051: the independent, author != verifier bundle-plus-agentic
-    gate between `_verify_node`'s own deterministic accept and `_commit_
-    node`'s write -- closes the "verifier not wired into production" gap
-    (`scripts/governance/check_verifiers_are_wired.py`'s own finding against
-    `verify_readme_proposal_bundle`/`verify_cross_pilot_specificity`): before
-    this node existed, both functions were reachable only from a test or a
-    standalone `plans/investigations/tools/*.py` script, never from a real
-    `supervise` run.
-
-    Same top-of-function `"ERROR:"` guard, and the same "nothing was written
-    this run" short-circuit `_verify_node` itself uses (`VER-003`'s "no
-    unnecessary work") -- this node only has real work to do on the one path
-    that reaches it with a genuine new candidate: `_verify_node`'s own
-    deterministic accept.
-
-    (a) materializes the real 8-file proposal bundle (`evidence/writer.py::
-    write_readme_proposal_bundle()`) from this run's own already-computed
-    render/presentation-plan/patch, plus a freshly (re-)dispatched
-    `get_product_facts` -- never a pass-through of any other node's own
-    assembled facts.
-
-    (b) dispatches the new, domain-scoped `verify_readme_proposal_bundle`
-    capability against that materialized bundle -- the DETERMINISTIC
-    bundle-completeness re-check (schema/checksum/citation/independent-
-    reconstruction, all re-derived from disk, never trusting what was just
-    written).
-
-    (c) calls `independent_readme_review.run_independent_review_with_repair_
-    loop()` directly -- a plain function call, not a capability dispatch:
-    that module's own docstring explains why it is deliberately NOT
-    registered as a domain/capability (inventing one now, only to leave it
-    permanently unwired past this one call site, would either sit as a
-    `KNOWN_DOMAINS` orphan or force a premature registration). This is the
-    AGENTIC quality review, with its own bounded regenerate-and-reverify
-    repair loop.
-
-    (d) either check rejecting sets `accepted_status` to the same
-    `"ERROR:"`-prefixed shape this graph already uses everywhere else, so
-    `_commit_node`'s existing top-of-function guard (unchanged) naturally
-    skips the write.
-
-    The raw patch text (`presentation_plan_patch`, RPOC-050) is consumed here
-    and then explicitly dropped before merging forward -- the same "large,
-    only needed one node further" treatment `_commit_node` already gives
-    `render_result`, so it never survives into the durably-persisted record
-    on this node's own accept path."""
-    if (state.accepted_status or "").startswith("ERROR:"):
-        return {}
-
-    render_result = state.details.get("render_result")
-    assert render_result is not None  # guaranteed by _render_node whenever no ERROR was set
-
-    if not render_result["needs_write"]:
-        # Nothing written this run -- nothing to bundle or independently
-        # review either.
-        return {}
-
-    presentation_plan_record = state.details.get("presentation_plan")
-    patch_text = state.details.get("presentation_plan_patch")
-    verification = state.details.get("verification")
-    # guaranteed together by _verify_node's own accept-path details_update
-    # whenever needs_write is True and no ERROR was set above.
-    assert presentation_plan_record is not None
-    assert verification is not None
-
-    state_without_patch = state.model_copy(
-        update={
-            "details": {
-                key: value
-                for key, value in state.details.items()
-                if key != "presentation_plan_patch"
-            }
-        }
-    )
-
-    org_repo = config["configurable"]["org_repo"]
-    backend: StateBackend | None = config["configurable"].get("backend")
-    durable_state = backend.load(org_repo) if backend is not None else None
-    lifecycle_backend = (
-        backend
-        if durable_state is not None and durable_state.readme_poc_lifecycle is not None
-        else None
-    )
-
-    # RPOC-051(a)/(b): the deterministic bundle re-check can only run when
-    # `_verify_node`'s own `build_presentation_plan` dispatch actually took
-    # its document-plan branch (`build_presentation_plan.execute()`, guarded
-    # there by `find_presentation_span(candidate_text) is not None`) --
-    # `verify_readme_proposal_bundle()`'s own schema requires a real
-    # `ReadmeDocumentPlanV1`; the legacy branch produces `readme_document_
-    # plan={}`, which is not one. Found live while wiring this node: today's
-    # real `render_readme_candidate` pipeline (`readme/candidate_pipeline.
-    # py`) never emits the whole-document presentation-span wrapper `find_
-    # presentation_span` looks for (confirmed: no reference to it anywhere in
-    # that module), so this specialist's own render -> verify sequence always
-    # takes the legacy branch in production today -- a pre-existing,
-    # already-tracked gap (`RDM-003`/`RDM-004`/`OWN-011`/`L8-007`, all
-    # `PARTIAL`: "future approved regions... remain open"), not something
-    # RPOC-050/051 is scoped to close. Skipped honestly here (a real,
-    # legible `details["bundle_verification"]` record, never silently
-    # absent) rather than materializing a bundle guaranteed to fail
-    # `verify_readme_proposal_bundle()`'s own schema load and misreporting a
-    # real candidate as bundle-rejected for a reason that has nothing to do
-    # with its own actual quality.
-    document_plan_available = bool(presentation_plan_record.get("readme_document_plan"))
-    bundle_verification_record: dict
-    if document_plan_available:
-        product_facts_v2 = render_result.get("product_facts_v2")
-        if product_facts_v2 is None:
-            return {"accepted_status": "ERROR:verified_product_facts_missing_from_candidate"}
-
-        entry = require_listed(org_repo)
-        # Reuses _verify_node's own per-call run_nonce (already unique per
-        # specialist run() invocation, see compute_verification_token()'s
-        # own docstring) as this bundle's directory identity -- one run, one
-        # bundle, rather than minting a second, unrelated run id.
-        run_id = verification.get("nonce") or generate_run_id()
-        bundle_dir = paths.readme_proposal_bundle_dir(entry.org, entry.repo_name, run_id)
-        write_readme_proposal_bundle(
-            bundle_dir,
-            original_readme=render_result["original_text"],
-            candidate_readme=render_result["final_text"],
-            patch_text=patch_text or "",
-            product_facts_v2=product_facts_v2,
-            readme_assessment_v1=presentation_plan_record["readme_assessment"],
-            agentic_composition_plan_v1=render_result.get("agentic_composition_plan"),
-            readme_document_plan_v1=presentation_plan_record["readme_document_plan"],
-            claim_map_v1=presentation_plan_record["claim_map"],
-            repository_presentation_plan_v1=presentation_plan_record.get("presentation_plan") or {},
-            document_validation=presentation_plan_record.get("document_validation") or {},
-        )
-
-        bundle_dispatch = _dispatch_verify_readme_proposal_bundle(bundle_dir)
-        if bundle_dispatch.outcome != "executed" or bundle_dispatch.result is None:
-            return {"accepted_status": f"ERROR:{bundle_dispatch.outcome}:{bundle_dispatch.error}"}
-        bundle_verdict = bundle_dispatch.result
-        bundle_verification_record = {
-            "status": "checked",
-            "bundle_dir": str(bundle_dir),
-            **bundle_verdict,
-        }
-        if not bundle_verdict["verified"]:
-            if (
-                lifecycle_backend is not None
-                and durable_state is not None
-                and durable_state.readme_poc_lifecycle is not None
-                and durable_state.readme_poc_lifecycle.status == "CANDIDATE_GENERATED"
-            ):
-                transition_readme_poc_status(
-                    lifecycle_backend,
-                    org_repo,
-                    "DETERMINISTIC_VALIDATION_FAILED",
-                    observed_by=INDEPENDENT_VERIFICATION,
-                    reason="deterministic README proposal bundle verification rejected candidate",
-                    evidence_refs=[str(bundle_dir)],
-                )
-            return {
-                "accepted_status": (
-                    f"ERROR:bundle_verification_rejected:{'; '.join(bundle_verdict['failures'])}"
-                ),
-                "details": merge_details(
-                    state_without_patch, bundle_verification=bundle_verification_record
-                ),
-            }
-    else:
-        if lifecycle_backend is not None:
-            return {
-                "accepted_status": "ERROR:bundle_verification_requires_readme_document_plan",
-                "details": merge_details(
-                    state_without_patch,
-                    bundle_verification={
-                        "status": "blocked",
-                        "reason": "deterministic bundle verification requires a structured "
-                        "readme_document_plan",
-                    },
-                ),
-            }
-        bundle_verification_record = {
-            "status": "not_applicable",
-            "reason": "compatibility candidate has no governed README-POC lifecycle",
-        }
-
-    if lifecycle_backend is not None:
-        current = lifecycle_backend.load(org_repo)
-        lifecycle = current.readme_poc_lifecycle if current is not None else None
-        if lifecycle is None:
-            raise StateBackendError("durable README-POC lifecycle disappeared before review")
-        if lifecycle.status == "AGENT_APPROVED":
-            transition_readme_poc_status(
-                lifecycle_backend,
-                org_repo,
-                "NO_OP_PROVEN",
-                observed_by=INDEPENDENT_VERIFICATION,
-                reason="unchanged candidate bundle reproduced without another agentic review",
-                evidence_refs=[str(bundle_dir)],
-            )
-            return {
-                "details": merge_details(
-                    state_without_patch,
-                    bundle_verification=bundle_verification_record,
-                    independent_review={
-                        "outcome_kind": "unchanged_no_op",
-                        "agentic_review_reused": True,
-                    },
-                )
-            }
-        if lifecycle.status == "CANDIDATE_GENERATED":
-            lifecycle = transition_readme_poc_status(
-                lifecycle_backend,
-                org_repo,
-                "DETERMINISTIC_VALIDATED",
-                observed_by=INDEPENDENT_VERIFICATION,
-                reason="deterministic README proposal bundle verification passed",
-                evidence_refs=[str(bundle_dir)],
-            )
-        if lifecycle.status == "DETERMINISTIC_VALIDATED":
-            transition_readme_poc_status(
-                lifecycle_backend,
-                org_repo,
-                "AGENT_REVIEWING",
-                observed_by=INDEPENDENT_VERIFICATION,
-                reason="independent README review started after deterministic validation",
-                evidence_refs=[str(bundle_dir)],
-            )
-
-    # Wrapped in try/except (not bare -- every other failure mode in this
-    # graph is a checked outcome, never an uncaught exception): `run_
-    # independent_review_with_repair_loop()`'s own default `regenerate_
-    # context` (`independent_readme_review.independent_render_context()`,
-    # engaged only on a real REJECT_REPAIRABLE verdict) dispatches `build_
-    # presentation_plan` with no `caller_domain` at all -- found live while
-    # wiring this node: since that capability is domain-scoped (`allowed_
-    # domains=[README_PRESENTATION]`), every regeneration attempt raises
-    # `RuntimeError` there. A real, pre-existing bug in `independent_readme_
-    # review.py` (out of this taskcard's scope -- that module is other-lane
-    # work this taskcard was explicitly told to read, not edit), only newly
-    # EXPOSED, not introduced, by this node being its first caller that can
-    # reach a real REJECT_REPAIRABLE verdict in production. This except
-    # converts it into the same `"ERROR:"`-prefixed shape every other
-    # failure here already uses, so a bug in that module's own regeneration
-    # path degrades this run honestly instead of crashing the whole graph.
-    try:
-        review_outcome = run_independent_review_with_repair_loop(
-            org_repo,
-            lifecycle_backend,
-            {
-                "original_text": render_result["original_text"],
-                "final_text": render_result["final_text"],
-                "presentation_plan": presentation_plan_record,
-                "deterministic_validation_result": verification,
-                "product_facts_v2": render_result.get("product_facts_v2"),
-            },
-        )
-    except Exception as exc:  # noqa: BLE001 -- see comment above
-        return {
-            "accepted_status": f"ERROR:independent_review_exception:{type(exc).__name__}: {exc}",
-            "details": merge_details(
-                state_without_patch, bundle_verification=bundle_verification_record
-            ),
-        }
-    independent_review_record = review_outcome.model_dump(mode="json")
-    if review_outcome.outcome_kind != "accepted":
-        return {
-            "accepted_status": (
-                f"ERROR:independent_review_{review_outcome.outcome_kind}:"
-                f"{review_outcome.final_review.verdict}"
-            ),
-            "details": merge_details(
-                state_without_patch,
-                bundle_verification=bundle_verification_record,
-                independent_review=independent_review_record,
-            ),
-        }
-
-    return {
-        "details": merge_details(
-            state_without_patch,
-            bundle_verification=bundle_verification_record,
-            independent_review=independent_review_record,
-        )
-    }
 
 
 def _commit_node(state: DomainStateV1, config: RunnableConfig) -> dict:
@@ -1051,7 +695,7 @@ def _build_graph():
     graph = StateGraph(DomainStateV1)
     graph.add_node("render", _render_node)
     graph.add_node("verify", _verify_node)
-    graph.add_node("review", _review_node)
+    graph.add_node("review", review_candidate_node)
     graph.add_node("commit", _commit_node)
     graph.add_node("record", _record_node)
     graph.add_edge(START, "render")

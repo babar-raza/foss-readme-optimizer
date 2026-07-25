@@ -362,7 +362,7 @@ class TestRepairLoopBound:
         client = FixtureAnalysisClient(seeded)
         regenerate_calls = []
 
-        def fake_regenerate():
+        def fake_regenerate(_review, _attempt):
             regenerate_calls.append(1)
             return {
                 "original_text": WELL_GROUNDED_README,
@@ -416,7 +416,7 @@ class TestRepairLoopBound:
         )
         regenerate_calls = []
 
-        def fake_regenerate():
+        def fake_regenerate(_review, _attempt):
             regenerate_calls.append(1)
             return {
                 "original_text": WELL_GROUNDED_README,
@@ -442,6 +442,48 @@ class TestRepairLoopBound:
         assert outcome.attempts == 1
         assert len(regenerate_calls) == 1
         assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "AGENT_APPROVED"
+
+    def test_repaired_candidate_repeats_deterministic_gate_before_rereview(self, monkeypatch):
+        backend = FakeReviewBackend()
+        _advance_to_candidate_generated(backend, ORG_REPO)
+        _mock_get_product_facts(monkeypatch)
+        client = FixtureAnalysisClient([_verdict_result(_reject_repairable_verdict())])
+        regenerate_calls = []
+
+        def deterministically_rejected(_review, attempt):
+            regenerate_calls.append(attempt)
+            return {
+                "original_text": WELL_GROUNDED_README,
+                "final_text": GENERIC_TEMPLATE_README + f"\n<!-- attempt {attempt} -->\n",
+                "presentation_plan": _PRESENTATION_PLAN,
+                "deterministic_validation_result": {
+                    "verdict": "reject",
+                    "reason": "protected content lost",
+                },
+                "deterministic_validation_passed": False,
+            }
+
+        outcome = reviewer.run_independent_review_with_repair_loop(
+            ORG_REPO,
+            backend,
+            {
+                "original_text": WELL_GROUNDED_README,
+                "final_text": GENERIC_TEMPLATE_README,
+                "presentation_plan": _PRESENTATION_PLAN,
+                "deterministic_validation_result": _DETERMINISTIC_VALIDATION_RESULT,
+            },
+            client=client,
+            regenerate_context=deterministically_rejected,
+        )
+
+        assert outcome.outcome_kind == "repair_exhausted"
+        assert outcome.attempts == reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS
+        assert regenerate_calls == [1, 2]
+        assert client._index == 1
+        assert backend.load(ORG_REPO).readme_poc_lifecycle.status == (
+            "DETERMINISTIC_VALIDATION_FAILED"
+        )
+        assert outcome.repair_history[-1]["review"] is None
 
 
 class TestBlockedVerdictNeverEntersRepairLoop:
@@ -487,7 +529,7 @@ class TestBlockedVerdictNeverEntersRepairLoop:
         client = FixtureAnalysisClient([_verdict_result(verdict_dict)])
         regenerate_calls = []
 
-        def fake_regenerate():
+        def fake_regenerate(_review, _attempt):
             regenerate_calls.append(1)
             raise AssertionError("regenerate_context must never be called for a blocked verdict")
 

@@ -24,6 +24,7 @@ def execute(
     *,
     product_facts_v2: dict | None = None,
     client=None,
+    review_repair: dict | None = None,
 ) -> dict:
     entry = require_listed(org_repo)
     snapshot = current_repository_snapshot(org_repo)
@@ -50,6 +51,7 @@ def execute(
         facts,
         assessment,
         client=client,
+        review_repair=review_repair,
     )
     return plan.model_dump(mode="json")
 
