@@ -133,6 +133,19 @@ class TestSuperviseCommand:
         with pytest.raises(SystemExit):
             _build_parser().parse_args(["supervise"])
 
+    def test_registry_is_an_alternative_supervision_target(self):
+        args = _build_parser().parse_args(
+            [
+                "supervise",
+                "--registry",
+                "data/products.json",
+                "--execution-profile",
+                "local_poc",
+            ]
+        )
+        assert args.registry == "data/products.json"
+        assert args.repo is None
+
     def test_durable_state_defaults_to_false(self):
         args = _build_parser().parse_args(["supervise", "--repo", "org/repo"])
         assert args.durable_state is False
@@ -429,6 +442,247 @@ class TestExecutionProfileFlag:
         )
         assert args.execution_profile == "github_observe"
 
+    def test_local_poc_profile_requires_the_registry_target(self, capsys):
+        args = argparse.Namespace(
+            repo="org/repo",
+            registry=None,
+            durable_state=False,
+            domain=None,
+            execution_profile="local_poc",
+        )
+        assert cmd_supervise(args) == 2
+        assert "requires --registry" in capsys.readouterr().err
+
+    def test_local_poc_member_forces_dynamic_planning_and_cli_lifecycle(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.env as env
+        import readme_agent.paths as paths
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.loop as loop_module
+
+        _stub_preflight_ok(monkeypatch)
+        backend = _LifecycleFakeBackend()
+        captured: dict[str, object] = {}
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(env, "github_run_id", lambda: None)
+        monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+
+        def _fake_supervise_repo(repo, **kwargs):
+            captured.update(kwargs)
+            return _terminal_supervise_result()
+
+        monkeypatch.setattr(loop_module, "supervise_repo", _fake_supervise_repo)
+        args = argparse.Namespace(
+            repo="org/repo",
+            registry=None,
+            _portfolio_member=True,
+            durable_state=False,
+            domain=None,
+            execution_profile="local_poc",
+            enable_dynamic_planning=False,
+        )
+
+        assert cmd_supervise(args) == 0
+        assert captured["state_backend"] is backend
+        assert captured["enable_specialist_skip"] is True
+        assert captured["require_independent_verification"] is True
+        assert captured["verify_local_product_facts"] is True
+        assert captured["allowed_permission_classes"] == {
+            "read_only_local",
+            "read_only_network",
+            "local_write",
+        }
+        lifecycle = next(iter(backend._state.trigger_lifecycles.values()))
+        assert lifecycle.envelope.event_type == "cli_manual"
+        assert lifecycle.status == "completed"
+
+
+class TestLocalPocPortfolioCommand:
+    def test_registry_uses_the_canonical_supervisor_for_every_mode_and_isolates_failures(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.env as env
+        import readme_agent.paths as paths
+        import readme_agent.registry.loader as loader_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.loop as loop_module
+
+        _stub_preflight_ok(monkeypatch)
+        entries = [
+            argparse.Namespace(org_repo="org/full"),
+            argparse.Namespace(org_repo="org/dry-run"),
+            argparse.Namespace(org_repo="org/disabled"),
+        ]
+        backend = _LifecycleFakeBackend()
+        seen: list[tuple[str, dict]] = []
+        monkeypatch.setattr(loader_module, "load_products", lambda path: tuple(entries))
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(env, "github_run_id", lambda: None)
+        monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / "evidence" / run_id)
+        monkeypatch.setattr(
+            paths, "readme_poc_portfolio_summary_path", lambda: tmp_path / "summary.json"
+        )
+
+        def _fake_supervise(repo, **kwargs):
+            seen.append((repo, kwargs))
+            if repo == "org/dry-run":
+                raise RuntimeError("controlled repository failure")
+            return _terminal_supervise_result()
+
+        monkeypatch.setattr(loop_module, "supervise_repo", _fake_supervise)
+        args = argparse.Namespace(
+            registry="data/products.json",
+            execution_profile="local_poc",
+            domain=None,
+            resume_trigger_key=None,
+            no_registry_heal=False,
+            durable_state=False,
+            enable_dynamic_planning=False,
+        )
+
+        assert cmd_supervise(args) == 1
+        assert [repo for repo, _kwargs in seen] == ["org/full", "org/dry-run", "org/disabled"]
+        for _repo, kwargs in seen:
+            assert kwargs["track_readme_poc_lifecycle"] is True
+            assert kwargs["enable_specialist_skip"] is True
+            assert "remote_write" not in kwargs["allowed_permission_classes"]
+        rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
+        assert '"registry_count": 3' in rendered
+        assert "SYSTEM_FAILURE" in rendered
+
+    def test_frozen_registry_fanout_isolates_failures_and_writes_summary(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.paths as paths
+        import readme_agent.registry.loader as loader_module
+        import readme_agent.state.git_backend as git_backend_module
+
+        entries = [
+            argparse.Namespace(org_repo="org/one"),
+            argparse.Namespace(org_repo="org/two"),
+        ]
+        monkeypatch.setattr(loader_module, "load_products", lambda path: tuple(entries))
+        monkeypatch.setattr(
+            git_backend_module, "default_state_backend", lambda: _LifecycleFakeBackend()
+        )
+        monkeypatch.setattr(
+            paths, "readme_poc_portfolio_summary_path", lambda: tmp_path / "summary.json"
+        )
+        calls: list[str] = []
+
+        def _fake_member_run(member_args):
+            assert member_args.registry is None
+            assert member_args._portfolio_member is True
+            assert member_args.no_registry_heal is True
+            calls.append(member_args.repo)
+            if member_args.repo == "org/two":
+                raise RuntimeError("controlled failure")
+            member_args._terminal_supervise_result = _terminal_supervise_result()
+            return 0
+
+        monkeypatch.setattr(supervision_module, "cmd_supervise", _fake_member_run)
+        args = argparse.Namespace(
+            registry="data/products.json",
+            execution_profile="local_poc",
+            domain=None,
+            resume_trigger_key=None,
+            no_registry_heal=False,
+        )
+
+        assert supervision_module._cmd_supervise_registry(args) == 1
+        assert calls == ["org/one", "org/two"]
+        rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
+        assert '"registry_count": 2' in rendered
+        assert "SYSTEM_FAILURE" in rendered
+
+    def test_registry_pass_automatically_resumes_retryable_member_work(self, monkeypatch, tmp_path):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.paths as paths
+        import readme_agent.registry.loader as loader_module
+        import readme_agent.state.git_backend as git_backend_module
+        from readme_agent.state.lifecycle import accept_trigger, transition_trigger
+        from readme_agent.state.trigger_v2 import normalize_trigger_envelope
+
+        backend = _LifecycleFakeBackend()
+        envelope = normalize_trigger_envelope(
+            "org/repo", event_type="cli_manual", provider_event_id="interrupted-pass"
+        )
+        accept_trigger(backend, envelope)
+        transition_trigger(backend, "org/repo", envelope.dedup_key, "processing")
+        transition_trigger(backend, "org/repo", envelope.dedup_key, "retryable")
+        monkeypatch.setattr(
+            loader_module,
+            "load_products",
+            lambda path: (argparse.Namespace(org_repo="org/repo"),),
+        )
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            paths, "readme_poc_portfolio_summary_path", lambda: tmp_path / "summary.json"
+        )
+        resume_keys: list[str | None] = []
+
+        def _fake_member_run(member_args):
+            resume_keys.append(member_args.resume_trigger_key)
+            member_args._terminal_supervise_result = _terminal_supervise_result()
+            return 0
+
+        monkeypatch.setattr(supervision_module, "cmd_supervise", _fake_member_run)
+        args = argparse.Namespace(
+            registry="data/products.json",
+            execution_profile="local_poc",
+            domain=None,
+            resume_trigger_key=None,
+            no_registry_heal=False,
+        )
+
+        assert supervision_module._cmd_supervise_registry(args) == 0
+        assert resume_keys == [envelope.dedup_key]
+
+    def test_registry_pass_does_not_steal_unexpired_active_member(self, monkeypatch, tmp_path):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.paths as paths
+        import readme_agent.registry.loader as loader_module
+        import readme_agent.state.git_backend as git_backend_module
+        from readme_agent.state.lifecycle import accept_trigger, transition_trigger
+        from readme_agent.state.trigger_v2 import normalize_trigger_envelope
+
+        backend = _LifecycleFakeBackend()
+        envelope = normalize_trigger_envelope(
+            "org/repo", event_type="cli_manual", provider_event_id="live-pass"
+        )
+        accept_trigger(backend, envelope)
+        transition_trigger(backend, "org/repo", envelope.dedup_key, "processing")
+        monkeypatch.setattr(
+            loader_module,
+            "load_products",
+            lambda path: (argparse.Namespace(org_repo="org/repo"),),
+        )
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            paths, "readme_poc_portfolio_summary_path", lambda: tmp_path / "summary.json"
+        )
+
+        def _must_not_run(member_args):
+            raise AssertionError("unexpired active work must retain its claim")
+
+        monkeypatch.setattr(supervision_module, "cmd_supervise", _must_not_run)
+        args = argparse.Namespace(
+            registry="data/products.json",
+            execution_profile="local_poc",
+            domain=None,
+            resume_trigger_key=None,
+            no_registry_heal=False,
+        )
+
+        assert supervision_module._cmd_supervise_registry(args) == 1
+        rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
+        assert "unexpired_active_trigger" in rendered
+        assert "infra_external" in rendered
+
     def test_invalid_execution_profile_choice_rejected_by_argparse(self):
         with pytest.raises(SystemExit):
             _build_parser().parse_args(
@@ -676,7 +930,7 @@ class TestExecutionProfileFlag:
         assert lifecycle.failure_classification == "validation_failed"
         assert lifecycle.failure_detail == "terminal_evidence_failure:RuntimeError"
 
-    def test_resume_trigger_key_requires_a_github_profile(self, capsys):
+    def test_resume_trigger_key_requires_a_durable_profile(self, capsys):
         args = argparse.Namespace(
             repo="org/repo",
             durable_state=False,
@@ -685,7 +939,46 @@ class TestExecutionProfileFlag:
             resume_trigger_key="delivery:original",
         )
         assert cmd_supervise(args) == 2
-        assert "requires a github_* execution profile" in capsys.readouterr().err
+        assert "requires a durable execution profile" in capsys.readouterr().err
+
+    def test_local_poc_member_resumes_a_retryable_cli_trigger(self, monkeypatch, tmp_path):
+        import readme_agent.paths as paths
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.loop as loop_module
+        from readme_agent.state.lifecycle import accept_trigger, transition_trigger
+        from readme_agent.state.trigger_v2 import normalize_trigger_envelope
+
+        _stub_preflight_ok(monkeypatch)
+        backend = _LifecycleFakeBackend()
+        envelope = normalize_trigger_envelope(
+            "org/repo", event_type="cli_manual", provider_event_id="interrupted-local-poc"
+        )
+        accept_trigger(backend, envelope)
+        transition_trigger(backend, "org/repo", envelope.dedup_key, "processing")
+        transition_trigger(backend, "org/repo", envelope.dedup_key, "retryable")
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+        calls: list[str] = []
+
+        def _fake_supervise(repo, **kwargs):
+            calls.append(repo)
+            return _terminal_supervise_result()
+
+        monkeypatch.setattr(loop_module, "supervise_repo", _fake_supervise)
+        args = argparse.Namespace(
+            repo="org/repo",
+            registry=None,
+            _portfolio_member=True,
+            durable_state=False,
+            domain=None,
+            execution_profile="local_poc",
+            enable_dynamic_planning=False,
+            resume_trigger_key=envelope.dedup_key,
+        )
+
+        assert cmd_supervise(args) == 0
+        assert calls == ["org/repo"]
+        assert backend._state.trigger_lifecycles[envelope.dedup_key].status == "completed"
 
 
 class TestAuthorizationValidateCommand:

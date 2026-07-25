@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 from readme_agent.errors import ConfigError, StateBackendError
@@ -24,7 +24,11 @@ _TERMINAL_EXCEPTION = {
     "DEFERRED_WITH_REASON",
 }
 _TERMINAL = _TERMINAL_SUCCESS | _TERMINAL_EXCEPTION
-_DEPENDENCY_SATISFIED = _TERMINAL_SUCCESS | {"REROUTED"}
+# Rerouting delegates work; it never proves completion. A dependency unlocks
+# only after the delegated parent has been reopened and closed from aggregate
+# child evidence.
+_DEPENDENCY_SATISFIED = _TERMINAL_SUCCESS
+_CLAIM_LEASE = timedelta(minutes=30)
 _TRANSITIONS: dict[MissionTaskStatus, set[MissionTaskStatus]] = {
     "TODO": {"READY", "BLOCKED", "BLOCKED_EXTERNAL", "DEFERRED_WITH_REASON"},
     "READY": {"IN_PROGRESS", "BLOCKED", "BLOCKED_EXTERNAL", "DEFERRED_WITH_REASON"},
@@ -63,12 +67,79 @@ def _initial_state(graph: MissionTaskGraphV1, graph_sha256: str) -> MissionExecu
     active = [task.task_id for task in graph.taskcards if task.status == "IN_PROGRESS"]
     if len(active) > 1:
         raise ConfigError(f"mission graph has multiple IN_PROGRESS tasks: {active}")
+    now = datetime.now(UTC)
     return MissionExecutionStateV1(
         mission_id=graph.mission_authority.mission_id,
         graph_sha256=graph_sha256,
         task_statuses=statuses,
         active_task_id=active[0] if active else None,
+        claim_id=uuid4().hex if active else None,
         claimed_by=graph.taskcards[0].owner if active else None,
+        claimed_at=now.isoformat() if active else None,
+        claim_expires_at=(now + _CLAIM_LEASE).isoformat() if active else None,
+    )
+
+
+def has_graph_drift(state: MissionExecutionStateV1, graph_sha256: str) -> bool:
+    """Whether read-only status is stale against the graph loaded this invocation."""
+    return state.graph_sha256 != graph_sha256
+
+
+def _claim_expired(state: MissionExecutionStateV1, now: datetime) -> bool:
+    """Treat malformed or lease-less active claims as recoverable, never permanent."""
+    if state.active_task_id is None:
+        return False
+    expiry = state.claim_expires_at
+    if expiry is None:
+        if state.claimed_at is None:
+            return True
+        expiry = state.claimed_at
+        try:
+            expiry_at = datetime.fromisoformat(expiry) + _CLAIM_LEASE
+        except ValueError:
+            return True
+    else:
+        try:
+            expiry_at = datetime.fromisoformat(expiry)
+        except ValueError:
+            return True
+    if expiry_at.tzinfo is None:
+        expiry_at = expiry_at.replace(tzinfo=UTC)
+    return expiry_at <= now
+
+
+def _recover_expired_claim(
+    state: MissionExecutionStateV1, now: datetime
+) -> MissionExecutionStateV1:
+    """Release an expired task claim through an append-only recovery transition."""
+    task_id = state.active_task_id
+    if task_id is None or not _claim_expired(state, now):
+        return state
+    statuses = dict(state.task_statuses)
+    prior = statuses[task_id]
+    if prior != "IN_PROGRESS":
+        raise StateBackendError(
+            f"active mission task {task_id!r} has non-active status {prior!r} during recovery"
+        )
+    statuses[task_id] = "REGRESSED"
+    transition = MissionTransitionV1(
+        task_id=task_id,
+        from_status="IN_PROGRESS",
+        to_status="REGRESSED",
+        observed_by="mission-claim-recovery",
+        reason="claim lease expired before a terminal verification state",
+    )
+    return state.model_copy(
+        update={
+            "task_statuses": statuses,
+            "active_task_id": None,
+            "claim_id": None,
+            "claimed_by": None,
+            "claimed_at": None,
+            "claim_expires_at": None,
+            "transition_history": [*state.transition_history, transition],
+            "last_evaluated_at": now.isoformat(),
+        }
     )
 
 
@@ -216,14 +287,17 @@ def claim_next_task(
     claimed_by: str,
 ) -> RunStateV1:
     def claim(state: MissionExecutionStateV1) -> MissionExecutionStateV1:
+        now = datetime.now(UTC)
+        state = _recover_expired_claim(state, now)
         if state.active_task_id is not None:
-            if state.claim_id is None:
+            if state.claim_id is None or state.claimed_by == claimed_by:
                 return state.model_copy(
                     update={
                         "claim_id": uuid4().hex,
                         "claimed_by": claimed_by,
-                        "claimed_at": datetime.now(UTC).isoformat(),
-                        "last_evaluated_at": datetime.now(UTC).isoformat(),
+                        "claimed_at": now.isoformat(),
+                        "claim_expires_at": (now + _CLAIM_LEASE).isoformat(),
+                        "last_evaluated_at": now.isoformat(),
                     }
                 )
             return state
@@ -232,7 +306,7 @@ def claim_next_task(
             return state.model_copy(
                 update={
                     "mission_complete": evaluate_mission(graph, state).mission_complete,
-                    "last_evaluated_at": datetime.now(UTC).isoformat(),
+                    "last_evaluated_at": now.isoformat(),
                 }
             )
         selected = ready[0]
@@ -252,10 +326,11 @@ def claim_next_task(
                 "active_task_id": selected.task_id,
                 "claim_id": uuid4().hex,
                 "claimed_by": claimed_by,
-                "claimed_at": datetime.now(UTC).isoformat(),
+                "claimed_at": now.isoformat(),
+                "claim_expires_at": (now + _CLAIM_LEASE).isoformat(),
                 "transition_history": [*state.transition_history, transition],
                 "mission_complete": False,
-                "last_evaluated_at": datetime.now(UTC).isoformat(),
+                "last_evaluated_at": now.isoformat(),
             }
         )
 
@@ -308,6 +383,7 @@ def transition_task(
                 "claim_id": None if terminal_or_review else state.claim_id,
                 "claimed_by": None if terminal_or_review else state.claimed_by,
                 "claimed_at": None if terminal_or_review else state.claimed_at,
+                "claim_expires_at": None if terminal_or_review else state.claim_expires_at,
                 "transition_history": history,
                 "mission_complete": False,
                 "last_evaluated_at": datetime.now(UTC).isoformat(),

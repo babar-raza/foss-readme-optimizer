@@ -1,0 +1,285 @@
+"""Deterministic groundedness/citation gate for free-text interpretive fields.
+
+`product.audience` and `product.problems_solved` are the only two
+`REQUIRED_PRODUCT_FIELDS` that are genuinely interpretive free text with no existing
+mechanical check today -- unlike `product.capabilities`/`product.formats`/
+`product.limitations`, which already have one via
+`facts/policy_evidence.py::evidence_fact_candidate()` (source-code evidence paths and
+required symbols). That check does not apply here: there is no file/symbol that proves an
+audience or problem-statement claim. Instead, every drafted claim must cite other
+already-established facts from the same `ProductFactsV2` object, and every significant
+word in the claim text must literally appear in at least one of its cited facts' values.
+This is intentionally a crude, deterministic lexical-coverage check -- not a semantic one
+-- so its pass/fail behavior stays simple and predictable rather than another model
+grading its own homework.
+
+Mirrors `facts/gating.py::validate_claim_citations()`'s citation-resolution shape (fact
+exists, is the field's currently-selected fact, and is in a trustworthy verification
+state) rather than reimplementing fact lookup from scratch.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+
+from pydantic import BaseModel, ConfigDict, Field
+
+from readme_agent.facts.gating import _ACCEPTED_STATES
+from readme_agent.facts.migration import SURFACE_DEPENDENCIES
+from readme_agent.facts.schema_v2 import (
+    FactRecordV2,
+    FactSourceV2,
+    ProductFactsV2,
+    descriptive_fact_id,
+)
+
+
+class _StrictModel(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+
+class InterpretiveClaimV1(_StrictModel):
+    """One drafted free-text claim plus the already-established facts that ground it."""
+
+    claim_id: str = Field(min_length=1)
+    text: str = Field(min_length=1)
+    supporting_fact_ids: list[str] = Field(default_factory=list)
+
+
+_TOKEN_RE = re.compile(r"[a-z0-9]+")
+
+# A small, fixed set of common English function words. Deliberately not exhaustive or
+# linguistically principled -- this whole gate is a crude lexical check by design, and an
+# arbitrary-but-fixed stopword list keeps it deterministic rather than "smart".
+_STOPWORDS = frozenset(
+    {
+        "a",
+        "an",
+        "the",
+        "and",
+        "or",
+        "but",
+        "of",
+        "to",
+        "in",
+        "on",
+        "for",
+        "with",
+        "is",
+        "are",
+        "was",
+        "were",
+        "be",
+        "been",
+        "being",
+        "it",
+        "its",
+        "this",
+        "that",
+        "these",
+        "those",
+        "as",
+        "at",
+        "by",
+        "from",
+        "into",
+        "than",
+        "then",
+        "so",
+        "such",
+        "we",
+        "you",
+        "your",
+        "our",
+        "their",
+        "they",
+        "them",
+        "he",
+        "she",
+        "his",
+        "her",
+        "not",
+        "no",
+        "yes",
+        "do",
+        "does",
+        "did",
+        "can",
+        "could",
+        "will",
+        "would",
+        "shall",
+        "should",
+        "may",
+        "might",
+        "must",
+        "also",
+        "very",
+        "more",
+        "most",
+        "some",
+        "any",
+        "all",
+        "each",
+        "other",
+        "which",
+        "who",
+        "whom",
+        "what",
+        "when",
+        "where",
+        "why",
+        "how",
+        "if",
+        "up",
+        "down",
+        "out",
+        "about",
+        "over",
+        "under",
+        "again",
+        "further",
+        "just",
+        "only",
+        "own",
+        "same",
+        "too",
+    }
+)
+
+
+def _significant_tokens(text: str) -> list[str]:
+    """Lowercase, tokenize, and drop stopwords/single characters -- deterministic, no NLP."""
+
+    return [
+        token
+        for token in _TOKEN_RE.findall(text.lower())
+        if token not in _STOPWORDS and len(token) > 1
+    ]
+
+
+def _value_text(value: object) -> str:
+    if isinstance(value, str):
+        return value.lower()
+    return json.dumps(value, sort_keys=True, default=str).lower()
+
+
+def _resolve_cited_fact(facts_so_far: ProductFactsV2, fact_id: str) -> FactRecordV2 | None:
+    """Same shape as gating.py::validate_claim_citations(): must exist, be the field's
+    currently-selected fact, and sit in a trustworthy verification state."""
+
+    try:
+        fact = facts_so_far.fact_by_id(fact_id)
+    except KeyError:
+        return None
+    if facts_so_far.selected_fact_ids.get(fact.field) != fact_id:
+        return None
+    if fact.verification_state not in _ACCEPTED_STATES or fact.has_unresolved_conflict:
+        return None
+    return fact
+
+
+def _claim_result(
+    claim: InterpretiveClaimV1, facts_so_far: ProductFactsV2
+) -> tuple[bool, float, list[str]]:
+    """Evaluate one claim against (a) non-empty citations, (b) citation resolution, and
+    (c) full lexical coverage. Returns (passed, coverage_ratio, failure_reasons)."""
+
+    if not claim.supporting_fact_ids:
+        return False, 0.0, [f"{claim.claim_id}: rejected -- no supporting_fact_ids cited"]
+
+    reasons: list[str] = []
+    resolved_values: list[str] = []
+    for fact_id in claim.supporting_fact_ids:
+        cited = _resolve_cited_fact(facts_so_far, fact_id)
+        if cited is None:
+            reasons.append(
+                f"{claim.claim_id}: cited fact {fact_id!r} does not resolve to a "
+                "currently-selected fact in a verified/policy_approved state"
+            )
+            continue
+        resolved_values.append(_value_text(cited.value))
+    if reasons:
+        # (b) requires EVERY cited fact ID to resolve -- one bad citation fails the claim,
+        # it does not just shrink the grounding pool.
+        return False, 0.0, reasons
+
+    tokens = _significant_tokens(claim.text)
+    if not tokens:
+        return False, 0.0, [f"{claim.claim_id}: claim text has no significant tokens to ground"]
+
+    matched = [token for token in tokens if any(token in value for value in resolved_values)]
+    coverage = len(matched) / len(tokens)
+    if coverage < 1.0:
+        unmatched = sorted(set(tokens) - set(matched))
+        reasons.append(
+            f"{claim.claim_id}: lexical coverage {coverage:.2f} -- unmatched tokens {unmatched}"
+        )
+        return False, coverage, reasons
+    return True, coverage, reasons
+
+
+def groundedness_fact_candidate(
+    field_name: str,
+    claims: list[InterpretiveClaimV1],
+    facts_so_far: ProductFactsV2,
+    source_revision: str | None,
+    observed_at: str | None,
+) -> FactRecordV2:
+    """Create one verified or wholly blocked interpretive fact candidate.
+
+    All-or-nothing per field, mirroring `evidence_fact_candidate()`'s own failure shape:
+    if any claim fails (a) empty citations, (b) citation resolution, or (c) full lexical
+    coverage, the entire field is blocked with structured failure reasons -- no partial
+    credit for the claims that did pass. Only once every claim passes is the field
+    `verified`, sourced as `agent_drafted` (it has now been run through a real,
+    deterministic check), with confidence set to the mean per-claim lexical-coverage
+    ratio.
+    """
+
+    source = FactSourceV2(
+        source_type="agent_drafted",
+        location=f"agent-draft://{field_name}",
+        source_revision=source_revision,
+        retrieved_at=observed_at,
+    )
+
+    failures: list[str] = []
+    coverages: list[float] = []
+    if not claims:
+        failures.append(f"{field_name}: no claims were drafted for this field")
+
+    for claim in claims:
+        passed, coverage, reasons = _claim_result(claim, facts_so_far)
+        if passed:
+            coverages.append(coverage)
+        else:
+            failures.extend(reasons)
+
+    if failures:
+        return FactRecordV2(
+            fact_id=descriptive_fact_id(field_name, "groundedness-blocked"),
+            field=field_name,
+            value={
+                "claims": [claim.text for claim in claims],
+                "groundedness_failures": failures,
+            },
+            source=source,
+            verification_state="blocked",
+            authoritative_owner="repository-owner",
+            confidence=0.0,
+            affected_surfaces=SURFACE_DEPENDENCIES[field_name],
+        )
+
+    confidence = sum(coverages) / len(coverages)
+    return FactRecordV2(
+        fact_id=descriptive_fact_id(field_name, "agent-drafted-grounded"),
+        field=field_name,
+        value=[claim.text for claim in claims],
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=confidence,
+        affected_surfaces=SURFACE_DEPENDENCIES[field_name],
+    )

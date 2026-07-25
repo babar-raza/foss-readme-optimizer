@@ -1,9 +1,11 @@
-"""The one place `verification/prose_quality.py`'s prompt content is read
-from `prompts/` (Wave 8.6, `VER-006` reversal) -- per `prompts/README.md`
+"""The one place `verification/prose_quality.py`'s and `specialists/
+independent_readme_review.py`'s prompt content is read from `prompts/`
+(Wave 8.6, `VER-006` reversal; RPOC-022 extends it) -- per `prompts/README.md`
 rule 2 ("only `src/readme_agent/llm/` may read `prompts/`"), mirroring how
 `llm/prompts.py`/`supervisor/dossier.py` are the sanctioned readers for
-their own jobs. `verification/prose_quality.py` never reads `prompts/`
-itself; it only calls `build_prose_quality_messages()` below.
+their own jobs. Neither `verification/prose_quality.py` nor `specialists/
+independent_readme_review.py` reads `prompts/` itself; each only calls its
+own `build_*_messages()` helper below.
 
 `PROSE_QUALITY_TOOL_SCHEMA` is a parameter schema, not prompt content --
 mirrors `capabilities/schema.py::CapabilityManifest.to_tool_schema()`'s own
@@ -47,6 +49,39 @@ def build_prose_quality_messages(paragraph_text: str) -> list[dict]:
     assert manifest.user_template is not None
     user_content = (
         Template(manifest.user_template).substitute(paragraph_text=paragraph_text).strip()
+    )
+    return [
+        {"role": "system", "content": manifest.system.strip()},
+        {"role": "user", "content": user_content},
+    ]
+
+
+def build_independent_readme_review_messages(
+    org_repo: str,
+    original_readme_text: str,
+    candidate_readme_text: str,
+    product_facts_json: str,
+    presentation_plan_json: str,
+    deterministic_validation_result_json: str,
+) -> list[dict]:
+    """RPOC-021/RPOC-022: fills `prompts/verification/independent_readme_
+    review.yaml`'s `user_template` -- the five JSON-serializable inputs
+    `specialists/independent_readme_review.py` independently assembles
+    (never a pass-through of `_verify_node`'s own in-memory objects)."""
+    manifest = prompt_registry.get("independent_readme_review")
+    assert manifest is not None, "prompts/verification/independent_readme_review.yaml missing"
+    assert manifest.user_template is not None
+    user_content = (
+        Template(manifest.user_template)
+        .substitute(
+            org_repo=org_repo,
+            original_readme_text=original_readme_text,
+            candidate_readme_text=candidate_readme_text,
+            product_facts_json=product_facts_json,
+            presentation_plan_json=presentation_plan_json,
+            deterministic_validation_result_json=deterministic_validation_result_json,
+        )
+        .strip()
     )
     return [
         {"role": "system", "content": manifest.system.strip()},

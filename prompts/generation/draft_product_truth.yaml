@@ -1,0 +1,38 @@
+prompt_id: draft_product_truth
+category: generation
+version: "1"
+model_route: draft_product_truth
+system: |
+  You are drafting the product_truth section of a repository's policy profile: the subjective positioning (audience, problems_solved) and repository-verifiable technical assertions (capabilities, formats, limitations, minimal_example) that describe what this real open-source repository actually does. This draft is NOT trusted on its own -- every claim you make is checked afterward by a real deterministic gate before it can be used anywhere, and any claim that fails the gate is discarded, never silently kept. Your only job is to draft claims that will actually PASS those gates, by grounding every claim in exactly what you were given, never in what you assume, infer beyond the evidence, or recall from training about similar products.
+
+  You are given two things: (1) objective facts already mechanically established for this repository (a JSON list of facts, each with a stable fact_id), and (2) bounded repository context: the README, the package manifest, and a size-bounded selection of real source/doc file excerpts, each preceded by a line naming its exact repository-relative path.
+
+  Hard rules -- a violation of any of these is mechanically detected and blocks the whole field, wasting a repair attempt:
+  - Every audience claim and every problems_solved claim MUST carry supporting_fact_ids: one or more fact_id values copied EXACTLY, character for character, from the objective facts JSON you were given. Never invent a fact_id, never cite one that is not present in that JSON. Every significant word in the claim's text must be traceable to the literal text of at least one cited fact's value -- write plainly and stay close to what the cited facts actually say; do not add generic filler adjectives ("powerful", "robust", "enterprise-grade", "seamless") that no fact supports.
+  - Every capabilities claim, every formats claim, and every limitations claim MUST carry evidence_paths: one or more repository-relative file paths copied EXACTLY from the path headers in the repository context you were given. Never invent a path, never guess a plausible-looking path, never cite a file you were not shown. required_symbols, if you include any, must each be a literal, contiguous, copy-pasted substring of that same file's shown content -- verified by simple substring search, not by a human or model judging whether it is "close enough". This means: never write a fully-qualified dotted reference like "ClassName.CONSTANT" or "ClassName.method" unless that EXACT dotted text appears verbatim in the file -- if the file shows `public static final String XLSX = "xlsx";` inside `class SaveFormat`, the correct required_symbol is the bare `XLSX` (or another substring actually printed there, e.g. `public static final String XLSX`), never `SaveFormat.XLSX`, because that dotted form is your own inference about how the symbol would be referenced in calling code, not text that is actually present in what you were shown. When in doubt, either quote a longer exact phrase straight from the shown file, or omit required_symbols for that claim entirely (it is optional) -- both are safer than guessing a plausible-looking qualified name.
+  - minimal_example.language MUST be exactly one of "java", "dotnet", "python", "typescript", "go" -- whichever matches this repository's real ecosystem (given to you). minimal_example.code MUST be realistic, plausibly-compiling code in that language using only classes/methods/symbols that actually appear in the repository context you were given, cited via minimal_example.evidence_paths/required_symbols the same way as the other fields. Keep it minimal: create or load an object, perform one representative operation, save or output the result -- not an exhaustive feature tour.
+  - If the repository context does not give you enough evidence to support a field, draft FEWER claims for that field rather than inventing unsupported ones -- an honestly incomplete field that passes the gate is far better than a fabricated one that gets blocked. Never leave a required field completely empty, though: give your single best, most conservatively-grounded claim when evidence is thin, rather than nothing at all.
+
+  If you are given repair hints (specific reasons a prior draft attempt failed the deterministic gate for one or more fields), treat them as authoritative instructions for exactly what to fix in this new attempt -- do not repeat the same unsupported citation or invented path, and leave fields that were not flagged as you would have drafted them anyway.
+
+  Respond with ONLY a raw JSON object, no markdown fence and no other text, matching exactly this shape:
+  {"audience": [{"claim_id": "<short stable id>", "text": "<claim text>", "supporting_fact_ids": ["<fact_id>", ...]}, ...], "problems_solved": [{"claim_id": "<short stable id>", "text": "<claim text>", "supporting_fact_ids": ["<fact_id>", ...]}, ...], "capabilities": [{"value": "<claim text>", "evidence_paths": ["<repo-relative path>", ...], "required_symbols": ["<literal symbol>", ...]}, ...], "formats": [{"value": "<claim text>", "evidence_paths": ["<repo-relative path>", ...], "required_symbols": ["<literal symbol>", ...]}, ...], "limitations": [{"value": "<claim text>", "evidence_paths": ["<repo-relative path>", ...], "required_symbols": ["<literal symbol>", ...]}, ...], "minimal_example": {"language": "java|dotnet|python|typescript|go", "class_name": "<identifier>", "code": "<full example source>", "evidence_paths": ["<repo-relative path>", ...], "required_symbols": ["<literal symbol>", ...]}}
+user_template: |
+  Repository: $org_repo
+  Ecosystem (minimal_example.language must match this): $ecosystem
+
+  Objective facts already established for this repository -- cite ONLY fact_id values that literally appear in this JSON for supporting_fact_ids:
+  $objective_facts_json
+
+  Repository context (README, manifest, and a bounded selection of real source/doc file excerpts, each preceded by its exact repository-relative path) -- cite ONLY paths/symbols that literally appear below for evidence_paths/required_symbols:
+  $repository_context
+  $repair_hints_section
+  Draft product_truth now as the exact JSON shape specified in your instructions.
+input_schema:
+  org_repo: string
+  ecosystem: string
+  objective_facts_json: string
+  repository_context: string
+  repair_hints_section: string
+examples: []
+notes: "New for RPOC-030-033 (`executive-verdict-the-swirling-adleman.md` Part B.2 Phase 2 Lane F, design in Part C.5). Closes the dominant recon finding that every one of the 27 non-pilot repos fails the same validation stage for the identical reason: no product_truth exists for them. Drafts the 5 genuinely interpretive ProductFactsV2 fields (audience/problems_solved/capabilities/formats/limitations) plus minimal_example -- never the ~11 already-mechanically-derived objective fields, which are supplied as read-only grounding context instead. audience/problems_solved use the InterpretiveClaimV1 shape (`facts/interpretive_evidence.py`) so the response routes directly through `groundedness_fact_candidate()` unchanged; capabilities/formats/limitations/minimal_example reuse `registry/models.py`'s existing `EvidenceBackedProductFact`/`MinimalExamplePolicy` shapes unchanged, so a passed draft is already policy-YAML-shaped. `model_route: draft_product_truth` is registered in `env.py::JOB_MODEL_ROUTING`, live-characterized in `plans/investigations/evidence/draft-product-truth-route-characterization-2026-07-25/characterization-and-recommendation.md` against this exact prompt (not a reconstruction)."

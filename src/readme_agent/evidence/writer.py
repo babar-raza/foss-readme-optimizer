@@ -18,6 +18,7 @@ from readme_agent import env
 from readme_agent.evidence.manifest_v2 import RunManifestV2
 from readme_agent.evidence.manifest_v3 import RunManifestV3
 from readme_agent.evidence.redaction import redact
+from readme_agent.readme.document_hashing import sha256_hex
 
 
 def generate_run_id() -> str:
@@ -66,6 +67,21 @@ def _atomic_write_text(path: Path, text: str) -> None:
 def _atomic_write_json(path: Path, data: Any) -> None:
     redacted = _redacted(_to_jsonable(data))
     _atomic_write_text(path, json.dumps(redacted, indent=2, ensure_ascii=False) + "\n")
+
+
+def write_redacted_json(path: Path, data: Any) -> None:
+    """Atomically persist a redacted runtime evidence document.
+
+    Portfolio aggregation is evidence too.  It therefore uses this public
+    seam instead of inventing a second JSON writer that could expose an
+    upstream token or an LLM response in a summary file.
+    """
+    _atomic_write_json(path, data)
+
+
+def write_redacted_text(path: Path, text: str) -> None:
+    """Atomically persist text evidence through the shared secret redactor."""
+    _atomic_write_text(path, _redacted(text))
 
 
 def unified_diff(baseline_text: str, work_text: str, filename: str = "README.md") -> str:
@@ -154,6 +170,49 @@ def write_run_manifest_v3(evidence_dir: Path, manifest: RunManifestV3) -> None:
 
 def refresh_sha256sums(evidence_dir: Path) -> None:
     _write_sha256sums(evidence_dir)
+
+
+def write_readme_proposal_bundle(
+    bundle_dir: Path,
+    *,
+    original_readme: str,
+    candidate_readme: str,
+    patch_text: str,
+    product_facts_v2: dict,
+    readme_document_plan_v1: dict,
+    repository_presentation_plan_v1: dict,
+    document_validation: dict,
+) -> None:
+    """RPOC-050/051: materialize the 8-file independent-verifier evidence
+    bundle (`verification/readme_proposal_bundle.py::_REQUIRED_ARTIFACTS`)
+    `specialists/readme_presentation.py`'s new `_review_node` needs, reusing
+    this module's own atomic-write/redaction discipline (`_atomic_write_
+    text`/`_atomic_write_json`) rather than a fourth hand-rolled file-writing
+    convention -- `plans/investigations/tools/collect_local_readme_proposal_
+    evidence.py`/`collect_portfolio_readme_proposal_evidence.py` are the
+    standalone-tool writers this production call site replaces the need for.
+
+    `artifact-sha256.json` is computed from the raw bytes actually written to
+    disk, via `readme.document_hashing.sha256_hex` -- deliberately NOT this
+    module's own CRLF-normalizing `sha256_file()` above, which would produce
+    checksums `verify_readme_proposal_bundle()` (itself built on the same
+    plain, unnormalized `sha256_hex`) could never match."""
+    bundle_dir.mkdir(parents=True, exist_ok=True)
+    _atomic_write_text(bundle_dir / "original-readme.md", original_readme)
+    _atomic_write_text(bundle_dir / "candidate-readme.md", candidate_readme)
+    _atomic_write_text(bundle_dir / "proposal.patch", patch_text)
+    _atomic_write_json(bundle_dir / "product-facts-v2.json", product_facts_v2)
+    _atomic_write_json(bundle_dir / "readme-document-plan-v1.json", readme_document_plan_v1)
+    _atomic_write_json(
+        bundle_dir / "repository-presentation-plan-v1.json", repository_presentation_plan_v1
+    )
+    _atomic_write_json(bundle_dir / "document-validation.json", document_validation)
+    artifacts = {
+        path.name: sha256_hex(path.read_bytes())
+        for path in sorted(bundle_dir.iterdir())
+        if path.is_file()
+    }
+    _atomic_write_json(bundle_dir / "artifact-sha256.json", artifacts)
 
 
 def _write_sha256sums(evidence_dir: Path) -> None:

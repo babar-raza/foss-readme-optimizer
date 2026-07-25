@@ -53,11 +53,32 @@ class AnalysisResult(BaseModel):
 
 
 class LiveAnalysisClient:
-    def __init__(self, base_url: str, api_key: str | None, model: str, timeout: float = 90):
+    def __init__(
+        self,
+        base_url: str,
+        api_key: str | None,
+        model: str,
+        timeout: float = 90,
+        max_tokens: int = DEFAULT_MAX_TOKENS,
+    ):
+        """`max_tokens` (RPOC-033): optional, defaults to the prior hardcoded
+        `DEFAULT_MAX_TOKENS` -- backward compatible for every existing
+        caller (`compare_against_presentation_standard.py`/`review_visual_
+        asset_accuracy.py`/`independent_readme_review.py`, none of which
+        pass it). `draft_product_truth`'s own response is meaningfully
+        larger than a single verdict object (several claim/evidence arrays
+        plus a full code example), so its capability constructs this client
+        with a higher budget -- the same "a fixed cap silently truncates a
+        larger real response" confound `independent-readme-reviewer-route-
+        characterization-2026-07-25/characterization-and-recommendation.md`
+        already documented and corrected for the discrimination probe
+        (900 -> 1600), applied here at the client level instead of a probe
+        script."""
         self.base_url = base_url.rstrip("/")
         self.api_key = api_key
         self.model = model
         self.timeout = timeout
+        self.max_tokens = max_tokens
 
     def _headers(self) -> dict[str, str]:
         headers = {"Content-Type": "application/json"}
@@ -70,7 +91,7 @@ class LiveAnalysisClient:
             "model": self.model,
             "messages": messages,
             "temperature": DEFAULT_TEMPERATURE,
-            "max_tokens": DEFAULT_MAX_TOKENS,
+            "max_tokens": self.max_tokens,
         }
         return requests.post(
             f"{self.base_url}/chat/completions",

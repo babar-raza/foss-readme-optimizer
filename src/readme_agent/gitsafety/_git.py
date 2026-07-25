@@ -12,6 +12,20 @@ from readme_agent.gitsafety.process import run_bounded
 # the source, not just at the hashing layer.
 DETERMINISM_FLAGS = ["-c", "core.autocrlf=false", "-c", "core.eol=lf"]
 
+# SCL-010 (2026-07-25): `force_rmtree()`'s own `\\?\`-prefix fix
+# (`gitsafety/clone.py`) makes deep-generated-code-tree *cleanup* survive a
+# near/over-`MAX_PATH` deep path on Windows, but the *checkout* that creates
+# that same deep tree in the first place (`git clone`) is a separate risk --
+# without this, a sufficiently deep path can fail during checkout itself
+# (git skips or errors on the file, before `force_rmtree()` is ever
+# reached). `core.longpaths=true` is git's own documented long-path-aware
+# checkout switch (Windows-only in effect; a harmless no-op on Linux/Mac, so
+# no platform guard is needed here unlike the Windows-specific remedy in
+# `clone.py`). Applied globally via `run_git()`, matching `DETERMINISM_FLAGS`'s
+# own precedent of a small, pinned, per-invocation `-c` flag rather than a
+# persistent repo/global git config write.
+LONG_PATH_SAFETY_FLAGS = ["-c", "core.longpaths=true"]
+
 # Fixes the OTHER hung-git incident (`OPS-009`, found 2026-07-19 -- see
 # `test_state_git_backend_live.py`'s own docstring): git resolving that it
 # needs credentials it doesn't have can invoke an interactive credential
@@ -89,7 +103,7 @@ def run_git(
     shell timeout exit code 124), so existing failure-handling logic
     everywhere picks it up unchanged."""
     full_env = {**os.environ, **(env or {}), **GIT_SAFETY_ENV}
-    git_args = ["git", *DETERMINISM_FLAGS, *args]
+    git_args = ["git", *DETERMINISM_FLAGS, *LONG_PATH_SAFETY_FLAGS, *args]
     result = run_bounded(
         git_args,
         cwd=cwd,

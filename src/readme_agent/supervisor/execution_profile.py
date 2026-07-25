@@ -4,11 +4,14 @@ replacement for "which CLI flags happened to be passed" as the thing that decide
 style: a typed, registry-validated contract, not ad hoc argument-checking scattered across
 `commands.py`.
 
-Five profiles, matching local development vs. GitHub Actions production, and observe-only vs.
+Six profiles, matching local development vs. GitHub Actions production, and observe-only vs.
 proposal-preparing vs. (future) fully-applying intent:
 
 - `local_inspect` / `local_dry_run`: interactive/manual use, never fail-closed on durable-state
   trouble (a human is present to notice and retry).
+- `local_poc`: the canonical, unattended full-registry local proof.  It has the same
+  durable-state and independent-verification discipline as production, while allowing only
+  local effects; it is never permitted to write to a product remote.
 - `github_observe` / `github_proposal` / `github_apply`: unattended GitHub Actions runs, always
   fail-closed on durable-state trouble (`RUN-005`) -- there is no human present mid-run to notice
   a silent degrade to ephemeral state.
@@ -32,6 +35,7 @@ from readme_agent.capabilities.schema import PermissionClass
 ExecutionProfileName = Literal[
     "local_inspect",
     "local_dry_run",
+    "local_poc",
     "github_observe",
     "github_proposal",
     "github_apply",
@@ -87,6 +91,18 @@ _PROFILES: dict[ExecutionProfileName, ExecutionProfileV1] = {
         allowed_triggers=["cli_manual"],
         rollback="local work-clone commit only, never pushed (docs/safety-model.md)",
         allows_domain_bypass=True,
+    ),
+    "local_poc": ExecutionProfileV1(
+        name="local_poc",
+        requires_durable_state=True,
+        fail_closed_on_state_failure=True,
+        allowed_permission_classes=["read_only_local", "read_only_network", "local_write"],
+        require_evidence_bundle=True,
+        require_independent_verification=True,
+        verify_local_product_facts=True,
+        allowed_triggers=["cli_manual"],
+        rollback="discard only the neutered local work clone; product remotes are never writable",
+        allows_domain_bypass=False,
     ),
     "github_observe": ExecutionProfileV1(
         name="github_observe",

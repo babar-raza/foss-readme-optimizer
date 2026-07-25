@@ -47,6 +47,62 @@ FailureClassificationV1 = Literal[
     "unsupported",
     "unknown",
 ]
+# `RPOC-070` (sprint charter Part B.2 Phase 5 Lane S / Part C.7): one repo's
+# overall README-POC pipeline progress -- a distinct dimension from
+# `TriggerStatusV2` (one trigger event's processing lifecycle) and
+# `CheckpointStageV1` (one run's restart boundaries). Transition legality for
+# this vocabulary is enforced by `state/readme_poc_lifecycle.py`'s own
+# transition table, the same "types live beside their siblings here, behavior
+# lives in a dedicated module" split `TriggerStatusV2`/`state/lifecycle.py`
+# already establish.
+ReadmePocStatusV1 = Literal[
+    "DISCOVERED",
+    "SNAPSHOTTED",
+    "PROFILED",
+    "FACTS_COLLECTING",
+    "FACTS_READY",
+    "FACT_CONFLICT",
+    "PLAN_READY",
+    "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATION_FAILED",
+    "AGENT_REVIEW_REJECTED",
+    "REPAIRING",
+    "AGENT_APPROVED",
+    "HUMAN_REVIEW_READY",
+    "HUMAN_ACCEPTED",
+    "PR_ELIGIBLE",
+    "PR_PROOF_COMPLETE",
+]
+
+# Version 2 is an in-place migration of the existing `readme_poc_lifecycle`
+# slot, not a parallel progress store.  V1 omitted assessment, deterministic
+# validation, active review, and no-op proof; it also conflated an unresolved
+# fact with a resolved conflict.  The V2 vocabulary makes those gates
+# observable before a portfolio metric can claim local approval.
+ReadmePocStatusV2 = Literal[
+    "DISCOVERED",
+    "SNAPSHOTTED",
+    "PROFILED",
+    "FACTS_COLLECTING",
+    "FACTS_READY",
+    "README_ASSESSED",
+    "PLAN_READY",
+    "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATED",
+    "AGENT_REVIEWING",
+    "AGENT_APPROVED",
+    "NO_OP_PROVEN",
+    "HUMAN_REVIEW_READY",
+    "HUMAN_ACCEPTED",
+    "PR_ELIGIBLE",
+    "PR_PROOF_COMPLETE",
+    "BLOCKED_FACT_CONFLICT",
+    "BLOCKED_MISSING_EVIDENCE",
+    "SYSTEM_FAILURE",
+    "DETERMINISTIC_VALIDATION_FAILED",
+    "AGENT_REVIEW_REJECTED",
+    "REPAIRING",
+]
 
 
 def utc_now_iso() -> str:
@@ -138,6 +194,73 @@ class RecoveryCandidateV1(BaseModel):
     last_checkpoint_id: str | None = None
     recovery_count: int
     reason: str
+
+
+class ReadmePocTransitionV1(BaseModel):
+    """One append-only entry in a repo's README-POC lifecycle history
+    (`RPOC-070`) -- mirrors `state/schema.py::MissionTransitionV1`'s own
+    shape (`from_status`/`to_status`/`observed_by`/`reason`/`evidence_refs`)
+    one status dimension over, for the same reason: a transition worth
+    persisting is always attributable and explained, never a bare status
+    flip with no record of who/why."""
+
+    from_status: ReadmePocStatusV1 | None = None
+    to_status: ReadmePocStatusV1
+    reason: str
+    evidence_refs: list[str] = Field(default_factory=list)
+    observed_by: str
+    occurred_at: str = Field(default_factory=utc_now_iso)
+
+
+class ReadmePocLifecycleStateV1(BaseModel):
+    """Durable per-org/repo README-POC pipeline-progress record (`RPOC-070`,
+    sprint charter Part B.2 Phase 5 Lane S / Part C.7) -- one repo's overall
+    position in the charter's discovery-through-PR-proof lifecycle, kept as
+    its own slot on `RunStateV1`/`RunStateV2` (`readme_poc_lifecycle`), the
+    same "own slot, never shared" convention `SupervisorStateV1`/
+    `ProfileCacheV1`/`OpenProposalV1` already establish there.
+
+    `status` defaults to `"DISCOVERED"` -- a repo with no persisted record
+    yet (or one written before this field existed) is correctly read as "has
+    not entered the README-POC pipeline," never a validation failure; see
+    `state/readme_poc_lifecycle.py`'s migration test. `history` is
+    append-only, written only via `state/readme_poc_lifecycle.py::
+    transition_readme_poc_status()`, never mutated directly -- the same
+    discipline `MissionExecutionStateV1.transition_history` already uses."""
+
+    schema_version: Literal[1] = 1
+    status: ReadmePocStatusV1 = "DISCOVERED"
+    updated_at: str = Field(default_factory=utc_now_iso)
+    history: list[ReadmePocTransitionV1] = Field(default_factory=list)
+    details: dict = Field(default_factory=dict)
+
+
+class ReadmePocTransitionV2(BaseModel):
+    """Append-only V2 transition with a fact/source revision binding."""
+
+    from_status: ReadmePocStatusV2 | None = None
+    to_status: ReadmePocStatusV2
+    reason: str
+    evidence_refs: list[str] = Field(default_factory=list)
+    observed_by: str
+    occurred_at: str = Field(default_factory=utc_now_iso)
+    source_revision: str | None = None
+
+
+class ReadmePocLifecycleStateV2(BaseModel):
+    """Current per-repository local-POC lifecycle in the existing state slot."""
+
+    schema_version: Literal[2] = 2
+    status: ReadmePocStatusV2 = "DISCOVERED"
+    updated_at: str = Field(default_factory=utc_now_iso)
+    history: list[ReadmePocTransitionV2] = Field(default_factory=list)
+    source_revision: str | None = None
+    facts_hash: str | None = None
+    prompt_hash: str | None = None
+    reviewer_standard_hash: str | None = None
+    protected_content_fingerprint: str | None = None
+    repair_attempts_for_revision: int = Field(default=0, ge=0, le=2)
+    details: dict = Field(default_factory=dict)
 
 
 class HealthReportV1(BaseModel):

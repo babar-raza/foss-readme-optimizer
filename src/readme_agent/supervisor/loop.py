@@ -22,6 +22,7 @@ from readme_agent.state.freshness_contract import (
 from readme_agent.state.lifecycle import current_lifecycle_recorder
 from readme_agent.state.schema import (
     DomainStateV1,
+    RunStateV2,
     SupervisorStateV1,
 )
 from readme_agent.supervisor.convergence import (
@@ -85,6 +86,24 @@ def _surface_observed_hashes(
     }
 
 
+def _readme_poc_noop_gate_holds(prior: RunStateV2 | None) -> bool:
+    """A local POC may skip work only after it has proved an unchanged rerun.
+
+    The ordinary supervisor freshness shortcut means merely that its prior
+    generic run converged.  That is not evidence that a repository has an
+    independently approved README bundle, so `local_poc` keeps running until
+    the dedicated lifecycle has reached the no-op boundary.
+    """
+    lifecycle = prior.readme_poc_lifecycle if prior is not None else None
+    return lifecycle is not None and lifecycle.status in {
+        "NO_OP_PROVEN",
+        "HUMAN_REVIEW_READY",
+        "HUMAN_ACCEPTED",
+        "PR_ELIGIBLE",
+        "PR_PROOF_COMPLETE",
+    }
+
+
 def supervise_repo(
     org_repo: str,
     *,
@@ -114,6 +133,7 @@ def supervise_repo(
     require_evidence_bundle: bool = False,
     require_independent_verification: bool = False,
     verify_local_product_facts: bool = False,
+    track_readme_poc_lifecycle: bool = False,
 ) -> SuperviseResult:
     # require_listed(), not require_permitted() (decision #40): most of a
     # supervised run is read-only planning/observation, so mode is not
@@ -216,11 +236,15 @@ def supervise_repo(
     # leaving it on the narrower gate would keep the "Git-SHA-only no-op"
     # bug alive on the path most likely to hide it.
     probed_revision = remote_head_sha(entry.clone_url) if state_backend is not None else None
-    if probed_revision is not None and no_change_gate_holds(
-        prior_full_state,
-        probed_revision,
-        current_control_plane_fingerprint,
-        now=datetime.now(UTC),
+    if (
+        probed_revision is not None
+        and no_change_gate_holds(
+            prior_full_state,
+            probed_revision,
+            current_control_plane_fingerprint,
+            now=datetime.now(UTC),
+        )
+        and (not track_readme_poc_lifecycle or _readme_poc_noop_gate_holds(prior_full_state))
     ):
         graph = TaskGraph()
         probe_decisions = [
@@ -329,6 +353,32 @@ def supervise_repo(
         )
     repository_snapshot = capture_repository_snapshot(entry, baseline_path)
     current_revision = repository_snapshot.source_revision
+    if track_readme_poc_lifecycle:
+        if state_backend is None:
+            raise RuntimeError("README-POC lifecycle tracking requires durable state")
+        from readme_agent.state.readme_poc_lifecycle import (
+            record_repository_profile,
+            record_repository_snapshot,
+        )
+        from readme_agent.supervisor.local_poc_evidence import (
+            mark_local_poc_profiled,
+            write_local_poc_snapshot,
+        )
+
+        poc_bundle_dir = write_local_poc_snapshot(repository_snapshot)
+        record_repository_snapshot(
+            state_backend,
+            org_repo,
+            source_revision=current_revision,
+            evidence_refs=[str(poc_bundle_dir / "source" / "revision.json")],
+        )
+        record_repository_profile(
+            state_backend,
+            org_repo,
+            source_revision=current_revision,
+            evidence_refs=[str(poc_bundle_dir / "source" / "repository-profile.json")],
+        )
+        mark_local_poc_profiled(repository_snapshot, poc_bundle_dir)
     lifecycle_recorder = current_lifecycle_recorder()
     if lifecycle_recorder is not None:
         lifecycle_recorder.checkpoint(
@@ -345,7 +395,7 @@ def supervise_repo(
         current_revision,
         current_control_plane_fingerprint,
         now=datetime.now(UTC),
-    ):
+    ) and (not track_readme_poc_lifecycle or _readme_poc_noop_gate_holds(prior_full_state)):
         graph = TaskGraph()
         return SuperviseResult(
             status="CONVERGED_NO_CHANGE",

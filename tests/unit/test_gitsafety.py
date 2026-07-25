@@ -1,5 +1,8 @@
 """No network required -- everything here runs against local, disposable git repos."""
 
+import errno
+import os
+import stat
 from pathlib import Path
 
 import pytest
@@ -119,6 +122,210 @@ class TestToplevelMatches:
         not_a_repo = tmp_path / "not-a-repo"
         not_a_repo.mkdir()
         assert not toplevel_matches(not_a_repo)
+
+
+class TestForceRmtree:
+    """SCL-010 (2026-07-25): `force_rmtree()`'s `_on_error` handler must
+    branch on the actual exception rather than apply one blind remedy
+    (chmod + retry) to everything. The read-only-bit case below is the
+    original, already-live pattern (every real git clone's `.git/objects/*`
+    is read-only on Windows -- `TestCloneBaselineAndWork`'s own tests
+    exercise this implicitly via `force_rmtree()` on real clones); the
+    remaining tests are the new `WinError 145` ("directory not empty")
+    coverage, which the original handler did not distinguish from the
+    read-only case at all."""
+
+    def test_removes_a_real_read_only_file(self, tmp_path):
+        """The pre-existing remedy, made explicit as its own direct test
+        rather than only exercised implicitly through real git clones
+        elsewhere in this file -- must keep working unchanged."""
+        victim = tmp_path / "victim"
+        victim.mkdir()
+        locked = victim / "readonly.txt"
+        locked.write_text("git writes objects read-only", encoding="utf-8")
+        os.chmod(locked, stat.S_IREAD)
+
+        force_rmtree(victim)
+
+        assert not victim.exists()
+
+    def test_recovers_when_shutils_own_walk_silently_skips_a_too_long_file_path(
+        self, tmp_path, monkeypatch
+    ):
+        """The actual real-world mechanism, found via a genuine live re-run
+        against a leftover `aspose-words-foss/Aspose.Words-FOSS-for-.NET`
+        baseline (`scripts/retrofits/prove_force_rmtree_long_path_live.py`):
+        an individual FILE path (not just the directory path) can exceed
+        `MAX_PATH` even when the directory path alone does not -- confirmed
+        live, a short-path `os.unlink()` on such a file fails with
+        `FileNotFoundError`/`WinError 3` ("cannot find the path specified"),
+        not `WinError 145`. CPython's own `shutil._rmtree_unsafe`
+        (`C:\\Python313\\Lib\\shutil.py`) explicitly treats a
+        `FileNotFoundError` from that `os.unlink()` call as "already gone"
+        and silently moves on (`except FileNotFoundError: continue`) --
+        never invoking this module's `_on_error` handler for it at all. The
+        file is left genuinely (not phantomly) in place, and the failure
+        only surfaces later as a real `WinError 145` on the PARENT
+        directory's own `os.rmdir()` -- which retrying `os.rmdir()` alone
+        (long-path-prefixed or not) can never fix while the real child is
+        still there. This is what `_force_clear_directory_contents()`'s
+        sweep is for."""
+        victim = tmp_path / "victim"
+        victim.mkdir()
+        leftover = victim / "leftover.txt"
+        leftover.write_text("a real file shutil's own walk silently skipped", encoding="utf-8")
+
+        real_unlink = os.unlink
+        real_rmdir = os.rmdir
+
+        def _fake_unlink(path, *args, **kwargs):
+            path_str = str(path)
+            if path_str.startswith("\\\\?\\"):
+                return real_unlink(path_str, *args, **kwargs)
+            # The too-long-path failure shutil's own walk silently swallows --
+            # the file is NOT actually removed.
+            raise FileNotFoundError(2, "The system cannot find the path specified", path_str)
+
+        def _fake_rmdir(path, *args, **kwargs):
+            path_str = str(path)
+            if path_str.startswith("\\\\?\\"):
+                return real_rmdir(path_str, *args, **kwargs)
+            if leftover.exists():
+                raise OSError(errno.ENOTEMPTY, "The directory is not empty", path_str, 145)
+            return real_rmdir(path_str, *args, **kwargs)
+
+        monkeypatch.setattr(os, "unlink", _fake_unlink)
+        monkeypatch.setattr(os, "rmdir", _fake_rmdir)
+
+        force_rmtree(victim)
+
+        assert not victim.exists()
+
+    def test_recovers_from_a_deep_path_dir_not_empty_error_via_long_path_retry(
+        self, tmp_path, monkeypatch
+    ):
+        """A simpler, isolated variant of the same `WinError 145` symptom --
+        the directory itself (not a child) is what fails against the plain
+        path but succeeds via a `\\\\?\\`-prefixed absolute path -- proving
+        the long-path-prefixed `os.rmdir()` retry itself works correctly in
+        isolation, independent of the child-sweep mechanism the test above
+        covers."""
+        victim = tmp_path / "victim"
+        victim.mkdir()
+        (victim / "file.txt").write_text("x", encoding="utf-8")
+
+        real_rmdir = os.rmdir
+        seen_paths: list[str] = []
+
+        def _fake_rmdir(path, *args, **kwargs):
+            path_str = str(path)
+            seen_paths.append(path_str)
+            if path_str.startswith("\\\\?\\"):
+                return real_rmdir(path_str, *args, **kwargs)
+            raise OSError(errno.ENOTEMPTY, "The directory is not empty", path_str, 145)
+
+        monkeypatch.setattr(os, "rmdir", _fake_rmdir)
+
+        force_rmtree(victim)
+
+        assert not victim.exists()
+        assert any(p.startswith("\\\\?\\") for p in seen_paths)
+
+    def test_recovers_from_a_transient_dir_not_empty_error_via_bounded_retry(
+        self, tmp_path, monkeypatch
+    ):
+        """The second, distinct remedy this row adds: a `WinError 145` that
+        is NOT actually a path-length problem (an antivirus/indexer file
+        handle transiently holding the directory open) -- the long-path
+        retry does not fix this (the path was never the issue), so both the
+        plain-path attempt AND the long-path retry must fail here before the
+        bounded backoff retry succeeds, proving that second line of defense
+        independently of the long-path fix above."""
+        from readme_agent.gitsafety import clone as clone_module
+
+        victim = tmp_path / "victim"
+        victim.mkdir()
+        (victim / "file.txt").write_text("x", encoding="utf-8")
+
+        real_rmdir = os.rmdir
+        calls = {"count": 0}
+
+        def _flaky_rmdir(path, *args, **kwargs):
+            calls["count"] += 1
+            if calls["count"] <= 2:
+                raise OSError(errno.ENOTEMPTY, "The directory is not empty", str(path), 145)
+            return real_rmdir(path, *args, **kwargs)
+
+        monkeypatch.setattr(os, "rmdir", _flaky_rmdir)
+        sleeps: list[float] = []
+        monkeypatch.setattr(clone_module.time, "sleep", lambda s: sleeps.append(s))
+
+        force_rmtree(victim)
+
+        assert not victim.exists()
+        # call 1 = plain path, call 2 = long-path retry, call 3 = first
+        # bounded-retry attempt succeeding -- exactly one backoff sleep.
+        assert calls["count"] == 3
+        assert len(sleeps) == 1
+
+    def test_gives_up_and_raises_after_bounded_retries_are_exhausted(self, tmp_path, monkeypatch):
+        """Not an unbounded retry: a `WinError 145` that never actually
+        clears must still surface as a real, visible failure rather than
+        hang the caller forever."""
+        from readme_agent.gitsafety import clone as clone_module
+
+        victim = tmp_path / "victim"
+        victim.mkdir()
+        (victim / "file.txt").write_text("x", encoding="utf-8")
+
+        def _always_fails(path, *args, **kwargs):
+            raise OSError(errno.ENOTEMPTY, "The directory is not empty", str(path), 145)
+
+        monkeypatch.setattr(os, "rmdir", _always_fails)
+        monkeypatch.setattr(clone_module.time, "sleep", lambda s: None)
+
+        with pytest.raises(OSError) as exc_info:
+            force_rmtree(victim)
+        assert exc_info.value.winerror == 145
+
+    def test_a_genuinely_different_oserror_is_not_swallowed(self, tmp_path, monkeypatch):
+        """Defense in depth: a real, non-transient, non-read-only, non-
+        `WinError 145` failure must still propagate rather than being
+        silently absorbed by either remedy above."""
+
+        victim = tmp_path / "victim"
+        victim.mkdir()
+        (victim / "file.txt").write_text("x", encoding="utf-8")
+
+        def _fails_for_an_unrelated_reason(path, *args, **kwargs):
+            raise OSError(None, "no space left on device", str(path))
+
+        monkeypatch.setattr(os, "rmdir", _fails_for_an_unrelated_reason)
+
+        with pytest.raises(OSError, match="no space left on device"):
+            force_rmtree(victim)
+
+    def test_dir_not_empty_remedy_is_a_no_op_off_windows(self, tmp_path, monkeypatch):
+        """Requirement: the long-path/bounded-retry remedy is Windows-only
+        by construction (`sys.platform == "win32"`) -- a `WinError 145`-
+        shaped `OSError` on a non-Windows platform must propagate like any
+        other unhandled error, not trigger the Windows-specific recovery."""
+        from readme_agent.gitsafety import clone as clone_module
+
+        victim = tmp_path / "victim"
+        victim.mkdir()
+        (victim / "file.txt").write_text("x", encoding="utf-8")
+
+        monkeypatch.setattr(clone_module.sys, "platform", "linux")
+
+        def _dir_not_empty_shaped(path, *args, **kwargs):
+            raise OSError(errno.ENOTEMPTY, "The directory is not empty", str(path), 145)
+
+        monkeypatch.setattr(os, "rmdir", _dir_not_empty_shaped)
+
+        with pytest.raises(OSError) as exc_info:
+            force_rmtree(victim)
+        assert exc_info.value.winerror == 145
 
 
 def _fake_entry(clone_url: str) -> ProductEntry:

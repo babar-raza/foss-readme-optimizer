@@ -39,6 +39,7 @@ from readme_agent.capabilities import (
     compare_reference_repositories,
     detect_readme_gaps,
     domains,
+    draft_product_truth,
     get_domain_findings,
     get_product_facts,
     get_template_clone_findings,
@@ -50,9 +51,11 @@ from readme_agent.capabilities import (
     render_readme_candidate,
     review_visual_asset_accuracy,
     stop,
+    verify_cross_pilot_specificity,
     verify_package_acquisition,
     verify_prose_quality,
     verify_readme_candidate,
+    verify_readme_proposal_bundle,
 )
 from readme_agent.capabilities.compatibility import (
     is_compatible,
@@ -70,6 +73,7 @@ _MODULES = (
     check_install_path,
     profile_repository,
     get_product_facts,
+    draft_product_truth,
     build_presentation_plan,
     classify_upstream_change,
     render_readme_candidate,
@@ -88,6 +92,8 @@ _MODULES = (
     review_visual_asset_accuracy,
     get_template_clone_findings,
     verify_package_acquisition,
+    verify_readme_proposal_bundle,
+    verify_cross_pilot_specificity,
     stop,
 )
 

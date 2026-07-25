@@ -1,0 +1,168 @@
+name: Local Product Example Verification (isolated)
+
+# RPOC-042: the disposable isolated Actions job `facts/example_execution.py`'s
+# own docstring already anticipated ("production package installation still
+# belongs in a disposable isolated Actions job") but that did not exist until
+# now. Root cause this closes: every real GitHub Actions execution profile
+# (`supervisor/execution_profile.py`'s `github_observe`/`github_proposal`/
+# `github_apply`) sets `verify_local_product_facts=False`, so a routine
+# `supervise` run in production never actually compiles/runs a repo's minimal
+# example -- only a local `local_dry_run` invocation does. This workflow does
+# NOT flip that flag on inside those three profiles (that would silently
+# change production behavior for every routine run); it calls
+# `facts/local_verification.py::verify_local_product_example()` directly, via
+# `scripts/ci/verify_local_product_example.py`, for this narrower, explicit,
+# matrix-driven purpose only.
+#
+# Read-only by construction: clones each target repo over its public HTTPS
+# clone_url (no auth needed for a public FOSS repo), compiles/runs its exact
+# policy example in a disposable per-matrix-entry workspace, and reports
+# pass/fail. No write-scoped secret, no GitHub App token, no `contents:
+# write` anywhere in this file -- see `dependency-check.yml` for the same
+# read-only-scoped shape this mirrors.
+#
+# Each matrix entry gets its own fresh GitHub-hosted runner (no shared
+# mutable state) AND a fresh `git clone` inside that runner (RPOC-042's own
+# `clone_baseline()` call, never a reused checkout) -- both layers of the
+# "disposable isolated" contract the docstring above names. `fail-fast:
+# false` so one repo's build failure never cancels the others' runs.
+#
+# workflow_dispatch only, deliberately NOT scheduled yet -- GOVERNANCE.md
+# rule 10 ("prove it in production before automating"), the same discipline
+# `dependency-check.yml`/`golden-set-run.yml`/`readme-agent-supervise.yml`
+# already follow for a workflow's first live runs.
+#
+# Local test: act workflow_dispatch -W .github/workflows/local-product-example-verification.yml
+
+on:
+  workflow_dispatch:
+    inputs:
+      org_repo:
+        description: "Optional single 'org/repo' to verify; empty means every repo with a configured product_truth.minimal_example"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  compute-matrix:
+    name: Compute example-verification matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      # Reuses readme-agent-portfolio.yml's own dynamic-matrix-from-registry
+      # pattern (a Python step reading registry.loader, emitted as JSON to
+      # GITHUB_OUTPUT) extended with the one extra filter this job needs:
+      # only repos whose policy actually has a `product_truth.minimal_example`
+      # configured have anything to compile/run (today: the 3 aspose-*-foss
+      # Java repos -- see config/policies/*.yml). REQUESTED_ORG_REPO travels
+      # via `env:`, never interpolated directly into the script body, so a
+      # crafted `workflow_dispatch` input can never reach the shell/Python
+      # parser as anything other than a plain string value.
+      - id: matrix
+        name: Emit repos with a configured product_truth.minimal_example
+        env:
+          REQUESTED_ORG_REPO: ${{ inputs.org_repo }}
+        run: |
+          matrix=$(python - <<'PY'
+          import json
+          import os
+
+          from readme_agent.registry.loader import enabled_entries, load_policy
+
+          requested = os.environ.get("REQUESTED_ORG_REPO") or None
+          rows = []
+          for entry in enabled_entries():
+              if requested and entry.org_repo != requested:
+                  continue
+              if entry.policy_profile is None:
+                  continue
+              policy = load_policy(entry.policy_profile)
+              if policy.product_truth is None:
+                  continue
+              rows.append(
+                  {
+                      "org_repo": entry.org_repo,
+                      "language": policy.product_truth.minimal_example.language,
+                  }
+              )
+          print(json.dumps(rows))
+          PY
+          )
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+  verify-example:
+    name: Verify ${{ matrix.entry.org_repo }}
+    needs: compute-matrix
+    # GOVERNANCE.md rule 10 discipline mirrored from readme-agent-
+    # production.yml's own `has_recovery` guard: a dynamically computed
+    # matrix that can legitimately be empty (e.g. a typo'd single-repo
+    # `org_repo` input, or -- before any policy configures a non-Java
+    # example -- simply "no matching repos") must never be handed to
+    # `strategy.matrix` unguarded.
+    if: ${{ needs.compute-matrix.outputs.matrix != '[]' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        entry: ${{ fromJson(needs.compute-matrix.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      # Java: no setup step here -- facts/java_toolchain.py's own
+      # provision_jdk() downloads a checksum-verified Temurin JDK matching
+      # the target repo's own pom.xml on demand (RPOC-041); `mvn` itself
+      # ships preinstalled on the ubuntu-latest runner image.
+      #
+      # The other four ecosystems MinimalExamplePolicy.language supports
+      # (registry/models.py) use the official setup action as the CI-native
+      # equivalent of that local auto-provisioning -- python is already
+      # covered by the setup-python step above (the same interpreter also
+      # runs this job's own tooling), so only .NET/Node/Go need a dedicated
+      # conditional step. Versions below are generic current-LTS defaults,
+      # not per-repo-detected (unlike Java's pom.xml-driven detection) --
+      # RPOC-035 owns building each of these four verifiers and may tighten
+      # this to real per-repo detection once it lands.
+      - name: Set up .NET (for a 'dotnet'-ecosystem target repo)
+        if: ${{ matrix.entry.language == 'dotnet' }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Set up Node.js (for a 'typescript'-ecosystem target repo)
+        if: ${{ matrix.entry.language == 'typescript' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Set up Go (for a 'go'-ecosystem target repo)
+        if: ${{ matrix.entry.language == 'go' }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: "stable"
+      - id: safe_repo_key
+        run: echo "value=$(echo '${{ matrix.entry.org_repo }}' | sed 's#/#__#')" >> "$GITHUB_OUTPUT"
+      # The one substantive step: a fresh clone of matrix.entry.org_repo
+      # (never the readme-agent repo checked out above) plus the exact
+      # policy-example build/compile, called directly against
+      # facts/local_verification.py -- see the script's own docstring for
+      # why this deliberately does not go through any `github_*` execution
+      # profile or `supervise_repo()`.
+      - name: Run local-product-example verification
+        run: >
+          python scripts/ci/verify_local_product_example.py
+          --org-repo "${{ matrix.entry.org_repo }}"
+          --output "runs/ci-verification/${{ steps.safe_repo_key.outputs.value }}.json"
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: "local-product-example-verification-${{ steps.safe_repo_key.outputs.value }}"
+          path: runs/ci-verification/

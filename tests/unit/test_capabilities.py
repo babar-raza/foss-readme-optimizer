@@ -165,7 +165,7 @@ class TestCapabilityGap:
 
 
 class TestRegistry:
-    def test_all_twenty_four_capabilities_registered(self):
+    def test_all_twenty_seven_capabilities_registered(self):
         ids = {m.capability_id for m in registry.list_all()}
         assert ids == {
             "inspect_repository",
@@ -173,6 +173,10 @@ class TestRegistry:
             "check_install_path",
             "profile_repository",
             "get_product_facts",
+            # RPOC-033: agentic product_truth drafting for repos with no
+            # policy-authored product_truth yet -- read-only, never writes
+            # to config/policies/*.yml.
+            "draft_product_truth",
             "build_presentation_plan",
             "classify_upstream_change",
             "render_readme_candidate",
@@ -203,6 +207,12 @@ class TestRegistry:
             "stop",
             # Wave 11.2 (PKG-005): per-package-root live acquisition verification.
             "verify_package_acquisition",
+            # RPOC-050/051: the deterministic, from-scratch bundle re-check --
+            # domain-scoped to independent_verification.
+            "verify_readme_proposal_bundle",
+            # RPOC-052: the portfolio-level cross-pilot specificity check --
+            # deliberately unscoped, no single owning domain.
+            "verify_cross_pilot_specificity",
         }
 
     def test_get_returns_manifest(self):
@@ -322,6 +332,13 @@ class TestRegistry:
             "compare_reference_repositories",
             "review_visual_asset_accuracy",
             "verify_package_acquisition",
+            # RPOC-050/051: performs a live registry re-check as part of its own
+            # independent re-derivation (_verify_acquisition_ground_truth).
+            "verify_readme_proposal_bundle",
+            # RPOC-033: the live LLM call is this capability's own highest-
+            # blast-radius axis, same reasoning as every other agentic_analysis
+            # capability in this set.
+            "draft_product_truth",
         }
 
     def test_filter_by_side_effect_class_local_write(self):
@@ -357,6 +374,12 @@ class TestRegistry:
             "check_install_path",
             "profile_repository",
             "get_product_facts",
+            # RPOC-033: unscoped, matching get_product_facts' own precedent --
+            # read-only and never writes to config/policies/*.yml (the whole
+            # point of its GOV-014 reviewability bar), so exposing it to the
+            # general planner risks a wasted LLM call at worst, never state
+            # corruption or an unreviewed write.
+            "draft_product_truth",
             "render_readme_candidate",
             # Wave 8.5 (AGT-008): unscoped, general-planner-visible on-demand
             # drill-down capability.
@@ -365,6 +388,9 @@ class TestRegistry:
             "get_template_clone_findings",
             # TC-17 (decision #46, AGT-006): unscoped, general-planner-visible.
             "stop",
+            # RPOC-052: unscoped, no single owning domain -- see
+            # capabilities/verify_cross_pilot_specificity.py's own docstring.
+            "verify_cross_pilot_specificity",
             # Wave 11.2 (PKG-005): unscoped, general-planner-visible.
             "verify_package_acquisition",
         }
@@ -518,11 +544,14 @@ class TestRegistryEff001RegistrationGate:
         )
         registry._build((mutator,))  # must not raise
 
-    def test_real_registry_of_twenty_four_capabilities_still_builds_cleanly(self):
-        """Regression: twenty-two read-only capabilities plus the two real
-        mutating capabilities (commit_readme_write, Wave 7g;
-        open_presentation_pr, TC-08) all pass the mutating-only gate."""
-        assert len(registry.list_all()) == 24
+    def test_real_registry_of_twenty_seven_capabilities_still_builds_cleanly(self):
+        """Regression: twenty-five read-only capabilities (RPOC-033 adds
+        draft_product_truth to the prior twenty-four -- RPOC-050/051/052's own
+        verify_readme_proposal_bundle/verify_cross_pilot_specificity plus the
+        earlier twenty-two) plus the two real mutating capabilities
+        (commit_readme_write, Wave 7g; open_presentation_pr, TC-08) all pass
+        the mutating-only gate."""
+        assert len(registry.list_all()) == 27
 
 
 class TestInspectRepositoryCapability:

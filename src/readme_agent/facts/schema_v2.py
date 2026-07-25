@@ -18,6 +18,7 @@ FactSourceType = Literal[
     "release",
     "approved_documentation",
     "readme_claim",
+    "agent_drafted",
 ]
 FactVerificationState = Literal[
     "verified",
@@ -118,6 +119,21 @@ class FactRecordV2(_StrictModel):
         if any(conflict.status == "unresolved" for conflict in self.conflicts):
             if self.verification_state != "conflicting":
                 raise ValueError("unresolved conflicts require verification_state='conflicting'")
+        return self
+
+    @model_validator(mode="after")
+    def _enforce_agent_drafted_boundary(self) -> FactRecordV2:
+        # agent_drafted differs from readme_claim: by construction it has already
+        # passed a real mechanical/citation gate upstream (see facts/interpretive_evidence.py
+        # and facts/policy_evidence.py), so it CAN reach 'verified'. It can never reach
+        # 'policy_approved' though -- that state must keep meaning "a human explicitly
+        # signed off in policy YAML", and no machine draft gets to claim that for itself.
+        is_agent_drafted = self.source.source_type == "agent_drafted"
+        if is_agent_drafted and self.verification_state == "policy_approved":
+            raise ValueError(
+                "agent-drafted facts cannot claim policy_approved; "
+                "that state requires explicit human sign-off in policy YAML"
+            )
         return self
 
     @property

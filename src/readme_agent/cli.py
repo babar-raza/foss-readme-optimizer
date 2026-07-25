@@ -105,6 +105,14 @@ def _build_parser() -> argparse.ArgumentParser:
     supervise_target = p_supervise.add_mutually_exclusive_group(required=True)
     supervise_target.add_argument("--repo")
     supervise_target.add_argument(
+        "--registry",
+        help=(
+            "Run the canonical supervisor once for every entry in this registry. "
+            "The only supported full-portfolio path is `--registry data/products.json "
+            "--execution-profile local_poc`; registry modes never exclude a local audit."
+        ),
+    )
+    supervise_target.add_argument(
         "--mission-task-graph",
         help=(
             "Central implementation-mission task graph consumed by this same supervisor. "
@@ -153,7 +161,7 @@ def _build_parser() -> argparse.ArgumentParser:
         "--resume-trigger-key",
         help=(
             "Resume one accepted/processing/retryable TriggerEnvelopeV2 from durable state. "
-            "Valid only with a github_* execution profile; used by the recovery matrix."
+            "Valid only with a durable execution profile; used by the recovery matrix."
         ),
     )
     p_supervise.add_argument(
@@ -181,6 +189,7 @@ def _build_parser() -> argparse.ArgumentParser:
         choices=[
             "local_inspect",
             "local_dry_run",
+            "local_poc",
             "github_observe",
             "github_proposal",
             "github_apply",
@@ -190,6 +199,8 @@ def _build_parser() -> argparse.ArgumentParser:
             "Wave 9.4: the explicit, typed execution profile this run operates under -- "
             "declares required state, allowed permission classes, evidence/verification "
             "requirements, valid triggers, and rollback (supervisor/execution_profile.py). "
+            "`local_poc` is the fail-closed, full-registry local proof profile and requires "
+            "--registry; it always enables dynamic planning and forbids --domain. "
             "A `github_*` profile fails closed on any durable-state trouble and forbids "
             "--domain (see below); omitting this flag preserves today's default, local, "
             "best-effort behavior (compatibility-only -- new GitHub workflows must pass one)."

@@ -8,10 +8,11 @@ from readme_agent.supervisor.execution_profile import (
 
 
 class TestProfileRegistry:
-    def test_all_five_named_profiles_resolve(self):
+    def test_all_six_named_profiles_resolve(self):
         for name in (
             "local_inspect",
             "local_dry_run",
+            "local_poc",
             "github_observe",
             "github_proposal",
             "github_apply",
@@ -26,6 +27,7 @@ class TestProfileRegistry:
         assert is_github_profile("github_apply") is True
         assert is_github_profile("local_inspect") is False
         assert is_github_profile("local_dry_run") is False
+        assert is_github_profile("local_poc") is False
 
 
 class TestProfileInvariants:
@@ -47,6 +49,18 @@ class TestProfileInvariants:
     def test_local_profiles_never_fail_closed(self):
         assert get_profile("local_inspect").fail_closed_on_state_failure is False
         assert get_profile("local_dry_run").fail_closed_on_state_failure is False
+
+    def test_local_poc_is_fail_closed_without_remote_write(self):
+        profile = get_profile("local_poc")
+        assert profile.requires_durable_state is True
+        assert profile.fail_closed_on_state_failure is True
+        assert profile.require_evidence_bundle is True
+        assert profile.require_independent_verification is True
+        assert profile.verify_local_product_facts is True
+        assert profile.allows_domain_bypass is False
+        assert "local_write" in profile.allowed_permission_classes
+        assert "remote_write" not in profile.allowed_permission_classes
+        assert profile.allowed_triggers == ["cli_manual"]
 
     def test_observe_profiles_never_allow_write_permission_classes(self):
         for name in ("local_inspect", "github_observe"):

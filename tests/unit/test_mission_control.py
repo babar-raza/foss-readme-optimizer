@@ -14,6 +14,7 @@ from readme_agent.state.schema import MissionExecutionStateV1, RunStateV1
 from readme_agent.supervisor.mission_control import (
     claim_next_task,
     evaluate_mission,
+    has_graph_drift,
     mission_state_key,
     persist_evaluation,
     transition_task,
@@ -60,9 +61,22 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
 
     assert graph.mission_authority.mission_id == "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION"
     assert graph.autonomous_execution_contract.mechanism_locked is True
-    assert len(graph.taskcards) == 24
+    assert len(graph.taskcards) >= 30
     assert len(graph_hash) == 64
     tasks = {task.task_id: task for task in graph.taskcards}
+    local_poc_children = {
+        task.task_id
+        for task in graph.taskcards
+        if task.parent_task_id == "L8-LOCAL-README-PROPOSAL-PROOF"
+    }
+    assert {
+        "L8-LOCAL-PORTFOLIO-RUNTIME",
+        "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+        "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+        "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR",
+        "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
+        "L8-LOCAL-FULL-REGISTRY-GATE-A",
+    } <= local_poc_children
     local_wave3 = tasks["L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"]
     assert local_wave3.dependencies == ["L8-WAVE1-CANONICAL-SAFETY-SPINE"]
     assert (
@@ -83,18 +97,19 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     )
     coverage = graph.requirement_coverage
     assert coverage is not None
-    # Corrected 2026-07-25: requirements.md gained AGT-009/AGT-010/GOV-028 (all mandatory)
-    # for the blocked-state classification policy (decision #77) -- 392 -> 395 total rows,
-    # mandatory 368 -> 371. FACT-014 reclassified BACKLOG -> PARTIAL (live-closed via the
-    # pre-existing JDK-21 toolchain) -- now counted as mandatory too, 371 -> 372. FACT-015
-    # (IMPLEMENTED), SCL-010/FACT-016/VER-010 (all BACKLOG) added for the portfolio-wide
-    # acquisition-fact fix and its three follow-on findings -- 395 -> 399 total (SCL-010/
-    # FACT-016/VER-010 stay BACKLOG, excluded from mandatory; only FACT-015 is mandatory),
-    # mandatory 372 -> 373.
-    assert coverage.total_requirement_rows == 399
-    assert coverage.mandatory_requirement_rows == 373
-    assert coverage.reopened_implemented_rows == 0
-    assert len({mapping.requirement_id for mapping in coverage.mappings}) == 399
+    coverage_tool = _load_tool_module(
+        "build_level8_requirement_taskcard_coverage_contract",
+        "scripts/governance/build_level8_requirement_taskcard_coverage.py",
+    )
+    expected_graph, expected_report = coverage_tool.build_coverage()
+    expected_coverage = expected_graph["requirement_coverage"]
+    assert coverage.total_requirement_rows == expected_coverage["total_requirement_rows"]
+    assert coverage.mandatory_requirement_rows == expected_coverage["mandatory_requirement_rows"]
+    assert coverage.reopened_implemented_rows == expected_coverage["reopened_implemented_rows"]
+    assert len({mapping.requirement_id for mapping in coverage.mappings}) == len(
+        expected_coverage["mappings"]
+    )
+    assert expected_report["unmapped_requirement_ids"] == []
     l8_mapping = next(
         mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-011"
     )
@@ -199,7 +214,7 @@ def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task():
     assert claimed.mission_execution.active_task_id == "L8-REQUIREMENT-TO-TASKCARD-COVERAGE"
 
 
-def test_rerouted_wave0_parent_unlocks_children_but_not_wave1():
+def test_rerouted_parent_does_not_unlock_dependent_tasks():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     statuses = {task.task_id: task.status for task in graph.taskcards}
     statuses.update(
@@ -217,11 +232,47 @@ def test_rerouted_wave0_parent_unlocks_children_but_not_wave1():
 
     eligible = [task.task_id for task in evaluate_mission(graph, state).eligible_tasks]
 
-    assert eligible == [
-        "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
-        "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE",
-    ]
+    assert eligible == []
     assert "L8-WAVE1-CANONICAL-SAFETY-SPINE" not in eligible
+
+
+def test_graph_drift_is_visible_to_read_only_status():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256="0" * 64,
+        task_statuses={task.task_id: task.status for task in graph.taskcards},
+    )
+
+    assert has_graph_drift(state, graph_hash) is True
+
+
+def test_expired_claim_is_recovered_before_the_next_claim():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    record = persist_evaluation(backend, graph, graph_hash)
+    assert record.mission_execution is not None
+    expired = record.mission_execution.model_copy(
+        update={
+            "claim_id": "expired-claim",
+            "claimed_by": "lost-worker",
+            "claimed_at": "2020-01-01T00:00:00+00:00",
+            "claim_expires_at": "2020-01-01T00:30:00+00:00",
+        }
+    )
+    backend.records[mission_state_key(graph.mission_authority.mission_id)] = record.model_copy(
+        update={"mission_execution": expired}
+    )
+
+    claimed = claim_next_task(backend, graph, graph_hash, claimed_by="recovery-worker")
+
+    assert claimed.mission_execution is not None
+    assert claimed.mission_execution.active_task_id == "L8-MISSION-CONTROL-CONSUMER"
+    assert claimed.mission_execution.claimed_by == "recovery-worker"
+    assert any(
+        transition.to_status == "REGRESSED"
+        for transition in claimed.mission_execution.transition_history
+    )
 
 
 def test_direct_close_and_closure_without_evidence_fail_closed():

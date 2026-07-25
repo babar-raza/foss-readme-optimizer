@@ -1,0 +1,320 @@
+"""Per-org/repo README-POC pipeline-progress lifecycle (`RPOC-070`, sprint
+charter Part B.2 Phase 5 Lane S / Part C.7): the durable, transition-
+validated status vocabulary the charter's README-POC lifecycle demands
+(`DISCOVERED` through `PR_PROOF_COMPLETE`), reusing this project's existing
+CAS state primitives (`state/cas.py::save_state_patch()`) rather than
+inventing a parallel state system.
+
+Deliberately its own module, not folded into `state/domain_state.py`: this
+status describes ONE repo's overall README-POC pipeline progress -- a single
+slot on `RunStateV1`/`RunStateV2` (`readme_poc_lifecycle`), the same "own
+slot, never shared" reasoning `supervisor_state`/`profile_cache`/
+`open_proposals` already use in `state/schema.py` -- not a per-specialist-
+domain record (`domain_states`, which `domain_state.py` exists to serve).
+Mirrors `state/lifecycle.py::transition_trigger()`'s transition-table shape
+(validate `from_status -> to_status` against an explicit table, CAS-write via
+`save_state_patch()`) and `supervisor/mission_control.py::transition_task()`'s
+strict "only listed transitions, no implicit self-loop" rule and append-only
+transition history, applied to the one new status dimension neither of those
+two existing state machines covers.
+"""
+
+from __future__ import annotations
+
+from datetime import UTC, datetime
+
+from readme_agent.errors import StateBackendError
+from readme_agent.state.backend import StateBackend
+from readme_agent.state.cas import save_state_patch
+from readme_agent.state.lifecycle_schema import (
+    ReadmePocLifecycleStateV1,
+    ReadmePocLifecycleStateV2,
+    ReadmePocStatusV2,
+    ReadmePocTransitionV2,
+)
+from readme_agent.state.schema import RunStateV2
+
+# Legal `from_status -> {to_status, ...}` moves for one repo's README-POC
+# pipeline progress (sprint charter §7/§8, `RPOC-070`). Strict, not
+# permissive: a status not listed here for a given `from_status` -- including
+# the same status again -- is rejected, matching `supervisor/mission_control.
+# py::_TRANSITIONS`'s own "only listed transitions" discipline (no implicit
+# self-loop / idempotent-retry carve-out, unlike `state/lifecycle.
+# py::_ALLOWED_TRANSITIONS`) -- a README-POC status re-affirmation with no
+# distinguishing prior state is never a real event worth recording for this
+# vocabulary.
+#
+# `REPAIRING` is the one shared re-entry point for both failure classes the
+# charter names (`DETERMINISTIC_VALIDATION_FAILED`, `AGENT_REVIEW_REJECTED`)
+# and for a human reviewer's own rejection (routed through `HUMAN_REVIEW_
+# READY -> REPAIRING`, since the charter's vocabulary has no dedicated
+# "human rejected" status) -- every repair cycle always re-enters at
+# `CANDIDATE_GENERATED`, never skips back into deterministic validation or
+# agent review as a separate step, since both happen automatically as part of
+# producing a new candidate (`RPOC-022`/`RPOC-051`'s own pipeline wiring).
+#
+# `FACT_CONFLICT` re-enters at `FACTS_COLLECTING`, not directly at
+# `FACTS_READY` -- a conflict must be re-collected/re-resolved, not assumed
+# resolved by fiat.
+#
+# `PR_PROOF_COMPLETE` is deliberately terminal (empty set) here -- this
+# taskcard only establishes the vocabulary and its transition table; whether
+# an accepted repo's lifecycle record should ever reopen after a later
+# upstream change is a decision for whichever future taskcard (RPOC-071+)
+# actually drives transitions in production, not one this schema-only pass
+# should guess at.
+_README_POC_TRANSITIONS: dict[ReadmePocStatusV2, set[ReadmePocStatusV2]] = {
+    "DISCOVERED": {"SNAPSHOTTED", "SYSTEM_FAILURE"},
+    "SNAPSHOTTED": {"PROFILED", "SYSTEM_FAILURE"},
+    "PROFILED": {"FACTS_COLLECTING", "SYSTEM_FAILURE"},
+    "FACTS_COLLECTING": {
+        "FACTS_READY",
+        "BLOCKED_FACT_CONFLICT",
+        "BLOCKED_MISSING_EVIDENCE",
+        "SYSTEM_FAILURE",
+    },
+    "BLOCKED_FACT_CONFLICT": {"FACTS_COLLECTING", "SYSTEM_FAILURE"},
+    "BLOCKED_MISSING_EVIDENCE": {"FACTS_COLLECTING", "SYSTEM_FAILURE"},
+    "FACTS_READY": {"README_ASSESSED", "SYSTEM_FAILURE"},
+    "README_ASSESSED": {"PLAN_READY", "SYSTEM_FAILURE"},
+    "PLAN_READY": {"CANDIDATE_GENERATED", "SYSTEM_FAILURE"},
+    "CANDIDATE_GENERATED": {
+        "DETERMINISTIC_VALIDATION_FAILED",
+        "DETERMINISTIC_VALIDATED",
+        "SYSTEM_FAILURE",
+    },
+    "DETERMINISTIC_VALIDATION_FAILED": {"REPAIRING"},
+    "DETERMINISTIC_VALIDATED": {"AGENT_REVIEWING", "SYSTEM_FAILURE"},
+    "AGENT_REVIEWING": {
+        "AGENT_APPROVED",
+        "AGENT_REVIEW_REJECTED",
+        "BLOCKED_FACT_CONFLICT",
+        "BLOCKED_MISSING_EVIDENCE",
+        "SYSTEM_FAILURE",
+    },
+    "AGENT_REVIEW_REJECTED": {"REPAIRING", "SYSTEM_FAILURE"},
+    "REPAIRING": {"CANDIDATE_GENERATED"},
+    "AGENT_APPROVED": {"NO_OP_PROVEN", "SYSTEM_FAILURE"},
+    "NO_OP_PROVEN": {"HUMAN_REVIEW_READY", "SYSTEM_FAILURE"},
+    "HUMAN_REVIEW_READY": {"HUMAN_ACCEPTED", "REPAIRING"},
+    "HUMAN_ACCEPTED": {"PR_ELIGIBLE", "SYSTEM_FAILURE"},
+    "PR_ELIGIBLE": {"PR_PROOF_COMPLETE", "SYSTEM_FAILURE"},
+    # A new source snapshot may invalidate even a previously proven PR.
+    "PR_PROOF_COMPLETE": {"SNAPSHOTTED"},
+    "SYSTEM_FAILURE": {"SNAPSHOTTED", "FACTS_COLLECTING", "REPAIRING"},
+}
+
+_V1_STATUS_MIGRATION: dict[str, ReadmePocStatusV2] = {
+    "DISCOVERED": "DISCOVERED",
+    "SNAPSHOTTED": "SNAPSHOTTED",
+    "PROFILED": "PROFILED",
+    "FACTS_COLLECTING": "FACTS_COLLECTING",
+    "FACTS_READY": "FACTS_READY",
+    "FACT_CONFLICT": "BLOCKED_FACT_CONFLICT",
+    "PLAN_READY": "PLAN_READY",
+    "CANDIDATE_GENERATED": "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATION_FAILED": "DETERMINISTIC_VALIDATION_FAILED",
+    "AGENT_REVIEW_REJECTED": "AGENT_REVIEW_REJECTED",
+    "REPAIRING": "REPAIRING",
+    "AGENT_APPROVED": "AGENT_APPROVED",
+    "HUMAN_REVIEW_READY": "HUMAN_REVIEW_READY",
+    "HUMAN_ACCEPTED": "HUMAN_ACCEPTED",
+    "PR_ELIGIBLE": "PR_ELIGIBLE",
+    "PR_PROOF_COMPLETE": "PR_PROOF_COMPLETE",
+}
+
+
+def legal_next_readme_poc_statuses(status: ReadmePocStatusV2) -> frozenset[ReadmePocStatusV2]:
+    """Read-only introspection for a caller (e.g. a future portfolio report,
+    `RPOC-071`) that needs to know what a given status may legally become
+    next, without reaching into this module's own private transition table."""
+    return frozenset(_README_POC_TRANSITIONS[status])
+
+
+def _migrate_v1_lifecycle(prior: ReadmePocLifecycleStateV1) -> ReadmePocLifecycleStateV2:
+    """Upgrade the existing lifecycle record without discarding its history."""
+    return ReadmePocLifecycleStateV2(
+        status=_V1_STATUS_MIGRATION[prior.status],
+        updated_at=prior.updated_at,
+        details=prior.details,
+        history=[
+            ReadmePocTransitionV2(
+                from_status=(
+                    _V1_STATUS_MIGRATION[entry.from_status]
+                    if entry.from_status is not None
+                    else None
+                ),
+                to_status=_V1_STATUS_MIGRATION[entry.to_status],
+                reason=entry.reason,
+                evidence_refs=entry.evidence_refs,
+                observed_by=entry.observed_by,
+                occurred_at=entry.occurred_at,
+            )
+            for entry in prior.history
+        ],
+    )
+
+
+def transition_readme_poc_status(
+    backend: StateBackend,
+    org_repo: str,
+    to_status: ReadmePocStatusV2,
+    *,
+    observed_by: str,
+    reason: str,
+    evidence_refs: list[str] | None = None,
+    source_revision: str | None = None,
+    facts_hash: str | None = None,
+    prompt_hash: str | None = None,
+    reviewer_standard_hash: str | None = None,
+    protected_content_fingerprint: str | None = None,
+    max_retries: int = 5,
+) -> ReadmePocLifecycleStateV2:
+    """Validate and durably record one README-POC lifecycle transition for
+    `org_repo`, CAS-writing onto a freshly reloaded `RunStateV2.readme_poc_
+    lifecycle` -- mirrors `state/lifecycle.py::transition_trigger()`'s own
+    shape exactly, one status dimension over: no explicit lock is taken (the
+    same posture `transition_trigger()` already uses), since `save_state_
+    patch()`'s own load-patch-CAS-save-retry loop is already the correctness
+    mechanism; a lock here would only add contention, not safety.
+
+    A record with no prior `readme_poc_lifecycle` (a repo that has never
+    entered the README-POC pipeline) starts from the implicit `"DISCOVERED"`
+    default `ReadmePocLifecycleStateV1` itself declares, so the very first
+    real call a caller makes is `to_status="SNAPSHOTTED"`, not a separate
+    "initialize" step.
+
+    Raises `StateBackendError` immediately (never retried -- only
+    `RetryableOperationError`, raised solely for a genuine CAS staleness, is
+    retried by `save_state_patch()`) when `to_status` is not a legal move
+    from the record's current status."""
+
+    now = datetime.now(UTC).isoformat()
+
+    def patch(state: RunStateV2) -> RunStateV2:
+        stored = state.readme_poc_lifecycle
+        prior = (
+            _migrate_v1_lifecycle(stored)
+            if isinstance(stored, ReadmePocLifecycleStateV1)
+            else (stored or ReadmePocLifecycleStateV2())
+        )
+        if to_status not in _README_POC_TRANSITIONS[prior.status]:
+            raise StateBackendError(
+                f"invalid README-POC lifecycle transition {prior.status!r} -> "
+                f"{to_status!r} for {org_repo!r}"
+            )
+        repair_attempts = prior.repair_attempts_for_revision
+        if to_status == "REPAIRING":
+            repair_attempts += 1
+            if repair_attempts > 2:
+                raise StateBackendError(
+                    f"README-POC repair attempts exhausted for {org_repo!r} at source revision "
+                    f"{source_revision or prior.source_revision or 'unknown'}"
+                )
+        transition = ReadmePocTransitionV2(
+            from_status=prior.status,
+            to_status=to_status,
+            reason=reason,
+            evidence_refs=evidence_refs or [],
+            observed_by=observed_by,
+            occurred_at=now,
+            source_revision=source_revision or prior.source_revision,
+        )
+        next_lifecycle = prior.model_copy(
+            update={
+                "status": to_status,
+                "updated_at": now,
+                "history": [*prior.history, transition],
+                "source_revision": source_revision or prior.source_revision,
+                "facts_hash": facts_hash or prior.facts_hash,
+                "prompt_hash": prompt_hash or prior.prompt_hash,
+                "reviewer_standard_hash": reviewer_standard_hash or prior.reviewer_standard_hash,
+                "protected_content_fingerprint": protected_content_fingerprint
+                or prior.protected_content_fingerprint,
+                "repair_attempts_for_revision": repair_attempts,
+            }
+        )
+        return state.model_copy(update={"readme_poc_lifecycle": next_lifecycle})
+
+    saved = save_state_patch(backend, org_repo, patch, max_retries=max_retries)
+    assert isinstance(saved.readme_poc_lifecycle, ReadmePocLifecycleStateV2)
+    return saved.readme_poc_lifecycle
+
+
+def record_repository_snapshot(
+    backend: StateBackend,
+    org_repo: str,
+    *,
+    source_revision: str,
+    evidence_refs: list[str],
+) -> ReadmePocLifecycleStateV2:
+    """Persist the first truthful local-POC boundary after a real clone.
+
+    Repeating the same immutable snapshot is intentionally a no-op.  Source
+    revision invalidation is handled by the later facts/presentation driver,
+    which has the hashes required to decide the earliest affected stage;
+    this narrow snapshot writer never fabricates that conclusion.
+    """
+    loaded = backend.load(org_repo)
+    lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
+    if isinstance(lifecycle, ReadmePocLifecycleStateV1):
+        lifecycle = _migrate_v1_lifecycle(lifecycle)
+    if lifecycle is not None and lifecycle.source_revision == source_revision:
+        return lifecycle
+    if lifecycle is not None and lifecycle.status != "DISCOVERED":
+        raise StateBackendError(
+            f"cannot record changed snapshot {source_revision!r} for {org_repo!r} from "
+            f"lifecycle status {lifecycle.status!r}; an invalidation decision is required"
+        )
+    return transition_readme_poc_status(
+        backend,
+        org_repo,
+        "SNAPSHOTTED",
+        observed_by="supervisor_snapshot",
+        reason="captured immutable repository snapshot",
+        evidence_refs=evidence_refs,
+        source_revision=source_revision,
+    )
+
+
+def record_repository_profile(
+    backend: StateBackend,
+    org_repo: str,
+    *,
+    source_revision: str,
+    evidence_refs: list[str],
+) -> ReadmePocLifecycleStateV2:
+    """Record the profile already captured from the immutable snapshot.
+
+    `capture_repository_snapshot()` builds the repository profile while
+    computing package roots.  This second durable boundary is therefore
+    truthful immediately after snapshot persistence; it does not claim that
+    product facts, README assessment, or proposal work has happened.
+
+    A retry after interruption is idempotent.  Later lifecycle states for the
+    same revision are preserved rather than regressed to `PROFILED`.
+    """
+    loaded = backend.load(org_repo)
+    lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
+    if isinstance(lifecycle, ReadmePocLifecycleStateV1):
+        lifecycle = _migrate_v1_lifecycle(lifecycle)
+    if lifecycle is None:
+        raise StateBackendError(
+            f"cannot record repository profile for {org_repo!r} before its snapshot"
+        )
+    if lifecycle.source_revision != source_revision:
+        raise StateBackendError(
+            f"cannot record repository profile for {source_revision!r}; durable snapshot is "
+            f"{lifecycle.source_revision!r}"
+        )
+    if lifecycle.status == "SNAPSHOTTED":
+        return transition_readme_poc_status(
+            backend,
+            org_repo,
+            "PROFILED",
+            observed_by="supervisor_profile",
+            reason="profiled immutable repository snapshot",
+            evidence_refs=evidence_refs,
+            source_revision=source_revision,
+        )
+    return lifecycle

@@ -23,6 +23,52 @@ _SAFE_ENV_NAMES = {
     "TEMP",
     "TMP",
     "WINDIR",
+    # RPOC-035 (dotnet/go verifiers, `local_verification.py`): empirically
+    # confirmed (not assumed -- bisected live against a real `dotnet build`
+    # and a real `go build` on a real Windows machine) that the tiny
+    # allowlist above is insufficient for either toolchain to run at all,
+    # not merely insecure without them:
+    #   * `dotnet build` throws inside NuGet's own settings resolution
+    #     (`NuGet.Common.NuGetEnvironment.GetFolderPath`) without a handful
+    #     of ordinary Windows system-context facts (`ProgramFiles`,
+    #     `ProgramData`, `PROCESSOR_ARCHITECTURE`, `USERNAME`, ...) --
+    #     none of these is credential-bearing (directory paths, hostnames,
+    #     processor facts, not secrets), and the profile-shaped ones
+    #     (`USERPROFILE`/`APPDATA`/`LOCALAPPDATA`/`HOMEDRIVE`/`HOMEPATH`/
+    #     `HOME`/`NUGET_PACKAGES`/`DOTNET_CLI_HOME`) are ALWAYS overridden
+    #     by the caller to a disposable, run-scoped directory before
+    #     reaching this allowlist (mirroring this file's own `JAVA_HOME`
+    #     precedent) -- never the ambient real profile, so no ambient
+    #     `NuGet.Config`/dotfile credential can be discovered through them.
+    #   * `go build` refuses to run at all without a writable `GOCACHE`
+    #     ("GOCACHE is not defined and %LocalAppData% is not defined");
+    #     `GOPATH`/`GOMODCACHE` are included for the same disposable-
+    #     override treatment.
+    # `_SECRET_NAME_RE` below still strips any of these (or any future
+    # addition) whose live value looks like a secret, regardless of
+    # allowlist membership -- this widening does not disable that backstop.
+    "APPDATA",
+    "COMPUTERNAME",
+    "DOTNET_CLI_HOME",
+    "DOTNET_CLI_TELEMETRY_OPTOUT",
+    "DOTNET_NOLOGO",
+    "DOTNET_SKIP_FIRST_TIME_EXPERIENCE",
+    "GOCACHE",
+    "GOMODCACHE",
+    "GOPATH",
+    "HOME",
+    "HOMEDRIVE",
+    "HOMEPATH",
+    "LOCALAPPDATA",
+    "NUGET_PACKAGES",
+    "NUMBER_OF_PROCESSORS",
+    "PROCESSOR_ARCHITECTURE",
+    "PROGRAMDATA",
+    "PROGRAMFILES",
+    "PROGRAMFILES(X86)",
+    "USERDOMAIN",
+    "USERNAME",
+    "USERPROFILE",
 }
 _SECRET_NAME_RE = re.compile(
     r"(?:TOKEN|SECRET|PASSWORD|PASSWD|PRIVATE_KEY|API_KEY|CREDENTIAL)",

@@ -17,7 +17,7 @@ from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
 from readme_agent.readme import candidate_pipeline
-from readme_agent.specialists import readme_reconciliation, registry
+from readme_agent.specialists import independent_readme_review, readme_reconciliation, registry
 from readme_agent.state.backend import SaveResult
 from readme_agent.state.schema import DomainStateV1, RunStateV1
 
@@ -109,6 +109,36 @@ class _FakeNonFlaggingAnalysisClient:
                 "concerns": [],
                 "verdict": "accept",
                 "rationale": "fixture: not reviewed",
+            },
+            meta=LLMResponseMeta(),
+        )
+
+
+class _FakeAcceptingIndependentReviewClient:
+    """RPOC-050/051: `readme_presentation`'s new `review` node calls
+    `independent_readme_review.run_independent_review_with_repair_loop()`
+    unconditionally on every real accept-path write -- faked here (always
+    `ACCEPT`) so this file's real-local-git-repo tests stay network-free,
+    matching `_FakeLiveLLMClient`'s/`_FakeNonFlaggingForcedToolClient`'s own
+    established convention, and so they never engage the repair loop's own
+    regenerate-and-reverify path (a real, separate, pre-existing bug in that
+    module's own default `regenerate_context` -- found live while wiring
+    this node, out of this taskcard's scope to fix: `_dispatch_presentation_
+    plan()` there dispatches the domain-scoped `build_presentation_plan`
+    with no `caller_domain`, so any real repair attempt raises)."""
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def analyze(self, messages):
+        return AnalysisResult(
+            parsed={
+                "verdict": "ACCEPT",
+                "reasoning": "fixture: not reviewed",
+                "failed_criteria": [],
+                "sections_affected": [],
+                "required_repair": "",
+                "preserve": [],
             },
             meta=LLMResponseMeta(),
         )
@@ -859,6 +889,9 @@ class TestReadmePresentationSpecialist:
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
+        monkeypatch.setattr(
+            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+        )
         backend = _FakeStateBackend()
         before_log = run_git(["log", "--oneline"], cwd=source).stdout
 
@@ -908,6 +941,9 @@ class TestReadmePresentationSpecialist:
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
+        monkeypatch.setattr(
+            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+        )
         backend = _FakeStateBackend()
 
         readme_presentation.run(ORG_REPO, backend)
@@ -934,6 +970,9 @@ class TestReadmePresentationSpecialist:
         monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
+        )
+        monkeypatch.setattr(
+            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
         )
         backend = _FakeStateBackend()
 
@@ -971,6 +1010,9 @@ class TestReadmePresentationSpecialist:
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
+        monkeypatch.setattr(
+            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+        )
         backend = _FakeStateBackend()
 
         result = readme_presentation.run(ORG_REPO, backend)
@@ -983,6 +1025,17 @@ class TestReadmePresentationSpecialist:
         assert plan_result["presentation_plan"]["actions"][0]["disposition"] == "eligible"
         assert plan_result["git_patch_proof"]["git_apply_check_passed"] is True
         assert "patch" not in plan_result["git_patch_proof"]
+        # RPOC-050/051: `review` runs between `verify` and `commit` -- the
+        # deterministic bundle re-check is honestly reported as skipped for
+        # this fixture (no `readme_document_plan`, see `_review_node`'s own
+        # docstring for why), and the agentic independent reviewer's real
+        # ACCEPT verdict (faked above, never live) is recorded either way.
+        assert result.details["bundle_verification"]["status"] == "skipped"
+        assert result.details["independent_review"]["outcome_kind"] == "accepted"
+        assert result.details["independent_review"]["final_review"]["verdict"] == "ACCEPT"
+        # RPOC-050: the raw patch text never survives past `review`'s own node
+        # boundary -- neither the reject-shaped nor the accept-shaped return.
+        assert "presentation_plan_patch" not in result.details
         stored = backend.load(ORG_REPO)
         assert stored.domain_states["readme_presentation"].accepted_status == "FIRST_OBSERVATION"
         # ORC-004: the flat accepted-state ledger is unified with the CLI
@@ -996,6 +1049,7 @@ class TestReadmePresentationSpecialist:
         # (accidentally) achieve by fully replacing `details` every node.
         assert "render_result" not in result.details
         assert "render_result" not in stored.domain_states["readme_presentation"].details
+        assert "presentation_plan_patch" not in stored.domain_states["readme_presentation"].details
 
     def test_fresh_work_clone_does_not_re_call_the_llm_when_durable_state_agrees(
         self, tmp_path, monkeypatch
@@ -1024,6 +1078,9 @@ class TestReadmePresentationSpecialist:
         monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
+        )
+        monkeypatch.setattr(
+            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
         )
         backend = _FakeStateBackend()
 
@@ -1073,6 +1130,9 @@ class TestReadmePresentationSpecialist:
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
+        monkeypatch.setattr(
+            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+        )
         backend = _FakeStateBackend()
 
         result = readme_presentation.run(ORG_REPO, backend)
@@ -1098,6 +1158,9 @@ class TestReadmePresentationSpecialist:
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
+        monkeypatch.setattr(
+            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+        )
 
         result = readme_presentation.run(ORG_REPO, None)
 
@@ -1118,6 +1181,9 @@ class TestReadmePresentationSpecialist:
         monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
         monkeypatch.setattr(
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
+        )
+        monkeypatch.setattr(
+            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
         )
         backend = _FakeStateBackend()
 
@@ -1221,6 +1287,11 @@ class TestIndependentVerificationSpecialist:
             "adversarial_cross_domain",
         ]
         assert result.details["completeness"] == {}
+        assert result.details["requirement_map"]["VER-001"]["exercised_without_error"] is True
+
+        unchanged = independent_verification.run(ORG_REPO, backend)
+
+        assert unchanged.accepted_status == "NO_CHANGE"
 
     def test_a_sibling_missing_its_expected_detail_keys_is_flagged(self, tmp_path, monkeypatch):
         from readme_agent.specialists import independent_verification

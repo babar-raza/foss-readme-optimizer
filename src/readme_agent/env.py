@@ -50,6 +50,41 @@ JOB_MODEL_ROUTING: dict[str, str] = {
     # flagged PARTIAL until a real image-bearing call is confirmed live
     # (see prompts/verification/visual_asset_accuracy.yaml's own notes).
     "visual_asset_accuracy": "Qwen2.5-VL-7B",
+    # RPOC-020/RPOC-022 (`executive-verdict-the-swirling-adleman.md` Part B.2
+    # Phase 2 Lane V): the new independent README-quality reviewer -- a
+    # genuinely different job shape from every entry above (long-context
+    # freeform-JSON quality judgment across a 5-way verdict taxonomy, not a
+    # short phrase-up or a narrow forced-tool-call choice among an
+    # already-vetted menu). Live-characterized on this job's own actual
+    # shape, not assumed from the routing table above: qwen3-next scored
+    # 100% schema-valid / 100% verdict-correct on a real 4-scenario
+    # discrimination test (catching a genuine fact conflict, a genuine
+    # missing-evidence case, and correctly NOT over-escalating a
+    # merely-generic-but-not-false README to a blocked verdict), plus a
+    # needle-verified ~22k-token long-context pass and 3/3 stable repeats.
+    # gpt-oss and Qwen2.5-VL-7B each made one real, distinct judgment error
+    # on the same test at ordinary (~1k token) prompt size -- see
+    # plans/investigations/evidence/independent-readme-reviewer-route-
+    # characterization-2026-07-25/characterization-and-recommendation.md.
+    "independent_readme_review": "qwen3-next",
+    # RPOC-030-033 (`executive-verdict-the-swirling-adleman.md` Part B.2
+    # Phase 2 Lane F, design Part C.5): agentic product_truth drafting --
+    # multiple structured output fields per response (audience/
+    # problems_solved/capabilities/formats/limitations/minimal_example),
+    # each carrying its own citation obligation, plus ecosystem-correct
+    # code generation -- a genuinely different shape from every job above,
+    # including independent_readme_review's own single-verdict shape.
+    # Live-characterized on this job's own actual prompt (RPOC-030-032,
+    # run against the real prompts/generation/draft_product_truth.yaml and
+    # the real DraftProductTruthV1 model, not a reconstruction):
+    # qwen3-next was faithful (no fabricated fact_id/evidence_path/
+    # required_symbol) on 8/9 combined live trials across two scenarios,
+    # 100% schema-valid and ecosystem-language-correct throughout, and
+    # 2-5x faster / 4-5x cheaper in completion tokens than gpt-oss for an
+    # equivalent task -- see plans/investigations/evidence/
+    # draft-product-truth-route-characterization-2026-07-25/
+    # characterization-and-recommendation.md.
+    "draft_product_truth": "qwen3-next",
 }
 
 

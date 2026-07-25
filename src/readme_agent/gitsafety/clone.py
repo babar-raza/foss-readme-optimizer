@@ -8,6 +8,7 @@ import base64
 import os
 import shutil
 import stat
+import sys
 import time
 from pathlib import Path
 
@@ -94,6 +95,143 @@ def _is_transient_clone_failure(result) -> bool:
     return any(marker in result.stderr for marker in _TRANSIENT_CLONE_STDERR_MARKERS)
 
 
+# SCL-010 (2026-07-25): found live, twice, reproducibly, running the
+# portfolio-wide local-proposal pipeline against `aspose-words-foss/
+# Aspose.Words-FOSS-for-.NET` (the same ~15,522-file repo `SCL-009` already
+# documents as an outlier) -- a path like `runs/baseline/aspose-words-foss__
+# Aspose.Words-FOSS-for-.NET/Aspose.Foundation/Aspose.Foundation/Generated/
+# Aspose.EnumExtensionsGenerator/Aspose.EnumExtensionsGenerator.
+# EnumExtensionsGenerator` is 254 chars for the directory alone, well past
+# the 260-char Windows `MAX_PATH` limit once files inside are counted. The
+# original `_on_error` below treated every failure as the read-only-file
+# case (chmod + blind retry of the identical call) -- for a real `WinError
+# 145` ("The directory is not empty"), that blind retry fails identically
+# and the `OSError` propagates unhandled out of `shutil.rmtree`. Confirmed
+# live (see this module's own docstring above `_on_error`) that CPython
+# reports this as a plain `OSError` with `.winerror == 145`, not a
+# `PermissionError` -- so it is a genuinely different exception shape, not
+# just a different message on the same one, and needs a genuinely different
+# remedy rather than a broader `except`.
+#
+# A first version of this fix only retried the failing `os.rmdir()` call
+# itself against a long-path-prefixed form of the SAME directory. A real,
+# live re-run against this exact repo (a genuine leftover baseline from the
+# original incident, `scripts/retrofits/prove_force_rmtree_long_path_live.py`)
+# found that insufficient and explained why: the directory that
+# `os.rmdir()` reports as "not empty" can be genuinely non-empty -- not a
+# phantom/metadata artifact -- because individual FILE paths inside it (not
+# just the directory path) exceed `MAX_PATH` even when the directory path
+# alone does not (confirmed live: `.../Aspose.EnumExtensionsGenerator.
+# EnumExtensionsGenerator\NumberFormattingOptionsUtil.cs` is 285 chars).
+# `shutil.rmtree`'s own recursive walk is built from short, unprefixed
+# paths, so its `os.unlink()` call for such a file fails with `WinError 3`
+# ("cannot find the path specified"), a DIFFERENT exception than the
+# `WinError 145` this module already branches on -- and that failure can
+# leave the file un-deleted by the time the parent directory's own
+# `os.rmdir()` is attempted, which then correctly (not phantomly) reports
+# "not empty". Retrying the bare `os.rmdir()` -- long-path-prefixed or not
+# -- can never succeed while a real child is still sitting there. Confirmed
+# live, directly: a long-path-prefixed `os.unlink()` on the identical file
+# succeeds where the short form fails with exactly that error. The fix
+# below therefore sweeps a directory's actual current children via the
+# long-path-prefixed form (immune to `MAX_PATH` regardless of which of
+# `shutil`'s internal calls originally missed them) before each `os.rmdir()`
+# retry, rather than retrying `os.rmdir()` alone.
+_DIR_NOT_EMPTY_WINERROR = 145
+_LONG_PATH_PREFIX = "\\\\?\\"
+_DIR_NOT_EMPTY_RETRY_ATTEMPTS = 3
+_DIR_NOT_EMPTY_RETRY_BACKOFF_SECONDS = 0.5
+
+
+def _is_windows_dir_not_empty_error(exc: BaseException) -> bool:
+    """`WinError 145` is Windows-only by construction (`.winerror` is never
+    set on non-Windows platforms), but the explicit `sys.platform` check
+    keeps the long-path/retry remedy this gates unambiguously a no-op on
+    Linux/Mac rather than relying on an attribute simply not existing there."""
+    return (
+        sys.platform == "win32"
+        and isinstance(exc, OSError)
+        and getattr(exc, "winerror", None) == _DIR_NOT_EMPTY_WINERROR
+    )
+
+
+def _with_long_path_prefix(target_path: Path) -> str:
+    """A `\\\\?\\`-prefixed absolute path lets the underlying Win32 delete
+    calls bypass the 260-char `MAX_PATH` limit even when the OS-wide
+    long-paths policy isn't enabled system-wide -- this is what actually
+    fixes the deeply-nested-generated-code-tree case (SCL-010), as opposed
+    to the bounded retry below, which only helps the separate transient-lock
+    variant of the same symptom."""
+    resolved = str(target_path.resolve())
+    if resolved.startswith(_LONG_PATH_PREFIX):
+        return resolved
+    return f"{_LONG_PATH_PREFIX}{resolved}"
+
+
+def _force_clear_directory_contents(directory: str) -> None:
+    """Recursively removes whatever `os.scandir` can currently find under
+    `directory`, entirely through the long-path-prefixed form -- proven live
+    (SCL-010, see the module-level comment above) to be necessary, not just
+    a parent `os.rmdir()` retry: a real generated-code tree's individual
+    FILE paths can exceed `MAX_PATH` even when the directory path alone does
+    not, and `shutil.rmtree`'s own short-path walk can leave such files
+    un-deleted by the time this directory's own removal is attempted.
+    Best-effort and silent per-entry: one stubborn entry must not stop the
+    sweep from clearing the rest, and the caller's own subsequent
+    `os.rmdir()` retry (not this function) is what surfaces any failure that
+    is still genuine after the sweep."""
+    long_directory = _with_long_path_prefix(Path(directory))
+    try:
+        with os.scandir(long_directory) as it:
+            children = list(it)
+    except OSError:
+        return
+    for child in children:
+        try:
+            if child.is_dir(follow_symlinks=False):
+                _force_clear_directory_contents(child.path)
+                os.rmdir(child.path)
+            else:
+                os.chmod(child.path, stat.S_IWRITE)
+                os.unlink(child.path)
+        except OSError:
+            pass
+
+
+def _retry_dir_not_empty(func, target_path: str, original_exc: OSError) -> None:
+    """Two independent remedies for the two independent causes SCL-010 found
+    behind the identical `WinError 145`: (1) a real `MAX_PATH`-adjacent deep
+    path -- fixed by sweeping the directory's actual remaining children via
+    the long-path-prefixed form (`_force_clear_directory_contents`) before
+    retrying `os.rmdir()`; (2) a transient antivirus/indexer file-handle
+    lock on an otherwise-normal-length, already-empty path -- not fixed by
+    the sweep (there is nothing left to clear), so a short bounded retry
+    with backoff is the second line of defense; the sweep is repeated on
+    each attempt too, since it is cheap and idempotent, and covers the case
+    where the lock was actually held on a child rather than the directory
+    itself. Deliberately NOT an unbounded retry -- a genuinely different,
+    non-transient error (permissions this sweep couldn't clear, a still-open
+    handle from this same process) must still surface as a real failure
+    rather than hang the caller."""
+    _force_clear_directory_contents(target_path)
+    try:
+        func(_with_long_path_prefix(Path(target_path)))
+        return
+    except OSError:
+        pass
+
+    last_exc: OSError = original_exc
+    for _attempt in range(_DIR_NOT_EMPTY_RETRY_ATTEMPTS):
+        time.sleep(_DIR_NOT_EMPTY_RETRY_BACKOFF_SECONDS)
+        _force_clear_directory_contents(target_path)
+        try:
+            func(target_path)
+            return
+        except OSError as retry_exc:
+            last_exc = retry_exc
+    raise last_exc
+
+
 def force_rmtree(path: Path) -> None:
     """git writes objects read-only; plain shutil.rmtree chokes on that on
     Windows. Clear the read-only bit on access-denied and retry. Public (not
@@ -101,11 +239,26 @@ def force_rmtree(path: Path) -> None:
     primitive for post-profile baseline cleanup (decision #40/Part B) rather
     than a fourth duplicate of this exact function. Caller must check
     `path.exists()` first -- `shutil.rmtree` raises if the top-level path is
-    already gone, and that's a normal, expected case for callers here."""
+    already gone, and that's a normal, expected case for callers here.
+
+    SCL-010: branches on the actual exception rather than one blind remedy
+    for everything -- the read-only-file `PermissionError` case (chmod +
+    retry, unchanged) is a different failure from a real Windows `WinError
+    145` ("directory not empty", almost always `MAX_PATH`-adjacent on a deep
+    generated-code tree, or occasionally a transient AV/indexer lock), which
+    gets its own long-path-prefix retry and bounded backoff instead. Any
+    other exception is re-raised, exactly as it always was."""
 
     def _on_error(func, target_path, exc_info):
-        os.chmod(target_path, stat.S_IWRITE)
-        func(target_path)
+        exc = exc_info[1]
+        if isinstance(exc, PermissionError):
+            os.chmod(target_path, stat.S_IWRITE)
+            func(target_path)
+            return
+        if _is_windows_dir_not_empty_error(exc):
+            _retry_dir_not_empty(func, target_path, exc)
+            return
+        raise exc
 
     shutil.rmtree(path, onerror=_on_error)
 

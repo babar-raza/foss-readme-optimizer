@@ -12,6 +12,7 @@ from readme_agent.state.schema import MissionTaskStatus
 from readme_agent.supervisor.mission_control import (
     claim_next_task,
     evaluate_mission,
+    has_graph_drift,
     mission_state_key,
     persist_evaluation,
     transition_task,
@@ -71,5 +72,12 @@ def run_mission_command(args: argparse.Namespace) -> int:
     )
     print(f"unresolved_tasks: {len(evaluation.unresolved_task_ids)}")
     print(f"blocked_external_tasks: {len(evaluation.blocked_external_task_ids)}")
+    drifted = has_graph_drift(state, graph_sha256)
+    print(f"graph_drift: {str(drifted).lower()}")
     print(f"mission_complete: {str(evaluation.mission_complete).lower()}")
+    if action == "status" and drifted:
+        print(
+            "error: durable mission state is stale against the loaded task graph", file=sys.stderr
+        )
+        return 1
     return 0

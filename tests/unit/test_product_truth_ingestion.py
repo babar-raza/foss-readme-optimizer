@@ -1,5 +1,6 @@
 """Repository-evidence and disposable product-example verification contracts."""
 
+import os
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -166,6 +167,19 @@ def test_disposable_example_verification_does_not_write_snapshot(tmp_path, monke
         successful_execution,
     )
     monkeypatch.setattr("readme_agent.facts.local_verification.env.java_home", lambda: None)
+    # RPOC-041: `_verify_java` now auto-detects/auto-provisions the JDK via
+    # `java_toolchain` instead of resolving `javac` off PATH -- fake a
+    # provisioned JDK home (with a real `bin/javac[.exe]`, since `_verify_java`
+    # checks the file exists) rather than letting this test reach the real
+    # Adoptium network.
+    fake_jdk_home = tmp_path / "fake-provisioned-jdk"
+    javac_name = "javac.exe" if os.name == "nt" else "javac"
+    (fake_jdk_home / "bin").mkdir(parents=True)
+    (fake_jdk_home / "bin" / javac_name).write_text("", encoding="utf-8")
+    monkeypatch.setattr(
+        "readme_agent.facts.local_verification.java_toolchain.provision_jdk",
+        lambda major: fake_jdk_home,
+    )
 
     result = verify_local_product_example(snapshot, example)
 

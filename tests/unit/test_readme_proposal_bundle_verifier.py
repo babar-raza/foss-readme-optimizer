@@ -18,6 +18,9 @@ from pathlib import Path
 
 import pytest
 
+from readme_agent.capabilities import registry as capability_registry
+from readme_agent.capabilities.dispatcher import dispatch_tool_call
+from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.ecosystems.resolver import ResolutionResult
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.verification import readme_proposal_bundle as bundle_verifier
@@ -298,3 +301,138 @@ class TestAcquisitionGroundTruth:
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp", _FakeFacts("source_build")
         )
         assert ok
+
+
+class TestCapabilityRegistration:
+    """RPOC-050/051/052: `verify_readme_proposal_bundle`/`verify_cross_pilot_
+    specificity` are now real, registered capabilities
+    (`capabilities/verify_readme_proposal_bundle.py`/`capabilities/verify_
+    cross_pilot_specificity.py`), dispatchable via `dispatch_tool_call()`
+    like every other capability in this project -- not just importable, bare
+    functions. This is what actually closes `check_verifiers_are_wired.py`'s
+    own finding against these two functions; the tests below exercise the
+    real dispatch path end to end, against the same real fixture bundles the
+    tests above already use directly."""
+
+    _PERMISSIONS = {"read_only_local", "read_only_network"}
+
+    def test_verify_readme_proposal_bundle_is_registered_with_a_real_manifest(self):
+        manifest = capability_registry.get("verify_readme_proposal_bundle")
+        assert manifest is not None
+        assert manifest.owner == "readme_agent.verification.readme_proposal_bundle"
+        assert manifest.side_effect_class == "read_only_network"
+        assert manifest.allowed_domains == [INDEPENDENT_VERIFICATION]
+        assert capability_registry.get_executor("verify_readme_proposal_bundle") is not None
+
+    def test_verify_cross_pilot_specificity_is_registered_with_a_real_manifest(self):
+        manifest = capability_registry.get("verify_cross_pilot_specificity")
+        assert manifest is not None
+        assert manifest.owner == "readme_agent.verification.readme_proposal_bundle"
+        assert manifest.side_effect_class == "read_only_local"
+        # Deliberately unscoped -- see capabilities/verify_cross_pilot_specificity.py's
+        # own module docstring for why this one has no single owning domain.
+        assert manifest.allowed_domains == []
+        assert capability_registry.get_executor("verify_cross_pilot_specificity") is not None
+
+    def test_dispatching_the_bundle_capability_accepts_a_real_untampered_bundle(self, bundle):
+        dispatch = dispatch_tool_call(
+            {
+                "function": {
+                    "name": "verify_readme_proposal_bundle",
+                    "arguments": json.dumps({"bundle_dir": str(bundle)}),
+                }
+            },
+            self._PERMISSIONS,
+            caller_domain=INDEPENDENT_VERIFICATION,
+        )
+        assert dispatch.outcome == "executed", dispatch.error
+        assert dispatch.result is not None
+        assert dispatch.result["verified"] is True, dispatch.result["failures"]
+        assert dispatch.result["org_repo"] == "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+
+    def test_dispatching_the_bundle_capability_rejects_a_real_tampered_bundle(self, bundle):
+        """The capability wrapper must not silently swallow a real rejection
+        -- same tampering technique `TestRejectsTampering` already proves
+        against the bare function, now proven against the dispatched
+        capability instead."""
+        candidate = bundle / "candidate-readme.md"
+        candidate.write_text(
+            candidate.read_text(encoding="utf-8") + "\nInjected line.\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        _refresh_artifact_checksums(bundle)
+
+        dispatch = dispatch_tool_call(
+            {
+                "function": {
+                    "name": "verify_readme_proposal_bundle",
+                    "arguments": json.dumps({"bundle_dir": str(bundle)}),
+                }
+            },
+            self._PERMISSIONS,
+            caller_domain=INDEPENDENT_VERIFICATION,
+        )
+        assert dispatch.outcome == "executed", dispatch.error
+        assert dispatch.result is not None
+        assert dispatch.result["verified"] is False
+        assert dispatch.result["checks"]["independent_reconstruction_byte_identical"] is False
+
+    def test_dispatching_the_bundle_capability_outside_its_domain_is_denied(self, bundle):
+        """`verify_readme_proposal_bundle` is scoped to `INDEPENDENT_VERIFICATION`
+        (`capabilities/domains.py`) -- an unscoped or wrong-domain caller must be
+        rejected before the underlying verifier ever runs, the same domain-isolation
+        enforcement every other domain-scoped capability in this project gets."""
+        dispatch = dispatch_tool_call(
+            {
+                "function": {
+                    "name": "verify_readme_proposal_bundle",
+                    "arguments": json.dumps({"bundle_dir": str(bundle)}),
+                }
+            },
+            self._PERMISSIONS,
+            caller_domain=None,
+        )
+        assert dispatch.outcome == "rejected_domain_denied"
+
+    def test_dispatching_the_cross_pilot_capability_accepts_real_distinct_candidates(self):
+        pilots = [
+            [org_repo, (EVIDENCE / slug / "candidate-readme.md").read_text(encoding="utf-8")]
+            for slug, org_repo in (
+                ("cells-java", "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"),
+                ("three-dimensional-java", "aspose-3d-foss/Aspose.3D-FOSS-for-Java"),
+                ("pdf-java", "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java"),
+            )
+        ]
+        dispatch = dispatch_tool_call(
+            {
+                "function": {
+                    "name": "verify_cross_pilot_specificity",
+                    "arguments": json.dumps({"pilots": pilots}),
+                }
+            },
+            self._PERMISSIONS,
+        )
+        assert dispatch.outcome == "executed", dispatch.error
+        assert dispatch.result is not None
+        assert dispatch.result["verified"] is True, dispatch.result["failures"]
+
+    def test_dispatching_the_cross_pilot_capability_rejects_a_duplicate_candidate(self):
+        cells_text = (EVIDENCE / "cells-java" / "candidate-readme.md").read_text(encoding="utf-8")
+        pilots = [
+            ["aspose-cells-foss/Aspose.Cells-FOSS-for-Java", cells_text],
+            ["aspose-3d-foss/Aspose.3D-FOSS-for-Java", cells_text],  # copy of cells' own candidate
+        ]
+        dispatch = dispatch_tool_call(
+            {
+                "function": {
+                    "name": "verify_cross_pilot_specificity",
+                    "arguments": json.dumps({"pilots": pilots}),
+                }
+            },
+            self._PERMISSIONS,
+        )
+        assert dispatch.outcome == "executed", dispatch.error
+        assert dispatch.result is not None
+        assert dispatch.result["verified"] is False
+        assert dispatch.result["checks"]["candidates_distinct"] is False

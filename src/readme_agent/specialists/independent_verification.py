@@ -126,12 +126,19 @@ def _requirement_map(domain_states: dict) -> dict[str, dict]:
         )
         if owning_domain is None:
             continue  # unscoped -- no unambiguous domain attribution this pass
-        sibling = domain_states.get(owning_domain)
-        exercised = (
-            sibling is not None
-            and sibling.accepted_status is not None
-            and not sibling.accepted_status.startswith("ERROR:")
-        )
+        if owning_domain == DOMAIN:
+            # This map is produced by the independent-verification run itself.
+            # Reading this domain's *prior* durable status would make the first
+            # unchanged rerun appear changed (absent -> FIRST_OBSERVATION).
+            # Reaching this point is the current run's non-error exercise proof.
+            exercised = True
+        else:
+            sibling = domain_states.get(owning_domain)
+            exercised = (
+                sibling is not None
+                and sibling.accepted_status is not None
+                and not sibling.accepted_status.startswith("ERROR:")
+            )
         for requirement_id in manifest.requirement_ids:
             requirement_map[requirement_id] = {
                 "domain": owning_domain,

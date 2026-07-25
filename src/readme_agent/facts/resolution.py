@@ -23,6 +23,7 @@ _SOURCE_PRECEDENCE = {
     "approved_policy": 2,
     "release": 3,
     "approved_documentation": 3,
+    "agent_drafted": 3,
     "readme_claim": 4,
 }
 

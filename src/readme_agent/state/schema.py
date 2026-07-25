@@ -12,7 +12,12 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-from readme_agent.state.lifecycle_schema import CheckpointV1, TriggerLifecycleV2
+from readme_agent.state.lifecycle_schema import (
+    CheckpointV1,
+    ReadmePocLifecycleStateV1,
+    ReadmePocLifecycleStateV2,
+    TriggerLifecycleV2,
+)
 
 
 class HandoffFindingV1(BaseModel):
@@ -399,6 +404,9 @@ class MissionExecutionStateV1(BaseModel):
     claim_id: str | None = None
     claimed_by: str | None = None
     claimed_at: str | None = None
+    # Additive claim-lease contract. Older records deserialize with `None`
+    # and mission control reconciles them before another worker can claim.
+    claim_expires_at: str | None = None
     transition_history: list[MissionTransitionV1] = Field(default_factory=list)
     mission_complete: bool = False
     last_evaluated_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
@@ -476,6 +484,18 @@ class RunStateV1(BaseModel):
     # repository key (`mission/<mission-id>`) through the same Git-ref CAS backend, so it cannot
     # collide with any product repository state and does not create a second continuation store.
     mission_execution: MissionExecutionStateV1 | None = None
+    # `RPOC-070` (sprint charter Part B.2 Phase 5 Lane S / Part C.7): one
+    # repo's overall README-POC pipeline progress (`DISCOVERED` through
+    # `PR_PROOF_COMPLETE`) -- own slot, same reasoning as `supervisor_state`/
+    # `profile_cache`/`open_proposals` above: a distinct producer (the
+    # candidate-generation/independent-review/portfolio-report machinery
+    # RPOC-071+ builds on top of this), never sharing another producer's
+    # field. Additive/optional, same safe-default pattern every other field
+    # added to this model after its initial Wave 4 shipment already uses --
+    # a record written before this field existed deserializes cleanly as
+    # `None`, i.e. "this repo has not been durably tracked through the
+    # README-POC lifecycle yet," not an error.
+    readme_poc_lifecycle: ReadmePocLifecycleStateV1 | ReadmePocLifecycleStateV2 | None = None
 
 
 class RunStateV2(RunStateV1):

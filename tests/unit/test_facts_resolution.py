@@ -69,6 +69,33 @@ def test_mechanical_fact_outranks_conflicting_readme_claim_without_guessing():
     assert selected.conflicts[0].status == "resolved_by_precedence"
 
 
+def test_later_human_policy_correction_outranks_earlier_agent_drafted_fact():
+    agent_drafted = _candidate(
+        "product.audience:agent-draft",
+        "product.audience",
+        "Backend engineers integrating document processing.",
+        "agent_drafted",
+        "agent-draft://acme/widget/product.audience",
+        ["readme.opening"],
+    )
+    human_policy = _candidate(
+        "product.audience:policy",
+        "product.audience",
+        "Enterprise developers building document-heavy workflows.",
+        "approved_policy",
+        "config/policies/acme-widget-foss.yml",
+        ["readme.opening"],
+    )
+
+    facts = _resolve([agent_drafted, human_policy])
+    selected = facts.selected_fact("product.audience")
+
+    assert selected.fact_id == human_policy.fact_id
+    assert selected.verification_state == "verified"
+    assert selected.conflicts[0].conflicting_fact_id == agent_drafted.fact_id
+    assert selected.conflicts[0].status == "resolved_by_precedence"
+
+
 def test_same_precedence_disagreement_blocks_only_affected_surface():
     first = _candidate(
         "product.license:license-file",

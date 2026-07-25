@@ -4,7 +4,7 @@ Uses synthetic `tmp_path` fixtures, not the real `src/readme_agent/` tree, per
 `GOVERNANCE.md` rule 8's testability convention -- the real tree is exercised
 directly by `run_official_checks.py` itself, not duplicated here."""
 
-from governance.check_verifiers_are_wired import find_unwired_verifiers
+from governance.check_verifiers_are_wired import find_unwired_verifiers, main
 
 
 def _write(tmp_path, relpath: str, content: str) -> None:
@@ -81,3 +81,9 @@ class TestFindUnwiredVerifiers:
         _write(tmp_path, "plain.py", "def helper(x):\n    return x\n")
 
         assert find_unwired_verifiers(tmp_path) == []
+
+    def test_check_mode_fails_for_an_unwired_verifier(self, tmp_path, monkeypatch):
+        _write(tmp_path, "checker.py", "def verify_something(x):\n    return x\n")
+        monkeypatch.setitem(main.__globals__, "SRC_ROOT", tmp_path)
+
+        assert main(["--check"]) == 1

@@ -30,10 +30,12 @@ from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta, Usage
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
 from readme_agent.readme import candidate_pipeline
+from readme_agent.specialists import independent_readme_review
 from readme_agent.specialists import registry as specialists_registry
 from readme_agent.state.backend import Lock, SaveResult
-from readme_agent.state.schema import DomainStateV1, ModelRouteStatusV1, RunStateV1
-from readme_agent.supervisor.loop import supervise_repo
+from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+from readme_agent.state.schema import DomainStateV1, ModelRouteStatusV1, RunStateV1, RunStateV2
+from readme_agent.supervisor.loop import _readme_poc_noop_gate_holds, supervise_repo
 
 # Proven-valid against the real word-count/prohibited-terms/talking-points
 # rules (identical policy to test_orchestrator.py's own FIXTURE_RESPONSE,
@@ -44,6 +46,30 @@ _FIXTURE_RELATIONSHIP_PARAGRAPH = (
     "corresponding commercial Example product. Upgrade to the commercial "
     "edition when you need a broader feature set or dedicated support."
 )
+
+
+class TestLocalPocNoOpGate:
+    def test_generic_convergence_is_not_a_local_poc_no_op_proof(self):
+        assert _readme_poc_noop_gate_holds(None) is False
+        assert _readme_poc_noop_gate_holds(RunStateV2(org_repo="org/repo")) is False
+        assert (
+            _readme_poc_noop_gate_holds(
+                RunStateV2(
+                    org_repo="org/repo",
+                    readme_poc_lifecycle=ReadmePocLifecycleStateV2(status="AGENT_APPROVED"),
+                )
+            )
+            is False
+        )
+
+    def test_no_op_and_later_lifecycle_states_allow_the_freshness_shortcut(self):
+        for status in ("NO_OP_PROVEN", "HUMAN_REVIEW_READY", "PR_PROOF_COMPLETE"):
+            assert _readme_poc_noop_gate_holds(
+                RunStateV2(
+                    org_repo="org/repo",
+                    readme_poc_lifecycle=ReadmePocLifecycleStateV2(status=status),
+                )
+            )
 
 
 class _FakeLiveLLMClient:
@@ -115,6 +141,36 @@ class _FakeVisualAccuracyAnalysisClient:
                 "concerns": [],
                 "verdict": "accept",
                 "rationale": "fixture: not reviewed",
+            },
+            meta=LLMResponseMeta(),
+        )
+
+
+class _FakeAcceptingIndependentReviewClient:
+    """RPOC-050/051: `readme_presentation`'s new `review` node calls
+    `independent_readme_review.run_independent_review_with_repair_loop()`
+    unconditionally on every real accept-path write -- faked here (always
+    `ACCEPT`) so this file's own real-local-git-repo tests stay network-free
+    (this module's own docstring already promises "no network"), matching
+    every other fake client in this file's own established convention, and
+    so they never engage the repair loop's own regenerate-and-reverify path
+    (a real, separate, pre-existing bug in that module's own default
+    `regenerate_context` -- found live while wiring this node, out of this
+    taskcard's scope to fix: see `specialists/readme_presentation.py::
+    _review_node`'s own docstring)."""
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def analyze(self, messages):
+        return AnalysisResult(
+            parsed={
+                "verdict": "ACCEPT",
+                "reasoning": "fixture: not reviewed",
+                "failed_criteria": [],
+                "sections_affected": [],
+                "required_repair": "",
+                "preserve": [],
             },
             meta=LLMResponseMeta(),
         )
@@ -433,10 +489,102 @@ def project(tmp_path, monkeypatch):
     # `test_profile_cached.py` already established for the identical
     # problem: force the local-clone path.
     monkeypatch.setattr(cached.env, "gh_token", lambda: None)
+    # RPOC-050/051: readme_presentation's new `review` node dispatches the
+    # independent agentic reviewer unconditionally on every real accept-path
+    # write -- faked for the same "no network" reason as every specialist
+    # mock above.
+    monkeypatch.setattr(
+        independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+    )
     return tmp_path
 
 
 class TestBasicLoop:
+    def test_local_poc_records_snapshot_and_profile_before_later_stages(self, project):
+        backend = FakeStateBackend()
+
+        first = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(
+                [PlannerTurn(content="done", meta=LLMResponseMeta())]
+            ),
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+        )
+        second = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(
+                [PlannerTurn(content="done", meta=LLMResponseMeta())]
+            ),
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+        )
+
+        state = backend.load(ORG_REPO)
+        lifecycle = state.readme_poc_lifecycle
+        assert lifecycle is not None
+        assert lifecycle.status == "PROFILED"
+        assert [item.to_status for item in lifecycle.history] == ["SNAPSHOTTED", "PROFILED"]
+        assert first.status == "CONVERGED_PROPOSAL_READY"
+        assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
+
+    def test_heterogeneous_local_poc_members_share_the_real_supervisor_path(self, project):
+        products_path = project / "data" / "products.json"
+        seed = json.loads(products_path.read_text(encoding="utf-8"))[0]
+        entries = []
+        repositories = [
+            ("example-java", "Example-FOSS-for-Java", "java", project / "source"),
+            (
+                "example-python",
+                "Example-FOSS-for-Python",
+                "python",
+                _init_source_repo(project / "source-python"),
+            ),
+            ("example-go", "Example-FOSS-for-Go", "go", _init_source_repo(project / "source-go")),
+        ]
+        for org, repo_name, ecosystem, source in repositories:
+            entries.append(
+                {
+                    **seed,
+                    "platform": ecosystem,
+                    "repo_name": repo_name,
+                    "repo_url": f"https://github.com/{org}/{repo_name}",
+                    "clone_url": str(source),
+                    "ecosystem": ecosystem,
+                    "mode": "dry_run",
+                }
+            )
+        products_path.write_text(json.dumps(entries), encoding="utf-8")
+        backend = FakeStateBackend()
+
+        for org, repo_name, _ecosystem, _source in repositories:
+            org_repo = f"{org}/{repo_name}"
+            result = supervise_repo(
+                org_repo,
+                planner_client=FixturePlannerClient(
+                    [PlannerTurn(content="done", meta=LLMResponseMeta())]
+                ),
+                state_backend=backend,
+                allowed_permission_classes={
+                    "read_only_local",
+                    "read_only_network",
+                    "local_write",
+                },
+                fail_closed_on_state_failure=True,
+                require_evidence_bundle=True,
+                require_independent_verification=True,
+                verify_local_product_facts=True,
+                track_readme_poc_lifecycle=True,
+            )
+
+            lifecycle = backend.load(org_repo).readme_poc_lifecycle
+            assert result.status == "CONVERGED_PROPOSAL_READY"
+            assert lifecycle is not None
+            assert lifecycle.status == "PROFILED"
+            assert result.evidence_dir is not None
+
     def test_bootstrap_then_planner_capability_then_stop_converges(self, project):
         turns = [
             PlannerTurn(

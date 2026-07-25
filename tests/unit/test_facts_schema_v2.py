@@ -63,6 +63,48 @@ def test_readme_claim_cannot_self_verify_even_when_prompt_injected():
         )
 
 
+def test_agent_drafted_can_self_verify_unlike_readme_claim():
+    fact = FactRecordV2(
+        fact_id="product.audience:agent-draft",
+        field="product.audience",
+        value="Backend engineers integrating document processing.",
+        source=_source("agent_drafted"),
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=0.9,
+        affected_surfaces=["readme.opening"],
+    )
+    assert fact.verification_state == "verified"
+
+
+def test_agent_drafted_cannot_claim_policy_approved():
+    with pytest.raises(ValidationError, match="policy_approved"):
+        FactRecordV2(
+            fact_id="product.audience:agent-draft",
+            field="product.audience",
+            value="Backend engineers integrating document processing.",
+            source=_source("agent_drafted"),
+            verification_state="policy_approved",
+            authoritative_owner="repository-owner",
+            confidence=0.9,
+            affected_surfaces=["readme.opening"],
+        )
+
+
+def test_agent_drafted_cannot_be_missing_with_a_value():
+    with pytest.raises(ValidationError, match="missing fact must have value=None"):
+        FactRecordV2(
+            fact_id="product.audience:agent-draft",
+            field="product.audience",
+            value="Backend engineers integrating document processing.",
+            source=_source("agent_drafted"),
+            verification_state="missing",
+            authoritative_owner="repository-owner",
+            confidence=0.0,
+            affected_surfaces=["readme.opening"],
+        )
+
+
 def test_required_field_selection_is_enforced():
     facts = _complete_facts()
     selections = dict(facts.selected_fact_ids)

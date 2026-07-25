@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+from pathlib import Path
 
 from readme_agent.commands_compatibility import _durable_state_backend
 from readme_agent.state.lifecycle_schema import FailureClassificationV1, TriggerStatusV2
@@ -12,6 +13,9 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         from readme_agent.supervisor.mission_command import run_mission_command
 
         return run_mission_command(args)
+
+    if getattr(args, "registry", None):
+        return _cmd_supervise_registry(args)
 
     from readme_agent.preflight.runner import format_summary, run_preflight_for_repo
     from readme_agent.registry.self_heal import heal_registry_drift
@@ -31,6 +35,12 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         from readme_agent.supervisor.execution_profile import get_profile
 
         profile = get_profile(profile_name)
+        if profile.name == "local_poc" and not getattr(args, "_portfolio_member", False):
+            print(
+                "error: --execution-profile local_poc requires --registry data/products.json",
+                file=sys.stderr,
+            )
+            return 2
         if domain is not None and not profile.allows_domain_bypass:
             print(
                 f"error: --domain is not permitted under --execution-profile {profile_name!r} -- "
@@ -48,7 +58,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
     needs_durable_state = getattr(args, "durable_state", False) or (
         profile is not None and profile.requires_durable_state
     )
-    state_backend = (
+    state_backend = getattr(args, "_state_backend_override", None) or (
         _durable_state_backend(args)
         if getattr(args, "durable_state", False)
         else (_force_durable_state_backend() if needs_durable_state else None)
@@ -60,9 +70,12 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         from readme_agent.errors import StateBackendError
         from readme_agent.evidence.writer import generate_run_id
         from readme_agent.state.lifecycle import LifecycleRecorder, accept_trigger
-        from readme_agent.state.trigger_v2 import normalize_github_trigger
+        from readme_agent.state.trigger_v2 import (
+            normalize_github_trigger,
+            normalize_trigger_envelope,
+        )
 
-        event_name = env.github_event_name()
+        event_name = "cli_manual" if profile.name == "local_poc" else env.github_event_name()
         if event_name not in profile.allowed_triggers:
             print(
                 f"error: trigger {event_name!r} is not allowed by execution profile "
@@ -72,6 +85,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             return 2
         assert state_backend is not None
         resume_trigger_key = getattr(args, "resume_trigger_key", None)
+        run_id = env.github_run_id() or generate_run_id()
         if resume_trigger_key:
             assert state_backend is not None
             recovery_state = state_backend.load(args.repo)
@@ -86,6 +100,12 @@ def cmd_supervise(args: argparse.Namespace) -> int:
                     f"cannot resume unknown trigger {resume_trigger_key!r} for {args.repo!r}"
                 )
             envelope = lifecycle.envelope
+        elif profile.name == "local_poc":
+            envelope = normalize_trigger_envelope(
+                args.repo,
+                event_type="cli_manual",
+                provider_event_id=run_id,
+            )
         else:
             envelope = normalize_github_trigger(args.repo)
         acceptance = accept_trigger(state_backend, envelope)
@@ -98,7 +118,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         lifecycle_recorder = LifecycleRecorder(
             state_backend,
             envelope,
-            env.github_run_id() or generate_run_id(),
+            run_id,
             attempt=env.github_run_attempt(),
         )
         lifecycle_recorder.checkpoint(
@@ -108,7 +128,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         lifecycle_recorder.start()
     elif getattr(args, "resume_trigger_key", None):
         print(
-            "error: --resume-trigger-key requires a github_* execution profile",
+            "error: --resume-trigger-key requires a durable execution profile",
             file=sys.stderr,
         )
         return 2
@@ -161,7 +181,8 @@ def cmd_supervise(args: argparse.Namespace) -> int:
     # repair-alternative-selection mechanisms -- fully built and unit-tested
     # -- had zero effect in any shipped CLI/GitHub-Actions run. Opt-in only.
     dynamic_planning_kwargs: dict = {}
-    if getattr(args, "enable_dynamic_planning", False):
+    dynamic_planning_required = profile is not None and profile.name == "local_poc"
+    if getattr(args, "enable_dynamic_planning", False) or dynamic_planning_required:
         from readme_agent import env
         from readme_agent.llm.planner_client import LivePlannerClient
 
@@ -196,6 +217,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
                     require_evidence_bundle=profile.require_evidence_bundle,
                     require_independent_verification=profile.require_independent_verification,
                     verify_local_product_facts=profile.verify_local_product_facts,
+                    track_readme_poc_lifecycle=profile.name == "local_poc",
                     **dynamic_planning_kwargs,
                 )
     except Exception as exc:
@@ -315,7 +337,130 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         print(f"  [{d.turn}] {d.kind}: {d.detail}")
     from readme_agent.supervisor.status import terminal_exit_code
 
-    return terminal_exit_code(result)
+    exit_code = terminal_exit_code(result)
+    # Private command-local handoff used only by `_cmd_supervise_registry()`
+    # to derive an honest portfolio summary.  It is never persisted or used
+    # to control execution; durable state and manifests remain authoritative.
+    args._terminal_supervise_result = result
+    return exit_code
+
+
+def _cmd_supervise_registry(args: argparse.Namespace) -> int:
+    """Fan the existing supervisor over one immutable registry snapshot.
+
+    This is intentionally a thin command adapter, not a second controller:
+    every repository goes through `cmd_supervise()` and therefore the same
+    profile, state, lifecycle, evidence, registry, and terminal-classifier
+    path as a single-repository invocation.  The source registry is loaded
+    exactly once so a registry-discovery change cannot alter the denominator
+    halfway through a proof pass.
+    """
+    if getattr(args, "execution_profile", None) != "local_poc":
+        print(
+            "error: --registry is only supported with --execution-profile local_poc",
+            file=sys.stderr,
+        )
+        return 2
+    if getattr(args, "domain", None) is not None:
+        print(
+            "error: --domain is not permitted under --execution-profile 'local_poc'",
+            file=sys.stderr,
+        )
+        return 2
+    if getattr(args, "resume_trigger_key", None):
+        print(
+            "error: --resume-trigger-key is not supported for a portfolio invocation",
+            file=sys.stderr,
+        )
+        return 2
+
+    from readme_agent import paths
+    from readme_agent.registry.loader import load_products
+    from readme_agent.state.recovery import recovery_sweep
+    from readme_agent.supervisor.portfolio import (
+        PortfolioPocSummaryV1,
+        PortfolioRepositoryResultV1,
+        select_portfolio_trigger,
+        write_portfolio_summary,
+    )
+
+    registry_path = Path(args.registry)
+    entries = load_products(registry_path)
+    # Resolve the one durable backend before the fan-out.  It is deliberately
+    # shared by every member so the final summary can be derived from the
+    # lifecycle state the canonical runs actually persisted, not their
+    # console exit codes.
+    state_backend = _force_durable_state_backend()
+    results: list[PortfolioRepositoryResultV1] = []
+    for entry in entries:
+        repository_args = argparse.Namespace(**vars(args))
+        repository_args.repo = entry.org_repo
+        repository_args.registry = None
+        repository_args._portfolio_member = True
+        repository_args._state_backend_override = state_backend
+        # The source registry has already been frozen above.  A discovery
+        # sweep during the pass would invalidate its dynamic denominator.
+        repository_args.no_registry_heal = True
+        try:
+            # Recover only expired work. An explicitly retryable trigger can
+            # resume immediately; an unexpired accepted/processing trigger is
+            # still owned by another worker and must never be stolen.
+            recovery_sweep(state_backend, [entry.org_repo])
+            trigger_selection = select_portfolio_trigger(state_backend.load(entry.org_repo))
+            if trigger_selection.active_trigger_key is not None:
+                persisted = state_backend.load(entry.org_repo)
+                lifecycle = persisted.readme_poc_lifecycle if persisted is not None else None
+                results.append(
+                    PortfolioRepositoryResultV1(
+                        org_repo=entry.org_repo,
+                        status=lifecycle.status if lifecycle is not None else "ACTIVE_TRIGGER",
+                        exit_code=1,
+                        blocked_reason=(
+                            f"unexpired_active_trigger:{trigger_selection.active_trigger_key}"
+                        ),
+                        blocked_category="infra_external",
+                    )
+                )
+                continue
+            repository_args.resume_trigger_key = trigger_selection.resume_trigger_key
+            exit_code = cmd_supervise(repository_args)
+            terminal_result = getattr(repository_args, "_terminal_supervise_result", None)
+            persisted = state_backend.load(entry.org_repo)
+            lifecycle = persisted.readme_poc_lifecycle if persisted is not None else None
+            results.append(
+                PortfolioRepositoryResultV1(
+                    org_repo=entry.org_repo,
+                    status=(
+                        lifecycle.status
+                        if lifecycle is not None
+                        else ("NO_POC_LIFECYCLE" if exit_code == 0 else "NON_SUCCESS_TERMINAL")
+                    ),
+                    exit_code=exit_code,
+                    blocked_reason=(
+                        terminal_result.blocked_reason if terminal_result is not None else None
+                    ),
+                    blocked_category=(
+                        terminal_result.blocked_category if terminal_result is not None else None
+                    ),
+                )
+            )
+        except Exception as exc:  # noqa: BLE001 -- portfolio failure isolation is contractual
+            print(f"{entry.org_repo}: SYSTEM_FAILURE: {type(exc).__name__}: {exc}", file=sys.stderr)
+            results.append(
+                PortfolioRepositoryResultV1(
+                    org_repo=entry.org_repo,
+                    status="SYSTEM_FAILURE",
+                    exit_code=1,
+                    blocked_category="agent_fixable",
+                )
+            )
+
+    summary = PortfolioPocSummaryV1(
+        registry_path=str(registry_path), registry_count=len(entries), results=results
+    )
+    write_portfolio_summary(paths.readme_poc_portfolio_summary_path(), summary)
+    print(summary.summary_line())
+    return 1 if any(result.exit_code for result in results) else 0
 
 
 def _force_durable_state_backend():
