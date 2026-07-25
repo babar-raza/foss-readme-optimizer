@@ -182,8 +182,8 @@ def assert_evidence_complete(evidence_dir: Path) -> None:
         digest, name = line.split("  ", 1)
         expected[name] = digest
     actual_files = {
-        path.name
-        for path in evidence_dir.iterdir()
+        path.relative_to(evidence_dir).as_posix()
+        for path in evidence_dir.rglob("*")
         if path.is_file() and path.name != "sha256sums.txt"
     }
     if set(expected) != actual_files:

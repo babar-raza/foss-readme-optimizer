@@ -48,6 +48,8 @@ _SAFE_ENV_NAMES = {
     # addition) whose live value looks like a secret, regardless of
     # allowlist membership -- this widening does not disable that backstop.
     "APPDATA",
+    "CARGO_HOME",
+    "CARGO_TERM_COLOR",
     "COMPUTERNAME",
     "DOTNET_CLI_HOME",
     "DOTNET_CLI_TELEMETRY_OPTOUT",
@@ -66,6 +68,7 @@ _SAFE_ENV_NAMES = {
     "PROGRAMDATA",
     "PROGRAMFILES",
     "PROGRAMFILES(X86)",
+    "RUSTUP_HOME",
     "USERDOMAIN",
     "USERNAME",
     "USERPROFILE",

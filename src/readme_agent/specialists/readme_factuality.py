@@ -37,6 +37,7 @@ def evaluate_candidate_factuality(
     permissions: set[PermissionClass],
     *,
     source_text: str | None = None,
+    product_facts_v2: dict | ProductFactsV2 | None = None,
 ) -> CandidateFactualityDecisionV1:
     """Dispatch independent fact producers, then reject unsupported loss/claims."""
 
@@ -74,7 +75,11 @@ def evaluate_candidate_factuality(
         )
 
     facts_result = facts_dispatch.result
-    current_v2 = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
+    current_v2 = (
+        ProductFactsV2.model_validate(product_facts_v2)
+        if product_facts_v2 is not None
+        else ProductFactsV2.model_validate(facts_result["product_facts_v2"])
+    )
     facts_v1 = ProductFactsV1.from_capability_results(
         facts_result,
         acquisition_results=acquisition_dispatch.result["results"],

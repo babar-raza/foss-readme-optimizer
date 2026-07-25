@@ -13,7 +13,7 @@ from readme_agent.presentation.document_planner import (
 )
 from readme_agent.presentation.planner import build_repository_presentation_plan
 from readme_agent.readme.markers import find_presentation_span
-from readme_agent.registry.loader import require_listed
+from readme_agent.registry.loader import load_policy, require_listed
 from readme_agent.registry.surface_ownership import SurfaceOwnershipMapV1
 
 CAPABILITY_ID = "build_presentation_plan"
@@ -64,10 +64,18 @@ def execute(
     candidate_text: str | None = None,
     source_revision: str | None = None,
     source_text: str | None = None,
+    product_facts_v2: dict | None = None,
 ) -> dict:
-    facts_result = collect_product_facts(org_repo)
-    facts = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
-    ownership = SurfaceOwnershipMapV1.model_validate(facts_result["surface_ownership"])
+    if product_facts_v2 is None:
+        facts_result = collect_product_facts(org_repo)
+        facts = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
+        ownership = SurfaceOwnershipMapV1.model_validate(facts_result["surface_ownership"])
+    else:
+        facts = ProductFactsV2.model_validate(product_facts_v2)
+        entry = require_listed(org_repo)
+        if entry.policy_profile is None:
+            raise ValueError(f"{org_repo!r} has no policy_profile")
+        ownership = load_policy(entry.policy_profile).surface_ownership
     identity = facts.selected_fact("product.identity")
     observed_revision = identity.source.source_revision
     if observed_revision is None:

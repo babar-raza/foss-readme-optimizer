@@ -51,6 +51,18 @@ REQUIRED_PRODUCT_FIELDS = (
     "relationship.commercial_foss",
 )
 
+# Fields whose value requires product interpretation or a runnable example
+# rather than manifest parsing alone. The canonical product-truth stage uses
+# this to decide whether the governed drafting capability is necessary.
+README_DRAFTABLE_PRODUCT_FIELDS = (
+    "product.audience",
+    "product.problems_solved",
+    "product.capabilities",
+    "product.formats",
+    "product.limitations",
+    "example.minimal",
+)
+
 _FACT_ID_RE = re.compile(r"^[a-z][a-z0-9_.:@/-]*$")
 
 

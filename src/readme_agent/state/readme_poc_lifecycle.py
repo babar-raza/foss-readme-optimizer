@@ -65,7 +65,7 @@ from readme_agent.state.schema import RunStateV2
 # should guess at.
 _README_POC_TRANSITIONS: dict[ReadmePocStatusV2, set[ReadmePocStatusV2]] = {
     "DISCOVERED": {"SNAPSHOTTED", "SYSTEM_FAILURE"},
-    "SNAPSHOTTED": {"PROFILED", "SYSTEM_FAILURE"},
+    "SNAPSHOTTED": {"SNAPSHOTTED", "PROFILED", "SYSTEM_FAILURE"},
     "PROFILED": {"FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "FACTS_COLLECTING": {
         "FACTS_READY",
@@ -75,34 +75,61 @@ _README_POC_TRANSITIONS: dict[ReadmePocStatusV2, set[ReadmePocStatusV2]] = {
     },
     "BLOCKED_FACT_CONFLICT": {"FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "BLOCKED_MISSING_EVIDENCE": {"FACTS_COLLECTING", "SYSTEM_FAILURE"},
-    "FACTS_READY": {"README_ASSESSED", "SYSTEM_FAILURE"},
-    "README_ASSESSED": {"PLAN_READY", "SYSTEM_FAILURE"},
-    "PLAN_READY": {"CANDIDATE_GENERATED", "SYSTEM_FAILURE"},
+    "FACTS_READY": {"README_ASSESSED", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
+    "README_ASSESSED": {"PLAN_READY", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
+    "PLAN_READY": {"CANDIDATE_GENERATED", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "CANDIDATE_GENERATED": {
         "DETERMINISTIC_VALIDATION_FAILED",
         "DETERMINISTIC_VALIDATED",
+        "FACTS_COLLECTING",
         "SYSTEM_FAILURE",
     },
     "DETERMINISTIC_VALIDATION_FAILED": {"REPAIRING"},
-    "DETERMINISTIC_VALIDATED": {"AGENT_REVIEWING", "SYSTEM_FAILURE"},
+    "DETERMINISTIC_VALIDATED": {"AGENT_REVIEWING", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "AGENT_REVIEWING": {
         "AGENT_APPROVED",
         "AGENT_REVIEW_REJECTED",
         "BLOCKED_FACT_CONFLICT",
         "BLOCKED_MISSING_EVIDENCE",
+        "FACTS_COLLECTING",
         "SYSTEM_FAILURE",
     },
-    "AGENT_REVIEW_REJECTED": {"REPAIRING", "SYSTEM_FAILURE"},
+    "AGENT_REVIEW_REJECTED": {"REPAIRING", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "REPAIRING": {"CANDIDATE_GENERATED"},
-    "AGENT_APPROVED": {"NO_OP_PROVEN", "SYSTEM_FAILURE"},
-    "NO_OP_PROVEN": {"HUMAN_REVIEW_READY", "SYSTEM_FAILURE"},
-    "HUMAN_REVIEW_READY": {"HUMAN_ACCEPTED", "REPAIRING"},
-    "HUMAN_ACCEPTED": {"PR_ELIGIBLE", "SYSTEM_FAILURE"},
-    "PR_ELIGIBLE": {"PR_PROOF_COMPLETE", "SYSTEM_FAILURE"},
+    "AGENT_APPROVED": {"NO_OP_PROVEN", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
+    "NO_OP_PROVEN": {"HUMAN_REVIEW_READY", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
+    "HUMAN_REVIEW_READY": {"HUMAN_ACCEPTED", "REPAIRING", "FACTS_COLLECTING"},
+    "HUMAN_ACCEPTED": {"PR_ELIGIBLE", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
+    "PR_ELIGIBLE": {"PR_PROOF_COMPLETE", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     # A new source snapshot may invalidate even a previously proven PR.
-    "PR_PROOF_COMPLETE": {"SNAPSHOTTED"},
+    "PR_PROOF_COMPLETE": {"SNAPSHOTTED", "FACTS_COLLECTING"},
     "SYSTEM_FAILURE": {"SNAPSHOTTED", "FACTS_COLLECTING", "REPAIRING"},
 }
+
+# A new immutable source revision invalidates every derived stage. The same-
+# revision retry remains an idempotent no-op in ``record_repository_snapshot``;
+# only a genuinely different revision may use this reopening edge.
+for _derived_status in (
+    "PROFILED",
+    "FACTS_COLLECTING",
+    "BLOCKED_FACT_CONFLICT",
+    "BLOCKED_MISSING_EVIDENCE",
+    "FACTS_READY",
+    "README_ASSESSED",
+    "PLAN_READY",
+    "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATION_FAILED",
+    "DETERMINISTIC_VALIDATED",
+    "AGENT_REVIEWING",
+    "AGENT_REVIEW_REJECTED",
+    "REPAIRING",
+    "AGENT_APPROVED",
+    "NO_OP_PROVEN",
+    "HUMAN_REVIEW_READY",
+    "HUMAN_ACCEPTED",
+    "PR_ELIGIBLE",
+):
+    _README_POC_TRANSITIONS[_derived_status].add("SNAPSHOTTED")
 
 _V1_STATUS_MIGRATION: dict[str, ReadmePocStatusV2] = {
     "DISCOVERED": "DISCOVERED",
@@ -203,7 +230,20 @@ def transition_readme_poc_status(
                 f"invalid README-POC lifecycle transition {prior.status!r} -> "
                 f"{to_status!r} for {org_repo!r}"
             )
+        next_source_revision = source_revision or prior.source_revision
+        source_changed = (
+            to_status == "SNAPSHOTTED"
+            and prior.status != "DISCOVERED"
+            and next_source_revision != prior.source_revision
+        )
+        if to_status == "SNAPSHOTTED" and prior.status == "SNAPSHOTTED" and not source_changed:
+            raise StateBackendError(
+                "invalid README-POC lifecycle transition: cannot reopen "
+                f"{org_repo!r} at the same source revision {prior.source_revision!r}"
+            )
         repair_attempts = prior.repair_attempts_for_revision
+        if source_changed:
+            repair_attempts = 0
         if to_status == "REPAIRING":
             repair_attempts += 1
             if repair_attempts > 2:
@@ -218,20 +258,36 @@ def transition_readme_poc_status(
             evidence_refs=evidence_refs or [],
             observed_by=observed_by,
             occurred_at=now,
-            source_revision=source_revision or prior.source_revision,
+            source_revision=next_source_revision,
         )
         next_lifecycle = prior.model_copy(
             update={
                 "status": to_status,
                 "updated_at": now,
                 "history": [*prior.history, transition],
-                "source_revision": source_revision or prior.source_revision,
-                "facts_hash": facts_hash or prior.facts_hash,
-                "prompt_hash": prompt_hash or prior.prompt_hash,
-                "reviewer_standard_hash": reviewer_standard_hash or prior.reviewer_standard_hash,
-                "protected_content_fingerprint": protected_content_fingerprint
-                or prior.protected_content_fingerprint,
+                "source_revision": next_source_revision,
+                "facts_hash": (
+                    facts_hash
+                    if facts_hash is not None
+                    else (None if source_changed else prior.facts_hash)
+                ),
+                "prompt_hash": (
+                    prompt_hash
+                    if prompt_hash is not None
+                    else (None if source_changed else prior.prompt_hash)
+                ),
+                "reviewer_standard_hash": (
+                    reviewer_standard_hash
+                    if reviewer_standard_hash is not None
+                    else (None if source_changed else prior.reviewer_standard_hash)
+                ),
+                "protected_content_fingerprint": (
+                    protected_content_fingerprint
+                    if protected_content_fingerprint is not None
+                    else (None if source_changed else prior.protected_content_fingerprint)
+                ),
                 "repair_attempts_for_revision": repair_attempts,
+                "details": {} if source_changed else prior.details,
             }
         )
         return state.model_copy(update={"readme_poc_lifecycle": next_lifecycle})
@@ -250,10 +306,9 @@ def record_repository_snapshot(
 ) -> ReadmePocLifecycleStateV2:
     """Persist the first truthful local-POC boundary after a real clone.
 
-    Repeating the same immutable snapshot is intentionally a no-op.  Source
-    revision invalidation is handled by the later facts/presentation driver,
-    which has the hashes required to decide the earliest affected stage;
-    this narrow snapshot writer never fabricates that conclusion.
+    Repeating the same immutable snapshot is intentionally a no-op. A new
+    source revision reopens at ``SNAPSHOTTED`` and clears every derived hash;
+    profile and product truth must then be rebuilt before presentation work.
     """
     loaded = backend.load(org_repo)
     lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
@@ -261,11 +316,6 @@ def record_repository_snapshot(
         lifecycle = _migrate_v1_lifecycle(lifecycle)
     if lifecycle is not None and lifecycle.source_revision == source_revision:
         return lifecycle
-    if lifecycle is not None and lifecycle.status != "DISCOVERED":
-        raise StateBackendError(
-            f"cannot record changed snapshot {source_revision!r} for {org_repo!r} from "
-            f"lifecycle status {lifecycle.status!r}; an invalidation decision is required"
-        )
     return transition_readme_poc_status(
         backend,
         org_repo,
@@ -318,3 +368,97 @@ def record_repository_profile(
             source_revision=source_revision,
         )
     return lifecycle
+
+
+def record_product_facts(
+    backend: StateBackend,
+    org_repo: str,
+    *,
+    source_revision: str,
+    facts_hash: str,
+    evidence_refs: list[str],
+    prompt_hash: str | None = None,
+) -> ReadmePocLifecycleStateV2:
+    """Record one provenance-complete fact graph without skipping boundaries.
+
+    A same-revision, same-hash retry is idempotent. A changed fact graph
+    reopens later lifecycle states at ``FACTS_COLLECTING`` so no candidate or
+    approval can silently retain claims derived from stale truth.
+    """
+    return record_product_facts_outcome(
+        backend,
+        org_repo,
+        source_revision=source_revision,
+        facts_hash=facts_hash,
+        outcome="FACTS_READY",
+        evidence_refs=evidence_refs,
+        prompt_hash=prompt_hash,
+    )
+
+
+def record_product_facts_outcome(
+    backend: StateBackend,
+    org_repo: str,
+    *,
+    source_revision: str,
+    facts_hash: str,
+    outcome: ReadmePocStatusV2,
+    evidence_refs: list[str],
+    prompt_hash: str | None = None,
+) -> ReadmePocLifecycleStateV2:
+    """Persist a ready or narrowly blocked fact result through the legal boundary."""
+    if outcome not in {
+        "FACTS_READY",
+        "BLOCKED_FACT_CONFLICT",
+        "BLOCKED_MISSING_EVIDENCE",
+    }:
+        raise StateBackendError(f"invalid product-facts outcome {outcome!r}")
+
+    loaded = backend.load(org_repo)
+    lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
+    if isinstance(lifecycle, ReadmePocLifecycleStateV1):
+        lifecycle = _migrate_v1_lifecycle(lifecycle)
+    if lifecycle is None or lifecycle.source_revision != source_revision:
+        raise StateBackendError(
+            f"cannot record product facts for {org_repo!r} without a matching profile at "
+            f"{source_revision!r}"
+        )
+    if (
+        lifecycle.facts_hash == facts_hash
+        and lifecycle.prompt_hash == prompt_hash
+        and lifecycle.status == outcome
+    ):
+        return lifecycle
+    if lifecycle.status == "PROFILED":
+        lifecycle = transition_readme_poc_status(
+            backend,
+            org_repo,
+            "FACTS_COLLECTING",
+            observed_by="supervisor_product_truth",
+            reason="collecting and reconciling repository product truth",
+            source_revision=source_revision,
+        )
+    elif lifecycle.status != "FACTS_COLLECTING":
+        lifecycle = transition_readme_poc_status(
+            backend,
+            org_repo,
+            "FACTS_COLLECTING",
+            observed_by="supervisor_product_truth",
+            reason="fact inputs changed; invalidating dependent README stages",
+            source_revision=source_revision,
+        )
+    return transition_readme_poc_status(
+        backend,
+        org_repo,
+        outcome,
+        observed_by="supervisor_product_truth",
+        reason=(
+            "provenance-complete ProductFactsV2 persisted"
+            if outcome == "FACTS_READY"
+            else "product facts persisted with a narrowly scoped unresolved evidence boundary"
+        ),
+        evidence_refs=evidence_refs,
+        source_revision=source_revision,
+        facts_hash=facts_hash,
+        prompt_hash=prompt_hash,
+    )

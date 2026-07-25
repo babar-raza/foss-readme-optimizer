@@ -38,6 +38,8 @@ generate_repo()` already has `llm_mode`/`fixture_response_path`."""
 from pathlib import Path
 
 from readme_agent.capabilities.schema import CapabilityManifest
+from readme_agent.facts.context import current_product_facts
+from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.orchestrator import prepare_readme_candidate
 from readme_agent.readme.idea_candidate import prepare_idea_fidelity_candidate
 from readme_agent.registry.loader import find_entry, load_policy
@@ -88,8 +90,18 @@ def execute(
     prior_facts_hash: str | None = None,
     prior_content_fingerprint: str | None = None,
     prior_status: str | None = None,
+    product_facts_v2: dict | None = None,
 ) -> dict:
     entry = find_entry(org_repo)
+    scoped_facts = current_product_facts(org_repo)
+    if product_facts_v2 is not None or scoped_facts is not None:
+        facts = (
+            ProductFactsV2.model_validate(product_facts_v2)
+            if product_facts_v2 is not None
+            else scoped_facts
+        )
+        assert facts is not None
+        return prepare_idea_fidelity_candidate(org_repo, facts)
     if entry is not None and entry.policy_profile is not None:
         policy = load_policy(entry.policy_profile)
         if policy.product_truth is not None:

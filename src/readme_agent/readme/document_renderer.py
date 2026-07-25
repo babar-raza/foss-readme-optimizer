@@ -104,6 +104,20 @@ def build_readme_document_candidate(
                 fact(facts, "product.compatibility").fact_id,
             ]
         )
+    example = fact(facts, "example.minimal")
+    example_value = example.value if isinstance(example.value, dict) else {}
+    exact_code = str(example_value.get("code", "")).rstrip()
+    example_target = next(
+        (
+            heading
+            for heading in headings
+            if heading.level == 2 and heading.title.strip().lower() in {"quick start", "usage"}
+        ),
+        None,
+    )
+    if exact_code and exact_code not in inner_text and example_target is None:
+        overview_insert += "## Quick Start\n\n" + example_text(facts, base_revision) + "\n\n"
+        overview_fact_ids.append(example.fact_id)
     if overview_insert:
         char_offset = first_h2.start if first_h2 is not None else len(inner_text)
         byte_offset = len(inner_text[:char_offset].encode("utf-8"))
@@ -163,20 +177,9 @@ def build_readme_document_candidate(
                 )
             )
 
-    example = fact(facts, "example.minimal")
-    example_value = example.value if isinstance(example.value, dict) else {}
-    exact_code = str(example_value.get("code", "")).rstrip()
     if exact_code and exact_code not in inner_text:
-        target = next(
-            (
-                heading
-                for heading in headings
-                if heading.level == 2 and heading.title.strip().lower() in {"quick start", "usage"}
-            ),
-            None,
-        )
-        if target is not None:
-            byte_offset = len(inner_text[: target.heading_end].encode("utf-8"))
+        if example_target is not None:
+            byte_offset = len(inner_text[: example_target.heading_end].encode("utf-8"))
             operations.append(
                 build_operation(
                     operation_id="readme.example.insert-verified-minimal",

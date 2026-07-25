@@ -28,16 +28,18 @@ On Windows, the hook's executable bit is meaningless (NTFS) and is recorded but 
 excluded from the pass/fail verdict — Git for Windows invokes hooks via its bundled shell
 regardless of the bit, not silently assumed to pass.
 
-**Every exception is a human-confirmation gate, not a code toggle — proven, not hypothetical.**
+**Every exception is an authorization and POC-stage gate, not a code toggle.**
 One capability, `open_presentation_pr` (decisions #51-52), has a real write path: a structurally
 separate, dedicated clone (`gitsafety/clone.py::create_pr_clone()`) that is deliberately never
 neutered, distinct from the default work clone every other capability shares. It does not weaken
 the push-blocking property above — it is a second, narrow, explicitly-scoped exception to it,
-gated by `GOV-018` (`plans/master.md` decision #33, `plans/GOVERNANCE.md` rule 10): an explicit,
-per-instance user confirmation naming exactly what is being pushed, why, and where, before that
-write happens — a standing or implied approval from earlier never substitutes. This is not a
-future contingency: it has already run once, live, against a real target
-(`aspose-cells-foss/Aspose.Cells-FOSS-for-Java#1`, a real, open, independently-verified PR).
+gated by the authorization registry/effect ledger (`GOV-018`, `AUTH-004`) and by the ordered POC
+gates in decision #78. The required what/why/where scope is recorded in the authorization and run
+evidence; `mode: "full"` alone never grants authority. The capability ran once before the new POC
+ordering was established (`aspose-cells-foss/Aspose.Cells-FOSS-for-Java#1`). That is historical
+evidence only, not Gate-C acceptance or permission to run it again. No remote-write path may be
+exercised until every current registry entry has an agent-approved/no-op-proven local candidate
+and a subsequent recorded human acceptance.
 
 ## 2. The allow-list
 
@@ -52,22 +54,22 @@ clone attempted, for any operation. Beyond that, the gate splits by intent (deci
   presence in the file — `mode` is irrelevant. `mode: "disabled"` means push access to that org
   hasn't been verified yet, not that the repo is off-limits to read; a disabled entry is cloned
   and profiled/inspected the same as any other.
-- **Write/push-capable operations** — `orchestrator.py`'s `generate_repo()`/`run_repo()`
-  render+commit pipeline, and any `local_write`/`remote_write` capability — still call
-  `is_permitted(org_repo)`/`require_permitted(org_repo)`, which returns the entry only if it
-  exists **and** its `mode` isn't `"disabled"`. A write-capable capability dispatched through the
-  supervisor is independently re-checked against `mode == "full"` at dispatch time
-  (`supervisor/loop.py::_dispatch_and_record()`), since the supervisor's own entry gate no longer
-  implies it.
+- **Write/push-capable operations** are registered `local_write`/`remote_write` capabilities
+  reached only through `supervise`; legacy `generate`/`run`/`run-registry` commands are read-only
+  compatibility façades. A mutating capability still calls
+  `is_permitted(org_repo)`/`require_permitted(org_repo)` and is independently re-checked against
+  `mode == "full"` at dispatch time (`supervisor/loop.py::_dispatch_and_record()`). Remote writes
+  also require the authorization/effect ledger and decision #78's portfolio acceptance gate.
 
 This is a named safety property on par with push-blocking, not an incidental consequence of what
 happens to be configured: push-blocking stops a write on a repo we're allowed to touch;
 the allow-list stops us from ever touching a repo we weren't told to at all, and from ever writing
-to one we haven't been told is ready for that. The base registry is copied verbatim from Aspose's
-own real, 25-entry FOSS repo list — every real Aspose FOSS repo is present in the file and can be
-read/analyzed, but only 3 have a non-`disabled` mode today, so only those 3 can be written to.
-Expanding write coverage means flipping `mode` + adding `ecosystem`/`policy_profile` for an
-existing entry, never a new file format or a re-discovery exercise.
+to one we haven't been told is ready for that. Registry coverage and mode counts are read from
+`data/products.json` at runtime, never copied into this document as a durable count. Every listed
+entry is eligible for read-only Gate-A work regardless of mode. `mode: "full"` is necessary but
+not sufficient for a write: authorization, independent verification, and the ordered POC gates
+still apply. Expanding write coverage is an explicit registry/authorization change, never an
+inference from research relevance.
 
 The allow-list stays current by two paths sharing one implementation
 (`registry/discovery.py`): the weekly `update-products-registry.yml` cron, and the

@@ -173,10 +173,12 @@ def run_independent_readme_review(
     client: _AnalysisClientLike | None = None,
     backend: StateBackend | None = None,
     repair_attempt: int = 0,
+    product_facts_v2: dict | ProductFactsV2 | None = None,
 ) -> IndependentReadmeReviewResultV1:
     """The one bounded LLM-backed check (mirrors `readme_factuality.py::
-    evaluate_candidate_factuality()`'s own shape): independently fetches
-    `ProductFactsV2` (own separate context, never reused from any caller),
+    evaluate_candidate_factuality()`'s own shape): consumes the exact
+    run-scoped `ProductFactsV2` graph when supplied, or independently fetches
+    it for compatibility callers,
     calls the live `independent_readme_review` route, and validates the
     response into `IndependentReadmeReviewResultV1`.
 
@@ -200,31 +202,39 @@ def run_independent_readme_review(
     failure" convention) -- never silently mapped to a fabricated verdict.
 
     `backend`/`repair_attempt`: when `backend` is supplied, this function
-    also calls `record_review_verdict()` before returning, recording the
+    The reviewer remains independent through its separate prompt, client,
+    identity, and evidence record; independence does not permit it to observe
+    a different repository revision or fact graph. This function also calls
+    `record_review_verdict()` before returning, recording the
     verdict as a real README-POC lifecycle transition (`RPOC-070`).
     `backend=None` degrades honestly (no durable record), same posture every
     other specialist in this codebase already uses for an absent backend."""
-    facts_dispatch = dispatch_tool_call(
-        {
-            "function": {
-                "name": "get_product_facts",
-                "arguments": json.dumps({"org_repo": org_repo}),
-            }
-        },
-        _READ_ONLY_PERMISSIONS,
-    )
-    if facts_dispatch.outcome != "executed" or facts_dispatch.result is None:
-        review = IndependentReadmeReviewResultV1(
-            verdict="SYSTEM_FAILURE",
-            reasoning=(
-                f"independent review could not obtain ProductFactsV2 for {org_repo} "
-                f"(get_product_facts:{facts_dispatch.outcome}:{facts_dispatch.error}) -- "
-                "review is genuinely impossible without grounding facts; this is a system "
-                "failure, not a quality verdict"
-            ),
-        )
+    product_facts: ProductFactsV2 | None = None
+    if product_facts_v2 is not None:
+        product_facts = ProductFactsV2.model_validate(product_facts_v2)
     else:
-        product_facts = ProductFactsV2.model_validate(facts_dispatch.result["product_facts_v2"])
+        facts_dispatch = dispatch_tool_call(
+            {
+                "function": {
+                    "name": "get_product_facts",
+                    "arguments": json.dumps({"org_repo": org_repo}),
+                }
+            },
+            _READ_ONLY_PERMISSIONS,
+        )
+        if facts_dispatch.outcome == "executed" and facts_dispatch.result is not None:
+            product_facts = ProductFactsV2.model_validate(facts_dispatch.result["product_facts_v2"])
+        else:
+            review = IndependentReadmeReviewResultV1(
+                verdict="SYSTEM_FAILURE",
+                reasoning=(
+                    f"independent review could not obtain ProductFactsV2 for {org_repo} "
+                    f"(get_product_facts:{facts_dispatch.outcome}:{facts_dispatch.error}) -- "
+                    "review is genuinely impossible without grounding facts; this is a system "
+                    "failure, not a quality verdict"
+                ),
+            )
+    if product_facts is not None:
         resolved_client: _AnalysisClientLike = client or LiveAnalysisClient(
             env.llm_base_url(),
             env.llm_api_key(),
@@ -321,13 +331,19 @@ class RepairLoopOutcomeV1(BaseModel):
     escalation: dict | None = None
 
 
-def _dispatch_render(org_repo: str, *, force_regenerate: bool = False) -> DispatchResult:
+def _dispatch_render(
+    org_repo: str,
+    *,
+    force_regenerate: bool = False,
+    product_facts_v2: dict | None = None,
+) -> DispatchResult:
     arguments: dict = {"org_repo": org_repo}
     if force_regenerate:
         arguments["force_regenerate"] = True
     return dispatch_tool_call(
         {"function": {"name": "render_readme_candidate", "arguments": json.dumps(arguments)}},
         _READ_ONLY_PERMISSIONS,
+        extra_kwargs={"product_facts_v2": product_facts_v2},
     )
 
 
@@ -343,6 +359,9 @@ def _dispatch_presentation_plan(org_repo: str, render_result: dict) -> DispatchR
         extra_kwargs={
             "original_text": render_result["original_text"],
             "source_text": render_result.get("source_text", render_result["original_text"]),
+            "candidate_text": render_result["final_text"],
+            "source_revision": render_result["source_revision"],
+            "product_facts_v2": render_result.get("product_facts_v2"),
         },
         caller_domain=README_PRESENTATION,
     )
@@ -369,7 +388,12 @@ def _dispatch_deterministic_validation(org_repo: str, render_result: dict) -> Di
     )
 
 
-def independent_render_context(org_repo: str, *, force_regenerate: bool = False) -> dict:
+def independent_render_context(
+    org_repo: str,
+    *,
+    force_regenerate: bool = False,
+    product_facts_v2: dict | None = None,
+) -> dict:
     """This module's OWN independent render -> plan -> deterministic-validate
     chain -- dispatches the same three public capabilities `_verify_node`
     dispatches (`render_readme_candidate`, `build_presentation_plan`,
@@ -387,7 +411,11 @@ def independent_render_context(org_repo: str, *, force_regenerate: bool = False)
     check) on any dispatch failure: a broken render/plan/validate chain
     makes independent review meaningless to attempt, so this fails loud
     rather than fabricating a placeholder context."""
-    render_dispatch = _dispatch_render(org_repo, force_regenerate=force_regenerate)
+    render_dispatch = _dispatch_render(
+        org_repo,
+        force_regenerate=force_regenerate,
+        product_facts_v2=product_facts_v2,
+    )
     if render_dispatch.outcome != "executed" or render_dispatch.result is None:
         raise RuntimeError(
             f"render_readme_candidate:{render_dispatch.outcome}:{render_dispatch.error}"
@@ -409,6 +437,7 @@ def independent_render_context(org_repo: str, *, force_regenerate: bool = False)
         "final_text": render_result["final_text"],
         "presentation_plan": plan_dispatch.result,
         "deterministic_validation_result": validation_dispatch.result,
+        "product_facts_v2": render_result.get("product_facts_v2"),
     }
 
 
@@ -482,7 +511,11 @@ def run_independent_review_with_repair_loop(
     regenerating prose against the same facts is not expected to fix
     either."""
     regenerate = regenerate_context or (
-        lambda: independent_render_context(org_repo, force_regenerate=True)
+        lambda: independent_render_context(
+            org_repo,
+            force_regenerate=True,
+            product_facts_v2=initial_context.get("product_facts_v2"),
+        )
     )
     ctx = initial_context
     attempts = 0
@@ -496,6 +529,7 @@ def run_independent_review_with_repair_loop(
             client=client,
             backend=backend,
             repair_attempt=attempts,
+            product_facts_v2=ctx.get("product_facts_v2"),
         )
 
         if review.verdict == "ACCEPT":

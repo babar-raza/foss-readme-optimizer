@@ -85,8 +85,16 @@ def _scripted_execute_example(monkeypatch, results: list[ExampleExecutionResultV
 
 
 class TestVerifiersRegistration:
-    def test_all_five_languages_registered(self):
-        assert set(lv._VERIFIERS) == {"java", "dotnet", "python", "typescript", "go"}
+    def test_all_supported_languages_registered(self):
+        assert set(lv._VERIFIERS) == {
+            "java",
+            "dotnet",
+            "python",
+            "typescript",
+            "cpp",
+            "go",
+            "rust",
+        }
         assert lv._VERIFIERS["dotnet"] is lv._verify_dotnet
         assert lv._VERIFIERS["python"] is lv._verify_python
         assert lv._VERIFIERS["typescript"] is lv._verify_typescript
@@ -98,7 +106,7 @@ class TestVerifiersRegistration:
         # Bypass pydantic's Literal validation to prove `verify_local_product_example`
         # itself still fails closed for anything `_VERIFIERS` doesn't recognize.
         example = _example("java", "Example", "public class Example {}")
-        example.language = "rust"  # type: ignore[assignment]
+        example.language = "ruby"  # type: ignore[assignment]
         with pytest.raises(ValueError, match="no local example verifier registered"):
             lv.verify_local_product_example(snapshot, example)
 

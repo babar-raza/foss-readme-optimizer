@@ -28,6 +28,7 @@ from readme_agent.state.lifecycle_schema import (
 from readme_agent.state.migrations import ensure_run_state_v2, load_run_state_json
 from readme_agent.state.readme_poc_lifecycle import (
     legal_next_readme_poc_statuses,
+    record_product_facts_outcome,
     record_repository_profile,
     record_repository_snapshot,
     transition_readme_poc_status,
@@ -103,7 +104,7 @@ class TestValidTransitions:
         assert first.status == "SNAPSHOTTED"
         assert second.history == first.history
 
-    def test_changed_snapshot_requires_an_explicit_invalidation_decision(self):
+    def test_changed_snapshot_reopens_and_clears_derived_state(self):
         backend = FakeReadmePocBackend()
         record_repository_snapshot(
             backend,
@@ -111,13 +112,42 @@ class TestValidTransitions:
             source_revision="a" * 40,
             evidence_refs=["repository_snapshot_v1"],
         )
-        with pytest.raises(StateBackendError, match="invalidation decision is required"):
-            record_repository_snapshot(
-                backend,
-                "org/repo",
-                source_revision="b" * 40,
-                evidence_refs=["repository_snapshot_v1"],
-            )
+        transition_readme_poc_status(
+            backend,
+            "org/repo",
+            "PROFILED",
+            observed_by="test",
+            reason="profiled",
+        )
+        transition_readme_poc_status(
+            backend,
+            "org/repo",
+            "FACTS_COLLECTING",
+            observed_by="test",
+            reason="collecting",
+        )
+        transition_readme_poc_status(
+            backend,
+            "org/repo",
+            "FACTS_READY",
+            observed_by="test",
+            reason="facts",
+            facts_hash="f" * 64,
+            prompt_hash="p" * 64,
+        )
+
+        reopened = record_repository_snapshot(
+            backend,
+            "org/repo",
+            source_revision="b" * 40,
+            evidence_refs=["repository_snapshot_v1:new"],
+        )
+
+        assert reopened.status == "SNAPSHOTTED"
+        assert reopened.source_revision == "b" * 40
+        assert reopened.facts_hash is None
+        assert reopened.prompt_hash is None
+        assert reopened.repair_attempts_for_revision == 0
 
     def test_profile_record_resumes_idempotently_after_snapshot(self):
         backend = FakeReadmePocBackend()
@@ -237,8 +267,15 @@ class TestValidTransitions:
     def test_deterministic_validation_failure_repairs_back_to_candidate_generated(self):
         backend = FakeReadmePocBackend()
         org_repo = "org/repo"
-        for status in [
+        transition_readme_poc_status(
+            backend,
+            org_repo,
             "SNAPSHOTTED",
+            observed_by="t",
+            reason="r",
+            source_revision="a" * 40,
+        )
+        for status in [
             "PROFILED",
             "FACTS_COLLECTING",
             "FACTS_READY",
@@ -367,11 +404,19 @@ class TestInvalidTransitions:
             "PR_PROOF_COMPLETE",
         ]:
             transition_readme_poc_status(backend, org_repo, status, observed_by="t", reason="r")
-        assert legal_next_readme_poc_statuses("PR_PROOF_COMPLETE") == frozenset({"SNAPSHOTTED"})
+        assert legal_next_readme_poc_statuses("PR_PROOF_COMPLETE") == frozenset(
+            {"SNAPSHOTTED", "FACTS_COLLECTING"}
+        )
         reopened = transition_readme_poc_status(
-            backend, org_repo, "SNAPSHOTTED", observed_by="t", reason="new source snapshot"
+            backend,
+            org_repo,
+            "SNAPSHOTTED",
+            observed_by="t",
+            reason="new source snapshot",
+            source_revision="b" * 40,
         )
         assert reopened.status == "SNAPSHOTTED"
+        assert reopened.source_revision == "b" * 40
 
     def test_invalid_transition_does_not_persist_a_partial_write(self):
         backend = FakeReadmePocBackend()
@@ -386,13 +431,94 @@ class TestInvalidTransitions:
 class TestLegalNextIntrospection:
     def test_matches_the_transition_table_for_a_branching_status(self):
         assert legal_next_readme_poc_statuses("CANDIDATE_GENERATED") == frozenset(
-            {"DETERMINISTIC_VALIDATION_FAILED", "DETERMINISTIC_VALIDATED", "SYSTEM_FAILURE"}
+            {
+                "DETERMINISTIC_VALIDATION_FAILED",
+                "DETERMINISTIC_VALIDATED",
+                "FACTS_COLLECTING",
+                "SNAPSHOTTED",
+                "SYSTEM_FAILURE",
+            }
         )
 
     def test_returns_a_frozenset_not_the_live_mutable_table(self):
         result = legal_next_readme_poc_statuses("DISCOVERED")
         assert isinstance(result, frozenset)
         assert result == frozenset({"SNAPSHOTTED", "SYSTEM_FAILURE"})
+
+
+class TestProductFactsBoundary:
+    def test_records_collecting_then_ready_and_is_idempotent(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        record_repository_snapshot(
+            backend, org_repo, source_revision="abc123", evidence_refs=["snapshot"]
+        )
+        record_repository_profile(
+            backend, org_repo, source_revision="abc123", evidence_refs=["profile"]
+        )
+
+        first = record_product_facts_outcome(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            facts_hash="facts-a",
+            outcome="FACTS_READY",
+            evidence_refs=["facts"],
+        )
+        second = record_product_facts_outcome(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            facts_hash="facts-a",
+            outcome="FACTS_READY",
+            evidence_refs=["facts"],
+        )
+
+        assert [item.to_status for item in first.history] == [
+            "SNAPSHOTTED",
+            "PROFILED",
+            "FACTS_COLLECTING",
+            "FACTS_READY",
+        ]
+        assert second == first
+
+    def test_changed_facts_reopen_a_dependent_later_stage(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        for status in ("SNAPSHOTTED", "PROFILED", "FACTS_COLLECTING", "FACTS_READY"):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="test",
+                reason="advance",
+                source_revision="abc123",
+                facts_hash="facts-a" if status == "FACTS_READY" else None,
+            )
+        transition_readme_poc_status(
+            backend,
+            org_repo,
+            "README_ASSESSED",
+            observed_by="test",
+            reason="advance",
+            source_revision="abc123",
+        )
+
+        reopened = record_product_facts_outcome(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            facts_hash="facts-b",
+            outcome="BLOCKED_MISSING_EVIDENCE",
+            evidence_refs=["new-facts"],
+        )
+
+        assert reopened.status == "BLOCKED_MISSING_EVIDENCE"
+        assert [item.to_status for item in reopened.history[-2:]] == [
+            "FACTS_COLLECTING",
+            "BLOCKED_MISSING_EVIDENCE",
+        ]
+        assert reopened.facts_hash == "facts-b"
 
 
 class TestSerializationRoundTrip:

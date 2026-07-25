@@ -146,6 +146,26 @@ class TestSelectBoundedRepoContext:
         assert "Widget.java" in context
         assert "public class Widget" in context
 
+    @pytest.mark.parametrize(
+        ("ecosystem", "filename", "content"),
+        [
+            ("net", "Widget.cs", "public class Widget {}"),
+            ("cpp", "widget.cpp", "int widget() { return 1; }"),
+            ("rust", "lib.rs", "pub fn widget() {}"),
+        ],
+    )
+    def test_registry_ecosystem_names_include_their_native_sources(
+        self, tmp_path, ecosystem, filename, content
+    ):
+        source = tmp_path / "src" / filename
+        source.parent.mkdir()
+        source.write_text(content, encoding="utf-8")
+
+        context = agentic_drafting._select_bounded_repo_context(tmp_path, ecosystem)
+
+        assert filename in context
+        assert content in context
+
     def test_budget_is_respected(self, tmp_path):
         (tmp_path / "README.md").write_text("x" * 1000, encoding="utf-8")
         src_dir = tmp_path / "src"

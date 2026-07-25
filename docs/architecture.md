@@ -126,7 +126,7 @@ convergence, and a real durable zero-planning-call second call, closing `AGT-002
 healthy pilot never actually failed, so the repair/replan path itself remains proven only at unit
 level, and a real mutating capability/specialist role still doesn't exist until Wave 7.
 
-## Restartable production lifecycle
+## Restartable production lifecycle (post-POC target)
 
 `.github/workflows/readme-agent-production.yml` is the sole scheduled and reusable production
 entry point. Schedule, manual, reusable-workflow, and repository-dispatch events normalize to
@@ -141,25 +141,22 @@ Terminal classification is evidence-first: final acceptance is checkpointed, Man
 finalized and checksum-validated, and only then may durable lifecycle state become `completed` or
 `blocked`. An evidence failure leaves the trigger `retryable`, never falsely successful.
 
-Analysis receives a freshly minted, repository-scoped GitHub App token with contents-read
-permission. The control repository's `GITHUB_TOKEN` writes only durable state refs. Production
-token resolution ignores ambient `GH_TOKEN`/PAT values. Health aggregation runs even when one
-matrix member fails, uploads `HealthReportV1`, alerts through an issue and failed Actions check,
-and optionally pings an external dead-man monitor. Backlog is age/status classified: retryable or
-SLA-aged work is actionable and makes the report unhealthy, while recent bounded in-flight work
-remains visible without creating a false incident.
+This lifecycle describes the eventual production design, not the current README POC execution
+stage. Per decision #78, broad GitHub App integration is Gate D and remains deferred until the
+full-registry local candidates have passed independent agentic review, subsequent human
+acceptance, and then the controlled Java PR proof. Gate-A work uses the `local_poc` profile and
+read-only access plus push-neutered work clones; it never receives `remote_write`.
 
-The control repository must configure the Actions variable `GH_APP_CLIENT_ID` and secrets
-`GH_APP_PRIVATE_KEY`, `LLM_BASE_URL`, and `LLM_API_KEY`. `DEAD_MAN_HEARTBEAT_URL` is optional for
-local reproduction but required before Wave 2 can be production-proven, because an in-platform
-workflow cannot detect that its own scheduler never started. The GitHub App installation must
-cover every observed target repository and grant target contents-read only; a later effect job
-will mint a separate token with separately reviewed permissions.
+At Gate D, analysis will receive a freshly minted, repository-scoped GitHub App token with
+contents-read permission, while a later effect job will mint a separate token with separately
+reviewed permissions. Production token resolution will ignore ambient `GH_TOKEN`/PAT values. The
+control repository's App variables/secrets, installation coverage, health aggregation, and
+dead-man monitoring are Gate-D production prerequisites; they are not Gate-A implementation work.
 
-## What this tool does
+## What the shipped legacy audit capability does
 
-`readme-agent` audits a GitHub repository's README for four specific, independently-checkable
-promotional elements and closes only what's missing:
+The original deterministic capability audits a GitHub repository's README for four specific,
+independently-checkable promotional elements and closes only what's missing:
 
 - `license_mentioned` — does the README state the repo's license?
 - `products_org_link` — does it link to the FOSS catalog page (`products.*.org/...`)?
@@ -172,7 +169,7 @@ This was derived empirically: a live audit of 14 real Aspose FOSS READMEs (2026-
 compliant (hand-authored), fully blank, and partially compliant — and a binary "has our marker or
 not" design can't represent that. See `readme_agent/readme/gap_detector.py`.
 
-## Pipeline order
+## Legacy deterministic capability pipeline
 
 ```
 allow-list check (data/products.json)
@@ -193,6 +190,33 @@ allow-list check (data/products.json)
   -> registered effect dispatch (authorization/effect ledger)
   -> optional local commit or draft-PR effect (never a default-branch write)
 ```
+
+## Full-registry README POC pipeline
+
+The canonical `local_poc` path is broader than the legacy capability above and is ordered:
+
+```text
+read data/products.json and derive the live denominator
+  -> capture each repository's current default-branch README + immutable revision
+  -> retain the exact original bytes as evidence
+  -> inspect repository/product/platform and reconcile existing/product-agent claims
+  -> use LLM judgment to draft verified product understanding and repository-specific presentation
+  -> select relevant capabilities/sections/examples/validators automatically
+  -> render a local candidate through bounded, hash-checked document operations
+  -> retain candidate + exact diff + facts + plan + deterministic validation
+  -> independent agentic review (separate judgment role)
+  -> bounded repair until accepted or honestly blocked
+  -> unchanged rerun/no-op proof
+  -> portfolio manifest may declare Gate A only when every live registry entry passes
+  -> human review/acceptance (Gate B)
+  -> controlled Java PR proof (Gate C)
+  -> broad GitHub App integration (Gate D)
+```
+
+Dynamic product/platform-aware selection is the required canonical behavior but remains an open
+implementation gap while `--enable-dynamic-planning` is opt-in (`ORC-009`). Likewise, a candidate
+file's existence is not acceptance: the lifecycle must reach agent approval plus no-op proof
+before the artifact can enter the human-review queue (`PIL-015`).
 
 ## Trust and reconciliation doctrine
 
@@ -292,7 +316,7 @@ accumulate as a historical audit trail.
 | `inspection/`, `ecosystems/` | Git metadata; generic multi-manifest file inventory (`FileInventory.manifest_paths`, data-driven from `ecosystems.registry.known_manifest_globs()`); seven real per-platform manifest parsers (`java.py` -- pom.xml or build.gradle, `python.py`, `dotnet.py`, `typescript.py`, `go.py`, `cpp.py`, `rust.py` -- Cargo.toml via stdlib `tomllib`), all adapted from aspose.org's proven `package_manifest.py` (GOVERNANCE.md rule 8, Wave 3) except `rust.py` (2026-07-25, no aspose.org precedent to adapt); opt-in live install-path resolution (`resolver.py`) against the authoritative registry per ecosystem -- Maven Central, PyPI, npm, NuGet, the Go module proxy, crates.io, plus Conan Center/vcpkg for C++ (`foss_coordinate.py`'s "aspose {family} foss" rule resolves C++ through NuGet instead, where the real Aspose C++ FOSS packages ship) |
 | `profile/` | `RepositoryProfile`/`DetectedEcosystem` (`schema.py`), `build_profile()` (`detector.py`) -- multi-ecosystem detection built on `inspection/`+`ecosystems/`, one scan, one source of truth, not a second parallel scanner. Cached/API/clone profiling carries the observed source revision into downstream fact provenance. |
 | `repository_snapshot.py` | `RepositorySnapshotV1` captures one immutable revision, absolute clone root, README and Git-tree inventory checksums, package roots, capture time, and provenance. The supervisor binds it through a context-local scope across every specialist and planner capability; nested clone/profile calls reuse that view without another remote probe, and stage boundaries fail closed on drift. |
-| `facts/` | `schema.py` retains the narrow V1 compatibility contract. `schema_v2.py` defines the provenance-complete required-field inventory; `migration.py` explicitly converts V1 without inventing missing values; `provider.py` reconciles policy and repository facts for both the facts and metadata capabilities without capability-to-capability calls; `repository_ingestion.py` mechanically parses manifest, compatibility, release, and license facts while `policy_evidence.py` validates policy-selected technical assertions against exact snapshot paths and symbols; `local_verification.py` builds a disposable snapshot copy and compiles the exact configured example through `example_execution.py`'s bounded, secret-free process boundary (not an OS sandbox); `resolution.py` applies source precedence and records conflicts; `gating.py` maps facts to dependent surfaces, rejects non-selected citations, and validates technical claims; `protected_content.py` fingerprints commands, examples, terminology, limitations, and maintainer regions through `markdown-it-py`. |
+| `facts/` | `schema.py` retains the narrow V1 compatibility contract. `schema_v2.py` defines the provenance-complete required-field inventory; `migration.py` explicitly converts V1 without inventing missing values; `provider.py` reconciles policy and repository facts for both the facts and metadata capabilities, while `context.py` binds the exact run-scoped graph so downstream stages cannot silently recollect a different view; `repository_ingestion.py` mechanically parses manifest, compatibility, release, and license facts while `policy_evidence.py` validates policy-selected technical assertions against exact snapshot paths and symbols; `local_verification.py` builds a disposable snapshot copy and delegates typed example checks through `example_verification_schema.py` and the ecosystem-specific `example_verifiers/` registry, using `example_execution.py`'s bounded, secret-free process boundary (not an OS sandbox); `resolution.py` applies source precedence and records conflicts; `gating.py` maps facts to dependent surfaces, rejects non-selected citations, and validates technical claims; `protected_content.py` fingerprints commands, examples, terminology, limitations, and maintainer regions through `markdown-it-py`. |
 | `presentation/` | `schema.py` defines `RepositoryPresentationPlanV1`; `markdown_structure.py`, `claim_validation.py`, `git_patch.py`, and `planner.py` provide deterministic structure, factuality, and native-Git patch proof; `document_planner.py` bridges fine-grained README operations into the repository surface plan. |
 | `readme/` | Legacy gap/render compatibility remains in `gap_detector.py`, `renderer.py`, and `candidate_pipeline.py`. The complete-document pipeline is split by responsibility (no monoliths): `document_plan.py` (typed byte-span plan schema), `document_structure.py` (markdown heading/section parsing + GitHub anchors), `document_templates.py` (template loading/hashing + fact-to-section prose), `document_operations.py` (operation construction + hash-checked reverse-order application), `document_hashing.py` (shared SHA-256 helper), `document_renderer.py` (the editorial policy that selects which bounded operations to apply), and `document_validation.py` (independent reconstruction + protected-content validation). |
 | `llm/` | Strict-schema client (live + fixture), `prompts.py` (facts+policy only). Wave 5 (decision #36): `planner_client.py` (`PlannerTurn`, `PlannerClient` Protocol, `LivePlannerClient`/`FixturePlannerClient`) -- a separate thin family, not a reuse of `LLMClient`, since a tool-call planning turn has no `content` to validate against the strict-schema client's `LLMBlockResponse`; promotes Wave 1's spike `chat_raw()` logic into tested production code. Wave 8.5 (`GOV-024`/`AGT-008`): `prompt_schema.py`/`prompt_registry.py` -- a categorical, schema-validated prompt store (mirrors `capabilities/registry.py`'s eager-registration pattern), replacing flat `.txt` files; `schema.py::Usage`/`LLMResponseMeta.usage` -- the gateway's own reported token accounting, when present |
@@ -309,4 +333,4 @@ accumulate as a historical audit trail.
 | `specialists/` | `registry.py` owns registry-driven domain ordering, dependency checks, and complete domain registration. `readme_reconciliation.py`, `github_generated_surface_audit.py`, `package_release_audit.py`, `metadata_presentation.py`, `community_files_presentation.py`, `cross_surface_validation.py`, `readme_presentation.py`, `visual_preparation.py`, `presentation_benchmarking.py`, and `independent_verification.py` run through typed capability dispatch. `metadata_presentation.py` dispatches only `propose_metadata_changes(org_repo)`; that capability independently derives facts through `facts/provider.py`. `readme_presentation.py` alone reaches the local README effect, only after its candidate has a structured, executable presentation plan and passes factuality and independent-verification gates. |
 | `specialists/readme_factuality.py` | Pre-effect factuality boundary for README candidates. It obtains facts and acquisition evidence through separate registered capabilities, rejects positively false package claims and protected-content loss, and supplies a fact hash to `readme_presentation.py` before its independent verifier and effect ledger are reachable. |
 | `specialists/metadata_presentation.py` | Dispatches only the metadata proposal capability. That registered boundary accepts `org_repo` alone and independently re-derives ProductFactsV2 through `facts/provider.py`; caller-supplied eligibility, citations, URLs, and product fields are rejected by the capability input contract. |
-| `supervisor/` | The canonical production runtime. `loop.py` owns repository lifecycle/locks; `specialist_tier.py` owns isolated domain execution and retry; `planner_loop.py` owns bounded capability selection; `action_dispatch.py` owns permission/effect/repair dispatch; `finding_status.py` classifies specialist findings/proposals and `work_ledger.py` deterministically prevents them from collapsing into false no-change or premature planner stop results; `state_tracking.py`, `evidence.py`, `models.py`, and `status.py` own their named contracts. `task.py` owns repository tasks; `mission_schema.py`, `mission_graph.py`, `mission_control.py`, and `mission_command.py` own the central mission task graph. `readme-agent supervise` accepts exactly one target: `--repo` or `--mission-task-graph`; both remain one supervisor authority. |
+| `supervisor/` | The canonical production runtime. `loop.py` owns repository lifecycle/locks; `product_truth.py` prepares, caches, persists, and invalidates one revision- and prompt-bound ProductFactsV2 graph before planning or specialist execution; `execution_context.py` carries run-scoped proposal-only and fact-graph boundaries without adding a second controller; `specialist_tier.py` owns isolated domain execution and retry; `planner_loop.py` owns bounded capability selection; `action_dispatch.py` owns permission/effect/repair dispatch; `finding_status.py` classifies specialist findings/proposals and `work_ledger.py` deterministically prevents them from collapsing into false no-change or premature planner stop results; `local_poc_evidence.py` materializes the revision-addressed local bundle, while `state_tracking.py`, `evidence.py`, `models.py`, and `status.py` own their named contracts. `task.py` owns repository tasks; `mission_schema.py`, `mission_graph.py`, `mission_control.py`, and `mission_command.py` own the central mission task graph. `readme-agent supervise` accepts exactly one target: `--repo`, `--registry`, or `--mission-task-graph`; all remain one supervisor authority. |

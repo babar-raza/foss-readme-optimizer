@@ -118,14 +118,17 @@ MAX_CONTEXT_CHARS = 180_000
 MAX_FILE_EXCERPT_CHARS = 6_000
 
 # Per-ecosystem source-file glob, keyed by `ProductEntry.ecosystem` (the same
-# 5 ecosystems `registry/models.py::MinimalExamplePolicy.language` and
+# ecosystems `registry/models.py::MinimalExamplePolicy.language` and
 # `facts/local_verification.py::_VERIFIERS` already support, RPOC-034/035).
 _ECOSYSTEM_SOURCE_GLOBS: dict[str, tuple[str, ...]] = {
     "java": ("*.java",),
+    "net": ("*.cs",),
     "dotnet": ("*.cs",),
     "python": ("*.py",),
     "typescript": ("*.ts",),
     "go": ("*.go",),
+    "cpp": ("*.h", "*.hpp", "*.cc", "*.cpp"),
+    "rust": ("*.rs",),
 }
 _DOC_GLOBS = ("*.md", "*.rst")
 

@@ -65,6 +65,26 @@ def test_presentation_span_preserves_inner_bytes_without_final_newline():
     assert span.content_bytes == source.encode("utf-8")
 
 
+def test_missing_usage_section_gets_the_verified_minimal_example():
+    org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    facts, revision = _facts(org_repo)
+    source = "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n"
+
+    candidate, plan = build_readme_document_candidate(
+        org_repo, source, facts, base_revision=revision
+    )
+    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert decision.valid, decision.errors
+    assert "## Quick Start" in candidate
+    assert facts.selected_fact("example.minimal").value["code"].rstrip() in candidate
+    assert any(
+        operation.operation_id == "readme.overview-navigation-and-acquisition"
+        and facts.selected_fact("example.minimal").fact_id in operation.fact_ids
+        for operation in plan.operations
+    )
+
+
 def test_cells_keeps_verified_maven_install_and_adds_verified_example():
     """Corrected 2026-07-24: org.aspose:aspose-cells-foss IS published on Maven
     Central (the prior resolver queried the wrong endpoint) -- the renderer must

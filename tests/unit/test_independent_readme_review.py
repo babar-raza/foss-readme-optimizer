@@ -217,7 +217,12 @@ def test_independent_repair_plan_dispatch_keeps_the_registered_domain(monkeypatc
     monkeypatch.setattr(reviewer_module, "dispatch_tool_call", _fake_dispatch)
     reviewer_module._dispatch_presentation_plan(
         ORG_REPO,
-        {"original_text": "# Original", "source_text": "# Source"},
+        {
+            "original_text": "# Original",
+            "source_text": "# Source",
+            "final_text": "# Candidate",
+            "source_revision": "a" * 40,
+        },
     )
 
     assert captured["caller_domain"] == "readme_presentation"

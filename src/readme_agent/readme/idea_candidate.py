@@ -12,10 +12,10 @@ from readme_agent.gitsafety.hooks import install_pre_push_hook
 from readme_agent.gitsafety.neuter import neuter_push
 from readme_agent.gitsafety.verify import verify_push_blocked
 from readme_agent.inspection.file_inventory import scan
-from readme_agent.orchestrator import require_permitted
 from readme_agent.readme.candidate_workspace import ensure_work_clone
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.facts import compute_tracked_content_hash
+from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import (
     capture_repository_snapshot,
     current_repository_snapshot,
@@ -24,10 +24,12 @@ from readme_agent.repository_snapshot import (
 )
 
 
-def prepare_idea_fidelity_candidate(org_repo: str) -> dict:
+def prepare_idea_fidelity_candidate(
+    org_repo: str, product_facts: ProductFactsV2 | None = None
+) -> dict:
     """Build a deterministic proposal; never write its candidate to the work clone."""
 
-    entry = require_permitted(org_repo)
+    entry = require_listed(org_repo)
     snapshot = current_repository_snapshot(org_repo)
     owns_snapshot = snapshot is None
     if snapshot is None:
@@ -41,8 +43,19 @@ def prepare_idea_fidelity_candidate(org_repo: str) -> dict:
     )
     with scope:
         verify_repository_snapshot(snapshot)
-        facts_result = collect_product_facts(org_repo)
-        facts = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
+        facts = product_facts
+        if facts is None:
+            facts_result = collect_product_facts(org_repo)
+            facts = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
+        if facts.org_repo != org_repo:
+            raise ValueError(
+                f"supplied ProductFactsV2 belongs to {facts.org_repo!r}, expected {org_repo!r}"
+            )
+        identity_revision = facts.selected_fact("product.identity").source.source_revision
+        if identity_revision is not None and identity_revision != snapshot.source_revision:
+            raise ValueError(
+                "supplied ProductFactsV2 source revision does not match the active snapshot"
+            )
         source_readme = (
             snapshot.root_path / snapshot.readme_path
             if snapshot.readme_path is not None
@@ -86,5 +99,6 @@ def prepare_idea_fidelity_candidate(org_repo: str) -> dict:
             "status": "GENERATED" if needs_write else "COMPLIANT_NO_CHANGE",
             "llm_called": False,
             "llm_calls": [],
+            "product_facts_v2": facts.model_dump(mode="json"),
             "readme_document_plan": document_plan.model_dump(mode="json"),
         }

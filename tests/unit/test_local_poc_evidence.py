@@ -3,9 +3,17 @@
 from pathlib import Path
 
 from readme_agent import paths
+from readme_agent.facts.schema_v2 import (
+    REQUIRED_PRODUCT_FIELDS,
+    FactRecordV2,
+    FactSourceV2,
+    ProductFactsV2,
+    descriptive_fact_id,
+)
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 from readme_agent.supervisor.local_poc_evidence import (
     mark_local_poc_profiled,
+    write_local_poc_product_facts,
     write_local_poc_snapshot,
 )
 
@@ -65,3 +73,50 @@ def test_profile_boundary_updates_manifest_without_claiming_completion(tmp_path,
     assert '"complete": false' in manifest
     assert '"SNAPSHOTTED"' in manifest
     assert '"PROFILED"' in manifest
+
+
+def test_product_facts_boundary_writes_provenance_conflicts_and_acquisition(tmp_path, monkeypatch):
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://acme/product",
+        source_revision=snapshot.source_revision,
+    )
+    records = [
+        FactRecordV2(
+            fact_id=descriptive_fact_id(field, "local-evidence-test"),
+            field=field,
+            value={"field": field},
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in REQUIRED_PRODUCT_FIELDS
+    ]
+    facts = ProductFactsV2(
+        org_repo=snapshot.org_repo,
+        facts=records,
+        selected_fact_ids={fact.field: fact.fact_id for fact in records},
+    )
+
+    bundle = write_local_poc_product_facts(
+        snapshot,
+        facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+    )
+
+    assert (bundle / "facts" / "product-facts.json").is_file()
+    assert (bundle / "facts" / "provenance.json").is_file()
+    assert (bundle / "facts" / "conflicts.json").is_file()
+    assert (bundle / "facts" / "acquisition.json").is_file()
+    checksum_inventory = (bundle / "sha256sums.txt").read_text(encoding="utf-8")
+    assert "facts/product-facts.json" in checksum_inventory
+    assert "facts/provenance.json" in checksum_inventory
+    assert "source/revision.json" not in checksum_inventory  # this unit starts at the facts stage
+    manifest = (bundle / "manifest.json").read_text(encoding="utf-8")
+    assert '"lifecycle_status": "FACTS_READY"' in manifest
+    assert facts.canonical_hash() in manifest

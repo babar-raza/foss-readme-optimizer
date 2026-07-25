@@ -91,7 +91,7 @@ class EvidenceBackedProductFact(BaseModel):
 class MinimalExamplePolicy(BaseModel):
     """Exact example text compiled in a disposable, secret-free workspace."""
 
-    language: Literal["java", "dotnet", "python", "typescript", "go"]
+    language: Literal["java", "dotnet", "python", "typescript", "go", "cpp", "rust"]
     class_name: str
     code: str
     evidence_paths: list[str] = Field(min_length=1)

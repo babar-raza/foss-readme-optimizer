@@ -217,8 +217,9 @@ def write_readme_proposal_bundle(
 
 def _write_sha256sums(evidence_dir: Path) -> None:
     lines = []
-    for path in sorted(evidence_dir.iterdir()):
+    for path in sorted(evidence_dir.rglob("*")):
         if path.is_file() and path.name != "sha256sums.txt":
             digest, _size = sha256_file(path)
-            lines.append(f"{digest}  {path.name}")
+            relative = path.relative_to(evidence_dir).as_posix()
+            lines.append(f"{digest}  {relative}")
     _atomic_write_text(evidence_dir / "sha256sums.txt", "\n".join(lines) + "\n")

@@ -76,6 +76,15 @@ def get(prompt_id: str) -> PromptManifest | None:
     return _MANIFESTS.get(prompt_id)
 
 
+def prompt_hash(prompt_id: str) -> str:
+    """Return the exact content hash for one registered prompt asset."""
+    try:
+        content = _RAW_CONTENT[prompt_id]
+    except KeyError as exc:
+        raise ConfigError(f"unknown prompt_id {prompt_id!r}") from exc
+    return sha256_text(content)
+
+
 def content_hash() -> str:
     """Hashes every registered prompt file, sorted by prompt_id for
     determinism -- consumed by supervisor/convergence.py::

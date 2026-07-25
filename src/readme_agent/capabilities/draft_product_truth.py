@@ -60,6 +60,7 @@ from readme_agent.facts.policy_evidence import evidence_fact_candidate, evidence
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.resolution import resolve_product_facts
 from readme_agent.facts.schema_v2 import (
+    README_DRAFTABLE_PRODUCT_FIELDS,
     FactRecordV2,
     FactSourceV2,
     ProductFactsV2,
@@ -93,14 +94,7 @@ MAX_PRODUCT_TRUTH_DRAFT_REPAIR_ATTEMPTS = 2
 # "what would ProductFactsV2 look like if this draft were adopted", which is
 # this capability's actual job for its real target repos (the 27 with no
 # product_truth at all, where these fields are already `missing` anyway).
-_GATED_FIELDS: tuple[str, ...] = (
-    "product.capabilities",
-    "product.formats",
-    "product.limitations",
-    "product.audience",
-    "product.problems_solved",
-    "example.minimal",
-)
+_GATED_FIELDS: tuple[str, ...] = README_DRAFTABLE_PRODUCT_FIELDS
 
 # The 3 evidence-backed fields, re-fed forward as fresh citable grounding
 # material for `product.audience`/`product.problems_solved` once they pass
@@ -420,9 +414,16 @@ def _to_policy_shape(draft: DraftProductTruthV1) -> dict:
     return shape
 
 
-def execute(org_repo: str, *, client=None) -> dict:
-    """Real wiring: fetches `ProductFactsV2` once (`collect_product_facts`),
-    guarantees a real on-disk baseline clone (`clone_baseline`, mirroring
+def execute(
+    org_repo: str,
+    *,
+    client=None,
+    repository_snapshot: RepositorySnapshotV1 | None = None,
+    base_facts: ProductFactsV2 | None = None,
+) -> dict:
+    """Real wiring: consumes or fetches `ProductFactsV2` once and consumes
+    the supervisor's immutable snapshot when injected. Direct callers still
+    get a real on-disk baseline clone (`clone_baseline`, mirroring
     `capabilities/compare_against_presentation_standard.py`'s own
     established pattern for a capability that needs direct file reads, not
     just manifest parsing), builds a real `RepositorySnapshotV1` for the
@@ -438,14 +439,30 @@ def execute(org_repo: str, *, client=None) -> dict:
     reset to `missing` (`_reset_fields_to_missing()`) so this drafting pass
     never sees -- and cannot copy from -- a repository's own pre-existing
     `product_truth`, whether or not one exists."""
-    facts_result = collect_product_facts(org_repo)
-    facts_so_far = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
+    if repository_snapshot is not None and repository_snapshot.org_repo != org_repo:
+        raise ValueError(
+            f"injected repository snapshot belongs to {repository_snapshot.org_repo!r}, "
+            f"not {org_repo!r}"
+        )
+    if base_facts is not None and base_facts.org_repo != org_repo:
+        raise ValueError(
+            f"injected product facts belong to {base_facts.org_repo!r}, not {org_repo!r}"
+        )
+
+    if base_facts is None:
+        facts_result = collect_product_facts(org_repo)
+        facts_so_far = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
+    else:
+        facts_so_far = base_facts
     drafting_facts_so_far = _reset_fields_to_missing(facts_so_far, _GATED_FIELDS)
 
-    entry = require_listed(org_repo)
-    baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
-    clone_baseline(entry, baseline_path)
-    snapshot: RepositorySnapshotV1 = capture_repository_snapshot(entry, baseline_path)
+    if repository_snapshot is None:
+        entry = require_listed(org_repo)
+        baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
+        clone_baseline(entry, baseline_path)
+        snapshot = capture_repository_snapshot(entry, baseline_path)
+    else:
+        snapshot = repository_snapshot
     observed_at = datetime.now(UTC).isoformat()
 
     def draft_fn(

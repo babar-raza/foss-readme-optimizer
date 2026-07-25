@@ -8,6 +8,7 @@ from readme_agent import paths
 from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
 from readme_agent.ecosystems.resolver import resolve
 from readme_agent.errors import NotAllowlistedError
+from readme_agent.facts.context import current_product_facts
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
 from readme_agent.facts.policy_evidence import evidence_failures
@@ -298,6 +299,15 @@ def collect_product_facts(
         ),
         missing_field_surfaces=SURFACE_DEPENDENCIES,
     )
+    active_facts = current_product_facts(org_repo)
+    if active_facts is not None:
+        identity_revision = active_facts.selected_fact("product.identity").source.source_revision
+        if source_revision is not None and identity_revision != source_revision:
+            raise RuntimeError(
+                "run-scoped product facts revision does not match the immutable repository "
+                f"snapshot: {identity_revision!r} != {source_revision!r}"
+            )
+        resolved = active_facts
     result["product_facts_v2"] = resolved.model_dump(mode="json")
     result["local_product_verification"] = local_verification or {
         "outcome": "NOT_RUN",

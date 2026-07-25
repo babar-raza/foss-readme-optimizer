@@ -10,31 +10,15 @@ import tempfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from threading import Lock
-from typing import Literal
-
-from pydantic import BaseModel, ConfigDict
 
 from readme_agent import env
 from readme_agent.facts import java_toolchain
 from readme_agent.facts.example_execution import ExampleExecutionResultV1, execute_example
+from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
+from readme_agent.facts.example_verifiers import cpp as cpp_verifier
+from readme_agent.facts.example_verifiers import rust as rust_verifier
 from readme_agent.registry.models import MinimalExamplePolicy
 from readme_agent.repository_snapshot import RepositorySnapshotV1, verify_repository_snapshot
-
-
-class LocalProductVerificationV1(BaseModel):
-    """Bounded build and exact-example result for one immutable snapshot."""
-
-    model_config = ConfigDict(extra="forbid", frozen=True)
-
-    schema_version: Literal[1] = 1
-    org_repo: str
-    source_revision: str
-    ecosystem: str
-    outcome: Literal["SOURCE_BUILD_VERIFIED", "BLOCKED_TOOLCHAIN", "BUILD_FAILED"]
-    detail: str
-    build: ExampleExecutionResultV1
-    example_compile: ExampleExecutionResultV1 | None = None
-
 
 _CACHE: dict[str, LocalProductVerificationV1] = {}
 _CACHE_LOCK = Lock()
@@ -717,6 +701,8 @@ _VERIFIERS = {
     "python": _verify_python,
     "typescript": _verify_typescript,
     "go": _verify_go,
+    "cpp": cpp_verifier.verify,
+    "rust": rust_verifier.verify,
 }
 
 

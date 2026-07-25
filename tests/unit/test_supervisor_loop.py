@@ -30,7 +30,7 @@ from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta, Usage
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
 from readme_agent.readme import candidate_pipeline
-from readme_agent.specialists import independent_readme_review
+from readme_agent.specialists import independent_readme_review, readme_presentation
 from readme_agent.specialists import registry as specialists_registry
 from readme_agent.state.backend import Lock, SaveResult
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
@@ -202,7 +202,9 @@ def _init_source_repo(path):
     (path / "README.md").write_text(
         "# Example FOSS for Java\n\n"
         "Example FOSS for Java is a Java library for creating, reading, and "
-        "modifying document files.\n",
+        "modifying document files.\n\n"
+        "## Quick Start\n\n"
+        "Existing local guidance.\n",
         encoding="utf-8",
     )
     (path / "LICENSE").write_text("MIT License\n", encoding="utf-8")
@@ -425,6 +427,21 @@ def project(tmp_path, monkeypatch):
             "product.problems_solved": ["creating, reading, and modifying document files"],
             "product.capabilities": ["create documents", "read documents", "modify documents"],
             "product.formats": ["document files"],
+            "product.limitations": ["Fixture scope is intentionally minimal"],
+            "installation.verified_acquisition": {
+                "method": "source_build",
+                "outcome": "SOURCE_BUILD_VERIFIED",
+                "detail": "verified by the synthetic local fixture",
+            },
+            "example.minimal": {
+                "language": "java",
+                "class_name": "Example",
+                "code": "public class Example {}",
+                "verification": {"status": "verified_fixture"},
+            },
+            "product.compatibility": ["Java 11 or later"],
+            "product.license": "MIT",
+            "relationship.commercial_foss": "Open-source scope with a separate commercial edition.",
         }
         for fact in result["product_facts_v2"]["facts"]:
             value = values.get(fact["field"])
@@ -437,6 +454,13 @@ def project(tmp_path, monkeypatch):
 
     monkeypatch.setattr(
         propose_metadata_changes,
+        "collect_product_facts",
+        _complete_fixture_product_facts,
+    )
+    import readme_agent.supervisor.product_truth as supervisor_product_truth
+
+    monkeypatch.setattr(
+        supervisor_product_truth,
         "collect_product_facts",
         _complete_fixture_product_facts,
     )
@@ -500,8 +524,13 @@ def project(tmp_path, monkeypatch):
 
 
 class TestBasicLoop:
-    def test_local_poc_records_snapshot_and_profile_before_later_stages(self, project):
+    def test_local_poc_records_snapshot_and_profile_before_later_stages(self, project, monkeypatch):
         backend = FakeStateBackend()
+        monkeypatch.setattr(
+            readme_presentation,
+            "dispatch_gated_effect",
+            lambda *args, **kwargs: pytest.fail("local POC must stop before a write effect"),
+        )
 
         first = supervise_repo(
             ORG_REPO,
@@ -512,6 +541,7 @@ class TestBasicLoop:
             write_evidence_bundle=True,
             track_readme_poc_lifecycle=True,
         )
+        first_domain_details = backend.load(ORG_REPO).domain_states["readme_presentation"].details
         second = supervise_repo(
             ORG_REPO,
             planner_client=FixturePlannerClient(
@@ -525,9 +555,21 @@ class TestBasicLoop:
         state = backend.load(ORG_REPO)
         lifecycle = state.readme_poc_lifecycle
         assert lifecycle is not None
-        assert lifecycle.status == "PROFILED"
-        assert [item.to_status for item in lifecycle.history] == ["SNAPSHOTTED", "PROFILED"]
-        assert first.status == "CONVERGED_PROPOSAL_READY"
+        assert lifecycle.status == "FACTS_READY"
+        assert [item.to_status for item in lifecycle.history] == [
+            "SNAPSHOTTED",
+            "PROFILED",
+            "FACTS_COLLECTING",
+            "FACTS_READY",
+        ]
+        assert first.status == "CONVERGED_PROPOSAL_READY", (
+            first.blocked_reason,
+            first.blocked_category,
+            first_domain_details,
+        )
+        assert first_domain_details["proposal_only"] is True
+        assert first_domain_details["written"] is False
+        assert first_domain_details["committed"] is False
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
 
     def test_heterogeneous_local_poc_members_share_the_real_supervisor_path(self, project):
@@ -537,12 +579,36 @@ class TestBasicLoop:
         repositories = [
             ("example-java", "Example-FOSS-for-Java", "java", project / "source"),
             (
+                "example-net",
+                "Example-FOSS-for-NET",
+                "net",
+                _init_source_repo(project / "source-net"),
+            ),
+            (
                 "example-python",
                 "Example-FOSS-for-Python",
                 "python",
                 _init_source_repo(project / "source-python"),
             ),
+            (
+                "example-typescript",
+                "Example-FOSS-for-TypeScript",
+                "typescript",
+                _init_source_repo(project / "source-typescript"),
+            ),
+            (
+                "example-cpp",
+                "Example-FOSS-for-CPP",
+                "cpp",
+                _init_source_repo(project / "source-cpp"),
+            ),
             ("example-go", "Example-FOSS-for-Go", "go", _init_source_repo(project / "source-go")),
+            (
+                "example-rust",
+                "Example-FOSS-for-Rust",
+                "rust",
+                _init_source_repo(project / "source-rust"),
+            ),
         ]
         for org, repo_name, ecosystem, source in repositories:
             entries.append(
@@ -580,9 +646,13 @@ class TestBasicLoop:
             )
 
             lifecycle = backend.load(org_repo).readme_poc_lifecycle
-            assert result.status == "CONVERGED_PROPOSAL_READY"
+            assert result.status == "CONVERGED_PROPOSAL_READY", (
+                result.blocked_reason,
+                result.blocked_category,
+                result.decisions,
+            )
             assert lifecycle is not None
-            assert lifecycle.status == "PROFILED"
+            assert lifecycle.status == "FACTS_READY"
             assert result.evidence_dir is not None
 
     def test_bootstrap_then_planner_capability_then_stop_converges(self, project):

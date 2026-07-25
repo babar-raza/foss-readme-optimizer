@@ -1,6 +1,8 @@
 """Canonical repository supervisor: observe, plan, verify, effect, reconcile."""
 
+from contextlib import nullcontext
 from datetime import UTC, datetime
+from typing import Any
 
 from readme_agent import paths
 from readme_agent.capabilities.schema import PermissionClass
@@ -134,6 +136,7 @@ def supervise_repo(
     require_independent_verification: bool = False,
     verify_local_product_facts: bool = False,
     track_readme_poc_lifecycle: bool = False,
+    product_truth_client: Any | None = None,
 ) -> SuperviseResult:
     # require_listed(), not require_permitted() (decision #40): most of a
     # supervised run is read-only planning/observation, so mode is not
@@ -353,6 +356,7 @@ def supervise_repo(
         )
     repository_snapshot = capture_repository_snapshot(entry, baseline_path)
     current_revision = repository_snapshot.source_revision
+    prepared_product_truth = None
     if track_readme_poc_lifecycle:
         if state_backend is None:
             raise RuntimeError("README-POC lifecycle tracking requires durable state")
@@ -379,6 +383,18 @@ def supervise_repo(
             evidence_refs=[str(poc_bundle_dir / "source" / "repository-profile.json")],
         )
         mark_local_poc_profiled(repository_snapshot, poc_bundle_dir)
+        from readme_agent.supervisor.product_truth import prepare_local_product_truth
+
+        with repository_snapshot_scope(
+            repository_snapshot,
+            allow_local_fact_verification=verify_local_product_facts,
+        ):
+            prepared_product_truth = prepare_local_product_truth(
+                org_repo,
+                repository_snapshot,
+                state_backend,
+                client=product_truth_client,
+            )
     lifecycle_recorder = current_lifecycle_recorder()
     if lifecycle_recorder is not None:
         lifecycle_recorder.checkpoint(
@@ -465,9 +481,21 @@ def supervise_repo(
         # tier loop, so a skip decision can be enforced inside it. Empty
         # unless the caller explicitly opts in -- see `enable_specialist_
         # skip`'s own docstring above.
-        with repository_snapshot_scope(
-            repository_snapshot,
-            allow_local_fact_verification=verify_local_product_facts,
+        from readme_agent.facts.context import product_facts_scope
+        from readme_agent.supervisor.execution_context import proposal_only_scope
+
+        facts_context = (
+            product_facts_scope(prepared_product_truth.facts)
+            if prepared_product_truth is not None
+            else nullcontext()
+        )
+        with (
+            repository_snapshot_scope(
+                repository_snapshot,
+                allow_local_fact_verification=verify_local_product_facts,
+            ),
+            facts_context,
+            proposal_only_scope(track_readme_poc_lifecycle),
         ):
             tier = run_specialist_tier(
                 org_repo=org_repo,
@@ -633,9 +661,18 @@ def supervise_repo(
                     blocked_category="infra_external",
                 )
         try:
-            with repository_snapshot_scope(
-                repository_snapshot,
-                allow_local_fact_verification=verify_local_product_facts,
+            facts_context = (
+                product_facts_scope(prepared_product_truth.facts)
+                if prepared_product_truth is not None
+                else nullcontext()
+            )
+            with (
+                repository_snapshot_scope(
+                    repository_snapshot,
+                    allow_local_fact_verification=verify_local_product_facts,
+                ),
+                facts_context,
+                proposal_only_scope(track_readme_poc_lifecycle),
             ):
                 planner = run_planner_loop(
                     org_repo=org_repo,

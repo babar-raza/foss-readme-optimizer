@@ -106,6 +106,8 @@ from readme_agent.state.backend import StateBackend
 from readme_agent.state.change_detection import classify_surface
 from readme_agent.state.domain_state import merge_details, save_domain_with_failure_tracking
 from readme_agent.state.schema import DomainStateV1
+from readme_agent.supervisor.execution_context import proposal_only_active
+from readme_agent.supervisor.product_truth import load_prepared_product_truth
 from readme_agent.verification.checks import compute_verification_token
 
 DOMAIN = README_PRESENTATION
@@ -126,6 +128,12 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     org_repo = config["configurable"]["org_repo"]
     arguments: dict = {"org_repo": org_repo}
     wiring_arguments: dict = {}
+    backend: StateBackend | None = config["configurable"].get("backend")
+    current_revision = config["configurable"].get("current_revision")
+    if backend is not None and current_revision is not None:
+        prepared = load_prepared_product_truth(org_repo, backend, current_revision)
+        if prepared is not None:
+            wiring_arguments["product_facts_v2"] = prepared.facts.model_dump(mode="json")
     # Production-reliability fix (found by independent review, 2026-07-20):
     # without this, a fresh work clone -- the normal case on an ephemeral CI
     # runner, RUN-001 -- can never see this domain's own prior accepted
@@ -200,6 +208,7 @@ def _dispatch_build_presentation_plan(org_repo: str, render_result: dict):
             "source_text": render_result.get("source_text", render_result["original_text"]),
             "candidate_text": render_result["final_text"],
             "source_revision": render_result["source_revision"],
+            "product_facts_v2": render_result.get("product_facts_v2"),
         },
     )
 
@@ -221,14 +230,19 @@ def _dispatch_prose_quality_check(
     )
 
 
-def _dispatch_regenerate(org_repo: str):
+def _dispatch_regenerate(org_repo: str, product_facts_v2: dict | None):
     render_tool_call = {
         "function": {
             "name": "render_readme_candidate",
             "arguments": json.dumps({"org_repo": org_repo, "force_regenerate": True}),
         }
     }
-    return dispatch_tool_call(render_tool_call, _READ_ONLY_PERMISSIONS, caller_domain=DOMAIN)
+    return dispatch_tool_call(
+        render_tool_call,
+        _READ_ONLY_PERMISSIONS,
+        caller_domain=DOMAIN,
+        extra_kwargs={"product_facts_v2": product_facts_v2},
+    )
 
 
 def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
@@ -305,8 +319,12 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         # nothing to a rejected candidate's own evidence value.
         patch_text = presentation_plan["git_patch_proof"].get("patch", "")
         if not presentation_plan["executable"]:
+            validation_errors = presentation_plan.get("document_validation", {}).get("errors", [])
             return {
-                "accepted_status": "ERROR:presentation_plan:blocked",
+                "accepted_status": (
+                    "ERROR:presentation_plan:blocked"
+                    + (f":{validation_errors}" if validation_errors else "")
+                ),
                 "details": merge_details(
                     state,
                     render_result=current_render_result,
@@ -322,6 +340,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             source_text=current_render_result.get(
                 "source_text", current_render_result["original_text"]
             ),
+            product_facts_v2=current_render_result.get("product_facts_v2"),
         )
         if not factuality.valid:
             reason = factuality.error or (
@@ -405,7 +424,9 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 "details": merge_details(state, **details_update),
             }
 
-        regenerate_dispatch = _dispatch_regenerate(org_repo)
+        regenerate_dispatch = _dispatch_regenerate(
+            org_repo, current_render_result.get("product_facts_v2")
+        )
         if regenerate_dispatch.outcome != "executed":
             return {
                 "accepted_status": (
@@ -415,22 +436,6 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         assert regenerate_dispatch.result is not None
         current_render_result = regenerate_dispatch.result
         repair_attempts += 1
-
-
-def _dispatch_get_product_facts_for_review(org_repo: str):
-    """Own separate dispatch, deliberately never a pass-through of any other
-    node's already-assembled facts -- matches `independent_readme_review.py`'s
-    own "re-fetch, never trust the caller's already-assembled facts"
-    discipline for its own adjacent, pre-effect gate."""
-    tool_call = {
-        "function": {
-            "name": "get_product_facts",
-            "arguments": json.dumps({"org_repo": org_repo}),
-        }
-    }
-    return dispatch_tool_call(
-        tool_call, _READ_ONLY_PERMISSIONS, caller_domain=INDEPENDENT_VERIFICATION
-    )
 
 
 def _dispatch_verify_readme_proposal_bundle(bundle_dir):
@@ -546,9 +551,9 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     document_plan_available = bool(presentation_plan_record.get("readme_document_plan"))
     bundle_verification_record: dict
     if document_plan_available:
-        facts_dispatch = _dispatch_get_product_facts_for_review(org_repo)
-        if facts_dispatch.outcome != "executed" or facts_dispatch.result is None:
-            return {"accepted_status": f"ERROR:{facts_dispatch.outcome}:{facts_dispatch.error}"}
+        product_facts_v2 = render_result.get("product_facts_v2")
+        if product_facts_v2 is None:
+            return {"accepted_status": "ERROR:verified_product_facts_missing_from_candidate"}
 
         entry = require_listed(org_repo)
         # Reuses _verify_node's own per-call run_nonce (already unique per
@@ -562,7 +567,7 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             original_readme=render_result["original_text"],
             candidate_readme=render_result["final_text"],
             patch_text=patch_text or "",
-            product_facts_v2=facts_dispatch.result["product_facts_v2"],
+            product_facts_v2=product_facts_v2,
             readme_document_plan_v1=presentation_plan_record["readme_document_plan"],
             repository_presentation_plan_v1=presentation_plan_record.get("presentation_plan") or {},
             document_validation=presentation_plan_record.get("document_validation") or {},
@@ -639,6 +644,7 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 "final_text": render_result["final_text"],
                 "presentation_plan": presentation_plan_record,
                 "deterministic_validation_result": verification,
+                "product_facts_v2": render_result.get("product_facts_v2"),
             },
         )
     except Exception as exc:  # noqa: BLE001 -- see comment above
@@ -723,6 +729,20 @@ def _commit_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             "accepted_status": classification.classification,
             "details": merge_details(
                 state_without_render_result, **base_details, written=False, committed=False
+            ),
+        }
+
+    if proposal_only_active():
+        return {
+            "accepted_facts_hash": facts_hash,
+            "accepted_status": classification.classification,
+            "details": merge_details(
+                state_without_render_result,
+                **base_details,
+                written=False,
+                committed=False,
+                proposal_only=True,
+                note="local-POC profile stops at an independently reviewed proposal",
             ),
         }
 
