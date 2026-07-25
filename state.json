@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f",
-    "last_evaluated_at": "2026-07-25T20:55:01.152498+00:00",
+    "last_evaluated_at": "2026-07-25T20:55:08.049676+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -27,7 +27,7 @@
       "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "REGRESSED",
       "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "CLOSED",
       "L8-LOCAL-PORTFOLIO-RUNTIME": "CLOSED",
-      "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "SCORED",
+      "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "CLOSED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
@@ -993,6 +993,18 @@
         "reason": "All composition acceptance flags are true across Java, .NET, Python, TypeScript, C++, Go, and Rust; semantic plan/result/manifest hashes agree; failures and remote writes are zero.",
         "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-local-readme-assessment-composition-81a2d48/README.md",
+          "plans/investigations/evidence/level8-local-readme-assessment-composition-81a2d48/sha256sums.txt"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-25T20:55:08.049670+00:00",
+        "reason": "Closed after implementation, focused and full regression proof, production-like heterogeneous evidence, checksum validation, and independent acceptance; bounded live review repair remains governed by the successor task.",
+        "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -1001,7 +1013,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 113,
+  "state_version": 114,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
