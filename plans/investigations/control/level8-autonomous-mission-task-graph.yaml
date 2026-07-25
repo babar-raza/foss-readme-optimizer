@@ -2276,13 +2276,13 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 5f55ff5bc8ee18596e5663d3f33996e11f3512c6741e835140b62ec4ea868753
+  source_sha256: e975648a5883e5dfb3fc80301decc5273976e7f79ae2f97f802c85de28a5a728
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 406
   mandatory_requirement_rows: 380
   excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
-  reopened_implemented_rows: 10
+  reopened_implemented_rows: 0
   mappings:
   - requirement_id: GOV-001
     priority: P0
@@ -2654,11 +2654,8 @@ requirement_coverage:
     priority: P1
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
-    disposition: reopened_semantic_evidence_gap
-    semantic_findings:
-    - cited evidence artifact `plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-2026-07-24/`
-      is not a file
-    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+    disposition: preserved_verified
+    semantic_findings: []
   - requirement_id: FACT-012
     priority: P2
     requirement_status: IMPLEMENTED
@@ -2675,11 +2672,8 @@ requirement_coverage:
     priority: P1
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
-    disposition: reopened_semantic_evidence_gap
-    semantic_findings:
-    - cited evidence artifact `plans/investigations/evidence/level8-portfolio-readme-proposals-2026-07-25/`
-      is not a file
-    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+    disposition: preserved_verified
+    semantic_findings: []
   - requirement_id: FACT-014
     priority: P3
     requirement_status: PARTIAL
@@ -3188,10 +3182,8 @@ requirement_coverage:
     priority: P2
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
-    disposition: reopened_semantic_evidence_gap
-    semantic_findings:
-    - cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
-      is not a file
+    disposition: preserved_verified
+    semantic_findings: []
   - requirement_id: OPS-011
     priority: P2
     requirement_status: PARTIAL
@@ -3646,9 +3638,8 @@ requirement_coverage:
     priority: P0
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
-    disposition: reopened_semantic_evidence_gap
-    semantic_findings:
-    - 'cites 1 path(s) that do not exist: [''config/authorization/'']'
+    disposition: preserved_verified
+    semantic_findings: []
   - requirement_id: AUTH-005
     priority: P1
     requirement_status: IMPLEMENTED
@@ -4085,9 +4076,8 @@ requirement_coverage:
     priority: P0
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: reopened_semantic_evidence_gap
-    semantic_findings:
-    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+    disposition: preserved_verified
+    semantic_findings: []
   - requirement_id: CAP-003
     priority: P1
     requirement_status: IMPLEMENTED
@@ -4122,9 +4112,8 @@ requirement_coverage:
     priority: P1
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: reopened_semantic_evidence_gap
-    semantic_findings:
-    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+    disposition: preserved_verified
+    semantic_findings: []
   - requirement_id: CAP-009
     priority: P2
     requirement_status: BACKLOG
@@ -4411,11 +4400,8 @@ requirement_coverage:
     priority: P1
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: reopened_semantic_evidence_gap
-    semantic_findings:
-    - cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
-      is not a file
-    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
+    disposition: preserved_verified
+    semantic_findings: []
   - requirement_id: ORC-006
     priority: P1
     requirement_status: PARTIAL
@@ -4444,11 +4430,8 @@ requirement_coverage:
     priority: P0
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: reopened_semantic_evidence_gap
-    semantic_findings:
-    - cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
-      is not a file
-    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+    disposition: preserved_verified
+    semantic_findings: []
   - requirement_id: VER-002
     priority: P0
     requirement_status: PARTIAL
@@ -4501,11 +4484,8 @@ requirement_coverage:
     priority: P0
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: reopened_semantic_evidence_gap
-    semantic_findings:
-    - cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
-      is not a file
-    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+    disposition: preserved_verified
+    semantic_findings: []
   - requirement_id: VER-011
     priority: P0
     requirement_status: PLANNED
@@ -4666,11 +4646,8 @@ requirement_coverage:
     priority: P0
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: reopened_semantic_evidence_gap
-    semantic_findings:
-    - cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
-      is not a file
-    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+    disposition: preserved_verified
+    semantic_findings: []
   - requirement_id: L8-003
     priority: P0
     requirement_status: PARTIAL
