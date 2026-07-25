@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
+import subprocess
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
@@ -48,6 +50,28 @@ GATED_FIELDS = (
     "product.limitations",
     "example.minimal",
 )
+
+
+def _git_text(*args: str) -> str:
+    return subprocess.run(
+        ["git", *args],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    ).stdout.strip()
+
+
+def _control_snapshot() -> dict:
+    lock_path = REPO_ROOT / "requirements-lock.txt"
+    return {
+        "branch": _git_text("branch", "--show-current"),
+        "head": _git_text("rev-parse", "HEAD"),
+        "working_tree_porcelain": _git_text("status", "--porcelain=v1", "--untracked-files=all"),
+        "dependency_lock_sha256": hashlib.sha256(lock_path.read_bytes()).hexdigest(),
+        "python_version": sys.version,
+    }
 
 
 class _LocalProofBackend:
@@ -102,6 +126,7 @@ def _selected_states(product_facts: dict) -> dict[str, str]:
 
 def main() -> int:
     started_at = datetime.now(UTC).isoformat()
+    control_start = _control_snapshot()
     results = []
     for ecosystem, org_repo in REPRESENTATIVES.items():
         snapshot = None
@@ -164,11 +189,18 @@ def main() -> int:
         write_redacted_json(OUT_DIR / "representatives" / ecosystem / "result.json", record)
 
     system_failures = [item for item in results if item["outcome"] == "SYSTEM_FAILURE"]
+    control_end = _control_snapshot()
+    control_tree_stable = control_start == control_end
     manifest = {
         "schema_version": 1,
         "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
         "started_at": started_at,
         "completed_at": datetime.now(UTC).isoformat(),
+        "control_repository": {
+            "start": control_start,
+            "end": control_end,
+            "stable": control_tree_stable,
+        },
         "representatives": results,
         "expected_ecosystems": list(REPRESENTATIVES),
         "produced_fact_graphs": len(results) - len(system_failures),
@@ -176,6 +208,11 @@ def main() -> int:
         "acceptance": {
             "all_representatives_terminal": len(results) == len(REPRESENTATIVES),
             "no_system_failures": not system_failures,
+            "control_tree_clean_and_stable": (
+                control_tree_stable
+                and not control_start["working_tree_porcelain"]
+                and not control_end["working_tree_porcelain"]
+            ),
             "renderer_consumed_exact_graph": all(
                 item.get("renderer_consumed_exact_graph") is True for item in results
             ),
@@ -199,7 +236,7 @@ def main() -> int:
     refresh_sha256sums(OUT_DIR)
     print(json.dumps(manifest["acceptance"], indent=2))
     print(OUT_DIR.resolve())
-    return 1 if system_failures else 0
+    return 1 if system_failures or not control_tree_stable else 0
 
 
 if __name__ == "__main__":
