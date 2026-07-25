@@ -8,6 +8,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.facts.protected_content import (
     fingerprint_protected_content,
+    protected_fragment_ids_overlapping_byte_span,
     validate_protected_content,
 )
 from readme_agent.facts.schema_v2 import ProductFactsV2
@@ -114,10 +115,12 @@ def validate_readme_document_candidate(
                 citations_valid = False
                 errors.append(f"{operation.operation_id}: {fact_id} is {fact.verification_state}")
         if operation.protected_content_treatment == "authoritative_fact_correction":
-            corrected = selected.decode("utf-8")
             authorized_fragment_ids.update(
-                fragment.fragment_id
-                for fragment in fingerprint_protected_content(corrected).fragments
+                protected_fragment_ids_overlapping_byte_span(
+                    source_inner,
+                    operation.source_byte_start,
+                    operation.source_byte_end,
+                )
             )
 
     checks["source_span_hashes"] = span_hashes_valid

@@ -207,6 +207,19 @@ def _validate_draft(
         raise LLMError(
             f"composition omitted source-bound section decisions: {sorted(missing_sections)}"
         )
+    dispositions = {
+        section.section_id: section.disposition for section in _planning_sections(assessment)
+    }
+    if mismatched_dispositions := [
+        f"{decision.section_id}:{decision.disposition}!={dispositions[decision.section_id]}"
+        for decision in draft.section_decisions
+        if decision.section_id in dispositions
+        and decision.disposition != dispositions[decision.section_id]
+    ]:
+        raise LLMError(
+            "composition changed deterministic source-bound dispositions: "
+            f"{sorted(mismatched_dispositions)}"
+        )
     cited_ids = {
         fact_id for decision in draft.section_decisions for fact_id in decision.supporting_fact_ids
     } | {

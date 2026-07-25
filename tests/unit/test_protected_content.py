@@ -2,6 +2,7 @@
 
 from readme_agent.facts.protected_content import (
     fingerprint_protected_content,
+    protected_fragment_ids_overlapping_byte_span,
     validate_protected_content,
 )
 
@@ -72,3 +73,18 @@ def test_maintainer_authored_change_fails_even_if_code_fragments_survive():
 
     assert decision.valid is False
     assert any(loss.category == "maintainer_region" for loss in decision.losses)
+
+
+def test_protected_span_lookup_preserves_crlf_byte_coordinates():
+    readme = "# Widget\r\n\r\n## Installation\r\n\r\n```bash\r\npip install widget\r\n```\r\n"
+    command_start = len(readme[: readme.index("pip install")].encode("utf-8"))
+    command_end = command_start + len(b"pip install widget")
+
+    fragment_ids = protected_fragment_ids_overlapping_byte_span(
+        readme,
+        command_start,
+        command_end,
+    )
+
+    assert any(fragment_id.startswith("example:") for fragment_id in fragment_ids)
+    assert any(fragment_id.startswith("command:") for fragment_id in fragment_ids)

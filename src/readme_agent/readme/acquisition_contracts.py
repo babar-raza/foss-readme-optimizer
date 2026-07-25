@@ -9,6 +9,10 @@ _GRADLE_DEPENDENCY_LINE = re.compile(
     r"(?m)^[^\S\r\n]*implementation\s+[\"']org\.[^\r\n]+(?:\r?\n)?"
 )
 _FENCED_BLOCK = re.compile(r"(?ms)^```[^\r\n]*\r?\n(?P<body>.*?)^```[^\S\r\n]*(?:\r?\n)?")
+_GRADLE_COORDINATE = re.compile(
+    r"""(?im)^[^\S\r\n]*implementation\s*(?:\(\s*)?["']"""
+    r"(?P<group>[^:'\"\r\n]+):(?P<artifact>[^:'\"\r\n]+):(?P<version>[^'\"\r\n)]+)"
+)
 
 
 def coordinate_rows(value: object) -> list[dict]:
@@ -72,3 +76,65 @@ def contradicted_package_claim_spans(text: str) -> list[tuple[int, int]]:
         if outside_dedicated_fence(match.span())
     )
     return sorted(spans)
+
+
+def stale_coordinate_version_replacements(
+    text: str,
+    coordinate_value: object,
+) -> list[tuple[int, int, str]]:
+    """Return exact Maven/Gradle version spans that contradict selected manifest facts."""
+
+    replacements: list[tuple[int, int, str]] = []
+    for dependency in _MAVEN_DEPENDENCY.finditer(text):
+        block = dependency.group(0)
+        group = _xml_value(block, "groupId")
+        artifact = _xml_value(block, "artifactId")
+        version = _xml_value(block, "version")
+        if group is None or artifact is None or version is None:
+            continue
+        selected = matching_coordinate_row(
+            coordinate_value,
+            {"group_id": group[0], "artifact_id": artifact[0]},
+        )
+        selected_version = str(selected.get("version") or "").strip()
+        if selected_version and version[0] != selected_version:
+            replacements.append(
+                (
+                    dependency.start() + version[1],
+                    dependency.start() + version[2],
+                    selected_version,
+                )
+            )
+
+    for dependency in _GRADLE_COORDINATE.finditer(text):
+        selected = matching_coordinate_row(
+            coordinate_value,
+            {
+                "group_id": dependency.group("group").strip(),
+                "artifact_id": dependency.group("artifact").strip(),
+            },
+        )
+        selected_version = str(selected.get("version") or "").strip()
+        current_version = dependency.group("version").strip()
+        if selected_version and current_version != selected_version:
+            raw_version = dependency.group("version")
+            leading = len(raw_version) - len(raw_version.lstrip())
+            start = dependency.start("version") + leading
+            replacements.append((start, start + len(current_version), selected_version))
+    return sorted(set(replacements))
+
+
+def _xml_value(block: str, tag: str) -> tuple[str, int, int] | None:
+    match = re.search(
+        rf"<{tag}\b[^>]*>(?P<value>[^<]+)</{tag}>",
+        block,
+        flags=re.IGNORECASE,
+    )
+    if match is None:
+        return None
+    raw_value = match.group("value")
+    value = raw_value.strip()
+    if not value:
+        return None
+    start = match.start("value") + len(raw_value) - len(raw_value.lstrip())
+    return value, start, start + len(value)

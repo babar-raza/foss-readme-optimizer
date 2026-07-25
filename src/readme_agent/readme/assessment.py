@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.facts.protected_content import fingerprint_protected_content
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.acquisition_contracts import stale_coordinate_version_replacements
 from readme_agent.readme.assessment_claims import (
     ReadmeMaterialClaimAssessmentV1,
     assess_material_claims,
@@ -123,6 +124,16 @@ def _section_disposition(
                 "repair",
                 fact_ids,
                 "A registry-install claim conflicts with the verified source-build acquisition.",
+            )
+        coordinates = accepted_fact(facts, "installation.coordinates")
+        if coordinates is not None and stale_coordinate_version_replacements(
+            section_text,
+            coordinates.value,
+        ):
+            return (
+                "repair",
+                fact_ids,
+                "A package coordinate version conflicts with the selected manifest fact.",
             )
         return (
             "preserve",

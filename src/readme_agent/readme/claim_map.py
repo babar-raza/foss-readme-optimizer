@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
+from readme_agent.readme.fact_grounding import find_literal_fact_match
 from readme_agent.readme.markers import find_presentation_span
 
 
@@ -90,6 +91,7 @@ def build_readme_claim_map(
             ].decode("utf-8")
             operation_byte_start = operation.source_byte_start
             coordinate_space = "presentation_inner_source_utf8"
+        operation_claim_count = 0
         for fact_id in operation.fact_ids:
             selected = facts.fact_by_id(fact_id)
             if facts.selected_fact_ids.get(selected.field) != fact_id:
@@ -109,8 +111,11 @@ def build_readme_claim_map(
                 ensure_ascii=False,
                 default=str,
             )
-            claim_text = _claim_line_for_fact(operation_claim_text, selected.value)
-            relative_character_start = operation_claim_text.find(claim_text)
+            literal_match = find_literal_fact_match(operation_claim_text, selected.value)
+            if literal_match is None:
+                continue
+            claim_text = operation_claim_text[literal_match.line_start : literal_match.line_end]
+            relative_character_start = literal_match.line_start
             relative_byte_start = len(
                 operation_claim_text[:relative_character_start].encode("utf-8")
             )
@@ -132,38 +137,14 @@ def build_readme_claim_map(
                     rationale=operation.rationale,
                 )
             )
+            operation_claim_count += 1
+        if operation.replacement_text and operation.fact_ids and operation_claim_count == 0:
+            raise ValueError(
+                f"document operation cites no literal rendered fact: {operation.operation_id!r}"
+            )
     return ReadmeClaimMapV1(
         org_repo=plan.org_repo,
         facts_hash=plan.facts_hash,
         candidate_sha256=plan.candidate_sha256,
         claims=claims,
     )
-
-
-def _fact_strings(value: object) -> list[str]:
-    if isinstance(value, str):
-        return [value.strip()] if value.strip() else []
-    if isinstance(value, list):
-        return [text for item in value for text in _fact_strings(item)]
-    if isinstance(value, dict):
-        return [text for item in value.values() for text in _fact_strings(item)]
-    return []
-
-
-def _claim_line_for_fact(operation_text: str, fact_value: object) -> str:
-    """Return the narrowest authored line containing a literal fact phrase."""
-
-    folded = operation_text.casefold()
-    matches = [
-        (folded.find(phrase.casefold()), phrase)
-        for phrase in _fact_strings(fact_value)
-        if len(phrase) >= 4 and phrase.casefold() in folded
-    ]
-    if not matches:
-        return operation_text
-    start, phrase = min(matches, key=lambda item: (item[0], -len(item[1])))
-    line_start = operation_text.rfind("\n", 0, start) + 1
-    line_end = operation_text.find("\n", start + len(phrase))
-    if line_end < 0:
-        line_end = len(operation_text)
-    return operation_text[line_start:line_end]

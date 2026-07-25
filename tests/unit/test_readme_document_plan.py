@@ -125,10 +125,17 @@ Only XLSX is supported.
 
     assert decision.valid, decision.errors
     assert "<artifactId>aspose-cells-foss</artifactId>" in candidate
+    assert "<version>26.7.0</version>" in candidate
+    assert "<version>1.0.0</version>" not in candidate
     assert "mvn clean install" not in candidate
     assert facts.selected_fact("example.minimal").value["code"].rstrip() in candidate
     assert not any(
         operation.operation_id == "readme.installation.verified-source-replacement"
+        for operation in plan.operations
+    )
+    assert any(
+        operation.operation_id.startswith("readme.installation.correct-coordinate-version:")
+        and operation.replacement_text == "26.7.0"
         for operation in plan.operations
     )
 

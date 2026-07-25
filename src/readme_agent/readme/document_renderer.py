@@ -19,8 +19,14 @@ from __future__ import annotations
 import re
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.readme.acquisition_contracts import contradicted_package_claim_spans
+from readme_agent.readme.acquisition_contracts import (
+    contradicted_package_claim_spans,
+    stale_coordinate_version_replacements,
+)
 from readme_agent.readme.agentic_composition import validate_readme_composition_plan
+from readme_agent.readme.agentic_operation_coverage import (
+    validate_agentic_operation_coverage,
+)
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_operations import apply_document_operations, build_operation
@@ -39,6 +45,7 @@ from readme_agent.readme.document_templates import (
     mapping_value,
     overview_text,
 )
+from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.markers import find_presentation_span, render_presentation_span
 
 __all__ = [
@@ -70,6 +77,12 @@ def build_readme_document_candidate(
     source = inner_text.encode("utf-8")
     headings = parse_headings(inner_text)
     operations: list[ReadmeDocumentOperationV1] = []
+    assessment = assess_readme_document(
+        org_repo,
+        source_text,
+        facts,
+        base_revision=base_revision,
+    )
     validated_agentic_plan = None
     if agentic_composition_plan:
         validated_agentic_plan = validate_readme_composition_plan(
@@ -77,12 +90,7 @@ def build_readme_document_candidate(
             org_repo=org_repo,
             source_text=source_text,
             facts=facts,
-            assessment=assess_readme_document(
-                org_repo,
-                source_text,
-                facts,
-                base_revision=base_revision,
-            ),
+            assessment=assessment,
         )
 
     first_h2 = next((heading for heading in headings if heading.level == 2), None)
@@ -107,33 +115,36 @@ def build_readme_document_candidate(
         "product.compatibility",
         "product.limitations",
     )
-    overview_fact_ids = [
+    overview_fact_candidates = [
         selected.fact_id
         for field in overview_fields
         if (selected := accepted_fact(facts, field)) is not None
     ]
+    overview_fact_ids: list[str] = []
     verified_installation = installation_text(facts, org_repo, base_revision)
     if not has_overview:
-        overview_insert = (
-            overview_text(
-                facts,
-                headings,
-                (
-                    [
-                        sentence.model_dump(mode="json")
-                        for sentence in validated_agentic_plan.overview_sentences
-                    ]
-                    if validated_agentic_plan is not None
-                    else None
-                ),
-            )
-            + "\n\n"
+        rendered_overview = overview_text(
+            facts,
+            headings,
+            (
+                [
+                    sentence.model_dump(mode="json")
+                    for sentence in validated_agentic_plan.overview_sentences
+                ]
+                if validated_agentic_plan is not None
+                else None
+            ),
         )
+        overview_insert = rendered_overview + "\n\n"
         if validated_agentic_plan is not None:
             overview_fact_ids.extend(
                 fact_id
                 for sentence in validated_agentic_plan.overview_sentences
                 for fact_id in sentence.supporting_fact_ids
+            )
+        else:
+            overview_fact_ids.extend(
+                literal_fact_ids(rendered_overview, facts, overview_fact_candidates)
             )
     if installation is None and verified_installation:
         overview_insert += "## Installation\n\n" + verified_installation + "\n\n"
@@ -168,7 +179,7 @@ def build_readme_document_candidate(
                 start=byte_offset,
                 end=byte_offset,
                 replacement=overview_insert,
-                fact_ids=sorted(set(overview_fact_ids)),
+                fact_ids=literal_fact_ids(overview_insert, facts, overview_fact_ids),
                 treatment="additive",
                 rationale=(
                     "Put verified audience, purpose, scope, navigation, and any missing source "
@@ -250,6 +261,40 @@ def build_readme_document_candidate(
                         ),
                     )
                 )
+        coordinates = accepted_fact(facts, "installation.coordinates")
+        stale_versions = (
+            stale_coordinate_version_replacements(installation_body, coordinates.value)
+            if coordinates is not None and not package_genuinely_not_published
+            else []
+        )
+        for index, (version_start, version_end, selected_version) in enumerate(
+            stale_versions,
+            start=1,
+        ):
+            start_character = installation.heading_end + version_start
+            end_character = installation.heading_end + version_end
+            start = len(inner_text[:start_character].encode("utf-8"))
+            end = len(inner_text[:end_character].encode("utf-8"))
+            operations.append(
+                build_operation(
+                    operation_id=f"readme.installation.correct-coordinate-version:{index}",
+                    operation="replace",
+                    source=source,
+                    start=start,
+                    end=end,
+                    replacement=selected_version,
+                    fact_ids=literal_fact_ids(
+                        selected_version,
+                        facts,
+                        [coordinates.fact_id] if coordinates is not None else [],
+                    ),
+                    treatment="authoritative_fact_correction",
+                    rationale=(
+                        "Align the package acquisition coordinate with the selected immutable "
+                        "manifest version."
+                    ),
+                )
+            )
 
     if exact_code and exact_code not in inner_text:
         if example_target is not None:
@@ -342,6 +387,12 @@ def build_readme_document_candidate(
             )
         )
 
+    if validated_agentic_plan is not None:
+        validate_agentic_operation_coverage(
+            assessment,
+            validated_agentic_plan.section_decisions,
+            operations,
+        )
     rendered_inner = apply_document_operations(source, operations).decode("utf-8")
     facts_hash = facts.canonical_hash()
     candidate = render_presentation_span(rendered_inner, facts_hash)

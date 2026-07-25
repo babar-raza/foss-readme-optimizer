@@ -168,3 +168,78 @@ def validate_protected_content(
                 )
             )
     return ProtectedContentDecisionV1(valid=not losses, losses=losses)
+
+
+def protected_fragment_ids_overlapping_byte_span(
+    readme_text: str,
+    byte_start: int,
+    byte_end: int,
+) -> set[str]:
+    """Return protected fragment IDs whose Markdown source overlaps an exact byte span."""
+
+    tokens = MarkdownIt("commonmark").parse(readme_text)
+    # Markdown token maps use logical line numbers, while the caller supplies
+    # byte offsets in the original document. Preserve each original line
+    # ending here so CRLF documents do not shift every span after line one.
+    lines = readme_text.splitlines(keepends=True)
+    line_byte_starts = [0]
+    for line in lines:
+        line_byte_starts.append(line_byte_starts[-1] + len(line.encode("utf-8")))
+
+    def overlaps(line_range: list[int] | None) -> bool:
+        if line_range is None:
+            return False
+        start_line, end_line = line_range
+        token_start = line_byte_starts[start_line]
+        token_end = line_byte_starts[min(end_line, len(lines))]
+        return byte_start < token_end and token_start < byte_end
+
+    fragment_ids: set[str] = set()
+    for index, token in enumerate(tokens):
+        if token.type in {"fence", "code_block"} and token.content.strip() and overlaps(token.map):
+            fragment_ids.add(
+                _fragment("example", token.content, f"markdown:{token.type}").fragment_id
+            )
+            fragment_ids.update(
+                _fragment("command", line, f"markdown:{token.type}").fragment_id
+                for line in token.content.splitlines()
+                if _COMMAND_RE.match(line)
+            )
+        if token.type == "inline" and overlaps(token.map):
+            for child in token.children or []:
+                if child.type != "code_inline" or not child.content.strip():
+                    continue
+                fragment_ids.add(
+                    _fragment(
+                        "technical_terminology",
+                        child.content,
+                        "markdown:inline_code",
+                    ).fragment_id
+                )
+                if _COMMAND_RE.match(child.content):
+                    fragment_ids.add(
+                        _fragment("command", child.content, "markdown:inline_code").fragment_id
+                    )
+        if token.type != "heading_open" or token.map is None:
+            continue
+        heading_text = tokens[index + 1].content if index + 1 < len(tokens) else ""
+        if not any(marker in heading_text.lower() for marker in _LIMITATION_HEADINGS):
+            continue
+        level = int(token.tag.removeprefix("h"))
+        start_line = token.map[0]
+        end_line = len(lines)
+        for later in tokens[index + 1 :]:
+            if later.type == "heading_open" and later.map is not None:
+                if int(later.tag.removeprefix("h")) <= level:
+                    end_line = later.map[0]
+                    break
+        if overlaps([start_line, end_line]):
+            section = "".join(lines[start_line:end_line]).rstrip("\r\n")
+            fragment_ids.add(
+                _fragment(
+                    "limitation",
+                    section,
+                    f"markdown:heading:{heading_text}",
+                ).fragment_id
+            )
+    return fragment_ids

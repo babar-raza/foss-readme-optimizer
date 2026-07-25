@@ -13,6 +13,9 @@ from readme_agent.llm.generation_prompts import build_readme_composition_tool_sc
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
 from readme_agent.readme.agentic_composition import plan_readme_composition
+from readme_agent.readme.agentic_operation_coverage import (
+    validate_agentic_operation_coverage,
+)
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_renderer import build_readme_document_candidate
@@ -174,6 +177,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert {
         fact_id for sentence in plan.overview_sentences for fact_id in sentence.supporting_fact_ids
     } <= cited_ids
+    assert facts.selected_fact("product.formats").fact_id not in cited_ids
     claim_map = build_readme_claim_map(
         document_plan,
         facts,
@@ -347,6 +351,55 @@ def test_agentic_plan_requires_one_decision_for_every_assessed_section():
             assessment,
             client=_client(_draft(facts)),
             max_attempts=1,
+        )
+
+
+def test_agentic_plan_cannot_reclassify_a_deterministic_section_disposition():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    draft["section_decisions"][0]["disposition"] = "rewrite"
+
+    with pytest.raises(LLMError, match="changed deterministic source-bound dispositions"):
+        plan_readme_composition(
+            facts.org_repo,
+            source,
+            facts,
+            assessment,
+            client=_client(draft),
+            max_attempts=1,
+        )
+
+
+def test_actionable_agentic_decision_requires_a_bounded_document_operation():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(draft),
+    )
+
+    with pytest.raises(LLMError, match="actionable decisions without bounded operations"):
+        validate_agentic_operation_coverage(
+            assessment,
+            plan.section_decisions,
+            [],
         )
 
 

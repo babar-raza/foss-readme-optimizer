@@ -26,6 +26,9 @@ dependencies = [
     # Wave 3 protected-content semantics use the CommonMark token stream;
     # Wave 4 source-span patching will reuse the same declared parser.
     "markdown-it-py>=4.0",
+    # Proof publishers use a process-safe lock so concurrent sessions cannot
+    # interleave files inside one checksum-addressed evidence root.
+    "filelock>=3.12",
 ]
 
 [project.optional-dependencies]

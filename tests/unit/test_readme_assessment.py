@@ -194,6 +194,35 @@ Existing example prose.
         assert section.fact_ids == []
 
 
+def test_installation_assessment_repairs_a_stale_selected_coordinate_version():
+    facts, revision = _java_facts()
+    source = """# Product
+
+## Installation
+
+```xml
+<dependency>
+  <groupId>org.aspose</groupId>
+  <artifactId>aspose-cells-foss</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+"""
+
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+
+    installation = next(
+        section for section in assessment.sections if section.heading == "Installation"
+    )
+    assert installation.disposition == "repair"
+    assert "coordinate version" in installation.rationale
+
+
 def test_verified_go_acquisition_uses_go_command_not_java_template():
     facts, revision = _java_facts()
     identity = facts.selected_fact("product.identity")
@@ -375,5 +404,6 @@ Keep this limitation.
         source.encode("utf-8")[claim.byte_start : claim.byte_end].decode("utf-8")
         for claim in removal_claims
     ]
-    assert any("<artifactId>not-published</artifactId>" in text for text in removed_claim_texts)
+    assert any("<groupId>org.aspose</groupId>" in text for text in removed_claim_texts)
+    assert all("<artifactId>not-published</artifactId>" not in text for text in removed_claim_texts)
     assert all("curl -fsSL" not in text for text in removed_claim_texts)
