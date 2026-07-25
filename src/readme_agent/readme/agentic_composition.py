@@ -186,6 +186,15 @@ def _validate_draft(
     decision_ids = [decision.section_id for decision in draft.section_decisions]
     if len(decision_ids) != len(set(decision_ids)):
         raise LLMError("composition returned duplicate section decisions")
+    if duplicate_fact_lists := [
+        decision.section_id
+        for decision in draft.section_decisions
+        if len(decision.supporting_fact_ids) != len(set(decision.supporting_fact_ids))
+    ]:
+        raise LLMError(
+            "composition returned duplicate supporting fact IDs for sections: "
+            f"{sorted(duplicate_fact_lists)}"
+        )
     accepted_ids = _accepted_fact_ids(facts)
     unknown_sections = {
         decision.section_id

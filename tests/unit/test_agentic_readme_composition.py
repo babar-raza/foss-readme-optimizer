@@ -9,6 +9,7 @@ import pytest
 
 from readme_agent.errors import LLMError
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.llm.generation_prompts import build_readme_composition_tool_schema
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
 from readme_agent.readme.agentic_composition import plan_readme_composition
@@ -94,6 +95,16 @@ def _client(*drafts: dict) -> FixtureForcedToolClient:
             for draft in drafts
         ]
     )
+
+
+def test_composition_tool_schema_avoids_gateway_unsupported_unique_items():
+    schema = build_readme_composition_tool_schema(
+        section_ids=["section:0"],
+        accepted_fact_ids=["fact:0"],
+        overview_fact_ids=["fact:0"],
+    )
+
+    assert "uniqueItems" not in json.dumps(schema)
 
 
 def _cover_assessment(draft: dict, assessment) -> dict:
@@ -202,6 +213,30 @@ def test_agentic_plan_rejects_unaccepted_or_invented_fact_ids():
             facts,
             assessment,
             client=client,
+            max_attempts=1,
+        )
+
+
+def test_agentic_plan_rejects_duplicate_supporting_fact_ids_deterministically():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    duplicate_id = draft["section_decisions"][0]["supporting_fact_ids"][0]
+    draft["section_decisions"][0]["supporting_fact_ids"].append(duplicate_id)
+
+    with pytest.raises(LLMError, match="duplicate supporting fact IDs"):
+        plan_readme_composition(
+            facts.org_repo,
+            source,
+            facts,
+            assessment,
+            client=_client(draft),
             max_attempts=1,
         )
 

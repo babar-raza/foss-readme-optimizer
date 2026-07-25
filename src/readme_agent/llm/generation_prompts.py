@@ -135,7 +135,6 @@ def build_readme_composition_tool_schema(
                                 },
                                 "supporting_fact_ids": {
                                     "type": "array",
-                                    "uniqueItems": True,
                                     "items": {
                                         "type": "string",
                                         "enum": accepted_fact_ids,
@@ -148,7 +147,6 @@ def build_readme_composition_tool_schema(
                     "overview_fact_ids": {
                         "type": "array",
                         "minItems": 1,
-                        "uniqueItems": True,
                         "items": {"type": "string", "enum": overview_fact_ids},
                     },
                 },
