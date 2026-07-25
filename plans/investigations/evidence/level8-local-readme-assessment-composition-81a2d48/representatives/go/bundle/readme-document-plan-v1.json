@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "immutable_base_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+  "facts_hash": "4364c3a12e4c00ea1d01ae7148df7ace548fc493da28de7f55c7c7c9c159f32c",
+  "template_sha256": "0ce252a2ba8e36b10737bbe73a1c968aa6bcaeb6be00df5f0b8ef2e2e7dd847c",
+  "source_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+    "source_inner_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+    "source_inner_bytes": 102171,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2014,
+      "source_byte_end": 2014,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- Input: PDF 1.7 (ISO 32000-1) and PDF 2.0 (ISO 32000-2)\n- No table reader yet — tables are not reconstructed in Markdown export\n- Go 1.24+\n- aspose-pdf-foss/Aspose-PDF-FOSS-for-Go\n- open_source_scope\n\n## In this README\n\n- [Install](#install)\n- [Quick Start](#quick-start)\n- [Feature Showcase](#feature-showcase)\n- [Features](#features)\n- [API Reference](#api-reference)\n- [License](#license)\n- [Product Page](#product-page)\n\n## Installation\n\nAdd the module published for this repository:\n\n```bash\ngo get github.com/aspose-pdf-foss/aspose-pdf-foss-for-go@latest\n```\n\nThe module was verified through the Go module proxy for repository revision `f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69`.\n\n",
+      "replacement_sha256": "55624cb52bc4eb2e103e0468f8af3d28f28db28ccabd2e53384df5d31a823357",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.compatibility:manifest",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-evidence",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "f27ffdde8ef928bd125a51eccf8a82d8c23730cf279b64b733a8dd3179bbb6c1"
+}

@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "immutable_base_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+  "facts_hash": "b0efbc87c40e1a90e2cf9cb92edb6dfd4719c7ec9114caaf3b121c60ef9bda70",
+  "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+  "archetype": "cpp-library",
+  "findings": [
+    {
+      "finding_id": "readme.product_clarity",
+      "dimension": "product_clarity",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "product clarity is satisfied",
+      "evidence": [
+        "<!-- readme-agent:presentation hash=\"sha256:b0efbc87c40e1a90e2cf9cb92edb6dfd4719c7ec9114caaf3b121c60ef9bda70\" schema=\"3\" inner-bytes=\"2937\" --> Aspose.Cells FOSS is an open-source C++ library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel. - Load and save Excel .xlsx workbooks"
+      ]
+    },
+    {
+      "finding_id": "readme.audience_fit",
+      "dimension": "audience_fit",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "audience fit is satisfied",
+      "evidence": [
+        "<!-- readme-agent:presentation hash=\"sha256:b0efbc87c40e1a90e2cf9cb92edb6dfd4719c7ec9114caaf3b121c60ef9bda70\" schema=\"3\" inner-bytes=\"2937\" --> Aspose.Cells FOSS is an open-source C++ library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel. - Load and save Excel .xlsx workbooks"
+      ]
+    },
+    {
+      "finding_id": "readme.trust_signals",
+      "dimension": "trust_signals",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "trust signals is satisfied",
+      "evidence": [
+        "product.license:license-file:verified"
+      ]
+    },
+    {
+      "finding_id": "readme.installation_path",
+      "dimension": "installation_path",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "installation path is satisfied",
+      "evidence": [
+        "installation.verified_acquisition:registry-nuget:outcomes=['accepted']"
+      ]
+    },
+    {
+      "finding_id": "readme.verified_examples",
+      "dimension": "verified_examples",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "verified examples is satisfied",
+      "evidence": [
+        "3 fenced code blocks found"
+      ]
+    },
+    {
+      "finding_id": "readme.navigation",
+      "dimension": "navigation",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "navigation is satisfied",
+      "evidence": [
+        "None"
+      ]
+    },
+    {
+      "finding_id": "readme.visual_usefulness",
+      "dimension": "visual_usefulness",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "visual usefulness is observation-only here",
+      "evidence": [
+        "markdown images=0; factual review is separate"
+      ]
+    },
+    {
+      "finding_id": "readme.contribution_readiness",
+      "dimension": "contribution_readiness",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "contribution readiness is observation-only here",
+      "evidence": [
+        "repository-file recognition belongs to the community-files specialist"
+      ]
+    },
+    {
+      "finding_id": "readme.maintenance_signals",
+      "dimension": "maintenance_signals",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "maintenance signals is observation-only here",
+      "evidence": [
+        "GitHub-generated activity remains audit-only"
+      ]
+    },
+    {
+      "finding_id": "readme.commercial_context",
+      "dimension": "commercial_context",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "commercial context is satisfied",
+      "evidence": [
+        "commercial_links=0; explanation_offset=173"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "readme.presentation.document-plan",
+      "surface_id": "readme",
+      "region_id": "readme.presentation",
+      "disposition": "eligible",
+      "depends_on": [],
+      "claims": [
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.installation.verified_acquisition",
+          "surface_id": "readme.installation",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [installation.verified_acquisition]",
+          "fact_ids": [
+            "installation.verified_acquisition:registry-nuget"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.formats",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.formats]",
+          "fact_ids": [
+            "product.formats:repository-evidence"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.identity",
+          "surface_id": "readme.opening",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.identity]",
+          "fact_ids": [
+            "product.identity:manifest-and-registry"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.limitations",
+          "surface_id": "readme.limitations",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.limitations]",
+          "fact_ids": [
+            "product.limitations:repository-evidence"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.relationship.commercial_foss",
+          "surface_id": "readme.relationship",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [relationship.commercial_foss]",
+          "fact_ids": [
+            "relationship.commercial_foss:primary"
+          ]
+        }
+      ],
+      "fact_ids": [
+        "installation.verified_acquisition:registry-nuget",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-evidence",
+        "relationship.commercial_foss:primary"
+      ],
+      "ownership_class": "repository_file",
+      "proposed_operation": "local_patch",
+      "source_spans": [
+        {
+          "path": "README.md",
+          "byte_start": 0,
+          "byte_end": 2396,
+          "expected_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+          "replacement_sha256": "2721b10441ac86bc29fde1d3569bc069d4da0aa61f9961fa67df12b0784b9290",
+          "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations"
+        }
+      ],
+      "validators": [
+        "claim_citations",
+        "surface_ownership",
+        "source_span_hash",
+        "git_apply_check",
+        "protected_content",
+        "independent_verifier"
+      ],
+      "rollback": "revert the bounded file patch",
+      "stop_conditions": [
+        "immutable base revision changed",
+        "source or work-tree README hash changed",
+        "document reconstruction differs",
+        "a fact citation becomes unselected, unresolved, or unverified",
+        "protected content outside a cited authoritative correction is lost",
+        "Git apply or independent verification fails"
+      ],
+      "patch_sha256": "8150f1c78be5582a8fb8fcf95a3f038010d20396faa1c61ba6b6775361e8254a"
+    }
+  ],
+  "candidate_sha256": "2721b10441ac86bc29fde1d3569bc069d4da0aa61f9961fa67df12b0784b9290"
+}

@@ -1,0 +1,517 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+  "started_at": "2026-07-25T20:34:16.516361+00:00",
+  "completed_at": "2026-07-25T20:37:32.948066+00:00",
+  "control_repository": {
+    "start": {
+      "branch": "main",
+      "head": "81a2d48d4475219e61bb8c20c7f4099ce472344e",
+      "working_tree_porcelain": "",
+      "dependency_lock_sha256": "8d65c9cb6386f3aa1f716b2cef35fda00159a3084bc06a2f6a1448ce228532ff",
+      "python_version": "3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]"
+    },
+    "end": {
+      "branch": "main",
+      "head": "81a2d48d4475219e61bb8c20c7f4099ce472344e",
+      "working_tree_porcelain": "",
+      "dependency_lock_sha256": "8d65c9cb6386f3aa1f716b2cef35fda00159a3084bc06a2f6a1448ce228532ff",
+      "python_version": "3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]"
+    },
+    "stable": true
+  },
+  "representative_results": [
+    {
+      "ecosystem": "cpp",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "facts_hash": "b0efbc87c40e1a90e2cf9cb92edb6dfd4719c7ec9114caaf3b121c60ef9bda70",
+      "candidate_sha256": "2721b10441ac86bc29fde1d3569bc069d4da0aa61f9961fa67df12b0784b9290",
+      "agentic_composition_plan_sha256": "5badd6984c55c21e5d64b5022ec54458a19f13b8119fb0230d3dd2683d8707d5",
+      "agentic_model": "qwen3-next",
+      "agentic_attempt_count": 1,
+      "agentic_overview_sentence_count": 4,
+      "agentic_section_decision_count": 9,
+      "agentic_expected_section_decision_count": 9,
+      "document_operation_count": 1,
+      "assessment_section_count": 10,
+      "material_claim_count": 17,
+      "blocked_fact_ids": [
+        "example.minimal:agent-drafted-example",
+        "product.audience:groundedness-blocked",
+        "product.capabilities:repository-evidence",
+        "product.compatibility:missing",
+        "product.problems_solved:groundedness-blocked"
+      ],
+      "cited_fact_ids": [
+        "installation.verified_acquisition:registry-nuget",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-evidence",
+        "relationship.commercial_foss:primary"
+      ],
+      "blocked_facts_excluded": true,
+      "git_apply_check_passed": true,
+      "document_validation_valid": true,
+      "independent_bundle_verdict": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "verified": true,
+        "checks": {
+          "all_artifacts_present": true,
+          "artifact_checksums_match": true,
+          "schemas_valid": true,
+          "source_hash_matches_plan": true,
+          "facts_hash_matches_plan": true,
+          "candidate_hash_matches_plan": true,
+          "agentic_plan_repository_matches": true,
+          "agentic_plan_source_hash_matches": true,
+          "agentic_plan_facts_hash_matches": true,
+          "agentic_plan_assessment_hash_matches": true,
+          "independent_reconstruction_byte_identical": true,
+          "reconstructed_plan_matches": true,
+          "assessment_reconstructed": true,
+          "claim_map_reconstructed": true,
+          "operations_cite_selected_facts": true,
+          "cited_facts_accepted": true,
+          "independent_validation_valid": true,
+          "recomputed_validation_consistent_with_stored": true,
+          "native_git_apply_produces_candidate": true,
+          "acquisition_matches_live_registry": true
+        },
+        "failures": []
+      }
+    },
+    {
+      "ecosystem": "go",
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "facts_hash": "4364c3a12e4c00ea1d01ae7148df7ace548fc493da28de7f55c7c7c9c159f32c",
+      "candidate_sha256": "f27ffdde8ef928bd125a51eccf8a82d8c23730cf279b64b733a8dd3179bbb6c1",
+      "agentic_composition_plan_sha256": "545d8b5fe3da3efc16e2ea221b347a4a7ed5e62ead401132dea8acd4e4de1f86",
+      "agentic_model": "qwen3-next",
+      "agentic_attempt_count": 1,
+      "agentic_overview_sentence_count": 5,
+      "agentic_section_decision_count": 10,
+      "agentic_expected_section_decision_count": 10,
+      "document_operation_count": 1,
+      "assessment_section_count": 65,
+      "material_claim_count": 202,
+      "blocked_fact_ids": [
+        "example.minimal:agent-drafted-example",
+        "product.audience:groundedness-blocked",
+        "product.capabilities:repository-evidence",
+        "product.problems_solved:groundedness-blocked"
+      ],
+      "cited_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.compatibility:manifest",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-evidence",
+        "relationship.commercial_foss:primary"
+      ],
+      "blocked_facts_excluded": true,
+      "git_apply_check_passed": true,
+      "document_validation_valid": true,
+      "independent_bundle_verdict": {
+        "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+        "verified": true,
+        "checks": {
+          "all_artifacts_present": true,
+          "artifact_checksums_match": true,
+          "schemas_valid": true,
+          "source_hash_matches_plan": true,
+          "facts_hash_matches_plan": true,
+          "candidate_hash_matches_plan": true,
+          "agentic_plan_repository_matches": true,
+          "agentic_plan_source_hash_matches": true,
+          "agentic_plan_facts_hash_matches": true,
+          "agentic_plan_assessment_hash_matches": true,
+          "independent_reconstruction_byte_identical": true,
+          "reconstructed_plan_matches": true,
+          "assessment_reconstructed": true,
+          "claim_map_reconstructed": true,
+          "operations_cite_selected_facts": true,
+          "cited_facts_accepted": true,
+          "independent_validation_valid": true,
+          "recomputed_validation_consistent_with_stored": true,
+          "native_git_apply_produces_candidate": true,
+          "acquisition_matches_live_registry": true
+        },
+        "failures": []
+      }
+    },
+    {
+      "ecosystem": "java",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "facts_hash": "c76dd01e204931b768089ea143a9e751d1c68ffc709442fa8c9e30535bb48111",
+      "candidate_sha256": "80d8dd5f731b217e7202476f062049ee9cba4b3c77fc673a9a5da6aae2e52ced",
+      "agentic_composition_plan_sha256": "39cfde63775e22b11cb86a3403d8283f674e6cdbcd73bbcc3563f00de6abacd9",
+      "agentic_model": "qwen3-next",
+      "agentic_attempt_count": 1,
+      "agentic_overview_sentence_count": 3,
+      "agentic_section_decision_count": 14,
+      "agentic_expected_section_decision_count": 14,
+      "document_operation_count": 3,
+      "assessment_section_count": 14,
+      "material_claim_count": 73,
+      "blocked_fact_ids": [],
+      "cited_fact_ids": [
+        "example.minimal:compiled-policy-example",
+        "installation.coordinates:manifest",
+        "product.audience:approved-policy",
+        "product.capabilities:repository-evidence",
+        "product.problems_solved:approved-policy"
+      ],
+      "blocked_facts_excluded": true,
+      "git_apply_check_passed": true,
+      "document_validation_valid": true,
+      "independent_bundle_verdict": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "verified": true,
+        "checks": {
+          "all_artifacts_present": true,
+          "artifact_checksums_match": true,
+          "schemas_valid": true,
+          "source_hash_matches_plan": true,
+          "facts_hash_matches_plan": true,
+          "candidate_hash_matches_plan": true,
+          "agentic_plan_repository_matches": true,
+          "agentic_plan_source_hash_matches": true,
+          "agentic_plan_facts_hash_matches": true,
+          "agentic_plan_assessment_hash_matches": true,
+          "independent_reconstruction_byte_identical": true,
+          "reconstructed_plan_matches": true,
+          "assessment_reconstructed": true,
+          "claim_map_reconstructed": true,
+          "operations_cite_selected_facts": true,
+          "cited_facts_accepted": true,
+          "independent_validation_valid": true,
+          "recomputed_validation_consistent_with_stored": true,
+          "native_git_apply_produces_candidate": true,
+          "acquisition_matches_live_registry": true
+        },
+        "failures": []
+      }
+    },
+    {
+      "ecosystem": "net",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "facts_hash": "5477a1641110d30629eb484701d0aad7f58ad7a5e9932134cf53e3b7668ca19d",
+      "candidate_sha256": "a673f510e3fd516c834b4e5d0715cae2857cf50ffff038b6bfb0a4ab5d84453f",
+      "agentic_composition_plan_sha256": "ce764dd61dfedf1785d546a30a1c060bb6165ff5b1d0b8b78fc940ca918ca26e",
+      "agentic_model": "qwen3-next",
+      "agentic_attempt_count": 1,
+      "agentic_overview_sentence_count": 5,
+      "agentic_section_decision_count": 13,
+      "agentic_expected_section_decision_count": 13,
+      "document_operation_count": 2,
+      "assessment_section_count": 16,
+      "material_claim_count": 35,
+      "blocked_fact_ids": [
+        "example.minimal:agent-drafted-example",
+        "product.audience:groundedness-blocked",
+        "product.compatibility:missing",
+        "product.problems_solved:groundedness-blocked"
+      ],
+      "cited_fact_ids": [
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-evidence",
+        "relationship.commercial_foss:primary"
+      ],
+      "blocked_facts_excluded": true,
+      "git_apply_check_passed": true,
+      "document_validation_valid": true,
+      "independent_bundle_verdict": {
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "verified": true,
+        "checks": {
+          "all_artifacts_present": true,
+          "artifact_checksums_match": true,
+          "schemas_valid": true,
+          "source_hash_matches_plan": true,
+          "facts_hash_matches_plan": true,
+          "candidate_hash_matches_plan": true,
+          "agentic_plan_repository_matches": true,
+          "agentic_plan_source_hash_matches": true,
+          "agentic_plan_facts_hash_matches": true,
+          "agentic_plan_assessment_hash_matches": true,
+          "independent_reconstruction_byte_identical": true,
+          "reconstructed_plan_matches": true,
+          "assessment_reconstructed": true,
+          "claim_map_reconstructed": true,
+          "operations_cite_selected_facts": true,
+          "cited_facts_accepted": true,
+          "independent_validation_valid": true,
+          "recomputed_validation_consistent_with_stored": true,
+          "native_git_apply_produces_candidate": true,
+          "acquisition_matches_live_registry": true
+        },
+        "failures": []
+      }
+    },
+    {
+      "ecosystem": "python",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "facts_hash": "acc58a69c8e1142b80b6ea389d199341c8b0df8559d0791065653e12b846ac94",
+      "candidate_sha256": "9ed7f369e9b2c170a5da6e7b429437992feb41c1deb78bfee976bd9a659520b4",
+      "agentic_composition_plan_sha256": "b00e78f4893c96c19cff3fc64cb71c8e60722c12121952468445ee1ac23c715b",
+      "agentic_model": "qwen3-next",
+      "agentic_attempt_count": 1,
+      "agentic_overview_sentence_count": 3,
+      "agentic_section_decision_count": 15,
+      "agentic_expected_section_decision_count": 15,
+      "document_operation_count": 2,
+      "assessment_section_count": 24,
+      "material_claim_count": 100,
+      "blocked_fact_ids": [
+        "installation.verified_acquisition:disposable-source-build",
+        "product.audience:groundedness-blocked",
+        "product.compatibility:missing",
+        "product.formats:repository-evidence",
+        "product.limitations:repository-evidence",
+        "product.problems_solved:groundedness-blocked"
+      ],
+      "cited_fact_ids": [
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "blocked_facts_excluded": true,
+      "git_apply_check_passed": true,
+      "document_validation_valid": true,
+      "independent_bundle_verdict": {
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "verified": true,
+        "checks": {
+          "all_artifacts_present": true,
+          "artifact_checksums_match": true,
+          "schemas_valid": true,
+          "source_hash_matches_plan": true,
+          "facts_hash_matches_plan": true,
+          "candidate_hash_matches_plan": true,
+          "agentic_plan_repository_matches": true,
+          "agentic_plan_source_hash_matches": true,
+          "agentic_plan_facts_hash_matches": true,
+          "agentic_plan_assessment_hash_matches": true,
+          "independent_reconstruction_byte_identical": true,
+          "reconstructed_plan_matches": true,
+          "assessment_reconstructed": true,
+          "claim_map_reconstructed": true,
+          "operations_cite_selected_facts": true,
+          "cited_facts_accepted": true,
+          "independent_validation_valid": true,
+          "recomputed_validation_consistent_with_stored": true,
+          "native_git_apply_produces_candidate": true,
+          "acquisition_matches_live_registry": true
+        },
+        "failures": []
+      }
+    },
+    {
+      "ecosystem": "rust",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+      "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+      "facts_hash": "a442bd200f697298bd4a4379597664bd1b61583b0f596e5d97b3f54dbc9c8eac",
+      "candidate_sha256": "f97e0f369d5f1c2f28d318d5329c24077ce549e751e092c777716b705e0a2c46",
+      "agentic_composition_plan_sha256": "c79cd7a2d9d55fac0e9a13875128e9e9c704cbcc45a16f8feb9817ca1346d624",
+      "agentic_model": "qwen3-next",
+      "agentic_attempt_count": 1,
+      "agentic_overview_sentence_count": 4,
+      "agentic_section_decision_count": 10,
+      "agentic_expected_section_decision_count": 10,
+      "document_operation_count": 1,
+      "assessment_section_count": 10,
+      "material_claim_count": 37,
+      "blocked_fact_ids": [
+        "example.minimal:agent-drafted-example",
+        "installation.verified_acquisition:disposable-source-build",
+        "product.audience:groundedness-blocked",
+        "product.capabilities:repository-evidence",
+        "product.compatibility:missing",
+        "product.problems_solved:groundedness-blocked"
+      ],
+      "cited_fact_ids": [
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-evidence",
+        "relationship.commercial_foss:primary"
+      ],
+      "blocked_facts_excluded": true,
+      "git_apply_check_passed": true,
+      "document_validation_valid": true,
+      "independent_bundle_verdict": {
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "verified": true,
+        "checks": {
+          "all_artifacts_present": true,
+          "artifact_checksums_match": true,
+          "schemas_valid": true,
+          "source_hash_matches_plan": true,
+          "facts_hash_matches_plan": true,
+          "candidate_hash_matches_plan": true,
+          "agentic_plan_repository_matches": true,
+          "agentic_plan_source_hash_matches": true,
+          "agentic_plan_facts_hash_matches": true,
+          "agentic_plan_assessment_hash_matches": true,
+          "independent_reconstruction_byte_identical": true,
+          "reconstructed_plan_matches": true,
+          "assessment_reconstructed": true,
+          "claim_map_reconstructed": true,
+          "operations_cite_selected_facts": true,
+          "cited_facts_accepted": true,
+          "independent_validation_valid": true,
+          "recomputed_validation_consistent_with_stored": true,
+          "native_git_apply_produces_candidate": true,
+          "acquisition_matches_live_registry": true
+        },
+        "failures": []
+      }
+    },
+    {
+      "ecosystem": "typescript",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+      "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+      "facts_hash": "41e25cbced22df49eaac359d06f76d360f9065a451b4f42bd5ae114de14ebb4a",
+      "candidate_sha256": "d645f23da6bedb1ce35d4ffe74101f6a6c4855d244ce4f82a5991c827b3700cb",
+      "agentic_composition_plan_sha256": "0645cf7ef70e6a087b801bf1f04935fa74ae49d2d00b213e90650745d3cc09ad",
+      "agentic_model": "qwen3-next",
+      "agentic_attempt_count": 1,
+      "agentic_overview_sentence_count": 3,
+      "agentic_section_decision_count": 15,
+      "agentic_expected_section_decision_count": 15,
+      "document_operation_count": 1,
+      "assessment_section_count": 23,
+      "material_claim_count": 126,
+      "blocked_fact_ids": [
+        "example.minimal:agent-drafted-example",
+        "installation.verified_acquisition:disposable-source-build",
+        "product.audience:groundedness-blocked",
+        "product.capabilities:repository-evidence",
+        "product.compatibility:missing",
+        "product.license:missing",
+        "product.limitations:repository-evidence",
+        "product.problems_solved:groundedness-blocked"
+      ],
+      "cited_fact_ids": [
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "blocked_facts_excluded": true,
+      "git_apply_check_passed": true,
+      "document_validation_valid": true,
+      "independent_bundle_verdict": {
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "verified": true,
+        "checks": {
+          "all_artifacts_present": true,
+          "artifact_checksums_match": true,
+          "schemas_valid": true,
+          "source_hash_matches_plan": true,
+          "facts_hash_matches_plan": true,
+          "candidate_hash_matches_plan": true,
+          "agentic_plan_repository_matches": true,
+          "agentic_plan_source_hash_matches": true,
+          "agentic_plan_facts_hash_matches": true,
+          "agentic_plan_assessment_hash_matches": true,
+          "independent_reconstruction_byte_identical": true,
+          "reconstructed_plan_matches": true,
+          "assessment_reconstructed": true,
+          "claim_map_reconstructed": true,
+          "operations_cite_selected_facts": true,
+          "cited_facts_accepted": true,
+          "independent_validation_valid": true,
+          "recomputed_validation_consistent_with_stored": true,
+          "native_git_apply_produces_candidate": true,
+          "acquisition_matches_live_registry": true
+        },
+        "failures": []
+      }
+    }
+  ],
+  "failures": [],
+  "cross_repository_specificity": {
+    "verified": true,
+    "checks": {
+      "candidates_distinct": true,
+      "each_candidate_has_own_identity": true,
+      "no_cross_pilot_identity_leak": true
+    },
+    "failures": []
+  },
+  "negative_controls": {
+    "prompt_injection": {
+      "repository_instruction_detected_as_untrusted": true,
+      "repository_instruction_preserved_as_data": true,
+      "repository_instruction_not_used_as_verified_fact": true,
+      "agentic_plan_cites_only_accepted_facts": true
+    }
+  },
+  "cross_file_plan_hashes": {
+    "cpp": {
+      "stored_plan_sha256": "5badd6984c55c21e5d64b5022ec54458a19f13b8119fb0230d3dd2683d8707d5",
+      "result_sha256": "5badd6984c55c21e5d64b5022ec54458a19f13b8119fb0230d3dd2683d8707d5",
+      "manifest_sha256": "5badd6984c55c21e5d64b5022ec54458a19f13b8119fb0230d3dd2683d8707d5",
+      "matches": true
+    },
+    "go": {
+      "stored_plan_sha256": "545d8b5fe3da3efc16e2ea221b347a4a7ed5e62ead401132dea8acd4e4de1f86",
+      "result_sha256": "545d8b5fe3da3efc16e2ea221b347a4a7ed5e62ead401132dea8acd4e4de1f86",
+      "manifest_sha256": "545d8b5fe3da3efc16e2ea221b347a4a7ed5e62ead401132dea8acd4e4de1f86",
+      "matches": true
+    },
+    "java": {
+      "stored_plan_sha256": "39cfde63775e22b11cb86a3403d8283f674e6cdbcd73bbcc3563f00de6abacd9",
+      "result_sha256": "39cfde63775e22b11cb86a3403d8283f674e6cdbcd73bbcc3563f00de6abacd9",
+      "manifest_sha256": "39cfde63775e22b11cb86a3403d8283f674e6cdbcd73bbcc3563f00de6abacd9",
+      "matches": true
+    },
+    "net": {
+      "stored_plan_sha256": "ce764dd61dfedf1785d546a30a1c060bb6165ff5b1d0b8b78fc940ca918ca26e",
+      "result_sha256": "ce764dd61dfedf1785d546a30a1c060bb6165ff5b1d0b8b78fc940ca918ca26e",
+      "manifest_sha256": "ce764dd61dfedf1785d546a30a1c060bb6165ff5b1d0b8b78fc940ca918ca26e",
+      "matches": true
+    },
+    "python": {
+      "stored_plan_sha256": "b00e78f4893c96c19cff3fc64cb71c8e60722c12121952468445ee1ac23c715b",
+      "result_sha256": "b00e78f4893c96c19cff3fc64cb71c8e60722c12121952468445ee1ac23c715b",
+      "manifest_sha256": "b00e78f4893c96c19cff3fc64cb71c8e60722c12121952468445ee1ac23c715b",
+      "matches": true
+    },
+    "rust": {
+      "stored_plan_sha256": "c79cd7a2d9d55fac0e9a13875128e9e9c704cbcc45a16f8feb9817ca1346d624",
+      "result_sha256": "c79cd7a2d9d55fac0e9a13875128e9e9c704cbcc45a16f8feb9817ca1346d624",
+      "manifest_sha256": "c79cd7a2d9d55fac0e9a13875128e9e9c704cbcc45a16f8feb9817ca1346d624",
+      "matches": true
+    },
+    "typescript": {
+      "stored_plan_sha256": "0645cf7ef70e6a087b801bf1f04935fa74ae49d2d00b213e90650745d3cc09ad",
+      "result_sha256": "0645cf7ef70e6a087b801bf1f04935fa74ae49d2d00b213e90650745d3cc09ad",
+      "manifest_sha256": "0645cf7ef70e6a087b801bf1f04935fa74ae49d2d00b213e90650745d3cc09ad",
+      "matches": true
+    }
+  },
+  "remote_write_count": 0,
+  "acceptance": {
+    "all_representatives_verified": true,
+    "all_document_plans_nonempty": true,
+    "all_agentic_composition_plans_nonempty": true,
+    "all_assessed_sections_receive_agentic_decisions": true,
+    "all_patches_apply": true,
+    "all_document_validations_pass": true,
+    "blocked_facts_never_cited": true,
+    "candidates_repository_specific": true,
+    "prompt_injection_treated_as_untrusted_data": true,
+    "all_cross_file_plan_hashes_match": true,
+    "control_tree_clean_and_stable": true,
+    "zero_remote_writes": true
+  },
+  "reproduction_command": ".venv/Scripts/python plans/investigations/tools/prove_local_readme_assessment_composition_representatives.py --output-dir runs/level8-local-readme-assessment-composition-81a2d48"
+}

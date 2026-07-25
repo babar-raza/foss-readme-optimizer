@@ -1,0 +1,416 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "cells",
+        "platform": "java",
+        "ecosystem": "java",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "manifest_names": [
+          "Aspose.Cells FOSS for Java"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:approved-policy",
+      "field": "product.audience",
+      "value": [
+        "Java developers creating, loading, modifying, and saving spreadsheet workbooks."
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "config/policies/aspose-cells-foss.yml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "product-policy-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:approved-policy",
+      "field": "product.problems_solved",
+      "value": [
+        "Process XLSX workbooks with an open-source Java API without requiring Microsoft Excel."
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "config/policies/aspose-cells-foss.yml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "product-policy-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": [
+        "Create, load, modify, and save workbooks and worksheets.",
+        "Read and write cell values and apply spreadsheet styles."
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/main/java/org/aspose/cells_foss/Cell.java,src/main/java/org/aspose/cells_foss/Style.java,src/main/java/org/aspose/cells_foss/Workbook.java,src/main/java/org/aspose/cells_foss/Worksheet.java,src/test/java/org/aspose/cells_foss/CompatibilityTest.java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": [
+        "Load and save XLSX workbooks."
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/main/java/org/aspose/cells_foss/LoadFormat.java,src/main/java/org/aspose/cells_foss/SaveFormat.java,src/test/java/org/aspose/cells_foss/CompatibilityTest.java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "java"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "java",
+          "manifest_path": "pom.xml",
+          "group_id": "org.aspose",
+          "artifact_id": "aspose-cells-foss",
+          "name": "Aspose.Cells FOSS for Java",
+          "version": "26.7.0"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:registry-maven_central",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "maven_central",
+        "outcome": "REGISTRY_VERIFIED",
+        "detail": "Maven Central: org.aspose:aspose-cells-foss found",
+        "coordinate": {
+          "group_id": "org.aspose",
+          "artifact_id": "aspose-cells-foss"
+        }
+      },
+      "source": {
+        "source_type": "external_registry",
+        "location": "registry-acquisition://java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:compiled-policy-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "java",
+        "class_name": "ReadmeExample",
+        "code": "import org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class ReadmeExample {\n    public static void main(String[] args) throws Exception {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n            sheet.getCells().get(\"A1\").putValue(\"Hello\");\n            workbook.save(\"hello.xlsx\");\n        }\n    }\n}\n",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED",
+        "verification_detail": "source build and exact README example compilation passed"
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-product-verification://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/cells/java/",
+          "family_url": "https://products.aspose.org/cells/",
+          "label": "Aspose.Cells FOSS for Java",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/cells/java/",
+          "family_url": "https://products.aspose.com/cells",
+          "label": "Aspose.Cells for Java",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "version": "26.7.0",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": [
+        "The verified load and save surface is limited to XLSX workbooks."
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/main/java/org/aspose/cells_foss/LoadFormat.java,src/main/java/org/aspose/cells_foss/SaveFormat.java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:manifest",
+      "field": "product.compatibility",
+      "value": [
+        {
+          "ecosystem": "java",
+          "minimum_runtime": "17",
+          "manifest_path": "pom.xml"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://License/LICENSE.txt",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:approved-policy",
+    "product.problems_solved": "product.problems_solved:approved-policy",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:registry-maven_central",
+    "example.minimal": "example.minimal:compiled-policy-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:manifest",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

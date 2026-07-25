@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "source_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+  "facts_hash": "4364c3a12e4c00ea1d01ae7148df7ace548fc493da28de7f55c7c7c9c159f32c",
+  "assessment_hash": "c07ad36003d0aa935fc5b3737a8c779cc8f73edc39795d7e7af4309c6721b3d2",
+  "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+  "tool_schema_sha256": "d427dc412baccf0e58d395ef07f9853ecf6438eb03594ba43c0898138756a41b",
+  "input_sha256": "48bb557ca20856364fd63de9c539c410822912687a3f9cef79d9d03c86b08060",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "The README for Aspose-PDF-FOSS-for-Go describes a pure-Go library for PDF creation, editing, conversion, and validation. It supports PDF 1.7/2.0, Markdown/PDF conversion, HTML/SVG export, AI copilots, and has no external dependencies. The library is MIT-licensed and requires Go 1.24+.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening paragraph accurately reflects the product identity and its relationship to commercial offerings, and is preserved as-is per deterministic assessment."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The main heading 'Aspose.PDF FOSS for Go' is preserved as it matches the product identity and repository name."
+    },
+    {
+      "section_id": "heading:2014",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Install' section is preserved as it contains maintainer-authored content."
+    },
+    {
+      "section_id": "heading:2178",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Quick Start' section contains example prose that is preserved, but the executable example evidence is unresolved per deterministic assessment."
+    },
+    {
+      "section_id": "heading:2904",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Feature Showcase' section is preserved as it contains maintainer-authored content."
+    },
+    {
+      "section_id": "heading:4128",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Features' section is preserved as it contains maintainer-authored content."
+    },
+    {
+      "section_id": "heading:26955",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'API Reference' section is preserved as it contains maintainer-authored content."
+    },
+    {
+      "section_id": "heading:101485",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'License' section is preserved as it contains maintainer-authored content."
+    },
+    {
+      "section_id": "heading:102031",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Product Page' section is preserved as it contains maintainer-authored content."
+    },
+    {
+      "section_id": "missing:installation",
+      "disposition": "add",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-go_proxy"
+      ],
+      "rationale": "The installation section is missing a verified acquisition path; adding the go get command based on verified manifest and registry facts."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Input: PDF 1.7 (ISO 32000-1) and PDF 2.0 (ISO 32000-2)",
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ]
+    },
+    {
+      "text": "No table reader yet — tables are not reconstructed in Markdown export",
+      "supporting_fact_ids": [
+        "product.limitations:repository-evidence"
+      ]
+    },
+    {
+      "text": "Go 1.24+",
+      "supporting_fact_ids": [
+        "product.compatibility:manifest"
+      ]
+    },
+    {
+      "text": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    },
+    {
+      "text": "open_source_scope",
+      "supporting_fact_ids": [
+        "relationship.commercial_foss:primary"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,458 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "3d",
+        "platform": "net",
+        "ecosystem": "net",
+        "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "manifest_names": [
+          "Aspose.3D.Converter",
+          "Aspose.3D.FOSS"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://src\\converter\\Converter.csproj,src\\main\\Aspose.ThreeD\\Aspose.ThreeD.csproj,src\\test\\Aspose.ThreeD.Tests\\Aspose.ThreeD.Tests.csproj",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:groundedness-blocked",
+      "field": "product.audience",
+      "value": {
+        "claims": [
+          "Developers and teams building 3D applications who want a free, open-source alternative under the permissive MIT License.",
+          "Developers using Aspose.3D for .NET who want to start free and grow without rewriting code, as the FOSS edition is API-compatible with the commercial edition."
+        ],
+        "groundedness_failures": [
+          "a1: lexical coverage 0.23 -- unmatched tokens ['3d', 'alternative', 'applications', 'building', 'developers', 'free', 'license', 'permissive', 'teams', 'want']",
+          "a2: lexical coverage 0.28 -- unmatched tokens ['api', 'code', 'compatible', 'developers', 'edition', 'free', 'grow', 'rewriting', 'start', 'using', 'want', 'without']"
+        ]
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.audience",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": "2026-07-25T16:46:40.415724+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:groundedness-blocked",
+      "field": "product.problems_solved",
+      "value": {
+        "claims": [
+          "Enables working with common 3D file formats (OBJ, STL, FBX, glTF, Collada, PLY) without licensing costs.",
+          "Provides a free, open-source implementation for building and shipping 3D applications under the permissive MIT License."
+        ],
+        "groundedness_failures": [
+          "p1: lexical coverage 0.53 -- unmatched tokens ['3d', 'costs', 'enables', 'formats', 'licensing', 'without', 'working']",
+          "p2: lexical coverage 0.08 -- unmatched tokens ['3d', 'applications', 'building', 'free', 'implementation', 'license', 'open', 'permissive', 'provides', 'shipping', 'source']"
+        ]
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.problems_solved",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": "2026-07-25T16:46:40.415724+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": [
+        "Scene graph management (Scene, Node, Entity, Group)",
+        "Basic geometry primitives (Box, Sphere, Cylinder, Circle)",
+        "Common file format I/O (OBJ, STL, FBX, glTF, Collada, PLY)",
+        "Materials (LambertMaterial, PhongMaterial, PbrMaterial)",
+        "Transform hierarchy (Transform, GlobalTransform)"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Box.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Circle.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Cylinder.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Sphere.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Entity.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/FileFormat.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/GlobalTransform.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Group.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Node.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/LambertMaterial.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/PbrMaterial.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/PhongMaterial.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Transform.cs",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": "2026-07-25T16:46:40.415724+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": [
+        "OBJ (Wavefront OBJ) - Import and Export",
+        "STL - Import and Export (ASCII and Binary)",
+        "glTF - Import and Export",
+        "FBX - Import and Export",
+        "Collada (DAE) - Import and Export",
+        "PLY - Import and Export",
+        "3MF - Import only",
+        "Amf - Import only"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/main/Aspose.ThreeD/Aspose/ThreeD/FileFormat.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/FileFormatType.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/ColladaReader.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/ColladaWriter.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FbxReader.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FbxWriter.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/GltfReader.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/GltfWriter.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/ObjReader.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/ObjWriter.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/PlyReader.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/PlyWriter.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/StlReader.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/StlWriter.cs",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": "2026-07-25T16:46:40.415724+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "net"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://src\\converter\\Converter.csproj,src\\main\\Aspose.ThreeD\\Aspose.ThreeD.csproj,src\\test\\Aspose.ThreeD.Tests\\Aspose.ThreeD.Tests.csproj",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": "src\\converter",
+          "ecosystem": "net",
+          "manifest_path": "src\\converter\\Converter.csproj",
+          "name": "Aspose.3D.Converter",
+          "version": "1.0.0"
+        },
+        {
+          "path": "src\\main\\Aspose.ThreeD",
+          "ecosystem": "net",
+          "manifest_path": "src\\main\\Aspose.ThreeD\\Aspose.ThreeD.csproj",
+          "name": "Aspose.3D.FOSS",
+          "version": "26.1.0"
+        },
+        {
+          "path": "src\\test\\Aspose.ThreeD.Tests",
+          "ecosystem": "net",
+          "manifest_path": "src\\test\\Aspose.ThreeD.Tests\\Aspose.ThreeD.Tests.csproj"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://src\\converter\\Converter.csproj,src\\main\\Aspose.ThreeD\\Aspose.ThreeD.csproj,src\\test\\Aspose.ThreeD.Tests\\Aspose.ThreeD.Tests.csproj",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:registry-nuget",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "nuget",
+        "outcome": "REGISTRY_VERIFIED",
+        "detail": "NuGet: Aspose.3d.FOSS found",
+        "coordinate": {
+          "name": "Aspose.3d.FOSS"
+        }
+      },
+      "source": {
+        "source_type": "external_registry",
+        "location": "registry-acquisition://net",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:agent-drafted-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "dotnet",
+        "class_name": "Program",
+        "code": "using Aspose.ThreeD;\n\n// Create a new scene\nvar scene = new Scene();\n\n// Add a box primitive\nscene.RootNode.CreateChildNode(\"Cube\", new Box(1, 1, 1));\n\n// Save to OBJ format\nscene.Save(\"output.obj\");",
+        "verification_outcome": "BUILD_FAILED",
+        "verification_detail": "source build failed"
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://example.minimal",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": "2026-07-25T16:46:40.415724+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/3d/net/",
+          "family_url": "https://products.aspose.org/3d/",
+          "label": "Aspose.3D FOSS for .NET",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/3d/net/",
+          "family_url": "https://products.aspose.com/3d",
+          "label": "Aspose.3D for .NET",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": "src\\converter",
+          "version": "1.0.0",
+          "active": true
+        },
+        {
+          "path": "src\\main\\Aspose.ThreeD",
+          "version": "26.1.0",
+          "active": true
+        },
+        {
+          "path": "src\\test\\Aspose.ThreeD.Tests",
+          "version": "unknown",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://src\\converter\\Converter.csproj,src\\main\\Aspose.ThreeD\\Aspose.ThreeD.csproj,src\\test\\Aspose.ThreeD.Tests\\Aspose.ThreeD.Tests.csproj",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": [
+        "Rendering functionality (Scene.Render) throws NotImplementedException",
+        "License management APIs (License.SetLicense, Metered.SetMeteredKey) throw NotImplementedException",
+        "Proprietary format export (A3DW, PDF, USD, JT, 3MF) throws NotImplementedException",
+        "Advanced mesh operations (boolean operations, mesh simplification) are not implemented",
+        "Complex animations and advanced NURBS evaluation throw NotImplementedException"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/BooleanOperator.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/FileFormatType.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/License.cs,src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs,src/test/Aspose.ThreeD.Tests/NurbsCurveTests.cs,src/test/Aspose.ThreeD.Tests/SceneTests.cs",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": "2026-07-25T16:46:40.415724+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:missing",
+      "field": "product.compatibility",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:groundedness-blocked",
+    "product.problems_solved": "product.problems_solved:groundedness-blocked",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:registry-nuget",
+    "example.minimal": "example.minimal:agent-drafted-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:missing",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

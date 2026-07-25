@@ -1,0 +1,4979 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "immutable_base_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+  "source_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+  "facts_hash": "4364c3a12e4c00ea1d01ae7148df7ace548fc493da28de7f55c7c7c9c159f32c",
+  "sections": [
+    {
+      "section_id": "opening",
+      "heading": "Opening",
+      "level": 0,
+      "source_byte_start": 0,
+      "source_byte_end": 2014,
+      "disposition": "preserve",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_fragment_ids": [
+        "command:fa02763974eb5b07",
+        "technical_terminology:32e83e92d45d71f6",
+        "technical_terminology:3e8657d9439591cf",
+        "technical_terminology:fa02763974eb5b07"
+      ],
+      "evidence": [
+        "README.md:0:1998"
+      ],
+      "rationale": "Remove only a detected promotional callout; otherwise preserve the opening."
+    },
+    {
+      "section_id": "heading:0",
+      "heading": "Aspose.PDF FOSS for Go",
+      "level": 1,
+      "source_byte_start": 0,
+      "source_byte_end": 102171,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "command:49212bd124e59237",
+        "command:f3e034e95177f8b5",
+        "command:fa02763974eb5b07",
+        "example:0059cb7c359efbf2",
+        "example:0167f55ac129c2b1",
+        "example:02725171efdf1483",
+        "example:09d62ff67677715d",
+        "example:0ec55b1f38c3f829",
+        "example:0ee84119bb93f3c8",
+        "example:105ab4665ffc1343",
+        "example:1243564b7cd94782",
+        "example:17e718fa1bf7af8a",
+        "example:1b36e993bc57bb63",
+        "example:1df961572b38dae9",
+        "example:26a2c0f4c91cd1cd",
+        "example:2c90bdc9c3095631",
+        "example:341e7aac1c740d56",
+        "example:36a01f4bcaad375e",
+        "example:38e80e0f72cd9f4f",
+        "example:420162a7acc980f9",
+        "example:4326bfddcb413602",
+        "example:46e46c36db388a74",
+        "example:481d0e49d9a6cc44",
+        "example:49212bd124e59237",
+        "example:51f72b3573ece09d",
+        "example:5270520cf6b8eedf",
+        "example:5473f6fdb8b99010",
+        "example:5b1b401bdd329ff2",
+        "example:5c53189536665aee",
+        "example:5d11e8e43e7d4c22",
+        "example:618b6f6d1eceb93a",
+        "example:67b115383be7ede5",
+        "example:71587d4e7a19dcea",
+        "example:738f069dc587a319",
+        "example:749bdbbe334fe06c",
+        "example:74be0f64606ca131",
+        "example:773d883e2e98027a",
+        "example:7b1e0ea594146b8f",
+        "example:7bf44f657c3d04f9",
+        "example:7c0db8113f19da03",
+        "example:7d9a52597747d3fc",
+        "example:7fda2fc692954f1c",
+        "example:84c291d49c9f1013",
+        "example:8b5697d3b77943eb",
+        "example:930dd50791ba9289",
+        "example:946fb7d8cdea0872",
+        "example:9506f70dec80a539",
+        "example:a07ca801666fb4e7",
+        "example:a24fc87201b9825e",
+        "example:a50374b10a0a27bc",
+        "example:a5fbcfeb419fd253",
+        "example:b582d5ede6b6adc2",
+        "example:b63d649efb31728f",
+        "example:ba79267c63c52bc6",
+        "example:be24807ed4447dd3",
+        "example:c0a1d48c5706263b",
+        "example:ce0d63313edc1cd0",
+        "example:ce41ec8e29dc2684",
+        "example:d0b3957790add23c",
+        "example:d1438bf3856f4089",
+        "example:d1d0640d0d56ecb3",
+        "example:db389109a7083062",
+        "example:dcd573cc184e3eb2",
+        "example:e16ef39871a6bda2",
+        "example:e30c2b52d7a2c865",
+        "example:e8ef746765ca8425",
+        "example:e9a3ceae3e5fce09",
+        "example:eca3c8465ede711b",
+        "example:ef1921283bc1bf13",
+        "example:f00cac68505bbf7a",
+        "example:f18ae66431a14753",
+        "example:f224943e73927394",
+        "example:f8221f1aff3a057f",
+        "example:f87a4d40c403c39b",
+        "example:faa4103a173e99d6",
+        "technical_terminology:00e4f90c70b46bbd",
+        "technical_terminology:02f843261112c2d8",
+        "technical_terminology:030492b553487cc4",
+        "technical_terminology:0306996228eb0b74",
+        "technical_terminology:0361f54c8bddc88c",
+        "technical_terminology:03ad5a2f2ee15c59",
+        "technical_terminology:03d32910b9cc9660",
+        "technical_terminology:050ba3753ca84fe4",
+        "technical_terminology:05a7ac8b138965ea",
+        "technical_terminology:07151a09ead39e6c",
+        "technical_terminology:07ccd15df32aa7e2",
+        "technical_terminology:07e3491253f762d6",
+        "technical_terminology:0861eb32346085f8",
+        "technical_terminology:0960eefc05a7fcb3",
+        "technical_terminology:097b529dd2d2968e",
+        "technical_terminology:0985f0ca012c2b0c",
+        "technical_terminology:0996fbd04074f745",
+        "technical_terminology:0a30a815d67d7dd2",
+        "technical_terminology:0b077b8b9f8168fa",
+        "technical_terminology:0b2cf9645c63c9fc",
+        "technical_terminology:0c57122b3ca1273e",
+        "technical_terminology:0c9618e9849a62c6",
+        "technical_terminology:0c98691a5207d30c",
+        "technical_terminology:0dadd2e225b3e7d0",
+        "technical_terminology:0e36ca6a546dbb33",
+        "technical_terminology:0e6e510380bfbdae",
+        "technical_terminology:0ebf855ec67c470c",
+        "technical_terminology:0ff529b5f00c70b9",
+        "technical_terminology:101f2ff3de22441f",
+        "technical_terminology:106115c276a9a6e5",
+        "technical_terminology:10f6e355dabdb2d3",
+        "technical_terminology:11630b3ae5a8f31d",
+        "technical_terminology:11a88457f22353d3",
+        "technical_terminology:11e908a0d1d961ba",
+        "technical_terminology:12782836f2d16010",
+        "technical_terminology:1281febb2593af7c",
+        "technical_terminology:1324a3133d8cd9c0",
+        "technical_terminology:14bfdc0e32aa60d3",
+        "technical_terminology:1503916a2ab2b0fd",
+        "technical_terminology:1509f561f2416598",
+        "technical_terminology:150ca301d159685b",
+        "technical_terminology:1585de1e5ddac8c4",
+        "technical_terminology:161aea4078a901c9",
+        "technical_terminology:16c57199d6c33232",
+        "technical_terminology:16d1c9050a0b32e8",
+        "technical_terminology:1799dfb76e8800c8",
+        "technical_terminology:17d0c70b03043b58",
+        "technical_terminology:194aaeb339833c58",
+        "technical_terminology:19615c57873e56ef",
+        "technical_terminology:1a92042defb61af9",
+        "technical_terminology:1abaf7aa31a3fcb1",
+        "technical_terminology:1af851907331c0ed",
+        "technical_terminology:1b87989fb8cffa4a",
+        "technical_terminology:1ce724c15a417b3a",
+        "technical_terminology:1d8fb755ae14e7e5",
+        "technical_terminology:1f18b197df8cd5b5",
+        "technical_terminology:1f93a770c5278cd6",
+        "technical_terminology:1fe1442c481f2333",
+        "technical_terminology:208e1a83bd78965d",
+        "technical_terminology:20a3d2d59bf808a9",
+        "technical_terminology:20c8a23f2714bb37",
+        "technical_terminology:20de37fd0d27d57e",
+        "technical_terminology:224d8013e56421f4",
+        "technical_terminology:226ac1e032a7078a",
+        "technical_terminology:22afb142a74bb278",
+        "technical_terminology:240ef7b2d7b86ca1",
+        "technical_terminology:25cf5d6ad4749fd8",
+        "technical_terminology:278622156ac31504",
+        "technical_terminology:27ce5aa0bbc87c30",
+        "technical_terminology:287a01271f3b5144",
+        "technical_terminology:2910b6d7368b61e8",
+        "technical_terminology:293d404a500f5f9a",
+        "technical_terminology:299bcf54c044b1b5",
+        "technical_terminology:2a93a8a442e305e8",
+        "technical_terminology:2a9df7e343e0fc4a",
+        "technical_terminology:2d711642b726b044",
+        "technical_terminology:2dbb65bfb4a11418",
+        "technical_terminology:2dbcb5ebeb418acd",
+        "technical_terminology:2e0e960ab3204127",
+        "technical_terminology:2e5ff73b8dd9fcdf",
+        "technical_terminology:2e75a377d43626ed",
+        "technical_terminology:2f46bc52f8beeaf2",
+        "technical_terminology:2f77b4bcc0760cac",
+        "technical_terminology:2fb35d418a486797",
+        "technical_terminology:2fef7c37360dd579",
+        "technical_terminology:30094e0bec0046da",
+        "technical_terminology:302a481de67dc382",
+        "technical_terminology:30eb1606f8ad2298",
+        "technical_terminology:31e46d7343907564",
+        "technical_terminology:32ab018fd38a7b42",
+        "technical_terminology:32afaa7843336480",
+        "technical_terminology:32da3fc735ef3edc",
+        "technical_terminology:32e83e92d45d71f6",
+        "technical_terminology:334359b90efed75d",
+        "technical_terminology:33443aba490afeb8",
+        "technical_terminology:33744424e70c9969",
+        "technical_terminology:3376cab03ca1ee3a",
+        "technical_terminology:341e53f6e201e629",
+        "technical_terminology:3515461aeaa6e1ea",
+        "technical_terminology:3563692428cf8f4b",
+        "technical_terminology:360b1ec0ccfb5cb1",
+        "technical_terminology:363134de3c73de3d",
+        "technical_terminology:366e0246f74fc16c",
+        "technical_terminology:36e06d45ef8de53e",
+        "technical_terminology:3755b924b2001a6c",
+        "technical_terminology:37bac4952becf21a",
+        "technical_terminology:380a51bed2b650a3",
+        "technical_terminology:38b5996d575bc90a",
+        "technical_terminology:394115ac4eb09aa4",
+        "technical_terminology:39716a7e8c8d9931",
+        "technical_terminology:39fdfa8c72e80eae",
+        "technical_terminology:3a31e5eaedda7d61",
+        "technical_terminology:3a745c0408236f62",
+        "technical_terminology:3a761fee4ffb9167",
+        "technical_terminology:3a76744d358016b3",
+        "technical_terminology:3b1c5750d3ea6293",
+        "technical_terminology:3bd0845263e0f175",
+        "technical_terminology:3c5f724d2e7d0ed6",
+        "technical_terminology:3cf4644927e80f62",
+        "technical_terminology:3d790237b03fd45f",
+        "technical_terminology:3da0530fdb0f13cf",
+        "technical_terminology:3db8c9df6bed4927",
+        "technical_terminology:3e6441fc6da921f2",
+        "technical_terminology:3e8657d9439591cf",
+        "technical_terminology:3e8d666717ab7628",
+        "technical_terminology:3ef8e46224988c22",
+        "technical_terminology:40611abbdda22526",
+        "technical_terminology:40683bcba8c7daac",
+        "technical_terminology:40ebb6eff987f6fa",
+        "technical_terminology:41c2ea8c0d240fdb",
+        "technical_terminology:41d055d26bea1e79",
+        "technical_terminology:42a152b5befa1cec",
+        "technical_terminology:42ddc784ee737f63",
+        "technical_terminology:4339d304e15dc7c0",
+        "technical_terminology:43ac26029cebf159",
+        "technical_terminology:4404347f32c3970b",
+        "technical_terminology:442be8cd19572ee9",
+        "technical_terminology:442debe4213dccc6",
+        "technical_terminology:4441042e8be6c031",
+        "technical_terminology:4457b2f814609d13",
+        "technical_terminology:4473340619f4235b",
+        "technical_terminology:44c83854c759efbb",
+        "technical_terminology:44f5e3fbec57be75",
+        "technical_terminology:46049173c8ce6b0b",
+        "technical_terminology:4666164479da3760",
+        "technical_terminology:47837f284ec7c7b8",
+        "technical_terminology:47a50c56026aa5cc",
+        "technical_terminology:48bae80eba5c7c45",
+        "technical_terminology:48bd39799311abac",
+        "technical_terminology:4a052f5e60917ca5",
+        "technical_terminology:4a2b69d4d502c272",
+        "technical_terminology:4a841cb62a1c2335",
+        "technical_terminology:4bd79490ee7befa2",
+        "technical_terminology:4c68e6db585e1e0e",
+        "technical_terminology:4c7cd69c9cd75db1",
+        "technical_terminology:4ce867f1e27a4294",
+        "technical_terminology:4d237bfc01017bc8",
+        "technical_terminology:4d25c51b00a61de9",
+        "technical_terminology:4df4a99576fef4f0",
+        "technical_terminology:4e6d5d3ec684192b",
+        "technical_terminology:4e6e92c76e1a26e3",
+        "technical_terminology:4ee7d5cbacde83e8",
+        "technical_terminology:4fb9f64df3f946fe",
+        "technical_terminology:50683780953cec57",
+        "technical_terminology:51095bda6a0bb6ae",
+        "technical_terminology:51e5b9adbd9cf7ae",
+        "technical_terminology:51ef6699fa2d0deb",
+        "technical_terminology:52120d2d46276839",
+        "technical_terminology:526e0087cc3f254d",
+        "technical_terminology:53459e68d434cf5a",
+        "technical_terminology:542d377b57192f73",
+        "technical_terminology:54d496ad4c9f9495",
+        "technical_terminology:5501b04748731951",
+        "technical_terminology:551d5016c9d4d325",
+        "technical_terminology:553cd07660672fa0",
+        "technical_terminology:5552786813bc20e9",
+        "technical_terminology:55e4c0d47f634f99",
+        "technical_terminology:56dc6d47737d155a",
+        "technical_terminology:57796963d73c59b8",
+        "technical_terminology:58d83bc947c0d873",
+        "technical_terminology:598058b315433c0f",
+        "technical_terminology:59906f2c36f0bf88",
+        "technical_terminology:5a26ac4e686fe037",
+        "technical_terminology:5ab43b34c59e8127",
+        "technical_terminology:5ac827cb2ab98239",
+        "technical_terminology:5bf7b0b9f63c4ffb",
+        "technical_terminology:5c07b5498055dfe0",
+        "technical_terminology:5c1893b839e56f0c",
+        "technical_terminology:5c6f8277aa836da3",
+        "technical_terminology:5d82101636db3d81",
+        "technical_terminology:5da3a4c7f1179442",
+        "technical_terminology:5da514ec899d4d26",
+        "technical_terminology:5e32093b6128c392",
+        "technical_terminology:5eb4ecbdfefeaf9f",
+        "technical_terminology:5efd6e17122d319d",
+        "technical_terminology:5f6b9d1f7caff0c0",
+        "technical_terminology:5fb9c3aba7ad5106",
+        "technical_terminology:5fdbf310bfcfaeec",
+        "technical_terminology:60100bae43ac35c9",
+        "technical_terminology:6062652e10dd84c6",
+        "technical_terminology:609d9f9b8f7bc08e",
+        "technical_terminology:60cba850efc47bf0",
+        "technical_terminology:6258569c2c469014",
+        "technical_terminology:62fa5a5b0d3c3188",
+        "technical_terminology:636a7585bee0f876",
+        "technical_terminology:64cff1319d2fd2cb",
+        "technical_terminology:6526616c18708b22",
+        "technical_terminology:65aef1adba8672a5",
+        "technical_terminology:65d1673a8edba3cd",
+        "technical_terminology:65d48a6578e536b3",
+        "technical_terminology:6801e62a02ebd108",
+        "technical_terminology:681f44d9a8818b73",
+        "technical_terminology:684888c0ebb17f37",
+        "technical_terminology:68e10d8ef5771a31",
+        "technical_terminology:68eac50447720816",
+        "technical_terminology:693b9efb9936ef1f",
+        "technical_terminology:69aab89c7993f434",
+        "technical_terminology:6a4fb14cf9d5e15b",
+        "technical_terminology:6b6dc358c8dc331f",
+        "technical_terminology:6bfe7fa3665585aa",
+        "technical_terminology:6c190c06baab44f2",
+        "technical_terminology:6c82b457af1bb95d",
+        "technical_terminology:6d6caa8eca8c79b4",
+        "technical_terminology:6df02bafa8b5045e",
+        "technical_terminology:6e00cd562cc2d88e",
+        "technical_terminology:6e1922359e7f483c",
+        "technical_terminology:6e37bb03b5ee364e",
+        "technical_terminology:6e3bf68d1585728b",
+        "technical_terminology:6e82b7ce65a25f8a",
+        "technical_terminology:6eb509fd327f3590",
+        "technical_terminology:6ed210bc9ffe3659",
+        "technical_terminology:7116338e2448e840",
+        "technical_terminology:7126dcf92af66b10",
+        "technical_terminology:71464659b95c7a8f",
+        "technical_terminology:714d3cc1fc84e9fd",
+        "technical_terminology:71988c4d8e0803ba",
+        "technical_terminology:71f684ea72eb8a16",
+        "technical_terminology:720f6ac947ab8e44",
+        "technical_terminology:7298814692794812",
+        "technical_terminology:7345276b9cb04408",
+        "technical_terminology:73882327c4ddb8c5",
+        "technical_terminology:73f94ead3e6e917c",
+        "technical_terminology:73fde2e188b0b5f4",
+        "technical_terminology:7479300bb85ecf8f",
+        "technical_terminology:74cd93368b35de1e",
+        "technical_terminology:757d225eee944de4",
+        "technical_terminology:75f0cb5cf70fd783",
+        "technical_terminology:75fa386342e8b702",
+        "technical_terminology:7681f551e91f891f",
+        "technical_terminology:76cccfde0032b7aa",
+        "technical_terminology:779fc422e77a3186",
+        "technical_terminology:780ba7862ad93a5e",
+        "technical_terminology:782a1969d8b13b62",
+        "technical_terminology:79f5850d7cc3f589",
+        "technical_terminology:7abd3fd1bca16c61",
+        "technical_terminology:7ce6b0225142aece",
+        "technical_terminology:7d1a565dd2f003a4",
+        "technical_terminology:7f0f8849ae50a275",
+        "technical_terminology:7fd690e20d081646",
+        "technical_terminology:80218f00447b541c",
+        "technical_terminology:809393a92004648b",
+        "technical_terminology:812bf49b05aed25f",
+        "technical_terminology:81464860fd44e673",
+        "technical_terminology:8159c00688487ffc",
+        "technical_terminology:81b782af7a15f4ec",
+        "technical_terminology:835e51384acd7811",
+        "technical_terminology:83608f0797f53bf2",
+        "technical_terminology:83b12c2216efb4fd",
+        "technical_terminology:8411f5abb4c710b1",
+        "technical_terminology:84251d9ba7240ee8",
+        "technical_terminology:8433798ed2c996bb",
+        "technical_terminology:847b046cdad40039",
+        "technical_terminology:84866df7136f2433",
+        "technical_terminology:84892f30439e130c",
+        "technical_terminology:859b6a883253ab85",
+        "technical_terminology:87a002bd52683611",
+        "technical_terminology:87f90ccf28580204",
+        "technical_terminology:88964bf0b073f1da",
+        "technical_terminology:88e10963a0efb09d",
+        "technical_terminology:892e1d12aa8a8493",
+        "technical_terminology:899006d2df8eca1c",
+        "technical_terminology:89b0f77ce276d7a1",
+        "technical_terminology:8aa318eb7eaa233a",
+        "technical_terminology:8ab7f5307c8570a3",
+        "technical_terminology:8acb045a33db49d5",
+        "technical_terminology:8b9c09d426a94252",
+        "technical_terminology:8c32d71d6687b122",
+        "technical_terminology:8cf96a841b7e29e7",
+        "technical_terminology:8d110cc4e96834e5",
+        "technical_terminology:8d1ce2102ba57164",
+        "technical_terminology:8d33f520a3c4cef8",
+        "technical_terminology:8eac836e72a7cfac",
+        "technical_terminology:8f64680f7785e396",
+        "technical_terminology:8f8dd5a1973afb00",
+        "technical_terminology:9046da16aea909ba",
+        "technical_terminology:9101750c08368e9c",
+        "technical_terminology:91149174ebd01567",
+        "technical_terminology:916fe4abd736c03b",
+        "technical_terminology:91878c2bbed85e63",
+        "technical_terminology:91b1c354fb639dcf",
+        "technical_terminology:925810b127640152",
+        "technical_terminology:92b00aa254f90412",
+        "technical_terminology:934143bc3486e6c0",
+        "technical_terminology:93637bb3dd8c8c35",
+        "technical_terminology:94d9683ce92a65d0",
+        "technical_terminology:94faec2249c52785",
+        "technical_terminology:95110d74c4c00912",
+        "technical_terminology:9551aece7c93b088",
+        "technical_terminology:95650d427079b916",
+        "technical_terminology:9610043c15415793",
+        "technical_terminology:964e21e824fd9206",
+        "technical_terminology:966049920c1080a0",
+        "technical_terminology:982a2b5a4c163fca",
+        "technical_terminology:983987033f0e1170",
+        "technical_terminology:986400fbfc40217a",
+        "technical_terminology:98715e57d9bedc23",
+        "technical_terminology:98dc23ade7e16bfa",
+        "technical_terminology:992c911b77fa4eb9",
+        "technical_terminology:99367ef464ebad7f",
+        "technical_terminology:99a52df3ff3d4994",
+        "technical_terminology:9b01799c68baea0f",
+        "technical_terminology:9b29875169556bf0",
+        "technical_terminology:9c52d7763b032fb6",
+        "technical_terminology:9c6f255add698208",
+        "technical_terminology:9c768ce9fc426bb3",
+        "technical_terminology:9c92721ec67ac82c",
+        "technical_terminology:9d5719ff95169475",
+        "technical_terminology:9ea65345bc8ef018",
+        "technical_terminology:9fbf3734c62ce603",
+        "technical_terminology:9fd728c66c9a256b",
+        "technical_terminology:9fe9f13df156aef9",
+        "technical_terminology:a00644508de97e85",
+        "technical_terminology:a1fce4363854ff88",
+        "technical_terminology:a219f7297b7431e7",
+        "technical_terminology:a3be7525513c2863",
+        "technical_terminology:a472d7f568391d4d",
+        "technical_terminology:a52ace420f2175d0",
+        "technical_terminology:a59dfde8d964e87b",
+        "technical_terminology:a5ec5a820b5f92fe",
+        "technical_terminology:a5f7523695171550",
+        "technical_terminology:a6a32dbc5618ea39",
+        "technical_terminology:a789457f0e9c31de",
+        "technical_terminology:a8674085004e6b56",
+        "technical_terminology:a907bff26ae663d7",
+        "technical_terminology:aa0680d75cf6e201",
+        "technical_terminology:aa1be933fec0f68c",
+        "technical_terminology:aa88e644646449d0",
+        "technical_terminology:aba397a727768ecf",
+        "technical_terminology:aba7dd98a31406f1",
+        "technical_terminology:abccc78cc93c0793",
+        "technical_terminology:ad39eb619af6b5e1",
+        "technical_terminology:ade099751d2ea9f3",
+        "technical_terminology:af08b5c8c9dc4e2a",
+        "technical_terminology:afd63edc7f9606d7",
+        "technical_terminology:b053c961f2acb0b9",
+        "technical_terminology:b1345086671c6c77",
+        "technical_terminology:b15b792b2b10eb15",
+        "technical_terminology:b190c3d7bcb7c12c",
+        "technical_terminology:b3405a94fc87a00a",
+        "technical_terminology:b3603115bf3ac55a",
+        "technical_terminology:b36cd58493fb8dda",
+        "technical_terminology:b41d71fc33d8e8db",
+        "technical_terminology:b43abac07b1d5c41",
+        "technical_terminology:b4ad550d93a52187",
+        "technical_terminology:b4affe5209989ef4",
+        "technical_terminology:b4b891f444cc162b",
+        "technical_terminology:b55d60a07397b47b",
+        "technical_terminology:b5920debee916b00",
+        "technical_terminology:b639c243cebdfad9",
+        "technical_terminology:b7316c7193290696",
+        "technical_terminology:b79cac926e0b2e34",
+        "technical_terminology:b7b2260b379ac0df",
+        "technical_terminology:b7dfc524967786d0",
+        "technical_terminology:b7ec08d7fde5752b",
+        "technical_terminology:b80c2a4934fa4733",
+        "technical_terminology:b92f2f34b380f579",
+        "technical_terminology:b93d3bcecff5d749",
+        "technical_terminology:b9b7563ac073306b",
+        "technical_terminology:ba0e4afa93400b80",
+        "technical_terminology:ba1980eb0ad51899",
+        "technical_terminology:ba70b0389731eea7",
+        "technical_terminology:bb108dfc893f9b9c",
+        "technical_terminology:bc9511474d7a2a35",
+        "technical_terminology:bcfc26ee95462677",
+        "technical_terminology:bdaf096a52ceebce",
+        "technical_terminology:be99720e5c4f73d0",
+        "technical_terminology:bee81bf20092f969",
+        "technical_terminology:c11092bc0861591e",
+        "technical_terminology:c15301c0e6470e21",
+        "technical_terminology:c1567c29089021b2",
+        "technical_terminology:c323179648c07dde",
+        "technical_terminology:c34c3f7368649659",
+        "technical_terminology:c3812fc4acb861d5",
+        "technical_terminology:c3b03dd28595bab2",
+        "technical_terminology:c3b29e6eef2cc49b",
+        "technical_terminology:c4226dfaab13a026",
+        "technical_terminology:c4700f0406c7f744",
+        "technical_terminology:c4c0664630597676",
+        "technical_terminology:c506df5d5943e320",
+        "technical_terminology:c50d0f053a046213",
+        "technical_terminology:c72c5404cfcb01c1",
+        "technical_terminology:c7dda351d4ef6d89",
+        "technical_terminology:c83098fa6ba9ba3a",
+        "technical_terminology:cba0ff20b2140b78",
+        "technical_terminology:cbd212c361574412",
+        "technical_terminology:cbea5870848d6622",
+        "technical_terminology:cca69ec9ceebfe09",
+        "technical_terminology:ccc07c5df486981a",
+        "technical_terminology:ccd5bc3161c50072",
+        "technical_terminology:cd80994abb0d1e04",
+        "technical_terminology:ce7844425f8acd25",
+        "technical_terminology:cec3a9b89b2e3913",
+        "technical_terminology:cec7e15eb3bd452a",
+        "technical_terminology:cf44a199aa9262d7",
+        "technical_terminology:cf4e3c07f6042e34",
+        "technical_terminology:cff9fc0a23e0ab75",
+        "technical_terminology:d065cdef6462f82b",
+        "technical_terminology:d154f3d4f4c5d22a",
+        "technical_terminology:d3e21eda57937e6a",
+        "technical_terminology:d4055fafa3794fa8",
+        "technical_terminology:d4349848b9424a9d",
+        "technical_terminology:d4450b7cfc23d799",
+        "technical_terminology:d46157ebcb215d40",
+        "technical_terminology:d6bd8c0aeee80fed",
+        "technical_terminology:d6c183f39f0f34a5",
+        "technical_terminology:d7852cd0d2453e8c",
+        "technical_terminology:d8ae56166da4ec5a",
+        "technical_terminology:d9021c74cfc05cfe",
+        "technical_terminology:da5bb5aabe01b558",
+        "technical_terminology:db60e1910563c6e4",
+        "technical_terminology:db77262bb641a85d",
+        "technical_terminology:dc30e21277453ab9",
+        "technical_terminology:dc40def178fda130",
+        "technical_terminology:dc8a18a0f907a201",
+        "technical_terminology:defee2653f4a618a",
+        "technical_terminology:df85c73a57c3dc91",
+        "technical_terminology:e0245406013b5ba1",
+        "technical_terminology:e0e492707f85ff1f",
+        "technical_terminology:e2d0a54968ead24e",
+        "technical_terminology:e3c8245151902a91",
+        "technical_terminology:e4113185e625d3c1",
+        "technical_terminology:e4146b2b0dfc50b8",
+        "technical_terminology:e4ae03f6a32dca77",
+        "technical_terminology:e4c5ac67dda95fb2",
+        "technical_terminology:e534087dc471e637",
+        "technical_terminology:e5d71755431873c3",
+        "technical_terminology:e5fe67d212e69be6",
+        "technical_terminology:e620084dcaee075c",
+        "technical_terminology:e74de4769a6c94ff",
+        "technical_terminology:e83a422a0d91b429",
+        "technical_terminology:e8c7a105356b91f7",
+        "technical_terminology:e9eda90d969f8266",
+        "technical_terminology:ea2b8a878841df59",
+        "technical_terminology:ea40841f6bce36fc",
+        "technical_terminology:ea8b1b15398c9b81",
+        "technical_terminology:eaa059e79c7956e3",
+        "technical_terminology:eb0ad141fd356d4c",
+        "technical_terminology:eb4ddc721f6c1550",
+        "technical_terminology:ed01b3173d3b5910",
+        "technical_terminology:ed03f3a073667bb3",
+        "technical_terminology:ee6a25464a0c1f3a",
+        "technical_terminology:eec2148a8a4be61b",
+        "technical_terminology:ef11990d50f3425e",
+        "technical_terminology:f089d62295937bb4",
+        "technical_terminology:f195d6642a4b6513",
+        "technical_terminology:f236ad71bb0540b1",
+        "technical_terminology:f2eb55b2d1dedc24",
+        "technical_terminology:f32e06a74fb1c7db",
+        "technical_terminology:f3e034e95177f8b5",
+        "technical_terminology:f41415f4f6a19c3b",
+        "technical_terminology:f45134b77134fce8",
+        "technical_terminology:f469802a31447f90",
+        "technical_terminology:f4fb8cd00bdab653",
+        "technical_terminology:f5162206318ee964",
+        "technical_terminology:f541e2d7b99c2f46",
+        "technical_terminology:f550ee39a8deab6e",
+        "technical_terminology:f57667b42e6bd153",
+        "technical_terminology:f5a5ba5e1dce8154",
+        "technical_terminology:f669011d5f757fd6",
+        "technical_terminology:f6f64610f26f795e",
+        "technical_terminology:f71cdc5688cff26d",
+        "technical_terminology:f753ba24270c4ccc",
+        "technical_terminology:f96a4a959b15b59c",
+        "technical_terminology:fa02763974eb5b07",
+        "technical_terminology:fbdd29552e8a92e3",
+        "technical_terminology:fbf76c832bc4a265",
+        "technical_terminology:fcb5f40df9be6bae",
+        "technical_terminology:fcca14fec0c95c94",
+        "technical_terminology:fcf1aadff93d0ab2",
+        "technical_terminology:fea45fa70a7a8b4e",
+        "technical_terminology:ff418b5da747b48f",
+        "technical_terminology:ff72caa36dca2baa",
+        "technical_terminology:fff6e4a59aa12de9"
+      ],
+      "evidence": [
+        "README.md:0:101685"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2014",
+      "heading": "Install",
+      "level": 2,
+      "source_byte_start": 2014,
+      "source_byte_end": 2178,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "command:49212bd124e59237",
+        "example:49212bd124e59237"
+      ],
+      "evidence": [
+        "README.md:1998:2160"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2178",
+      "heading": "Quick Start",
+      "level": 2,
+      "source_byte_start": 2178,
+      "source_byte_end": 2904,
+      "disposition": "investigate",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:e9a3ceae3e5fce09",
+        "technical_terminology:6ed210bc9ffe3659",
+        "technical_terminology:be99720e5c4f73d0"
+      ],
+      "evidence": [
+        "README.md:2160:2886"
+      ],
+      "rationale": "Example prose is preserved while executable example evidence is unresolved."
+    },
+    {
+      "section_id": "heading:2904",
+      "heading": "Feature Showcase",
+      "level": 2,
+      "source_byte_start": 2904,
+      "source_byte_end": 4128,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "command:f3e034e95177f8b5",
+        "technical_terminology:03d32910b9cc9660",
+        "technical_terminology:4e6d5d3ec684192b",
+        "technical_terminology:f3e034e95177f8b5"
+      ],
+      "evidence": [
+        "README.md:2886:4106"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:4128",
+      "heading": "Features",
+      "level": 2,
+      "source_byte_start": 4128,
+      "source_byte_end": 26955,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "technical_terminology:00e4f90c70b46bbd",
+        "technical_terminology:030492b553487cc4",
+        "technical_terminology:0306996228eb0b74",
+        "technical_terminology:0361f54c8bddc88c",
+        "technical_terminology:03d32910b9cc9660",
+        "technical_terminology:050ba3753ca84fe4",
+        "technical_terminology:05a7ac8b138965ea",
+        "technical_terminology:07151a09ead39e6c",
+        "technical_terminology:07e3491253f762d6",
+        "technical_terminology:0861eb32346085f8",
+        "technical_terminology:0960eefc05a7fcb3",
+        "technical_terminology:097b529dd2d2968e",
+        "technical_terminology:0996fbd04074f745",
+        "technical_terminology:0b077b8b9f8168fa",
+        "technical_terminology:0c57122b3ca1273e",
+        "technical_terminology:0c98691a5207d30c",
+        "technical_terminology:0dadd2e225b3e7d0",
+        "technical_terminology:0ebf855ec67c470c",
+        "technical_terminology:106115c276a9a6e5",
+        "technical_terminology:10f6e355dabdb2d3",
+        "technical_terminology:11630b3ae5a8f31d",
+        "technical_terminology:11e908a0d1d961ba",
+        "technical_terminology:12782836f2d16010",
+        "technical_terminology:1281febb2593af7c",
+        "technical_terminology:1324a3133d8cd9c0",
+        "technical_terminology:1509f561f2416598",
+        "technical_terminology:150ca301d159685b",
+        "technical_terminology:1585de1e5ddac8c4",
+        "technical_terminology:161aea4078a901c9",
+        "technical_terminology:16c57199d6c33232",
+        "technical_terminology:194aaeb339833c58",
+        "technical_terminology:19615c57873e56ef",
+        "technical_terminology:1a92042defb61af9",
+        "technical_terminology:1abaf7aa31a3fcb1",
+        "technical_terminology:1af851907331c0ed",
+        "technical_terminology:1b87989fb8cffa4a",
+        "technical_terminology:1ce724c15a417b3a",
+        "technical_terminology:1d8fb755ae14e7e5",
+        "technical_terminology:1f18b197df8cd5b5",
+        "technical_terminology:1f93a770c5278cd6",
+        "technical_terminology:1fe1442c481f2333",
+        "technical_terminology:208e1a83bd78965d",
+        "technical_terminology:20c8a23f2714bb37",
+        "technical_terminology:240ef7b2d7b86ca1",
+        "technical_terminology:25cf5d6ad4749fd8",
+        "technical_terminology:278622156ac31504",
+        "technical_terminology:287a01271f3b5144",
+        "technical_terminology:2dbb65bfb4a11418",
+        "technical_terminology:2dbcb5ebeb418acd",
+        "technical_terminology:2e5ff73b8dd9fcdf",
+        "technical_terminology:2e75a377d43626ed",
+        "technical_terminology:2f46bc52f8beeaf2",
+        "technical_terminology:2f77b4bcc0760cac",
+        "technical_terminology:2fef7c37360dd579",
+        "technical_terminology:30094e0bec0046da",
+        "technical_terminology:302a481de67dc382",
+        "technical_terminology:30eb1606f8ad2298",
+        "technical_terminology:32ab018fd38a7b42",
+        "technical_terminology:32da3fc735ef3edc",
+        "technical_terminology:32e83e92d45d71f6",
+        "technical_terminology:334359b90efed75d",
+        "technical_terminology:33443aba490afeb8",
+        "technical_terminology:3376cab03ca1ee3a",
+        "technical_terminology:341e53f6e201e629",
+        "technical_terminology:3515461aeaa6e1ea",
+        "technical_terminology:360b1ec0ccfb5cb1",
+        "technical_terminology:363134de3c73de3d",
+        "technical_terminology:36e06d45ef8de53e",
+        "technical_terminology:38b5996d575bc90a",
+        "technical_terminology:39716a7e8c8d9931",
+        "technical_terminology:39fdfa8c72e80eae",
+        "technical_terminology:3a745c0408236f62",
+        "technical_terminology:3b1c5750d3ea6293",
+        "technical_terminology:3c5f724d2e7d0ed6",
+        "technical_terminology:3d790237b03fd45f",
+        "technical_terminology:3db8c9df6bed4927",
+        "technical_terminology:3ef8e46224988c22",
+        "technical_terminology:40683bcba8c7daac",
+        "technical_terminology:40ebb6eff987f6fa",
+        "technical_terminology:41c2ea8c0d240fdb",
+        "technical_terminology:42a152b5befa1cec",
+        "technical_terminology:43ac26029cebf159",
+        "technical_terminology:442be8cd19572ee9",
+        "technical_terminology:4473340619f4235b",
+        "technical_terminology:44c83854c759efbb",
+        "technical_terminology:4666164479da3760",
+        "technical_terminology:47837f284ec7c7b8",
+        "technical_terminology:47a50c56026aa5cc",
+        "technical_terminology:48bae80eba5c7c45",
+        "technical_terminology:48bd39799311abac",
+        "technical_terminology:4a052f5e60917ca5",
+        "technical_terminology:4bd79490ee7befa2",
+        "technical_terminology:4c68e6db585e1e0e",
+        "technical_terminology:4c7cd69c9cd75db1",
+        "technical_terminology:4d237bfc01017bc8",
+        "technical_terminology:4d25c51b00a61de9",
+        "technical_terminology:4e6e92c76e1a26e3",
+        "technical_terminology:4ee7d5cbacde83e8",
+        "technical_terminology:4fb9f64df3f946fe",
+        "technical_terminology:51e5b9adbd9cf7ae",
+        "technical_terminology:51ef6699fa2d0deb",
+        "technical_terminology:52120d2d46276839",
+        "technical_terminology:526e0087cc3f254d",
+        "technical_terminology:542d377b57192f73",
+        "technical_terminology:54d496ad4c9f9495",
+        "technical_terminology:5501b04748731951",
+        "technical_terminology:55e4c0d47f634f99",
+        "technical_terminology:56dc6d47737d155a",
+        "technical_terminology:58d83bc947c0d873",
+        "technical_terminology:59906f2c36f0bf88",
+        "technical_terminology:5ab43b34c59e8127",
+        "technical_terminology:5ac827cb2ab98239",
+        "technical_terminology:5c07b5498055dfe0",
+        "technical_terminology:5c6f8277aa836da3",
+        "technical_terminology:5da514ec899d4d26",
+        "technical_terminology:5e32093b6128c392",
+        "technical_terminology:5eb4ecbdfefeaf9f",
+        "technical_terminology:5efd6e17122d319d",
+        "technical_terminology:5fb9c3aba7ad5106",
+        "technical_terminology:5fdbf310bfcfaeec",
+        "technical_terminology:609d9f9b8f7bc08e",
+        "technical_terminology:60cba850efc47bf0",
+        "technical_terminology:6258569c2c469014",
+        "technical_terminology:62fa5a5b0d3c3188",
+        "technical_terminology:64cff1319d2fd2cb",
+        "technical_terminology:6526616c18708b22",
+        "technical_terminology:65d1673a8edba3cd",
+        "technical_terminology:65d48a6578e536b3",
+        "technical_terminology:6801e62a02ebd108",
+        "technical_terminology:68eac50447720816",
+        "technical_terminology:693b9efb9936ef1f",
+        "technical_terminology:69aab89c7993f434",
+        "technical_terminology:6a4fb14cf9d5e15b",
+        "technical_terminology:6c190c06baab44f2",
+        "technical_terminology:6d6caa8eca8c79b4",
+        "technical_terminology:6df02bafa8b5045e",
+        "technical_terminology:6e1922359e7f483c",
+        "technical_terminology:6e37bb03b5ee364e",
+        "technical_terminology:6e82b7ce65a25f8a",
+        "technical_terminology:7116338e2448e840",
+        "technical_terminology:7126dcf92af66b10",
+        "technical_terminology:714d3cc1fc84e9fd",
+        "technical_terminology:71f684ea72eb8a16",
+        "technical_terminology:7345276b9cb04408",
+        "technical_terminology:73882327c4ddb8c5",
+        "technical_terminology:74cd93368b35de1e",
+        "technical_terminology:757d225eee944de4",
+        "technical_terminology:779fc422e77a3186",
+        "technical_terminology:780ba7862ad93a5e",
+        "technical_terminology:7abd3fd1bca16c61",
+        "technical_terminology:7ce6b0225142aece",
+        "technical_terminology:7d1a565dd2f003a4",
+        "technical_terminology:80218f00447b541c",
+        "technical_terminology:809393a92004648b",
+        "technical_terminology:812bf49b05aed25f",
+        "technical_terminology:81b782af7a15f4ec",
+        "technical_terminology:835e51384acd7811",
+        "technical_terminology:8433798ed2c996bb",
+        "technical_terminology:84892f30439e130c",
+        "technical_terminology:892e1d12aa8a8493",
+        "technical_terminology:89b0f77ce276d7a1",
+        "technical_terminology:8ab7f5307c8570a3",
+        "technical_terminology:8acb045a33db49d5",
+        "technical_terminology:8c32d71d6687b122",
+        "technical_terminology:8cf96a841b7e29e7",
+        "technical_terminology:8d1ce2102ba57164",
+        "technical_terminology:8eac836e72a7cfac",
+        "technical_terminology:9046da16aea909ba",
+        "technical_terminology:9101750c08368e9c",
+        "technical_terminology:916fe4abd736c03b",
+        "technical_terminology:91878c2bbed85e63",
+        "technical_terminology:91b1c354fb639dcf",
+        "technical_terminology:925810b127640152",
+        "technical_terminology:92b00aa254f90412",
+        "technical_terminology:94d9683ce92a65d0",
+        "technical_terminology:95650d427079b916",
+        "technical_terminology:986400fbfc40217a",
+        "technical_terminology:98715e57d9bedc23",
+        "technical_terminology:9ea65345bc8ef018",
+        "technical_terminology:9fbf3734c62ce603",
+        "technical_terminology:9fd728c66c9a256b",
+        "technical_terminology:9fe9f13df156aef9",
+        "technical_terminology:a00644508de97e85",
+        "technical_terminology:a3be7525513c2863",
+        "technical_terminology:a472d7f568391d4d",
+        "technical_terminology:a52ace420f2175d0",
+        "technical_terminology:a59dfde8d964e87b",
+        "technical_terminology:a5ec5a820b5f92fe",
+        "technical_terminology:a8674085004e6b56",
+        "technical_terminology:aa0680d75cf6e201",
+        "technical_terminology:aba397a727768ecf",
+        "technical_terminology:afd63edc7f9606d7",
+        "technical_terminology:b053c961f2acb0b9",
+        "technical_terminology:b3405a94fc87a00a",
+        "technical_terminology:b41d71fc33d8e8db",
+        "technical_terminology:b43abac07b1d5c41",
+        "technical_terminology:b4ad550d93a52187",
+        "technical_terminology:b4affe5209989ef4",
+        "technical_terminology:b4b891f444cc162b",
+        "technical_terminology:b55d60a07397b47b",
+        "technical_terminology:b7316c7193290696",
+        "technical_terminology:b7dfc524967786d0",
+        "technical_terminology:b7ec08d7fde5752b",
+        "technical_terminology:b80c2a4934fa4733",
+        "technical_terminology:b92f2f34b380f579",
+        "technical_terminology:ba1980eb0ad51899",
+        "technical_terminology:bee81bf20092f969",
+        "technical_terminology:c3812fc4acb861d5",
+        "technical_terminology:c3b29e6eef2cc49b",
+        "technical_terminology:c4226dfaab13a026",
+        "technical_terminology:c4700f0406c7f744",
+        "technical_terminology:c72c5404cfcb01c1",
+        "technical_terminology:c7dda351d4ef6d89",
+        "technical_terminology:c83098fa6ba9ba3a",
+        "technical_terminology:cca69ec9ceebfe09",
+        "technical_terminology:ccc07c5df486981a",
+        "technical_terminology:ccd5bc3161c50072",
+        "technical_terminology:cd80994abb0d1e04",
+        "technical_terminology:ce7844425f8acd25",
+        "technical_terminology:cec3a9b89b2e3913",
+        "technical_terminology:cec7e15eb3bd452a",
+        "technical_terminology:d065cdef6462f82b",
+        "technical_terminology:d154f3d4f4c5d22a",
+        "technical_terminology:d4055fafa3794fa8",
+        "technical_terminology:d4349848b9424a9d",
+        "technical_terminology:d9021c74cfc05cfe",
+        "technical_terminology:db60e1910563c6e4",
+        "technical_terminology:dc40def178fda130",
+        "technical_terminology:dc8a18a0f907a201",
+        "technical_terminology:defee2653f4a618a",
+        "technical_terminology:df85c73a57c3dc91",
+        "technical_terminology:e0e492707f85ff1f",
+        "technical_terminology:e2d0a54968ead24e",
+        "technical_terminology:e4113185e625d3c1",
+        "technical_terminology:e4ae03f6a32dca77",
+        "technical_terminology:e4c5ac67dda95fb2",
+        "technical_terminology:e5d71755431873c3",
+        "technical_terminology:e5fe67d212e69be6",
+        "technical_terminology:e620084dcaee075c",
+        "technical_terminology:e74de4769a6c94ff",
+        "technical_terminology:e9eda90d969f8266",
+        "technical_terminology:ea40841f6bce36fc",
+        "technical_terminology:ea8b1b15398c9b81",
+        "technical_terminology:eb0ad141fd356d4c",
+        "technical_terminology:ed01b3173d3b5910",
+        "technical_terminology:ed03f3a073667bb3",
+        "technical_terminology:eec2148a8a4be61b",
+        "technical_terminology:f195d6642a4b6513",
+        "technical_terminology:f236ad71bb0540b1",
+        "technical_terminology:f2eb55b2d1dedc24",
+        "technical_terminology:f541e2d7b99c2f46",
+        "technical_terminology:f550ee39a8deab6e",
+        "technical_terminology:f57667b42e6bd153",
+        "technical_terminology:f5a5ba5e1dce8154",
+        "technical_terminology:f669011d5f757fd6",
+        "technical_terminology:f6f64610f26f795e",
+        "technical_terminology:f71cdc5688cff26d",
+        "technical_terminology:f96a4a959b15b59c",
+        "technical_terminology:fbf76c832bc4a265",
+        "technical_terminology:fcca14fec0c95c94",
+        "technical_terminology:fcf1aadff93d0ab2",
+        "technical_terminology:ff72caa36dca2baa"
+      ],
+      "evidence": [
+        "README.md:4106:26747"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:26955",
+      "heading": "API Reference",
+      "level": 2,
+      "source_byte_start": 26955,
+      "source_byte_end": 101485,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:0059cb7c359efbf2",
+        "example:0167f55ac129c2b1",
+        "example:02725171efdf1483",
+        "example:09d62ff67677715d",
+        "example:0ec55b1f38c3f829",
+        "example:0ee84119bb93f3c8",
+        "example:105ab4665ffc1343",
+        "example:1243564b7cd94782",
+        "example:17e718fa1bf7af8a",
+        "example:1b36e993bc57bb63",
+        "example:1df961572b38dae9",
+        "example:26a2c0f4c91cd1cd",
+        "example:2c90bdc9c3095631",
+        "example:341e7aac1c740d56",
+        "example:36a01f4bcaad375e",
+        "example:38e80e0f72cd9f4f",
+        "example:420162a7acc980f9",
+        "example:4326bfddcb413602",
+        "example:46e46c36db388a74",
+        "example:481d0e49d9a6cc44",
+        "example:51f72b3573ece09d",
+        "example:5270520cf6b8eedf",
+        "example:5473f6fdb8b99010",
+        "example:5b1b401bdd329ff2",
+        "example:5c53189536665aee",
+        "example:5d11e8e43e7d4c22",
+        "example:618b6f6d1eceb93a",
+        "example:67b115383be7ede5",
+        "example:71587d4e7a19dcea",
+        "example:738f069dc587a319",
+        "example:749bdbbe334fe06c",
+        "example:74be0f64606ca131",
+        "example:773d883e2e98027a",
+        "example:7b1e0ea594146b8f",
+        "example:7bf44f657c3d04f9",
+        "example:7c0db8113f19da03",
+        "example:7d9a52597747d3fc",
+        "example:7fda2fc692954f1c",
+        "example:84c291d49c9f1013",
+        "example:8b5697d3b77943eb",
+        "example:930dd50791ba9289",
+        "example:946fb7d8cdea0872",
+        "example:9506f70dec80a539",
+        "example:a07ca801666fb4e7",
+        "example:a24fc87201b9825e",
+        "example:a50374b10a0a27bc",
+        "example:a5fbcfeb419fd253",
+        "example:b582d5ede6b6adc2",
+        "example:b63d649efb31728f",
+        "example:ba79267c63c52bc6",
+        "example:be24807ed4447dd3",
+        "example:c0a1d48c5706263b",
+        "example:ce0d63313edc1cd0",
+        "example:ce41ec8e29dc2684",
+        "example:d0b3957790add23c",
+        "example:d1438bf3856f4089",
+        "example:d1d0640d0d56ecb3",
+        "example:db389109a7083062",
+        "example:dcd573cc184e3eb2",
+        "example:e16ef39871a6bda2",
+        "example:e30c2b52d7a2c865",
+        "example:e8ef746765ca8425",
+        "example:eca3c8465ede711b",
+        "example:ef1921283bc1bf13",
+        "example:f00cac68505bbf7a",
+        "example:f18ae66431a14753",
+        "example:f224943e73927394",
+        "example:f8221f1aff3a057f",
+        "example:f87a4d40c403c39b",
+        "example:faa4103a173e99d6",
+        "technical_terminology:00e4f90c70b46bbd",
+        "technical_terminology:02f843261112c2d8",
+        "technical_terminology:0306996228eb0b74",
+        "technical_terminology:03ad5a2f2ee15c59",
+        "technical_terminology:07ccd15df32aa7e2",
+        "technical_terminology:0861eb32346085f8",
+        "technical_terminology:0985f0ca012c2b0c",
+        "technical_terminology:0a30a815d67d7dd2",
+        "technical_terminology:0b2cf9645c63c9fc",
+        "technical_terminology:0c57122b3ca1273e",
+        "technical_terminology:0c9618e9849a62c6",
+        "technical_terminology:0e36ca6a546dbb33",
+        "technical_terminology:0e6e510380bfbdae",
+        "technical_terminology:0ff529b5f00c70b9",
+        "technical_terminology:101f2ff3de22441f",
+        "technical_terminology:11630b3ae5a8f31d",
+        "technical_terminology:11a88457f22353d3",
+        "technical_terminology:14bfdc0e32aa60d3",
+        "technical_terminology:1503916a2ab2b0fd",
+        "technical_terminology:1509f561f2416598",
+        "technical_terminology:16d1c9050a0b32e8",
+        "technical_terminology:1799dfb76e8800c8",
+        "technical_terminology:17d0c70b03043b58",
+        "technical_terminology:1a92042defb61af9",
+        "technical_terminology:1d8fb755ae14e7e5",
+        "technical_terminology:20a3d2d59bf808a9",
+        "technical_terminology:20c8a23f2714bb37",
+        "technical_terminology:20de37fd0d27d57e",
+        "technical_terminology:224d8013e56421f4",
+        "technical_terminology:226ac1e032a7078a",
+        "technical_terminology:22afb142a74bb278",
+        "technical_terminology:27ce5aa0bbc87c30",
+        "technical_terminology:2910b6d7368b61e8",
+        "technical_terminology:293d404a500f5f9a",
+        "technical_terminology:299bcf54c044b1b5",
+        "technical_terminology:2a93a8a442e305e8",
+        "technical_terminology:2a9df7e343e0fc4a",
+        "technical_terminology:2d711642b726b044",
+        "technical_terminology:2dbb65bfb4a11418",
+        "technical_terminology:2dbcb5ebeb418acd",
+        "technical_terminology:2e0e960ab3204127",
+        "technical_terminology:2fb35d418a486797",
+        "technical_terminology:31e46d7343907564",
+        "technical_terminology:32ab018fd38a7b42",
+        "technical_terminology:32afaa7843336480",
+        "technical_terminology:32e83e92d45d71f6",
+        "technical_terminology:33744424e70c9969",
+        "technical_terminology:3376cab03ca1ee3a",
+        "technical_terminology:3563692428cf8f4b",
+        "technical_terminology:366e0246f74fc16c",
+        "technical_terminology:3755b924b2001a6c",
+        "technical_terminology:37bac4952becf21a",
+        "technical_terminology:380a51bed2b650a3",
+        "technical_terminology:394115ac4eb09aa4",
+        "technical_terminology:3a31e5eaedda7d61",
+        "technical_terminology:3a761fee4ffb9167",
+        "technical_terminology:3a76744d358016b3",
+        "technical_terminology:3bd0845263e0f175",
+        "technical_terminology:3cf4644927e80f62",
+        "technical_terminology:3da0530fdb0f13cf",
+        "technical_terminology:3e6441fc6da921f2",
+        "technical_terminology:3e8d666717ab7628",
+        "technical_terminology:40611abbdda22526",
+        "technical_terminology:40683bcba8c7daac",
+        "technical_terminology:41d055d26bea1e79",
+        "technical_terminology:42ddc784ee737f63",
+        "technical_terminology:4339d304e15dc7c0",
+        "technical_terminology:4404347f32c3970b",
+        "technical_terminology:442debe4213dccc6",
+        "technical_terminology:4441042e8be6c031",
+        "technical_terminology:4457b2f814609d13",
+        "technical_terminology:44c83854c759efbb",
+        "technical_terminology:44f5e3fbec57be75",
+        "technical_terminology:46049173c8ce6b0b",
+        "technical_terminology:48bd39799311abac",
+        "technical_terminology:4a2b69d4d502c272",
+        "technical_terminology:4a841cb62a1c2335",
+        "technical_terminology:4bd79490ee7befa2",
+        "technical_terminology:4c7cd69c9cd75db1",
+        "technical_terminology:4ce867f1e27a4294",
+        "technical_terminology:4d237bfc01017bc8",
+        "technical_terminology:4df4a99576fef4f0",
+        "technical_terminology:50683780953cec57",
+        "technical_terminology:51095bda6a0bb6ae",
+        "technical_terminology:51ef6699fa2d0deb",
+        "technical_terminology:53459e68d434cf5a",
+        "technical_terminology:551d5016c9d4d325",
+        "technical_terminology:553cd07660672fa0",
+        "technical_terminology:5552786813bc20e9",
+        "technical_terminology:57796963d73c59b8",
+        "technical_terminology:598058b315433c0f",
+        "technical_terminology:5a26ac4e686fe037",
+        "technical_terminology:5bf7b0b9f63c4ffb",
+        "technical_terminology:5c07b5498055dfe0",
+        "technical_terminology:5c1893b839e56f0c",
+        "technical_terminology:5d82101636db3d81",
+        "technical_terminology:5da3a4c7f1179442",
+        "technical_terminology:5f6b9d1f7caff0c0",
+        "technical_terminology:5fb9c3aba7ad5106",
+        "technical_terminology:60100bae43ac35c9",
+        "technical_terminology:6062652e10dd84c6",
+        "technical_terminology:6258569c2c469014",
+        "technical_terminology:636a7585bee0f876",
+        "technical_terminology:64cff1319d2fd2cb",
+        "technical_terminology:6526616c18708b22",
+        "technical_terminology:65aef1adba8672a5",
+        "technical_terminology:65d1673a8edba3cd",
+        "technical_terminology:681f44d9a8818b73",
+        "technical_terminology:684888c0ebb17f37",
+        "technical_terminology:68e10d8ef5771a31",
+        "technical_terminology:6b6dc358c8dc331f",
+        "technical_terminology:6bfe7fa3665585aa",
+        "technical_terminology:6c82b457af1bb95d",
+        "technical_terminology:6e00cd562cc2d88e",
+        "technical_terminology:6e3bf68d1585728b",
+        "technical_terminology:6eb509fd327f3590",
+        "technical_terminology:71464659b95c7a8f",
+        "technical_terminology:71988c4d8e0803ba",
+        "technical_terminology:720f6ac947ab8e44",
+        "technical_terminology:7298814692794812",
+        "technical_terminology:73f94ead3e6e917c",
+        "technical_terminology:73fde2e188b0b5f4",
+        "technical_terminology:7479300bb85ecf8f",
+        "technical_terminology:75f0cb5cf70fd783",
+        "technical_terminology:75fa386342e8b702",
+        "technical_terminology:7681f551e91f891f",
+        "technical_terminology:76cccfde0032b7aa",
+        "technical_terminology:782a1969d8b13b62",
+        "technical_terminology:79f5850d7cc3f589",
+        "technical_terminology:7abd3fd1bca16c61",
+        "technical_terminology:7f0f8849ae50a275",
+        "technical_terminology:7fd690e20d081646",
+        "technical_terminology:81464860fd44e673",
+        "technical_terminology:8159c00688487ffc",
+        "technical_terminology:835e51384acd7811",
+        "technical_terminology:83608f0797f53bf2",
+        "technical_terminology:83b12c2216efb4fd",
+        "technical_terminology:8411f5abb4c710b1",
+        "technical_terminology:84251d9ba7240ee8",
+        "technical_terminology:847b046cdad40039",
+        "technical_terminology:84866df7136f2433",
+        "technical_terminology:859b6a883253ab85",
+        "technical_terminology:87a002bd52683611",
+        "technical_terminology:87f90ccf28580204",
+        "technical_terminology:88964bf0b073f1da",
+        "technical_terminology:88e10963a0efb09d",
+        "technical_terminology:899006d2df8eca1c",
+        "technical_terminology:8aa318eb7eaa233a",
+        "technical_terminology:8acb045a33db49d5",
+        "technical_terminology:8b9c09d426a94252",
+        "technical_terminology:8cf96a841b7e29e7",
+        "technical_terminology:8d110cc4e96834e5",
+        "technical_terminology:8d33f520a3c4cef8",
+        "technical_terminology:8f64680f7785e396",
+        "technical_terminology:8f8dd5a1973afb00",
+        "technical_terminology:91149174ebd01567",
+        "technical_terminology:925810b127640152",
+        "technical_terminology:92b00aa254f90412",
+        "technical_terminology:934143bc3486e6c0",
+        "technical_terminology:93637bb3dd8c8c35",
+        "technical_terminology:94faec2249c52785",
+        "technical_terminology:95110d74c4c00912",
+        "technical_terminology:9551aece7c93b088",
+        "technical_terminology:9610043c15415793",
+        "technical_terminology:964e21e824fd9206",
+        "technical_terminology:966049920c1080a0",
+        "technical_terminology:982a2b5a4c163fca",
+        "technical_terminology:983987033f0e1170",
+        "technical_terminology:986400fbfc40217a",
+        "technical_terminology:98dc23ade7e16bfa",
+        "technical_terminology:992c911b77fa4eb9",
+        "technical_terminology:99367ef464ebad7f",
+        "technical_terminology:99a52df3ff3d4994",
+        "technical_terminology:9b01799c68baea0f",
+        "technical_terminology:9b29875169556bf0",
+        "technical_terminology:9c52d7763b032fb6",
+        "technical_terminology:9c6f255add698208",
+        "technical_terminology:9c768ce9fc426bb3",
+        "technical_terminology:9c92721ec67ac82c",
+        "technical_terminology:9d5719ff95169475",
+        "technical_terminology:9fd728c66c9a256b",
+        "technical_terminology:a1fce4363854ff88",
+        "technical_terminology:a219f7297b7431e7",
+        "technical_terminology:a52ace420f2175d0",
+        "technical_terminology:a5f7523695171550",
+        "technical_terminology:a6a32dbc5618ea39",
+        "technical_terminology:a789457f0e9c31de",
+        "technical_terminology:a907bff26ae663d7",
+        "technical_terminology:aa1be933fec0f68c",
+        "technical_terminology:aa88e644646449d0",
+        "technical_terminology:aba397a727768ecf",
+        "technical_terminology:aba7dd98a31406f1",
+        "technical_terminology:abccc78cc93c0793",
+        "technical_terminology:ad39eb619af6b5e1",
+        "technical_terminology:ade099751d2ea9f3",
+        "technical_terminology:af08b5c8c9dc4e2a",
+        "technical_terminology:b1345086671c6c77",
+        "technical_terminology:b15b792b2b10eb15",
+        "technical_terminology:b190c3d7bcb7c12c",
+        "technical_terminology:b3603115bf3ac55a",
+        "technical_terminology:b36cd58493fb8dda",
+        "technical_terminology:b4affe5209989ef4",
+        "technical_terminology:b55d60a07397b47b",
+        "technical_terminology:b5920debee916b00",
+        "technical_terminology:b639c243cebdfad9",
+        "technical_terminology:b79cac926e0b2e34",
+        "technical_terminology:b7b2260b379ac0df",
+        "technical_terminology:b7dfc524967786d0",
+        "technical_terminology:b92f2f34b380f579",
+        "technical_terminology:b93d3bcecff5d749",
+        "technical_terminology:b9b7563ac073306b",
+        "technical_terminology:ba0e4afa93400b80",
+        "technical_terminology:ba70b0389731eea7",
+        "technical_terminology:bb108dfc893f9b9c",
+        "technical_terminology:bc9511474d7a2a35",
+        "technical_terminology:bcfc26ee95462677",
+        "technical_terminology:bdaf096a52ceebce",
+        "technical_terminology:bee81bf20092f969",
+        "technical_terminology:c11092bc0861591e",
+        "technical_terminology:c15301c0e6470e21",
+        "technical_terminology:c1567c29089021b2",
+        "technical_terminology:c323179648c07dde",
+        "technical_terminology:c34c3f7368649659",
+        "technical_terminology:c3812fc4acb861d5",
+        "technical_terminology:c3b03dd28595bab2",
+        "technical_terminology:c3b29e6eef2cc49b",
+        "technical_terminology:c4c0664630597676",
+        "technical_terminology:c506df5d5943e320",
+        "technical_terminology:c50d0f053a046213",
+        "technical_terminology:c72c5404cfcb01c1",
+        "technical_terminology:c7dda351d4ef6d89",
+        "technical_terminology:c83098fa6ba9ba3a",
+        "technical_terminology:cba0ff20b2140b78",
+        "technical_terminology:cbd212c361574412",
+        "technical_terminology:cbea5870848d6622",
+        "technical_terminology:ccc07c5df486981a",
+        "technical_terminology:cf44a199aa9262d7",
+        "technical_terminology:cf4e3c07f6042e34",
+        "technical_terminology:cff9fc0a23e0ab75",
+        "technical_terminology:d3e21eda57937e6a",
+        "technical_terminology:d4349848b9424a9d",
+        "technical_terminology:d4450b7cfc23d799",
+        "technical_terminology:d46157ebcb215d40",
+        "technical_terminology:d6bd8c0aeee80fed",
+        "technical_terminology:d6c183f39f0f34a5",
+        "technical_terminology:d7852cd0d2453e8c",
+        "technical_terminology:d8ae56166da4ec5a",
+        "technical_terminology:da5bb5aabe01b558",
+        "technical_terminology:db77262bb641a85d",
+        "technical_terminology:dc30e21277453ab9",
+        "technical_terminology:df85c73a57c3dc91",
+        "technical_terminology:e0245406013b5ba1",
+        "technical_terminology:e3c8245151902a91",
+        "technical_terminology:e4113185e625d3c1",
+        "technical_terminology:e4146b2b0dfc50b8",
+        "technical_terminology:e4c5ac67dda95fb2",
+        "technical_terminology:e534087dc471e637",
+        "technical_terminology:e83a422a0d91b429",
+        "technical_terminology:e8c7a105356b91f7",
+        "technical_terminology:ea2b8a878841df59",
+        "technical_terminology:eaa059e79c7956e3",
+        "technical_terminology:eb0ad141fd356d4c",
+        "technical_terminology:eb4ddc721f6c1550",
+        "technical_terminology:ee6a25464a0c1f3a",
+        "technical_terminology:ef11990d50f3425e",
+        "technical_terminology:f089d62295937bb4",
+        "technical_terminology:f41415f4f6a19c3b",
+        "technical_terminology:f45134b77134fce8",
+        "technical_terminology:f469802a31447f90",
+        "technical_terminology:f4fb8cd00bdab653",
+        "technical_terminology:f5162206318ee964",
+        "technical_terminology:f57667b42e6bd153",
+        "technical_terminology:f753ba24270c4ccc",
+        "technical_terminology:fbdd29552e8a92e3",
+        "technical_terminology:fcb5f40df9be6bae",
+        "technical_terminology:fea45fa70a7a8b4e",
+        "technical_terminology:ff418b5da747b48f",
+        "technical_terminology:ff72caa36dca2baa",
+        "technical_terminology:fff6e4a59aa12de9"
+      ],
+      "evidence": [
+        "README.md:26747:101005"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:27197",
+      "heading": "Opening documents",
+      "level": 3,
+      "source_byte_start": 27197,
+      "source_byte_end": 27863,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:d0b3957790add23c"
+      ],
+      "evidence": [
+        "README.md:26989:27655"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:27863",
+      "heading": "Splitting",
+      "level": 3,
+      "source_byte_start": 27863,
+      "source_byte_end": 28063,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:749bdbbe334fe06c"
+      ],
+      "evidence": [
+        "README.md:27655:27855"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:28063",
+      "heading": "Extracting page ranges",
+      "level": 3,
+      "source_byte_start": 28063,
+      "source_byte_end": 28341,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:f00cac68505bbf7a"
+      ],
+      "evidence": [
+        "README.md:27855:28129"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:28341",
+      "heading": "Imposition (N-up / booklet)",
+      "level": 3,
+      "source_byte_start": 28341,
+      "source_byte_end": 29334,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:0167f55ac129c2b1",
+        "technical_terminology:03ad5a2f2ee15c59",
+        "technical_terminology:101f2ff3de22441f",
+        "technical_terminology:366e0246f74fc16c",
+        "technical_terminology:3a761fee4ffb9167",
+        "technical_terminology:442debe4213dccc6",
+        "technical_terminology:847b046cdad40039",
+        "technical_terminology:c4c0664630597676",
+        "technical_terminology:d6bd8c0aeee80fed"
+      ],
+      "evidence": [
+        "README.md:28129:29118"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:29334",
+      "heading": "Deleting pages",
+      "level": 3,
+      "source_byte_start": 29334,
+      "source_byte_end": 29811,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:930dd50791ba9289"
+      ],
+      "evidence": [
+        "README.md:29118:29593"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:29811",
+      "heading": "Page info",
+      "level": 3,
+      "source_byte_start": 29811,
+      "source_byte_end": 30125,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:b63d649efb31728f"
+      ],
+      "evidence": [
+        "README.md:29593:29907"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:30125",
+      "heading": "Page Labels",
+      "level": 3,
+      "source_byte_start": 30125,
+      "source_byte_end": 30769,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:74be0f64606ca131",
+        "technical_terminology:1a92042defb61af9",
+        "technical_terminology:8f64680f7785e396",
+        "technical_terminology:d4450b7cfc23d799"
+      ],
+      "evidence": [
+        "README.md:29907:30551"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:30769",
+      "heading": "Metadata",
+      "level": 3,
+      "source_byte_start": 30769,
+      "source_byte_end": 31396,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:738f069dc587a319"
+      ],
+      "evidence": [
+        "README.md:30551:31172"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:31396",
+      "heading": "XMP metadata",
+      "level": 3,
+      "source_byte_start": 31396,
+      "source_byte_end": 32044,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:a07ca801666fb4e7"
+      ],
+      "evidence": [
+        "README.md:31172:31820"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:32044",
+      "heading": "Encryption",
+      "level": 3,
+      "source_byte_start": 32044,
+      "source_byte_end": 34981,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:dcd573cc184e3eb2",
+        "technical_terminology:4339d304e15dc7c0",
+        "technical_terminology:5da3a4c7f1179442",
+        "technical_terminology:abccc78cc93c0793",
+        "technical_terminology:e4146b2b0dfc50b8"
+      ],
+      "evidence": [
+        "README.md:31820:34748"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:34981",
+      "heading": "Digital signatures",
+      "level": 3,
+      "source_byte_start": 34981,
+      "source_byte_end": 38577,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:ce0d63313edc1cd0",
+        "technical_terminology:00e4f90c70b46bbd",
+        "technical_terminology:0a30a815d67d7dd2",
+        "technical_terminology:0c9618e9849a62c6",
+        "technical_terminology:1509f561f2416598",
+        "technical_terminology:2a93a8a442e305e8",
+        "technical_terminology:60100bae43ac35c9",
+        "technical_terminology:8411f5abb4c710b1",
+        "technical_terminology:87f90ccf28580204",
+        "technical_terminology:986400fbfc40217a",
+        "technical_terminology:992c911b77fa4eb9",
+        "technical_terminology:99367ef464ebad7f",
+        "technical_terminology:9c768ce9fc426bb3",
+        "technical_terminology:c1567c29089021b2",
+        "technical_terminology:c506df5d5943e320",
+        "technical_terminology:ee6a25464a0c1f3a",
+        "technical_terminology:f4fb8cd00bdab653",
+        "technical_terminology:f5162206318ee964"
+      ],
+      "evidence": [
+        "README.md:34748:38329"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:38577",
+      "heading": "Forms (AcroForm)",
+      "level": 3,
+      "source_byte_start": 38577,
+      "source_byte_end": 43404,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:4326bfddcb413602",
+        "example:ef1921283bc1bf13",
+        "example:f224943e73927394",
+        "example:faa4103a173e99d6",
+        "technical_terminology:2a9df7e343e0fc4a",
+        "technical_terminology:a907bff26ae663d7",
+        "technical_terminology:b7dfc524967786d0",
+        "technical_terminology:cf44a199aa9262d7"
+      ],
+      "evidence": [
+        "README.md:38329:43134"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:39805",
+      "heading": "Form data as JSON",
+      "level": 4,
+      "source_byte_start": 39805,
+      "source_byte_end": 40925,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:4326bfddcb413602",
+        "example:faa4103a173e99d6"
+      ],
+      "evidence": [
+        "README.md:39553:40657"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:40925",
+      "heading": "Building forms from scratch",
+      "level": 4,
+      "source_byte_start": 40925,
+      "source_byte_end": 43404,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:f224943e73927394",
+        "technical_terminology:a907bff26ae663d7",
+        "technical_terminology:b7dfc524967786d0",
+        "technical_terminology:cf44a199aa9262d7"
+      ],
+      "evidence": [
+        "README.md:40657:43134"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:43404",
+      "heading": "Outlines (Bookmarks)",
+      "level": 3,
+      "source_byte_start": 43404,
+      "source_byte_end": 45273,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:0ec55b1f38c3f829",
+        "example:d1d0640d0d56ecb3",
+        "technical_terminology:0b2cf9645c63c9fc",
+        "technical_terminology:0e36ca6a546dbb33",
+        "technical_terminology:293d404a500f5f9a",
+        "technical_terminology:37bac4952becf21a",
+        "technical_terminology:3e8d666717ab7628",
+        "technical_terminology:4df4a99576fef4f0",
+        "technical_terminology:598058b315433c0f",
+        "technical_terminology:64cff1319d2fd2cb",
+        "technical_terminology:6eb509fd327f3590",
+        "technical_terminology:7abd3fd1bca16c61",
+        "technical_terminology:8aa318eb7eaa233a",
+        "technical_terminology:8d110cc4e96834e5",
+        "technical_terminology:9b29875169556bf0",
+        "technical_terminology:9fd728c66c9a256b",
+        "technical_terminology:a52ace420f2175d0",
+        "technical_terminology:aa88e644646449d0",
+        "technical_terminology:ade099751d2ea9f3",
+        "technical_terminology:b92f2f34b380f579",
+        "technical_terminology:bcfc26ee95462677",
+        "technical_terminology:c3812fc4acb861d5",
+        "technical_terminology:c72c5404cfcb01c1",
+        "technical_terminology:c83098fa6ba9ba3a",
+        "technical_terminology:d3e21eda57937e6a",
+        "technical_terminology:e534087dc471e637"
+      ],
+      "evidence": [
+        "README.md:43134:44994"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:45273",
+      "heading": "Table of Contents",
+      "level": 3,
+      "source_byte_start": 45273,
+      "source_byte_end": 46747,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:17e718fa1bf7af8a",
+        "example:5473f6fdb8b99010",
+        "technical_terminology:4a2b69d4d502c272",
+        "technical_terminology:4ce867f1e27a4294",
+        "technical_terminology:6e3bf68d1585728b",
+        "technical_terminology:7298814692794812",
+        "technical_terminology:84251d9ba7240ee8",
+        "technical_terminology:859b6a883253ab85",
+        "technical_terminology:964e21e824fd9206",
+        "technical_terminology:a5f7523695171550"
+      ],
+      "evidence": [
+        "README.md:44994:46466"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:46747",
+      "heading": "Tables",
+      "level": 3,
+      "source_byte_start": 46747,
+      "source_byte_end": 49724,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:1b36e993bc57bb63",
+        "example:7fda2fc692954f1c",
+        "example:db389109a7083062",
+        "technical_terminology:0306996228eb0b74",
+        "technical_terminology:16d1c9050a0b32e8",
+        "technical_terminology:3e6441fc6da921f2",
+        "technical_terminology:44c83854c759efbb",
+        "technical_terminology:4bd79490ee7befa2",
+        "technical_terminology:53459e68d434cf5a",
+        "technical_terminology:5c07b5498055dfe0",
+        "technical_terminology:65d1673a8edba3cd",
+        "technical_terminology:75fa386342e8b702",
+        "technical_terminology:925810b127640152",
+        "technical_terminology:95110d74c4c00912",
+        "technical_terminology:eb4ddc721f6c1550"
+      ],
+      "evidence": [
+        "README.md:46466:49435"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:49724",
+      "heading": "Vector graphics",
+      "level": 3,
+      "source_byte_start": 49724,
+      "source_byte_end": 51437,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:b582d5ede6b6adc2"
+      ],
+      "evidence": [
+        "README.md:49435:51142"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:51437",
+      "heading": "SVG embedding",
+      "level": 3,
+      "source_byte_start": 51437,
+      "source_byte_end": 53863,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:a24fc87201b9825e",
+        "example:be24807ed4447dd3",
+        "technical_terminology:27ce5aa0bbc87c30",
+        "technical_terminology:299bcf54c044b1b5",
+        "technical_terminology:2d711642b726b044",
+        "technical_terminology:3a31e5eaedda7d61",
+        "technical_terminology:4404347f32c3970b",
+        "technical_terminology:46049173c8ce6b0b",
+        "technical_terminology:50683780953cec57",
+        "technical_terminology:51095bda6a0bb6ae",
+        "technical_terminology:5d82101636db3d81",
+        "technical_terminology:5f6b9d1f7caff0c0",
+        "technical_terminology:6b6dc358c8dc331f",
+        "technical_terminology:6e00cd562cc2d88e",
+        "technical_terminology:720f6ac947ab8e44",
+        "technical_terminology:73f94ead3e6e917c",
+        "technical_terminology:7479300bb85ecf8f",
+        "technical_terminology:7681f551e91f891f",
+        "technical_terminology:782a1969d8b13b62",
+        "technical_terminology:7f0f8849ae50a275",
+        "technical_terminology:7fd690e20d081646",
+        "technical_terminology:88964bf0b073f1da",
+        "technical_terminology:92b00aa254f90412",
+        "technical_terminology:934143bc3486e6c0",
+        "technical_terminology:a1fce4363854ff88",
+        "technical_terminology:a789457f0e9c31de",
+        "technical_terminology:aa1be933fec0f68c",
+        "technical_terminology:b3603115bf3ac55a",
+        "technical_terminology:b36cd58493fb8dda",
+        "technical_terminology:b7b2260b379ac0df",
+        "technical_terminology:bb108dfc893f9b9c",
+        "technical_terminology:bdaf096a52ceebce",
+        "technical_terminology:cba0ff20b2140b78",
+        "technical_terminology:da5bb5aabe01b558",
+        "technical_terminology:db77262bb641a85d",
+        "technical_terminology:e0245406013b5ba1",
+        "technical_terminology:e3c8245151902a91",
+        "technical_terminology:f469802a31447f90",
+        "technical_terminology:f753ba24270c4ccc",
+        "technical_terminology:fbdd29552e8a92e3",
+        "technical_terminology:fcb5f40df9be6bae",
+        "technical_terminology:fea45fa70a7a8b4e",
+        "technical_terminology:ff418b5da747b48f"
+      ],
+      "evidence": [
+        "README.md:51142:53566"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:53863",
+      "heading": "Flattening",
+      "level": 3,
+      "source_byte_start": 53863,
+      "source_byte_end": 54710,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:5d11e8e43e7d4c22",
+        "technical_terminology:3376cab03ca1ee3a",
+        "technical_terminology:41d055d26bea1e79"
+      ],
+      "evidence": [
+        "README.md:53566:54408"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:54710",
+      "heading": "Annotations",
+      "level": 3,
+      "source_byte_start": 54710,
+      "source_byte_end": 56440,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:71587d4e7a19dcea",
+        "technical_terminology:02f843261112c2d8",
+        "technical_terminology:07ccd15df32aa7e2",
+        "technical_terminology:0ff529b5f00c70b9",
+        "technical_terminology:2910b6d7368b61e8",
+        "technical_terminology:2e0e960ab3204127",
+        "technical_terminology:6258569c2c469014",
+        "technical_terminology:681f44d9a8818b73",
+        "technical_terminology:71988c4d8e0803ba",
+        "technical_terminology:9c52d7763b032fb6",
+        "technical_terminology:a6a32dbc5618ea39",
+        "technical_terminology:b93d3bcecff5d749",
+        "technical_terminology:c11092bc0861591e",
+        "technical_terminology:cbea5870848d6622",
+        "technical_terminology:d46157ebcb215d40",
+        "technical_terminology:d7852cd0d2453e8c",
+        "technical_terminology:f089d62295937bb4"
+      ],
+      "evidence": [
+        "README.md:54408:56136"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:56440",
+      "heading": "Drawing annotations (Square / Circle / Line / Ink)",
+      "level": 3,
+      "source_byte_start": 56440,
+      "source_byte_end": 59492,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:420162a7acc980f9",
+        "technical_terminology:0e6e510380bfbdae",
+        "technical_terminology:20de37fd0d27d57e",
+        "technical_terminology:2fb35d418a486797",
+        "technical_terminology:33744424e70c9969",
+        "technical_terminology:3376cab03ca1ee3a",
+        "technical_terminology:3bd0845263e0f175",
+        "technical_terminology:6bfe7fa3665585aa",
+        "technical_terminology:83608f0797f53bf2",
+        "technical_terminology:87a002bd52683611",
+        "technical_terminology:88e10963a0efb09d",
+        "technical_terminology:8b9c09d426a94252",
+        "technical_terminology:9551aece7c93b088",
+        "technical_terminology:98dc23ade7e16bfa",
+        "technical_terminology:9c92721ec67ac82c",
+        "technical_terminology:9d5719ff95169475",
+        "technical_terminology:aba7dd98a31406f1",
+        "technical_terminology:b5920debee916b00",
+        "technical_terminology:b639c243cebdfad9",
+        "technical_terminology:b93d3bcecff5d749",
+        "technical_terminology:c11092bc0861591e",
+        "technical_terminology:c323179648c07dde",
+        "technical_terminology:c50d0f053a046213",
+        "technical_terminology:cbd212c361574412",
+        "technical_terminology:cf4e3c07f6042e34",
+        "technical_terminology:ef11990d50f3425e",
+        "technical_terminology:f45134b77134fce8"
+      ],
+      "evidence": [
+        "README.md:56136:59188"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:59492",
+      "heading": "Text-bearing annotations (Text / FreeText / Stamp)",
+      "level": 3,
+      "source_byte_start": 59492,
+      "source_byte_end": 62201,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:26a2c0f4c91cd1cd",
+        "technical_terminology:0985f0ca012c2b0c",
+        "technical_terminology:14bfdc0e32aa60d3",
+        "technical_terminology:1799dfb76e8800c8",
+        "technical_terminology:31e46d7343907564",
+        "technical_terminology:380a51bed2b650a3",
+        "technical_terminology:44f5e3fbec57be75",
+        "technical_terminology:5c1893b839e56f0c",
+        "technical_terminology:8159c00688487ffc",
+        "technical_terminology:8aa318eb7eaa233a",
+        "technical_terminology:9610043c15415793",
+        "technical_terminology:99a52df3ff3d4994",
+        "technical_terminology:b15b792b2b10eb15",
+        "technical_terminology:b79cac926e0b2e34",
+        "technical_terminology:b9b7563ac073306b",
+        "technical_terminology:c3b03dd28595bab2",
+        "technical_terminology:d8ae56166da4ec5a"
+      ],
+      "evidence": [
+        "README.md:59188:61886"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:62201",
+      "heading": "Specialised annotations (FileAttachment / Redact / JavaScript actions)",
+      "level": 3,
+      "source_byte_start": 62201,
+      "source_byte_end": 64195,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:7bf44f657c3d04f9",
+        "technical_terminology:1503916a2ab2b0fd",
+        "technical_terminology:1d8fb755ae14e7e5",
+        "technical_terminology:32ab018fd38a7b42",
+        "technical_terminology:4441042e8be6c031",
+        "technical_terminology:4c7cd69c9cd75db1",
+        "technical_terminology:94faec2249c52785",
+        "technical_terminology:9c6f255add698208",
+        "technical_terminology:c34c3f7368649659",
+        "technical_terminology:d4349848b9424a9d",
+        "technical_terminology:f41415f4f6a19c3b"
+      ],
+      "evidence": [
+        "README.md:61886:63870"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:64195",
+      "heading": "Document JavaScript & open action",
+      "level": 3,
+      "source_byte_start": 64195,
+      "source_byte_end": 65593,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:0ee84119bb93f3c8",
+        "technical_terminology:20c8a23f2714bb37",
+        "technical_terminology:37bac4952becf21a",
+        "technical_terminology:3cf4644927e80f62",
+        "technical_terminology:48bd39799311abac",
+        "technical_terminology:5fb9c3aba7ad5106",
+        "technical_terminology:76cccfde0032b7aa",
+        "technical_terminology:83b12c2216efb4fd",
+        "technical_terminology:84866df7136f2433",
+        "technical_terminology:91149174ebd01567",
+        "technical_terminology:9fd728c66c9a256b",
+        "technical_terminology:c3812fc4acb861d5",
+        "technical_terminology:c3b29e6eef2cc49b",
+        "technical_terminology:ccc07c5df486981a",
+        "technical_terminology:eaa059e79c7956e3"
+      ],
+      "evidence": [
+        "README.md:63870:65256"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:65593",
+      "heading": "Validation",
+      "level": 3,
+      "source_byte_start": 65593,
+      "source_byte_end": 66087,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:8b5697d3b77943eb",
+        "technical_terminology:11a88457f22353d3",
+        "technical_terminology:17d0c70b03043b58",
+        "technical_terminology:394115ac4eb09aa4",
+        "technical_terminology:40611abbdda22526",
+        "technical_terminology:4457b2f814609d13",
+        "technical_terminology:71464659b95c7a8f",
+        "technical_terminology:81464860fd44e673",
+        "technical_terminology:93637bb3dd8c8c35"
+      ],
+      "evidence": [
+        "README.md:65256:65750"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:66087",
+      "heading": "PDF/A Conformance Validation",
+      "level": 3,
+      "source_byte_start": 66087,
+      "source_byte_end": 68082,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:105ab4665ffc1343",
+        "example:2c90bdc9c3095631",
+        "technical_terminology:0c57122b3ca1273e",
+        "technical_terminology:20a3d2d59bf808a9",
+        "technical_terminology:40683bcba8c7daac",
+        "technical_terminology:4bd79490ee7befa2",
+        "technical_terminology:6526616c18708b22",
+        "technical_terminology:71464659b95c7a8f",
+        "technical_terminology:73fde2e188b0b5f4",
+        "technical_terminology:a219f7297b7431e7",
+        "technical_terminology:af08b5c8c9dc4e2a",
+        "technical_terminology:b1345086671c6c77",
+        "technical_terminology:ba0e4afa93400b80",
+        "technical_terminology:d6c183f39f0f34a5",
+        "technical_terminology:e4113185e625d3c1"
+      ],
+      "evidence": [
+        "README.md:65750:67739"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:68082",
+      "heading": "PDF/UA (Accessibility) Validation",
+      "level": 3,
+      "source_byte_start": 68082,
+      "source_byte_end": 68818,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:09d62ff67677715d",
+        "technical_terminology:0c57122b3ca1273e",
+        "technical_terminology:11630b3ae5a8f31d",
+        "technical_terminology:3a76744d358016b3",
+        "technical_terminology:68e10d8ef5771a31",
+        "technical_terminology:75f0cb5cf70fd783",
+        "technical_terminology:df85c73a57c3dc91"
+      ],
+      "evidence": [
+        "README.md:67739:68475"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:68818",
+      "heading": "Authoring a Tagged (Accessible) PDF",
+      "level": 3,
+      "source_byte_start": 68818,
+      "source_byte_end": 71391,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:1243564b7cd94782",
+        "example:1df961572b38dae9",
+        "example:f87a4d40c403c39b",
+        "technical_terminology:16d1c9050a0b32e8",
+        "technical_terminology:551d5016c9d4d325",
+        "technical_terminology:5a26ac4e686fe037",
+        "technical_terminology:79f5850d7cc3f589"
+      ],
+      "evidence": [
+        "README.md:68475:71030"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:71391",
+      "heading": "Text Extraction",
+      "level": 3,
+      "source_byte_start": 71391,
+      "source_byte_end": 72189,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:46e46c36db388a74"
+      ],
+      "evidence": [
+        "README.md:71030:71826"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:72189",
+      "heading": "Rendering pages to images",
+      "level": 3,
+      "source_byte_start": 72189,
+      "source_byte_end": 74598,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:5b1b401bdd329ff2",
+        "technical_terminology:2dbcb5ebeb418acd",
+        "technical_terminology:4d237bfc01017bc8",
+        "technical_terminology:51ef6699fa2d0deb",
+        "technical_terminology:b55d60a07397b47b",
+        "technical_terminology:f57667b42e6bd153",
+        "technical_terminology:fff6e4a59aa12de9"
+      ],
+      "evidence": [
+        "README.md:71826:74219"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:74598",
+      "heading": "Exporting to HTML",
+      "level": 3,
+      "source_byte_start": 74598,
+      "source_byte_end": 77359,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:ba79267c63c52bc6",
+        "technical_terminology:22afb142a74bb278",
+        "technical_terminology:899006d2df8eca1c",
+        "technical_terminology:bee81bf20092f969"
+      ],
+      "evidence": [
+        "README.md:74219:76968"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:77359",
+      "heading": "Exporting to SVG",
+      "level": 3,
+      "source_byte_start": 77359,
+      "source_byte_end": 78603,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:36a01f4bcaad375e",
+        "technical_terminology:966049920c1080a0",
+        "technical_terminology:ad39eb619af6b5e1"
+      ],
+      "evidence": [
+        "README.md:76968:78203"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:78603",
+      "heading": "Markdown to PDF",
+      "level": 3,
+      "source_byte_start": 78603,
+      "source_byte_end": 80362,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:e30c2b52d7a2c865",
+        "technical_terminology:3563692428cf8f4b",
+        "technical_terminology:3755b924b2001a6c",
+        "technical_terminology:42ddc784ee737f63",
+        "technical_terminology:57796963d73c59b8",
+        "technical_terminology:65aef1adba8672a5",
+        "technical_terminology:6c82b457af1bb95d",
+        "technical_terminology:982a2b5a4c163fca",
+        "technical_terminology:ba70b0389731eea7",
+        "technical_terminology:bc9511474d7a2a35",
+        "technical_terminology:cff9fc0a23e0ab75",
+        "technical_terminology:ff72caa36dca2baa"
+      ],
+      "evidence": [
+        "README.md:78203:79954"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:80362",
+      "heading": "PDF to Markdown",
+      "level": 3,
+      "source_byte_start": 80362,
+      "source_byte_end": 81218,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:946fb7d8cdea0872",
+        "technical_terminology:684888c0ebb17f37",
+        "technical_terminology:8d33f520a3c4cef8",
+        "technical_terminology:983987033f0e1170",
+        "technical_terminology:9b01799c68baea0f"
+      ],
+      "evidence": [
+        "README.md:79954:80804"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:81218",
+      "heading": "AI-powered operations (`ai` subpackage)",
+      "level": 3,
+      "source_byte_start": 81218,
+      "source_byte_end": 84581,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:481d0e49d9a6cc44",
+        "technical_terminology:0861eb32346085f8",
+        "technical_terminology:32e83e92d45d71f6",
+        "technical_terminology:553cd07660672fa0",
+        "technical_terminology:8cf96a841b7e29e7",
+        "technical_terminology:a52ace420f2175d0",
+        "technical_terminology:b190c3d7bcb7c12c",
+        "technical_terminology:c7dda351d4ef6d89",
+        "technical_terminology:e83a422a0d91b429",
+        "technical_terminology:e8c7a105356b91f7"
+      ],
+      "evidence": [
+        "README.md:80804:84149"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:84581",
+      "heading": "Text Search",
+      "level": 3,
+      "source_byte_start": 84581,
+      "source_byte_end": 85735,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:e16ef39871a6bda2",
+        "technical_terminology:ee6a25464a0c1f3a"
+      ],
+      "evidence": [
+        "README.md:84149:85303"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:85735",
+      "heading": "Text Replace",
+      "level": 3,
+      "source_byte_start": 85735,
+      "source_byte_end": 86620,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:67b115383be7ede5",
+        "technical_terminology:2dbb65bfb4a11418"
+      ],
+      "evidence": [
+        "README.md:85303:86186"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:86620",
+      "heading": "Image Extraction",
+      "level": 3,
+      "source_byte_start": 86620,
+      "source_byte_end": 87991,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:341e7aac1c740d56",
+        "example:e8ef746765ca8425"
+      ],
+      "evidence": [
+        "README.md:86186:87557"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:87991",
+      "heading": "Adding Images",
+      "level": 3,
+      "source_byte_start": 87991,
+      "source_byte_end": 88719,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:38e80e0f72cd9f4f",
+        "technical_terminology:5c07b5498055dfe0",
+        "technical_terminology:8f8dd5a1973afb00"
+      ],
+      "evidence": [
+        "README.md:87557:88285"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:88719",
+      "heading": "Image to PDF",
+      "level": 3,
+      "source_byte_start": 88719,
+      "source_byte_end": 89167,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:84c291d49c9f1013"
+      ],
+      "evidence": [
+        "README.md:88285:88733"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:89167",
+      "heading": "Replacing and Removing Images",
+      "level": 3,
+      "source_byte_start": 89167,
+      "source_byte_end": 89525,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:f18ae66431a14753"
+      ],
+      "evidence": [
+        "README.md:88733:89091"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:89525",
+      "heading": "Cleaning Up Unused Objects",
+      "level": 3,
+      "source_byte_start": 89525,
+      "source_byte_end": 89799,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:5270520cf6b8eedf"
+      ],
+      "evidence": [
+        "README.md:89091:89365"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:89799",
+      "heading": "Optimizing Images",
+      "level": 3,
+      "source_byte_start": 89799,
+      "source_byte_end": 90910,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:7c0db8113f19da03",
+        "example:a50374b10a0a27bc"
+      ],
+      "evidence": [
+        "README.md:89365:90476"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:90910",
+      "heading": "Converting to Grayscale",
+      "level": 3,
+      "source_byte_start": 90910,
+      "source_byte_end": 91536,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:a5fbcfeb419fd253",
+        "technical_terminology:636a7585bee0f876",
+        "technical_terminology:8acb045a33db49d5"
+      ],
+      "evidence": [
+        "README.md:90476:91098"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:91536",
+      "heading": "Linearizing for Fast Web View",
+      "level": 3,
+      "source_byte_start": 91536,
+      "source_byte_end": 92036,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:02725171efdf1483"
+      ],
+      "evidence": [
+        "README.md:91098:91598"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:92036",
+      "heading": "Flow Layout (Auto-Paginating Document Generator)",
+      "level": 3,
+      "source_byte_start": 92036,
+      "source_byte_end": 94812,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:0059cb7c359efbf2",
+        "example:618b6f6d1eceb93a",
+        "example:773d883e2e98027a",
+        "example:eca3c8465ede711b",
+        "example:f8221f1aff3a057f",
+        "technical_terminology:0306996228eb0b74",
+        "technical_terminology:5bf7b0b9f63c4ffb",
+        "technical_terminology:b4affe5209989ef4",
+        "technical_terminology:dc30e21277453ab9",
+        "technical_terminology:eb0ad141fd356d4c"
+      ],
+      "evidence": [
+        "README.md:91598:94364"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:94812",
+      "heading": "Creating Blank Documents",
+      "level": 3,
+      "source_byte_start": 94812,
+      "source_byte_end": 95174,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:c0a1d48c5706263b"
+      ],
+      "evidence": [
+        "README.md:94364:94726"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:95174",
+      "heading": "Adding Blank Pages",
+      "level": 3,
+      "source_byte_start": 95174,
+      "source_byte_end": 95453,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:51f72b3573ece09d"
+      ],
+      "evidence": [
+        "README.md:94726:95005"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:95453",
+      "heading": "Adding Text",
+      "level": 3,
+      "source_byte_start": 95453,
+      "source_byte_end": 97619,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:9506f70dec80a539",
+        "example:ce41ec8e29dc2684"
+      ],
+      "evidence": [
+        "README.md:95005:97149"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:96140",
+      "heading": "Embedded TrueType / OpenType fonts and subsetting",
+      "level": 4,
+      "source_byte_start": 96140,
+      "source_byte_end": 97619,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:ce41ec8e29dc2684"
+      ],
+      "evidence": [
+        "README.md:95692:97149"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:97619",
+      "heading": "Text Watermarks",
+      "level": 3,
+      "source_byte_start": 97619,
+      "source_byte_end": 98353,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:5c53189536665aee"
+      ],
+      "evidence": [
+        "README.md:97149:97883"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:98353",
+      "heading": "Stamps (text / image / page number)",
+      "level": 3,
+      "source_byte_start": 98353,
+      "source_byte_end": 99613,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:7b1e0ea594146b8f",
+        "technical_terminology:224d8013e56421f4",
+        "technical_terminology:226ac1e032a7078a",
+        "technical_terminology:2910b6d7368b61e8",
+        "technical_terminology:3da0530fdb0f13cf",
+        "technical_terminology:4a841cb62a1c2335",
+        "technical_terminology:5552786813bc20e9",
+        "technical_terminology:6062652e10dd84c6",
+        "technical_terminology:835e51384acd7811",
+        "technical_terminology:aba397a727768ecf",
+        "technical_terminology:e4c5ac67dda95fb2",
+        "technical_terminology:ea2b8a878841df59",
+        "technical_terminology:ee6a25464a0c1f3a"
+      ],
+      "evidence": [
+        "README.md:97883:99141"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:99613",
+      "heading": "Document API",
+      "level": 3,
+      "source_byte_start": 99613,
+      "source_byte_end": 100755,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:7d9a52597747d3fc"
+      ],
+      "evidence": [
+        "README.md:99141:100280"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:100755",
+      "heading": "Pages",
+      "level": 3,
+      "source_byte_start": 100755,
+      "source_byte_end": 101485,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:d1438bf3856f4089"
+      ],
+      "evidence": [
+        "README.md:100280:101005"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:101485",
+      "heading": "License",
+      "level": 2,
+      "source_byte_start": 101485,
+      "source_byte_end": 102031,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "technical_terminology:f32e06a74fb1c7db"
+      ],
+      "evidence": [
+        "README.md:101005:101547"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:102031",
+      "heading": "Product Page",
+      "level": 2,
+      "source_byte_start": 102031,
+      "source_byte_end": 102171,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:101547:101685"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "missing:installation",
+      "heading": "Installation",
+      "level": 2,
+      "source_byte_start": 2014,
+      "source_byte_end": 2014,
+      "disposition": "add",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-go_proxy"
+      ],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "verified ProductFactsV2 and Markdown section inventory"
+      ],
+      "rationale": "Add the ecosystem-specific acquisition path that was mechanically verified."
+    }
+  ],
+  "material_claims": [
+    {
+      "claim_id": "claim:26:e251bc2ee6a59b1a",
+      "source_byte_start": 26,
+      "source_byte_end": 776,
+      "content_sha256": "e251bc2ee6a59b1a0b35ded94a2db663c11719582f2711185b4033343ae1fb2f",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:26:776"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:777:7bf1102916bdbb7e",
+      "source_byte_start": 777,
+      "source_byte_end": 1671,
+      "content_sha256": "7bf1102916bdbb7eea0bb70036c89d8e5675ba24e7fd34c42b329f9904c093ff",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:777:1657"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1672:175b5ca483853697",
+      "source_byte_start": 1672,
+      "source_byte_end": 2013,
+      "content_sha256": "175b5ca483853697cd97c8f8aad5423551f4aca095bab6f3f7bd9520d3c3d9f8",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1658:1997"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2026:da8f92e85b0f477c",
+      "source_byte_start": 2026,
+      "source_byte_end": 2095,
+      "content_sha256": "da8f92e85b0f477c40b6069160ced928f74c8c858bbcac2f1a66c5795e46bbce",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2010:2079"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2096:d065fa8636a0d1cd",
+      "source_byte_start": 2096,
+      "source_byte_end": 2177,
+      "content_sha256": "d065fa8636a0d1cde32fe7172504af5d990ed07b59bc4119379847d79f8b8e63",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2080:2159"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2194:a7e48646fe38880f",
+      "source_byte_start": 2194,
+      "source_byte_end": 2592,
+      "content_sha256": "a7e48646fe38880f81088b23a8ae4cdd2f2313900ca18b8f4c15d05fd0c9087e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2176:2574"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2593:2dff3fa007e3c8cc",
+      "source_byte_start": 2593,
+      "source_byte_end": 2903,
+      "content_sha256": "2dff3fa007e3c8cc3e2a1a42f8a40b550a39b0d40cd0a77c959ea4d6edb5d86a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2575:2885"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2925:abe52a55e7696790",
+      "source_byte_start": 2925,
+      "source_byte_end": 3017,
+      "content_sha256": "abe52a55e769679036f7e3f5297fa542ed49e5c0fdc4ea0b5c4540d79459a6e1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2907:2999"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3018:c6b27d2b8f507a05",
+      "source_byte_start": 3018,
+      "source_byte_end": 4063,
+      "content_sha256": "c6b27d2b8f507a0584f80667f3931576f4fb33cccaba649de6f22dae9aa84f68",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3000:4041"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4064:c96598654a6e9551",
+      "source_byte_start": 4064,
+      "source_byte_end": 4127,
+      "content_sha256": "c96598654a6e9551fb65cefae8d9e029120cf35a6a3c3a5aa83b54341328725d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4042:4105"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4141:efde4087c4592e35",
+      "source_byte_start": 4141,
+      "source_byte_end": 4196,
+      "content_sha256": "efde4087c4592e3571279423c33c8c250d2689a40a791ce581a2842c74b40087",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4119:4172"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4196:bf885a8ea84fc3b5",
+      "source_byte_start": 4196,
+      "source_byte_end": 4289,
+      "content_sha256": "bf885a8ea84fc3b55c6630669997a6d228b9a0486b002149c120b7ad47b9920e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4172:4263"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4289:f45c6b850d7ed877",
+      "source_byte_start": 4289,
+      "source_byte_end": 4350,
+      "content_sha256": "f45c6b850d7ed87768fd3eb2ecf23cffed70b59669f97af2ec2f411fea000371",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4263:4322"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4350:e24b805252fa2cce",
+      "source_byte_start": 4350,
+      "source_byte_end": 4594,
+      "content_sha256": "e24b805252fa2cce99b7afc94f1c6a1da4e5d6150dd2a3bae3278e8acdcf2e83",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4322:4563"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4594:61cffaaa9b9263cf",
+      "source_byte_start": 4594,
+      "source_byte_end": 4649,
+      "content_sha256": "61cffaaa9b9263cfa9c0d0d772bb849e49d707cf83f884b859b678bc7759d34e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4563:4613"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4649:e6abb0b15173c825",
+      "source_byte_start": 4649,
+      "source_byte_end": 4910,
+      "content_sha256": "e6abb0b15173c825a27d46e690403a974032203bdbff133ea2e0b6e49fb21912",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4613:4870"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4910:65c71a9bceade5ab",
+      "source_byte_start": 4910,
+      "source_byte_end": 5298,
+      "content_sha256": "65c71a9bceade5abe162e079c8c00227f73fa44a6cbc027d186f4ac246ef32e3",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4870:5254"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5298:5afedcc554e1a98f",
+      "source_byte_start": 5298,
+      "source_byte_end": 5834,
+      "content_sha256": "5afedcc554e1a98fd39c138b6c794d4946c9c3bb9aa68b97531316a013e0d7ae",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5254:5787"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5834:2e9d7eb2f5dbd195",
+      "source_byte_start": 5834,
+      "source_byte_end": 6275,
+      "content_sha256": "2e9d7eb2f5dbd19591cdde1a0d83115b0d9c7acc6157d919a1f610f5ba1feeaf",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5787:6224"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:6275:984b6f0360ceb045",
+      "source_byte_start": 6275,
+      "source_byte_end": 7226,
+      "content_sha256": "984b6f0360ceb045040fe14fc0ecb4661673772a48ed7fe5d14e596c03c23e49",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:6224:7165"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:7226:ff48f3cea2b282f2",
+      "source_byte_start": 7226,
+      "source_byte_end": 7868,
+      "content_sha256": "ff48f3cea2b282f269e6dd4a63b7b5169aeb6c3ab7c1e69850841d69cb0b0e8e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:7165:7804"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:7868:38209a5a06d4d900",
+      "source_byte_start": 7868,
+      "source_byte_end": 8455,
+      "content_sha256": "38209a5a06d4d900e7914bb18a456c0638975c59293db9563cfd595fa0e05cab",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:7804:8389"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:8455:8442d00048545fa2",
+      "source_byte_start": 8455,
+      "source_byte_end": 9305,
+      "content_sha256": "8442d00048545fa20f8c1572a173f97a5d80b6ac3f2cd8efa0b3dcfdf42df181",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:8389:9237"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:9305:3833edcb136c5d99",
+      "source_byte_start": 9305,
+      "source_byte_end": 9963,
+      "content_sha256": "3833edcb136c5d992e4b29b53be4342faab0c730bf10a075e0cf88a1307e0a25",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:9237:9891"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:9963:76678885fa8365fb",
+      "source_byte_start": 9963,
+      "source_byte_end": 10023,
+      "content_sha256": "76678885fa8365fb7751669fa000c5fee974fb72b95a37fa1754f4958055859e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:9891:9949"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:10023:75259d1675dd7805",
+      "source_byte_start": 10023,
+      "source_byte_end": 10658,
+      "content_sha256": "75259d1675dd7805824c87d9a47a106f36e86cac6324f6383402efcf31205ce3",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:9949:10576"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:10658:595600bebff62713",
+      "source_byte_start": 10658,
+      "source_byte_end": 11207,
+      "content_sha256": "595600bebff6271340157f95f586a53b0ae2190468fbcaed5a60a9801bcbae3f",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:10576:11121"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:11207:636a855ec7873e97",
+      "source_byte_start": 11207,
+      "source_byte_end": 11437,
+      "content_sha256": "636a855ec7873e97f5e396db0e250174c97c002e53bc46dbf290aedde00d9418",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:11121:11349"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:11437:6c23b95d5d660e6d",
+      "source_byte_start": 11437,
+      "source_byte_end": 11688,
+      "content_sha256": "6c23b95d5d660e6d191db399f3cf199d37a1657f4f248732078945e7704a95f5",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:11349:11598"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:11688:777ce753dcc9b6e2",
+      "source_byte_start": 11688,
+      "source_byte_end": 11941,
+      "content_sha256": "777ce753dcc9b6e277d15f3b6d4bd81098310914d051a8e90e0cd92c2e36db7f",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:11598:11849"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:11941:5f0890d261ed5ca6",
+      "source_byte_start": 11941,
+      "source_byte_end": 12051,
+      "content_sha256": "5f0890d261ed5ca6e62c1177436425089ccf7538046c1d893d92ff2c3036483e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:11849:11957"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:12051:978b7ff10345ad5f",
+      "source_byte_start": 12051,
+      "source_byte_end": 12184,
+      "content_sha256": "978b7ff10345ad5fc3e49bc832abb0e3742c590ca1eae545242286ce07ba5ee6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:11957:12088"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:12184:b7620efdf4e5e3c9",
+      "source_byte_start": 12184,
+      "source_byte_end": 12278,
+      "content_sha256": "b7620efdf4e5e3c9667bf201e1370f77c4454ab9e74c4d8644d23b70c70bd256",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:12088:12180"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:12278:67be8b812687576e",
+      "source_byte_start": 12278,
+      "source_byte_end": 12379,
+      "content_sha256": "67be8b812687576ee611efaf471565e23bd16a61c801228e865eba367b133371",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:12180:12279"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:12379:b36bdf510e1a0d24",
+      "source_byte_start": 12379,
+      "source_byte_end": 12477,
+      "content_sha256": "b36bdf510e1a0d240be64ade1c9d9a5b0b0d2f2ccc53f265be74eb3f82eb0646",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:12279:12375"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:12477:00f171cef616c7d4",
+      "source_byte_start": 12477,
+      "source_byte_end": 12596,
+      "content_sha256": "00f171cef616c7d4016cdda7e87b2bcdde4d3f38fdcb6dff8f0fd3382d97063c",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:12375:12492"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:12596:e01ddf2e21e555fe",
+      "source_byte_start": 12596,
+      "source_byte_end": 13022,
+      "content_sha256": "e01ddf2e21e555fe6464653c4bd7f69e626e50a208e490a85cb26e7a36ee61e3",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:12492:12916"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:13022:6d2c41597f4979f2",
+      "source_byte_start": 13022,
+      "source_byte_end": 14671,
+      "content_sha256": "6d2c41597f4979f2236b2f0376cf63cacf6f692b250d3f9317c8ce5164a02ff2",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:12916:14549"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:14671:53dadea638b258dc",
+      "source_byte_start": 14671,
+      "source_byte_end": 14906,
+      "content_sha256": "53dadea638b258dcee170768b4c9ee9c3fd355f98654c2758e3ca680b25615bd",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:14549:14782"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:14906:4d23c667f853f288",
+      "source_byte_start": 14906,
+      "source_byte_end": 15540,
+      "content_sha256": "4d23c667f853f288178de9f229a77afa6c972986c1d9fb9089da02807bc29406",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:14782:15414"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:15540:83080a1e8ecb83c7",
+      "source_byte_start": 15540,
+      "source_byte_end": 15992,
+      "content_sha256": "83080a1e8ecb83c7544f9bf109ffaa876b8a0b7860b499209d456cbd5ddaafe3",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:15414:15863"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:15992:819d52c0a6fbac28",
+      "source_byte_start": 15992,
+      "source_byte_end": 16514,
+      "content_sha256": "819d52c0a6fbac28916e3ea6c83230b7002742d0142b268c4b239d111c64a779",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:15863:16377"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:16514:28406db0bf6708d7",
+      "source_byte_start": 16514,
+      "source_byte_end": 17280,
+      "content_sha256": "28406db0bf6708d7661fee619810262272baa599e9284a868396212f70ba7ddf",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:16377:17133"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:17280:e4da69738a070b84",
+      "source_byte_start": 17280,
+      "source_byte_end": 17417,
+      "content_sha256": "e4da69738a070b8403f08bda8ef4888607e2bc0dc82a7306f50ab4585891fd85",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:17133:17268"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:17417:71349fa2afc6f5fe",
+      "source_byte_start": 17417,
+      "source_byte_end": 17512,
+      "content_sha256": "71349fa2afc6f5fe3cecfb896692e0ff0831e85931145b4d6eae5719d6a133fd",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:17268:17361"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:17512:43e77b47e6166a52",
+      "source_byte_start": 17512,
+      "source_byte_end": 18164,
+      "content_sha256": "43e77b47e6166a5221c832c25b1011abbfb05a2a833793681b23233de12c4328",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:17361:18011"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:18164:0788c66988698e07",
+      "source_byte_start": 18164,
+      "source_byte_end": 18263,
+      "content_sha256": "0788c66988698e07f8587e6cd54c1e4b4655ffa97f2f26e2e78998bc9a2d7a50",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:18011:18108"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:18263:50530301b46a0a45",
+      "source_byte_start": 18263,
+      "source_byte_end": 18629,
+      "content_sha256": "50530301b46a0a45d5d26c47d56f4ec7d40625a120efe139eb85bd93422bb19f",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:18108:18472"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:18629:4de6a0593b26f09c",
+      "source_byte_start": 18629,
+      "source_byte_end": 18889,
+      "content_sha256": "4de6a0593b26f09c75ef46c0059b0bee68355b3cbaa2bbc0817497b9df440494",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:18472:18730"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:18889:646831a5de7ce9ad",
+      "source_byte_start": 18889,
+      "source_byte_end": 19182,
+      "content_sha256": "646831a5de7ce9ad7137fbf968678eba22c1e2a2ab15a9c1c4590aeea1c71000",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:18730:19021"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:19182:a1b3f5cff255ff98",
+      "source_byte_start": 19182,
+      "source_byte_end": 19408,
+      "content_sha256": "a1b3f5cff255ff9822bb4436e98229e8d60f9466cb0a92e8747425d24d0bc482",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:19021:19245"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:19408:59757bd59fe3935b",
+      "source_byte_start": 19408,
+      "source_byte_end": 19646,
+      "content_sha256": "59757bd59fe3935b7d5e3682d17b67f28acb2850f329f61d30dadd651fc5ea4f",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:19245:19479"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:19646:76438dace61a39f4",
+      "source_byte_start": 19646,
+      "source_byte_end": 19820,
+      "content_sha256": "76438dace61a39f4047b02912f7076dc8ccffaaad5b1a89be72e6b6e8caafa85",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:19479:19651"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:19820:05cfd879e4e088e5",
+      "source_byte_start": 19820,
+      "source_byte_end": 21176,
+      "content_sha256": "05cfd879e4e088e5a13bf03da121f45bf4ef875b89208026891c6e148f4ecb26",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:19651:21003"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:21176:e0f98994ef5c3612",
+      "source_byte_start": 21176,
+      "source_byte_end": 21978,
+      "content_sha256": "e0f98994ef5c3612bee00dcd08042a8f9f508164dd4e014ca7dc06b19ec1c270",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:21003:21801"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:21978:8b409539347f3bf9",
+      "source_byte_start": 21978,
+      "source_byte_end": 22476,
+      "content_sha256": "8b409539347f3bf9ff120cee961d9377cba06b72a87a42ac2eee75a4a8812fbf",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:21801:22297"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:22476:27d246128726c818",
+      "source_byte_start": 22476,
+      "source_byte_end": 22836,
+      "content_sha256": "27d246128726c818576003e921d3f7e2bec71ed1738bd1c8824374154d0cd366",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:22297:22655"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:22836:2e7125bb79c1bedc",
+      "source_byte_start": 22836,
+      "source_byte_end": 23399,
+      "content_sha256": "2e7125bb79c1bedcc132c49dcf626bb90bb5a44c6464f982d10ce0bf710f408a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:22655:23214"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:23399:3badeac2a3517ac7",
+      "source_byte_start": 23399,
+      "source_byte_end": 23762,
+      "content_sha256": "3badeac2a3517ac7b28f4ac4116e56bee5d2cf90163e8cf7279fa49df19c27e7",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:23214:23575"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:23762:d6a45a2a5cbcb481",
+      "source_byte_start": 23762,
+      "source_byte_end": 24259,
+      "content_sha256": "d6a45a2a5cbcb481d03232b4f05b720eb6c62e4755b4e4468fffccfbaf186469",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:23575:24070"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:24259:5529ac6840823ae4",
+      "source_byte_start": 24259,
+      "source_byte_end": 25245,
+      "content_sha256": "5529ac6840823ae43e97da2be7d22bfec69853874cdb29e20dc62844867bde0b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:24070:25052"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:25245:ad3517936a6fa632",
+      "source_byte_start": 25245,
+      "source_byte_end": 26481,
+      "content_sha256": "ad3517936a6fa632aee252bccd1f3797ca44b95a5cb34eccefc83deb77a30dde",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:25052:26278"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:26481:a63ae8ab9dc77e58",
+      "source_byte_start": 26481,
+      "source_byte_end": 26954,
+      "content_sha256": "a63ae8ab9dc77e58b2bb6e6613d016fd8d307b17a72c2f9ba2839f82660c306b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:26278:26746"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:26973:849a7caaf42f3412",
+      "source_byte_start": 26973,
+      "source_byte_end": 27196,
+      "content_sha256": "849a7caaf42f3412344d18d5c60d937ed898befe2d8152b6ce6649d5ad398515",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:26765:26988"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:27220:3d5020a44175c3d8",
+      "source_byte_start": 27220,
+      "source_byte_end": 27862,
+      "content_sha256": "3d5020a44175c3d828a86b03cb415d627463c06af554c5d83e2c28189b352328",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:27012:27654"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:27878:cb137b85fa980954",
+      "source_byte_start": 27878,
+      "source_byte_end": 28062,
+      "content_sha256": "cb137b85fa980954069361a4d6dfb0e9771b31d1149c3cefbffb09c04ac9d740",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:27670:27854"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:28091:09ed1577aaffc597",
+      "source_byte_start": 28091,
+      "source_byte_end": 28340,
+      "content_sha256": "09ed1577aaffc597a71b435879b5acd1731b6fa0593e8e8d54bd1c8df422863d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:27883:28128"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:28374:3c8574c9a17005f4",
+      "source_byte_start": 28374,
+      "source_byte_end": 28841,
+      "content_sha256": "3c8574c9a17005f4d4d4a08450cdc8073b53898468d01ba1db0eeeabe77743da",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:28162:28626"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:28842:af2ba7c0cb3ed367",
+      "source_byte_start": 28842,
+      "source_byte_end": 29333,
+      "content_sha256": "af2ba7c0cb3ed367f1f2f509fe2c7cd1fc529210f24d050880fd913435f77b56",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:28627:29117"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:29354:453e30702dd9f4fe",
+      "source_byte_start": 29354,
+      "source_byte_end": 29692,
+      "content_sha256": "453e30702dd9f4fe1c7844bb54debf8fc6f0fc625305f5059511005461b70b5b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:29138:29476"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:29693:0d1fae2b95efd399",
+      "source_byte_start": 29693,
+      "source_byte_end": 29810,
+      "content_sha256": "0d1fae2b95efd3991671988754dd8361fb8689134c31c00235e5aadd3bfcecb2",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:29477:29592"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:29826:150ae1668cd4bb23",
+      "source_byte_start": 29826,
+      "source_byte_end": 30124,
+      "content_sha256": "150ae1668cd4bb23af6f8b3aaa2f1fa672b4a643420b073f33e10f426b42a32a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:29608:29906"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:30142:a21499afaac3c100",
+      "source_byte_start": 30142,
+      "source_byte_end": 30330,
+      "content_sha256": "a21499afaac3c100a9d000fca034e6ae040544a6945c2b59e557f6617239e998",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:29924:30112"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:30331:2c5efec7861c9ba1",
+      "source_byte_start": 30331,
+      "source_byte_end": 30768,
+      "content_sha256": "2c5efec7861c9ba1f06a77243bb954d9baa68302535d6d9e30660f52d7526973",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:30113:30550"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:30783:abf7b840c9bfb696",
+      "source_byte_start": 30783,
+      "source_byte_end": 31395,
+      "content_sha256": "abf7b840c9bfb69611f7f5d1cda471ca3da172de97235096212ae94ee88efcdf",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:30565:31171"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:31414:e6f78b38ed1af6b0",
+      "source_byte_start": 31414,
+      "source_byte_end": 32043,
+      "content_sha256": "e6f78b38ed1af6b00de19d9dfd724d009108abfe55a303251e4b760ea9b4f0ba",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:31190:31819"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:32060:2da01db8af56cc9f",
+      "source_byte_start": 32060,
+      "source_byte_end": 34529,
+      "content_sha256": "2da01db8af56cc9ff607d28e9df34637e516854cd6943203052a8d65b85a167a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:31836:34299"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:34530:97816b54b977bbbe",
+      "source_byte_start": 34530,
+      "source_byte_end": 34799,
+      "content_sha256": "97816b54b977bbbe43e3a2161d58e1fbdfca582763b3cdab9adfcf1415db6cb6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:34300:34566"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:34800:926cfde471416427",
+      "source_byte_start": 34800,
+      "source_byte_end": 34980,
+      "content_sha256": "926cfde4714164273b3d264e7d1650cafb16483b51c125a3e3738e6d4821cba9",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:34567:34747"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:35005:bd374dfe3114bdfe",
+      "source_byte_start": 35005,
+      "source_byte_end": 36785,
+      "content_sha256": "bd374dfe3114bdfefab6937b4f0825aa687b82e1f3e4cda52571bd559921b756",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:34772:36547"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:36786:e4f05e18dd8839b7",
+      "source_byte_start": 36786,
+      "source_byte_end": 38576,
+      "content_sha256": "e4f05e18dd8839b7ce250ad7eb1175c0276501aaeb5191efc77501192b531018",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:36548:38328"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:38599:aa88adedd2785bd1",
+      "source_byte_start": 38599,
+      "source_byte_end": 39434,
+      "content_sha256": "aa88adedd2785bd1065052cce2f5c7450c1b4207e1fe914fa43fdc5a3d5d49c9",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:38351:39184"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:39435:a32e18773db69b6b",
+      "source_byte_start": 39435,
+      "source_byte_end": 39588,
+      "content_sha256": "a32e18773db69b6ba9bf7cdba314dd77c2119c62ab3796e8f02241116fa2ef7a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:39185:39338"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:39589:8d77e1c36436bf07",
+      "source_byte_start": 39589,
+      "source_byte_end": 39804,
+      "content_sha256": "8d77e1c36436bf075d44cb5b61b4717c43e1755926851e925353ae05bbd65ccb",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:39339:39552"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:39829:157b11602e1040be",
+      "source_byte_start": 39829,
+      "source_byte_end": 40025,
+      "content_sha256": "157b11602e1040be73ceba3aadebff4585bc29351e7a275c76304ea01b8464e8",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:39577:39771"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:40026:59838dc7afe968f7",
+      "source_byte_start": 40026,
+      "source_byte_end": 40327,
+      "content_sha256": "59838dc7afe968f76b2ebe4070fdff5f99a34429d8b726acc4eeebf504ba8611",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:39772:40073"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:40328:afd2f877986de338",
+      "source_byte_start": 40328,
+      "source_byte_end": 40604,
+      "content_sha256": "afd2f877986de338dede0a85b98dbf6b54289a993f993b740c1fe3caaaa6e337",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:40074:40344"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:40605:01bf5d68fcd3892c",
+      "source_byte_start": 40605,
+      "source_byte_end": 40695,
+      "content_sha256": "01bf5d68fcd3892c0c717bc2f790693940a83ac67fedfb599c804d924acccb3c",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:40345:40435"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:40696:a82151a9d08f7c43",
+      "source_byte_start": 40696,
+      "source_byte_end": 40924,
+      "content_sha256": "a82151a9d08f7c43115b8bda20774c86726de9b2a4c1de4795e7c69ce35bc2b8",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:40436:40656"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:40959:411bcf2b06d6a21b",
+      "source_byte_start": 40959,
+      "source_byte_end": 42875,
+      "content_sha256": "411bcf2b06d6a21b4e79f381e08f2a1e05fb68770184fbd60314ddf2fb441a9d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:40691:42605"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:42876:9ad5ce17b9c29805",
+      "source_byte_start": 42876,
+      "source_byte_end": 43269,
+      "content_sha256": "9ad5ce17b9c298059ea7f9685ca9a1490219314608a635f97acf70a6c3309b7a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:42606:42999"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:43270:92d6ee4dac3b661f",
+      "source_byte_start": 43270,
+      "source_byte_end": 43403,
+      "content_sha256": "92d6ee4dac3b661f51d61083e7d363ad15132a8bba89fd853e37fd3fb1260284",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:43000:43133"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:43430:16d966fd785b09d0",
+      "source_byte_start": 43430,
+      "source_byte_end": 43987,
+      "content_sha256": "16d966fd785b09d09ff92bf2702d691ee566eeec3169e37b7ce5c0c551bc2fc1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:43160:43717"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:43988:196fade514943d21",
+      "source_byte_start": 43988,
+      "source_byte_end": 44660,
+      "content_sha256": "196fade514943d21b39c9e7311c8013e0aae54a435119bc04c582259a27fbb3d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:43718:44385"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:44661:e6a42019a99ecacd",
+      "source_byte_start": 44661,
+      "source_byte_end": 45038,
+      "content_sha256": "e6a42019a99ecacdcd6849c6d61529552532adf4f65cb9f63d80981601443651",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:44386:44761"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:45039:01ca9f85c9b23d34",
+      "source_byte_start": 45039,
+      "source_byte_end": 45272,
+      "content_sha256": "01ca9f85c9b23d34ddd2b86dda6247fd403aea7f4882fcff8dc02887c9c7c05a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:44762:44993"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:45296:9a2bcdcb925a07a4",
+      "source_byte_start": 45296,
+      "source_byte_end": 45666,
+      "content_sha256": "9a2bcdcb925a07a4f808043ff671e4a24da3d984f249112fe44aba5385bc9801",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:45017:45385"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:45667:95d18ab350617c6c",
+      "source_byte_start": 45667,
+      "source_byte_end": 46085,
+      "content_sha256": "95d18ab350617c6c19e805def86a5b93c12d3e91da5aa944ad605c3c832180cb",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:45386:45804"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:46086:4485b644c28a3378",
+      "source_byte_start": 46086,
+      "source_byte_end": 46746,
+      "content_sha256": "4485b644c28a3378ceedbd422bb4d9a5b5250a2d8a9ede22a9a13e6f52417ffd",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:45805:46465"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:46759:c992ed36742fcea0",
+      "source_byte_start": 46759,
+      "source_byte_end": 47652,
+      "content_sha256": "c992ed36742fcea0f4f8060f4f9ec82193e7db8417cb94acb222c576cf3bdaab",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:46478:47371"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:47653:2acfc3ea5274b5f9",
+      "source_byte_start": 47653,
+      "source_byte_end": 47769,
+      "content_sha256": "2acfc3ea5274b5f95db9da049b7663b33dc0d091482ad67f06d876f1dd6480b2",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:47372:47488"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:47770:35344c6e09256fda",
+      "source_byte_start": 47770,
+      "source_byte_end": 48544,
+      "content_sha256": "35344c6e09256fda31e191d2382a110b4c9d6e292db00fe0d98821aa896b83fb",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:47489:48261"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:48545:a7322b22abc34a36",
+      "source_byte_start": 48545,
+      "source_byte_end": 48623,
+      "content_sha256": "a7322b22abc34a3680c88c0affb5faa2cb57e535edf9227288d1669a2eaaae32",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:48262:48340"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:48624:b6ddb0db02bfb440",
+      "source_byte_start": 48624,
+      "source_byte_end": 49380,
+      "content_sha256": "b6ddb0db02bfb440b0424b15dd2487c6c1700341c6fcc1e908694ea9bc9a84e5",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:48341:49091"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:49381:5c6b52730db4f435",
+      "source_byte_start": 49381,
+      "source_byte_end": 49723,
+      "content_sha256": "5c6b52730db4f435f07a850aa89fc25c67f93af290ac2bf4e5d1a5149a35a453",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:49092:49434"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:49745:a52ae6e370e6a23f",
+      "source_byte_start": 49745,
+      "source_byte_end": 51436,
+      "content_sha256": "a52ae6e370e6a23fe030093cdc803a2f7af9762c20e5ec9b4e54e8fed646f866",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:49456:51141"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:51456:a1d60245d69212ba",
+      "source_byte_start": 51456,
+      "source_byte_end": 51978,
+      "content_sha256": "a1d60245d69212ba00360727c1e54075175d83d9d7f2b6e00247237da22acd0e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:51161:51683"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:51979:d0f4a69db31d69ed",
+      "source_byte_start": 51979,
+      "source_byte_end": 53431,
+      "content_sha256": "d0f4a69db31d69ed92b5734589c4034d4029ea34c6b78f00ac1314fc1aa410bc",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:51684:53134"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:53432:b2a80c7a48029600",
+      "source_byte_start": 53432,
+      "source_byte_end": 53548,
+      "content_sha256": "b2a80c7a48029600b7ae618fb9a784593d1d4c35178dd16c8e1fe2ae9456f853",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:53135:53251"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:53549:1edce0a4c671fc38",
+      "source_byte_start": 53549,
+      "source_byte_end": 53862,
+      "content_sha256": "1edce0a4c671fc3827af22802917522bd9697a95adcb70c6d5cb840e78c2bef5",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:53252:53565"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:53879:22fe68af94be13ac",
+      "source_byte_start": 53879,
+      "source_byte_end": 54025,
+      "content_sha256": "22fe68af94be13ac9cc402917a3dcf2dc48dba57c082ce5ac5c1d0a8fb9b2243",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:53582:53726"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:54026:fdd020cbffab18b4",
+      "source_byte_start": 54026,
+      "source_byte_end": 54516,
+      "content_sha256": "fdd020cbffab18b4665c483c30282eab657f6a61bba78cc99c24e87506be7ae8",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:53727:54215"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:54517:bfa73821ce99ce6b",
+      "source_byte_start": 54517,
+      "source_byte_end": 54709,
+      "content_sha256": "bfa73821ce99ce6bdf8087f49313235c986442a6872ca21bfb924c0e6de5ad17",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:54216:54407"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:54727:0519a2b69d71b84e",
+      "source_byte_start": 54727,
+      "source_byte_end": 56144,
+      "content_sha256": "0519a2b69d71b84ee8eb7ef3caed299b6af0009d944b8fefff42cc29fc7d08a1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:54425:55842"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:56145:d0cf459862259e09",
+      "source_byte_start": 56145,
+      "source_byte_end": 56439,
+      "content_sha256": "d0cf459862259e09ce271571a71dcd9fe99b627f21066b1b1085d3db8672a73d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:55843:56135"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:56496:4d6f960ccf27027c",
+      "source_byte_start": 56496,
+      "source_byte_end": 58585,
+      "content_sha256": "4d6f960ccf27027c815de6f1f17e6e0df261708ab023361e0d0bc3636590d761",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:56192:58281"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:58586:03079edc7174c4bd",
+      "source_byte_start": 58586,
+      "source_byte_end": 59127,
+      "content_sha256": "03079edc7174c4bd99b5c5b735d3cb67c2123a8e8879ff457a8f26acdabf0be1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:58282:58823"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:59128:808deeab1d1b72c8",
+      "source_byte_start": 59128,
+      "source_byte_end": 59491,
+      "content_sha256": "808deeab1d1b72c8ef3536fcff63a7d9e8468f95f8457c9ea49e15a874d5300d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:58824:59187"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:59548:3e409917f8bc08f7",
+      "source_byte_start": 59548,
+      "source_byte_end": 61445,
+      "content_sha256": "3e409917f8bc08f77df8b30b2e310f954ec88254af722f50b2563ca5a1b9c4f3",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:59244:61135"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:61446:399ed8286cf51d01",
+      "source_byte_start": 61446,
+      "source_byte_end": 62200,
+      "content_sha256": "399ed8286cf51d019bd5988bad34097dfa811190d98c194466766123d095b44b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:61136:61885"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:62277:57122feeb5892bc7",
+      "source_byte_start": 62277,
+      "source_byte_end": 63481,
+      "content_sha256": "57122feeb5892bc7eae316bbb3fa2ed4d414d2dbed2f82bbe864d8183edb3ea1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:61962:63160"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:63482:8f04e281fa3db628",
+      "source_byte_start": 63482,
+      "source_byte_end": 64194,
+      "content_sha256": "8f04e281fa3db628a48a3173f277b198eff0c4dbc4a36c8ec71d825d22201f53",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:63161:63869"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:64234:83a1435ef0916cdf",
+      "source_byte_start": 64234,
+      "source_byte_end": 64929,
+      "content_sha256": "83a1435ef0916cdf3c0b302e713fd6585719460bf9c788c26d3f11d874913d69",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:63909:64598"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:64930:c5c5509b7aff1207",
+      "source_byte_start": 64930,
+      "source_byte_end": 65592,
+      "content_sha256": "c5c5509b7aff120740a6e8219ccd1fa3a0c9da8b812cea5695a629b1f3a861b6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:64599:65255"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:65609:76a8760748411681",
+      "source_byte_start": 65609,
+      "source_byte_end": 65813,
+      "content_sha256": "76a8760748411681e9450502fb4ebdb05a2a47ae57dfca824caeba5494763d4e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:65272:65476"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:65814:822b412d21f931ed",
+      "source_byte_start": 65814,
+      "source_byte_end": 65923,
+      "content_sha256": "822b412d21f931ed7e0ae74f405cc4a2f8fdbef7cfea5e7f34dc776a89060a39",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:65477:65586"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:65924:4c35242e98a79d64",
+      "source_byte_start": 65924,
+      "source_byte_end": 66086,
+      "content_sha256": "4c35242e98a79d6489e6d62a5a6fa928d2a624d9c575cb805a04ffd35656392a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:65587:65749"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:66121:4edabc0303e5cc2e",
+      "source_byte_start": 66121,
+      "source_byte_end": 66347,
+      "content_sha256": "4edabc0303e5cc2e89c2b26a2baaba45e706de2658bfa7b50ef4d7fb8e74bb8f",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:65784:66010"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:66348:86b6491ae3d218e9",
+      "source_byte_start": 66348,
+      "source_byte_end": 66980,
+      "content_sha256": "86b6491ae3d218e98ca873584cd35967ebaa75b2f1fc67fa70086365a15aac93",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:66011:66641"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:66981:7debe96e4263b5c0",
+      "source_byte_start": 66981,
+      "source_byte_end": 67033,
+      "content_sha256": "7debe96e4263b5c05dbcab6f7feccba33da16c7dfd6be6c3939d0ca443b4ff26",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:66642:66694"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:67034:274e8417137a4831",
+      "source_byte_start": 67034,
+      "source_byte_end": 67345,
+      "content_sha256": "274e8417137a48319a293760380dd4ae5a0be37d7e66a499e7256f306b5e2a91",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:66695:67006"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:67346:ad66b3ad8f14217d",
+      "source_byte_start": 67346,
+      "source_byte_end": 68081,
+      "content_sha256": "ad66b3ad8f14217d4ec1685bafd720305a4485632832cbe4d8db1f92b0061b83",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:67007:67738"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:68121:3ca984f431f0d7f9",
+      "source_byte_start": 68121,
+      "source_byte_end": 68315,
+      "content_sha256": "3ca984f431f0d7f9366c41160e85904fb21052b8d069084bea15f17a2f375f21",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:67778:67972"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:68316:023b5d7b493b8beb",
+      "source_byte_start": 68316,
+      "source_byte_end": 68817,
+      "content_sha256": "023b5d7b493b8beba5b4060a8adf5857ddc799a6fdf4364f8d92cad27b787a98",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:67973:68474"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:68859:68ae48a7b55fd658",
+      "source_byte_start": 68859,
+      "source_byte_end": 70162,
+      "content_sha256": "68ae48a7b55fd658f69da1a88e40f18463c1c03aa18c616ee3e9dcc08988b170",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:68516:69813"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:70163:442b6ccc06e11e26",
+      "source_byte_start": 70163,
+      "source_byte_end": 70376,
+      "content_sha256": "442b6ccc06e11e260c57681dfd11c2585fe1518eacafe7863c18299acbfc21ca",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:69814:70021"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:70377:28152dfc62ddc81d",
+      "source_byte_start": 70377,
+      "source_byte_end": 70722,
+      "content_sha256": "28152dfc62ddc81d66a06ea238c19f61a15b004ae654c06b89acad875a0049d9",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:70022:70367"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:70723:97ad45d1a2692fa6",
+      "source_byte_start": 70723,
+      "source_byte_end": 70860,
+      "content_sha256": "97ad45d1a2692fa67c54181bc0309c65815bef4590087fdc4af3d8711df3f411",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:70368:70505"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:70861:25a6432b34b94927",
+      "source_byte_start": 70861,
+      "source_byte_end": 71390,
+      "content_sha256": "25a6432b34b94927e986173f845a390717cfa9faf37c124acb5539eccba4c9ab",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:70506:71029"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:71412:6d5dfed2bdaa56f9",
+      "source_byte_start": 71412,
+      "source_byte_end": 72188,
+      "content_sha256": "6d5dfed2bdaa56f9bf5306432bcf1c0213eb5fe9cb21077e7bf5292649ada97d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:71051:71825"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:72220:c8e9779cb9161993",
+      "source_byte_start": 72220,
+      "source_byte_end": 72357,
+      "content_sha256": "c8e9779cb91619932b256ec3556ef6d225d67e4d34b5bfc1f1beca9311cdef4d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:71857:71992"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:72358:216238e9ff2ea70e",
+      "source_byte_start": 72358,
+      "source_byte_end": 73153,
+      "content_sha256": "216238e9ff2ea70e098861bd9af2508d95a6704a19d2f2ab496c2cc41a813330",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:71993:72784"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:73154:e6c8fd285953bd81",
+      "source_byte_start": 73154,
+      "source_byte_end": 74597,
+      "content_sha256": "e6c8fd285953bd81a3007bb1f948495e053d1248280cedbc3aa34a06b43d773e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:72785:74218"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:74621:1149ff60718ceb56",
+      "source_byte_start": 74621,
+      "source_byte_end": 74712,
+      "content_sha256": "1149ff60718ceb56d273c61c3f2f86671855f85467fb1566488c8a8ae4e16ce6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:74242:74331"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:74713:04325001cbde8e41",
+      "source_byte_start": 74713,
+      "source_byte_end": 77116,
+      "content_sha256": "04325001cbde8e41ce633108e166243c4577603f977df461fd1a43bca0e418c6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:74332:76725"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:77117:bf937b12eb22185b",
+      "source_byte_start": 77117,
+      "source_byte_end": 77358,
+      "content_sha256": "bf937b12eb22185b89cc9ff1de22aecfd3b2e6e2c4f1a575c323ff90ebdf29ad",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:76726:76967"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:77381:a5352d94a97a63e6",
+      "source_byte_start": 77381,
+      "source_byte_end": 77707,
+      "content_sha256": "a5352d94a97a63e6a9f24d9562a8ebd28ab003e898128a7b386f3442216e2e17",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:76990:77315"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:77708:d9de5f1517d37d62",
+      "source_byte_start": 77708,
+      "source_byte_end": 78383,
+      "content_sha256": "d9de5f1517d37d628dd83509037bae4b56a9f5a1ed6b2333ec00bf0e4d7b6067",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:77316:77985"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:78384:1c5286d6af7ca63d",
+      "source_byte_start": 78384,
+      "source_byte_end": 78602,
+      "content_sha256": "1c5286d6af7ca63d5285884ac9697081baf76b2758243f5f9e9cde00596a79bf",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:77986:78202"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:78624:d6b1e88096db562f",
+      "source_byte_start": 78624,
+      "source_byte_end": 78797,
+      "content_sha256": "d6b1e88096db562f59d8c1b848be715da62beae444492c19bccbe28510cf84d1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:78224:78397"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:78798:15497a1a0017133b",
+      "source_byte_start": 78798,
+      "source_byte_end": 79483,
+      "content_sha256": "15497a1a0017133be0640597212a0440bfdb6db16d6d764f2315f1426dc384d5",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:78398:79081"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:79484:21af67b2b4ba048a",
+      "source_byte_start": 79484,
+      "source_byte_end": 80181,
+      "content_sha256": "21af67b2b4ba048a22612e269771c665222ded2604bd195500221ee9aa234e99",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:79082:79775"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:80182:21f348439fe1d23b",
+      "source_byte_start": 80182,
+      "source_byte_end": 80361,
+      "content_sha256": "21f348439fe1d23b69b1b49190658189a8ad96a5238cd91e1f09313729980cc6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:79776:79953"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:80383:b440556c8275be94",
+      "source_byte_start": 80383,
+      "source_byte_end": 80505,
+      "content_sha256": "b440556c8275be94031518ee10e007b7d56713d3d863ba06942cd4098d01a0d2",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:79975:80095"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:80506:b6ef292ccee51eec",
+      "source_byte_start": 80506,
+      "source_byte_end": 80883,
+      "content_sha256": "b6ef292ccee51eeccf915e6581ffcddaff0253a137f6305236f30c4d1bc8566e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:80096:80469"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:80884:fd8c13c17f1ca4c4",
+      "source_byte_start": 80884,
+      "source_byte_end": 81217,
+      "content_sha256": "fd8c13c17f1ca4c4d39d46327b8498f146f7ba0356371065287489b24e6e1679",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:80470:80803"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:81263:a38478db3f990a97",
+      "source_byte_start": 81263,
+      "source_byte_end": 81648,
+      "content_sha256": "a38478db3f990a9773a82a8d6b03e9f946dc223c4fdbbc1299dd10211e8ab0f5",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:80849:81228"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:81649:6b34246e3d3c8ab6",
+      "source_byte_start": 81649,
+      "source_byte_end": 81876,
+      "content_sha256": "6b34246e3d3c8ab6027bbbf99433e6d4a4a86b6ca0a4f3f084c81fe5c9a02bed",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:81229:81454"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:81877:6b8de78a5339df0d",
+      "source_byte_start": 81877,
+      "source_byte_end": 83986,
+      "content_sha256": "6b8de78a5339df0d285727cd50c8c6713d385746d0e888c4d467bb55a47f70d4",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:81455:83554"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:83987:bdbdab645cdcba73",
+      "source_byte_start": 83987,
+      "source_byte_end": 84580,
+      "content_sha256": "bdbdab645cdcba73f8a53687399453f6c480955182776869bca7c722aa85e7cd",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:83555:84148"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:84598:04d2c88a50cd19d9",
+      "source_byte_start": 84598,
+      "source_byte_end": 85484,
+      "content_sha256": "04d2c88a50cd19d93581e4e230c4120382d3268d44b199c4090ac21071db8f7f",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:84166:85052"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:85485:bd638ef16f38741e",
+      "source_byte_start": 85485,
+      "source_byte_end": 85734,
+      "content_sha256": "bd638ef16f38741e6292de6548a193ea230bb91e454777a74d2d240ceefbd72b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:85053:85302"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:85753:a02779ea162850f5",
+      "source_byte_start": 85753,
+      "source_byte_end": 86123,
+      "content_sha256": "a02779ea162850f56fbbdea2bffda54adbc705fc3db68c2cad4427898dda0b74",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:85321:85691"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:86124:9ee25deaeaaca68d",
+      "source_byte_start": 86124,
+      "source_byte_end": 86619,
+      "content_sha256": "9ee25deaeaaca68d16c913e880e6fcb0f2f8f7f5dfb61e9e77156c4b2ac2937d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:85692:86185"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:86642:df113a64d8d32398",
+      "source_byte_start": 86642,
+      "source_byte_end": 87210,
+      "content_sha256": "df113a64d8d32398f12ad04a2627b7f520dfae0c5143f9f34c7f3d851811c385",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:86208:86776"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:87211:13ee485a41ce48b8",
+      "source_byte_start": 87211,
+      "source_byte_end": 87734,
+      "content_sha256": "13ee485a41ce48b80e656930457cd3c275718a8f3e527e920d69ca02d2d04bd5",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:86777:87300"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:87735:9d54cb5a26080e2d",
+      "source_byte_start": 87735,
+      "source_byte_end": 87990,
+      "content_sha256": "9d54cb5a26080e2dc6e5d63eae69bfc323eb589902ca374fc1ddb2ddd56f263c",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:87301:87556"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:88010:ff8c1b8e55270a01",
+      "source_byte_start": 88010,
+      "source_byte_end": 88563,
+      "content_sha256": "ff8c1b8e55270a010d1ba34e16995fe95579cdae83293a48f2b2176d793af04a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:87576:88129"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:88564:75a42b0e76318081",
+      "source_byte_start": 88564,
+      "source_byte_end": 88718,
+      "content_sha256": "75a42b0e763180816c4c33b229ed8adb9b5b0b862534329d8573a80497885882",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:88130:88284"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:88737:945c22490e59493e",
+      "source_byte_start": 88737,
+      "source_byte_end": 89166,
+      "content_sha256": "945c22490e59493e1ad0dc016ae0dc7f1de02a73e9df175f2742e32cb2a36529",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:88303:88732"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:89202:b6a05c2fd1cc57ba",
+      "source_byte_start": 89202,
+      "source_byte_end": 89524,
+      "content_sha256": "b6a05c2fd1cc57baf05e3d4ef9f1881612b44ef6e4eed3612fb30e2f29c679f0",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:88768:89090"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:89557:75e15a7afdaca80b",
+      "source_byte_start": 89557,
+      "source_byte_end": 89798,
+      "content_sha256": "75e15a7afdaca80b3f8c2388e65b2a3a0f819d9141cdca987026eafba160cb8e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:89123:89364"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:89822:eeeec64a1d12b7ef",
+      "source_byte_start": 89822,
+      "source_byte_end": 90082,
+      "content_sha256": "eeeec64a1d12b7ef4d7bf056da2ef5fef1012b7c60a99d0d9409e43edec5ac30",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:89388:89648"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:90083:ec777807cf358020",
+      "source_byte_start": 90083,
+      "source_byte_end": 90141,
+      "content_sha256": "ec777807cf35802047ecd518408dc1f359142441983b6ef7f0eafa48b5f15375",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:89649:89707"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:90142:78e07d790df48939",
+      "source_byte_start": 90142,
+      "source_byte_end": 90909,
+      "content_sha256": "78e07d790df489396f44baeed06e12bedb1215d69df0f03d8bd7cbd318f81765",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:89708:90475"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:90939:1bedcea0a1e0d500",
+      "source_byte_start": 90939,
+      "source_byte_end": 91088,
+      "content_sha256": "1bedcea0a1e0d500f0f320e75151bf369caaffc26e087281ccc697bd31acf38b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:90505:90652"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:91089:cbb1ba21c9e7a087",
+      "source_byte_start": 91089,
+      "source_byte_end": 91535,
+      "content_sha256": "cbb1ba21c9e7a08792575207689311e2e9b5130c51086bc48824e06b5aff8a7e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:90653:91097"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:91571:30bc6bf40b55b10e",
+      "source_byte_start": 91571,
+      "source_byte_end": 91810,
+      "content_sha256": "30bc6bf40b55b10e77c9131ea1ba5d3608e988486230f00f549a64c619c1dc60",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:91133:91372"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:91811:e0c2eac545184a9c",
+      "source_byte_start": 91811,
+      "source_byte_end": 92035,
+      "content_sha256": "e0c2eac545184a9c0892986946c0abf2e7cb4efd26f833972775b55213421dee",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:91373:91597"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:92090:f797653472c4fafa",
+      "source_byte_start": 92090,
+      "source_byte_end": 92211,
+      "content_sha256": "f797653472c4fafaa7ff460dcceb3d991d99411fbe496837f3cbf6473b1193f3",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:91652:91773"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:92212:dad554ce9e68f7de",
+      "source_byte_start": 92212,
+      "source_byte_end": 92794,
+      "content_sha256": "dad554ce9e68f7dedc28855992cbf47ffc53fd3ee485684c828df87a7f9f97c6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:91774:92354"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:92795:69bf4b93a1890cb5",
+      "source_byte_start": 92795,
+      "source_byte_end": 93040,
+      "content_sha256": "69bf4b93a1890cb52dea4e98b76ee997ef229618d38433a9169d3cd697237157",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:92355:92598"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:93041:c3ae1d7322cc68b8",
+      "source_byte_start": 93041,
+      "source_byte_end": 93251,
+      "content_sha256": "c3ae1d7322cc68b89678f6309c7985f423b10c9690657729429f8f3d9e95914e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:92599:92805"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:93252:0bcaae9d5866a980",
+      "source_byte_start": 93252,
+      "source_byte_end": 93439,
+      "content_sha256": "0bcaae9d5866a98040916e22ddeedc962e1f92534cc0aaf8de17b8d1514de5a8",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:92806:92993"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:93440:54677da2f7e26cbc",
+      "source_byte_start": 93440,
+      "source_byte_end": 93965,
+      "content_sha256": "54677da2f7e26cbcf8b71a80902eff43d55a721772778d0819cd0d521c4900db",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:92994:93519"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:93966:8b9d03110be959dd",
+      "source_byte_start": 93966,
+      "source_byte_end": 94096,
+      "content_sha256": "8b9d03110be959dd82fa1daa98f85ac9ded5f992aabb029894cb3659d90e5056",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:93520:93648"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:94097:5a59ecc40e03ae9e",
+      "source_byte_start": 94097,
+      "source_byte_end": 94290,
+      "content_sha256": "5a59ecc40e03ae9eb6be5111d37a21a120768db6dbd6496deca814060de4ec0d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:93649:93842"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:94291:a03a0bb444c3d6d5",
+      "source_byte_start": 94291,
+      "source_byte_end": 94393,
+      "content_sha256": "a03a0bb444c3d6d5bb86295323c3f43f6251304688cb336131d42da810f1a630",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:93843:93945"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:94394:cfc9efbd503a682a",
+      "source_byte_start": 94394,
+      "source_byte_end": 94700,
+      "content_sha256": "cfc9efbd503a682a0aa7ecb8e776cd88a77d80eec3bed57946b15efe33ab19e6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:93946:94252"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:94701:4d6fe20e1b56bd43",
+      "source_byte_start": 94701,
+      "source_byte_end": 94811,
+      "content_sha256": "4d6fe20e1b56bd437387ee288a9881904e245eec86a9a1a7a4e6ca88347dc7c6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:94253:94363"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:94842:032ad665d9950ef1",
+      "source_byte_start": 94842,
+      "source_byte_end": 95173,
+      "content_sha256": "032ad665d9950ef18ebb261c726b445f8e9888210a810c8993fa71561f198169",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:94394:94725"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:95198:a1659bdab9704645",
+      "source_byte_start": 95198,
+      "source_byte_end": 95452,
+      "content_sha256": "a1659bdab9704645c370c01506d923e07721b89bc4e8bcea9af7d391bf7a3500",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:94750:95004"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:95470:bf57c12a2456a6bd",
+      "source_byte_start": 95470,
+      "source_byte_end": 96139,
+      "content_sha256": "bf57c12a2456a6bd272d9d706f12726135ae07bb87f8f0e12ed0ccea706d167c",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:95022:95691"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:96196:9b3f8df4ab025a11",
+      "source_byte_start": 96196,
+      "source_byte_end": 97618,
+      "content_sha256": "9b3f8df4ab025a114a32ea7e4ae86e78bb8daf55683356a42ae3815ddd0370dd",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:95748:97148"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:97640:af1f0971c2d18a2e",
+      "source_byte_start": 97640,
+      "source_byte_end": 98352,
+      "content_sha256": "af1f0971c2d18a2e2cee5184fe8ae361640bc9ee16221fecc33956abd49aed70",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:97170:97882"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:98394:c32880c42a0520b8",
+      "source_byte_start": 98394,
+      "source_byte_end": 98717,
+      "content_sha256": "c32880c42a0520b8f765719c9a5a4aa43ae9d50523067cfa708d68f3bacd643d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:97924:98245"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:98718:a26691e0630b26eb",
+      "source_byte_start": 98718,
+      "source_byte_end": 99612,
+      "content_sha256": "a26691e0630b26eb90919bd7967973a4a5986ac5e3be628a7cf4c3f1a22e6135",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:98246:99140"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:99631:a36bc9fa6c10cdee",
+      "source_byte_start": 99631,
+      "source_byte_end": 100754,
+      "content_sha256": "a36bc9fa6c10cdee6557f99da81558294185c6507e80339bc6805e11a73f5f36",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:99159:100279"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:100766:eeb1f31c8a5db281",
+      "source_byte_start": 100766,
+      "source_byte_end": 101484,
+      "content_sha256": "eeb1f31c8a5db281cdb0abe38613e5e7ee161a6e56579821543dae1ec279ba1c",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:100291:101004"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:101497:af9ada1795f9423d",
+      "source_byte_start": 101497,
+      "source_byte_end": 101546,
+      "content_sha256": "af9ada1795f9423dd12d9946d17068308eee579d659a46de5d4b297cba1a3c6e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:101017:101066"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:101547:1d1bc1ad5837ae2c",
+      "source_byte_start": 101547,
+      "source_byte_end": 102030,
+      "content_sha256": "1d1bc1ad5837ae2cff1cd75f7d0a3562ae1cd90957f35dfd7f8ecef05dc9c525",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:101067:101546"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:102048:a01a47f5e68923bc",
+      "source_byte_start": 102048,
+      "source_byte_end": 102171,
+      "content_sha256": "a01a47f5e68923bcef7679f1f4a1b2977ca5b5a5f85ab1da5d6a2f193ace2546",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:101564:101685"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    }
+  ],
+  "untrusted_repository_instructions": []
+}

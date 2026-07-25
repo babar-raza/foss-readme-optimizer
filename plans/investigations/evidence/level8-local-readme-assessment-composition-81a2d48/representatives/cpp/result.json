@@ -1,0 +1,60 @@
+{
+  "ecosystem": "cpp",
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+  "facts_hash": "b0efbc87c40e1a90e2cf9cb92edb6dfd4719c7ec9114caaf3b121c60ef9bda70",
+  "candidate_sha256": "2721b10441ac86bc29fde1d3569bc069d4da0aa61f9961fa67df12b0784b9290",
+  "agentic_composition_plan_sha256": "5badd6984c55c21e5d64b5022ec54458a19f13b8119fb0230d3dd2683d8707d5",
+  "agentic_model": "qwen3-next",
+  "agentic_attempt_count": 1,
+  "agentic_overview_sentence_count": 4,
+  "agentic_section_decision_count": 9,
+  "agentic_expected_section_decision_count": 9,
+  "document_operation_count": 1,
+  "assessment_section_count": 10,
+  "material_claim_count": 17,
+  "blocked_fact_ids": [
+    "example.minimal:agent-drafted-example",
+    "product.audience:groundedness-blocked",
+    "product.capabilities:repository-evidence",
+    "product.compatibility:missing",
+    "product.problems_solved:groundedness-blocked"
+  ],
+  "cited_fact_ids": [
+    "installation.verified_acquisition:registry-nuget",
+    "product.formats:repository-evidence",
+    "product.identity:manifest-and-registry",
+    "product.limitations:repository-evidence",
+    "relationship.commercial_foss:primary"
+  ],
+  "blocked_facts_excluded": true,
+  "git_apply_check_passed": true,
+  "document_validation_valid": true,
+  "independent_bundle_verdict": {
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+    "verified": true,
+    "checks": {
+      "all_artifacts_present": true,
+      "artifact_checksums_match": true,
+      "schemas_valid": true,
+      "source_hash_matches_plan": true,
+      "facts_hash_matches_plan": true,
+      "candidate_hash_matches_plan": true,
+      "agentic_plan_repository_matches": true,
+      "agentic_plan_source_hash_matches": true,
+      "agentic_plan_facts_hash_matches": true,
+      "agentic_plan_assessment_hash_matches": true,
+      "independent_reconstruction_byte_identical": true,
+      "reconstructed_plan_matches": true,
+      "assessment_reconstructed": true,
+      "claim_map_reconstructed": true,
+      "operations_cite_selected_facts": true,
+      "cited_facts_accepted": true,
+      "independent_validation_valid": true,
+      "recomputed_validation_consistent_with_stored": true,
+      "native_git_apply_produces_candidate": true,
+      "acquisition_matches_live_registry": true
+    },
+    "failures": []
+  }
+}

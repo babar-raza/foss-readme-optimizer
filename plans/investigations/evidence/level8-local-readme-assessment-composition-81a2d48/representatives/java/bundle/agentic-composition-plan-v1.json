@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+  "facts_hash": "c76dd01e204931b768089ea143a9e751d1c68ffc709442fa8c9e30535bb48111",
+  "assessment_hash": "c60f711bf2afb3726195ab0788a0cef0f3cdb34cc868de0889a1328058eac3ba",
+  "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+  "tool_schema_sha256": "d189c0e6cf52a559b9685bb34a39cc42365ba4728ed54c5eaf1baaa1f7b3a4f1",
+  "input_sha256": "8cca0863dfbba13f8adfc7e0df590b59f415986c407847cb42495c975c5cdb2e",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "Aspose.Cells FOSS for Java is a Java 17 open-source library for processing XLSX workbooks without requiring Microsoft Excel. It supports workbook/worksheet creation, cell manipulation, formatting, charts, shapes, tables, and more. The library is available on Maven Central under org.aspose:aspose-cells-foss:26.7.0 and is MIT-licensed. The README currently contains maintainer-authored content that should be preserved, but the installation section has an outdated version (1.0.0) and the Quick Start example does not match the verified minimal example from the repository.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening paragraph accurately describes the product identity and relationship to commercial Aspose.Cells, and the deterministic assessment confirms it should be preserved."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The main heading 'Aspose.Cells FOSS for Java' is maintained by the repository and matches the product identity fact."
+    },
+    {
+      "section_id": "heading:304",
+      "disposition": "repair",
+      "priority": 10,
+      "supporting_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-maven_central"
+      ],
+      "rationale": "The installation section contains an outdated version (1.0.0) that conflicts with the verified manifest version 26.7.0 and must be repaired to match the verified coordinates."
+    },
+    {
+      "section_id": "heading:519",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Current Scope' section is maintainer-authored and contains accurate technical details about supported formats and runtime requirements."
+    },
+    {
+      "section_id": "heading:829",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Supported Features' section is maintainer-authored and provides a comprehensive list of verified capabilities."
+    },
+    {
+      "section_id": "heading:3217",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Known Limits' section accurately reflects the verified limitations of the library."
+    },
+    {
+      "section_id": "heading:3567",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Build And Test' section contains accurate build instructions and is maintainer-authored."
+    },
+    {
+      "section_id": "heading:3753",
+      "disposition": "repair",
+      "priority": 10,
+      "supporting_fact_ids": [
+        "example.minimal:compiled-policy-example"
+      ],
+      "rationale": "The 'Quick Start' section contains multiple examples, but the first example does not match the verified minimal example. The verified example uses a simpler structure and must be used as the canonical minimal example."
+    },
+    {
+      "section_id": "heading:7385",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Project Layout' section is maintainer-authored and accurately describes the repository structure."
+    },
+    {
+      "section_id": "heading:8281",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Testing Coverage' section is maintainer-authored and accurately describes the test coverage areas."
+    },
+    {
+      "section_id": "heading:8904",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Notes For Contributors' section is maintainer-authored and provides useful contribution guidance."
+    },
+    {
+      "section_id": "heading:9154",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'License' section accurately reflects the MIT license and is maintainer-authored."
+    },
+    {
+      "section_id": "heading:9257",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Support' section is maintainer-authored and provides the correct GitHub issue tracker link."
+    },
+    {
+      "section_id": "missing:at-a-glance",
+      "disposition": "add",
+      "priority": 5,
+      "supporting_fact_ids": [
+        "product.audience:approved-policy",
+        "product.problems_solved:approved-policy",
+        "product.capabilities:repository-evidence"
+      ],
+      "rationale": "A fact-backed overview section should be added to highlight the target audience (Java developers), the problem solved (processing XLSX without Excel), and core capabilities (create, load, modify, save workbooks and worksheets)."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Java developers creating, loading, modifying, and saving spreadsheet workbooks.",
+      "supporting_fact_ids": [
+        "product.audience:approved-policy"
+      ]
+    },
+    {
+      "text": "Process XLSX workbooks with an open-source Java API without requiring Microsoft Excel.",
+      "supporting_fact_ids": [
+        "product.problems_solved:approved-policy"
+      ]
+    },
+    {
+      "text": "Create, load, modify, and save workbooks and worksheets.",
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence"
+      ]
+    }
+  ]
+}

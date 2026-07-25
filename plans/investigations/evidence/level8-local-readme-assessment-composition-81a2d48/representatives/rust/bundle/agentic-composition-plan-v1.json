@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+  "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+  "facts_hash": "a442bd200f697298bd4a4379597664bd1b61583b0f596e5d97b3f54dbc9c8eac",
+  "assessment_hash": "6a3d58f776e6b163bf78727d6055cd2a37973cb969bb5dab5f4449f43d326092",
+  "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+  "tool_schema_sha256": "4793798940599c00cfdfb50fe81c67ba6c02da557c860784795664240ac576b0",
+  "input_sha256": "0067f7a506d597e6c7edef4974bfcff2ad3eae432a9f595a7393d8c87452e163",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "Aspose.Cells FOSS for Rust is a pure-Rust library for reading and writing Excel .xlsx workbooks, modeled after Aspose.Cells but with no proprietary runtime. It is early-stage, MIT-licensed, and maintained as a free open-source project with a path to commercial upgrade.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening paragraph accurately describes the product identity (rust, cells, aspose-cells-foss/Aspose.Cells-FOSS-for-Rust) and relationship (open_source_scope, commercial_upgrade_path) without promotional claims that conflict with verified facts."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; no verified conflicts or required changes."
+    },
+    {
+      "section_id": "heading:988",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.limitations:repository-evidence"
+      ],
+      "rationale": "The Status section matches the verified limitation: 'Early-stage and evolving; the public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial'."
+    },
+    {
+      "section_id": "heading:1178",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ],
+      "rationale": "The Features list accurately reflects the verified capability: 'Read and write Excel .xlsx (Office Open XML / SpreadsheetML) workbooks'."
+    },
+    {
+      "section_id": "heading:2229",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "installation.coordinates:manifest"
+      ],
+      "rationale": "Installation prose references a directory name 'Aspose.Cells FOSS for Rust - Github' that does not match the repository name 'Aspose.Cells-FOSS-for-Rust' and may cause acquisition ambiguity; requires maintainer verification."
+    },
+    {
+      "section_id": "heading:2956",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Quick start example prose is preserved while executable example evidence is unresolved; no verified conflicts."
+    },
+    {
+      "section_id": "heading:4036",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "documentation.links:primary",
+        "support.routes:primary"
+      ],
+      "rationale": "Documentation section correctly lists primary documentation and support routes as verified by policy-approved links."
+    },
+    {
+      "section_id": "heading:4536",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; no verified conflicts."
+    },
+    {
+      "section_id": "heading:5744",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; no verified conflicts."
+    },
+    {
+      "section_id": "heading:6300",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.license:license-file"
+      ],
+      "rationale": "License section correctly states MIT, matching the verified license in LICENSE.txt."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Read and write Excel .xlsx (Office Open XML / SpreadsheetML) workbooks",
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ]
+    },
+    {
+      "text": "Early-stage and evolving; the public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial",
+      "supporting_fact_ids": [
+        "product.limitations:repository-evidence"
+      ]
+    },
+    {
+      "text": "cells",
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    },
+    {
+      "text": "open_source_scope",
+      "supporting_fact_ids": [
+        "relationship.commercial_foss:primary"
+      ]
+    }
+  ]
+}

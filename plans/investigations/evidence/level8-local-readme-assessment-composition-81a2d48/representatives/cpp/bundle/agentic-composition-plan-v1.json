@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+  "facts_hash": "b0efbc87c40e1a90e2cf9cb92edb6dfd4719c7ec9114caaf3b121c60ef9bda70",
+  "assessment_hash": "b478097b217ec97e5db96dc896303d3190e5d93437438514f277cf7fec3e1be4",
+  "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+  "tool_schema_sha256": "b19ec852b544d3ae299ed4412aebf0627d68df0ec3528f11227cff02348766b8",
+  "input_sha256": "375f86f48b951446df590f36e508b9b0a69b4b34a6327b90c7c37405cd2536b3",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "Aspose.Cells FOSS for C++ is an open-source C++ library for creating, loading, editing, and saving Excel .xlsx workbooks without requiring Microsoft Excel. It provides an Aspose.Cells-compatible API surface, supports .xlsx load/save from file paths and streams, and includes features like cell values, formulas, styles, conditional formatting, and more. The library is distributed under the MIT license and is available via NuGet as Aspose.cells.Cpp.FOSS. Installation is managed via CMake manifests.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening paragraph accurately reflects the product identity and its open-source nature with a commercial upgrade path, and no promotional claims conflict with verified facts."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored title and introductory content are preserved as they align with verified facts and require no modification."
+    },
+    {
+      "section_id": "heading:180",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Highlights' section is maintainer-authored and matches the verified capabilities (e.g., .xlsx load/save, cell/formula/style support) without overreach."
+    },
+    {
+      "section_id": "heading:439",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'How to build' section provides accurate CMake-based build instructions consistent with manifest evidence."
+    },
+    {
+      "section_id": "heading:526",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Quick Start' example is preserved as-is, but its executable correctness and reproducibility require investigation against manifest and registry evidence."
+    },
+    {
+      "section_id": "heading:1817",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Supported Areas' section is maintainer-authored and aligns with verified product capabilities and formats."
+    },
+    {
+      "section_id": "heading:2164",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'License' section correctly states MIT and points to the verified license file."
+    },
+    {
+      "section_id": "heading:2303",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Support' section is maintainer-authored and appropriately points to the GitHub issues tracker."
+    },
+    {
+      "section_id": "missing:installation",
+      "disposition": "add",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-nuget"
+      ],
+      "rationale": "The README lacks an explicit installation section, but verified acquisition via NuGet (Aspose.cells.Cpp.FOSS) and CMake manifest coordinates justify adding an ecosystem-specific installation guide."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Load and save Excel .xlsx workbooks",
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ]
+    },
+    {
+      "text": "No runtime Office dependency required",
+      "supporting_fact_ids": [
+        "product.limitations:repository-evidence"
+      ]
+    },
+    {
+      "text": "cells",
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    },
+    {
+      "text": "open_source_scope",
+      "supporting_fact_ids": [
+        "relationship.commercial_foss:primary"
+      ]
+    }
+  ]
+}

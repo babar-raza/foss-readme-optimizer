@@ -1,0 +1,60 @@
+{
+  "ecosystem": "rust",
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+  "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+  "facts_hash": "a442bd200f697298bd4a4379597664bd1b61583b0f596e5d97b3f54dbc9c8eac",
+  "candidate_sha256": "f97e0f369d5f1c2f28d318d5329c24077ce549e751e092c777716b705e0a2c46",
+  "agentic_composition_plan_sha256": "c79cd7a2d9d55fac0e9a13875128e9e9c704cbcc45a16f8feb9817ca1346d624",
+  "agentic_model": "qwen3-next",
+  "agentic_attempt_count": 1,
+  "agentic_overview_sentence_count": 4,
+  "agentic_section_decision_count": 10,
+  "agentic_expected_section_decision_count": 10,
+  "document_operation_count": 1,
+  "assessment_section_count": 10,
+  "material_claim_count": 37,
+  "blocked_fact_ids": [
+    "example.minimal:agent-drafted-example",
+    "installation.verified_acquisition:disposable-source-build",
+    "product.audience:groundedness-blocked",
+    "product.capabilities:repository-evidence",
+    "product.compatibility:missing",
+    "product.problems_solved:groundedness-blocked"
+  ],
+  "cited_fact_ids": [
+    "product.formats:repository-evidence",
+    "product.identity:manifest-and-registry",
+    "product.limitations:repository-evidence",
+    "relationship.commercial_foss:primary"
+  ],
+  "blocked_facts_excluded": true,
+  "git_apply_check_passed": true,
+  "document_validation_valid": true,
+  "independent_bundle_verdict": {
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+    "verified": true,
+    "checks": {
+      "all_artifacts_present": true,
+      "artifact_checksums_match": true,
+      "schemas_valid": true,
+      "source_hash_matches_plan": true,
+      "facts_hash_matches_plan": true,
+      "candidate_hash_matches_plan": true,
+      "agentic_plan_repository_matches": true,
+      "agentic_plan_source_hash_matches": true,
+      "agentic_plan_facts_hash_matches": true,
+      "agentic_plan_assessment_hash_matches": true,
+      "independent_reconstruction_byte_identical": true,
+      "reconstructed_plan_matches": true,
+      "assessment_reconstructed": true,
+      "claim_map_reconstructed": true,
+      "operations_cite_selected_facts": true,
+      "cited_facts_accepted": true,
+      "independent_validation_valid": true,
+      "recomputed_validation_consistent_with_stored": true,
+      "native_git_apply_produces_candidate": true,
+      "acquisition_matches_live_registry": true
+    },
+    "failures": []
+  }
+}

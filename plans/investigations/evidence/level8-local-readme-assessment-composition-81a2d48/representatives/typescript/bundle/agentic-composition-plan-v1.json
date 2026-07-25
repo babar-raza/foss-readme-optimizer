@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+  "source_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+  "facts_hash": "41e25cbced22df49eaac359d06f76d360f9065a451b4f42bd5ae114de14ebb4a",
+  "assessment_hash": "0b9cc5ef1d019d3fc096e86c39cdd6be1d59ae8ca49645baa754ff964f732705",
+  "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+  "tool_schema_sha256": "387dadc3d8f3c183ebe6c6cc3ea5843e43d4049e1a8b1b724611cf7291596298",
+  "input_sha256": "35b14db21f7ebc2f8d624abcd745131900f71ede4550dcfbc863b652d1249fa7",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "The README for Aspose.3D FOSS for TypeScript describes a TypeScript/JavaScript library for 3D file format manipulation. It includes installation, quick start, supported formats, documentation, build/test instructions, format-specific features, architecture, examples, contributing, license, and acknowledgments sections. The repository is verified as a TypeScript package (@aspose/3d) supporting OBJ, GLTF, STL, 3MF, FBX, and Collada formats, with a clear open-source scope and commercial upgrade path.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening paragraph accurately reflects the product identity (typescript, @aspose/3d) and relationship (open_source_scope, commercial_upgrade_path) as verified by manifest and registry data. No promotional or unverified claims are present that require removal."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; no verified product facts conflict with the main heading."
+    },
+    {
+      "section_id": "heading:339",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; the features section aligns with verified format and platform facts."
+    },
+    {
+      "section_id": "heading:1344",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Installation prose cannot be changed while acquisition truth is unresolved; the example and command fragments are preserved but require further verification."
+    },
+    {
+      "section_id": "heading:1499",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Example prose is preserved while executable example evidence is unresolved; the quick start example requires further verification."
+    },
+    {
+      "section_id": "heading:2158",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ],
+      "rationale": "The supported formats section aligns with verified format facts (OBJ, GLTF, STL, 3MF, FBX, Collada) and is preserved."
+    },
+    {
+      "section_id": "heading:2769",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; documentation links are present and align with policy-approved support routes."
+    },
+    {
+      "section_id": "heading:2923",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.platforms:manifest"
+      ],
+      "rationale": "The TypeScript version support section aligns with the verified platform (typescript) and is preserved."
+    },
+    {
+      "section_id": "heading:3057",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; build and test instructions are standard and do not conflict with verified facts."
+    },
+    {
+      "section_id": "heading:3242",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; format-specific features align with verified format capabilities."
+    },
+    {
+      "section_id": "heading:4809",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; architecture details are consistent with the repository structure."
+    },
+    {
+      "section_id": "heading:5675",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; examples section is standard and does not conflict with verified facts."
+    },
+    {
+      "section_id": "heading:5926",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; contributing guidelines are standard and do not conflict with verified facts."
+    },
+    {
+      "section_id": "heading:6276",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; license information is standard and does not conflict with verified facts."
+    },
+    {
+      "section_id": "heading:6383",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default; acknowledgments are standard and do not conflict with verified facts."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "OBJ - Import/export with vertices, texture coordinates, normals, faces, objects, groups, smoothing groups, and materials",
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ]
+    },
+    {
+      "text": "typescript",
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    },
+    {
+      "text": "open_source_scope",
+      "supporting_fact_ids": [
+        "relationship.commercial_foss:primary"
+      ]
+    }
+  ]
+}
