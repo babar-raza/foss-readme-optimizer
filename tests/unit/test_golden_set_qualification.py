@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 from readme_agent.golden_set import qualification, review_harness
 from readme_agent.golden_set.review_scenarios import REVIEW_SCENARIOS
 from readme_agent.golden_set.scenarios import SCENARIOS, STOP
@@ -108,7 +110,17 @@ def test_review_corpus_covers_every_required_ecosystem_and_control():
 
 
 def test_review_harness_scores_the_real_prompt_contract():
-    results = review_harness.run_review_golden_set(_passing_review_client())
+    class CapturingClient:
+        def __init__(self):
+            self.delegate = _passing_review_client()
+            self.messages: list[list[dict]] = []
+
+        def analyze(self, messages: list[dict]) -> AnalysisResult:
+            self.messages.append(messages)
+            return self.delegate.analyze(messages)
+
+    client = CapturingClient()
+    results = review_harness.run_review_golden_set(client)
 
     assert len(results) == len(REVIEW_SCENARIOS)
     assert all(result.passed for result in results)
@@ -118,6 +130,8 @@ def test_review_harness_scores_the_real_prompt_contract():
         "BLOCKED_FACT_CONFLICT",
         "BLOCKED_MISSING_EVIDENCE",
     }
+    for scenario, messages in zip(REVIEW_SCENARIOS, client.messages, strict=True):
+        assert scenario.scenario_id not in json.dumps(messages)
 
 
 def test_three_session_report_meets_volume_and_route_thresholds():

@@ -40,14 +40,14 @@ def run_review_golden_set(
     for scenario in scenarios:
         product_facts = ProductFactsV2.model_validate(scenario.product_facts)
         messages = build_independent_readme_review_messages(
-            f"golden-set/{scenario.scenario_id}",
+            product_facts.org_repo,
             scenario.original_readme,
             scenario.candidate_readme,
             json.dumps(product_facts.model_dump(mode="json"), sort_keys=True),
             json.dumps(
                 {
-                    "scenario": scenario.scenario_id,
                     "operation": "review_only",
+                    "ecosystem": scenario.ecosystem,
                     "expected_source_revision": "golden-set-revision",
                 },
                 sort_keys=True,

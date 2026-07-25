@@ -8,6 +8,8 @@ import json
 import subprocess
 from pathlib import Path
 
+from filelock import FileLock, Timeout
+
 from readme_agent import env
 from readme_agent.evidence.writer import refresh_sha256sums, write_redacted_json
 from readme_agent.golden_set.auto_disable import evaluate_qualification_and_disable
@@ -104,8 +106,7 @@ def _parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main() -> int:
-    args = _parser().parse_args()
+def _run(args: argparse.Namespace) -> int:
     output: Path = args.output
     campaign_source = _bind_campaign_source(output)
     sessions_path = output / "agentic-qualification-sessions.json"
@@ -170,6 +171,21 @@ def main() -> int:
     for job, route in summary["routes"].items():
         print(f"  {job}: {route['passed']}/{route['total']} ({route['pass_rate']})")
     return 0 if not summary["volume_complete"] or summary["qualified"] else 1
+
+
+def main() -> int:
+    args = _parser().parse_args()
+    output: Path = args.output
+    output.parent.mkdir(parents=True, exist_ok=True)
+    lock = FileLock(output.parent / f".{output.name}.campaign.lock")
+    try:
+        with lock.acquire(timeout=0):
+            return _run(args)
+    except Timeout:
+        print(
+            f"qualification campaign already has an active writer: {output}",
+        )
+        return 2
 
 
 if __name__ == "__main__":
