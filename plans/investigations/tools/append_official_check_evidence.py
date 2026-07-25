@@ -20,8 +20,8 @@ def _sha256(path: Path) -> str:
 
 def _refresh_checksums(evidence_dir: Path) -> None:
     lines = [
-        f"{_sha256(path)}  {path.name}"
-        for path in sorted(evidence_dir.iterdir())
+        f"{_sha256(path)}  {path.relative_to(evidence_dir).as_posix()}"
+        for path in sorted(evidence_dir.rglob("*"))
         if path.is_file() and path.name != "sha256sums.txt"
     ]
     (evidence_dir / "sha256sums.txt").write_text(
