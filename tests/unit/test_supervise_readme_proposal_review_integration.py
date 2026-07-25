@@ -406,11 +406,11 @@ class TestSuperviseLocalDryRunProducesBothVerifierVerdicts:
         # dispatched as a real, registered, domain-scoped capability against a real
         # materialized 8-file bundle when a governed document plan is present.
         # This compatibility invocation deliberately has no README-POC lifecycle,
-        # so it records a legible skipped result. The canonical local_poc
-        # supervisor test requires checked + verified.
+        # so verification is not applicable. The canonical local_poc supervisor
+        # test requires checked + verified.
         assert "bundle_verification" in readme_presentation_details
         bundle_verification = readme_presentation_details["bundle_verification"]
-        assert bundle_verification["status"] in ("checked", "skipped")
+        assert bundle_verification["status"] in ("checked", "not_applicable")
         if bundle_verification["status"] == "checked":
             assert "verified" in bundle_verification
             assert "bundle_dir" in bundle_verification

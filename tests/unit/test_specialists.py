@@ -1025,11 +1025,12 @@ class TestReadmePresentationSpecialist:
         assert plan_result["presentation_plan"]["actions"][0]["disposition"] == "eligible"
         assert plan_result["git_patch_proof"]["git_apply_check_passed"] is True
         assert "patch" not in plan_result["git_patch_proof"]
-        # RPOC-050/051: `review` runs between `verify` and `commit` -- the
+        # RPOC-050/051: `review` runs between `verify` and `commit`.
         # This direct compatibility invocation has no governed README-POC
-        # lifecycle/document plan, so it records the verifier as skipped.
-        # The canonical local_poc supervisor test proves the checked gate.
-        assert result.details["bundle_verification"]["status"] == "skipped"
+        # lifecycle/document plan, so verification is not applicable rather
+        # than silently skipped. The canonical local_poc supervisor test
+        # proves the checked gate.
+        assert result.details["bundle_verification"]["status"] == "not_applicable"
         assert result.details["independent_review"]["outcome_kind"] == "accepted"
         assert result.details["independent_review"]["final_review"]["verdict"] == "ACCEPT"
         # RPOC-050: the raw patch text never survives past `review`'s own node
