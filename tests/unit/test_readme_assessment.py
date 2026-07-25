@@ -139,7 +139,12 @@ def test_blocked_facts_are_neither_cited_nor_introduced_into_candidate():
         base_revision=revision,
     )
     validation = validate_readme_document_candidate(source, candidate, plan, blocked)
-    claim_map = build_readme_claim_map(plan, blocked)
+    claim_map = build_readme_claim_map(
+        plan,
+        blocked,
+        source_text=source,
+        candidate_text=candidate,
+    )
 
     assert validation.valid, validation.errors
     assert isinstance(claim_map, ReadmeClaimMapV1)
@@ -241,3 +246,134 @@ def test_verified_go_acquisition_uses_go_command_not_java_template():
     assert rendered is not None
     assert "go get example.com/pdf-go@latest" in rendered
     assert "mvn" not in rendered
+
+
+def test_dotnet_acquisition_matches_package_name_case_insensitively_without_first_root_fallback():
+    facts, revision = _java_facts()
+    identity = facts.selected_fact("product.identity")
+    coordinates = facts.selected_fact("installation.coordinates")
+    acquisition = facts.selected_fact("installation.verified_acquisition")
+    replacements = {
+        identity.fact_id: identity.model_copy(
+            update={
+                "value": {
+                    "family": "3d",
+                    "platform": "net",
+                    "ecosystem": "net",
+                    "repository": "example/3d-dotnet",
+                    "manifest_names": ["Aspose.3D.Converter", "Aspose.3D.FOSS"],
+                }
+            }
+        ),
+        coordinates.fact_id: coordinates.model_copy(
+            update={
+                "value": [
+                    {"name": "Aspose.3D.Converter", "version": "1.0.0"},
+                    {"name": "Aspose.3D.FOSS", "version": "26.1.0"},
+                ]
+            }
+        ),
+        acquisition.fact_id: acquisition.model_copy(
+            update={
+                "value": {
+                    "method": "nuget",
+                    "outcome": "REGISTRY_VERIFIED",
+                    "detail": "NuGet package found",
+                    "coordinate": {"name": "Aspose.3d.FOSS"},
+                }
+            }
+        ),
+    }
+    dotnet_facts = facts.model_copy(
+        update={
+            "org_repo": "example/3d-dotnet",
+            "facts": [replacements.get(fact.fact_id, fact) for fact in facts.facts],
+        }
+    )
+
+    rendered = installation_text(dotnet_facts, dotnet_facts.org_repo, revision)
+
+    assert rendered is not None
+    assert "dotnet add package Aspose.3d.FOSS --version 26.1.0" in rendered
+    assert "1.0.0" not in rendered
+
+
+def test_source_build_correction_preserves_adjacent_maintainer_command():
+    facts, revision = _java_facts()
+    acquisition = facts.selected_fact("installation.verified_acquisition")
+    source_build = facts.model_copy(
+        update={
+            "facts": [
+                (
+                    fact.model_copy(
+                        update={
+                            "value": {
+                                "method": "source_build",
+                                "outcome": "SOURCE_BUILD_VERIFIED",
+                                "detail": "Built from the immutable source revision.",
+                                "coordinate": {},
+                            }
+                        }
+                    )
+                    if fact.fact_id == acquisition.fact_id
+                    else fact
+                )
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = """# Product
+
+## Installation
+
+```xml
+<dependency>
+  <groupId>org.aspose</groupId>
+  <artifactId>not-published</artifactId>
+</dependency>
+```
+
+Keep this maintainer recovery command:
+
+```bash
+curl -fsSL https://example.invalid/recovery.sh
+```
+
+## Limitations
+
+Keep this limitation.
+"""
+
+    candidate, plan = build_readme_document_candidate(
+        source_build.org_repo,
+        source,
+        source_build,
+        base_revision=revision,
+    )
+    validation = validate_readme_document_candidate(source, candidate, plan, source_build)
+    claim_map = build_readme_claim_map(
+        plan,
+        source_build,
+        source_text=source,
+        candidate_text=candidate,
+    )
+
+    assert validation.valid, validation.errors
+    assert "<artifactId>not-published</artifactId>" not in candidate
+    assert "curl -fsSL https://example.invalid/recovery.sh" in candidate
+    assert "Keep this limitation." in candidate
+    removal_claims = [
+        claim
+        for claim in claim_map.claims
+        if claim.operation_id.startswith("readme.installation.remove-false-package-claim")
+    ]
+    assert removal_claims
+    assert all(
+        claim.coordinate_space == "presentation_inner_source_utf8" for claim in removal_claims
+    )
+    removed_claim_texts = [
+        source.encode("utf-8")[claim.byte_start : claim.byte_end].decode("utf-8")
+        for claim in removal_claims
+    ]
+    assert any("<artifactId>not-published</artifactId>" in text for text in removed_claim_texts)
+    assert all("curl -fsSL" not in text for text in removed_claim_texts)

@@ -73,6 +73,7 @@ MANIFEST = CapabilityManifest(
         "readme_assessment": "object",
         "readme_document_plan": "object",
         "claim_map": "object",
+        "agentic_composition_plan": "object",
     },
     preconditions=["org_repo must be listed in data/products.json with a non-disabled mode"],
     required_permissions=["read_only_local"],
@@ -93,6 +94,7 @@ def execute(
     prior_content_fingerprint: str | None = None,
     prior_status: str | None = None,
     product_facts_v2: dict | None = None,
+    agentic_composition_plan: dict | None = None,
 ) -> dict:
     entry = find_entry(org_repo)
     scoped_facts = current_product_facts(org_repo)
@@ -103,7 +105,11 @@ def execute(
             else scoped_facts
         )
         assert facts is not None
-        return prepare_idea_fidelity_candidate(org_repo, facts)
+        return prepare_idea_fidelity_candidate(
+            org_repo,
+            facts,
+            agentic_composition_plan=agentic_composition_plan,
+        )
     if entry is not None and entry.policy_profile is not None:
         policy = load_policy(entry.policy_profile)
         if policy.product_truth is not None:

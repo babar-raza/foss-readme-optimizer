@@ -42,6 +42,13 @@ def _text_value(value: object) -> str:
     return str(value)
 
 
+def _text_fragments(value: object) -> list[str]:
+    if isinstance(value, list):
+        return [str(item).rstrip(".") for item in value if str(item).strip()]
+    text = str(value).rstrip(".")
+    return [text] if text else []
+
+
 def _accepted(facts: ProductFactsV2, field_name: str):
     fact = facts.selected_fact(field_name)
     if fact.verification_state not in _ACCEPTED_STATES or fact.has_unresolved_conflict:
@@ -159,7 +166,9 @@ def validate_readme_document_candidate(
         if (selected := _accepted(facts, field_name)) is not None
     ]
     checks["verified_overview_present"] = candidate_span is not None and all(
-        _text_value(selected.value) in candidate_span.content for selected in overview_facts
+        fragment in candidate_span.content
+        for selected in overview_facts
+        for fragment in _text_fragments(selected.value)
     )
     if not checks["verified_overview_present"]:
         errors.append("fact-backed audience/problem overview is absent")

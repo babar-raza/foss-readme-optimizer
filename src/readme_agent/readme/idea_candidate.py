@@ -27,7 +27,10 @@ from readme_agent.repository_snapshot import (
 
 
 def prepare_idea_fidelity_candidate(
-    org_repo: str, product_facts: ProductFactsV2 | None = None
+    org_repo: str,
+    product_facts: ProductFactsV2 | None = None,
+    *,
+    agentic_composition_plan: dict | None = None,
 ) -> dict:
     """Build a deterministic proposal; never write its candidate to the work clone."""
 
@@ -87,6 +90,7 @@ def prepare_idea_fidelity_candidate(
             source_text,
             facts,
             base_revision=snapshot.source_revision,
+            agentic_composition_plan=agentic_composition_plan,
         )
         assessment = assess_readme_document(
             org_repo,
@@ -94,7 +98,12 @@ def prepare_idea_fidelity_candidate(
             facts,
             base_revision=snapshot.source_revision,
         )
-        claim_map = build_readme_claim_map(document_plan, facts)
+        claim_map = build_readme_claim_map(
+            document_plan,
+            facts,
+            source_text=source_text,
+            candidate_text=final_text,
+        )
         needs_write = final_text != original_text
         return {
             "facts_hash": facts.canonical_hash(),
@@ -106,8 +115,20 @@ def prepare_idea_fidelity_candidate(
             "source_text": source_text,
             "final_text": final_text,
             "status": "GENERATED" if needs_write else "COMPLIANT_NO_CHANGE",
-            "llm_called": False,
-            "llm_calls": [],
+            "llm_called": agentic_composition_plan is not None,
+            "llm_calls": (
+                [
+                    {
+                        "job": "plan_readme_composition",
+                        "model": agentic_composition_plan.get("model"),
+                        "prompt_sha256": agentic_composition_plan.get("prompt_sha256"),
+                        "input_sha256": agentic_composition_plan.get("input_sha256"),
+                    }
+                ]
+                if agentic_composition_plan is not None
+                else []
+            ),
+            "agentic_composition_plan": agentic_composition_plan or {},
             "product_facts_v2": facts.model_dump(mode="json"),
             "readme_assessment": assessment.model_dump(mode="json"),
             "readme_document_plan": document_plan.model_dump(mode="json"),

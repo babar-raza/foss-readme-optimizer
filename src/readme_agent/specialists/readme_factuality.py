@@ -38,64 +38,71 @@ def evaluate_candidate_factuality(
     *,
     source_text: str | None = None,
     product_facts_v2: dict | ProductFactsV2 | None = None,
+    agentic_composition_plan: dict | None = None,
 ) -> CandidateFactualityDecisionV1:
     """Dispatch independent fact producers, then reject unsupported loss/claims."""
 
-    facts_dispatch = dispatch_tool_call(
-        {
-            "function": {
-                "name": "get_product_facts",
-                "arguments": json.dumps({"org_repo": org_repo}),
-            }
-        },
-        permissions,
-    )
-    if facts_dispatch.outcome != "executed" or facts_dispatch.result is None:
-        return CandidateFactualityDecisionV1(
-            valid=False,
-            error=f"get_product_facts:{facts_dispatch.outcome}:{facts_dispatch.error}",
+    if product_facts_v2 is not None:
+        # The canonical local path already collected and durably bound ProductFactsV2 to
+        # one immutable repository snapshot. Re-dispatching fact and package collectors
+        # here can observe a later registry/repository state, leaks live credentials into
+        # offline tests, and violates RepositorySnapshotV1's same-view invariant. The
+        # document-plan branch below independently reconstructs every introduced claim
+        # from this exact verified graph, so the legacy V1 conflict scan is neither needed
+        # nor permitted on this path.
+        current_v2 = ProductFactsV2.model_validate(product_facts_v2)
+        claim_conflicts: list[dict] = []
+    else:
+        facts_dispatch = dispatch_tool_call(
+            {
+                "function": {
+                    "name": "get_product_facts",
+                    "arguments": json.dumps({"org_repo": org_repo}),
+                }
+            },
+            permissions,
         )
+        if facts_dispatch.outcome != "executed" or facts_dispatch.result is None:
+            return CandidateFactualityDecisionV1(
+                valid=False,
+                error=f"get_product_facts:{facts_dispatch.outcome}:{facts_dispatch.error}",
+            )
 
-    acquisition_dispatch = dispatch_tool_call(
-        {
-            "function": {
-                "name": "verify_package_acquisition",
-                "arguments": json.dumps({"org_repo": org_repo}),
-            }
-        },
-        permissions,
-    )
-    if acquisition_dispatch.outcome != "executed" or acquisition_dispatch.result is None:
-        return CandidateFactualityDecisionV1(
-            valid=False,
-            error=(
-                "verify_package_acquisition:"
-                f"{acquisition_dispatch.outcome}:{acquisition_dispatch.error}"
-            ),
+        acquisition_dispatch = dispatch_tool_call(
+            {
+                "function": {
+                    "name": "verify_package_acquisition",
+                    "arguments": json.dumps({"org_repo": org_repo}),
+                }
+            },
+            permissions,
         )
+        if acquisition_dispatch.outcome != "executed" or acquisition_dispatch.result is None:
+            return CandidateFactualityDecisionV1(
+                valid=False,
+                error=(
+                    "verify_package_acquisition:"
+                    f"{acquisition_dispatch.outcome}:{acquisition_dispatch.error}"
+                ),
+            )
 
-    facts_result = facts_dispatch.result
-    current_v2 = (
-        ProductFactsV2.model_validate(product_facts_v2)
-        if product_facts_v2 is not None
-        else ProductFactsV2.model_validate(facts_result["product_facts_v2"])
-    )
-    facts_v1 = ProductFactsV1.from_capability_results(
-        facts_result,
-        acquisition_results=acquisition_dispatch.result["results"],
-    )
-
-    claim_conflicts = [
-        {
-            "package_root_path": finding.package_root_path,
-            "ecosystem": finding.ecosystem,
-            "claimed_coordinate": finding.claimed_coordinate,
-            "verification_outcome": finding.verification_outcome,
-            "verification_detail": finding.verification_detail,
-            "readme_excerpt": finding.readme_excerpt,
-        }
-        for finding in find_claim_conflicts(final_text, facts_v1)
-    ]
+        facts_result = facts_dispatch.result
+        current_v2 = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
+        facts_v1 = ProductFactsV1.from_capability_results(
+            facts_result,
+            acquisition_results=acquisition_dispatch.result["results"],
+        )
+        claim_conflicts = [
+            {
+                "package_root_path": finding.package_root_path,
+                "ecosystem": finding.ecosystem,
+                "claimed_coordinate": finding.claimed_coordinate,
+                "verification_outcome": finding.verification_outcome,
+                "verification_detail": finding.verification_detail,
+                "readme_excerpt": finding.readme_excerpt,
+            }
+            for finding in find_claim_conflicts(final_text, facts_v1)
+        ]
     if find_presentation_span(final_text) is not None:
         immutable_source = source_text if source_text is not None else original_text
         identity = current_v2.selected_fact("product.identity")
@@ -111,6 +118,7 @@ def evaluate_candidate_factuality(
             immutable_source,
             current_v2,
             base_revision=source_revision,
+            agentic_composition_plan=agentic_composition_plan,
         )
         document_validation = validate_readme_document_candidate(
             immutable_source,

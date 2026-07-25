@@ -165,6 +165,14 @@ class TestRejectsTampering:
         assert not verdict.verified
         assert verdict.checks["reconstructed_plan_matches"] is False
 
+    def test_tampered_agentic_plan_is_schema_checked(self, bundle):
+        plan_path = bundle / "agentic-composition-plan-v1.json"
+        plan_path.write_text('{"schema_version": 1, "unexpected": true}\n', encoding="utf-8")
+        _refresh_artifact_checksums(bundle)
+        verdict = verify_readme_proposal_bundle(bundle)
+        assert not verdict.verified
+        assert verdict.checks["schemas_valid"] is False
+
     def test_tampered_fact_rejected(self, bundle):
         facts = json.loads((bundle / "product-facts-v2.json").read_text(encoding="utf-8"))
         audience_id = facts["selected_fact_ids"]["product.audience"]

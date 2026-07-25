@@ -13,11 +13,13 @@ import hashlib
 from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.acquisition_contracts import matching_coordinate_row
 from readme_agent.readme.document_structure import Heading, github_anchor
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[3]
 TEMPLATE_ROOT = _PROJECT_ROOT / "templates" / "readme"
 DOCUMENT_TEMPLATE_NAMES = (
+    "agentic-overview-and-navigation.md",
     "product-overview-and-navigation.md",
     "verified-minimal-example.md",
     "verified-maven-acquisition.md",
@@ -100,26 +102,11 @@ def installation_text(
 
     acquisition_value = mapping_value(acquisition.value)
     coordinate = mapping_value(acquisition_value.get("coordinate"))
-    coordinate_rows = coordinates.value if isinstance(coordinates.value, list) else []
     identity_value = mapping_value(identity.value)
     ecosystem = str(identity_value.get("ecosystem") or identity_value.get("platform") or "")
     method = str(acquisition_value.get("method") or "")
 
-    matching_row = next(
-        (
-            row
-            for row in coordinate_rows
-            if isinstance(row, dict)
-            and (
-                row.get("name") == coordinate.get("name")
-                or (
-                    row.get("group_id") == coordinate.get("group_id")
-                    and row.get("artifact_id") == coordinate.get("artifact_id")
-                )
-            )
-        ),
-        next((row for row in coordinate_rows if isinstance(row, dict)), {}),
-    )
+    matching_row = matching_coordinate_row(coordinates.value, coordinate)
     version = str(matching_row.get("version") or "").strip()
 
     if method == "maven_central":
@@ -146,7 +133,13 @@ def installation_text(
             if ecosystem == "cpp"
             else "verified-dotnet-nuget-acquisition.md"
         )
-        version_argument = f" --version {version}" if version else ""
+        version_argument = (
+            f" -Version {version}"
+            if ecosystem == "cpp" and version
+            else f" --version {version}"
+            if version
+            else ""
+        )
         return (
             load_template(template)
             .format(
@@ -200,7 +193,11 @@ def example_text(facts: ProductFactsV2, source_revision: str) -> str:
     )
 
 
-def overview_text(facts: ProductFactsV2, headings: list[Heading]) -> str:
+def overview_text(
+    facts: ProductFactsV2,
+    headings: list[Heading],
+    agentic_overview_sentences: list[dict] | None = None,
+) -> str:
     audience = accepted_fact(facts, "product.audience")
     problem = accepted_fact(facts, "product.problems_solved")
     capabilities = accepted_fact(facts, "product.capabilities")
@@ -214,6 +211,18 @@ def overview_text(facts: ProductFactsV2, headings: list[Heading]) -> str:
         if heading.level == 2
         and heading.title.strip().lower() not in {"at a glance", "in this readme"}
     )
+    if agentic_overview_sentences:
+        sentences = "\n".join(
+            f"- {str(sentence['text']).strip()}" for sentence in agentic_overview_sentences
+        )
+        return (
+            load_template("agentic-overview-and-navigation.md")
+            .format(
+                sentences=sentences,
+                navigation=navigation or "- Continue with the repository guidance below.",
+            )
+            .strip()
+        )
     rendered = (
         load_template("product-overview-and-navigation.md")
         .format(

@@ -167,7 +167,12 @@ Existing guidance.
     assert "<artifactId>aspose-cells-foss</artifactId>" not in candidate
     assert "mvn clean install" in candidate
     assert any(
-        operation.operation_id == "readme.installation.verified-source-replacement"
+        operation.operation_id == "readme.installation.verified-source-insertion"
+        and operation.protected_content_treatment == "additive"
+        for operation in plan.operations
+    )
+    assert any(
+        operation.operation_id.startswith("readme.installation.remove-false-package-claim")
         and operation.protected_content_treatment == "authoritative_fact_correction"
         for operation in plan.operations
     )

@@ -4,6 +4,8 @@ from types import SimpleNamespace
 
 from readme_agent.facts.migration import migrate_product_facts_v1
 from readme_agent.facts.schema import ProductFactsV1
+from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.specialists import readme_factuality
 
 
@@ -124,3 +126,30 @@ def test_fact_dispatch_failure_rejects_before_verifier(monkeypatch):
 
     assert decision.valid is False
     assert decision.error == "get_product_facts:failed:state unavailable"
+
+
+def test_snapshot_bound_v2_facts_do_not_reobserve_network(monkeypatch):
+    facts = ProductFactsV2.model_validate(_facts_result()["product_facts_v2"])
+    source = "# Widget\n"
+    candidate, _plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="abc123",
+    )
+
+    def unexpected_dispatch(*_args, **_kwargs):
+        raise AssertionError("snapshot-bound factuality must not re-dispatch fact collectors")
+
+    monkeypatch.setattr(readme_factuality, "dispatch_tool_call", unexpected_dispatch)
+    decision = readme_factuality.evaluate_candidate_factuality(
+        facts.org_repo,
+        source,
+        candidate,
+        {"read_only_local", "read_only_network"},
+        source_text=source,
+        product_facts_v2=facts,
+    )
+
+    assert decision.valid is True
+    assert decision.claim_conflicts == []

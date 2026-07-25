@@ -184,6 +184,7 @@ def write_readme_proposal_bundle(
     claim_map_v1: dict,
     repository_presentation_plan_v1: dict,
     document_validation: dict,
+    agentic_composition_plan_v1: dict | None = None,
 ) -> None:
     """RPOC-050/051: materialize the 8-file independent-verifier evidence
     bundle (`verification/readme_proposal_bundle.py::_REQUIRED_ARTIFACTS`)
@@ -205,6 +206,10 @@ def write_readme_proposal_bundle(
     _atomic_write_text(bundle_dir / "proposal.patch", patch_text)
     _atomic_write_json(bundle_dir / "product-facts-v2.json", product_facts_v2)
     _atomic_write_json(bundle_dir / "readme-assessment-v1.json", readme_assessment_v1)
+    _atomic_write_json(
+        bundle_dir / "agentic-composition-plan-v1.json",
+        agentic_composition_plan_v1 or {},
+    )
     _atomic_write_json(bundle_dir / "readme-document-plan-v1.json", readme_document_plan_v1)
     _atomic_write_json(bundle_dir / "claim-map-v1.json", claim_map_v1)
     _atomic_write_json(

@@ -33,6 +33,7 @@ MANIFEST = CapabilityManifest(
         "presentation_plan": "object",
         "git_patch_proof": "object",
         "readme_assessment": "object",
+        "agentic_composition_plan": "object",
         "readme_document_plan": "object",
         "claim_map": "object",
         "document_validation": "object",
@@ -67,6 +68,7 @@ def execute(
     source_revision: str | None = None,
     source_text: str | None = None,
     product_facts_v2: dict | None = None,
+    agentic_composition_plan: dict | None = None,
 ) -> dict:
     if product_facts_v2 is None:
         facts_result = collect_product_facts(org_repo)
@@ -109,6 +111,7 @@ def execute(
                 facts,
                 ownership,
                 base_revision=base_revision,
+                agentic_composition_plan=agentic_composition_plan,
             )
         )
         return {

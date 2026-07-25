@@ -20,6 +20,7 @@ from readme_agent.evidence.writer import (  # noqa: E402
     write_redacted_json,
 )
 from readme_agent.facts.schema_v2 import ProductFactsV2  # noqa: E402
+from readme_agent.readme.agentic_composition import plan_readme_composition  # noqa: E402
 from readme_agent.readme.assessment import assess_readme_document  # noqa: E402
 from readme_agent.readme.idea_candidate import prepare_idea_fidelity_candidate  # noqa: E402
 from readme_agent.registry.loader import require_listed  # noqa: E402
@@ -102,7 +103,26 @@ def _one_representative(ecosystem: str, org_repo: str) -> tuple[dict, str]:
             f"{org_repo}: baseline revision drifted from the accepted product-truth evidence"
         )
     with repository_snapshot_scope(snapshot, allow_local_fact_verification=True):
-        rendered = prepare_idea_fidelity_candidate(org_repo, facts)
+        source_path = snapshot.root_path / (snapshot.readme_path or "README.md")
+        source_text = source_path.read_text(encoding="utf-8") if source_path.is_file() else ""
+        assessment = assess_readme_document(
+            org_repo,
+            source_text,
+            facts,
+            base_revision=snapshot.source_revision,
+        )
+        composition_plan = plan_readme_composition(
+            org_repo,
+            source_text,
+            facts,
+            assessment,
+        )
+        composition_payload = composition_plan.model_dump(mode="json")
+        rendered = prepare_idea_fidelity_candidate(
+            org_repo,
+            facts,
+            agentic_composition_plan=composition_payload,
+        )
         source_text = rendered["source_text"]
         candidate_text = rendered["final_text"]
         planned = build_plan(
@@ -112,6 +132,7 @@ def _one_representative(ecosystem: str, org_repo: str) -> tuple[dict, str]:
             candidate_text=candidate_text,
             source_revision=snapshot.source_revision,
             product_facts_v2=facts.model_dump(mode="json"),
+            agentic_composition_plan=composition_payload,
         )
     if planned["executable"] is not True:
         raise RuntimeError(f"{org_repo}: repository presentation plan is not executable")
@@ -124,6 +145,7 @@ def _one_representative(ecosystem: str, org_repo: str) -> tuple[dict, str]:
         patch_text=planned["git_patch_proof"]["patch"],
         product_facts_v2=facts.model_dump(mode="json"),
         readme_assessment_v1=planned["readme_assessment"],
+        agentic_composition_plan_v1=composition_payload,
         readme_document_plan_v1=planned["readme_document_plan"],
         claim_map_v1=planned["claim_map"],
         repository_presentation_plan_v1=planned["presentation_plan"],
@@ -140,6 +162,10 @@ def _one_representative(ecosystem: str, org_repo: str) -> tuple[dict, str]:
         "source_revision": snapshot.source_revision,
         "facts_hash": facts.canonical_hash(),
         "candidate_sha256": planned["presentation_plan"]["candidate_sha256"],
+        "agentic_composition_plan_sha256": composition_plan.canonical_hash(),
+        "agentic_model": composition_plan.model,
+        "agentic_overview_sentence_count": len(composition_plan.overview_sentences),
+        "agentic_section_decision_count": len(composition_plan.section_decisions),
         "document_operation_count": len(planned["readme_document_plan"]["operations"]),
         "assessment_section_count": len(assessment["sections"]),
         "material_claim_count": len(assessment["material_claims"]),
@@ -162,6 +188,12 @@ def _prompt_injection_control(java_facts: ProductFactsV2, source_text: str, revi
         java_facts,
         base_revision=revision,
     )
+    composition_plan = plan_readme_composition(
+        java_facts.org_repo,
+        injected,
+        java_facts,
+        assessment,
+    )
     with repository_snapshot_scope(
         capture_repository_snapshot(
             require_listed(java_facts.org_repo),
@@ -179,6 +211,7 @@ def _prompt_injection_control(java_facts: ProductFactsV2, source_text: str, revi
             injected,
             java_facts,
             base_revision=revision,
+            agentic_composition_plan=composition_plan.model_dump(mode="json"),
         )
     instruction_end = len(PROMPT_INJECTION.encode("utf-8"))
     instruction_claims = [
@@ -193,6 +226,11 @@ def _prompt_injection_control(java_facts: ProductFactsV2, source_text: str, revi
         and all(
             claim.disposition == "investigate" and not claim.fact_ids
             for claim in instruction_claims
+        ),
+        "agentic_plan_cites_only_accepted_facts": all(
+            java_facts.fact_by_id(fact_id).verification_state in {"verified", "policy_approved"}
+            for sentence in composition_plan.overview_sentences
+            for fact_id in sentence.supporting_fact_ids
         ),
     }
 
@@ -251,6 +289,13 @@ def main() -> int:
         ),
         "all_document_plans_nonempty": all(
             item["document_operation_count"] > 0 for item in results
+        ),
+        "all_agentic_composition_plans_nonempty": all(
+            item["agentic_overview_sentence_count"] > 0 for item in results
+        ),
+        "all_assessed_sections_receive_agentic_decisions": all(
+            item["agentic_section_decision_count"] == item["assessment_section_count"]
+            for item in results
         ),
         "all_patches_apply": all(item["git_apply_check_passed"] for item in results),
         "all_document_validations_pass": all(item["document_validation_valid"] for item in results),

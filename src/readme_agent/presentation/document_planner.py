@@ -63,6 +63,7 @@ def build_document_repository_presentation_plan(
     ownership: SurfaceOwnershipMapV1,
     *,
     base_revision: str,
+    agentic_composition_plan: dict | None = None,
 ) -> tuple[RepositoryPresentationPlanV1, dict, bool, dict]:
     """Rebuild the document plan independently and prove the resulting Git patch."""
 
@@ -71,6 +72,7 @@ def build_document_repository_presentation_plan(
         source_text,
         facts,
         base_revision=base_revision,
+        agentic_composition_plan=agentic_composition_plan,
     )
     if expected_candidate != candidate_text:
         raise ValidationFailure("README candidate differs from the independently rebuilt plan")
@@ -80,7 +82,12 @@ def build_document_repository_presentation_plan(
         facts,
         base_revision=base_revision,
     )
-    claim_map = build_readme_claim_map(document_plan, facts)
+    claim_map = build_readme_claim_map(
+        document_plan,
+        facts,
+        source_text=source_text,
+        candidate_text=candidate_text,
+    )
     validation = validate_readme_document_candidate(
         source_text,
         candidate_text,
@@ -169,6 +176,7 @@ def build_document_repository_presentation_plan(
         proof.model_dump(mode="json"),
         executable,
         {
+            "agentic_composition_plan": agentic_composition_plan or {},
             "readme_assessment": assessment.model_dump(mode="json"),
             "readme_document_plan": document_plan.model_dump(mode="json"),
             "claim_map": claim_map.model_dump(mode="json"),

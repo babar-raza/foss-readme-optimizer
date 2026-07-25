@@ -13,6 +13,7 @@ from readme_agent.evidence.writer import (
     write_redacted_text,
 )
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
@@ -161,6 +162,12 @@ def write_local_poc_readme_candidate(
     if render_result.get("source_revision") != snapshot.source_revision:
         raise ValueError("README candidate revision does not match the immutable snapshot")
     assessment = ReadmeAssessmentV1.model_validate(presentation_plan["readme_assessment"])
+    raw_agentic_plan = render_result.get("agentic_composition_plan") or {}
+    agentic_plan = (
+        ReadmeAgenticCompositionPlanV1.model_validate(raw_agentic_plan)
+        if raw_agentic_plan
+        else None
+    )
     document_plan = ReadmeDocumentPlanV1.model_validate(presentation_plan["readme_document_plan"])
     claim_map = ReadmeClaimMapV1.model_validate(presentation_plan["claim_map"])
     candidate_text = str(render_result["final_text"])
@@ -218,6 +225,10 @@ def write_local_poc_readme_candidate(
         document_plan.model_dump(mode="json"),
     )
     write_redacted_json(
+        planning_dir / "agentic-composition-plan.json",
+        agentic_plan.model_dump(mode="json") if agentic_plan is not None else {},
+    )
+    write_redacted_json(
         planning_dir / "selected-capabilities.json",
         {
             "capabilities": [
@@ -254,6 +265,9 @@ def write_local_poc_readme_candidate(
             "facts_hash": document_plan.facts_hash,
             "assessment_hash": assessment_hash,
             "presentation_plan_hash": presentation_plan_hash,
+            "agentic_composition_plan_hash": (
+                agentic_plan.canonical_hash() if agentic_plan is not None else None
+            ),
             "candidate_hash": candidate_hash,
             "complete": False,
             "completed_stages": [

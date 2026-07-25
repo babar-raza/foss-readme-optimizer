@@ -25,6 +25,7 @@ from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
 from readme_agent.ecosystems.resolver import resolve
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety._git import run_git
+from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import ReadmeAssessmentV1, assess_readme_document
 from readme_agent.readme.claim_map import ReadmeClaimMapV1, build_readme_claim_map
 from readme_agent.readme.document_hashing import sha256_hex
@@ -42,6 +43,7 @@ _REQUIRED_ARTIFACTS = (
     "proposal.patch",
     "product-facts-v2.json",
     "readme-assessment-v1.json",
+    "agentic-composition-plan-v1.json",
     "readme-document-plan-v1.json",
     "claim-map-v1.json",
     "repository-presentation-plan-v1.json",
@@ -194,6 +196,14 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         assessment = ReadmeAssessmentV1.model_validate(
             json.loads((bundle_dir / "readme-assessment-v1.json").read_text(encoding="utf-8"))
         )
+        raw_agentic_plan = json.loads(
+            (bundle_dir / "agentic-composition-plan-v1.json").read_text(encoding="utf-8")
+        )
+        agentic_plan = (
+            ReadmeAgenticCompositionPlanV1.model_validate(raw_agentic_plan)
+            if raw_agentic_plan
+            else None
+        )
         claim_map = ReadmeClaimMapV1.model_validate(
             json.loads((bundle_dir / "claim-map-v1.json").read_text(encoding="utf-8"))
         )
@@ -220,10 +230,37 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         sha256_hex(candidate) == plan.candidate_sha256,
         "sha256(candidate-readme.md) != plan candidate_sha256",
     )
+    if agentic_plan is not None:
+        record(
+            "agentic_plan_repository_matches",
+            agentic_plan.org_repo == org_repo,
+            "agentic composition plan belongs to another repository",
+        )
+        record(
+            "agentic_plan_source_hash_matches",
+            agentic_plan.source_sha256 == sha256_hex(original),
+            "agentic composition source hash does not match original README",
+        )
+        record(
+            "agentic_plan_facts_hash_matches",
+            agentic_plan.facts_hash == facts.canonical_hash(),
+            "agentic composition facts hash does not match ProductFactsV2",
+        )
+        record(
+            "agentic_plan_assessment_hash_matches",
+            agentic_plan.assessment_hash == assessment.canonical_hash(),
+            "agentic composition assessment hash does not match ReadmeAssessmentV1",
+        )
 
     # The load-bearing independence check: rebuild the candidate from scratch.
     recon_candidate, recon_plan = build_readme_document_candidate(
-        org_repo, original, facts, base_revision=plan.immutable_base_revision
+        org_repo,
+        original,
+        facts,
+        base_revision=plan.immutable_base_revision,
+        agentic_composition_plan=(
+            agentic_plan.model_dump(mode="json") if agentic_plan is not None else None
+        ),
     )
     recon_assessment = assess_readme_document(
         org_repo,
@@ -231,7 +268,12 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         facts,
         base_revision=plan.immutable_base_revision,
     )
-    recon_claim_map = build_readme_claim_map(recon_plan, facts)
+    recon_claim_map = build_readme_claim_map(
+        recon_plan,
+        facts,
+        source_text=original,
+        candidate_text=recon_candidate,
+    )
     record(
         "independent_reconstruction_byte_identical",
         recon_candidate == candidate,

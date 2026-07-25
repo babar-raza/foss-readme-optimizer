@@ -182,7 +182,12 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
         facts,
         base_revision=snapshot.source_revision,
     )
-    claim_map = build_readme_claim_map(document_plan, facts)
+    claim_map = build_readme_claim_map(
+        document_plan,
+        facts,
+        source_text=source_text,
+        candidate_text=candidate,
+    )
 
     bundle, assessment_hash, plan_hash, candidate_hash = write_local_poc_readme_candidate(
         snapshot,
@@ -218,6 +223,7 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
         claim.model_dump(mode="json") for claim in assessment.material_claims
     ]
     assert (bundle / "planning" / "readme-document-plan.json").is_file()
+    assert (bundle / "planning" / "agentic-composition-plan.json").is_file()
     assert (bundle / "candidate" / "README.md").read_text(encoding="utf-8") == candidate
     assert (bundle / "candidate" / "README.patch").read_text(encoding="utf-8") == (
         "fixture patch\n"

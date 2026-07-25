@@ -94,9 +94,11 @@ from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_PRESENTATION
 from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
 from readme_agent.capabilities.schema import PermissionClass
-from readme_agent.errors import StateBackendError
+from readme_agent.errors import LLMError, StateBackendError
 from readme_agent.evidence.writer import generate_run_id, write_readme_proposal_bundle
 from readme_agent.orchestrator import record_accepted_readme_state
+from readme_agent.readme.agentic_composition import validate_readme_composition_plan
+from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import current_repository_snapshot
 from readme_agent.specialists.independent_readme_review import (
@@ -133,6 +135,7 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     wiring_arguments: dict = {}
     backend: StateBackend | None = config["configurable"].get("backend")
     current_revision = config["configurable"].get("current_revision")
+    prepared = None
     if backend is not None and current_revision is not None:
         prepared = load_prepared_product_truth(org_repo, backend, current_revision)
         if prepared is not None:
@@ -156,6 +159,61 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         if prior_status is not None:
             wiring_arguments["prior_status"] = prior_status
 
+    composition_plan_reused = False
+    if "product_facts_v2" in wiring_arguments or proposal_only_active():
+        prior_plan = state.details.get("agentic_composition_plan")
+        snapshot = current_repository_snapshot(org_repo)
+        if prepared is not None and prior_plan and snapshot is not None:
+            readme_path = snapshot.root_path / (snapshot.readme_path or "README.md")
+            source_text = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
+            assessment = assess_readme_document(
+                org_repo,
+                source_text,
+                prepared.facts,
+                base_revision=snapshot.source_revision,
+            )
+            try:
+                reusable_plan = validate_readme_composition_plan(
+                    prior_plan,
+                    org_repo=org_repo,
+                    source_text=source_text,
+                    facts=prepared.facts,
+                    assessment=assessment,
+                )
+            except (LLMError, OSError, ValueError):
+                pass
+            else:
+                wiring_arguments["agentic_composition_plan"] = reusable_plan.model_dump(mode="json")
+                composition_plan_reused = True
+
+    if (
+        "product_facts_v2" in wiring_arguments or proposal_only_active()
+    ) and not composition_plan_reused:
+        composition_call = {
+            "function": {
+                "name": "plan_readme_composition",
+                "arguments": json.dumps({"org_repo": org_repo}),
+            }
+        }
+        composition_dispatch = dispatch_tool_call(
+            composition_call,
+            _READ_ONLY_PERMISSIONS,
+            caller_domain=DOMAIN,
+            extra_kwargs={
+                "product_facts_v2": wiring_arguments.get("product_facts_v2"),
+                "client": config["configurable"].get("composition_client"),
+            },
+        )
+        if composition_dispatch.outcome != "executed":
+            return {
+                "accepted_status": (
+                    f"ERROR:agentic_composition:{composition_dispatch.outcome}:"
+                    f"{composition_dispatch.error}"
+                )
+            }
+        assert composition_dispatch.result is not None
+        wiring_arguments["agentic_composition_plan"] = composition_dispatch.result
+
     tool_call = {
         "function": {"name": "render_readme_candidate", "arguments": json.dumps(arguments)}
     }
@@ -169,7 +227,12 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         return {"accepted_status": f"ERROR:{dispatch.outcome}:{dispatch.error}"}
 
     assert dispatch.result is not None
-    return {"details": merge_details(state, render_result=dispatch.result)}
+    render_result = dict(dispatch.result)
+    if composition_plan_reused:
+        render_result["llm_called"] = False
+        render_result["llm_calls"] = []
+        render_result["agentic_composition_reused"] = True
+    return {"details": merge_details(state, render_result=render_result)}
 
 
 def _dispatch_verify_readme_candidate(org_repo: str, render_result: dict):
@@ -189,7 +252,12 @@ def _dispatch_verify_readme_candidate(org_repo: str, render_result: dict):
         }
     }
     return dispatch_tool_call(
-        verify_tool_call, _READ_ONLY_PERMISSIONS, caller_domain=INDEPENDENT_VERIFICATION
+        verify_tool_call,
+        _READ_ONLY_PERMISSIONS,
+        caller_domain=INDEPENDENT_VERIFICATION,
+        extra_kwargs={
+            "agentic_composition_plan": render_result.get("agentic_composition_plan"),
+        },
     )
 
 
@@ -212,6 +280,7 @@ def _dispatch_build_presentation_plan(org_repo: str, render_result: dict):
             "candidate_text": render_result["final_text"],
             "source_revision": render_result["source_revision"],
             "product_facts_v2": render_result.get("product_facts_v2"),
+            "agentic_composition_plan": render_result.get("agentic_composition_plan"),
         },
     )
 
@@ -233,7 +302,11 @@ def _dispatch_prose_quality_check(
     )
 
 
-def _dispatch_regenerate(org_repo: str, product_facts_v2: dict | None):
+def _dispatch_regenerate(
+    org_repo: str,
+    product_facts_v2: dict | None,
+    agentic_composition_plan: dict | None,
+):
     render_tool_call = {
         "function": {
             "name": "render_readme_candidate",
@@ -244,7 +317,10 @@ def _dispatch_regenerate(org_repo: str, product_facts_v2: dict | None):
         render_tool_call,
         _READ_ONLY_PERMISSIONS,
         caller_domain=DOMAIN,
-        extra_kwargs={"product_facts_v2": product_facts_v2},
+        extra_kwargs={
+            "product_facts_v2": product_facts_v2,
+            "agentic_composition_plan": agentic_composition_plan,
+        },
     )
 
 
@@ -383,6 +459,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 "source_text", current_render_result["original_text"]
             ),
             product_facts_v2=current_render_result.get("product_facts_v2"),
+            agentic_composition_plan=current_render_result.get("agentic_composition_plan"),
         )
         if not factuality.valid:
             reason = factuality.error or (
@@ -467,7 +544,9 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             }
 
         regenerate_dispatch = _dispatch_regenerate(
-            org_repo, current_render_result.get("product_facts_v2")
+            org_repo,
+            current_render_result.get("product_facts_v2"),
+            current_render_result.get("agentic_composition_plan"),
         )
         if regenerate_dispatch.outcome != "executed":
             return {
@@ -611,6 +690,7 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             patch_text=patch_text or "",
             product_facts_v2=product_facts_v2,
             readme_assessment_v1=presentation_plan_record["readme_assessment"],
+            agentic_composition_plan_v1=render_result.get("agentic_composition_plan"),
             readme_document_plan_v1=presentation_plan_record["readme_document_plan"],
             claim_map_v1=presentation_plan_record["claim_map"],
             repository_presentation_plan_v1=presentation_plan_record.get("presentation_plan") or {},
@@ -761,6 +841,8 @@ def _commit_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         "render_status": render_result["status"],
         "llm_called": render_result["llm_called"],
         "llm_calls": render_result["llm_calls"],
+        "agentic_composition_plan": render_result.get("agentic_composition_plan") or {},
+        "agentic_composition_reused": bool(render_result.get("agentic_composition_reused")),
         # Wave 7 production-reliability fix: next run's _render_node reads
         # this back as prior_content_fingerprint, completing the
         # fresh-runner durable-skip signal alongside accepted_facts_hash.

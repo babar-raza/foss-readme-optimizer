@@ -20,7 +20,9 @@ from readme_agent.capabilities import (
     review_visual_asset_accuracy,
     verify_prose_quality,
 )
+from readme_agent.ecosystems.resolver import ResolutionResult
 from readme_agent.errors import LLMError
+from readme_agent.facts import provider as facts_provider
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.gitsafety._git import run_git
 from readme_agent.llm.analysis_client import AnalysisResult
@@ -29,13 +31,14 @@ from readme_agent.llm.planner_client import FixturePlannerClient, PlannerTurn
 from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta, Usage
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
-from readme_agent.readme import candidate_pipeline
+from readme_agent.readme import agentic_composition, candidate_pipeline
 from readme_agent.specialists import independent_readme_review, readme_presentation
 from readme_agent.specialists import registry as specialists_registry
 from readme_agent.state.backend import Lock, SaveResult
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import DomainStateV1, ModelRouteStatusV1, RunStateV1, RunStateV2
 from readme_agent.supervisor.loop import _readme_poc_noop_gate_holds, supervise_repo
+from readme_agent.verification import readme_proposal_bundle
 
 # Proven-valid against the real word-count/prohibited-terms/talking-points
 # rules (identical policy to test_orchestrator.py's own FIXTURE_RESPONSE,
@@ -123,6 +126,71 @@ class _FakeAnalysisClient:
         return AnalysisResult(
             parsed={"criteria_results": [], "overall_summary": "fixture: not evaluated"},
             meta=LLMResponseMeta(),
+        )
+
+
+class _FakeCompositionAnalysisClient:
+    """Produce a fact-bound authoring plan from the prompt's own fixture facts."""
+
+    calls = 0
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def analyze(self, messages):
+        type(self).calls += 1
+        user = messages[-1]["content"]
+        facts_text = user.split("Accepted facts:\n", 1)[1].split(
+            "\n\nDeterministic source-bound assessment:", 1
+        )[0]
+        assessment_text = user.split("Deterministic source-bound assessment:\n", 1)[1].split(
+            "\n\nCurrent README", 1
+        )[0]
+        facts = json.loads(facts_text)
+        assessment = json.loads(assessment_text)
+        accepted_ids = {fact["fact_id"] for fact in facts}
+
+        def selected(field):
+            return next(
+                fact
+                for fact in facts
+                if fact["field"] == field
+                and fact["verification_state"] in {"verified", "policy_approved"}
+            )
+
+        audience = selected("product.audience")
+        problem = selected("product.problems_solved")
+
+        def first_text(value):
+            return str(value[0]) if isinstance(value, list) else str(value)
+
+        return AnalysisResult(
+            parsed={
+                "repository_summary": "Fixture-specific fact-bound composition.",
+                "section_decisions": [
+                    {
+                        "section_id": section["section_id"],
+                        "disposition": section["disposition"],
+                        "priority": 100 if index == 0 else 50,
+                        "supporting_fact_ids": [
+                            fact_id for fact_id in section["fact_ids"] if fact_id in accepted_ids
+                        ],
+                        "rationale": "Retain the deterministic source-bound disposition.",
+                    }
+                    for index, section in enumerate(assessment["sections"])
+                ],
+                "overview_sentences": [
+                    {
+                        "text": first_text(audience["value"]),
+                        "supporting_fact_ids": [audience["fact_id"]],
+                    },
+                    {
+                        "text": first_text(problem["value"]),
+                        "supporting_fact_ids": [problem["fact_id"]],
+                    },
+                ],
+            },
+            meta=LLMResponseMeta(model="fixture-composition"),
         )
 
 
@@ -362,6 +430,7 @@ def _fake_repo_summary(org_repo, token):
 
 @pytest.fixture
 def project(tmp_path, monkeypatch):
+    _FakeCompositionAnalysisClient.calls = 0
     source = _init_source_repo(tmp_path / "source")
     _setup_project_root(tmp_path, str(source))
     monkeypatch.chdir(tmp_path)
@@ -464,6 +533,14 @@ def project(tmp_path, monkeypatch):
         "collect_product_facts",
         _complete_fixture_product_facts,
     )
+    monkeypatch.setattr(
+        facts_provider,
+        "resolve",
+        lambda ecosystem, coordinate: ResolutionResult(
+            found=True,
+            detail=f"offline fixture registry: {ecosystem}:{coordinate}",
+        ),
+    )
     # Wave 7e: community_files_presentation is a fifth always-run specialist,
     # dispatching audit_community_files -- its local clone+scan half runs for
     # real against the local file:// source (same as readme_reconciliation's
@@ -481,6 +558,11 @@ def project(tmp_path, monkeypatch):
     # surface_validation) always-run specialist -- the first whose render
     # step can reach the one real LLM call, faked for the same reason.
     monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
+    monkeypatch.setattr(
+        agentic_composition,
+        "LiveAnalysisClient",
+        _FakeCompositionAnalysisClient,
+    )
     # Wave 8.6 (`VER-006` reversal): _verify_node now additionally dispatches
     # verify_prose_quality after a deterministic accept -- faked here (never
     # flagged) so this fixture's existing accept/commit assertions across
@@ -520,6 +602,15 @@ def project(tmp_path, monkeypatch):
     monkeypatch.setattr(
         independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
     )
+    # The bundle verifier deliberately performs a fresh public-registry check
+    # in production. This file's contract is an entirely offline synthetic
+    # repository, so keep that network seam explicit instead of inheriting
+    # credentials or waiting on fake package coordinates.
+    monkeypatch.setattr(
+        readme_proposal_bundle,
+        "_verify_acquisition_ground_truth",
+        lambda org_repo, facts: (True, "offline fixture: snapshot-bound acquisition accepted"),
+    )
     return tmp_path
 
 
@@ -542,6 +633,7 @@ class TestBasicLoop:
             track_readme_poc_lifecycle=True,
         )
         first_domain_details = backend.load(ORG_REPO).domain_states["readme_presentation"].details
+        first_composition_call_count = _FakeCompositionAnalysisClient.calls
         second = supervise_repo(
             ORG_REPO,
             planner_client=FixturePlannerClient(
@@ -555,7 +647,10 @@ class TestBasicLoop:
         state = backend.load(ORG_REPO)
         lifecycle = state.readme_poc_lifecycle
         assert lifecycle is not None
-        assert lifecycle.status == "CANDIDATE_GENERATED"
+        assert lifecycle.status == "CANDIDATE_GENERATED", (
+            first.blocked_reason,
+            first_domain_details,
+        )
         assert [item.to_status for item in lifecycle.history] == [
             "SNAPSHOTTED",
             "PROFILED",
@@ -574,6 +669,11 @@ class TestBasicLoop:
         assert first_domain_details["written"] is False
         assert first_domain_details["committed"] is False
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
+        assert first_composition_call_count == 1
+        assert _FakeCompositionAnalysisClient.calls == first_composition_call_count
+        assert (
+            state.domain_states["readme_presentation"].details["agentic_composition_reused"] is True
+        )
 
     def test_heterogeneous_local_poc_members_share_the_real_supervisor_path(self, project):
         products_path = project / "data" / "products.json"

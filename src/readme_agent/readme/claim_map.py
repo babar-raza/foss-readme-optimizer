@@ -9,7 +9,9 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
+from readme_agent.readme.markers import find_presentation_span
 
 
 class _StrictModel(BaseModel):
@@ -24,7 +26,17 @@ class ReadmeClaimBindingV1(_StrictModel):
     verification_state: Literal["verified", "policy_approved"]
     fact_value_sha256: str
     introduced_text_sha256: str
+    coordinate_space: Literal["candidate_utf8", "presentation_inner_source_utf8"]
+    byte_start: int = Field(ge=0)
+    byte_end: int = Field(ge=0)
+    claim_text_sha256: str
     rationale: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _valid_span(self) -> ReadmeClaimBindingV1:
+        if self.byte_end < self.byte_start:
+            raise ValueError("claim byte_end must be >= byte_start")
+        return self
 
 
 class ReadmeClaimMapV1(_StrictModel):
@@ -49,11 +61,35 @@ class ReadmeClaimMapV1(_StrictModel):
 def build_readme_claim_map(
     plan: ReadmeDocumentPlanV1,
     facts: ProductFactsV2,
+    *,
+    source_text: str,
+    candidate_text: str,
 ) -> ReadmeClaimMapV1:
-    """Build a deterministic, selected-fact-only map for introduced or corrected prose."""
+    """Map each selected fact to exact introduced or removed README bytes."""
 
     claims = []
+    existing = find_presentation_span(source_text)
+    source_inner = existing.content if existing is not None else source_text
+    source_bytes = source_inner.encode("utf-8")
     for operation in plan.operations:
+        if operation.replacement_text:
+            replacement_character_start = candidate_text.find(operation.replacement_text)
+            if replacement_character_start < 0:
+                raise ValueError(
+                    f"document operation replacement is absent from candidate: "
+                    f"{operation.operation_id!r}"
+                )
+            operation_claim_text = operation.replacement_text
+            operation_byte_start = len(candidate_text[:replacement_character_start].encode("utf-8"))
+            coordinate_space: Literal["candidate_utf8", "presentation_inner_source_utf8"] = (
+                "candidate_utf8"
+            )
+        else:
+            operation_claim_text = source_bytes[
+                operation.source_byte_start : operation.source_byte_end
+            ].decode("utf-8")
+            operation_byte_start = operation.source_byte_start
+            coordinate_space = "presentation_inner_source_utf8"
         for fact_id in operation.fact_ids:
             selected = facts.fact_by_id(fact_id)
             if facts.selected_fact_ids.get(selected.field) != fact_id:
@@ -73,6 +109,13 @@ def build_readme_claim_map(
                 ensure_ascii=False,
                 default=str,
             )
+            claim_text = _claim_line_for_fact(operation_claim_text, selected.value)
+            relative_character_start = operation_claim_text.find(claim_text)
+            relative_byte_start = len(
+                operation_claim_text[:relative_character_start].encode("utf-8")
+            )
+            byte_start = operation_byte_start + relative_byte_start
+            byte_end = byte_start + len(claim_text.encode("utf-8"))
             claims.append(
                 ReadmeClaimBindingV1(
                     claim_id=f"{operation.operation_id}:{selected.field}",
@@ -82,6 +125,10 @@ def build_readme_claim_map(
                     verification_state=selected.verification_state,
                     fact_value_sha256=hashlib.sha256(fact_value.encode("utf-8")).hexdigest(),
                     introduced_text_sha256=operation.replacement_sha256,
+                    coordinate_space=coordinate_space,
+                    byte_start=byte_start,
+                    byte_end=byte_end,
+                    claim_text_sha256=sha256_hex(claim_text),
                     rationale=operation.rationale,
                 )
             )
@@ -91,3 +138,32 @@ def build_readme_claim_map(
         candidate_sha256=plan.candidate_sha256,
         claims=claims,
     )
+
+
+def _fact_strings(value: object) -> list[str]:
+    if isinstance(value, str):
+        return [value.strip()] if value.strip() else []
+    if isinstance(value, list):
+        return [text for item in value for text in _fact_strings(item)]
+    if isinstance(value, dict):
+        return [text for item in value.values() for text in _fact_strings(item)]
+    return []
+
+
+def _claim_line_for_fact(operation_text: str, fact_value: object) -> str:
+    """Return the narrowest authored line containing a literal fact phrase."""
+
+    folded = operation_text.casefold()
+    matches = [
+        (folded.find(phrase.casefold()), phrase)
+        for phrase in _fact_strings(fact_value)
+        if len(phrase) >= 4 and phrase.casefold() in folded
+    ]
+    if not matches:
+        return operation_text
+    start, phrase = min(matches, key=lambda item: (item[0], -len(item[1])))
+    line_start = operation_text.rfind("\n", 0, start) + 1
+    line_end = operation_text.find("\n", start + len(phrase))
+    if line_end < 0:
+        line_end = len(operation_text)
+    return operation_text[line_start:line_end]

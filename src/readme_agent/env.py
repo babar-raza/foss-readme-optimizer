@@ -85,6 +85,7 @@ JOB_MODEL_ROUTING: dict[str, str] = {
     # draft-product-truth-route-characterization-2026-07-25/
     # characterization-and-recommendation.md.
     "draft_product_truth": "qwen3-next",
+    "plan_readme_composition": "qwen3-next",
 }
 
 

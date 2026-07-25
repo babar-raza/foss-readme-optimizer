@@ -19,6 +19,9 @@ from __future__ import annotations
 import re
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.acquisition_contracts import contradicted_package_claim_spans
+from readme_agent.readme.agentic_composition import validate_readme_composition_plan
+from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_operations import apply_document_operations, build_operation
 from readme_agent.readme.document_plan import (
@@ -58,6 +61,7 @@ def build_readme_document_candidate(
     facts: ProductFactsV2,
     *,
     base_revision: str,
+    agentic_composition_plan: dict | None = None,
 ) -> tuple[str, ReadmeDocumentPlanV1]:
     """Return one reproducible candidate and its fine-grained source operations."""
 
@@ -66,6 +70,20 @@ def build_readme_document_candidate(
     source = inner_text.encode("utf-8")
     headings = parse_headings(inner_text)
     operations: list[ReadmeDocumentOperationV1] = []
+    validated_agentic_plan = None
+    if agentic_composition_plan:
+        validated_agentic_plan = validate_readme_composition_plan(
+            agentic_composition_plan,
+            org_repo=org_repo,
+            source_text=source_text,
+            facts=facts,
+            assessment=assess_readme_document(
+                org_repo,
+                source_text,
+                facts,
+                base_revision=base_revision,
+            ),
+        )
 
     first_h2 = next((heading for heading in headings if heading.level == 2), None)
     has_overview = any(
@@ -96,7 +114,27 @@ def build_readme_document_candidate(
     ]
     verified_installation = installation_text(facts, org_repo, base_revision)
     if not has_overview:
-        overview_insert = overview_text(facts, headings) + "\n\n"
+        overview_insert = (
+            overview_text(
+                facts,
+                headings,
+                (
+                    [
+                        sentence.model_dump(mode="json")
+                        for sentence in validated_agentic_plan.overview_sentences
+                    ]
+                    if validated_agentic_plan is not None
+                    else None
+                ),
+            )
+            + "\n\n"
+        )
+        if validated_agentic_plan is not None:
+            overview_fact_ids.extend(
+                fact_id
+                for sentence in validated_agentic_plan.overview_sentences
+                for fact_id in sentence.supporting_fact_ids
+            )
     if installation is None and verified_installation:
         overview_insert += "## Installation\n\n" + verified_installation + "\n\n"
         overview_fact_ids.extend(
@@ -149,26 +187,25 @@ def build_readme_document_candidate(
 
     if installation is not None:
         installation_body = inner_text[installation.heading_end : installation.section_end]
-        contains_unverified_package_install = package_genuinely_not_published and any(
-            marker in installation_body
-            for marker in ("<dependency>", "implementation 'org.", 'implementation "org.')
+        contradicted_spans = (
+            contradicted_package_claim_spans(installation_body)
+            if package_genuinely_not_published
+            else []
         )
-        if contains_unverified_package_install:
-            start = len(inner_text[: installation.heading_end].encode("utf-8"))
-            end = len(inner_text[: installation.section_end].encode("utf-8"))
+        if contradicted_spans:
             if not verified_installation:
                 raise ValueError(
                     "verified source acquisition has no ecosystem-specific rendering contract"
                 )
-            replacement = "\n" + verified_installation + "\n\n"
+            insertion = len(inner_text[: installation.heading_end].encode("utf-8"))
             operations.append(
                 build_operation(
-                    operation_id="readme.installation.verified-source-replacement",
-                    operation="replace",
+                    operation_id="readme.installation.verified-source-insertion",
+                    operation="insert_after",
                     source=source,
-                    start=start,
-                    end=end,
-                    replacement=replacement,
+                    start=insertion,
+                    end=insertion,
+                    replacement="\n" + verified_installation + "\n\n",
                     fact_ids=[
                         selected.fact_id
                         for field in (
@@ -178,13 +215,41 @@ def build_readme_document_candidate(
                         )
                         if (selected := accepted_fact(facts, field)) is not None
                     ],
-                    treatment="authoritative_fact_correction",
+                    treatment="additive",
                     rationale=(
-                        "Replace an unverified registry-install claim with the source-build path "
-                        "that was executed for this immutable revision."
+                        "Add the source-build path that was executed for this immutable revision "
+                        "before removing only the contradicted package claim."
                     ),
                 )
             )
+            for index, (claim_start, claim_end) in enumerate(contradicted_spans, start=1):
+                start_character = installation.heading_end + claim_start
+                end_character = installation.heading_end + claim_end
+                start = len(inner_text[:start_character].encode("utf-8"))
+                end = len(inner_text[:end_character].encode("utf-8"))
+                operations.append(
+                    build_operation(
+                        operation_id=f"readme.installation.remove-false-package-claim:{index}",
+                        operation="remove",
+                        source=source,
+                        start=start,
+                        end=end,
+                        replacement="",
+                        fact_ids=[
+                            selected.fact_id
+                            for field in (
+                                "installation.coordinates",
+                                "installation.verified_acquisition",
+                            )
+                            if (selected := accepted_fact(facts, field)) is not None
+                        ],
+                        treatment="authoritative_fact_correction",
+                        rationale=(
+                            "Remove only the package-registry claim contradicted by the verified "
+                            "source-build acquisition, preserving adjacent maintainer content."
+                        ),
+                    )
+                )
 
     if exact_code and exact_code not in inner_text:
         if example_target is not None:

@@ -72,5 +72,12 @@ def execute(
     status: str,
     needs_write: bool,
     final_text: str,
+    agentic_composition_plan: dict | None = None,
 ) -> dict:
-    return independently_verify_readme_candidate(org_repo, final_text, status, needs_write)
+    return independently_verify_readme_candidate(
+        org_repo,
+        final_text,
+        status,
+        needs_write,
+        agentic_composition_plan=agentic_composition_plan,
+    )

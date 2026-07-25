@@ -82,7 +82,11 @@ _NO_WRITE_ELIGIBLE_STATUSES = frozenset({"COMPLIANT_NO_CHANGE"})
 _WRITE_ELIGIBLE_STATUS = "GENERATED"
 
 
-def _verify_presentation_candidate(org_repo: str, final_text: str) -> dict:
+def _verify_presentation_candidate(
+    org_repo: str,
+    final_text: str,
+    agentic_composition_plan: dict | None = None,
+) -> dict:
     facts_result = collect_product_facts(org_repo)
     facts = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
     identity = facts.selected_fact("product.identity")
@@ -110,6 +114,7 @@ def _verify_presentation_candidate(org_repo: str, final_text: str) -> dict:
         source_text,
         facts,
         base_revision=source_revision,
+        agentic_composition_plan=agentic_composition_plan,
     )
     validation = validate_readme_document_candidate(
         source_text,
@@ -142,7 +147,12 @@ def _verify_presentation_candidate(org_repo: str, final_text: str) -> dict:
 
 
 def independently_verify_readme_candidate(
-    org_repo: str, final_text: str, status: str, needs_write: bool
+    org_repo: str,
+    final_text: str,
+    status: str,
+    needs_write: bool,
+    *,
+    agentic_composition_plan: dict | None = None,
 ) -> dict:
     """Returns `{"verdict": "accept"|"reject", "reason": str | None,
     "checks": dict[str, bool], "requirement_map": dict[str, bool]}`
@@ -188,7 +198,11 @@ def independently_verify_readme_candidate(
                 "requirement_map": {},
             }
         if presentation_candidate:
-            result = _verify_presentation_candidate(org_repo, final_text)
+            result = _verify_presentation_candidate(
+                org_repo,
+                final_text,
+                agentic_composition_plan,
+            )
             result["checks"]["needs_write_matches"] = True
             return result
         return {
@@ -206,7 +220,11 @@ def independently_verify_readme_candidate(
                 "checks": {"needs_write_matches": True},
                 "requirement_map": {},
             }
-        result = _verify_presentation_candidate(org_repo, final_text)
+        result = _verify_presentation_candidate(
+            org_repo,
+            final_text,
+            agentic_composition_plan,
+        )
         result["checks"]["needs_write_matches"] = True
         return result
 

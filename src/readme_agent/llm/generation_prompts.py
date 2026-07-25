@@ -39,3 +39,30 @@ def build_draft_product_truth_messages(
         {"role": "system", "content": manifest.system.strip()},
         {"role": "user", "content": user_content},
     ]
+
+
+def build_readme_composition_messages(
+    org_repo: str,
+    source_text: str,
+    accepted_facts_json: str,
+    assessment_json: str,
+) -> list[dict]:
+    """Build the source-bound README authoring turn from its registered prompt."""
+
+    manifest = prompt_registry.get("plan_readme_composition")
+    assert manifest is not None, "prompts/generation/plan_readme_composition.yaml missing"
+    assert manifest.user_template is not None
+    user_content = (
+        Template(manifest.user_template)
+        .substitute(
+            org_repo=org_repo,
+            source_text=source_text,
+            accepted_facts_json=accepted_facts_json,
+            assessment_json=assessment_json,
+        )
+        .strip()
+    )
+    return [
+        {"role": "system", "content": manifest.system.strip()},
+        {"role": "user", "content": user_content},
+    ]

@@ -165,7 +165,7 @@ class TestCapabilityGap:
 
 
 class TestRegistry:
-    def test_all_twenty_seven_capabilities_registered(self):
+    def test_all_twenty_eight_capabilities_registered(self):
         ids = {m.capability_id for m in registry.list_all()}
         assert ids == {
             "inspect_repository",
@@ -177,6 +177,7 @@ class TestRegistry:
             # policy-authored product_truth yet -- read-only, never writes
             # to config/policies/*.yml.
             "draft_product_truth",
+            "plan_readme_composition",
             "build_presentation_plan",
             "classify_upstream_change",
             "render_readme_candidate",
@@ -339,6 +340,7 @@ class TestRegistry:
             # blast-radius axis, same reasoning as every other agentic_analysis
             # capability in this set.
             "draft_product_truth",
+            "plan_readme_composition",
         }
 
     def test_filter_by_side_effect_class_local_write(self):
@@ -544,14 +546,15 @@ class TestRegistryEff001RegistrationGate:
         )
         registry._build((mutator,))  # must not raise
 
-    def test_real_registry_of_twenty_seven_capabilities_still_builds_cleanly(self):
-        """Regression: twenty-five read-only capabilities (RPOC-033 adds
+    def test_real_registry_of_twenty_eight_capabilities_still_builds_cleanly(self):
+        """Regression: twenty-six read-only capabilities (agentic README composition adds
+        one to the RPOC-033 set, which added
         draft_product_truth to the prior twenty-four -- RPOC-050/051/052's own
         verify_readme_proposal_bundle/verify_cross_pilot_specificity plus the
         earlier twenty-two) plus the two real mutating capabilities
         (commit_readme_write, Wave 7g; open_presentation_pr, TC-08) all pass
         the mutating-only gate."""
-        assert len(registry.list_all()) == 27
+        assert len(registry.list_all()) == 28
 
 
 class TestInspectRepositoryCapability:
@@ -1020,9 +1023,20 @@ class TestVerifyReadmeCandidateCapability:
     def test_execute_delegates_to_independently_verify(self, monkeypatch):
         captured = {}
 
-        def fake_verify(org_repo, final_text, status, needs_write):
+        def fake_verify(
+            org_repo,
+            final_text,
+            status,
+            needs_write,
+            *,
+            agentic_composition_plan=None,
+        ):
             captured.update(
-                org_repo=org_repo, final_text=final_text, status=status, needs_write=needs_write
+                org_repo=org_repo,
+                final_text=final_text,
+                status=status,
+                needs_write=needs_write,
+                agentic_composition_plan=agentic_composition_plan,
             )
             return {"verdict": "accept", "reason": None, "checks": {}, "requirement_map": {}}
 
@@ -1045,6 +1059,7 @@ class TestVerifyReadmeCandidateCapability:
             "final_text": "# Widget\n",
             "status": "GENERATED",
             "needs_write": True,
+            "agentic_composition_plan": None,
         }
 
     def test_manifest_is_scoped_to_independent_verification(self):
