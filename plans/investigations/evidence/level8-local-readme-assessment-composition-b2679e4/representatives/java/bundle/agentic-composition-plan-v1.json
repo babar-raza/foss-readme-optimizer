@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+  "facts_hash": "c76dd01e204931b768089ea143a9e751d1c68ffc709442fa8c9e30535bb48111",
+  "assessment_hash": "2881fb54863da93dbefc269e11b2e422d7bfc072e36c649aa927d8a406910afc",
+  "prompt_sha256": "9001b7954242b39e84fd4e63f1e40313cb021f1a7819728d4b0efe9b83007c6e",
+  "tool_schema_sha256": "d189c0e6cf52a559b9685bb34a39cc42365ba4728ed54c5eaf1baaa1f7b3a4f1",
+  "input_sha256": "0b78d2660c70850dd356b1396d5a9e92f5778423bfea67334e4ec2ffe9bbb2f5",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "The README for Aspose.Cells-FOSS-for-Java is well-structured and contains detailed technical information. However, it lacks a concise, fact-backed overview section that immediately communicates the product's purpose, audience, and capabilities. The existing opening paragraph is descriptive but not optimized for quick scanning or discovery. A new 'At a glance' section will improve discoverability and align with the repository's verified product facts.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The existing opening paragraph is retained as-is since it provides a clear, factual description of the library and its scope. No verified gaps or promotional content require removal."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The main heading 'Aspose.Cells FOSS for Java' is accurate and matches the product identity. It is preserved as primary branding."
+    },
+    {
+      "section_id": "heading:304",
+      "disposition": "repair",
+      "priority": 50,
+      "supporting_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-maven_central"
+      ],
+      "rationale": "The installation snippet uses version '1.0.0', but the verified version is '26.7.0'. This must be corrected to avoid misleading users."
+    },
+    {
+      "section_id": "heading:519",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Current Scope' section accurately reflects verified compatibility and build/test tooling. It is preserved as-is."
+    },
+    {
+      "section_id": "heading:829",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Supported Features' section is comprehensive and aligns with verified capabilities. It is preserved as-is."
+    },
+    {
+      "section_id": "heading:3217",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Known Limits' section accurately reflects verified limitations (XLSX-only, ChartEx types). It is preserved as-is."
+    },
+    {
+      "section_id": "heading:3567",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Build And Test' section is factually correct and useful for contributors. It is preserved as-is."
+    },
+    {
+      "section_id": "heading:3753",
+      "disposition": "repair",
+      "priority": 50,
+      "supporting_fact_ids": [
+        "example.minimal:compiled-policy-example"
+      ],
+      "rationale": "The 'Quick Start' example uses a class named 'Main', but the verified minimal example uses 'ReadmeExample'. This must be corrected to ensure the example compiles and matches the verified source."
+    },
+    {
+      "section_id": "heading:7385",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Project Layout' section is accurate and helpful for contributors. It is preserved as-is."
+    },
+    {
+      "section_id": "heading:8281",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Testing Coverage' section is accurate and useful. It is preserved as-is."
+    },
+    {
+      "section_id": "heading:8904",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Notes For Contributors' section is accurate and useful. It is preserved as-is."
+    },
+    {
+      "section_id": "heading:9154",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'License' section is accurate and points to the correct file. It is preserved as-is."
+    },
+    {
+      "section_id": "heading:9257",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Support' section is accurate and points to the correct issue tracker. It is preserved as-is."
+    },
+    {
+      "section_id": "missing:at-a-glance",
+      "disposition": "add",
+      "priority": 100,
+      "supporting_fact_ids": [
+        "product.audience:approved-policy",
+        "product.problems_solved:approved-policy",
+        "product.capabilities:repository-evidence"
+      ],
+      "rationale": "A new 'At a glance' section is needed to provide a concise, fact-backed overview that highlights the product's audience, problem solved, and core capabilities. This improves discoverability and aligns with the repository's verified product facts."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Java developers creating, loading, modifying, and saving spreadsheet workbooks.",
+      "supporting_fact_ids": [
+        "product.audience:approved-policy"
+      ]
+    },
+    {
+      "text": "Process XLSX workbooks with an open-source Java API without requiring Microsoft Excel.",
+      "supporting_fact_ids": [
+        "product.problems_solved:approved-policy"
+      ]
+    },
+    {
+      "text": "Create, load, modify, and save workbooks and worksheets.",
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence"
+      ]
+    }
+  ]
+}

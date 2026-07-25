@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+  "source_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+  "facts_hash": "41e25cbced22df49eaac359d06f76d360f9065a451b4f42bd5ae114de14ebb4a",
+  "assessment_hash": "0b9cc5ef1d019d3fc096e86c39cdd6be1d59ae8ca49645baa754ff964f732705",
+  "prompt_sha256": "9001b7954242b39e84fd4e63f1e40313cb021f1a7819728d4b0efe9b83007c6e",
+  "tool_schema_sha256": "387dadc3d8f3c183ebe6c6cc3ea5843e43d4049e1a8b1b724611cf7291596298",
+  "input_sha256": "35b14db21f7ebc2f8d624abcd745131900f71ede4550dcfbc863b652d1249fa7",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "The README for Aspose.3D FOSS for TypeScript needs minor preservation and investigation actions. Core product identity, formats, and platform facts are verified and match existing content. Installation and Quick Start sections require investigation due to unresolved acquisition and example evidence, but prose should be preserved pending resolution. All other sections are maintainer-authored and preserved.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening paragraph accurately reflects the product identity and open-source relationship, matching verified facts about ecosystem, family, and repository."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored main heading is preserved by default."
+    },
+    {
+      "section_id": "heading:339",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored Features section is preserved by default."
+    },
+    {
+      "section_id": "heading:1344",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "installation.coordinates:manifest",
+        "release.state:manifest-and-registry"
+      ],
+      "rationale": "Installation prose matches verified coordinates and version, but acquisition evidence is unresolved; preserve prose while investigating."
+    },
+    {
+      "section_id": "heading:1499",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Quick Start prose is preserved while executable example evidence remains unresolved."
+    },
+    {
+      "section_id": "heading:2158",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ],
+      "rationale": "Supported Formats section aligns with verified format capabilities and should be preserved."
+    },
+    {
+      "section_id": "heading:2769",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "documentation.links:primary"
+      ],
+      "rationale": "Documentation section is preserved; primary documentation links are policy-approved."
+    },
+    {
+      "section_id": "heading:2923",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.platforms:manifest"
+      ],
+      "rationale": "TypeScript Version Support section aligns with verified platform facts and is preserved."
+    },
+    {
+      "section_id": "heading:3057",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Build & Test section is maintainer-authored and preserved by default."
+    },
+    {
+      "section_id": "heading:3242",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Format-Specific Features section is maintainer-authored and preserved by default."
+    },
+    {
+      "section_id": "heading:4809",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Architecture section is maintainer-authored and preserved by default."
+    },
+    {
+      "section_id": "heading:5675",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Examples section is maintainer-authored and preserved by default."
+    },
+    {
+      "section_id": "heading:5926",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Contributing section is maintainer-authored and preserved by default."
+    },
+    {
+      "section_id": "heading:6276",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "License section is maintainer-authored and preserved by default."
+    },
+    {
+      "section_id": "heading:6383",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Acknowledgments section is maintainer-authored and preserved by default."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "OBJ - Import/export with vertices, texture coordinates, normals, faces, objects, groups, smoothing groups, and materials",
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ]
+    },
+    {
+      "text": "typescript",
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    },
+    {
+      "text": "open_source_scope",
+      "supporting_fact_ids": [
+        "relationship.commercial_foss:primary"
+      ]
+    }
+  ]
+}

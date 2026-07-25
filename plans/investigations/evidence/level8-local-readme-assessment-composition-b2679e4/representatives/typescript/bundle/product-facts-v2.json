@@ -1,0 +1,443 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "3d",
+        "platform": "typescript",
+        "ecosystem": "typescript",
+        "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "manifest_names": [
+          "@aspose/3d"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://package.json",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:groundedness-blocked",
+      "field": "product.audience",
+      "value": {
+        "claims": [
+          "Developers building 3D applications using Node.js and modern browsers"
+        ],
+        "groundedness_failures": [
+          "a1: lexical coverage 0.00 -- unmatched tokens ['3d', 'applications', 'browsers', 'building', 'developers', 'js', 'modern', 'node', 'using']"
+        ]
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.audience",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": "2026-07-25T16:50:12.878056+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:groundedness-blocked",
+      "field": "product.problems_solved",
+      "value": {
+        "claims": [
+          "Import and export 3D file formats including OBJ, GLTF, STL, 3MF, FBX, and Collada"
+        ],
+        "groundedness_failures": [
+          "p1: lexical coverage 0.75 -- unmatched tokens ['file', 'formats', 'including']"
+        ]
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.problems_solved",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": "2026-07-25T16:50:12.878056+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": {
+        "assertions": [
+          "Import OBJ files with vertices, texture coordinates, normals, faces, objects, groups, smoothing groups, and materials",
+          "Export OBJ files with vertices, faces, and materials",
+          "Import and export GLTF 2.0 files with PBR material support",
+          "Import and export STL files in ASCII and binary formats",
+          "Import and export 3MF files with compression and coordinate system control",
+          "Import and export FBX files with scene hierarchy, mesh data, and animation",
+          "Import and export Collada (DAE) files with materials and animations",
+          "Create and manipulate 3D scenes with hierarchical node structure",
+          "Create and modify meshes with control points and polygons",
+          "Apply materials including Lambert, Phong, and PBR materials to nodes",
+          "Triangulate polygons using PolygonModifier.triangulate",
+          "Support keyframe animation with AnimationClip, AnimationNode, and KeyframeSequence",
+          "Perform vector math with Vector2, Vector3, Vector4, Matrix4, and Quaternion"
+        ],
+        "evidence_failures": [
+          "required evidence symbol missing: controlPoints"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/aspose/threed/Node.ts,src/aspose/threed/Scene.ts,src/aspose/threed/animation/AnimationClip.ts,src/aspose/threed/animation/AnimationNode.ts,src/aspose/threed/animation/KeyframeSequence.ts,src/aspose/threed/entities/Mesh.ts,src/aspose/threed/entities/PolygonModifier.ts,src/aspose/threed/formats/collada/ColladaFormat.ts,src/aspose/threed/formats/fbx/FbxFormat.ts,src/aspose/threed/formats/gltf/GltfFormat.ts,src/aspose/threed/formats/obj/ObjExporter.ts,src/aspose/threed/formats/obj/ObjImporter.ts,src/aspose/threed/formats/stl/StlFormat.ts,src/aspose/threed/formats/threemf/ThreeMfFormat.ts,src/aspose/threed/shading/LambertMaterial.ts,src/aspose/threed/shading/PbrMaterial.ts,src/aspose/threed/shading/PhongMaterial.ts,src/aspose/threed/utilities/Matrix4.ts,src/aspose/threed/utilities/Quaternion.ts,src/aspose/threed/utilities/Vector3.ts,src/aspose/threed/utilities/Vector4.ts",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": "2026-07-25T16:50:12.878056+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": [
+        "OBJ - Import/export with vertices, texture coordinates, normals, faces, objects, groups, smoothing groups, and materials",
+        "GLTF - GL Transmission Format with full PBR material support",
+        "STL - Stereo Lithography format for 3D printing",
+        "3MF - 3D Manufacturing Format with compression and coordinate system control",
+        "FBX - Autodesk FBX format support",
+        "Collada - COLLADA (DAE) format support"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/aspose/threed/formats/collada/ColladaFormat.ts,src/aspose/threed/formats/fbx/FbxFormat.ts,src/aspose/threed/formats/gltf/GltfFormat.ts,src/aspose/threed/formats/obj/ObjFormat.ts,src/aspose/threed/formats/stl/StlFormat.ts,src/aspose/threed/formats/threemf/ThreeMfFormat.ts",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": "2026-07-25T16:50:12.878056+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "typescript"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://package.json",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "typescript",
+          "manifest_path": "package.json",
+          "name": "@aspose/3d",
+          "version": "24.12.0"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://package.json",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:disposable-source-build",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "source_build",
+        "outcome": "BLOCKED_LOCAL_VERIFICATION",
+        "detail": "no product_truth.minimal_example configured for this policy profile -- nothing to compile/run locally yet"
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-product-verification://aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:agent-drafted-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "typescript",
+        "class_name": "Scene",
+        "code": "import { Scene } from '@aspose/3d';\nimport { ObjLoadOptions, ObjImporter } from '@aspose/3d/formats/obj';\n\n// Create a new scene\nconst scene = new Scene();\n\n// Import an OBJ file\nconst options = new ObjLoadOptions();\noptions.enableMaterials = true;\noptions.flipCoordinateSystem = false;\nscene.open(\"model.obj\", options);\n\n// Access imported data\nfor (const node of scene.rootNode.childNodes) {\n    if (node.entity) {\n        const mesh = node.entity;\n        console.log(`Mesh: ${node.name}`);\n        console.log(`  Vertices: ${mesh.controlPoints.length}`);\n        console.log(`  Polygons: ${mesh.polygonCount}`);\n    }\n}",
+        "verification_outcome": "BLOCKED_TOOLCHAIN",
+        "verification_detail": "required executable is unavailable: tsc"
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://example.minimal",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": "2026-07-25T16:50:12.878056+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/3d/typescript/",
+          "family_url": "https://products.aspose.org/3d/",
+          "label": "Aspose.3D FOSS for TypeScript",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/3d/",
+          "family_url": "https://products.aspose.com/3d",
+          "label": "Aspose.3D for TypeScript",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "version": "24.12.0",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://package.json",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": {
+        "assertions": [
+          "Some advanced FBX features may not be fully implemented (tokenizer exists but full importer/exporter implementation not shown)",
+          "Some advanced 3MF features like color and production workflows may require additional implementation beyond basic import/export",
+          "Some advanced animation features may require additional implementation beyond basic keyframe support"
+        ],
+        "evidence_failures": [
+          "evidence file missing: src/aspose/threed/formats/fbx/FbxTokenizer.ts",
+          "required evidence symbol missing: FbxTokenizer"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/aspose/threed/animation/KeyframeSequence.ts,src/aspose/threed/formats/fbx/FbxTokenizer.ts,src/aspose/threed/formats/threemf/ThreeMfSaveOptions.ts",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": "2026-07-25T16:50:12.878056+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:missing",
+      "field": "product.compatibility",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:missing",
+      "field": "product.license",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:groundedness-blocked",
+    "product.problems_solved": "product.problems_solved:groundedness-blocked",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:disposable-source-build",
+    "example.minimal": "example.minimal:agent-drafted-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:missing",
+    "product.license": "product.license:missing",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "immutable_base_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+  "facts_hash": "c76dd01e204931b768089ea143a9e751d1c68ffc709442fa8c9e30535bb48111",
+  "template_sha256": "0ce252a2ba8e36b10737bbe73a1c968aa6bcaeb6be00df5f0b8ef2e2e7dd847c",
+  "source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+    "source_inner_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+    "source_inner_bytes": 9450,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 304,
+      "source_byte_end": 304,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- Java developers creating, loading, modifying, and saving spreadsheet workbooks.\n- Process XLSX workbooks with an open-source Java API without requiring Microsoft Excel.\n- Create, load, modify, and save workbooks and worksheets.\n\n## In this README\n\n- [Installation](#installation)\n- [Current Scope](#current-scope)\n- [Supported Features](#supported-features)\n- [Known Limits](#known-limits)\n- [Build And Test](#build-and-test)\n- [Quick Start](#quick-start)\n- [Project Layout](#project-layout)\n- [Testing Coverage](#testing-coverage)\n- [Notes For Contributors](#notes-for-contributors)\n- [License](#license)\n- [Support](#support)\n\n",
+      "replacement_sha256": "06bc1c4efb72c7b74cab48f6f7ac2aa5aed80deb4d2673f3a4fa2135d0b58e67",
+      "fact_ids": [
+        "product.audience:approved-policy",
+        "product.capabilities:repository-evidence",
+        "product.compatibility:manifest",
+        "product.formats:repository-evidence",
+        "product.limitations:repository-evidence",
+        "product.problems_solved:approved-policy"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.example.insert-verified-minimal",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3768,
+      "source_byte_end": 3768,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n### Minimal verified example\n\n```java\nimport org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class ReadmeExample {\n    public static void main(String[] args) throws Exception {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n            sheet.getCells().get(\"A1\").putValue(\"Hello\");\n            workbook.save(\"hello.xlsx\");\n        }\n    }\n}\n```\n\nThis exact example was compiled against the source build at revision `2be25d979d1f3bf2875a1798aed62a16efab6619`.\n\n",
+      "replacement_sha256": "a6984d6669efc140e04c924b9ef916565e64a0bce27ee893b1142054a735d1f7",
+      "fact_ids": [
+        "example.minimal:compiled-policy-example"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Lead the usage section with the exact minimal example compiled against the verified source build.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "79592bc9f503142cde1b8dfe1e05aeafab68dc560b14f3ee56df75f4fcb37100"
+}

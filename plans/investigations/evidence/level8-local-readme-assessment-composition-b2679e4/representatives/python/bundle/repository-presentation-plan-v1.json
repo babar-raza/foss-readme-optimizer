@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "immutable_base_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+  "facts_hash": "acc58a69c8e1142b80b6ea389d199341c8b0df8559d0791065653e12b846ac94",
+  "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+  "archetype": "python-library",
+  "findings": [
+    {
+      "finding_id": "readme.product_clarity",
+      "dimension": "product_clarity",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "product clarity is satisfied",
+      "evidence": [
+        "<!-- readme-agent:presentation hash=\"sha256:acc58a69c8e1142b80b6ea389d199341c8b0df8559d0791065653e12b846ac94\" schema=\"3\" inner-bytes=\"7154\" --> A powerful, free, and open-source 3D file format library for Python. Aspose.3D FOSS for Python enables developers to create, manipulate, and convert 3D scenes and models programmatically. It supports popular 3D file formats including OBJ, STL, glTF, 3MF, and more, and is released under the permissive **MIT License**. - Create and manipulate 3D scenes with hierarchical node structure"
+      ]
+    },
+    {
+      "finding_id": "readme.audience_fit",
+      "dimension": "audience_fit",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "audience fit is satisfied",
+      "evidence": [
+        "<!-- readme-agent:presentation hash=\"sha256:acc58a69c8e1142b80b6ea389d199341c8b0df8559d0791065653e12b846ac94\" schema=\"3\" inner-bytes=\"7154\" --> A powerful, free, and open-source 3D file format library for Python. Aspose.3D FOSS for Python enables developers to create, manipulate, and convert 3D scenes and models programmatically. It supports popular 3D file formats including OBJ, STL, glTF, 3MF, and more, and is released under the permissive **MIT License**. - Create and manipulate 3D scenes with hierarchical node structure"
+      ]
+    },
+    {
+      "finding_id": "readme.trust_signals",
+      "dimension": "trust_signals",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "trust signals is satisfied",
+      "evidence": [
+        "product.license:license-file:verified"
+      ]
+    },
+    {
+      "finding_id": "readme.installation_path",
+      "dimension": "installation_path",
+      "surface_id": "readme",
+      "disposition": "gap",
+      "summary": "installation path needs review",
+      "evidence": [
+        "installation.verified_acquisition:disposable-source-build:blocked"
+      ]
+    },
+    {
+      "finding_id": "readme.verified_examples",
+      "dimension": "verified_examples",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "verified examples is satisfied",
+      "evidence": [
+        "2 fenced code blocks found"
+      ]
+    },
+    {
+      "finding_id": "readme.navigation",
+      "dimension": "navigation",
+      "surface_id": "readme",
+      "disposition": "satisfied",
+      "summary": "navigation is satisfied",
+      "evidence": [
+        "None"
+      ]
+    },
+    {
+      "finding_id": "readme.visual_usefulness",
+      "dimension": "visual_usefulness",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "visual usefulness is observation-only here",
+      "evidence": [
+        "markdown images=0; factual review is separate"
+      ]
+    },
+    {
+      "finding_id": "readme.contribution_readiness",
+      "dimension": "contribution_readiness",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "contribution readiness is observation-only here",
+      "evidence": [
+        "repository-file recognition belongs to the community-files specialist"
+      ]
+    },
+    {
+      "finding_id": "readme.maintenance_signals",
+      "dimension": "maintenance_signals",
+      "surface_id": "readme",
+      "disposition": "observation",
+      "summary": "maintenance signals is observation-only here",
+      "evidence": [
+        "GitHub-generated activity remains audit-only"
+      ]
+    },
+    {
+      "finding_id": "readme.commercial_context",
+      "dimension": "commercial_context",
+      "surface_id": "readme",
+      "disposition": "gap",
+      "summary": "commercial context needs review",
+      "evidence": [
+        "commercial_links=3; explanation_offset=173"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "readme.presentation.document-plan",
+      "surface_id": "readme",
+      "region_id": "readme.presentation",
+      "disposition": "eligible",
+      "depends_on": [],
+      "claims": [
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.capabilities",
+          "surface_id": "readme.capabilities",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.capabilities]",
+          "fact_ids": [
+            "product.capabilities:repository-evidence"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.product.identity",
+          "surface_id": "readme.opening",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.identity]",
+          "fact_ids": [
+            "product.identity:manifest-and-registry"
+          ]
+        },
+        {
+          "claim_id": "readme.overview-navigation-and-acquisition.relationship.commercial_foss",
+          "surface_id": "readme.relationship",
+          "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [relationship.commercial_foss]",
+          "fact_ids": [
+            "relationship.commercial_foss:primary"
+          ]
+        },
+        {
+          "claim_id": "readme.opening.remove-promotional-callout.relationship.commercial_foss",
+          "surface_id": "readme.relationship",
+          "text": "Keep the first screen product-first; the existing relationship section continues to carry restrained commercial context. [relationship.commercial_foss]",
+          "fact_ids": [
+            "relationship.commercial_foss:primary"
+          ]
+        }
+      ],
+      "fact_ids": [
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "ownership_class": "repository_file",
+      "proposed_operation": "local_patch",
+      "source_spans": [
+        {
+          "path": "README.md",
+          "byte_start": 0,
+          "byte_end": 6908,
+          "expected_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+          "replacement_sha256": "9ed7f369e9b2c170a5da6e7b429437992feb41c1deb78bfee976bd9a659520b4",
+          "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations"
+        }
+      ],
+      "validators": [
+        "claim_citations",
+        "surface_ownership",
+        "source_span_hash",
+        "git_apply_check",
+        "protected_content",
+        "independent_verifier"
+      ],
+      "rollback": "revert the bounded file patch",
+      "stop_conditions": [
+        "immutable base revision changed",
+        "source or work-tree README hash changed",
+        "document reconstruction differs",
+        "a fact citation becomes unselected, unresolved, or unverified",
+        "protected content outside a cited authoritative correction is lost",
+        "Git apply or independent verification fails"
+      ],
+      "patch_sha256": "46aea468aedbd61cb4fc1e295096a85c2d2a41e22393682ca1b4204fdd1bb9a2"
+    }
+  ],
+  "candidate_sha256": "9ed7f369e9b2c170a5da6e7b429437992feb41c1deb78bfee976bd9a659520b4"
+}

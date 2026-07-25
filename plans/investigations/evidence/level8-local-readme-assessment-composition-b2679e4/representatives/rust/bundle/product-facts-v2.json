@@ -1,0 +1,442 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "cells",
+        "platform": "rust",
+        "ecosystem": "rust",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "manifest_names": [
+          "aspose-cells-foss-rust"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Cargo.toml",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:groundedness-blocked",
+      "field": "product.audience",
+      "value": {
+        "claims": [
+          "Rust developers who need a pure-Rust library to read and write Excel .xlsx workbooks without a proprietary runtime or external Aspose dependency"
+        ],
+        "groundedness_failures": [
+          "rust_devs_xlsx_workbooks: lexical coverage 0.47 -- unmatched tokens ['dependency', 'developers', 'external', 'library', 'need', 'proprietary', 'pure', 'runtime', 'without']"
+        ]
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.audience",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": "2026-07-25T16:56:23.788611+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:groundedness-blocked",
+      "field": "product.problems_solved",
+      "value": {
+        "claims": [
+          "Provides a pure-Rust, open-source library to read and write Excel .xlsx workbooks with no proprietary runtime and no external Aspose dependency"
+        ],
+        "groundedness_failures": [
+          "pure_rust_xlsx: lexical coverage 0.56 -- unmatched tokens ['dependency', 'external', 'library', 'proprietary', 'provides', 'pure', 'runtime']"
+        ]
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.problems_solved",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": "2026-07-25T16:56:23.788611+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": {
+        "assertions": [
+          "Create, load, save, and round-trip .xlsx files; manage the worksheet collection, names, visibility, and view/protection settings",
+          "Access cells by A1 address or row/column index; store strings, numbers, booleans, decimals, dates/times, and formulas with cached results",
+          "Apply styling: fonts, fills, borders, number formats, and horizontal/vertical alignment",
+          "Manage rows and columns: sizing, visibility, and merged cell areas",
+          "Define data validation rules: list, decimal, and custom",
+          "Apply conditional formatting: basic and advanced format conditions",
+          "Add hyperlinks and defined names (global and sheet-scoped)",
+          "Insert and manage cell comments with authors, notes, visibility, and sizing",
+          "Create column and line charts",
+          "Create Excel list objects (tables) with styles and totals",
+          "Embed pictures and auto-shapes (rectangles, stars, arrows, symbols)",
+          "Configure page setup: print settings, headers/footers, margins, and page breaks",
+          "Access document properties: core and extended workbook metadata"
+        ],
+        "evidence_failures": [
+          "required evidence symbol missing: Worksheet",
+          "required evidence symbol missing: Cells",
+          "required evidence symbol missing: Rows",
+          "required evidence symbol missing: Columns",
+          "required evidence symbol missing: ConditionalFormattingCollection",
+          "required evidence symbol missing: DefinedName",
+          "required evidence symbol missing: CommentCollection",
+          "required evidence symbol missing: ListObject",
+          "required evidence symbol missing: PageSetup",
+          "required evidence symbol missing: DocumentProperties",
+          "required evidence symbol missing: CoreDocumentProperties",
+          "required evidence symbol missing: ExtendedDocumentProperties"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://samples/basic.rs,samples/charts.rs,samples/comments.rs,samples/conditional_formatting.rs,samples/document_properties.rs,samples/hyperlinks_and_names.rs,samples/list_objects.rs,samples/loading.rs,samples/pagesetup.rs,samples/pictures.rs,samples/shapes.rs,samples/styles.rs,samples/validations.rs,samples/worksheet_settings.rs",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": "2026-07-25T16:56:23.788611+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": [
+        "Read and write Excel .xlsx (Office Open XML / SpreadsheetML) workbooks"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://Cargo.toml,README.md",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": "2026-07-25T16:56:23.788611+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "rust"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Cargo.toml",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "rust",
+          "manifest_path": "Cargo.toml",
+          "name": "aspose-cells-foss-rust",
+          "version": "26.7.0"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Cargo.toml",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:disposable-source-build",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "source_build",
+        "outcome": "BLOCKED_LOCAL_VERIFICATION",
+        "detail": "no product_truth.minimal_example configured for this policy profile -- nothing to compile/run locally yet"
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-product-verification://aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": null
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:agent-drafted-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "rust",
+        "class_name": "Workbook",
+        "code": "use aspose_cells_foss_rust::{CellValue, Workbook};\n\nfn main() -> Result<(), Box<dyn std::error::Error>> {\n    let mut workbook = Workbook::new();\n    {\n        let mut worksheets = workbook.get_worksheets_mut();\n        let sheet = worksheets.get(0)?;\n        let mut cells = sheet.get_cells_mut();\n        cells.get(\"A1\")?.put_value_string(\"Hello\")?;\n        cells.get(\"B1\")?.put_value_i32(123)?;\n    }\n    workbook.save(\"hello.xlsx\")?;\n    Ok(())\n}",
+        "verification_outcome": "BLOCKED_TOOLCHAIN",
+        "verification_detail": "required executable is unavailable: cargo"
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://example.minimal",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": "2026-07-25T16:56:23.788611+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/cells/",
+          "family_url": "https://products.aspose.org/cells/",
+          "label": "Aspose.Cells FOSS for Rust",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/cells/",
+          "family_url": "https://products.aspose.com/cells",
+          "label": "Aspose.Cells for Rust",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "version": "26.7.0",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Cargo.toml",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": [
+        "Early-stage and evolving; the public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial",
+        "No unit/integration tests; samples serve as the de-facto verification suite"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://AGENTS.md,README.md",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": "2026-07-25T16:56:23.788611+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:missing",
+      "field": "product.compatibility",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE.txt",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:groundedness-blocked",
+    "product.problems_solved": "product.problems_solved:groundedness-blocked",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:disposable-source-build",
+    "example.minimal": "example.minimal:agent-drafted-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:missing",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

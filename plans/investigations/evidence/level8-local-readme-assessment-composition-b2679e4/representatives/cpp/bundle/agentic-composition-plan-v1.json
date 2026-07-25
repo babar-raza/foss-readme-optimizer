@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+  "facts_hash": "b0efbc87c40e1a90e2cf9cb92edb6dfd4719c7ec9114caaf3b121c60ef9bda70",
+  "assessment_hash": "b478097b217ec97e5db96dc896303d3190e5d93437438514f277cf7fec3e1be4",
+  "prompt_sha256": "9001b7954242b39e84fd4e63f1e40313cb021f1a7819728d4b0efe9b83007c6e",
+  "tool_schema_sha256": "b19ec852b544d3ae299ed4412aebf0627d68df0ec3528f11227cff02348766b8",
+  "input_sha256": "375f86f48b951446df590f36e508b9b0a69b4b34a6327b90c7c37405cd2536b3",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "Aspose.Cells FOSS for C++ is an open-source C++ library for creating, loading, editing, and saving Excel .xlsx workbooks without requiring Microsoft Excel. It provides an Aspose.Cells-compatible API surface, supports .xlsx load/save from file paths and streams, and includes features like cell values, formulas, styles, conditional formatting, and more. The library is MIT-licensed and available via NuGet as Aspose.cells.Cpp.FOSS, with CMake-based build and installation.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening paragraph accurately reflects the product identity and its open-source nature with a commercial upgrade path, and no promotional or unverified claims are present."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored title and introductory content are preserved as-is per default policy."
+    },
+    {
+      "section_id": "heading:180",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored 'Highlights' section is preserved; it aligns with verified capabilities and does not introduce unsupported claims."
+    },
+    {
+      "section_id": "heading:439",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored 'How to build' section is preserved; the CMake instructions match the verified manifest-based installation coordinates."
+    },
+    {
+      "section_id": "heading:526",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Quick Start' example is preserved, but its executable correctness and alignment with the verified API surface require further investigation before promotion to verified truth."
+    },
+    {
+      "section_id": "heading:1817",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored 'Supported Areas' section is preserved; it aligns with the verified product formats and platforms."
+    },
+    {
+      "section_id": "heading:2164",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored 'License' section is preserved; it correctly states MIT license per verified license-file evidence."
+    },
+    {
+      "section_id": "heading:2303",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored 'Support' section is preserved; it provides a valid GitHub issues URL and aligns with support routes policy."
+    },
+    {
+      "section_id": "missing:installation",
+      "disposition": "add",
+      "priority": 100,
+      "supporting_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-nuget"
+      ],
+      "rationale": "The repository lacks an explicit installation section, but verified acquisition via NuGet (Aspose.cells.Cpp.FOSS) and manifest-based CMake installation coordinates justify adding an ecosystem-specific installation section."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Load and save Excel .xlsx workbooks",
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ]
+    },
+    {
+      "text": "No runtime Office dependency required",
+      "supporting_fact_ids": [
+        "product.limitations:repository-evidence"
+      ]
+    },
+    {
+      "text": "cells",
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    },
+    {
+      "text": "open_source_scope",
+      "supporting_fact_ids": [
+        "relationship.commercial_foss:primary"
+      ]
+    }
+  ]
+}

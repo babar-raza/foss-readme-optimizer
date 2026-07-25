@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+  "immutable_base_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+  "facts_hash": "a442bd200f697298bd4a4379597664bd1b61583b0f596e5d97b3f54dbc9c8eac",
+  "template_sha256": "0ce252a2ba8e36b10737bbe73a1c968aa6bcaeb6be00df5f0b8ef2e2e7dd847c",
+  "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+  "adoption": {
+    "marker_schema_version": 3,
+    "already_adopted": false,
+    "source_document_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+    "source_inner_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+    "source_inner_bytes": 6359,
+    "preservation_check": "byte_identical"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 988,
+      "source_byte_end": 988,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- Read and write Excel .xlsx (Office Open XML / SpreadsheetML) workbooks\n- Early-stage and evolving; the public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial\n- cells\n- open_source_scope\n\n## In this README\n\n- [Status](#status)\n- [Features](#features)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Documentation](#documentation)\n- [Samples](#samples)\n- [Project layout](#project-layout)\n- [License](#license)\n\n",
+      "replacement_sha256": "73794a8fd6bd60611503b73f32a1970cb8038c9028e5c6fa79217cfb550c58ef",
+      "fact_ids": [
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-evidence",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "f97e0f369d5f1c2f28d318d5329c24077ce549e751e092c777716b705e0a2c46"
+}

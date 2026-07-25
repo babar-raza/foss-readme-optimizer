@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+  "facts_hash": "acc58a69c8e1142b80b6ea389d199341c8b0df8559d0791065653e12b846ac94",
+  "assessment_hash": "1a9e8dcea56a7b7500a5be0fce02bc37c0df6fb13f40f814113d8cc031a1ba55",
+  "prompt_sha256": "9001b7954242b39e84fd4e63f1e40313cb021f1a7819728d4b0efe9b83007c6e",
+  "tool_schema_sha256": "934eca8fa52debad87a5260afd7cddc75014316628f0d5bda170c21b53473f61",
+  "input_sha256": "de02a4559b2ba76c2f37df8996dfa425ba1e6fa7e794fb875d5534f156cc65c1",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "The README for Aspose.3D FOSS for Python needs minor editorial adjustments: remove a promotional callout in the opening, preserve all maintainer-authored content, and add a concise 'At a glance' section backed by verified facts about capabilities, identity, and relationship to the commercial edition.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "remove_update",
+      "priority": 100,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening contains a promotional callout that must be removed per the assessment, while preserving the rest of the opening and aligning with verified identity and commercial/FOSS relationship facts."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:669",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:1582",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2405",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Installation prose cannot be changed while acquisition truth is unresolved."
+    },
+    {
+      "section_id": "heading:2462",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "example.minimal:agent-drafted-example"
+      ],
+      "rationale": "The section is assessed against the exact locally verified minimal example."
+    },
+    {
+      "section_id": "heading:3025",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:3493",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:3608",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:4860",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:5357",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:5455",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:5568",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:6742",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "missing:at-a-glance",
+      "disposition": "add",
+      "priority": 50,
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "rationale": "Add a fact-backed overview when verified descriptive facts are available."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Create and manipulate 3D scenes with hierarchical node structure",
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence"
+      ]
+    },
+    {
+      "text": "python",
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    },
+    {
+      "text": "open_source_scope",
+      "supporting_fact_ids": [
+        "relationship.commercial_foss:primary"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,442 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "pdf",
+        "platform": "go",
+        "ecosystem": "go",
+        "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+        "manifest_names": [
+          "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://go.mod",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:groundedness-blocked",
+      "field": "product.audience",
+      "value": {
+        "claims": [
+          "Go developers building PDF processing applications without CGO, external libraries, or native dependencies",
+          "FOSS users seeking a pure Go, MIT-licensed PDF library for document processing"
+        ],
+        "groundedness_failures": [
+          "go-developers: lexical coverage 0.17 -- unmatched tokens ['applications', 'building', 'cgo', 'dependencies', 'developers', 'external', 'libraries', 'native', 'processing', 'without']",
+          "foss-users: lexical coverage 0.36 -- unmatched tokens ['document', 'library', 'licensed', 'processing', 'pure', 'seeking', 'users']"
+        ]
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.audience",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": "2026-07-25T16:54:06.127017+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:groundedness-blocked",
+      "field": "product.problems_solved",
+      "value": {
+        "claims": [
+          "PDF processing without CGO, external libraries, or native dependencies",
+          "Cross-compile anywhere using standard Go tooling"
+        ],
+        "groundedness_failures": [
+          "no-cgo: lexical coverage 0.12 -- unmatched tokens ['cgo', 'dependencies', 'external', 'libraries', 'native', 'processing', 'without']",
+          "cross-compile: lexical coverage 0.14 -- unmatched tokens ['anywhere', 'compile', 'cross', 'standard', 'tooling', 'using']"
+        ]
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.problems_solved",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": "2026-07-25T16:54:06.127017+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": {
+        "assertions": [
+          "Open, split, merge, extract, and rotate PDF documents",
+          "Create and edit annotations including Link, Highlight, Square, Circle, Line, Ink, Text, FreeText, Stamp, FileAttachment, Redact, Polygon, PolyLine, and Caret",
+          "Render pages to images (PNG/JPEG/GIF/BMP, multi-page TIFF) with a built-in dependency-free rasterizer",
+          "Convert Markdown ⇄ PDF (652/652 official CommonMark suite), export PDF → HTML (with fillable forms), PDF → SVG, PDF → Markdown",
+          "Apply digital signatures (PKCS#7, PAdES, timestamps), validate and convert PDF/A, and author accessible Tagged PDF",
+          "Embed and subset fonts, draw text/vector graphics/tables, and fill/build AcroForms",
+          "Encrypt documents with AES-128 (default), AES-256 (PDF 2.0), or RC4-128",
+          "Read and write document Info and XMP metadata",
+          "Optimize documents with lossless stream compression and duplicate-stream deduplication",
+          "AI copilots for summarization, OCR with searchable-PDF pipeline, document Q&A, and automatic alt-text filling"
+        ],
+        "evidence_failures": [
+          "required evidence symbol missing: TaggedPDF"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://CHANGELOG.md,README.md,annotation.go,annotation_caret.go,annotation_drawing.go,annotation_fileattachment.go,annotation_freetext.go,annotation_link.go,annotation_markup.go,annotation_poly.go,annotation_redact.go,annotation_stamp.go,annotation_text.go",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": "2026-07-25T16:54:06.127017+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": [
+        "Input: PDF 1.7 (ISO 32000-1) and PDF 2.0 (ISO 32000-2)",
+        "Output: PDF, PNG, JPEG, GIF, BMP, multi-page TIFF, HTML, SVG, Markdown"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://CHANGELOG.md,README.md",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": "2026-07-25T16:54:06.127017+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "go"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://go.mod",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "go",
+          "manifest_path": "go.mod",
+          "name": "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://go.mod",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:registry-go_proxy",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "go_proxy",
+        "outcome": "REGISTRY_VERIFIED",
+        "detail": "Go proxy: github.com/aspose-pdf-foss/aspose-pdf-foss-for-go found",
+        "coordinate": {
+          "name": "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go"
+        }
+      },
+      "source": {
+        "source_type": "external_registry",
+        "location": "registry-acquisition://go",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:agent-drafted-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "go",
+        "class_name": "Document",
+        "code": "package main\n\nimport (\n\t\"fmt\"\n\tpdf \"github.com/aspose-pdf-foss/aspose-pdf-foss-for-go\"\n)\n\nfunc main() {\n\t// Open a PDF\n\tdoc, err := pdf.Open(\"input.pdf\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\t// Split into individual page documents\n\tpages, err := doc.Split()\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\tfor i, p := range pages {\n\t\terr = p.Save(fmt.Sprintf(\"page%03d.pdf\", i+1))\n\t\tif err != nil {\n\t\t\tpanic(err)\n\t\t}\n\t}\n\n\t// Merge multiple PDFs into one\n\tdoc2, err := pdf.Open(\"file2.pdf\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\tdoc.Append(doc2)\n\terr = doc.Save(\"merged.pdf\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n}",
+        "verification_outcome": "BUILD_FAILED",
+        "verification_detail": "exact README example compilation failed"
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://example.minimal",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": "2026-07-25T16:54:06.127017+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/pdf/go/",
+          "family_url": "https://products.aspose.org/pdf/",
+          "label": "Aspose.PDF FOSS for Go",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/pdf/go-cpp/",
+          "family_url": "https://products.aspose.com/pdf",
+          "label": "Aspose.PDF for Go",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "version": "unknown",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://go.mod",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": [
+        "No table reader yet — tables are not reconstructed in Markdown export",
+        "Task-list checkboxes are not reconstructed in Markdown export",
+        "Object-stream packing, font-unembedding, and RC4-40 encryption are deferred follow-ups"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://CHANGELOG.md",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": "2026-07-25T16:54:06.127017+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:manifest",
+      "field": "product.compatibility",
+      "value": [
+        {
+          "ecosystem": "go",
+          "minimum_runtime": "Go 1.24+",
+          "manifest_path": "go.mod"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://go.mod",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:groundedness-blocked",
+    "product.problems_solved": "product.problems_solved:groundedness-blocked",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:registry-go_proxy",
+    "example.minimal": "example.minimal:agent-drafted-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:manifest",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

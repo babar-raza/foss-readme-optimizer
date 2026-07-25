@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+  "source_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+  "facts_hash": "5477a1641110d30629eb484701d0aad7f58ad7a5e9932134cf53e3b7668ca19d",
+  "assessment_hash": "80d6a959986d2a3cdd524d78bea64ea394c5591da8718eab66946b33e6556d13",
+  "prompt_sha256": "9001b7954242b39e84fd4e63f1e40313cb021f1a7819728d4b0efe9b83007c6e",
+  "tool_schema_sha256": "40b1f15a8122d76e6930cbdda4428a31a08bdffc736aadbf9618780dae585b3c",
+  "input_sha256": "d47f976294e9ee55d11f5a6941188e83d990fb5343c3395ef8c4bfae4b90eecf",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "The README for Aspose.3D FOSS for .NET introduces a free, open-source implementation of Aspose.3D for .NET, emphasizing MIT licensing, API compatibility with the commercial edition, and support for common 3D formats. It includes sections on status, limitations, installation, quick start, documentation, contributing, license, and resources. The current content is mostly maintainer-authored and preserved, except for a promotional callout in the opening that should be removed and replaced with a fact-backed 'At a glance' summary.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "remove_update",
+      "priority": 100,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening contains a promotional callout that must be removed per assessment; verified facts about product identity and commercial/FOSS relationship support a fact-backed replacement."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:596",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:1518",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:1730",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2106",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-nuget"
+      ],
+      "rationale": "The existing installation section is retained as it matches verified manifest and registry acquisition facts."
+    },
+    {
+      "section_id": "heading:2170",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Example prose is preserved while executable example evidence is unresolved per assessment."
+    },
+    {
+      "section_id": "heading:2319",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2431",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2529",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2642",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:3783",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "missing:at-a-glance",
+      "disposition": "add",
+      "priority": 100,
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "rationale": "Add a fact-backed overview when verified descriptive facts are available, as required by assessment."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Scene graph management (Scene, Node, Entity, Group)",
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence"
+      ]
+    },
+    {
+      "text": "OBJ (Wavefront OBJ) - Import and Export",
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ]
+    },
+    {
+      "text": "Rendering functionality (Scene.Render) throws NotImplementedException",
+      "supporting_fact_ids": [
+        "product.limitations:repository-evidence"
+      ]
+    },
+    {
+      "text": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    },
+    {
+      "text": "open_source_scope",
+      "supporting_fact_ids": [
+        "relationship.commercial_foss:primary"
+      ]
+    }
+  ]
+}

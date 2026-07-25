@@ -1,0 +1,1603 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "immutable_base_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+  "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+  "facts_hash": "acc58a69c8e1142b80b6ea389d199341c8b0df8559d0791065653e12b846ac94",
+  "sections": [
+    {
+      "section_id": "opening",
+      "heading": "Opening",
+      "level": 0,
+      "source_byte_start": 0,
+      "source_byte_end": 669,
+      "disposition": "remove_update",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:0:664"
+      ],
+      "rationale": "Remove only a detected promotional callout; otherwise preserve the opening."
+    },
+    {
+      "section_id": "heading:0",
+      "heading": "Aspose.3D FOSS for Python",
+      "level": 1,
+      "source_byte_start": 0,
+      "source_byte_end": 6908,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "command:61149f1a477c6f91",
+        "example:2058cc2a92de5906",
+        "example:61149f1a477c6f91",
+        "technical_terminology:2005f17ab790f924",
+        "technical_terminology:2b74cb1bb54f36e0",
+        "technical_terminology:2d09189ccb24afe5",
+        "technical_terminology:3745fc038405360e",
+        "technical_terminology:525ab6231b727be3",
+        "technical_terminology:7bdcf7ff718b1db4",
+        "technical_terminology:8ec51a576654eba3",
+        "technical_terminology:9ffb1789b12be9a8",
+        "technical_terminology:aec3059b42fe2ddb",
+        "technical_terminology:b2d7c0f52c60d151",
+        "technical_terminology:d8dea824d6587a41",
+        "technical_terminology:dadf3d967277286e",
+        "technical_terminology:f469802a31447f90",
+        "technical_terminology:fd343ae984ebf384"
+      ],
+      "evidence": [
+        "README.md:0:6871"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:669",
+      "heading": "About Aspose.3D FOSS",
+      "level": 2,
+      "source_byte_start": 669,
+      "source_byte_end": 1582,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:664:1573"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:1582",
+      "heading": "Features",
+      "level": 2,
+      "source_byte_start": 1582,
+      "source_byte_end": 2405,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:1573:2396"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2405",
+      "heading": "Installation",
+      "level": 2,
+      "source_byte_start": 2405,
+      "source_byte_end": 2462,
+      "disposition": "investigate",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "command:61149f1a477c6f91",
+        "example:61149f1a477c6f91"
+      ],
+      "evidence": [
+        "README.md:2396:2453"
+      ],
+      "rationale": "Installation prose cannot be changed while acquisition truth is unresolved."
+    },
+    {
+      "section_id": "heading:2462",
+      "heading": "Quick Start",
+      "level": 2,
+      "source_byte_start": 2462,
+      "source_byte_end": 3025,
+      "disposition": "preserve",
+      "fact_ids": [
+        "example.minimal:agent-drafted-example"
+      ],
+      "protected_fragment_ids": [
+        "example:2058cc2a92de5906"
+      ],
+      "evidence": [
+        "README.md:2453:3016"
+      ],
+      "rationale": "The section is assessed against the exact locally verified minimal example."
+    },
+    {
+      "section_id": "heading:3025",
+      "heading": "Supported Formats",
+      "level": 2,
+      "source_byte_start": 3025,
+      "source_byte_end": 3493,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:3016:3484"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:3047",
+      "heading": "Import (Implemented)",
+      "level": 3,
+      "source_byte_start": 3047,
+      "source_byte_end": 3277,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:3038:3268"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:3277",
+      "heading": "Export (Implemented)",
+      "level": 3,
+      "source_byte_start": 3277,
+      "source_byte_end": 3493,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:3268:3484"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:3493",
+      "heading": "Python Version Support",
+      "level": 2,
+      "source_byte_start": 3493,
+      "source_byte_end": 3608,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:3484:3599"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:3608",
+      "heading": "Format-Specific Features",
+      "level": 2,
+      "source_byte_start": 3608,
+      "source_byte_end": 4860,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "technical_terminology:2005f17ab790f924",
+        "technical_terminology:2b74cb1bb54f36e0",
+        "technical_terminology:3745fc038405360e",
+        "technical_terminology:8ec51a576654eba3",
+        "technical_terminology:b2d7c0f52c60d151",
+        "technical_terminology:d8dea824d6587a41",
+        "technical_terminology:f469802a31447f90",
+        "technical_terminology:fd343ae984ebf384"
+      ],
+      "evidence": [
+        "README.md:3599:4851"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:3637",
+      "heading": "OBJ Format",
+      "level": 3,
+      "source_byte_start": 3637,
+      "source_byte_end": 4336,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "technical_terminology:2005f17ab790f924",
+        "technical_terminology:2b74cb1bb54f36e0",
+        "technical_terminology:3745fc038405360e",
+        "technical_terminology:8ec51a576654eba3",
+        "technical_terminology:b2d7c0f52c60d151",
+        "technical_terminology:d8dea824d6587a41",
+        "technical_terminology:f469802a31447f90",
+        "technical_terminology:fd343ae984ebf384"
+      ],
+      "evidence": [
+        "README.md:3628:4327"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:4336",
+      "heading": "GLTF Format",
+      "level": 3,
+      "source_byte_start": 4336,
+      "source_byte_end": 4547,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:4327:4538"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:4547",
+      "heading": "STL Format",
+      "level": 3,
+      "source_byte_start": 4547,
+      "source_byte_end": 4707,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:4538:4698"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:4707",
+      "heading": "3MF Format",
+      "level": 3,
+      "source_byte_start": 4707,
+      "source_byte_end": 4860,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:4698:4851"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:4860",
+      "heading": "Architecture",
+      "level": 2,
+      "source_byte_start": 4860,
+      "source_byte_end": 5357,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "technical_terminology:2d09189ccb24afe5",
+        "technical_terminology:525ab6231b727be3",
+        "technical_terminology:7bdcf7ff718b1db4",
+        "technical_terminology:9ffb1789b12be9a8",
+        "technical_terminology:aec3059b42fe2ddb",
+        "technical_terminology:dadf3d967277286e"
+      ],
+      "evidence": [
+        "README.md:4851:5348"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:5357",
+      "heading": "Contributing",
+      "level": 2,
+      "source_byte_start": 5357,
+      "source_byte_end": 5455,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:5348:5446"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:5455",
+      "heading": "License",
+      "level": 2,
+      "source_byte_start": 5455,
+      "source_byte_end": 5568,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:5446:5557"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:5568",
+      "heading": "Resources",
+      "level": 2,
+      "source_byte_start": 5568,
+      "source_byte_end": 6742,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:5557:6705"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:5582",
+      "heading": "Aspose.3D FOSS — free & open source (aspose.org)",
+      "level": 3,
+      "source_byte_start": 5582,
+      "source_byte_end": 6011,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:5571:5990"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:6011",
+      "heading": "Aspose.3D — commercial On-Premise edition (aspose.com)",
+      "level": 3,
+      "source_byte_start": 6011,
+      "source_byte_end": 6529,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:5990:6496"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:6529",
+      "heading": "Community & support",
+      "level": 3,
+      "source_byte_start": 6529,
+      "source_byte_end": 6742,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:6496:6705"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:6742",
+      "heading": "Acknowledgments",
+      "level": 2,
+      "source_byte_start": 6742,
+      "source_byte_end": 6908,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:6705:6871"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "missing:at-a-glance",
+      "heading": "At a glance",
+      "level": 2,
+      "source_byte_start": 669,
+      "source_byte_end": 669,
+      "disposition": "add",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "verified ProductFactsV2 and Markdown section inventory"
+      ],
+      "rationale": "Add a fact-backed overview when verified descriptive facts are available."
+    }
+  ],
+  "material_claims": [
+    {
+      "claim_id": "claim:29:47f5129fce47e0c8",
+      "source_byte_start": 29,
+      "source_byte_end": 348,
+      "content_sha256": "47f5129fce47e0c80ef5fb199af2174524cd6d8f4f58d00c3860e73062882d0f",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:29:348"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:349:998db98d326185c5",
+      "source_byte_start": 349,
+      "source_byte_end": 668,
+      "content_sha256": "998db98d326185c56e999648ae5cb7d983715bc9dbf77176da3e74e952abd038",
+      "disposition": "remove_update",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:349:663"
+      ],
+      "rationale": "Promotional callout requires a bounded product-first correction."
+    },
+    {
+      "claim_id": "claim:694:fdd7f0025a66e60b",
+      "source_byte_start": 694,
+      "source_byte_end": 853,
+      "content_sha256": "fdd7f0025a66e60bfb712b24daf62748b81cf3a84d51786aff98489e626e1425",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:689:848"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:854:9a27aaf937bb6941",
+      "source_byte_start": 854,
+      "source_byte_end": 934,
+      "content_sha256": "9a27aaf937bb6941be1a5b10e0c5a780d1798ee65901c427b846784cc9b14068",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:849:929"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:934:dd97af95ec48ca53",
+      "source_byte_start": 934,
+      "source_byte_end": 1060,
+      "content_sha256": "dd97af95ec48ca539d3a29c841623c19bba88b37513142289ad65292203e12bb",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:929:1053"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1060:d6979bdb93753f96",
+      "source_byte_start": 1060,
+      "source_byte_end": 1341,
+      "content_sha256": "d6979bdb93753f9632d4a77ae0402bf1456428a4b80c0d2840067756fb6a8505",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1053:1332"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1342:cb582ec3cc54f045",
+      "source_byte_start": 1342,
+      "source_byte_end": 1581,
+      "content_sha256": "cb582ec3cc54f045ec884337ce704390fde6e70f5aa8ce9c71cee14a87fdad81",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1333:1572"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1595:d97f31483586ee48",
+      "source_byte_start": 1595,
+      "source_byte_end": 1616,
+      "content_sha256": "d97f31483586ee48a954e7019781abca94274a1d52143c4008380865f2cb2fd6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1586:1607"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1616:42af0ba76e0810ab",
+      "source_byte_start": 1616,
+      "source_byte_end": 1679,
+      "content_sha256": "42af0ba76e0810ab60e752b72aa928fb6f89e72d799affda681b0dcd23bd41dc",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1607:1670"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1679:c69b0e41a58c2183",
+      "source_byte_start": 1679,
+      "source_byte_end": 1744,
+      "content_sha256": "c69b0e41a58c2183cc21b6af4f8508f07e52d8a645ed9df46a29151d3f169b70",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1670:1735"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1744:e53832c55a96893f",
+      "source_byte_start": 1744,
+      "source_byte_end": 1796,
+      "content_sha256": "e53832c55a96893f5dd4858e596bc75b2c4fe22020e95affe93e2cddcac3a29d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1735:1787"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1796:7f6a64d5a2ef1ae0",
+      "source_byte_start": 1796,
+      "source_byte_end": 1863,
+      "content_sha256": "7f6a64d5a2ef1ae052dc5bf395cc75f982cd20a42a82c38ad4069ae241615596",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1787:1854"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1864:438dec6fbdfc618e",
+      "source_byte_start": 1864,
+      "source_byte_end": 1887,
+      "content_sha256": "438dec6fbdfc618e2c179bb3ab28507e89073f0c7121660b7a06aa1ded24245d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1855:1878"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1887:439735fabc5ca22a",
+      "source_byte_start": 1887,
+      "source_byte_end": 1923,
+      "content_sha256": "439735fabc5ca22a8e271686d6ae5d3e07e6b1636b0aa6d12d8f6366a1b889d1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1878:1914"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1923:562dca7ff6c39c52",
+      "source_byte_start": 1923,
+      "source_byte_end": 1955,
+      "content_sha256": "562dca7ff6c39c52c394fa508eade5a7665b5bacc4202ccf59c9e73d48fe6b6d",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1914:1946"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1955:4adcbf03a490febb",
+      "source_byte_start": 1955,
+      "source_byte_end": 1986,
+      "content_sha256": "4adcbf03a490febb55b6e363dffcab4a67af3f3209e4b0baf0d74be352f494d8",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1946:1977"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:1986:50ec72b696e2b538",
+      "source_byte_start": 1986,
+      "source_byte_end": 2045,
+      "content_sha256": "50ec72b696e2b5381e83a1bc68f8b3bc21cba19ba75bb9b2c10abb7fbba2b79c",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:1977:2036"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2046:5acd852259a0d59d",
+      "source_byte_start": 2046,
+      "source_byte_end": 2066,
+      "content_sha256": "5acd852259a0d59dff9cd27f5283f8c627bfef301281ec3a57d19ca905cfc0c3",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2037:2057"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2066:17331eeb698f57b4",
+      "source_byte_start": 2066,
+      "source_byte_end": 2131,
+      "content_sha256": "17331eeb698f57b4ea9d912bce64d332dd9212119f5d7bbaba1f7dc00c4f8891",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2057:2122"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2131:c71275844dbb057b",
+      "source_byte_start": 2131,
+      "source_byte_end": 2170,
+      "content_sha256": "c71275844dbb057b55f89508eea4a83fd7eeb06da3842de90e91e69277fface3",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2122:2161"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2170:cd2ea38dea6de979",
+      "source_byte_start": 2170,
+      "source_byte_end": 2199,
+      "content_sha256": "cd2ea38dea6de9797d08053a623bcd8f6d488d6de0b86ebdf8159ad97753df9b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2161:2190"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2200:3c45215209a75125",
+      "source_byte_start": 2200,
+      "source_byte_end": 2222,
+      "content_sha256": "3c45215209a751257f57de9be70926d32a5fdd7e04990da9b70d7647d011fc1c",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2191:2213"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2222:3f9ddf3567d94dc3",
+      "source_byte_start": 2222,
+      "source_byte_end": 2271,
+      "content_sha256": "3f9ddf3567d94dc36539186e1df22de600519feca7a12b8dfc84f948b86651a4",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2213:2262"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2271:d944af09b7912268",
+      "source_byte_start": 2271,
+      "source_byte_end": 2310,
+      "content_sha256": "d944af09b791226802143d100f24c78c718f947e941e3f7d7b5ba4355b1bf334",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2262:2301"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2311:16e8de43ab3bf8e5",
+      "source_byte_start": 2311,
+      "source_byte_end": 2334,
+      "content_sha256": "16e8de43ab3bf8e5ec83bc3438a68c514e23056e37059df8db99404e268906c1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2302:2325"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2334:bd86e75706e1a04d",
+      "source_byte_start": 2334,
+      "source_byte_end": 2365,
+      "content_sha256": "bd86e75706e1a04da2a949e86670c0120b0e5addc6a265813195b38fbf24c0f6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2325:2356"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2365:2b8d2e10b536039c",
+      "source_byte_start": 2365,
+      "source_byte_end": 2404,
+      "content_sha256": "2b8d2e10b536039cb993347dc186508024dffe852d9d1d00f5810ffad23cb521",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2356:2395"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2422:43fefdbbda13085c",
+      "source_byte_start": 2422,
+      "source_byte_end": 2461,
+      "content_sha256": "43fefdbbda13085c5cc1a895e893802781a4bc8a0de6ae4cff68697474ed5245",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2413:2452"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:2478:d9682cad1497d65c",
+      "source_byte_start": 2478,
+      "source_byte_end": 3024,
+      "content_sha256": "d9682cad1497d65cd09b0db655ad789a5c559795424e2543ca521f771e73d851",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:2469:3015"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3072:91d4621e7948714b",
+      "source_byte_start": 3072,
+      "source_byte_end": 3125,
+      "content_sha256": "91d4621e7948714b0e75df278ca1962b271b1cc93c46a6fc942414f5cd1ce224",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3063:3116"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3125:26f6d113632b89eb",
+      "source_byte_start": 3125,
+      "source_byte_end": 3172,
+      "content_sha256": "26f6d113632b89ebb5b33822b8a1bff08aa71663ca5e290f5e28463b7b28fa7e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3116:3163"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3172:83d9a8f45602774a",
+      "source_byte_start": 3172,
+      "source_byte_end": 3210,
+      "content_sha256": "83d9a8f45602774abdff8de51dec568f818fdadb9e3f2ccb90b13d08124bdedb",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3163:3201"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3210:d69620e010432847",
+      "source_byte_start": 3210,
+      "source_byte_end": 3246,
+      "content_sha256": "d69620e0104328471efc30036d12232915751be982efb70af491791d15aa0ab8",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3201:3237"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3246:7f8d581157898598",
+      "source_byte_start": 3246,
+      "source_byte_end": 3276,
+      "content_sha256": "7f8d581157898598ef362828bfdd0d1ed50ea6d9e00ab4e0a2e86b1ad2f0d304",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3237:3267"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3302:185c58fac1523373",
+      "source_byte_start": 3302,
+      "source_byte_end": 3357,
+      "content_sha256": "185c58fac1523373cc67ec795bc10e9a9efc5982d11f1803a3649fc3314f3475",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3293:3348"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3357:86fc86f6550eb1a1",
+      "source_byte_start": 3357,
+      "source_byte_end": 3396,
+      "content_sha256": "86fc86f6550eb1a1b0dddab5113d3518a2bc1c8d08846ce3b80d1cdb3fd4412e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3348:3387"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3396:966b8288413e3c86",
+      "source_byte_start": 3396,
+      "source_byte_end": 3429,
+      "content_sha256": "966b8288413e3c86cf0643324fb4d30928ef44db53ab02e38ea987bd2eea559e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3387:3420"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3429:74bc9591ed99976c",
+      "source_byte_start": 3429,
+      "source_byte_end": 3462,
+      "content_sha256": "74bc9591ed99976c96441b89f9f2c87b78f9ff1f03e6ba5f6f795e7ee5a44bb0",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3420:3453"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3462:7f8d581157898598",
+      "source_byte_start": 3462,
+      "source_byte_end": 3492,
+      "content_sha256": "7f8d581157898598ef362828bfdd0d1ed50ea6d9e00ab4e0a2e86b1ad2f0d304",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3453:3483"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3520:7c4e26a53d22b6bf",
+      "source_byte_start": 3520,
+      "source_byte_end": 3534,
+      "content_sha256": "7c4e26a53d22b6bf4dc467e7c56e227556c95c2aefd4d973c9e5676b109e910e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3511:3525"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3534:41ce576cda3cbfb1",
+      "source_byte_start": 3534,
+      "source_byte_end": 3548,
+      "content_sha256": "41ce576cda3cbfb15b8b8b941234001aee00d1797b22751485acef35de0ebf70",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3525:3539"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3548:d8174940d942d448",
+      "source_byte_start": 3548,
+      "source_byte_end": 3562,
+      "content_sha256": "d8174940d942d4482ac1456987c0d9102f76266c230ce48b2a5f1128aa5b0f0b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3539:3553"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3562:34ec8bb4ce6cc52a",
+      "source_byte_start": 3562,
+      "source_byte_end": 3577,
+      "content_sha256": "34ec8bb4ce6cc52a23d8a14d29306be6f2e8cf02504c3f03f496baef8d964700",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3553:3568"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3577:ec917ab8870706e6",
+      "source_byte_start": 3577,
+      "source_byte_end": 3592,
+      "content_sha256": "ec917ab8870706e6ddfcd0d49c2339c400008e54688c6dfdd53e9b9cd47cfbed",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3568:3583"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3592:e6589ccaab0e8a3d",
+      "source_byte_start": 3592,
+      "source_byte_end": 3607,
+      "content_sha256": "e6589ccaab0e8a3d901322cc193e09f326a0e4b44299b64b4a15082e47277f08",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3583:3598"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3653:d0132e2eb1a708d2",
+      "source_byte_start": 3653,
+      "source_byte_end": 3674,
+      "content_sha256": "d0132e2eb1a708d240e9cee9c84520467ff7f3377786d5ba64d5ee432ffc6ff1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3644:3665"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3674:bf33c21b1b2f3631",
+      "source_byte_start": 3674,
+      "source_byte_end": 3736,
+      "content_sha256": "bf33c21b1b2f36317bd9366c960fe31488ab7df43f6e20186ef6be179c1e9162",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3665:3727"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3736:89551c9ab5782381",
+      "source_byte_start": 3736,
+      "source_byte_end": 3776,
+      "content_sha256": "89551c9ab57823812fca1814337ea4ec8f4cb19631b2ee5d0265a62a5b05f6f8",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3727:3767"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3776:28db345d418fd72f",
+      "source_byte_start": 3776,
+      "source_byte_end": 3824,
+      "content_sha256": "28db345d418fd72fa7193164db63f6c45347ad1d5df0ad98915c5d14dfc2d9f7",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3767:3815"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3824:9887f0e7482974c7",
+      "source_byte_start": 3824,
+      "source_byte_end": 3853,
+      "content_sha256": "9887f0e7482974c7ff7e6a10846917cc58eaccb4e82ed4a801f22aba08e544ce",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3815:3844"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3854:66a8088ec2a8c2fd",
+      "source_byte_start": 3854,
+      "source_byte_end": 3872,
+      "content_sha256": "66a8088ec2a8c2fdc0ce620a33dbecf7403f4e0de5f52452ebe043880441607b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3845:3863"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3872:79b993ca77dbac0a",
+      "source_byte_start": 3872,
+      "source_byte_end": 3926,
+      "content_sha256": "79b993ca77dbac0ac1b421b6c3255b9cd3856cf8fc20deeb2867c945e2bceade",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3863:3917"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3926:269d4f4e77008d5b",
+      "source_byte_start": 3926,
+      "source_byte_end": 3981,
+      "content_sha256": "269d4f4e77008d5b748af7a92424c23cb2ff5a37beda22f847745541fa26459b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3917:3972"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:3981:2dce75fc48038892",
+      "source_byte_start": 3981,
+      "source_byte_end": 4026,
+      "content_sha256": "2dce75fc48038892a989064731808dbaaeb481ed8c3c53d647a27e8129194f46",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:3972:4017"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4026:952b85e609f8102c",
+      "source_byte_start": 4026,
+      "source_byte_end": 4074,
+      "content_sha256": "952b85e609f8102c3d737ebcb1f8230d32f5d238a9f07840ba50ef3bdf728c03",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4017:4065"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4075:4e150a9320603e86",
+      "source_byte_start": 4075,
+      "source_byte_end": 4093,
+      "content_sha256": "4e150a9320603e864e87512b743933b55bfa3dcdbf4c249740ec47d465d1b465",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4066:4084"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4093:1f6674ff8f32526e",
+      "source_byte_start": 4093,
+      "source_byte_end": 4135,
+      "content_sha256": "1f6674ff8f32526e4b8419cad7bbb53c06e49fbfa999857a9e2562ab9097d274",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4084:4126"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4135:7e685731fa27d95a",
+      "source_byte_start": 4135,
+      "source_byte_end": 4175,
+      "content_sha256": "7e685731fa27d95a31d50762dcb15f33e27b7eeb7ee87948aa4b0d2ce65b25a1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4126:4166"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4175:d08fdad81c13423e",
+      "source_byte_start": 4175,
+      "source_byte_end": 4204,
+      "content_sha256": "d08fdad81c13423e73db44a7a924af173e08fc9a62b6c5e681e1a2ac2fdf5756",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4166:4195"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4204:d298e037709f5048",
+      "source_byte_start": 4204,
+      "source_byte_end": 4243,
+      "content_sha256": "d298e037709f5048ccdddaeb99553cef456345169596b55a1d5be139f38fcbe3",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4195:4234"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4243:4b2ce9a2bc09d214",
+      "source_byte_start": 4243,
+      "source_byte_end": 4283,
+      "content_sha256": "4b2ce9a2bc09d21418017a3bbc6dcbc36eec6343330364071bb65d3d6eee3874",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4234:4274"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4283:3c47a17b2fb12736",
+      "source_byte_start": 4283,
+      "source_byte_end": 4335,
+      "content_sha256": "3c47a17b2fb127361404aefd895474f58d068ca494908e1bb26fefd198413cf0",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4274:4326"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4353:077bedeae5490d31",
+      "source_byte_start": 4353,
+      "source_byte_end": 4367,
+      "content_sha256": "077bedeae5490d31b05b1486dcb0c905a89fc62a8bed966a4928e0f4ab72bd9e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4344:4358"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4367:932c4cb3bcd5ba99",
+      "source_byte_start": 4367,
+      "source_byte_end": 4400,
+      "content_sha256": "932c4cb3bcd5ba999090521c0bd36bb5d51d8e1c1a6143d4bc2587b7c883cc86",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4358:4391"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4400:3905334dee02937b",
+      "source_byte_start": 4400,
+      "source_byte_end": 4452,
+      "content_sha256": "3905334dee02937b2877716a3de16f8b9193fa24ce78477bd6b766bde0a3f567",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4391:4443"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4452:c98ab5b89e4c3526",
+      "source_byte_start": 4452,
+      "source_byte_end": 4486,
+      "content_sha256": "c98ab5b89e4c352656670b1370fad11f6d1fbbebeb76f77fc46bf09067ba11dd",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4443:4477"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4486:174228353ca44a95",
+      "source_byte_start": 4486,
+      "source_byte_end": 4518,
+      "content_sha256": "174228353ca44a958985b00cb26af751d45a7771a296dd32577e08118caff05a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4477:4509"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4518:fb5a7a9baf448320",
+      "source_byte_start": 4518,
+      "source_byte_end": 4546,
+      "content_sha256": "fb5a7a9baf448320e6cd11b47c6a0112fa3992c37a4740571940265bbe773df3",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4509:4537"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4563:077bedeae5490d31",
+      "source_byte_start": 4563,
+      "source_byte_end": 4577,
+      "content_sha256": "077bedeae5490d31b05b1486dcb0c905a89fc62a8bed966a4928e0f4ab72bd9e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4554:4568"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4577:488fd916c9711848",
+      "source_byte_start": 4577,
+      "source_byte_end": 4608,
+      "content_sha256": "488fd916c97118484c471a602f6acfbe8af1893bb78d0f958e28377e94b84380",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4568:4599"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4608:ad351e415c823d92",
+      "source_byte_start": 4608,
+      "source_byte_end": 4641,
+      "content_sha256": "ad351e415c823d929994196c8c2391f58efe9396dc45236b703c12eb6f291086",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4599:4632"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4641:fb529a1a406e7897",
+      "source_byte_start": 4641,
+      "source_byte_end": 4671,
+      "content_sha256": "fb529a1a406e7897ec1a35994ba23fd48f0764c13e5a5006007b94ff1a8c3178",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4632:4662"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4671:a95ec8f580373135",
+      "source_byte_start": 4671,
+      "source_byte_end": 4706,
+      "content_sha256": "a95ec8f580373135e0c1f2975de511f0213fe312813aff75964bdbda0a2f5d23",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4662:4697"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4723:077bedeae5490d31",
+      "source_byte_start": 4723,
+      "source_byte_end": 4737,
+      "content_sha256": "077bedeae5490d31b05b1486dcb0c905a89fc62a8bed966a4928e0f4ab72bd9e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4714:4728"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4737:c9a383ea1661ffd2",
+      "source_byte_start": 4737,
+      "source_byte_end": 4775,
+      "content_sha256": "c9a383ea1661ffd2e6c5f6497129bb36c97f643be8cef05eeb3644759b5454d8",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4728:4766"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4775:1591473853f41e8b",
+      "source_byte_start": 4775,
+      "source_byte_end": 4799,
+      "content_sha256": "1591473853f41e8b0a42b2a30fc68e84186404ee6effb835205fac69a67d8fc6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4766:4790"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4799:c2dabb5cc623085b",
+      "source_byte_start": 4799,
+      "source_byte_end": 4830,
+      "content_sha256": "c2dabb5cc623085b3aff96410ed876458420d879ab3c74a550ef6502db4942ea",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4790:4821"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4830:59783ef5d285efe6",
+      "source_byte_start": 4830,
+      "source_byte_end": 4859,
+      "content_sha256": "59783ef5d285efe6f4f9c86a15446b542c90c48fc25d9434fa32c21128ff1cde",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4821:4850"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4877:65356bf400b5d950",
+      "source_byte_start": 4877,
+      "source_byte_end": 4924,
+      "content_sha256": "65356bf400b5d950a791098677d6d9fc9f38eaf6817ef6efdca269545189a5a4",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4868:4915"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4925:c2c16eb386da03f0",
+      "source_byte_start": 4925,
+      "source_byte_end": 4986,
+      "content_sha256": "c2c16eb386da03f03a76876fcb56c9ef490b2af53ece0a7dd94bb67c8e00e311",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4916:4977"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:4986:54e3f90a536379c2",
+      "source_byte_start": 4986,
+      "source_byte_end": 5049,
+      "content_sha256": "54e3f90a536379c287edcd65a84b5e2deb0d58b2f57d9d1fd37da1c1f6bff57f",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:4977:5040"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5049:c694c6ba13583b77",
+      "source_byte_start": 5049,
+      "source_byte_end": 5135,
+      "content_sha256": "c694c6ba13583b77c99b85154acba92530adaad4a36d6fe96e27557e944b8c1a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5040:5126"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5135:64d473fc52e4c367",
+      "source_byte_start": 5135,
+      "source_byte_end": 5211,
+      "content_sha256": "64d473fc52e4c367e1d62b7a943d7b2f826bc9144b9401f55a2bf0f68ba388c6",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5126:5202"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5211:42e21caaf842d2ed",
+      "source_byte_start": 5211,
+      "source_byte_end": 5289,
+      "content_sha256": "42e21caaf842d2edbab3487320861cee7a46664983e64a01f8e55326534e2d36",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5202:5280"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5289:59631fb5564f1765",
+      "source_byte_start": 5289,
+      "source_byte_end": 5356,
+      "content_sha256": "59631fb5564f1765286d37b66c3ef8f671d5e31d7f85238cefe5eb4b051f1663",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5280:5347"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5374:453b60642228b8e6",
+      "source_byte_start": 5374,
+      "source_byte_end": 5454,
+      "content_sha256": "453b60642228b8e615cdb4b340c116ffbd1c4fe77f149e445b77832c663bc816",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5365:5445"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5467:76a029ae63ff0a44",
+      "source_byte_start": 5467,
+      "source_byte_end": 5567,
+      "content_sha256": "76a029ae63ff0a448e7416ef83e8b7796b78610975bddba48692e94933a566e1",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5458:5556"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5637:4ef9313c791325bd",
+      "source_byte_start": 5637,
+      "source_byte_end": 5724,
+      "content_sha256": "4ef9313c791325bd03fd1d2a40eb9d9e68554ec82333f6c79178137b14720f28",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5624:5709"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5724:f9a3dad69346d120",
+      "source_byte_start": 5724,
+      "source_byte_end": 5834,
+      "content_sha256": "f9a3dad69346d1209672457c4637965102981002f4454ca502162c88f6d8a8b7",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5709:5817"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5834:40903d1bdc818580",
+      "source_byte_start": 5834,
+      "source_byte_end": 5931,
+      "content_sha256": "40903d1bdc818580b7798b505f18613d71e254d8390e9908ced920ae3de1d4c4",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5817:5912"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:5931:8efd2fa356058773",
+      "source_byte_start": 5931,
+      "source_byte_end": 6010,
+      "content_sha256": "8efd2fa356058773322ff7617adfdd20c62488179bb4024be85118767b7b6954",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:5912:5989"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:6072:3d7379a15bfc3728",
+      "source_byte_start": 6072,
+      "source_byte_end": 6187,
+      "content_sha256": "3d7379a15bfc37282ccbf5634c5cbc515f903a5b29908d7c08106d5645276476",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:6049:6162"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:6187:085d3d71a678c863",
+      "source_byte_start": 6187,
+      "source_byte_end": 6261,
+      "content_sha256": "085d3d71a678c8639494a8275a5e29b3ec2106360e045ba44b2f399635066a01",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:6162:6234"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:6261:9356df208b9664c8",
+      "source_byte_start": 6261,
+      "source_byte_end": 6344,
+      "content_sha256": "9356df208b9664c8a6eda1f0b299813177a5879b23b41db9b787a79416c81d51",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:6234:6315"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:6344:091f96f608bf05a3",
+      "source_byte_start": 6344,
+      "source_byte_end": 6438,
+      "content_sha256": "091f96f608bf05a3d4207e8861acc36483a4e8cd227b657e55bf9fbeb051f34b",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:6315:6407"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:6438:537aa409e6050c39",
+      "source_byte_start": 6438,
+      "source_byte_end": 6528,
+      "content_sha256": "537aa409e6050c391c21c6750c98bfebf6a6103cc07ded66f2a3e5c187986b53",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:6407:6495"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:6553:3dea8c30b8583f6d",
+      "source_byte_start": 6553,
+      "source_byte_end": 6638,
+      "content_sha256": "3dea8c30b8583f6d2e0178f1fd67d9c23f1796dbf9284b951ef6ad295b054034",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:6520:6603"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:6638:23b58de08482129d",
+      "source_byte_start": 6638,
+      "source_byte_end": 6741,
+      "content_sha256": "23b58de08482129d0a30b6bbcdb71486ce43250d00d291e10f3e7757e9e6132a",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:6603:6704"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:6762:3b5393712bc62e3c",
+      "source_byte_start": 6762,
+      "source_byte_end": 6813,
+      "content_sha256": "3b5393712bc62e3c322da366953d30d1ca9f920c79aa6787a9a2120f1d14d478",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:6725:6776"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:6813:e097ee30bd69d7df",
+      "source_byte_start": 6813,
+      "source_byte_end": 6908,
+      "content_sha256": "e097ee30bd69d7dfafb8178845f442beb8280354bc4aa38ed078f1d673db57b5",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:6776:6871"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    }
+  ],
+  "untrusted_repository_instructions": []
+}
