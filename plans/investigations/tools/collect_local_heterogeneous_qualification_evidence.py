@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import subprocess
 from pathlib import Path
@@ -24,6 +25,19 @@ _SESSION_IDS = {
     "stability-repetition",
     "independent-reproduction",
 }
+_SOURCE_PATHS = (
+    Path("prompts/planning/supervisor_turn.yaml"),
+    Path("prompts/verification/independent_readme_review.yaml"),
+    Path("src/readme_agent/golden_set/scenarios.py"),
+    Path("src/readme_agent/golden_set/review_scenarios.py"),
+    Path("src/readme_agent/golden_set/review_corpus.py"),
+    Path("src/readme_agent/golden_set/review_fixtures.py"),
+    Path("src/readme_agent/golden_set/harness.py"),
+    Path("src/readme_agent/golden_set/review_harness.py"),
+    Path("src/readme_agent/golden_set/qualification.py"),
+    Path("src/readme_agent/llm/reviewer_client.py"),
+    Path("src/readme_agent/llm/verification_prompts.py"),
+)
 
 
 def _head() -> str:
@@ -34,6 +48,44 @@ def _head() -> str:
         text=True,
     )
     return result.stdout.strip()
+
+
+def _source_snapshot() -> dict:
+    status = subprocess.run(
+        ["git", "status", "--porcelain", "--untracked-files=all"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    if status:
+        raise RuntimeError(
+            "qualification sessions require a clean committed source tree; "
+            "commit or reconcile the listed paths first:\n"
+            f"{status}"
+        )
+    return {
+        "schema_version": 1,
+        "source_head": _head(),
+        "source_files": {
+            str(path).replace("\\", "/"): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in _SOURCE_PATHS
+        },
+    }
+
+
+def _bind_campaign_source(output: Path) -> dict:
+    snapshot = _source_snapshot()
+    path = output / "campaign-source.json"
+    if path.is_file():
+        recorded = json.loads(path.read_text(encoding="utf-8"))
+        if recorded != snapshot:
+            raise RuntimeError(
+                "qualification campaign source changed; preserve this run as diagnostic "
+                "and start all three sessions in a new output directory"
+            )
+        return recorded
+    write_redacted_json(path, snapshot)
+    return snapshot
 
 
 def _load_sessions(path: Path) -> list[dict]:
@@ -55,6 +107,7 @@ def _parser() -> argparse.ArgumentParser:
 def main() -> int:
     args = _parser().parse_args()
     output: Path = args.output
+    campaign_source = _bind_campaign_source(output)
     sessions_path = output / "agentic-qualification-sessions.json"
     sessions = _load_sessions(sessions_path)
     existing_ids = {str(record["session_id"]) for record in sessions}
@@ -86,7 +139,8 @@ def main() -> int:
     summary = summarize_qualification(sessions, deterministic)
     summary.update(
         {
-            "source_head": _head(),
+            "source_head": campaign_source["source_head"],
+            "campaign_source_ref": "campaign-source.json",
             "planner_model": env.llm_model_for_job("supervisor_planning"),
             "reviewer_model": env.llm_model_for_job("independent_readme_review"),
         }

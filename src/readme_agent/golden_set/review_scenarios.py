@@ -88,6 +88,7 @@ def _archetype_scenarios(archetype: ReviewArchetype) -> list[ReviewGoldenScenari
 def _control_scenarios() -> list[ReviewGoldenScenario]:
     java = REVIEW_ARCHETYPES[0]
     typescript = REVIEW_ARCHETYPES[3]
+    cpp = REVIEW_ARCHETYPES[4]
     facts = build_review_facts(java)
     original = specific_candidate(java)
     return [
@@ -124,6 +125,16 @@ def _control_scenarios() -> list[ReviewGoldenScenario]:
             specific_candidate(typescript)
             + "\n## Workspace roots\n- `packages/core`\n- `packages/node-adapter`\n",
             with_package_roots(build_review_facts(typescript)),
+            "ACCEPT",
+        ),
+        ReviewGoldenScenario(
+            "cpp_source_build_only_candidate_is_truthful",
+            "cpp",
+            "source_build_only",
+            "An unpublished C++ project must present its verified source-build path.",
+            "# AcmeSlides C++\n",
+            specific_candidate(cpp),
+            build_review_facts(cpp),
             "ACCEPT",
         ),
         ReviewGoldenScenario(

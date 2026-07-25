@@ -32,6 +32,7 @@ def validate_review_scenario_corpus(scenarios: Iterable[_ScenarioLike]) -> None:
         "promotional_imbalance",
         "prompt_injection",
         "multi_root",
+        "source_build_only",
         "malformed_readme",
         "strong_existing_content",
         "conflicting_fact",

@@ -81,7 +81,7 @@ def _deterministic(*, passed: int = 42, total: int = 42):
 
 
 def test_review_corpus_covers_every_required_ecosystem_and_control():
-    assert len(REVIEW_SCENARIOS) == 35
+    assert len(REVIEW_SCENARIOS) == 36
     assert {scenario.ecosystem for scenario in REVIEW_SCENARIOS} == {
         "java",
         "dotnet",
@@ -100,6 +100,7 @@ def test_review_corpus_covers_every_required_ecosystem_and_control():
         "promotional_imbalance",
         "prompt_injection",
         "multi_root",
+        "source_build_only",
         "malformed_readme",
         "strong_existing_content",
         "conflicting_fact",
