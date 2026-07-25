@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f",
-    "last_evaluated_at": "2026-07-25T20:02:09.551682+00:00",
+    "last_evaluated_at": "2026-07-25T20:02:16.686188+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -27,7 +27,7 @@
       "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "TODO",
       "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "CLOSED",
       "L8-LOCAL-PORTFOLIO-RUNTIME": "CLOSED",
-      "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "VERIFIED",
+      "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "SCORED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
@@ -899,6 +899,17 @@
         "reason": "Independent verification reconstructed all seven representative bundles from the committed agentic plan and facts, confirmed exact checksums, repository/ecosystem specificity, zero remote writes, and all acceptance flags. The full official suite passed 1623 tests plus static, governance, semantic, and workflow checks with TREE CLEAN at start and end.",
         "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-local-readme-assessment-composition-b2679e4/acceptance-manifest.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-25T20:02:16.686182+00:00",
+        "reason": "Acceptance score is seven of seven representative ecosystems accepted, zero proof failures, zero remote writes, checksum-complete manifests, and 1623 of 1623 selected official tests passing on the stable tree.",
+        "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -907,7 +918,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 103,
+  "state_version": 104,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
