@@ -14,10 +14,11 @@ repos literally cannot collide, because they are different refs.
 
 Deliberately no working-tree checkout per write -- git plumbing
 (`hash-object`/`mktree`/`commit-tree`/`push <sha>:<ref>`) writes objects
-directly into this repo's own already-checked-out `.git`, keyed off `FETCH_HEAD`
-rather than a materialized tracking branch. A per-write checkout would
-reintroduce exactly the "local clone as durable-state dependency" antipattern
-this module exists to remove, just renamed.
+directly into this repo's own already-checked-out `.git`. Remote reads use a
+unique, short-lived local ref rather than process-global ``FETCH_HEAD`` so
+concurrent repository lanes cannot erase one another's fetched tip. A
+per-write checkout would reintroduce exactly the "local clone as durable-state
+dependency" antipattern this module exists to remove, just renamed.
 """
 
 import json
@@ -97,17 +98,32 @@ def _fetch_remote_sha(remote_ref: str) -> str | None:
     other fetch failure (network/auth), which raises rather than being
     silently treated as "no prior state" (fail-closed, decision #15's
     pattern applied here)."""
-    result = run_git(["fetch", "origin", remote_ref])
+    local_ref = f"refs/readme-agent-fetch/{os.getpid()}-{uuid4().hex}"
+    result = run_git(
+        [
+            "fetch",
+            "--no-write-fetch-head",
+            "origin",
+            f"+{remote_ref}:{local_ref}",
+        ]
+    )
     if result.returncode != 0:
         if "couldn't find remote ref" in result.stderr.lower():
             return None
         raise StateBackendError(f"fetch of {remote_ref} failed: {result.stderr}")
-    rev = run_git(["rev-parse", "FETCH_HEAD"])
-    if rev.returncode != 0:
-        raise StateBackendError(
-            f"rev-parse FETCH_HEAD failed after fetching {remote_ref}: {rev.stderr}"
-        )
-    return rev.stdout.strip()
+    try:
+        rev = run_git(["rev-parse", "--verify", local_ref])
+        if rev.returncode != 0:
+            raise StateBackendError(
+                f"rev-parse of isolated fetch ref failed after fetching {remote_ref}: {rev.stderr}"
+            )
+        return rev.stdout.strip()
+    finally:
+        cleanup = run_git(["update-ref", "-d", local_ref])
+        if cleanup.returncode != 0:
+            raise StateBackendError(
+                f"cleanup of isolated fetch ref {local_ref} failed: {cleanup.stderr}"
+            )
 
 
 def _read_blob(commit_sha: str, path: str) -> str:
