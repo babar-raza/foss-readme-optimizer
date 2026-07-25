@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f",
-    "last_evaluated_at": "2026-07-25T20:02:16.686188+00:00",
+    "last_evaluated_at": "2026-07-25T20:02:23.644727+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -27,7 +27,7 @@
       "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "TODO",
       "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "CLOSED",
       "L8-LOCAL-PORTFOLIO-RUNTIME": "CLOSED",
-      "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "SCORED",
+      "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "CLOSED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
@@ -910,6 +910,18 @@
         "reason": "Acceptance score is seven of seven representative ecosystems accepted, zero proof failures, zero remote writes, checksum-complete manifests, and 1623 of 1623 selected official tests passing on the stable tree.",
         "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-local-readme-assessment-composition-b2679e4/acceptance-manifest.json",
+          "plans/investigations/evidence/level8-local-readme-assessment-composition-b2679e4/sha256sums.txt"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-25T20:02:23.644722+00:00",
+        "reason": "All taskcard implementation, heterogeneous proof, deterministic validation, independent reconstruction, no-write safety, checksum integrity, regression, and official-check exit gates are satisfied on committed evidence.",
+        "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -918,7 +930,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 104,
+  "state_version": 105,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
