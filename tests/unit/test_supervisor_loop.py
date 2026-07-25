@@ -555,12 +555,15 @@ class TestBasicLoop:
         state = backend.load(ORG_REPO)
         lifecycle = state.readme_poc_lifecycle
         assert lifecycle is not None
-        assert lifecycle.status == "FACTS_READY"
+        assert lifecycle.status == "CANDIDATE_GENERATED"
         assert [item.to_status for item in lifecycle.history] == [
             "SNAPSHOTTED",
             "PROFILED",
             "FACTS_COLLECTING",
             "FACTS_READY",
+            "README_ASSESSED",
+            "PLAN_READY",
+            "CANDIDATE_GENERATED",
         ]
         assert first.status == "CONVERGED_PROPOSAL_READY", (
             first.blocked_reason,
@@ -652,7 +655,7 @@ class TestBasicLoop:
                 result.decisions,
             )
             assert lifecycle is not None
-            assert lifecycle.status == "FACTS_READY"
+            assert lifecycle.status == "CANDIDATE_GENERATED"
             assert result.evidence_dir is not None
 
     def test_bootstrap_then_planner_capability_then_stop_converges(self, project):

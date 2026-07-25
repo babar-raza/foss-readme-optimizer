@@ -25,6 +25,8 @@ from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
 from readme_agent.ecosystems.resolver import resolve
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety._git import run_git
+from readme_agent.readme.assessment import ReadmeAssessmentV1, assess_readme_document
+from readme_agent.readme.claim_map import ReadmeClaimMapV1, build_readme_claim_map
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
@@ -39,7 +41,9 @@ _REQUIRED_ARTIFACTS = (
     "candidate-readme.md",
     "proposal.patch",
     "product-facts-v2.json",
+    "readme-assessment-v1.json",
     "readme-document-plan-v1.json",
+    "claim-map-v1.json",
     "repository-presentation-plan-v1.json",
     "document-validation.json",
     "artifact-sha256.json",
@@ -187,6 +191,12 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         plan = ReadmeDocumentPlanV1.model_validate(
             json.loads((bundle_dir / "readme-document-plan-v1.json").read_text(encoding="utf-8"))
         )
+        assessment = ReadmeAssessmentV1.model_validate(
+            json.loads((bundle_dir / "readme-assessment-v1.json").read_text(encoding="utf-8"))
+        )
+        claim_map = ReadmeClaimMapV1.model_validate(
+            json.loads((bundle_dir / "claim-map-v1.json").read_text(encoding="utf-8"))
+        )
     except Exception as exc:  # noqa: BLE001 -- any schema failure is a verification failure
         record("schemas_valid", False, f"schema load failed: {exc}")
         return ReadmeProposalBundleVerdictV1(
@@ -215,6 +225,13 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
     recon_candidate, recon_plan = build_readme_document_candidate(
         org_repo, original, facts, base_revision=plan.immutable_base_revision
     )
+    recon_assessment = assess_readme_document(
+        org_repo,
+        original,
+        facts,
+        base_revision=plan.immutable_base_revision,
+    )
+    recon_claim_map = build_readme_claim_map(recon_plan, facts)
     record(
         "independent_reconstruction_byte_identical",
         recon_candidate == candidate,
@@ -226,6 +243,16 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         and [op.model_dump() for op in recon_plan.operations]
         == [op.model_dump() for op in plan.operations],
         "reconstructed plan/operations differ from the stored plan",
+    )
+    record(
+        "assessment_reconstructed",
+        recon_assessment == assessment,
+        "reconstructed README assessment differs from the stored assessment",
+    )
+    record(
+        "claim_map_reconstructed",
+        recon_claim_map == claim_map,
+        "reconstructed fact-to-claim map differs from the stored claim map",
     )
 
     selected_ids = set(facts.selected_fact_ids.values())

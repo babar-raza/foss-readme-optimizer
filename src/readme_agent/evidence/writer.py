@@ -179,7 +179,9 @@ def write_readme_proposal_bundle(
     candidate_readme: str,
     patch_text: str,
     product_facts_v2: dict,
+    readme_assessment_v1: dict,
     readme_document_plan_v1: dict,
+    claim_map_v1: dict,
     repository_presentation_plan_v1: dict,
     document_validation: dict,
 ) -> None:
@@ -202,7 +204,9 @@ def write_readme_proposal_bundle(
     _atomic_write_text(bundle_dir / "candidate-readme.md", candidate_readme)
     _atomic_write_text(bundle_dir / "proposal.patch", patch_text)
     _atomic_write_json(bundle_dir / "product-facts-v2.json", product_facts_v2)
+    _atomic_write_json(bundle_dir / "readme-assessment-v1.json", readme_assessment_v1)
     _atomic_write_json(bundle_dir / "readme-document-plan-v1.json", readme_document_plan_v1)
+    _atomic_write_json(bundle_dir / "claim-map-v1.json", claim_map_v1)
     _atomic_write_json(
         bundle_dir / "repository-presentation-plan-v1.json", repository_presentation_plan_v1
     )
@@ -210,7 +214,7 @@ def write_readme_proposal_bundle(
     artifacts = {
         path.name: sha256_hex(path.read_bytes())
         for path in sorted(bundle_dir.iterdir())
-        if path.is_file()
+        if path.is_file() and path.name != "artifact-sha256.json"
     }
     _atomic_write_json(bundle_dir / "artifact-sha256.json", artifacts)
 

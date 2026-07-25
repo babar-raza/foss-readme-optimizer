@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from pathlib import Path
 
 from readme_agent import paths
@@ -11,6 +13,9 @@ from readme_agent.evidence.writer import (
     write_redacted_text,
 )
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.assessment import ReadmeAssessmentV1
+from readme_agent.readme.claim_map import ReadmeClaimMapV1
+from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 
 
@@ -139,3 +144,124 @@ def write_local_poc_product_facts(
     )
     refresh_sha256sums(bundle_dir)
     return bundle_dir
+
+
+def _canonical_hash(value: dict) -> str:
+    payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def write_local_poc_readme_candidate(
+    snapshot: RepositorySnapshotV1,
+    render_result: dict,
+    presentation_plan: dict,
+) -> tuple[Path, str, str, str]:
+    """Materialize the assessment, plan, candidate, patch, and claim map."""
+
+    if render_result.get("source_revision") != snapshot.source_revision:
+        raise ValueError("README candidate revision does not match the immutable snapshot")
+    assessment = ReadmeAssessmentV1.model_validate(presentation_plan["readme_assessment"])
+    document_plan = ReadmeDocumentPlanV1.model_validate(presentation_plan["readme_document_plan"])
+    claim_map = ReadmeClaimMapV1.model_validate(presentation_plan["claim_map"])
+    candidate_text = str(render_result["final_text"])
+    candidate_hash = hashlib.sha256(candidate_text.encode("utf-8")).hexdigest()
+    if (
+        candidate_hash != document_plan.candidate_sha256
+        or candidate_hash != claim_map.candidate_sha256
+    ):
+        raise ValueError("README candidate hash disagrees with its document plan or claim map")
+    if (
+        assessment.facts_hash != document_plan.facts_hash
+        or claim_map.facts_hash != document_plan.facts_hash
+    ):
+        raise ValueError(
+            "README assessment, document plan, and claim map use different fact graphs"
+        )
+
+    org, repo = snapshot.org_repo.split("/", maxsplit=1)
+    bundle_dir = paths.readme_poc_repository_dir(org, repo, snapshot.source_revision)
+    assessment_dir = bundle_dir / "assessment"
+    planning_dir = bundle_dir / "planning"
+    candidate_dir = bundle_dir / "candidate"
+    patch_text = str(presentation_plan.get("git_patch_proof", {}).get("patch") or "")
+
+    write_redacted_json(
+        assessment_dir / "current-readme-assessment.json",
+        assessment.model_dump(mode="json"),
+    )
+    write_redacted_json(
+        assessment_dir / "evidence-map.json",
+        {
+            "source_sha256": assessment.source_sha256,
+            "facts_hash": assessment.facts_hash,
+            "sections": [
+                {
+                    "section_id": section.section_id,
+                    "disposition": section.disposition,
+                    "fact_ids": section.fact_ids,
+                    "protected_fragment_ids": section.protected_fragment_ids,
+                    "evidence": section.evidence,
+                }
+                for section in assessment.sections
+            ],
+        },
+    )
+    write_redacted_json(
+        planning_dir / "presentation-plan.json",
+        presentation_plan.get("presentation_plan") or {},
+    )
+    write_redacted_json(
+        planning_dir / "readme-document-plan.json",
+        document_plan.model_dump(mode="json"),
+    )
+    write_redacted_json(
+        planning_dir / "selected-capabilities.json",
+        {
+            "capabilities": [
+                "render_readme_candidate",
+                "build_presentation_plan",
+            ],
+            "selection_authority": "canonical readme_presentation specialist",
+        },
+    )
+    write_redacted_json(
+        planning_dir / "decision-summary.json",
+        {
+            "executable": presentation_plan.get("executable") is True,
+            "operation_ids": [operation.operation_id for operation in document_plan.operations],
+            "section_dispositions": {
+                section.section_id: section.disposition for section in assessment.sections
+            },
+        },
+    )
+    write_redacted_text(candidate_dir / "README.md", candidate_text)
+    write_redacted_text(candidate_dir / "README.patch", patch_text)
+    write_redacted_json(candidate_dir / "claim-map.json", claim_map.model_dump(mode="json"))
+    write_redacted_text(candidate_dir / "candidate-hash.txt", candidate_hash + "\n")
+
+    assessment_hash = assessment.canonical_hash()
+    presentation_plan_hash = _canonical_hash(document_plan.model_dump(mode="json"))
+    write_redacted_json(
+        bundle_dir / "manifest.json",
+        {
+            "schema_version": 1,
+            "org_repo": snapshot.org_repo,
+            "source_revision": snapshot.source_revision,
+            "lifecycle_status": "CANDIDATE_GENERATED",
+            "facts_hash": document_plan.facts_hash,
+            "assessment_hash": assessment_hash,
+            "presentation_plan_hash": presentation_plan_hash,
+            "candidate_hash": candidate_hash,
+            "complete": False,
+            "completed_stages": [
+                "SNAPSHOTTED",
+                "PROFILED",
+                "FACTS_COLLECTING",
+                "README_ASSESSED",
+                "PLAN_READY",
+                "CANDIDATE_GENERATED",
+            ],
+        },
+    )
+    refresh_sha256sums(bundle_dir)
+    return bundle_dir, assessment_hash, presentation_plan_hash, candidate_hash

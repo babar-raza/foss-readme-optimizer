@@ -42,6 +42,13 @@ def _text_value(value: object) -> str:
     return str(value)
 
 
+def _accepted(facts: ProductFactsV2, field_name: str):
+    fact = facts.selected_fact(field_name)
+    if fact.verification_state not in _ACCEPTED_STATES or fact.has_unresolved_conflict:
+        return None
+    return fact
+
+
 def validate_readme_document_candidate(
     original_text: str,
     candidate_text: str,
@@ -135,20 +142,24 @@ def validate_readme_document_candidate(
         f"unauthorized protected-content loss: {loss.fragment_id}" for loss in unauthorized_losses
     )
 
-    example = facts.selected_fact("example.minimal")
-    example_value = example.value if isinstance(example.value, dict) else {}
+    example = _accepted(facts, "example.minimal")
+    example_value = example.value if example is not None and isinstance(example.value, dict) else {}
     exact_example = str(example_value.get("code", "")).rstrip()
-    checks["verified_example_present"] = bool(
-        candidate_span is not None and exact_example and exact_example in candidate_span.content
+    checks["verified_example_present"] = (
+        example is None
+        or not exact_example
+        or bool(candidate_span is not None and exact_example in candidate_span.content)
     )
     if not checks["verified_example_present"]:
         errors.append("selected verified minimal example is absent")
 
-    checks["verified_overview_present"] = bool(
-        candidate_span is not None
-        and _text_value(facts.selected_fact("product.audience").value) in candidate_span.content
-        and _text_value(facts.selected_fact("product.problems_solved").value)
-        in candidate_span.content
+    overview_facts = [
+        selected
+        for field_name in ("product.audience", "product.problems_solved")
+        if (selected := _accepted(facts, field_name)) is not None
+    ]
+    checks["verified_overview_present"] = candidate_span is not None and all(
+        _text_value(selected.value) in candidate_span.content for selected in overview_facts
     )
     if not checks["verified_overview_present"]:
         errors.append("fact-backed audience/problem overview is absent")

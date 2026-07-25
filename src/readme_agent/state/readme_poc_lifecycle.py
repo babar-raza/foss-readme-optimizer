@@ -53,9 +53,10 @@ from readme_agent.state.schema import RunStateV2
 # agent review as a separate step, since both happen automatically as part of
 # producing a new candidate (`RPOC-022`/`RPOC-051`'s own pipeline wiring).
 #
-# `FACT_CONFLICT` re-enters at `FACTS_COLLECTING`, not directly at
-# `FACTS_READY` -- a conflict must be re-collected/re-resolved, not assumed
-# resolved by fiat.
+# A fact block may continue to `README_ASSESSED`: missing or conflicting
+# facts block only dependent document operations, while the assessment and
+# plan preserve or omit those claims. It may not jump to `FACTS_READY`;
+# resolving the blocked fact still requires a fresh collection pass.
 #
 # `PR_PROOF_COMPLETE` is deliberately terminal (empty set) here -- this
 # taskcard only establishes the vocabulary and its transition table; whether
@@ -73,8 +74,8 @@ _README_POC_TRANSITIONS: dict[ReadmePocStatusV2, set[ReadmePocStatusV2]] = {
         "BLOCKED_MISSING_EVIDENCE",
         "SYSTEM_FAILURE",
     },
-    "BLOCKED_FACT_CONFLICT": {"FACTS_COLLECTING", "SYSTEM_FAILURE"},
-    "BLOCKED_MISSING_EVIDENCE": {"FACTS_COLLECTING", "SYSTEM_FAILURE"},
+    "BLOCKED_FACT_CONFLICT": {"README_ASSESSED", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
+    "BLOCKED_MISSING_EVIDENCE": {"README_ASSESSED", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "FACTS_READY": {"README_ASSESSED", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "README_ASSESSED": {"PLAN_READY", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "PLAN_READY": {"CANDIDATE_GENERATED", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
@@ -130,6 +131,27 @@ for _derived_status in (
     "PR_ELIGIBLE",
 ):
     _README_POC_TRANSITIONS[_derived_status].add("SNAPSHOTTED")
+
+# A renderer/template/assessment change at the same source revision reopens
+# at the earliest affected composition boundary while retaining the verified
+# fact graph. The caller must supply fresh assessment/plan/candidate hashes;
+# this edge is never used to pretend a fact conflict was resolved.
+for _composition_status in (
+    "PLAN_READY",
+    "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATION_FAILED",
+    "DETERMINISTIC_VALIDATED",
+    "AGENT_REVIEWING",
+    "AGENT_REVIEW_REJECTED",
+    "REPAIRING",
+    "AGENT_APPROVED",
+    "NO_OP_PROVEN",
+    "HUMAN_REVIEW_READY",
+    "HUMAN_ACCEPTED",
+    "PR_ELIGIBLE",
+    "PR_PROOF_COMPLETE",
+):
+    _README_POC_TRANSITIONS[_composition_status].add("README_ASSESSED")
 
 _V1_STATUS_MIGRATION: dict[str, ReadmePocStatusV2] = {
     "DISCOVERED": "DISCOVERED",
@@ -192,6 +214,9 @@ def transition_readme_poc_status(
     evidence_refs: list[str] | None = None,
     source_revision: str | None = None,
     facts_hash: str | None = None,
+    assessment_hash: str | None = None,
+    presentation_plan_hash: str | None = None,
+    candidate_hash: str | None = None,
     prompt_hash: str | None = None,
     reviewer_standard_hash: str | None = None,
     protected_content_fingerprint: str | None = None,
@@ -271,6 +296,21 @@ def transition_readme_poc_status(
                     if facts_hash is not None
                     else (None if source_changed else prior.facts_hash)
                 ),
+                "assessment_hash": (
+                    assessment_hash
+                    if assessment_hash is not None
+                    else (None if source_changed else prior.assessment_hash)
+                ),
+                "presentation_plan_hash": (
+                    presentation_plan_hash
+                    if presentation_plan_hash is not None
+                    else (None if source_changed else prior.presentation_plan_hash)
+                ),
+                "candidate_hash": (
+                    candidate_hash
+                    if candidate_hash is not None
+                    else (None if source_changed else prior.candidate_hash)
+                ),
                 "prompt_hash": (
                     prompt_hash
                     if prompt_hash is not None
@@ -295,6 +335,87 @@ def transition_readme_poc_status(
     saved = save_state_patch(backend, org_repo, patch, max_retries=max_retries)
     assert isinstance(saved.readme_poc_lifecycle, ReadmePocLifecycleStateV2)
     return saved.readme_poc_lifecycle
+
+
+def record_readme_candidate_artifacts(
+    backend: StateBackend,
+    org_repo: str,
+    *,
+    source_revision: str,
+    assessment_hash: str,
+    presentation_plan_hash: str,
+    candidate_hash: str,
+    evidence_refs: list[str],
+) -> ReadmePocLifecycleStateV2:
+    """Persist assessment, plan, and candidate boundaries without duplicate events."""
+
+    state = backend.load(org_repo)
+    stored = state.readme_poc_lifecycle if state is not None else None
+    if stored is None or isinstance(stored, ReadmePocLifecycleStateV1):
+        raise StateBackendError(f"{org_repo!r} has no V2 product-truth lifecycle to compose from")
+    if stored.source_revision != source_revision:
+        raise StateBackendError(
+            "README candidate source revision does not match durable lifecycle state: "
+            f"{source_revision!r} != {stored.source_revision!r}"
+        )
+    hashes_match = (
+        stored.assessment_hash == assessment_hash
+        and stored.presentation_plan_hash == presentation_plan_hash
+        and stored.candidate_hash == candidate_hash
+    )
+    if (
+        stored.status
+        in {
+            "CANDIDATE_GENERATED",
+            "DETERMINISTIC_VALIDATION_FAILED",
+            "DETERMINISTIC_VALIDATED",
+            "AGENT_REVIEWING",
+            "AGENT_REVIEW_REJECTED",
+            "REPAIRING",
+            "AGENT_APPROVED",
+            "NO_OP_PROVEN",
+            "HUMAN_REVIEW_READY",
+            "HUMAN_ACCEPTED",
+            "PR_ELIGIBLE",
+            "PR_PROOF_COMPLETE",
+        }
+        and hashes_match
+    ):
+        return stored
+
+    current = stored
+    if current.status != "README_ASSESSED":
+        current = transition_readme_poc_status(
+            backend,
+            org_repo,
+            "README_ASSESSED",
+            observed_by="readme-presentation-composition",
+            reason="source-bound README assessment completed",
+            evidence_refs=evidence_refs,
+            source_revision=source_revision,
+            assessment_hash=assessment_hash,
+        )
+    if current.status != "PLAN_READY":
+        current = transition_readme_poc_status(
+            backend,
+            org_repo,
+            "PLAN_READY",
+            observed_by="readme-presentation-composition",
+            reason="fact-cited source-span presentation plan completed",
+            evidence_refs=evidence_refs,
+            source_revision=source_revision,
+            presentation_plan_hash=presentation_plan_hash,
+        )
+    return transition_readme_poc_status(
+        backend,
+        org_repo,
+        "CANDIDATE_GENERATED",
+        observed_by="readme-presentation-composition",
+        reason="revision-addressed README candidate and native patch materialized",
+        evidence_refs=evidence_refs,
+        source_revision=source_revision,
+        candidate_hash=candidate_hash,
+    )
 
 
 def record_repository_snapshot(

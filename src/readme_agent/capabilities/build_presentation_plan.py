@@ -32,7 +32,9 @@ MANIFEST = CapabilityManifest(
     produced_outputs={
         "presentation_plan": "object",
         "git_patch_proof": "object",
+        "readme_assessment": "object",
         "readme_document_plan": "object",
+        "claim_map": "object",
         "document_validation": "object",
         "executable": "boolean",
     },
@@ -129,7 +131,9 @@ def execute(
         "git_patch_proof": (
             legacy_patch_proof.model_dump(mode="json") if legacy_patch_proof is not None else {}
         ),
+        "readme_assessment": {},
         "readme_document_plan": {},
+        "claim_map": {},
         "document_validation": {},
         "executable": executable,
     }

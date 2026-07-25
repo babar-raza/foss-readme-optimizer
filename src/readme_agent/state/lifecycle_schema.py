@@ -256,6 +256,9 @@ class ReadmePocLifecycleStateV2(BaseModel):
     history: list[ReadmePocTransitionV2] = Field(default_factory=list)
     source_revision: str | None = None
     facts_hash: str | None = None
+    assessment_hash: str | None = None
+    presentation_plan_hash: str | None = None
+    candidate_hash: str | None = None
     prompt_hash: str | None = None
     reviewer_standard_hash: str | None = None
     protected_content_fingerprint: str | None = None

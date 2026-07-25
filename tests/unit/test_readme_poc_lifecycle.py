@@ -29,6 +29,7 @@ from readme_agent.state.migrations import ensure_run_state_v2, load_run_state_js
 from readme_agent.state.readme_poc_lifecycle import (
     legal_next_readme_poc_statuses,
     record_product_facts_outcome,
+    record_readme_candidate_artifacts,
     record_repository_profile,
     record_repository_snapshot,
     transition_readme_poc_status,
@@ -405,7 +406,7 @@ class TestInvalidTransitions:
         ]:
             transition_readme_poc_status(backend, org_repo, status, observed_by="t", reason="r")
         assert legal_next_readme_poc_statuses("PR_PROOF_COMPLETE") == frozenset(
-            {"SNAPSHOTTED", "FACTS_COLLECTING"}
+            {"SNAPSHOTTED", "FACTS_COLLECTING", "README_ASSESSED"}
         )
         reopened = transition_readme_poc_status(
             backend,
@@ -435,6 +436,7 @@ class TestLegalNextIntrospection:
                 "DETERMINISTIC_VALIDATION_FAILED",
                 "DETERMINISTIC_VALIDATED",
                 "FACTS_COLLECTING",
+                "README_ASSESSED",
                 "SNAPSHOTTED",
                 "SYSTEM_FAILURE",
             }
@@ -519,6 +521,60 @@ class TestProductFactsBoundary:
             "BLOCKED_MISSING_EVIDENCE",
         ]
         assert reopened.facts_hash == "facts-b"
+
+
+class TestReadmeCandidateBoundary:
+    def test_blocked_facts_continue_through_safe_composition_and_retry_is_idempotent(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        for status in ("SNAPSHOTTED", "PROFILED", "FACTS_COLLECTING"):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="test",
+                reason="advance",
+                source_revision="abc123",
+            )
+        transition_readme_poc_status(
+            backend,
+            org_repo,
+            "BLOCKED_MISSING_EVIDENCE",
+            observed_by="test",
+            reason="one optional README claim lacks evidence",
+            source_revision="abc123",
+            facts_hash="facts-a",
+        )
+
+        first = record_readme_candidate_artifacts(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            assessment_hash="assessment-a",
+            presentation_plan_hash="plan-a",
+            candidate_hash="candidate-a",
+            evidence_refs=["assessment", "plan", "candidate"],
+        )
+        second = record_readme_candidate_artifacts(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            assessment_hash="assessment-a",
+            presentation_plan_hash="plan-a",
+            candidate_hash="candidate-a",
+            evidence_refs=["assessment", "plan", "candidate"],
+        )
+
+        assert first.status == "CANDIDATE_GENERATED"
+        assert first.assessment_hash == "assessment-a"
+        assert first.presentation_plan_hash == "plan-a"
+        assert first.candidate_hash == "candidate-a"
+        assert [item.to_status for item in first.history[-3:]] == [
+            "README_ASSESSED",
+            "PLAN_READY",
+            "CANDIDATE_GENERATED",
+        ]
+        assert second == first
 
 
 class TestSerializationRoundTrip:

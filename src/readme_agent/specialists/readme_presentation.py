@@ -98,6 +98,7 @@ from readme_agent.errors import StateBackendError
 from readme_agent.evidence.writer import generate_run_id, write_readme_proposal_bundle
 from readme_agent.orchestrator import record_accepted_readme_state
 from readme_agent.registry.loader import require_listed
+from readme_agent.repository_snapshot import current_repository_snapshot
 from readme_agent.specialists.independent_readme_review import (
     run_independent_review_with_repair_loop,
 )
@@ -105,8 +106,10 @@ from readme_agent.specialists.readme_factuality import evaluate_candidate_factua
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.change_detection import classify_surface
 from readme_agent.state.domain_state import merge_details, save_domain_with_failure_tracking
+from readme_agent.state.readme_poc_lifecycle import record_readme_candidate_artifacts
 from readme_agent.state.schema import DomainStateV1
 from readme_agent.supervisor.execution_context import proposal_only_active
+from readme_agent.supervisor.local_poc_evidence import write_local_poc_readme_candidate
 from readme_agent.supervisor.product_truth import load_prepared_product_truth
 from readme_agent.verification.checks import compute_verification_token
 
@@ -331,6 +334,45 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                     presentation_plan=presentation_plan_record,
                 ),
             }
+
+        if proposal_only_active():
+            if backend is None:
+                return {"accepted_status": "ERROR:local_poc_candidate_requires_durable_state"}
+            snapshot = current_repository_snapshot(org_repo)
+            if snapshot is None:
+                return {"accepted_status": "ERROR:local_poc_candidate_snapshot_missing"}
+            try:
+                (
+                    local_bundle_dir,
+                    assessment_hash,
+                    presentation_plan_hash,
+                    candidate_hash,
+                ) = write_local_poc_readme_candidate(
+                    snapshot,
+                    current_render_result,
+                    presentation_plan,
+                )
+                record_readme_candidate_artifacts(
+                    backend,
+                    org_repo,
+                    source_revision=snapshot.source_revision,
+                    assessment_hash=assessment_hash,
+                    presentation_plan_hash=presentation_plan_hash,
+                    candidate_hash=candidate_hash,
+                    evidence_refs=[
+                        str(local_bundle_dir / "assessment" / "current-readme-assessment.json"),
+                        str(local_bundle_dir / "planning" / "readme-document-plan.json"),
+                        str(local_bundle_dir / "candidate" / "README.md"),
+                        str(local_bundle_dir / "candidate" / "README.patch"),
+                        str(local_bundle_dir / "candidate" / "claim-map.json"),
+                    ],
+                )
+            except Exception as exc:  # noqa: BLE001 -- fail closed before review/effect
+                return {
+                    "accepted_status": (
+                        f"ERROR:local_poc_candidate_persistence:{type(exc).__name__}:{exc}"
+                    )
+                }
 
         factuality = evaluate_candidate_factuality(
             org_repo,
@@ -568,7 +610,9 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             candidate_readme=render_result["final_text"],
             patch_text=patch_text or "",
             product_facts_v2=product_facts_v2,
+            readme_assessment_v1=presentation_plan_record["readme_assessment"],
             readme_document_plan_v1=presentation_plan_record["readme_document_plan"],
+            claim_map_v1=presentation_plan_record["claim_map"],
             repository_presentation_plan_v1=presentation_plan_record.get("presentation_plan") or {},
             document_validation=presentation_plan_record.get("document_validation") or {},
         )

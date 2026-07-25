@@ -28,9 +28,9 @@ from readme_agent.readme.document_plan import (
 )
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.document_templates import (
+    accepted_fact,
     document_template_hash,
     example_text,
-    fact,
     first_mapping,
     installation_text,
     mapping_value,
@@ -81,31 +81,31 @@ def build_readme_document_candidate(
         None,
     )
     overview_insert = ""
+    overview_fields = (
+        "product.audience",
+        "product.problems_solved",
+        "product.capabilities",
+        "product.formats",
+        "product.compatibility",
+        "product.limitations",
+    )
     overview_fact_ids = [
-        fact(facts, field).fact_id
-        for field in (
-            "product.audience",
-            "product.problems_solved",
-            "product.capabilities",
-            "product.formats",
-            "product.compatibility",
-            "product.limitations",
-        )
+        selected.fact_id
+        for field in overview_fields
+        if (selected := accepted_fact(facts, field)) is not None
     ]
+    verified_installation = installation_text(facts, org_repo, base_revision)
     if not has_overview:
         overview_insert = overview_text(facts, headings) + "\n\n"
-    if installation is None:
-        overview_insert += (
-            "## Installation\n\n" + installation_text(facts, org_repo, base_revision) + "\n\n"
-        )
+    if installation is None and verified_installation:
+        overview_insert += "## Installation\n\n" + verified_installation + "\n\n"
         overview_fact_ids.extend(
-            [
-                fact(facts, "installation.verified_acquisition").fact_id,
-                fact(facts, "product.compatibility").fact_id,
-            ]
+            selected.fact_id
+            for field in ("installation.coordinates", "installation.verified_acquisition")
+            if (selected := accepted_fact(facts, field)) is not None
         )
-    example = fact(facts, "example.minimal")
-    example_value = example.value if isinstance(example.value, dict) else {}
+    example = accepted_fact(facts, "example.minimal")
+    example_value = example.value if example is not None and isinstance(example.value, dict) else {}
     exact_code = str(example_value.get("code", "")).rstrip()
     example_target = next(
         (
@@ -117,6 +117,7 @@ def build_readme_document_candidate(
     )
     if exact_code and exact_code not in inner_text and example_target is None:
         overview_insert += "## Quick Start\n\n" + example_text(facts, base_revision) + "\n\n"
+        assert example is not None
         overview_fact_ids.append(example.fact_id)
     if overview_insert:
         char_offset = first_h2.start if first_h2 is not None else len(inner_text)
@@ -138,8 +139,8 @@ def build_readme_document_candidate(
             )
         )
 
-    acquisition = fact(facts, "installation.verified_acquisition")
-    acquisition_value = mapping_value(acquisition.value)
+    acquisition = accepted_fact(facts, "installation.verified_acquisition")
+    acquisition_value = mapping_value(acquisition.value) if acquisition is not None else {}
     # The "aspose {family} foss" rule: only replace a registry install with source-build when
     # the package is genuinely NOT published (method == "source_build"). A registry-verified
     # package's correct install claim must never be stripped just because the README text
@@ -155,7 +156,11 @@ def build_readme_document_candidate(
         if contains_unverified_package_install:
             start = len(inner_text[: installation.heading_end].encode("utf-8"))
             end = len(inner_text[: installation.section_end].encode("utf-8"))
-            replacement = "\n" + installation_text(facts, org_repo, base_revision) + "\n\n"
+            if not verified_installation:
+                raise ValueError(
+                    "verified source acquisition has no ecosystem-specific rendering contract"
+                )
+            replacement = "\n" + verified_installation + "\n\n"
             operations.append(
                 build_operation(
                     operation_id="readme.installation.verified-source-replacement",
@@ -165,9 +170,13 @@ def build_readme_document_candidate(
                     end=end,
                     replacement=replacement,
                     fact_ids=[
-                        fact(facts, "installation.coordinates").fact_id,
-                        fact(facts, "installation.verified_acquisition").fact_id,
-                        fact(facts, "product.compatibility").fact_id,
+                        selected.fact_id
+                        for field in (
+                            "installation.coordinates",
+                            "installation.verified_acquisition",
+                            "product.compatibility",
+                        )
+                        if (selected := accepted_fact(facts, field)) is not None
                     ],
                     treatment="authoritative_fact_correction",
                     rationale=(
@@ -188,7 +197,7 @@ def build_readme_document_candidate(
                     start=byte_offset,
                     end=byte_offset,
                     replacement="\n" + example_text(facts, base_revision) + "\n\n",
-                    fact_ids=[example.fact_id],
+                    fact_ids=[example.fact_id] if example is not None else [],
                     treatment="additive",
                     rationale=(
                         "Lead the usage section with the exact minimal example compiled against "
@@ -197,8 +206,9 @@ def build_readme_document_candidate(
                 )
             )
 
+    relationship = accepted_fact(facts, "relationship.commercial_foss")
     callout = _PROMOTIONAL_CALLOUT.search(inner_text)
-    if callout is not None:
+    if callout is not None and relationship is not None:
         start = len(inner_text[: callout.start()].encode("utf-8"))
         end = len(inner_text[: callout.end()].encode("utf-8"))
         operations.append(
@@ -209,7 +219,7 @@ def build_readme_document_candidate(
                 start=start,
                 end=end,
                 replacement="",
-                fact_ids=[fact(facts, "relationship.commercial_foss").fact_id],
+                fact_ids=[relationship.fact_id],
                 treatment="authoritative_fact_correction",
                 rationale=(
                     "Keep the first screen product-first; the existing relationship section "
@@ -231,7 +241,7 @@ def build_readme_document_candidate(
                     start=start,
                     end=end,
                     replacement="",
-                    fact_ids=[acquisition.fact_id],
+                    fact_ids=[acquisition.fact_id] if acquisition is not None else [],
                     treatment="authoritative_fact_correction",
                     rationale=(
                         "Remove a package-registry availability badge when the selected verified "
@@ -240,8 +250,8 @@ def build_readme_document_candidate(
                 )
             )
 
-    release = fact(facts, "release.state")
-    release_value = first_mapping(release.value)
+    release = accepted_fact(facts, "release.state")
+    release_value = first_mapping(release.value) if release is not None else {}
     selected_version = str(release_value.get("version", "")).strip()
     declared_version = _DECLARED_VERSION.search(inner_text)
     if (
@@ -259,7 +269,7 @@ def build_readme_document_candidate(
                 start=start,
                 end=end,
                 replacement=selected_version,
-                fact_ids=[release.fact_id],
+                fact_ids=[release.fact_id] if release is not None else [],
                 treatment="authoritative_fact_correction",
                 rationale=(
                     "Align the stated current version with the immutable revision's manifest."

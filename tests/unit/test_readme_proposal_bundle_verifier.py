@@ -22,7 +22,14 @@ from readme_agent.capabilities import registry as capability_registry
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.ecosystems.resolver import ResolutionResult
+from readme_agent.evidence.writer import write_readme_proposal_bundle
+from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.presentation.document_planner import (
+    build_document_repository_presentation_plan,
+)
 from readme_agent.readme.document_hashing import sha256_hex
+from readme_agent.readme.document_renderer import build_readme_document_candidate
+from readme_agent.registry.loader import load_policy, require_listed
 from readme_agent.verification import readme_proposal_bundle as bundle_verifier
 from readme_agent.verification.readme_proposal_bundle import (
     verify_cross_pilot_specificity,
@@ -70,6 +77,42 @@ def _refresh_artifact_checksums(bundle: Path) -> None:
 def bundle(tmp_path) -> Path:
     dst = tmp_path / "cells-java"
     shutil.copytree(EVIDENCE / "cells-java", dst)
+    original = (dst / "original-readme.md").read_text(encoding="utf-8")
+    facts = ProductFactsV2.model_validate(
+        json.loads((dst / "product-facts-v2.json").read_text(encoding="utf-8"))
+    )
+    archived_plan = json.loads((dst / "readme-document-plan-v1.json").read_text(encoding="utf-8"))
+    revision = archived_plan["immutable_base_revision"]
+    candidate, _document_plan = build_readme_document_candidate(
+        facts.org_repo,
+        original,
+        facts,
+        base_revision=revision,
+    )
+    entry = require_listed(facts.org_repo)
+    assert entry.policy_profile is not None
+    presentation_plan, patch, executable, records = build_document_repository_presentation_plan(
+        facts.org_repo,
+        original,
+        original,
+        candidate,
+        facts,
+        load_policy(entry.policy_profile).surface_ownership,
+        base_revision=revision,
+    )
+    assert executable
+    write_readme_proposal_bundle(
+        dst,
+        original_readme=original,
+        candidate_readme=candidate,
+        patch_text=patch["patch"],
+        product_facts_v2=facts.model_dump(mode="json"),
+        readme_assessment_v1=records["readme_assessment"],
+        readme_document_plan_v1=records["readme_document_plan"],
+        claim_map_v1=records["claim_map"],
+        repository_presentation_plan_v1=presentation_plan.model_dump(mode="json"),
+        document_validation=records["document_validation"],
+    )
     return dst
 
 

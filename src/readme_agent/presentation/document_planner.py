@@ -19,6 +19,8 @@ from readme_agent.presentation.schema import (
     PresentationActionV1,
     RepositoryPresentationPlanV1,
 )
+from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
 from readme_agent.registry.surface_ownership import (
@@ -72,6 +74,13 @@ def build_document_repository_presentation_plan(
     )
     if expected_candidate != candidate_text:
         raise ValidationFailure("README candidate differs from the independently rebuilt plan")
+    assessment = assess_readme_document(
+        org_repo,
+        source_text,
+        facts,
+        base_revision=base_revision,
+    )
+    claim_map = build_readme_claim_map(document_plan, facts)
     validation = validate_readme_document_candidate(
         source_text,
         candidate_text,
@@ -160,7 +169,9 @@ def build_document_repository_presentation_plan(
         proof.model_dump(mode="json"),
         executable,
         {
+            "readme_assessment": assessment.model_dump(mode="json"),
             "readme_document_plan": document_plan.model_dump(mode="json"),
+            "claim_map": claim_map.model_dump(mode="json"),
             "document_validation": validation_record,
         },
     )

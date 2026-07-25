@@ -12,7 +12,9 @@ from readme_agent.gitsafety.hooks import install_pre_push_hook
 from readme_agent.gitsafety.neuter import neuter_push
 from readme_agent.gitsafety.verify import verify_push_blocked
 from readme_agent.inspection.file_inventory import scan
+from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.candidate_workspace import ensure_work_clone
+from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.facts import compute_tracked_content_hash
 from readme_agent.registry.loader import require_listed
@@ -86,6 +88,13 @@ def prepare_idea_fidelity_candidate(
             facts,
             base_revision=snapshot.source_revision,
         )
+        assessment = assess_readme_document(
+            org_repo,
+            source_text,
+            facts,
+            base_revision=snapshot.source_revision,
+        )
+        claim_map = build_readme_claim_map(document_plan, facts)
         needs_write = final_text != original_text
         return {
             "facts_hash": facts.canonical_hash(),
@@ -100,5 +109,7 @@ def prepare_idea_fidelity_candidate(
             "llm_called": False,
             "llm_calls": [],
             "product_facts_v2": facts.model_dump(mode="json"),
+            "readme_assessment": assessment.model_dump(mode="json"),
             "readme_document_plan": document_plan.model_dump(mode="json"),
+            "claim_map": claim_map.model_dump(mode="json"),
         }

@@ -70,7 +70,9 @@ MANIFEST = CapabilityManifest(
         "status": "string",
         "llm_called": "boolean",
         "llm_calls": "array",
+        "readme_assessment": "object",
         "readme_document_plan": "object",
+        "claim_map": "object",
     },
     preconditions=["org_repo must be listed in data/products.json with a non-disabled mode"],
     required_permissions=["read_only_local"],
@@ -126,5 +128,7 @@ def execute(
         "status": candidate.status,
         "llm_called": candidate.llm_called,
         "llm_calls": candidate.llm_calls,
+        "readme_assessment": {},
         "readme_document_plan": {},
+        "claim_map": {},
     }
