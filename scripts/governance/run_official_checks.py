@@ -20,7 +20,8 @@ made 68 seconds *after* the last attempt finished, not before the first). A dirt
 modified-during-run label makes that class of mislabeling impossible to miss in the log again.
 
 Usage: `.venv/Scripts/python.exe scripts/governance/run_official_checks.py`
-Exit code 0 = every check passed. Exit code 1 = at least one check failed.
+Exit code 0 = every check passed against one clean, stable tree.
+Exit code 1 = a check failed, the tree was dirty, or the tree changed during the run.
 """
 
 from __future__ import annotations
@@ -63,6 +64,12 @@ def _print_tree_precondition(label: str, status: str) -> None:
         print("TREE DIRTY -- this run's evidence is NOT proof about any specific committed state:")
         for line in status.splitlines():
             print(f"  {line}")
+
+
+def _tree_is_proof_eligible(status_at_start: str, status_at_end: str) -> bool:
+    """Return true only for one clean tree that stayed unchanged."""
+
+    return not status_at_start.strip() and status_at_start == status_at_end
 
 
 def _run(label: str, command: list[str], *, required: bool = True) -> bool:
@@ -150,6 +157,9 @@ def main() -> int:
             "results must not be cited as evidence about any single, specific commit; the tree "
             "changed while the checks were executing."
         )
+    tree_ok = _tree_is_proof_eligible(status_at_start, status_at_end)
+    if not tree_ok:
+        all_ok = False
 
     print("\n" + ("=" * 60))
     tree_label = (

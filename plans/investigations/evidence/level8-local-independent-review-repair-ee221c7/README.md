@@ -22,4 +22,6 @@ records the focused controlled proof.
 
 `official-checks-invalidated-by-concurrent-edit.log` records a passing diagnostic suite whose
 own end precondition says `TREE MODIFIED DURING RUN`; it is retained for truthfulness and is not
-acceptance proof. `official-checks-attempt-1.log` is reserved for the later clean-tree rerun.
+acceptance proof. `official-checks-cancelled-after-concurrent-edit.log` records a second run stopped
+after another concurrent edit made it ineligible. `official-checks-attempt-1.log` is reserved for
+the later clean-tree rerun.

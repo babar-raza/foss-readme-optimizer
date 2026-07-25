@@ -7,7 +7,7 @@ format's own file count climbed mid-sequence, and the commit later cited as the 
 postdated the last attempt by 68 seconds). These tests prove the new labeling makes that exact
 mislabeling impossible to miss."""
 
-from governance.run_official_checks import _print_tree_precondition
+from governance.run_official_checks import _print_tree_precondition, _tree_is_proof_eligible
 
 
 class TestPrintTreePrecondition:
@@ -33,3 +33,15 @@ class TestPrintTreePrecondition:
         _print_tree_precondition("end", "")
         out = capsys.readouterr().out
         assert "(end)" in out
+
+
+class TestTreeProofEligibility:
+    def test_clean_unchanged_tree_is_eligible(self):
+        assert _tree_is_proof_eligible("", "") is True
+
+    def test_initially_dirty_tree_is_not_eligible_even_when_unchanged(self):
+        dirty = " M src/readme_agent/foo.py\n"
+        assert _tree_is_proof_eligible(dirty, dirty) is False
+
+    def test_tree_modified_during_run_is_not_eligible(self):
+        assert _tree_is_proof_eligible("", " M tests/unit/test_example.py\n") is False
