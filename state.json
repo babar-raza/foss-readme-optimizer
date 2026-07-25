@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "8db1168d8a5a84eaa1b5fc057c1cb22b16651cc70f44bfbe2e0c33de1cb3b09b",
-    "last_evaluated_at": "2026-07-25T17:04:51.392870+00:00",
+    "last_evaluated_at": "2026-07-25T17:05:00.908416+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -25,7 +25,7 @@
       "L8-LOCAL-HUMAN-REVIEW-GATE-B": "TODO",
       "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "CLOSED",
       "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "TODO",
-      "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "SCORED",
+      "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "CLOSED",
       "L8-LOCAL-PORTFOLIO-RUNTIME": "CLOSED",
       "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "TODO",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
@@ -850,6 +850,19 @@
         "reason": "Task acceptance and closeout rules are satisfied: seven terminal fact graphs, no system failures, exact renderer graph use, useful verified facts or narrow visible blocks, and no unsupported fact promotion.",
         "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "runs/level8-local-portfolio-product-truth-verification/acceptance-manifest.json",
+          "runs/level8-local-portfolio-product-truth-verification/sha256sums.txt",
+          "93 focused product-truth/facts/lifecycle/security tests passed on control HEAD 736b2d918226b1328ce8ec479bdd34a94a211d2c"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex-primary",
+        "occurred_at": "2026-07-25T17:05:00.908396+00:00",
+        "reason": "Implementation, representative live proof, checksum verification, focused regression, safety verification, and task acceptance reconciliation are complete.",
+        "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -858,7 +871,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 97,
+  "state_version": 98,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
