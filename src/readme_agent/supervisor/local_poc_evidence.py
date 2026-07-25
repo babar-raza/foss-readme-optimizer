@@ -204,6 +204,9 @@ def write_local_poc_readme_candidate(
                 }
                 for section in assessment.sections
             ],
+            "material_claims": [
+                claim.model_dump(mode="json") for claim in assessment.material_claims
+            ],
         },
     )
     write_redacted_json(
@@ -240,7 +243,7 @@ def write_local_poc_readme_candidate(
     write_redacted_text(candidate_dir / "candidate-hash.txt", candidate_hash + "\n")
 
     assessment_hash = assessment.canonical_hash()
-    presentation_plan_hash = _canonical_hash(document_plan.model_dump(mode="json"))
+    presentation_plan_hash = _canonical_hash(presentation_plan.get("presentation_plan") or {})
     write_redacted_json(
         bundle_dir / "manifest.json",
         {

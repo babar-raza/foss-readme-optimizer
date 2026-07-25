@@ -1,5 +1,7 @@
 """Revision-addressed snapshot evidence for the canonical local POC."""
 
+import hashlib
+import json
 from pathlib import Path
 
 from readme_agent import paths
@@ -199,9 +201,22 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     )
 
     assert assessment_hash == assessment.canonical_hash()
-    assert plan_hash
+    expected_presentation_plan_hash = hashlib.sha256(
+        json.dumps(
+            {"repository": snapshot.org_repo},
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    assert plan_hash == expected_presentation_plan_hash
     assert candidate_hash == document_plan.candidate_sha256
     assert (bundle / "assessment" / "current-readme-assessment.json").is_file()
+    evidence_map = json.loads(
+        (bundle / "assessment" / "evidence-map.json").read_text(encoding="utf-8")
+    )
+    assert evidence_map["material_claims"] == [
+        claim.model_dump(mode="json") for claim in assessment.material_claims
+    ]
     assert (bundle / "planning" / "readme-document-plan.json").is_file()
     assert (bundle / "candidate" / "README.md").read_text(encoding="utf-8") == candidate
     assert (bundle / "candidate" / "README.patch").read_text(encoding="utf-8") == (
