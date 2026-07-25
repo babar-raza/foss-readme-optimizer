@@ -20,6 +20,16 @@ from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 
 
+def _existing_manifest(bundle_dir: Path, source_revision: str) -> dict:
+    manifest_path = bundle_dir / "manifest.json"
+    if not manifest_path.is_file():
+        return {}
+    loaded = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if not isinstance(loaded, dict) or loaded.get("source_revision") != source_revision:
+        return {}
+    return loaded
+
+
 def write_local_poc_snapshot(snapshot: RepositorySnapshotV1) -> Path:
     """Write the immutable source portion of one local-POC bundle idempotently.
 
@@ -30,6 +40,7 @@ def write_local_poc_snapshot(snapshot: RepositorySnapshotV1) -> Path:
     """
     org, repo = snapshot.org_repo.split("/", maxsplit=1)
     bundle_dir = paths.readme_poc_repository_dir(org, repo, snapshot.source_revision)
+    prior_manifest = _existing_manifest(bundle_dir, snapshot.source_revision)
     source_dir = bundle_dir / "source"
     write_redacted_json(source_dir / "revision.json", snapshot)
     write_redacted_json(
@@ -48,23 +59,27 @@ def write_local_poc_snapshot(snapshot: RepositorySnapshotV1) -> Path:
     else:
         readme = snapshot.root_path / snapshot.readme_path
         write_redacted_text(source_dir / "README.md", readme.read_text(encoding="utf-8"))
-    write_redacted_json(
-        bundle_dir / "manifest.json",
-        {
-            "schema_version": 1,
-            "org_repo": snapshot.org_repo,
-            "source_revision": snapshot.source_revision,
-            "lifecycle_status": "SNAPSHOTTED",
-            "complete": False,
-            "completed_stages": ["SNAPSHOTTED"],
-        },
-    )
+    if not prior_manifest:
+        write_redacted_json(
+            bundle_dir / "manifest.json",
+            {
+                "schema_version": 1,
+                "org_repo": snapshot.org_repo,
+                "source_revision": snapshot.source_revision,
+                "lifecycle_status": "SNAPSHOTTED",
+                "complete": False,
+                "completed_stages": ["SNAPSHOTTED"],
+            },
+        )
     refresh_sha256sums(bundle_dir)
     return bundle_dir
 
 
 def mark_local_poc_profiled(snapshot: RepositorySnapshotV1, bundle_dir: Path) -> None:
     """Advance the bundle manifest after the durable profile transition."""
+    if _existing_manifest(bundle_dir, snapshot.source_revision).get("candidate_hash"):
+        refresh_sha256sums(bundle_dir)
+        return
     write_redacted_json(
         bundle_dir / "manifest.json",
         {
@@ -129,6 +144,11 @@ def write_local_poc_product_facts(
     write_redacted_json(facts_dir / "findings.json", findings)
     if proposed_product_truth is not None:
         write_redacted_json(facts_dir / "proposed-product-truth.json", proposed_product_truth)
+    facts_hash = facts.canonical_hash()
+    prior_manifest = _existing_manifest(bundle_dir, snapshot.source_revision)
+    if prior_manifest.get("candidate_hash") and prior_manifest.get("facts_hash") == facts_hash:
+        refresh_sha256sums(bundle_dir)
+        return bundle_dir
     write_redacted_json(
         bundle_dir / "manifest.json",
         {
@@ -136,7 +156,7 @@ def write_local_poc_product_facts(
             "org_repo": snapshot.org_repo,
             "source_revision": snapshot.source_revision,
             "lifecycle_status": lifecycle_status,
-            "facts_hash": facts.canonical_hash(),
+            "facts_hash": facts_hash,
             "resolution_source": resolution_source,
             "prompt_hash": prompt_hash,
             "complete": False,
@@ -255,13 +275,38 @@ def write_local_poc_readme_candidate(
 
     assessment_hash = assessment.canonical_hash()
     presentation_plan_hash = _canonical_hash(presentation_plan.get("presentation_plan") or {})
+    manifest_path = bundle_dir / "manifest.json"
+    prior_manifest: dict = {}
+    if manifest_path.is_file():
+        loaded_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if isinstance(loaded_manifest, dict):
+            prior_manifest = loaded_manifest
+    same_candidate = prior_manifest.get("candidate_hash") == candidate_hash
+    completed_stages = [
+        "SNAPSHOTTED",
+        "PROFILED",
+        "FACTS_COLLECTING",
+        "FACTS_READY",
+        "README_ASSESSED",
+        "PLAN_READY",
+        "CANDIDATE_GENERATED",
+    ]
+    if same_candidate:
+        for stage in prior_manifest.get("completed_stages", []):
+            if isinstance(stage, str) and stage not in completed_stages:
+                completed_stages.append(stage)
+    lifecycle_status = (
+        str(prior_manifest.get("lifecycle_status", "CANDIDATE_GENERATED"))
+        if same_candidate
+        else "CANDIDATE_GENERATED"
+    )
     write_redacted_json(
-        bundle_dir / "manifest.json",
+        manifest_path,
         {
             "schema_version": 1,
             "org_repo": snapshot.org_repo,
             "source_revision": snapshot.source_revision,
-            "lifecycle_status": "CANDIDATE_GENERATED",
+            "lifecycle_status": lifecycle_status,
             "facts_hash": document_plan.facts_hash,
             "assessment_hash": assessment_hash,
             "presentation_plan_hash": presentation_plan_hash,
@@ -269,15 +314,8 @@ def write_local_poc_readme_candidate(
                 agentic_plan.canonical_hash() if agentic_plan is not None else None
             ),
             "candidate_hash": candidate_hash,
-            "complete": False,
-            "completed_stages": [
-                "SNAPSHOTTED",
-                "PROFILED",
-                "FACTS_COLLECTING",
-                "README_ASSESSED",
-                "PLAN_READY",
-                "CANDIDATE_GENERATED",
-            ],
+            "complete": bool(prior_manifest.get("complete", False)) if same_candidate else False,
+            "completed_stages": completed_stages,
         },
     )
     refresh_sha256sums(bundle_dir)

@@ -736,6 +736,19 @@ class TestBasicLoop:
         manifest = json.loads((lifecycle_bundle / "manifest.json").read_text(encoding="utf-8"))
         assert manifest["lifecycle_status"] == "NO_OP_PROVEN"
         assert manifest["complete"] is True
+        assert manifest["completed_stages"] == [
+            "SNAPSHOTTED",
+            "PROFILED",
+            "FACTS_COLLECTING",
+            "FACTS_READY",
+            "README_ASSESSED",
+            "PLAN_READY",
+            "CANDIDATE_GENERATED",
+            "DETERMINISTIC_VALIDATED",
+            "AGENT_REVIEWING",
+            "AGENT_APPROVED",
+            "NO_OP_PROVEN",
+        ]
 
     def test_local_poc_repairs_revalidates_and_rereviews_before_accepting(
         self,
