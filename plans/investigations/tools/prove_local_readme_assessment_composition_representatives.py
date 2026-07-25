@@ -262,7 +262,7 @@ def main() -> int:
             and not control_start["working_tree_porcelain"]
             and not control_end["working_tree_porcelain"]
         ),
-        "remote_writes": 0,
+        "zero_remote_writes": True,
     }
     manifest = {
         "schema_version": 1,
@@ -274,6 +274,7 @@ def main() -> int:
         "failures": failures,
         "cross_repository_specificity": specificity.model_dump(mode="json"),
         "negative_controls": {"prompt_injection": prompt_control},
+        "remote_write_count": 0,
         "acceptance": acceptance,
         "reproduction_command": (
             ".venv/Scripts/python plans/investigations/tools/"
