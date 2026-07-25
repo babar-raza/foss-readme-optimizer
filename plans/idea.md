@@ -18,13 +18,89 @@ The product should therefore come first. A visitor should be able to understand 
 Links to Aspose and the related commercial product should then be included naturally where they
 provide useful context.
 
+## Production-Readiness Standard
+
+The solution must be production-grade and production-ready by the time it reaches at least the
+agreed 7/8 maturity threshold. At that point, the system must demonstrably perform the complete
+operating model described in this document under real production conditions. A prototype,
+collection of disconnected capabilities, or system that works only through routine manual
+intervention does not meet this standard.
+
+Production readiness does not require every possible enhancement to be complete. It allows a
+small number of known, bounded, non-critical issues to remain, provided they are documented and do
+not prevent autonomous, reliable, safe, and idempotent operation. No core obligation described in
+this document may remain merely aspirational at that threshold.
+
+README health is the foundational goal. The system must be able to assess, update, reconstruct
+when necessary, and continuously improve repository READMEs using verified repository facts. This
+baseline outcome is non-negotiable and must not be displaced by broader presentation features,
+research work, or infrastructure development. It must be achieved while preserving the system's
+truthfulness, safety, verification, and repository-protection requirements.
+
+## README POC Readiness and Ordered Delivery Gates
+
+The POC is the full registry, not a sample of it. Every entry currently listed in
+`data/products.json` is required for the system proof to be complete — the exact count is computed
+at runtime by reading that file (`len()` over its entries), and must never be hard-coded into a
+plan, a report, or a status claim, since the registry itself changes as repositories are
+onboarded. A result that covers only some of the registry is a development batch or partial result
+and must be labeled as one; it is never presented as "the POC" on its own.
+
+Delivery proceeds through ordered gates, and a later gate never starts before the gate it depends
+on is actually accepted, not merely attempted:
+
+1. **Gate A — full-registry local README proof.** For every registry repository, the system reads
+   the README from the repository's current default branch, records the source revision and exact
+   original bytes, assesses that README against this document, verifies product facts against the
+   repository and relevant package/platform evidence, and produces a repository-specific enhanced
+   README candidate locally. The original README, candidate, diff, facts, plan, validation results,
+   and review verdict remain reviewable local artifacts. Read-only GitHub access needed to obtain
+   this evidence is part of Gate A; remote writes, pull requests, and GitHub App integration are
+   not.
+2. **Independent agentic approval completes the system portion of Gate A.** Every candidate is
+   judged by an independent agentic reviewer — a separate LLM judgment role from whatever
+   produced the candidate — and repaired until approved or honestly blocked. The system is ready
+   for POC human review only when every current registry entry has an agent-approved, no-op-proven
+   local candidate. A candidate file merely existing is not approval.
+3. **Gate B — human review follows agent approval.** Humans review only candidates that already
+   passed independent agentic review. Human acceptance is recorded separately; it is not inferred
+   from an agent verdict. Every registry candidate must be human-accepted before Gate C begins.
+4. **Gate C — Java PR proof follows full local and human acceptance.** Opening a real, verifiable
+   pull request against the designated Java repositories is attempted only after every current
+   registry repository has passed Gates A and B, not before.
+5. **Gate D — GitHub App integration follows Gate C.** Production GitHub App credentialing,
+   installation, and broad integration are deferred until Gate C's Java PR proof is complete and
+   accepted; they are never pursued in parallel with, or ahead of, that proof.
+
+Two standing constraints apply across every gate:
+
+- **The existing README and any product-agent-supplied content are evidence to investigate, not
+  unquestioned truth and not disposable input.** The system must reconcile them against
+  independently verifiable repository evidence — neither trusting them uncritically because they
+  already exist, nor discarding them wholesale because a fresh generation is easier than
+  reconciliation.
+- **LLM/agentic reasoning is required for repository interpretation and composition.** Understanding
+  what a repository's product actually does, who it is for, and how to present it credibly is a
+  judgment task no fixed rule set can fully express. Deterministic code supplies safety,
+  validation, and verification around that judgment — it does not substitute for it. A candidate
+  produced by phrase-matching or template-filling alone, with no genuine interpretive reasoning
+  behind it, does not satisfy this standard even if it passes every deterministic check.
+- **Product and platform decisions belong to the system.** The system detects the product,
+  ecosystem, repository shape, and available evidence, then selects the appropriate capabilities,
+  facts, sections, examples, and validation paths itself. A normal run does not require a human to
+  choose a product-specific template, capability, skill, or command sequence.
+
+Battle-tested, proven tools and libraries are preferred over new custom infrastructure. Building a
+bespoke mechanism where an established one already solves the problem requires a documented reason
+— naming the proven alternative considered and why it was not used — not a silent default choice.
+
 ## Lessons From Existing Repositories
 
 ### n8n
 
-I reviewed the n8n repository with this principle in mind. The main lesson is not to copy its
-structure or sections, but to make the README, repository information, visuals, releases,
-packages, and supporting files work together to present one clear and credible product.
+A review of the n8n repository through this lens shows that the main lesson is not to copy its
+structure or sections. Instead, the README, repository information, visuals, releases, packages,
+and supporting files should work together to present one clear and credible product.
 
 Some of these elements can be managed directly:
 
@@ -55,7 +131,7 @@ bot. They were not produced by the proposed central agent and do not represent t
 quality standard. However, the result shows why stronger shared standards and review controls are
 needed.
 
-I have also reviewed the existing FOSS repositories and found considerable variation in how they:
+A review of the existing FOSS repositories found considerable variation in how they:
 
 - describe the products;
 - structure the READMEs;
@@ -192,12 +268,13 @@ oversight except for surfaces that are genuinely manual-UI-managed.
 
 ## Pilot and Research Approach
 
-I will begin by applying the core repository-presentation approach to a small group of FOSS
-repositories as a pilot. Full visual-asset and social-preview delivery is outside the initial
-pilot's required scope, but remains part of the intended autonomous system.
+Implementation may prove a mechanism on small, explicitly labeled development batches before
+scaling it. Those batches are risk-control steps, not the README POC and not substitutes for
+full-registry Gate A/B evidence. Full visual-asset and social-preview delivery is outside the
+README POC's required scope, but remains part of the intended autonomous system.
 
-I will further study n8n and other leading FOSS projects, together with our strongest NuGet
-product pages, to understand what makes their product presentation effective.
+Further research will study n8n and other leading FOSS projects alongside the strongest Aspose
+NuGet product pages to identify what makes their product presentation effective.
 
 Each repository will then be improved according to its own purpose, users, and capabilities
 rather than by copying a common template.

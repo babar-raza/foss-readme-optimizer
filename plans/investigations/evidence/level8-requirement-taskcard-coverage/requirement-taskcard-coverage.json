@@ -4,28 +4,30 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "44bfbae853446c6c7af25d1cb6299712cfb6656996b4fa9ef93ac27d5cd010fa",
+  "source_sha256": "5f55ff5bc8ee18596e5663d3f33996e11f3512c6741e835140b62ec4ea868753",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 399,
-  "mandatory_requirement_rows": 373,
+  "total_requirement_rows": 406,
+  "mandatory_requirement_rows": 380,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
-  "reopened_implemented_rows": 0,
+  "reopened_implemented_rows": 10,
   "disposition_counts": {
-    "active_governance": 33,
+    "active_governance": 34,
     "excluded_backlog": 26,
-    "open_mandatory": 191,
-    "preserved_verified": 149
+    "open_mandatory": 197,
+    "preserved_verified": 139,
+    "reopened_semantic_evidence_gap": 10
   },
   "taskcard_counts": {
-    "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 35,
-    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 76,
+    "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 36,
+    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 78,
     "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 51,
-    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 43,
+    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 44,
     "L8-WAVE4-PRESENTATION-INTELLIGENCE": 113,
     "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": 1,
-    "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 54,
-    "L8-WAVE6-CONTROLLED-JAVA-PILOT": 14,
+    "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 53,
+    "L8-WAVE6-CONTROLLED-JAVA-PILOT": 16,
+    "L8-GATE-D-GITHUB-APP-INTEGRATION": 2,
     "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": 5,
     "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": 7
   },
@@ -246,6 +248,14 @@
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
       "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-029",
+      "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
       "semantic_findings": []
     },
     {
@@ -517,8 +527,11 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
-      "disposition": "preserved_verified",
-      "semantic_findings": []
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "cited evidence artifact `plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-2026-07-24/` is not a file",
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
     },
     {
       "requirement_id": "FACT-012",
@@ -541,8 +554,11 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
-      "disposition": "preserved_verified",
-      "semantic_findings": []
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "cited evidence artifact `plans/investigations/evidence/level8-portfolio-readme-proposals-2026-07-25/` is not a file",
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
     },
     {
       "requirement_id": "FACT-014",
@@ -1221,8 +1237,10 @@
       "priority": "P2",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "preserved_verified",
-      "semantic_findings": []
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/` is not a file"
+      ]
     },
     {
       "requirement_id": "OPS-011",
@@ -1829,8 +1847,10 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
-      "disposition": "preserved_verified",
-      "semantic_findings": []
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "cites 1 path(s) that do not exist: ['config/authorization/']"
+      ]
     },
     {
       "requirement_id": "AUTH-005",
@@ -1854,6 +1874,14 @@
       "requirement_status": "BACKLOG",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
       "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "AUTH-008",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-GATE-D-GITHUB-APP-INTEGRATION",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -2153,6 +2181,22 @@
       "semantic_findings": []
     },
     {
+      "requirement_id": "PIL-015",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "PIL-016",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
       "requirement_id": "MET-001",
       "priority": "P1",
       "requirement_status": "RESEARCH-GATED",
@@ -2389,8 +2433,10 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
-      "semantic_findings": []
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
     },
     {
       "requirement_id": "CAP-003",
@@ -2437,8 +2483,10 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
-      "semantic_findings": []
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
     },
     {
       "requirement_id": "CAP-009",
@@ -2821,8 +2869,11 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
-      "semantic_findings": []
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/` is not a file",
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
     },
     {
       "requirement_id": "ORC-006",
@@ -2849,12 +2900,23 @@
       "semantic_findings": []
     },
     {
+      "requirement_id": "ORC-009",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
       "requirement_id": "VER-001",
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
-      "semantic_findings": []
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/` is not a file",
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
     },
     {
       "requirement_id": "VER-002",
@@ -2925,7 +2987,18 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/` is not a file",
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "VER-011",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -3033,6 +3106,14 @@
       "semantic_findings": []
     },
     {
+      "requirement_id": "FACT-017",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
       "requirement_id": "SCL-009",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
@@ -3116,7 +3197,7 @@
       "requirement_id": "L8-001",
       "priority": "P0",
       "requirement_status": "PARTIAL",
-      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "task_id": "L8-GATE-D-GITHUB-APP-INTEGRATION",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3125,8 +3206,11 @@
       "priority": "P0",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
-      "semantic_findings": []
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/` is not a file",
+        "P0 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
     },
     {
       "requirement_id": "L8-003",

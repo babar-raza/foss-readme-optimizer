@@ -290,6 +290,7 @@ taskcards:
   - GOV-024
   - GOV-025
   - GOV-028
+  - GOV-029
   - BIZ-001
   - BIZ-002
   - BIZ-003
@@ -659,6 +660,7 @@ taskcards:
   - ORC-006
   - ORC-007
   - ORC-008
+  - ORC-009
   - VER-001
   - VER-002
   - VER-003
@@ -669,6 +671,7 @@ taskcards:
   - VER-008
   - VER-010
   - VER-009
+  - VER-011
   - GAP-001
   - GAP-002
   - GAP-003
@@ -880,6 +883,7 @@ taskcards:
   - PKG-005
   - PKG-006
   - FACT-016
+  - FACT-017
   - L8-006
 - task_id: L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1393,18 +1397,18 @@ taskcards:
 - task_id: L8-LOCAL-README-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
-  title: Produce three fact-backed repository-specific README proposals
-  source_audit_finding: The current executable presentation action changes only the legacy resources block
-    and cannot repair the opening, installation, capabilities, examples, navigation, or stale claims.
+  title: Aggregate the full-registry local README POC
+  source_audit_finding: The active task was scoped to three Java proposals while idea.md requires an independently
+    agent-approved local README candidate for every current registry entry.
   audit_classification: partially_done
   priority: P0
   lane: presentation-intelligence
   owner: readme-agent-supervisor
   status: TODO
-  objective: Implement a protected section-level README document plan and independently verify one reviewer-ready
-    proposal for Cells, 3D, and PDF Java.
-  why_it_matters: README health is idea.md's non-negotiable product outcome and the first visible proof
-    that the system, rather than its infrastructure, works.
+  objective: Coordinate the governed local-portfolio child tasks and close only from their aggregate evidence
+    after every registry entry reaches Gate-A acceptance.
+  why_it_matters: The full registry, rather than a three-repository sample, is the immediate POC denominator.
+    This parent is an aggregate closeout boundary, not a bypass around its children.
   allowed_paths:
   - src/readme_agent/
   - tests/
@@ -1420,28 +1424,350 @@ taskcards:
   dependencies:
   - L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS
   expected_outputs:
-  - ReadmeDocumentPlanV1 and one-span byte-preserving adoption.
-  - Three original/candidate/patch/fact/plan/verifier proposal bundles.
-  - Identical-rerun no-op evidence.
+  - Closed child tasks for runtime, facts, composition, review/repair, qualification, and full-registry
+    proof.
+  - One dynamically-counted portfolio acceptance manifest and independent reproduction report.
   acceptance_checks:
-  - Cells cannot retain the known false package claim.
-  - Protected examples, commands, terminology, and limitations are preserved or authoritatively corrected.
-  - The three outputs are repository-specific and require no manual prose repair.
+  - Every current products.json entry has a checksum-valid, independently agent-approved local bundle.
+  - No partial registry result is described as a completed POC.
   verification:
-  - Section-operation, source-span, Git-apply, factuality, and independent-verifier tests.
-  - Live-routed local proposal generation followed by deterministic reruns.
+  - Child focused/integration/live proof plus a final portfolio-manifest reproduction.
   negative_controls:
-  - No whole-document free-form LLM effect.
-  - No edit outside the one adopted presentation span.
+  - A candidate, policy, or test count alone cannot satisfy Gate A.
   regression_checks:
-  - Existing marker, change-boundary, idempotency, safety, and verifier tests.
+  - Existing marker, boundary, idempotency, safety, verifier, and full-registry tests.
   evidence_requirements:
-  - Complete per-pilot proposal bundles and cross-pilot template-clone review.
-  rollback_or_recovery: Reapply the original bytes and remove only the adoption markers.
-  failure_reroute: Block the affected section and continue safe preserved sections.
+  - Per-repository bundles, dynamic portfolio summary, SHA-256 inventory, and independent review.
+  rollback_or_recovery: Reopen only the regressed child and retain all prior immutable bundle evidence.
+  failure_reroute: Reroute agent-fixable repository failures to the first failing child boundary.
   closeout_rules:
-  - All three proposals pass deterministic and independent verification.
-  - Unchanged reruns produce zero diff and zero unnecessary LLM calls.
+  - This parent is first rerouted to its children and never satisfies another dependency while rerouted.
+  - It reopens and closes only after every mandatory child is CLOSED with aggregate evidence.
+  requirement_ids: []
+- task_id: L8-LOCAL-PORTFOLIO-RUNTIME
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
+  title: Run the full registry through the canonical local supervisor
+  source_audit_finding: supervise accepts one repository or a mission graph, while the local POC has no
+    canonical full-registry runtime and dynamic planning remains optional.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-poc-runtime
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Add --registry and the fail-closed local_poc profile to supervise, loading every current
+    products.json entry and persisting one durable per-repository lifecycle.
+  why_it_matters: Every mode must participate in local analysis and no human may select routine capabilities,
+    repositories, or recovery actions.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS
+  expected_outputs:
+  - supervise --registry data/products.json --execution-profile local_poc.
+  - Dynamic runtime denominator, per-repository isolation, durable resume, and revision-addressed bundles.
+  acceptance_checks:
+  - Every registry mode is selected for local work.
+  - The profile cannot issue a remote write or bypass independent verification.
+  verification:
+  - Heterogeneous fixture registry, cancellation/resume, duplicate/no-op, and permission tests.
+  negative_controls:
+  - A disabled or dry_run entry is never silently omitted from local execution.
+  regression_checks:
+  - Existing supervise, execution-profile, state, allow-list, and push-blocking tests.
+  evidence_requirements:
+  - Local portfolio manifest with dynamic denominator and one-command reproduction.
+  rollback_or_recovery: Revert only the additive profile and portfolio command; preserve durable records.
+  failure_reroute: Repair the runtime boundary before attempting portfolio fan-out.
+  closeout_rules:
+  - A representative multi-ecosystem registry completes through the same supervise path.
+  - Interrupted work resumes without duplicate LLM calls, bundles, or remote effects.
+  requirement_ids: []
+- task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
+  title: Produce provenance-complete local product truth for every repository
+  source_audit_finding: Agentic product-truth drafting exists but its verified output is not consumed
+    by the canonical candidate path, leaving non-pilot repositories without usable facts.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Connect immutable snapshots, mechanical facts, agentic drafting, groundedness gates, and
+    ProductFactsV2 into the supervised README pipeline for all supported ecosystems.
+  why_it_matters: README claims must originate from verified repository evidence, not policy YAML, legacy
+    README prose, or unverified product-agent content.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - config/policies/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-PORTFOLIO-RUNTIME
+  expected_outputs:
+  - Snapshot-to-facts typed data flow and isolated package/example verification.
+  - Provenance, conflicts, confidence, ownership, and product-agent reconciliation records.
+  acceptance_checks:
+  - False coordinates and unsupported facts cannot reach a candidate.
+  - Missing facts block only their dependent claims.
+  verification:
+  - Java, .NET, Python, TypeScript, C++, Go, and Rust representative proof.
+  negative_controls:
+  - Policy-only or README-only assertions cannot become verified product facts.
+  regression_checks:
+  - Facts schema, resolution, acquisition, example, and redaction tests.
+  evidence_requirements:
+  - Representative fact graphs with source revision, citations, and reproduction commands.
+  rollback_or_recovery: Invalidate only facts dependent on changed source or prompt inputs.
+  failure_reroute: Refresh evidence or create a precise external fact handoff for an essential gap.
+  closeout_rules:
+  - The renderer receives the verified merged fact graph rather than re-reading policy truth.
+  - Every representative has useful verified facts or a narrowly-scoped visible fact block.
+  requirement_ids: []
+- task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
+  title: Assess and compose repository-specific README candidates
+  source_audit_finding: Legacy rendering can produce bounded promotional content but does not perform
+    agentic whole-document assessment, preservation decisions, or product-specific composition.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Produce an evidence-backed ReadmeDocumentPlanV1 and complete candidate README from the verified
+    facts, repository profile, current README, assessment, and protected content map.
+  why_it_matters: idea.md requires useful, credible, repository-specific README management rather than
+    template substitution or four promotional elements.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  expected_outputs:
+  - Assessment classifications, source-span plan, candidate README, native patch, and claim map.
+  acceptance_checks:
+  - Existing valuable content is preserved or corrected only from authoritative evidence.
+  - Candidate structure, terminology, examples, installation, and emphasis vary by repository.
+  verification:
+  - Source-span, patch-apply, protected-content, specificity, and prompt-injection tests.
+  negative_controls:
+  - No universal template, cross-product leakage, or free-form edit outside the owned span.
+  regression_checks:
+  - Marker, document-plan, candidate-pipeline, and idempotency tests.
+  evidence_requirements:
+  - Original/candidate/patch/assessment/plan/fact bundles for a heterogeneous representative set.
+  rollback_or_recovery: Restore source bytes and reopen the affected document-plan operation.
+  failure_reroute: Route factuality defects to product truth and composition defects to plan repair.
+  closeout_rules:
+  - Every candidate has a nonempty document plan and fact-to-claim map.
+  - No bundle can claim verification was skipped because a plan is absent.
+  requirement_ids: []
+- task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
+  title: Enforce independent README review and autonomous repair
+  source_audit_finding: The reviewer exists but its repair dispatch omits caller_domain, it degrades to
+    backend=None, and deterministic bundle verification can be skipped on the legacy path.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Make deterministic bundle validation, independent agent review, durable lifecycle transitions,
+    bounded repair, revalidation, and rereview mandatory in the canonical path.
+  why_it_matters: A producer cannot accept its own prose, and humans must never be routine reviewers or
+    repairers before the system independently approves a candidate.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  expected_outputs:
+  - Mandatory verifier gate, independent five-way review record, durable lifecycle V2, and repair history.
+  acceptance_checks:
+  - No candidate reaches AGENT_APPROVED without deterministic and independent acceptance.
+  - Repairable rejection repairs autonomously and repeats both gates.
+  verification:
+  - Negative generic/factual/protected-loss controls and controlled repair proof.
+  negative_controls:
+  - A reviewer without durable state, allowed domain, or verifier verdict cannot approve work.
+  regression_checks:
+  - Specialist, dispatcher-domain, lifecycle, verifier, and evidence tests.
+  evidence_requirements:
+  - Separate author/reviewer contexts, verdicts, repair history, and lifecycle transition evidence.
+  rollback_or_recovery: Reopen from the earliest failed lifecycle state and retain immutable attempts.
+  failure_reroute: Classify wiring or planner defects agent_fixable and repair before continued fan-out.
+  closeout_rules:
+  - Identical reruns create no patch, duplicate lifecycle event, bundle, or unnecessary LLM call.
+  - Fact blocks remain visible and never become generic replacement prose.
+  requirement_ids: []
+- task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
+  title: Qualify the canonical README path across ecosystems and golden controls
+  source_audit_finding: The current portfolio evidence is mostly one legacy path and does not prove agentic
+    composition, independent review, recovery, or quality across the supported ecosystems.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Establish deterministic and agentic quality gates before full registry fan-out.
+  why_it_matters: A Java-only or template-only success would not prove the central system described in
+    idea.md.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  expected_outputs:
+  - Golden set, route-quality score, route-disablement behavior, and heterogeneous local proof.
+  acceptance_checks:
+  - Deterministic validation is 100 percent and agentic routing/review is at least 95 percent over 100
+    evaluations across three sessions.
+  verification:
+  - Real and fixture controls for every supported ecosystem, malformed/multi-root/prompt-injected, source-build-only,
+    strong-content, and conflicting-fact cases.
+  negative_controls:
+  - Generic template, identity leakage, unsupported claim, broken example, and promotional imbalance.
+  regression_checks:
+  - Existing golden-set, model-route, and ecosystem adapter tests.
+  evidence_requirements:
+  - Versioned golden-set results, session inventory, and automatic route-disablement evidence.
+  rollback_or_recovery: Disable only the regressed route and retain the last accepted route evidence.
+  failure_reroute: Repair the first failing fact, plan, validator, reviewer, or adapter boundary.
+  closeout_rules:
+  - Representative first run, repair, resume, and no-op cases pass before portfolio fan-out.
+  requirement_ids: []
+- task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
+  title: Close full-registry local independently approved README proof
+  source_audit_finding: Current evidence records generated candidates, not full-registry independently
+    agent-approved local README bundles with no-op proof.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-portfolio-proof
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Execute the canonical profile across every current registry entry until each has a checksum-valid
+    agent-approved local bundle and unchanged rerun proof.
+  why_it_matters: This is Gate A and the immediate product milestone; a partial registry result is never
+    the POC.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - config/policies/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - plans/master.md
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  expected_outputs:
+  - One complete runtime bundle per registry entry and a dynamic portfolio summary.
+  - Independent portfolio-manifest reproduction and SHA-256 inventory.
+  acceptance_checks:
+  - approved equals len(data/products.json); system_failed, unprocessed, and manifest_failures equal zero.
+  verification:
+  - Cohort reruns, targeted upstream changes, recovery, and independent manifest reconstruction.
+  negative_controls:
+  - Mode, policy count, candidate count, or test count cannot substitute for approved repository outcomes.
+  regression_checks:
+  - Full local lifecycle, artifact, portfolio summary, state, and safety suites.
+  evidence_requirements:
+  - Complete redacted portfolio evidence package and reproduction command.
+  rollback_or_recovery: Reopen only repositories invalidated by changed source, facts, prompts, or review
+    rules.
+  failure_reroute: Continue unaffected cohorts and create exact external fact handoffs only when essential.
+  closeout_rules:
+  - Every dynamically loaded registry entry has a complete local AGENT_APPROVED bundle and no-op proof.
+  - The result is labeled local Gate A, never Level 5, 7, or 8.
+  requirement_ids: []
+- task_id: L8-LOCAL-HUMAN-REVIEW-GATE-B
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
+  title: Record full-registry human acceptance after agent approval
+  source_audit_finding: The execution graph had no explicit human Gate B between full-registry agent approval
+    and Java PR work.
+  audit_classification: not_attempted
+  priority: P0
+  lane: human-acceptance
+  owner: human-sponsor
+  status: TODO
+  objective: Present only agent-approved, no-op-proven local README bundles for human review and record
+    a separate acceptance decision for every current registry entry.
+  why_it_matters: Human review must follow independent agentic approval, and Java PR proof must not infer
+    human acceptance from an agent verdict.
+  allowed_paths:
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - source code
+  - product repository remotes
+  - GitHub App credentials or installation
+  dependencies:
+  - L8-LOCAL-FULL-REGISTRY-GATE-A
+  expected_outputs:
+  - A checksummed Gate-B manifest covering the runtime-derived registry denominator.
+  - One explicit human accept/reject decision linked to each agent-approved local bundle.
+  acceptance_checks:
+  - Every manifest entry was AGENT_APPROVED and no-op-proven before human review.
+  - Every current registry entry is HUMAN_ACCEPTED before the gate closes.
+  - Rejected candidates return to repair and independent agentic review before being shown again.
+  verification:
+  - Independent manifest/registry reconciliation and checksum validation.
+  negative_controls:
+  - Agent approval never self-transitions to HUMAN_ACCEPTED.
+  - Candidate existence, a partial subset, or an earlier PR never substitutes for Gate B.
+  regression_checks:
+  - Gate-A evidence remains immutable and the live registry denominator is rechecked at acceptance.
+  evidence_requirements:
+  - Human identity, timestamp, exact candidate checksum, verdict, and rationale per repository.
+  rollback_or_recovery: Invalidate only the affected acceptance when its source or candidate changes.
+  failure_reroute: Return a rejected candidate to the bounded repair and independent-review path.
+  closeout_rules:
+  - Every runtime-loaded registry entry has a valid HUMAN_ACCEPTED record.
+  - No Gate-C task becomes eligible before this task closes.
   requirement_ids: []
 - task_id: L8-LOCAL-CENTRAL-AGENT-RESILIENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1595,7 +1921,7 @@ taskcards:
 - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
-  title: Complete verified proposal, draft-PR, drift, and reconciliation lifecycle
+  title: Complete verified proposal and draft-PR lifecycle prerequisites
   source_audit_finding: The existing PR capability lacks the complete VerifiedProposalV1/OpenProposalV2
     lifecycle, drift rebuilding, and crash-boundary reconciliation required by the target.
   audit_classification: partially_done
@@ -1603,8 +1929,8 @@ taskcards:
   lane: proposal-effects
   owner: readme-agent-supervisor
   status: TODO
-  objective: Separate verified proposal construction from terminal authorized effects and prove exactly-one
-    draft PR behavior across retries, drift, crashes, and authorization expiry.
+  objective: After full Gate-A/B acceptance, separate verified proposal construction from terminal authorized
+    effects and prove the PR lifecycle locally without provisioning or using GitHub App credentials.
   why_it_matters: A safe proposal system must never turn stale analysis into duplicate effects.
   allowed_paths:
   - src/readme_agent/
@@ -1618,23 +1944,26 @@ taskcards:
   - config/authorization/
   dependencies:
   - L8-WAVE4-PRESENTATION-INTELLIGENCE
+  - L8-LOCAL-HUMAN-REVIEW-GATE-B
   expected_outputs:
   - VerifiedProposalV1 and OpenProposalV2.
   - One agent-owned branch per repository with fast-forward-only updates.
   - Drift rebuild and re-verification.
   - Crash-boundary and lost-response reconciliation.
-  - Fresh GitHub App token isolated to the effect job.
+  - A credential-provider boundary ready for later Gate-D integration, with no App credential used.
   acceptance_checks:
   - All named lifecycle scenarios produce exactly one correct proposal state.
   - Missing or expired authorization blocks before pending effect creation.
   - No write token exists in clone, LLM, package, or validation jobs.
+  - GitHub App provisioning and integration remain deferred to Gate D.
   verification:
   - Local bare-remote lifecycle tests.
-  - Live authorized draft-PR pilot only when a reviewed record exists.
-  - Credential-boundary workflow inspection and negative tests.
+  - Local/bare-remote lifecycle proof before Gate C.
+  - Credential-boundary workflow inspection and negative tests without a real App installation.
   negative_controls:
   - No PAT or GH_TOKEN production fallback.
   - No force push, ready-for-review, merge, close, or default-branch write.
+  - No GitHub App credential is provisioned or used in this task.
   regression_checks:
   - Existing effect-ledger and PR dedup tests.
   - Full official checks.
@@ -1698,7 +2027,6 @@ taskcards:
   - PRL-007
   - PRL-008
   - PRL-009
-  - L8-001
   - L8-008
   - L8-009
 - task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
@@ -1766,6 +2094,58 @@ taskcards:
   - PIL-012
   - PIL-013
   - PIL-014
+  - PIL-015
+  - PIL-016
+- task_id: L8-GATE-D-GITHUB-APP-INTEGRATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Integrate the GitHub App only after accepted Java PR proof
+  source_audit_finding: GitHub App credentialing and integration were embedded in an earlier wave even
+    though the ordered POC gates require them to follow the Java PR proof.
+  audit_classification: not_attempted
+  priority: P0
+  lane: github-app-integration
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: After Gate C is independently accepted, provision and integrate the production GitHub App
+    with separate read/effect tokens and no PAT fallback.
+  why_it_matters: Broad production identity is unnecessary before local README management and Java PR
+    creation have both been proven in the required order.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - .github/workflows/
+  - docs/
+  - plans/investigations/evidence/
+  forbidden_paths:
+  - target repository default branches
+  - package and release endpoints
+  dependencies:
+  - L8-WAVE6-CONTROLLED-JAVA-PILOT
+  expected_outputs:
+  - Reviewed GitHub App installation and least-privilege permission inventory.
+  - Fresh short-lived read token for analysis and separately scoped effect token.
+  - Production workflow integration with no ambient PAT or GH_TOKEN fallback.
+  acceptance_checks:
+  - A checksummed, independently accepted Gate-C bundle exists before any App credential is used.
+  - Token scopes, lifetime, repository coverage, isolation, and failure behavior pass.
+  verification:
+  - Workflow permission inspection, negative fallback tests, and authorized live App proof.
+  negative_controls:
+  - Missing Gate-C acceptance blocks before credential minting or installation use.
+  - Analysis, LLM, package, and validation jobs never receive a target-write token.
+  regression_checks:
+  - Full authorization, effect-ledger, workflow, and safety suites.
+  evidence_requirements:
+  - Redacted installation/scope evidence and token-boundary proof.
+  rollback_or_recovery: Revoke or narrow the App installation without changing accepted local bundles.
+  failure_reroute: Continue local/read-only operation while Gate D remains unavailable.
+  closeout_rules:
+  - AUTH-008 and L8-001 acceptance evidence are independently reproduced.
+  - No App integration step predates the accepted Gate-C evidence timestamp.
+  requirement_ids:
+  - AUTH-008
+  - L8-001
 - task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1790,7 +2170,7 @@ taskcards:
   - merge operations
   - unreviewed newly discovered repository writes
   dependencies:
-  - L8-WAVE6-CONTROLLED-JAVA-PILOT
+  - L8-GATE-D-GITHUB-APP-INTEGRATION
   expected_outputs:
   - Full-registry observe/proposal evidence.
   - Seven-ecosystem full proposal lifecycle evidence.
@@ -1896,13 +2276,13 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 44bfbae853446c6c7af25d1cb6299712cfb6656996b4fa9ef93ac27d5cd010fa
+  source_sha256: 5f55ff5bc8ee18596e5663d3f33996e11f3512c6741e835140b62ec4ea868753
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 399
-  mandatory_requirement_rows: 373
+  total_requirement_rows: 406
+  mandatory_requirement_rows: 380
   excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
-  reopened_implemented_rows: 0
+  reopened_implemented_rows: 10
   mappings:
   - requirement_id: GOV-001
     priority: P0
@@ -2065,6 +2445,12 @@ requirement_coverage:
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
     disposition: preserved_verified
+    semantic_findings: []
+  - requirement_id: GOV-029
+    priority: P1
+    requirement_status: GOVERNANCE
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: active_governance
     semantic_findings: []
   - requirement_id: BIZ-001
     priority: P0
@@ -2268,8 +2654,11 @@ requirement_coverage:
     priority: P1
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
-    disposition: preserved_verified
-    semantic_findings: []
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - cited evidence artifact `plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-2026-07-24/`
+      is not a file
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
   - requirement_id: FACT-012
     priority: P2
     requirement_status: IMPLEMENTED
@@ -2286,8 +2675,11 @@ requirement_coverage:
     priority: P1
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
-    disposition: preserved_verified
-    semantic_findings: []
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - cited evidence artifact `plans/investigations/evidence/level8-portfolio-readme-proposals-2026-07-25/`
+      is not a file
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
   - requirement_id: FACT-014
     priority: P3
     requirement_status: PARTIAL
@@ -2796,8 +3188,10 @@ requirement_coverage:
     priority: P2
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
-    disposition: preserved_verified
-    semantic_findings: []
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
+      is not a file
   - requirement_id: OPS-011
     priority: P2
     requirement_status: PARTIAL
@@ -3252,8 +3646,9 @@ requirement_coverage:
     priority: P0
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
-    disposition: preserved_verified
-    semantic_findings: []
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - 'cites 1 path(s) that do not exist: [''config/authorization/'']'
   - requirement_id: AUTH-005
     priority: P1
     requirement_status: IMPLEMENTED
@@ -3271,6 +3666,12 @@ requirement_coverage:
     requirement_status: BACKLOG
     task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
     disposition: excluded_backlog
+    semantic_findings: []
+  - requirement_id: AUTH-008
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-GATE-D-GITHUB-APP-INTEGRATION
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: INT-001
     priority: P0
@@ -3494,6 +3895,18 @@ requirement_coverage:
     task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
     disposition: open_mandatory
     semantic_findings: []
+  - requirement_id: PIL-015
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: PIL-016
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    disposition: open_mandatory
+    semantic_findings: []
   - requirement_id: MET-001
     priority: P1
     requirement_status: RESEARCH-GATED
@@ -3672,8 +4085,9 @@ requirement_coverage:
     priority: P0
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: preserved_verified
-    semantic_findings: []
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
   - requirement_id: CAP-003
     priority: P1
     requirement_status: IMPLEMENTED
@@ -3708,8 +4122,9 @@ requirement_coverage:
     priority: P1
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: preserved_verified
-    semantic_findings: []
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
   - requirement_id: CAP-009
     priority: P2
     requirement_status: BACKLOG
@@ -3996,8 +4411,11 @@ requirement_coverage:
     priority: P1
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: preserved_verified
-    semantic_findings: []
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
+      is not a file
+    - P1 closure cites neither a concrete pytest node nor a committed evidence artifact
   - requirement_id: ORC-006
     priority: P1
     requirement_status: PARTIAL
@@ -4016,12 +4434,21 @@ requirement_coverage:
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
     disposition: excluded_backlog
     semantic_findings: []
+  - requirement_id: ORC-009
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
+    semantic_findings: []
   - requirement_id: VER-001
     priority: P0
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: preserved_verified
-    semantic_findings: []
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
+      is not a file
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
   - requirement_id: VER-002
     priority: P0
     requirement_status: PARTIAL
@@ -4074,7 +4501,16 @@ requirement_coverage:
     priority: P0
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: preserved_verified
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
+      is not a file
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
+  - requirement_id: VER-011
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: GAP-001
     priority: P0
@@ -4154,6 +4590,12 @@ requirement_coverage:
     task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
     disposition: excluded_backlog
     semantic_findings: []
+  - requirement_id: FACT-017
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+    disposition: open_mandatory
+    semantic_findings: []
   - requirement_id: SCL-009
     priority: P1
     requirement_status: IMPLEMENTED
@@ -4217,15 +4659,18 @@ requirement_coverage:
   - requirement_id: L8-001
     priority: P0
     requirement_status: PARTIAL
-    task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+    task_id: L8-GATE-D-GITHUB-APP-INTEGRATION
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: L8-002
     priority: P0
     requirement_status: IMPLEMENTED
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: preserved_verified
-    semantic_findings: []
+    disposition: reopened_semantic_evidence_gap
+    semantic_findings:
+    - cited evidence artifact `plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/`
+      is not a file
+    - P0 closure cites neither a concrete pytest node nor a committed evidence artifact
   - requirement_id: L8-003
     priority: P0
     requirement_status: PARTIAL

@@ -1,5 +1,11 @@
 # Production system reassessment and redesign
 
+> **Supporting diagnostic record only (2026-07-25).** Its still-valid findings and tasks have
+> been migrated into
+> `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`. This document is not an
+> executable plan, controller, queue, or status authority; the durable mission state governs
+> execution.
+
 Governed by `plans/GOVERNANCE.md`; registered as one mission under the existing
 `readme-agent supervise --mission-task-graph` machinery (`DD-REUSE-MISSION-MACHINERY` below) —
 this document does not replace `plans/master.md`/`plans/requirements.md`/the

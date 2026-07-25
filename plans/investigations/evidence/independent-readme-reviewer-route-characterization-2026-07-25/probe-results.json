@@ -1,0 +1,269 @@
+{
+  "base_url_host": "llm.professionalize.com",
+  "probes": {
+    "models": {
+      "status": 200,
+      "ids": [
+        "qwen3-next",
+        "experimental",
+        "gpt-oss",
+        "recommended",
+        "qwen3-embedding-8b",
+        "Qwen2.5-VL-7B",
+        "stable-diffusion-3.5-large"
+      ]
+    },
+    "alias_identity_check": {
+      "qwen3-next": {
+        "ok": true,
+        "output": "OK7419",
+        "latency_s": 1.7
+      },
+      "gpt-oss": {
+        "ok": true,
+        "output": "",
+        "latency_s": 1.6
+      },
+      "experimental": {
+        "ok": true,
+        "output": "OK7419",
+        "latency_s": 2.7,
+        "matches_named_model": [
+          "qwen3-next"
+        ]
+      },
+      "recommended": {
+        "ok": true,
+        "output": "",
+        "latency_s": 1.5,
+        "matches_named_model": [
+          "gpt-oss"
+        ]
+      }
+    },
+    "discrimination": {
+      "qwen3-next": {
+        "well_grounded_specific": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "ACCEPT",
+          "actual_verdict": "ACCEPT",
+          "correct": true,
+          "prompt_tokens": 1017,
+          "latency_s": 3.9,
+          "raw_response": "{\n  \"verdict\": \"ACCEPT\",\n  \"confidence\": 1.0,\n  \"reasoning\": {\n    \"product_specificity\": \"High \u2014 uses exact product name, audience, and technical details\",\n    \"overpromotion_check\": \"None \u2014 no hyperbolic or unsubstantiated claims\",\n    \"readability\": \"Clear and concise \u2014 follows standard README conventions\",\n    \"generic_template_symptoms\": \"None \u2014 all content is factually grounded and specific\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": []\n  },\n  \"summary\": \"The README accurately reflects all verified grounding facts with no contradictions or unsupported claims.\"\n}"
+        },
+        "generic_template_overpromotion": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "REJECT_REPAIRABLE",
+          "actual_verdict": "REJECT_REPAIRABLE",
+          "correct": true,
+          "prompt_tokens": 880,
+          "latency_s": 6.9,
+          "raw_response": "{\n  \"verdict\": \"REJECT_REPAIRABLE\",\n  \"confidence\": 0.95,\n  \"reasoning\": {\n    \"product_specificity\": \"Generic \u2014 no mention of Java, Excel, .xlsx, Maven, or specific capabilities\",\n    \"overpromotion_check\": \"Uses unverifiable marketing language: 'blazing-fast', 'enterprise-grade', 'trusted by developers worldwide', 'loved by developers everywhere'\",\n    \"readability\": \"Clear structure but lacks technical substance\",\n    \"generic_template_symptoms\": \"Uses placeholder sections ('Getting started', 'Support') with no concrete instructions or examples; no code, no installation details, no feature specifics\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": [\n      {\n        \"claim\": \"blazing-fast performance\",\n        \"reason\": \"No performance benchmarks or comparative metrics provided in grounding facts\"\n      },\n      {\n        \"claim\": \"zero configuration\",\n        \"reason\": \"Grounding facts do not confirm or deny zero-configuration behavior\"\n      },\n      {\n        \"claim\": \"Seamless integration with your existing stack\",\n        \"reason\": \"Vague claim unsupported by any grounding fact about integration patterns\"\n      },\n      {\n        \"claim\": \"rock-solid reliability\",\n        \"reason\": \"Subjective claim with no supporting evidence in grounding facts\"\n      }\n    ]\n  },\n  \"summary\": \"README is overly promotional and lacks any product-specific technical detail (e.g., Java, Maven, .xlsx support), but contains no factual contradictions.\"\n}"
+        },
+        "fact_conflict": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "BLOCKED_FACT_CONFLICT",
+          "actual_verdict": "BLOCKED_FACT_CONFLICT",
+          "correct": true,
+          "prompt_tokens": 887,
+          "latency_s": 11.8,
+          "raw_response": "{\n  \"verdict\": \"BLOCKED_FACT_CONFLICT\",\n  \"confidence\": 1.0,\n  \"reasoning\": {\n    \"product_specificity\": \"high\",\n    \"overpromotion_check\": \"overpromotional\",\n    \"readability\": \"good\",\n    \"generic_template_symptoms\": \"none\",\n    \"fact_conflicts\": [\n      {\n        \"claim\": \"full support for legacy .xls files\",\n        \"conflicting_fact\": \"formats_explicitly_not_supported: [\\\"xls (legacy binary format)\\\", \\\"ods\\\"]\"\n      },\n      {\n        \"claim\": \"full VBA macro execution\",\n        \"conflicting_fact\": \"limitations: [\\\"No support for VBA macros\\\"]\"\n      },\n      {\n        \"claim\": \"Pivot table generation is fully supported out of the box\",\n        \"conflicting_fact\": \"limitations: [\\\"No support for pivot tables\\\"]\"\n      },\n      {\n        \"claim\": \"Evaluate every Excel formula, no exceptions\",\n        \"conflicting_fact\": \"capabilities: \\\"Evaluate a subset of built-in Excel formulas (SUM, AVERAGE, VLOOKUP, IF -- 40 total, listed in docs/formulas.md)\\\" and \\\"Formula evaluation is limited to the 40 functions listed in docs/formulas.md -- unlisted functions are preserved as text but not recalculated\\\"\"\n      }\n    ],\n    \"missing_evidence\": [\n      {\n        \"claim\": \"pip install acmecells\",\n        \"reason\": \"installation.method is Maven Central with coordinates com.acmesoft:acme-cells:3.2.0; no Python package mentioned\"\n      }\n    ]\n  },\n  \"summary\": \"README contradicts multiple explicit grounding facts: .xls and VBA/pivot support are explicitly unsupported, formula evaluation is limited, and installation is via Maven, not pip.\"\n}"
+        },
+        "missing_evidence": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "BLOCKED_MISSING_EVIDENCE",
+          "actual_verdict": "BLOCKED_MISSING_EVIDENCE",
+          "correct": true,
+          "prompt_tokens": 934,
+          "latency_s": 6.0,
+          "raw_response": "{\n  \"verdict\": \"BLOCKED_MISSING_EVIDENCE\",\n  \"confidence\": 0.95,\n  \"reasoning\": {\n    \"product_specificity\": \"moderate\",\n    \"overpromotion_check\": \"yes\",\n    \"readability\": \"good\",\n    \"generic_template_symptoms\": \"benchmark and scale claims\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": [\n      {\n        \"claim\": \"benchmarked at over 50,000 rows/second on commodity hardware\",\n        \"reason\": \"no grounding fact provides performance benchmarks or throughput metrics\"\n      },\n      {\n        \"claim\": \"used in production by more than 200 enterprise customers\",\n        \"reason\": \"no grounding fact confirms customer count or production adoption statistics\"\n      },\n      {\n        \"claim\": \"Streaming writes are supported for files larger than 2GB without exceeding a fixed memory ceiling\",\n        \"reason\": \"no grounding fact mentions streaming writes, memory behavior, or file size limits\"\n      }\n    ]\n  },\n  \"summary\": \"README includes unverifiable performance, adoption, and technical capability claims unsupported by grounding facts.\"\n}"
+        },
+        "_summary": {
+          "schema_valid_rate": 1.0,
+          "correct_verdict_rate": 1.0
+        }
+      },
+      "gpt-oss": {
+        "well_grounded_specific": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "ACCEPT",
+          "actual_verdict": "ACCEPT",
+          "correct": true,
+          "prompt_tokens": 1066,
+          "latency_s": 4.7,
+          "raw_response": "{\n  \"verdict\": \"ACCEPT\",\n  \"confidence\": 0.98,\n  \"reasoning\": {\n    \"product_specificity\": \"All statements reference AcmeCells, Java, .xlsx, and exact capabilities from facts.\",\n    \"overpromotion_check\": \"No exaggerated or unsupported marketing language detected.\",\n    \"readability\": \"Clear sections, concise bullet points, and correct formatting.\",\n    \"generic_template_symptoms\": \"None; content aligns closely with product details.\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": []\n  },\n  \"summary\": \"README accurately reflects all grounding facts with no contradictions or unsupported claims.\"\n}"
+        },
+        "generic_template_overpromotion": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "REJECT_REPAIRABLE",
+          "actual_verdict": "BLOCKED_FACT_CONFLICT",
+          "correct": false,
+          "prompt_tokens": 931,
+          "latency_s": 5.7,
+          "raw_response": "{\n  \"verdict\": \"BLOCKED_FACT_CONFLICT\",\n  \"confidence\": 0.97,\n  \"reasoning\": {\n    \"product_specificity\": \"README mentions only generic marketing language, no concrete product details.\",\n    \"overpromotion_check\": \"Uses broad, unsubstantiated superlatives (e.g., \\\"any spreadsheet workflow\\\", \\\"blazing\u2011fast\\\").\",\n    \"readability\": \"Readable but overly vague; lacks actionable information for target audience.\",\n    \"generic_template_symptoms\": \"Bullet points and sections resemble a boilerplate marketing template, missing technical specifics.\",\n    \"fact_conflicts\": [\n      {\n        \"claim\": \"Effortlessly handle any spreadsheet workflow\",\n        \"conflicting_fact\": \"Product does NOT support pivot tables, .xls, or .ods formats; capabilities are limited to .xlsx and 40 specific formulas.\"\n      }\n    ],\n    \"missing_evidence\": []\n  },\n  \"summary\": \"The README makes a false claim about universal spreadsheet support, contradicting documented limitations.\"\n}"
+        },
+        "fact_conflict": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "BLOCKED_FACT_CONFLICT",
+          "actual_verdict": "BLOCKED_FACT_CONFLICT",
+          "correct": true,
+          "prompt_tokens": 935,
+          "latency_s": 7.7,
+          "raw_response": "{\n  \"verdict\": \"BLOCKED_FACT_CONFLICT\",\n  \"confidence\": 0.99,\n  \"reasoning\": {\n    \"product_specificity\": \"Makes specific claims about unsupported formats and features\",\n    \"overpromotion_check\": \"Overpromotional statements directly contradict documented limitations\",\n    \"readability\": \"Clear language but factually inaccurate\",\n    \"generic_template_symptoms\": \"None; content is detailed but false\",\n    \"fact_conflicts\": [\n      {\n        \"claim\": \"complete support for legacy `.xls` files\",\n        \"conflicting_fact\": \"xls (legacy binary format) is explicitly listed as not supported\"\n      },\n      {\n        \"claim\": \"full VBA macro execution\",\n        \"conflicting_fact\": \"No support for VBA macros\"\n      },\n      {\n        \"claim\": \"Pivot table generation is fully supported out of the box\",\n        \"conflicting_fact\": \"No support for pivot tables\"\n      },\n      {\n        \"claim\": \"Read/write `.xls`\",\n        \"conflicting_fact\": \"xls format is explicitly not supported\"\n      },\n      {\n        \"claim\": \"Evaluate every Excel formula, no exceptions\",\n        \"conflicting_fact\": \"Formula evaluation is limited to the 40 functions listed; unlisted functions are not recalculated\"\n      },\n      {\n        \"claim\": \"pip install acmecells\",\n        \"conflicting_fact\": \"Installation method is via Maven Central with coordinates com.acmesoft:acme-cells:3.2.0\"\n      }\n    ],\n    \"missing_evidence\": []\n  },\n  \"summary\": \"The README contains multiple statements that directly conflict with the verified product facts.\"\n}"
+        },
+        "missing_evidence": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "BLOCKED_MISSING_EVIDENCE",
+          "actual_verdict": "BLOCKED_MISSING_EVIDENCE",
+          "correct": true,
+          "prompt_tokens": 981,
+          "latency_s": 12.7,
+          "raw_response": "{\n  \"verdict\": \"BLOCKED_MISSING_EVIDENCE\",\n  \"confidence\": 0.96,\n  \"reasoning\": {\n    \"product_specificity\": \"Uses correct product name and Maven coordinates, but adds unsupported performance and usage claims.\",\n    \"overpromotion_check\": \"Contains marketing statements (benchmark speed, 200+ customers, streaming large files) not backed by provided facts.\",\n    \"readability\": \"The README is clear and concise.\",\n    \"generic_template_symptoms\": \"No obvious templating, but includes unverified claims.\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": [\n      {\n        \"claim\": \"benchmarked at over 50,000 rows/second on commodity hardware\",\n        \"reason\": \"No grounding fact provides any performance benchmark.\"\n      },\n      {\n        \"claim\": \"used in production by more than 200 enterprise customers\",\n        \"reason\": \"No grounding fact mentions customer count.\"\n      },\n      {\n        \"claim\": \"Streaming writes are supported for files larger than 2GB without exceeding a fixed memory ceiling\",\n        \"reason\": \"Streaming write capability and size limit are not covered by the grounding facts.\"\n      }\n    ]\n  },\n  \"summary\": \"Specific claims about speed, customer base, and streaming large files lack supporting evidence, causing a missing\u2011evidence block.\"\n}"
+        },
+        "_summary": {
+          "schema_valid_rate": 1.0,
+          "correct_verdict_rate": 0.75
+        }
+      },
+      "Qwen2.5-VL-7B": {
+        "well_grounded_specific": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "ACCEPT",
+          "actual_verdict": "ACCEPT",
+          "correct": true,
+          "prompt_tokens": 1017,
+          "latency_s": 5.6,
+          "raw_response": "{\n  \"verdict\": \"ACCEPT\",\n  \"confidence\": 1.0,\n  \"reasoning\": {\n    \"product_specificity\": \"Accurately names product, language, and target audience; matches grounding facts.\",\n    \"overpromotion_check\": \"No overpromotional claims; avoids hype, sticks to supported capabilities.\",\n    \"readability\": \"Clear, well-structured, and scannable with bullet points and section headers.\",\n    \"generic_template_symptoms\": \"No generic or templated language; all claims are specific and grounded.\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": []\n  },\n  \"summary\": \"README is specific, accurate, and fully supported by grounding facts with no contradictions or unsupported claims.\"\n}"
+        },
+        "generic_template_overpromotion": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "REJECT_REPAIRABLE",
+          "actual_verdict": "REJECT_REPAIRABLE",
+          "correct": true,
+          "prompt_tokens": 880,
+          "latency_s": 8.8,
+          "raw_response": "{\n  \"verdict\": \"REJECT_REPAIRABLE\",\n  \"confidence\": 0.95,\n  \"reasoning\": {\n    \"product_specificity\": \"Generic marketing language; lacks specific technical details about Java, xlsx support, or formula limitations.\",\n    \"overpromotion_check\": \"Uses overpromotional terms like 'next-generation', 'enterprise-grade', 'blazing-fast', 'trusted by developers worldwide' without factual support.\",\n    \"readability\": \"Readable but lacks concrete information; sections like 'Getting started' are vague and unactionable.\",\n    \"generic_template_symptoms\": \"Uses boilerplate phrases ('Why AcmeCells?', 'Getting started', 'Join our community') without product-specific content.\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": [\n      {\n        \"claim\": \"Lightning-fast performance\",\n        \"reason\": \"No performance benchmarks or evidence provided in grounding facts.\"\n      },\n      {\n        \"claim\": \"Zero configuration\",\n        \"reason\": \"Grounding facts do not mention configuration requirements or absence thereof.\"\n      },\n      {\n        \"claim\": \"Seamless integration with your existing stack\",\n        \"reason\": \"No information in grounding facts about integration capabilities or stack compatibility.\"\n      },\n      {\n        \"claim\": \"Loved by developers everywhere\",\n        \"reason\": \"No user feedback, adoption metrics, or community data in grounding facts.\"\n      }\n    ]\n  },\n  \"summary\": \"The README is overly promotional and generic, lacking specific technical details from grounding facts, but does not contradict any facts.\"\n}"
+        },
+        "fact_conflict": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "BLOCKED_FACT_CONFLICT",
+          "actual_verdict": "BLOCKED_FACT_CONFLICT",
+          "correct": true,
+          "prompt_tokens": 887,
+          "latency_s": 9.3,
+          "raw_response": "{\n  \"verdict\": \"BLOCKED_FACT_CONFLICT\",\n  \"confidence\": 1.0,\n  \"reasoning\": {\n    \"product_specificity\": \"Candidate claims support for .xls and VBA macros, which are explicitly unsupported per grounding facts.\",\n    \"overpromotion_check\": \"Candidate overpromises by claiming 'every Excel formula' and 'full VBA macro execution' without qualification.\",\n    \"readability\": \"Readable, but contains factual errors that contradict grounding facts.\",\n    \"generic_template_symptoms\": \"No generic template symptoms; claims are specific but factually incorrect.\",\n    \"fact_conflicts\": [\n      {\n        \"claim\": \"complete support for legacy .xls files\",\n        \"conflicting_fact\": \"formats_explicitly_not_supported: [\\\"xls (legacy binary format)\\\"]\"\n      },\n      {\n        \"claim\": \"Run existing VBA macros unmodified\",\n        \"conflicting_fact\": \"limitations: [\\\"No support for VBA macros\\\"]\"\n      },\n      {\n        \"claim\": \"Generate and refresh pivot tables\",\n        \"conflicting_fact\": \"limitations: [\\\"No support for pivot tables\\\"]\"\n      },\n      {\n        \"claim\": \"Evaluate every Excel formula, no exceptions\",\n        \"conflicting_fact\": \"capabilities: [\\\"Evaluate a subset of built-in Excel formulas (SUM, AVERAGE, VLOOKUP, IF -- 40 total, listed in docs/formulas.md)\\\"]\"\n      }\n    ],\n    \"missing_evidence\": []\n  },\n  \"summary\": \"Candidate README contains multiple direct factual contradictions with grounding facts, including unsupported formats, VBA, pivot tables, and formula evaluation scope.\"\n}"
+        },
+        "missing_evidence": {
+          "ok": true,
+          "schema_valid": true,
+          "why": "schema-ok",
+          "expected_verdict": "BLOCKED_MISSING_EVIDENCE",
+          "actual_verdict": "REJECT_REPAIRABLE",
+          "correct": false,
+          "prompt_tokens": 934,
+          "latency_s": 8.6,
+          "raw_response": "{\n  \"verdict\": \"REJECT_REPAIRABLE\",\n  \"confidence\": 0.95,\n  \"reasoning\": {\n    \"product_specificity\": \"Accurate product name and language, but lacks detail on audience and limitations.\",\n    \"overpromotion_check\": \"Includes unverified claims like 'over 50,000 rows/second' and 'used in production by more than 200 enterprise customers' \u2014 unsupported by grounding facts.\",\n    \"readability\": \"Clear structure and basic formatting, but contains unsupported claims.\",\n    \"generic_template_symptoms\": \"Uses generic phrases like 'common Excel formulas' instead of specifying the 40 supported functions; lacks explicit mention of unsupported formats or limitations.\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": [\n      {\n        \"claim\": \"benchmark at over 50,000 rows/second on commodity hardware\",\n        \"reason\": \"No grounding fact provides performance benchmarks or verification of this claim.\"\n      },\n      {\n        \"claim\": \"used in production by more than 200 enterprise customers\",\n        \"reason\": \"No grounding fact supports or refutes this customer count claim.\"\n      },\n      {\n        \"claim\": \"Streaming writes are supported for files larger than 2GB without exceeding a fixed memory ceiling\",\n        \"reason\": \"No grounding fact mentions streaming or memory ceiling capabilities.\"\n      }\n    ]\n  },\n  \"summary\": \"README is mostly accurate but includes unsupported promotional claims and omits key limitations and specifics from grounding facts.\"\n}"
+        },
+        "_summary": {
+          "schema_valid_rate": 1.0,
+          "correct_verdict_rate": 0.75
+        }
+      }
+    },
+    "long_context_well_grounded": {
+      "qwen3-next": {
+        "ok": true,
+        "prompt_tokens": 22152,
+        "schema_valid": true,
+        "why": "schema-ok",
+        "actual_verdict": "ACCEPT",
+        "correct_verdict": true,
+        "needle_found_in_output": true,
+        "latency_s": 7.9,
+        "raw_response": "{\n  \"verdict\": \"ACCEPT\",\n  \"confidence\": 1.0,\n  \"reasoning\": {\n    \"product_specificity\": \"High - product name, language, audience, and capabilities are precisely stated\",\n    \"overpromotion_check\": \"None detected - claims are limited to documented capabilities\",\n    \"readability\": \"Clear and concise - uses bullet points and code blocks appropriately\",\n    \"generic_template_symptoms\": \"None - content is specific to AcmeCells and grounded in facts\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": []\n  },\n  \"summary\": \"The README accurately reflects all verified facts: product name, Java language, target audience, supported formats (.xlsx only), unsupported formats (.xls, .ods), limitations (no VBA, no pivot tables, formula evaluation limited to 40 functions), Maven coordinates, license, and minimal example description. All claims are directly supported by the grounding facts.\",\n  \"context_check\": \"GLYPH-40217\"\n}"
+      },
+      "gpt-oss": {
+        "ok": true,
+        "prompt_tokens": 21006,
+        "schema_valid": true,
+        "why": "schema-ok",
+        "actual_verdict": "ACCEPT",
+        "correct_verdict": true,
+        "needle_found_in_output": true,
+        "latency_s": 7.8,
+        "raw_response": "{\n  \"verdict\": \"ACCEPT\",\n  \"confidence\": 0.98,\n  \"reasoning\": {\n    \"product_specificity\": \"Specific to AcmeCells, cites exact capabilities, limitations, and installation details\",\n    \"overpromotion_check\": \"No exaggerated or promotional language; factual statements only\",\n    \"readability\": \"Clear, concise, well-structured\",\n    \"generic_template_symptoms\": \"None detected\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": []\n  },\n  \"summary\": \"README aligns perfectly with the provided grounding facts\",\n  \"context_check\": \"GLYPH-40217\"\n}"
+      },
+      "Qwen2.5-VL-7B": {
+        "ok": true,
+        "prompt_tokens": 22152,
+        "schema_valid": true,
+        "why": "schema-ok",
+        "actual_verdict": "ACCEPT",
+        "correct_verdict": true,
+        "needle_found_in_output": true,
+        "latency_s": 11.3,
+        "raw_response": "{\n  \"verdict\": \"ACCEPT\",\n  \"confidence\": 1.0,\n  \"reasoning\": {\n    \"product_specificity\": \"All claims are specific and directly supported by grounding facts.\",\n    \"overpromotion_check\": \"No overpromotional language; claims are factual and bounded by supported capabilities.\",\n    \"readability\": \"Clear, well-structured, and easy to scan with appropriate sectioning.\",\n    \"generic_template_symptoms\": \"No generic or templated phrasing; all content is tailored to AcmeCells' actual features.\",\n    \"fact_conflicts\": [],\n    \"missing_evidence\": []\n  },\n  \"summary\": \"The README accurately and specifically reflects all grounding facts without omission or exaggeration.\",\n  \"context_check\": \"GLYPH-40217\"\n}"
+      }
+    },
+    "long_context_stability": {
+      "qwen3-next": {
+        "trials": 3,
+        "schema_valid_rate": 1.0,
+        "verdict_stable": true,
+        "needle_recall_rate": 1.0,
+        "outcomes": [
+          {
+            "trial": 1,
+            "ok": true,
+            "schema_valid": true,
+            "verdict": "ACCEPT",
+            "needle_found": true,
+            "prompt_tokens": 22152,
+            "latency_s": 8.7
+          },
+          {
+            "trial": 2,
+            "ok": true,
+            "schema_valid": true,
+            "verdict": "ACCEPT",
+            "needle_found": true,
+            "prompt_tokens": 22152,
+            "latency_s": 5.8
+          },
+          {
+            "trial": 3,
+            "ok": true,
+            "schema_valid": true,
+            "verdict": "ACCEPT",
+            "needle_found": true,
+            "prompt_tokens": 22152,
+            "latency_s": 5.7
+          }
+        ]
+      }
+    }
+  }
+}

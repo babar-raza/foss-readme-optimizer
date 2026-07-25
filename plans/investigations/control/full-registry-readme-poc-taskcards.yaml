@@ -1,0 +1,117 @@
+schema_version: 1
+document: C:\Users\prora\.claude\plans\executive-verdict-the-swirling-adleman.md
+sprint_id: FULL-REGISTRY-README-POC-RESET-001
+created_at: "2026-07-25T00:00:00+00:00"
+last_amended_at: "2026-07-25T00:00:00+00:00"
+status: PAUSED_BY_USER
+authority_status: SUPPORTING_DIAGNOSTIC_RECORD_ONLY
+execution_note: >
+  Still-valid RPOC work has been migrated into
+  level8-autonomous-mission-task-graph.yaml. This file is not an executable
+  controller, queue, claim source, or status authority.
+
+mission_registration:
+  parent_mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  registered_as: "RPOC-* taskcard subset (sprint-scoped, mirrors plans/codex/production-system-redesign.state.json's pattern)"
+  not_a_competing_controller: true
+
+scope: >
+  Gate A only: full-registry local README proof and preparation of agent-approved,
+  no-op-proven candidates for Gate B human review. The registry denominator is always
+  computed from data/products.json at runtime, never hard-coded here. Gate B acceptance
+  is human-owned. Gate C (Java PR proof) and Gate D (GitHub App) are explicitly out of
+  scope for this ledger and require the preceding gates plus a fresh go-ahead before any
+  taskcard in that scope may start.
+
+autonomy_boundaries:
+  - "Never flip any repo's mode from dry_run/disabled to full in data/products.json"
+  - "Never create a real pull request or make any write call against a product repo's GitHub API"
+  - "Never fill in approving_identity (or any sign-off field) in an authorization record"
+  - "Never provision or use real GitHub App credentials/installation"
+
+blocked_category_values: ["infra_external", "agent_fixable"]
+status_values: ["NOT_STARTED", "RECON", "IN_PROGRESS", "SELF_VERIFIED", "DONE", "BLOCKED_INFRA_EXTERNAL", "BLOCKED_AGENT_FIXABLE", "SKIPPED_JUSTIFIED"]
+
+phases:
+  - { id: "RPOC-PHASE-0", title: "Recon refresh", status: "DONE", task_ids: ["RPOC-000", "RPOC-001", "RPOC-002"] }
+  - { id: "RPOC-PHASE-1", title: "Authority documents (Lane D)", status: "DONE", task_ids: ["RPOC-010", "RPOC-011", "RPOC-012", "RPOC-013", "RPOC-014", "RPOC-015", "RPOC-016", "RPOC-017"] }
+  - { id: "RPOC-PHASE-2", title: "Parallel build lanes (V, F, X)", status: "NOT_STARTED", task_ids: ["RPOC-020", "RPOC-021", "RPOC-022", "RPOC-023", "RPOC-030", "RPOC-031", "RPOC-032", "RPOC-033", "RPOC-034", "RPOC-035", "RPOC-040", "RPOC-041", "RPOC-042"] }
+  - { id: "RPOC-PHASE-3", title: "Bundle verifier wiring (Lane B)", status: "NOT_STARTED", task_ids: ["RPOC-050", "RPOC-051", "RPOC-052"] }
+  - { id: "RPOC-PHASE-4", title: "Pilot proof", status: "NOT_STARTED", task_ids: ["RPOC-060", "RPOC-061"] }
+  - { id: "RPOC-PHASE-5", title: "State/artifact contract (Lane S)", status: "DONE", task_ids: ["RPOC-070", "RPOC-071", "RPOC-072"] }
+  - { id: "RPOC-PHASE-6", title: "Scale + full audit", status: "NOT_STARTED", task_ids: ["RPOC-080", "RPOC-081", "RPOC-082", "RPOC-083"] }
+  - { id: "RPOC-PHASE-7", title: "Close-out", status: "NOT_STARTED", task_ids: ["RPOC-090", "RPOC-091", "RPOC-092"] }
+
+taskcards:
+  # Phase 0 — Recon
+  - { id: "RPOC-000", phase_id: "RPOC-PHASE-0", lane: "R", status: "DONE", dependencies: [], files: ["plans/investigations/control/full-registry-readme-poc-taskcards.yaml"], evidence: "plans/investigations/control/full-registry-readme-poc-taskcards.yaml" }
+  - { id: "RPOC-001", phase_id: "RPOC-PHASE-0", lane: "R", status: "DONE", dependencies: ["RPOC-000"], files: ["plans/investigations/full-registry-readme-poc-recon.md"], evidence: "plans/investigations/full-registry-readme-poc-recon.md -- key finding: all 27 non-pilot repos that reach validation fail at the identical citation stage (missing product facts), confirming RPOC-033 as the correct root-cause fix" }
+  - { id: "RPOC-002", phase_id: "RPOC-PHASE-0", lane: "R", status: "DONE", dependencies: ["RPOC-000"], files: ["plans/investigations/full-registry-readme-poc-build-vs-adopt-audit.md"], evidence: "plans/investigations/full-registry-readme-poc-build-vs-adopt-audit.md" }
+
+  # Phase 1 — Lane D (authority documents)
+  - { id: "RPOC-010", phase_id: "RPOC-PHASE-1", lane: "D", status: "DONE", dependencies: ["RPOC-001"], files: ["plans/idea.md"], evidence: "new POC-gates section added after existing uncommitted edit, pure addition confirmed via git diff" }
+  - { id: "RPOC-011", phase_id: "RPOC-PHASE-1", lane: "D", status: "DONE", dependencies: ["RPOC-001"], files: ["plans/master.md"], evidence: "Decision Ledger #78 added, Wave 5/6 precedence corrected, 54 pure insertions 0 deletions" }
+  - { id: "RPOC-012", phase_id: "RPOC-PHASE-1", lane: "D", status: "DONE", dependencies: ["RPOC-001", "RPOC-002"], files: ["plans/requirements.md"], evidence: "FACT-016 revised, FACT-017/VER-011/ORC-009/PIL-015/PIL-016/AUTH-008/GOV-029 added; traceability_matrix.py exit 0" }
+  - { id: "RPOC-013", phase_id: "RPOC-PHASE-1", lane: "D", status: "DONE", dependencies: ["RPOC-011"], files: ["plans/roadmap.md"], evidence: "reordered to charter's 12-item sequence, content mapped item-by-item, nothing dropped" }
+  - { id: "RPOC-014", phase_id: "RPOC-PHASE-1", lane: "D", status: "DONE", dependencies: ["RPOC-001"], files: ["AGENTS.md"], evidence: "both stale claims fixed and grep-confirmed gone; new POC scope section added" }
+  - { id: "RPOC-015", phase_id: "RPOC-PHASE-1", lane: "D", status: "DONE", dependencies: ["RPOC-001"], files: ["README.md"], evidence: "quick-start verified against real CLI --help, exit 0" }
+  - { id: "RPOC-016", phase_id: "RPOC-PHASE-1", lane: "D", status: "DONE", dependencies: ["RPOC-011"], files: ["plans/GOVERNANCE.md"], evidence: "rules 14-17 added, 45 pure insertions 0 deletions" }
+  - { id: "RPOC-017", phase_id: "RPOC-PHASE-1", lane: "D", status: "DONE", dependencies: [], files: ["plans/status.md"], evidence: "ran traceability_matrix.py, exit 0, status.md regenerated (148/106/66/33/26/6=385; discovered Decision Ledger already at #77, AGT-009/GOV-028 blocked-category taxonomy landed in commit 3498ce9 -- corrected planning assumption" }
+
+  # Phase 2 — Lane V (independent reviewer)
+  - { id: "RPOC-020", phase_id: "RPOC-PHASE-2", lane: "V", status: "DONE", dependencies: ["RPOC-001"], files: ["plans/investigations/"], evidence: "plans/investigations/evidence/independent-readme-reviewer-route-characterization-2026-07-25/ -- recommendation: qwen3-next (100% discrimination, long-context needle recall, 3/3 stable; gpt-oss/Qwen2.5-VL-7B both 75%)" }
+  - { id: "RPOC-021", phase_id: "RPOC-PHASE-2", lane: "V", status: "DONE", dependencies: ["RPOC-020"], files: ["prompts/verification/independent_readme_review.yaml"], evidence: "prompts/verification/independent_readme_review.yaml; validated via real prompt_registry loader + 19 passed in test_prompt_registry.py/test_prompt_hash_coupling.py" }
+  - { id: "RPOC-022", phase_id: "RPOC-PHASE-2", lane: "V", status: "DONE", dependencies: ["RPOC-021"], files: ["src/readme_agent/specialists/independent_readme_review.py", "src/readme_agent/env.py", "src/readme_agent/llm/verification_prompts.py"], evidence: "LIVE test against qwen3-next: positive control ACCEPT, negative-control generic README BLOCKED_FACT_CONFLICT (never ACCEPT) with real reasoning citing vague marketing language; 37 unit tests pass" }
+  - { id: "RPOC-023", phase_id: "RPOC-PHASE-2", lane: "V", status: "DONE", dependencies: ["RPOC-022"], files: ["src/readme_agent/specialists/independent_readme_review.py"], evidence: "run_independent_review_with_repair_loop(), MAX=2 attempts, BLOCKED_* verdicts never enter repair loop, exhaustion produces BACKLOG-shaped escalation" }
+
+  # Phase 2 — Lane F (agentic facts drafting)
+  - { id: "RPOC-030", phase_id: "RPOC-PHASE-2", lane: "F", status: "DONE", dependencies: ["RPOC-001"], files: ["src/readme_agent/facts/schema_v2.py"], evidence: "160 passed; ruff/format/mypy clean" }
+  - { id: "RPOC-031", phase_id: "RPOC-PHASE-2", lane: "F", status: "DONE", dependencies: ["RPOC-030"], files: ["src/readme_agent/facts/resolution.py"], evidence: "160 passed; ruff/format/mypy clean" }
+  - { id: "RPOC-032", phase_id: "RPOC-PHASE-2", lane: "F", status: "DONE", dependencies: ["RPOC-030"], files: ["src/readme_agent/facts/interpretive_evidence.py"], evidence: "160 passed; 6 new tests incl. mixed-pass/fail whole-field-blocked case" }
+  - { id: "RPOC-033", phase_id: "RPOC-PHASE-2", lane: "F", status: "DONE", dependencies: ["RPOC-020", "RPOC-032", "RPOC-034", "RPOC-035"], files: ["src/readme_agent/facts/agentic_drafting.py", "src/readme_agent/capabilities/draft_product_truth.py"], evidence: "plans/investigations/evidence/draft-product-truth-live-proof-2026-07-25/live-proof-result.json -- LIVE run against aspose-cells-foss Java: formats/limitations/example.minimal passed (real Maven compile), capabilities/audience/problems_solved correctly blocked+escalated (not faked) on this large famous repo; 25 unit tests pass; new draft_product_truth route (qwen3-next, 89% faithfulness) wired; independently corroborates the Lane B regression finding from RPOC-040" }
+  - { id: "RPOC-034", phase_id: "RPOC-PHASE-2", lane: "F", status: "DONE", dependencies: ["RPOC-001"], files: ["src/readme_agent/registry/models.py"], evidence: "language widened to 5 ecosystems; local_verification.py fails closed via ValueError for unregistered languages, confirmed safe for RPOC-035 to build on" }
+  - { id: "RPOC-035", phase_id: "RPOC-PHASE-2", lane: "F", status: "DONE", dependencies: ["RPOC-034"], files: ["src/readme_agent/facts/local_verification.py", "src/readme_agent/facts/example_execution.py"], evidence: "18 mocked + 3 live (dotnet/python/go real SOURCE_BUILD_VERIFIED) tests pass; TypeScript mocked-only (tsc unavailable here); _SAFE_ENV_NAMES widening independently verified safe (names only, secret regex untouched, profile vars always overridden to disposable dirs)" }
+
+  # Phase 2 — Lane X (deterministic reliability)
+  - { id: "RPOC-040", phase_id: "RPOC-PHASE-2", lane: "X", status: "SELF_VERIFIED", dependencies: ["RPOC-001"], files: ["src/readme_agent/gitsafety/clone.py"], evidence: "test_gitsafety.py 39/39 pass, ruff/mypy clean, zero WinError145 across repeated real force_rmtree() invocations against the actual bug-triggering leftover directory. Full end-to-end network repro hit honest infra_external clone timeouts (heavy multi-agent contention on this machine), not a code defect -- did not reach a full PASS, correctly reported as such rather than fabricated. IMPORTANT cross-lane finding surfaced by this run: full suite shows 12 failures, 11 traced to a REAL regression in Lane B's work (build_presentation_plan rejects caller_domain=None; 26 capabilities registered vs expected 24) -- Lane B is currently re-verifying in foreground and likely to catch/fix this itself; 1 failure is the already-known stale requirements.md hash in test_mission_control.py, tracked for RPOC-090" }
+  - { id: "RPOC-041", phase_id: "RPOC-PHASE-2", lane: "X", status: "DONE", dependencies: ["RPOC-001"], files: ["src/readme_agent/facts/java_toolchain.py", "src/readme_agent/paths.py", "src/readme_agent/facts/local_verification.py"], evidence: "23 new tests pass; live-verified SOURCE_BUILD_VERIFIED against aspose-3d-foss with no README_AGENT_JAVA_HOME set. KNOWN follow-up: full suite 1465 passed/1 failed -- test_mission_control.py has a baked-in sha256 of requirements.md, stale because RPOC-012 legitimately edited that file; needs a hash refresh, tracked for RPOC-090 cleanup" }
+  - { id: "RPOC-042", phase_id: "RPOC-PHASE-2", lane: "X", status: "DONE", dependencies: ["RPOC-041"], files: [".github/workflows/local-product-example-verification.yml", "scripts/ci/verify_local_product_example.py"], evidence: "actionlint clean, act --list clean, act dry-run matches known accepted limitation in readme-agent-portfolio.yml, 9/9 tests pass. C: drive confirmed 100% full (0 bytes free), blocking real Docker/act execution -- classified infra_external, correctly out of this sprint's scope (not a code defect; deleting unknown C: files without authorization is exactly the kind of action this plan must not take autonomously). VERIFIED NOT A BLOCKER for RPOC-033/060/061/081: repo + runs/ live on D: with 69G free." }
+
+  # Phase 3 — Lane B (bundle verifier wiring; sequenced after RPOC-022)
+  - { id: "RPOC-050", phase_id: "RPOC-PHASE-3", lane: "B", status: "BLOCKED_AGENT_FIXABLE", dependencies: ["RPOC-022"], files: ["src/readme_agent/specialists/readme_presentation.py"], evidence: "STOPPED BY USER mid-verification (was re-running the failing test group to confirm a domain-scoping fix when killed). Code changes from agent a597134cb9c5408b4 are left in place uncommitted (not reverted, per standing rule against destructive git ops). Status genuinely unknown -- do not assume fixed or broken; re-verify from scratch before resuming." }
+  - { id: "RPOC-051", phase_id: "RPOC-PHASE-3", lane: "B", status: "BLOCKED_AGENT_FIXABLE", dependencies: ["RPOC-050"], files: ["src/readme_agent/specialists/readme_presentation.py", "src/readme_agent/capabilities/registry.py"], evidence: "STOPPED BY USER mid-verification, same as RPOC-050 -- see that row" }
+  - { id: "RPOC-052", phase_id: "RPOC-PHASE-3", lane: "B", status: "BLOCKED_AGENT_FIXABLE", dependencies: ["RPOC-051"], files: ["src/readme_agent/verification/readme_proposal_bundle.py"], evidence: "STOPPED BY USER mid-verification, same as RPOC-050 -- see that row" }
+
+  # Phase 4 — Pilot proof
+  - { id: "RPOC-060", phase_id: "RPOC-PHASE-4", lane: "F", status: "NOT_STARTED", dependencies: ["RPOC-033", "RPOC-051"], files: [], evidence: "pilot targets confirmed: aspose-cells-foss/{Aspose.Cells-FOSS-for-.NET,Aspose.Cells-FOSS-for-Python,Aspose.Cells-FOSS-for-TypeScript,Aspose.Cells-FOSS-for-Go} (policy_profile aspose-cells-foss-{net,python,typescript,go}), all mode=dry_run in data/products.json" }
+  - { id: "RPOC-061", phase_id: "RPOC-PHASE-4", lane: "X", status: "NOT_STARTED", dependencies: ["RPOC-041", "RPOC-051"], files: [], evidence: null }
+
+  # Phase 5 — Lane S (state/artifact contract)
+  - { id: "RPOC-070", phase_id: "RPOC-PHASE-5", lane: "S", status: "DONE", dependencies: ["RPOC-001"], files: ["src/readme_agent/state/"], evidence: "ReadmePocStatusV1 (16-value lifecycle) + transition table + CAS-backed transition_readme_poc_status() in new readme_poc_lifecycle.py; RunStateV1/RunManifestV3 extended additively; 177 passed incl. 18 new + 3 migration tests" }
+  - { id: "RPOC-071", phase_id: "RPOC-PHASE-5", lane: "S", status: "DONE", dependencies: ["RPOC-070"], files: ["plans/investigations/tools/"], evidence: "compute_portfolio_summary_aggregates() added, 10 tests pass; real-data proof against 28-repo manifest independently reconfirms RPOC-001's finding (reviewer_accepted=0, blocked_facts=27)" }
+  - { id: "RPOC-072", phase_id: "RPOC-PHASE-5", lane: "S", status: "DONE", dependencies: ["RPOC-071"], files: ["plans/investigations/tools/traceability_matrix.py"], evidence: "plans/status.md regenerated with repository-outcome table as primary section, 31 rows matching data/products.json live count; 14/14 tests pass" }
+
+  # Phase 6 — Scale + full audit
+  - { id: "RPOC-080", phase_id: "RPOC-PHASE-6", lane: "X", status: "NOT_STARTED", dependencies: ["RPOC-060", "RPOC-061"], files: [], evidence: null }
+  - { id: "RPOC-081", phase_id: "RPOC-PHASE-6", lane: "F", status: "NOT_STARTED", dependencies: ["RPOC-080"], files: ["config/policies/"], evidence: null }
+  - { id: "RPOC-082", phase_id: "RPOC-PHASE-6", lane: "R", status: "NOT_STARTED", dependencies: ["RPOC-081"], files: [], evidence: null }
+  - { id: "RPOC-083", phase_id: "RPOC-PHASE-6", lane: "S", status: "NOT_STARTED", dependencies: ["RPOC-082"], files: ["plans/status.md"], evidence: null }
+
+  # Phase 7 — Close-out
+  - { id: "RPOC-090", phase_id: "RPOC-PHASE-7", lane: "R", status: "NOT_STARTED", dependencies: ["RPOC-083"], files: ["plans/investigations/evidence/"], evidence: null }
+  - { id: "RPOC-091", phase_id: "RPOC-PHASE-7", lane: "R", status: "NOT_STARTED", dependencies: ["RPOC-090"], files: [], evidence: null }
+  - { id: "RPOC-092", phase_id: "RPOC-PHASE-7", lane: "R", status: "NOT_STARTED", dependencies: ["RPOC-091"], files: [], evidence: null }
+
+file_overlap_notes:
+  - "readme_presentation.py: Lane V (RPOC-022) must complete before Lane B (RPOC-050/051) touches it."
+  - "env.py JOB_MODEL_ROUTING: RPOC-020 before RPOC-033."
+  - "registry/models.py: RPOC-034 before RPOC-033."
+  - "scripts/governance/run_official_checks.py: NO taskcard edits this file (unrelated in-flight PRODSYS-P1-T3 work); verification steps only run it."
+
+note: >
+  This ledger is scoped to sprint FULL-REGISTRY-README-POC-RESET-001 only. It is not a
+  replacement for plans/investigations/control/level8-autonomous-mission-task-graph.yaml
+  (the durable mission graph) or plans/codex/production-system-redesign.state.json
+  (the PRODSYS sprint). Update each taskcard's `status`/`evidence` field in lockstep with
+  real work; treat any divergence between this file and actual repo state as this file
+  being wrong, and correct it immediately rather than trusting a stale entry.

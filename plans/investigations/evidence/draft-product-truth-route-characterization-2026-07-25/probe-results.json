@@ -1,0 +1,189 @@
+{
+  "base_url_host": "llm.professionalize.com",
+  "probes": {
+    "models": {
+      "status": 200,
+      "ids": [
+        "qwen3-next",
+        "experimental",
+        "gpt-oss",
+        "recommended",
+        "qwen3-embedding-8b",
+        "Qwen2.5-VL-7B",
+        "stable-diffusion-3.5-large"
+      ]
+    },
+    "alias_identity_check": {
+      "qwen3-next": {
+        "ok": true,
+        "output": "OK5183",
+        "latency_s": 1.4
+      },
+      "gpt-oss": {
+        "ok": true,
+        "output": "",
+        "latency_s": 2.0
+      },
+      "experimental": {
+        "ok": true,
+        "output": "OK5183",
+        "latency_s": 1.8,
+        "matches_named_model": [
+          "qwen3-next"
+        ]
+      },
+      "recommended": {
+        "ok": true,
+        "output": "",
+        "latency_s": 2.1,
+        "matches_named_model": [
+          "gpt-oss"
+        ]
+      }
+    },
+    "faithfulness": {
+      "qwen3-next": {
+        "java_well_resourced": {
+          "schema_valid": true,
+          "faithful": true,
+          "language_correct": true,
+          "fabricated_fact_ids": [],
+          "fabricated_evidence_paths": [],
+          "fabricated_required_symbols": [],
+          "n_audience_claims": 1,
+          "n_problems_solved_claims": 1,
+          "n_capabilities": 2,
+          "n_formats": 1,
+          "n_limitations": 1,
+          "minimal_example_language": "java",
+          "raw_response": "{\n  \"audience\": [\n    {\n      \"claim_id\": \"backend-developers\",\n      \"text\": \"Backend developers who need spreadsheet generation without Microsoft Office installed on the server\",\n      \"supporting_fact_ids\": [\"product.identity:manifest-and-registry\"]\n    }\n  ],\n  \"problems_solved\": [\n    {\n      \"claim_id\": \"server-side-xlsx\",\n      \"text\": \"Reading and writing .xlsx workbooks on the JVM\",\n      \"supporting_fact_ids\": [\"product.identity:manifest-and-registry\"]\n    }\n  ],\n  \"capabilities\": [\n    {\n      \"value\": \"Reading and writing .xlsx workbooks\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/Workbook.java\", \"src/main/java/com/acmesoft/cells/Worksheet.java\", \"src/main/java/com/acmesoft/cells/Cell.java\"],\n      \"required_symbols\": [\"Workbook\", \"Worksheet\", \"Cell\", \"putValue\"]\n    },\n    {\n      \"value\": \"Saving workbooks to .xlsx format\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/Workbook.java\", \"src/main/java/com/acmesoft/cells/SaveFormat.java\"],\n      \"required_symbols\": [\"save\", \"XLSX\"]\n    }\n  ],\n  \"formats\": [\n    {\n      \"value\": \".xlsx\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/SaveFormat.java\"],\n      \"required_symbols\": [\"XLSX\"]\n    }\n  ],\n  \"limitations\": [\n    {\n      \"value\": \"No support for formats other than .xlsx (based on available SaveFormat constant)\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/SaveFormat.java\"],\n      \"required_symbols\": [\"XLSX\"]\n    }\n  ],\n  \"minimal_example\": {\n    \"language\": \"java\",\n    \"class_name\": \"Workbook\",\n    \"code\": \"import com.acmesoft.cells.Workbook;\\nimport com.acmesoft.cells.SaveFormat;\\n\\npublic class Example {\\n    public static void main(String[] args) {\\n        try (Workbook wb = new Workbook()) {\\n            wb.getWorksheets().get(0).getCells().get(0).putValue(\\\"Hello\\\");\\n            wb.save(\\\"output.\\\" + SaveFormat.XLSX);\\n        }\\n    }\\n}\",\n    \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/Workbook.java\", \"src/main/java/com/acmesoft/cells/Worksheet.java\", \"src/main/java/com/acmesoft/cells/Cell.java\", \"src/main/java/com/acmesoft/cells/SaveFormat.java\"],\n    \"required_symbols\": [\"Workbook\", \"getWorksheets\", \"getCells\", \"putValue\", \"save\", \"XLSX\"]\n  }\n}",
+          "ok": true,
+          "prompt_tokens": 1784,
+          "completion_tokens": 597,
+          "latency_s": 10.7
+        },
+        "python_sparse_evidence": {
+          "schema_valid": true,
+          "faithful": true,
+          "language_correct": true,
+          "fabricated_fact_ids": [],
+          "fabricated_evidence_paths": [],
+          "fabricated_required_symbols": [],
+          "n_audience_claims": 1,
+          "n_problems_solved_claims": 1,
+          "n_capabilities": 1,
+          "n_formats": 1,
+          "n_limitations": 1,
+          "minimal_example_language": "python",
+          "raw_response": "{\"audience\": [{\"claim_id\": \"aud-1\", \"text\": \"Users who need to validate CSV files against a declared column schema before loading them into a pipeline\", \"supporting_fact_ids\": [\"product.identity:manifest-and-registry\"]}], \"problems_solved\": [{\"claim_id\": \"prob-1\", \"text\": \"Validating CSV files against a declared column schema before loading them into a pipeline\", \"supporting_fact_ids\": [\"product.identity:manifest-and-registry\"]}], \"capabilities\": [{\"value\": \"Validates CSV files against a declared column schema\", \"evidence_paths\": [\"src/acmeflux/validator.py\"], \"required_symbols\": [\"SchemaValidator\", \"validate\"]}], \"formats\": [{\"value\": \"CSV files\", \"evidence_paths\": [\"README.md\"], \"required_symbols\": []}], \"limitations\": [{\"value\": \"The validate method currently always returns True\", \"evidence_paths\": [\"src/acmeflux/validator.py\"], \"required_symbols\": [\"validate\"]}], \"minimal_example\": {\"language\": \"python\", \"class_name\": \"SchemaValidator\", \"code\": \"from acmeflux.validator import SchemaValidator\\n\\nvalidator = SchemaValidator(columns=[\\\"id\\\", \\\"name\\\", \\\"value\\\"])\\nis_valid = validator.validate(\\\"data.csv\\\")\", \"evidence_paths\": [\"src/acmeflux/validator.py\"], \"required_symbols\": [\"SchemaValidator\", \"validate\"]}}",
+          "ok": true,
+          "prompt_tokens": 1372,
+          "completion_tokens": 296,
+          "latency_s": 6.1
+        },
+        "_summary": {
+          "schema_valid_rate": 1.0,
+          "faithful_rate": 1.0,
+          "language_correct_rate": 1.0
+        }
+      },
+      "gpt-oss": {
+        "java_well_resourced": {
+          "schema_valid": true,
+          "faithful": true,
+          "language_correct": true,
+          "fabricated_fact_ids": [],
+          "fabricated_evidence_paths": [],
+          "fabricated_required_symbols": [],
+          "n_audience_claims": 1,
+          "n_problems_solved_claims": 1,
+          "n_capabilities": 5,
+          "n_formats": 1,
+          "n_limitations": 1,
+          "minimal_example_language": "java",
+          "raw_response": "{\n  \"audience\": [\n    {\n      \"claim_id\": \"aud1\",\n      \"text\": \"Java developers\",\n      \"supporting_fact_ids\": [\"product.platforms:manifest\"]\n    }\n  ],\n  \"problems_solved\": [\n    {\n      \"claim_id\": \"prob1\",\n      \"text\": \"Provides Maven Central coordinates\",\n      \"supporting_fact_ids\": [\"installation.verified_acquisition:registry-maven_central\"]\n    }\n  ],\n  \"capabilities\": [\n    {\n      \"value\": \"Create a Workbook and save it to a file\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/Workbook.java\"],\n      \"required_symbols\": [\"Workbook\", \"save\"]\n    },\n    {\n      \"value\": \"Access worksheets via Workbook.getWorksheets()\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/Workbook.java\"],\n      \"required_symbols\": [\"Workbook\", \"getWorksheets\"]\n    },\n    {\n      \"value\": \"Access cells via Worksheet.getCells()\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/Worksheet.java\"],\n      \"required_symbols\": [\"Worksheet\", \"getCells\"]\n    },\n    {\n      \"value\": \"Set a cell's value via Cell.putValue(String)\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/Cell.java\"],\n      \"required_symbols\": [\"Cell\", \"putValue\"]\n    },\n    {\n      \"value\": \"Specify XLSX format via SaveFormat.XLSX\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/SaveFormat.java\"],\n      \"required_symbols\": [\"SaveFormat\", \"XLSX\"]\n    }\n  ],\n  \"formats\": [\n    {\n      \"value\": \"Supports XLSX format\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/SaveFormat.java\"],\n      \"required_symbols\": [\"SaveFormat\", \"XLSX\"]\n    }\n  ],\n  \"limitations\": [\n    {\n      \"value\": \"Only XLSX format is defined\",\n      \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/SaveFormat.java\"],\n      \"required_symbols\": [\"XLSX\"]\n    }\n  ],\n  \"minimal_example\": {\n    \"language\": \"java\",\n    \"class_name\": \"Example\",\n    \"code\": \"import com.acmesoft.cells.Workbook;\\n\\npublic class Example {\\n    public static void main(String[] args) throws Exception {\\n        try (Workbook wb = new Workbook()) {\\n            wb.save(\\\"example.xlsx\\\");\\n        }\\n    }\\n}\",\n    \"evidence_paths\": [\"src/main/java/com/acmesoft/cells/Workbook.java\"],\n    \"required_symbols\": [\"Workbook\", \"save\"]\n  }\n}",
+          "ok": true,
+          "prompt_tokens": 1843,
+          "completion_tokens": 2388,
+          "latency_s": 21.2
+        },
+        "python_sparse_evidence": {
+          "schema_valid": true,
+          "faithful": true,
+          "language_correct": true,
+          "fabricated_fact_ids": [],
+          "fabricated_evidence_paths": [],
+          "fabricated_required_symbols": [],
+          "n_audience_claims": 1,
+          "n_problems_solved_claims": 1,
+          "n_capabilities": 1,
+          "n_formats": 2,
+          "n_limitations": 1,
+          "minimal_example_language": "python",
+          "raw_response": "{\n  \"audience\": [\n    {\n      \"claim_id\": \"aud1\",\n      \"text\": \"Python developers\",\n      \"supporting_fact_ids\": [\"product.platforms:manifest\"]\n    }\n  ],\n  \"problems_solved\": [\n    {\n      \"claim_id\": \"prob1\",\n      \"text\": \"Provides a Python library named acmeflux\",\n      \"supporting_fact_ids\": [\"product.identity:manifest-and-registry\"]\n    }\n  ],\n  \"capabilities\": [\n    {\n      \"value\": \"Exposes a SchemaValidator class with a validate method\",\n      \"evidence_paths\": [\"src/acmeflux/validator.py\"],\n      \"required_symbols\": [\"SchemaValidator\", \"validate\"]\n    }\n  ],\n  \"formats\": [\n    {\n      \"value\": \"Initializes with a list of column names (list of strings)\",\n      \"evidence_paths\": [\"src/acmeflux/validator.py\"],\n      \"required_symbols\": [\"__init__\", \"columns\"]\n    },\n    {\n      \"value\": \"Accepts a file path as a string for validation\",\n      \"evidence_paths\": [\"src/acmeflux/validator.py\"],\n      \"required_symbols\": [\"validate\", \"path\"]\n    }\n  ],\n  \"limitations\": [\n    {\n      \"value\": \"The validate method currently always returns True without performing real checks\",\n      \"evidence_paths\": [\"src/acmeflux/validator.py\"],\n      \"required_symbols\": [\"validate\"]\n    }\n  ],\n  \"minimal_example\": {\n    \"language\": \"python\",\n    \"class_name\": \"Example\",\n    \"code\": \"from acmeflux.validator import SchemaValidator\\n\\nvalidator = SchemaValidator(columns=[\\\"id\\\", \\\"name\\\", \\\"value\\\"])\\nresult = validator.validate(\\\"data.csv\\\")\\nprint(\\\"Validation result:\\\", result)\\n\",\n    \"evidence_paths\": [\"src/acmeflux/validator.py\"],\n    \"required_symbols\": [\"SchemaValidator\", \"validate\"]\n  }\n}",
+          "ok": true,
+          "prompt_tokens": 1422,
+          "completion_tokens": 1532,
+          "latency_s": 18.9
+        },
+        "_summary": {
+          "schema_valid_rate": 1.0,
+          "faithful_rate": 1.0,
+          "language_correct_rate": 1.0
+        }
+      }
+    },
+    "stability": {
+      "qwen3-next/java_well_resourced": {
+        "trials": 2,
+        "schema_valid_rate": 1.0,
+        "faithful_rate": 0.5,
+        "outcomes": [
+          {
+            "trial": 1,
+            "ok": true,
+            "schema_valid": true,
+            "faithful": false,
+            "language_correct": true,
+            "prompt_tokens": 1784,
+            "latency_s": 14.1
+          },
+          {
+            "trial": 2,
+            "ok": true,
+            "schema_valid": true,
+            "faithful": true,
+            "language_correct": true,
+            "prompt_tokens": 1784,
+            "latency_s": 11.4
+          }
+        ]
+      },
+      "qwen3-next/python_sparse_evidence": {
+        "trials": 2,
+        "schema_valid_rate": 1.0,
+        "faithful_rate": 1.0,
+        "outcomes": [
+          {
+            "trial": 1,
+            "ok": true,
+            "schema_valid": true,
+            "faithful": true,
+            "language_correct": true,
+            "prompt_tokens": 1372,
+            "latency_s": 7.6
+          },
+          {
+            "trial": 2,
+            "ok": true,
+            "schema_valid": true,
+            "faithful": true,
+            "language_correct": true,
+            "prompt_tokens": 1372,
+            "latency_s": 7.2
+          }
+        ]
+      }
+    }
+  }
+}

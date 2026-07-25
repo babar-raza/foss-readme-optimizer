@@ -23,6 +23,20 @@ Also generates `plans/status.md` (Wave 9.3): a short, mechanically-computed curr
 because that section kept falling behind). `plans/status.md` is generated, never hand-edited; rerun
 this tool to refresh it.
 
+RPOC-072 (sprint charter Part B.2 Phase 5 Lane S) makes `plans/status.md`'s PRIMARY table
+repository-outcome-based instead of requirement/test/capability-count-based: a per-
+`data/products.json`-entry (loaded live via `readme_agent.registry.loader.load_products()`,
+never hard-coded) table of org/repo, ecosystem, mode, and current `readme_poc_status`
+(RPOC-070 lifecycle vocabulary, `src/readme_agent/state/lifecycle_schema.py::
+ReadmePocStatusV1`), joined against the most recent `portfolio-proof-manifest.json` under
+`plans/investigations/evidence/` (RPOC-071's `compute_portfolio_summary_aggregates()`
+produced that manifest's per-repo `readme_poc_status` field). A repo missing from the
+manifest entirely (the 3 Java pilots, proven through their own dedicated evidence path, or
+any registry entry newer than the last portfolio run) is reported `not yet run`, never
+silently dropped or faked as populated. The pre-existing requirement-status-count table and
+Build Checklist summary remain below it as supporting governance detail -- the charter
+retires them as the *main* measure, not as content to delete.
+
 Output: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json, plans/status.md
 Usage:
   python plans/investigations/tools/traceability_matrix.py
@@ -36,6 +50,7 @@ import ast
 import hashlib
 import json
 import re
+import sys
 from collections import Counter
 from pathlib import Path
 
@@ -45,11 +60,23 @@ MASTER_MD = REPO_ROOT / "plans" / "master.md"
 STATUS_MD = REPO_ROOT / "plans" / "status.md"
 OUT_DIR = REPO_ROOT / "plans" / "investigations" / "evidence" / "implementation-truth-matrix-2026"
 OUT_FILE = OUT_DIR / "matrix.json"
+PRODUCTS_JSON = REPO_ROOT / "data" / "products.json"
+EVIDENCE_ROOT = REPO_ROOT / "plans" / "investigations" / "evidence"
+PORTFOLIO_MANIFEST_GLOB = "*/portfolio-proof-manifest.json"
+
+sys.path.insert(0, str(REPO_ROOT / "src"))
+from readme_agent.registry.loader import load_products  # noqa: E402
+
+_EVIDENCE_DIR_DATE_RE = re.compile(r"(\d{4}-\d{2}-\d{2})")
 
 WAVE_CHECKLIST_RE = re.compile(r"^- \[(x| )\] (Wave \d+(?:\.\d+)? — [^\n]*)", re.MULTILINE)
 DECISION_RE = re.compile(r"^(\d+)\.\s+\*\*", re.MULTILINE)
 
-ID_RE = re.compile(r"^[A-Z]{2,5}-\d{3}$")
+# Requirement families include the Level-8 consolidation namespace (`L8-001`),
+# whose prefix intentionally contains a digit. Keep this aligned with the
+# mission-coverage parser so generated status cannot omit an authoritative
+# requirement family.
+ID_RE = re.compile(r"^[A-Z][A-Z0-9]{1,4}-\d{3}$")
 _UNESCAPED_PIPE_RE = re.compile(r"(?<!\\)\|")
 
 # Backtick-quoted paths that look like real repo-relative references. Keep an optional pytest
@@ -320,10 +347,137 @@ def _latest_decision_number() -> int | None:
     return max(numbers) if numbers else None
 
 
+def _find_latest_portfolio_manifest(evidence_root: Path | None = None) -> Path | None:
+    """Most recent `portfolio-proof-manifest.json` under `plans/investigations/evidence/`
+    (RPOC-072). Ranked by the `YYYY-MM-DD` date embedded in its containing evidence
+    directory's name (this project's own dated-evidence-dir naming convention, e.g.
+    `level8-portfolio-readme-proposals-2026-07-25`); a directory whose name carries no
+    date sorts oldest rather than raising, so an unusually-named future manifest is
+    still found, just not preferred over a clearly-dated one. Returns None (never
+    raises) when no manifest exists yet -- callers report that as `not yet run` for
+    every repo, not a crash. `evidence_root` defaults to None (resolved to the module
+    -level `EVIDENCE_ROOT` global here, at call time) rather than binding `EVIDENCE_ROOT`
+    as a parameter default -- a parameter default is captured once at function-definition
+    time, which would silently ignore a test's `monkeypatch.setattr(module, "EVIDENCE_ROOT",
+    ...)`."""
+    if evidence_root is None:
+        evidence_root = EVIDENCE_ROOT
+    if not evidence_root.is_dir():
+        return None
+    candidates = sorted(evidence_root.glob(PORTFOLIO_MANIFEST_GLOB))
+    if not candidates:
+        return None
+
+    def _sort_key(path: Path) -> tuple[str, float]:
+        match = _EVIDENCE_DIR_DATE_RE.search(path.parent.name)
+        date_key = match.group(1) if match else ""
+        return (date_key, path.stat().st_mtime)
+
+    return max(candidates, key=_sort_key)
+
+
+def _full_registry_readme_poc_status_rows() -> tuple[list[dict], Path | None, dict | None]:
+    """RPOC-072: per-`data/products.json`-entry (live, never hard-coded) README-POC
+    lifecycle status, joined against the most recent portfolio-proof-manifest.json.
+    This is the sprint charter's PRIMARY status measure (Part B.2 Phase 5 Lane S) --
+    not requirement/test/capability counts, plan closure, or three-pilot status.
+
+    A repo absent from the manifest entirely (the 3 Java pilots, proven through their
+    own dedicated evidence path -- see `collect_local_readme_proposal_evidence.py` --
+    or any registry entry newer than the last portfolio run) is reported `not yet run`.
+    A repo present in the manifest whose `readme_poc_status` is `None` (the RPOC-070
+    lifecycle field is brand new and not yet driven by a real production run for most
+    repos) is reported `not_set`, matching `compute_portfolio_summary_aggregates()`'s
+    own `status_distribution["not_set"]` convention -- never faked as populated."""
+    manifest_path = _find_latest_portfolio_manifest()
+    manifest: dict | None = None
+    results_by_org_repo: dict[str, dict] = {}
+    if manifest_path is not None:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        for result in manifest.get("results", []):
+            org_repo = result.get("org_repo")
+            if org_repo:
+                results_by_org_repo[org_repo] = result
+
+    rows = []
+    for entry in sorted(load_products(PRODUCTS_JSON), key=lambda e: e.org_repo):
+        result = results_by_org_repo.get(entry.org_repo)
+        if result is None:
+            status = "not yet run"
+        else:
+            status = result.get("readme_poc_status") or "not_set"
+        ecosystem = (result or {}).get("ecosystem") or entry.ecosystem or "unknown"
+        rows.append(
+            {
+                "org_repo": entry.org_repo,
+                "ecosystem": ecosystem,
+                "mode": entry.mode,
+                "readme_poc_status": status,
+            }
+        )
+    return rows, manifest_path, manifest
+
+
+def _render_full_registry_status_table(
+    rows: list[dict], manifest_path: Path | None, manifest: dict | None
+) -> list[str]:
+    lines = [
+        "## Full-registry README POC status",
+        "",
+        "**Primary status measure (sprint charter Part B.2 Phase 5 Lane S).** Every "
+        "`data/products.json` entry, counted live at generation time (never hard-coded), with "
+        "its current `readme_poc_status` (RPOC-070 lifecycle vocabulary -- "
+        "`src/readme_agent/state/lifecycle_schema.py::ReadmePocStatusV1`). Test counts, "
+        "capability counts, plan closure, and three-pilot status are NOT the measure here; "
+        "the requirement-status and Build Checklist sections below remain as supporting "
+        "governance detail, not the headline.",
+        "",
+    ]
+    if manifest_path is not None and manifest is not None:
+        lines.append(
+            f"Source manifest: `{manifest_path.relative_to(REPO_ROOT).as_posix()}` "
+            f"(generated_at: {manifest.get('generated_at', 'unknown')})."
+        )
+    else:
+        lines.append(
+            "No `portfolio-proof-manifest.json` found under `plans/investigations/evidence/` -- "
+            "every repo below is correctly reported `not yet run`."
+        )
+    lines += [
+        "",
+        "`not yet run` = absent from the source manifest entirely (e.g. the 3 Java pilots, "
+        "proven through their own dedicated evidence path, or any registry entry newer than the "
+        "last portfolio run). `not_set` = present in the manifest but the RPOC-070 lifecycle "
+        "field has not been populated by a real run yet -- expected for most repos today, since "
+        "that field is brand new.",
+        "",
+        "| Org/Repo | Ecosystem | Mode | README POC status |",
+        "|---|---|---|---|",
+    ]
+    for row in rows:
+        lines.append(
+            f"| {row['org_repo']} | {row['ecosystem']} | {row['mode']} | "
+            f"{row['readme_poc_status']} |"
+        )
+    not_yet_run = sum(1 for r in rows if r["readme_poc_status"] == "not yet run")
+    not_set = sum(1 for r in rows if r["readme_poc_status"] == "not_set")
+    real_status = len(rows) - not_yet_run - not_set
+    lines += [
+        "",
+        f"- {len(rows)} total registry entries (live count from `data/products.json`).",
+        f"- {not_yet_run} not yet run (absent from the manifest).",
+        f"- {not_set} present in the manifest but lifecycle status not yet set.",
+        f"- {real_status} with a real RPOC-070 lifecycle status recorded.",
+        "",
+    ]
+    return lines
+
+
 def build_status_markdown(matrix: dict) -> str:
     status_counts = _requirement_status_counts()
     waves = _wave_checklist_state()
     latest_decision = _latest_decision_number()
+    repo_rows, manifest_path, manifest = _full_registry_readme_poc_status_rows()
 
     lines = [
         "# Project status (generated -- do not hand-edit)",
@@ -334,7 +488,11 @@ def build_status_markdown(matrix: dict) -> str:
         "",
         f"**Latest Decision Ledger entry**: #{latest_decision}" if latest_decision else "",
         "",
-        "## Requirement status counts",
+    ]
+    lines += _render_full_registry_status_table(repo_rows, manifest_path, manifest)
+    lines += [
+        "## Requirement status counts (supporting detail -- see the Full-registry table above "
+        "for the primary measure)",
         "",
         "| Status | Count |",
         "|---|---:|",

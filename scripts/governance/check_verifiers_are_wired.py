@@ -5,17 +5,16 @@ is reachable only by hand (a test, a standalone script under `plans/investigatio
 is exactly the failure mode this project already hit once (`verify_readme_proposal_bundle()`,
 built in commit `ff77c5f`, unwired until `de7ff3d`).
 
-Deliberately warn-only, not a hard gate (PRODSYS-P2-T1's own scope: "a fast, low-risk first layer
-of defense," shippable before the heavier registry-level wrapper in PRODSYS-P2-T2) -- a verifier
-can legitimately be mid-development with no caller yet; this makes that state visible in every
-official-checks run instead of silently persisting indefinitely.
+The default remains diagnostic for development, but `--check` is the release gate: a verifier that
+has no production call site is a closure failure, not advisory evidence.
 
 Usage: `.venv/Scripts/python.exe scripts/governance/check_verifiers_are_wired.py`
-Always exits 0 -- see run_official_checks.py's own `required=False` wiring for this script.
+Usage: `.venv/Scripts/python.exe scripts/governance/check_verifiers_are_wired.py --check`
 """
 
 from __future__ import annotations
 
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -58,14 +57,29 @@ def _has_call_site(name: str, src_root: Path) -> bool:
     return False
 
 
-def find_unwired_verifiers(src_root: Path = SRC_ROOT) -> list[tuple[str, Path]]:
-    definitions = _find_verifier_definitions(src_root)
+def find_unwired_verifiers(src_root: Path | None = None) -> list[tuple[str, Path]]:
+    """Return verifier definitions lacking a production call site.
+
+    Resolve the default at call time so tests and future configured invocations
+    can supply an isolated source tree without mutating import-time defaults.
+    """
+    resolved_src_root = src_root or SRC_ROOT
+    definitions = _find_verifier_definitions(resolved_src_root)
     return sorted(
-        (name, path) for name, path in definitions.items() if not _has_call_site(name, src_root)
+        (name, path)
+        for name, path in definitions.items()
+        if not _has_call_site(name, resolved_src_root)
     )
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="exit non-zero when a verifier has no production call site",
+    )
+    args = parser.parse_args(argv)
     unwired = find_unwired_verifiers()
     if not unwired:
         print("check_verifiers_are_wired: every verify_* function has a call site in src/")
@@ -74,13 +88,14 @@ def main() -> int:
         "check_verifiers_are_wired: WARNING -- verifier(s) with no call site in src/readme_agent/:"
     )
     for name, path in unwired:
-        rel = path.relative_to(REPO_ROOT)
+        try:
+            rel = path.relative_to(REPO_ROOT)
+        except ValueError:
+            rel = path
         print(f"  {name} ({rel}) -- reachable only from a test or a standalone script, if at all")
-    print(
-        "This is advisory, not a build failure (PRODSYS-P2-T1) -- if this is a deliberately "
-        "in-progress verifier, no action needed yet; if it should already be enforced, see "
-        "PRODSYS-P2-T2 (dispatch_gated_verification())."
-    )
+    if args.check:
+        return 1
+    print("Diagnostic mode: use --check to make an unwired verifier a build failure.")
     return 0
 
 

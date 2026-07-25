@@ -77,6 +77,16 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
         "L8-LOCAL-FULL-REGISTRY-GATE-A",
     } <= local_poc_children
+    assert tasks["L8-LOCAL-HUMAN-REVIEW-GATE-B"].dependencies == ["L8-LOCAL-FULL-REGISTRY-GATE-A"]
+    assert (
+        "L8-LOCAL-HUMAN-REVIEW-GATE-B" in tasks["L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"].dependencies
+    )
+    assert tasks["L8-GATE-D-GITHUB-APP-INTEGRATION"].dependencies == [
+        "L8-WAVE6-CONTROLLED-JAVA-PILOT"
+    ]
+    assert tasks["L8-WAVE7-HETEROGENEOUS-PORTFOLIO"].dependencies == [
+        "L8-GATE-D-GITHUB-APP-INTEGRATION"
+    ]
     local_wave3 = tasks["L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"]
     assert local_wave3.dependencies == ["L8-WAVE1-CANONICAL-SAFETY-SPINE"]
     assert (
@@ -114,6 +124,11 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-011"
     )
     assert l8_mapping.task_id == "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"
+    for requirement_id in ("AUTH-008", "L8-001"):
+        gate_d_mapping = next(
+            mapping for mapping in coverage.mappings if mapping.requirement_id == requirement_id
+        )
+        assert gate_d_mapping.task_id == "L8-GATE-D-GITHUB-APP-INTEGRATION"
     preproduction_mapping = next(
         mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-014"
     )

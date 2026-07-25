@@ -127,8 +127,16 @@ Related non-negotiables:
 - Evidence written under `runs/` goes through `evidence/redaction.py` — secrets (tokens, API
   keys) must never appear in evidence files. `tests/security/test_no_secrets_in_evidence.py`
   guards this.
-- The LLM is called **only** when `relationship_explained` is a gap; every other element renders
-  deterministically from `config/policies/*.yml`. Don't route deterministic content through the LLM.
+- Within the legacy deterministic `generate`/`run` renderer path specifically, the LLM is called
+  **only** when `relationship_explained` is a gap; every other element of that path renders
+  deterministically from `config/policies/*.yml`. Don't route deterministic content through the
+  LLM. **This no longer describes the system's only LLM job** — `env.py::JOB_MODEL_ROUTING` routes
+  several distinct live jobs today (`relationship_explained`, `supervisor_planning`,
+  `specialist_selection`, `prose_quality_check`, `repair_capability_selection`,
+  `presentation_standard_compliance`, `visual_asset_accuracy`), each chosen from live-tested
+  gateway behavior per `plans/investigations/llm-gateway-characterization.md`, not one fixed job.
+  The narrow-LLM-surface discipline still applies per job (reach for the LLM only where judgment
+  cannot be expressed as a rule), it just no longer means "exactly one job in the whole system."
 - Rendered content stays inside the one owned marker span (`readme/markers.py`); the tool never
   edits content outside it.
 - **Every `data/products.json` entry has equal precedence for research and development.** The
@@ -207,6 +215,48 @@ implied yes from earlier in the session never substitutes — get a fresh confir
 statement every time. See `GOV-018` (`plans/master.md` decision #33, `plans/GOVERNANCE.md`
 rule 10).
 
+## Full-registry POC scope and gate ordering
+
+Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section and `plans/master.md`
+decision #78 (2026-07-25):
+
+- **Every repo in `data/products.json` is part of the POC.** The POC is the full registry, not a
+  sample of it — the count is computed at runtime (`len()` over the file's current entries), never
+  hard-coded into a plan, a report, or a status claim. A result covering only some of the registry
+  is a development batch or partial result and must be labeled as one, never presented as "the
+  POC."
+- **Gate A starts from the real default-branch README.** For every registry entry, capture the
+  current default-branch revision and exact README bytes, then preserve reviewable local artifacts
+  for the original, verified facts, decision/operation plan, enhanced candidate, diff,
+  deterministic validation, independent agentic verdict, and no-op rerun. Read-only GitHub access
+  needed to obtain evidence is allowed; `local_poc` must not perform a remote write.
+- **Dynamic/agentic capability selection is intended to be mandatory for the canonical local path,
+  not an optional flag.** Known current gap, not yet fixed: `--enable-dynamic-planning`
+  (`src/readme_agent/cli.py`) is still opt-in today. Don't describe it as already mandatory in any
+  status claim until that flag's default actually changes.
+- **The system makes product/platform decisions.** Detect the product, ecosystem, repository
+  shape, and evidence, then select capabilities, sections, examples, and validators automatically.
+  A normal run must not ask a human to choose a template, capability, skill, or command sequence.
+- **Human review follows full agent approval, never precedes it.** A candidate goes through
+  deterministic validation, independent agentic review, repair, and no-op proof before a human
+  ever looks at it. Human acceptance is a separate recorded Gate-B state; it is never inferred from
+  agent approval.
+- **Java PR work (Gate C) and GitHub App work (Gate D) stay gated behind full local proof.** Neither
+  starts before every registry repository has reached an agent-approved, no-op-proven local README
+  candidate and every such candidate has then been human-accepted (Gates A/B), regardless of a
+  wave's numeric position in `master.md`'s Build Checklist. Earlier PR/App-shaped machinery may
+  remain in the tree, but it stays inert; do not extend or exercise it ahead of the gate.
+- **The existing README is neither blindly trusted nor blindly discarded.** It is evidence to
+  reconcile against independently verifiable repository facts, the same standard "Investigate
+  before overwriting" already applies to every other artifact class.
+- **Product-agent input must be verified against repository evidence, not assumed correct.**
+  Product-agent output may help locate relevant facts, but it never overrides contradictory
+  repository evidence and is never the sole basis for a published claim.
+- **Reconcile every working plan to these gates before executing it.** `plans/idea.md`,
+  `plans/master.md`, `plans/requirements.md`, and `plans/GOVERNANCE.md` are authoritative in their
+  respective roles. Taskcard ledgers, roadmaps, handovers, and status reports are derived views:
+  correct them when they conflict, and never let their numbering authorize Gate-C/D work early.
+
 ## Each wave reconciles the previous wave first
 
 Before starting a new wave's work, check the immediately preceding wave's actual delivered state —
@@ -258,9 +308,12 @@ grown to 22 registered capabilities across Waves 2-8, including two real mutatin
 #51-52) — the latter live-proven with a real, independently-verified, open PR against
 `aspose-cells-foss/Aspose.Cells-FOSS-for-Java`. The supervisor/task graph named
 in rule 3 below landed in Wave 5 (decision #36, `src/readme_agent/supervisor/`,
-`readme-agent supervise --repo ...`) — additive alongside the untouched `generate`/`run`/
-`run-registry` pipeline, not a replacement for it. These rules are now current, binding guidance
-for new capability work, not a future contingency:
+`readme-agent supervise --repo ...`). Per requirement `L8-002` (`plans/requirements.md`,
+`IMPLEMENTED`), `supervise` is now the **sole production runtime**: `generate`, `run`, and
+`run-registry` are read-only/compatibility façades routed through the same capability registry,
+authorization, effect ledger, independent verifier, and terminal classifier, and must not retain
+an alternate mutation path — not "additive alongside an untouched pipeline." These rules are now
+current, binding guidance for new capability work, not a future contingency:
 
 1. New functionality is exposed as a registered capability with a typed manifest (inputs,
    outputs, permissions, side-effect class), not an ad hoc function call.
@@ -344,13 +397,11 @@ shards `logs/<YYYY-MM-DD>.md`), merged from `master.md`'s and `requirements.md`'
 Changelogs. When a change alters a decision, edit the affected section(s) surgically, update
 Status/Build Checklist if needed, and append one dated entry to `logs/`, not inline.
 
-**`master.md` is gated, not freely editable.** Before changing any of its sections, state which
-section(s) and why, and proceed only on the user's fresh, explicit go-ahead for that specific edit
-— a standing session yes doesn't count, the same discipline as the push-confirmation rule above.
-`logs/` has no such gate — append to it freely. See `GOV-023` (`plans/master.md` decision #44,
-`plans/GOVERNANCE.md` rule 12).
+**`master.md` is freely editable and does not require a separate approval gate.** Update any section whenever needed to keep the plan accurate, complete, and aligned with the current work. There is no requirement to announce the intended sections or obtain fresh, edit-specific permission before proceeding. A standing session authorization is sufficient, and the push-confirmation rule does not apply to edits of `master.md`.
 
-The full rules are in `plans/GOVERNANCE.md`; follow them for any edit to `plans/`.
+`logs/` is also freely editable; append relevant execution records and evidence as needed.
+
+The full rules are defined in `plans/GOVERNANCE.md`; follow them for all edits under `plans/`, with `master.md` explicitly treated as an actively maintained planning document rather than a gated artifact.
 
 ## Naming: machinery artifacts
 

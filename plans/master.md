@@ -30,12 +30,14 @@ approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
   every applicable presentation surface, produces repository-specific plans, changes only
   authorized surfaces, and records findings for surfaces it cannot own.
 - **Autonomous operation with passive human review.** `supervise` is the only production runtime.
-  Normal authorized operation may create or update draft pull requests without synchronous
-  operator initiation. Humans review proposals, authorization changes, blocked facts, and manual
-  UI work; they do not select capabilities or drive normal runs command-by-command.
-- **GitHub App production identity.** Production write jobs mint fresh, short-lived GitHub App
-  tokens. Analysis, repository inspection, package/example execution, LLM work, and validation
-  never receive a target-write token. Production profiles never fall back to `GH_TOKEN` or a PAT.
+  The system, not a human, selects product/platform capabilities and prepares local candidates.
+  After the full-registry POC gates in decision #78 are satisfied, normal authorized operation may
+  create or update draft pull requests without synchronous capability selection. Humans review
+  agent-approved proposals, authorization changes, blocked facts, and manual UI work.
+- **GitHub App production identity is a post-POC target.** Gate D production write jobs will mint
+  fresh, short-lived GitHub App tokens only after the accepted Java PR proof. Analysis, repository
+  inspection, package/example execution, LLM work, and validation never receive a target-write
+  token. Production profiles never fall back to `GH_TOKEN` or a PAT.
 - **Bounded effects, never silent publication.** The system never auto-merges, marks a proposal
   ready, force-pushes, writes a target default branch, publishes packages/releases, or writes
   GitHub-generated surfaces. Repository settings require a distinct `github_apply`
@@ -73,6 +75,13 @@ task `L8-LOCAL-README-PROPOSAL-PROOF` at Gate A (direct local README-proposal pr
 Restartable GitHub Actions runtime — remains gated (`BLOCKED_EXTERNAL`) behind these pre-production
 gates and the `preproduction-wave2-dependency-gate` repair; it is not yet the active implementation
 wave.**
+
+**Corrected near-term target (decision #78).** Gate A is system proof across every runtime-loaded
+`data/products.json` entry: a default-branch-based, agent-approved, no-op-proven local README
+candidate. Gate B is separate human acceptance for that full portfolio. Gate C is the controlled
+Java PR proof and cannot begin before A/B; Gate D is broad GitHub App integration and cannot begin
+before accepted Gate C. Earlier PR/App-shaped machinery stays inert. See `plans/idea.md`'s "README
+POC Readiness and Ordered Delivery Gates" and the Wave 5/6 entries below.
 
 `plans/requirements.md` is the normative obligation register; `logs/` is history;
 `plans/investigations/control/level8-autonomous-mission-task-graph.yaml` is the execution overlay
@@ -1303,6 +1312,12 @@ that is the only permanence they carry; text is always the decision as it stands
     restructuring a section, or to any edit outside the routine wave-closure pattern — those still
     need a fresh, per-instance go-ahead, exactly as the original text requires.
 
+    **Superseded 2026-07-25.** `master.md` is now an actively maintained planning document and is
+    freely editable during ordinary approved work. Fresh section-specific approval is no longer
+    required. Accuracy, evidence, history preservation, and traceability remain mandatory; this
+    changes the edit gate, not the truthfulness standard. See the current `GOV-023` row and
+    `GOVERNANCE.md` rule 12.
+
 45. **Production-hardening reconciliation for the autonomous supervisor loop — why seven LLM-gateway-usage gaps went unlogged, a corrected 10-part target design, and a probe-script bug found and fixed live.** An external analysis (not authored by this project) reviewed how the `supervise` loop actually uses `llm.professionalize.com` versus its own aspirational description and named seven gaps (G1–G7: hardcoded/unhashed supervisor prompt; a shallow planner dossier; deterministic-not-agentic specialist selection; blind-retry-only repair; a deterministic-not-LLM verifier; unwired `qwen3-embedding-8b`; no agentic-loop golden-set). Reconciled against the live text of this ledger, `requirements.md`, and `GOVERNANCE.md` before designing anything (per rule 11's own reconciliation discipline, applied here proactively rather than only at a wave boundary): G3 was already tracked (`ORC-003`, `PARTIAL`); the other six were genuinely unlogged, each falling in the same class of seam GOV-019/GOV-020 already named — a review pass scoped to *correctness* (Wave 7's reliability review, Wave 8's two adversarial passes) never asked whether the *mechanism itself* was sufficient, and the one 2026-07-19 assessment that did produce `GOV-016`/`LLM-016` from `llm-gateway-characterization.md` swept that document only partially, missing its embedding-model recommendation entirely.
 
     A full research → design → adversarial-review pipeline followed (three research passes over the real execution flow, the governance documents, and the gateway's own evidence; one design pass; one independent adversarial-review pass, mirroring decision #42's own two-pass precedent). The adversarial pass found two defects serious enough to change the design before anything was written down, both personally re-verified against the code/evidence before being accepted: (1) the proposed lock-race fix (`SCL-005`) would have leaked a new run-scoped lock for its full ~900s lease on the `CONVERGED_NO_TRACKED_CHANGE` shortcut path — confirmed directly: that shortcut (`supervisor/loop.py`) returns *before* today's existing lock is ever acquired, so a naive widening that didn't also cover it would introduce a worse race than the one it fixed; (2) the "~96k-token proven-safe context ceiling" the design's token-budget item leaned on (`llm-gateway-characterization.md` L1) was traced to `plans/investigations/tools/probe_llm_gateway.py:157` and found to rest on a real, one-line bug — a fixed-length filler string whose repeat count never scaled with the ladder variable before slicing, so every rung from 2k to 96k "approx tokens" silently sent the same ~1,400 real tokens. The script was fixed and re-run live against the real gateway this session (not deferred): `qwen3-next`'s real, proven ceiling is ~71,069 tokens with perfect needle recall; `gpt-oss` fails needle recall at every real size tested, including the smallest (~1,494 tokens); a new multi-turn conversation-growth probe measured a realistic dossier-shaped planner turn at 639→686 real tokens across one tool-call round trip — three orders of magnitude below the proven ceiling. Full results: `plans/investigations/llm-gateway-context-ceiling-corrected.md` (supersedes L1). `LLM-018`/`LLM-019` track the correction; `LLM-018` also found the resulting "1/10" `gpt-oss` structured-output figure is itself misreported in four sites (real evidence: 0.4, and a second independent run this session measured 0.8 — a swing large enough that neither number should be trusted in isolation without the N≥20/≥3-session follow-up this project's own investigations already recommended).
@@ -1550,6 +1565,40 @@ that is the only permanence they carry; text is always the decision as it stands
     a resolver before accepting a terminal `agent_fixable` block is registered as a planned
     requirement (`AGT-010`) and deliberately **not** built in this decision — this decision is the
     taxonomy and its propagation only. See `GOVERNANCE.md` rule 13, `GOV-028`, `AGT-009`/`AGT-010`.
+
+78. **Full-registry local README proof is the project's near-term milestone; Wave 6's controlled
+    three-repository Java pilot no longer stands alone as the near-term target.** Prompted directly
+    by user direction (2026-07-25): the system portion of the POC is ready for human review only
+    once every entry in `data/products.json` (count computed at runtime, never hard-coded) has
+    reached an independently agent-approved, no-op-proven local README candidate derived from the
+    observed default-branch README, not a fixed three-repository sample. This does **not** delete,
+    reverse, or reduce decision #76's Level-5 award criterion (the complete controlled three-Java-repository
+    pilot remains exactly what a production Level-5 award requires) or Wave 6's own pilot-proof
+    content (baseline, facts, every surface, verified draft PR, no-op, upstream change, maintainer
+    overwrite, interruption, deduplication, controlled failure, evidence bundle, independent
+    review, for the three Java repositories) — it corrects the **sequencing** those decisions were
+    previously read to imply relative to full-registry local proof. Concretely, four ordered gates:
+    (a) **Gate A** — for every registry entry, capture the default-branch README and revision,
+    verify facts, make product/platform-specific decisions, save the original/candidate/diff/plan/
+    evidence locally, pass deterministic validation and independent agentic review, repair, and
+    prove an unchanged rerun; (b) **Gate B** — human review only after every Gate-A candidate is
+    agent-approved, with human acceptance recorded separately; (c) **Gate C** — Java PR proof
+    (Wave 6's pilot), attempted only after every current registry candidate is human-accepted,
+    never concurrently with or ahead of Gates A/B; (d) **Gate D** — GitHub App production
+    integration, sequenced after Gate C, never before it. Wave 5's already-built proposal/effect
+    and PR/App-shaped machinery is retained as historical foundation but is not permission to
+    extend or exercise those paths early. Remaining Wave 5 work is limited to Gate-C prerequisites
+    after A/B; GitHub App credentialing/integration is a separate Gate-D task dependent on the
+    accepted Wave 6 proof. Waves are **not renumbered** — renumbering would break existing
+    external references to wave numbers — instead the Wave 5 and Wave 6 Build Checklist entries
+    below carry this corrected precedence as explicit added language. Two related standing
+    constraints, also charter-directed: the existing README and any product-agent content remain
+    evidence to investigate, never unquestioned truth and never disposable input; LLM/agentic
+    reasoning is required for repository interpretation, product/platform-aware selection, and
+    composition; and deterministic code supplies safety/validation around that judgment rather
+    than replacing it. See `plans/idea.md`'s
+    "README POC Readiness and Ordered Delivery Gates" section; `plans/requirements.md` `FACT-017`,
+    `VER-011`, `ORC-009`, `PIL-015`, `PIL-016`, `AUTH-008`, `GOV-029`.
 
 ## Architecture
 
@@ -2074,14 +2123,25 @@ only as historical implementation evidence in decisions and `logs/`; they are no
     violation passes.
 
 - [ ] **Wave 5 — Verified proposal and effect lifecycle**
+  - **Corrected precedence (decision #78):** this wave supplies Gate-C proposal/PR-lifecycle
+    prerequisites only after full-registry Gate A/B acceptance. Machinery already delivered
+    remains in the tree but stays inert until then. GitHub App credentialing/integration is no
+    longer part of this wave's execution; it is Gate D after the accepted Wave 6 Java proof.
   - Ship `VerifiedProposalV1`, `OpenProposalV2`, automatic draft-PR terminal effects, stale-head
     rebuild/reverification, branch/commit/PR crash reconciliation, and proposal age/drift.
-  - Separate file PR authorization from later settings authorization; mint GitHub App tokens only
-    in the effect job; prohibit production PAT fallback.
+  - Separate file PR authorization from later settings authorization; prove the credential boundary
+    locally while leaving GitHub App provisioning/integration to Gate D; prohibit PAT fallback.
   - **Exit:** create/no-op/update/drift/duplicate/lost-response/expired-auth/crash scenarios each
     produce exactly one correct proposal state with zero write-token exposure before effect.
 
 - [ ] **Wave 6 — Controlled three-repository Java pilot (Level 5)**
+  - **Corrected precedence (decision #78):** this wave is Gate C (Java PR proof). It is attempted
+    only after Gate A (full-registry agent-approved/no-op-proven local README candidates) and Gate
+    B (separately recorded human acceptance) are complete for every registry repository, not the
+    three Java repositories alone — this wave's own three-repository pilot content is unchanged,
+    but it is no longer the project's near-term milestone on its own. The earlier isolated PR is
+    historical evidence, not Gate-C acceptance or permission to open another. Gate D (GitHub App
+    integration) is sequenced strictly after this wave, never before or alongside it.
   - Prove the governed 3D, Cells, and PDF Java cases across facts, every surface, verified draft
     PR, no-op, upstream change, maintainer overwrite, interruption, deduplication, controlled
     failure, evidence bundle, and independent review.
@@ -2147,4 +2207,3 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 
 Full history relocated to `logs/` (2026-07-21, index at `logs/README.md`). New entries are
 appended there, not here — see GOVERNANCE.md rule 6 and rule 12.
-

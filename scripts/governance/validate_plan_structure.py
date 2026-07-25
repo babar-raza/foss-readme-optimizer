@@ -56,7 +56,10 @@ VALID_STATUSES = {
 }
 VALID_PRIORITIES = {"P0", "P1", "P2", "P3"}
 
-ID_RE = re.compile(r"^[A-Z]{2,5}-\d{3}$")
+# Keep the validator aligned with requirement extractors: the governed Level-8
+# namespace is `L8-001`, so requirement families may contain digits after
+# their leading letter.
+ID_RE = re.compile(r"^[A-Z][A-Z0-9]{1,4}-\d{3}$")
 ROW_LENGTH_WARN_THRESHOLD = 1500
 SHARD_DENSE_WARN_LINES = 1500
 

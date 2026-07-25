@@ -104,16 +104,13 @@ to add a project fact here, it belongs in `master.md` instead.
     surface. The new wave's own Build Checklist entry or opening session narrative records that
     this check ran and what, if anything, it found; a wave opened with no record of this check is
     incomplete, not merely undocumented. (Added 2026-07-21, user directive — see Decision #43.)
-12. **`master.md` is gated, not open to routine edits.** No agent edits any section of `master.md`
-    as an implicit side effect of ordinary session work. Before making any edit to it, the agent
-    states — in the same turn, before the edit — which section(s) it intends to change and why,
-    and proceeds only on the user's fresh, explicit go-ahead for that specific edit; a standing or
-    implied yes from earlier in the session does not count, the same discipline rule 10 already
-    requires for pushes. `logs/` is exempt from this gate — any agent may append to it freely,
-    with no confirmation step, since absorbing frequent low-ceremony history writes is exactly
-    what it exists for. `plans/requirements.md` is also unaffected — its own editing procedure
-    (`GOV-004`/`GOV-005`) is unchanged; only its Changelog section moved. (Added 2026-07-21, user
-    directive — see Decision #44, `GOV-023`.)
+
+12. **`master.md` is an actively maintained planning document and is open to routine edits.** Any agent may update any section of `master.md` whenever needed to keep it accurate, complete, and aligned with the current state of the project. Such edits may be made as part of ordinary session work without first announcing the affected sections, explaining the intended changes, or obtaining fresh, edit-specific user approval. Standing authorization for the session is sufficient, and the push-confirmation discipline in rule 10 does not apply to edits of `master.md`.
+
+    Agents should update `master.md` proactively when execution results, new findings, changed priorities, completed work, blockers, dependencies, or governance decisions materially affect the master plan. Edits must remain evidence-based, internally consistent, and traceable through the repository history.
+
+    `logs/` remains freely appendable by any agent without confirmation, since it exists to absorb frequent low-ceremony history writes. `plans/requirements.md` remains governed by its existing editing procedure under `GOV-004` and `GOV-005`; this rule changes only the treatment of `master.md`. Any earlier requirement that `master.md` edits receive fresh, section-specific approval is superseded.
+
 13. **"Blocked" is acceptable only for infra/external causes; every other block gets a resolver,
     not acceptance.** A terminal `BLOCKED` supervisor outcome falls into exactly one of two
     categories, classified explicitly at the site that produces it — never inferred by sniffing a
@@ -128,6 +125,65 @@ to add a project fact here, it belongs in `master.md` instead.
     generalizes `CONTINUE.md`'s own prior, narrower statement ("local difficulty … is not an
     external blocker; repair root causes") into a named, propagated, machine-readable policy. (Added
     2026-07-25, user directive — see Decision #77, `AGT-009`/`AGT-010`, `GOV-028`.)
+14. **The authoritative planning set governs; everything else is reference.** `plans/idea.md`
+    (vision and intended operating model), `plans/master.md` (architecture, sequencing, Decision
+    Ledger, Build Checklist), `plans/requirements.md` (normative obligations and acceptance), and
+    this file (process and governance rules) are the authoritative planning set for this project.
+    Every other planning document — `plans/roadmap.md`, `plans/status.md`, `plans/changelog.md`,
+    `plans/codex/*`, and any other untracked or exploratory plan candidate — is reference, history,
+    or working material; it may inform the authoritative set but never overrides it, and a conflict
+    between a non-authoritative file and that set is always resolved in the authoritative set's
+    favor.
+    This restates and generalizes what `master.md`'s own Wave 0 Build Checklist entry already
+    states for `roadmap.md`/`status.md`/`changelog.md` specifically ("are not authority") into a
+    standing rule covering any file of this kind, present or future. (Added 2026-07-25, user
+    directive — see Decision #78, `plans/idea.md`'s "README POC Readiness and Ordered Delivery
+    Gates" section.)
+15. **No Java-PR-scope or GitHub-App-scope work starts before full-registry local proof and human
+    acceptance.** Gate C (Java PR proof) and Gate D (GitHub App integration) — including any work
+    that exercises or extends a real product-repository PR path, or provisions/uses real GitHub App
+    credentials — MUST NOT begin until every entry in `data/products.json` (count computed at
+    runtime, never hard-coded) has an agent-approved, no-op-proven local README candidate and then a
+    recorded human acceptance (Gates A and B). Read-only GitHub access needed to obtain the
+    default-branch README and repository evidence remains part of Gate A and is not prohibited.
+    Earlier Gate-C/D-shaped machinery remains historical implementation, not permission to use or
+    extend it. This applies regardless of a wave's numeric position in `master.md`'s Build
+    Checklist. See Decision #78.
+16. **New custom infrastructure requires a documented build-vs-adopt comparison first.** This
+    sharpens rule 8 (hand-rolling requires a reasoned Decision Ledger entry) into a specific,
+    checkable artifact requirement: before adding new custom infrastructure of any real size (a new
+    orchestration layer, a new persistence/checkpointing mechanism, a new structured-output parser,
+    and similarly-scoped additions — not a routine module inside an already-adopted pattern), the
+    agent MUST produce or cite a build-vs-adopt comparison naming the proven alternatives considered
+    and why they were not used, at the same evidentiary bar as
+    `plans/investigations/full-registry-readme-poc-build-vs-adopt-audit.md` (the standing precedent
+    this rule points at — area-by-area findings grounded in direct reads of `pyproject.toml`,
+    `requirements-lock.txt`, and `src/`, each with a `KEEP_CURRENT`/`WRAP_WITH_PROVEN_LIBRARY`/
+    `MIGRATE_INCREMENTALLY`/`REPLACE_BEFORE_POC`/`DEFER_REPLACEMENT` recommendation). A Decision
+    Ledger entry citing that comparison satisfies rule 8's own requirement; a hand-rolled addition
+    with no such comparison anywhere is a governance violation the moment it ships, not a style
+    preference. (Added 2026-07-25, user directive — see Decision #78; extends rule 8, Decision #30.)
+17. **A partial-registry result MUST NOT be claimed as a complete POC.** Any status claim, report,
+    or Decision Ledger/requirements update that describes README-candidate, review, or proof work
+    across `data/products.json` MUST state the actual count and runtime-derived denominator it
+    covers (for example, "12 of N repositories, where N was read from the registry") whenever it is
+    less than every entry currently in the registry. Language that
+    implies full-registry completion — "the POC is done," "portfolio proof complete," or
+    equivalent — is prohibited unless every registry entry has actually reached the claimed status.
+    This is the same discipline `GOV-007`'s evidence bar and rule 10's "prove it in production"
+    already require, made explicit for the specific, previously-seen failure mode of a
+    three-repository or other partial result being described as if it were the whole POC. (Added
+    2026-07-25, user directive — see Decision #78.)
+18. **Gate A has a source-to-candidate artifact contract and makes its own repository-specific
+    decisions.** Every Gate-A run starts from the README at the repository's observed default-branch
+    revision and records the original bytes/revision, verified facts and conflicts, selected
+    product/platform capabilities, operation plan, local candidate, exact diff, deterministic
+    validation, independent agentic verdict, repair history, and no-op rerun result. Product-agent
+    content and the existing README are inputs to reconcile, neither trusted nor discarded without
+    evidence. Product/platform capability selection is automatic in the canonical path; a human
+    does not choose the template, capability, skill, or command sequence. A repository is not
+    human-review-ready merely because a candidate file exists: it must have an agent-approved,
+    no-op-proven result. (Added 2026-07-25, user directive — see Decision #78.)
 
 ## Applying a new requirement (the actual procedure)
 

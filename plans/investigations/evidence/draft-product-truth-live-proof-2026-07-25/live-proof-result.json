@@ -1,0 +1,732 @@
+{
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+  "repair_attempts": 2,
+  "findings": [
+    {
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "field": "product.capabilities",
+      "status": "BLOCKED",
+      "reason": "draft_product_truth: field 'product.capabilities' still blocked after 2/2 repair attempts",
+      "actionable": true,
+      "repair_attempts": 2,
+      "failure_reasons": [
+        "required evidence symbol missing: removeAt",
+        "required evidence symbol missing: setVisible",
+        "required evidence symbol missing: isVisible",
+        "required evidence symbol missing: setActiveTab",
+        "required evidence symbol missing: getActiveTab",
+        "evidence file missing: src/main/java/org/aspose/cells_foss/WorksheetView.java",
+        "required evidence symbol missing: setTabColor",
+        "required evidence symbol missing: setZoom",
+        "required evidence symbol missing: setGridlinesVisible",
+        "required evidence symbol missing: setRowColumnHeadersVisible",
+        "required evidence symbol missing: setZerosVisible",
+        "required evidence symbol missing: setRightToLeft",
+        "required evidence symbol missing: getPageSetup",
+        "required evidence symbol missing: setPassword",
+        "required evidence symbol missing: setFreezePanes",
+        "required evidence symbol missing: getFreezePanes",
+        "required evidence symbol missing: clearFreezePanes",
+        "evidence file missing: src/main/java/org/aspose/cells_foss/Pictures.java",
+        "required evidence symbol missing: Pictures",
+        "required evidence symbol missing: add",
+        "required evidence symbol missing: getImageType",
+        "required evidence symbol missing: getImageWidth",
+        "required evidence symbol missing: getImageHeight",
+        "required evidence symbol missing: getUpperLeftRow",
+        "required evidence symbol missing: getUpperLeftColumn",
+        "required evidence symbol missing: getLowerRightRow",
+        "required evidence symbol missing: getLowerRightColumn",
+        "evidence file missing: src/main/java/org/aspose/cells_foss/Drawing.java",
+        "evidence file missing: src/main/java/org/aspose/cells_foss/DrawingCollection.java",
+        "required evidence symbol missing: DrawingCollection",
+        "required evidence symbol missing: getShapeType",
+        "required evidence symbol missing: setShapeType",
+        "required evidence symbol missing: add",
+        "required evidence symbol missing: getCount",
+        "required evidence symbol missing: get",
+        "required evidence symbol missing: lockStructure",
+        "required evidence symbol missing: lockWindows",
+        "required evidence symbol missing: lockRevisions",
+        "required evidence symbol missing: setPassword",
+        "required evidence symbol missing: getWindowLeft",
+        "required evidence symbol missing: setWindowLeft",
+        "required evidence symbol missing: getWindowTop",
+        "required evidence symbol missing: setWindowTop",
+        "required evidence symbol missing: getScrollX",
+        "required evidence symbol missing: setScrollX",
+        "required evidence symbol missing: getScrollY",
+        "required evidence symbol missing: setScrollY",
+        "required evidence symbol missing: getBuiltInFormatCount"
+      ]
+    },
+    {
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "field": "product.audience",
+      "status": "BLOCKED",
+      "reason": "draft_product_truth: field 'product.audience' still blocked after 2/2 repair attempts",
+      "actionable": true,
+      "repair_attempts": 2,
+      "failure_reasons": [
+        "java-developers: lexical coverage 0.10 -- unmatched tokens ['applications', 'developers', 'excel', 'load', 'modify', 'need', 'save', 'workbooks', 'xlsx']"
+      ]
+    },
+    {
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "field": "product.problems_solved",
+      "status": "BLOCKED",
+      "reason": "draft_product_truth: field 'product.problems_solved' still blocked after 2/2 repair attempts",
+      "actionable": true,
+      "repair_attempts": 2,
+      "failure_reasons": [
+        "xlsx-workbook-processing: lexical coverage 0.20 -- unmatched tokens ['features', 'formatting', 'formulas', 'processing', 'support', 'values', 'workbooks', 'worksheet']"
+      ]
+    }
+  ],
+  "gated_field_verification_states": {
+    "product.audience": "blocked",
+    "product.problems_solved": "blocked",
+    "product.capabilities": "blocked",
+    "product.formats": "verified",
+    "product.limitations": "verified",
+    "example.minimal": "verified"
+  },
+  "drafted_product_truth": {
+    "audience": [
+      "Java developers who need to load, modify, and save Excel XLSX workbooks in their applications"
+    ],
+    "problems_solved": [
+      "Processing XLSX workbooks with support for cell values, formatting, formulas, and worksheet features"
+    ],
+    "capabilities": [
+      {
+        "value": "Workbook and worksheet creation, loading, saving, add/remove/rename, active sheet selection, and visibility",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Workbook.java",
+          "src/main/java/org/aspose/cells_foss/Worksheet.java"
+        ],
+        "required_symbols": [
+          "Workbook",
+          "Worksheet",
+          "getWorksheets",
+          "add",
+          "removeAt",
+          "setName",
+          "getName",
+          "setVisible",
+          "isVisible",
+          "setActiveTab",
+          "getActiveTab"
+        ]
+      },
+      {
+        "value": "Cell values for strings, numbers, booleans, date/time values, and formulas",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Cell.java"
+        ],
+        "required_symbols": [
+          "putValue",
+          "getValue",
+          "getStringValue",
+          "getFormula",
+          "setFormula",
+          "getType",
+          "CellValueType"
+        ]
+      },
+      {
+        "value": "Cell formatting for fonts, borders, fills, alignment, number formats, and cell protection flags",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Style.java",
+          "src/main/java/org/aspose/cells_foss/Font.java",
+          "src/main/java/org/aspose/cells_foss/Borders.java",
+          "src/main/java/org/aspose/cells_foss/Border.java",
+          "src/main/java/org/aspose/cells_foss/Color.java"
+        ],
+        "required_symbols": [
+          "getStyle",
+          "setStyle",
+          "Font",
+          "Borders",
+          "Border",
+          "Color",
+          "getName",
+          "setSize",
+          "setBold",
+          "setItalic",
+          "getLeft",
+          "getRight",
+          "getTop",
+          "getBottom",
+          "getDiagonal",
+          "setLineStyle",
+          "getColor",
+          "getA",
+          "getR",
+          "getG",
+          "getB"
+        ]
+      },
+      {
+        "value": "Row and column sizing, hiding, and outline grouping/collapsed state",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Row.java",
+          "src/main/java/org/aspose/cells_foss/Column.java"
+        ],
+        "required_symbols": [
+          "getWidth",
+          "setWidth",
+          "isHidden",
+          "setHidden",
+          "getGroupLevel",
+          "setGroupLevel",
+          "isCollapsed",
+          "setCollapsed",
+          "getRows",
+          "getColumns"
+        ]
+      },
+      {
+        "value": "Worksheet view settings such as tab color, zoom, gridlines, row/column headers, zeros, and right-to-left mode",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/WorksheetView.java"
+        ],
+        "required_symbols": [
+          "setTabColor",
+          "setZoom",
+          "setGridlinesVisible",
+          "setRowColumnHeadersVisible",
+          "setZerosVisible",
+          "setRightToLeft"
+        ]
+      },
+      {
+        "value": "Merged cells",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Cells.java"
+        ],
+        "required_symbols": [
+          "getMergedCells",
+          "merge",
+          "CellArea"
+        ]
+      },
+      {
+        "value": "Defined names",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/DefinedName.java",
+          "src/main/java/org/aspose/cells_foss/DefinedNameCollection.java"
+        ],
+        "required_symbols": [
+          "DefinedName",
+          "DefinedNameCollection",
+          "getName",
+          "setName",
+          "getFormula",
+          "setFormula",
+          "getLocalSheetIndex",
+          "setLocalSheetIndex",
+          "add"
+        ]
+      },
+      {
+        "value": "Hyperlinks",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Hyperlink.java",
+          "src/main/java/org/aspose/cells_foss/HyperlinkCollection.java"
+        ],
+        "required_symbols": [
+          "Hyperlink",
+          "HyperlinkCollection",
+          "getArea",
+          "getAddress",
+          "setAddress",
+          "getLinkType",
+          "getScreenTip",
+          "getTextToDisplay",
+          "add"
+        ]
+      },
+      {
+        "value": "Data validation",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Validation.java",
+          "src/main/java/org/aspose/cells_foss/ValidationCollection.java"
+        ],
+        "required_symbols": [
+          "Validation",
+          "ValidationCollection",
+          "getType",
+          "setOperator",
+          "getFormula1",
+          "setFormula1",
+          "getFormula2",
+          "setFormula2",
+          "add"
+        ]
+      },
+      {
+        "value": "Conditional formatting",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/ConditionalFormattingCollection.java",
+          "src/main/java/org/aspose/cells_foss/FormatConditionCollection.java",
+          "src/main/java/org/aspose/cells_foss/FormatCondition.java"
+        ],
+        "required_symbols": [
+          "ConditionalFormattingCollection",
+          "FormatConditionCollection",
+          "FormatCondition",
+          "getType",
+          "setOperator",
+          "getFormula1",
+          "setFormula1",
+          "add",
+          "getRangeCount",
+          "getCellArea"
+        ]
+      },
+      {
+        "value": "Auto filters with color filters, dynamic filters, top-10 filters, custom filters, and sort conditions",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/AutoFilter.java",
+          "src/main/java/org/aspose/cells_foss/AutoFilterCriteria.java"
+        ],
+        "required_symbols": [
+          "AutoFilter",
+          "FilterColumnCollection",
+          "FilterColumn",
+          "AutoFilterCustomFilterCollection",
+          "AutoFilterCustomFilter",
+          "getFilterColumns",
+          "add",
+          "getOperator",
+          "getValue",
+          "setOperator",
+          "setValue"
+        ]
+      },
+      {
+        "value": "Page setup",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/PageSetup.java"
+        ],
+        "required_symbols": [
+          "getPageSetup",
+          "getPaperSize",
+          "setPaperSize",
+          "getOrientation",
+          "setOrientation",
+          "getLeftMargin",
+          "setLeftMargin",
+          "getRightMargin",
+          "setRightMargin",
+          "getTopMargin",
+          "setTopMargin",
+          "getBottomMargin",
+          "setBottomMargin"
+        ]
+      },
+      {
+        "value": "Worksheet protection",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Worksheet.java"
+        ],
+        "required_symbols": [
+          "protect",
+          "unprotect",
+          "setPassword"
+        ]
+      },
+      {
+        "value": "Freeze panes - freeze rows and/or columns by coordinate or cell name; inspect and clear frozen state",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Worksheet.java"
+        ],
+        "required_symbols": [
+          "setFreezePanes",
+          "getFreezePanes",
+          "clearFreezePanes"
+        ]
+      },
+      {
+        "value": "Cell comments - add, edit, and remove comments (notes) with author, text, visibility, and size",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Comment.java",
+          "src/main/java/org/aspose/cells_foss/CommentCollection.java"
+        ],
+        "required_symbols": [
+          "Comment",
+          "CommentCollection",
+          "getAuthor",
+          "setAuthor",
+          "getNote",
+          "setNote",
+          "isVisible",
+          "setVisible",
+          "getWidth",
+          "getHeight",
+          "add",
+          "get"
+        ]
+      },
+      {
+        "value": "Embedded pictures - add images from bytes, streams, or file paths with two-cell anchor positioning; JPEG, PNG, GIF, and BMP detection",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Pictures.java"
+        ],
+        "required_symbols": [
+          "Pictures",
+          "add",
+          "getImageType",
+          "getImageWidth",
+          "getImageHeight",
+          "getUpperLeftRow",
+          "getUpperLeftColumn",
+          "getLowerRightRow",
+          "getLowerRightColumn"
+        ]
+      },
+      {
+        "value": "Embedded charts - read chart name, type, anchor, and extent; 21 standard chart types can be created programmatically via ChartCollection.add(); loaded charts are preserved verbatim across load/save",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Chart.java",
+          "src/main/java/org/aspose/cells_foss/ChartCollection.java",
+          "src/main/java/org/aspose/cells_foss/ChartType.java"
+        ],
+        "required_symbols": [
+          "Chart",
+          "ChartCollection",
+          "ChartType",
+          "getName",
+          "getChartType",
+          "getUpperLeftRow",
+          "getUpperLeftColumn",
+          "getLowerRightRow",
+          "getLowerRightColumn",
+          "add",
+          "getCount",
+          "get"
+        ]
+      },
+      {
+        "value": "Drawing shapes - add, retrieve, and remove drawing objects with 35 preset geometries (AutoShapeType); complex shapes loaded from XLSX are preserved verbatim",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Drawing.java",
+          "src/main/java/org/aspose/cells_foss/DrawingCollection.java",
+          "src/main/java/org/aspose/cells_foss/AutoShapeType.java"
+        ],
+        "required_symbols": [
+          "Drawing",
+          "DrawingCollection",
+          "AutoShapeType",
+          "getShapeType",
+          "setShapeType",
+          "add",
+          "getCount",
+          "get"
+        ]
+      },
+      {
+        "value": "Excel tables (ListObjects) - create, resize, style, and remove structured tables with column definitions and totals rows",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/ListObject.java",
+          "src/main/java/org/aspose/cells_foss/ListObjectCollection.java",
+          "src/main/java/org/aspose/cells_foss/ListColumn.java"
+        ],
+        "required_symbols": [
+          "ListObject",
+          "ListObjectCollection",
+          "ListColumn",
+          "getDisplayName",
+          "setDisplayName",
+          "resize",
+          "getListColumns",
+          "getStartRow",
+          "getEndRow",
+          "isShowHeaderRow",
+          "isShowTotals",
+          "setShowHeaderRow",
+          "setShowTotals"
+        ]
+      },
+      {
+        "value": "Workbook protection - lock structure, windows, and revisions with separate passwords via WorkbookProtection",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/WorkbookProtection.java"
+        ],
+        "required_symbols": [
+          "WorkbookProtection",
+          "lockStructure",
+          "lockWindows",
+          "lockRevisions",
+          "setPassword"
+        ]
+      },
+      {
+        "value": "Workbook view - read and write window position, size, active tab, scroll bar and sheet tab visibility via WorkbookView",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/WorkbookView.java"
+        ],
+        "required_symbols": [
+          "getWindowLeft",
+          "setWindowLeft",
+          "getWindowTop",
+          "setWindowTop",
+          "getActiveTab",
+          "setActiveTab",
+          "getScrollX",
+          "setScrollX",
+          "getScrollY",
+          "setScrollY",
+          "getShowHorizontalScroll",
+          "setShowHorizontalScroll",
+          "getShowVerticalScroll",
+          "setShowVerticalScroll",
+          "getShowSheetTabs",
+          "setShowSheetTabs"
+        ]
+      },
+      {
+        "value": "Calculation properties - configure calculation mode, reference mode, iterative calculation, and precision via CalculationProperties",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/CalculationProperties.java"
+        ],
+        "required_symbols": [
+          "CalculationProperties",
+          "getCalculationMode",
+          "setCalculationMode",
+          "getReferenceMode",
+          "setReferenceMode",
+          "getIterate",
+          "setIterate",
+          "getIterateCount",
+          "setIterateCount",
+          "getIterateDelta",
+          "setIterateDelta",
+          "getFullPrecision",
+          "setFullPrecision"
+        ]
+      },
+      {
+        "value": "Error cell values - #N/A, #VALUE!, #REF! and other error results are loaded, stored, and saved with the correct t=\"e\" cell type",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Cell.java"
+        ],
+        "required_symbols": [
+          "putValue",
+          "getType",
+          "CellValueType"
+        ]
+      },
+      {
+        "value": "Document properties and workbook property persistence for supported workbookPr attributes",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/DocumentProperties.java"
+        ],
+        "required_symbols": [
+          "DocumentProperties",
+          "getTitle",
+          "setTitle",
+          "getAuthor",
+          "setAuthor",
+          "getCompany",
+          "setCompany",
+          "getManager",
+          "setManager"
+        ]
+      },
+      {
+        "value": "NumberFormat utility for looking up and resolving built-in Excel format codes",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/NumberFormat.java"
+        ],
+        "required_symbols": [
+          "NumberFormat",
+          "getBuiltInFormatCount",
+          "getBuiltInFormat",
+          "getBuiltInFormatId"
+        ]
+      },
+      {
+        "value": "Load diagnostics, repair reporting, and preservation of unsupported package parts during load/save flows",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/LoadDiagnostics.java",
+          "src/main/java/org/aspose/cells_foss/LoadOptions.java"
+        ],
+        "required_symbols": [
+          "LoadDiagnostics",
+          "LoadOptions",
+          "hasRepairs",
+          "getIssues",
+          "setStrictMode",
+          "setTryRepairPackage",
+          "setTryRepairXml"
+        ]
+      }
+    ],
+    "formats": [
+      {
+        "value": "Load formats: AUTO, XLSX",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/LoadFormat.java"
+        ],
+        "required_symbols": [
+          "AUTO",
+          "XLSX"
+        ]
+      },
+      {
+        "value": "Save format: XLSX",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/SaveFormat.java"
+        ],
+        "required_symbols": [
+          "XLSX"
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "value": "Saving is currently limited to .xlsx",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/SaveFormat.java"
+        ],
+        "required_symbols": [
+          "XLSX"
+        ]
+      },
+      {
+        "value": "ChartEx types (Waterfall, Treemap, Sunburst, Histogram, Box and Whisker, Funnel, Map) cannot be created programmatically; they are preserved verbatim across load/save",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/ChartCollection.java"
+        ],
+        "required_symbols": [
+          "WATERFALL",
+          "TREEMAP",
+          "SUNBURST",
+          "HISTOGRAM",
+          "BOX_AND_WHISKER",
+          "FUNNEL",
+          "MAP"
+        ]
+      },
+      {
+        "value": "Some APIs exist mainly to preserve OOXML metadata and package fidelity rather than to provide full Excel feature parity",
+        "evidence_paths": [
+          "README.md"
+        ],
+        "required_symbols": []
+      }
+    ],
+    "minimal_example": {
+      "language": "java",
+      "class_name": "Main",
+      "code": "import org.aspose.cells_foss.Cell;\nimport org.aspose.cells_foss.Style;\nimport org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class Main {\n    public static void main(String[] args) {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n            sheet.setName(\"Report\");\n\n            sheet.getCells().get(\"A1\").putValue(\"Revenue\");\n            sheet.getCells().get(\"B1\").putValue(12500.75);\n\n            Cell total = sheet.getCells().get(\"B1\");\n            Style style = total.getStyle();\n            style.getFont().setBold(true);\n            style.setCustom(\"#,##0.00\");\n            total.setStyle(style);\n\n            sheet.getCells().getRows().get(0).setHeight(22.0);\n            sheet.getCells().getColumns().get(1).setWidth(14.5);\n\n            workbook.save(\"report.xlsx\");\n        }\n    }\n}",
+      "evidence_paths": [
+        "README.md",
+        "src/main/java/org/aspose/cells_foss/Workbook.java",
+        "src/main/java/org/aspose/cells_foss/Worksheet.java",
+        "src/main/java/org/aspose/cells_foss/Cells.java",
+        "src/main/java/org/aspose/cells_foss/Cell.java",
+        "src/main/java/org/aspose/cells_foss/Style.java",
+        "src/main/java/org/aspose/cells_foss/Font.java"
+      ],
+      "required_symbols": [
+        "Workbook",
+        "Worksheet",
+        "getWorksheets",
+        "setName",
+        "getCells",
+        "putValue",
+        "getStyle",
+        "setStyle",
+        "getFont",
+        "setBold",
+        "setCustom",
+        "getRows",
+        "setHeight",
+        "getColumns",
+        "setWidth",
+        "save"
+      ]
+    }
+  },
+  "real_hand_authored_product_truth": {
+    "audience": [
+      "Java developers creating, loading, modifying, and saving spreadsheet workbooks."
+    ],
+    "problems_solved": [
+      "Process XLSX workbooks with an open-source Java API without requiring Microsoft Excel."
+    ],
+    "capabilities": [
+      {
+        "value": "Create, load, modify, and save workbooks and worksheets.",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Workbook.java",
+          "src/main/java/org/aspose/cells_foss/Worksheet.java",
+          "src/test/java/org/aspose/cells_foss/CompatibilityTest.java"
+        ],
+        "required_symbols": [
+          "public class Workbook",
+          "public class Worksheet",
+          "public void save(String fileName)"
+        ]
+      },
+      {
+        "value": "Read and write cell values and apply spreadsheet styles.",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/Cell.java",
+          "src/main/java/org/aspose/cells_foss/Style.java",
+          "src/test/java/org/aspose/cells_foss/CompatibilityTest.java"
+        ],
+        "required_symbols": [
+          "public class Cell",
+          "public void putValue(String value)",
+          "public class Style"
+        ]
+      }
+    ],
+    "formats": [
+      {
+        "value": "Load and save XLSX workbooks.",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/LoadFormat.java",
+          "src/main/java/org/aspose/cells_foss/SaveFormat.java",
+          "src/test/java/org/aspose/cells_foss/CompatibilityTest.java"
+        ],
+        "required_symbols": [
+          "XLSX"
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "value": "The verified load and save surface is limited to XLSX workbooks.",
+        "evidence_paths": [
+          "src/main/java/org/aspose/cells_foss/LoadFormat.java",
+          "src/main/java/org/aspose/cells_foss/SaveFormat.java"
+        ],
+        "required_symbols": [
+          "XLSX"
+        ]
+      }
+    ],
+    "minimal_example": {
+      "language": "java",
+      "class_name": "ReadmeExample",
+      "code": "import org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class ReadmeExample {\n    public static void main(String[] args) throws Exception {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n            sheet.getCells().get(\"A1\").putValue(\"Hello\");\n            workbook.save(\"hello.xlsx\");\n        }\n    }\n}\n",
+      "evidence_paths": [
+        "src/main/java/org/aspose/cells_foss/Workbook.java",
+        "src/main/java/org/aspose/cells_foss/Worksheet.java",
+        "src/main/java/org/aspose/cells_foss/Cell.java"
+      ],
+      "required_symbols": [
+        "public Workbook()",
+        "public WorksheetCollection getWorksheets()",
+        "public void putValue(String value)",
+        "public void save(String fileName)"
+      ]
+    }
+  }
+}
