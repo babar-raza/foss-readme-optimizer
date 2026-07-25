@@ -22,10 +22,13 @@ user_template: |
   <repository-readme>
   $source_text
   </repository-readme>
+
+  $repair_hints_section
 input_schema:
   org_repo: string
   source_text: string
   accepted_facts_json: string
   assessment_json: string
+  repair_hints_section: string
 examples: []
 notes: "Agentic composition is bounded by fact IDs, section IDs, protected-content validation, and independent review."

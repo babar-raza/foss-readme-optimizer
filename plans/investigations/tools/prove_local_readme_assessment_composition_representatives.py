@@ -164,6 +164,7 @@ def _one_representative(ecosystem: str, org_repo: str) -> tuple[dict, str]:
         "candidate_sha256": planned["presentation_plan"]["candidate_sha256"],
         "agentic_composition_plan_sha256": composition_plan.canonical_hash(),
         "agentic_model": composition_plan.model,
+        "agentic_attempt_count": composition_plan.attempt_count,
         "agentic_overview_sentence_count": len(composition_plan.overview_sentences),
         "agentic_section_decision_count": len(composition_plan.section_decisions),
         "document_operation_count": len(planned["readme_document_plan"]["operations"]),

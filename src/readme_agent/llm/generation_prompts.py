@@ -46,6 +46,7 @@ def build_readme_composition_messages(
     source_text: str,
     accepted_facts_json: str,
     assessment_json: str,
+    repair_hints_section: str = "",
 ) -> list[dict]:
     """Build the source-bound README authoring turn from its registered prompt."""
 
@@ -59,6 +60,7 @@ def build_readme_composition_messages(
             source_text=source_text,
             accepted_facts_json=accepted_facts_json,
             assessment_json=assessment_json,
+            repair_hints_section=repair_hints_section,
         )
         .strip()
     )

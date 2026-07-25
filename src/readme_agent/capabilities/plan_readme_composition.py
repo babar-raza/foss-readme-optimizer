@@ -74,6 +74,7 @@ MANIFEST = CapabilityManifest(
         "prompt_sha256": "string",
         "input_sha256": "string",
         "model": "string",
+        "attempt_count": "integer",
     },
     preconditions=["org_repo is allow-listed and has an immutable repository snapshot"],
     required_permissions=["read_only_network"],
@@ -85,5 +86,11 @@ MANIFEST = CapabilityManifest(
     failure_modes=["LLMError on invalid schema, unknown references, or ungrounded prose"],
     rollback_behavior="not applicable -- read-only proposal",
     tests=["tests/unit/test_agentic_readme_composition.py"],
-    evidence_outputs=["section_decisions", "overview_sentences", "prompt_sha256", "input_sha256"],
+    evidence_outputs=[
+        "section_decisions",
+        "overview_sentences",
+        "prompt_sha256",
+        "input_sha256",
+        "attempt_count",
+    ],
 )

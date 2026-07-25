@@ -135,6 +135,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     )
 
     assert plan.model == "fixture-author"
+    assert plan.attempt_count == 1
     assert plan.input_sha256
     assert plan.prompt_sha256
     assert _first_text(facts.selected_fact("product.audience").value) in candidate
@@ -189,6 +190,7 @@ def test_agentic_plan_rejects_unaccepted_or_invented_fact_ids():
             facts,
             assessment,
             client=client,
+            max_attempts=1,
         )
 
 
@@ -216,6 +218,7 @@ def test_agentic_plan_rejects_extra_uncited_prose_around_a_literal_fact():
             facts,
             assessment,
             client=client,
+            max_attempts=1,
         )
 
 
@@ -274,4 +277,40 @@ def test_agentic_plan_requires_one_decision_for_every_assessed_section():
             client=FixtureAnalysisClient(
                 [AnalysisResult(parsed=_draft(facts), meta=LLMResponseMeta(model="fixture"))]
             ),
+            max_attempts=1,
         )
+
+
+def test_agentic_plan_repairs_a_rejected_first_response():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    invalid["overview_sentences"][0]["text"] = (
+        "Invented wrapper " + invalid["overview_sentences"][0]["text"]
+    )
+    valid = _cover_assessment(_draft(facts), assessment)
+    client = FixtureAnalysisClient(
+        [
+            AnalysisResult(parsed=invalid, meta=LLMResponseMeta(model="fixture")),
+            AnalysisResult(parsed=valid, meta=LLMResponseMeta(model="fixture")),
+        ]
+    )
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=client,
+    )
+
+    assert plan.overview_sentences[0].text == _first_text(
+        facts.selected_fact("product.audience").value
+    )
+    assert plan.attempt_count == 2

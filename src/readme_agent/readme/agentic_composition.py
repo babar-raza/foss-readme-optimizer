@@ -18,6 +18,7 @@ from readme_agent.readme.assessment import AssessmentDisposition, ReadmeAssessme
 
 _JOB = "plan_readme_composition"
 _ACCEPTED_STATES = {"verified", "policy_approved"}
+_MAX_AUTHORING_ATTEMPTS = 3
 
 
 class _AnalysisClient(Protocol):
@@ -56,6 +57,7 @@ class ReadmeAgenticCompositionPlanV1(_StrictModel):
     prompt_sha256: str
     input_sha256: str
     model: str
+    attempt_count: int = Field(ge=1, le=_MAX_AUTHORING_ATTEMPTS)
     repository_summary: str
     section_decisions: list[AgenticSectionDecisionV1]
     overview_sentences: list[AgenticOverviewSentenceV1]
@@ -187,47 +189,96 @@ def plan_readme_composition(
     assessment: ReadmeAssessmentV1,
     *,
     client: _AnalysisClient | None = None,
+    max_attempts: int = _MAX_AUTHORING_ATTEMPTS,
 ) -> ReadmeAgenticCompositionPlanV1:
     """Call the authoring model once and fail closed on unbound editorial output."""
 
+    if max_attempts < 1:
+        raise ValueError("max_attempts must be at least 1")
     accepted_ids = _accepted_fact_ids(facts)
     facts_payload = [
         fact.model_dump(mode="json") for fact in facts.facts if fact.fact_id in accepted_ids
     ]
     assessment_payload = assessment.model_dump(mode="json")
-    input_payload = {
-        "org_repo": org_repo,
-        "source_text": source_text,
-        "accepted_facts": facts_payload,
-        "assessment": assessment_payload,
-    }
-    input_json = json.dumps(input_payload, sort_keys=True, separators=(",", ":"))
-    messages = build_readme_composition_messages(
-        org_repo=org_repo,
-        source_text=source_text,
-        accepted_facts_json=json.dumps(facts_payload, sort_keys=True),
-        assessment_json=json.dumps(assessment_payload, sort_keys=True),
-    )
     resolved_client = client or LiveAnalysisClient(
         base_url=env.llm_base_url(),
         api_key=env.llm_api_key(),
         model=env.llm_model_for_job(_JOB),
         timeout=env.llm_timeout_seconds(),
-        max_tokens=2500,
+        max_tokens=6000,
     )
-    result = resolved_client.analyze(messages)
-    try:
-        draft = AgenticCompositionDraftV1.model_validate(result.parsed)
-    except ValidationError as exc:
-        raise LLMError(f"README composition response failed schema validation: {exc}") from exc
-    _validate_draft(draft, assessment, facts)
-    return ReadmeAgenticCompositionPlanV1(
-        org_repo=org_repo,
-        source_sha256=hashlib.sha256(source_text.encode("utf-8")).hexdigest(),
-        facts_hash=facts.canonical_hash(),
-        assessment_hash=assessment.canonical_hash(),
-        prompt_sha256=prompt_hash(_JOB),
-        input_sha256=hashlib.sha256(input_json.encode("utf-8")).hexdigest(),
-        model=result.meta.model or env.llm_model_for_job(_JOB),
-        **draft.model_dump(),
+    repair_hints_section = ""
+    last_error: LLMError | None = None
+    for attempt in range(1, max_attempts + 1):
+        input_payload = {
+            "org_repo": org_repo,
+            "source_text": source_text,
+            "accepted_facts": facts_payload,
+            "assessment": assessment_payload,
+            "repair_hints_section": repair_hints_section,
+        }
+        input_json = json.dumps(input_payload, sort_keys=True, separators=(",", ":"))
+        messages = build_readme_composition_messages(
+            org_repo=org_repo,
+            source_text=source_text,
+            accepted_facts_json=json.dumps(facts_payload, sort_keys=True),
+            assessment_json=json.dumps(assessment_payload, sort_keys=True),
+            repair_hints_section=repair_hints_section,
+        )
+        try:
+            result = resolved_client.analyze(messages)
+            draft = AgenticCompositionDraftV1.model_validate(result.parsed)
+            _validate_draft(draft, assessment, facts)
+        except (LLMError, ValidationError) as exc:
+            last_error = (
+                exc
+                if isinstance(exc, LLMError)
+                else LLMError(f"README composition response failed schema validation: {exc}")
+            )
+            if attempt == max_attempts:
+                raise last_error from exc
+            repair_hints_section = _repair_hints(
+                last_error,
+                assessment,
+                facts,
+                attempt=attempt + 1,
+            )
+            continue
+        return ReadmeAgenticCompositionPlanV1(
+            org_repo=org_repo,
+            source_sha256=hashlib.sha256(source_text.encode("utf-8")).hexdigest(),
+            facts_hash=facts.canonical_hash(),
+            assessment_hash=assessment.canonical_hash(),
+            prompt_sha256=prompt_hash(_JOB),
+            input_sha256=hashlib.sha256(input_json.encode("utf-8")).hexdigest(),
+            model=result.meta.model or env.llm_model_for_job(_JOB),
+            attempt_count=attempt,
+            **draft.model_dump(),
+        )
+    assert last_error is not None
+    raise last_error
+
+
+def _repair_hints(
+    error: LLMError,
+    assessment: ReadmeAssessmentV1,
+    facts: ProductFactsV2,
+    *,
+    attempt: int,
+) -> str:
+    exact_overview_phrases = [
+        phrase.strip()
+        for field in ("product.audience", "product.problems_solved")
+        if (fact_id := facts.selected_fact_ids.get(field)) in _accepted_fact_ids(facts)
+        for phrase in _strings(facts.fact_by_id(fact_id).value)
+        if phrase.strip()
+    ]
+    return (
+        f"REPAIR ATTEMPT {attempt}. The previous JSON was rejected: {error}\n"
+        "Return a complete raw JSON object with no markdown fence. Include exactly one "
+        "section_decision for each of these IDs:\n"
+        + json.dumps([section.section_id for section in assessment.sections])
+        + "\nFor overview_sentences, copy these strings exactly (optional terminal punctuation "
+        "only) and cite their matching fact IDs:\n"
+        + json.dumps(exact_overview_phrases, ensure_ascii=False)
     )
