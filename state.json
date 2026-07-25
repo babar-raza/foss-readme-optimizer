@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f",
-    "last_evaluated_at": "2026-07-25T22:44:42.577297+00:00",
+    "last_evaluated_at": "2026-07-25T22:44:56.606708+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -24,7 +24,7 @@
       "L8-LOCAL-HETEROGENEOUS-QUALIFICATION": "TODO",
       "L8-LOCAL-HUMAN-REVIEW-GATE-B": "TODO",
       "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "CLOSED",
-      "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "IMPLEMENTED",
+      "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "VERIFIED",
       "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "CLOSED",
       "L8-LOCAL-PORTFOLIO-RUNTIME": "CLOSED",
       "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "CLOSED",
@@ -1026,6 +1026,19 @@
         "reason": "Canonical local path now requires deterministic bundle validation, independent five-way review, bounded feedback-aware repair, repeated factuality/candidate/bundle gates, durable lifecycle evidence, and no-op reuse.",
         "task_id": "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-local-independent-review-repair-ee221c7/independent-implementation-review.md",
+          "plans/investigations/evidence/level8-local-independent-review-repair-ee221c7/official-checks-attempt-1.log",
+          "plans/investigations/evidence/level8-local-independent-review-repair-ee221c7/corrected-lifecycle-manifest.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex-independent-review-lane",
+        "occurred_at": "2026-07-25T22:44:56.606702+00:00",
+        "reason": "Independent adversarial review passed; 53 focused negative controls and the clean-tree official suite passed, and lifecycle/no-op evidence reconciles the pre-correction manifest defect.",
+        "task_id": "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -1034,7 +1047,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 117,
+  "state_version": 118,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
