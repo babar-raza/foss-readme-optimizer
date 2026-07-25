@@ -9,8 +9,8 @@ import pytest
 
 from readme_agent.errors import LLMError
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.llm.analysis_client import AnalysisResult, FixtureAnalysisClient
 from readme_agent.llm.schema import LLMResponseMeta
+from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
 from readme_agent.readme.agentic_composition import plan_readme_composition
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_map import build_readme_claim_map
@@ -74,6 +74,28 @@ def _draft(facts: ProductFactsV2, *, fact_id: str | None = None) -> dict:
     }
 
 
+def _tool_arguments(draft: dict) -> dict:
+    return {
+        "repository_summary": draft["repository_summary"],
+        "section_decisions": draft["section_decisions"],
+        "overview_fact_ids": [
+            sentence["supporting_fact_ids"][0] for sentence in draft["overview_sentences"]
+        ],
+    }
+
+
+def _client(*drafts: dict) -> FixtureForcedToolClient:
+    return FixtureForcedToolClient(
+        [
+            ForcedToolResult(
+                arguments=_tool_arguments(draft),
+                meta=LLMResponseMeta(model="fixture-author"),
+            )
+            for draft in drafts
+        ]
+    )
+
+
 def _cover_assessment(draft: dict, assessment) -> dict:
     existing = {decision["section_id"] for decision in draft["section_decisions"]}
     accepted_ids = {
@@ -96,6 +118,7 @@ def _cover_assessment(draft: dict, assessment) -> dict:
             "rationale": "Retain the deterministic source-bound disposition.",
         }
         for section in assessment.sections
+        if section.level <= 2 or section.disposition != "preserve"
         if section.section_id not in existing
     )
     return draft
@@ -110,14 +133,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
         facts,
         base_revision=revision,
     )
-    client = FixtureAnalysisClient(
-        [
-            AnalysisResult(
-                parsed=_cover_assessment(_draft(facts), assessment),
-                meta=LLMResponseMeta(model="fixture-author"),
-            )
-        ]
-    )
+    client = _client(_cover_assessment(_draft(facts), assessment))
 
     plan = plan_readme_composition(
         facts.org_repo,
@@ -138,6 +154,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert plan.attempt_count == 1
     assert plan.input_sha256
     assert plan.prompt_sha256
+    assert plan.tool_schema_sha256
     assert _first_text(facts.selected_fact("product.audience").value) in candidate
     assert "Lead with the verified spreadsheet audience" not in candidate
     cited_ids = {
@@ -171,19 +188,14 @@ def test_agentic_plan_rejects_unaccepted_or_invented_fact_ids():
         facts,
         base_revision=revision,
     )
-    client = FixtureAnalysisClient(
-        [
-            AnalysisResult(
-                parsed=_cover_assessment(
-                    _draft(facts, fact_id="invented:fact"),
-                    assessment,
-                ),
-                meta=LLMResponseMeta(model="fixture-author"),
-            )
-        ]
+    client = _client(
+        _cover_assessment(
+            _draft(facts, fact_id="invented:fact"),
+            assessment,
+        )
     )
 
-    with pytest.raises(LLMError, match="unaccepted fact IDs"):
+    with pytest.raises(LLMError, match="ineligible overview fact IDs"):
         plan_readme_composition(
             facts.org_repo,
             source,
@@ -194,7 +206,7 @@ def test_agentic_plan_rejects_unaccepted_or_invented_fact_ids():
         )
 
 
-def test_agentic_plan_rejects_extra_uncited_prose_around_a_literal_fact():
+def test_agentic_plan_materializes_literal_fact_text_instead_of_authored_prose():
     facts, revision = _facts()
     source = "# Product\n"
     assessment = assess_readme_document(
@@ -207,19 +219,21 @@ def test_agentic_plan_rejects_extra_uncited_prose_around_a_literal_fact():
     draft["overview_sentences"][0]["text"] = (
         "Best-in-class toolkit for " + draft["overview_sentences"][0]["text"]
     )
-    client = FixtureAnalysisClient(
-        [AnalysisResult(parsed=draft, meta=LLMResponseMeta(model="fixture-author"))]
+    client = _client(draft)
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=client,
+        max_attempts=1,
     )
 
-    with pytest.raises(LLMError, match="exact literal cited fact phrase"):
-        plan_readme_composition(
-            facts.org_repo,
-            source,
-            facts,
-            assessment,
-            client=client,
-            max_attempts=1,
-        )
+    assert plan.overview_sentences[0].text == _first_text(
+        facts.selected_fact("product.audience").value
+    )
+    assert all("Best-in-class" not in sentence.text for sentence in plan.overview_sentences)
 
 
 def test_renderer_rejects_a_composition_plan_rebound_to_another_source():
@@ -236,19 +250,41 @@ def test_renderer_rejects_a_composition_plan_rebound_to_another_source():
         source,
         facts,
         assessment,
-        client=FixtureAnalysisClient(
-            [
-                AnalysisResult(
-                    parsed=_cover_assessment(_draft(facts), assessment),
-                    meta=LLMResponseMeta(model="fixture-author"),
-                )
-            ]
-        ),
+        client=_client(_cover_assessment(_draft(facts), assessment)),
     )
     tampered = plan.model_dump(mode="json")
     tampered["source_sha256"] = "0" * 64
 
     with pytest.raises(LLMError, match="binding mismatch"):
+        build_readme_document_candidate(
+            facts.org_repo,
+            source,
+            facts,
+            base_revision=revision,
+            agentic_composition_plan=tampered,
+        )
+
+
+def test_renderer_rejects_a_plan_with_a_stale_tool_schema_binding():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(_cover_assessment(_draft(facts), assessment)),
+    )
+    tampered = plan.model_dump(mode="json")
+    tampered["tool_schema_sha256"] = "0" * 64
+
+    with pytest.raises(LLMError, match="tool_schema_sha256"):
         build_readme_document_candidate(
             facts.org_repo,
             source,
@@ -274,9 +310,7 @@ def test_agentic_plan_requires_one_decision_for_every_assessed_section():
             source,
             facts,
             assessment,
-            client=FixtureAnalysisClient(
-                [AnalysisResult(parsed=_draft(facts), meta=LLMResponseMeta(model="fixture"))]
-            ),
+            client=_client(_draft(facts)),
             max_attempts=1,
         )
 
@@ -291,16 +325,9 @@ def test_agentic_plan_repairs_a_rejected_first_response():
         base_revision=revision,
     )
     invalid = _cover_assessment(_draft(facts), assessment)
-    invalid["overview_sentences"][0]["text"] = (
-        "Invented wrapper " + invalid["overview_sentences"][0]["text"]
-    )
+    invalid["overview_sentences"][0]["supporting_fact_ids"] = ["invented:fact"]
     valid = _cover_assessment(_draft(facts), assessment)
-    client = FixtureAnalysisClient(
-        [
-            AnalysisResult(parsed=invalid, meta=LLMResponseMeta(model="fixture")),
-            AnalysisResult(parsed=valid, meta=LLMResponseMeta(model="fixture")),
-        ]
-    )
+    client = _client(invalid, valid)
 
     plan = plan_readme_composition(
         facts.org_repo,
@@ -314,3 +341,25 @@ def test_agentic_plan_repairs_a_rejected_first_response():
         facts.selected_fact("product.audience").value
     )
     assert plan.attempt_count == 2
+
+
+def test_agentic_plan_fails_closed_after_bounded_semantic_retries():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    invalid["overview_sentences"][0]["supporting_fact_ids"] = ["invented:fact"]
+
+    with pytest.raises(LLMError, match="ineligible overview fact IDs"):
+        plan_readme_composition(
+            facts.org_repo,
+            source,
+            facts,
+            assessment,
+            client=_client(invalid, invalid, invalid),
+        )

@@ -4,25 +4,34 @@ from __future__ import annotations
 
 import hashlib
 import json
-from typing import Literal, Protocol
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from readme_agent import env
 from readme_agent.errors import LLMError
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.llm.analysis_client import AnalysisResult, LiveAnalysisClient
-from readme_agent.llm.generation_prompts import build_readme_composition_messages
+from readme_agent.llm.generation_prompts import (
+    build_readme_composition_messages,
+    build_readme_composition_tool_schema,
+)
 from readme_agent.llm.prompt_registry import prompt_hash
+from readme_agent.llm.verifier_client import ForcedToolClient, LiveForcedToolClient
 from readme_agent.readme.assessment import AssessmentDisposition, ReadmeAssessmentV1
 
 _JOB = "plan_readme_composition"
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _MAX_AUTHORING_ATTEMPTS = 3
-
-
-class _AnalysisClient(Protocol):
-    def analyze(self, messages: list[dict]) -> AnalysisResult: ...
+_OVERVIEW_FIELD_PREFERENCE = (
+    "product.audience",
+    "product.problems_solved",
+    "product.capabilities",
+    "product.formats",
+    "product.limitations",
+    "product.compatibility",
+    "product.identity",
+    "relationship.commercial_foss",
+)
 
 
 class _StrictModel(BaseModel):
@@ -48,6 +57,12 @@ class AgenticCompositionDraftV1(_StrictModel):
     overview_sentences: list[AgenticOverviewSentenceV1] = Field(min_length=1)
 
 
+class _AgenticCompositionToolDraftV1(_StrictModel):
+    repository_summary: str = Field(min_length=1)
+    section_decisions: list[AgenticSectionDecisionV1] = Field(min_length=1)
+    overview_fact_ids: list[str] = Field(min_length=1)
+
+
 class ReadmeAgenticCompositionPlanV1(_StrictModel):
     schema_version: Literal[1] = 1
     org_repo: str
@@ -55,6 +70,7 @@ class ReadmeAgenticCompositionPlanV1(_StrictModel):
     facts_hash: str
     assessment_hash: str
     prompt_sha256: str
+    tool_schema_sha256: str
     input_sha256: str
     model: str
     attempt_count: int = Field(ge=1, le=_MAX_AUTHORING_ATTEMPTS)
@@ -77,6 +93,11 @@ def _accepted_fact_ids(facts: ProductFactsV2) -> set[str]:
     }
 
 
+def _canonical_hash(payload: object) -> str:
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
 def _strings(value: object) -> list[str]:
     if isinstance(value, str):
         return [value]
@@ -87,12 +108,81 @@ def _strings(value: object) -> list[str]:
     return []
 
 
+def _overview_phrase_options(facts: ProductFactsV2) -> list[dict]:
+    accepted_ids = _accepted_fact_ids(facts)
+    options = []
+    for field in _OVERVIEW_FIELD_PREFERENCE:
+        fact_id = facts.selected_fact_ids.get(field)
+        if fact_id not in accepted_ids:
+            continue
+        phrases = [
+            phrase.strip()
+            for phrase in _strings(facts.fact_by_id(fact_id).value)
+            if len(phrase.strip()) >= 4
+        ]
+        if phrases:
+            options.append({"fact_id": fact_id, "phrases": phrases[:8]})
+    return options
+
+
+def _planning_sections(assessment: ReadmeAssessmentV1):
+    """Bound agentic output to structural/material sections; deterministic assessment stays full."""
+
+    return [
+        section
+        for section in assessment.sections
+        if section.level <= 2 or section.disposition != "preserve"
+    ]
+
+
+def _required_overview_ids(facts: ProductFactsV2) -> set[str]:
+    options = _overview_phrase_options(facts)
+    option_ids = {option["fact_id"] for option in options}
+    audience_problem = {
+        facts.selected_fact_ids[field]
+        for field in ("product.audience", "product.problems_solved")
+        if facts.selected_fact_ids.get(field) in option_ids
+    }
+    return audience_problem or {option["fact_id"] for option in options[:2]}
+
+
+def _materialize_tool_draft(
+    tool_draft: _AgenticCompositionToolDraftV1,
+    overview_phrase_options: list[dict],
+    facts: ProductFactsV2,
+) -> AgenticCompositionDraftV1:
+    """Turn model-selected fact IDs into literal fact text deterministically."""
+
+    phrases_by_fact_id = {
+        option["fact_id"]: option["phrases"] for option in overview_phrase_options
+    }
+    selected_ids = tool_draft.overview_fact_ids
+    unknown_ids = set(selected_ids) - set(phrases_by_fact_id)
+    if unknown_ids:
+        raise LLMError(f"composition selected ineligible overview fact IDs: {sorted(unknown_ids)}")
+    if len(selected_ids) != len(set(selected_ids)):
+        raise LLMError("composition selected duplicate overview fact IDs")
+    required_ids = _required_overview_ids(facts)
+    materialized_ids = list(dict.fromkeys([*selected_ids, *sorted(required_ids)]))
+    return AgenticCompositionDraftV1(
+        repository_summary=tool_draft.repository_summary,
+        section_decisions=tool_draft.section_decisions,
+        overview_sentences=[
+            AgenticOverviewSentenceV1(
+                text=phrases_by_fact_id[fact_id][0],
+                supporting_fact_ids=[fact_id],
+            )
+            for fact_id in materialized_ids
+        ],
+    )
+
+
 def _validate_draft(
     draft: AgenticCompositionDraftV1,
     assessment: ReadmeAssessmentV1,
     facts: ProductFactsV2,
 ) -> None:
-    section_ids = {section.section_id for section in assessment.sections}
+    section_ids = {section.section_id for section in _planning_sections(assessment)}
     decision_ids = [decision.section_id for decision in draft.section_decisions]
     if len(decision_ids) != len(set(decision_ids)):
         raise LLMError("composition returned duplicate section decisions")
@@ -129,18 +219,13 @@ def _validate_draft(
             raise LLMError(
                 "composition overview sentence is not an exact literal cited fact phrase"
             )
-    required_overview_ids = {
-        facts.selected_fact_ids[field]
-        for field in ("product.audience", "product.problems_solved")
-        if facts.selected_fact_ids.get(field) in accepted_ids
-    }
+    required_overview_ids = _required_overview_ids(facts)
     overview_ids = {
         fact_id for sentence in draft.overview_sentences for fact_id in sentence.supporting_fact_ids
     }
     if missing_overview_ids := required_overview_ids - overview_ids:
         raise LLMError(
-            "composition omitted required audience/problem facts from overview: "
-            f"{sorted(missing_overview_ids)}"
+            f"composition omitted required overview facts: {sorted(missing_overview_ids)}"
         )
 
 
@@ -158,12 +243,23 @@ def validate_readme_composition_plan(
         plan = ReadmeAgenticCompositionPlanV1.model_validate(payload)
     except ValidationError as exc:
         raise LLMError(f"README composition plan failed schema validation: {exc}") from exc
+    accepted_ids = _accepted_fact_ids(facts)
+    overview_phrase_options = _overview_phrase_options(facts)
+    assessment_payload = assessment.model_copy(
+        update={"sections": _planning_sections(assessment)}
+    ).model_dump(mode="json")
+    tool_schema = build_readme_composition_tool_schema(
+        section_ids=[section["section_id"] for section in assessment_payload["sections"]],
+        accepted_fact_ids=sorted(accepted_ids),
+        overview_fact_ids=[option["fact_id"] for option in overview_phrase_options],
+    )
     expected_bindings = {
         "org_repo": org_repo,
         "source_sha256": hashlib.sha256(source_text.encode("utf-8")).hexdigest(),
         "facts_hash": facts.canonical_hash(),
         "assessment_hash": assessment.canonical_hash(),
         "prompt_sha256": prompt_hash(_JOB),
+        "tool_schema_sha256": _canonical_hash(tool_schema),
     }
     mismatches = [
         field for field, expected in expected_bindings.items() if getattr(plan, field) != expected
@@ -188,7 +284,7 @@ def plan_readme_composition(
     facts: ProductFactsV2,
     assessment: ReadmeAssessmentV1,
     *,
-    client: _AnalysisClient | None = None,
+    client: ForcedToolClient | None = None,
     max_attempts: int = _MAX_AUTHORING_ATTEMPTS,
 ) -> ReadmeAgenticCompositionPlanV1:
     """Call the authoring model once and fail closed on unbound editorial output."""
@@ -199,13 +295,23 @@ def plan_readme_composition(
     facts_payload = [
         fact.model_dump(mode="json") for fact in facts.facts if fact.fact_id in accepted_ids
     ]
-    assessment_payload = assessment.model_dump(mode="json")
-    resolved_client = client or LiveAnalysisClient(
+    overview_phrase_options = _overview_phrase_options(facts)
+    if not overview_phrase_options:
+        raise LLMError("README composition has no accepted fact phrase eligible for an overview")
+    assessment_payload = assessment.model_copy(
+        update={"sections": _planning_sections(assessment)}
+    ).model_dump(mode="json")
+    resolved_client = client or LiveForcedToolClient(
         base_url=env.llm_base_url(),
         api_key=env.llm_api_key(),
         model=env.llm_model_for_job(_JOB),
         timeout=env.llm_timeout_seconds(),
         max_tokens=6000,
+    )
+    tool_schema = build_readme_composition_tool_schema(
+        section_ids=[section["section_id"] for section in assessment_payload["sections"]],
+        accepted_fact_ids=sorted(accepted_ids),
+        overview_fact_ids=[option["fact_id"] for option in overview_phrase_options],
     )
     repair_hints_section = ""
     last_error: LLMError | None = None
@@ -215,6 +321,7 @@ def plan_readme_composition(
             "source_text": source_text,
             "accepted_facts": facts_payload,
             "assessment": assessment_payload,
+            "overview_phrase_options": overview_phrase_options,
             "repair_hints_section": repair_hints_section,
         }
         input_json = json.dumps(input_payload, sort_keys=True, separators=(",", ":"))
@@ -223,11 +330,17 @@ def plan_readme_composition(
             source_text=source_text,
             accepted_facts_json=json.dumps(facts_payload, sort_keys=True),
             assessment_json=json.dumps(assessment_payload, sort_keys=True),
+            overview_phrase_options_json=json.dumps(
+                overview_phrase_options,
+                sort_keys=True,
+                ensure_ascii=False,
+            ),
             repair_hints_section=repair_hints_section,
         )
         try:
-            result = resolved_client.analyze(messages)
-            draft = AgenticCompositionDraftV1.model_validate(result.parsed)
+            result = resolved_client.call(messages, tool_schema)
+            tool_draft = _AgenticCompositionToolDraftV1.model_validate(result.arguments)
+            draft = _materialize_tool_draft(tool_draft, overview_phrase_options, facts)
             _validate_draft(draft, assessment, facts)
         except (LLMError, ValidationError) as exc:
             last_error = (
@@ -250,6 +363,7 @@ def plan_readme_composition(
             facts_hash=facts.canonical_hash(),
             assessment_hash=assessment.canonical_hash(),
             prompt_sha256=prompt_hash(_JOB),
+            tool_schema_sha256=_canonical_hash(tool_schema),
             input_sha256=hashlib.sha256(input_json.encode("utf-8")).hexdigest(),
             model=result.meta.model or env.llm_model_for_job(_JOB),
             attempt_count=attempt,
@@ -266,19 +380,13 @@ def _repair_hints(
     *,
     attempt: int,
 ) -> str:
-    exact_overview_phrases = [
-        phrase.strip()
-        for field in ("product.audience", "product.problems_solved")
-        if (fact_id := facts.selected_fact_ids.get(field)) in _accepted_fact_ids(facts)
-        for phrase in _strings(facts.fact_by_id(fact_id).value)
-        if phrase.strip()
-    ]
+    exact_overview_phrases = _overview_phrase_options(facts)
     return (
         f"REPAIR ATTEMPT {attempt}. The previous JSON was rejected: {error}\n"
-        "Return a complete raw JSON object with no markdown fence. Include exactly one "
+        "Call submit_readme_composition_plan again. Include exactly one "
         "section_decision for each of these IDs:\n"
-        + json.dumps([section.section_id for section in assessment.sections])
-        + "\nFor overview_sentences, copy these strings exactly (optional terminal punctuation "
-        "only) and cite their matching fact IDs:\n"
+        + json.dumps([section.section_id for section in _planning_sections(assessment)])
+        + "\nFor overview_fact_ids, select fact IDs from these options; deterministic code "
+        "will materialize literal phrases:\n"
         + json.dumps(exact_overview_phrases, ensure_ascii=False)
     )

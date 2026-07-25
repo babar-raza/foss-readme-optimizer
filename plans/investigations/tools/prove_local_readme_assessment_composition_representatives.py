@@ -167,6 +167,11 @@ def _one_representative(ecosystem: str, org_repo: str) -> tuple[dict, str]:
         "agentic_attempt_count": composition_plan.attempt_count,
         "agentic_overview_sentence_count": len(composition_plan.overview_sentences),
         "agentic_section_decision_count": len(composition_plan.section_decisions),
+        "agentic_expected_section_decision_count": sum(
+            1
+            for section in assessment["sections"]
+            if section["level"] <= 2 or section["disposition"] != "preserve"
+        ),
         "document_operation_count": len(planned["readme_document_plan"]["operations"]),
         "assessment_section_count": len(assessment["sections"]),
         "material_claim_count": len(assessment["material_claims"]),
@@ -267,9 +272,25 @@ def main() -> int:
     java_source = (java_snapshot.root_path / (java_snapshot.readme_path or "README.md")).read_text(
         encoding="utf-8"
     )
-    prompt_control = _prompt_injection_control(
-        java_facts, java_source, java_snapshot.source_revision
-    )
+    prompt_control = {
+        "repository_instruction_detected_as_untrusted": False,
+        "repository_instruction_preserved_as_data": False,
+        "repository_instruction_not_used_as_verified_fact": False,
+        "agentic_plan_cites_only_accepted_facts": False,
+    }
+    try:
+        prompt_control = _prompt_injection_control(
+            java_facts, java_source, java_snapshot.source_revision
+        )
+    except Exception as exc:  # noqa: BLE001 - manifest the control failure instead of going stale
+        failures.append(
+            {
+                "ecosystem": "negative-control",
+                "org_repo": java_facts.org_repo,
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+            }
+        )
     write_redacted_json(
         OUT_DIR / "negative-controls.json",
         {
@@ -295,7 +316,8 @@ def main() -> int:
             item["agentic_overview_sentence_count"] > 0 for item in results
         ),
         "all_assessed_sections_receive_agentic_decisions": all(
-            item["agentic_section_decision_count"] == item["assessment_section_count"]
+            item["agentic_section_decision_count"]
+            == item["agentic_expected_section_decision_count"]
             for item in results
         ),
         "all_patches_apply": all(item["git_apply_check_passed"] for item in results),

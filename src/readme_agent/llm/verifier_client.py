@@ -47,11 +47,21 @@ class ForcedToolClient(Protocol):
 
 
 class LiveForcedToolClient:
-    def __init__(self, base_url: str, api_key: str | None, model: str, timeout: float = 90):
+    def __init__(
+        self,
+        base_url: str,
+        api_key: str | None,
+        model: str,
+        timeout: float = 90,
+        max_tokens: int = DEFAULT_MAX_TOKENS,
+    ):
+        if max_tokens < 1:
+            raise ValueError("max_tokens must be at least 1")
         self.base_url = base_url.rstrip("/")
         self.api_key = api_key
         self.model = model
         self.timeout = timeout
+        self.max_tokens = max_tokens
 
     def _headers(self) -> dict[str, str]:
         headers = {"Content-Type": "application/json"}
@@ -67,7 +77,7 @@ class LiveForcedToolClient:
             "tools": [tool_schema],
             "tool_choice": {"type": "function", "function": {"name": function_name}},
             "temperature": DEFAULT_TEMPERATURE,
-            "max_tokens": DEFAULT_MAX_TOKENS,
+            "max_tokens": self.max_tokens,
         }
         return requests.post(
             f"{self.base_url}/chat/completions",
@@ -77,6 +87,7 @@ class LiveForcedToolClient:
         )
 
     def call(self, messages: list[dict], tool_schema: dict) -> ForcedToolResult:
+        function_name = tool_schema["function"]["name"]
         try:
             resp = run_http_with_retry(
                 "llm_call",
@@ -88,9 +99,14 @@ class LiveForcedToolClient:
             raise LLMError(f"forced tool call failed after retries: {exc}") from exc
         if resp.status_code != 200:
             raise LLMError(f"forced tool call failed: HTTP {resp.status_code}: {resp.text[:500]}")
-        return self._parse_response(resp)
+        return self._parse_response(resp, expected_function_name=function_name)
 
-    def _parse_response(self, resp: requests.Response) -> ForcedToolResult:
+    def _parse_response(
+        self,
+        resp: requests.Response,
+        *,
+        expected_function_name: str,
+    ) -> ForcedToolResult:
         try:
             body = resp.json()
         except ValueError as exc:
@@ -104,7 +120,14 @@ class LiveForcedToolClient:
         tool_calls = message.get("tool_calls") or []
         if not tool_calls:
             raise LLMError("forced tool call response contained no tool_calls")
+        if len(tool_calls) != 1:
+            raise LLMError("forced tool call response must contain exactly one tool call")
         function = tool_calls[0].get("function", {})
+        if function.get("name") != expected_function_name:
+            raise LLMError(
+                "forced tool call response used unexpected function "
+                f"{function.get('name')!r}; expected {expected_function_name!r}"
+            )
         try:
             arguments = json.loads(function.get("arguments") or "{}")
         except json.JSONDecodeError as exc:

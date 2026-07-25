@@ -111,6 +111,69 @@ class TestLiveForcedToolClientHappyPath:
         with pytest.raises(LLMError):
             client.call([], TOOL_SCHEMA)
 
+    def test_configurable_token_budget_is_sent(self, monkeypatch):
+        body = {
+            "choices": [
+                {
+                    "message": {
+                        "tool_calls": [
+                            {
+                                "function": {
+                                    "name": "report_prose_quality_finding",
+                                    "arguments": "{}",
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+        captured = {}
+
+        def fake_post(url, json, headers, timeout):
+            captured["payload"] = json
+            return FakeResponse(200, body)
+
+        monkeypatch.setattr(verifier_client.requests, "post", fake_post)
+        client = LiveForcedToolClient(
+            "https://example/v1",
+            "key",
+            "qwen3-next",
+            max_tokens=6000,
+        )
+
+        client.call([], TOOL_SCHEMA)
+
+        assert captured["payload"]["max_tokens"] == 6000
+
+    def test_unexpected_tool_name_fails_closed(self, monkeypatch):
+        body = {
+            "choices": [
+                {
+                    "message": {
+                        "tool_calls": [
+                            {
+                                "function": {
+                                    "name": "different_tool",
+                                    "arguments": "{}",
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+
+        monkeypatch.setattr(
+            verifier_client.requests,
+            "post",
+            lambda url, json, headers, timeout: FakeResponse(200, body),
+        )
+        client = LiveForcedToolClient("https://example/v1", "key", "qwen3-next")
+
+        with pytest.raises(LLMError, match="unexpected function"):
+            client.call([], TOOL_SCHEMA)
+
 
 class TestLiveForcedToolClientRetry:
     def test_retries_on_503_then_succeeds(self, monkeypatch):

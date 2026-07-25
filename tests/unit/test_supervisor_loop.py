@@ -129,66 +129,33 @@ class _FakeAnalysisClient:
         )
 
 
-class _FakeCompositionAnalysisClient:
-    """Produce a fact-bound authoring plan from the prompt's own fixture facts."""
+class _FakeCompositionForcedToolClient:
+    """Produce a schema-bound authoring plan from the offered forced tool."""
 
     calls = 0
 
     def __init__(self, *args, **kwargs):
         pass
 
-    def analyze(self, messages):
+    def call(self, messages, tool_schema):
         type(self).calls += 1
-        user = messages[-1]["content"]
-        facts_text = user.split("Accepted facts:\n", 1)[1].split(
-            "\n\nDeterministic source-bound assessment:", 1
-        )[0]
-        assessment_text = user.split("Deterministic source-bound assessment:\n", 1)[1].split(
-            "\n\nCurrent README", 1
-        )[0]
-        facts = json.loads(facts_text)
-        assessment = json.loads(assessment_text)
-        accepted_ids = {fact["fact_id"] for fact in facts}
-
-        def selected(field):
-            return next(
-                fact
-                for fact in facts
-                if fact["field"] == field
-                and fact["verification_state"] in {"verified", "policy_approved"}
-            )
-
-        audience = selected("product.audience")
-        problem = selected("product.problems_solved")
-
-        def first_text(value):
-            return str(value[0]) if isinstance(value, list) else str(value)
-
-        return AnalysisResult(
-            parsed={
+        properties = tool_schema["function"]["parameters"]["properties"]
+        section_ids = properties["section_decisions"]["items"]["properties"]["section_id"]["enum"]
+        overview_fact_ids = properties["overview_fact_ids"]["items"]["enum"]
+        return ForcedToolResult(
+            arguments={
                 "repository_summary": "Fixture-specific fact-bound composition.",
                 "section_decisions": [
                     {
-                        "section_id": section["section_id"],
-                        "disposition": section["disposition"],
+                        "section_id": section_id,
+                        "disposition": "preserve",
                         "priority": 100 if index == 0 else 50,
-                        "supporting_fact_ids": [
-                            fact_id for fact_id in section["fact_ids"] if fact_id in accepted_ids
-                        ],
+                        "supporting_fact_ids": [],
                         "rationale": "Retain the deterministic source-bound disposition.",
                     }
-                    for index, section in enumerate(assessment["sections"])
+                    for index, section_id in enumerate(section_ids)
                 ],
-                "overview_sentences": [
-                    {
-                        "text": first_text(audience["value"]),
-                        "supporting_fact_ids": [audience["fact_id"]],
-                    },
-                    {
-                        "text": first_text(problem["value"]),
-                        "supporting_fact_ids": [problem["fact_id"]],
-                    },
-                ],
+                "overview_fact_ids": overview_fact_ids,
             },
             meta=LLMResponseMeta(model="fixture-composition"),
         )
@@ -430,7 +397,7 @@ def _fake_repo_summary(org_repo, token):
 
 @pytest.fixture
 def project(tmp_path, monkeypatch):
-    _FakeCompositionAnalysisClient.calls = 0
+    _FakeCompositionForcedToolClient.calls = 0
     source = _init_source_repo(tmp_path / "source")
     _setup_project_root(tmp_path, str(source))
     monkeypatch.chdir(tmp_path)
@@ -560,8 +527,8 @@ def project(tmp_path, monkeypatch):
     monkeypatch.setattr(candidate_pipeline, "LiveLLMClient", _FakeLiveLLMClient)
     monkeypatch.setattr(
         agentic_composition,
-        "LiveAnalysisClient",
-        _FakeCompositionAnalysisClient,
+        "LiveForcedToolClient",
+        _FakeCompositionForcedToolClient,
     )
     # Wave 8.6 (`VER-006` reversal): _verify_node now additionally dispatches
     # verify_prose_quality after a deterministic accept -- faked here (never
@@ -633,7 +600,7 @@ class TestBasicLoop:
             track_readme_poc_lifecycle=True,
         )
         first_domain_details = backend.load(ORG_REPO).domain_states["readme_presentation"].details
-        first_composition_call_count = _FakeCompositionAnalysisClient.calls
+        first_composition_call_count = _FakeCompositionForcedToolClient.calls
         second = supervise_repo(
             ORG_REPO,
             planner_client=FixturePlannerClient(
@@ -670,7 +637,7 @@ class TestBasicLoop:
         assert first_domain_details["committed"] is False
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
         assert first_composition_call_count == 1
-        assert _FakeCompositionAnalysisClient.calls == first_composition_call_count
+        assert _FakeCompositionForcedToolClient.calls == first_composition_call_count
         assert (
             state.domain_states["readme_presentation"].details["agentic_composition_reused"] is True
         )
