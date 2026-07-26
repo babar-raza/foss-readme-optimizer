@@ -621,6 +621,15 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-07-26T07:06:50.041784+00:00",
+        "reason": "independent review wiring failed: LLMError: independent reviewer classified literal accepted fact text as missing evidence: ['Aspose.cells.Cpp.FOSS', 'NuGet: Aspose.cells.Cpp.FOSS found']",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "presentation_plan_hash": "83572b36e14e2bd1448e5e4660b92ed4c3e92af714bff290efd8ca01c5974df7",
@@ -630,11 +639,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T07:06:33.177846+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-07-26T07:06:50.041784+00:00"
   },
   "schema_version": 2,
-  "state_version": 83,
+  "state_version": 84,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "48f1ece42ffbb0cdbb92cad8d638cc7dffb73b6230cf032a65893d22c5b305d6",
