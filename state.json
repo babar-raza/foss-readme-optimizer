@@ -633,7 +633,7 @@
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": "106ae67952fbc77d468241cb7f4e1a007ae78ff4b02dbd87d4889019bd6fac22",
+    "assessment_hash": "7d96bf837020b584136dee5d0bbd4a23bb82a7e6d328b7c8994935f8dd83eaf0",
     "candidate_hash": "afa2abd93297976397256353d24bd89c3dd9e85abd8c8a884986306c84bbc3e9",
     "details": {},
     "facts_hash": "e01b60f9adea5d6b1db88f04f1d4a6659e40f96e7513c7f38c7bae0dd8b27d92",
@@ -779,6 +779,21 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9\\candidate\\claim-map.json"
+        ],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-26T08:09:25.251375+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "to_status": "README_ASSESSED"
       }
     ],
     "presentation_plan_hash": "83572b36e14e2bd1448e5e4660b92ed4c3e92af714bff290efd8ca01c5974df7",
@@ -788,11 +803,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-07-26T08:07:16.281493+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-26T08:09:25.251375+00:00"
   },
   "schema_version": 2,
-  "state_version": 109,
+  "state_version": 110,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e601b5948d773ff382c90ba5b085b8268af8d035f3f1693077a10a79f2d55463",
