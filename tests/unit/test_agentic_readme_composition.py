@@ -12,7 +12,10 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm.generation_prompts import build_readme_composition_tool_schema
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
-from readme_agent.readme.agentic_composition import plan_readme_composition
+from readme_agent.readme.agentic_composition import (
+    plan_readme_composition,
+    validate_readme_composition_plan,
+)
 from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
 )
@@ -381,6 +384,30 @@ def test_agentic_plan_coalesces_one_literal_phrase_that_subsumes_another():
     assert (
         sum(short_phrase.rstrip(".") in sentence.text for sentence in plan.overview_sentences) == 1
     )
+
+    stale_payload = plan.model_dump(mode="json")
+    stale_payload["overview_sentences"] = [
+        {
+            "text": _first_text(facts.selected_fact("product.audience").value),
+            "supporting_fact_ids": [facts.selected_fact("product.audience").fact_id],
+        },
+        {
+            "text": long_phrase,
+            "supporting_fact_ids": [problem.fact_id],
+        },
+        {
+            "text": short_phrase,
+            "supporting_fact_ids": [capability.fact_id],
+        },
+    ]
+    with pytest.raises(LLMError, match="semantically duplicate overview"):
+        validate_readme_composition_plan(
+            stale_payload,
+            org_repo=facts.org_repo,
+            source_text=source,
+            facts=facts,
+            assessment=assessment,
+        )
 
 
 def test_agentic_plan_rejects_internal_relationship_codes_as_overview_prose():

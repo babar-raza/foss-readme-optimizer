@@ -290,6 +290,12 @@ def _validate_draft(
             raise LLMError(
                 "composition overview sentence is not an exact literal cited fact phrase"
             )
+    for index, sentence in enumerate(draft.overview_sentences):
+        if any(
+            _phrases_overlap(sentence.text, other.text)
+            for other in draft.overview_sentences[index + 1 :]
+        ):
+            raise LLMError("composition returned semantically duplicate overview sentences")
     required_overview_ids = _required_overview_ids(facts)
     overview_ids = {
         fact_id for sentence in draft.overview_sentences for fact_id in sentence.supporting_fact_ids
