@@ -542,7 +542,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": {
     "assessment_hash": "92050e2affb650ac00492f35d9dac17b1d9e5a0df332ad9fd55f203459262738",
-    "candidate_hash": null,
+    "candidate_hash": "497c83290e4a193e70d4f578b9686b471df5126dd1d874ed4613680700af9148",
     "details": {},
     "facts_hash": "81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e",
     "history": [
@@ -619,6 +619,21 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\candidate\\claim-map.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-26T06:27:29.444124+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "presentation_plan_hash": "e6292290dca1dbd2a179fff9712ea2eeb9111ed073d34982d91822ed5ac170d1",
@@ -628,11 +643,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
-    "status": "PLAN_READY",
-    "updated_at": "2026-07-26T06:27:23.980912+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-07-26T06:27:29.444124+00:00"
   },
   "schema_version": 2,
-  "state_version": 63,
+  "state_version": 64,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "78edf277646cd39c7748990dc14512a0d031a5d82cb3d57641cf71ab0d70ead8",
