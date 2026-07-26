@@ -322,6 +322,36 @@ class TestResponseSchemaValidation:
 
     def test_missing_evidence_verdict_cannot_deny_literal_accepted_fact(self):
         facts = _facts_result()["product_facts_v2"]
+        invalid_verdict = _verdict_result(
+            {
+                "verdict": "BLOCKED_MISSING_EVIDENCE",
+                "reasoning": "The claim 'acmecells' is absent from all supplied product facts.",
+                "failed_criteria": ["factuality"],
+                "sections_affected": ["At a glance"],
+                "required_repair": "Remove 'acmecells' because it lacks evidence.",
+                "preserve": [],
+            }
+        )
+        client = FixtureAnalysisClient(
+            [
+                invalid_verdict,
+                invalid_verdict,
+            ]
+        )
+
+        with pytest.raises(reviewer.LLMError, match="repeatedly classified literal accepted"):
+            reviewer.run_independent_readme_review(
+                ORG_REPO,
+                WELL_GROUNDED_README,
+                WELL_GROUNDED_README,
+                _PRESENTATION_PLAN,
+                _DETERMINISTIC_VALIDATION_RESULT,
+                client=client,
+                product_facts_v2=facts,
+            )
+
+    def test_literal_fact_false_negative_is_retried_before_system_failure(self):
+        facts = _facts_result()["product_facts_v2"]
         client = FixtureAnalysisClient(
             [
                 _verdict_result(
@@ -335,20 +365,22 @@ class TestResponseSchemaValidation:
                         "required_repair": "Remove 'acmecells' because it lacks evidence.",
                         "preserve": [],
                     }
-                )
+                ),
+                _verdict_result(_accept_verdict()),
             ]
         )
 
-        with pytest.raises(reviewer.LLMError, match="literal accepted fact text"):
-            reviewer.run_independent_readme_review(
-                ORG_REPO,
-                WELL_GROUNDED_README,
-                WELL_GROUNDED_README,
-                _PRESENTATION_PLAN,
-                _DETERMINISTIC_VALIDATION_RESULT,
-                client=client,
-                product_facts_v2=facts,
-            )
+        review = reviewer.run_independent_readme_review(
+            ORG_REPO,
+            WELL_GROUNDED_README,
+            WELL_GROUNDED_README,
+            _PRESENTATION_PLAN,
+            _DETERMINISTIC_VALIDATION_RESULT,
+            client=client,
+            product_facts_v2=facts,
+        )
+
+        assert review.verdict == "ACCEPT"
 
 
 class TestRecordReviewVerdict:

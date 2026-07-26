@@ -99,6 +99,7 @@ from readme_agent.state.readme_poc_lifecycle import (
 )
 
 _READ_ONLY_PERMISSIONS: set[PermissionClass] = {"read_only_local", "read_only_network"}
+_MAX_SEMANTIC_RESPONSE_ATTEMPTS = 2
 
 # `observed_by` identity recorded on every lifecycle transition this module
 # makes -- one stable string, matching this module's own name (and the
@@ -296,19 +297,23 @@ def run_independent_readme_review(
             json.dumps(presentation_plan, sort_keys=True, default=str),
             json.dumps(deterministic_validation_result, sort_keys=True, default=str),
         )
-        result: AnalysisResult = resolved_client.analyze(messages)
-        try:
-            review = IndependentReadmeReviewResultV1.model_validate(result.parsed)
-        except ValidationError as exc:
-            raise LLMError(
-                f"independent_readme_review response did not match the required verdict "
-                f"schema: {exc}"
-            ) from exc
-        if contradicted_claims := _contradicted_missing_evidence_claims(review, product_facts):
-            raise LLMError(
-                "independent reviewer classified literal accepted fact text as missing evidence: "
-                f"{contradicted_claims}"
-            )
+        for semantic_attempt in range(_MAX_SEMANTIC_RESPONSE_ATTEMPTS):
+            result: AnalysisResult = resolved_client.analyze(messages)
+            try:
+                review = IndependentReadmeReviewResultV1.model_validate(result.parsed)
+            except ValidationError as exc:
+                raise LLMError(
+                    f"independent_readme_review response did not match the required verdict "
+                    f"schema: {exc}"
+                ) from exc
+            contradicted_claims = _contradicted_missing_evidence_claims(review, product_facts)
+            if not contradicted_claims:
+                break
+            if semantic_attempt + 1 == _MAX_SEMANTIC_RESPONSE_ATTEMPTS:
+                raise LLMError(
+                    "independent reviewer repeatedly classified literal accepted fact text as "
+                    f"missing evidence: {contradicted_claims}"
+                )
 
     if backend is not None:
         record_review_verdict(backend, org_repo, review, repair_attempt=repair_attempt)
