@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from collections.abc import Callable
 
 from pydantic import BaseModel, ConfigDict
@@ -18,6 +19,11 @@ _ECOSYSTEM_LABELS = {
     "python": "Python",
     "rust": "Rust",
     "typescript": "TypeScript",
+}
+_FAMILY_LABELS = {
+    "3d": "Aspose.3D",
+    "cells": "Aspose.Cells",
+    "pdf": "Aspose.PDF",
 }
 
 
@@ -39,10 +45,19 @@ def _text_phrases(value: object) -> list[str]:
 def _identity_phrases(value: object) -> list[str]:
     if not isinstance(value, dict):
         return []
-    names = value.get("manifest_names")
-    if isinstance(names, list):
-        return [str(name).strip() for name in names if str(name).strip()]
-    return []
+    family = _FAMILY_LABELS.get(str(value.get("family") or "").strip().lower())
+    ecosystem = str(value.get("ecosystem") or value.get("platform") or "").strip().lower()
+    platform = _ECOSYSTEM_LABELS.get(ecosystem)
+    return [f"{family} FOSS for {platform}"] if family and platform else []
+
+
+def _normalized_runtime(label: str, runtime: str) -> str:
+    value = runtime.strip()
+    value = re.sub(rf"^{re.escape(label)}\s*", "", value, flags=re.IGNORECASE)
+    value = value.removesuffix("+").strip()
+    if label == ".NET" and value.casefold().startswith("net"):
+        value = value[3:]
+    return value
 
 
 def _compatibility_phrases(value: object) -> list[str]:
@@ -55,7 +70,9 @@ def _compatibility_phrases(value: object) -> list[str]:
         runtime = str(row.get("minimum_runtime") or "").strip()
         label = _ECOSYSTEM_LABELS.get(ecosystem)
         if label and runtime:
-            phrases.append(f"Requires {label} {runtime} or later.")
+            normalized_runtime = _normalized_runtime(label, runtime)
+            if normalized_runtime:
+                phrases.append(f"Requires {label} {normalized_runtime} or later.")
     return phrases
 
 
