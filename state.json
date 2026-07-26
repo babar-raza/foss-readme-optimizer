@@ -1073,7 +1073,7 @@
     "updated_at": "2026-07-26T06:41:13.495631+00:00"
   },
   "schema_version": 2,
-  "state_version": 112,
+  "state_version": 113,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
@@ -1134,13 +1134,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:bundle_verification_rejected:execution_error:LLMError: README composition plan binding mismatch: ['assessment_hash', 'source_sha256']",
       "last_checkpoint_id": "4070c6e6aec2815c40d9f73160ea19d34874f78e61bdb11e57a554c5a8be987a",
-      "lease_expires_at": "2026-07-26T06:50:59.428249+00:00",
+      "lease_expires_at": null,
       "recovery_count": 7,
-      "status": "processing",
-      "updated_at": "2026-07-26T06:43:02.826360+00:00"
+      "status": "blocked",
+      "updated_at": "2026-07-26T06:43:09.443506+00:00"
     }
   },
   "trigger_records": {},
