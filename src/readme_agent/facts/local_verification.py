@@ -35,6 +35,7 @@ _COPY_IGNORE = shutil.ignore_patterns(
 _VERIFICATION_CONTRACT_FILES = (
     "local_verification.py",
     "example_execution.py",
+    "example_quality.py",
     "example_verification_schema.py",
     "example_verifiers/cpp.py",
     "example_verifiers/rust.py",

@@ -587,6 +587,46 @@ class TestGeneratedCodeNormalization:
         assert result.draft.minimal_example.code == 'var name = "Box";'
 
 
+class TestGeneratedExampleQuality:
+    def test_private_python_attribute_blocks_before_compiler_and_drives_repair(self, tmp_path):
+        root = _make_repo(tmp_path)
+        bad = _good_draft()
+        bad = bad.model_copy(
+            update={
+                "minimal_example": bad.minimal_example.model_copy(
+                    update={
+                        "language": "python",
+                        "code": "mesh._control_points.append(point)",
+                    }
+                )
+            }
+        )
+        good = _good_draft()
+        calls: list[dict[str, list[str]] | None] = []
+
+        def draft_fn(hints, facts):
+            calls.append(hints)
+            return bad if hints is None else good
+
+        def verify(example):
+            assert example.code != bad.minimal_example.code
+            return _always_verified_example(example)
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=draft_fn,
+            verify_example_fn=verify,
+        )
+
+        assert result.gated_facts["example.minimal"].verification_state == "verified"
+        assert calls[1] is not None
+        assert "_control_points" in calls[1]["example.minimal"][0]
+
+
 class TestGatedFieldsExhaustive:
     def test_all_six_gated_fields_always_present_in_result(self, tmp_path):
         root = _make_repo(tmp_path)

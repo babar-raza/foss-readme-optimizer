@@ -51,6 +51,7 @@ from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInpu
 from readme_agent.facts import agentic_drafting
 from readme_agent.facts.agentic_drafting import DraftProductTruthV1
 from readme_agent.facts.code_normalization import normalize_generated_code
+from readme_agent.facts.example_quality import generated_example_quality_failures
 from readme_agent.facts.interpretive_evidence import groundedness_fact_candidate
 from readme_agent.facts.local_verification import (
     LocalProductVerificationV1,
@@ -195,7 +196,7 @@ def _extract_failure_reasons(fact: FactRecordV2) -> list[str]:
     value = fact.value
     if not isinstance(value, dict):
         return [f"{fact.field}: blocked with no structured failure detail"]
-    for key in ("evidence_failures", "groundedness_failures"):
+    for key in ("evidence_failures", "groundedness_failures", "quality_failures"):
         reasons = value.get(key)
         if reasons:
             return list(reasons)
@@ -240,7 +241,8 @@ def _gate_minimal_example(
         retrieved_at=observed_at,
     )
     pre_check_failures = evidence_failures(root, example.evidence_paths, example.required_symbols)
-    if pre_check_failures:
+    quality_failures = generated_example_quality_failures(example.language, example.code)
+    if pre_check_failures or quality_failures:
         return FactRecordV2(
             fact_id=descriptive_fact_id("example.minimal", "agent-drafted-blocked"),
             field="example.minimal",
@@ -249,6 +251,7 @@ def _gate_minimal_example(
                 "class_name": example.class_name,
                 "code": example.code,
                 "evidence_failures": pre_check_failures,
+                "quality_failures": quality_failures,
             },
             source=source,
             verification_state="blocked",
