@@ -318,20 +318,35 @@
         "reason": "source-bound README assessment completed",
         "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
         "to_status": "README_ASSESSED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Go\\adb60864e60953ed7f4eaa0f51718ca172dac01f\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Go\\adb60864e60953ed7f4eaa0f51718ca172dac01f\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Go\\adb60864e60953ed7f4eaa0f51718ca172dac01f\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Go\\adb60864e60953ed7f4eaa0f51718ca172dac01f\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Go\\adb60864e60953ed7f4eaa0f51718ca172dac01f\\candidate\\claim-map.json"
+        ],
+        "from_status": "README_ASSESSED",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-26T01:56:12.965237+00:00",
+        "reason": "fact-cited source-span presentation plan completed",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "to_status": "PLAN_READY"
       }
     ],
-    "presentation_plan_hash": null,
+    "presentation_plan_hash": "bd3d5bd99eb55677b26951b9e36d5e95985377cf73ba672426ef688ae4d53d5b",
     "prompt_hash": "e05d4f0636d2aeef46f944713bb5ccf17981090345aae3e23c340e0132e75acc",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
-    "status": "README_ASSESSED",
-    "updated_at": "2026-07-26T01:56:08.148351+00:00"
+    "status": "PLAN_READY",
+    "updated_at": "2026-07-26T01:56:12.965237+00:00"
   },
   "schema_version": 2,
-  "state_version": 19,
+  "state_version": 20,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
