@@ -3018,9 +3018,9 @@
           "source_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
           "tool_schema_sha256": "f6ffc65a0f8ccfb414f4048ceadc85743f2165ebbfe14f56dcc8b657b3aad47a"
         },
-        "agentic_composition_reused": false,
+        "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-045401-3d16",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-050140-521b",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -3063,7 +3063,7 @@
           "final_review": {
             "failed_criteria": [],
             "preserve": [],
-            "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, installation coordinates (verified on Maven Central), minimal example (compiled against source), limitations (rendering incomplete), license (MIT), and compatibility (Java 21+). The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed overview, installation, and limitations sections required by the presentation plan. The example is the exact verified minimal example compiled against the source build. All links are real, relevant, and correctly targeted. The README establishes the product as useful, credible, and clearly explained before any commercial links. No generic boilerplate, unsupported claims, or promotional content crowds out product substance.",
+            "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFactsV2: audience, problems solved, capabilities, formats, installation coordinates (verified on Maven Central), minimal example (compiled against source), limitations (rendering and commercial-API parity incomplete), license (MIT), and compatibility (Java 21+). The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed overview, installation, and limitations sections required by the presentation plan. The example is the exact verified minimal example compiled against the source build. All links are real, relevant, and correctly targeted. The README clearly establishes the product as useful, credible, and well-explained before any commercial context. No generic boilerplate, unsupported claims, or promotional content crowds out product substance.",
             "required_repair": "",
             "sections_affected": [],
             "verdict": "ACCEPT"
@@ -3071,7 +3071,7 @@
           "outcome_kind": "accepted",
           "repair_history": [
             {
-              "candidate_sha256": "d1c782be974526bd8ad0f7c9c54b239e433e8e4c5977cead56e648ef3f4435d4",
+              "candidate_sha256": "af469b3378328da2c320b92c6ba3bb1c02186219e15fcea9b2a017e5b04d1d8b",
               "deterministic_validation": {
                 "checks": {
                   "adoption_preserved_source": true,
@@ -3090,7 +3090,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260726-045401-3d16",
+                "nonce": "20260726-050140-521b",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -3098,17 +3098,17 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "3ad5b3f2c492db9a9cf3b75422378519ea668d142b6934547a07651f3f5d85e1",
+                "token": "11630c5d57cf9ceb5273d4c8d0a48451fc23a6d6961f1cabcce3cb852f289389",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-045401-3d16"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-050140-521b"
               ],
               "repair_attempt": 0,
               "review": {
                 "failed_criteria": [],
                 "preserve": [],
-                "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, installation coordinates (verified on Maven Central), minimal example (compiled against source), limitations (rendering incomplete), license (MIT), and compatibility (Java 21+). The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed overview, installation, and limitations sections required by the presentation plan. The example is the exact verified minimal example compiled against the source build. All links are real, relevant, and correctly targeted. The README establishes the product as useful, credible, and clearly explained before any commercial links. No generic boilerplate, unsupported claims, or promotional content crowds out product substance.",
+                "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFactsV2: audience, problems solved, capabilities, formats, installation coordinates (verified on Maven Central), minimal example (compiled against source), limitations (rendering and commercial-API parity incomplete), license (MIT), and compatibility (Java 21+). The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed overview, installation, and limitations sections required by the presentation plan. The example is the exact verified minimal example compiled against the source build. All links are real, relevant, and correctly targeted. The README clearly establishes the product as useful, credible, and well-explained before any commercial context. No generic boilerplate, unsupported claims, or promotional content crowds out product substance.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -3117,15 +3117,8 @@
             }
           ]
         },
-        "llm_called": true,
-        "llm_calls": [
-          {
-            "input_sha256": "5d19ee5d306c8d5a1f5161c7c87565e9191338a946aed95bfa49d05f111ab190",
-            "job": "plan_readme_composition",
-            "model": "qwen3-next",
-            "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6"
-          }
-        ],
+        "llm_called": false,
+        "llm_calls": [],
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
@@ -3276,7 +3269,7 @@
             "tool_schema_sha256": "f6ffc65a0f8ccfb414f4048ceadc85743f2165ebbfe14f56dcc8b657b3aad47a"
           },
           "claim_map": {
-            "candidate_sha256": "d1c782be974526bd8ad0f7c9c54b239e433e8e4c5977cead56e648ef3f4435d4",
+            "candidate_sha256": "af469b3378328da2c320b92c6ba3bb1c02186219e15fcea9b2a017e5b04d1d8b",
             "claims": [
               {
                 "byte_end": 561,
@@ -3287,7 +3280,7 @@
                 "fact_id": "installation.coordinates:manifest",
                 "fact_value_sha256": "6824603816d15b1d76b9d7271362ef2fa47cffe699f99cda114c5effbf633c24",
                 "field": "installation.coordinates",
-                "introduced_text_sha256": "75f16061c9352ee136ad09673287279517f05cf2b466964829b052c5def3b6c1",
+                "introduced_text_sha256": "94bc661b7151735c724bacc72734991fcc2beced2c8b8e2ffc43920523864ad4",
                 "operation_id": "readme.overview-navigation-and-acquisition",
                 "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
                 "verification_state": "verified"
@@ -3301,7 +3294,7 @@
                 "fact_id": "installation.verified_acquisition:registry-maven_central",
                 "fact_value_sha256": "18873edf2a8919c5c836a5983393f0a676bb50a7e075602c2e9003463ded097b",
                 "field": "installation.verified_acquisition",
-                "introduced_text_sha256": "75f16061c9352ee136ad09673287279517f05cf2b466964829b052c5def3b6c1",
+                "introduced_text_sha256": "94bc661b7151735c724bacc72734991fcc2beced2c8b8e2ffc43920523864ad4",
                 "operation_id": "readme.overview-navigation-and-acquisition",
                 "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
                 "verification_state": "verified"
@@ -3315,7 +3308,7 @@
                 "fact_id": "product.audience:approved-policy",
                 "fact_value_sha256": "bf87fc07074f80bf0168f01f4751283f5be8722711b4d4f95e9f3a24126f866e",
                 "field": "product.audience",
-                "introduced_text_sha256": "75f16061c9352ee136ad09673287279517f05cf2b466964829b052c5def3b6c1",
+                "introduced_text_sha256": "94bc661b7151735c724bacc72734991fcc2beced2c8b8e2ffc43920523864ad4",
                 "operation_id": "readme.overview-navigation-and-acquisition",
                 "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
                 "verification_state": "policy_approved"
@@ -3329,7 +3322,7 @@
                 "fact_id": "product.capabilities:repository-evidence",
                 "fact_value_sha256": "c0f0e13ae8dccaa065e4efd0bd9a9a35e7d8abe43d4b4771631d416bd0609676",
                 "field": "product.capabilities",
-                "introduced_text_sha256": "75f16061c9352ee136ad09673287279517f05cf2b466964829b052c5def3b6c1",
+                "introduced_text_sha256": "94bc661b7151735c724bacc72734991fcc2beced2c8b8e2ffc43920523864ad4",
                 "operation_id": "readme.overview-navigation-and-acquisition",
                 "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
                 "verification_state": "verified"
@@ -3343,14 +3336,14 @@
                 "fact_id": "product.problems_solved:approved-policy",
                 "fact_value_sha256": "8311454da2f1d4a9e4401416be3b354dbbc968260ab831eb58c66351513ad0b8",
                 "field": "product.problems_solved",
-                "introduced_text_sha256": "75f16061c9352ee136ad09673287279517f05cf2b466964829b052c5def3b6c1",
+                "introduced_text_sha256": "94bc661b7151735c724bacc72734991fcc2beced2c8b8e2ffc43920523864ad4",
                 "operation_id": "readme.overview-navigation-and-acquisition",
                 "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
                 "verification_state": "policy_approved"
               },
               {
-                "byte_end": 4921,
-                "byte_start": 4860,
+                "byte_end": 4854,
+                "byte_start": 4793,
                 "claim_id": "readme.limitations.add-verified:product.limitations",
                 "claim_text_sha256": "471ef4fd11afe40b19a9280af63b61fc445b4666dd1cd0fd1892eba081575aa5",
                 "coordinate_space": "candidate_utf8",
@@ -3363,8 +3356,8 @@
                 "verification_state": "verified"
               },
               {
-                "byte_end": 2963,
-                "byte_start": 2956,
+                "byte_end": 2896,
+                "byte_start": 2889,
                 "claim_id": "readme.example.replace-unverified-minimal:example.minimal",
                 "claim_text_sha256": "d23189311c3628b78d08ae5478f8f51c07f5c47dd53023683199720321e4b289",
                 "coordinate_space": "candidate_utf8",
@@ -3406,10 +3399,10 @@
           },
           "executable": true,
           "git_patch_proof": {
-            "candidate_sha256": "d1c782be974526bd8ad0f7c9c54b239e433e8e4c5977cead56e648ef3f4435d4",
+            "candidate_sha256": "af469b3378328da2c320b92c6ba3bb1c02186219e15fcea9b2a017e5b04d1d8b",
             "git_apply_check_passed": true,
             "outside_spans_preserved": true,
-            "patch_sha256": "29c8bb371edc82047071a480c6e1cf4936552e1407a85e95610c088fb1533511",
+            "patch_sha256": "d31d3745db0bc3ad56892eb9d421e02dfa847767621551d3f9fe532f48122dd0",
             "path": "README.md",
             "source_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e"
           },
@@ -3496,7 +3489,7 @@
                   "relationship.commercial_foss:primary"
                 ],
                 "ownership_class": "repository_file",
-                "patch_sha256": "29c8bb371edc82047071a480c6e1cf4936552e1407a85e95610c088fb1533511",
+                "patch_sha256": "d31d3745db0bc3ad56892eb9d421e02dfa847767621551d3f9fe532f48122dd0",
                 "proposed_operation": "local_patch",
                 "region_id": "readme.presentation",
                 "rollback": "revert the bounded file patch",
@@ -3507,7 +3500,7 @@
                     "expected_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
                     "path": "README.md",
                     "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations",
-                    "replacement_sha256": "d1c782be974526bd8ad0f7c9c54b239e433e8e4c5977cead56e648ef3f4435d4"
+                    "replacement_sha256": "af469b3378328da2c320b92c6ba3bb1c02186219e15fcea9b2a017e5b04d1d8b"
                   }
                 ],
                 "stop_conditions": [
@@ -3530,14 +3523,14 @@
               }
             ],
             "archetype": "java-library",
-            "candidate_sha256": "d1c782be974526bd8ad0f7c9c54b239e433e8e4c5977cead56e648ef3f4435d4",
+            "candidate_sha256": "af469b3378328da2c320b92c6ba3bb1c02186219e15fcea9b2a017e5b04d1d8b",
             "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
             "findings": [
               {
                 "dimension": "product_clarity",
                 "disposition": "satisfied",
                 "evidence": [
-                  "<!-- readme-agent:presentation hash=\"sha256:1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5\" schema=\"3\" inner-bytes=\"4778\" --> A free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library. - Java developers building 3D import, export, and scene-processing applications."
+                  "<!-- readme-agent:presentation hash=\"sha256:1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5\" schema=\"3\" inner-bytes=\"4711\" --> A free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library. - Java developers building 3D import, export, and scene-processing applications."
                 ],
                 "finding_id": "readme.product_clarity",
                 "summary": "product clarity is satisfied",
@@ -3547,7 +3540,7 @@
                 "dimension": "audience_fit",
                 "disposition": "satisfied",
                 "evidence": [
-                  "<!-- readme-agent:presentation hash=\"sha256:1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5\" schema=\"3\" inner-bytes=\"4778\" --> A free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library. - Java developers building 3D import, export, and scene-processing applications."
+                  "<!-- readme-agent:presentation hash=\"sha256:1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5\" schema=\"3\" inner-bytes=\"4711\" --> A free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library. - Java developers building 3D import, export, and scene-processing applications."
                 ],
                 "finding_id": "readme.audience_fit",
                 "summary": "audience fit is satisfied",
@@ -4326,7 +4319,7 @@
               "source_inner_bytes": 3933,
               "source_inner_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e"
             },
-            "candidate_sha256": "d1c782be974526bd8ad0f7c9c54b239e433e8e4c5977cead56e648ef3f4435d4",
+            "candidate_sha256": "af469b3378328da2c320b92c6ba3bb1c02186219e15fcea9b2a017e5b04d1d8b",
             "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
             "immutable_base_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
             "operations": [
@@ -4345,8 +4338,8 @@
                 "path": "README.md",
                 "protected_content_treatment": "additive",
                 "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
-                "replacement_sha256": "75f16061c9352ee136ad09673287279517f05cf2b466964829b052c5def3b6c1",
-                "replacement_text": "## At a glance\n\n- Java developers building 3D import, export, and scene-processing applications.\n- Create, load, inspect, transform, and save 3D scenes with an open-source Java API.\n- Create, load, inspect, transform, and save 3D scenes.\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Project Status](#project-status)\n- [API Compatibility](#api-compatibility)\n- [Building](#building)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n## Installation\n\nInstall the package published for this repository:\n\n```xml\n<dependency>\n  <groupId>org.aspose</groupId>\n  <artifactId>aspose-3d-foss</artifactId>\n  <version>26.5.0</version>\n</dependency>\n```\n\nThe coordinate was verified against Maven Central for repository revision `8de5f467e93138b3605acdc46ca40e93f0364ee8`.\n\n",
+                "replacement_sha256": "94bc661b7151735c724bacc72734991fcc2beced2c8b8e2ffc43920523864ad4",
+                "replacement_text": "## At a glance\n\n- Java developers building 3D import, export, and scene-processing applications.\n- Create, load, inspect, transform, and save 3D scenes with an open-source Java API.\n- Create, load, inspect, transform, and save 3D scenes.\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Project Status](#project-status)\n- [API Compatibility](#api-compatibility)\n- [Building](#building)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n## Installation\n\nInstall the package published for this repository:\n\n```xml\n<dependency>\n  <groupId>org.aspose</groupId>\n  <artifactId>aspose-3d-foss</artifactId>\n  <version>26.5.0</version>\n</dependency>\n```\n\nThe coordinate was verified against Maven Central.\n\n",
                 "rollback": "Restore the exact immutable source bytes for this operation.",
                 "source_byte_end": 622,
                 "source_byte_start": 622,
@@ -4458,7 +4451,7 @@
             "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
             "schema_version": 1,
             "source_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
-            "template_sha256": "e6a3cd55fb67e3570631226f5d9d73949ba92207ceaa13bca049ccbf34159f19"
+            "template_sha256": "c102c9b0e63fb2d8d492bcf0a8a8a6a3255f54df7f5d58184080d5fab8869064"
           }
         },
         "proposal_only": true,
@@ -4488,7 +4481,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260726-045401-3d16",
+          "nonce": "20260726-050140-521b",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -4496,7 +4489,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "3ad5b3f2c492db9a9cf3b75422378519ea668d142b6934547a07651f3f5d85e1",
+          "token": "11630c5d57cf9ceb5273d4c8d0a48451fc23a6d6961f1cabcce3cb852f289389",
           "verdict": "accept"
         },
         "written": false
@@ -4504,7 +4497,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T04:54:59.314500+00:00",
+      "last_run_timestamp": "2026-07-26T05:02:34.329543+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
@@ -5435,7 +5428,7 @@
     "updated_at": "2026-07-26T05:02:29.046556+00:00"
   },
   "schema_version": 2,
-  "state_version": 470,
+  "state_version": 471,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "8068b0a1ec31b5d58cc0b454d9a9eeafbd62b18bed00daedfd920291ead37e95",
