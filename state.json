@@ -4666,7 +4666,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": {
     "assessment_hash": "f1d94edac5d353db12c09e5c924113e11ceda089fe21744695e3c3466a8302a2",
-    "candidate_hash": "af469b3378328da2c320b92c6ba3bb1c02186219e15fcea9b2a017e5b04d1d8b",
+    "candidate_hash": "df892ff3cb23ccf3f0977664ead7fc7096bc43fdbe78983f90c73e9f8977c14a",
     "details": {},
     "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
     "history": [
@@ -5547,6 +5547,21 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\8de5f467e93138b3605acdc46ca40e93f0364ee8\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\8de5f467e93138b3605acdc46ca40e93f0364ee8\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\8de5f467e93138b3605acdc46ca40e93f0364ee8\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\8de5f467e93138b3605acdc46ca40e93f0364ee8\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\8de5f467e93138b3605acdc46ca40e93f0364ee8\\candidate\\claim-map.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-26T05:16:06.799204+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "presentation_plan_hash": "907bfd21bb9fae1a7905bc6c5c1981de1b4d3b92b570490c7469deea35fef775",
@@ -5556,11 +5571,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "status": "PLAN_READY",
-    "updated_at": "2026-07-26T05:16:01.769840+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-07-26T05:16:06.799204+00:00"
   },
   "schema_version": 2,
-  "state_version": 494,
+  "state_version": 495,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ae1b65f36232bb71bf832468bccaf0ff97505b525323b16498a79620f3fef438",
