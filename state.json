@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "afae97eeb0697d5a4838941e3945f7117546cd953f3367bce28d8aac4db8d8ce",
-    "last_evaluated_at": "2026-07-26T17:50:13.736737+00:00",
+    "last_evaluated_at": "2026-07-26T17:50:31.419383+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -130,7 +130,7 @@
       "L8-TRUTH-01A-FACT-CONTRACT": "CLOSED",
       "L8-TRUTH-01B-LLM-CALL-LEDGER": "CLOSED",
       "L8-TRUTH-01C-PROMPT-HYGIENE": "CLOSED",
-      "L8-TRUTH-02-ROOT-ROLES": "IMPLEMENTED",
+      "L8-TRUTH-02-ROOT-ROLES": "VERIFIED",
       "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION": "TODO",
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "TODO",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "TODO",
@@ -1705,6 +1705,19 @@
         "reason": "Typed root roles and selected-product manifest bindings are implemented on clean commit 027383b",
         "task_id": "L8-TRUTH-02-ROOT-ROLES",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-package-root-roles/verification.json",
+          "plans/investigations/evidence/level8-package-root-roles/source-revision-and-checksums.json",
+          "plans/investigations/evidence/level8-package-root-roles/official-checks.stdout.log"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-26T17:50:31.419378+00:00",
+        "reason": "Focused, regression, safety, and clean official checks passed; real Aspose.3D .NET source selected only the distributed library",
+        "task_id": "L8-TRUTH-02-ROOT-ROLES",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -1713,7 +1726,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 194,
+  "state_version": 195,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
