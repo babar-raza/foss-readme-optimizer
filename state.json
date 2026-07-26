@@ -598,6 +598,23 @@
       "task_id": "94194ad62d1d42f2b188f640146ec9b5",
       "trigger_dedup_key": "operator:20260726-024513-ed7f:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "65ec29185da4aad27d7eee3380a39b4114206699eae4f92e20b64b78a22dceff": {
+      "action": "inspect_repository",
+      "attempt": 1,
+      "checkpoint_id": "65ec29185da4aad27d7eee3380a39b4114206699eae4f92e20b64b78a22dceff",
+      "completed_at": "2026-07-26T03:13:26.640813+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8848874b8acbf6071559280c378cbc2f13c44b035cfdfc34574996b5d7bbf133",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-030748-ddc7",
+      "schema_version": 1,
+      "stage": "task_started",
+      "started_at": "2026-07-26T03:13:26.640803+00:00",
+      "task_id": "e2eb2991a1cb4942b2f63e4cefb7d912",
+      "trigger_dedup_key": "operator:20260726-030748-ddc7:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "670aa3318b186e7bd426ad1eab54c2c05998c959299ef1b31608dbf1cba2464f": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -4414,7 +4431,7 @@
     "updated_at": "2026-07-26T03:12:01.473697+00:00"
   },
   "schema_version": 2,
-  "state_version": 342,
+  "state_version": 343,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b136913f3e269d10929cb35d9626881afa8abb5a135e2f4cd4748fcf817d5568",
@@ -4642,11 +4659,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "24ada1e424d1253f12994a2f28745d4752cb19fc0aeea8a928b6fe193b051297",
+      "last_checkpoint_id": "65ec29185da4aad27d7eee3380a39b4114206699eae4f92e20b64b78a22dceff",
       "lease_expires_at": "2026-07-26T03:23:06.465073+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T03:13:18.595652+00:00"
+      "updated_at": "2026-07-26T03:13:26.640813+00:00"
     }
   },
   "trigger_records": {},
