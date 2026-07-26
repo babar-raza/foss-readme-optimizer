@@ -50,6 +50,7 @@ from readme_agent import paths
 from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInputV1
 from readme_agent.facts import agentic_drafting
 from readme_agent.facts.agentic_drafting import DraftProductTruthV1
+from readme_agent.facts.code_normalization import normalize_generated_code
 from readme_agent.facts.interpretive_evidence import groundedness_fact_candidate
 from readme_agent.facts.local_verification import (
     LocalProductVerificationV1,
@@ -278,6 +279,18 @@ def _gate_minimal_example(
     )
 
 
+def _normalize_draft_example(draft: DraftProductTruthV1) -> DraftProductTruthV1:
+    """Normalize generated code before both verification and evidence output."""
+
+    example = draft.minimal_example
+    normalized = normalize_generated_code(example.code)
+    if normalized == example.code:
+        return draft
+    return draft.model_copy(
+        update={"minimal_example": example.model_copy(update={"code": normalized})}
+    )
+
+
 def _gate_draft(
     draft: DraftProductTruthV1,
     facts_so_far: ProductFactsV2,
@@ -377,7 +390,7 @@ def orchestrate_product_truth_draft(
     draft: DraftProductTruthV1
     gated: dict[str, FactRecordV2]
     while True:
-        draft = draft_fn(hints, current_facts)
+        draft = _normalize_draft_example(draft_fn(hints, current_facts))
         gated = _gate_draft(
             draft, current_facts, root, source_revision, observed_at, verify_example_fn
         )

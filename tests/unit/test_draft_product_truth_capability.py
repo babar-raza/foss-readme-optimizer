@@ -556,6 +556,37 @@ class TestToPolicyShape:
         assert shape["minimal_example"]["language"] == "java"
 
 
+class TestGeneratedCodeNormalization:
+    def test_orchestration_normalizes_smart_quotes_before_verification_and_output(self, tmp_path):
+        root = _make_repo(tmp_path)
+        draft = _good_draft()
+        draft = draft.model_copy(
+            update={
+                "minimal_example": draft.minimal_example.model_copy(
+                    update={"code": "var name = \u201cBox\u201d;"}
+                )
+            }
+        )
+        verified_code: list[str] = []
+
+        def verify(example):
+            verified_code.append(example.code)
+            return _always_verified_example(example)
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=lambda hints, facts: draft,
+            verify_example_fn=verify,
+        )
+
+        assert verified_code == ['var name = "Box";']
+        assert result.draft.minimal_example.code == 'var name = "Box";'
+
+
 class TestGatedFieldsExhaustive:
     def test_all_six_gated_fields_always_present_in_result(self, tmp_path):
         root = _make_repo(tmp_path)
