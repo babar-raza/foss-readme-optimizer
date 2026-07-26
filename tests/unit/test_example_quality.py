@@ -25,13 +25,28 @@ def test_python_public_attribute_and_dunder_are_allowed() -> None:
     assert generated_example_quality_failures("python", source) == []
 
 
-def test_python_example_over_six_statements_is_rejected() -> None:
-    source = "; ".join(f"value_{index} = {index}" for index in range(7))
+def test_python_example_over_eight_statements_is_rejected() -> None:
+    source = "; ".join(f"value_{index} = {index}" for index in range(9))
 
     failures = generated_example_quality_failures("python", source)
 
     assert len(failures) == 1
-    assert "7 executable statements" in failures[0]
+    assert "9 executable statements" in failures[0]
+
+
+def test_bounded_repository_example_with_eight_statements_is_allowed() -> None:
+    source = (
+        "from aspose.threed import Scene\n"
+        "from aspose.threed.formats.obj import ObjLoadOptions\n"
+        "scene = Scene()\n"
+        "options = ObjLoadOptions()\n"
+        "options.enable_materials = True\n"
+        "options.flip_coordinate_system = False\n"
+        "scene.open('model.obj', options)\n"
+        "print(scene.root_node)\n"
+    )
+
+    assert generated_example_quality_failures("python", source) == []
 
 
 def test_python_import_inventory_without_usage_is_rejected() -> None:

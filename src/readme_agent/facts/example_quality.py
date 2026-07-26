@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import ast
 
+_MAX_PYTHON_TOP_LEVEL_STATEMENTS = 8
+
 
 def generated_example_quality_failures(language: str, source: str) -> list[str]:
     """Return deterministic public-API and minimality failures for generated code.
@@ -35,10 +37,11 @@ def generated_example_quality_failures(language: str, source: str) -> list[str]:
             "minimal Python README example uses private attribute(s) "
             f"{private_attributes}; regenerate it with repository-evidenced public APIs"
         )
-    if len(tree.body) > 6:
+    if len(tree.body) > _MAX_PYTHON_TOP_LEVEL_STATEMENTS:
         failures.append(
             "minimal Python README example has "
-            f"{len(tree.body)} executable statements; regenerate it with at most 6"
+            f"{len(tree.body)} executable statements; regenerate it with at most "
+            f"{_MAX_PYTHON_TOP_LEVEL_STATEMENTS}"
         )
     imported_names: set[str] = set()
     for statement in tree.body:
