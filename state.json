@@ -1457,7 +1457,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "d1b74811b06b500e15069b013b1c310e4bde8a69d772ccd2b4291f8d09f6d3bd",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {},
@@ -1470,9 +1470,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T04:31:56.214357+00:00",
+      "last_run_timestamp": "2026-07-26T04:57:58.945021+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -2106,7 +2106,7 @@
     "updated_at": "2026-07-26T04:55:45.494771+00:00"
   },
   "schema_version": 2,
-  "state_version": 260,
+  "state_version": 261,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5f0f862cee4475c62f66c371c01f0a1867b9a27e0f934c8dca036fda4e7b809d",
