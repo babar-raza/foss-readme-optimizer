@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f",
-    "last_evaluated_at": "2026-07-26T00:36:57.095017+00:00",
+    "last_evaluated_at": "2026-07-26T00:37:03.870151+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -21,7 +21,7 @@
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
       "L8-LOCAL-FULL-REGISTRY-GATE-A": "TODO",
-      "L8-LOCAL-HETEROGENEOUS-QUALIFICATION": "SCORED",
+      "L8-LOCAL-HETEROGENEOUS-QUALIFICATION": "CLOSED",
       "L8-LOCAL-HUMAN-REVIEW-GATE-B": "TODO",
       "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "CLOSED",
       "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "CLOSED",
@@ -1110,6 +1110,18 @@
         "reason": "Three live sessions scored 157/159 overall, planner 51/51, reviewer 106/108; every governed threshold passed and no route was disabled.",
         "task_id": "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-local-heterogeneous-qualification-d30a811/independent-implementation-review.md",
+          "plans/investigations/evidence/level8-local-heterogeneous-qualification-d30a811/sha256sums.txt"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-26T00:37:03.870146+00:00",
+        "reason": "Independent evidence review confirms heterogeneous, adversarial, recovery, repair, no-op, source-build, multi-root, and route-accuracy acceptance with immutable checksum-complete proof.",
+        "task_id": "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -1118,7 +1130,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 126,
+  "state_version": 127,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
