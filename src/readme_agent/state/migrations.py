@@ -19,6 +19,40 @@ from readme_agent.state.schema import RunStateV1, RunStateV2, TriggerRecordV1
 CURRENT_RUN_STATE_SCHEMA_VERSION = 2
 
 
+def _migrate_v2_additive_fields(raw: dict[str, Any]) -> dict[str, Any]:
+    """Backfill provenance added to existing V2 fact-acceptance bindings."""
+
+    lifecycle = raw.get("readme_poc_lifecycle")
+    if not isinstance(lifecycle, dict) or lifecycle.get("schema_version") != 2:
+        return raw
+    history = lifecycle.get("fact_acceptance_history")
+    if not isinstance(history, list):
+        return raw
+    migrated_history: list[Any] = []
+    changed = False
+    for binding in history:
+        if not isinstance(binding, dict):
+            migrated_history.append(binding)
+            continue
+        migrated_binding = dict(binding)
+        if "source_revision" not in migrated_binding:
+            migrated_binding["source_revision"] = lifecycle.get("source_revision")
+            changed = True
+        if "facts_hash" not in migrated_binding:
+            migrated_binding["facts_hash"] = lifecycle.get("facts_hash")
+            changed = True
+        migrated_history.append(migrated_binding)
+    if not changed:
+        return raw
+    return {
+        **raw,
+        "readme_poc_lifecycle": {
+            **lifecycle,
+            "fact_acceptance_history": migrated_history,
+        },
+    }
+
+
 def _legacy_envelope(trigger: TriggerRecordV1) -> TriggerEnvelopeV2:
     dedup_key = trigger.dedup_key()
     provider_event_id = (
@@ -96,7 +130,7 @@ def load_run_state_json(payload: str) -> RunStateV2:
             f"this runner supports up to {CURRENT_RUN_STATE_SCHEMA_VERSION}"
         )
     try:
-        return RunStateV2.model_validate(raw)
+        return RunStateV2.model_validate(_migrate_v2_additive_fields(raw))
     except ValidationError as exc:
         raise StateBackendError(f"RunStateV2 validation failed: {exc}") from exc
 

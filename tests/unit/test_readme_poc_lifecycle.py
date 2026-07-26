@@ -998,6 +998,36 @@ class TestMigrationFromStateWithoutTheNewField:
         assert result.status == "SNAPSHOTTED"
         assert result.history[0].from_status == "DISCOVERED"
 
+    def test_old_fact_acceptance_binding_gains_parent_provenance_during_load(self):
+        old_v2_snapshot = {
+            "schema_version": 2,
+            "org_repo": "org/repo",
+            "state_version": 5,
+            "readme_poc_lifecycle": {
+                "schema_version": 2,
+                "status": "NO_OP_PROVEN",
+                "source_revision": "a" * 40,
+                "facts_hash": "facts-a",
+                "fact_acceptance_history": [
+                    {
+                        "schema_version": 1,
+                        "contract_hash": "c" * 64,
+                        "component_hashes": {"fact_schema": "d" * 64},
+                        "outcome": "FACTS_READY",
+                        "observed_by": "legacy-runner",
+                        "reason": "accepted before provenance fields were added",
+                    }
+                ],
+            },
+        }
+
+        loaded = load_run_state_json(json.dumps(old_v2_snapshot))
+        lifecycle = loaded.readme_poc_lifecycle
+        assert isinstance(lifecycle, ReadmePocLifecycleStateV2)
+        binding = lifecycle.fact_acceptance_history[0]
+        assert binding.source_revision == "a" * 40
+        assert binding.facts_hash == "facts-a"
+
     def test_old_run_manifest_v3_dict_without_the_fields_still_validates(self):
         old_manifest = {
             "run_id": "run-0",
