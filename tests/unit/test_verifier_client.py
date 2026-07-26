@@ -245,6 +245,43 @@ class TestLiveForcedToolClientRetry:
 
         assert calls["n"] == 2
 
+    def test_malformed_arguments_report_truncation_metadata(self, monkeypatch):
+        monkeypatch.setattr(
+            verifier_client,
+            "_MAX_RESPONSE_ATTEMPTS",
+            1,
+        )
+        monkeypatch.setattr(
+            verifier_client.requests,
+            "post",
+            lambda url, json, headers, timeout: FakeResponse(
+                200,
+                {
+                    "choices": [
+                        {
+                            "finish_reason": "length",
+                            "message": {
+                                "tool_calls": [
+                                    {
+                                        "id": "call1",
+                                        "function": {
+                                            "name": "report_prose_quality_finding",
+                                            "arguments": '{"flagged":',
+                                        },
+                                    }
+                                ]
+                            },
+                        }
+                    ],
+                    "usage": {"completion_tokens": 4000},
+                },
+            ),
+        )
+        client = LiveForcedToolClient("https://example/v1", "key", "qwen3-next")
+
+        with pytest.raises(LLMError, match="finish_reason='length'.*completion_tokens=4000"):
+            client.call([], TOOL_SCHEMA)
+
     def test_retries_on_503_then_succeeds(self, monkeypatch):
         calls = {"n": 0}
         body = {

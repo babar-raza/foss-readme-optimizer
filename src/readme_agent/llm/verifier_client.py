@@ -158,7 +158,13 @@ class LiveForcedToolClient:
         try:
             arguments = json.loads(function.get("arguments") or "{}")
         except json.JSONDecodeError as exc:
-            raise LLMError(f"forced tool call arguments were not valid JSON: {exc}") from exc
+            finish_reason = choices[0].get("finish_reason")
+            completion_tokens = (body.get("usage") or {}).get("completion_tokens")
+            raise LLMError(
+                "forced tool call arguments were not valid JSON: "
+                f"{exc}; finish_reason={finish_reason!r}; "
+                f"completion_tokens={completion_tokens!r}"
+            ) from exc
 
         raw_usage = body.get("usage") or {}
         usage = (

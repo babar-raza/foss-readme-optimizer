@@ -86,8 +86,15 @@ _MODEL_ROUTE_JOB = "draft_product_truth"
 # capabilities list (24 real entries against aspose-cells-foss) showed this
 # job's real completion size scales with how much real evidence the model
 # is actually given -- the same reasoning behind `MAX_CONTEXT_CHARS`'s own
-# increase just above.
-_MAX_RESPONSE_TOKENS = 4000
+# increase just above. The first real full-portfolio sweep then produced
+# three independently truncated tool-argument objects at 3.5-5k output
+# characters under the 4,000-token setting (Python, C++, and another Python
+# repository). Qwen's routed reasoning consumes part of the completion
+# budget, so the visible JSON length is not the token budget. Eight thousand
+# leaves the same bounded context headroom while allowing the complete
+# structured payload to survive; the forced-tool client still retries one
+# malformed structured response and fails closed after that.
+_MAX_RESPONSE_TOKENS = 8000
 
 # Bounded repo-context budget (RPOC-033): stays well inside qwen3-next's own
 # proven-safe ~71k-token context ceiling (`plans/investigations/
