@@ -2322,7 +2322,7 @@
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "fdd011194cc5666278435ce29ad54f2e220c8e2e51c083135f7f5be5a7766f45",
+      "accepted_facts_hash": "3c53b30dc2258e209b5763cd858651bd89049d4f72dec671ea535d6ea4e6a706",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -2335,56 +2335,56 @@
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph and subsequent 'About' section explicitly state the audience (Java developers), ecosystem (Java), and common tasks (working with 3D scenes/models), including format scope (open 3D formats).",
+            "note": "The opening paragraph and 'About Aspose.3D FOSS' section explicitly state the audience (Java developers), ecosystem (Java), and common tasks (building 3D applications, loading/saving 3D files).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT License (in both header and footer), and badges for build status (implied via Maven) and registry presence (Maven Central coordinates are referenced in the 'Building' section).",
+            "note": "The README includes a visible, GitHub-recognized MIT License (in both the header and a dedicated 'License' section), and badges for build status and version are present in the repository (implied by Maven build instructions and versioned API compatibility).",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The README mentions Maven but does not provide actual Maven Central coordinates (e.g., groupId, artifactId, version) or a working `<dependency>` block that resolves on Maven Central \u2014 only build commands are given.",
+            "note": "The README provides Maven build instructions but does not state the actual package coordinates (groupId, artifactId, version) required to resolve against Maven Central, nor does it include a working install command that resolves against a real registry.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "The 'Usage' section includes a runnable, self-contained code example (import, Scene instantiation, load, and save) beyond the minimal install snippet.",
+            "note": "The 'Usage' section includes a runnable code block beyond the install snippet, demonstrating loading and saving a 3D file.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent Markdown levels (## for main sections), and the order follows the expected sequence: product description \u2192 features/status \u2192 build/install \u2192 usage \u2192 examples \u2192 contributing \u2192 license \u2192 resources.",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows the expected intent: product description \u2192 features \u2192 status \u2192 API compatibility \u2192 build \u2192 usage \u2192 contributing \u2192 license \u2192 resources.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, and for a 3D API library, the absence of a diagram showing input\u2192transformation\u2192output would be appropriate \u2014 but the current lack of visuals is not a violation since none are present and none are misused.",
+            "note": "No visuals are present, which is appropriate for a library whose interface is purely API-based; the standard allows this omission when visuals do not improve understanding.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README mentions contributing, but GitHub's quick-link row likely shows only README and License \u2014 missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files means it fails the 'GitHub-recognized' requirement for full community-file presence.",
+            "note": "The repository is missing GitHub-recognized community files: LICENSE is present but not in the root README (it's referenced), and there is no visible CONTRIBUTING or CODE_OF_CONDUCT file mentioned or linked in the README.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README references 'Project Status' and links to TODO.md and FILE_FORMATS.md, implying active development; while not explicit, this is sufficient given the repository's nature as a port and the presence of versioned API compatibility info.",
+            "note": "The README references a TODO.md and FILE_FORMATS.md, and includes API versioning (26.1.0), indicating active maintenance; GitHub would show recent activity via commit history and releases.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears twice: once in the header (as a home-page link) and again in the 'Resources' section (two full subsections with 12+ links), violating the rule of exactly one mention in factual/capability-extension language.",
+            "note": "The commercial mention appears multiple times (in the header, 'About', and the Resources section), and the Resources section is overly promotional with dense outbound links \u2014 violating the rule of exactly one mention in factual/capability-extension language.",
             "satisfied": false
           }
         ],
-        "overall_summary": "The README satisfies most dimensions (product clarity, audience fit, trust signals, verified examples, navigation, maintenance signals), but fails on installation path (no resolvable Maven coordinates), contribution readiness (missing recognized community files), and natural commercial context (excessive, repeated commercial promotion)."
+        "overall_summary": "The README satisfies most dimensions (product clarity, audience fit, trust signals, verified examples, navigation, visual usefulness, and maintenance signals), but fails on installation path (no real registry coordinates), contribution readiness (missing community files), and natural commercial context (overly frequent and promotional commercial mentions)."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T03:12:56.192683+00:00",
+      "last_run_timestamp": "2026-07-26T03:33:39.568386+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
@@ -4976,7 +4976,7 @@
     "updated_at": "2026-07-26T03:32:43.656149+00:00"
   },
   "schema_version": 2,
-  "state_version": 390,
+  "state_version": 391,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "501d93344b3a21d4221aaafde9abf43f582169a4b9317b01d80a4177ed206fde",
