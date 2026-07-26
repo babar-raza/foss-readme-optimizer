@@ -1490,14 +1490,437 @@ taskcards:
   - A representative multi-ecosystem registry completes through the same supervise path.
   - Interrupted work resumes without duplicate LLM calls, bundles, or remote effects.
   requirement_ids: []
+- task_id: L8-TRUTH-01-STAGE-LIMIT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Stop the canonical portfolio runtime at an explicit lifecycle boundary
+  source_audit_finding: The product-truth task currently invokes composition, live review, repair, and
+    no-op because local_poc has no stage ceiling.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Add a typed stage limit to the existing supervise runtime so a registry run can stop honestly
+    at FACTS_READY without invoking later phases.
+  why_it_matters: Later-phase defects and contract churn must not multiply while product truth is still
+    being qualified.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-PORTFOLIO-RUNTIME
+  expected_outputs:
+  - Typed stage-limit contract
+  - facts-only portfolio summary
+  - zero-review-call evidence
+  acceptance_checks:
+  - The public supervisor reaches FACTS_READY and stops
+  - no composition or reviewer capability runs
+  verification:
+  - CLI/profile unit tests
+  - heterogeneous fixture registry integration test
+  negative_controls:
+  - A stage-limited run cannot claim AGENT_APPROVED or Gate A
+  regression_checks:
+  - Supervisor
+  - lifecycle
+  - profile
+  - allow-list
+  - and push-blocking suites
+  evidence_requirements:
+  - Command
+  - HEAD
+  - stage summary
+  - capability-call inventory
+  - checksums
+  rollback_or_recovery: Remove only the additive stage selector and retain existing lifecycle records.
+  failure_reroute: Repair the canonical runtime boundary before any further portfolio call.
+  closeout_rules:
+  - One real read-only representative stops at FACTS_READY with no later-stage artifacts
+  requirement_ids:
+  - L8-015
+- task_id: L8-TRUTH-02-ROOT-ROLES
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Bind product facts to role-classified package roots
+  source_audit_finding: Multi-root repositories allowed converter, test, and tooling manifests to override
+    distributed-product compatibility and acquisition facts.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Classify product, test, sample, converter, generator, benchmark, build-tool, and unknown
+    roots and select the distributed product root deterministically.
+  why_it_matters: Visitor claims must describe the acquired product, not incidental tooling.
+  allowed_paths:
+  - src/readme_agent/facts/
+  - src/readme_agent/ecosystems/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-TRUTH-01-STAGE-LIMIT
+  expected_outputs:
+  - Typed root-role records
+  - selected product-root evidence
+  - compatibility and acquisition bindings
+  acceptance_checks:
+  - Non-product roots cannot silently supply visitor-facing product facts
+  verification:
+  - Real .NET multi-root regression plus Java and Python controls
+  negative_controls:
+  - A newer converter target framework cannot become the library compatibility claim
+  regression_checks:
+  - Repository profiling
+  - facts resolution
+  - and ecosystem adapter suites
+  evidence_requirements:
+  - Root inventory
+  - role rationale
+  - selected root
+  - source revision
+  - checksums
+  rollback_or_recovery: Fall back to an explicit unknown role and block only dependent facts.
+  failure_reroute: Improve role evidence rather than add repository-specific branches.
+  closeout_rules:
+  - Every representative root is typed and the distributed root is reproducible
+  requirement_ids: []
+- task_id: L8-TRUTH-03-CLAIM-POLARITY
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Enforce directional evidence for capabilities and limitations
+  source_audit_finding: Positive symbol existence was previously used to draft negative limitation claims
+    with the opposite meaning.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Require positive implementation evidence for capabilities and explicit constraint evidence
+    for limitations.
+  why_it_matters: Provenance location alone does not prove the direction of a claim.
+  allowed_paths:
+  - src/readme_agent/facts/
+  - tests/
+  - prompts/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-TRUTH-02-ROOT-ROLES
+  expected_outputs:
+  - Polarity contract
+  - accepted constraint anchors
+  - contradiction findings
+  acceptance_checks:
+  - No selected limitation is supported only by a matching positive symbol
+  verification:
+  - Real .NET limitation evidence and synthetic opposite-polarity controls
+  negative_controls:
+  - Shared vocabulary cannot prove unsupported
+  - incomplete
+  - only
+  - or out-of-scope
+  regression_checks:
+  - Fact gating
+  - policy evidence
+  - and interpretive drafting suites
+  evidence_requirements:
+  - Exact excerpt
+  - source path/revision
+  - polarity classification
+  - fact ID
+  rollback_or_recovery: Downgrade only the affected fact to blocked or missing.
+  failure_reroute: Refresh directional evidence before composition.
+  closeout_rules:
+  - Every selected capability and limitation has directionally valid evidence
+  requirement_ids: []
+- task_id: L8-TRUTH-04-ACQUISITION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Verify package coordinates or exact source acquisition
+  source_audit_finding: Known false coordinates and unpublished packages require ecosystem-specific registry
+    or source-build truth.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Select a registry-verified coordinate when published and a reproducible source-build path
+    otherwise.
+  why_it_matters: Installation is a core README obligation and false acquisition guidance is a critical
+    defect.
+  allowed_paths:
+  - src/readme_agent/facts/
+  - src/readme_agent/ecosystems/
+  - tests/
+  - templates/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-TRUTH-03-CLAIM-POLARITY
+  expected_outputs:
+  - Acquisition outcomes for each ecosystem
+  - exact commands
+  - registry receipts or source-build proof
+  acceptance_checks:
+  - False coordinates cannot reach FACTS_READY
+  - unpublished packages with verified builds are not globally blocked
+  verification:
+  - Cells Maven negative case plus NuGet
+  - Python
+  - TypeScript
+  - C++
+  - Go
+  - and Rust controls
+  negative_controls:
+  - README or policy prose alone cannot verify a package
+  regression_checks:
+  - Acquisition
+  - package-registry
+  - redaction
+  - and retry suites
+  evidence_requirements:
+  - Registry response or build command
+  - revision
+  - dependency lock
+  - checksums
+  rollback_or_recovery: Invalidate only installation-dependent facts and retain unrelated truth.
+  failure_reroute: Retry the ecosystem verifier or emit an exact essential-fact handoff.
+  closeout_rules:
+  - Each representative has one truthful acquisition result
+  requirement_ids: []
+- task_id: L8-TRUTH-05-PUBLIC-EXAMPLES
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Verify public minimal examples in every supported ecosystem
+  source_audit_finding: Live .NET and Python runs admitted a missing namespace and a private API despite
+    plausible example text.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs
+    for selected examples.
+  why_it_matters: Visitor code must work, not merely look plausible.
+  allowed_paths:
+  - src/readme_agent/facts/
+  - src/readme_agent/ecosystems/
+  - tests/
+  - .github/workflows/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-TRUTH-04-ACQUISITION
+  expected_outputs:
+  - ExampleVerification records and isolated commands for seven ecosystems
+  acceptance_checks:
+  - Unresolved
+  - private
+  - uncompiled
+  - or secret-dependent examples cannot become verified
+  verification:
+  - One real Java
+  - .NET
+  - Python
+  - TypeScript
+  - C++
+  - Go
+  - and Rust example
+  negative_controls:
+  - Textual symbol occurrence is not compile or execution proof
+  regression_checks:
+  - Example quality
+  - execution
+  - toolchain
+  - timeout
+  - and cleanup suites
+  evidence_requirements:
+  - Source
+  - command
+  - toolchain version
+  - stdout/stderr classification
+  - checksum
+  rollback_or_recovery: Select another repository example or keep the example fact narrowly blocked.
+  failure_reroute: Repair the ecosystem verifier before drafting prose.
+  closeout_rules:
+  - Seven public examples pass or have exact ecosystem capability gaps
+  requirement_ids: []
+- task_id: L8-TRUTH-06-INTERPRETIVE-VIEWS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Ground interpretive facts and expose visitor-facing render views
+  source_audit_finding: Internal enum values, repository slugs, manifest keys, and sentence fragments
+    leaked into candidate prose.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Ground audience and problem statements with citations and make typed render views the only
+    prose-eligible fact interface.
+  why_it_matters: Provenance-valid internal data can still be presentation-invalid.
+  allowed_paths:
+  - src/readme_agent/facts/
+  - tests/
+  - prompts/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-TRUTH-05-PUBLIC-EXAMPLES
+  expected_outputs:
+  - Grounded interpretive facts
+  - render-view schemas
+  - internal-token rejection
+  acceptance_checks:
+  - Only grammatical
+  - cited visitor text is eligible for composition
+  verification:
+  - Java raw-token
+  - TypeScript audience-sentence
+  - and identity controls
+  negative_controls:
+  - No arbitrary nested-value flattening or slug-to-prose conversion
+  regression_checks:
+  - Agentic drafting
+  - interpretive evidence
+  - render-view
+  - and redaction suites
+  evidence_requirements:
+  - Draft prompt hash
+  - citations
+  - groundedness result
+  - render view
+  - checksum
+  rollback_or_recovery: Preserve the fact graph and withhold only its invalid render view.
+  failure_reroute: Redraft or narrow the interpretive field without inventing policy approval.
+  closeout_rules:
+  - Every selected interpretive fact has a validated visitor-facing view
+  requirement_ids: []
+- task_id: L8-TRUTH-07-SEVEN-ECOSYSTEMS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Prove product truth on seven real ecosystem representatives
+  source_audit_finding: Individual fixes exist without one current same-contract heterogeneous fact campaign.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run the facts-only canonical supervisor for one real Java, .NET, Python, TypeScript, C++,
+    Go, and Rust repository.
+  why_it_matters: Fixture success cannot establish real repository truth.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-TRUTH-06-INTERPRETIVE-VIEWS
+  expected_outputs:
+  - Seven revision-addressed FACTS_READY bundles and representative summary
+  acceptance_checks:
+  - Zero agent-fixable fact failures and no later lifecycle stage invoked
+  verification:
+  - Independent schema
+  - citation
+  - acquisition
+  - example
+  - redaction
+  - and checksum reproduction
+  negative_controls:
+  - A candidate or review verdict cannot substitute for fact proof
+  regression_checks:
+  - Focused official fact and safety checks against the committed HEAD
+  evidence_requirements:
+  - One command per representative
+  - environment versions
+  - manifests
+  - SHA-256 inventory
+  rollback_or_recovery: Resume only the failed representative from its last valid fact checkpoint.
+  failure_reroute: Reopen the first responsible truth task.
+  closeout_rules:
+  - All seven representatives are FACTS_READY under one fact contract
+  requirement_ids: []
+- task_id: L8-TRUTH-08-FULL-REGISTRY
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Complete the full-registry product-truth preflight
+  source_audit_finding: Only ten repository manifest directories exist for a dynamic denominator of 31
+    and later-stage failures obscure fact coverage.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run every current registry entry only through FACTS_READY and classify any essential external
+    fact blocks exactly.
+  why_it_matters: Composition should begin only after the portfolio truth surface is known.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-TRUTH-07-SEVEN-ECOSYSTEMS
+  expected_outputs:
+  - Dynamic full-registry fact summary
+  - per-repository fact manifests
+  - narrow block inventory
+  acceptance_checks:
+  - FACTS_READY plus exact external blocks equals the runtime denominator
+  - agent-fixable failures equal zero
+  verification:
+  - Independent registry/manifest reconciliation and checksum reproduction
+  negative_controls:
+  - Missing optional facts cannot block unrelated truth or be converted to prose
+  regression_checks:
+  - Cancellation/resume
+  - per-repository isolation
+  - no-write
+  - and evidence-corruption controls
+  evidence_requirements:
+  - Frozen registry hash
+  - result per repository
+  - complete SHA-256 inventory
+  rollback_or_recovery: Re-run only entries invalidated by source or fact-contract change.
+  failure_reroute: Reopen the exact upstream truth child and continue unaffected entries.
+  closeout_rules:
+  - The product-truth aggregate can close from complete portfolio evidence
+  requirement_ids: []
 - task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
   title: Produce provenance-complete local product truth for every repository
-  source_audit_finding: >-
-    Live Gate-A execution proved that provenance-valid facts can still be presentation-invalid:
-    internal enum/classification values leaked into the Java overview, .NET example evidence omitted
-    a required type/namespace, and Python example evidence admitted a private API.
+  source_audit_finding: 'Live Gate-A execution proved that provenance-valid facts can still be presentation-invalid:
+    internal enum/classification values leaked into the Java overview, .NET example evidence omitted a
+    required type/namespace, and Python example evidence admitted a private API.'
   audit_classification: partially_done
   priority: P0
   lane: local-product-truth
@@ -1519,7 +1942,7 @@ taskcards:
   - plans/master.md
   - production target repository remotes
   dependencies:
-  - L8-LOCAL-PORTFOLIO-RUNTIME
+  - L8-TRUTH-08-FULL-REGISTRY
   expected_outputs:
   - Snapshot-to-facts typed data flow and isolated package/example verification.
   - Provenance, conflicts, confidence, ownership, and product-agent reconciliation records.
@@ -1536,8 +1959,8 @@ taskcards:
   - Java, .NET, Python, TypeScript, C++, Go, and Rust representative proof.
   negative_controls:
   - Policy-only or README-only assertions cannot become verified product facts.
-  - A plausible but uncompiled example, unresolved symbol, private member, or internal taxonomy token is
-    never promoted as verified content.
+  - A plausible but uncompiled example, unresolved symbol, private member, or internal taxonomy token
+    is never promoted as verified content.
   regression_checks:
   - Facts schema, resolution, acquisition, example, and redaction tests.
   evidence_requirements:
@@ -1550,14 +1973,518 @@ taskcards:
     visible essential-fact block.
   - Real Java, .NET, and Python regression bundles pass, not only synthetic fact fixtures.
   requirement_ids: []
+- task_id: L8-COMPOSE-00-CHARACTERIZE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Characterize the active README composition seams before decomposition
+  source_audit_finding: Renderer and agentic-composition modules exceed the repository organization threshold
+    and mix independent editorial concerns.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Freeze public inputs, outputs, candidate bytes, plan hashes, and known failure fixtures before
+    structural extraction.
+  why_it_matters: Further presentation fixes must not increase an already high-coupling failure surface.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - tests/unit/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  expected_outputs:
+  - Responsibility-specific modules
+  - unchanged public API
+  - updated architecture map
+  acceptance_checks:
+  - No moved behavior changes candidate bytes or plan hashes for frozen fixtures
+  verification:
+  - Focused renderer/composition tests and snapshot comparisons
+  negative_controls:
+  - No repository-specific branch or second orchestration path
+  regression_checks:
+  - Document plan
+  - candidate pipeline
+  - marker
+  - and composition suites
+  evidence_requirements:
+  - Before/after module map
+  - candidate hashes
+  - test results
+  rollback_or_recovery: Revert the extraction as one behavior-preserving slice.
+  failure_reroute: Repair seam parity before editorial changes.
+  closeout_rules:
+  - Touched non-wiring modules have one responsibility and tests mirror the split
+  requirement_ids: []
+- task_id: L8-COMPOSE-01A-SECTION-REGRESSIONS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Freeze existing-section reconciliation regressions
+  source_audit_finding: Real .NET verified limitations were absent because the renderer skipped an existing
+    partial limitations section.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Capture failing real and synthetic cases for partial limitations, examples, installation,
+    and overview sections before implementation.
+  why_it_matters: The system must reconcile existing content rather than only add missing headings.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - tests/unit/
+  - templates/readme/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-01-DECOMPOSE
+  expected_outputs:
+  - Bounded fact-cited section operations and partial-section regression fixtures
+  acceptance_checks:
+  - Verified facts are present once
+  - maintainer content is preserved unless authoritatively corrected
+  verification:
+  - Real .NET limitations plus existing-section unit and protected-content tests
+  negative_controls:
+  - Appending an exact fact cannot create a semantic duplicate or contradictory pair
+  regression_checks:
+  - Document reconstruction
+  - citations
+  - fingerprints
+  - and patch application
+  evidence_requirements:
+  - Original
+  - operations
+  - candidate
+  - validation result
+  - checksums
+  rollback_or_recovery: Restore the exact immutable source span and reopen only the section operation.
+  failure_reroute: Route fact polarity upstream and operation defects locally.
+  closeout_rules:
+  - Commit a6db18c is accepted only after real .NET and duplicate-content proof
+  requirement_ids: []
+- task_id: L8-COMPOSE-02A-OPERATION-REGRESSIONS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Freeze assessment-to-operation negative controls
+  source_audit_finding: An agentic Usage repair was previously advisory while the executable plan preserved
+    the defect and inserted a competing example.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Capture advisory-decision, competing-example, stale-span, and reconstruction failures before
+    tightening operation coverage.
+  why_it_matters: A plan that does not control the candidate is not repository management.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - tests/unit/
+  - prompts/generation/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-02-EXISTING-SECTIONS
+  expected_outputs:
+  - Complete operation coverage record
+  - source hashes
+  - native patch
+  - claim map
+  acceptance_checks:
+  - Every non-preserve disposition changes an authorized span or fails closed
+  verification:
+  - Usage replacement
+  - move/remove/update
+  - reconstruction
+  - and stale-span tests
+  negative_controls:
+  - Decorative decisions and free-form edits outside the owned span are rejected
+  regression_checks:
+  - Assessment
+  - operation coverage
+  - renderer
+  - and validation suites
+  evidence_requirements:
+  - Assessment-to-operation mapping and byte-identical reconstruction
+  rollback_or_recovery: Reopen the first uncovered decision.
+  failure_reroute: Send unsupported claims to truth and executable gaps to composition.
+  closeout_rules:
+  - Plan intent
+  - patch
+  - candidate
+  - and claim map agree exactly
+  requirement_ids: []
+- task_id: L8-COMPOSE-03A-PRESENTATION-CORPUS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Build the visitor-defect presentation corpus
+  source_audit_finding: Live candidates exposed raw tokens, fragments, duplicate capabilities, competing
+    examples, and promotional imbalance.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Freeze real and synthetic raw-token, duplication, competing-example, identity, navigation,
+    and ordering defects with expected spans.
+  why_it_matters: Schema and citation validity do not imply a presentable README.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - src/readme_agent/verification/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-03-OPERATION-COVERAGE
+  expected_outputs:
+  - Presentation lint findings with exact spans and stable IDs
+  acceptance_checks:
+  - Every known critical visitor defect is rejected before an LLM reviewer call
+  verification:
+  - Real Java/Python negatives
+  - prompt injection
+  - strong-content
+  - and cross-product controls
+  negative_controls:
+  - No universal template or product-name allowlist masquerades as specificity
+  regression_checks:
+  - Bundle verifier
+  - protected content
+  - factuality
+  - and validation suites
+  evidence_requirements:
+  - Fixture inventory
+  - expected findings
+  - deterministic results
+  rollback_or_recovery: Disable only a false-positive lint rule after a governed regression case.
+  failure_reroute: Repair the earliest fact, operation, or lint rule.
+  closeout_rules:
+  - Known critical defects have zero deterministic false accepts
+  requirement_ids: []
+- task_id: L8-COMPOSE-04A-CANDIDATE-FIXTURES
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Freeze seven representative candidate inputs
+  source_audit_finding: Candidate generation was mixed with review, preventing isolated qualification
+    of the composition boundary.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Freeze immutable source revisions, fact bundles, and expected composition obligations for
+    seven real representatives.
+  why_it_matters: Composition must be proven before reviewer behavior can mask or multiply its defects.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-COMPOSE-04-PRESENTATION-LINT
+  expected_outputs:
+  - Seven original/facts/assessment/plan/candidate/patch/claim-map bundles
+  acceptance_checks:
+  - Every bundle validates deterministically and is materially repository-specific
+  verification:
+  - Independent reconstruction
+  - native patch apply
+  - specificity
+  - and checksum checks
+  negative_controls:
+  - No reviewer verdict or candidate existence substitutes for composition acceptance
+  regression_checks:
+  - No-write
+  - cancellation/resume
+  - and artifact idempotency controls
+  evidence_requirements:
+  - Frozen inputs
+  - outputs
+  - command
+  - environment
+  - SHA-256 inventory
+  rollback_or_recovery: Resume the failed representative at its earliest invalid composition stage.
+  failure_reroute: Reopen the responsible composition child.
+  closeout_rules:
+  - All seven candidates pass deterministic composition acceptance
+  requirement_ids: []
+- task_id: L8-COMPOSE-01-DECOMPOSE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Split active README composition responsibilities before extension
+  source_audit_finding: Active renderer and composition modules exceed the governed size boundary and
+    combine multiple responsibilities.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Split renderer and agentic-composition responsibilities behind unchanged public seams before
+    adding editorial behavior.
+  why_it_matters: Smaller independently tested modules reduce regression and repair cost on the critical
+    path.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - tests/unit/
+  - docs/architecture.md
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-00-CHARACTERIZE
+  expected_outputs:
+  - Responsibility-sized modules
+  - updated module map
+  - mirrored focused tests
+  acceptance_checks:
+  - No behavior change and no new non-wiring module exceeds the governed responsibility boundary
+  verification:
+  - Public-seam characterization tests and renderer/composition regressions
+  negative_controls:
+  - No private cross-module imports or second orchestration path
+  regression_checks:
+  - Document planning
+  - rendering
+  - composition
+  - and candidate-pipeline suites
+  evidence_requirements:
+  - Before/after module map
+  - commands
+  - results
+  - diff
+  - checksums
+  rollback_or_recovery: Revert only the structural split while preserving characterized behavior.
+  failure_reroute: Repair seam mismatch before editorial work.
+  closeout_rules:
+  - Public outputs and hashes remain identical for the characterization corpus
+  requirement_ids: []
+- task_id: L8-COMPOSE-02-EXISTING-SECTIONS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Reconcile verified facts with existing README sections
+  source_audit_finding: Existing limitations, installation, overview, and usage sections can be preserved
+    incompletely or duplicated by additive operations.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Preserve maintainer content while adding only missing verified facts and correcting only
+    evidence-backed contradictions.
+  why_it_matters: The system must improve strong and partial READMEs without duplication or silent loss.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - tests/
+  - templates/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-01A-SECTION-REGRESSIONS
+  expected_outputs:
+  - Section reconciliation rules
+  - protected-content rationale
+  - bounded operations
+  acceptance_checks:
+  - Existing valuable bytes remain or have an exact evidence-backed correction
+  verification:
+  - Real .NET partial-limitations case plus installation
+  - overview
+  - and usage controls
+  negative_controls:
+  - No duplicate limitations or examples and no unsupported deletion
+  regression_checks:
+  - Assessment
+  - protected-content
+  - document-plan
+  - and renderer suites
+  evidence_requirements:
+  - Source spans
+  - fact IDs
+  - operation rationale
+  - candidate diff
+  - checksums
+  rollback_or_recovery: Reopen only the affected section operation.
+  failure_reroute: Send false facts upstream and operation defects to composition repair.
+  closeout_rules:
+  - Every changed existing section has complete fact and ownership justification
+  requirement_ids: []
+- task_id: L8-COMPOSE-03-OPERATION-COVERAGE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Compile every actionable assessment into bounded document operations
+  source_audit_finding: The Java agentic plan required a Usage repair but the executable plan only inserted
+    a competing example.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Reject any actionable assessment without a candidate-producing source-span operation and
+    independently reconstruct the result.
+  why_it_matters: Advisory plan prose is not autonomous README management.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - src/readme_agent/presentation/
+  - tests/
+  - prompts/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-02A-OPERATION-REGRESSIONS
+  expected_outputs:
+  - Decision-to-operation map
+  - hash-guarded operations
+  - native patch
+  - reconstruction proof
+  acceptance_checks:
+  - Every non-preserve decision changes or intentionally removes the exact governed span
+  verification:
+  - Plan coverage
+  - stale-span
+  - patch-apply
+  - and immutable reconstruction tests
+  negative_controls:
+  - Decorative decisions and free-form unbounded edits fail closed
+  regression_checks:
+  - Agentic composition
+  - document operations
+  - and presentation-plan suites
+  evidence_requirements:
+  - Assessment
+  - operation map
+  - source/candidate hashes
+  - native patch
+  rollback_or_recovery: Drop the invalid operation and reopen the responsible assessment.
+  failure_reroute: Repair the first uncovered decision before candidate acceptance.
+  closeout_rules:
+  - Candidate bytes are exactly reproducible from immutable source and operations
+  requirement_ids: []
+- task_id: L8-COMPOSE-04-PRESENTATION-LINT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Enforce visitor-facing README specificity and coherence
+  source_audit_finding: A live approved Java candidate exposed raw taxonomy values, duplicate bullets,
+    and competing examples.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Deterministically reject internal tokens, semantic duplicates, competing examples, cross-product
+    leakage, malformed navigation, and promotional imbalance.
+  why_it_matters: Technically grounded text can still be unpresentable to a repository visitor.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - src/readme_agent/validation/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-03A-PRESENTATION-CORPUS
+  expected_outputs:
+  - Presentation lint registry entries and defect-specific findings
+  acceptance_checks:
+  - Known Java and Python visitor-facing defects fail before independent review
+  verification:
+  - Real-output regressions plus malformed
+  - prompt-injected
+  - and strong-content fixtures
+  negative_controls:
+  - No universal template or cross-product prose can pass
+  regression_checks:
+  - Validation registry
+  - Markdown structure
+  - protected-content
+  - and specificity suites
+  evidence_requirements:
+  - Rule inventory
+  - defect spans
+  - expected/actual verdicts
+  - checksums
+  rollback_or_recovery: Disable only a demonstrably false-positive rule and retain its evidence.
+  failure_reroute: Repair the originating fact or operation rather than waive the defect.
+  closeout_rules:
+  - All known critical presentation defects are deterministic failures
+  requirement_ids: []
+- task_id: L8-COMPOSE-05-SEVEN-CANDIDATES
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Produce deterministic candidates for seven real ecosystems
+  source_audit_finding: No frozen same-contract heterogeneous candidate set proves composition independently
+    of review.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run the stage-limited canonical supervisor through deterministic validation for one real
+    representative per supported ecosystem.
+  why_it_matters: Composition must be qualified before reviewer behavior can mask or multiply its defects.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-COMPOSE-04A-CANDIDATE-FIXTURES
+  expected_outputs:
+  - Seven source
+  - plan
+  - candidate
+  - patch
+  - claim-map
+  - and deterministic-validation bundles
+  acceptance_checks:
+  - Every candidate is repository-specific and byte-reconstructable with zero deterministic failures
+  verification:
+  - Independent bundle reconstruction and cross-ecosystem comparison
+  negative_controls:
+  - No review verdict can substitute for deterministic candidate proof
+  regression_checks:
+  - Committed focused checks at the recorded HEAD
+  evidence_requirements:
+  - Reproduction commands
+  - versions
+  - manifests
+  - SHA-256 inventory
+  rollback_or_recovery: Resume only the invalidated representative and stage.
+  failure_reroute: Reopen the first responsible composition child.
+  closeout_rules:
+  - Seven deterministic candidates pass under one composition contract
+  requirement_ids: []
 - task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
   title: Assess and compose repository-specific README candidates
-  source_audit_finding: >-
-    The first live approved Java bundle proved that the agentic plan is partly advisory: it required
-    replacing an unverified Usage example, while the executable plan only inserted a second example
-    and preserved the original; literal fact flattening also produced duplicate/raw bullets.
+  source_audit_finding: 'The first live approved Java bundle proved that the agentic plan is partly advisory:
+    it required replacing an unverified Usage example, while the executable plan only inserted a second
+    example and preserved the original; literal fact flattening also produced duplicate/raw bullets.'
   audit_classification: partially_done
   priority: P0
   lane: local-readme-composition
@@ -1579,7 +2506,7 @@ taskcards:
   - plans/master.md
   - production target repository remotes
   dependencies:
-  - L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  - L8-COMPOSE-05-SEVEN-CANDIDATES
   expected_outputs:
   - Assessment classifications, source-span plan, candidate README, native patch, and claim map.
   - A decision-to-operation map proving every rewrite/repair/remove_update/replace_generic/add decision
@@ -1609,20 +2536,572 @@ taskcards:
   - The real 3D Java bundle contains no raw tokens or duplicate overview/usage content and its Usage repair
     is exactly represented by executable operations.
   requirement_ids: []
-- task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+- task_id: L8-REVIEW-00-CONTEXT-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
-  title: Enforce independent README review and autonomous repair
-  source_audit_finding: >-
-    The wired reviewer falsely accepted the visibly defective 3D Java candidate and praised content
-    absent from the candidate, while Python exhausted two byte-identical repair attempts.
+  parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  title: Freeze separate blind-quality and factual-plan reviewer roles
+  source_audit_finding: The reviewer saw producer plan and deterministic acceptance context and falsely
+    praised content absent from a defective candidate.
   audit_classification: partially_done
   priority: P0
   lane: local-independent-review
   owner: readme-agent-supervisor
   status: TODO
-  objective: Enforce blind visitor-quality review plus independent factual/plan review, combine both
-    fail-closed, and require every repair to materially change and resolve the responsible candidate spans.
+  objective: Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches,
+    and verdict combination.
+  why_it_matters: Independent review cannot be anchored by the producer's own acceptance evidence.
+  allowed_paths:
+  - src/readme_agent/specialists/
+  - src/readme_agent/llm/
+  - prompts/verification/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  expected_outputs:
+  - Two typed reviewer contracts and one deterministic combined verdict
+  acceptance_checks:
+  - Either reviewer can fail the candidate and the author cannot accept its own output
+  verification:
+  - Context inspection
+  - anchoring negative control
+  - author/reviewer identity tests
+  negative_controls:
+  - Blind review cannot see producer verdict or deterministic accept wording
+  regression_checks:
+  - Dispatcher-domain
+  - specialist
+  - lifecycle
+  - and reviewer-client suites
+  evidence_requirements:
+  - Prompt hashes
+  - context inventories
+  - identities
+  - combined verdict record
+  rollback_or_recovery: Disable the unqualified role without weakening deterministic validation.
+  failure_reroute: Qualify another governed route if the current route cannot satisfy the corpus.
+  closeout_rules:
+  - Reviewer roles are separate
+  - frozen
+  - and fail closed
+  requirement_ids: []
+- task_id: L8-REVIEW-01A-FINDING-CONTROLS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  title: Ground every material reviewer finding
+  source_audit_finding: Review reasoning asserted absent content and called literal selected fact text
+    missing evidence.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Require candidate spans for content findings and exact fact/evidence references with valid
+    polarity for factual findings.
+  why_it_matters: The reviewer is another fallible producer, not an oracle.
+  allowed_paths:
+  - src/readme_agent/specialists/
+  - src/readme_agent/llm/
+  - prompts/verification/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-REVIEW-01-FREEZE-ROLES
+  expected_outputs:
+  - Finding-grounding validator and bounded semantic correction turn
+  acceptance_checks:
+  - Ungrounded or contradicted review premises cannot control lifecycle or repair
+  verification:
+  - Literal accepted fact
+  - absent-content
+  - wrong-polarity
+  - and unsupported-claim controls
+  negative_controls:
+  - Valid unsupported claims still produce BLOCKED_MISSING_EVIDENCE
+  regression_checks:
+  - Reviewer schema
+  - prompt registry
+  - factuality
+  - and evidence suites
+  evidence_requirements:
+  - Quoted span
+  - fact ID
+  - evidence excerpt
+  - polarity result
+  - retry history
+  rollback_or_recovery: Mark invalid reviewer output SYSTEM_FAILURE and retain the candidate.
+  failure_reroute: Retry boundedly with exact reconciliation evidence, then qualify another route.
+  closeout_rules:
+  - Commit 6d88c99 is accepted only after real Cells C++ and negative-control proof
+  requirement_ids: []
+- task_id: L8-REVIEW-02A-REPAIR-CONTROLS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  title: Require repair to change and resolve the responsible spans
+  source_audit_finding: Python consumed both repair attempts with byte-identical candidates and unchanged
+    defects.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Bind repair instructions to source operations and prove candidate delta plus finding resolution
+    before rereview.
+  why_it_matters: A retry counter is not a repair mechanism when the operation space cannot change.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - src/readme_agent/specialists/
+  - tests/
+  - prompts/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-REVIEW-02-FINDING-GROUNDING
+  expected_outputs:
+  - Repair request
+  - changed operations
+  - before/after hashes
+  - finding-resolution record
+  acceptance_checks:
+  - A byte-identical candidate triggers agent-fixable reroute before another reviewer call
+  verification:
+  - Controlled repairable rejection and unchanged-repair negative control
+  negative_controls:
+  - Fact conflicts never become generic prose repair
+  regression_checks:
+  - Composition
+  - repair budget
+  - lifecycle
+  - and independent-review suites
+  evidence_requirements:
+  - Attempt hashes
+  - changed spans
+  - resolved finding IDs
+  - call count
+  rollback_or_recovery: Reopen the earliest responsible truth or composition stage.
+  failure_reroute: Route fact, operation, and prose defects to their owning child tasks.
+  closeout_rules:
+  - Every rereview follows a material
+  - relevant candidate change
+  requirement_ids: []
+- task_id: L8-REVIEW-03A-CACHE-MEASUREMENT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  title: Make unchanged review reruns genuinely idempotent
+  source_audit_finding: Unchanged no-op proofs still took several minutes and may repeat live fact or
+    reviewer work.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Reuse valid facts, composition, and review artifacts by complete input fingerprints while
+    still proving no change.
+  why_it_matters: Full-registry autonomous operation cannot pay the complete live path on every unchanged
+    run.
+  allowed_paths:
+  - src/readme_agent/state/
+  - src/readme_agent/supervisor/
+  - src/readme_agent/specialists/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-REVIEW-03-EFFECTIVE-REPAIR
+  expected_outputs:
+  - Stage fingerprints
+  - cache decisions
+  - no-op proof
+  - call-count telemetry
+  acceptance_checks:
+  - Identical inputs create no new LLM call
+  - patch
+  - event
+  - bundle
+  - or effect
+  verification:
+  - Two-run call count
+  - checksum identity
+  - cancellation/resume
+  - invalidation tests
+  negative_controls:
+  - Source
+  - fact
+  - prompt
+  - template
+  - validator
+  - or reviewer change invalidates its dependent cache
+  regression_checks:
+  - Lifecycle
+  - portfolio completion
+  - evidence
+  - and terminal-classifier suites
+  evidence_requirements:
+  - Input hashes
+  - cache hits
+  - lifecycle history
+  - elapsed time
+  rollback_or_recovery: Recompute the invalid stage without discarding independent valid artifacts.
+  failure_reroute: Repair fingerprint completeness before portfolio qualification.
+  closeout_rules:
+  - No-op is fast
+  - checksum-valid
+  - and contains no unnecessary live call
+  requirement_ids: []
+- task_id: L8-REVIEW-04A-REAL-CORPUS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  title: Qualify review and repair on real ecosystem outputs
+  source_audit_finding: Synthetic reviewer scoring did not predict the first real Java false acceptance.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run good, defective, repairable, conflicting, and missing-evidence outputs across seven real
+    representatives.
+  why_it_matters: Review quality must be measured on the artifacts the production author actually emits.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-REVIEW-04-NO-OP-CACHE
+  expected_outputs:
+  - Real review corpus
+  - verdicts
+  - repair histories
+  - accepted representative bundles
+  acceptance_checks:
+  - Zero critical false accepts and every repairable case changes and resolves its defect
+  verification:
+  - Independent reproduction of contexts
+  - findings
+  - transitions
+  - and manifests
+  negative_controls:
+  - A synthetic score cannot substitute for real-output acceptance
+  regression_checks:
+  - No-write
+  - state
+  - redaction
+  - evidence-corruption
+  - and route-disable controls
+  evidence_requirements:
+  - Frozen candidates
+  - expected verdicts
+  - actual verdicts
+  - hashes
+  - costs
+  rollback_or_recovery: Disable the regressed review route and retain deterministic candidates.
+  failure_reroute: Reopen the first responsible review child.
+  closeout_rules:
+  - Seven real outputs are correctly reviewed under one standard
+  requirement_ids: []
+- task_id: L8-REVIEW-01-FREEZE-ROLES
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  title: Separate blind visitor-quality and factual plan review
+  source_audit_finding: The reviewer accepted a visibly defective Java README after seeing producer plans
+    and deterministic acceptance context.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Define separate blind visitor-quality and fact-and-plan reviewer contracts with independent
+    prompts, contexts, identities, and caches.
+  why_it_matters: Producer context can anchor the quality judgment that is meant to challenge it.
+  allowed_paths:
+  - src/readme_agent/specialists/
+  - src/readme_agent/llm/
+  - tests/
+  - prompts/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-REVIEW-00-CONTEXT-CORPUS
+  expected_outputs:
+  - Two typed review records and deterministic combined-verdict rules
+  acceptance_checks:
+  - Blind quality review receives candidate bytes and rubric but no producer verdict or plan conclusion
+  verification:
+  - Prompt/context inspection
+  - author-reviewer identity
+  - and anchoring tests
+  negative_controls:
+  - Producer acceptance cannot cause quality acceptance
+  regression_checks:
+  - Reviewer transport
+  - schema
+  - dispatcher-domain
+  - and lifecycle suites
+  evidence_requirements:
+  - Prompt hashes
+  - context inventories
+  - reviewer identities
+  - verdict combination
+  rollback_or_recovery: Restore the prior reviewer only as a diagnostic route, never as acceptance authority.
+  failure_reroute: Repair reviewer wiring before any live review campaign.
+  closeout_rules:
+  - The two reviewers are structurally and evidentially independent
+  requirement_ids: []
+- task_id: L8-REVIEW-02-FINDING-GROUNDING
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  title: Ground every material reviewer finding
+  source_audit_finding: The .NET reviewer asserted BUILD_FAILED against a selected SOURCE_BUILD_VERIFIED
+    fact and praised absent Java content.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Require candidate spans for quality findings and exact fact or evidence references with checked
+    polarity for factual findings.
+  why_it_matters: An independent reviewer is another fallible producer, not an oracle.
+  allowed_paths:
+  - src/readme_agent/specialists/
+  - src/readme_agent/verification/
+  - tests/
+  - prompts/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-REVIEW-01A-FINDING-CONTROLS
+  expected_outputs:
+  - Finding citation schema
+  - evidence validator
+  - bounded contradicted-premise retry
+  acceptance_checks:
+  - Unsupported or contradicted reviewer reasoning cannot control lifecycle or repair
+  verification:
+  - Accepted-literal false-block
+  - absent-content
+  - wrong-polarity
+  - and valid-finding controls
+  negative_controls:
+  - Free-form favorable or unfavorable assertions without spans fail validation
+  regression_checks:
+  - Independent review
+  - factuality
+  - claim-map
+  - and verifier suites
+  evidence_requirements:
+  - Finding
+  - candidate span
+  - fact ID
+  - evidence location
+  - validation result
+  rollback_or_recovery: Mark the reviewer result SYSTEM_FAILURE without changing the candidate.
+  failure_reroute: Retry only transient semantic mismatch, then repair the reviewer contract.
+  closeout_rules:
+  - Every material review conclusion is inspectably grounded
+  requirement_ids: []
+- task_id: L8-REVIEW-03-EFFECTIVE-REPAIR
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  title: Require repair to change and resolve the responsible candidate
+  source_audit_finding: Python consumed two repair rounds while producing byte-identical candidates.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Check candidate and operation deltas plus cited-finding resolution before spending another
+    independent review call.
+  why_it_matters: A retry counter is not repair if the operation space cannot change.
+  allowed_paths:
+  - src/readme_agent/specialists/
+  - src/readme_agent/readme/
+  - tests/
+  - prompts/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-REVIEW-02A-REPAIR-CONTROLS
+  expected_outputs:
+  - Repair delta record
+  - finding-resolution check
+  - upstream reroute classification
+  acceptance_checks:
+  - A repairable rejection changes the responsible bytes and resolves or narrows every cited finding
+  verification:
+  - Controlled rejection and byte-identical repair tests through the public seam
+  negative_controls:
+  - An unchanged candidate cannot invoke the reviewer again
+  regression_checks:
+  - Repair budget
+  - invalidation
+  - lifecycle
+  - composition
+  - and reviewer suites
+  evidence_requirements:
+  - Before/after hashes
+  - changed operations
+  - resolved findings
+  - call counts
+  rollback_or_recovery: Retain immutable attempts and reopen the earliest responsible stage.
+  failure_reroute: Route fact defects to truth and operation defects to composition.
+  closeout_rules:
+  - Every rereviewed candidate has a meaningful verified delta
+  requirement_ids: []
+- task_id: L8-REVIEW-04-NO-OP-CACHE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  title: Prove review and repair idempotency
+  source_audit_finding: Contract changes and interrupted runs repeatedly reopened or duplicated expensive
+    downstream work.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Reuse valid fact, authoring, validation, and review results on unchanged reruns without duplicate
+    state or LLM work.
+  why_it_matters: Autonomous portfolio operation must be affordable and restartable.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/state/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-REVIEW-03A-CACHE-MEASUREMENT
+  expected_outputs:
+  - Hash-coupled cache contract
+  - no-op lifecycle proof
+  - cancellation resume proof
+  acceptance_checks:
+  - Identical reruns create no patch
+  - duplicate event
+  - bundle
+  - effect
+  - author call
+  - or reviewer call
+  verification:
+  - Call-count
+  - lifecycle-history
+  - checksum
+  - duplicate-trigger
+  - and cancellation tests
+  negative_controls:
+  - Changed source
+  - facts
+  - prompt
+  - template
+  - validator
+  - or reviewer standard reopens the earliest dependent stage
+  regression_checks:
+  - Convergence
+  - lifecycle
+  - state
+  - evidence
+  - and redaction suites
+  evidence_requirements:
+  - Input hashes
+  - call inventory
+  - transition diff
+  - bundle checksum
+  rollback_or_recovery: Invalidate only the affected cache tier.
+  failure_reroute: Repair the first false reuse or false invalidation.
+  closeout_rules:
+  - A true unchanged second run reaches NO_OP_PROVEN with zero unnecessary work
+  requirement_ids: []
+- task_id: L8-REVIEW-05-REAL-CAMPAIGN
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  title: Qualify independent review on real heterogeneous outputs
+  source_audit_finding: Synthetic reviewer scores did not predict critical defects in the first real accepted
+    candidate.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Accept strong and reject defective real candidate outputs across all seven supported ecosystems.
+  why_it_matters: Reviewer readiness is an end-to-end output property, not a prompt classification score.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-REVIEW-04A-REAL-CORPUS
+  expected_outputs:
+  - Seven independent review bundles
+  - controlled real defects
+  - repair histories
+  acceptance_checks:
+  - Zero critical false accepts and every approved representative reaches no-op proof
+  verification:
+  - Independent replay of deterministic and agentic verdict inputs
+  negative_controls:
+  - Raw tokens
+  - duplication
+  - competing examples
+  - private APIs
+  - unresolved symbols
+  - plan disagreement
+  - and ineffective repair
+  regression_checks:
+  - Committed focused checks at the recorded HEAD
+  evidence_requirements:
+  - Reviewer prompts
+  - contexts
+  - verdicts
+  - repairs
+  - manifests
+  - SHA-256 inventory
+  rollback_or_recovery: Disable the regressed review route and retain the last accepted evidence.
+  failure_reroute: Reopen the responsible review, composition, or truth child.
+  closeout_rules:
+  - Real representative outputs demonstrate reliable approval and rejection
+  requirement_ids: []
+- task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
+  title: Enforce independent README review and autonomous repair
+  source_audit_finding: The wired reviewer falsely accepted the visibly defective 3D Java candidate and
+    praised content absent from the candidate, while Python exhausted two byte-identical repair attempts.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-independent-review
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Enforce blind visitor-quality review plus independent factual/plan review, combine both fail-closed,
+    and require every repair to materially change and resolve the responsible candidate spans.
   why_it_matters: A producer cannot accept its own prose, and humans must never be routine reviewers or
     repairers before the system independently approves a candidate.
   allowed_paths:
@@ -1636,7 +3115,7 @@ taskcards:
   - plans/master.md
   - production target repository remotes
   dependencies:
-  - L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  - L8-REVIEW-05-REAL-CAMPAIGN
   expected_outputs:
   - Mandatory verifier gate, separate blind-quality and factual/plan review records, deterministic combined
     verdict, durable lifecycle V2, and repair history.
@@ -1650,8 +3129,8 @@ taskcards:
   - Negative generic/factual/protected-loss controls and controlled repair proof.
   negative_controls:
   - A reviewer without durable state, allowed domain, or verifier verdict cannot approve work.
-  - The current defective Java candidate must be rejected; reviewer statements about absent candidate content
-    fail evidence validation.
+  - The current defective Java candidate must be rejected; reviewer statements about absent candidate
+    content fail evidence validation.
   regression_checks:
   - Specialist, dispatcher-domain, lifecycle, verifier, and evidence tests.
   evidence_requirements:
@@ -1663,13 +3142,522 @@ taskcards:
   - Fact blocks remain visible and never become generic replacement prose.
   - Controlled real rejections produce changed, finding-resolving candidates before rereview.
   requirement_ids: []
+- task_id: L8-QUAL-00-CAMPAIGN-SCHEMA
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Bind qualification to one immutable campaign identity
+  source_audit_finding: Prompt and code changes invalidated different repositories mid-pass and the prefix
+    summary could not represent one coherent portfolio contract.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Hash HEAD, registry, source revisions, dependencies, prompts, templates, facts, renderer,
+    validators, reviewer, and lifecycle contracts.
+  why_it_matters: A moving target can never produce a trustworthy 31-repository acceptance claim.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/evidence/
+  - tests/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  expected_outputs:
+  - CampaignManifestV1 and dependency-aware invalidation map
+  acceptance_checks:
+  - Every bundle and summary names the same campaign hash
+  verification:
+  - Mutation test for each campaign dependency and independent hash reproduction
+  negative_controls:
+  - A prefix summary or stale lifecycle label cannot count across campaign hashes
+  regression_checks:
+  - Manifest
+  - portfolio
+  - evidence
+  - lifecycle
+  - and redaction suites
+  evidence_requirements:
+  - Campaign manifest
+  - dependency hashes
+  - environment
+  - signature/checksum inventory
+  rollback_or_recovery: Start a new campaign while preserving the prior immutable evidence.
+  failure_reroute: Repair missing campaign inputs before any live qualification.
+  closeout_rules:
+  - One reproducible campaign identity governs every later local proof
+  requirement_ids: []
+- task_id: L8-QUAL-01A-REPRESENTATIVE-INPUTS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Prove first proposal and no-op across seven ecosystems
+  source_audit_finding: No current same-contract end-to-end proof covers Java, .NET, Python, TypeScript,
+    C++, Go, and Rust.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run the complete canonical pipeline twice for one real representative per ecosystem under
+    the immutable campaign.
+  why_it_matters: Gate A must not be the first time an ecosystem reaches independent review.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-QUAL-01-CAMPAIGN-IDENTITY
+  expected_outputs:
+  - Seven AGENT_APPROVED then NO_OP_PROVEN bundles
+  acceptance_checks:
+  - All representatives pass with zero prohibited writes and one campaign hash
+  verification:
+  - Independent bundle
+  - lifecycle
+  - call-count
+  - and checksum reproduction
+  negative_controls:
+  - Unsupported Rust or any ecosystem cannot be silently skipped
+  regression_checks:
+  - Official focused suites and real gateway/toolchain preflights
+  evidence_requirements:
+  - Commands
+  - revisions
+  - manifests
+  - reviewer results
+  - costs
+  - SHA-256 inventory
+  rollback_or_recovery: Resume one representative at its last valid checkpoint.
+  failure_reroute: Reopen the first upstream atomic child.
+  closeout_rules:
+  - Seven representatives are no-op-proven under one contract
+  requirement_ids: []
+- task_id: L8-QUAL-02A-FAILURE-MATRIX
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Prove single-writer, heartbeat, recovery, and cleanup
+  source_audit_finding: Two concurrent local_poc processes wrote the same state and evidence tree while
+    the mission claim was expired.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Add portfolio-wide writer exclusion and renew the mission claim through long clone, build,
+    LLM, test, and cohort operations.
+  why_it_matters: Correct repository logic is not autonomous if concurrent or expired workers corrupt
+    proof.
+  allowed_paths:
+  - src/readme_agent/state/
+  - src/readme_agent/supervisor/
+  - src/readme_agent/commands_supervision.py
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-QUAL-02-SEVEN-E2E
+  expected_outputs:
+  - Portfolio lease
+  - heartbeat transitions
+  - cancellation recovery
+  - descendant cleanup
+  acceptance_checks:
+  - A second writer fails closed and ordinary long work retains its live claim
+  verification:
+  - Concurrent invocation
+  - lease expiry
+  - kill/resume at every stage
+  - controlled failure
+  negative_controls:
+  - No live unexpired claim is stolen and no orphan Python/git process remains
+  regression_checks:
+  - Git backend CAS
+  - locks
+  - recovery sweep
+  - cancellation
+  - and OPS-010 suites
+  evidence_requirements:
+  - Process tree
+  - lease timeline
+  - transitions
+  - recovery results
+  - checksums
+  rollback_or_recovery: Release only expired or explicitly cancelled claims through durable transitions.
+  failure_reroute: Repair control-plane safety before further live runs.
+  closeout_rules:
+  - Exactly one writer and one recoverable logical execution exist
+  requirement_ids: []
+- task_id: L8-QUAL-03A-EVALUATION-CORPUS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Meet the governed deterministic and agentic quality thresholds
+  source_audit_finding: Earlier 157-of-159 synthetic scoring missed real critical failures and did not
+    establish three-session end-to-end quality.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run at least 100 evaluations in three independent sessions using synthetic and frozen real-output
+    controls.
+  why_it_matters: Model-route quality must be reproducible and fail closed before portfolio scale.
+  allowed_paths:
+  - src/readme_agent/golden_set/
+  - tests/
+  - prompts/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-QUAL-03-RECOVERY
+  expected_outputs:
+  - Three session inventories
+  - aggregate scores
+  - critical-defect matrix
+  - route-disable proof
+  acceptance_checks:
+  - Deterministic 100 percent
+  - agentic at least 95 percent
+  - zero critical false accepts
+  verification:
+  - Independent score recomputation and below-threshold auto-disable
+  negative_controls:
+  - Fixture-only classification cannot replace complete real-output cases
+  regression_checks:
+  - Golden-set
+  - routing
+  - prompt
+  - reviewer
+  - and model-state suites
+  evidence_requirements:
+  - Case IDs
+  - inputs
+  - expected/actual
+  - model metadata
+  - hashes
+  - costs
+  rollback_or_recovery: Disable only the regressed route and preserve prior evidence.
+  failure_reroute: Qualify another governed route or repair the failing boundary.
+  closeout_rules:
+  - All thresholds pass across three independent sessions
+  requirement_ids: []
+- task_id: L8-QUAL-04A-FREEZE-CONTROLS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Freeze the qualified local Gate-A campaign
+  source_audit_finding: Full-registry fan-out began before fact, renderer, reviewer, and lifecycle contracts
+    stopped changing.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Mark the qualified campaign immutable and enforce representative requalification after any
+    dependent contract change.
+  why_it_matters: Gate A must run against one accepted system, not continually changing machinery.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/evidence/
+  - tests/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-QUAL-04-GOLDEN-SET
+  expected_outputs:
+  - Qualified campaign record and Gate-A preflight
+  acceptance_checks:
+  - Gate A refuses a changed or unqualified contract
+  verification:
+  - Positive frozen preflight and negative prompt/template/code/reviewer mutation cases
+  negative_controls:
+  - No manual override or stale summary bypass
+  regression_checks:
+  - Campaign
+  - portfolio
+  - manifest
+  - state
+  - and terminal-classifier suites
+  evidence_requirements:
+  - Frozen hash
+  - qualifying evidence refs
+  - preflight results
+  rollback_or_recovery: Create a new campaign and repeat only dependent qualification.
+  failure_reroute: Reopen the invalidated qualification child.
+  closeout_rules:
+  - A single accepted campaign is eligible for Gate A
+  requirement_ids: []
+- task_id: L8-QUAL-01-CAMPAIGN-IDENTITY
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Bind an immutable local qualification campaign
+  source_audit_finding: Prompt, template, fact, renderer, validator, and reviewer changes invalidated
+    different repositories during fan-out.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Bind control HEAD, registry, source revisions, dependencies, prompts, templates, fact contract,
+    renderer, validators, reviewer, and lifecycle hashes.
+  why_it_matters: One acceptance campaign must mean one reproducible system contract.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-QUAL-00-CAMPAIGN-SCHEMA
+  expected_outputs:
+  - Typed campaign identity
+  - dependency-stage map
+  - invalidation rules
+  acceptance_checks:
+  - Any governed input mutation invalidates exactly its dependent stages
+  verification:
+  - Mutation matrix and stable-hash reproduction
+  negative_controls:
+  - A historical lifecycle label under another contract cannot count
+  regression_checks:
+  - Prompt
+  - template
+  - fact
+  - convergence
+  - lifecycle
+  - and manifest suites
+  evidence_requirements:
+  - Complete hash inventory
+  - versions
+  - source revisions
+  - dependency map
+  rollback_or_recovery: Restore the last qualified campaign only for read-only reproduction.
+  failure_reroute: Requalify from the earliest invalidated stage.
+  closeout_rules:
+  - The campaign identity is complete
+  - deterministic
+  - and checksum-valid
+  requirement_ids:
+  - L8-016
+- task_id: L8-QUAL-02-SEVEN-E2E
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Prove seven real end-to-end local README lifecycles
+  source_audit_finding: Existing heterogeneous evidence mixes contracts and isolated component proofs.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run first proposal and unchanged no-op for one real representative per supported ecosystem
+    under one campaign.
+  why_it_matters: Gate-A fan-out needs a representative end-to-end reliability boundary.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-QUAL-01A-REPRESENTATIVE-INPUTS
+  expected_outputs:
+  - Seven NO_OP_PROVEN manifests and cross-ecosystem qualification summary
+  acceptance_checks:
+  - Every representative has complete artifacts and zero prohibited writes
+  verification:
+  - Independent reconstruction
+  - redaction
+  - and checksum validation
+  negative_controls:
+  - Component-only or synthetic proof cannot satisfy this task
+  regression_checks:
+  - Committed focused and safety checks at the campaign HEAD
+  evidence_requirements:
+  - Commands
+  - environments
+  - manifests
+  - campaign identity
+  - SHA-256 inventory
+  rollback_or_recovery: Resume the failed repository at its last valid boundary.
+  failure_reroute: Reopen the first failing truth, composition, or review child.
+  closeout_rules:
+  - Seven real repositories reach no-op under one frozen contract
+  requirement_ids: []
+- task_id: L8-QUAL-03-RECOVERY
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Prove single-writer recovery and bounded process cleanup
+  source_audit_finding: Duplicate portfolio runs wrote the same evidence tree and mission claims expired
+    during long operations.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Enforce a portfolio writer lease, renew mission claims, and recover cancellation without
+    duplicate work or descendants.
+  why_it_matters: Autonomous execution cannot be trustworthy when concurrent writers or orphaned processes
+    corrupt proof.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/state/
+  - src/readme_agent/gitsafety/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-QUAL-02A-FAILURE-MATRIX
+  expected_outputs:
+  - Writer lease
+  - claim heartbeat
+  - bounded cancellation
+  - resume evidence
+  acceptance_checks:
+  - Only one campaign writer proceeds and every injected interruption resumes exactly once
+  verification:
+  - Fault injection at lifecycle boundaries
+  - duplicate trigger
+  - lease expiry
+  - and descendant cleanup
+  negative_controls:
+  - An expired claim is recoverable but a live unexpired claim is never stolen
+  regression_checks:
+  - State CAS
+  - recovery
+  - process
+  - trigger
+  - evidence
+  - and supervisor suites
+  evidence_requirements:
+  - Lease transitions
+  - process inventory
+  - call counts
+  - recovered manifests
+  rollback_or_recovery: Release only expired owned leases and retain transition history.
+  failure_reroute: Repair the first state or cleanup boundary before qualification continues.
+  closeout_rules:
+  - Crash and duplicate scenarios leave one correct resumable state
+  requirement_ids:
+  - L8-017
+- task_id: L8-QUAL-04-GOLDEN-SET
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Meet governed deterministic and agentic accuracy thresholds
+  source_audit_finding: A 157 of 159 synthetic score still allowed a critical live false accept.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run at least 100 evaluations across three sessions with complete real-output controls and
+    automatic route disablement.
+  why_it_matters: The production route needs measured quality that covers its real failure modes.
+  allowed_paths:
+  - src/readme_agent/golden_set/
+  - tests/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-QUAL-03A-EVALUATION-CORPUS
+  expected_outputs:
+  - Three-session evaluation inventory
+  - score report
+  - route-disable proof
+  acceptance_checks:
+  - Deterministic validation is 100 percent
+  - agentic accuracy is at least 95 percent
+  - and critical false accepts are zero
+  verification:
+  - Independent score recomputation and seeded route regression
+  negative_controls:
+  - A high aggregate score cannot hide any critical false accept
+  regression_checks:
+  - Golden-set
+  - routing
+  - reviewer
+  - and model-status suites
+  evidence_requirements:
+  - Scenario hashes
+  - session IDs
+  - raw verdicts
+  - aggregate
+  - disable transition
+  rollback_or_recovery: Disable only the failing route and preserve prior evidence.
+  failure_reroute: Repair and repeat all three sessions under the changed contract.
+  closeout_rules:
+  - All governed thresholds pass under the campaign identity
+  requirement_ids: []
+- task_id: L8-QUAL-05-FREEZE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Freeze the qualified Gate-A execution contract
+  source_audit_finding: Full-registry execution began before prompts, rendering, and reviewer behavior
+    were stable.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Make Gate-A preflight require the exact accepted campaign and reject execution after any
+    dependent contract mutation.
+  why_it_matters: Scaling an unstable contract creates endless invalidation and misleading portfolio counts.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - tests/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-QUAL-04A-FREEZE-CONTROLS
+  expected_outputs:
+  - Signed campaign manifest
+  - Gate-A preflight
+  - invalidation response
+  acceptance_checks:
+  - Gate-A starts only under the exact qualified campaign
+  verification:
+  - Accepted campaign run and one mutation rejection per dependency tier
+  negative_controls:
+  - A stale or partial campaign cannot be selected by convenience
+  regression_checks:
+  - Portfolio
+  - lifecycle
+  - manifest
+  - and qualification suites
+  evidence_requirements:
+  - Campaign manifest
+  - signature or checksum
+  - preflight results
+  rollback_or_recovery: Requalify changed dependent stages and issue a new campaign identity.
+  failure_reroute: Reopen the earliest invalidated qualification task.
+  closeout_rules:
+  - One immutable campaign is eligible for full-registry execution
+  requirement_ids: []
 - task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
   title: Qualify the canonical README path across ecosystems and golden controls
-  source_audit_finding: >-
-    Synthetic prompt qualification scored 157/159 but failed to predict the first live Java false
-    acceptance; isolated classifier accuracy is not complete pipeline quality.
+  source_audit_finding: Synthetic prompt qualification scored 157/159 but failed to predict the first
+    live Java false acceptance; isolated classifier accuracy is not complete pipeline quality.
   audit_classification: not_attempted
   priority: P0
   lane: local-qualification
@@ -1690,22 +3678,22 @@ taskcards:
   - plans/master.md
   - production target repository remotes
   dependencies:
-  - L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  - L8-QUAL-05-FREEZE
   expected_outputs:
-  - Immutable campaign binding control HEAD, registry, source revisions, prompts, facts, renderer,
-    validators, reviewer standard, and lifecycle hashes.
+  - Immutable campaign binding control HEAD, registry, source revisions, prompts, facts, renderer, validators,
+    reviewer standard, and lifecycle hashes.
   - Real-output acceptance corpus, hidden real holdouts, route-quality score, route-disablement behavior,
     and seven-ecosystem end-to-end local proof.
   acceptance_checks:
   - Deterministic validation is 100 percent and agentic routing/review is at least 95 percent over 100
     evaluations across three sessions.
-  - Zero critical false accepts across raw-token, duplication, competing-example, private-API,
-    unresolved-symbol, plan/candidate-disagreement, and ineffective-repair cases.
+  - Zero critical false accepts across raw-token, duplication, competing-example, private-API, unresolved-symbol,
+    plan/candidate-disagreement, and ineffective-repair cases.
   - Every real representative reaches AGENT_APPROVED and then NO_OP_PROVEN under one frozen contract.
   verification:
-  - Complete canonical runs for real Java, .NET, Python, TypeScript, C++, Go, and Rust representatives plus
-    fixture controls for malformed/multi-root/prompt-injected, source-build-only, strong-content, and
-    conflicting-fact cases.
+  - Complete canonical runs for real Java, .NET, Python, TypeScript, C++, Go, and Rust representatives
+    plus fixture controls for malformed/multi-root/prompt-injected, source-build-only, strong-content,
+    and conflicting-fact cases.
   negative_controls:
   - Generic template, identity leakage, unsupported claim, broken example, promotional imbalance, reviewer
     anchoring, absent-content reasoning, raw internal values, semantic duplication, and unchanged repairs.
@@ -1719,6 +3707,428 @@ taskcards:
   - Representative first run, repair, cancellation/resume, controlled failure, and no-op cases pass through
     the public supervisor before portfolio fan-out.
   - Long-running operations renew their mission claim and leave no descendant processes.
+  requirement_ids: []
+- task_id: L8-GATEA-00-COHORT-CONTROLS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Execute the frozen portfolio in bounded resumable cohorts
+  source_audit_finding: Repeated whole-prefix invocations produced timestamped churn, long waits, and
+    summaries that did not represent one complete campaign.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-portfolio-proof
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Process the runtime denominator in deterministic ecosystem/family cohorts under one campaign
+    and portfolio writer lease.
+  why_it_matters: Portfolio scale must preserve progress without restarting valid earlier work.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  expected_outputs:
+  - Incremental campaign summary and revision-addressed bundles after every repository
+  acceptance_checks:
+  - Every current entry is selected once and interruption resumes at the next invalid member
+  verification:
+  - Stop/resume between cohorts
+  - registry denominator reconciliation
+  - single-writer observation
+  negative_controls:
+  - Mode cannot omit local work and timestamped retries cannot become parallel ledgers
+  regression_checks:
+  - No-write
+  - trigger deduplication
+  - evidence redaction
+  - and checksum controls
+  evidence_requirements:
+  - Campaign hash
+  - cohort membership
+  - start/end state
+  - result per repository
+  rollback_or_recovery: Resume only incomplete or invalidated members.
+  failure_reroute: Continue unaffected cohorts and reopen the responsible upstream child.
+  closeout_rules:
+  - Every registry member has an attempted current-campaign terminal boundary
+  requirement_ids: []
+- task_id: L8-GATEA-01A-FAILURE-ROUTING
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Heal every portfolio failure at its first owning boundary
+  source_audit_finding: Sequential live defects were repaired ad hoc during fan-out without first requalifying
+    the affected ecosystem contract.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-portfolio-proof
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Classify each non-success as truth, composition, review, recovery, or genuine external fact
+    work and repair upstream.
+  why_it_matters: A blocked repository must not become a one-off exception or restart the complete portfolio.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/
+  - runs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-GATEA-01-COHORTS
+  expected_outputs:
+  - Resolver evidence per failure and targeted invalidation/requalification
+  acceptance_checks:
+  - No agent-fixable terminal remains and external fact blocks are exact
+  - essential
+  - and visible
+  verification:
+  - Focused fix proof
+  - affected representative requalification
+  - targeted repository rerun
+  negative_controls:
+  - No repository-specific branch
+  - manual copy edit
+  - false approval
+  - or global restart
+  regression_checks:
+  - Owning boundary suite plus campaign preflight and safety checks
+  evidence_requirements:
+  - First failing boundary
+  - root cause
+  - patch
+  - proof
+  - affected campaign members
+  rollback_or_recovery: Revert the narrow fix and restore the prior campaign if it regresses.
+  failure_reroute: Reopen the exact atomic child and keep unrelated members valid.
+  closeout_rules:
+  - All agent-fixable portfolio findings are resolved and requalified
+  requirement_ids: []
+- task_id: L8-GATEA-02A-CURRENT-CONTRACT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Obtain independent approval and unchanged proof for every repository
+  source_audit_finding: Existing evidence contains partial candidate and lifecycle states rather than
+    one same-campaign approved/no-op portfolio.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-portfolio-proof
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Complete deterministic validation, independent review/repair, and an unchanged no-op rerun
+    for every eligible entry.
+  why_it_matters: Candidate existence is not Gate A acceptance.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-GATEA-02-HEAL-FAILURES
+  expected_outputs:
+  - Complete approved and no-op-proven bundle per current registry repository
+  acceptance_checks:
+  - Every eligible member is NO_OP_PROVEN under the frozen campaign
+  verification:
+  - Independent manifest
+  - reviewer
+  - lifecycle
+  - call-count
+  - and patch reconciliation
+  negative_controls:
+  - Older reviewer-standard labels and partial summaries do not count
+  regression_checks:
+  - Portfolio state
+  - manifest corruption
+  - no-write
+  - and duplicate-effect controls
+  evidence_requirements:
+  - Per-repository final verdict
+  - no-op proof
+  - checksums
+  - campaign hash
+  rollback_or_recovery: Reopen only entries invalidated by source or contract change.
+  failure_reroute: Return any failure to Gate-A healing.
+  closeout_rules:
+  - The approved numerator equals the eligible dynamic denominator
+  requirement_ids: []
+- task_id: L8-GATEA-03A-REPRO-CONTROLS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Independently reproduce the complete Gate-A verdict
+  source_audit_finding: The current portfolio summary is a bounded-prefix report and cannot independently
+    prove all runtime entries.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-portfolio-proof
+  owner: independent-verification
+  status: TODO
+  objective: Rebuild the denominator and every accepted result from registry, campaign, state, bundles,
+    and checksum inventories.
+  why_it_matters: The producer's mutable summary cannot be the sole closure authority.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-GATEA-03-NO-OP
+  expected_outputs:
+  - Independent portfolio reconstruction and Gate-A acceptance report
+  acceptance_checks:
+  - Approved equals len of the current registry; system failures
+  - unprocessed entries
+  - and manifest failures equal zero
+  verification:
+  - Fresh reconstruction command and representative artifact spot checks
+  negative_controls:
+  - A missing
+  - stale
+  - corrupt
+  - cross-campaign
+  - or non-no-op bundle fails the gate
+  regression_checks:
+  - Registry hash
+  - campaign hash
+  - state version
+  - SHA-256
+  - and redaction checks
+  evidence_requirements:
+  - Reproduction command
+  - raw result inventory
+  - final checksums
+  rollback_or_recovery: Reopen only the failing member or upstream campaign dependency.
+  failure_reroute: Return discrepancies to the exact owning Gate-A task.
+  closeout_rules:
+  - Independent verification awards local full-registry Gate A only
+  requirement_ids: []
+- task_id: L8-GATEA-01-COHORTS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Execute Gate A in bounded resumable cohorts
+  source_audit_finding: One coarse time-sliced prefix summary cannot represent current full-portfolio
+    campaign progress.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-portfolio-proof
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Execute the frozen denominator in ecosystem or family cohorts with one writer lease and an
+    incremental current-state summary.
+  why_it_matters: Bounded cohorts make failures, restarts, and portfolio progress inspectable without
+    weakening one campaign.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - tests/
+  - runs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-GATEA-00-COHORT-CONTROLS
+  expected_outputs:
+  - Deterministic cohort matrix
+  - writer lease
+  - campaign-wide aggregate summary
+  acceptance_checks:
+  - Every registry entry appears exactly once and interruption between cohorts resumes without duplicate
+    work
+  verification:
+  - Registry partition
+  - restart
+  - current-state aggregation
+  - and no-write tests
+  negative_controls:
+  - A bounded prefix is always labeled partial and cannot overwrite the campaign aggregate
+  regression_checks:
+  - Portfolio
+  - registry
+  - recovery
+  - lifecycle
+  - and safety suites
+  evidence_requirements:
+  - Registry hash
+  - cohort assignments
+  - incremental results
+  - checksums
+  rollback_or_recovery: Resume the same campaign from the first incomplete cohort.
+  failure_reroute: Continue unaffected cohorts and reopen the first failing upstream task.
+  closeout_rules:
+  - All cohorts are scheduled once under the frozen campaign
+  requirement_ids: []
+- task_id: L8-GATEA-02-HEAL-FAILURES
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Heal every Gate-A agent-fixable failure upstream
+  source_audit_finding: Portfolio execution exposed fact, operation, review, toolchain, and lifecycle
+    defects as repository terminals.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-portfolio-proof
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Classify each failure at its first responsible boundary, repair it, requalify the affected
+    representative, and rerun only invalidated repositories.
+  why_it_matters: Repository-specific failures are system learning inputs, not acceptable terminal POC
+    results.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/
+  - docs/
+  - plans/investigations/
+  - logs/
+  - runs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-GATEA-01A-FAILURE-ROUTING
+  expected_outputs:
+  - Failure ledger
+  - resolver transitions
+  - requalification evidence
+  - narrowed external handoffs
+  acceptance_checks:
+  - No agent-fixable terminal remains and every external block is exact
+  - essential
+  - and narrow
+  verification:
+  - Failure reproduction
+  - focused fix proof
+  - affected integration regression
+  - representative requalification
+  negative_controls:
+  - No generic prose
+  - skipped repository
+  - or status relabeling substitutes for repair
+  regression_checks:
+  - Relevant official checks for every repaired boundary
+  evidence_requirements:
+  - First failure
+  - root cause
+  - fix commit
+  - focused and requalification results
+  rollback_or_recovery: Revert the defective fix and keep the repository visibly unresolved.
+  failure_reroute: Reopen the precise atomic task and retain unaffected campaign results.
+  closeout_rules:
+  - All remaining non-successes require true external authority or facts
+  requirement_ids: []
+- task_id: L8-GATEA-03-NO-OP
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Obtain approved no-op bundles for the full current registry
+  source_audit_finding: Historical terminal labels and candidate files do not prove current-contract approval
+    or idempotency.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-portfolio-proof
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Reach independent approval and unchanged no-op proof for every eligible current registry
+    entry under the identical frozen campaign.
+  why_it_matters: This is the complete system portion of Gate A.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-GATEA-02A-CURRENT-CONTRACT
+  expected_outputs:
+  - Complete per-repository bundles and dynamic campaign summary
+  acceptance_checks:
+  - Approved and no-op-proven equals the runtime denominator with zero system failures or unprocessed
+    entries
+  verification:
+  - Independent lifecycle
+  - artifact
+  - call-count
+  - redaction
+  - and checksum checks
+  negative_controls:
+  - Candidate count
+  - mode
+  - policy
+  - synthetic score
+  - or stale approval cannot count
+  regression_checks:
+  - Committed official checks against the frozen HEAD
+  evidence_requirements:
+  - Every source-to-candidate artifact
+  - verdict
+  - no-op proof
+  - and inventory
+  rollback_or_recovery: Reopen only repositories invalidated by a governed input change.
+  failure_reroute: Return to Gate-A healing for any non-external regression.
+  closeout_rules:
+  - Every dynamically loaded repository is current-contract NO_OP_PROVEN or later
+  requirement_ids: []
+- task_id: L8-GATEA-04-REPRODUCE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Independently reproduce the complete Gate-A portfolio
+  source_audit_finding: The current prefix summary and distributed bundles have no independent complete-campaign
+    reconstruction.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-portfolio-proof
+  owner: independent-verifier
+  status: TODO
+  objective: Reconstruct the portfolio result and checksum inventory from the frozen registry and per-repository
+    bundles without trusting the runtime summary.
+  why_it_matters: The POC milestone must be independently reproducible rather than self-declared.
+  allowed_paths:
+  - plans/investigations/evidence/
+  - logs/
+  - runs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  dependencies:
+  - L8-GATEA-03A-REPRO-CONTROLS
+  expected_outputs:
+  - Independent portfolio manifest
+  - discrepancy report
+  - complete SHA-256 inventory
+  acceptance_checks:
+  - Approved equals the dynamic denominator and system failures
+  - unprocessed entries
+  - and manifest failures equal zero
+  verification:
+  - Fresh reconstruction command and representative manual artifact sampling
+  negative_controls:
+  - Runtime summary values are inputs to compare
+  - never the verifier authority
+  regression_checks:
+  - Plan structure
+  - requirement coverage
+  - semantic traceability
+  - verifier enforcement
+  - and official code checks
+  evidence_requirements:
+  - Independent command
+  - environment
+  - output
+  - inventory
+  - reviewer identity
+  rollback_or_recovery: Reopen only the first discrepant repository or upstream contract.
+  failure_reroute: Return discrepancies to Gate-A healing and rerun affected verification.
+  closeout_rules:
+  - The independent verifier awards locally proven full-registry README POC only
   requirement_ids: []
 - task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1746,7 +4156,7 @@ taskcards:
   - plans/master.md
   - production target repository remotes
   dependencies:
-  - L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  - L8-GATEA-04-REPRODUCE
   expected_outputs:
   - One complete runtime bundle per registry entry and a dynamic portfolio summary.
   - Independent portfolio-manifest reproduction and SHA-256 inventory.
@@ -2323,10 +4733,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: e975648a5883e5dfb3fc80301decc5273976e7f79ae2f97f802c85de28a5a728
+  source_sha256: 998d99c70bcd9c0b465f95016e458a4f7a7587a43bda0d706cd4f571d0d730d1
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 406
-  mandatory_requirement_rows: 380
+  total_requirement_rows: 409
+  mandatory_requirement_rows: 383
   excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -4469,7 +6879,7 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: ORC-009
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
     disposition: open_mandatory
     semantic_findings: []
@@ -4535,7 +6945,7 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: VER-011
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
     disposition: open_mandatory
     semantic_findings: []
@@ -4765,5 +7175,23 @@ requirement_coverage:
     priority: P0
     requirement_status: PARTIAL
     task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-015
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-TRUTH-01-STAGE-LIMIT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-016
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-QUAL-01-CAMPAIGN-IDENTITY
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-017
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-QUAL-03-RECOVERY
     disposition: open_mandatory
     semantic_findings: []

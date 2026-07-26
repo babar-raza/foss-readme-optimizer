@@ -34,20 +34,54 @@ green. These are entry findings, not closure claims.
 ## Current execution checkpoint and route correction (2026-07-26)
 
 The latest reconciled checkpoint in this document is control-repository `main` at
-`80432ccb023ff336ede7d7030027b30f3e69a208`. Durable mission state version 147 has no graph drift
-and carries active task `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`. This is an observed checkpoint, not an
-instruction to trust a historical hash: every continuation must re-read HEAD, the tree, live
-processes, and durable mission state before acting.
+`a6db18cff0cf56bdb3d59b9a390adb5c5e776829`. The tree is clean. Durable mission state version 147
+has graph hash `3315bef4993b11cd374d8cfd11a4519c355d8494b0783ccb2e70ca1e75c150af`,
+no graph drift, and active task `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`; its recorded claim lease is
+expired and must be recovered through mission evaluation before further implementation is
+claimed. This is an observed checkpoint, not an instruction to trust a historical hash: every
+continuation must re-read HEAD, the tree, live processes, and durable mission state before acting.
 
-The runtime denominator observed at this checkpoint is 31 and remains dynamically loaded. A
-bounded portfolio slice reports Java `NO_OP_PROVEN` and .NET `SYSTEM_FAILURE`; it is diagnostic,
-not official campaign evidence, because its worker began before the recorded HEAD and the tree
-moved during execution. The .NET deterministic bundle verifier accepted the candidate, while the
-independent reviewer rejected it after two repair attempts. The repair history also contains a
-review assertion that the selected minimal example was `BUILD_FAILED`, although the persisted
-selected fact says `SOURCE_BUILD_VERIFIED`. This proves that producer evidence can be internally
-consistent while reviewer reasoning is stale or false. No current claim of complete Gate A follows
-from candidate count, lifecycle labels, or an isolated no-op.
+The runtime denominator observed at this checkpoint is 31 and remains dynamically loaded. The
+current reviewer-standard-v8 portfolio slice reports only 3D Java `NO_OP_PROVEN` and 3D .NET at
+`FACTS_READY`; its latest .NET failure is deterministic:
+`selected verified limitations are absent`. Commit `a6db18c` adds an unqualified candidate repair
+for that boundary. Ten repository revision directories currently contain manifests, but only one
+current v8 bundle is no-op-proven; older terminal labels do not count after reviewer-standard
+invalidation. Two concurrent `local_poc` runs were observed and stopped at 13:49 local time after
+both wrote the same state/evidence tree. Their output is dirty/concurrent diagnostic evidence, not
+official proof. No current claim of complete Gate A follows from candidate count, lifecycle labels,
+or an isolated no-op.
+
+### 2026-07-26 execution audit: why the previous route was too long
+
+The prior loop repeatedly invoked the complete full-registry command while the durable mission was
+still on product truth. That was the wrong execution granularity:
+
+1. `local_poc` has no stage boundary, so a fact task automatically proceeds into assessment,
+   composition, deterministic validation, live independent review, repair, and no-op.
+2. Prompt, renderer, fact, or reviewer changes correctly invalidate dependent artifacts, but the
+   portfolio was already fanning out before those contracts were frozen. Each fix therefore
+   reopened earlier repositories and multiplied live-call cost.
+3. The portfolio command has per-repository trigger leases but no portfolio-wide single-writer
+   lease. Two complete runs can inspect and mutate the same durable records concurrently.
+4. The mission claim has a 30-minute expiry but portfolio, build, and LLM operations do not renew
+   it. The active product-truth claim expired hours before this audit.
+5. `portfolio-summary.json` describes only the current bounded prefix. It is not a frozen campaign
+   ledger and cannot by itself answer which of 31 repositories remain valid under the current
+   prompt/renderer/reviewer contract.
+6. Runtime evidence is spread across many timestamped retry directories even though canonical
+   revision-addressed bundles already exist. This increases audit cost without increasing proof.
+7. The active path still contains oversized modules (`supervisor/loop.py`, facts verification,
+   reviewer, README specialist, lifecycle, product-truth drafting, command adapter, composition,
+   and renderer). Extending them directly has increased coupling and regression risk.
+8. `master.md` still reports durable state version 81 and contains a stale edit-approval sentence
+   that conflicts with current repository instructions. `idea.md` and `master.md` also retain
+   visible mojibake. Those are plan/presentation defects, not runtime proof.
+
+The corrected rule is: **never run beyond the active mission task's acceptance boundary**. Add a
+typed stage limit to the same `supervise` runtime, qualify each boundary independently, freeze one
+campaign contract, and only then fan out Gate A. A full `local_poc` portfolio run before the
+qualification-freeze task closes is a process violation and its output is diagnostic only.
 
 The first real full-registry execution disproved the assumption that the upstream composition,
 review, and heterogeneous-qualification tasks could remain closed:
@@ -260,7 +294,7 @@ promoted to one named evidence directory under `plans/investigations/evidence/`.
    Mission, Status, Decision Ledger, Architecture, Build Checklist, or Verification Checklist.
    Revise decision #78 in place instead of adding a competing decision.
 7. Synchronize idea, requirements, governance, roadmap, status generator, root README, AGENTS,
-   logs, and master under the approved authority change.
+   logs, and master under current governance.
 8. Commit coherent verified slices directly to `main`.
 
 Exit: clean committed main; truthful authority documents; all requirements including `L8-*` mapped;
@@ -288,6 +322,74 @@ Exit: one graph, one durable state, one active claim, and a visible full-registr
 
 Exit: a heterogeneous fixture registry runs through `supervise`; cancellation resumes without
 duplicate LLM calls or bundles; no local POC run can issue a remote write.
+
+### Atomic execution queue from the current checkpoint
+
+The phase descriptions below remain the acceptance model. Execution uses these smallest
+independently closable work items, in this exact order. Each item is one coherent commit plus
+focused proof; no item earns the next item merely because code exists.
+
+The executable mission graph decomposes each composition, review, qualification, and Gate-A
+implementation item once more into an immediately preceding characterization or negative-control
+task (`*-00-*` or `*-0xA-*`). The control task must reproduce the defect and freeze expected
+behavior before its paired implementation task can become ready. These are not parallel ledgers:
+they are dependency-interleaved children of the same aggregate tasks listed below.
+
+#### Product-truth boundary (`L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`)
+
+| ID | Complete behavior | Focused proof | Depends on |
+| --- | --- | --- | --- |
+| `L8-TRUTH-01-STAGE-LIMIT` | Add a typed `supervise` lifecycle ceiling so the canonical registry runtime can stop honestly at `FACTS_READY` without invoking composition or review. | CLI/profile tests; one fixture registry reaches facts only; zero reviewer calls. | local portfolio runtime |
+| `L8-TRUTH-02-ROOT-ROLES` | Classify product/test/sample/converter/generator/benchmark/build roots and bind compatibility/acquisition to the distributed product root. | .NET multi-root regression plus Java and Python controls. | TRUTH-01 |
+| `L8-TRUTH-03-CLAIM-POLARITY` | Require positive evidence for capabilities and explicit directional evidence for limitations; shared vocabulary is insufficient. | false limitation controls and real .NET limitation evidence. | TRUTH-02 |
+| `L8-TRUTH-04-ACQUISITION` | Verify registry coordinates or an exact source-build path without converting unpublished packages into global blocks. | known-false Cells Maven, NuGet, Go, Rust, C++, and source-build controls. | TRUTH-03 |
+| `L8-TRUTH-05-PUBLIC-EXAMPLES` | Prove imports/namespaces/public symbols and compile or execute examples secret-free in every supported ecosystem. | one real Java, .NET, Python, TypeScript, C++, Go, and Rust example. | TRUTH-04 |
+| `L8-TRUTH-06-INTERPRETIVE-VIEWS` | Ground audience/problem facts and expose only typed visitor-facing render views; reject slugs, enum tokens, manifest keys, and fragments. | Java raw-token, TypeScript sentence, and product-identity controls. | TRUTH-05 |
+| `L8-TRUTH-07-SEVEN-ECOSYSTEMS` | Run the same stage-limited runtime to `FACTS_READY` for one real representative per supported ecosystem. | seven checksum-valid fact bundles with reproduction commands. | TRUTH-06 |
+| `L8-TRUTH-08-FULL-REGISTRY` | Run all dynamically loaded registry entries to `FACTS_READY`, isolating narrow essential-fact blocks. | `facts_ready + narrow_external_blocks == len(products)`; zero agent-fixable failures. | TRUTH-07 |
+
+#### Assessment/composition boundary (`L8-LOCAL-README-ASSESSMENT-COMPOSITION`)
+
+| ID | Complete behavior | Focused proof | Depends on |
+| --- | --- | --- | --- |
+| `L8-COMPOSE-01-DECOMPOSE` | Split the oversized renderer/composition responsibilities before adding further editorial behavior. | public seams unchanged; focused renderer/composition regression. | product-truth aggregate closure |
+| `L8-COMPOSE-02-EXISTING-SECTIONS` | Reconcile verified limitations, examples, installation, and overview facts inside existing sections without duplication or unsupported loss. | real .NET partial-limitations case plus existing-section controls. | COMPOSE-01 |
+| `L8-COMPOSE-03-OPERATION-COVERAGE` | Compile every actionable assessment into a bounded operation; reject decorative/advisory decisions. | plan-to-operation coverage and immutable reconstruction tests. | COMPOSE-02 |
+| `L8-COMPOSE-04-PRESENTATION-LINT` | Reject raw internal values, semantic duplicates, competing examples, cross-product leakage, malformed navigation, and promotional imbalance. | real Java/Python controls plus prompt-injection and strong-content fixtures. | COMPOSE-03 |
+| `L8-COMPOSE-05-SEVEN-CANDIDATES` | Produce product-specific candidate/patch/claim-map bundles for the seven representatives without invoking independent review. | stage-limited `CANDIDATE_GENERATED` bundles and byte-identical reconstruction. | COMPOSE-04 |
+
+#### Independent review/repair boundary (`L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`)
+
+| ID | Complete behavior | Focused proof | Depends on |
+| --- | --- | --- | --- |
+| `L8-REVIEW-01-FREEZE-ROLES` | Freeze separate blind visitor-quality and factual/plan reviewer contracts; producer acceptance context is excluded from the blind role. | prompt/context inspection and anchoring negative control. | composition aggregate closure |
+| `L8-REVIEW-02-FINDING-GROUNDING` | Require candidate spans and exact fact/evidence references for material reviewer findings; contradicted reviewer premises retry boundedly. | accepted-literal false-block and absent-content controls. | REVIEW-01 |
+| `L8-REVIEW-03-EFFECTIVE-REPAIR` | Require changed candidate/operation hashes and resolution of cited spans before rereview; route unchanged repairs upstream. | controlled rejection changes the responsible section; byte-identical repair makes no second review call. | REVIEW-02 |
+| `L8-REVIEW-04-NO-OP-CACHE` | Make unchanged reruns reuse valid facts, authoring, and review results without duplicate events, bundles, effects, or unnecessary LLM calls. | call-count, lifecycle-history, checksum, and cancellation/resume controls. | REVIEW-03 |
+| `L8-REVIEW-05-REAL-CAMPAIGN` | Accept good and reject defective real outputs across all seven ecosystems under the frozen reviewer contract. | zero false accept for every known critical defect; approved representative bundles. | REVIEW-04 |
+
+#### Heterogeneous qualification boundary (`L8-LOCAL-HETEROGENEOUS-QUALIFICATION`)
+
+| ID | Complete behavior | Focused proof | Depends on |
+| --- | --- | --- | --- |
+| `L8-QUAL-01-CAMPAIGN-IDENTITY` | Bind HEAD, registry, revisions, dependencies, prompts, templates, facts, renderer, validators, reviewer, and lifecycle hashes into one immutable campaign. | mutation of each dependency invalidates only its dependent stage. | review aggregate closure |
+| `L8-QUAL-02-SEVEN-E2E` | Run first proposal and unchanged no-op for one real representative per ecosystem under that campaign. | seven `NO_OP_PROVEN` manifests; zero prohibited writes. | QUAL-01 |
+| `L8-QUAL-03-RECOVERY` | Prove single-writer lease, mission heartbeat, cancellation/resume, duplicate trigger, controlled failure, and descendant cleanup. | fault injection at every local lifecycle boundary. | QUAL-02 |
+| `L8-QUAL-04-GOLDEN-SET` | Run at least 100 governed evaluations in three sessions with 100% deterministic and at least 95% agentic accuracy, zero critical false accepts, and auto-disable regression. | three-session result inventory and route-disable proof. | QUAL-03 |
+| `L8-QUAL-05-FREEZE` | Freeze the accepted campaign and prohibit Gate-A execution after any contract mutation until representative requalification passes again. | enforced preflight rejection and signed campaign manifest. | QUAL-04 |
+
+#### Gate-A boundary (`L8-LOCAL-FULL-REGISTRY-GATE-A`)
+
+| ID | Complete behavior | Focused proof | Depends on |
+| --- | --- | --- | --- |
+| `L8-GATEA-01-COHORTS` | Execute the frozen denominator in bounded, resumable ecosystem/family cohorts with one portfolio-wide writer lease and incremental summary. | interruption between every cohort resumes without duplicate work. | qualification aggregate closure |
+| `L8-GATEA-02-HEAL-FAILURES` | Repair every agent-fixable failure at its upstream task, requalify the affected representative, and rerun only invalidated repositories. | no agent-fixable terminal remains; external blocks are exact and narrow. | GATEA-01 |
+| `L8-GATEA-03-NO-OP` | Obtain independent approval and unchanged no-op proof for every eligible current registry entry under the identical frozen campaign. | complete per-repository bundles and zero unnecessary second-run calls/effects. | GATEA-02 |
+| `L8-GATEA-04-REPRODUCE` | Independently reconstruct the portfolio result and checksum inventory from registry plus bundles. | approved equals dynamic denominator; failures, unprocessed, and manifest failures equal zero. | GATEA-03 |
+
+After `L8-GATEA-04-REPRODUCE`, close the four aggregate parent tasks from their child evidence,
+then close `L8-LOCAL-README-PROPOSAL-PROOF`. Gate B remains a human authority boundary and is not
+folded into these local implementation tasks.
 
 ### Phase 3 -- real-output acceptance corpus and campaign boundary
 

@@ -1,12 +1,11 @@
 # foss-readme-optimizer — Master Plan
 
-Governed by `plans/GOVERNANCE.md`. This file is the current execution plan and decision ledger —
+Governed by `plans/GOVERNANCE.md`. This file is the current execution plan and decision ledger,
 not a history of how it was written. Nothing in it is locked at this stage: every decision is a
-current working position, revisable through the governance procedure (edit in place + one dated
-`logs/` entry). See `logs/README.md` for the record of how decisions evolved. **Editing this file
-requires the GOVERNANCE.md rule 12 gate**: state which section(s) you intend to change and why,
-and get the user's fresh, explicit go-ahead before the edit — `logs/` itself and
-`plans/requirements.md` are unaffected.
+current working position, revisable through the governance procedure (edit in place plus one dated
+`logs/` entry). See `logs/README.md` for the record of how decisions evolved. Per governance
+rule 12, agents update this file routinely whenever evidence changes the current plan or status;
+no separate section-specific approval is required.
 
 **Normative requirements:** [`plans/requirements.md`](requirements.md) is the authoritative,
 complete register of what the system must do, must not do, and how each requirement is accepted.
@@ -52,9 +51,9 @@ approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
 ## Status
 
 The repository has a substantial capability, safety, authorization, state, specialist, evidence,
-and proposal foundation, but it is **not Level 8**. The only active execution sequence is the
+and proposal foundation, but it is **not Level 8**. The only active sequence is the
 Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-requirement counts,
-`logs/` for dated history, and the `plans/investigations/evidence/` bundles for proof.
+`logs/` for history; evidence bundles live under `plans/investigations/evidence/`.
 
 - **Wave 0 — truth consolidation** (2026-07-23, complete): working-tree candidates inventoried
   without implicit acceptance; all 85 semantic-closure findings consumed (76 proven, 9 downgraded
@@ -67,14 +66,14 @@ Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-req
   evidence `level8-wave1-heterogeneous-fail-closed-2026-07-23/`.
 
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
-which **precedes** Wave 2. Per `plans/investigations/preproduction-idea-fidelity-gate-2026-07-24.md`,
-execution proceeds **direct local proof → complete current workflow under `act` → isolated staging →
-production**. The durable mission state
-(`refs/readme-agent-state/mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`, version 81) has active
-task `L8-LOCAL-README-PROPOSAL-PROOF` at Gate A (direct local README-proposal proof). **Wave 2 —
-Restartable GitHub Actions runtime — remains gated (`BLOCKED_EXTERNAL`) behind these pre-production
-gates and the `preproduction-wave2-dependency-gate` repair; it is not yet the active implementation
-wave.**
+which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
+under `act` → isolated staging → production**. At the 2026-07-26 checkpoint, durable mission
+state version 147 has active task `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`; its claim lease expired and
+must be recovered through mission evaluation. The current local evidence is partial: the registry
+denominator is 31, ten revision directories contain manifests, and only one current reviewer-v8
+bundle is no-op-proven. Two concurrent portfolio writers were stopped; their overlapping output is
+diagnostic, not acceptance evidence. **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind the local,
+`act`, staging, and ordered Gate A/B/C prerequisites; it is not the active implementation wave.**
 
 **Corrected near-term target (decision #78).** Gate A is system proof across every runtime-loaded
 `data/products.json` entry: a default-branch-based, agent-approved, no-op-proven local README
@@ -82,6 +81,12 @@ candidate. Gate B is separate human acceptance for that full portfolio. Gate C i
 Java PR proof and cannot begin before A/B; Gate D is broad GitHub App integration and cannot begin
 before accepted Gate C. Earlier PR/App-shaped machinery stays inert. See `plans/idea.md`'s "README
 POC Readiness and Ordered Delivery Gates" and the Wave 5/6 entries below.
+
+The 2026-07-26 route audit found the local command too coarse: product truth also invoked
+composition, live review, repair, and no-op, so fixes restarted expensive downstream work. The
+governed correction is stage-bounded `supervise`, atomic child tasks, seven-ecosystem
+qualification, a frozen campaign, and only then full-registry fan-out. Requirements `L8-015`
+through `L8-017` and the `L8-TRUTH-*` through `L8-GATEA-*` task groups define those boundaries.
 
 `plans/requirements.md` is the normative obligation register; `logs/` is history;
 `plans/investigations/control/level8-autonomous-mission-task-graph.yaml` is the execution overlay
@@ -1596,9 +1601,17 @@ that is the only permanence they carry; text is always the decision as it stands
     evidence to investigate, never unquestioned truth and never disposable input; LLM/agentic
     reasoning is required for repository interpretation, product/platform-aware selection, and
     composition; and deterministic code supplies safety/validation around that judgment rather
-    than replacing it. See `plans/idea.md`'s
+    than replacing it. **Execution granularity correction (2026-07-26):** the canonical supervisor
+    remains the only runtime, but local execution is stage-bounded. Product truth, composition,
+    independent review/repair, heterogeneous qualification, and Gate-A fan-out close as separate
+    dependency-ordered task groups. A frozen Gate-A campaign binds control HEAD, registry and
+    repository revisions, dependency lock, prompts, templates, fact/render/validator/reviewer/
+    lifecycle contracts. Portfolio fan-out is prohibited until the seven-ecosystem representative
+    campaign passes, and only one renewable portfolio-writer lease may mutate campaign state.
+    Bounded-prefix summaries are diagnostic; the campaign-wide current-state aggregate alone
+    measures progress against the runtime denominator. See `plans/idea.md`'s
     "README POC Readiness and Ordered Delivery Gates" section; `plans/requirements.md` `FACT-017`,
-    `VER-011`, `ORC-009`, `PIL-015`, `PIL-016`, `AUTH-008`, `GOV-029`.
+    `VER-011`, `ORC-009`, `PIL-015`, `PIL-016`, `AUTH-008`, `GOV-029`, and `L8-015`–`L8-017`.
 
 ## Architecture
 
@@ -2096,6 +2109,28 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [x] Make offline cancellation credential-free and descendant-clean.
   - **Exit:** no required failure exits zero or converges; no production mutation bypass exists.
 
+- [ ] **Local pre-production Gate A — atomic idea-fidelity proof**
+  - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
+        immutable revision bundles, and mandatory dynamic planning foundation.
+  - [ ] Product truth: implement the stage ceiling, package-root roles, claim polarity,
+        acquisition, public examples, render views, seven-ecosystem proof, and facts-only
+        full-registry preflight (`L8-TRUTH-*` task group).
+  - [ ] Composition: split active monoliths, reconcile existing sections, require complete
+        operation coverage, enforce presentation lint, and produce seven deterministic candidates
+        (`L8-COMPOSE-*` task group).
+  - [ ] Review: separate blind quality from factual/plan review, ground findings, require
+        candidate-changing repair, prove no-op caching, and pass the real heterogeneous campaign
+        (`L8-REVIEW-*` task group).
+  - [ ] Qualification: bind and freeze one campaign, pass seven real end-to-end lifecycles,
+        single-writer/recovery controls, and the governed three-session golden set
+        (`L8-QUAL-*` task group).
+  - [ ] Gate A: execute bounded cohorts, heal every agent-fixable failure, obtain current-contract
+        no-op proof for the dynamic registry denominator, and independently reproduce the
+        portfolio (`L8-GATEA-*` task group).
+  - **Exit:** every current registry entry has a checksum-valid, independently agent-approved,
+    no-op-proven local bundle under one frozen campaign; no remote write occurred. Gate B human
+    review begins only after this exit.
+
 - [ ] **Wave 2 — Restartable GitHub Actions runtime**
   - Ship `TriggerEnvelopeV2`, `CheckpointV1`, migrations, seven trigger states, and all lifecycle
     checkpoints.
@@ -2180,6 +2215,17 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       those master sections.
 - [x] **Wave 1 correctness gate:** every required specialist/task/validation/verifier/effect
       failure is terminally non-successful; no alternate production mutation path remains.
+- [ ] **Local stage-boundary gate:** a facts-only public supervisor run reaches `FACTS_READY`
+      without composition/reviewer calls or later lifecycle claims; every later stage has the same
+      fail-closed ceiling behavior.
+- [ ] **Local real-output gate:** Java, .NET, Python, TypeScript, C++, Go, and Rust representatives
+      pass fact, candidate, deterministic validation, independent review/repair, and unchanged
+      no-op boundaries under one campaign with zero critical false accepts.
+- [ ] **Local recovery gate:** one portfolio writer, renewable mission claim, cancellation/resume,
+      duplicate-trigger, descendant cleanup, and current-state aggregation controls pass.
+- [ ] **Full-registry Gate A:** current-contract approved/no-op-proven equals the runtime registry
+      denominator; system failures, unprocessed entries, manifest failures, and remote writes are
+      zero; an independent verifier reproduces the manifest and checksums.
 - [ ] **Wave 2 recovery gate:** checkpoint kill/resume, duplicate delivery, state outage, matrix
       isolation, missed-window recovery, and dead-man alert scenarios pass.
 - [ ] **Wave 3 truth gate:** fact provenance/conflict/ownership, false package coordinate,

@@ -230,10 +230,11 @@ decision #78 (2026-07-25):
   for the original, verified facts, decision/operation plan, enhanced candidate, diff,
   deterministic validation, independent agentic verdict, and no-op rerun. Read-only GitHub access
   needed to obtain evidence is allowed; `local_poc` must not perform a remote write.
-- **Dynamic/agentic capability selection is intended to be mandatory for the canonical local path,
-  not an optional flag.** Known current gap, not yet fixed: `--enable-dynamic-planning`
-  (`src/readme_agent/cli.py`) is still opt-in today. Don't describe it as already mandatory in any
-  status claim until that flag's default actually changes.
+- **Dynamic/agentic capability selection is mandatory for the canonical local path.**
+  `commands_supervision.py` forces the specialist-selection and repair-planner clients whenever
+  `--execution-profile local_poc` is active; `--enable-dynamic-planning` remains an explicit
+  compatibility opt-in for other profiles. Do not mistake the compatibility flag's default for
+  the canonical local profile's behavior.
 - **The system makes product/platform decisions.** Detect the product, ecosystem, repository
   shape, and evidence, then select capabilities, sections, examples, and validators automatically.
   A normal run must not ask a human to choose a template, capability, skill, or command sequence.

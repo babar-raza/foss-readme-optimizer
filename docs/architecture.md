@@ -213,10 +213,19 @@ read data/products.json and derive the live denominator
   -> broad GitHub App integration (Gate D)
 ```
 
-Dynamic product/platform-aware selection is the required canonical behavior but remains an open
-implementation gap while `--enable-dynamic-planning` is opt-in (`ORC-009`). Likewise, a candidate
-file's existence is not acceptance: the lifecycle must reach agent approval plus no-op proof
-before the artifact can enter the human-review queue (`PIL-015`).
+Dynamic product/platform-aware selection is mandatory in the canonical `local_poc` profile:
+`commands_supervision.py` constructs the specialist-selection and repair-planner clients
+unconditionally for that profile. `--enable-dynamic-planning` remains an explicit compatibility
+opt-in for other profiles; it is not required by the canonical local command (`ORC-009`). A
+candidate file's existence is not acceptance: the lifecycle must reach agent approval plus no-op
+proof before the artifact can enter the human-review queue (`PIL-015`).
+
+The same supervisor also requires a typed maximum lifecycle stage (`L8-015`). Product-truth
+qualification stops at `FACTS_READY`; composition qualification stops after deterministic
+candidate validation; review, heterogeneous qualification, and full-registry Gate A advance only
+after their dependencies close. Stage ceilings prevent an upstream repair from silently invoking
+and invalidating expensive later phases. Gate-A fan-out additionally requires the frozen campaign
+identity and single-writer/recovery contracts in `L8-016` and `L8-017`.
 
 ## Trust and reconciliation doctrine
 

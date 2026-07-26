@@ -4,17 +4,17 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "e975648a5883e5dfb3fc80301decc5273976e7f79ae2f97f802c85de28a5a728",
+  "source_sha256": "998d99c70bcd9c0b465f95016e458a4f7a7587a43bda0d706cd4f571d0d730d1",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 406,
-  "mandatory_requirement_rows": 380,
+  "total_requirement_rows": 409,
+  "mandatory_requirement_rows": 383,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 34,
     "excluded_backlog": 26,
-    "open_mandatory": 197,
+    "open_mandatory": 200,
     "preserved_verified": 149
   },
   "taskcard_counts": {
@@ -24,6 +24,9 @@
     "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 44,
     "L8-WAVE4-PRESENTATION-INTELLIGENCE": 113,
     "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": 1,
+    "L8-TRUTH-01-STAGE-LIMIT": 1,
+    "L8-QUAL-01-CAMPAIGN-IDENTITY": 1,
+    "L8-QUAL-03-RECOVERY": 1,
     "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 53,
     "L8-WAVE6-CONTROLLED-JAVA-PILOT": 16,
     "L8-GATE-D-GITHUB-APP-INTEGRATION": 2,
@@ -2884,7 +2887,7 @@
     {
       "requirement_id": "ORC-009",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
       "disposition": "open_mandatory",
       "semantic_findings": []
@@ -2972,7 +2975,7 @@
     {
       "requirement_id": "VER-011",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
       "disposition": "open_mandatory",
       "semantic_findings": []
@@ -3278,6 +3281,30 @@
       "priority": "P0",
       "requirement_status": "PARTIAL",
       "task_id": "L8-PREPRODUCTION-IDEA-FIDELITY-GATE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-015",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-TRUTH-01-STAGE-LIMIT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-016",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-QUAL-01-CAMPAIGN-IDENTITY",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-017",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-QUAL-03-RECOVERY",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }
