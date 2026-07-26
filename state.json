@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-TRUTH-01A-FACT-CONTRACT",
-    "claim_expires_at": "2026-07-26T10:20:01.972202+00:00",
-    "claim_id": "59902ca51bad4e3faba7a684b02f4051",
-    "claimed_at": "2026-07-26T09:50:01.972202+00:00",
+    "active_task_id": "L8-MISSION-GOAL-GUARD",
+    "claim_expires_at": "2026-07-26T12:56:11.875186+00:00",
+    "claim_id": "6a245fd8baa148739e36187e82d387ff",
+    "claimed_at": "2026-07-26T12:26:11.875186+00:00",
     "claimed_by": "Codex",
     "graph_sha256": "cc06a302611adac69bab94d52341750f4061ab9a96a9ad0a5e6cbca69e5e5095",
-    "last_evaluated_at": "2026-07-26T12:25:35.067128+00:00",
+    "last_evaluated_at": "2026-07-26T12:26:11.875186+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -51,7 +51,7 @@
       "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "REGRESSED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
-      "L8-MISSION-GOAL-GUARD": "TODO",
+      "L8-MISSION-GOAL-GUARD": "IN_PROGRESS",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
       "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "CLOSED",
       "L8-QUAL-00-CAMPAIGN-SCHEMA": "TODO",
@@ -78,7 +78,7 @@
       "L8-REVIEW-05-REAL-CAMPAIGN": "TODO",
       "L8-STAGING-VERIFIED-PROPOSAL-PROOF": "TODO",
       "L8-TRUTH-01-STAGE-LIMIT": "CLOSED",
-      "L8-TRUTH-01A-FACT-CONTRACT": "IN_PROGRESS",
+      "L8-TRUTH-01A-FACT-CONTRACT": "REGRESSED",
       "L8-TRUTH-01B-LLM-CALL-LEDGER": "TODO",
       "L8-TRUTH-01C-PROMPT-HYGIENE": "TODO",
       "L8-TRUTH-02-ROOT-ROLES": "TODO",
@@ -1401,6 +1401,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-TRUTH-01A-FACT-CONTRACT",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-07-26T12:26:11.875197+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-TRUTH-01A-FACT-CONTRACT",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-26T12:26:11.875257+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-MISSION-GOAL-GUARD",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -1409,7 +1427,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 159,
+  "state_version": 160,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
