@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "25c2dcb69f6fde1a5fb8d86cfd04d34174db3546aa6e53c6a56097fa29bc6dd5",
-    "last_evaluated_at": "2026-07-26T16:47:25.781177+00:00",
+    "last_evaluated_at": "2026-07-26T16:47:37.938224+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -129,7 +129,7 @@
       "L8-TRUTH-01-STAGE-LIMIT": "CLOSED",
       "L8-TRUTH-01A-FACT-CONTRACT": "CLOSED",
       "L8-TRUTH-01B-LLM-CALL-LEDGER": "CLOSED",
-      "L8-TRUTH-01C-PROMPT-HYGIENE": "IMPLEMENTED",
+      "L8-TRUTH-01C-PROMPT-HYGIENE": "VERIFIED",
       "L8-TRUTH-02-ROOT-ROLES": "TODO",
       "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION": "TODO",
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "TODO",
@@ -1647,6 +1647,18 @@
         "reason": "Commit 432bfe8 implements the closed prompt inventory, governed planning assembly, paid-call gate, and dependency-scoped manifest hashes.",
         "task_id": "L8-TRUTH-01C-PROMPT-HYGIENE",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-prompt-hygiene/verification.json",
+          "plans/investigations/evidence/level8-prompt-hygiene/official-checks.stdout.log"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "independent-prompt-hygiene-verifier",
+        "occurred_at": "2026-07-26T16:47:37.938218+00:00",
+        "reason": "Fourteen negative-control classes, mutation isolation for every prompt, 153 focused tests, and the complete clean-tree official gate passed.",
+        "task_id": "L8-TRUTH-01C-PROMPT-HYGIENE",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -1655,7 +1667,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 184,
+  "state_version": 185,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
