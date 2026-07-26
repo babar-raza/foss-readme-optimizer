@@ -1263,22 +1263,2510 @@
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
     },
     "readme_presentation": {
-      "accepted_facts_hash": "127a3d5d6446cd50d39b914521dd0ac4212c0f4ee32d1ae7ef84165675ae7e74",
-      "accepted_status": "FIRST_OBSERVATION",
-      "consecutive_failure_count": 4,
+      "accepted_facts_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
+      "accepted_status": "CHANGED",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
+        "agentic_composition_plan": {
+          "assessment_hash": "10bef518baadea164139ab4c3983990fd12f3a6c66682a657ffa1b3be620580d",
+          "attempt_count": 1,
+          "facts_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
+          "input_sha256": "e3f02bc3a410a6c23fd121cd1ccee72e647bbad3e78e56e90228a78cdc86da31",
+          "model": "qwen3-next",
+          "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+          "overview_sentences": [
+            {
+              "supporting_fact_ids": [
+                "product.audience:agent-drafted-grounded",
+                "product.problems_solved:agent-drafted-grounded"
+              ],
+              "text": "Developers using Python for Create and manipulate 3D scenes"
+            },
+            {
+              "supporting_fact_ids": [
+                "product.identity:manifest-and-registry"
+              ],
+              "text": "Aspose.3D FOSS for Python"
+            }
+          ],
+          "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+          "repository_summary": "Repository for Aspose.3D FOSS for Python, a free and open-source 3D file format library for Python developers. The README needs a fact-backed 'At a glance' section and a reordered 'Resources' section to prioritize FOSS resources and clarify the commercial relationship without overshadowing the open-source product.",
+          "schema_version": 1,
+          "section_decisions": [
+            {
+              "disposition": "remove_update",
+              "priority": 10,
+              "rationale": "The opening contains a promotional callout that requires bounded correction per deterministic assessment; the rest of the opening is preserved.",
+              "section_id": "opening",
+              "supporting_fact_ids": [
+                "product.identity:manifest-and-registry",
+                "relationship.commercial_foss:primary"
+              ]
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:0",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:669",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:1582",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "The existing section is retained unless a verified gap exists.",
+              "section_id": "heading:2405",
+              "supporting_fact_ids": [
+                "installation.coordinates:manifest",
+                "installation.verified_acquisition:disposable-source-build"
+              ]
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "The section is assessed against the exact locally verified minimal example.",
+              "section_id": "heading:2462",
+              "supporting_fact_ids": [
+                "example.minimal:agent-drafted-example"
+              ]
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:3025",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:3493",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:3608",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:4860",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:5357",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:5455",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:5568",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:6742",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "add",
+              "priority": 100,
+              "rationale": "Add a fact-backed overview when verified descriptive facts are available, using the exact audience and problems solved phrases to ensure product specificity and developer usefulness.",
+              "section_id": "missing:at-a-glance",
+              "supporting_fact_ids": [
+                "product.audience:agent-drafted-grounded",
+                "product.problems_solved:agent-drafted-grounded"
+              ]
+            }
+          ],
+          "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+          "tool_schema_sha256": "d5525dc7b556c6e3f7dfaff5be65cf716d9fdd61b3aa9f4d39d26f1c22e66f04"
+        },
+        "agentic_composition_reused": false,
+        "bundle_verification": {
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260726-062825-0ef2-repair-1",
+          "checks": {
+            "acquisition_matches_live_registry": true,
+            "agentic_plan_assessment_hash_matches": true,
+            "agentic_plan_facts_hash_matches": true,
+            "agentic_plan_repository_matches": true,
+            "agentic_plan_source_hash_matches": true,
+            "all_artifacts_present": true,
+            "artifact_checksums_match": true,
+            "assessment_reconstructed": true,
+            "candidate_hash_matches_plan": true,
+            "cited_facts_accepted": true,
+            "claim_map_reconstructed": true,
+            "facts_hash_matches_plan": true,
+            "independent_reconstruction_byte_identical": true,
+            "independent_validation_valid": true,
+            "native_git_apply_produces_candidate": true,
+            "operations_cite_selected_facts": true,
+            "recomputed_validation_consistent_with_stored": true,
+            "reconstructed_plan_matches": true,
+            "schemas_valid": true,
+            "source_hash_matches_plan": true
+          },
+          "failures": [],
+          "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+          "status": "checked",
+          "verified": true
+        },
         "committed": false,
+        "factuality": {
+          "claim_conflicts": [],
+          "error": null,
+          "product_facts_v2_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
+          "protected_content_losses": [],
+          "valid": true
+        },
         "fresh_fingerprint": "fb9af9a77cdb9f3b786dab680fd183cbd6dd3d1ae830f6b45b632a1db027b80a",
-        "llm_called": false,
-        "llm_calls": [],
-        "render_status": "STALE_NONCOMPLIANT",
+        "independent_review": {
+          "attempts": 1,
+          "escalation": null,
+          "final_review": {
+            "failed_criteria": [],
+            "preserve": [],
+            "reasoning": "The candidate README is factually accurate, complete, specific to this product, and ready to ship. Every claim in the candidate is traceable to the supplied ProductFactsV2: the product identity, audience, problems solved, formats, installation coordinates, license, and architecture are all verified. The 'At a glance' section uses the exact audience and problems-solved phrases from verified facts. The installation and example sections match the verified coordinates and minimal example. The format support claims are supported by the repository evidence assertions (despite some missing symbols, the assertions themselves are present). The commercial relationship section is preserved as intended by the relationship.commercial_foss fact. No concrete, externally checkable claims are missing evidence, and no factual conflicts exist.",
+            "required_repair": "",
+            "sections_affected": [],
+            "verdict": "ACCEPT"
+          },
+          "outcome_kind": "accepted",
+          "repair_history": [
+            {
+              "candidate_sha256": "b06321cc7a6deeea67d02e68584e9d02454dc854bb94a1762176e2e7e4dbfafa",
+              "deterministic_validation": {
+                "checks": {
+                  "adoption_preserved_source": true,
+                  "candidate_has_presentation_span": true,
+                  "candidate_hash_matches": true,
+                  "candidate_matches_independent_render": true,
+                  "document_reconstruction": true,
+                  "fact_citations": true,
+                  "facts_hash_matches": true,
+                  "needs_write_matches": true,
+                  "protected_content": true,
+                  "source_document_hash": true,
+                  "source_span_hashes": true,
+                  "template_hash_matches": true,
+                  "verified_example_present": true,
+                  "verified_limitations_present": true,
+                  "verified_overview_present": true
+                },
+                "nonce": "20260726-062651-eb7f",
+                "reason": null,
+                "requirement_map": {
+                  "fact_backed_document_plan": true,
+                  "immutable_snapshot": true,
+                  "protected_content": true,
+                  "verified_example": true
+                },
+                "token": "b532f2237a6369d4c7015b9419b995de161eb5c513e221b802612a036acc93cd",
+                "verdict": "accept"
+              },
+              "evidence_refs": [
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260726-062651-eb7f"
+              ],
+              "repair_attempt": 0,
+              "review": {
+                "failed_criteria": [
+                  "product_specificity",
+                  "readability",
+                  "developer_usefulness",
+                  "commercial_context"
+                ],
+                "preserve": [],
+                "reasoning": "The candidate README contains several issues that prevent it from being ACCEPT. First, the 'At a glance' section is factually incomplete and misleading: it lists 'Developers using Python for Create and manipulate 3D scenes' as a standalone bullet point without context, and the second bullet 'Aspose.3D FOSS for Python' is just the product name without explaining what it does. This section fails to properly summarize the verified audience and problems solved facts. Second, the 'In this README' navigation list is redundant and adds no value\u2014it duplicates the table of contents that will appear automatically in GitHub. Third, the candidate README preserves the original's promotional callout in the 'Resources' section where it says 'Aspose.3D FOSS \u2014 free & open source (aspose.org)' and 'Aspose.3D \u2014 commercial On-Premise edition (aspose.com)' which creates an unbalanced presentation where commercial links precede product substance. The presentation plan explicitly intended to remove the promotional callout from the opening but did not address the Resources section imbalance. These are quality, completeness, and presentation defects that can be fixed with bounded edits without requiring new evidence.",
+                "required_repair": "Rewrite the 'At a glance' section to be factually complete and specific: use the verified audience fact to state 'Python developers who need to create and manipulate 3D scenes' and the verified problems solved facts to list the core capabilities. Remove the redundant 'In this README' navigation list. Reorder the Resources section to present FOSS resources first, then commercial resources, and ensure the commercial context does not dominate the product substance.",
+                "sections_affected": [
+                  "At a glance",
+                  "In this README",
+                  "Resources"
+                ],
+                "verdict": "REJECT_REPAIRABLE"
+              },
+              "review_pass": 1
+            },
+            {
+              "candidate_sha256": "b06321cc7a6deeea67d02e68584e9d02454dc854bb94a1762176e2e7e4dbfafa",
+              "deterministic_validation": {
+                "bundle_verification": {
+                  "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260726-062825-0ef2-repair-1",
+                  "checks": {
+                    "acquisition_matches_live_registry": true,
+                    "agentic_plan_assessment_hash_matches": true,
+                    "agentic_plan_facts_hash_matches": true,
+                    "agentic_plan_repository_matches": true,
+                    "agentic_plan_source_hash_matches": true,
+                    "all_artifacts_present": true,
+                    "artifact_checksums_match": true,
+                    "assessment_reconstructed": true,
+                    "candidate_hash_matches_plan": true,
+                    "cited_facts_accepted": true,
+                    "claim_map_reconstructed": true,
+                    "facts_hash_matches_plan": true,
+                    "independent_reconstruction_byte_identical": true,
+                    "independent_validation_valid": true,
+                    "native_git_apply_produces_candidate": true,
+                    "operations_cite_selected_facts": true,
+                    "recomputed_validation_consistent_with_stored": true,
+                    "reconstructed_plan_matches": true,
+                    "schemas_valid": true,
+                    "source_hash_matches_plan": true
+                  },
+                  "failures": [],
+                  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+                  "status": "checked",
+                  "verified": true
+                },
+                "candidate_verification": {
+                  "checks": {
+                    "adoption_preserved_source": true,
+                    "candidate_has_presentation_span": true,
+                    "candidate_hash_matches": true,
+                    "candidate_matches_independent_render": true,
+                    "document_reconstruction": true,
+                    "fact_citations": true,
+                    "facts_hash_matches": true,
+                    "needs_write_matches": true,
+                    "protected_content": true,
+                    "source_document_hash": true,
+                    "source_span_hashes": true,
+                    "template_hash_matches": true,
+                    "verified_example_present": true,
+                    "verified_limitations_present": true,
+                    "verified_overview_present": true
+                  },
+                  "nonce": "20260726-062825-a260",
+                  "reason": null,
+                  "requirement_map": {
+                    "fact_backed_document_plan": true,
+                    "immutable_snapshot": true,
+                    "protected_content": true,
+                    "verified_example": true
+                  },
+                  "token": "f73f6df07217acb93507c218ad3a7b86c6727372c72532ae2e850564a9deca92",
+                  "verdict": "accept"
+                },
+                "factuality": {
+                  "claim_conflicts": [],
+                  "error": null,
+                  "product_facts_v2_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
+                  "protected_content_losses": [],
+                  "valid": true
+                },
+                "verdict": "accept"
+              },
+              "evidence_refs": [
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260726-062825-0ef2-repair-1"
+              ],
+              "repair_attempt": 1,
+              "review": {
+                "failed_criteria": [],
+                "preserve": [],
+                "reasoning": "The candidate README is factually accurate, complete, specific to this product, and ready to ship. Every claim in the candidate is traceable to the supplied ProductFactsV2: the product identity, audience, problems solved, formats, installation coordinates, license, and architecture are all verified. The 'At a glance' section uses the exact audience and problems-solved phrases from verified facts. The installation and example sections match the verified coordinates and minimal example. The format support claims are supported by the repository evidence assertions (despite some missing symbols, the assertions themselves are present). The commercial relationship section is preserved as intended by the relationship.commercial_foss fact. No concrete, externally checkable claims are missing evidence, and no factual conflicts exist.",
+                "required_repair": "",
+                "sections_affected": [],
+                "verdict": "ACCEPT"
+              },
+              "review_pass": 2
+            }
+          ]
+        },
+        "llm_called": true,
+        "llm_calls": [
+          {
+            "input_sha256": "e3f02bc3a410a6c23fd121cd1ccee72e647bbad3e78e56e90228a78cdc86da31",
+            "job": "plan_readme_composition",
+            "model": "qwen3-next",
+            "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6"
+          }
+        ],
+        "note": "local-POC profile stops at an independently reviewed proposal",
+        "presentation_plan": {
+          "agentic_composition_plan": {
+            "assessment_hash": "10bef518baadea164139ab4c3983990fd12f3a6c66682a657ffa1b3be620580d",
+            "attempt_count": 1,
+            "facts_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
+            "input_sha256": "e3f02bc3a410a6c23fd121cd1ccee72e647bbad3e78e56e90228a78cdc86da31",
+            "model": "qwen3-next",
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+            "overview_sentences": [
+              {
+                "supporting_fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.problems_solved:agent-drafted-grounded"
+                ],
+                "text": "Developers using Python for Create and manipulate 3D scenes"
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.identity:manifest-and-registry"
+                ],
+                "text": "Aspose.3D FOSS for Python"
+              }
+            ],
+            "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+            "repository_summary": "Repository for Aspose.3D FOSS for Python, a free and open-source 3D file format library for Python developers. The README needs a fact-backed 'At a glance' section and a reordered 'Resources' section to prioritize FOSS resources and clarify the commercial relationship without overshadowing the open-source product.",
+            "schema_version": 1,
+            "section_decisions": [
+              {
+                "disposition": "remove_update",
+                "priority": 10,
+                "rationale": "The opening contains a promotional callout that requires bounded correction per deterministic assessment; the rest of the opening is preserved.",
+                "section_id": "opening",
+                "supporting_fact_ids": [
+                  "product.identity:manifest-and-registry",
+                  "relationship.commercial_foss:primary"
+                ]
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:0",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:669",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:1582",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The existing section is retained unless a verified gap exists.",
+                "section_id": "heading:2405",
+                "supporting_fact_ids": [
+                  "installation.coordinates:manifest",
+                  "installation.verified_acquisition:disposable-source-build"
+                ]
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The section is assessed against the exact locally verified minimal example.",
+                "section_id": "heading:2462",
+                "supporting_fact_ids": [
+                  "example.minimal:agent-drafted-example"
+                ]
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3025",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3493",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3608",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:4860",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5357",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5455",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5568",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:6742",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "add",
+                "priority": 100,
+                "rationale": "Add a fact-backed overview when verified descriptive facts are available, using the exact audience and problems solved phrases to ensure product specificity and developer usefulness.",
+                "section_id": "missing:at-a-glance",
+                "supporting_fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.problems_solved:agent-drafted-grounded"
+                ]
+              }
+            ],
+            "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+            "tool_schema_sha256": "d5525dc7b556c6e3f7dfaff5be65cf716d9fdd61b3aa9f4d39d26f1c22e66f04"
+          },
+          "claim_map": {
+            "candidate_sha256": "b06321cc7a6deeea67d02e68584e9d02454dc854bb94a1762176e2e7e4dbfafa",
+            "claims": [
+              {
+                "byte_end": 570,
+                "byte_start": 509,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.audience",
+                "claim_text_sha256": "e93138b6628a6d84906ab73f865de060f306901e38a7d10872ca05c1abaf42b6",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.audience:agent-drafted-grounded",
+                "fact_value_sha256": "288495650b80a7236a7229b779c418a0e2cc9003eaaded14236b459c13d294d2",
+                "field": "product.audience",
+                "introduced_text_sha256": "9d310732631933aa8f6120995e8700d57bf8eac51526a77a65908df8b06b8d18",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 570,
+                "byte_start": 509,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.identity",
+                "claim_text_sha256": "e93138b6628a6d84906ab73f865de060f306901e38a7d10872ca05c1abaf42b6",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.identity:manifest-and-registry",
+                "fact_value_sha256": "93dd4d9de31ccaec127a2faa926b10582e6fef5874b86e228d01e3951ccf6d27",
+                "field": "product.identity",
+                "introduced_text_sha256": "9d310732631933aa8f6120995e8700d57bf8eac51526a77a65908df8b06b8d18",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 570,
+                "byte_start": 509,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.problems_solved",
+                "claim_text_sha256": "e93138b6628a6d84906ab73f865de060f306901e38a7d10872ca05c1abaf42b6",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.problems_solved:agent-drafted-grounded",
+                "fact_value_sha256": "d7144c734e706fadcd673e8061095efacf24071283cf9e524520395e9cca073c",
+                "field": "product.problems_solved",
+                "introduced_text_sha256": "9d310732631933aa8f6120995e8700d57bf8eac51526a77a65908df8b06b8d18",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              }
+            ],
+            "facts_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+            "schema_version": 1
+          },
+          "document_validation": {
+            "authorized_protected_corrections": [],
+            "checks": {
+              "adoption_preserved_source": true,
+              "candidate_has_presentation_span": true,
+              "candidate_hash_matches": true,
+              "document_reconstruction": true,
+              "fact_citations": true,
+              "facts_hash_matches": true,
+              "protected_content": true,
+              "source_document_hash": true,
+              "source_span_hashes": true,
+              "template_hash_matches": true,
+              "verified_example_present": true,
+              "verified_limitations_present": true,
+              "verified_overview_present": true
+            },
+            "citation_errors": [],
+            "errors": [],
+            "valid": true
+          },
+          "executable": true,
+          "git_patch_proof": {
+            "candidate_sha256": "b06321cc7a6deeea67d02e68584e9d02454dc854bb94a1762176e2e7e4dbfafa",
+            "git_apply_check_passed": true,
+            "outside_spans_preserved": true,
+            "patch_sha256": "61097c1d87b0ded0f741c386901d577503eeeeb77bb3631d03fad894f573c4ff",
+            "path": "README.md",
+            "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac"
+          },
+          "presentation_plan": {
+            "actions": [
+              {
+                "action_id": "readme.presentation.document-plan",
+                "claims": [
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.audience",
+                    "fact_ids": [
+                      "product.audience:agent-drafted-grounded"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.audience]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.identity",
+                    "fact_ids": [
+                      "product.identity:manifest-and-registry"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.identity]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.problems_solved",
+                    "fact_ids": [
+                      "product.problems_solved:agent-drafted-grounded"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.problems_solved]"
+                  },
+                  {
+                    "claim_id": "readme.opening.remove-promotional-callout.relationship.commercial_foss",
+                    "fact_ids": [
+                      "relationship.commercial_foss:primary"
+                    ],
+                    "surface_id": "readme.relationship",
+                    "text": "Keep the first screen product-first; the existing relationship section continues to carry restrained commercial context. [relationship.commercial_foss]"
+                  }
+                ],
+                "depends_on": [],
+                "disposition": "eligible",
+                "fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.identity:manifest-and-registry",
+                  "product.problems_solved:agent-drafted-grounded",
+                  "relationship.commercial_foss:primary"
+                ],
+                "ownership_class": "repository_file",
+                "patch_sha256": "61097c1d87b0ded0f741c386901d577503eeeeb77bb3631d03fad894f573c4ff",
+                "proposed_operation": "local_patch",
+                "region_id": "readme.presentation",
+                "rollback": "revert the bounded file patch",
+                "source_spans": [
+                  {
+                    "byte_end": 6908,
+                    "byte_start": 0,
+                    "expected_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+                    "path": "README.md",
+                    "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations",
+                    "replacement_sha256": "b06321cc7a6deeea67d02e68584e9d02454dc854bb94a1762176e2e7e4dbfafa"
+                  }
+                ],
+                "stop_conditions": [
+                  "immutable base revision changed",
+                  "source or work-tree README hash changed",
+                  "document reconstruction differs",
+                  "a fact citation becomes unselected, unresolved, or unverified",
+                  "protected content outside a cited authoritative correction is lost",
+                  "Git apply or independent verification fails"
+                ],
+                "surface_id": "readme",
+                "validators": [
+                  "claim_citations",
+                  "surface_ownership",
+                  "source_span_hash",
+                  "git_apply_check",
+                  "protected_content",
+                  "independent_verifier"
+                ]
+              }
+            ],
+            "archetype": "python-library",
+            "candidate_sha256": "b06321cc7a6deeea67d02e68584e9d02454dc854bb94a1762176e2e7e4dbfafa",
+            "facts_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
+            "findings": [
+              {
+                "dimension": "product_clarity",
+                "disposition": "satisfied",
+                "evidence": [
+                  "<!-- readme-agent:presentation hash=\"sha256:c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4\" schema=\"3\" inner-bytes=\"7148\" --> A powerful, free, and open-source 3D file format library for Python. Aspose.3D FOSS for Python enables developers to create, manipulate, and convert 3D scenes and models programmatically. It supports popular 3D file formats including OBJ, STL, glTF, 3MF, and more, and is released under the permissive **MIT License**. - Developers using Python for Create and manipulate 3D scenes"
+                ],
+                "finding_id": "readme.product_clarity",
+                "summary": "product clarity is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "audience_fit",
+                "disposition": "satisfied",
+                "evidence": [
+                  "<!-- readme-agent:presentation hash=\"sha256:c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4\" schema=\"3\" inner-bytes=\"7148\" --> A powerful, free, and open-source 3D file format library for Python. Aspose.3D FOSS for Python enables developers to create, manipulate, and convert 3D scenes and models programmatically. It supports popular 3D file formats including OBJ, STL, glTF, 3MF, and more, and is released under the permissive **MIT License**. - Developers using Python for Create and manipulate 3D scenes"
+                ],
+                "finding_id": "readme.audience_fit",
+                "summary": "audience fit is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "trust_signals",
+                "disposition": "satisfied",
+                "evidence": [
+                  "product.license:license-file:verified"
+                ],
+                "finding_id": "readme.trust_signals",
+                "summary": "trust signals is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "installation_path",
+                "disposition": "satisfied",
+                "evidence": [
+                  "installation.verified_acquisition:disposable-source-build:outcomes=['accepted']"
+                ],
+                "finding_id": "readme.installation_path",
+                "summary": "installation path is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "verified_examples",
+                "disposition": "satisfied",
+                "evidence": [
+                  "2 fenced code blocks found"
+                ],
+                "finding_id": "readme.verified_examples",
+                "summary": "verified examples is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "navigation",
+                "disposition": "satisfied",
+                "evidence": [
+                  "None"
+                ],
+                "finding_id": "readme.navigation",
+                "summary": "navigation is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "visual_usefulness",
+                "disposition": "observation",
+                "evidence": [
+                  "markdown images=0; factual review is separate"
+                ],
+                "finding_id": "readme.visual_usefulness",
+                "summary": "visual usefulness is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "contribution_readiness",
+                "disposition": "observation",
+                "evidence": [
+                  "repository-file recognition belongs to the community-files specialist"
+                ],
+                "finding_id": "readme.contribution_readiness",
+                "summary": "contribution readiness is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "maintenance_signals",
+                "disposition": "observation",
+                "evidence": [
+                  "GitHub-generated activity remains audit-only"
+                ],
+                "finding_id": "readme.maintenance_signals",
+                "summary": "maintenance signals is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "commercial_context",
+                "disposition": "gap",
+                "evidence": [
+                  "commercial_links=3; explanation_offset=173"
+                ],
+                "finding_id": "readme.commercial_context",
+                "summary": "commercial context needs review",
+                "surface_id": "readme"
+              }
+            ],
+            "immutable_base_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+            "schema_version": 1,
+            "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac"
+          },
+          "readme_assessment": {
+            "facts_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
+            "immutable_base_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+            "material_claims": [
+              {
+                "claim_id": "claim:29:47f5129fce47e0c8",
+                "content_sha256": "47f5129fce47e0c80ef5fb199af2174524cd6d8f4f58d00c3860e73062882d0f",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:29:348"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 348,
+                "source_byte_start": 29
+              },
+              {
+                "claim_id": "claim:349:998db98d326185c5",
+                "content_sha256": "998db98d326185c56e999648ae5cb7d983715bc9dbf77176da3e74e952abd038",
+                "disposition": "remove_update",
+                "evidence": [
+                  "README.md:349:663"
+                ],
+                "fact_ids": [],
+                "rationale": "Promotional callout requires a bounded product-first correction.",
+                "source_byte_end": 668,
+                "source_byte_start": 349
+              },
+              {
+                "claim_id": "claim:694:fdd7f0025a66e60b",
+                "content_sha256": "fdd7f0025a66e60bfb712b24daf62748b81cf3a84d51786aff98489e626e1425",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:689:848"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 853,
+                "source_byte_start": 694
+              },
+              {
+                "claim_id": "claim:854:9a27aaf937bb6941",
+                "content_sha256": "9a27aaf937bb6941be1a5b10e0c5a780d1798ee65901c427b846784cc9b14068",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:849:929"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 934,
+                "source_byte_start": 854
+              },
+              {
+                "claim_id": "claim:934:dd97af95ec48ca53",
+                "content_sha256": "dd97af95ec48ca539d3a29c841623c19bba88b37513142289ad65292203e12bb",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:929:1053"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1060,
+                "source_byte_start": 934
+              },
+              {
+                "claim_id": "claim:1060:d6979bdb93753f96",
+                "content_sha256": "d6979bdb93753f9632d4a77ae0402bf1456428a4b80c0d2840067756fb6a8505",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1053:1332"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1341,
+                "source_byte_start": 1060
+              },
+              {
+                "claim_id": "claim:1342:cb582ec3cc54f045",
+                "content_sha256": "cb582ec3cc54f045ec884337ce704390fde6e70f5aa8ce9c71cee14a87fdad81",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1333:1572"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1581,
+                "source_byte_start": 1342
+              },
+              {
+                "claim_id": "claim:1595:d97f31483586ee48",
+                "content_sha256": "d97f31483586ee48a954e7019781abca94274a1d52143c4008380865f2cb2fd6",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1586:1607"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1616,
+                "source_byte_start": 1595
+              },
+              {
+                "claim_id": "claim:1616:42af0ba76e0810ab",
+                "content_sha256": "42af0ba76e0810ab60e752b72aa928fb6f89e72d799affda681b0dcd23bd41dc",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1607:1670"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1679,
+                "source_byte_start": 1616
+              },
+              {
+                "claim_id": "claim:1679:c69b0e41a58c2183",
+                "content_sha256": "c69b0e41a58c2183cc21b6af4f8508f07e52d8a645ed9df46a29151d3f169b70",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1670:1735"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1744,
+                "source_byte_start": 1679
+              },
+              {
+                "claim_id": "claim:1744:e53832c55a96893f",
+                "content_sha256": "e53832c55a96893f5dd4858e596bc75b2c4fe22020e95affe93e2cddcac3a29d",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1735:1787"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1796,
+                "source_byte_start": 1744
+              },
+              {
+                "claim_id": "claim:1796:7f6a64d5a2ef1ae0",
+                "content_sha256": "7f6a64d5a2ef1ae052dc5bf395cc75f982cd20a42a82c38ad4069ae241615596",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1787:1854"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1863,
+                "source_byte_start": 1796
+              },
+              {
+                "claim_id": "claim:1864:438dec6fbdfc618e",
+                "content_sha256": "438dec6fbdfc618e2c179bb3ab28507e89073f0c7121660b7a06aa1ded24245d",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1855:1878"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1887,
+                "source_byte_start": 1864
+              },
+              {
+                "claim_id": "claim:1887:439735fabc5ca22a",
+                "content_sha256": "439735fabc5ca22a8e271686d6ae5d3e07e6b1636b0aa6d12d8f6366a1b889d1",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1878:1914"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1923,
+                "source_byte_start": 1887
+              },
+              {
+                "claim_id": "claim:1923:562dca7ff6c39c52",
+                "content_sha256": "562dca7ff6c39c52c394fa508eade5a7665b5bacc4202ccf59c9e73d48fe6b6d",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1914:1946"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1955,
+                "source_byte_start": 1923
+              },
+              {
+                "claim_id": "claim:1955:4adcbf03a490febb",
+                "content_sha256": "4adcbf03a490febb55b6e363dffcab4a67af3f3209e4b0baf0d74be352f494d8",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1946:1977"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1986,
+                "source_byte_start": 1955
+              },
+              {
+                "claim_id": "claim:1986:50ec72b696e2b538",
+                "content_sha256": "50ec72b696e2b5381e83a1bc68f8b3bc21cba19ba75bb9b2c10abb7fbba2b79c",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1977:2036"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2045,
+                "source_byte_start": 1986
+              },
+              {
+                "claim_id": "claim:2046:5acd852259a0d59d",
+                "content_sha256": "5acd852259a0d59dff9cd27f5283f8c627bfef301281ec3a57d19ca905cfc0c3",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2037:2057"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2066,
+                "source_byte_start": 2046
+              },
+              {
+                "claim_id": "claim:2066:17331eeb698f57b4",
+                "content_sha256": "17331eeb698f57b4ea9d912bce64d332dd9212119f5d7bbaba1f7dc00c4f8891",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2057:2122"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2131,
+                "source_byte_start": 2066
+              },
+              {
+                "claim_id": "claim:2131:c71275844dbb057b",
+                "content_sha256": "c71275844dbb057b55f89508eea4a83fd7eeb06da3842de90e91e69277fface3",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2122:2161"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2170,
+                "source_byte_start": 2131
+              },
+              {
+                "claim_id": "claim:2170:cd2ea38dea6de979",
+                "content_sha256": "cd2ea38dea6de9797d08053a623bcd8f6d488d6de0b86ebdf8159ad97753df9b",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2161:2190"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2199,
+                "source_byte_start": 2170
+              },
+              {
+                "claim_id": "claim:2200:3c45215209a75125",
+                "content_sha256": "3c45215209a751257f57de9be70926d32a5fdd7e04990da9b70d7647d011fc1c",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2191:2213"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2222,
+                "source_byte_start": 2200
+              },
+              {
+                "claim_id": "claim:2222:3f9ddf3567d94dc3",
+                "content_sha256": "3f9ddf3567d94dc36539186e1df22de600519feca7a12b8dfc84f948b86651a4",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2213:2262"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2271,
+                "source_byte_start": 2222
+              },
+              {
+                "claim_id": "claim:2271:d944af09b7912268",
+                "content_sha256": "d944af09b791226802143d100f24c78c718f947e941e3f7d7b5ba4355b1bf334",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2262:2301"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2310,
+                "source_byte_start": 2271
+              },
+              {
+                "claim_id": "claim:2311:16e8de43ab3bf8e5",
+                "content_sha256": "16e8de43ab3bf8e5ec83bc3438a68c514e23056e37059df8db99404e268906c1",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2302:2325"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2334,
+                "source_byte_start": 2311
+              },
+              {
+                "claim_id": "claim:2334:bd86e75706e1a04d",
+                "content_sha256": "bd86e75706e1a04da2a949e86670c0120b0e5addc6a265813195b38fbf24c0f6",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2325:2356"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2365,
+                "source_byte_start": 2334
+              },
+              {
+                "claim_id": "claim:2365:2b8d2e10b536039c",
+                "content_sha256": "2b8d2e10b536039cb993347dc186508024dffe852d9d1d00f5810ffad23cb521",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2356:2395"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2404,
+                "source_byte_start": 2365
+              },
+              {
+                "claim_id": "claim:2422:43fefdbbda13085c",
+                "content_sha256": "43fefdbbda13085c5cc1a895e893802781a4bc8a0de6ae4cff68697474ed5245",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2413:2452"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2461,
+                "source_byte_start": 2422
+              },
+              {
+                "claim_id": "claim:2478:d9682cad1497d65c",
+                "content_sha256": "d9682cad1497d65cd09b0db655ad789a5c559795424e2543ca521f771e73d851",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2469:3015"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3024,
+                "source_byte_start": 2478
+              },
+              {
+                "claim_id": "claim:3072:91d4621e7948714b",
+                "content_sha256": "91d4621e7948714b0e75df278ca1962b271b1cc93c46a6fc942414f5cd1ce224",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3063:3116"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3125,
+                "source_byte_start": 3072
+              },
+              {
+                "claim_id": "claim:3125:26f6d113632b89eb",
+                "content_sha256": "26f6d113632b89ebb5b33822b8a1bff08aa71663ca5e290f5e28463b7b28fa7e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3116:3163"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3172,
+                "source_byte_start": 3125
+              },
+              {
+                "claim_id": "claim:3172:83d9a8f45602774a",
+                "content_sha256": "83d9a8f45602774abdff8de51dec568f818fdadb9e3f2ccb90b13d08124bdedb",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3163:3201"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3210,
+                "source_byte_start": 3172
+              },
+              {
+                "claim_id": "claim:3210:d69620e010432847",
+                "content_sha256": "d69620e0104328471efc30036d12232915751be982efb70af491791d15aa0ab8",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3201:3237"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3246,
+                "source_byte_start": 3210
+              },
+              {
+                "claim_id": "claim:3246:7f8d581157898598",
+                "content_sha256": "7f8d581157898598ef362828bfdd0d1ed50ea6d9e00ab4e0a2e86b1ad2f0d304",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3237:3267"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3276,
+                "source_byte_start": 3246
+              },
+              {
+                "claim_id": "claim:3302:185c58fac1523373",
+                "content_sha256": "185c58fac1523373cc67ec795bc10e9a9efc5982d11f1803a3649fc3314f3475",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3293:3348"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3357,
+                "source_byte_start": 3302
+              },
+              {
+                "claim_id": "claim:3357:86fc86f6550eb1a1",
+                "content_sha256": "86fc86f6550eb1a1b0dddab5113d3518a2bc1c8d08846ce3b80d1cdb3fd4412e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3348:3387"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3396,
+                "source_byte_start": 3357
+              },
+              {
+                "claim_id": "claim:3396:966b8288413e3c86",
+                "content_sha256": "966b8288413e3c86cf0643324fb4d30928ef44db53ab02e38ea987bd2eea559e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3387:3420"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3429,
+                "source_byte_start": 3396
+              },
+              {
+                "claim_id": "claim:3429:74bc9591ed99976c",
+                "content_sha256": "74bc9591ed99976c96441b89f9f2c87b78f9ff1f03e6ba5f6f795e7ee5a44bb0",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3420:3453"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3462,
+                "source_byte_start": 3429
+              },
+              {
+                "claim_id": "claim:3462:7f8d581157898598",
+                "content_sha256": "7f8d581157898598ef362828bfdd0d1ed50ea6d9e00ab4e0a2e86b1ad2f0d304",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3453:3483"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3492,
+                "source_byte_start": 3462
+              },
+              {
+                "claim_id": "claim:3520:7c4e26a53d22b6bf",
+                "content_sha256": "7c4e26a53d22b6bf4dc467e7c56e227556c95c2aefd4d973c9e5676b109e910e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3511:3525"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3534,
+                "source_byte_start": 3520
+              },
+              {
+                "claim_id": "claim:3534:41ce576cda3cbfb1",
+                "content_sha256": "41ce576cda3cbfb15b8b8b941234001aee00d1797b22751485acef35de0ebf70",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3525:3539"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3548,
+                "source_byte_start": 3534
+              },
+              {
+                "claim_id": "claim:3548:d8174940d942d448",
+                "content_sha256": "d8174940d942d4482ac1456987c0d9102f76266c230ce48b2a5f1128aa5b0f0b",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3539:3553"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3562,
+                "source_byte_start": 3548
+              },
+              {
+                "claim_id": "claim:3562:34ec8bb4ce6cc52a",
+                "content_sha256": "34ec8bb4ce6cc52a23d8a14d29306be6f2e8cf02504c3f03f496baef8d964700",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3553:3568"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3577,
+                "source_byte_start": 3562
+              },
+              {
+                "claim_id": "claim:3577:ec917ab8870706e6",
+                "content_sha256": "ec917ab8870706e6ddfcd0d49c2339c400008e54688c6dfdd53e9b9cd47cfbed",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3568:3583"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3592,
+                "source_byte_start": 3577
+              },
+              {
+                "claim_id": "claim:3592:e6589ccaab0e8a3d",
+                "content_sha256": "e6589ccaab0e8a3d901322cc193e09f326a0e4b44299b64b4a15082e47277f08",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3583:3598"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3607,
+                "source_byte_start": 3592
+              },
+              {
+                "claim_id": "claim:3653:d0132e2eb1a708d2",
+                "content_sha256": "d0132e2eb1a708d240e9cee9c84520467ff7f3377786d5ba64d5ee432ffc6ff1",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3644:3665"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3674,
+                "source_byte_start": 3653
+              },
+              {
+                "claim_id": "claim:3674:bf33c21b1b2f3631",
+                "content_sha256": "bf33c21b1b2f36317bd9366c960fe31488ab7df43f6e20186ef6be179c1e9162",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3665:3727"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3736,
+                "source_byte_start": 3674
+              },
+              {
+                "claim_id": "claim:3736:89551c9ab5782381",
+                "content_sha256": "89551c9ab57823812fca1814337ea4ec8f4cb19631b2ee5d0265a62a5b05f6f8",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3727:3767"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3776,
+                "source_byte_start": 3736
+              },
+              {
+                "claim_id": "claim:3776:28db345d418fd72f",
+                "content_sha256": "28db345d418fd72fa7193164db63f6c45347ad1d5df0ad98915c5d14dfc2d9f7",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3767:3815"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3824,
+                "source_byte_start": 3776
+              },
+              {
+                "claim_id": "claim:3824:9887f0e7482974c7",
+                "content_sha256": "9887f0e7482974c7ff7e6a10846917cc58eaccb4e82ed4a801f22aba08e544ce",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3815:3844"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3853,
+                "source_byte_start": 3824
+              },
+              {
+                "claim_id": "claim:3854:66a8088ec2a8c2fd",
+                "content_sha256": "66a8088ec2a8c2fdc0ce620a33dbecf7403f4e0de5f52452ebe043880441607b",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3845:3863"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3872,
+                "source_byte_start": 3854
+              },
+              {
+                "claim_id": "claim:3872:79b993ca77dbac0a",
+                "content_sha256": "79b993ca77dbac0ac1b421b6c3255b9cd3856cf8fc20deeb2867c945e2bceade",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3863:3917"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3926,
+                "source_byte_start": 3872
+              },
+              {
+                "claim_id": "claim:3926:269d4f4e77008d5b",
+                "content_sha256": "269d4f4e77008d5b748af7a92424c23cb2ff5a37beda22f847745541fa26459b",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3917:3972"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3981,
+                "source_byte_start": 3926
+              },
+              {
+                "claim_id": "claim:3981:2dce75fc48038892",
+                "content_sha256": "2dce75fc48038892a989064731808dbaaeb481ed8c3c53d647a27e8129194f46",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3972:4017"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4026,
+                "source_byte_start": 3981
+              },
+              {
+                "claim_id": "claim:4026:952b85e609f8102c",
+                "content_sha256": "952b85e609f8102c3d737ebcb1f8230d32f5d238a9f07840ba50ef3bdf728c03",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4017:4065"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4074,
+                "source_byte_start": 4026
+              },
+              {
+                "claim_id": "claim:4075:4e150a9320603e86",
+                "content_sha256": "4e150a9320603e864e87512b743933b55bfa3dcdbf4c249740ec47d465d1b465",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4066:4084"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4093,
+                "source_byte_start": 4075
+              },
+              {
+                "claim_id": "claim:4093:1f6674ff8f32526e",
+                "content_sha256": "1f6674ff8f32526e4b8419cad7bbb53c06e49fbfa999857a9e2562ab9097d274",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4084:4126"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4135,
+                "source_byte_start": 4093
+              },
+              {
+                "claim_id": "claim:4135:7e685731fa27d95a",
+                "content_sha256": "7e685731fa27d95a31d50762dcb15f33e27b7eeb7ee87948aa4b0d2ce65b25a1",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4126:4166"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4175,
+                "source_byte_start": 4135
+              },
+              {
+                "claim_id": "claim:4175:d08fdad81c13423e",
+                "content_sha256": "d08fdad81c13423e73db44a7a924af173e08fc9a62b6c5e681e1a2ac2fdf5756",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4166:4195"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4204,
+                "source_byte_start": 4175
+              },
+              {
+                "claim_id": "claim:4204:d298e037709f5048",
+                "content_sha256": "d298e037709f5048ccdddaeb99553cef456345169596b55a1d5be139f38fcbe3",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4195:4234"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4243,
+                "source_byte_start": 4204
+              },
+              {
+                "claim_id": "claim:4243:4b2ce9a2bc09d214",
+                "content_sha256": "4b2ce9a2bc09d21418017a3bbc6dcbc36eec6343330364071bb65d3d6eee3874",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4234:4274"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4283,
+                "source_byte_start": 4243
+              },
+              {
+                "claim_id": "claim:4283:3c47a17b2fb12736",
+                "content_sha256": "3c47a17b2fb127361404aefd895474f58d068ca494908e1bb26fefd198413cf0",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4274:4326"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4335,
+                "source_byte_start": 4283
+              },
+              {
+                "claim_id": "claim:4353:077bedeae5490d31",
+                "content_sha256": "077bedeae5490d31b05b1486dcb0c905a89fc62a8bed966a4928e0f4ab72bd9e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4344:4358"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4367,
+                "source_byte_start": 4353
+              },
+              {
+                "claim_id": "claim:4367:932c4cb3bcd5ba99",
+                "content_sha256": "932c4cb3bcd5ba999090521c0bd36bb5d51d8e1c1a6143d4bc2587b7c883cc86",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4358:4391"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4400,
+                "source_byte_start": 4367
+              },
+              {
+                "claim_id": "claim:4400:3905334dee02937b",
+                "content_sha256": "3905334dee02937b2877716a3de16f8b9193fa24ce78477bd6b766bde0a3f567",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4391:4443"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4452,
+                "source_byte_start": 4400
+              },
+              {
+                "claim_id": "claim:4452:c98ab5b89e4c3526",
+                "content_sha256": "c98ab5b89e4c352656670b1370fad11f6d1fbbebeb76f77fc46bf09067ba11dd",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4443:4477"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4486,
+                "source_byte_start": 4452
+              },
+              {
+                "claim_id": "claim:4486:174228353ca44a95",
+                "content_sha256": "174228353ca44a958985b00cb26af751d45a7771a296dd32577e08118caff05a",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4477:4509"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4518,
+                "source_byte_start": 4486
+              },
+              {
+                "claim_id": "claim:4518:fb5a7a9baf448320",
+                "content_sha256": "fb5a7a9baf448320e6cd11b47c6a0112fa3992c37a4740571940265bbe773df3",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4509:4537"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4546,
+                "source_byte_start": 4518
+              },
+              {
+                "claim_id": "claim:4563:077bedeae5490d31",
+                "content_sha256": "077bedeae5490d31b05b1486dcb0c905a89fc62a8bed966a4928e0f4ab72bd9e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4554:4568"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4577,
+                "source_byte_start": 4563
+              },
+              {
+                "claim_id": "claim:4577:488fd916c9711848",
+                "content_sha256": "488fd916c97118484c471a602f6acfbe8af1893bb78d0f958e28377e94b84380",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4568:4599"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4608,
+                "source_byte_start": 4577
+              },
+              {
+                "claim_id": "claim:4608:ad351e415c823d92",
+                "content_sha256": "ad351e415c823d929994196c8c2391f58efe9396dc45236b703c12eb6f291086",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4599:4632"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4641,
+                "source_byte_start": 4608
+              },
+              {
+                "claim_id": "claim:4641:fb529a1a406e7897",
+                "content_sha256": "fb529a1a406e7897ec1a35994ba23fd48f0764c13e5a5006007b94ff1a8c3178",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4632:4662"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4671,
+                "source_byte_start": 4641
+              },
+              {
+                "claim_id": "claim:4671:a95ec8f580373135",
+                "content_sha256": "a95ec8f580373135e0c1f2975de511f0213fe312813aff75964bdbda0a2f5d23",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4662:4697"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4706,
+                "source_byte_start": 4671
+              },
+              {
+                "claim_id": "claim:4723:077bedeae5490d31",
+                "content_sha256": "077bedeae5490d31b05b1486dcb0c905a89fc62a8bed966a4928e0f4ab72bd9e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4714:4728"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4737,
+                "source_byte_start": 4723
+              },
+              {
+                "claim_id": "claim:4737:c9a383ea1661ffd2",
+                "content_sha256": "c9a383ea1661ffd2e6c5f6497129bb36c97f643be8cef05eeb3644759b5454d8",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4728:4766"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4775,
+                "source_byte_start": 4737
+              },
+              {
+                "claim_id": "claim:4775:1591473853f41e8b",
+                "content_sha256": "1591473853f41e8b0a42b2a30fc68e84186404ee6effb835205fac69a67d8fc6",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4766:4790"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4799,
+                "source_byte_start": 4775
+              },
+              {
+                "claim_id": "claim:4799:c2dabb5cc623085b",
+                "content_sha256": "c2dabb5cc623085b3aff96410ed876458420d879ab3c74a550ef6502db4942ea",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4790:4821"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4830,
+                "source_byte_start": 4799
+              },
+              {
+                "claim_id": "claim:4830:59783ef5d285efe6",
+                "content_sha256": "59783ef5d285efe6f4f9c86a15446b542c90c48fc25d9434fa32c21128ff1cde",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4821:4850"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4859,
+                "source_byte_start": 4830
+              },
+              {
+                "claim_id": "claim:4877:65356bf400b5d950",
+                "content_sha256": "65356bf400b5d950a791098677d6d9fc9f38eaf6817ef6efdca269545189a5a4",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4868:4915"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4924,
+                "source_byte_start": 4877
+              },
+              {
+                "claim_id": "claim:4925:c2c16eb386da03f0",
+                "content_sha256": "c2c16eb386da03f03a76876fcb56c9ef490b2af53ece0a7dd94bb67c8e00e311",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4916:4977"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4986,
+                "source_byte_start": 4925
+              },
+              {
+                "claim_id": "claim:4986:54e3f90a536379c2",
+                "content_sha256": "54e3f90a536379c287edcd65a84b5e2deb0d58b2f57d9d1fd37da1c1f6bff57f",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4977:5040"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5049,
+                "source_byte_start": 4986
+              },
+              {
+                "claim_id": "claim:5049:c694c6ba13583b77",
+                "content_sha256": "c694c6ba13583b77c99b85154acba92530adaad4a36d6fe96e27557e944b8c1a",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5040:5126"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5135,
+                "source_byte_start": 5049
+              },
+              {
+                "claim_id": "claim:5135:64d473fc52e4c367",
+                "content_sha256": "64d473fc52e4c367e1d62b7a943d7b2f826bc9144b9401f55a2bf0f68ba388c6",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5126:5202"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5211,
+                "source_byte_start": 5135
+              },
+              {
+                "claim_id": "claim:5211:42e21caaf842d2ed",
+                "content_sha256": "42e21caaf842d2edbab3487320861cee7a46664983e64a01f8e55326534e2d36",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5202:5280"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5289,
+                "source_byte_start": 5211
+              },
+              {
+                "claim_id": "claim:5289:59631fb5564f1765",
+                "content_sha256": "59631fb5564f1765286d37b66c3ef8f671d5e31d7f85238cefe5eb4b051f1663",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5280:5347"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5356,
+                "source_byte_start": 5289
+              },
+              {
+                "claim_id": "claim:5374:453b60642228b8e6",
+                "content_sha256": "453b60642228b8e615cdb4b340c116ffbd1c4fe77f149e445b77832c663bc816",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5365:5445"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5454,
+                "source_byte_start": 5374
+              },
+              {
+                "claim_id": "claim:5467:76a029ae63ff0a44",
+                "content_sha256": "76a029ae63ff0a448e7416ef83e8b7796b78610975bddba48692e94933a566e1",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5458:5556"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5567,
+                "source_byte_start": 5467
+              },
+              {
+                "claim_id": "claim:5637:4ef9313c791325bd",
+                "content_sha256": "4ef9313c791325bd03fd1d2a40eb9d9e68554ec82333f6c79178137b14720f28",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5624:5709"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5724,
+                "source_byte_start": 5637
+              },
+              {
+                "claim_id": "claim:5724:f9a3dad69346d120",
+                "content_sha256": "f9a3dad69346d1209672457c4637965102981002f4454ca502162c88f6d8a8b7",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5709:5817"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5834,
+                "source_byte_start": 5724
+              },
+              {
+                "claim_id": "claim:5834:40903d1bdc818580",
+                "content_sha256": "40903d1bdc818580b7798b505f18613d71e254d8390e9908ced920ae3de1d4c4",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5817:5912"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5931,
+                "source_byte_start": 5834
+              },
+              {
+                "claim_id": "claim:5931:8efd2fa356058773",
+                "content_sha256": "8efd2fa356058773322ff7617adfdd20c62488179bb4024be85118767b7b6954",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5912:5989"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6010,
+                "source_byte_start": 5931
+              },
+              {
+                "claim_id": "claim:6072:3d7379a15bfc3728",
+                "content_sha256": "3d7379a15bfc37282ccbf5634c5cbc515f903a5b29908d7c08106d5645276476",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6049:6162"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6187,
+                "source_byte_start": 6072
+              },
+              {
+                "claim_id": "claim:6187:085d3d71a678c863",
+                "content_sha256": "085d3d71a678c8639494a8275a5e29b3ec2106360e045ba44b2f399635066a01",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6162:6234"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6261,
+                "source_byte_start": 6187
+              },
+              {
+                "claim_id": "claim:6261:9356df208b9664c8",
+                "content_sha256": "9356df208b9664c8a6eda1f0b299813177a5879b23b41db9b787a79416c81d51",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6234:6315"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6344,
+                "source_byte_start": 6261
+              },
+              {
+                "claim_id": "claim:6344:091f96f608bf05a3",
+                "content_sha256": "091f96f608bf05a3d4207e8861acc36483a4e8cd227b657e55bf9fbeb051f34b",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6315:6407"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6438,
+                "source_byte_start": 6344
+              },
+              {
+                "claim_id": "claim:6438:537aa409e6050c39",
+                "content_sha256": "537aa409e6050c391c21c6750c98bfebf6a6103cc07ded66f2a3e5c187986b53",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6407:6495"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6528,
+                "source_byte_start": 6438
+              },
+              {
+                "claim_id": "claim:6553:3dea8c30b8583f6d",
+                "content_sha256": "3dea8c30b8583f6d2e0178f1fd67d9c23f1796dbf9284b951ef6ad295b054034",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6520:6603"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6638,
+                "source_byte_start": 6553
+              },
+              {
+                "claim_id": "claim:6638:23b58de08482129d",
+                "content_sha256": "23b58de08482129d0a30b6bbcdb71486ce43250d00d291e10f3e7757e9e6132a",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6603:6704"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6741,
+                "source_byte_start": 6638
+              },
+              {
+                "claim_id": "claim:6762:3b5393712bc62e3c",
+                "content_sha256": "3b5393712bc62e3c322da366953d30d1ca9f920c79aa6787a9a2120f1d14d478",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6725:6776"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6813,
+                "source_byte_start": 6762
+              },
+              {
+                "claim_id": "claim:6813:e097ee30bd69d7df",
+                "content_sha256": "e097ee30bd69d7dfafb8178845f442beb8280354bc4aa38ed078f1d673db57b5",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6776:6871"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6908,
+                "source_byte_start": 6813
+              }
+            ],
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+            "schema_version": 1,
+            "sections": [
+              {
+                "disposition": "remove_update",
+                "evidence": [
+                  "README.md:0:664"
+                ],
+                "fact_ids": [
+                  "product.identity:manifest-and-registry",
+                  "relationship.commercial_foss:primary"
+                ],
+                "heading": "Opening",
+                "level": 0,
+                "protected_fragment_ids": [],
+                "rationale": "Remove only a detected promotional callout; otherwise preserve the opening.",
+                "section_id": "opening",
+                "source_byte_end": 669,
+                "source_byte_start": 0
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:0:6871"
+                ],
+                "fact_ids": [],
+                "heading": "Aspose.3D FOSS for Python",
+                "level": 1,
+                "protected_fragment_ids": [
+                  "command:61149f1a477c6f91",
+                  "example:2058cc2a92de5906",
+                  "example:61149f1a477c6f91",
+                  "technical_terminology:2005f17ab790f924",
+                  "technical_terminology:2b74cb1bb54f36e0",
+                  "technical_terminology:2d09189ccb24afe5",
+                  "technical_terminology:3745fc038405360e",
+                  "technical_terminology:525ab6231b727be3",
+                  "technical_terminology:7bdcf7ff718b1db4",
+                  "technical_terminology:8ec51a576654eba3",
+                  "technical_terminology:9ffb1789b12be9a8",
+                  "technical_terminology:aec3059b42fe2ddb",
+                  "technical_terminology:b2d7c0f52c60d151",
+                  "technical_terminology:d8dea824d6587a41",
+                  "technical_terminology:dadf3d967277286e",
+                  "technical_terminology:f469802a31447f90",
+                  "technical_terminology:fd343ae984ebf384"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:0",
+                "source_byte_end": 6908,
+                "source_byte_start": 0
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:664:1573"
+                ],
+                "fact_ids": [],
+                "heading": "About Aspose.3D FOSS",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:669",
+                "source_byte_end": 1582,
+                "source_byte_start": 669
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1573:2396"
+                ],
+                "fact_ids": [],
+                "heading": "Features",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:1582",
+                "source_byte_end": 2405,
+                "source_byte_start": 1582
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2396:2453"
+                ],
+                "fact_ids": [
+                  "installation.coordinates:manifest",
+                  "installation.verified_acquisition:disposable-source-build"
+                ],
+                "heading": "Installation",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "command:61149f1a477c6f91",
+                  "example:61149f1a477c6f91"
+                ],
+                "rationale": "The existing section is retained unless a verified gap exists.",
+                "section_id": "heading:2405",
+                "source_byte_end": 2462,
+                "source_byte_start": 2405
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2453:3016"
+                ],
+                "fact_ids": [
+                  "example.minimal:agent-drafted-example"
+                ],
+                "heading": "Quick Start",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "example:2058cc2a92de5906"
+                ],
+                "rationale": "The section is assessed against the exact locally verified minimal example.",
+                "section_id": "heading:2462",
+                "source_byte_end": 3025,
+                "source_byte_start": 2462
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3016:3484"
+                ],
+                "fact_ids": [],
+                "heading": "Supported Formats",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3025",
+                "source_byte_end": 3493,
+                "source_byte_start": 3025
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3038:3268"
+                ],
+                "fact_ids": [],
+                "heading": "Import (Implemented)",
+                "level": 3,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3047",
+                "source_byte_end": 3277,
+                "source_byte_start": 3047
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3268:3484"
+                ],
+                "fact_ids": [],
+                "heading": "Export (Implemented)",
+                "level": 3,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3277",
+                "source_byte_end": 3493,
+                "source_byte_start": 3277
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3484:3599"
+                ],
+                "fact_ids": [],
+                "heading": "Python Version Support",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3493",
+                "source_byte_end": 3608,
+                "source_byte_start": 3493
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3599:4851"
+                ],
+                "fact_ids": [],
+                "heading": "Format-Specific Features",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "technical_terminology:2005f17ab790f924",
+                  "technical_terminology:2b74cb1bb54f36e0",
+                  "technical_terminology:3745fc038405360e",
+                  "technical_terminology:8ec51a576654eba3",
+                  "technical_terminology:b2d7c0f52c60d151",
+                  "technical_terminology:d8dea824d6587a41",
+                  "technical_terminology:f469802a31447f90",
+                  "technical_terminology:fd343ae984ebf384"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3608",
+                "source_byte_end": 4860,
+                "source_byte_start": 3608
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3628:4327"
+                ],
+                "fact_ids": [],
+                "heading": "OBJ Format",
+                "level": 3,
+                "protected_fragment_ids": [
+                  "technical_terminology:2005f17ab790f924",
+                  "technical_terminology:2b74cb1bb54f36e0",
+                  "technical_terminology:3745fc038405360e",
+                  "technical_terminology:8ec51a576654eba3",
+                  "technical_terminology:b2d7c0f52c60d151",
+                  "technical_terminology:d8dea824d6587a41",
+                  "technical_terminology:f469802a31447f90",
+                  "technical_terminology:fd343ae984ebf384"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3637",
+                "source_byte_end": 4336,
+                "source_byte_start": 3637
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4327:4538"
+                ],
+                "fact_ids": [],
+                "heading": "GLTF Format",
+                "level": 3,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:4336",
+                "source_byte_end": 4547,
+                "source_byte_start": 4336
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4538:4698"
+                ],
+                "fact_ids": [],
+                "heading": "STL Format",
+                "level": 3,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:4547",
+                "source_byte_end": 4707,
+                "source_byte_start": 4547
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4698:4851"
+                ],
+                "fact_ids": [],
+                "heading": "3MF Format",
+                "level": 3,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:4707",
+                "source_byte_end": 4860,
+                "source_byte_start": 4707
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4851:5348"
+                ],
+                "fact_ids": [],
+                "heading": "Architecture",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "technical_terminology:2d09189ccb24afe5",
+                  "technical_terminology:525ab6231b727be3",
+                  "technical_terminology:7bdcf7ff718b1db4",
+                  "technical_terminology:9ffb1789b12be9a8",
+                  "technical_terminology:aec3059b42fe2ddb",
+                  "technical_terminology:dadf3d967277286e"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:4860",
+                "source_byte_end": 5357,
+                "source_byte_start": 4860
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5348:5446"
+                ],
+                "fact_ids": [],
+                "heading": "Contributing",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5357",
+                "source_byte_end": 5455,
+                "source_byte_start": 5357
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5446:5557"
+                ],
+                "fact_ids": [],
+                "heading": "License",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5455",
+                "source_byte_end": 5568,
+                "source_byte_start": 5455
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5557:6705"
+                ],
+                "fact_ids": [],
+                "heading": "Resources",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5568",
+                "source_byte_end": 6742,
+                "source_byte_start": 5568
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5571:5990"
+                ],
+                "fact_ids": [],
+                "heading": "Aspose.3D FOSS \u2014 free & open source (aspose.org)",
+                "level": 3,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5582",
+                "source_byte_end": 6011,
+                "source_byte_start": 5582
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5990:6496"
+                ],
+                "fact_ids": [],
+                "heading": "Aspose.3D \u2014 commercial On-Premise edition (aspose.com)",
+                "level": 3,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:6011",
+                "source_byte_end": 6529,
+                "source_byte_start": 6011
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6496:6705"
+                ],
+                "fact_ids": [],
+                "heading": "Community & support",
+                "level": 3,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:6529",
+                "source_byte_end": 6742,
+                "source_byte_start": 6529
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6705:6871"
+                ],
+                "fact_ids": [],
+                "heading": "Acknowledgments",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:6742",
+                "source_byte_end": 6908,
+                "source_byte_start": 6742
+              },
+              {
+                "disposition": "add",
+                "evidence": [
+                  "verified ProductFactsV2 and Markdown section inventory"
+                ],
+                "fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.problems_solved:agent-drafted-grounded"
+                ],
+                "heading": "At a glance",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Add a fact-backed overview when verified descriptive facts are available.",
+                "section_id": "missing:at-a-glance",
+                "source_byte_end": 669,
+                "source_byte_start": 669
+              }
+            ],
+            "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+            "untrusted_repository_instructions": []
+          },
+          "readme_document_plan": {
+            "adoption": {
+              "already_adopted": false,
+              "marker_schema_version": 3,
+              "preservation_check": "byte_identical",
+              "source_document_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+              "source_inner_bytes": 6908,
+              "source_inner_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac"
+            },
+            "candidate_sha256": "b06321cc7a6deeea67d02e68584e9d02454dc854bb94a1762176e2e7e4dbfafa",
+            "facts_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
+            "immutable_base_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+            "operations": [
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.identity:manifest-and-registry",
+                  "product.problems_solved:agent-drafted-grounded"
+                ],
+                "operation": "insert_before",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "path": "README.md",
+                "protected_content_treatment": "additive",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "replacement_sha256": "9d310732631933aa8f6120995e8700d57bf8eac51526a77a65908df8b06b8d18",
+                "replacement_text": "## At a glance\n\n- Developers using Python for Create and manipulate 3D scenes\n- Aspose.3D FOSS for Python\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Features](#features)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Supported Formats](#supported-formats)\n- [Python Version Support](#python-version-support)\n- [Format-Specific Features](#format-specific-features)\n- [Architecture](#architecture)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 669,
+                "source_byte_start": 669,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              },
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "76ed0afc2e1f6a926975f468eb63e5cb93e22d0150a1d73747e31561802c1f05",
+                "fact_ids": [
+                  "relationship.commercial_foss:primary"
+                ],
+                "operation": "remove",
+                "operation_id": "readme.opening.remove-promotional-callout",
+                "path": "README.md",
+                "protected_content_treatment": "authoritative_fact_correction",
+                "rationale": "Keep the first screen product-first; the existing relationship section continues to carry restrained commercial context.",
+                "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "replacement_text": "",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 669,
+                "source_byte_start": 349,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              }
+            ],
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+            "schema_version": 1,
+            "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+            "template_sha256": "c102c9b0e63fb2d8d492bcf0a8a8a6a3255f54df7f5d58184080d5fab8869064"
+          }
+        },
+        "proposal_only": true,
+        "prose_quality": {
+          "corroborated": false,
+          "flagged": false,
+          "quoted_span": "",
+          "reason": "no resources span present -- nothing LLM-authored to review"
+        },
+        "prose_quality_repair_attempts": 0,
+        "render_status": "GENERATED",
+        "verification": {
+          "checks": {
+            "adoption_preserved_source": true,
+            "candidate_has_presentation_span": true,
+            "candidate_hash_matches": true,
+            "candidate_matches_independent_render": true,
+            "document_reconstruction": true,
+            "fact_citations": true,
+            "facts_hash_matches": true,
+            "needs_write_matches": true,
+            "protected_content": true,
+            "source_document_hash": true,
+            "source_span_hashes": true,
+            "template_hash_matches": true,
+            "verified_example_present": true,
+            "verified_limitations_present": true,
+            "verified_overview_present": true
+          },
+          "nonce": "20260726-062825-a260",
+          "reason": null,
+          "requirement_map": {
+            "fact_backed_document_plan": true,
+            "immutable_snapshot": true,
+            "protected_content": true,
+            "verified_example": true
+          },
+          "token": "f73f6df07217acb93507c218ad3a7b86c6727372c72532ae2e850564a9deca92",
+          "verdict": "accept"
+        },
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "execution_error",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T06:13:45.932677+00:00",
+      "last_run_timestamp": "2026-07-26T06:28:55.159039+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -1964,7 +4452,7 @@
     "updated_at": "2026-07-26T06:28:50.298797+00:00"
   },
   "schema_version": 2,
-  "state_version": 239,
+  "state_version": 240,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
