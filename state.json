@@ -1785,20 +1785,34 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): The candidate README has a critical structural flaw in the 'At a glance' section. The content under this heading is not a coherent overview but rather a list of disconnected fragments that read like placeholder text: '- Developers using TypeScript.', '- Create and manipulate 3D scenes', '- GLTF', '- Aspose.3D FOSS for TypeScript'. This is generic template prose that fails to provide a meaningful, fact-backed summary of the product. It does not explain what the library does, what problems it solves, or how it's useful. The presentation plan intended to add a fact-backed overview, but the generated content is not factually accurate or complete in a useful way. The 'At a glance' section should be replaced with a concise paragraph that accurately reflects the verified facts about the product's purpose and capabilities. All other sections appear factually supported and well-structured, but this opening overview is a major usability and clarity defect.",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "product_specificity",
+          "readability",
+          "developer_usefulness",
+          "presentation_plan"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T07:41:26.203098+00:00",
+        "reason": "entering repair attempt 1/2: Replace the 'At a glance' section with a concise, fact-backed paragraph that accurately describes the product's purpose, audience, and key capabilities, based on the verified facts: product.identity, product.audience, product.capabilities, and product.formats. The paragraph should explain that this is an open-source 3D file format library for TypeScript/JavaScript developers that enables programmatic creation, manipulation, and conversion of 3D scenes and models in Node.js and browser environments, supporting formats like OBJ, GLTF, STL, 3MF, FBX, and Collada.",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "REPAIRING"
       }
     ],
     "presentation_plan_hash": "2b7e5a5e123e98efd048436d4b7caaca9e45195fb5f057d2c672e0ad40b252fe",
     "prompt_hash": "dbd1ccfc666fc7afd3294492f8c8cc49c872b8754f02b7e45481774c10d2f6bd",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-07-26T07:41:19.568252+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-07-26T07:41:26.203098+00:00"
   },
   "schema_version": 2,
-  "state_version": 223,
+  "state_version": 224,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
