@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "contract_id": "aspose-org-ecosystem-adaptation",
+  "source_repository": {
+    "expected_remote": "https://github.com/aspose/aspose.org",
+    "pinned_head": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+    "python_property_commit": "08a861ad37b395c4db9432a6071f8dce42adfc6f",
+    "rust_commits": [
+      "e131074708b17a85e078d3ba0939a0d126ea525a",
+      "e157b7ff992e8f6f48a969644b66422a653e75ba",
+      "abd634df3d9b2060b77b98aa9d6788553573ceea"
+    ]
+  },
+  "license_policy": {
+    "source_license_status": "no-root-license-or-source-spdx-at-pinned-head",
+    "transfer_rule": "behavioral-contract-and-regression-intent-only",
+    "verbatim_source_copy_allowed": false,
+    "rationale": "The sibling has no root LICENSE, LICENSE.md, COPYING, or source SPDX declaration at the pinned head. Reimplement observable behavior through local typed seams and preserve source provenance; do not copy the monolithic source."
+  },
+  "source_dependencies": [
+    {
+      "name": "tree-sitter",
+      "source_requirement": "tree-sitter>=0.25",
+      "source_path": "scripts/pipeline/requirements-extraction.txt",
+      "source_sha256": "c35535d0f043df00e7ac371e9a1498380a675ea083659161e64981de856ea771",
+      "license": "MIT",
+      "decision": "eligible-only-if-directly-declared-and-locked-by-an-adapter-task"
+    },
+    {
+      "name": "tree-sitter-language-pack",
+      "source_requirement": "tree-sitter-language-pack>=0.13",
+      "source_path": "scripts/pipeline/requirements-extraction.txt",
+      "source_sha256": "c35535d0f043df00e7ac371e9a1498380a675ea083659161e64981de856ea771",
+      "license": "MIT",
+      "decision": "eligible-for-rust-syntax-extraction-only-if-the-child-task-proves-the-smaller-language-specific-option-insufficient"
+    },
+    {
+      "name": "typescript",
+      "source_requirement": "not-used-by-sibling-extractor",
+      "source_path": null,
+      "source_sha256": null,
+      "license": "Apache-2.0",
+      "decision": "use-a-pinned-TypeScript-compiler-in-the-disposable-consumer-instead-of-the-sibling-regex-completeness-script"
+    }
+  ],
+  "source_test_inventory": [
+    {
+      "commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+      "path": "scripts/pipeline/tests/test_scout.py",
+      "sha256": "864b6e4cc513040b8486daaabe37217f602dab45f6edca47473f1d3ee18350ab"
+    },
+    {
+      "commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+      "path": "scripts/pipeline/tests/test_python_property_decorator_stack.py",
+      "sha256": "8430cd631f5abaca83ef51c388308e8b02cb81684c9afaf6598d3cf5fbf07f93"
+    },
+    {
+      "commit": "08a861ad37b395c4db9432a6071f8dce42adfc6f",
+      "path": "scripts/pipeline/tests/test_python_property_decorator_stack.py",
+      "sha256": "8430cd631f5abaca83ef51c388308e8b02cb81684c9afaf6598d3cf5fbf07f93"
+    },
+    {
+      "commit": "e131074708b17a85e078d3ba0939a0d126ea525a",
+      "path": "scripts/pipeline/tests/test_rust_extraction.py",
+      "sha256": "35bb745aaac5d322787dbf5b5f3587a44d81775b2ebecf1baeb1cb6b1d2cc285"
+    },
+    {
+      "commit": "e157b7ff992e8f6f48a969644b66422a653e75ba",
+      "path": "scripts/pipeline/tests/test_rust_platform_maps.py",
+      "sha256": "53c8eacc96633c8541e37c2e8255dae79f39324ee6915ae6841ec4f3b317153f"
+    },
+    {
+      "commit": "abd634df3d9b2060b77b98aa9d6788553573ceea",
+      "path": "scripts/pipeline/tests/test_rust_extraction.py",
+      "sha256": "463a2064ccbf79b970d0857f78f896a5c8ee7489b4d59c0110ead31bc9f12386"
+    },
+    {
+      "commit": "abd634df3d9b2060b77b98aa9d6788553573ceea",
+      "path": "scripts/pipeline/tests/test_rust_platform_maps.py",
+      "sha256": "956ed99591838518d046ac69ca73e96de74564d9972d599a33597babe3ebc7a7"
+    }
+  ],
+  "platforms": [
+    {
+      "platform": "python",
+      "child_task_id": "L8-TRUTH-02B-PYTHON-API-TRUTH",
+      "dependency_decision": "Use Python 3.11 stdlib ast and tomllib for local extraction; add no parser dependency. Execute import/use proof only through the later disposable executor.",
+      "target_contracts": [
+        "PublicApiSurfaceV1",
+        "PublicSymbolV1",
+        "ConsumerExampleV1"
+      ],
+      "current_local_paths": [
+        "src/readme_agent/ecosystems/python.py",
+        "src/readme_agent/facts/example_quality.py",
+        "src/readme_agent/facts/local_verification.py",
+        "tests/unit/test_ecosystems.py"
+      ],
+      "adopted_behaviors": [
+        {
+          "behavior": "python-package-root-and-canonical-import",
+          "source_commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+          "source_paths": [
+            {
+              "path": "scripts/pipeline/extraction/package_root.py",
+              "sha256": "4217619dfa28c68a01db73ac1a679df4935e71d4997b6b2ecda321a99457c74a"
+            },
+            {
+              "path": "scripts/pipeline/extraction/package_manifest.py",
+              "sha256": "f5cec4763e117ab3a0807dcaade2af4235852954bbcb84ddf03bc56ebedd7162"
+            }
+          ],
+          "source_tests": [
+            "scripts/pipeline/tests/test_scout.py"
+          ],
+          "target_public_seam": "readme_agent.ecosystems.python_public_api.inspect_python_public_api",
+          "target_test": "tests/unit/test_python_public_api.py"
+        },
+        {
+          "behavior": "python-public-types-members-fields-reexports",
+          "source_commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+          "source_paths": [
+            {
+              "path": "scripts/pipeline/extraction/api_surface.py",
+              "sha256": "54940a61f958dd37046b76448c7b99f1dad70898d876300f045763dcd4a3a267"
+            },
+            {
+              "path": "scripts/pipeline/extraction/tree_helpers.py",
+              "sha256": "17e2eddb6dabfb8bcce7950f82f6baea35494a5153c154201efafbfd4e54f49b"
+            },
+            {
+              "path": "scripts/pipeline/extraction/snippets.py",
+              "sha256": "932e368133b497e637170d08cfc9a5b8c184909a5878092bb7eb8ecf8ccd54d6"
+            }
+          ],
+          "source_tests": [
+            "scripts/pipeline/tests/test_python_property_decorator_stack.py"
+          ],
+          "target_public_seam": "readme_agent.ecosystems.python_public_api.inspect_python_public_api",
+          "target_test": "tests/unit/test_python_public_api.py"
+        },
+        {
+          "behavior": "python-full-property-decorator-stack",
+          "source_commit": "08a861ad37b395c4db9432a6071f8dce42adfc6f",
+          "source_paths": [
+            {
+              "path": "scripts/pipeline/extraction/api_surface.py",
+              "sha256": "981474bdfbf18455258d1a453881fc0bb4581906da1370299468e6c25c39a507"
+            },
+            {
+              "path": "scripts/pipeline/tests/test_python_property_decorator_stack.py",
+              "sha256": "8430cd631f5abaca83ef51c388308e8b02cb81684c9afaf6598d3cf5fbf07f93"
+            }
+          ],
+          "source_tests": [
+            "scripts/pipeline/tests/test_python_property_decorator_stack.py::test_all_decorator_text_finds_property_stacked_with_abstractmethod",
+            "scripts/pipeline/tests/test_python_property_decorator_stack.py::test_stacked_property_and_abstractmethod_is_classified_as_property",
+            "scripts/pipeline/tests/test_python_property_decorator_stack.py::test_stacked_setter_marks_property_writable"
+          ],
+          "target_public_seam": "readme_agent.ecosystems.python_public_api.inspect_python_public_api",
+          "target_test": "tests/unit/test_python_public_api.py"
+        }
+      ],
+      "rejected_behaviors": [
+        {
+          "behavior": "copy-2459-line-shared-api-surface-module",
+          "reason": "It combines seven languages and several unrelated concerns; clean local stdlib-AST behavior is smaller and satisfies the no-monolith rule."
+        },
+        {
+          "behavior": "treat-source-parse-as-import-proof",
+          "reason": "AST visibility cannot establish that a pinned built package imports in a consumer; isolated install/import/use proof remains mandatory."
+        }
+      ]
+    },
+    {
+      "platform": "typescript",
+      "child_task_id": "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH",
+      "dependency_decision": "Use package.json parsing locally and a pinned Apache-2.0 TypeScript compiler in the disposable consumer. Do not port the sibling regex completeness diagnostic.",
+      "target_contracts": [
+        "PublicApiSurfaceV1",
+        "PublicSymbolV1",
+        "ConsumerExampleV1"
+      ],
+      "current_local_paths": [
+        "src/readme_agent/ecosystems/typescript.py",
+        "src/readme_agent/facts/local_verification.py",
+        "tests/unit/test_ecosystems.py",
+        "tests/unit/test_local_verification.py"
+      ],
+      "adopted_behaviors": [
+        {
+          "behavior": "typescript-package-root-and-manifest-baseline",
+          "source_commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+          "source_paths": [
+            {
+              "path": "scripts/pipeline/extraction/package_root.py",
+              "sha256": "4217619dfa28c68a01db73ac1a679df4935e71d4997b6b2ecda321a99457c74a"
+            },
+            {
+              "path": "scripts/pipeline/extraction/package_manifest.py",
+              "sha256": "f5cec4763e117ab3a0807dcaade2af4235852954bbcb84ddf03bc56ebedd7162"
+            }
+          ],
+          "source_tests": [
+            "scripts/pipeline/tests/test_scout.py::TestNodeTypeMaps::test_typescript_includes_interface_and_type_alias"
+          ],
+          "target_public_seam": "readme_agent.ecosystems.typescript_public_api.inspect_typescript_public_api",
+          "target_test": "tests/unit/test_typescript_public_api.py"
+        },
+        {
+          "behavior": "typescript-public-visibility-and-declaration-shapes",
+          "source_commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+          "source_paths": [
+            {
+              "path": "scripts/pipeline/extraction/api_surface.py",
+              "sha256": "54940a61f958dd37046b76448c7b99f1dad70898d876300f045763dcd4a3a267"
+            },
+            {
+              "path": "scripts/pipeline/extraction/tree_helpers.py",
+              "sha256": "17e2eddb6dabfb8bcce7950f82f6baea35494a5153c154201efafbfd4e54f49b"
+            }
+          ],
+          "source_tests": [
+            "scripts/pipeline/tests/test_scout.py::TestNodeTypeMaps::test_typescript_includes_interface_and_type_alias"
+          ],
+          "target_public_seam": "readme_agent.ecosystems.typescript_public_api.inspect_typescript_public_api",
+          "target_test": "tests/unit/test_typescript_public_api.py"
+        }
+      ],
+      "rejected_behaviors": [
+        {
+          "behavior": "typescript-api-completeness-regex",
+          "source_commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+          "source_path": "scripts/pipeline/commands/diagnostics/typescript_api_completeness.py",
+          "source_sha256": "3d45cb53e5dc18a0c62269dd779ddca9c6d48e6eefb6a3c2ee7bc3a8c1420637",
+          "reason": "Regex export counting does not resolve package.json exports, declarations, conditional or subpath exports, aliases, or consumer compilation."
+        },
+        {
+          "behavior": "repository-wide-tsc-as-consumer-proof",
+          "reason": "A repository build can pass while the packed public artifact or export map is unusable; compile an external disposable consumer against the pinned packed artifact."
+        }
+      ]
+    },
+    {
+      "platform": "rust",
+      "child_task_id": "L8-TRUTH-02D-RUST-API-TRUTH",
+      "dependency_decision": "Preserve the sibling Rust regression intent. Prefer tree-sitter plus the Rust grammar; use the broader MIT language pack only if the child task proves a smaller maintained grammar package insufficient. Cargo metadata/check remain isolated consumer proof.",
+      "target_contracts": [
+        "PublicApiSurfaceV1",
+        "PublicSymbolV1",
+        "ConsumerExampleV1"
+      ],
+      "current_local_paths": [
+        "src/readme_agent/ecosystems/rust.py",
+        "src/readme_agent/facts/example_verifiers/rust.py",
+        "tests/unit/test_ecosystems.py",
+        "tests/unit/test_cpp_rust_example_verifiers.py"
+      ],
+      "adopted_behaviors": [
+        {
+          "behavior": "rust-package-lib-identity",
+          "source_commit": "e131074708b17a85e078d3ba0939a0d126ea525a",
+          "source_paths": [
+            {
+              "path": "scripts/pipeline/extraction/package_root.py",
+              "sha256": "4217619dfa28c68a01db73ac1a679df4935e71d4997b6b2ecda321a99457c74a"
+            },
+            {
+              "path": "scripts/pipeline/extraction/package_manifest.py",
+              "sha256": "f5cec4763e117ab3a0807dcaade2af4235852954bbcb84ddf03bc56ebedd7162"
+            }
+          ],
+          "source_tests": [
+            "scripts/pipeline/tests/test_rust_extraction.py::TestRustPackageIdentity"
+          ],
+          "target_public_seam": "readme_agent.ecosystems.rust_public_api.inspect_rust_public_api",
+          "target_test": "tests/unit/test_rust_public_api.py"
+        },
+        {
+          "behavior": "rust-public-visibility-types-fields-impls-reexports",
+          "source_commit": "abd634df3d9b2060b77b98aa9d6788553573ceea",
+          "source_paths": [
+            {
+              "path": "scripts/pipeline/extraction/api_surface.py",
+              "sha256": "54940a61f958dd37046b76448c7b99f1dad70898d876300f045763dcd4a3a267"
+            },
+            {
+              "path": "scripts/pipeline/extraction/tree_helpers.py",
+              "sha256": "17e2eddb6dabfb8bcce7950f82f6baea35494a5153c154201efafbfd4e54f49b"
+            },
+            {
+              "path": "scripts/pipeline/tests/test_rust_extraction.py",
+              "sha256": "463a2064ccbf79b970d0857f78f896a5c8ee7489b4d59c0110ead31bc9f12386"
+            }
+          ],
+          "source_tests": [
+            "scripts/pipeline/tests/test_rust_extraction.py::TestRustVisibility",
+            "scripts/pipeline/tests/test_rust_extraction.py::TestFixtureCrateExtraction"
+          ],
+          "target_public_seam": "readme_agent.ecosystems.rust_public_api.inspect_rust_public_api",
+          "target_test": "tests/unit/test_rust_public_api.py"
+        },
+        {
+          "behavior": "rust-snippets-platform-and-format-regressions",
+          "source_commit": "e157b7ff992e8f6f48a969644b66422a653e75ba",
+          "source_paths": [
+            {
+              "path": "scripts/pipeline/extraction/snippets.py",
+              "sha256": "932e368133b497e637170d08cfc9a5b8c184909a5878092bb7eb8ecf8ccd54d6"
+            },
+            {
+              "path": "scripts/pipeline/tests/test_rust_platform_maps.py",
+              "sha256": "53c8eacc96633c8541e37c2e8255dae79f39324ee6915ae6841ec4f3b317153f"
+            }
+          ],
+          "source_tests": [
+            "scripts/pipeline/tests/test_rust_platform_maps.py::TestRustSnippets",
+            "scripts/pipeline/tests/test_rust_platform_maps.py::TestRustSyntaxChecking"
+          ],
+          "target_public_seam": "readme_agent.ecosystems.rust_public_api.inspect_rust_public_api",
+          "target_test": "tests/unit/test_rust_public_api.py"
+        },
+        {
+          "behavior": "rust-path-mapped-and-flat-module-hardening",
+          "source_commit": "abd634df3d9b2060b77b98aa9d6788553573ceea",
+          "source_paths": [
+            {
+              "path": "scripts/pipeline/tests/test_rust_extraction.py",
+              "sha256": "463a2064ccbf79b970d0857f78f896a5c8ee7489b4d59c0110ead31bc9f12386"
+            },
+            {
+              "path": "scripts/pipeline/tests/test_rust_platform_maps.py",
+              "sha256": "956ed99591838518d046ac69ca73e96de74564d9972d599a33597babe3ebc7a7"
+            }
+          ],
+          "source_tests": [
+            "scripts/pipeline/tests/test_rust_extraction.py::TestFixtureCrateExtraction::test_dotted_path_module_gets_bare_import",
+            "scripts/pipeline/tests/test_rust_extraction.py::TestFixtureCrateExtraction::test_flat_type_methods_associated"
+          ],
+          "target_public_seam": "readme_agent.ecosystems.rust_public_api.inspect_rust_public_api",
+          "target_test": "tests/unit/test_rust_public_api.py"
+        }
+      ],
+      "rejected_behaviors": [
+        {
+          "behavior": "copy-shared-rust-extraction-monolith",
+          "reason": "The sibling implementation is coupled to its knowledge pipeline and seven-language schema; port only Rust behavior into a typed local adapter."
+        },
+        {
+          "behavior": "textual-pub-occurrence-as-public-proof",
+          "reason": "Restricted visibility, module reachability, re-exports, and impl association require syntax-aware resolution plus cargo consumer proof."
+        }
+      ]
+    }
+  ],
+  "verification_sources": {
+    "dependency_license_urls": [
+      "https://github.com/tree-sitter/py-tree-sitter",
+      "https://github.com/xberg-io/tree-sitter-language-pack",
+      "https://github.com/microsoft/TypeScript"
+    ],
+    "local_runtime_scan_roots": [
+      "src/readme_agent",
+      "pyproject.toml"
+    ],
+    "forbidden_runtime_dependency_patterns": [
+      "D:\\\\onedrive\\\\Documents\\\\GitHub\\\\aspose.org",
+      "scripts.pipeline.extraction",
+      "from extraction",
+      "import extraction"
+    ]
+  }
+}
