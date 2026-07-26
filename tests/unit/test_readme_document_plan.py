@@ -83,6 +83,11 @@ def test_missing_usage_section_gets_the_verified_minimal_example():
         and facts.selected_fact("example.minimal").fact_id in operation.fact_ids
         for operation in plan.operations
     )
+    assert any(
+        operation.operation_id == "readme.overview-navigation-and-acquisition"
+        and facts.selected_fact("installation.verified_acquisition").fact_id in operation.fact_ids
+        for operation in plan.operations
+    )
 
 
 def test_overview_validation_uses_visitor_facing_audience_render_view():

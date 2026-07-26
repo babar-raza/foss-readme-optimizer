@@ -122,6 +122,7 @@ def build_readme_document_candidate(
         if (selected := accepted_fact(facts, field)) is not None
     ]
     overview_fact_ids: list[str] = []
+    derived_installation_fact_ids: list[str] = []
     verified_installation = installation_text(facts, org_repo, base_revision)
     if not has_overview:
         rendered_overview = overview_text(
@@ -149,7 +150,7 @@ def build_readme_document_candidate(
             )
     if installation is None and verified_installation:
         overview_insert += "## Installation\n\n" + verified_installation + "\n\n"
-        overview_fact_ids.extend(
+        derived_installation_fact_ids.extend(
             selected.fact_id
             for field in ("installation.coordinates", "installation.verified_acquisition")
             if (selected := accepted_fact(facts, field)) is not None
@@ -180,7 +181,12 @@ def build_readme_document_candidate(
                 start=byte_offset,
                 end=byte_offset,
                 replacement=overview_insert,
-                fact_ids=literal_fact_ids(overview_insert, facts, overview_fact_ids),
+                fact_ids=sorted(
+                    {
+                        *literal_fact_ids(overview_insert, facts, overview_fact_ids),
+                        *derived_installation_fact_ids,
+                    }
+                ),
                 treatment="additive",
                 rationale=(
                     "Put verified audience, purpose, scope, navigation, and any missing source "
