@@ -461,33 +461,36 @@
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "blocked_findings": [
-          {
-            "reason": "missing or conflicting ProductFactsV2 dependencies",
-            "surface_id": "metadata.description"
-          },
-          {
-            "reason": "missing or conflicting ProductFactsV2 dependencies",
-            "surface_id": "metadata.topics"
-          }
-        ],
+        "blocked_findings": [],
         "current_description": null,
         "current_homepage": null,
         "current_topics": [],
         "fact_citations": {
+          "metadata.description": [
+            "product.identity:manifest-and-registry",
+            "product.audience:agent-drafted-grounded",
+            "product.problems_solved:agent-drafted-grounded"
+          ],
           "metadata.homepage": [
             "documentation.links:primary"
+          ],
+          "metadata.topics": [
+            "product.capabilities:repository-evidence",
+            "product.formats:repository-evidence",
+            "product.platforms:manifest"
           ]
         },
         "has_proposal": true,
-        "proposed_description": null,
+        "proposed_description": "3d FOSS library for typescript",
         "proposed_homepage": "https://products.aspose.org/3d/typescript/",
-        "proposed_topics": null
+        "proposed_topics": [
+          "typescript"
+        ]
       },
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T01:33:57.873638+00:00",
+      "last_run_timestamp": "2026-07-26T06:15:43.891472+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
@@ -835,7 +838,7 @@
     "updated_at": "2026-07-26T06:14:33.525319+00:00"
   },
   "schema_version": 2,
-  "state_version": 77,
+  "state_version": 78,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "64a67a1e490604edf99ba6ee3ddd0f444e2e6eed27ab83face4a8b9b42412f5f",
