@@ -97,6 +97,36 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "adb60864e60953ed7f4eaa0f51718ca172dac01f"
     },
+    "package_release_audit": {
+      "accepted_facts_hash": "b2437c595d97f6a9efa8012ebadec178793e0e92a9ecf43eca5e11cb83ed73ee",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "evidence": "Go proxy: github.com/aspose-cells-foss/aspose.cells-foss-for-go NOT FOUND (404)",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-26T01:54:52.985179+00:00",
+            "evidence": {
+              "detail": "Go proxy: github.com/aspose-cells-foss/aspose.cells-foss-for-go NOT FOUND (404)"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
+        "latest_release_name": "Aspose.Cells-FOSS-for-Go v26.7.0",
+        "latest_release_tag": "v26.7.0",
+        "releases_count": 1
+      },
+      "domain": "package_release_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-07-26T01:54:52.985658+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "adb60864e60953ed7f4eaa0f51718ca172dac01f"
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "c885ec2004bbc25c606f68fd69303afe41919c38da31219d90a9e8d102baebe7",
       "accepted_status": "FIRST_OBSERVATION",
@@ -182,7 +212,7 @@
     "updated_at": "2026-07-26T01:54:02.779071+00:00"
   },
   "schema_version": 2,
-  "state_version": 13,
+  "state_version": 14,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
