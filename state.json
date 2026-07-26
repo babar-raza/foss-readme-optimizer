@@ -2628,6 +2628,15 @@
         "reason": "independent review wiring failed: StateBackendError: README-POC repair attempts exhausted for 'aspose-3d-foss/Aspose.3D-FOSS-for-.NET' at source revision 6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T06:00:27.597922+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "presentation_plan_hash": "85ace2cc141c01f400cac453272908143df243d0094b905248da903a5906dfe3",
@@ -2637,11 +2646,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-26T05:31:56.474307+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-26T06:00:27.597922+00:00"
   },
   "schema_version": 2,
-  "state_version": 338,
+  "state_version": 339,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b990b6271b33bb76ec8395fd83fe98a115c00beb7eb93c52761ed2f8ff27b498",
