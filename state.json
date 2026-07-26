@@ -1920,7 +1920,7 @@
     "assessment_hash": "1ba241eee8eb032541c13da145a5ff77494245f5de64e5a2a296372164bc4d66",
     "candidate_hash": "c86771d6987273eb127566f7748f3828755f4c41a4e3e6613c4077e3cc363386",
     "details": {},
-    "facts_hash": "0fdcb2edf4b87ce4fb30cbbca9226f7049a71c8aa92f6d359fae93c28792427d",
+    "facts_hash": "a6d12480a77645825ddd47e8cf264920baab36933f7350403bb17dd818db6bc9",
     "history": [
       {
         "evidence_refs": [
@@ -2637,6 +2637,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T06:00:32.374822+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "FACTS_READY"
       }
     ],
     "presentation_plan_hash": "85ace2cc141c01f400cac453272908143df243d0094b905248da903a5906dfe3",
@@ -2646,11 +2659,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-26T06:00:27.597922+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-07-26T06:00:32.374822+00:00"
   },
   "schema_version": 2,
-  "state_version": 339,
+  "state_version": 340,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b990b6271b33bb76ec8395fd83fe98a115c00beb7eb93c52761ed2f8ff27b498",
