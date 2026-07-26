@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-TRUTH-01B-LLM-CALL-LEDGER",
-    "claim_expires_at": "2026-07-26T14:42:22.200803+00:00",
-    "claim_id": "1d7e1545ea2848578aa3ffc44fd8926f",
-    "claimed_at": "2026-07-26T14:12:22.200803+00:00",
-    "claimed_by": "codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "2f72cd4b7401551f8764e165ab1619c9494bdfedd560c74861a42d39bd4b90f4",
-    "last_evaluated_at": "2026-07-26T15:32:33.984803+00:00",
+    "last_evaluated_at": "2026-07-26T15:33:08.563764+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -64,16 +64,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "visible_deliverable",
-        "summary": "Add one redacted append-only call ledger at the shared live/fixture client-provider seam and reconcile exact per-repository, revision, stage, job, attempt, token, latency, outcome, cache, and optional cost totals into run and portfolio manifests."
-      },
-      "goal_ids": [
-        "GOAL-TRUTH"
-      ],
-      "task_id": "L8-TRUTH-01B-LLM-CALL-LEDGER"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -137,7 +128,7 @@
       "L8-STAGING-VERIFIED-PROPOSAL-PROOF": "TODO",
       "L8-TRUTH-01-STAGE-LIMIT": "CLOSED",
       "L8-TRUTH-01A-FACT-CONTRACT": "CLOSED",
-      "L8-TRUTH-01B-LLM-CALL-LEDGER": "IN_PROGRESS",
+      "L8-TRUTH-01B-LLM-CALL-LEDGER": "IMPLEMENTED",
       "L8-TRUTH-01C-PROMPT-HYGIENE": "TODO",
       "L8-TRUTH-02-ROOT-ROLES": "TODO",
       "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION": "TODO",
@@ -1583,6 +1574,19 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-TRUTH-01B-LLM-CALL-LEDGER",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-llm-call-ledger/mission-contribution.json",
+          "plans/investigations/evidence/level8-llm-call-ledger/verification.json",
+          "plans/investigations/evidence/level8-llm-call-ledger/representative-run-manifest.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-26T15:33:08.563759+00:00",
+        "reason": "Shared transport capture, typed ledgers, run and portfolio reconciliation, and historical UNKNOWN_LEGACY handling are implemented at commit 6c9e0da.",
+        "task_id": "L8-TRUTH-01B-LLM-CALL-LEDGER",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -1591,7 +1595,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 176,
+  "state_version": 177,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
