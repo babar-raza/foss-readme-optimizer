@@ -1934,7 +1934,7 @@
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": "1ba241eee8eb032541c13da145a5ff77494245f5de64e5a2a296372164bc4d66",
+    "assessment_hash": "e81f1f4f499be0e129966f0963e5b5bf2f1bc6aa7274d0128a25584d6ed6e149",
     "candidate_hash": "c86771d6987273eb127566f7748f3828755f4c41a4e3e6613c4077e3cc363386",
     "details": {},
     "facts_hash": "a6d12480a77645825ddd47e8cf264920baab36933f7350403bb17dd818db6bc9",
@@ -2667,20 +2667,35 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "FACTS_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\candidate\\claim-map.json"
+        ],
+        "from_status": "FACTS_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-26T06:02:55.890464+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "README_ASSESSED"
       }
     ],
     "presentation_plan_hash": "85ace2cc141c01f400cac453272908143df243d0094b905248da903a5906dfe3",
     "prompt_hash": "0aac33fd400c397644d6d10473017ebc54952f5932f75eb660ee40937558c2f6",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 2,
-    "reviewer_standard_hash": null,
+    "repair_attempts_for_revision": 0,
+    "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "FACTS_READY",
-    "updated_at": "2026-07-26T06:00:32.374822+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-26T06:02:55.890464+00:00"
   },
   "schema_version": 2,
-  "state_version": 349,
+  "state_version": 350,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b990b6271b33bb76ec8395fd83fe98a115c00beb7eb93c52761ed2f8ff27b498",
