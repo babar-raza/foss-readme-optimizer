@@ -853,6 +853,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-043651-1d79:aspose-3d-foss/Aspose.3D-FOSS-for-.NET"
     },
+    "8759a907ff6608fb20a8326806cfd5b22ad9c5af7f3ffa57fe2318aa2f9a9555": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "8759a907ff6608fb20a8326806cfd5b22ad9c5af7f3ffa57fe2318aa2f9a9555",
+      "completed_at": "2026-07-26T05:54:58.951553+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "bad60267d860ff19ce2a8240e51684c58225c54864087532cc9fa4aa1c2d75f0",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "run_id": "20260726-055441-3ed6",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-07-26T05:54:58.951539+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260726-053514-4a9a:aspose-3d-foss/Aspose.3D-FOSS-for-.NET"
+    },
     "8812c5dda6db43d84bc054168e3e1b4e8a310c4595c820e984464d6260073ec0": {
       "action": null,
       "attempt": 1,
@@ -2573,7 +2590,7 @@
     "updated_at": "2026-07-26T05:31:56.474307+00:00"
   },
   "schema_version": 2,
-  "state_version": 332,
+  "state_version": 333,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b990b6271b33bb76ec8395fd83fe98a115c00beb7eb93c52761ed2f8ff27b498",
@@ -2746,11 +2763,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "1b63b2b520106231711b3c82d3b370eada2a5e4e8ebd7657620acbce9a1d830e",
+      "last_checkpoint_id": "8759a907ff6608fb20a8326806cfd5b22ad9c5af7f3ffa57fe2318aa2f9a9555",
       "lease_expires_at": "2026-07-26T06:09:54.064213+00:00",
       "recovery_count": 1,
       "status": "processing",
-      "updated_at": "2026-07-26T05:54:54.064213+00:00"
+      "updated_at": "2026-07-26T05:54:58.951553+00:00"
     }
   },
   "trigger_records": {},
