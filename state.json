@@ -1333,7 +1333,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": {
     "assessment_hash": "8642b5225e336a1ba61c01071d6f9f214e74f7ca50006067eb6b89a81ffcedfd",
-    "candidate_hash": "96dba7232371f01f6e8dc783a8cac0800d9b82280c1590e0119d950b91bb3f30",
+    "candidate_hash": "93337aaf3dbf21458181f301d4680fa62c90ba8b13d6c1ba1ae1bd93298753ac",
     "details": {},
     "facts_hash": "65977ae5d5c3ebb0c9066ea6d70f57824749b595f8cfc164d02bb26f7bd3a4b6",
     "history": [
@@ -1962,6 +1962,21 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\candidate\\claim-map.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-26T07:56:02.424175+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "presentation_plan_hash": "59970ed05fa696e646316bd36638a562d6dd17ec159caa8172e90a802152cc5b",
@@ -1971,11 +1986,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "PLAN_READY",
-    "updated_at": "2026-07-26T07:55:56.643742+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-07-26T07:56:02.424175+00:00"
   },
   "schema_version": 2,
-  "state_version": 252,
+  "state_version": 253,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9e63ff6e9f22fa71b2e4dc0f398db4a51f35047cca6453241e1567ed5ff36c6d",
