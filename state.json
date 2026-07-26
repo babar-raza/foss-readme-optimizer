@@ -767,7 +767,7 @@
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": "f2dc935a1adfbaf7b0c88f4b0490f2894adc30cd7e27ca81229a58caaccccb32",
+    "assessment_hash": "7a24c0b074a5a0ea2ff92c4a241057e70dfa874742c6acfd5e4cb785363dfb66",
     "candidate_hash": "87de7389402955b97cc1bf9e35a29d85112974fc634dc80257f18692472844f5",
     "details": {},
     "facts_hash": "0a8782298df719050da1c397c76161d693d4fc6238067e937cb400f11ef34728",
@@ -915,20 +915,35 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\candidate\\claim-map.json"
+        ],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-26T06:40:45.691592+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "README_ASSESSED"
       }
     ],
     "presentation_plan_hash": "7c4afa1c109115e9c891c05435f7cebf25212cd3129b83d7254d623d3340f9f9",
     "prompt_hash": "0aac33fd400c397644d6d10473017ebc54952f5932f75eb660ee40937558c2f6",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "reviewer_standard_hash": null,
+    "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-07-26T06:38:21.338487+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-26T06:40:45.691592+00:00"
   },
   "schema_version": 2,
-  "state_version": 99,
+  "state_version": 100,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "64a67a1e490604edf99ba6ee3ddd0f444e2e6eed27ab83face4a8b9b42412f5f",
