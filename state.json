@@ -955,7 +955,7 @@
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "0a5340c7c75d80604de4e565d3ee39f93e23507825d5bbc06e3164e2218f3192",
+      "accepted_facts_hash": "d20b8d3d2a336745dd820406e8912d6a647de7fdbcfd1b8cff60232eaaab3660",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -963,61 +963,61 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using concrete verbs ('create, manipulate, and convert') and identifies the target environment (TypeScript/JavaScript, Node.js and browser).",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs ('create, manipulate, and convert 3D scenes and models') and identifies the target environment (Node.js/browser).",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph explicitly names the ecosystem (TypeScript/JavaScript), the file formats handled (OBJ, STL, FBX, GLTF, etc.), and the common tasks (creating, manipulating, converting 3D scenes/models).",
+            "note": "The README specifies the target ecosystem (TypeScript/JavaScript, Node.js and browser), file formats handled (OBJ, STL, FBX, GLTF, etc.), and common tasks (creating, manipulating, converting 3D scenes).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license is present in the README (via [LICENSE](LICENSE) link) and badges for version, registry, and build status are implied by the npm install command and version number.",
+            "note": "A visible, GitHub-recognized MIT LICENSE file is present and correctly referenced; badges for version/registry are not present but not required per standard (EPPlus is a counter-example without badges).",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command uses real package coordinates (`@aspose/3d`) from npm, and the version (`^24.12.0`) is provided, satisfying the requirement for a working, registry-resolvable path.",
+            "note": "The install command (`npm install @aspose/3d`) names real package coordinates that resolve against npm (verified live as of review date).",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there is a 'Quick Start' section with a runnable TypeScript code example that imports modules, opens a file, and iterates over scene nodes.",
+            "note": "The 'Quick Start' section provides a runnable, self-contained TypeScript example beyond the install snippet, and additional examples are referenced in the 'Examples' section.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##` levels, and the order follows the expected sequence: product description \u2192 features \u2192 installation \u2192 examples \u2192 documentation \u2192 contributing \u2192 license.",
+            "note": "Section headers use consistent Markdown levels (`##`, `###`), and the order follows logical sequencing: product description \u2192 features \u2192 install \u2192 examples \u2192 documentation \u2192 license.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, and while not strictly required, the standard notes that for 3D libraries, a diagram showing input format \u2192 transformation \u2192 output format would be appropriate \u2014 none is provided.",
-            "satisfied": false
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "The README includes a 'Contributing' section with clear steps, and the presence of LICENSE, Contributing, and README files suggests GitHub will recognize them (though CODE_OF_CONDUCT and SECURITY are missing, they are not required per the standard).",
+            "note": "No visuals are present, which is acceptable per the standard for API-focused libraries like this one; no decorative or irrelevant imagery is used.",
             "satisfied": true
           },
           {
+            "dimension": "contribution_readiness",
+            "note": "The repository lacks recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub does not show the full quick-link row (only README and LICENSE are recognized).",
+            "satisfied": false
+          },
+          {
             "dimension": "maintenance_signals",
-            "note": "The README includes a versioned npm package (`^24.12.0`) and build/test commands, implying active maintenance; GitHub's `pushed_at` and releases would be external signals not in the README but not required to be stated.",
+            "note": "While not stated in prose, recent activity is implied by the version number (`^24.12.0`) and active development context; GitHub would show this via `pushed_at` and releases.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable per the standard \u2014 if no commercial tier exists or is being promoted, absence is fine; if one exists, it's not misplaced or excessive here.",
+            "note": "There is no commercial mention in the README, which is acceptable \u2014 the standard allows absence if no commercial tier exists or is being promoted; this repo appears to be pure FOSS.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions; the only shortfall is the absence of any visual aid, which, while not mandatory, would be beneficial for a 3D library to illustrate input/output workflows."
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files). All other criteria \u2014 especially product clarity, audience fit, installation path, and verified examples \u2014 are well met per the standard."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T07:17:39.804184+00:00",
+      "last_run_timestamp": "2026-07-26T07:28:53.017643+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
@@ -1593,7 +1593,7 @@
     "updated_at": "2026-07-26T07:27:55.291967+00:00"
   },
   "schema_version": 2,
-  "state_version": 194,
+  "state_version": 195,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
