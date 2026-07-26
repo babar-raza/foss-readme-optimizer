@@ -5480,9 +5480,31 @@
     "assessment_hash": "943b7b8a3dda01eecc7eba332921cb2da4818f84c8ed332023837b3c931f84c0",
     "candidate_hash": "227f1468215d349ce4345589dc3df6729e19e2bc9138c5fabcd3d612dfe626be",
     "details": {},
-    "fact_acceptance_component_hashes": {},
-    "fact_acceptance_contract_hash": null,
-    "fact_acceptance_history": [],
+    "fact_acceptance_component_hashes": {
+      "classification_semantics": "71a8cf3067235c05201652bdd7fbc39f837ac943438397cf98f5891abb135e28",
+      "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
+      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+      "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
+      "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
+    },
+    "fact_acceptance_contract_hash": "b669d29e76fed1f0a80a6a8eda2b04322d5ad386abd00371bbda2d3d562940cc",
+    "fact_acceptance_history": [
+      {
+        "component_hashes": {
+          "classification_semantics": "71a8cf3067235c05201652bdd7fbc39f837ac943438397cf98f5891abb135e28",
+          "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
+          "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
+        },
+        "contract_hash": "b669d29e76fed1f0a80a6a8eda2b04322d5ad386abd00371bbda2d3d562940cc",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T10:07:51.476964+00:00",
+        "outcome": "FACTS_READY",
+        "reason": "legacy cached fact graph re-evaluated under the current contract",
+        "schema_version": 1
+      }
+    ],
     "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
     "history": [
       {
@@ -6625,10 +6647,10 @@
     "schema_version": 2,
     "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
     "status": "NO_OP_PROVEN",
-    "updated_at": "2026-07-26T08:27:47.828297+00:00"
+    "updated_at": "2026-07-26T10:07:51.476964+00:00"
   },
   "schema_version": 2,
-  "state_version": 681,
+  "state_version": 682,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ab98c6daf5199c8227b6f4209180d0e318786a76daa8d9896870d222671501b2",
