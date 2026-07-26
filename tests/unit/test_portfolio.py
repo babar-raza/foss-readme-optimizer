@@ -3,6 +3,7 @@
 from readme_agent.supervisor.portfolio import (
     PortfolioPocSummaryV1,
     PortfolioRepositoryResultV1,
+    mark_failed_member_retryable,
     select_portfolio_trigger,
     write_portfolio_summary,
 )
@@ -73,3 +74,32 @@ def test_trigger_selection_resumes_retryable_but_never_steals_active_work():
     )
     assert selected.resume_trigger_key is None
     assert selected.active_trigger_key == "active"
+
+
+def test_failed_member_returns_its_processing_trigger_to_retryable():
+    from readme_agent.state.lifecycle import accept_trigger, transition_trigger
+    from readme_agent.state.trigger_v2 import normalize_trigger_envelope
+    from tests.unit.test_state_backend import FakeStateBackend
+
+    backend = FakeStateBackend()
+    envelope = normalize_trigger_envelope(
+        "org/repo",
+        event_type="cli_manual",
+        provider_event_id="failed-member",
+    )
+    accept_trigger(backend, envelope)
+    transition_trigger(backend, "org/repo", envelope.dedup_key, "processing")
+
+    changed = mark_failed_member_retryable(
+        backend,
+        "org/repo",
+        envelope.dedup_key,
+        failure_detail="portfolio_member_failure:RuntimeError",
+    )
+
+    assert changed is True
+    state = backend.load("org/repo")
+    assert state is not None
+    lifecycle = state.trigger_lifecycles[envelope.dedup_key]
+    assert lifecycle.status == "retryable"
+    assert lifecycle.failure_detail == "portfolio_member_failure:RuntimeError"

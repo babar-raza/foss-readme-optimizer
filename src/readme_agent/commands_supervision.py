@@ -119,6 +119,10 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         else:
             envelope = normalize_github_trigger(args.repo)
         acceptance = accept_trigger(state_backend, envelope)
+        # Expose the exact accepted/resumed trigger to the portfolio fallback.
+        # If setup or terminal evidence fails outside the guarded runtime
+        # section, the portfolio can return this owned lease to retryable.
+        args._active_trigger_key = envelope.dedup_key
         if not acceptance.should_execute:
             print(
                 f"{args.repo}: DEDUPLICATED -- trigger {envelope.dedup_key!r} "
@@ -390,6 +394,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     from readme_agent.supervisor.portfolio import (
         PortfolioPocSummaryV1,
         PortfolioRepositoryResultV1,
+        mark_failed_member_retryable,
         select_portfolio_trigger,
         write_portfolio_summary,
     )
@@ -456,6 +461,24 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             )
         except Exception as exc:  # noqa: BLE001 -- portfolio failure isolation is contractual
             print(f"{entry.org_repo}: SYSTEM_FAILURE: {type(exc).__name__}: {exc}", file=sys.stderr)
+            trigger_key = getattr(
+                repository_args,
+                "_active_trigger_key",
+                repository_args.resume_trigger_key,
+            )
+            try:
+                mark_failed_member_retryable(
+                    state_backend,
+                    entry.org_repo,
+                    trigger_key,
+                    failure_detail=f"portfolio_member_failure:{type(exc).__name__}",
+                )
+            except Exception as recovery_exc:  # noqa: BLE001 -- retain the original failure
+                print(
+                    f"{entry.org_repo}: lifecycle recovery also failed: "
+                    f"{type(recovery_exc).__name__}: {recovery_exc}",
+                    file=sys.stderr,
+                )
             results.append(
                 PortfolioRepositoryResultV1(
                     org_repo=entry.org_repo,

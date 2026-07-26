@@ -7,6 +7,8 @@ from pathlib import Path
 
 from pydantic import BaseModel, Field
 
+from readme_agent.state.backend import StateBackend
+from readme_agent.state.lifecycle import transition_trigger
 from readme_agent.state.schema import RunStateV2
 
 
@@ -96,6 +98,39 @@ def select_portfolio_trigger(state: RunStateV2 | None) -> PortfolioTriggerSelect
         )
     )
     return PortfolioTriggerSelectionV1(active_trigger_key=active[0][1] if active else None)
+
+
+def mark_failed_member_retryable(
+    backend: StateBackend,
+    org_repo: str,
+    trigger_key: str | None,
+    *,
+    failure_detail: str,
+) -> bool:
+    """Keep an isolated member exception resumable instead of orphaning its lease.
+
+    The member command normally owns this transition. This portfolio-level
+    fallback covers failures in command setup or terminal evidence handling
+    that occur outside the member command's guarded runtime section.
+    """
+
+    if trigger_key is None:
+        return False
+    state = backend.load(org_repo)
+    if state is None:
+        return False
+    lifecycle = state.trigger_lifecycles.get(trigger_key)
+    if lifecycle is None or lifecycle.status not in {"accepted", "processing"}:
+        return False
+    transition_trigger(
+        backend,
+        org_repo,
+        trigger_key,
+        "retryable",
+        failure_classification="transient",
+        failure_detail=failure_detail,
+    )
+    return True
 
 
 def write_portfolio_summary(path: Path, summary: PortfolioPocSummaryV1) -> None:
