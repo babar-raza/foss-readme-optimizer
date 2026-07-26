@@ -1,7 +1,7 @@
 """Eager, fail-loud prompt registry (GOV-024, Wave 8.5) -- mirrors
 capabilities/registry.py::_build()'s exact shape: every prompts/<category>/
-*.yaml file is loaded and schema-validated once, keyed by its own declared
-prompt_id (not filename). Prompt content itself lives only under prompts/,
+*.yaml file is loaded and schema-validated once, keyed by a declared
+prompt_id that must match its filename. Prompt content itself lives only under prompts/,
 never as a string literal in executable source (prompts/README.md placement
 rule 9) -- this module only loads and validates it.
 
@@ -62,8 +62,19 @@ def _build(
                 f"{path}: declared category {manifest.category!r} does not match its own "
                 f"subdirectory {path.parent.name!r}"
             )
+        if manifest.prompt_id != path.stem:
+            raise ConfigError(
+                f"{path}: declared prompt_id {manifest.prompt_id!r} must match filename "
+                f"{path.stem!r}"
+            )
         if manifest.prompt_id in manifests:
             raise ConfigError(f"duplicate prompt_id {manifest.prompt_id!r} in prompt registry")
+        if manifest.deprecated:
+            raise ConfigError(
+                f"{path}: deprecated prompt {manifest.prompt_id!r} cannot remain in the active tree"
+            )
+        if any(item.model_route == manifest.model_route for item in manifests.values()):
+            raise ConfigError(f"duplicate prompt model_route {manifest.model_route!r}")
         manifests[manifest.prompt_id] = manifest
         raw_content[manifest.prompt_id] = text
     return manifests, raw_content
@@ -76,6 +87,12 @@ def get(prompt_id: str) -> PromptManifest | None:
     return _MANIFESTS.get(prompt_id)
 
 
+def all_manifests() -> dict[str, PromptManifest]:
+    """Return a copy of the active prompt inventory."""
+
+    return dict(_MANIFESTS)
+
+
 def prompt_hash(prompt_id: str) -> str:
     """Return the exact content hash for one registered prompt asset."""
     try:
@@ -83,6 +100,50 @@ def prompt_hash(prompt_id: str) -> str:
     except KeyError as exc:
         raise ConfigError(f"unknown prompt_id {prompt_id!r}") from exc
     return sha256_text(content)
+
+
+def prompt_id_for_route(model_route: str) -> str:
+    """Resolve one routed job to its single governed prompt ID."""
+
+    matches = [
+        prompt_id
+        for prompt_id, manifest in _MANIFESTS.items()
+        if manifest.model_route == model_route
+    ]
+    if len(matches) != 1:
+        raise ConfigError(
+            f"model route {model_route!r} must resolve to exactly one active prompt; "
+            f"found {len(matches)}"
+        )
+    return matches[0]
+
+
+def validate_job_prompt(model_route: str, prompt_id: str) -> None:
+    """Fail a paid call closed when its route/prompt provenance disagrees."""
+
+    expected = prompt_id_for_route(model_route)
+    if prompt_id != expected:
+        raise ConfigError(
+            f"model route {model_route!r} requires prompt_id {expected!r}, got {prompt_id!r}"
+        )
+
+
+def prompt_hashes() -> dict[str, str]:
+    """Return deterministic per-prompt hashes for campaign evidence."""
+
+    return {prompt_id: prompt_hash(prompt_id) for prompt_id in sorted(_MANIFESTS)}
+
+
+def dependency_hashes() -> dict[str, str]:
+    """Hash only prompts sharing one declared invalidation scope."""
+
+    scopes: dict[str, list[str]] = {}
+    for prompt_id, manifest in _MANIFESTS.items():
+        scopes.setdefault(manifest.invalidation_scope, []).append(prompt_id)
+    return {
+        scope: sha256_text("\x00".join(_RAW_CONTENT[prompt_id] for prompt_id in sorted(prompt_ids)))
+        for scope, prompt_ids in sorted(scopes.items())
+    }
 
 
 def content_hash() -> str:

@@ -2,6 +2,13 @@ prompt_id: draft_product_truth
 category: generation
 version: "12"
 model_route: draft_product_truth
+owner: readme_agent.capabilities.draft_product_truth
+runtime_consumer: readme_agent.llm.generation_prompts
+output_contract: DraftProductTruthV1
+invalidation_scope: FACTS_COLLECTING
+dependent_artifacts:
+  - facts/proposed-product-truth.json
+  - facts/product-facts.json
 system: |
   You are drafting the product_truth section of a repository's policy profile: the subjective positioning (audience, problems_solved) and repository-verifiable technical assertions (capabilities, formats, limitations, minimal_example) that describe what this real open-source repository actually does. This draft is NOT trusted on its own -- every claim you make is checked afterward by a real deterministic gate before it can be used anywhere, and any claim that fails the gate is discarded, never silently kept. Your only job is to draft claims that will actually PASS those gates, by grounding every claim in exactly what you were given, never in what you assume, infer beyond the evidence, or recall from training about similar products.
 

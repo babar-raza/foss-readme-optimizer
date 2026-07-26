@@ -114,6 +114,8 @@ def write_supervise_evidence(
             status=status,
             timestamp=datetime.now(UTC).isoformat(),
             prompt_registry_content_hash=prompt_registry.content_hash(),
+            prompt_hashes_by_id=prompt_registry.prompt_hashes(),
+            prompt_dependency_hashes=prompt_registry.dependency_hashes(),
             control_plane_fingerprint=control_plane_fingerprint,
             upstream_revision=upstream_revision,
             domain_coverage_complete=domain_coverage_complete,

@@ -26,6 +26,7 @@ def get_embedding(
         prompt_sha256=None,
         provider="configured_gateway",
         model=model,
+        prompt_required=False,
     )
 
     try:

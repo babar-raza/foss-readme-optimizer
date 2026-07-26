@@ -9,7 +9,7 @@ from readme_agent.capabilities import registry
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.capabilities.stop import CAPABILITY_ID as STOP_CAPABILITY_ID
 from readme_agent.errors import LLMError
-from readme_agent.llm import prompt_registry
+from readme_agent.llm import planning_prompts
 from readme_agent.llm.planner_client import LivePlannerClient, PlannerClient
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.schema import DomainStateV1
@@ -38,7 +38,7 @@ def _default_planner_client() -> LivePlannerClient:
         env.llm_api_key(),
         env.llm_model_for_job("supervisor_planning"),
         job="supervisor_planning",
-        prompt_id="supervisor_planning",
+        prompt_id="supervisor_turn",
     )
 
 
@@ -106,26 +106,21 @@ def run_planner_loop(
     )
 
     client = planner_client or _default_planner_client()
-    supervisor_prompt = prompt_registry.get("supervisor_turn")
-    assert supervisor_prompt is not None, "prompts/planning/supervisor_turn.yaml missing"
+    _, supervisor_turn_context = planning_prompts.supervisor_turn_prompt()
     initial_dossier = dossier.build_initial_dossier(specialist_results)
     tried_capability_ids: list[str] = []
     bootstrap_result = bootstrap.result or {}
-    messages: list[dict[str, Any]] = [
-        {"role": "system", "content": supervisor_prompt.system},
-        {
-            "role": "user",
-            "content": dossier.render_turn_context(
-                supervisor_prompt,
-                org_repo=org_repo,
-                turn_number=1,
-                max_turns=max_turns,
-                tried_capability_ids=tried_capability_ids,
-                bootstrap_result=bootstrap_result,
-                dossier=initial_dossier,
-            ),
-        },
-    ]
+    messages: list[dict[str, Any]] = planning_prompts.build_supervisor_turn_messages(
+        dossier.render_turn_context(
+            supervisor_turn_context,
+            org_repo=org_repo,
+            turn_number=1,
+            max_turns=max_turns,
+            tried_capability_ids=tried_capability_ids,
+            bootstrap_result=bootstrap_result,
+            dossier=initial_dossier,
+        )
+    )
 
     turn = 0
     outcome: ConvergenceOutcome | None = None
@@ -159,7 +154,7 @@ def run_planner_loop(
                 outcome = classified
                 break
         messages[1]["content"] = dossier.render_turn_context(
-            supervisor_prompt,
+            supervisor_turn_context,
             org_repo=org_repo,
             turn_number=turn,
             max_turns=max_turns,
@@ -203,13 +198,10 @@ def run_planner_loop(
                     )
                     break
                 messages.append(
-                    {
-                        "role": "user",
-                        "content": (
-                            "Your stop request was rejected because deterministic work remains. "
-                            f"Choose one of these capabilities: {remaining}."
-                        ),
-                    }
+                    planning_prompts.build_supervisor_followup_message(
+                        "stop_rejected",
+                        remaining_capabilities=remaining,
+                    )
                 )
                 continue
             decisions.append(
@@ -243,13 +235,10 @@ def run_planner_loop(
                     )
                     break
                 messages.append(
-                    {
-                        "role": "user",
-                        "content": (
-                            "The stop capability was rejected because deterministic work remains. "
-                            f"Choose one of these capabilities: {remaining}."
-                        ),
-                    }
+                    planning_prompts.build_supervisor_followup_message(
+                        "stop_capability_rejected",
+                        remaining_capabilities=remaining,
+                    )
                 )
                 continue
             try:
@@ -305,13 +294,11 @@ def run_planner_loop(
                 )
                 break
             messages.append(
-                {
-                    "role": "user",
-                    "content": (
-                        f"{capability_id} with these arguments was already answered this run: "
-                        f"{json.dumps(new_task.result)}. Choose something else, or stop."
-                    ),
-                }
+                planning_prompts.build_supervisor_followup_message(
+                    "duplicate_capability",
+                    capability_id=capability_id or "",
+                    prior_result=json.dumps(new_task.result),
+                )
             )
             continue
 

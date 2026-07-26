@@ -2,7 +2,8 @@
 is declared closed (`plans/GOVERNANCE.md` rule 10 / `GOV-018`'s live-proof standard, `GOV-022`'s
 wave-reconciliation gate). Runs, in order: ruff check, ruff format --check, mypy, the full non-live
 pytest suite, `validate_plan_structure.py`, `check_verifiers_are_wired.py`,
-`build_level8_requirement_taskcard_coverage.py --check`, semantic traceability, and a
+the blocking prompt inventory, `build_level8_requirement_taskcard_coverage.py --check`,
+semantic traceability, and a
 workflow-syntax check (`actionlint`, falling back to `act --list` as a
 best-effort secondary signal since this environment has no Docker daemon for a real `act` dry-run).
 
@@ -106,6 +107,13 @@ def main() -> int:
             python,
             str(REPO_ROOT / "scripts" / "governance" / "check_verifiers_are_wired.py"),
             "--check",
+        ],
+    )
+    all_ok &= _run(
+        "check_prompt_hygiene.py",
+        [
+            python,
+            str(REPO_ROOT / "scripts" / "governance" / "check_prompt_hygiene.py"),
         ],
     )
     all_ok &= _run(

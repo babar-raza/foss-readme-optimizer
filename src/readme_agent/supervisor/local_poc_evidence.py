@@ -13,6 +13,7 @@ from readme_agent.evidence.writer import (
     write_redacted_text,
 )
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.llm import prompt_registry
 from readme_agent.llm.bundle_accounting import local_bundle_llm_accounting_fields
 from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import ReadmeAssessmentV1
@@ -44,6 +45,9 @@ def write_local_poc_manifest(bundle_dir: Path, manifest: dict) -> None:
         path,
         {
             **manifest,
+            "prompt_registry_content_hash": prompt_registry.content_hash(),
+            "prompt_hashes_by_id": prompt_registry.prompt_hashes(),
+            "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
             **local_bundle_llm_accounting_fields(bundle_dir, prior),
         },
     )

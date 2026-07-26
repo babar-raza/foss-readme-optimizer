@@ -55,7 +55,10 @@ def test_snapshot_bundle_is_revision_addressed_idempotent_and_checksum_complete(
     assert (bundle / "source" / "revision.json").is_file()
     assert (bundle / "manifest.json").is_file()
     assert (bundle / "sha256sums.txt").is_file()
-    assert '"complete": false' in (bundle / "manifest.json").read_text(encoding="utf-8")
+    manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["complete"] is False
+    assert len(manifest["prompt_hashes_by_id"]) == 10
+    assert manifest["prompt_dependency_hashes"]["FACTS_COLLECTING"]
 
 
 def test_missing_readme_is_explicit_evidence_not_a_fake_empty_readme(tmp_path, monkeypatch):

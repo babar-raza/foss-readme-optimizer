@@ -3,7 +3,6 @@
 
 import json
 
-from readme_agent.llm.prompt_schema import PromptManifest
 from readme_agent.state.schema import DomainStateV1
 from readme_agent.supervisor import dossier
 
@@ -65,22 +64,15 @@ class TestBuildInitialDossier:
 
 
 class TestRenderTurnContext:
-    def _manifest(self) -> PromptManifest:
-        return PromptManifest(
-            prompt_id="supervisor_turn",
-            category="planning",
-            version="1",
-            model_route="supervisor_planning",
-            system="system prompt",
-            turn_context_template=(
-                "Repo: $org_repo turn $turn_number/$max_turns tried=$tried_capabilities "
-                "bootstrap=$bootstrap_result dossier=$specialist_summaries"
-            ),
+    def _template(self) -> str:
+        return (
+            "Repo: $org_repo turn $turn_number/$max_turns tried=$tried_capabilities "
+            "bootstrap=$bootstrap_result dossier=$specialist_summaries"
         )
 
     def test_substitutes_all_fields(self):
         rendered = dossier.render_turn_context(
-            self._manifest(),
+            self._template(),
             org_repo="acme/widget",
             turn_number=2,
             max_turns=8,
@@ -96,7 +88,7 @@ class TestRenderTurnContext:
 
     def test_no_tried_capabilities_yet_renders_none_yet(self):
         rendered = dossier.render_turn_context(
-            self._manifest(),
+            self._template(),
             org_repo="acme/widget",
             turn_number=1,
             max_turns=8,

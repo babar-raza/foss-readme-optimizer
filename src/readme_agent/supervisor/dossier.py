@@ -18,7 +18,6 @@ from string import Template
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from readme_agent.llm.prompt_schema import PromptManifest
     from readme_agent.state.schema import DomainStateV1
 
 MAX_SUMMARY_CHARS = 400
@@ -43,7 +42,7 @@ def build_initial_dossier(specialist_results: "dict[str, DomainStateV1]") -> dic
 
 
 def render_turn_context(
-    manifest: "PromptManifest",
+    turn_context_template: str,
     *,
     org_repo: str,
     turn_number: int,
@@ -52,11 +51,8 @@ def render_turn_context(
     bootstrap_result: dict,
     dossier: dict[str, str],
 ) -> str:
-    assert manifest.turn_context_template is not None, (
-        f"prompt {manifest.prompt_id!r} has no turn_context_template"
-    )
     return (
-        Template(manifest.turn_context_template)
+        Template(turn_context_template)
         .substitute(
             org_repo=org_repo,
             turn_number=turn_number,

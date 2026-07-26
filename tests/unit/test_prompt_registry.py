@@ -14,7 +14,13 @@ from readme_agent.llm.prompt_schema import PromptManifest
 _VALID_YAML = """prompt_id: {prompt_id}
 category: {category}
 version: "1"
-model_route: some_job
+model_route: {model_route}
+owner: readme-agent
+runtime_consumer: readme_agent.llm.planning_prompts
+output_contract: TestOutputV1
+invalidation_scope: test
+dependent_artifacts:
+  - test-output
 system: |
   A system prompt.
 user_template: |
@@ -35,8 +41,8 @@ class TestBuild:
         _write(
             tmp_path,
             "generation",
-            "a.yaml",
-            _VALID_YAML.format(prompt_id="job_a", category="generation"),
+            "job_a.yaml",
+            _VALID_YAML.format(prompt_id="job_a", category="generation", model_route="some_job"),
         )
         manifests, raw_content = prompt_registry._build(tmp_path)
         assert set(manifests) == {"job_a"}
@@ -47,14 +53,14 @@ class TestBuild:
         _write(
             tmp_path,
             "generation",
-            "a.yaml",
-            _VALID_YAML.format(prompt_id="job_a", category="generation"),
+            "job_a.yaml",
+            _VALID_YAML.format(prompt_id="job_a", category="generation", model_route="some_job"),
         )
         _write(
             tmp_path,
             "planning",
-            "b.yaml",
-            _VALID_YAML.format(prompt_id="job_a", category="planning"),
+            "job_a.yaml",
+            _VALID_YAML.format(prompt_id="job_a", category="planning", model_route="another_job"),
         )
         with pytest.raises(ConfigError, match="duplicate prompt_id"):
             prompt_registry._build(tmp_path)
@@ -63,10 +69,20 @@ class TestBuild:
         _write(
             tmp_path,
             "generation",
-            "a.yaml",
-            _VALID_YAML.format(prompt_id="job_a", category="planning"),
+            "job_a.yaml",
+            _VALID_YAML.format(prompt_id="job_a", category="planning", model_route="some_job"),
         )
         with pytest.raises(ConfigError, match="does not match"):
+            prompt_registry._build(tmp_path)
+
+    def test_prompt_id_must_match_filename(self, tmp_path):
+        _write(
+            tmp_path,
+            "generation",
+            "wrong-name.yaml",
+            _VALID_YAML.format(prompt_id="job_a", category="generation", model_route="some_job"),
+        )
+        with pytest.raises(ConfigError, match="must match filename"):
             prompt_registry._build(tmp_path)
 
     def test_malformed_yaml_raises_config_error(self, tmp_path):
@@ -84,20 +100,47 @@ class TestBuild:
         assert manifests == {}
         assert raw_content == {}
 
+    def test_duplicate_model_route_raises(self, tmp_path):
+        _write(
+            tmp_path,
+            "generation",
+            "job_a.yaml",
+            _VALID_YAML.format(prompt_id="job_a", category="generation", model_route="same_job"),
+        )
+        _write(
+            tmp_path,
+            "planning",
+            "job_b.yaml",
+            _VALID_YAML.format(prompt_id="job_b", category="planning", model_route="same_job"),
+        )
+        with pytest.raises(ConfigError, match="duplicate prompt model_route"):
+            prompt_registry._build(tmp_path)
+
+    def test_deprecated_prompt_is_not_active(self, tmp_path):
+        _write(
+            tmp_path,
+            "generation",
+            "job_a.yaml",
+            _VALID_YAML.format(prompt_id="job_a", category="generation", model_route="some_job")
+            + "deprecated: true\nreplacement_prompt_id: job_b\n",
+        )
+        with pytest.raises(ConfigError, match="deprecated prompt"):
+            prompt_registry._build(tmp_path)
+
 
 class TestContentHash:
     def test_deterministic_and_order_independent(self, tmp_path):
         _write(
             tmp_path,
             "generation",
-            "a.yaml",
-            _VALID_YAML.format(prompt_id="job_a", category="generation"),
+            "job_a.yaml",
+            _VALID_YAML.format(prompt_id="job_a", category="generation", model_route="job_a"),
         )
         _write(
             tmp_path,
             "planning",
-            "b.yaml",
-            _VALID_YAML.format(prompt_id="job_b", category="planning"),
+            "job_b.yaml",
+            _VALID_YAML.format(prompt_id="job_b", category="planning", model_route="job_b"),
         )
         manifests_1, raw_1 = prompt_registry._build(tmp_path)
 
@@ -113,12 +156,13 @@ class TestContentHash:
         path = _write(
             tmp_path,
             "generation",
-            "a.yaml",
-            _VALID_YAML.format(prompt_id="job_a", category="generation"),
+            "job_a.yaml",
+            _VALID_YAML.format(prompt_id="job_a", category="generation", model_route="some_job"),
         )
         _, raw_before = prompt_registry._build(tmp_path)
         path.write_text(
-            _VALID_YAML.format(prompt_id="job_a", category="generation") + "notes: edited\n",
+            _VALID_YAML.format(prompt_id="job_a", category="generation", model_route="some_job")
+            + "notes: edited\n",
             encoding="utf-8",
         )
         _, raw_after = prompt_registry._build(tmp_path)
@@ -129,9 +173,19 @@ class TestRealRegistry:
     """The real, eagerly-built module-level registry (from this repo's own
     prompts/ tree, populated once at import time)."""
 
-    def test_both_real_prompts_are_registered(self):
-        assert prompt_registry.get("relationship_explained") is not None
-        assert prompt_registry.get("supervisor_turn") is not None
+    def test_all_real_prompts_are_registered(self):
+        assert set(prompt_registry.all_manifests()) == {
+            "draft_product_truth",
+            "independent_readme_review",
+            "plan_readme_composition",
+            "presentation_standard_compliance",
+            "prose_quality_check",
+            "relationship_explained",
+            "repair_capability_selection",
+            "specialist_selection_turn",
+            "supervisor_turn",
+            "visual_asset_accuracy",
+        }
 
     def test_unknown_prompt_id_returns_none(self):
         assert prompt_registry.get("does_not_exist") is None
@@ -154,3 +208,11 @@ class TestRealRegistry:
         manifests, _ = prompt_registry._build()
         assert "supervisor_turn" in manifests
         assert "relationship_explained" in manifests
+
+    def test_every_model_route_resolves_to_one_prompt(self):
+        for prompt_id, manifest in prompt_registry.all_manifests().items():
+            assert prompt_registry.prompt_id_for_route(manifest.model_route) == prompt_id
+
+    def test_job_prompt_mismatch_fails_closed(self):
+        with pytest.raises(ConfigError, match="requires prompt_id"):
+            prompt_registry.validate_job_prompt("supervisor_planning", "relationship_explained")

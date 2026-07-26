@@ -1868,6 +1868,8 @@ class TestRunManifestV2Evidence:
         assert manifest["control_plane_fingerprint"]  # a real, non-empty hash
         assert manifest["upstream_revision"]  # a real commit SHA
         assert manifest["prompt_registry_content_hash"]
+        assert len(manifest["prompt_hashes_by_id"]) == 10
+        assert manifest["prompt_dependency_hashes"]["FACTS_COLLECTING"]
         assert isinstance(manifest["surface_freshness"], dict)
         snapshot = manifest["facts"]["repository_snapshot_v1"]
         assert snapshot["org_repo"] == ORG_REPO

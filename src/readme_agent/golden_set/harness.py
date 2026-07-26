@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from readme_agent.capabilities import registry
 from readme_agent.errors import LLMError
 from readme_agent.golden_set.scenarios import SCENARIOS, STOP, GoldenScenario
-from readme_agent.llm import prompt_registry
+from readme_agent.llm import planning_prompts
 from readme_agent.llm.planner_client import PlannerClient
 from readme_agent.supervisor import dossier
 
@@ -48,27 +48,22 @@ def _score(scenario: GoldenScenario, actual_capability_id: str | None) -> tuple[
 def run_golden_set(
     planner_client: PlannerClient, scenarios: tuple[GoldenScenario, ...] = SCENARIOS
 ) -> list[ScenarioResult]:
-    manifest = prompt_registry.get("supervisor_turn")
-    assert manifest is not None, "prompts/planning/supervisor_turn.yaml missing"
+    _, turn_context_template = planning_prompts.supervisor_turn_prompt()
     tools = registry.all_tool_schemas()
     results: list[ScenarioResult] = []
 
     for scenario in scenarios:
-        messages = [
-            {"role": "system", "content": manifest.system},
-            {
-                "role": "user",
-                "content": dossier.render_turn_context(
-                    manifest,
-                    org_repo=scenario.bootstrap_result.get("org_repo", "golden-set/scenario"),
-                    turn_number=len(scenario.tried_capability_ids) + 1,
-                    max_turns=8,
-                    tried_capability_ids=scenario.tried_capability_ids,
-                    bootstrap_result=scenario.bootstrap_result,
-                    dossier=scenario.dossier,
-                ),
-            },
-        ]
+        messages = planning_prompts.build_supervisor_turn_messages(
+            dossier.render_turn_context(
+                turn_context_template,
+                org_repo=scenario.bootstrap_result.get("org_repo", "golden-set/scenario"),
+                turn_number=len(scenario.tried_capability_ids) + 1,
+                max_turns=8,
+                tried_capability_ids=scenario.tried_capability_ids,
+                bootstrap_result=scenario.bootstrap_result,
+                dossier=scenario.dossier,
+            )
+        )
 
         start = time.monotonic()
         try:

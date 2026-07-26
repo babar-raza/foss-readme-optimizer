@@ -26,6 +26,8 @@ class RunManifestV2(BaseModel):
     timestamp: str
 
     prompt_registry_content_hash: str | None = None
+    prompt_hashes_by_id: dict[str, str] = Field(default_factory=dict)
+    prompt_dependency_hashes: dict[str, str] = Field(default_factory=dict)
     control_plane_fingerprint: str | None = None
     upstream_revision: str | None = None
     domain_coverage_complete: bool | None = None

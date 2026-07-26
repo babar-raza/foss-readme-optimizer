@@ -6,7 +6,7 @@ import pytest
 import requests
 from pydantic import ValidationError
 
-from readme_agent.errors import LLMError
+from readme_agent.errors import ConfigError, LLMError
 from readme_agent.evidence.manifest_v2 import RunManifestV2
 from readme_agent.llm import call_transport, live_client
 from readme_agent.llm.bundle_accounting import local_bundle_llm_accounting_fields
@@ -147,6 +147,36 @@ def test_fixture_and_cache_are_visible_but_not_provider_calls(accounting, tmp_pa
     assert summary.provider_call_count == 0
     assert summary.fixture_call_count == 1
     assert summary.cache_reuse_count == 1
+
+
+def test_fixture_job_prompt_mismatch_fails_before_recording(accounting):
+    with pytest.raises(ConfigError, match="requires prompt_id"):
+        record_non_provider_call(
+            job="draft_product_truth",
+            prompt_id="relationship_explained",
+            prompt_sha256=None,
+            model="fixture",
+            disposition="fixture",
+            request={},
+        )
+    assert load_llm_call_records(accounting) == []
+
+
+def test_provider_boundary_blocks_when_prompt_hygiene_is_not_clean(monkeypatch):
+    from readme_agent.llm import prompt_hygiene
+
+    def fail_hygiene():
+        raise ConfigError("prompt hygiene failed: orphan route")
+
+    monkeypatch.setattr(prompt_hygiene, "require_prompt_hygiene", fail_hygiene)
+    with pytest.raises(ConfigError, match="orphan route"):
+        call_transport.ProviderCallSession(
+            job="draft_product_truth",
+            prompt_id="draft_product_truth",
+            prompt_sha256=None,
+            provider="gateway",
+            model="model",
+        )
 
 
 def test_duplicate_call_id_with_conflicting_content_is_rejected(accounting):

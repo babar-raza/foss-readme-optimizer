@@ -51,18 +51,22 @@ found in — checked at build time, fails loud on mismatch.
 
 ## Current state
 
-Ten active manifests are registered:
+Ten active manifests are registered. This table is part of the blocking inventory and must match
+the manifest metadata exactly.
 
-| Category | Prompt IDs |
-|---|---|
-| `analysis` | `presentation_standard_compliance` |
-| `generation` | `draft_product_truth`, `plan_readme_composition`, `relationship_explained` |
-| `planning` | `repair_capability_selection`, `specialist_selection_turn`, `supervisor_turn` |
-| `verification` | `independent_readme_review`, `prose_quality_check`, `visual_asset_accuracy` |
+| Prompt ID | Category | Model route | Owner | Runtime consumer | Output contract | Invalidation scope |
+|---|---|---|---|---|---|---|
+| `presentation_standard_compliance` | `analysis` | `presentation_standard_compliance` | `readme_agent.capabilities.compare_against_presentation_standard` | `readme_agent.llm.analysis_prompts` | `presentation-standard-comparison-v1` | `README_ASSESSED` |
+| `draft_product_truth` | `generation` | `draft_product_truth` | `readme_agent.capabilities.draft_product_truth` | `readme_agent.llm.generation_prompts` | `DraftProductTruthV1` | `FACTS_COLLECTING` |
+| `plan_readme_composition` | `generation` | `plan_readme_composition` | `readme_agent.capabilities.plan_readme_composition` | `readme_agent.llm.generation_prompts` | `ReadmeAgenticCompositionPlanV1` | `PLAN_READY` |
+| `relationship_explained` | `generation` | `relationship_explained` | `readme_agent.readme.candidate_pipeline` | `readme_agent.llm.prompts` | `LLMBlockResponse` | `CANDIDATE_GENERATED` |
+| `repair_capability_selection` | `planning` | `repair_capability_selection` | `readme_agent.supervisor.repair` | `readme_agent.llm.planning_prompts` | `PlannerTurn-repair-capability-selection` | `REPAIRING` |
+| `specialist_selection_turn` | `planning` | `specialist_selection` | `readme_agent.supervisor.specialist_selection` | `readme_agent.llm.planning_prompts` | `PlannerTurn-select-specialists-to-skip` | `SPECIALIST_SELECTION` |
+| `supervisor_turn` | `planning` | `supervisor_planning` | `readme_agent.supervisor.planner_loop` | `readme_agent.llm.planning_prompts` | `PlannerTurn-capability-or-stop` | `SUPERVISOR_PLANNING` |
+| `independent_readme_review` | `verification` | `independent_readme_review` | `readme_agent.specialists.independent_readme_review` | `readme_agent.llm.verification_prompts` | `IndependentReadmeReviewResultV1` | `AGENT_REVIEWING` |
+| `prose_quality_check` | `verification` | `prose_quality_check` | `readme_agent.capabilities.verify_prose_quality` | `readme_agent.llm.verification_prompts` | `prose-quality-finding-v1` | `DETERMINISTIC_VALIDATED` |
+| `visual_asset_accuracy` | `verification` | `visual_asset_accuracy` | `readme_agent.capabilities.review_visual_asset_accuracy` | `readme_agent.llm.analysis_prompts` | `visual-asset-accuracy-v1` | `AGENT_REVIEWING` |
 
-They are loaded and schema-validated by `src/readme_agent/llm/prompt_registry.py`. The registry
-already rejects duplicate IDs and category/path disagreement and hashes every registered prompt.
-The remaining production-hygiene work is tracked by `L8-028` and
-`L8-TRUTH-01C-PROMPT-HYGIENE`: add owner/consumer/dependency metadata and a blocking inventory that
-reconciles files, model routes, runtime call sites, documentation, and inline-prompt exclusions
-before another paid portfolio campaign.
+`src/readme_agent/llm/prompt_hygiene.py` reconciles these rows with the files, schema, route table,
+runtime content/hash/call references, and source-level inline-prompt exclusions. The same check is
+required by the paid campaign entry points, unit suite, and official verification runner.

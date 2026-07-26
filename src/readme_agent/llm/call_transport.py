@@ -53,7 +53,16 @@ class ProviderCallSession:
         prompt_sha256: str | None,
         provider: str,
         model: str,
+        prompt_required: bool = True,
     ):
+        if prompt_required:
+            from readme_agent import env
+            from readme_agent.llm.prompt_hygiene import require_prompt_hygiene
+            from readme_agent.llm.prompt_registry import get, validate_job_prompt
+
+            require_prompt_hygiene()
+            if job in env.JOB_MODEL_ROUTING or get(prompt_id) is not None:
+                validate_job_prompt(job, prompt_id)
         self.logical_call_id = str(uuid.uuid4())
         self.job = job
         self.prompt_id = prompt_id

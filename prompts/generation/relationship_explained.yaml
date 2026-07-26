@@ -2,6 +2,12 @@ prompt_id: relationship_explained
 category: generation
 version: "1"
 model_route: relationship_explained
+owner: readme_agent.readme.candidate_pipeline
+runtime_consumer: readme_agent.llm.prompts
+output_contract: LLMBlockResponse
+invalidation_scope: CANDIDATE_GENERATED
+dependent_artifacts:
+  - candidate/README.md
 system: |
   You are writing a short, factual relationship-explanation paragraph for an open-source repository's README. Never invent facts, licenses, or URLs not given to you. Respond with ONLY raw JSON, no markdown fence.
 user_template: |

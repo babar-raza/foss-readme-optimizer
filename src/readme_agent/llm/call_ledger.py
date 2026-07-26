@@ -127,6 +127,12 @@ def record_non_provider_call(
     context = _CONTEXT.get()
     if context is None:
         return
+    if disposition == "fixture":
+        from readme_agent import env
+        from readme_agent.llm.prompt_registry import get, validate_job_prompt
+
+        if job in env.JOB_MODEL_ROUTING or get(prompt_id) is not None:
+            validate_job_prompt(job, prompt_id)
     now = datetime.now(UTC).isoformat()
     call_id = str(uuid.uuid4())
     append_llm_call_record(

@@ -39,6 +39,15 @@ def cmd_supervise(args: argparse.Namespace) -> int:
 
         return run_mission_command(args)
 
+    from readme_agent.errors import ConfigError
+    from readme_agent.llm.prompt_hygiene import require_prompt_hygiene
+
+    try:
+        require_prompt_hygiene()
+    except ConfigError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+
     if getattr(args, "registry", None):
         return _cmd_supervise_registry(args)
 
@@ -242,7 +251,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
                 api_key,
                 env.llm_model_for_job("specialist_selection"),
                 job="specialist_selection",
-                prompt_id="specialist_selection",
+                prompt_id="specialist_selection_turn",
             ),
             "repair_planner_client": LivePlannerClient(
                 base_url,

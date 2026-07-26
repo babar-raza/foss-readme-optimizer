@@ -16,7 +16,6 @@ candidates here; a build-time assertion below enforces that.
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from string import Template
 
 from readme_agent.capabilities import domains
 from readme_agent.capabilities._visual_asset_ops import (
@@ -30,8 +29,8 @@ from readme_agent.inspection.file_inventory import (
     LICENSE_FILENAMES,
     README_FILENAMES,
 )
-from readme_agent.llm import prompt_registry
 from readme_agent.llm.planner_client import PlannerClient
+from readme_agent.llm.planning_prompts import build_specialist_selection_messages
 from readme_agent.state.schema import DomainStateV1
 
 # The only domains a diff can plausibly say anything about: their own
@@ -133,10 +132,6 @@ def decide_skips(
     if not eligible or specialist_selection_client is None:
         return plan
 
-    manifest = prompt_registry.get("specialist_selection_turn")
-    if manifest is None or manifest.user_template is None:
-        return plan  # fail closed -- no prompt, no skip
-
     tool_schema = {
         "type": "function",
         "function": {
@@ -154,15 +149,7 @@ def decide_skips(
             },
         },
     }
-    messages = [
-        {"role": "system", "content": manifest.system.strip()},
-        {
-            "role": "user",
-            "content": Template(manifest.user_template)
-            .substitute(org_repo=org_repo, eligible_domains=", ".join(eligible))
-            .strip(),
-        },
-    ]
+    messages = build_specialist_selection_messages(org_repo, eligible)
 
     try:
         turn = specialist_selection_client.plan(messages, [tool_schema])

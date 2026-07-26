@@ -8,15 +8,14 @@ verifier part itself).
 """
 
 import json
-from string import Template
 from typing import Literal
 
 from readme_agent.capabilities.dispatcher import DispatchResult
 from readme_agent.capabilities.effect_ledger import retry_is_safe
 from readme_agent.capabilities.schema import CapabilityManifest
 from readme_agent.errors import LLMError
-from readme_agent.llm import prompt_registry
 from readme_agent.llm.planner_client import PlannerClient
+from readme_agent.llm.planning_prompts import build_repair_capability_selection_messages
 from readme_agent.supervisor.task import Task, TaskGraph
 
 FailureClass = Literal[
@@ -124,24 +123,12 @@ def select_repair_alternative(
     repair_task()`'s own `None` already has) on the planner declining to
     call a tool, a malformed response, or any `LLMError` -- fail closed,
     never guess."""
-    manifest = prompt_registry.get("repair_capability_selection")
-    assert manifest is not None, "prompts/planning/repair_capability_selection.yaml missing"
-    assert manifest.user_template is not None
-
-    messages = [
-        {"role": "system", "content": manifest.system.strip()},
-        {
-            "role": "user",
-            "content": Template(manifest.user_template)
-            .substitute(
-                capability_id=failed_task.capability_id or "",
-                arguments=json.dumps(failed_task.arguments),
-                classification=classification,
-                reason=reason,
-            )
-            .strip(),
-        },
-    ]
+    messages = build_repair_capability_selection_messages(
+        capability_id=failed_task.capability_id or "",
+        arguments=failed_task.arguments,
+        classification=classification,
+        reason=reason,
+    )
 
     try:
         plan = planner_client.plan(messages, tools)

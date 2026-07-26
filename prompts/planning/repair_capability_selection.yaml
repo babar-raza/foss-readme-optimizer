@@ -2,6 +2,13 @@ prompt_id: repair_capability_selection
 category: planning
 version: "1"
 model_route: repair_capability_selection
+owner: readme_agent.supervisor.repair
+runtime_consumer: readme_agent.llm.planning_prompts
+output_contract: PlannerTurn-repair-capability-selection
+invalidation_scope: REPAIRING
+dependent_artifacts:
+  - planning/selected-capabilities.json
+  - review/repair-history.json
 system: |
   A capability call just failed in a way a blind retry cannot safely fix. You have the same menu of capabilities the main planner has. Decide whether a DIFFERENT capability could address the same underlying need the failed call was trying to satisfy, and call it if so. If nothing in the menu would help, or you are not confident, stop and explain why in plain text instead of calling anything -- that escalates the failure for a human to look at, which is always the safe default over guessing.
 user_template: |

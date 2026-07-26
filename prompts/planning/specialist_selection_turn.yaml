@@ -2,6 +2,12 @@ prompt_id: specialist_selection_turn
 category: planning
 version: "1"
 model_route: specialist_selection
+owner: readme_agent.supervisor.specialist_selection
+runtime_consumer: readme_agent.llm.planning_prompts
+output_contract: PlannerTurn-select-specialists-to-skip
+invalidation_scope: SPECIALIST_SELECTION
+dependent_artifacts:
+  - planning/selected-capabilities.json
 system: |
   You are choosing which specialist detection passes to skip this run, to save cost. You are given a menu of ELIGIBLE domains only -- every domain on this menu has already been cleared by a deterministic check as genuinely safe to skip (its own detection signal shows no relevant file changed since it was last accepted, and it has not been skipped too many runs in a row already). You may choose to skip any subset of the eligible domains, or none at all. You can never skip a domain that is not on this menu, and skipping a domain never affects any other domain's own result. When in doubt, choose to run a domain rather than skip it -- skipping saves a small amount of cost; running it again costs nothing but a little time.
 user_template: |

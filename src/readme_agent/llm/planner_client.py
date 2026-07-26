@@ -66,7 +66,11 @@ class LivePlannerClient:
         self.model = model
         self.timeout = timeout
         self.job = job
-        self.prompt_id = prompt_id or job
+        if prompt_id is None:
+            from readme_agent.llm.prompt_registry import prompt_id_for_route
+
+            prompt_id = prompt_id_for_route(job)
+        self.prompt_id = prompt_id
 
     def _headers(self) -> dict[str, str]:
         headers = {"Content-Type": "application/json"}
@@ -169,7 +173,11 @@ class FixturePlannerClient:
         self._turns = list(turns)
         self._index = 0
         self.job = job
-        self.prompt_id = prompt_id or job
+        if prompt_id is None:
+            from readme_agent.llm.prompt_registry import prompt_id_for_route
+
+            prompt_id = prompt_id_for_route(job)
+        self.prompt_id = prompt_id
 
     def plan(self, messages: list[dict], tools: list[dict]) -> PlannerTurn:
         if self._index >= len(self._turns):

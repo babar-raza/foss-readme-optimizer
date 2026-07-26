@@ -70,10 +70,13 @@ def cmd_golden_set_run(args: argparse.Namespace) -> int:
         DeterministicQualificationResult,
         run_qualification,
     )
+    from readme_agent.llm import prompt_registry
     from readme_agent.llm.planner_client import LivePlannerClient
+    from readme_agent.llm.prompt_hygiene import require_prompt_hygiene
     from readme_agent.llm.reviewer_client import LiveIndependentReviewClient
     from readme_agent.state.git_backend import default_state_backend
 
+    require_prompt_hygiene()
     base_url, api_key = env.llm_base_url(), env.llm_api_key()
     if args.job == "all":
         report = run_qualification(
@@ -82,7 +85,7 @@ def cmd_golden_set_run(args: argparse.Namespace) -> int:
                 api_key,
                 env.llm_model_for_job("supervisor_planning"),
                 job="supervisor_planning",
-                prompt_id="supervisor_planning",
+                prompt_id="supervisor_turn",
             ),
             lambda: LiveIndependentReviewClient(
                 base_url,
@@ -129,7 +132,7 @@ def cmd_golden_set_run(args: argparse.Namespace) -> int:
         api_key,
         env.llm_model_for_job(args.job),
         job=args.job,
-        prompt_id=args.job,
+        prompt_id=prompt_registry.prompt_id_for_route(args.job),
     )
 
     results = run_golden_set(client)

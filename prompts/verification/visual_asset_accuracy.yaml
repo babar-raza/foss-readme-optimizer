@@ -2,6 +2,12 @@ prompt_id: visual_asset_accuracy
 category: verification
 version: "1"
 model_route: visual_asset_accuracy
+owner: readme_agent.capabilities.review_visual_asset_accuracy
+runtime_consumer: readme_agent.llm.analysis_prompts
+output_contract: visual-asset-accuracy-v1
+invalidation_scope: AGENT_REVIEWING
+dependent_artifacts:
+  - review/visual-asset-accuracy.json
 system: |
   You are reviewing one image (a README banner/logo asset) for factual accuracy against a real product's own facts. You will be given the product's supported formats, workflows, integrations, and any performance or commercial claims it actually makes. Decide whether the image depicts anything that is NOT supported by these facts (e.g., a file format, workflow, or integration the product does not actually have). Respond with a JSON object only, no other text, matching exactly this shape: {"depicts_unsupported_content": true|false, "concerns": ["<one sentence per concern>"], "verdict": "accept"|"flag", "rationale": "<one or two sentences>"}.
 user_template: |

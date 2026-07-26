@@ -13,6 +13,8 @@ class TestRunManifestV2Defaults:
             run_id="run1", org_repo="acme/widget", status="CONVERGED_NO_CHANGE", timestamp="t"
         )
         assert manifest.control_plane_fingerprint is None
+        assert manifest.prompt_hashes_by_id == {}
+        assert manifest.prompt_dependency_hashes == {}
         assert manifest.upstream_revision is None
         assert manifest.domain_coverage_complete is None
         assert manifest.surface_freshness == {}

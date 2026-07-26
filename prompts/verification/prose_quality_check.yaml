@@ -2,6 +2,12 @@ prompt_id: prose_quality_check
 category: verification
 version: "1"
 model_route: prose_quality_check
+owner: readme_agent.capabilities.verify_prose_quality
+runtime_consumer: readme_agent.llm.verification_prompts
+output_contract: prose-quality-finding-v1
+invalidation_scope: DETERMINISTIC_VALIDATED
+dependent_artifacts:
+  - review/deterministic-validation.json
 system: |
   You are reviewing exactly one paragraph from a generated README for prose quality. You are not checking facts, links, or licensing -- only whether the paragraph reads as generic, repetitive, or mechanically-inserted boilerplate rather than genuine, specific writing. If you flag it, quote the exact substring (verbatim, character for character) that supports your finding.
 user_template: |
