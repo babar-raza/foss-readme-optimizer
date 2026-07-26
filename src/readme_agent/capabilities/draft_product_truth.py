@@ -202,6 +202,24 @@ def _extract_failure_reasons(fact: FactRecordV2) -> list[str]:
     return [detail] if detail else [f"{fact.field}: blocked with no structured failure detail"]
 
 
+def _local_verification_detail(result: LocalProductVerificationV1 | None) -> str:
+    """Return bounded compiler feedback that a repair attempt can act on."""
+
+    if result is None:
+        return "local build/example verification was not executed for this draft"
+    execution = result.example_compile or result.build
+    if execution is None or execution.return_code == 0:
+        return result.detail
+    diagnostic = "\n".join(part.strip() for part in (execution.stderr, execution.stdout) if part)
+    if not diagnostic:
+        return result.detail
+    # The process runs under example_execution.secret_free_environment().
+    # Keep the first compiler diagnostics (where syntax/type errors appear),
+    # bounded so repair prompts and evidence cannot grow with build logs.
+    diagnostic = diagnostic[:2000]
+    return f"{result.detail}; compiler diagnostic:\n{diagnostic}"
+
+
 def _gate_minimal_example(
     example: MinimalExamplePolicy,
     root: Path,
@@ -240,11 +258,7 @@ def _gate_minimal_example(
 
     local_result = verify_example_fn(example)
     outcome = local_result.outcome if local_result is not None else "BLOCKED_LOCAL_VERIFICATION"
-    detail = (
-        local_result.detail
-        if local_result is not None
-        else "local build/example verification was not executed for this draft"
-    )
+    detail = _local_verification_detail(local_result)
     verified = outcome == "SOURCE_BUILD_VERIFIED"
     return FactRecordV2(
         fact_id=descriptive_fact_id("example.minimal", "agent-drafted-example"),

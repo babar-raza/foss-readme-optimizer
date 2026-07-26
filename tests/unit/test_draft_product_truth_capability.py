@@ -319,6 +319,48 @@ class TestMinimalExampleGating:
         assert result.repair_attempts == capability.MAX_PRODUCT_TRUTH_DRAFT_REPAIR_ATTEMPTS
         assert any(f["field"] == "example.minimal" for f in result.findings)
 
+    def test_compiler_diagnostic_is_passed_to_the_repair_attempt(self, tmp_path):
+        root = _make_repo(tmp_path)
+        facts_so_far = _facts_so_far()
+        calls: list[dict[str, list[str]] | None] = []
+        failed_compile = ExampleExecutionResultV1(
+            argv=["dotnet", "build"],
+            return_code=1,
+            stdout="Build FAILED.",
+            stderr="Program.cs(4,31): error CS1003: Syntax error, ',' expected",
+            timed_out=False,
+            environment_names=["CI"],
+        )
+        failed_result = LocalProductVerificationV1(
+            org_repo=ORG_REPO,
+            source_revision="abc1234",
+            ecosystem="dotnet",
+            outcome="BUILD_FAILED",
+            detail="exact README example compilation failed",
+            build=failed_compile,
+            example_compile=failed_compile,
+        )
+
+        def draft_fn(hints, current_facts):
+            calls.append(hints)
+            return _good_draft()
+
+        verification_results = iter([failed_result, _verified_local_result()])
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            facts_so_far,
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=draft_fn,
+            verify_example_fn=lambda example: next(verification_results),
+        )
+
+        assert result.findings == []
+        assert result.repair_attempts == 1
+        assert calls[0] is None
+        assert "error CS1003" in calls[1]["example.minimal"][0]
+
 
 class TestRealGateSpies:
     """Confirms the exact real functions are invoked with the expected
