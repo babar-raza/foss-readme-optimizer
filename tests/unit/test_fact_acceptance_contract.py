@@ -2,6 +2,7 @@
 
 from readme_agent.facts.acceptance_contract import (
     README_TRUTH_FIELDS,
+    _component_hash,
     classify_product_truth,
     current_fact_acceptance_contract,
 )
@@ -80,6 +81,21 @@ def test_component_or_rule_change_changes_the_contract_hash():
 
     assert component_changed.canonical_hash() != contract.canonical_hash()
     assert membership_changed.canonical_hash() != contract.canonical_hash()
+
+
+def test_component_hash_is_checkout_line_ending_invariant(tmp_path):
+    lf_root = tmp_path / "lf"
+    crlf_root = tmp_path / "crlf"
+    lf_root.mkdir()
+    crlf_root.mkdir()
+    lf = lf_root / "component.py"
+    crlf = crlf_root / "component.py"
+    lf.write_bytes(b"first = 1\nsecond = 2\n")
+    crlf.write_bytes(b"first = 1\r\nsecond = 2\r\n")
+
+    assert _component_hash(lf_root, ("component.py",)) == _component_hash(
+        crlf_root, ("component.py",)
+    )
 
 
 def test_classification_uses_the_versioned_required_field_membership():

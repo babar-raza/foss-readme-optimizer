@@ -75,7 +75,9 @@ def _component_hash(root: Path, relative_paths: tuple[str, ...]) -> str:
     for relative_path in relative_paths:
         digest.update(relative_path.encode("utf-8"))
         digest.update(b"\0")
-        digest.update((root / relative_path).read_bytes())
+        with (root / relative_path).open("r", encoding="utf-8", newline=None) as source:
+            normalized_source = source.read()
+        digest.update(normalized_source.encode("utf-8"))
         digest.update(b"\0")
     return digest.hexdigest()
 
