@@ -467,18 +467,1633 @@
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
     },
     "readme_presentation": {
-      "accepted_facts_hash": null,
-      "accepted_status": null,
-      "consecutive_failure_count": 2,
+      "accepted_facts_hash": "81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "agentic_composition_plan": {
+          "assessment_hash": "92050e2affb650ac00492f35d9dac17b1d9e5a0df332ad9fd55f203459262738",
+          "attempt_count": 1,
+          "facts_hash": "81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e",
+          "input_sha256": "7ca9a6090859c3326d40d3f3c79f33270317a2602e601232d60420ced63f01cc",
+          "model": "qwen3-next",
+          "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+          "overview_sentences": [
+            {
+              "supporting_fact_ids": [
+                "product.audience:agent-drafted-grounded",
+                "product.capabilities:repository-evidence"
+              ],
+              "text": "Developers using Python for Generate barcodes for Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code."
+            },
+            {
+              "supporting_fact_ids": [
+                "product.formats:repository-evidence"
+              ],
+              "text": "SVG output"
+            },
+            {
+              "supporting_fact_ids": [
+                "product.compatibility:manifest"
+              ],
+              "text": "Requires Python 3.12 or later."
+            }
+          ],
+          "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+          "repository_summary": "The repository README for aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python describes a pure-Python library for generating and rendering barcodes. It supports multiple symbologies (Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, QR Code), outputs SVG and PNG, and includes typed exceptions, render options, and encoding options. The library requires Python 3.12+, uses Pillow for PNG rendering, and is MIT-licensed. It is not yet published to PyPI and must be installed from source.",
+          "schema_version": 1,
+          "section_decisions": [
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "The existing opening paragraph and bullet list accurately reflect the product identity and its relationship to commercial FOSS, and no verified gaps exist.",
+              "section_id": "opening",
+              "supporting_fact_ids": [
+                "product.identity:manifest-and-registry",
+                "relationship.commercial_foss:primary"
+              ]
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:0",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "The installation section matches the verified coordinates and source-build verification; no changes are needed.",
+              "section_id": "heading:402",
+              "supporting_fact_ids": [
+                "installation.coordinates:manifest",
+                "installation.verified_acquisition:disposable-source-build"
+              ]
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "The Quick Start example matches the verified minimal example exactly and is correctly presented.",
+              "section_id": "heading:722",
+              "supporting_fact_ids": [
+                "example.minimal:agent-drafted-example"
+              ]
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:1222",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:2641",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:3253",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:5083",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:5538",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:6474",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "preserve",
+              "priority": 0,
+              "rationale": "Maintainer-authored content is preserved by default.",
+              "section_id": "heading:6547",
+              "supporting_fact_ids": []
+            },
+            {
+              "disposition": "add",
+              "priority": 1,
+              "rationale": "A fact-backed 'At a glance' section is needed to highlight the target audience and core capabilities as verified.",
+              "section_id": "missing:at-a-glance",
+              "supporting_fact_ids": [
+                "product.audience:agent-drafted-grounded",
+                "product.capabilities:repository-evidence"
+              ]
+            }
+          ],
+          "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
+          "tool_schema_sha256": "bd20e867f3e6d63fad3db0a5301d8a8b156d353d12022c6fafb02275814afa15"
+        },
+        "agentic_composition_reused": false,
+        "bundle_verification": {
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260726-062716-14e9",
+          "checks": {
+            "acquisition_matches_live_registry": true,
+            "agentic_plan_assessment_hash_matches": true,
+            "agentic_plan_facts_hash_matches": true,
+            "agentic_plan_repository_matches": true,
+            "agentic_plan_source_hash_matches": true,
+            "all_artifacts_present": true,
+            "artifact_checksums_match": true,
+            "assessment_reconstructed": true,
+            "candidate_hash_matches_plan": true,
+            "cited_facts_accepted": true,
+            "claim_map_reconstructed": true,
+            "facts_hash_matches_plan": true,
+            "independent_reconstruction_byte_identical": true,
+            "independent_validation_valid": true,
+            "native_git_apply_produces_candidate": true,
+            "operations_cite_selected_facts": true,
+            "recomputed_validation_consistent_with_stored": true,
+            "reconstructed_plan_matches": true,
+            "schemas_valid": true,
+            "source_hash_matches_plan": true
+          },
+          "failures": [],
+          "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+          "status": "checked",
+          "verified": true
+        },
+        "committed": false,
+        "factuality": {
+          "claim_conflicts": [],
+          "error": null,
+          "product_facts_v2_hash": "81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e",
+          "protected_content_losses": [],
+          "valid": true
+        },
+        "fresh_fingerprint": "9558ad02bac368f5e11dde192c960375fd07bc6f33b3ecb2b139b292046a2c33",
+        "independent_review": {
+          "attempts": 0,
+          "escalation": null,
+          "final_review": {
+            "failed_criteria": [],
+            "preserve": [],
+            "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every claim in the candidate is traceable to the supplied ProductFacts: the opening paragraph and bullet list correctly reflect the verified audience, capabilities, compatibility, and formats; the installation instructions match the manifest coordinates and source-build verification; the Quick Start example matches the verified minimal example; all symbology, render, encoding, and error-handling sections are preserved from the original README and align with repository evidence; the requirements and license sections are factually correct. The 'At a glance' section adds a fact-backed overview as required by the presentation plan, and the navigation section is added to improve usability. No promotional content crowds out product substance, and the document shows the project as actively maintained with verified examples and clear installation path.",
+            "required_repair": "",
+            "sections_affected": [],
+            "verdict": "ACCEPT"
+          },
+          "outcome_kind": "accepted",
+          "repair_history": [
+            {
+              "candidate_sha256": "497c83290e4a193e70d4f578b9686b471df5126dd1d874ed4613680700af9148",
+              "deterministic_validation": {
+                "checks": {
+                  "adoption_preserved_source": true,
+                  "candidate_has_presentation_span": true,
+                  "candidate_hash_matches": true,
+                  "candidate_matches_independent_render": true,
+                  "document_reconstruction": true,
+                  "fact_citations": true,
+                  "facts_hash_matches": true,
+                  "needs_write_matches": true,
+                  "protected_content": true,
+                  "source_document_hash": true,
+                  "source_span_hashes": true,
+                  "template_hash_matches": true,
+                  "verified_example_present": true,
+                  "verified_limitations_present": true,
+                  "verified_overview_present": true
+                },
+                "nonce": "20260726-062716-14e9",
+                "reason": null,
+                "requirement_map": {
+                  "fact_backed_document_plan": true,
+                  "immutable_snapshot": true,
+                  "protected_content": true,
+                  "verified_example": true
+                },
+                "token": "b2dfa259b1fe4683690138b04ec8cf56ba45baca67429dc20d604281214d3415",
+                "verdict": "accept"
+              },
+              "evidence_refs": [
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260726-062716-14e9"
+              ],
+              "repair_attempt": 0,
+              "review": {
+                "failed_criteria": [],
+                "preserve": [],
+                "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every claim in the candidate is traceable to the supplied ProductFacts: the opening paragraph and bullet list correctly reflect the verified audience, capabilities, compatibility, and formats; the installation instructions match the manifest coordinates and source-build verification; the Quick Start example matches the verified minimal example; all symbology, render, encoding, and error-handling sections are preserved from the original README and align with repository evidence; the requirements and license sections are factually correct. The 'At a glance' section adds a fact-backed overview as required by the presentation plan, and the navigation section is added to improve usability. No promotional content crowds out product substance, and the document shows the project as actively maintained with verified examples and clear installation path.",
+                "required_repair": "",
+                "sections_affected": [],
+                "verdict": "ACCEPT"
+              },
+              "review_pass": 1
+            }
+          ]
+        },
+        "llm_called": true,
+        "llm_calls": [
+          {
+            "input_sha256": "7ca9a6090859c3326d40d3f3c79f33270317a2602e601232d60420ced63f01cc",
+            "job": "plan_readme_composition",
+            "model": "qwen3-next",
+            "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6"
+          }
+        ],
+        "note": "local-POC profile stops at an independently reviewed proposal",
+        "presentation_plan": {
+          "agentic_composition_plan": {
+            "assessment_hash": "92050e2affb650ac00492f35d9dac17b1d9e5a0df332ad9fd55f203459262738",
+            "attempt_count": 1,
+            "facts_hash": "81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e",
+            "input_sha256": "7ca9a6090859c3326d40d3f3c79f33270317a2602e601232d60420ced63f01cc",
+            "model": "qwen3-next",
+            "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+            "overview_sentences": [
+              {
+                "supporting_fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence"
+                ],
+                "text": "Developers using Python for Generate barcodes for Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code."
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.formats:repository-evidence"
+                ],
+                "text": "SVG output"
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.compatibility:manifest"
+                ],
+                "text": "Requires Python 3.12 or later."
+              }
+            ],
+            "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+            "repository_summary": "The repository README for aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python describes a pure-Python library for generating and rendering barcodes. It supports multiple symbologies (Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, QR Code), outputs SVG and PNG, and includes typed exceptions, render options, and encoding options. The library requires Python 3.12+, uses Pillow for PNG rendering, and is MIT-licensed. It is not yet published to PyPI and must be installed from source.",
+            "schema_version": 1,
+            "section_decisions": [
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The existing opening paragraph and bullet list accurately reflect the product identity and its relationship to commercial FOSS, and no verified gaps exist.",
+                "section_id": "opening",
+                "supporting_fact_ids": [
+                  "product.identity:manifest-and-registry",
+                  "relationship.commercial_foss:primary"
+                ]
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:0",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The installation section matches the verified coordinates and source-build verification; no changes are needed.",
+                "section_id": "heading:402",
+                "supporting_fact_ids": [
+                  "installation.coordinates:manifest",
+                  "installation.verified_acquisition:disposable-source-build"
+                ]
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The Quick Start example matches the verified minimal example exactly and is correctly presented.",
+                "section_id": "heading:722",
+                "supporting_fact_ids": [
+                  "example.minimal:agent-drafted-example"
+                ]
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:1222",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:2641",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3253",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5083",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5538",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:6474",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:6547",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "add",
+                "priority": 1,
+                "rationale": "A fact-backed 'At a glance' section is needed to highlight the target audience and core capabilities as verified.",
+                "section_id": "missing:at-a-glance",
+                "supporting_fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence"
+                ]
+              }
+            ],
+            "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
+            "tool_schema_sha256": "bd20e867f3e6d63fad3db0a5301d8a8b156d353d12022c6fafb02275814afa15"
+          },
+          "claim_map": {
+            "candidate_sha256": "497c83290e4a193e70d4f578b9686b471df5126dd1d874ed4613680700af9148",
+            "claims": [
+              {
+                "byte_end": 674,
+                "byte_start": 562,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.audience",
+                "claim_text_sha256": "f39ed93a6055b148f257a1506b20e64581e2da977148bae83977e5688c5a53d2",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.audience:agent-drafted-grounded",
+                "fact_value_sha256": "cc7258e2ebcb95787e7e5b199f527a92352cf2b18dde9902115bfcca57f4fc8d",
+                "field": "product.audience",
+                "introduced_text_sha256": "7483ddb6a946b2607cdfc3e02ae0e832aba26e16b928113441c96554ad87a72d",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 674,
+                "byte_start": 562,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.capabilities",
+                "claim_text_sha256": "f39ed93a6055b148f257a1506b20e64581e2da977148bae83977e5688c5a53d2",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.capabilities:repository-evidence",
+                "fact_value_sha256": "cde9f43ef0de760f01d6ac59c6e713346f3c8546ad96f30eb3f5e2fe407d25e6",
+                "field": "product.capabilities",
+                "introduced_text_sha256": "7483ddb6a946b2607cdfc3e02ae0e832aba26e16b928113441c96554ad87a72d",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 674,
+                "byte_start": 562,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.compatibility",
+                "claim_text_sha256": "f39ed93a6055b148f257a1506b20e64581e2da977148bae83977e5688c5a53d2",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.compatibility:manifest",
+                "fact_value_sha256": "2c06e072c6a901ee3ea894012bfcdcad39c04a8858dcf50c8e2fcc51e8407b61",
+                "field": "product.compatibility",
+                "introduced_text_sha256": "7483ddb6a946b2607cdfc3e02ae0e832aba26e16b928113441c96554ad87a72d",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 687,
+                "byte_start": 675,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.formats",
+                "claim_text_sha256": "209d850afb828a76a0edefffdbd33a512b2d13a29a3db121526ee40bcc65c855",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.formats:repository-evidence",
+                "fact_value_sha256": "72cd7a468251524d57313129a13c07437a238e5648c937eda65b80c32a04da89",
+                "field": "product.formats",
+                "introduced_text_sha256": "7483ddb6a946b2607cdfc3e02ae0e832aba26e16b928113441c96554ad87a72d",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              }
+            ],
+            "facts_hash": "81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e",
+            "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+            "schema_version": 1
+          },
+          "document_validation": {
+            "authorized_protected_corrections": [],
+            "checks": {
+              "adoption_preserved_source": true,
+              "candidate_has_presentation_span": true,
+              "candidate_hash_matches": true,
+              "document_reconstruction": true,
+              "fact_citations": true,
+              "facts_hash_matches": true,
+              "protected_content": true,
+              "source_document_hash": true,
+              "source_span_hashes": true,
+              "template_hash_matches": true,
+              "verified_example_present": true,
+              "verified_limitations_present": true,
+              "verified_overview_present": true
+            },
+            "citation_errors": [],
+            "errors": [],
+            "valid": true
+          },
+          "executable": true,
+          "git_patch_proof": {
+            "candidate_sha256": "497c83290e4a193e70d4f578b9686b471df5126dd1d874ed4613680700af9148",
+            "git_apply_check_passed": true,
+            "outside_spans_preserved": true,
+            "patch_sha256": "2c9b50988a0f29619be183ac12b1c36e718a25175d2bd2791a5712e3b503c389",
+            "path": "README.md",
+            "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68"
+          },
+          "presentation_plan": {
+            "actions": [
+              {
+                "action_id": "readme.presentation.document-plan",
+                "claims": [
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.audience",
+                    "fact_ids": [
+                      "product.audience:agent-drafted-grounded"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.audience]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.capabilities",
+                    "fact_ids": [
+                      "product.capabilities:repository-evidence"
+                    ],
+                    "surface_id": "readme.capabilities",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.capabilities]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.compatibility",
+                    "fact_ids": [
+                      "product.compatibility:manifest"
+                    ],
+                    "surface_id": "readme.capabilities",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.compatibility]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.formats",
+                    "fact_ids": [
+                      "product.formats:repository-evidence"
+                    ],
+                    "surface_id": "readme.capabilities",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.formats]"
+                  }
+                ],
+                "depends_on": [],
+                "disposition": "eligible",
+                "fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence",
+                  "product.compatibility:manifest",
+                  "product.formats:repository-evidence"
+                ],
+                "ownership_class": "repository_file",
+                "patch_sha256": "2c9b50988a0f29619be183ac12b1c36e718a25175d2bd2791a5712e3b503c389",
+                "proposed_operation": "local_patch",
+                "region_id": "readme.presentation",
+                "rollback": "revert the bounded file patch",
+                "source_spans": [
+                  {
+                    "byte_end": 6602,
+                    "byte_start": 0,
+                    "expected_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
+                    "path": "README.md",
+                    "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations",
+                    "replacement_sha256": "497c83290e4a193e70d4f578b9686b471df5126dd1d874ed4613680700af9148"
+                  }
+                ],
+                "stop_conditions": [
+                  "immutable base revision changed",
+                  "source or work-tree README hash changed",
+                  "document reconstruction differs",
+                  "a fact citation becomes unselected, unresolved, or unverified",
+                  "protected content outside a cited authoritative correction is lost",
+                  "Git apply or independent verification fails"
+                ],
+                "surface_id": "readme",
+                "validators": [
+                  "claim_citations",
+                  "surface_ownership",
+                  "source_span_hash",
+                  "git_apply_check",
+                  "protected_content",
+                  "independent_verifier"
+                ]
+              }
+            ],
+            "archetype": "python-library",
+            "candidate_sha256": "497c83290e4a193e70d4f578b9686b471df5126dd1d874ed4613680700af9148",
+            "facts_hash": "81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e",
+            "findings": [
+              {
+                "dimension": "product_clarity",
+                "disposition": "satisfied",
+                "evidence": [
+                  "<!-- readme-agent:presentation hash=\"sha256:81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e\" schema=\"3\" inner-bytes=\"7114\" --> A pure-Python library for barcode generation. It produces deterministic, standards-compliant barcodes and renders them as SVG or PNG."
+                ],
+                "finding_id": "readme.product_clarity",
+                "summary": "product clarity is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "audience_fit",
+                "disposition": "satisfied",
+                "evidence": [
+                  "<!-- readme-agent:presentation hash=\"sha256:81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e\" schema=\"3\" inner-bytes=\"7114\" --> A pure-Python library for barcode generation. It produces deterministic, standards-compliant barcodes and renders them as SVG or PNG."
+                ],
+                "finding_id": "readme.audience_fit",
+                "summary": "audience fit is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "trust_signals",
+                "disposition": "satisfied",
+                "evidence": [
+                  "product.license:license-file:verified"
+                ],
+                "finding_id": "readme.trust_signals",
+                "summary": "trust signals is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "installation_path",
+                "disposition": "satisfied",
+                "evidence": [
+                  "installation.verified_acquisition:disposable-source-build:outcomes=['accepted']"
+                ],
+                "finding_id": "readme.installation_path",
+                "summary": "installation path is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "verified_examples",
+                "disposition": "satisfied",
+                "evidence": [
+                  "13 fenced code blocks found"
+                ],
+                "finding_id": "readme.verified_examples",
+                "summary": "verified examples is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "navigation",
+                "disposition": "gap",
+                "evidence": [
+                  "heading level(s) skipped: H1->H3, H1->H3"
+                ],
+                "finding_id": "readme.navigation",
+                "summary": "navigation needs review",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "visual_usefulness",
+                "disposition": "observation",
+                "evidence": [
+                  "markdown images=0; factual review is separate"
+                ],
+                "finding_id": "readme.visual_usefulness",
+                "summary": "visual usefulness is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "contribution_readiness",
+                "disposition": "observation",
+                "evidence": [
+                  "repository-file recognition belongs to the community-files specialist"
+                ],
+                "finding_id": "readme.contribution_readiness",
+                "summary": "contribution readiness is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "maintenance_signals",
+                "disposition": "observation",
+                "evidence": [
+                  "GitHub-generated activity remains audit-only"
+                ],
+                "finding_id": "readme.maintenance_signals",
+                "summary": "maintenance signals is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "commercial_context",
+                "disposition": "satisfied",
+                "evidence": [
+                  "commercial_links=0; explanation_offset=167"
+                ],
+                "finding_id": "readme.commercial_context",
+                "summary": "commercial context is satisfied",
+                "surface_id": "readme"
+              }
+            ],
+            "immutable_base_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+            "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+            "schema_version": 1,
+            "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68"
+          },
+          "readme_assessment": {
+            "facts_hash": "81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e",
+            "immutable_base_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+            "material_claims": [
+              {
+                "claim_id": "claim:23:c6f2e935c765fdef",
+                "content_sha256": "c6f2e935c765fdef913b41960312aee9623f66c9f45ad91e0af4c4ea5e607111",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:23:157"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 157,
+                "source_byte_start": 23
+              },
+              {
+                "claim_id": "claim:158:957410ae22fc1b82",
+                "content_sha256": "957410ae22fc1b82d1cf19e9a17eb1d33966090c61579bb2332b8f488bb0cbb3",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:158:266"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 268,
+                "source_byte_start": 158
+              },
+              {
+                "claim_id": "claim:268:56cd28abf804fcc4",
+                "content_sha256": "56cd28abf804fcc43ecac8f244426fd83ca5a503b6e9d42fde84291bf07d6d54",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:266:309"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 311,
+                "source_byte_start": 268
+              },
+              {
+                "claim_id": "claim:311:8eb487b0e62c977f",
+                "content_sha256": "8eb487b0e62c977fa42cde8ebd09f1c86531ba6ae602b145910c3ab59c3c5c90",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:309:399"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 401,
+                "source_byte_start": 311
+              },
+              {
+                "claim_id": "claim:419:630c8b4267201c19",
+                "content_sha256": "630c8b4267201c19ef212b768a90bce436e157fdb55cf5ab9fd87bca95910b6e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:417:555"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 557,
+                "source_byte_start": 419
+              },
+              {
+                "claim_id": "claim:558:a06074fe415aa0ad",
+                "content_sha256": "a06074fe415aa0ad1c82ecde3fcbd60fea6ec691f012658df19a2324bd069b66",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:556:582"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 584,
+                "source_byte_start": 558
+              },
+              {
+                "claim_id": "claim:585:936ee88552773515",
+                "content_sha256": "936ee88552773515f7f4aa7ce396ab2555772947bb48de19e09607d1395774c5",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:583:677"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 679,
+                "source_byte_start": 585
+              },
+              {
+                "claim_id": "claim:680:e3fffffa6607509c",
+                "content_sha256": "e3fffffa6607509c0e7a656fce27f84576d83f0a0b7be67226b08cb4f428d2f8",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:678:719"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 721,
+                "source_byte_start": 680
+              },
+              {
+                "claim_id": "claim:738:bd1d7e45464fa650",
+                "content_sha256": "bd1d7e45464fa650b6b6c1e1880798533df32067586837249d35fd75a6f47675",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:736:902"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 904,
+                "source_byte_start": 738
+              },
+              {
+                "claim_id": "claim:905:09c2824e88ad51e8",
+                "content_sha256": "09c2824e88ad51e8e4eb99edc7e140a8ef6474bf8421ac94d91bcd8df24ee4fa",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:903:931"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 933,
+                "source_byte_start": 905
+              },
+              {
+                "claim_id": "claim:934:d9216f284dbaf448",
+                "content_sha256": "d9216f284dbaf448464c17fb35315adfe125087b04775d4a2734bd3ff3c0f563",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:932:1098"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1100,
+                "source_byte_start": 934
+              },
+              {
+                "claim_id": "claim:1101:ea9c879cfbd0a8e8",
+                "content_sha256": "ea9c879cfbd0a8e8d82f88b6cef0449e0e33637609151c24d3718ce6f43c7adf",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1099:1127"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1129,
+                "source_byte_start": 1101
+              },
+              {
+                "claim_id": "claim:1130:edd2f6d1d3de3fb9",
+                "content_sha256": "edd2f6d1d3de3fb9f96a57167c4bc51c3833db53358a8a4490597189f15d2168",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1128:1219"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1221,
+                "source_byte_start": 1130
+              },
+              {
+                "claim_id": "claim:1248:2e067527f756b765",
+                "content_sha256": "2e067527f756b7658feb190dc59bb925eb84b2c37f28d0ca22accd0013b6d13c",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1246:1406"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1408,
+                "source_byte_start": 1248
+              },
+              {
+                "claim_id": "claim:1409:62c6384ed6cf9af2",
+                "content_sha256": "62c6384ed6cf9af2ce079602b891667b3bb39187313ab5278a4b2d600e4c60bb",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1407:2278"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2284,
+                "source_byte_start": 1409
+              },
+              {
+                "claim_id": "claim:2285:47441127bdb96dfa",
+                "content_sha256": "47441127bdb96dfadac1497eeea5130687f1804e5401b5a901954d3f7b79e311",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2279:2325"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2331,
+                "source_byte_start": 2285
+              },
+              {
+                "claim_id": "claim:2332:ae6dbd68183ab14a",
+                "content_sha256": "ae6dbd68183ab14a2c1b1cff9cee812bb4e4164c0524c975e5b47a58b9864f01",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2326:2471"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2477,
+                "source_byte_start": 2332
+              },
+              {
+                "claim_id": "claim:2478:3aa3b08ad8a32ff3",
+                "content_sha256": "3aa3b08ad8a32ff352603f8a563567ca08d4852c8c12a0544ce6af87bfed5705",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2472:2634"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2640,
+                "source_byte_start": 2478
+              },
+              {
+                "claim_id": "claim:2660:8e552bc78cba1e37",
+                "content_sha256": "8e552bc78cba1e378263e95c2a4597ee0f23d9bf865a878f910cab3d15323005",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2654:2747"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2753,
+                "source_byte_start": 2660
+              },
+              {
+                "claim_id": "claim:2754:2b344cec9cdc6a78",
+                "content_sha256": "2b344cec9cdc6a7802f8fff0f881ebe7df5ce231877fa0f1fd8d56eb23b189c8",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2748:2993"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2999,
+                "source_byte_start": 2754
+              },
+              {
+                "claim_id": "claim:3000:23689f0e94ea4c9c",
+                "content_sha256": "23689f0e94ea4c9c1d9f52edba9c98102a314a3693595652009c6e061b1c5e74",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2994:3246"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3252,
+                "source_byte_start": 3000
+              },
+              {
+                "claim_id": "claim:3274:c104448258858f1c",
+                "content_sha256": "c104448258858f1cacce8fa49960e92f6b25654817e43d3f5ec81b86e66b36bc",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3268:3371"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3377,
+                "source_byte_start": 3274
+              },
+              {
+                "claim_id": "claim:3392:a74852ac525fa4b8",
+                "content_sha256": "a74852ac525fa4b8d40c35c1bc7386599ea57d3380bd220a1ca22000e778ccf9",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3386:3745"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3751,
+                "source_byte_start": 3392
+              },
+              {
+                "claim_id": "claim:3752:d0600b9e6c0604dc",
+                "content_sha256": "d0600b9e6c0604dc06b5ede723813d8ef517d119bddc7acb0243dafd81516cf5",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3746:3845"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3851,
+                "source_byte_start": 3752
+              },
+              {
+                "claim_id": "claim:3865:73f22d274f5a48e4",
+                "content_sha256": "73f22d274f5a48e4ea970b4065cae4aef937312f2412b90ec72ead14422e5936",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3859:4374"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4380,
+                "source_byte_start": 3865
+              },
+              {
+                "claim_id": "claim:4394:895d00499ea9d99b",
+                "content_sha256": "895d00499ea9d99be085a2e607291a1ebd217cc3a47645ede1ce8e7896f7e6e3",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4388:4653"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4659,
+                "source_byte_start": 4394
+              },
+              {
+                "claim_id": "claim:4675:bc6717432fc400f4",
+                "content_sha256": "bc6717432fc400f4411ea7c0a3dc37b30317b86334a0aa98a2b9f3ba4c9696ef",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4669:4982"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4988,
+                "source_byte_start": 4675
+              },
+              {
+                "claim_id": "claim:4989:2332c2af7a21e416",
+                "content_sha256": "2332c2af7a21e416a9df8f4c632a009a06af9aa6c8b3e39a78cd53308db621d3",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4983:5076"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5082,
+                "source_byte_start": 4989
+              },
+              {
+                "claim_id": "claim:5103:88861801190a048b",
+                "content_sha256": "88861801190a048bc7d8aec7b68e43b8bf0a79da6910a955b90799e2330f850c",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5097:5206"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5212,
+                "source_byte_start": 5103
+              },
+              {
+                "claim_id": "claim:5213:3bb0fd05d7c95b86",
+                "content_sha256": "3bb0fd05d7c95b86a211a164bd036c33f67ac9f3ddf254ecba55327f40b336b0",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5207:5438"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5444,
+                "source_byte_start": 5213
+              },
+              {
+                "claim_id": "claim:5445:5cf1233de29eaf96",
+                "content_sha256": "5cf1233de29eaf96eb0975277f7ecd4fc717c2e2956e1331fdce10768d21cd6b",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5439:5531"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5537,
+                "source_byte_start": 5445
+              },
+              {
+                "claim_id": "claim:5557:7c1a6415b953da1c",
+                "content_sha256": "7c1a6415b953da1cd59e463a9dbf1a37d578810298478a6a37c455580e333aaa",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5551:5873"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5879,
+                "source_byte_start": 5557
+              },
+              {
+                "claim_id": "claim:5880:afb8098dc99d955c",
+                "content_sha256": "afb8098dc99d955c6e9751e72e3f9029412278dbf379917ac90dea5d79182864",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5874:5929"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5935,
+                "source_byte_start": 5880
+              },
+              {
+                "claim_id": "claim:5936:c6857865435c127f",
+                "content_sha256": "c6857865435c127fba0ebfb2d71134b8bf9ed82bb201f3bf66c3ce20dd5b09dc",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5930:6467"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6473,
+                "source_byte_start": 5936
+              },
+              {
+                "claim_id": "claim:6491:e6589ccaab0e8a3d",
+                "content_sha256": "e6589ccaab0e8a3d901322cc193e09f326a0e4b44299b64b4a15082e47277f08",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6485:6500"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6506,
+                "source_byte_start": 6491
+              },
+              {
+                "claim_id": "claim:6506:887b08c8ef376cea",
+                "content_sha256": "887b08c8ef376cea8714544d2f43b657d1fe537eda82cb4815d9bc892a542bad",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6500:6538"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6546,
+                "source_byte_start": 6506
+              },
+              {
+                "claim_id": "claim:6559:133c6af01e5007ae",
+                "content_sha256": "133c6af01e5007ae5641000f9f55d693add55a1adc6904f7929ba2b9092e6b5c",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6551:6594"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6602,
+                "source_byte_start": 6559
+              }
+            ],
+            "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+            "schema_version": 1,
+            "sections": [
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:0:400"
+                ],
+                "fact_ids": [
+                  "product.identity:manifest-and-registry",
+                  "relationship.commercial_foss:primary"
+                ],
+                "heading": "Opening",
+                "level": 0,
+                "protected_fragment_ids": [
+                  "technical_terminology:f3b8275b508a007c"
+                ],
+                "rationale": "Remove only a detected promotional callout; otherwise preserve the opening.",
+                "section_id": "opening",
+                "source_byte_end": 402,
+                "source_byte_start": 0
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:0:6594"
+                ],
+                "fact_ids": [],
+                "heading": "aspose-barcode-foss",
+                "level": 1,
+                "protected_fragment_ids": [
+                  "command:93723d728799a9cc",
+                  "example:27a2e844903c3018",
+                  "example:4613b4f53f94d1f1",
+                  "example:63e4d125bd9f1bff",
+                  "example:81e41c6247202072",
+                  "example:82a9bfa8fd53dba9",
+                  "example:87adb689a36baf4a",
+                  "example:93723d728799a9cc",
+                  "example:96a657de5ffee875",
+                  "example:a39914ef02103da4",
+                  "example:a6b7ba0359bdb7b4",
+                  "example:b4964f8b39ee5e50",
+                  "example:baa20db2ebb29d79",
+                  "example:bbe8cadb0ccc67a1",
+                  "technical_terminology:04352afecc591955",
+                  "technical_terminology:06b2a26257ef4e5f",
+                  "technical_terminology:0d290e887e6fdbcd",
+                  "technical_terminology:10a510ec2f9960a4",
+                  "technical_terminology:1484c04665497809",
+                  "technical_terminology:14fd8c9f6659b22b",
+                  "technical_terminology:161da8f4593b1b4f",
+                  "technical_terminology:1d3a02deee8dc6b4",
+                  "technical_terminology:280b02fdc172d9a2",
+                  "technical_terminology:2d8170e53647c0b2",
+                  "technical_terminology:32e122e0f466a800",
+                  "technical_terminology:397fd7c69ab21f3e",
+                  "technical_terminology:49bd4adb1f2ed1eb",
+                  "technical_terminology:50c86b7ed8ac2cf9",
+                  "technical_terminology:51dea93c379d18ff",
+                  "technical_terminology:559aead08264d579",
+                  "technical_terminology:6292f5f9896509a4",
+                  "technical_terminology:62ef3a58890508af",
+                  "technical_terminology:63d8179f40045ef0",
+                  "technical_terminology:6bf98e154a82a0d3",
+                  "technical_terminology:6e58d611e4bd50d6",
+                  "technical_terminology:6ea56fae9eacbb0e",
+                  "technical_terminology:84fad1b38b53ecdc",
+                  "technical_terminology:878aaa77b4e584e5",
+                  "technical_terminology:9725d209dffbe13c",
+                  "technical_terminology:9deb780b4331c60e",
+                  "technical_terminology:9fb3808d348832d7",
+                  "technical_terminology:a05221ad2433d380",
+                  "technical_terminology:a2c2e3c2edf7b287",
+                  "technical_terminology:a793ab8fcc2afce5",
+                  "technical_terminology:a80ad1fef6385dc4",
+                  "technical_terminology:adcb1e6b49b115b2",
+                  "technical_terminology:ae526bf5774a9ef8",
+                  "technical_terminology:b1887d238e35a818",
+                  "technical_terminology:b1c563bddd87d409",
+                  "technical_terminology:b1f304ec619c4936",
+                  "technical_terminology:b7d18e8f99d59aba",
+                  "technical_terminology:bbeebd879e1dff69",
+                  "technical_terminology:c026ddccc3f547d5",
+                  "technical_terminology:cd01836f2b3afbfe",
+                  "technical_terminology:d0aa63d64626e3b0",
+                  "technical_terminology:d1e2ee40d5321b80",
+                  "technical_terminology:d2bbae811f462ac9",
+                  "technical_terminology:d66a6cfe9397bc3b",
+                  "technical_terminology:dc937b59892604f5",
+                  "technical_terminology:e06fe3a33e343f3d",
+                  "technical_terminology:e07d0a230b9f77d6",
+                  "technical_terminology:e7a32b641b4ae05e",
+                  "technical_terminology:ea772c8840ee36a5",
+                  "technical_terminology:f0393c6c5e5c7c01",
+                  "technical_terminology:f3b8275b508a007c",
+                  "technical_terminology:f469802a31447f90",
+                  "technical_terminology:f6d93ef385bb76cf",
+                  "technical_terminology:f74790f32878b857",
+                  "technical_terminology:f959ac0646b75174",
+                  "technical_terminology:fa0016db43b28d07",
+                  "technical_terminology:fbd3a2a2732ec835"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:0",
+                "source_byte_end": 6602,
+                "source_byte_start": 0
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:400:720"
+                ],
+                "fact_ids": [
+                  "installation.coordinates:manifest",
+                  "installation.verified_acquisition:disposable-source-build"
+                ],
+                "heading": "Installation",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "command:93723d728799a9cc",
+                  "example:93723d728799a9cc",
+                  "example:a6b7ba0359bdb7b4",
+                  "technical_terminology:49bd4adb1f2ed1eb",
+                  "technical_terminology:50c86b7ed8ac2cf9",
+                  "technical_terminology:e7a32b641b4ae05e"
+                ],
+                "rationale": "The existing section is retained unless a verified gap exists.",
+                "section_id": "heading:402",
+                "source_byte_end": 722,
+                "source_byte_start": 402
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:720:1220"
+                ],
+                "fact_ids": [
+                  "example.minimal:agent-drafted-example"
+                ],
+                "heading": "Quick Start",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "example:96a657de5ffee875",
+                  "example:a39914ef02103da4",
+                  "example:b4964f8b39ee5e50"
+                ],
+                "rationale": "The section is assessed against the exact locally verified minimal example.",
+                "section_id": "heading:722",
+                "source_byte_end": 1222,
+                "source_byte_start": 722
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1220:2635"
+                ],
+                "fact_ids": [],
+                "heading": "Supported Symbologies",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "example:baa20db2ebb29d79",
+                  "technical_terminology:0d290e887e6fdbcd",
+                  "technical_terminology:1484c04665497809",
+                  "technical_terminology:1d3a02deee8dc6b4",
+                  "technical_terminology:397fd7c69ab21f3e",
+                  "technical_terminology:559aead08264d579",
+                  "technical_terminology:6bf98e154a82a0d3",
+                  "technical_terminology:9fb3808d348832d7",
+                  "technical_terminology:a05221ad2433d380",
+                  "technical_terminology:a2c2e3c2edf7b287",
+                  "technical_terminology:b1c563bddd87d409",
+                  "technical_terminology:b1f304ec619c4936",
+                  "technical_terminology:bbeebd879e1dff69",
+                  "technical_terminology:f0393c6c5e5c7c01",
+                  "technical_terminology:fa0016db43b28d07",
+                  "technical_terminology:fbd3a2a2732ec835"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:1222",
+                "source_byte_end": 2641,
+                "source_byte_start": 1222
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2635:3247"
+                ],
+                "fact_ids": [],
+                "heading": "Render Options",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "example:27a2e844903c3018",
+                  "technical_terminology:6292f5f9896509a4",
+                  "technical_terminology:84fad1b38b53ecdc",
+                  "technical_terminology:9725d209dffbe13c",
+                  "technical_terminology:a793ab8fcc2afce5",
+                  "technical_terminology:a80ad1fef6385dc4",
+                  "technical_terminology:b1887d238e35a818",
+                  "technical_terminology:c026ddccc3f547d5",
+                  "technical_terminology:d0aa63d64626e3b0",
+                  "technical_terminology:d1e2ee40d5321b80",
+                  "technical_terminology:d2bbae811f462ac9",
+                  "technical_terminology:d66a6cfe9397bc3b",
+                  "technical_terminology:dc937b59892604f5",
+                  "technical_terminology:f469802a31447f90",
+                  "technical_terminology:f74790f32878b857"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:2641",
+                "source_byte_end": 3253,
+                "source_byte_start": 2641
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3247:5077"
+                ],
+                "fact_ids": [],
+                "heading": "Encoding Options",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "example:4613b4f53f94d1f1",
+                  "example:63e4d125bd9f1bff",
+                  "example:82a9bfa8fd53dba9",
+                  "example:bbe8cadb0ccc67a1",
+                  "technical_terminology:06b2a26257ef4e5f",
+                  "technical_terminology:0d290e887e6fdbcd",
+                  "technical_terminology:14fd8c9f6659b22b",
+                  "technical_terminology:161da8f4593b1b4f",
+                  "technical_terminology:280b02fdc172d9a2",
+                  "technical_terminology:51dea93c379d18ff",
+                  "technical_terminology:6bf98e154a82a0d3",
+                  "technical_terminology:6e58d611e4bd50d6",
+                  "technical_terminology:6ea56fae9eacbb0e",
+                  "technical_terminology:b7d18e8f99d59aba",
+                  "technical_terminology:cd01836f2b3afbfe",
+                  "technical_terminology:e07d0a230b9f77d6",
+                  "technical_terminology:f0393c6c5e5c7c01"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3253",
+                "source_byte_end": 5083,
+                "source_byte_start": 3253
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3372:3846"
+                ],
+                "fact_ids": [],
+                "heading": "Code 128",
+                "level": 3,
+                "protected_fragment_ids": [
+                  "example:82a9bfa8fd53dba9",
+                  "technical_terminology:06b2a26257ef4e5f",
+                  "technical_terminology:14fd8c9f6659b22b",
+                  "technical_terminology:161da8f4593b1b4f",
+                  "technical_terminology:280b02fdc172d9a2",
+                  "technical_terminology:51dea93c379d18ff",
+                  "technical_terminology:6ea56fae9eacbb0e",
+                  "technical_terminology:cd01836f2b3afbfe",
+                  "technical_terminology:e07d0a230b9f77d6"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3378",
+                "source_byte_end": 3852,
+                "source_byte_start": 3378
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3846:4375"
+                ],
+                "fact_ids": [],
+                "heading": "QR Code",
+                "level": 3,
+                "protected_fragment_ids": [
+                  "example:63e4d125bd9f1bff"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:3852",
+                "source_byte_end": 4381,
+                "source_byte_start": 3852
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4375:4654"
+                ],
+                "fact_ids": [],
+                "heading": "Code 39",
+                "level": 3,
+                "protected_fragment_ids": [
+                  "example:4613b4f53f94d1f1"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:4381",
+                "source_byte_end": 4660,
+                "source_byte_start": 4381
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4654:5077"
+                ],
+                "fact_ids": [],
+                "heading": "EAN / UPC",
+                "level": 3,
+                "protected_fragment_ids": [
+                  "example:bbe8cadb0ccc67a1",
+                  "technical_terminology:0d290e887e6fdbcd",
+                  "technical_terminology:6bf98e154a82a0d3",
+                  "technical_terminology:6e58d611e4bd50d6",
+                  "technical_terminology:f0393c6c5e5c7c01"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:4660",
+                "source_byte_end": 5083,
+                "source_byte_start": 4660
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5077:5532"
+                ],
+                "fact_ids": [],
+                "heading": "Custom Renderer",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "example:81e41c6247202072",
+                  "technical_terminology:04352afecc591955",
+                  "technical_terminology:10a510ec2f9960a4",
+                  "technical_terminology:32e122e0f466a800",
+                  "technical_terminology:62ef3a58890508af",
+                  "technical_terminology:9deb780b4331c60e",
+                  "technical_terminology:ea772c8840ee36a5",
+                  "technical_terminology:f959ac0646b75174"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5083",
+                "source_byte_end": 5538,
+                "source_byte_start": 5083
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5532:6468"
+                ],
+                "fact_ids": [],
+                "heading": "Error Handling",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "example:87adb689a36baf4a",
+                  "technical_terminology:2d8170e53647c0b2",
+                  "technical_terminology:63d8179f40045ef0",
+                  "technical_terminology:878aaa77b4e584e5",
+                  "technical_terminology:adcb1e6b49b115b2",
+                  "technical_terminology:ae526bf5774a9ef8",
+                  "technical_terminology:e06fe3a33e343f3d",
+                  "technical_terminology:f6d93ef385bb76cf",
+                  "technical_terminology:fa0016db43b28d07"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5538",
+                "source_byte_end": 6474,
+                "source_byte_start": 5538
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6468:6539"
+                ],
+                "fact_ids": [],
+                "heading": "Requirements",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:6474",
+                "source_byte_end": 6547,
+                "source_byte_start": 6474
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6539:6594"
+                ],
+                "fact_ids": [],
+                "heading": "License",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:6547",
+                "source_byte_end": 6602,
+                "source_byte_start": 6547
+              },
+              {
+                "disposition": "add",
+                "evidence": [
+                  "verified ProductFactsV2 and Markdown section inventory"
+                ],
+                "fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence"
+                ],
+                "heading": "At a glance",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Add a fact-backed overview when verified descriptive facts are available.",
+                "section_id": "missing:at-a-glance",
+                "source_byte_end": 402,
+                "source_byte_start": 402
+              }
+            ],
+            "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
+            "untrusted_repository_instructions": []
+          },
+          "readme_document_plan": {
+            "adoption": {
+              "already_adopted": false,
+              "marker_schema_version": 3,
+              "preservation_check": "byte_identical",
+              "source_document_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
+              "source_inner_bytes": 6602,
+              "source_inner_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68"
+            },
+            "candidate_sha256": "497c83290e4a193e70d4f578b9686b471df5126dd1d874ed4613680700af9148",
+            "facts_hash": "81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e",
+            "immutable_base_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+            "operations": [
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence",
+                  "product.compatibility:manifest",
+                  "product.formats:repository-evidence"
+                ],
+                "operation": "insert_before",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "path": "README.md",
+                "protected_content_treatment": "additive",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "replacement_sha256": "7483ddb6a946b2607cdfc3e02ae0e832aba26e16b928113441c96554ad87a72d",
+                "replacement_text": "## At a glance\n\n- Developers using Python for Generate barcodes for Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code.\n- SVG output\n- Requires Python 3.12 or later.\n\n## In this README\n\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Supported Symbologies](#supported-symbologies)\n- [Render Options](#render-options)\n- [Encoding Options](#encoding-options)\n- [Custom Renderer](#custom-renderer)\n- [Error Handling](#error-handling)\n- [Requirements](#requirements)\n- [License](#license)\n\n",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 402,
+                "source_byte_start": 402,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              }
+            ],
+            "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+            "schema_version": 1,
+            "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
+            "template_sha256": "c102c9b0e63fb2d8d492bcf0a8a8a6a3255f54df7f5d58184080d5fab8869064"
+          }
+        },
+        "proposal_only": true,
+        "prose_quality": {
+          "corroborated": false,
+          "flagged": false,
+          "quoted_span": "",
+          "reason": "no resources span present -- nothing LLM-authored to review"
+        },
+        "prose_quality_repair_attempts": 0,
+        "render_status": "GENERATED",
+        "verification": {
+          "checks": {
+            "adoption_preserved_source": true,
+            "candidate_has_presentation_span": true,
+            "candidate_hash_matches": true,
+            "candidate_matches_independent_render": true,
+            "document_reconstruction": true,
+            "fact_citations": true,
+            "facts_hash_matches": true,
+            "needs_write_matches": true,
+            "protected_content": true,
+            "source_document_hash": true,
+            "source_span_hashes": true,
+            "template_hash_matches": true,
+            "verified_example_present": true,
+            "verified_limitations_present": true,
+            "verified_overview_present": true
+          },
+          "nonce": "20260726-062716-14e9",
+          "reason": null,
+          "requirement_map": {
+            "fact_backed_document_plan": true,
+            "immutable_snapshot": true,
+            "protected_content": true,
+            "verified_example": true
+          },
+          "token": "b2dfa259b1fe4683690138b04ec8cf56ba45baca67429dc20d604281214d3415",
+          "verdict": "accept"
+        },
+        "written": false
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "execution_error",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:37:10.486679+00:00",
+      "last_run_timestamp": "2026-07-26T06:28:09.012096+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
@@ -678,7 +2293,7 @@
     "updated_at": "2026-07-26T06:28:04.215208+00:00"
   },
   "schema_version": 2,
-  "state_version": 68,
+  "state_version": 69,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "78edf277646cd39c7748990dc14512a0d031a5d82cb3d57641cf71ab0d70ead8",
