@@ -115,7 +115,12 @@ _README_POC_TRANSITIONS: dict[ReadmePocStatusV2, set[ReadmePocStatusV2]] = {
     "PR_ELIGIBLE": {"PR_PROOF_COMPLETE", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     # A new source snapshot may invalidate even a previously proven PR.
     "PR_PROOF_COMPLETE": {"SNAPSHOTTED", "FACTS_COLLECTING"},
-    "SYSTEM_FAILURE": {"SNAPSHOTTED", "FACTS_COLLECTING", "REPAIRING"},
+    "SYSTEM_FAILURE": {
+        "SNAPSHOTTED",
+        "FACTS_COLLECTING",
+        "README_ASSESSED",
+        "REPAIRING",
+    },
 }
 
 # A new immutable source revision invalidates every derived stage. The same-
@@ -231,6 +236,7 @@ def transition_readme_poc_status(
     prompt_hash: str | None = None,
     reviewer_standard_hash: str | None = None,
     protected_content_fingerprint: str | None = None,
+    reset_repair_attempts: bool = False,
     max_retries: int = 5,
 ) -> ReadmePocLifecycleStateV2:
     """Validate and durably record one README-POC lifecycle transition for
@@ -279,6 +285,8 @@ def transition_readme_poc_status(
             )
         repair_attempts = prior.repair_attempts_for_revision
         if source_changed:
+            repair_attempts = 0
+        if reset_repair_attempts:
             repair_attempts = 0
         reviewer_standard_changed = (
             reviewer_standard_hash is not None
@@ -405,11 +413,40 @@ def record_readme_candidate_artifacts(
         and hashes_match
         and stored.reviewer_standard_hash == reviewer_standard_hash
     ):
-        if stored.status in {
-            "DETERMINISTIC_VALIDATION_FAILED",
-            "AGENT_REVIEW_REJECTED",
-            "SYSTEM_FAILURE",
-        }:
+        if stored.status in {"DETERMINISTIC_VALIDATION_FAILED", "SYSTEM_FAILURE"}:
+            current = transition_readme_poc_status(
+                backend,
+                org_repo,
+                "README_ASSESSED",
+                observed_by="readme-presentation-composition",
+                reason="retry candidate after validation machinery recovery",
+                evidence_refs=evidence_refs,
+                source_revision=source_revision,
+                assessment_hash=assessment_hash,
+                reviewer_standard_hash=reviewer_standard_hash,
+                reset_repair_attempts=True,
+            )
+            current = transition_readme_poc_status(
+                backend,
+                org_repo,
+                "PLAN_READY",
+                observed_by="readme-presentation-composition",
+                reason="reaffirm source-bound plan after validation machinery recovery",
+                evidence_refs=evidence_refs,
+                source_revision=source_revision,
+                presentation_plan_hash=presentation_plan_hash,
+            )
+            return transition_readme_poc_status(
+                backend,
+                org_repo,
+                "CANDIDATE_GENERATED",
+                observed_by="readme-presentation-composition",
+                reason="candidate rematerialized for deterministic revalidation",
+                evidence_refs=evidence_refs,
+                source_revision=source_revision,
+                candidate_hash=candidate_hash,
+            )
+        if stored.status == "AGENT_REVIEW_REJECTED":
             transition_readme_poc_status(
                 backend,
                 org_repo,

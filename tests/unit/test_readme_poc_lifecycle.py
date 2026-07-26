@@ -691,7 +691,7 @@ class TestReadmeCandidateBoundary:
         ]
         assert second == first
 
-    def test_failed_candidate_restart_reenters_repair_before_revalidation(self):
+    def test_failed_validation_restart_retries_without_spending_content_repair_budget(self):
         backend = FakeReadmePocBackend()
         org_repo = "org/repo"
         for status in ("SNAPSHOTTED", "PROFILED", "FACTS_COLLECTING", "FACTS_READY"):
@@ -733,9 +733,10 @@ class TestReadmeCandidateBoundary:
         )
 
         assert resumed.status == "CANDIDATE_GENERATED"
-        assert resumed.repair_attempts_for_revision == 1
-        assert [item.to_status for item in resumed.history[-2:]] == [
-            "REPAIRING",
+        assert resumed.repair_attempts_for_revision == 0
+        assert [item.to_status for item in resumed.history[-3:]] == [
+            "README_ASSESSED",
+            "PLAN_READY",
             "CANDIDATE_GENERATED",
         ]
 
