@@ -96,13 +96,13 @@ Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-req
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
 under `act` → isolated staging → production**. At the latest 2026-07-26 checkpoint, durable state
-version 174 has closed `L8-TRUTH-01A-FACT-CONTRACT` and names `L8-TRUTH-01B-LLM-CALL-LEDGER`
-next. The
+version 180 closed `L8-TRUTH-01B-LLM-CALL-LEDGER`; `L8-TRUTH-01C-PROMPT-HYGIENE` is next. The
 31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
 `HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. The 91-task graph and 424-row
-coverage validate at SHA-256 `ae7552e241aa8bd79e8a74b02388ea272f687979e9ea0ffeae5f53a5d940bcb6`.
-Clean commit `44580f4` passed all official checks, including 1,755 non-live tests. Existing bundles
-still cannot prove their real LLM call counts; absent transport evidence is `UNKNOWN_LEGACY`.
+coverage validate at SHA-256 `2f72cd4b7401551f8764e165ab1619c9494bdfedd560c74861a42d39bd4b90f4`.
+Clean commit `6c9e0da` passed all official checks. New runs now record exact redacted
+transport-level LLM attempt, job, token, outcome, fixture, and cache accounting; bundles predating
+that transport ledger remain honestly `UNKNOWN_LEGACY`.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 
@@ -2274,8 +2274,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [x] Bind all executable mission work to the immutable core deliverable and subordinate goals;
         derive the durable 31-repository lifecycle scoreboard, first failing boundary, and exact
         next task; reject contribution-free closure (`L8-025`, commit `44580f4`).
-  - [ ] Product truth: implement the stage ceiling and cache revalidation; install transport-level
-        per-README LLM accounting and the blocking prompt inventory; adapt pinned committed
+  - [x] Product-truth foundation: implement the typed stage ceiling and contract-based cache
+        revalidation, including stale-lifecycle reopening (`L8-TRUTH-01A`).
+  - [x] LLM accounting: record every provider attempt and fixture/cache reuse at one redacted
+        transport seam; reconcile exact per-README/run/portfolio totals and classify pre-ledger
+        bundles `UNKNOWN_LEGACY` (`L8-TRUTH-01B`, `L8-027`, commit `6c9e0da`).
+  - [ ] Remaining product truth: close the blocking prompt inventory; adapt pinned committed
         `aspose.org` Python, TypeScript, and Rust public-consumer-surface behavior; then complete
         package-root roles, claim polarity, OS-isolated acquisition/public examples, render views,
         seven-ecosystem proof, and facts-only full-registry preflight (`L8-TRUTH-*` task group).
@@ -2387,9 +2391,11 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       without composition/reviewer calls or later lifecycle claims; every later stage has the same
       fail-closed ceiling behavior; cached terminal states are re-evaluated against the current
       fact-acceptance contract.
-- [ ] **LLM-accounting gate:** every provider attempt, retry, failure, timeout, and cache reuse is
+- [x] **LLM-accounting gate:** every provider attempt, retry, failure, timeout, and cache reuse is
       transport-recorded and reconciled by README/revision/stage/job in manifests and portfolio
       summaries; legacy unknowns are explicit; unchanged no-op jobs make zero new provider calls.
+      Clean commit `6c9e0da` and checksum-complete proof:
+      `plans/investigations/evidence/level8-llm-call-ledger/`.
 - [ ] **Prompt-hygiene gate:** active prompt files, registry entries, model routes, call sites,
       owners/consumers, documentation, and dependency hashes reconcile exactly; orphan, duplicate,
       inline, stale, or still-referenced deletion controls fail before a paid campaign.

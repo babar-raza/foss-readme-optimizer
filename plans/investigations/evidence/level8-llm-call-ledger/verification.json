@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-01B-LLM-CALL-LEDGER",
+  "implementation_commit": "6c9e0daab47f7cddf1bc6bf424e012edbb1e39a7",
+  "verified_at": "2026-07-26T15:28:34.4269533Z",
+  "tree_precondition": "CLEAN_AND_UNCHANGED",
+  "durable_closure": {
+    "state_version": 180,
+    "graph_sha256": "2f72cd4b7401551f8764e165ab1619c9494bdfedd560c74861a42d39bd4b90f4",
+    "task_status": "CLOSED",
+    "next_task": "L8-TRUTH-01C-PROMPT-HYGIENE",
+    "first_failing_boundary": "FACTS_READY"
+  },
+  "checks": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_llm_call_ledger.py",
+      "result": "12 passed in 0.39s",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_llm_call_ledger.py tests/security/test_no_secrets_in_evidence.py tests/unit/test_manifest_v2.py tests/unit/test_portfolio.py tests/unit/test_local_poc_review_evidence.py tests/unit/test_local_poc_evidence.py",
+      "result": "29 passed in 4.92s",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q",
+      "result": "1766 passed, 24 deselected in 815.83s before the final added pricing-disposition test; that test passed in both focused and clean official verification",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python scripts/governance/run_official_checks.py",
+      "result": "all required checks passed against clean unchanged commit 6c9e0daab47f7cddf1bc6bf424e012edbb1e39a7",
+      "exit_code": 0
+    }
+  ],
+  "official_check_scope": [
+    "ruff check",
+    "ruff format --check",
+    "mypy src",
+    "full non-live pytest suite",
+    "plan structure",
+    "verifier wiring",
+    "Level-8 requirement/task coverage",
+    "semantic traceability",
+    "workflow syntax when actionlint is available",
+    "clean and unchanged tree precondition"
+  ],
+  "live_like_evidence": {
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+    "accounting_status": "EXACT",
+    "provider_calls": 2,
+    "calls_by_job": {
+      "independent_readme_review": 1,
+      "plan_readme_composition": 1
+    },
+    "provider_reported_total_tokens": 24028,
+    "candidate_sha256": "227f1468215d349ce4345589dc3df6729e19e2bc9138c5fabcd3d612dfe626be",
+    "historical_bundle_classification": "UNKNOWN_LEGACY",
+    "scope_limit": "Accounting proof only; it does not establish current Gate-A README acceptance under newer presentation requirements."
+  },
+  "negative_controls_passed": [
+    "provider retry undercount",
+    "schema-invalid response omission",
+    "timeout omission",
+    "cancellation omission",
+    "fixture/cache provider-count inflation",
+    "conflicting duplicate call ID",
+    "missing pricing disposition",
+    "manifest total mismatch",
+    "historical inferred zero",
+    "unchanged no-op provider call",
+    "raw prompt, credential, and endpoint-query leakage",
+    "LLM HTTP call outside the shared transport seam"
+  ],
+  "verdict": "VERIFIED"
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-01B-LLM-CALL-LEDGER",
+  "goal_ids": [
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Add one redacted append-only call ledger at the shared live/fixture client-provider seam and reconcile exact per-repository, revision, stage, job, attempt, token, latency, outcome, cache, and optional cost totals into run and portfolio manifests."
+  },
+  "acceptance_checks_passed": [
+    "Retries and failed or timed-out attempts count as provider calls",
+    "Cache reuse is visible but is not counted as a provider call",
+    "Unique call IDs and per-job totals reconcile exactly in every finalized manifest",
+    "Unchanged no-op jobs make zero new provider calls"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-llm-call-ledger/verification.json",
+    "plans/investigations/evidence/level8-llm-call-ledger/representative-live-call-ledger.jsonl",
+    "plans/investigations/evidence/level8-llm-call-ledger/representative-run-manifest.json",
+    "plans/investigations/evidence/level8-llm-call-ledger/representative-portfolio-summary.json",
+    "plans/investigations/evidence/level8-llm-call-ledger/historical-3d-classification.json"
+  ],
+  "scoreboard_before_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "scoreboard_after_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
