@@ -1030,36 +1030,33 @@
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "blocked_findings": [],
+        "blocked_findings": [
+          {
+            "reason": "missing or conflicting ProductFactsV2 dependencies",
+            "surface_id": "metadata.description"
+          },
+          {
+            "reason": "missing or conflicting ProductFactsV2 dependencies",
+            "surface_id": "metadata.topics"
+          }
+        ],
         "current_description": "Aspose.3D FOSS for .NET",
         "current_homepage": null,
         "current_topics": [],
         "fact_citations": {
-          "metadata.description": [
-            "product.identity:manifest-and-registry",
-            "product.audience:agent-drafted-grounded",
-            "product.problems_solved:agent-drafted-grounded"
-          ],
           "metadata.homepage": [
             "documentation.links:primary"
-          ],
-          "metadata.topics": [
-            "product.capabilities:repository-evidence",
-            "product.formats:repository-evidence",
-            "product.platforms:manifest"
           ]
         },
         "has_proposal": true,
         "proposed_description": null,
         "proposed_homepage": "https://products.aspose.org/3d/net/",
-        "proposed_topics": [
-          "net"
-        ]
+        "proposed_topics": null
       },
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T03:40:37.354106+00:00",
+      "last_run_timestamp": "2026-07-26T04:31:15.870487+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -1737,7 +1734,7 @@
     "updated_at": "2026-07-26T03:39:29.583768+00:00"
   },
   "schema_version": 2,
-  "state_version": 208,
+  "state_version": 209,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e4e42f08a2a395107a79f4ccdb250b105ce49c94552d7debdc063feb7a238861",
