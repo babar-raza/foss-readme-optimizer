@@ -25,10 +25,11 @@ class PortfolioRepositoryResultV1(BaseModel):
 class PortfolioPocSummaryV1(BaseModel):
     """Derived portfolio state; never a hand-maintained progress ledger."""
 
-    schema_version: int = 1
+    schema_version: int = 2
     registry_path: str
     generated_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
     registry_count: int = Field(ge=0)
+    execution_slice_complete: bool = True
     results: list[PortfolioRepositoryResultV1]
 
     @property
@@ -60,7 +61,8 @@ class PortfolioPocSummaryV1(BaseModel):
         return (
             "local_poc portfolio: "
             f"agent_approved={self.complete_agent_approved_count}/{self.registry_count} "
-            f"system_failed={self.system_failure_count} processed={len(self.results)}"
+            f"system_failed={self.system_failure_count} processed={len(self.results)} "
+            f"slice_complete={self.execution_slice_complete}"
         )
 
 

@@ -29,6 +29,7 @@ def test_summary_derives_counts_and_writes_a_checksum(tmp_path):
 
     assert summary.complete_agent_approved_count == 1
     assert summary.system_failure_count == 1
+    assert summary.execution_slice_complete is True
     assert '"registry_count": 2' in path.read_text(encoding="utf-8")
     assert (
         path.with_suffix(".sha256")

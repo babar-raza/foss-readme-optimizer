@@ -2,12 +2,15 @@
 
 import argparse
 import sys
+import time
 from pathlib import Path
 
 from readme_agent import env
 from readme_agent.commands_compatibility import _durable_state_backend
 from readme_agent.evidence.redaction import redact
 from readme_agent.state.lifecycle_schema import FailureClassificationV1, TriggerStatusV2
+
+_LOCAL_POC_EXECUTION_SLICE_SECONDS = 480.0
 
 
 def _unhandled_runtime_failure_detail(exc: Exception) -> str:
@@ -407,7 +410,16 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     # console exit codes.
     state_backend = _force_durable_state_backend()
     results: list[PortfolioRepositoryResultV1] = []
-    for entry in entries:
+    slice_started = time.monotonic()
+    execution_slice_complete = True
+    slice_budget = float(
+        getattr(
+            args,
+            "portfolio_time_budget_seconds",
+            _LOCAL_POC_EXECUTION_SLICE_SECONDS,
+        )
+    )
+    for entry_index, entry in enumerate(entries):
         repository_args = argparse.Namespace(**vars(args))
         repository_args.repo = entry.org_repo
         repository_args.registry = None
@@ -487,13 +499,19 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     blocked_category="agent_fixable",
                 )
             )
+        if entry_index + 1 < len(entries) and time.monotonic() - slice_started >= slice_budget:
+            execution_slice_complete = False
+            break
 
     summary = PortfolioPocSummaryV1(
-        registry_path=str(registry_path), registry_count=len(entries), results=results
+        registry_path=str(registry_path),
+        registry_count=len(entries),
+        execution_slice_complete=execution_slice_complete,
+        results=results,
     )
     write_portfolio_summary(paths.readme_poc_portfolio_summary_path(), summary)
     print(summary.summary_line())
-    return 1 if any(result.exit_code for result in results) else 0
+    return 1 if not execution_slice_complete or any(result.exit_code for result in results) else 0
 
 
 def _force_durable_state_backend():

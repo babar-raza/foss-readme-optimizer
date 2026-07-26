@@ -683,6 +683,50 @@ class TestLocalPocPortfolioCommand:
         assert "unexpired_active_trigger" in rendered
         assert "infra_external" in rendered
 
+    def test_registry_pass_checkpoints_a_bounded_execution_slice(self, monkeypatch, tmp_path):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.paths as paths
+        import readme_agent.registry.loader as loader_module
+        import readme_agent.state.git_backend as git_backend_module
+
+        entries = [
+            argparse.Namespace(org_repo="org/one"),
+            argparse.Namespace(org_repo="org/two"),
+        ]
+        monkeypatch.setattr(loader_module, "load_products", lambda path: tuple(entries))
+        monkeypatch.setattr(
+            git_backend_module,
+            "default_state_backend",
+            lambda: _LifecycleFakeBackend(),
+        )
+        monkeypatch.setattr(
+            paths,
+            "readme_poc_portfolio_summary_path",
+            lambda: tmp_path / "summary.json",
+        )
+        calls: list[str] = []
+
+        def _fake_member_run(member_args):
+            calls.append(member_args.repo)
+            member_args._terminal_supervise_result = _terminal_supervise_result()
+            return 0
+
+        monkeypatch.setattr(supervision_module, "cmd_supervise", _fake_member_run)
+        args = argparse.Namespace(
+            registry="data/products.json",
+            execution_profile="local_poc",
+            domain=None,
+            resume_trigger_key=None,
+            no_registry_heal=False,
+            portfolio_time_budget_seconds=0,
+        )
+
+        assert supervision_module._cmd_supervise_registry(args) == 1
+        assert calls == ["org/one"]
+        rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
+        assert '"execution_slice_complete": false' in rendered
+        assert '"registry_count": 2' in rendered
+
     def test_invalid_execution_profile_choice_rejected_by_argparse(self):
         with pytest.raises(SystemExit):
             _build_parser().parse_args(
