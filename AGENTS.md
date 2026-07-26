@@ -235,6 +235,11 @@ decision #78 (2026-07-25):
   `--execution-profile local_poc` is active; `--enable-dynamic-planning` remains an explicit
   compatibility opt-in for other profiles. Do not mistake the compatibility flag's default for
   the canonical local profile's behavior.
+- **Local proof is stage-bounded.** During product-truth qualification, use
+  `supervise --registry data/products.json --execution-profile local_poc
+  --max-readme-poc-stage FACTS_READY`. A successful bounded run reports `STAGE_COMPLETE` and a
+  facts-target portfolio summary; it must not invoke any specialist, composition, reviewer, repair,
+  or later acceptance stage. Extend the typed ceiling only when the owning downstream task closes.
 - **The system makes product/platform decisions.** Detect the product, ecosystem, repository
   shape, and evidence, then select capabilities, sections, examples, and validators automatically.
   A normal run must not ask a human to choose a template, capability, skill, or command sequence.
