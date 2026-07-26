@@ -8,6 +8,7 @@ import pytest
 
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.example_verifiers import cpp, rust
+from readme_agent.profile.schema import PackageRoot
 from readme_agent.registry.models import MinimalExamplePolicy
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 
@@ -70,6 +71,52 @@ def test_cpp_verifier_builds_with_cmake_and_syntax_checks_exact_example(tmp_path
     assert "--build" in commands[1]
     assert "-fsyntax-only" in commands[2]
     assert (tmp_path / "readme-agent-example.cpp").read_text(encoding="utf-8") == example.code
+
+
+def test_cpp_verifier_includes_profiled_nested_package_headers(tmp_path, monkeypatch):
+    workspace = tmp_path / "repository"
+    include_root = workspace / "native-package" / "include"
+    include_root.mkdir(parents=True)
+    (workspace / "native-package" / "CMakeLists.txt").write_text(
+        "cmake_minimum_required(VERSION 3.16)\nproject(widget)\n",
+        encoding="utf-8",
+    )
+    commands = []
+
+    def execute(argv, **kwargs):
+        commands.append(list(argv))
+        return _success(argv)
+
+    monkeypatch.setattr(
+        cpp.shutil,
+        "which",
+        lambda name: "C:/tools/cmake.exe" if name == "cmake" else "C:/tools/clang++.exe",
+    )
+    monkeypatch.setattr(cpp, "execute_example", execute)
+    snapshot = _snapshot(workspace, "cpp").model_copy(
+        update={
+            "package_roots": (
+                PackageRoot(
+                    path="native-package",
+                    ecosystem="cpp",
+                    manifest_path="native-package/CMakeLists.txt",
+                    confidence=1.0,
+                    evidence="test",
+                ),
+            )
+        }
+    )
+    example = MinimalExamplePolicy(
+        language="cpp",
+        class_name="WidgetExample",
+        code="int main() { return 0; }",
+        evidence_paths=["native-package/CMakeLists.txt"],
+    )
+
+    result = cpp.verify(snapshot, example, workspace)
+
+    assert result.outcome == "SOURCE_BUILD_VERIFIED"
+    assert ["-I", str(include_root.resolve())] == commands[2][3:5]
 
 
 def test_rust_verifier_checks_source_and_exact_cargo_example(tmp_path, monkeypatch):

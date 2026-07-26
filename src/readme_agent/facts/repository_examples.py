@@ -12,7 +12,10 @@ from markdown_it import MarkdownIt
 from readme_agent.inspection.file_inventory import scan
 from readme_agent.registry.models import MinimalExamplePolicy
 
-_MAX_EXAMPLE_CHARS = 600
+# Repository-authored examples may include the imports and C/C++ scaffolding a real
+# compiler needs. Keep the agent-drafted contract at 600 characters, but allow a still
+# bounded source example large enough to preserve one complete, already-maintained usage.
+_MAX_EXAMPLE_CHARS = 2_400
 ExampleLanguage = Literal["java", "dotnet", "python", "typescript", "go", "cpp", "rust"]
 _LANGUAGE_ALIASES = {
     "cpp": {"c++", "cpp", "cxx"},

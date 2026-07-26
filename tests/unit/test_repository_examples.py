@@ -42,3 +42,18 @@ def test_unlabelled_and_wrong_language_blocks_are_not_candidates(tmp_path):
     )
 
     assert repository_readme_example_candidates(tmp_path, "python") == []
+
+
+def test_repository_authored_native_example_keeps_required_compiler_scaffolding(tmp_path):
+    includes = "\n".join(f'#include "widget/header_{index}.h"' for index in range(30))
+    source = f'{includes}\n\nint main() {{\n    Widget item;\n    item.Save("out.bin");\n}}\n'
+    assert 600 < len(source) < 2_400
+    (tmp_path / "README.md").write_text(
+        f"# Widget\n\n```cpp\n{source}```\n",
+        encoding="utf-8",
+    )
+
+    candidates = repository_readme_example_candidates(tmp_path, "cpp")
+
+    assert len(candidates) == 1
+    assert candidates[0].code == source

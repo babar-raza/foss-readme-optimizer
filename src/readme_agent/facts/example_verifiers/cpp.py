@@ -72,10 +72,24 @@ def verify(
 
     example_path = workspace.parent / "readme-agent-example.cpp"
     example_path.write_text(example.code, encoding="utf-8")
-    include_args = [
-        argument
+    include_roots = {
+        candidate.resolve()
+        for package_root in snapshot.package_roots
+        if package_root.ecosystem == "cpp"
+        for candidate in (
+            workspace / Path(package_root.manifest_path).parent / "include",
+            workspace / Path(package_root.manifest_path).parent / "src",
+        )
+        if candidate.is_dir()
+    }
+    include_roots.update(
+        candidate.resolve()
         for candidate in (workspace / "include", workspace / "src")
         if candidate.is_dir()
+    )
+    include_args = [
+        argument
+        for candidate in sorted(include_roots)
         for argument in (
             [f"/I{candidate}"]
             if Path(compiler).name.lower() == "cl.exe"
