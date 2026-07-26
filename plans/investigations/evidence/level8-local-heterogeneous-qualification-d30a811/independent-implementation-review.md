@@ -2,7 +2,13 @@
 
 ## Verdict
 
-`PASS` for task `L8-LOCAL-HETEROGENEOUS-QUALIFICATION`.
+`SUPERSEDED` for task `L8-LOCAL-HETEROGENEOUS-QUALIFICATION`.
+
+This historical review failed to detect that `review_harness.py` included scenario IDs in the
+reviewer context, leaking expected-label semantics into the evaluation. The defect was fixed in
+`0b5ea80`; the clean accepted rerun and current reconciliation are in
+`plans/investigations/evidence/level8-local-heterogeneous-qualification-a5511ed/`. The findings
+below describe the historical run only and must not be used as closure evidence.
 
 ## Reviewed boundaries
 

@@ -1,0 +1,19 @@
+$output = "runs/reproduced-local-heterogeneous-qualification"
+.venv/Scripts/python plans/investigations/tools/collect_local_heterogeneous_qualification_evidence.py --output $output --session-id initial-discrimination
+.venv/Scripts/python plans/investigations/tools/collect_local_heterogeneous_qualification_evidence.py --output $output --session-id stability-repetition
+.venv/Scripts/python plans/investigations/tools/collect_local_heterogeneous_qualification_evidence.py --output $output --session-id independent-reproduction
+
+.venv/Scripts/python -m pytest -q `
+  "tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_records_snapshot_and_profile_before_later_stages" `
+  "tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_repairs_revalidates_and_rereviews_before_accepting" `
+  "tests/unit/test_supervisor_loop.py::TestBasicLoop::test_heterogeneous_local_poc_members_share_the_real_supervisor_path" `
+  tests/unit/test_lifecycle_state.py `
+  tests/unit/test_readme_assessment.py `
+  tests/unit/test_readme_factuality.py `
+  tests/unit/test_readme_proposal_bundle_verifier.py `
+  tests/unit/test_profile_cached.py `
+  tests/unit/test_golden_set.py `
+  tests/unit/test_golden_set_qualification.py `
+  tests/unit/test_reviewer_client.py `
+  tests/unit/test_local_heterogeneous_qualification_evidence_collector.py
+

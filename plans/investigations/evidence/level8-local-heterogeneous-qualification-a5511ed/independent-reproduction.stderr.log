@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\plans\investigations\tools\collect_local_heterogeneous_qualification_evidence.py", line 192, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\plans\investigations\tools\collect_local_heterogeneous_qualification_evidence.py", line 183, in main
+    return _run(args)
+  File "D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\plans\investigations\tools\collect_local_heterogeneous_qualification_evidence.py", line 111, in _run
+    campaign_source = _bind_campaign_source(output)
+  File "D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\plans\investigations\tools\collect_local_heterogeneous_qualification_evidence.py", line 84, in _bind_campaign_source
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: qualification campaign source changed; preserve this run as diagnostic and start all three sessions in a new output directory

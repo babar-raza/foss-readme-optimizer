@@ -1,6 +1,14 @@
-# Local Heterogeneous Qualification Proof
+# Superseded Local Heterogeneous Qualification Diagnostic
 
-This bundle proves task `L8-LOCAL-HETEROGENEOUS-QUALIFICATION` against immutable source commit
+> **INVALIDATED AS ACCEPTANCE EVIDENCE.** The `d30a811` review harness exposed each scenario ID
+> in the reviewer repository/plan context. Labels such as `specific_grounded_candidate` and
+> `unsupported_benchmark_blocked` could reveal the expected result. Commit `0b5ea80` removed the
+> leakage and added a regression test. The authoritative clean rerun is
+> `plans/investigations/evidence/level8-local-heterogeneous-qualification-a5511ed/`, which scored
+> 159/159 without those labels. The artifacts below are retained as historical diagnostic data,
+> not proof of task closure.
+
+This bundle previously claimed task `L8-LOCAL-HETEROGENEOUS-QUALIFICATION` against source commit
 `d30a811cc414cc71a83f9a09cb345821a0fe14c2`.
 
 The live campaign ran from the detached, branchless worktree
