@@ -38,6 +38,10 @@ _VERIFICATION_CONTRACT_FILES = (
     "example_verification_schema.py",
     "example_verifiers/cpp.py",
     "example_verifiers/rust.py",
+    # This gate converts compiler output into repair feedback and decides
+    # whether the drafted example becomes a verified fact. A change there
+    # must invalidate same-revision blocked/accepted fact evidence too.
+    "../capabilities/draft_product_truth.py",
 )
 
 
