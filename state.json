@@ -639,6 +639,21 @@
         "reason": "entering repair attempt 2/2: Remove the vague 'open_source_scope' item from the 'At a glance' section; move the rendering limitation out of 'At a glance' or reframe it as a limitation; remove the redundant 'In this README' navigation list; and preserve the original 'Relationship' section content that includes 'open_source_scope' and 'commercial_upgrade_path'.",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\candidate\\claim-map.json"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-26T00:55:34.087001+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "README_ASSESSED"
       }
     ],
     "presentation_plan_hash": "3b7a5624fbd0e3abefa58e1fef2a8b8466f70d0376ef440be71ea8d2423e0956",
@@ -648,11 +663,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "REPAIRING",
-    "updated_at": "2026-07-26T00:55:10.891288+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-26T00:55:34.087001+00:00"
   },
   "schema_version": 2,
-  "state_version": 52,
+  "state_version": 53,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4ae54a45e624bd3c36b495cec8479fed6d4bff92315e9d6b644d3f2da468d4af",
