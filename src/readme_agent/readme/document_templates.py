@@ -12,6 +12,7 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
+from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.acquisition_contracts import matching_coordinate_row
 from readme_agent.readme.document_structure import Heading, github_anchor
@@ -72,6 +73,13 @@ def text_value(value: object) -> str:
     if isinstance(value, list):
         return sentence_list(value)
     return str(value)
+
+
+def visitor_text(facts: ProductFactsV2, field: str) -> str | None:
+    """Render the same visitor-facing phrases used by grounding and validation."""
+
+    view = visitor_fact_render_view(facts, field)
+    return sentence_list(view.phrases) if view is not None and view.phrases else None
 
 
 def mapping_value(value: object) -> dict:
@@ -212,12 +220,7 @@ def overview_text(
     headings: list[Heading],
     agentic_overview_sentences: list[dict] | None = None,
 ) -> str:
-    audience = accepted_fact(facts, "product.audience")
-    problem = accepted_fact(facts, "product.problems_solved")
-    capabilities = accepted_fact(facts, "product.capabilities")
-    formats = accepted_fact(facts, "product.formats")
     compatibility = accepted_fact(facts, "product.compatibility")
-    limitations = accepted_fact(facts, "product.limitations")
     compatibility_value = mapping_value(compatibility.value) if compatibility else {}
     navigation = "\n".join(
         f"- [{heading.title}](#{github_anchor(heading.title)})"
@@ -240,22 +243,16 @@ def overview_text(
     rendered = (
         load_template("product-overview-and-navigation.md")
         .format(
-            audience=text_value(audience.value) if audience is not None else _OMIT_LINE,
-            problem=text_value(problem.value) if problem is not None else _OMIT_LINE,
-            capabilities=(
-                sentence_list(capabilities.value) if capabilities is not None else _OMIT_LINE
-            ),
-            formats=sentence_list(formats.value) if formats is not None else _OMIT_LINE,
+            audience=visitor_text(facts, "product.audience") or _OMIT_LINE,
+            problem=visitor_text(facts, "product.problems_solved") or _OMIT_LINE,
+            capabilities=visitor_text(facts, "product.capabilities") or _OMIT_LINE,
+            formats=visitor_text(facts, "product.formats") or _OMIT_LINE,
             minimum_runtime=(
                 compatibility_value["minimum_runtime"]
                 if compatibility_value.get("minimum_runtime")
                 else _OMIT_LINE
             ),
-            limitations=(
-                text_value(limitations.value)
-                if limitations is not None and limitations.value
-                else _OMIT_LINE
-            ),
+            limitations=visitor_text(facts, "product.limitations") or _OMIT_LINE,
             navigation=navigation or "- Continue with the repository guidance below.",
         )
         .strip()

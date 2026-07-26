@@ -85,6 +85,33 @@ def test_missing_usage_section_gets_the_verified_minimal_example():
     )
 
 
+def test_overview_validation_uses_visitor_facing_audience_render_view():
+    org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    facts, revision = _facts(org_repo)
+    audience = facts.selected_fact("product.audience")
+    rendered_audience = audience.model_copy(
+        update={"value": ["Developers using net for spreadsheet processing"]}
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                rendered_audience if fact.fact_id == audience.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Aspose.Cells FOSS\n"
+
+    candidate, plan = build_readme_document_candidate(
+        org_repo, source, facts, base_revision=revision
+    )
+    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert "Developers using .NET for spreadsheet processing" in candidate
+    assert decision.valid, decision.errors
+    assert decision.checks["verified_overview_present"] is True
+
+
 def test_missing_limitations_section_gets_every_verified_limitation():
     org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
     facts, revision = _facts(org_repo)

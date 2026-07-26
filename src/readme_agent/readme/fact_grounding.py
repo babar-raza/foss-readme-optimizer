@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 
 
@@ -60,10 +61,11 @@ def literal_fact_ids(
 ) -> list[str]:
     """Keep only fact IDs whose selected value is literally present in text."""
 
-    return sorted(
-        {
-            fact_id
-            for fact_id in fact_ids
-            if find_literal_fact_match(text, facts.fact_by_id(fact_id).value) is not None
-        }
-    )
+    matched: set[str] = set()
+    for fact_id in fact_ids:
+        fact = facts.fact_by_id(fact_id)
+        view = visitor_fact_render_view(facts, fact.field)
+        value = view.phrases if view is not None and view.fact_id == fact_id else fact.value
+        if find_literal_fact_match(text, value) is not None:
+            matched.add(fact_id)
+    return sorted(matched)

@@ -11,6 +11,7 @@ from readme_agent.facts.protected_content import (
     protected_fragment_ids_overlapping_byte_span,
     validate_protected_content,
 )
+from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import (
@@ -172,14 +173,14 @@ def validate_readme_document_candidate(
             else "selected unverified minimal example is present"
         )
 
-    overview_facts = [
-        selected
+    overview_views = [
+        view
         for field_name in ("product.audience", "product.problems_solved")
-        if (selected := _accepted(facts, field_name)) is not None
+        if (view := visitor_fact_render_view(facts, field_name)) is not None
     ]
     checks["verified_overview_present"] = candidate_span is not None and all(
-        any(fragment in candidate_span.content for fragment in _text_fragments(selected.value))
-        for selected in overview_facts
+        any(phrase.rstrip(".") in candidate_span.content for phrase in view.phrases)
+        for view in overview_views
     )
     if not checks["verified_overview_present"]:
         errors.append("fact-backed audience/problem overview is absent")
