@@ -2469,6 +2469,20 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "completeness",
+          "product_specificity",
+          "readability",
+          "commercial_context"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T05:31:48.685203+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): The candidate README has several quality and completeness defects that do not rise to the level of factual conflicts or missing evidence, but which prevent it from being ACCEPT. First, the 'At a glance' section is incomplete: it lists 'Developers using .NET for Scene graph management' and 'Basic geometry primitives' but omits the other verified capabilities from product.capabilities (Materials and textures, Transform hierarchy) and product.problems_solved (Common file format support (OBJ, STL, FBX, glTF), Materials and textures). Second, the 'In this README' navigation list is missing the 'At a glance' section anchor, which breaks the internal navigation structure. Third, the candidate README omits the 'Platform & compatibility' section that was present in the original README and is valuable for developers (the manifest facts confirm minimum runtime netcoreapp3.1 and net10.0). Fourth, the 'Resources' section contains commercial links that are factually supported but placed before the product substance in a way that could be considered overpromotion per the 'commercial context needs review' finding in the presentation plan. These are presentation, completeness, and structure defects, not factual errors.",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "presentation_plan_hash": "85ace2cc141c01f400cac453272908143df243d0094b905248da903a5906dfe3",
@@ -2478,11 +2492,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T05:31:32.682250+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-07-26T05:31:48.685203+00:00"
   },
   "schema_version": 2,
-  "state_version": 315,
+  "state_version": 316,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "daea88a3d72e5eb3c449cb001f483c29931a001624fb3289194b2abe5baf154a",
