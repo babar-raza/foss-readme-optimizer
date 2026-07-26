@@ -4793,20 +4793,34 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): The candidate README contains several quality and completeness issues that prevent it from being ACCEPT. First, the 'At a glance' section duplicates the 'Create, load, inspect, transform, and save 3D scenes' capability twice (lines 12 and 14), which is redundant and unprofessional. Second, the 'Usage' section includes two examples: the verified minimal example (which is correct per the facts) and a second example that loads 'testdata/input/cube.obj' and saves to 'output.stl'. While the second example is factually plausible, the facts do not verify that this specific file path exists or that the example compiles successfully, making it unsupported. Third, the 'Installation' section claims the coordinate was verified against Maven Central for a specific repository revision, but the facts only verify the coordinate and registry presence, not the specific revision linkage \u2014 this is an unsupported claim. Finally, the 'In this README' navigation list includes 'Resources' and 'Acknowledgments' sections, but the original README's 'Resources' section contains commercial links that should be clearly distinguished from FOSS content, and the presentation plan did not address this nuance. These are repairable issues that do not rise to the level of fact conflicts or missing evidence requiring BLOCKED verdicts.",
         "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "completeness",
+          "product_specificity",
+          "readability",
+          "unsupported_removals"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T03:31:43.513287+00:00",
+        "reason": "entering repair attempt 1/2: Remove duplicate capability line in 'At a glance'; replace the unverified second usage example with only the minimal verified example; remove the unsupported claim about revision-specific Maven Central verification; and clarify the navigation list to avoid implying all listed sections are present or equally emphasized.",
+        "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+        "to_status": "REPAIRING"
       }
     ],
     "presentation_plan_hash": "cf60bffa24c5f00196ddb9ae7e578ee1fa4c29beffb99befebaa3c2a99609613",
     "prompt_hash": null,
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-07-26T03:31:38.494426+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-07-26T03:31:43.513287+00:00"
   },
   "schema_version": 2,
-  "state_version": 381,
+  "state_version": 382,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "501d93344b3a21d4221aaafde9abf43f582169a4b9317b01d80a4177ed206fde",
