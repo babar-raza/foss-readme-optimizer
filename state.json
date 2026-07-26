@@ -1521,7 +1521,7 @@
     "assessment_hash": "31353d700d5283609cdb0a962d1501601b48377bfbdb9ed6c2ea40e44aae8d0d",
     "candidate_hash": "71250689875263067c6390fd60978d1ca7970c92da959dbf1462fa055ac73037",
     "details": {},
-    "facts_hash": "a4b74c7a934c57e89454ddebc3f69ec94983de76b33e2bb21d25c3b924ce26f8",
+    "facts_hash": "a6b3f9a6a73913cb330c4b32f3df6ef144ffcbceb776effd27e8dda8c45b1eb4",
     "history": [
       {
         "evidence_refs": [
@@ -2060,20 +2060,33 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T04:55:45.494771+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "FACTS_READY"
       }
     ],
     "presentation_plan_hash": "3b7a5624fbd0e3abefa58e1fef2a8b8466f70d0376ef440be71ea8d2423e0956",
-    "prompt_hash": "b661b7df2912f028baedb637518576b3068df6775ce79d2d0e969cce58e394c5",
+    "prompt_hash": "0aac33fd400c397644d6d10473017ebc54952f5932f75eb660ee40937558c2f6",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 2,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-26T04:55:40.454054+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-07-26T04:55:45.494771+00:00"
   },
   "schema_version": 2,
-  "state_version": 250,
+  "state_version": 251,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5f0f862cee4475c62f66c371c01f0a1867b9a27e0f934c8dca036fda4e7b809d",
