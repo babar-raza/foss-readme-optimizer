@@ -708,6 +708,19 @@
         "reason": "independent review restarted after deterministic validation",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "completeness",
+          "example correctness",
+          "developer usefulness"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T00:56:16.901590+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 3 (max repair attempts 2): The candidate README is mostly factually sound and aligns with the product facts, but contains two specific quality defects that require bounded repair: (1) The 'At a glance' section only lists two capabilities (Scene graph management and OBJ format), while the verified facts confirm six capabilities: Scene graph management, basic geometry primitives, common file format support (OBJ, STL, FBX, glTF, Collada, PLY), transform hierarchy, and materials/textures support. This omission makes the overview incomplete and misleading. (2) The 'Quick Start' example is marked as 'BUILD_FAILED' in the facts, meaning the provided code does not compile or run, which undermines developer usefulness. These are presentation/quality defects, not factual contradictions or unsupported claims, so they fall under REJECT_REPAIRABLE.",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "presentation_plan_hash": "7887f224508909b928ff6edd6bbc1140763cb4b6e0501b7ed41669e1c706d1cb",
@@ -717,11 +730,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T00:56:01.798925+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-07-26T00:56:16.901590+00:00"
   },
   "schema_version": 2,
-  "state_version": 58,
+  "state_version": 59,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4ae54a45e624bd3c36b495cec8479fed6d4bff92315e9d6b644d3f2da468d4af",
