@@ -1942,6 +1942,15 @@
         "reason": "independent review restarted after deterministic validation",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T06:28:50.298797+00:00",
+        "reason": "The candidate README is factually accurate, complete, specific to this product, and ready to ship. Every claim in the candidate is traceable to the supplied ProductFactsV2: the product identity, audience, problems solved, formats, installation coordinates, license, and architecture are all verified. The 'At a glance' section uses the exact audience and problems-solved phrases from verified facts. The installation and example sections match the verified coordinates and minimal example. The format support claims are supported by the repository evidence assertions (despite some missing symbols, the assertions themselves are present). The commercial relationship section is preserved as intended by the relationship.commercial_foss fact. No concrete, externally checkable claims are missing evidence, and no factual conflicts exist.",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "AGENT_APPROVED"
       }
     ],
     "presentation_plan_hash": "a6a78dd0d367742c1f303a971f26d1e0ee8072c38e2151dcd5df60da9866f6c5",
@@ -1951,11 +1960,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T06:28:37.747720+00:00"
+    "status": "AGENT_APPROVED",
+    "updated_at": "2026-07-26T06:28:50.298797+00:00"
   },
   "schema_version": 2,
-  "state_version": 238,
+  "state_version": 239,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
