@@ -1,7 +1,9 @@
 # Local Product-Truth Stage-Limit Proof
 
-Task: `L8-TRUTH-01-STAGE-LIMIT`  
-Requirement: `L8-015`  
+Task: `L8-TRUTH-01-STAGE-LIMIT`
+
+Requirement: `L8-015`
+
 Implementation commit: `97e02a9f97f344804513fa768a74228b100414cc`
 
 ## Purpose
@@ -23,9 +25,11 @@ The one-entry runtime registry is an unchanged copy of the canonical allow-list 
 `aspose-3d-foss/Aspose.3D-FOSS-for-Java`. It narrows this representative proof; it is not a
 full-registry or Gate-A claim.
 
-## Preliminary Result
+## Verified Result
 
-The 2026-07-26 14:40 PKT run returned exit code 0:
+The closure run started and ended on clean committed `main` at
+`cd752bbbf9643468434d51fbcd29c8652c3a4f29`. The wrapper verified zero tracked or untracked
+changes before and after the command. It returned exit code 0:
 
 ```text
 aspose-3d-foss/Aspose.3D-FOSS-for-Java: STAGE_COMPLETE
@@ -38,9 +42,11 @@ specialist-result object. The portfolio summary reports exactly one `FACTS_READY
 explicitly reports zero agent-approved results. The source revision is
 `8de5f467e93138b3605acdc46ca40e93f0364ee8`.
 
-This first capture is preliminary because uncommitted handover files existed while it ran, even
-though they remained stable until after the command completed. A final closure run must execute
-from a clean committed tree and replace this note with the exact clean HEAD and result.
+The run ID is `20260726-094650-a657`. Its manifest contains four checkpoints for this invocation,
+including `snapshot_captured` and `final_acceptance`; no specialist task, verifier, or effect
+checkpoint exists. This is evidence only for the `FACTS_READY` ceiling. It is not evidence that
+the fact graph satisfies the still-open complete acceptance contract in
+`L8-TRUTH-01A-FACT-CONTRACT`.
 
 ## Focused Verification Already Passed
 
