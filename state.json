@@ -54,6 +54,23 @@
       "task_id": "4369fa5f22784112abb8cbe69b8c3bfa",
       "trigger_dedup_key": "operator:20260726-004030-cd83:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "1ed3f1c3cc9d71897a0537ed48bec621809cf86e41bdf1c4ba4cd225b55c8b0c": {
+      "action": "inspect_repository",
+      "attempt": 1,
+      "checkpoint_id": "1ed3f1c3cc9d71897a0537ed48bec621809cf86e41bdf1c4ba4cd225b55c8b0c",
+      "completed_at": "2026-07-26T02:35:51.269016+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8848874b8acbf6071559280c378cbc2f13c44b035cfdfc34574996b5d7bbf133",
+      "output_hash": "b4d165c687b766c0443083d76463f9d7745a16545f676f098f17135537b34dbd",
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-023022-ddba",
+      "schema_version": 1,
+      "stage": "task_completed",
+      "started_at": "2026-07-26T02:35:51.269014+00:00",
+      "task_id": "03473a5dae4d4e5bb1818643b5646a2a",
+      "trigger_dedup_key": "operator:20260726-023022-ddba:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "23aa5fe3face44de8ad32959c59773e40033a1b37857a18436965c64f40d3954": {
       "action": "independent_verification",
       "attempt": 1,
@@ -3599,7 +3616,7 @@
     "updated_at": "2026-07-26T02:34:24.172848+00:00"
   },
   "schema_version": 2,
-  "state_version": 237,
+  "state_version": 238,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a8e32a7021c7a54179604c1ef00ac2e07d681ec262b542afc27855c711f6337f",
@@ -3759,11 +3776,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "c6fe376518484b30faab90a0c844bb4d03aa412be5e6d18e0fc869136c2c36d0",
+      "last_checkpoint_id": "1ed3f1c3cc9d71897a0537ed48bec621809cf86e41bdf1c4ba4cd225b55c8b0c",
       "lease_expires_at": "2026-07-26T02:45:39.251588+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T02:35:45.571541+00:00"
+      "updated_at": "2026-07-26T02:35:51.269016+00:00"
     }
   },
   "trigger_records": {},
