@@ -656,16 +656,16 @@
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "blocked_findings": [
-          {
-            "reason": "missing or conflicting ProductFactsV2 dependencies",
-            "surface_id": "metadata.description"
-          }
-        ],
+        "blocked_findings": [],
         "current_description": "Aspose.3D FOSS for .NET",
         "current_homepage": null,
         "current_topics": [],
         "fact_citations": {
+          "metadata.description": [
+            "product.identity:manifest-and-registry",
+            "product.audience:agent-drafted-grounded",
+            "product.problems_solved:agent-drafted-grounded"
+          ],
           "metadata.homepage": [
             "documentation.links:primary"
           ],
@@ -685,7 +685,7 @@
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T00:52:22.326177+00:00",
+      "last_run_timestamp": "2026-07-26T02:15:48.036418+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -1275,7 +1275,7 @@
     "updated_at": "2026-07-26T02:14:32.370535+00:00"
   },
   "schema_version": 2,
-  "state_version": 112,
+  "state_version": 113,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "977129b60bf75b5e97cee57645209fcfe8f3089934cd28d15fd5ea6fa1272a6c",
