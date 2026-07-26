@@ -45,6 +45,9 @@
 7. A numerically passing campaign from the mutable `main` checkout was correctly rejected after a
    source-fingerprint race. The accepted campaign was rerun from a detached worktree, closing that
    evidence-integrity boundary.
+8. `official-checks.log` records `TREE CLEAN` at both boundaries, 1,653 passed and 24 live tests
+   deselected, with every required static, governance, traceability, verifier, coverage, and
+   workflow-syntax check passing.
 
 ## Acceptance conclusion
 

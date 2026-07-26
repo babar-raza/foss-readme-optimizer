@@ -19,6 +19,8 @@ Acceptance results:
 - no route was disabled;
 - 53/53 deterministic heterogeneous, repair, no-op, resume, factuality, protected-content,
   source-build, multi-root, and prompt-injection controls passed.
+- the clean-tree official suite passed: Ruff, formatting, mypy, 1,653 non-live tests,
+  plan structure, verifier wiring, requirement coverage, semantic traceability, and actionlint.
 
 The two misses were conservative false rejections of the otherwise grounded
 `cpp_specific_grounded_candidate` in sessions two and three. They were not false accepts and do
@@ -32,4 +34,5 @@ evidence after its recorded source fingerprint disagreed with the bound commit d
 editing. It remains only under `runs/`; this bundle contains only the isolated-worktree rerun.
 
 `independent-implementation-review.md` records the evidence review and closure verdict.
+`official-checks.log` records clean start/end tree preconditions and the complete official result.
 `sha256sums.txt` covers every file in this directory other than itself.
