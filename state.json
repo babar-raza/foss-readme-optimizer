@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-MISSION-GOAL-GUARD",
-    "claim_expires_at": "2026-07-26T12:56:11.875186+00:00",
-    "claim_id": "6a245fd8baa148739e36187e82d387ff",
-    "claimed_at": "2026-07-26T12:26:11.875186+00:00",
-    "claimed_by": "Codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "ae5d0d563f2eb688024b21eafd1d494211e9872e5c056ee00775937710c5d8f5",
-    "last_evaluated_at": "2026-07-26T13:57:27.213843+00:00",
+    "last_evaluated_at": "2026-07-26T13:58:54.969125+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -66,13 +66,13 @@
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
       "core_contribution": {
-        "kind": "indispensable_safety",
-        "summary": "Add validated task goal/contribution bindings and a durable lifecycle scoreboard so selection, transition, and closure remain tied to the presentable full-portfolio deliverable."
+        "kind": "visible_deliverable",
+        "summary": "Bind cached facts and later lifecycle state to required fields, eligibility, polarity, conflict, and render-view contract hashes."
       },
       "goal_ids": [
-        "GOAL-AUTONOMY"
+        "GOAL-TRUTH"
       ],
-      "task_id": "L8-MISSION-GOAL-GUARD"
+      "task_id": "L8-TRUTH-01A-FACT-CONTRACT"
     },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
@@ -109,7 +109,7 @@
       "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "REGRESSED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
-      "L8-MISSION-GOAL-GUARD": "IN_PROGRESS",
+      "L8-MISSION-GOAL-GUARD": "IMPLEMENTED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
       "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "CLOSED",
       "L8-QUAL-00-CAMPAIGN-SCHEMA": "TODO",
@@ -1477,6 +1477,17 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-MISSION-GOAL-GUARD",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-mission-goal-guard/verification.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-26T13:58:54.969120+00:00",
+        "reason": "Goal contracts, dynamic scoreboard, status projection, and closure guard implemented at commit 44580f4",
+        "task_id": "L8-MISSION-GOAL-GUARD",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -1485,7 +1496,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 163,
+  "state_version": 164,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
