@@ -5446,6 +5446,9 @@
     "assessment_hash": "943b7b8a3dda01eecc7eba332921cb2da4818f84c8ed332023837b3c931f84c0",
     "candidate_hash": "227f1468215d349ce4345589dc3df6729e19e2bc9138c5fabcd3d612dfe626be",
     "details": {},
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
+    "fact_acceptance_history": [],
     "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
     "history": [
       {
@@ -6591,7 +6594,7 @@
     "updated_at": "2026-07-26T08:27:47.828297+00:00"
   },
   "schema_version": 2,
-  "state_version": 677,
+  "state_version": 678,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ab98c6daf5199c8227b6f4209180d0e318786a76daa8d9896870d222671501b2",
@@ -7112,13 +7115,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "6711545994055807eef3e9321d9832f4f79ac9158e78ec627f74b5839081b155",
-      "lease_expires_at": "2026-07-26T10:06:53.320975+00:00",
-      "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-26T09:51:58.802855+00:00"
+      "lease_expires_at": null,
+      "recovery_count": 1,
+      "status": "retryable",
+      "updated_at": "2026-07-26T10:07:05.434621+00:00"
     }
   },
   "trigger_records": {},
