@@ -546,7 +546,7 @@
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "b737a58c9ec8d1f95441031bf40df3b960eae23c0b25c9879d44cce98b0fadd9",
+      "accepted_facts_hash": "e2cd9724b69263da2ed7a67fc6e1282d74b41c6b68d23d25237c17afa5565695",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -554,61 +554,61 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('produces') and is immediately followed by key capabilities.",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('produces deterministic, standards-compliant barcodes') before any other content.",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The README specifies the target ecosystem (Python), the file format outputs (SVG/PNG), and common tasks (barcode generation) in the opening block.",
+            "note": "The opening paragraph specifies the target (Python developers), ecosystem (pure Python), format (barcodes), and common tasks (generation as SVG/PNG).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license is present at the end, and badges for PyPI (though not yet published), Python version, and license are implied or could be added; however, the license itself is present and recognized.",
+            "note": "The README includes a visible, GitHub-recognized MIT License in the final section, and build/package badges are not required here since the package is not yet on PyPI.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install section correctly describes `pip install .` from source, but the package is not yet published to PyPI, and no PyPI badge or link is provided \u2014 failing the requirement that installation coordinates resolve against a real registry.",
+            "note": "The install section correctly describes `pip install .` from source, but fails because the package is not yet published to PyPI \u2014 the only real registry for Python \u2014 and no version/package registry badges are present.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there are multiple runnable code blocks (Quick Start, encoding options, error handling) that demonstrate real usage.",
+            "note": "Beyond the install snippet, there are multiple runnable code blocks (Quick Start, encoding/rendering options, custom renderer, error handling) that demonstrate real usage.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent `##` levels, and the logical flow (description \u2192 install \u2192 usage \u2192 details \u2192 license) aligns with the expected sequencing intent.",
+            "note": "Section headers use consistent `##` levels, and the logical flow (description \u2192 install \u2192 quick start \u2192 features \u2192 examples \u2192 license) aligns with the expected sequencing intent.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is acceptable for a pure-API library like this; the standard allows absence when visuals do not improve understanding.",
+            "note": "No visuals are present, which is appropriate for a pure-API library like this; the standard allows absence when visuals do not improve understanding.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The repository is missing GitHub-recognized community files: no LICENSE file is linked in the README (though mentioned), and there is no visible CONTRIBUTING, CODE_OF_CONDUCT, or SECURITY file in the repo (per standard's requirement for GitHub quick-link row).",
+            "note": "The README lacks GitHub-recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY); only LICENSE is present, and GitHub's quick-link row will show only README and License.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While not stated in the README, recent activity is assumed from the context of the repository being actively developed (as implied by the detailed API and examples).",
+            "note": "While not stated in the README, maintenance signals (e.g., recent commits/releases) are external and unverifiable from the text \u2014 the README does not falsely claim activity.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only product; the standard allows absence when no commercial tier exists or is promoted.",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only preview or early-stage release; if commercial edition is planned, it should follow the restraint rules when added.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies most dimensions, but fails on installation path (no PyPI publication yet) and contribution readiness (missing community files). It otherwise meets product clarity, audience fit, trust signals (license present), verified examples, navigation, visual usefulness (absence justified), and natural commercial context (no commercial tier)."
+        "overall_summary": "The README satisfies most dimensions, especially product clarity, audience fit, examples, and navigation. Key gaps are installation path (not yet on PyPI) and contribution readiness (missing CODE_OF_CONDUCT/CONTRIBUTING/SECURITY files), with trust signals partially met due to license visibility but incomplete badge coverage."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T06:29:00.073832+00:00",
+      "last_run_timestamp": "2026-07-26T06:53:45.885926+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
@@ -2389,7 +2389,7 @@
     "updated_at": "2026-07-26T06:52:52.741820+00:00"
   },
   "schema_version": 2,
-  "state_version": 95,
+  "state_version": 96,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
