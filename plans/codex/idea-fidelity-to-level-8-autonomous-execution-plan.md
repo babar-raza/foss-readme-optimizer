@@ -479,18 +479,17 @@ Execution resumes in this order; it does not restart the current 31-repository s
 3. Transition `L8-LOCAL-FULL-REGISTRY-GATE-A` from active work to a regressed state, citing the
    Java false acceptance, Python ineffective repair, and .NET example block. Do not classify any
    of them external.
-4. Reopen the first responsible existing task boundaries. Add only the minimum resolver children
-   needed to express Phases 3–7 in the existing mission graph, then reconcile graph/state through
-   its governed migration:
-   - `L8-LOCAL-REAL-OUTPUT-ACCEPTANCE`;
-   - `L8-LOCAL-RENDERABLE-PRODUCT-TRUTH`;
-   - `L8-LOCAL-EXECUTABLE-DOCUMENT-COMPOSITION`;
-   - `L8-LOCAL-BLIND-REVIEW-EFFECTIVE-REPAIR`;
-   - `L8-LOCAL-REAL-PIPELINE-QUALIFICATION`.
-5. Make Gate A depend on `L8-LOCAL-REAL-PIPELINE-QUALIFICATION`. Earlier synthetic evidence remains
-   historical supporting evidence; it cannot close these resolver tasks.
-6. Execute the resolver children in the order above. After each child, run focused proof, the real
-   holdout relevant to that child, regression/safety checks, independent verification, and a
+4. Reopen and strengthen the first responsible existing task boundaries rather than adding
+   overlapping resolver IDs: `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`,
+   `L8-LOCAL-README-ASSESSMENT-COMPOSITION`, `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`, and
+   `L8-LOCAL-HETEROGENEOUS-QUALIFICATION`. Reconcile the changed graph/state through its governed
+   migration.
+5. Keep Gate A dependent on `L8-LOCAL-HETEROGENEOUS-QUALIFICATION`, whose strengthened acceptance
+   now requires the real-output corpus, frozen campaign, seven complete real pipelines, and zero
+   critical false accepts. Earlier synthetic evidence remains historical support and cannot close
+   the strengthened task.
+6. Execute those reopened tasks in dependency order. After each task, run focused proof, the real
+   holdout relevant to that task, regression/safety checks, independent verification, and a
    checksum inventory before closure.
 7. Freeze a qualified campaign only after all seven real ecosystem representatives are
    `AGENT_APPROVED` and `NO_OP_PROVEN`.

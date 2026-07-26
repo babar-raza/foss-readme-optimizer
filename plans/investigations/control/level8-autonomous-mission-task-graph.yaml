@@ -1494,15 +1494,17 @@ taskcards:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
   title: Produce provenance-complete local product truth for every repository
-  source_audit_finding: Agentic product-truth drafting exists but its verified output is not consumed
-    by the canonical candidate path, leaving non-pilot repositories without usable facts.
+  source_audit_finding: >-
+    Live Gate-A execution proved that provenance-valid facts can still be presentation-invalid:
+    internal enum/classification values leaked into the Java overview, .NET example evidence omitted
+    a required type/namespace, and Python example evidence admitted a private API.
   audit_classification: partially_done
   priority: P0
   lane: local-product-truth
   owner: readme-agent-supervisor
   status: TODO
-  objective: Connect immutable snapshots, mechanical facts, agentic drafting, groundedness gates, and
-    ProductFactsV2 into the supervised README pipeline for all supported ecosystems.
+  objective: Produce provenance-complete ProductFactsV2 graphs plus typed visitor-facing render views
+    and public-API-verified examples for every supported ecosystem.
   why_it_matters: README claims must originate from verified repository evidence, not policy YAML, legacy
     README prose, or unverified product-agent content.
   allowed_paths:
@@ -1521,13 +1523,21 @@ taskcards:
   expected_outputs:
   - Snapshot-to-facts typed data flow and isolated package/example verification.
   - Provenance, conflicts, confidence, ownership, and product-agent reconciliation records.
+  - Typed render views that exclude repository slugs, manifest keys, internal enum values, and classification
+    tokens from eligible README prose.
+  - Ecosystem-specific example evidence proving imports/namespaces, public symbols, compilation or execution,
+    and secret-free inputs.
   acceptance_checks:
   - False coordinates and unsupported facts cannot reach a candidate.
   - Missing facts block only their dependent claims.
+  - Internal fact representation cannot become visitor-facing prose without an explicit render view.
+  - The current Java raw-token, .NET missing-namespace, and Python private-API cases fail before FACTS_READY.
   verification:
   - Java, .NET, Python, TypeScript, C++, Go, and Rust representative proof.
   negative_controls:
   - Policy-only or README-only assertions cannot become verified product facts.
+  - A plausible but uncompiled example, unresolved symbol, private member, or internal taxonomy token is
+    never promoted as verified content.
   regression_checks:
   - Facts schema, resolution, acquisition, example, and redaction tests.
   evidence_requirements:
@@ -1536,21 +1546,25 @@ taskcards:
   failure_reroute: Refresh evidence or create a precise external fact handoff for an essential gap.
   closeout_rules:
   - The renderer receives the verified merged fact graph rather than re-reading policy truth.
-  - Every representative has useful verified facts or a narrowly-scoped visible fact block.
+  - Every representative has useful verified render views and a public-API usage path or a narrowly-scoped
+    visible essential-fact block.
+  - Real Java, .NET, and Python regression bundles pass, not only synthetic fact fixtures.
   requirement_ids: []
 - task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
   title: Assess and compose repository-specific README candidates
-  source_audit_finding: Legacy rendering can produce bounded promotional content but does not perform
-    agentic whole-document assessment, preservation decisions, or product-specific composition.
+  source_audit_finding: >-
+    The first live approved Java bundle proved that the agentic plan is partly advisory: it required
+    replacing an unverified Usage example, while the executable plan only inserted a second example
+    and preserved the original; literal fact flattening also produced duplicate/raw bullets.
   audit_classification: partially_done
   priority: P0
   lane: local-readme-composition
   owner: readme-agent-supervisor
   status: TODO
-  objective: Produce an evidence-backed ReadmeDocumentPlanV1 and complete candidate README from the verified
-    facts, repository profile, current README, assessment, and protected content map.
+  objective: Compile every actionable assessment into bounded ReadmeDocumentPlanV1 operations and generate
+    the candidate solely by applying those operations to the immutable source.
   why_it_matters: idea.md requires useful, credible, repository-specific README management rather than
     template substitution or four promotional elements.
   allowed_paths:
@@ -1568,13 +1582,21 @@ taskcards:
   - L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
   expected_outputs:
   - Assessment classifications, source-span plan, candidate README, native patch, and claim map.
+  - A decision-to-operation map proving every rewrite/repair/remove_update/replace_generic/add decision
+    is executable.
+  - Visitor-facing authored prose with sentence/paragraph fact citations rather than arbitrary nested-value
+    flattening.
   acceptance_checks:
   - Existing valuable content is preserved or corrected only from authoritative evidence.
   - Candidate structure, terminology, examples, installation, and emphasis vary by repository.
+  - Independent reconstruction from immutable source plus operations is byte-identical to the candidate.
+  - Plan intent and candidate effect agree for every non-preserve decision.
   verification:
   - Source-span, patch-apply, protected-content, specificity, and prompt-injection tests.
   negative_controls:
   - No universal template, cross-product leakage, or free-form edit outside the owned span.
+  - Raw enum/taxonomy leakage, semantic duplicate bullets, competing examples, and decorative plan decisions
+    are rejected deterministically.
   regression_checks:
   - Marker, document-plan, candidate-pipeline, and idempotency tests.
   evidence_requirements:
@@ -1584,20 +1606,23 @@ taskcards:
   closeout_rules:
   - Every candidate has a nonempty document plan and fact-to-claim map.
   - No bundle can claim verification was skipped because a plan is absent.
+  - The real 3D Java bundle contains no raw tokens or duplicate overview/usage content and its Usage repair
+    is exactly represented by executable operations.
   requirement_ids: []
 - task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
   title: Enforce independent README review and autonomous repair
-  source_audit_finding: The reviewer exists but its repair dispatch omits caller_domain, it degrades to
-    backend=None, and deterministic bundle verification can be skipped on the legacy path.
+  source_audit_finding: >-
+    The wired reviewer falsely accepted the visibly defective 3D Java candidate and praised content
+    absent from the candidate, while Python exhausted two byte-identical repair attempts.
   audit_classification: partially_done
   priority: P0
   lane: local-independent-review
   owner: readme-agent-supervisor
   status: TODO
-  objective: Make deterministic bundle validation, independent agent review, durable lifecycle transitions,
-    bounded repair, revalidation, and rereview mandatory in the canonical path.
+  objective: Enforce blind visitor-quality review plus independent factual/plan review, combine both
+    fail-closed, and require every repair to materially change and resolve the responsible candidate spans.
   why_it_matters: A producer cannot accept its own prose, and humans must never be routine reviewers or
     repairers before the system independently approves a candidate.
   allowed_paths:
@@ -1613,14 +1638,20 @@ taskcards:
   dependencies:
   - L8-LOCAL-README-ASSESSMENT-COMPOSITION
   expected_outputs:
-  - Mandatory verifier gate, independent five-way review record, durable lifecycle V2, and repair history.
+  - Mandatory verifier gate, separate blind-quality and factual/plan review records, deterministic combined
+    verdict, durable lifecycle V2, and repair history.
+  - Reviewer-reasoning span citations and pre-rereview candidate-delta/finding-resolution evidence.
   acceptance_checks:
   - No candidate reaches AGENT_APPROVED without deterministic and independent acceptance.
   - Repairable rejection repairs autonomously and repeats both gates.
+  - Producer/deterministic acceptance context cannot anchor the blind visitor-quality verdict.
+  - A byte-identical repair is rerouted as agent_fixable before another reviewer call.
   verification:
   - Negative generic/factual/protected-loss controls and controlled repair proof.
   negative_controls:
   - A reviewer without durable state, allowed domain, or verifier verdict cannot approve work.
+  - The current defective Java candidate must be rejected; reviewer statements about absent candidate content
+    fail evidence validation.
   regression_checks:
   - Specialist, dispatcher-domain, lifecycle, verifier, and evidence tests.
   evidence_requirements:
@@ -1630,19 +1661,22 @@ taskcards:
   closeout_rules:
   - Identical reruns create no patch, duplicate lifecycle event, bundle, or unnecessary LLM call.
   - Fact blocks remain visible and never become generic replacement prose.
+  - Controlled real rejections produce changed, finding-resolving candidates before rereview.
   requirement_ids: []
 - task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
   title: Qualify the canonical README path across ecosystems and golden controls
-  source_audit_finding: The current portfolio evidence is mostly one legacy path and does not prove agentic
-    composition, independent review, recovery, or quality across the supported ecosystems.
+  source_audit_finding: >-
+    Synthetic prompt qualification scored 157/159 but failed to predict the first live Java false
+    acceptance; isolated classifier accuracy is not complete pipeline quality.
   audit_classification: not_attempted
   priority: P0
   lane: local-qualification
   owner: readme-agent-supervisor
   status: TODO
-  objective: Establish deterministic and agentic quality gates before full registry fan-out.
+  objective: Qualify the complete canonical pipeline on a frozen real-output campaign across all supported
+    ecosystems before full-registry fan-out.
   why_it_matters: A Java-only or template-only success would not prove the central system described in
     idea.md.
   allowed_paths:
@@ -1658,15 +1692,23 @@ taskcards:
   dependencies:
   - L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
   expected_outputs:
-  - Golden set, route-quality score, route-disablement behavior, and heterogeneous local proof.
+  - Immutable campaign binding control HEAD, registry, source revisions, prompts, facts, renderer,
+    validators, reviewer standard, and lifecycle hashes.
+  - Real-output acceptance corpus, hidden real holdouts, route-quality score, route-disablement behavior,
+    and seven-ecosystem end-to-end local proof.
   acceptance_checks:
   - Deterministic validation is 100 percent and agentic routing/review is at least 95 percent over 100
     evaluations across three sessions.
+  - Zero critical false accepts across raw-token, duplication, competing-example, private-API,
+    unresolved-symbol, plan/candidate-disagreement, and ineffective-repair cases.
+  - Every real representative reaches AGENT_APPROVED and then NO_OP_PROVEN under one frozen contract.
   verification:
-  - Real and fixture controls for every supported ecosystem, malformed/multi-root/prompt-injected, source-build-only,
-    strong-content, and conflicting-fact cases.
+  - Complete canonical runs for real Java, .NET, Python, TypeScript, C++, Go, and Rust representatives plus
+    fixture controls for malformed/multi-root/prompt-injected, source-build-only, strong-content, and
+    conflicting-fact cases.
   negative_controls:
-  - Generic template, identity leakage, unsupported claim, broken example, and promotional imbalance.
+  - Generic template, identity leakage, unsupported claim, broken example, promotional imbalance, reviewer
+    anchoring, absent-content reasoning, raw internal values, semantic duplication, and unchanged repairs.
   regression_checks:
   - Existing golden-set, model-route, and ecosystem adapter tests.
   evidence_requirements:
@@ -1674,7 +1716,9 @@ taskcards:
   rollback_or_recovery: Disable only the regressed route and retain the last accepted route evidence.
   failure_reroute: Repair the first failing fact, plan, validator, reviewer, or adapter boundary.
   closeout_rules:
-  - Representative first run, repair, resume, and no-op cases pass before portfolio fan-out.
+  - Representative first run, repair, cancellation/resume, controlled failure, and no-op cases pass through
+    the public supervisor before portfolio fan-out.
+  - Long-running operations renew their mission claim and leave no descendant processes.
   requirement_ids: []
 - task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1706,12 +1750,15 @@ taskcards:
   expected_outputs:
   - One complete runtime bundle per registry entry and a dynamic portfolio summary.
   - Independent portfolio-manifest reproduction and SHA-256 inventory.
+  - Frozen campaign identity and incremental summary updates after every repository.
   acceptance_checks:
   - approved equals len(data/products.json); system_failed, unprocessed, and manifest_failures equal zero.
   verification:
   - Cohort reruns, targeted upstream changes, recovery, and independent manifest reconstruction.
   negative_controls:
   - Mode, policy count, candidate count, or test count cannot substitute for approved repository outcomes.
+  - A synthetic qualification score or an AGENT_APPROVED lifecycle under an invalidated reviewer standard
+    cannot count toward Gate A.
   regression_checks:
   - Full local lifecycle, artifact, portfolio summary, state, and safety suites.
   evidence_requirements:
