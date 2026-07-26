@@ -1319,7 +1319,7 @@ class TestSpecialistDrivenConvergence:
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
         assert second.task_graph.tasks == {}  # no tasks even attempted
 
-    def test_tracked_content_change_falls_through_to_full_planner_loop(self, project):
+    def test_tracked_content_change_with_specialist_failure_stops_before_planning(self, project):
         backend = FakeStateBackend()
         first = supervise_repo(
             ORG_REPO,
@@ -1350,8 +1350,9 @@ class TestSpecialistDrivenConvergence:
         assert second.blocked_reason is not None
         assert second.blocked_reason.startswith("specialist_failed:")
         assert second.blocked_category == "agent_fixable"
-        # The bootstrap/planner loop actually ran this time, not short-circuited.
-        assert "inspect_repository" in [t.capability_id for t in second.task_graph.tasks.values()]
+        # A required specialist failed before planning. The run must fail closed
+        # without manufacturing a planner task graph or convergence claim.
+        assert second.task_graph.tasks == {}
 
 
 class TestSpecialistSkipIntegration:
