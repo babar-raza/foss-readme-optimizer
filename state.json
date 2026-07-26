@@ -4673,6 +4673,15 @@
         "reason": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, platform, installation coordinates, verified acquisition, example, license, release state, compatibility, and limitations are all supported. The README preserves valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The structure follows the presentation plan and meets the project's idea.md standard: product substance comes before commercial links, and the README clearly establishes usefulness, credibility, and how to install and use the library.",
         "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
         "to_status": "AGENT_APPROVED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_APPROVED",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T03:28:50.082955+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "presentation_plan_hash": "cf60bffa24c5f00196ddb9ae7e578ee1fa4c29beffb99befebaa3c2a99609613",
@@ -4682,11 +4691,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "status": "AGENT_APPROVED",
-    "updated_at": "2026-07-26T03:12:01.473697+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-26T03:28:50.082955+00:00"
   },
   "schema_version": 2,
-  "state_version": 363,
+  "state_version": 364,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "501d93344b3a21d4221aaafde9abf43f582169a4b9317b01d80a4177ed206fde",
