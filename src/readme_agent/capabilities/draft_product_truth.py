@@ -428,6 +428,35 @@ def _to_policy_shape(draft: DraftProductTruthV1) -> dict:
     return shape
 
 
+def _promote_source_build_acquisition(
+    facts_so_far: ProductFactsV2,
+    gated_updates: dict[str, FactRecordV2],
+) -> dict[str, FactRecordV2]:
+    """Use the successful drafted-example build as source-acquisition proof."""
+
+    updates = dict(gated_updates)
+    verified_example = updates["example.minimal"]
+    acquisition = facts_so_far.selected_fact("installation.verified_acquisition")
+    if (
+        verified_example.verification_state == "verified"
+        and isinstance(verified_example.value, dict)
+        and isinstance(acquisition.value, dict)
+        and acquisition.value.get("method") == "source_build"
+    ):
+        updates["installation.verified_acquisition"] = acquisition.model_copy(
+            update={
+                "value": {
+                    "method": "source_build",
+                    "outcome": "SOURCE_BUILD_VERIFIED",
+                    "detail": verified_example.value["verification_detail"],
+                },
+                "verification_state": "verified",
+                "confidence": 1.0,
+            }
+        )
+    return updates
+
+
 def execute(
     org_repo: str,
     *,
@@ -501,8 +530,9 @@ def execute(
         verify_example_fn=verify_example_fn,
     )
 
-    candidates = [fact for fact in facts_so_far.facts if fact.field not in _GATED_FIELDS]
-    candidates.extend(result.gated_facts.values())
+    gated_updates = _promote_source_build_acquisition(facts_so_far, result.gated_facts)
+    candidates = [fact for fact in facts_so_far.facts if fact.field not in gated_updates]
+    candidates.extend(gated_updates.values())
     resolved = resolve_product_facts(
         org_repo,
         candidates,

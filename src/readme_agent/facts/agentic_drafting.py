@@ -289,7 +289,7 @@ def _draft_product_truth_tool_schema(
                             "code": {
                                 "type": "string",
                                 "minLength": 1,
-                                "maxLength": 2000,
+                                "maxLength": 600,
                             },
                             "evidence_paths": {
                                 "type": "array",

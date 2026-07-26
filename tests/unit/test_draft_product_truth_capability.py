@@ -611,5 +611,35 @@ class TestReplaceFacts:
         assert len([f for f in updated.facts if f.field == "product.capabilities"]) == 1
 
 
+class TestSourceBuildAcquisitionPromotion:
+    def test_verified_drafted_example_promotes_blocked_source_build(self):
+        facts = _facts_so_far()
+        acquisition = _established_fact(
+            "installation.verified_acquisition",
+            {
+                "method": "source_build",
+                "outcome": "BLOCKED_LOCAL_VERIFICATION",
+                "detail": "no example yet",
+            },
+            "disposable-source-build",
+        ).model_copy(update={"verification_state": "blocked", "confidence": 0.0})
+        facts = capability._replace_facts(facts, {"installation.verified_acquisition": acquisition})
+        example = _established_fact(
+            "example.minimal",
+            {
+                "verification_outcome": "SOURCE_BUILD_VERIFIED",
+                "verification_detail": "source build and exact example compilation passed",
+            },
+            "agent-drafted-example",
+        )
+
+        updates = capability._promote_source_build_acquisition(facts, {"example.minimal": example})
+
+        promoted = updates["installation.verified_acquisition"]
+        assert promoted.verification_state == "verified"
+        assert promoted.value["outcome"] == "SOURCE_BUILD_VERIFIED"
+        assert promoted.confidence == 1.0
+
+
 if __name__ == "__main__":
     raise SystemExit(pytest.main([__file__, "-q"]))
