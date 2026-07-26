@@ -3376,16 +3376,16 @@
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
     },
     "readme_presentation": {
-      "accepted_facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
-          "assessment_hash": "f1d94edac5d353db12c09e5c924113e11ceda089fe21744695e3c3466a8302a2",
+          "assessment_hash": "943b7b8a3dda01eecc7eba332921cb2da4818f84c8ed332023837b3c931f84c0",
           "attempt_count": 1,
-          "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
-          "input_sha256": "5d19ee5d306c8d5a1f5161c7c87565e9191338a946aed95bfa49d05f111ab190",
+          "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
+          "input_sha256": "e027c8944273cf427b8f22b1bdbdc23836635aa96e7355a1b6a2f2045f3e400d",
           "model": "qwen3-next",
           "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
           "overview_sentences": [
@@ -3404,13 +3404,13 @@
             }
           ],
           "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
-          "repository_summary": "Aspose.3D FOSS for Java is a free, open-source Java API for creating, loading, inspecting, transforming, and saving 3D scenes, supporting glTF, STL, and Collada formats. It is designed for Java developers building 3D import, export, and scene-processing applications, requires Java 21+, and is MIT-licensed. The project is a work-in-progress port with incomplete rendering and commercial-API parity.",
+          "repository_summary": "Aspose.3D FOSS for Java is a free, open-source Java API for creating, loading, inspecting, transforming, and saving 3D scenes, supporting glTF, STL, and Collada formats. It is designed for Java developers building 3D import/export and scene-processing applications, requires Java 21+, and is licensed under MIT. The project is a work-in-progress port with incomplete rendering and commercial-API parity.",
           "schema_version": 1,
           "section_decisions": [
             {
               "disposition": "remove_update",
               "priority": 100,
-              "rationale": "The opening contains a promotional callout that must be replaced with a bounded product-first correction, while preserving the rest of the section.",
+              "rationale": "The opening contains a promotional callout that must be replaced with a bounded product-first correction using verified facts about identity and commercial/FOSS relationship.",
               "section_id": "opening",
               "supporting_fact_ids": [
                 "product.identity:manifest-and-registry",
@@ -3513,7 +3513,7 @@
             {
               "disposition": "add",
               "priority": 70,
-              "rationale": "Add the explicitly verified limitation about rendering and commercial-API parity.",
+              "rationale": "Add a limitations section explicitly supported by repository evidence: rendering and full commercial-API parity remain incomplete.",
               "section_id": "missing:limitations",
               "supporting_fact_ids": [
                 "product.limitations:repository-evidence"
@@ -3523,9 +3523,9 @@
           "source_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
           "tool_schema_sha256": "f6ffc65a0f8ccfb414f4048ceadc85743f2165ebbfe14f56dcc8b657b3aad47a"
         },
-        "agentic_composition_reused": true,
+        "agentic_composition_reused": false,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-054601-5fa4",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-082023-2a74",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -3557,25 +3557,87 @@
         "factuality": {
           "claim_conflicts": [],
           "error": null,
-          "product_facts_v2_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
+          "product_facts_v2_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
           "protected_content_losses": [],
           "valid": true
         },
         "fresh_fingerprint": "c79347e79f898c370f41c52c9e430ff380918c9a8a09e41e68bf8409d086876a",
         "independent_review": {
-          "agentic_review_reused": true,
-          "lifecycle_status_reused": "AGENT_APPROVED",
-          "outcome_kind": "unchanged_no_op"
+          "attempts": 0,
+          "escalation": null,
+          "final_review": {
+            "failed_criteria": [],
+            "preserve": [],
+            "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, installation coordinates (verified on Maven Central), minimal example (compiled against source), limitations (rendering and commercial-API parity incomplete), license (MIT), and compatibility (Java 21+, API matches Aspose.3D 26.1.0). The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed At a glance, Installation, and Known limitations sections required by the presentation plan. The example is the exact verified minimal example compiled against the source build. All links are real, relevant, and correctly targeted. The structure follows the presentation plan and places product substance (audience, purpose, scope, acquisition) before commercial context. There are no generic-template symptoms, overpromotion, or unsupported claims.",
+            "required_repair": "",
+            "sections_affected": [],
+            "verdict": "ACCEPT"
+          },
+          "outcome_kind": "accepted",
+          "repair_history": [
+            {
+              "candidate_sha256": "227f1468215d349ce4345589dc3df6729e19e2bc9138c5fabcd3d612dfe626be",
+              "deterministic_validation": {
+                "checks": {
+                  "adoption_preserved_source": true,
+                  "candidate_has_presentation_span": true,
+                  "candidate_hash_matches": true,
+                  "candidate_matches_independent_render": true,
+                  "document_reconstruction": true,
+                  "fact_citations": true,
+                  "facts_hash_matches": true,
+                  "needs_write_matches": true,
+                  "protected_content": true,
+                  "source_document_hash": true,
+                  "source_span_hashes": true,
+                  "template_hash_matches": true,
+                  "verified_example_present": true,
+                  "verified_limitations_present": true,
+                  "verified_overview_present": true
+                },
+                "nonce": "20260726-082023-2a74",
+                "reason": null,
+                "requirement_map": {
+                  "fact_backed_document_plan": true,
+                  "immutable_snapshot": true,
+                  "protected_content": true,
+                  "verified_example": true
+                },
+                "token": "61c21c28787793be8073e0755177d8dbac162f69abc2802744d652c735f72d33",
+                "verdict": "accept"
+              },
+              "evidence_refs": [
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-082023-2a74"
+              ],
+              "repair_attempt": 0,
+              "review": {
+                "failed_criteria": [],
+                "preserve": [],
+                "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, installation coordinates (verified on Maven Central), minimal example (compiled against source), limitations (rendering and commercial-API parity incomplete), license (MIT), and compatibility (Java 21+, API matches Aspose.3D 26.1.0). The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed At a glance, Installation, and Known limitations sections required by the presentation plan. The example is the exact verified minimal example compiled against the source build. All links are real, relevant, and correctly targeted. The structure follows the presentation plan and places product substance (audience, purpose, scope, acquisition) before commercial context. There are no generic-template symptoms, overpromotion, or unsupported claims.",
+                "required_repair": "",
+                "sections_affected": [],
+                "verdict": "ACCEPT"
+              },
+              "review_pass": 1
+            }
+          ]
         },
-        "llm_called": false,
-        "llm_calls": [],
+        "llm_called": true,
+        "llm_calls": [
+          {
+            "input_sha256": "e027c8944273cf427b8f22b1bdbdc23836635aa96e7355a1b6a2f2045f3e400d",
+            "job": "plan_readme_composition",
+            "model": "qwen3-next",
+            "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6"
+          }
+        ],
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
-            "assessment_hash": "f1d94edac5d353db12c09e5c924113e11ceda089fe21744695e3c3466a8302a2",
+            "assessment_hash": "943b7b8a3dda01eecc7eba332921cb2da4818f84c8ed332023837b3c931f84c0",
             "attempt_count": 1,
-            "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
-            "input_sha256": "5d19ee5d306c8d5a1f5161c7c87565e9191338a946aed95bfa49d05f111ab190",
+            "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
+            "input_sha256": "e027c8944273cf427b8f22b1bdbdc23836635aa96e7355a1b6a2f2045f3e400d",
             "model": "qwen3-next",
             "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
             "overview_sentences": [
@@ -3594,13 +3656,13 @@
               }
             ],
             "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
-            "repository_summary": "Aspose.3D FOSS for Java is a free, open-source Java API for creating, loading, inspecting, transforming, and saving 3D scenes, supporting glTF, STL, and Collada formats. It is designed for Java developers building 3D import, export, and scene-processing applications, requires Java 21+, and is MIT-licensed. The project is a work-in-progress port with incomplete rendering and commercial-API parity.",
+            "repository_summary": "Aspose.3D FOSS for Java is a free, open-source Java API for creating, loading, inspecting, transforming, and saving 3D scenes, supporting glTF, STL, and Collada formats. It is designed for Java developers building 3D import/export and scene-processing applications, requires Java 21+, and is licensed under MIT. The project is a work-in-progress port with incomplete rendering and commercial-API parity.",
             "schema_version": 1,
             "section_decisions": [
               {
                 "disposition": "remove_update",
                 "priority": 100,
-                "rationale": "The opening contains a promotional callout that must be replaced with a bounded product-first correction, while preserving the rest of the section.",
+                "rationale": "The opening contains a promotional callout that must be replaced with a bounded product-first correction using verified facts about identity and commercial/FOSS relationship.",
                 "section_id": "opening",
                 "supporting_fact_ids": [
                   "product.identity:manifest-and-registry",
@@ -3703,7 +3765,7 @@
               {
                 "disposition": "add",
                 "priority": 70,
-                "rationale": "Add the explicitly verified limitation about rendering and commercial-API parity.",
+                "rationale": "Add a limitations section explicitly supported by repository evidence: rendering and full commercial-API parity remain incomplete.",
                 "section_id": "missing:limitations",
                 "supporting_fact_ids": [
                   "product.limitations:repository-evidence"
@@ -3714,53 +3776,67 @@
             "tool_schema_sha256": "f6ffc65a0f8ccfb414f4048ceadc85743f2165ebbfe14f56dcc8b657b3aad47a"
           },
           "claim_map": {
-            "candidate_sha256": "df892ff3cb23ccf3f0977664ead7fc7096bc43fdbe78983f90c73e9f8977c14a",
+            "candidate_sha256": "227f1468215d349ce4345589dc3df6729e19e2bc9138c5fabcd3d612dfe626be",
             "claims": [
               {
-                "byte_end": 561,
+                "byte_end": 570,
                 "byte_start": 481,
                 "claim_id": "readme.overview-navigation-and-acquisition:installation.coordinates",
-                "claim_text_sha256": "cfaacffb3f1808e2a77835203ffba8a1411e800ffc7455fa614749c310e5969e",
+                "claim_text_sha256": "0ee9318272f1158183516674fa7dfe7192877bff260eb7cb6627cc05ed0c4e19",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.coordinates:manifest",
                 "fact_value_sha256": "6824603816d15b1d76b9d7271362ef2fa47cffe699f99cda114c5effbf633c24",
                 "field": "installation.coordinates",
-                "introduced_text_sha256": "f83f145fbefbb3a53cade0d85a5395678ee2bd876b4d2ce1111175244ef59280",
+                "introduced_text_sha256": "9ea687fff5ce05eb5feba1eee1876b323704cb3386fe6bb79c3593fb5c6e89db",
                 "operation_id": "readme.overview-navigation-and-acquisition",
                 "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
                 "verification_state": "verified"
               },
               {
-                "byte_end": 561,
+                "byte_end": 1214,
+                "byte_start": 1183,
+                "claim_id": "readme.overview-navigation-and-acquisition:installation.verified_acquisition",
+                "claim_text_sha256": "65e7addae614b5378d43f4ae4ee8937b205b130af4a8fd12e4b0158e9cbda285",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "installation.verified_acquisition:registry-maven_central",
+                "fact_value_sha256": "18873edf2a8919c5c836a5983393f0a676bb50a7e075602c2e9003463ded097b",
+                "field": "installation.verified_acquisition",
+                "introduced_text_sha256": "9ea687fff5ce05eb5feba1eee1876b323704cb3386fe6bb79c3593fb5c6e89db",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 570,
                 "byte_start": 481,
                 "claim_id": "readme.overview-navigation-and-acquisition:product.audience",
-                "claim_text_sha256": "cfaacffb3f1808e2a77835203ffba8a1411e800ffc7455fa614749c310e5969e",
+                "claim_text_sha256": "0ee9318272f1158183516674fa7dfe7192877bff260eb7cb6627cc05ed0c4e19",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "product.audience:approved-policy",
                 "fact_value_sha256": "bf87fc07074f80bf0168f01f4751283f5be8722711b4d4f95e9f3a24126f866e",
                 "field": "product.audience",
-                "introduced_text_sha256": "f83f145fbefbb3a53cade0d85a5395678ee2bd876b4d2ce1111175244ef59280",
+                "introduced_text_sha256": "9ea687fff5ce05eb5feba1eee1876b323704cb3386fe6bb79c3593fb5c6e89db",
                 "operation_id": "readme.overview-navigation-and-acquisition",
                 "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
                 "verification_state": "policy_approved"
               },
               {
-                "byte_end": 646,
-                "byte_start": 562,
+                "byte_end": 675,
+                "byte_start": 571,
                 "claim_id": "readme.overview-navigation-and-acquisition:product.problems_solved",
-                "claim_text_sha256": "ae4e10a3509fe6c6af0a40e5c4d3a7c10c793ea0957a78497174cb013c2d4ab8",
+                "claim_text_sha256": "ca8f8c168de7fab17e46f26a7f280caefed789f8d5342493b5b661982443b32e",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "product.problems_solved:approved-policy",
                 "fact_value_sha256": "8311454da2f1d4a9e4401416be3b354dbbc968260ab831eb58c66351513ad0b8",
                 "field": "product.problems_solved",
-                "introduced_text_sha256": "f83f145fbefbb3a53cade0d85a5395678ee2bd876b4d2ce1111175244ef59280",
+                "introduced_text_sha256": "9ea687fff5ce05eb5feba1eee1876b323704cb3386fe6bb79c3593fb5c6e89db",
                 "operation_id": "readme.overview-navigation-and-acquisition",
                 "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
                 "verification_state": "policy_approved"
               },
               {
-                "byte_end": 4798,
-                "byte_start": 4737,
+                "byte_end": 4939,
+                "byte_start": 4878,
                 "claim_id": "readme.limitations.add-verified:product.limitations",
                 "claim_text_sha256": "471ef4fd11afe40b19a9280af63b61fc445b4666dd1cd0fd1892eba081575aa5",
                 "coordinate_space": "candidate_utf8",
@@ -3773,8 +3849,8 @@
                 "verification_state": "verified"
               },
               {
-                "byte_end": 2840,
-                "byte_start": 2833,
+                "byte_end": 2981,
+                "byte_start": 2974,
                 "claim_id": "readme.example.replace-unverified-minimal:example.minimal",
                 "claim_text_sha256": "d23189311c3628b78d08ae5478f8f51c07f5c47dd53023683199720321e4b289",
                 "coordinate_space": "candidate_utf8",
@@ -3787,7 +3863,7 @@
                 "verification_state": "verified"
               }
             ],
-            "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
+            "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
             "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
             "schema_version": 1
           },
@@ -3816,10 +3892,10 @@
           },
           "executable": true,
           "git_patch_proof": {
-            "candidate_sha256": "df892ff3cb23ccf3f0977664ead7fc7096bc43fdbe78983f90c73e9f8977c14a",
+            "candidate_sha256": "227f1468215d349ce4345589dc3df6729e19e2bc9138c5fabcd3d612dfe626be",
             "git_apply_check_passed": true,
             "outside_spans_preserved": true,
-            "patch_sha256": "381306a8eb93ca5d4ac68818ad5178b35c82bb86f6895e17360fa9cdf911c5c5",
+            "patch_sha256": "0b25cb3fa05a75458068d518f7236e9f7c3f1b7cf65ac66e26190837efe29f83",
             "path": "README.md",
             "source_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e"
           },
@@ -3835,6 +3911,14 @@
                     ],
                     "surface_id": "readme.installation",
                     "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [installation.coordinates]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.installation.verified_acquisition",
+                    "fact_ids": [
+                      "installation.verified_acquisition:registry-maven_central"
+                    ],
+                    "surface_id": "readme.installation",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [installation.verified_acquisition]"
                   },
                   {
                     "claim_id": "readme.overview-navigation-and-acquisition.product.audience",
@@ -3882,13 +3966,14 @@
                 "fact_ids": [
                   "example.minimal:compiled-policy-example",
                   "installation.coordinates:manifest",
+                  "installation.verified_acquisition:registry-maven_central",
                   "product.audience:approved-policy",
                   "product.limitations:repository-evidence",
                   "product.problems_solved:approved-policy",
                   "relationship.commercial_foss:primary"
                 ],
                 "ownership_class": "repository_file",
-                "patch_sha256": "381306a8eb93ca5d4ac68818ad5178b35c82bb86f6895e17360fa9cdf911c5c5",
+                "patch_sha256": "0b25cb3fa05a75458068d518f7236e9f7c3f1b7cf65ac66e26190837efe29f83",
                 "proposed_operation": "local_patch",
                 "region_id": "readme.presentation",
                 "rollback": "revert the bounded file patch",
@@ -3899,7 +3984,7 @@
                     "expected_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
                     "path": "README.md",
                     "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations",
-                    "replacement_sha256": "df892ff3cb23ccf3f0977664ead7fc7096bc43fdbe78983f90c73e9f8977c14a"
+                    "replacement_sha256": "227f1468215d349ce4345589dc3df6729e19e2bc9138c5fabcd3d612dfe626be"
                   }
                 ],
                 "stop_conditions": [
@@ -3922,14 +4007,14 @@
               }
             ],
             "archetype": "java-library",
-            "candidate_sha256": "df892ff3cb23ccf3f0977664ead7fc7096bc43fdbe78983f90c73e9f8977c14a",
-            "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
+            "candidate_sha256": "227f1468215d349ce4345589dc3df6729e19e2bc9138c5fabcd3d612dfe626be",
+            "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
             "findings": [
               {
                 "dimension": "product_clarity",
                 "disposition": "satisfied",
                 "evidence": [
-                  "<!-- readme-agent:presentation hash=\"sha256:1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5\" schema=\"3\" inner-bytes=\"4655\" --> A free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library. - Java developers building 3D import, export, and scene-processing applications."
+                  "<!-- readme-agent:presentation hash=\"sha256:a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2\" schema=\"3\" inner-bytes=\"4796\" --> A free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library. - **For:** Java developers building 3D import, export, and scene-processing applications."
                 ],
                 "finding_id": "readme.product_clarity",
                 "summary": "product clarity is satisfied",
@@ -3939,7 +4024,7 @@
                 "dimension": "audience_fit",
                 "disposition": "satisfied",
                 "evidence": [
-                  "<!-- readme-agent:presentation hash=\"sha256:1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5\" schema=\"3\" inner-bytes=\"4655\" --> A free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library. - Java developers building 3D import, export, and scene-processing applications."
+                  "<!-- readme-agent:presentation hash=\"sha256:a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2\" schema=\"3\" inner-bytes=\"4796\" --> A free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library. - **For:** Java developers building 3D import, export, and scene-processing applications."
                 ],
                 "finding_id": "readme.audience_fit",
                 "summary": "audience fit is satisfied",
@@ -4032,7 +4117,7 @@
             "source_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e"
           },
           "readme_assessment": {
-            "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
+            "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
             "immutable_base_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
             "material_claims": [
               {
@@ -4718,8 +4803,8 @@
               "source_inner_bytes": 3933,
               "source_inner_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e"
             },
-            "candidate_sha256": "df892ff3cb23ccf3f0977664ead7fc7096bc43fdbe78983f90c73e9f8977c14a",
-            "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
+            "candidate_sha256": "227f1468215d349ce4345589dc3df6729e19e2bc9138c5fabcd3d612dfe626be",
+            "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
             "immutable_base_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
             "operations": [
               {
@@ -4727,6 +4812,7 @@
                 "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
                 "fact_ids": [
                   "installation.coordinates:manifest",
+                  "installation.verified_acquisition:registry-maven_central",
                   "product.audience:approved-policy",
                   "product.problems_solved:approved-policy"
                 ],
@@ -4735,8 +4821,8 @@
                 "path": "README.md",
                 "protected_content_treatment": "additive",
                 "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
-                "replacement_sha256": "f83f145fbefbb3a53cade0d85a5395678ee2bd876b4d2ce1111175244ef59280",
-                "replacement_text": "## At a glance\n\n- Java developers building 3D import, export, and scene-processing applications.\n- Create, load, inspect, transform, and save 3D scenes with an open-source Java API.\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Project Status](#project-status)\n- [API Compatibility](#api-compatibility)\n- [Building](#building)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n## Installation\n\nInstall the package published for this repository:\n\n```xml\n<dependency>\n  <groupId>org.aspose</groupId>\n  <artifactId>aspose-3d-foss</artifactId>\n  <version>26.5.0</version>\n</dependency>\n```\n\nThe coordinate was verified against Maven Central.\n\n",
+                "replacement_sha256": "9ea687fff5ce05eb5feba1eee1876b323704cb3386fe6bb79c3593fb5c6e89db",
+                "replacement_text": "## At a glance\n\n- **For:** Java developers building 3D import, export, and scene-processing applications.\n- **Problem solved:** Create, load, inspect, transform, and save 3D scenes with an open-source Java API.\n- **Verified capabilities:** Create, load, inspect, transform, and save 3D scenes with an open-source Java API.\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Project Status](#project-status)\n- [API Compatibility](#api-compatibility)\n- [Building](#building)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n## Installation\n\nInstall the package published for this repository:\n\n```xml\n<dependency>\n  <groupId>org.aspose</groupId>\n  <artifactId>aspose-3d-foss</artifactId>\n  <version>26.5.0</version>\n</dependency>\n```\n\nThe coordinate was verified against Maven Central.\n\n",
                 "rollback": "Restore the exact immutable source bytes for this operation.",
                 "source_byte_end": 622,
                 "source_byte_start": 622,
@@ -4878,7 +4964,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260726-055201-18c9",
+          "nonce": "20260726-082023-2a74",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -4886,7 +4972,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "fbb4deb641d2dd23d6c0c0e2a94f80242315c4dda0cbd846bcbbf664e57bb196",
+          "token": "61c21c28787793be8073e0755177d8dbac162f69abc2802744d652c735f72d33",
           "verdict": "accept"
         },
         "written": false
@@ -4894,7 +4980,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T05:52:19.192962+00:00",
+      "last_run_timestamp": "2026-07-26T08:21:41.857033+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
@@ -6097,7 +6183,7 @@
     "updated_at": "2026-07-26T08:21:35.493686+00:00"
   },
   "schema_version": 2,
-  "state_version": 608,
+  "state_version": 609,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "81232ffd0aad1baca5575c3ded6a4acfbd2b8778a53e4507828a76df4c86d03c",
