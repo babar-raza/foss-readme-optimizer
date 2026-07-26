@@ -5762,6 +5762,15 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T05:46:54.831319+00:00",
+        "reason": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFactsV2: the audience, problems solved, capabilities, formats, platform, installation coordinates, verified acquisition, example, license, release state, limitations, compatibility, and support routes are all fact-backed. The README preserves valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the missing Installation and Known limitations sections, and repairing the Usage example to match the verified minimal example. The structure is clear, the examples are correct and verified, the links are real and relevant, and the commercial context is appropriately placed after product substance. No generic boilerplate, unsupported claims, or promotional content precedes product substance.",
+        "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+        "to_status": "AGENT_APPROVED"
       }
     ],
     "presentation_plan_hash": "907bfd21bb9fae1a7905bc6c5c1981de1b4d3b92b570490c7469deea35fef775",
@@ -5771,11 +5780,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T05:46:40.188909+00:00"
+    "status": "AGENT_APPROVED",
+    "updated_at": "2026-07-26T05:46:54.831319+00:00"
   },
   "schema_version": 2,
-  "state_version": 551,
+  "state_version": 552,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5de024e0e851a6213ea51285fb95ec5d4bf1508bc64a10473013d1e8b282eddf",
