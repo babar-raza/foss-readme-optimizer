@@ -66,7 +66,7 @@
     "assessment_hash": null,
     "candidate_hash": null,
     "details": {},
-    "facts_hash": null,
+    "facts_hash": "a3c0eeb473869856a77259afa2b8fa12150a77cd4ff499b75c81749254aefb08",
     "history": [
       {
         "evidence_refs": [
@@ -98,20 +98,33 @@
         "reason": "collecting and reconciling repository product truth",
         "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Go\\adb60864e60953ed7f4eaa0f51718ca172dac01f\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Go\\adb60864e60953ed7f4eaa0f51718ca172dac01f\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Go\\adb60864e60953ed7f4eaa0f51718ca172dac01f\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T01:54:02.779071+00:00",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "to_status": "BLOCKED_MISSING_EVIDENCE"
       }
     ],
     "presentation_plan_hash": null,
-    "prompt_hash": null,
+    "prompt_hash": "e05d4f0636d2aeef46f944713bb5ccf17981090345aae3e23c340e0132e75acc",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-26T01:53:57.938402+00:00"
+    "status": "BLOCKED_MISSING_EVIDENCE",
+    "updated_at": "2026-07-26T01:54:02.779071+00:00"
   },
   "schema_version": 2,
-  "state_version": 8,
+  "state_version": 9,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260726-015111-aa9d:aspose-cells-foss/Aspose.Cells-FOSS-for-Go": {
