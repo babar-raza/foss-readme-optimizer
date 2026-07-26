@@ -4181,7 +4181,7 @@
     "updated_at": "2026-07-26T03:00:39.457235+00:00"
   },
   "schema_version": 2,
-  "state_version": 312,
+  "state_version": 313,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b136913f3e269d10929cb35d9626881afa8abb5a135e2f4cd4748fcf817d5568",
@@ -4374,13 +4374,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:StateBackendError: invalid README-POC lifecycle transition 'NO_OP_PROVEN' -> 'AGENT_APPROVED' for 'aspose-3d-foss/Aspose.3D-FOSS-for-Java'",
       "last_checkpoint_id": "a38a590a28a265c4abd6980bf0a9b49db6b0167609b1668653e089b77334f802",
-      "lease_expires_at": "2026-07-26T03:12:39.304418+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-26T03:02:12.726730+00:00"
+      "status": "blocked",
+      "updated_at": "2026-07-26T03:02:19.025632+00:00"
     }
   },
   "trigger_records": {},
