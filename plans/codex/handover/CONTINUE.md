@@ -19,7 +19,7 @@ Read and obey, in order:
 5. Durable mission state for the active task, claim, transitions, and completion status.
 6. `plans/codex/handover/HANDOVER.md`, `state.json`, and `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` as supporting snapshots.
 
-The handover snapshot was `main` at `6ec3795468a64d35866ee1b90c9200767ca0ff1b`, state
+The handover snapshot was `main` at `e454f7ff1a9885a87b54be59585ebf6f358b4912`, state
 version 132, graph hash `b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f`,
 with `L8-LOCAL-FULL-REGISTRY-GATE-A` active. These are not a substitute for live verification.
 
@@ -67,7 +67,7 @@ Refresh `HANDOVER.md`, this file, and `state.json` after every durable transitio
 ## First Task Now
 
 The expected live task is `L8-LOCAL-FULL-REGISTRY-GATE-A`. First inspect active processes. At this
-snapshot, one canonical worker was running from the resume-9 checkpoint:
+snapshot, one canonical worker was running from the resume-10 checkpoint:
 
 ```powershell
 .venv/Scripts/readme-agent supervise `
@@ -76,7 +76,7 @@ snapshot, one canonical worker was running from the resume-9 checkpoint:
 ```
 
 Do not launch a duplicate while that process is alive. Continue monitoring
-`runs/level8-local-full-registry-gate-a-live-resume-9/`, repair each agent-fixable repository at
+`runs/level8-local-full-registry-gate-a-live-resume-10/`, repair each agent-fixable repository at
 its first boundary, restart only from a durable checkpoint when committed code must be loaded, and
 repeat full sweeps until every current registry entry is `NO_OP_PROVEN`. Java already has one
 verified no-op manifest. The next explicit live boundary is .NET: confirm the committed

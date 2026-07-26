@@ -7,7 +7,7 @@
 | Field | Value |
 |---|---|
 | Repository | `D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer` |
-| Branch / snapshot HEAD | `main` / `6ec3795468a64d35866ee1b90c9200767ca0ff1b` |
+| Branch / snapshot HEAD | `main` / `e454f7ff1a9885a87b54be59585ebf6f358b4912` |
 | Tree | Clean before this in-place handover refresh; runtime artifacts remain under ignored `runs/`. |
 | Mission | `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` |
 | Durable state | Version 132; graph SHA-256 `b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f` |
@@ -57,7 +57,7 @@ Non-goals and hard limits: no auto-merge, readying a draft, force push, target d
   `runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Java/8de5f467e93138b3605acdc46ca40e93f0364ee8/manifest.json`.
 - Commits `42ef68e`, `386562d`, `8cc3906`, `9d4c79e`, `3292e9b`, `f324e67`, `6bdd765`,
   `89b66d8`, `136626b`, `5457d5f`, `052901c`, `b5fa7eb`, `7e1d119`, `ade9929`, and
-  `6ec3795` repair the live Gate-A truth
+  `6ec3795` and `e454f7f` repair the live Gate-A truth
   boundaries: multi-root .NET verification, fail-closed evidence contracts, structured
   repository-bound drafting, malformed-response recovery, truthful repair failure transitions,
   larger/longer inference, and compiler-grounded example repair.
@@ -72,7 +72,9 @@ Non-goals and hard limits: no auto-merge, readying a draft, force push, target d
   `BLOCKED_MISSING_EVIDENCE` because its drafted example did not compile. The compiler-diagnostic
   repair is proven to reach the next model turn, and the v5 prompt now requires a six-statement
   self-contained example. Python exposed a separate 8,000-token `finish_reason='length'`; the v5
-  contract now caps result cardinality and code size. Both v5 live reruns remain pending. No
+  contract now caps result cardinality and code size. The v6 contract further limits examples to
+  600 characters and promotes a successful drafted source build into verified acquisition truth.
+  The v6 live reruns remain pending. No
   complete `portfolio-summary.json` exists yet.
 
 ### PARTIAL OR CONTRADICTED
@@ -107,8 +109,8 @@ The supervisor must select the highest-priority dependency-ready task. The inten
 
 The current command is
 `.venv/Scripts/readme-agent supervise --registry data/products.json --execution-profile local_poc`.
-At snapshot time its resume-9 process tree was active and logging to
-`runs/level8-local-full-registry-gate-a-live-resume-9/`. Do not launch a duplicate while that
+At snapshot time its resume-10 process tree was active and logging to
+`runs/level8-local-full-registry-gate-a-live-resume-10/`. Do not launch a duplicate while that
 worker is alive. The first pending proof is that the new compiler-grounded repair regenerates and
 verifies the .NET example; then continue every remaining registry entry and run unchanged sweeps.
 Gate A closes only when `approved == len(data/products.json)`, `system_failed == 0`,
