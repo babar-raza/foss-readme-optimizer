@@ -423,6 +423,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-07-26T01:49:38.061630+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "to_status": "PROFILED"
       }
     ],
     "presentation_plan_hash": null,
@@ -432,11 +443,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-07-26T01:49:31.430481+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-07-26T01:49:38.061630+00:00"
   },
   "schema_version": 2,
-  "state_version": 58,
+  "state_version": 59,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "48f1ece42ffbb0cdbb92cad8d638cc7dffb73b6230cf032a65893d22c5b305d6",
