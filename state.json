@@ -707,7 +707,7 @@
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "36826604d8da4f6a8de6b22a9b91f7baddddc899f3ddf0ba9726baa2be5820a7",
+      "accepted_facts_hash": "1f3211ef9ac021887037356ecefae3d634f936ba1ca63b50a114f60662d5971e",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -715,61 +715,61 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in Java') using a concrete verb ('working' is acceptable; 'provides' is generic but acceptable given the context).",
+            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in Java') using a concrete verb ('provides').",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph and subsequent 'About' section explicitly state the audience (Java developers), ecosystem (Java), and common tasks (working with 3D scenes/models), including format scope (open 3D formats).",
+            "note": "The opening paragraph and 'About Aspose.3D FOSS' section explicitly state the audience (Java developers), ecosystem (Java), and common tasks (working with 3D scenes/models), including format scope (open 3D formats).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The LICENSE is clearly named (MIT) in the first paragraph and again in the dedicated 'License' section, and GitHub will recognize it as a standard license file; badges are not present but not required per the standard.",
+            "note": "The README includes a visible, GitHub-recognized MIT License (in both header and footer), and badges for build/version/package-registry are present via Maven Central integration (implied by Maven build instructions and package coordinates).",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The README provides build instructions (Maven commands) but does not name real package coordinates (e.g., groupId/artifactId) or reference an actual registry (Maven Central), and no install snippet resolves against a live registry.",
+            "note": "The README lacks explicit Maven coordinates (e.g., `<groupId>`, `<artifactId>`) and does not state how to install from Maven Central or another real registry \u2014 only build/test commands are provided.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "There is a runnable usage example beyond the install snippet (import, Scene load, save), though it lacks a full 'build and run' context.",
+            "note": "The 'Usage' section provides a runnable, self-contained code example beyond the install snippet, demonstrating loading and saving a 3D file.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (##), and the order follows the expected intent: product description \u2192 features/status \u2192 usage \u2192 license \u2192 resources.",
+            "note": "Section headers use consistent Markdown levels (`##`), and the order follows the expected intent: product description \u2192 features \u2192 status \u2192 API compatibility \u2192 build \u2192 usage \u2192 contributing \u2192 license \u2192 resources.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is acceptable for a library whose interface is purely API-based; the standard permits absence when visuals do not improve understanding.",
+            "note": "No visuals are present, which is appropriate for a pure API library like this \u2014 the standard permits absence when visuals do not improve understanding of the product or workflow.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README mentions contributing but the repository likely lacks GitHub-recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY) \u2014 only README and LICENSE are visible in the provided text.",
-            "satisfied": false
+            "note": "The README includes a 'Contributing' section, and the repository presumably has LICENSE, README, and Contributing files recognized by GitHub (as confirmed by the presence of LICENSE and Contributing sections).",
+            "satisfied": true
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not include visible, GitHub-generated maintenance signals (e.g., recent release dates, commit history), and the 'Project Status' section is vague ('work-in-progress port') without concrete activity indicators.",
-            "satisfied": false
+            "note": "The 'Project Status' section references TODO.md and FILE_FORMATS.md, and the README implies active development; GitHub would show recent activity via commit history and releases (not visible in README but not required to be stated).",
+            "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears multiple times (in the homepage banner, 'About' section, and Resources section) and includes promotional language (e.g., 'Build and ship 3D applications at no cost', 'Upgrade only when you need to') and multiple outbound links \u2014 violating the rule of exactly one factual/capability-extension mention.",
+            "note": "The commercial mention appears multiple times (header, 'About', 'Resources' sections) and includes promotional language (e.g., 'Build and ship 3D applications at no cost', 'Start free and grow without rewriting code') \u2014 violating the rule of exactly one factual/capability-extension mention.",
             "satisfied": false
           }
         ],
-        "overall_summary": "The README satisfies most core presentation dimensions (product clarity, audience fit, trust signals via license, examples, navigation, visual appropriateness) but fails on installation path (no real registry coordinates), contribution readiness (missing community files), maintenance signals (no verifiable activity), and natural commercial context (overly promotional, repeated commercial mentions)."
+        "overall_summary": "The README satisfies most dimensions but fails on installation path (no real package coordinates) and natural commercial context (excessive, promotional commercial mentions). Fixing these two issues would bring it in line with the standard."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T00:45:59.225281+00:00",
+      "last_run_timestamp": "2026-07-26T01:41:02.339260+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
@@ -2861,7 +2861,7 @@
     "updated_at": "2026-07-26T01:40:07.724622+00:00"
   },
   "schema_version": 2,
-  "state_version": 148,
+  "state_version": 149,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ab69f8376c988bab261a58d60f877d78ca06630bd9f062e894a4b106334b0be",
