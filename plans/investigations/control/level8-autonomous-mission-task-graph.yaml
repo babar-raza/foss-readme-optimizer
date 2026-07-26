@@ -1545,6 +1545,63 @@ taskcards:
   - One real read-only representative stops at FACTS_READY with no later-stage artifacts
   requirement_ids:
   - L8-015
+- task_id: L8-TRUTH-01A-FACT-CONTRACT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Version fact acceptance and reopen stale terminal states
+  source_audit_finding: Three persisted NO_OP_PROVEN bundles fail the current product-truth gate while
+    Java remains valid.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Bind cached facts and later lifecycle state to required fields, eligibility, polarity, conflict,
+    and render-view contract hashes.
+  why_it_matters: Historical terminal labels cannot override the current truth contract.
+  allowed_paths:
+  - src/readme_agent/facts/
+  - src/readme_agent/state/
+  - src/readme_agent/supervisor/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-TRUTH-01-STAGE-LIMIT
+  expected_outputs:
+  - Versioned fact-acceptance contract
+  - dependency-scoped invalidation
+  - stale-state reopening evidence
+  acceptance_checks:
+  - Invalid cached truth reopens at the earliest fact stage
+  - unchanged valid Java truth remains reusable
+  verification:
+  - Replay Java
+  - Python
+  - TypeScript
+  - and BarCode Python persisted bundles plus contract mutation tests
+  negative_controls:
+  - A facts hash alone cannot preserve AGENT_APPROVED or NO_OP_PROVEN
+  regression_checks:
+  - Product truth
+  - lifecycle
+  - manifest
+  - cache
+  - and resume suites
+  evidence_requirements:
+  - Contract hash
+  - old and new outcomes
+  - lifecycle transitions
+  - checksums
+  rollback_or_recovery: Retain prior immutable bundles while reopening only dependent lifecycle stages.
+  failure_reroute: Repair contract dependency mapping before any cached fact reuse.
+  closeout_rules:
+  - Every reused terminal fact graph passes the current complete acceptance contract
+  requirement_ids:
+  - L8-018
 - task_id: L8-TRUTH-02-ROOT-ROLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -1569,7 +1626,7 @@ taskcards:
   forbidden_paths:
   - production target repository remotes
   dependencies:
-  - L8-TRUTH-01-STAGE-LIMIT
+  - L8-TRUTH-01A-FACT-CONTRACT
   expected_outputs:
   - Typed root-role records
   - selected product-root evidence
@@ -1647,6 +1704,69 @@ taskcards:
   closeout_rules:
   - Every selected capability and limitation has directionally valid evidence
   requirement_ids: []
+- task_id: L8-TRUTH-03A-ISOLATED-EXECUTOR
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Isolate untrusted build and example execution from the operator host
+  source_audit_finding: The current secret-filtered subprocess boundary explicitly is not an OS sandbox.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Provide one disposable OS-isolated executor with bounded resources, filesystem, processes,
+    time, and deny-by-default network.
+  why_it_matters: Repository and dependency code cannot prove truth by executing directly on the operator
+    host.
+  allowed_paths:
+  - src/readme_agent/facts/
+  - src/readme_agent/gitsafety/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - ungoverned host package installation
+  dependencies:
+  - L8-TRUTH-03-CLAIM-POLARITY
+  expected_outputs:
+  - Typed isolated-execution contract
+  - immutable image identity
+  - resource and network policy
+  - bounded cleanup
+  acceptance_checks:
+  - Host execution is ineligible for verified truth
+  - isolated execution records complete reproducible provenance
+  verification:
+  - Host-secret
+  - filesystem
+  - network
+  - process
+  - timeout
+  - resource
+  - and cancellation escape controls
+  negative_controls:
+  - Credential filtering alone cannot satisfy isolation
+  regression_checks:
+  - Example execution
+  - process cleanup
+  - cancellation
+  - redaction
+  - and safety suites
+  evidence_requirements:
+  - Executor/image digest
+  - inputs
+  - policy
+  - process inventory
+  - raw outcomes
+  - checksums
+  rollback_or_recovery: Disable untrusted execution and leave dependent facts visibly unverified.
+  failure_reroute: Repair the executor boundary before acquisition or example verification.
+  closeout_rules:
+  - No repository or dependency code used for fact verification executes on the operator host
+  requirement_ids:
+  - L8-019
 - task_id: L8-TRUTH-04-ACQUISITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -1659,7 +1779,8 @@ taskcards:
   owner: readme-agent-supervisor
   status: TODO
   objective: Select a registry-verified coordinate when published and a reproducible source-build path
-    otherwise.
+    otherwise, while executing repository or dependency build code only inside a disposable OS-isolated
+    executor with bounded resources and deny-by-default network.
   why_it_matters: Installation is a core README obligation and false acquisition guidance is a critical
     defect.
   allowed_paths:
@@ -1673,14 +1794,16 @@ taskcards:
   forbidden_paths:
   - production target repository remotes
   dependencies:
-  - L8-TRUTH-03-CLAIM-POLARITY
+  - L8-TRUTH-03A-ISOLATED-EXECUTOR
   expected_outputs:
   - Acquisition outcomes for each ecosystem
   - exact commands
   - registry receipts or source-build proof
+  - isolated-executor image digest, resource policy, network policy, and dependency pin inventory
   acceptance_checks:
   - False coordinates cannot reach FACTS_READY
   - unpublished packages with verified builds are not globally blocked
+  - A source-build result produced by an unsandboxed host subprocess is ineligible for verified truth
   verification:
   - Cells Maven negative case plus NuGet
   - Python
@@ -1690,6 +1813,8 @@ taskcards:
   - and Rust controls
   negative_controls:
   - README or policy prose alone cannot verify a package
+  - A hostile build script cannot read the operator filesystem, inherit credentials, escape the workspace,
+    create descendants after cancellation, or access undeclared network destinations
   regression_checks:
   - Acquisition
   - package-registry
@@ -1704,6 +1829,7 @@ taskcards:
   failure_reroute: Retry the ecosystem verifier or emit an exact essential-fact handoff.
   closeout_rules:
   - Each representative has one truthful acquisition result
+  - Every executed build is reproducible from a pinned isolated environment
   requirement_ids: []
 - task_id: L8-TRUTH-05-PUBLIC-EXAMPLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1717,7 +1843,7 @@ taskcards:
   owner: readme-agent-supervisor
   status: TODO
   objective: Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs
-    for selected examples.
+    for selected examples in the same disposable OS-isolated executor used for acquisition proof.
   why_it_matters: Visitor code must work, not merely look plausible.
   allowed_paths:
   - src/readme_agent/facts/
@@ -1738,6 +1864,7 @@ taskcards:
   - private
   - uncompiled
   - or secret-dependent examples cannot become verified
+  - Host-only compilation or execution cannot become verified
   verification:
   - One real Java
   - .NET
@@ -1748,6 +1875,7 @@ taskcards:
   - and Rust example
   negative_controls:
   - Textual symbol occurrence is not compile or execution proof
+  - Filesystem, process, resource, and undeclared-network escape attempts fail closed
   regression_checks:
   - Example quality
   - execution
@@ -1764,6 +1892,7 @@ taskcards:
   failure_reroute: Repair the ecosystem verifier before drafting prose.
   closeout_rules:
   - Seven public examples pass or have exact ecosystem capability gaps
+  - Every passing example names its immutable executor image and dependency inputs
   requirement_ids: []
 - task_id: L8-TRUTH-06-INTERPRETIVE-VIEWS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2326,6 +2455,64 @@ taskcards:
   closeout_rules:
   - Every changed existing section has complete fact and ownership justification
   requirement_ids: []
+- task_id: L8-COMPOSE-02B-FINAL-CLAIM-CORPUS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Freeze complete inherited and generated claim accountability controls
+  source_audit_finding: Current claim maps cover generated operations but omit material preserved parity,
+    performance, format, capability, and example claims.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Inventory every material final-candidate claim and freeze its expected fact, ownership, uncertainty,
+    correction, or removal disposition.
+  why_it_matters: Byte preservation protects content but cannot silently endorse its truth.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - src/readme_agent/presentation/
+  - tests/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-02A-OPERATION-REGRESSIONS
+  expected_outputs:
+  - Real inherited-claim corpus
+  - generated-claim controls
+  - expected complete-coverage map
+  acceptance_checks:
+  - Every material candidate claim has one explicit accountable disposition
+  verification:
+  - Real Java
+  - Python
+  - and TypeScript claim inventories plus parity
+  - performance
+  - format
+  - installation
+  - and example negatives
+  negative_controls:
+  - Preserve and byte retention cannot substitute for factual or ownership acceptance
+  regression_checks:
+  - Assessment claims
+  - fact grounding
+  - protected content
+  - claim map
+  - and bundle verifier suites
+  evidence_requirements:
+  - Candidate spans
+  - claim IDs
+  - facts or owners
+  - expected dispositions
+  - checksums
+  rollback_or_recovery: Retain immutable candidates as negative fixtures and reopen only claim accountability.
+  failure_reroute: Send false facts upstream and uncovered material claims to composition.
+  closeout_rules:
+  - The corpus detects every known inherited-claim blind spot before implementation
+  requirement_ids:
+  - L8-020
 - task_id: L8-COMPOSE-03-OPERATION-COVERAGE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -2337,8 +2524,9 @@ taskcards:
   lane: local-readme-composition
   owner: readme-agent-supervisor
   status: TODO
-  objective: Reject any actionable assessment without a candidate-producing source-span operation and
-    independently reconstruct the result.
+  objective: Reject any actionable assessment without a candidate-producing source-span operation, account
+    for every material inherited and generated final-candidate claim through an accepted fact, authoritative
+    owner, or explicit uncertainty/correction operation, and independently reconstruct the result.
   why_it_matters: Advisory plan prose is not autonomous README management.
   allowed_paths:
   - src/readme_agent/readme/
@@ -2351,14 +2539,16 @@ taskcards:
   forbidden_paths:
   - production target repository remotes
   dependencies:
-  - L8-COMPOSE-02A-OPERATION-REGRESSIONS
+  - L8-COMPOSE-02B-FINAL-CLAIM-CORPUS
   expected_outputs:
   - Decision-to-operation map
+  - complete inherited-and-generated final-candidate claim map
   - hash-guarded operations
   - native patch
   - reconstruction proof
   acceptance_checks:
   - Every non-preserve decision changes or intentionally removes the exact governed span
+  - Every material preserved claim has explicit truth, ownership, or uncertainty status
   verification:
   - Plan coverage
   - stale-span
@@ -2366,6 +2556,7 @@ taskcards:
   - and immutable reconstruction tests
   negative_controls:
   - Decorative decisions and free-form unbounded edits fail closed
+  - Unsupported inherited claims hidden behind preserve fail closed
   regression_checks:
   - Agentic composition
   - document operations
@@ -2379,6 +2570,7 @@ taskcards:
   failure_reroute: Repair the first uncovered decision before candidate acceptance.
   closeout_rules:
   - Candidate bytes are exactly reproducible from immutable source and operations
+  - Plan intent, patch, candidate, and complete final-candidate claim map agree exactly
   requirement_ids: []
 - task_id: L8-COMPOSE-04-PRESENTATION-LINT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4733,10 +4925,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 998d99c70bcd9c0b465f95016e458a4f7a7587a43bda0d706cd4f571d0d730d1
+  source_sha256: 048ebcaf5816bd680fb4784fb93fc1d8eea2cb78f244043f72dd046f4648b321
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 409
-  mandatory_requirement_rows: 383
+  total_requirement_rows: 412
+  mandatory_requirement_rows: 386
   excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -7193,5 +7385,23 @@ requirement_coverage:
     priority: P0
     requirement_status: PLANNED
     task_id: L8-QUAL-03-RECOVERY
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-018
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-TRUTH-01A-FACT-CONTRACT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-019
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-TRUTH-03A-ISOLATED-EXECUTOR
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-020
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-COMPOSE-02B-FINAL-CLAIM-CORPUS
     disposition: open_mandatory
     semantic_findings: []

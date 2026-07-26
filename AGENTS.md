@@ -253,6 +253,17 @@ decision #78 (2026-07-25):
 - **Product-agent input must be verified against repository evidence, not assumed correct.**
   Product-agent output may help locate relevant facts, but it never overrides contradictory
   repository evidence and is never the sole basis for a published claim.
+- **Credential filtering is not execution isolation.** `facts/example_execution.py` explicitly
+  provides a bounded, secret-free subprocess boundary, not an OS sandbox. Until `L8-019` closes,
+  do not run repository or dependency build scripts directly on the operator host as acceptance
+  proof. Source builds, package installs, compilers that execute project hooks, and examples must
+  run in a disposable OS-isolated environment with bounded resources, deny-by-default network,
+  pinned inputs, and no credentials or target-write token before their result may become verified
+  product truth.
+- **Preservation is not factual approval.** Existing README bytes remain protected input, but every
+  material final-candidate claim—including preserved prose and commands—must have an accepted
+  fact, an authoritative owner, or an explicit uncertainty/correction disposition before
+  independent approval. An operation-only claim map cannot prove complete candidate factuality.
 - **Reconcile every working plan to these gates before executing it.** `plans/idea.md`,
   `plans/master.md`, `plans/requirements.md`, and `plans/GOVERNANCE.md` are authoritative in their
   respective roles. Taskcard ledgers, roadmaps, handovers, and status reports are derived views:

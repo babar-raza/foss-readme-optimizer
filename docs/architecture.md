@@ -227,6 +227,15 @@ after their dependencies close. Stage ceilings prevent an upstream repair from s
 and invalidating expensive later phases. Gate-A fan-out additionally requires the frozen campaign
 identity and single-writer/recovery contracts in `L8-016` and `L8-017`.
 
+Terminal reuse is governed by the current versioned fact-acceptance contract (`L8-018`), not only
+by a facts hash: required fields, eligibility, evidence polarity, render eligibility, and conflicts
+are re-evaluated before a cached approval remains valid. Repository/dependency code used for
+acquisition or examples runs only through the disposable OS-isolated executor required by
+`L8-019`; the existing `example_execution.py` boundary remains useful for credential filtering and
+timeouts but is explicitly insufficient as acceptance isolation. Composition then applies
+`L8-020`: material preserved claims and generated claims share one complete accountability map, so
+byte preservation cannot be misread as factual endorsement.
+
 ## Trust and reconciliation doctrine
 
 Two principles govern every fact and claim this system handles, learned the hard way

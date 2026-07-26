@@ -2113,11 +2113,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
         immutable revision bundles, and mandatory dynamic planning foundation.
   - [ ] Product truth: implement the stage ceiling, package-root roles, claim polarity,
-        acquisition, public examples, render views, seven-ecosystem proof, and facts-only
-        full-registry preflight (`L8-TRUTH-*` task group).
+        current-contract cache revalidation, OS-isolated acquisition/public examples, render
+        views, seven-ecosystem proof, and facts-only full-registry preflight (`L8-TRUTH-*` task
+        group).
   - [ ] Composition: split active monoliths, reconcile existing sections, require complete
-        operation coverage, enforce presentation lint, and produce seven deterministic candidates
-        (`L8-COMPOSE-*` task group).
+        operation and inherited-claim coverage, enforce presentation lint, and produce seven
+        deterministic candidates (`L8-COMPOSE-*` task group).
   - [ ] Review: separate blind quality from factual/plan review, ground findings, require
         candidate-changing repair, prove no-op caching, and pass the real heterogeneous campaign
         (`L8-REVIEW-*` task group).
@@ -2217,7 +2218,14 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       failure is terminally non-successful; no alternate production mutation path remains.
 - [ ] **Local stage-boundary gate:** a facts-only public supervisor run reaches `FACTS_READY`
       without composition/reviewer calls or later lifecycle claims; every later stage has the same
-      fail-closed ceiling behavior.
+      fail-closed ceiling behavior; cached terminal states are re-evaluated against the current
+      fact-acceptance contract.
+- [ ] **Local untrusted-execution gate:** source builds and examples for every supported ecosystem
+      run in a disposable OS-isolated, resource-bounded, network-governed environment; hostile
+      repository/dependency code cannot access the operator host or leave descendants.
+- [ ] **Local complete-claim gate:** every material generated or preserved README claim has an
+      accepted fact, authoritative owner, or explicit uncertainty/correction disposition; a
+      partial operation-only claim map cannot support factual approval.
 - [ ] **Local real-output gate:** Java, .NET, Python, TypeScript, C++, Go, and Rust representatives
       pass fact, candidate, deterministic validation, independent review/repair, and unchanged
       no-op boundaries under one campaign with zero critical false accepts.

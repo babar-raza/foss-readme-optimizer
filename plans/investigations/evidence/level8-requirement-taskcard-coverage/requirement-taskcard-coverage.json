@@ -4,17 +4,17 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "998d99c70bcd9c0b465f95016e458a4f7a7587a43bda0d706cd4f571d0d730d1",
+  "source_sha256": "048ebcaf5816bd680fb4784fb93fc1d8eea2cb78f244043f72dd046f4648b321",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 409,
-  "mandatory_requirement_rows": 383,
+  "total_requirement_rows": 412,
+  "mandatory_requirement_rows": 386,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 34,
     "excluded_backlog": 26,
-    "open_mandatory": 200,
+    "open_mandatory": 203,
     "preserved_verified": 149
   },
   "taskcard_counts": {
@@ -25,6 +25,9 @@
     "L8-WAVE4-PRESENTATION-INTELLIGENCE": 113,
     "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": 1,
     "L8-TRUTH-01-STAGE-LIMIT": 1,
+    "L8-TRUTH-01A-FACT-CONTRACT": 1,
+    "L8-TRUTH-03A-ISOLATED-EXECUTOR": 1,
+    "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": 1,
     "L8-QUAL-01-CAMPAIGN-IDENTITY": 1,
     "L8-QUAL-03-RECOVERY": 1,
     "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 53,
@@ -3305,6 +3308,30 @@
       "priority": "P0",
       "requirement_status": "PLANNED",
       "task_id": "L8-QUAL-03-RECOVERY",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-018",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-TRUTH-01A-FACT-CONTRACT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-019",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-TRUTH-03A-ISOLATED-EXECUTOR",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-020",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }
