@@ -1095,7 +1095,7 @@
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "52a6daa123234f72119f37c5218f2baddbeb3020a7e146a38ae61d86e9cd458a",
+      "accepted_facts_hash": "191cabdbd07e59a7324945debea2730aedf80edc7fd2de4242d6df96a7c31c6a",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -1103,61 +1103,61 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does ('enables developers to create, manipulate, and convert 3D scenes and models') using concrete verbs.",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs: 'enables developers to create, manipulate, and convert 3D scenes and models programmatically'.",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph specifies the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert).",
+            "note": "The opening paragraph explicitly names the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert 3D scenes/models).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "MIT License is explicitly named and linked in the first paragraph, and badges for package registry (pip) and version are present in the installation section.",
+            "note": "The MIT License is clearly named in the first paragraph and linked to a LICENSE file, satisfying the highest-priority trust signal.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `pip install aspose-3d-foss` uses real PyPI coordinates and resolves correctly.",
+            "note": "The install command `pip install aspose-3d-foss` is present and uses real PyPI coordinates (verified via live check of PyPI).",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there is a working 'Quick Start' code block that demonstrates real usage with import, file loading, and data access.",
+            "note": "Beyond the install snippet, there is a working 'Quick Start' code block that imports, opens, and inspects an OBJ file \u2014 a runnable, realistic example.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows logical flow: product description \u2192 features \u2192 install \u2192 examples \u2192 details \u2192 license \u2192 resources.",
+            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows the intended sequencing: product description \u2192 features \u2192 install \u2192 examples \u2192 license \u2192 resources.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, and while not required, the README would benefit from a simple diagram showing input format \u2192 transformation \u2192 output format, especially for a 3D-processing library.",
+            "note": "No visuals (images, diagrams) are present, and none are warranted for this API-focused library \u2014 but the standard allows absence; however, the README includes a '\ud83c\udfe0' emoji in a callout, which is decorative and does not demonstrate input/output/workflow.",
             "satisfied": false
           },
           {
             "dimension": "contribution_readiness",
-            "note": "LICENSE file is present and GitHub-recognized; the README includes a Contributing section, and the repo likely has CODE_OF_CONDUCT and SECURITY (not visible in README but not required by this standard).",
+            "note": "The repository has a LICENSE file (MIT), and GitHub will recognize it; while CONTRIBUTING and CODE_OF_CONDUCT files are not present, the standard prioritizes LICENSE recognition, which is satisfied.",
             "satisfied": true
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and GitHub activity (commits, releases) is assumed to be verifiable externally \u2014 no false claims are made.",
+            "note": "The README does not claim maintenance status, and GitHub's own activity indicators (commits, releases) are assumed to be present per repository health \u2014 no false claims are made.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "Commercial mention appears *before* the product explanation (in the first blockquote after the title), violating the rule that the product must be explained first; also, the Resources section contains 12+ commercial links, exceeding the 'exactly one mention' and restraint observed in reference sources.",
+            "note": "The commercial edition is mentioned *before* the product description (in the first callout block), violating the rule that the product must be explained first; also, the Resources section contains two dense commercial link blocks (12+ links total), exceeding the 'exactly one mention' and restrained tone expected across reference sources.",
             "satisfied": false
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with critical failures in natural commercial context: the commercial edition is promoted before the product explanation, and the Resources section is overly dense with commercial links, unlike the restrained, factual tone of reference sources."
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with critical failures in commercial context placement and density: the commercial mention appears before the product description and is repeated across multiple sections with excessive outbound links, violating the standard\u2019s emphasis on factual, single-mention, restrained framing."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T05:36:48.843015+00:00",
+      "last_run_timestamp": "2026-07-26T06:12:46.308351+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -1702,7 +1702,7 @@
     "updated_at": "2026-07-26T06:09:33.421076+00:00"
   },
   "schema_version": 2,
-  "state_version": 203,
+  "state_version": 204,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "1fcb20175a0fb5b4fa4365e8a613d6f8bc12554c2a87ee26a94f199032c29277",
