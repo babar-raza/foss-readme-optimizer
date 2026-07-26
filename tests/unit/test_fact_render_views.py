@@ -119,6 +119,79 @@ def test_dotnet_target_framework_has_a_visitor_facing_runtime_name():
     assert view.phrases == ["Requires .NET Core 3.1 or later."]
 
 
+def test_compatibility_is_scoped_to_the_package_users_acquire():
+    facts = _facts("net")
+    compatibility = facts.selected_fact("product.compatibility")
+    compatibility = compatibility.model_copy(
+        update={
+            "verification_state": "verified",
+            "value": [
+                {
+                    "ecosystem": "net",
+                    "runtime_label": ".NET",
+                    "minimum_runtime": "net10.0",
+                    "manifest_path": "src/converter/Converter.csproj",
+                },
+                {
+                    "ecosystem": "net",
+                    "runtime_label": ".NET",
+                    "minimum_runtime": "netcoreapp3.1",
+                    "manifest_path": "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+                },
+                {
+                    "ecosystem": "net",
+                    "runtime_label": ".NET",
+                    "minimum_runtime": "net10.0",
+                    "manifest_path": "src/test/Aspose.ThreeD.Tests/Aspose.ThreeD.Tests.csproj",
+                },
+            ],
+        }
+    )
+    coordinates = facts.selected_fact("installation.coordinates")
+    coordinates = coordinates.model_copy(
+        update={
+            "value": [
+                {
+                    "name": "Aspose.3D.Converter",
+                    "manifest_path": "src/converter/Converter.csproj",
+                },
+                {
+                    "name": "Aspose.3D.FOSS",
+                    "manifest_path": "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+                },
+                {
+                    "name": "Aspose.3D.Tests",
+                    "manifest_path": "src/test/Aspose.ThreeD.Tests/Aspose.ThreeD.Tests.csproj",
+                },
+            ]
+        }
+    )
+    acquisition = facts.selected_fact("installation.verified_acquisition")
+    acquisition = acquisition.model_copy(
+        update={
+            "verification_state": "verified",
+            "value": {
+                "method": "nuget",
+                "outcome": "REGISTRY_VERIFIED",
+                "coordinate": {"name": "Aspose.3D.FOSS"},
+            },
+        }
+    )
+    replacements = {
+        compatibility.fact_id: compatibility,
+        coordinates.fact_id: coordinates,
+        acquisition.fact_id: acquisition,
+    }
+    facts = facts.model_copy(
+        update={"facts": [replacements.get(fact.fact_id, fact) for fact in facts.facts]}
+    )
+
+    view = visitor_fact_render_view(facts, "product.compatibility")
+
+    assert view is not None
+    assert view.phrases == ["Requires .NET Core 3.1 or later."]
+
+
 def test_audience_normalizes_internal_ecosystem_token_without_mutating_fact():
     facts = _facts()
     audience = facts.selected_fact("product.audience")

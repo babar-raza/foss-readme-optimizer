@@ -112,6 +112,52 @@ def _compatibility_phrases(value: object) -> list[str]:
     return phrases
 
 
+def _acquisition_manifest_path(facts: ProductFactsV2) -> str | None:
+    """Resolve the manifest that owns the package users actually acquire."""
+
+    acquisition = facts.selected_fact("installation.verified_acquisition")
+    coordinates = facts.selected_fact("installation.coordinates")
+    if (
+        acquisition.verification_state not in _ACCEPTED_STATES
+        or coordinates.verification_state not in _ACCEPTED_STATES
+        or not isinstance(acquisition.value, dict)
+    ):
+        return None
+    coordinate = acquisition.value.get("coordinate")
+    if not isinstance(coordinate, dict):
+        return None
+    rows = coordinates.value if isinstance(coordinates.value, list) else [coordinates.value]
+    coordinate_name = str(coordinate.get("name") or "").casefold()
+    coordinate_group = str(coordinate.get("group_id") or "").casefold()
+    coordinate_artifact = str(coordinate.get("artifact_id") or "").casefold()
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        name_matches = coordinate_name and str(row.get("name") or "").casefold() == coordinate_name
+        maven_matches = (
+            coordinate_group
+            and coordinate_artifact
+            and str(row.get("group_id") or "").casefold() == coordinate_group
+            and str(row.get("artifact_id") or "").casefold() == coordinate_artifact
+        )
+        if name_matches or maven_matches:
+            manifest_path = str(row.get("manifest_path") or "").strip()
+            return manifest_path or None
+    return None
+
+
+def _acquired_package_compatibility(facts: ProductFactsV2, value: object) -> object:
+    manifest_path = _acquisition_manifest_path(facts)
+    if manifest_path is None or not isinstance(value, list):
+        return value
+    matched = [
+        row
+        for row in value
+        if isinstance(row, dict) and str(row.get("manifest_path") or "") == manifest_path
+    ]
+    return matched or value
+
+
 def _no_direct_prose(_value: object) -> list[str]:
     """Keep internal policy codes and structured contracts out of authored prose."""
 
@@ -144,7 +190,12 @@ def visitor_fact_render_view(
     fact: FactRecordV2 = facts.selected_fact(field)
     if fact.verification_state not in _ACCEPTED_STATES or fact.has_unresolved_conflict:
         return None
-    phrases = list(dict.fromkeys(renderer(fact.value)))
+    value = (
+        _acquired_package_compatibility(facts, fact.value)
+        if field == "product.compatibility"
+        else fact.value
+    )
+    phrases = list(dict.fromkeys(renderer(value)))
     return VisitorFactRenderViewV1(
         fact_id=fact.fact_id,
         field=field,
