@@ -73,7 +73,13 @@ REVIEW_ARCHETYPES = (
             "source build with `cmake -S . -B build` then "
             "`cmake --build build`; no registry package is published"
         ),
-        'Presentation deck("input.pptx"); deck.slide(0).title()',
+        (
+            "#include <acme/slides/presentation.hpp>\n\n"
+            "int main() {\n"
+            '    acme::slides::Presentation deck("input.pptx");\n'
+            "    deck.slide(0).title();\n"
+            "}"
+        ),
         "does not render slide previews",
         "renders slide previews",
     ),
@@ -115,15 +121,15 @@ def build_review_facts(archetype: ReviewArchetype) -> dict:
         else archetype.acquisition,
         "installation.verified_acquisition": archetype.acquisition,
         "example.minimal": archetype.example,
-        "documentation.links": ["https://example.invalid/golden-set/docs"],
-        "release.state": "active",
+        "documentation.links": ["docs/README.md"],
+        "release.state": "Release 1.0.0 is recorded at revision golden-set-revision",
         "product.limitations": [archetype.limitation],
         "product.compatibility": [archetype.ecosystem, archetype.format_name],
         "product.license": "Apache-2.0",
-        "support.routes": ["https://example.invalid/golden-set/issues"],
+        "support.routes": ["CONTRIBUTING.md"],
         "relationship.commercial_foss": (
-            "The Apache-2.0 FOSS repository is usable independently of a separate commercial "
-            "product."
+            f"{archetype.product} is an Apache-2.0 FOSS project that is usable independently "
+            f"of the separately distributed commercial {archetype.product} product."
         ),
     }
     if set(values) != set(REQUIRED_PRODUCT_FIELDS):
@@ -180,11 +186,11 @@ def specific_candidate(archetype: ReviewArchetype) -> str:
         f"## Supported format\n- {archetype.format_name}\n\n"
         f"## Limitation\n- It {archetype.limitation}.\n\n"
         "## Documentation and support\n"
-        "- Documentation: https://example.invalid/golden-set/docs\n"
-        "- Issues: https://example.invalid/golden-set/issues\n\n"
-        "## Maintenance\nThis project is active.\n\n"
+        "- Documentation: [Project documentation](docs/README.md)\n"
+        "- Contributing and support: [CONTRIBUTING.md](CONTRIBUTING.md)\n\n"
+        "## Maintenance\nRelease 1.0.0 is recorded at revision golden-set-revision.\n\n"
         "## FOSS and commercial products\n"
-        "The Apache-2.0 FOSS repository is usable independently of a separate "
-        "commercial product.\n\n"
+        f"{archetype.product} is an Apache-2.0 FOSS project that is usable independently "
+        f"of the separately distributed commercial {archetype.product} product.\n\n"
         "## License\nApache-2.0\n"
     )

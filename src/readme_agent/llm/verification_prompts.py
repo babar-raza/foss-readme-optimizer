@@ -55,6 +55,17 @@ INDEPENDENT_README_REVIEW_TOOL_SCHEMA = {
             "properties": {
                 "verdict": {
                     "type": "string",
+                    "description": (
+                        "Apply this precedence: a direct contradiction is "
+                        "BLOCKED_FACT_CONFLICT; otherwise any concrete, externally checkable "
+                        "candidate product claim absent from the supplied facts is "
+                        "BLOCKED_MISSING_EVIDENCE, even when deleting it would be a bounded "
+                        "repair. REJECT_REPAIRABLE is only for quality, completeness, "
+                        "structure, specificity, or presentation defects when every concrete "
+                        "product claim is fact-supported. Statements about the candidate "
+                        "document's own omissions or malformed markup are directly observable "
+                        "presentation defects, not missing product evidence."
+                    ),
                     "enum": [
                         "ACCEPT",
                         "REJECT_REPAIRABLE",

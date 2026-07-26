@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 
 from readme_agent.golden_set import qualification, review_harness
+from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, specific_candidate
 from readme_agent.golden_set.review_scenarios import REVIEW_SCENARIOS
 from readme_agent.golden_set.scenarios import SCENARIOS, STOP
 from readme_agent.llm.analysis_client import (
@@ -107,6 +108,27 @@ def test_review_corpus_covers_every_required_ecosystem_and_control():
         "strong_existing_content",
         "conflicting_fact",
     } <= categories
+
+
+def test_source_build_fixture_is_concrete_and_self_contained():
+    cpp = next(item for item in REVIEW_ARCHETYPES if item.ecosystem == "cpp")
+    candidate = specific_candidate(cpp)
+
+    assert "cmake -S . -B build" in candidate
+    assert "cmake --build build" in candidate
+    assert "#include <acme/slides/presentation.hpp>" in candidate
+    assert "int main()" in candidate
+    assert "example.invalid" not in candidate
+    assert "Release 1.0.0 is recorded at revision golden-set-revision" in candidate
+
+
+def test_malformed_markdown_control_does_not_introduce_an_unsupported_example():
+    scenario = next(item for item in REVIEW_SCENARIOS if item.category == "malformed_readme")
+    python_example = next(item.example for item in REVIEW_ARCHETYPES if item.ecosystem == "python")
+
+    assert scenario.candidate_readme.count(python_example) == 2
+    assert scenario.candidate_readme.count("```") % 2 == 1
+    assert "unterminated code fence" not in scenario.candidate_readme
 
 
 def test_review_harness_scores_the_real_prompt_contract():

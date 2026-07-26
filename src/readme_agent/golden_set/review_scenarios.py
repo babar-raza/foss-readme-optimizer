@@ -144,7 +144,9 @@ def _control_scenarios() -> list[ReviewGoldenScenario]:
             "Readable but structurally broken Markdown is repairable.",
             "# AcmePDF Python\n",
             specific_candidate(REVIEW_ARCHETYPES[2])
-            + "\n## Additional example\n```python\nprint('unterminated code fence')\n",
+            + "\n## Repeated example with malformed fence\n```python\n"
+            + REVIEW_ARCHETYPES[2].example
+            + "\n",
             build_review_facts(REVIEW_ARCHETYPES[2]),
             "REJECT_REPAIRABLE",
         ),
