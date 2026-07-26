@@ -2399,7 +2399,7 @@
           "assessment_hash": "907c8c7c5f28b5d889bcd81e121166b3afbefb956684a7aeb582a9af57d4b595",
           "attempt_count": 1,
           "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
-          "input_sha256": "db9fa898b68390b1247e7c88aafd15fd8c54b4e27a4ec5de39a8d88100f63c45",
+          "input_sha256": "fc5bc4bbd508c4e920447ad38604da8eb077a1b78446c313a003bdbfb5b4e98d",
           "model": "qwen3-next",
           "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
           "overview_sentences": [
@@ -2453,13 +2453,13 @@
             }
           ],
           "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
-          "repository_summary": "Aspose.3D FOSS for Java is a free, open-source Java library for working with 3D scenes and models. It provides an API-compatible alternative to the commercial Aspose.3D for Java, supporting open formats like glTF, STL, and Collada. The project is MIT-licensed, targets Java 21+, and is available on Maven Central. It is a work-in-progress port with incomplete rendering and commercial-API parity.",
+          "repository_summary": "Repository-specific README composition plan for Aspose.3D FOSS for Java, a free and open-source Java API for 3D scene processing. The plan preserves maintainer-authored content, adds fact-backed overview and installation sections, and repairs the usage example to match the verified minimal example.",
           "schema_version": 1,
           "section_decisions": [
             {
               "disposition": "remove_update",
-              "priority": 100,
-              "rationale": "The opening contains a promotional callout that must be replaced with a bounded, product-first correction using verified facts about identity and commercial-FOSS relationship.",
+              "priority": 10,
+              "rationale": "The opening contains a promotional callout that must be removed per deterministic assessment; the rest of the opening is preserved.",
               "section_id": "opening",
               "supporting_fact_ids": [
                 "product.identity:manifest-and-registry",
@@ -2503,8 +2503,8 @@
             },
             {
               "disposition": "repair",
-              "priority": 50,
-              "rationale": "The Usage section must be repaired to match the exact locally verified minimal example: import Scene, instantiate, and save to STL.",
+              "priority": 20,
+              "rationale": "The Usage section must be repaired to include only the verified minimal example and remove unverified examples.",
               "section_id": "heading:2200",
               "supporting_fact_ids": [
                 "example.minimal:compiled-policy-example"
@@ -2540,8 +2540,8 @@
             },
             {
               "disposition": "add",
-              "priority": 90,
-              "rationale": "Add a fact-backed overview section to highlight the target audience, problems solved, and core capabilities using verified descriptive facts.",
+              "priority": 5,
+              "rationale": "Add a fact-backed overview section using verified descriptive facts to improve product specificity and completeness.",
               "section_id": "missing:at-a-glance",
               "supporting_fact_ids": [
                 "product.audience:approved-policy",
@@ -2551,8 +2551,8 @@
             },
             {
               "disposition": "add",
-              "priority": 80,
-              "rationale": "Add the ecosystem-specific acquisition path (Maven coordinates and registry verification) that was mechanically verified.",
+              "priority": 15,
+              "rationale": "Add the ecosystem-specific acquisition path that was mechanically verified to improve completeness and usability.",
               "section_id": "missing:installation",
               "supporting_fact_ids": [
                 "installation.coordinates:manifest",
@@ -2563,9 +2563,9 @@
           "source_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
           "tool_schema_sha256": "65597794ac772d0d8be4617a27a8b7894f1ee65eec3149ee345760822a8ff6d8"
         },
-        "agentic_composition_reused": true,
+        "agentic_composition_reused": false,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-031111-8d32",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-033215-01b6-repair-1",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -2603,12 +2603,12 @@
         },
         "fresh_fingerprint": "c79347e79f898c370f41c52c9e430ff380918c9a8a09e41e68bf8409d086876a",
         "independent_review": {
-          "attempts": 0,
+          "attempts": 1,
           "escalation": null,
           "final_review": {
             "failed_criteria": [],
             "preserve": [],
-            "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, platform, installation coordinates, verified acquisition, example, license, release state, compatibility, and limitations are all supported. The README preserves valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The structure follows the presentation plan and meets the project's idea.md standard: product substance comes before commercial links, and the README clearly establishes usefulness, credibility, and how to install and use the library.",
+            "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete claim is traceable to the supplied ProductFactsV2: installation coordinates and Maven Central verification are correctly cited; capabilities (create/load/transform/save 3D scenes, glTF/GLB, STL, Collada support) match repository evidence; limitations (rendering incomplete) are fact-backed; audience and problems solved align with policy-approved facts; license is MIT per LICENSE file; Java platform and minimum runtime 21 are from pom.xml; the minimal example is the exact compiled example verified against source build. The README preserves valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding fact-backed overview and installation sections. Platform/ecosystem correctness is maintained (Java, Maven). Examples are correct and verified. No unsupported removals or generic boilerplate are present. Commercial links are appropriately placed after product substance, and the README clearly establishes the product as useful, credible, and well-explained before any promotional content.",
             "required_repair": "",
             "sections_affected": [],
             "verdict": "ACCEPT"
@@ -2634,7 +2634,7 @@
                   "verified_example_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260726-031111-8d32",
+                "nonce": "20260726-033047-9a96",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -2642,34 +2642,145 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "939002b374853b1f116816cef2c37f11975c5594ec5854fda9df6c5c8fc8b02f",
+                "token": "1243427969b81edebec827dd11e2a5b736c703be38731ef5e49e0dbccee1107b",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-031111-8d32"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-033047-9a96"
               ],
               "repair_attempt": 0,
               "review": {
+                "failed_criteria": [
+                  "completeness",
+                  "product_specificity",
+                  "readability",
+                  "unsupported_removals"
+                ],
+                "preserve": [
+                  "Opening paragraph",
+                  "About Aspose.3D FOSS section",
+                  "Project Status section",
+                  "API Compatibility section",
+                  "Building section",
+                  "Contributing section",
+                  "License section",
+                  "Resources section with all links",
+                  "Acknowledgments section"
+                ],
+                "reasoning": "The candidate README contains several quality and completeness issues that prevent it from being ACCEPT. First, the 'At a glance' section duplicates the 'Create, load, inspect, transform, and save 3D scenes' capability twice (lines 12 and 14), which is redundant and unprofessional. Second, the 'Usage' section includes two examples: the verified minimal example (which is correct per the facts) and a second example that loads 'testdata/input/cube.obj' and saves to 'output.stl'. While the second example is factually plausible, the facts do not verify that this specific file path exists or that the example compiles successfully, making it unsupported. Third, the 'Installation' section claims the coordinate was verified against Maven Central for a specific repository revision, but the facts only verify the coordinate and registry presence, not the specific revision linkage \u2014 this is an unsupported claim. Finally, the 'In this README' navigation list includes 'Resources' and 'Acknowledgments' sections, but the original README's 'Resources' section contains commercial links that should be clearly distinguished from FOSS content, and the presentation plan did not address this nuance. These are repairable issues that do not rise to the level of fact conflicts or missing evidence requiring BLOCKED verdicts.",
+                "required_repair": "Remove duplicate capability line in 'At a glance'; replace the unverified second usage example with only the minimal verified example; remove the unsupported claim about revision-specific Maven Central verification; and clarify the navigation list to avoid implying all listed sections are present or equally emphasized.",
+                "sections_affected": [
+                  "At a glance",
+                  "Usage",
+                  "Installation",
+                  "In this README"
+                ],
+                "verdict": "REJECT_REPAIRABLE"
+              },
+              "review_pass": 1
+            },
+            {
+              "candidate_sha256": "39ebadb29a8eeaed3620b87f2cd22b9d89fc5d354d91ded93e836f3ce62e6986",
+              "deterministic_validation": {
+                "bundle_verification": {
+                  "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-033215-01b6-repair-1",
+                  "checks": {
+                    "acquisition_matches_live_registry": true,
+                    "agentic_plan_assessment_hash_matches": true,
+                    "agentic_plan_facts_hash_matches": true,
+                    "agentic_plan_repository_matches": true,
+                    "agentic_plan_source_hash_matches": true,
+                    "all_artifacts_present": true,
+                    "artifact_checksums_match": true,
+                    "assessment_reconstructed": true,
+                    "candidate_hash_matches_plan": true,
+                    "cited_facts_accepted": true,
+                    "claim_map_reconstructed": true,
+                    "facts_hash_matches_plan": true,
+                    "independent_reconstruction_byte_identical": true,
+                    "independent_validation_valid": true,
+                    "native_git_apply_produces_candidate": true,
+                    "operations_cite_selected_facts": true,
+                    "recomputed_validation_consistent_with_stored": true,
+                    "reconstructed_plan_matches": true,
+                    "schemas_valid": true,
+                    "source_hash_matches_plan": true
+                  },
+                  "failures": [],
+                  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+                  "status": "checked",
+                  "verified": true
+                },
+                "candidate_verification": {
+                  "checks": {
+                    "adoption_preserved_source": true,
+                    "candidate_has_presentation_span": true,
+                    "candidate_hash_matches": true,
+                    "candidate_matches_independent_render": true,
+                    "document_reconstruction": true,
+                    "fact_citations": true,
+                    "facts_hash_matches": true,
+                    "needs_write_matches": true,
+                    "protected_content": true,
+                    "source_document_hash": true,
+                    "source_span_hashes": true,
+                    "template_hash_matches": true,
+                    "verified_example_present": true,
+                    "verified_overview_present": true
+                  },
+                  "nonce": "20260726-033215-b1cb",
+                  "reason": null,
+                  "requirement_map": {
+                    "fact_backed_document_plan": true,
+                    "immutable_snapshot": true,
+                    "protected_content": true,
+                    "verified_example": true
+                  },
+                  "token": "fa00d63e7d3209fe2561912960bf845ee8352fdaa0adc2103418c1918632656b",
+                  "verdict": "accept"
+                },
+                "factuality": {
+                  "claim_conflicts": [],
+                  "error": null,
+                  "product_facts_v2_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
+                  "protected_content_losses": [],
+                  "valid": true
+                },
+                "verdict": "accept"
+              },
+              "evidence_refs": [
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-033215-01b6-repair-1"
+              ],
+              "repair_attempt": 1,
+              "review": {
                 "failed_criteria": [],
                 "preserve": [],
-                "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, platform, installation coordinates, verified acquisition, example, license, release state, compatibility, and limitations are all supported. The README preserves valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The structure follows the presentation plan and meets the project's idea.md standard: product substance comes before commercial links, and the README clearly establishes usefulness, credibility, and how to install and use the library.",
+                "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete claim is traceable to the supplied ProductFactsV2: installation coordinates and Maven Central verification are correctly cited; capabilities (create/load/transform/save 3D scenes, glTF/GLB, STL, Collada support) match repository evidence; limitations (rendering incomplete) are fact-backed; audience and problems solved align with policy-approved facts; license is MIT per LICENSE file; Java platform and minimum runtime 21 are from pom.xml; the minimal example is the exact compiled example verified against source build. The README preserves valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding fact-backed overview and installation sections. Platform/ecosystem correctness is maintained (Java, Maven). Examples are correct and verified. No unsupported removals or generic boilerplate are present. Commercial links are appropriately placed after product substance, and the README clearly establishes the product as useful, credible, and well-explained before any promotional content.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
               },
-              "review_pass": 1
+              "review_pass": 2
             }
           ]
         },
-        "llm_called": false,
-        "llm_calls": [],
+        "llm_called": true,
+        "llm_calls": [
+          {
+            "input_sha256": "fc5bc4bbd508c4e920447ad38604da8eb077a1b78446c313a003bdbfb5b4e98d",
+            "job": "plan_readme_composition",
+            "model": "qwen3-next",
+            "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6"
+          }
+        ],
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
             "assessment_hash": "907c8c7c5f28b5d889bcd81e121166b3afbefb956684a7aeb582a9af57d4b595",
             "attempt_count": 1,
             "facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
-            "input_sha256": "db9fa898b68390b1247e7c88aafd15fd8c54b4e27a4ec5de39a8d88100f63c45",
+            "input_sha256": "fc5bc4bbd508c4e920447ad38604da8eb077a1b78446c313a003bdbfb5b4e98d",
             "model": "qwen3-next",
             "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
             "overview_sentences": [
@@ -2723,13 +2834,13 @@
               }
             ],
             "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
-            "repository_summary": "Aspose.3D FOSS for Java is a free, open-source Java library for working with 3D scenes and models. It provides an API-compatible alternative to the commercial Aspose.3D for Java, supporting open formats like glTF, STL, and Collada. The project is MIT-licensed, targets Java 21+, and is available on Maven Central. It is a work-in-progress port with incomplete rendering and commercial-API parity.",
+            "repository_summary": "Repository-specific README composition plan for Aspose.3D FOSS for Java, a free and open-source Java API for 3D scene processing. The plan preserves maintainer-authored content, adds fact-backed overview and installation sections, and repairs the usage example to match the verified minimal example.",
             "schema_version": 1,
             "section_decisions": [
               {
                 "disposition": "remove_update",
-                "priority": 100,
-                "rationale": "The opening contains a promotional callout that must be replaced with a bounded, product-first correction using verified facts about identity and commercial-FOSS relationship.",
+                "priority": 10,
+                "rationale": "The opening contains a promotional callout that must be removed per deterministic assessment; the rest of the opening is preserved.",
                 "section_id": "opening",
                 "supporting_fact_ids": [
                   "product.identity:manifest-and-registry",
@@ -2773,8 +2884,8 @@
               },
               {
                 "disposition": "repair",
-                "priority": 50,
-                "rationale": "The Usage section must be repaired to match the exact locally verified minimal example: import Scene, instantiate, and save to STL.",
+                "priority": 20,
+                "rationale": "The Usage section must be repaired to include only the verified minimal example and remove unverified examples.",
                 "section_id": "heading:2200",
                 "supporting_fact_ids": [
                   "example.minimal:compiled-policy-example"
@@ -2810,8 +2921,8 @@
               },
               {
                 "disposition": "add",
-                "priority": 90,
-                "rationale": "Add a fact-backed overview section to highlight the target audience, problems solved, and core capabilities using verified descriptive facts.",
+                "priority": 5,
+                "rationale": "Add a fact-backed overview section using verified descriptive facts to improve product specificity and completeness.",
                 "section_id": "missing:at-a-glance",
                 "supporting_fact_ids": [
                   "product.audience:approved-policy",
@@ -2821,8 +2932,8 @@
               },
               {
                 "disposition": "add",
-                "priority": 80,
-                "rationale": "Add the ecosystem-specific acquisition path (Maven coordinates and registry verification) that was mechanically verified.",
+                "priority": 15,
+                "rationale": "Add the ecosystem-specific acquisition path that was mechanically verified to improve completeness and usability.",
                 "section_id": "missing:installation",
                 "supporting_fact_ids": [
                   "installation.coordinates:manifest",
@@ -4092,7 +4203,7 @@
             "verified_example_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260726-031111-8d32",
+          "nonce": "20260726-033215-b1cb",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -4100,7 +4211,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "939002b374853b1f116816cef2c37f11975c5594ec5854fda9df6c5c8fc8b02f",
+          "token": "fa00d63e7d3209fe2561912960bf845ee8352fdaa0adc2103418c1918632656b",
           "verdict": "accept"
         },
         "written": false
@@ -4108,7 +4219,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T03:12:07.094505+00:00",
+      "last_run_timestamp": "2026-07-26T03:32:48.714729+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
@@ -4865,7 +4976,7 @@
     "updated_at": "2026-07-26T03:32:43.656149+00:00"
   },
   "schema_version": 2,
-  "state_version": 387,
+  "state_version": 388,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "501d93344b3a21d4221aaafde9abf43f582169a4b9317b01d80a4177ed206fde",
