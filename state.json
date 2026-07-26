@@ -491,7 +491,7 @@
       "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "12cb563e5099e60c695b9ff411962d8b4f2f9b2e608c78fd12de4154b38f790c",
+      "accepted_facts_hash": "fdd5e8306c3ed4542f1cf88e4f3b7d97e2b25cc5251a463ff964e3e2f1973c12",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -514,7 +514,7 @@
           },
           {
             "dimension": "installation_path",
-            "note": "The README provides build instructions (CMake) but does not name real package coordinates (e.g., vcpkg, Conan, or a registry like GitHub Packages or custom repo) or resolve against an actual external package registry.",
+            "note": "The README provides a build process (CMake) but does not name real package coordinates (e.g., vcpkg, Conan, or a package registry) or provide a working install command that resolves against an actual external registry.",
             "satisfied": false
           },
           {
@@ -524,7 +524,7 @@
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (##), and the order follows logical sequencing: product description \u2192 features \u2192 build \u2192 quick start \u2192 supported areas \u2192 license \u2192 support.",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows logical sequencing: product description \u2192 features \u2192 build/install \u2192 example \u2192 features summary \u2192 license \u2192 support.",
             "satisfied": true
           },
           {
@@ -534,26 +534,26 @@
           },
           {
             "dimension": "contribution_readiness",
-            "note": "Missing recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub will not show the full quick-link row (only README and LICENSE are recognized).",
+            "note": "Missing required community files: CONTRIBUTING, CODE_OF_CONDUCT, and SECURITY \u2014 GitHub will only show README and LICENSE in the quick-link row.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not include or reference recent releases or commit activity, and no GitHub-generated signals (e.g., 'pushed_at') can be inferred from the text alone.",
+            "note": "The README does not include or reference recent releases or commit activity, and no evidence of structural maintenance signals (e.g., 'pushed_at' or release badges) is provided.",
             "satisfied": false
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repo; if commercial context were present, it would need to follow the restraint rules \u2014 and its absence avoids violation.",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repo; if commercial context were present, it would need to follow the restraint rules \u2014 but its absence satisfies this dimension.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 6 of 10 dimensions, with key gaps in audience fit, installation path (no external registry coordinates), contribution readiness (missing community files), and maintenance signals (no activity evidence)."
+        "overall_summary": "The README satisfies 6 of 10 dimensions, with critical gaps in audience fit, installation path (no external registry coordinates), contribution readiness (missing community files), and maintenance signals. While product clarity, trust signals (via license), verified examples, navigation, and visual appropriateness are strong, the lack of external install instructions and community-file completeness undermines professionalism."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T07:07:45.831769+00:00",
+      "last_run_timestamp": "2026-07-26T08:11:22.033840+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
@@ -868,7 +868,7 @@
     "updated_at": "2026-07-26T08:10:25.755892+00:00"
   },
   "schema_version": 2,
-  "state_version": 119,
+  "state_version": 120,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e601b5948d773ff382c90ba5b085b8268af8d035f3f1693077a10a79f2d55463",
