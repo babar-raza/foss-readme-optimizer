@@ -36,6 +36,7 @@ _VERIFICATION_CONTRACT_FILES = (
     "local_verification.py",
     "example_execution.py",
     "example_quality.py",
+    "repository_examples.py",
     "example_verification_schema.py",
     "example_verifiers/cpp.py",
     "example_verifiers/rust.py",

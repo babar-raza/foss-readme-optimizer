@@ -60,6 +60,7 @@ from readme_agent.facts.local_verification import (
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.policy_evidence import evidence_fact_candidate, evidence_failures
 from readme_agent.facts.provider import collect_product_facts
+from readme_agent.facts.repository_examples import repository_readme_example_candidates
 from readme_agent.facts.resolution import resolve_product_facts
 from readme_agent.facts.schema_v2 import (
     README_DRAFTABLE_PRODUCT_FIELDS,
@@ -414,6 +415,31 @@ def orchestrate_product_truth_draft(
         hints = {field_name: _extract_failure_reasons(fact) for field_name, fact in blocked.items()}
         attempt += 1
 
+    example_fact = gated.get("example.minimal")
+    if example_fact is not None and example_fact.verification_state == "blocked":
+        for repository_example in repository_readme_example_candidates(
+            root,
+            draft.minimal_example.language,
+            supporting_paths=draft.minimal_example.evidence_paths,
+        ):
+            fallback_fact = _gate_minimal_example(
+                repository_example,
+                root,
+                source_revision,
+                observed_at,
+                verify_example_fn,
+            )
+            if fallback_fact.verification_state != "verified":
+                continue
+            draft = draft.model_copy(update={"minimal_example": repository_example})
+            gated["example.minimal"] = fallback_fact
+            break
+
+    blocked = {
+        field_name: fact
+        for field_name, fact in gated.items()
+        if fact.verification_state == "blocked"
+    }
     findings = [
         _build_finding(org_repo, field_name, fact, attempt) for field_name, fact in blocked.items()
     ]

@@ -627,6 +627,60 @@ class TestGeneratedExampleQuality:
         assert "_control_points" in calls[1]["example.minimal"][0]
 
 
+class TestRepositoryExampleFallback:
+    def test_repeated_bad_draft_uses_only_a_locally_verified_readme_example(self, tmp_path):
+        root = _make_repo(tmp_path)
+        (root / "README.md").write_text(
+            """# Widget
+
+```java
+public class ReadmeExample {}
+```
+""",
+            encoding="utf-8",
+        )
+        bad = _good_draft().model_copy(
+            update={
+                "minimal_example": MinimalExamplePolicy(
+                    language="java",
+                    class_name="Broken",
+                    code="public class Broken { Missing value; }",
+                    evidence_paths=["src/Widget.java"],
+                    required_symbols=["Missing"],
+                )
+            }
+        )
+        verified: list[str] = []
+
+        def verify(example):
+            if example.code == "public class ReadmeExample {}\n":
+                verified.append(example.code)
+                return _always_verified_example(example)
+            return LocalProductVerificationV1(
+                org_repo=ORG_REPO,
+                source_revision="abc1234",
+                ecosystem="java",
+                outcome="BUILD_FAILED",
+                detail="example compilation failed",
+            )
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=lambda hints, facts: bad,
+            verify_example_fn=verify,
+        )
+
+        assert result.repair_attempts == capability.MAX_PRODUCT_TRUTH_DRAFT_REPAIR_ATTEMPTS
+        assert verified == ["public class ReadmeExample {}\n"]
+        assert result.draft.minimal_example.code == "public class ReadmeExample {}\n"
+        assert result.gated_facts["example.minimal"].verification_state == "verified"
+        assert all(finding["field"] != "example.minimal" for finding in result.findings)
+
+
 class TestGatedFieldsExhaustive:
     def test_all_six_gated_fields_always_present_in_result(self, tmp_path):
         root = _make_repo(tmp_path)
