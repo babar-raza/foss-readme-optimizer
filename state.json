@@ -89,6 +89,15 @@
         "reason": "profiled immutable repository snapshot",
         "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
         "to_status": "PROFILED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "PROFILED",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T01:53:57.938402+00:00",
+        "reason": "collecting and reconciling repository product truth",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "presentation_plan_hash": null,
@@ -98,11 +107,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
-    "status": "PROFILED",
-    "updated_at": "2026-07-26T01:51:54.781756+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-26T01:53:57.938402+00:00"
   },
   "schema_version": 2,
-  "state_version": 7,
+  "state_version": 8,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260726-015111-aa9d:aspose-cells-foss/Aspose.Cells-FOSS-for-Go": {
