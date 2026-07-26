@@ -44,6 +44,7 @@ from readme_agent.readme.document_templates import (
     installation_text,
     limitations_text,
     mapping_value,
+    missing_limitation_constraints_text,
     overview_text,
 )
 from readme_agent.readme.fact_grounding import literal_fact_ids
@@ -195,13 +196,18 @@ def build_readme_document_candidate(
             )
         )
 
-    has_limitations = any(
-        heading.level == 2
-        and heading.title.strip().lower() in {"limitations", "known limitations", "known limits"}
-        for heading in headings
+    limitations_heading = next(
+        (
+            heading
+            for heading in headings
+            if heading.level == 2
+            and heading.title.strip().lower()
+            in {"limitations", "known limitations", "known limits"}
+        ),
+        None,
     )
     verified_limitations = limitations_text(facts)
-    if not has_limitations and verified_limitations:
+    if limitations_heading is None and verified_limitations:
         byte_offset = len(source)
         separator = (
             "" if inner_text.endswith("\n\n") else "\n" if inner_text.endswith("\n") else "\n\n"
@@ -223,6 +229,35 @@ def build_readme_document_candidate(
                 ),
             )
         )
+    elif limitations_heading is not None and verified_limitations:
+        section_text = inner_text[limitations_heading.heading_end : limitations_heading.section_end]
+        missing_constraints = missing_limitation_constraints_text(facts, section_text)
+        if missing_constraints:
+            byte_offset = len(inner_text[: limitations_heading.section_end].encode("utf-8"))
+            separator = (
+                ""
+                if section_text.endswith("\n\n")
+                else "\n"
+                if section_text.endswith("\n")
+                else "\n\n"
+            )
+            limitation = accepted_fact(facts, "product.limitations")
+            operations.append(
+                build_operation(
+                    operation_id="readme.limitations.complete-verified",
+                    operation="insert_before",
+                    source=source,
+                    start=byte_offset,
+                    end=byte_offset,
+                    replacement=separator + missing_constraints + "\n\n",
+                    fact_ids=[limitation.fact_id] if limitation is not None else [],
+                    treatment="additive",
+                    rationale=(
+                        "Complete the existing limitations section with exact repository-verified "
+                        "constraints while preserving its maintainer-authored content."
+                    ),
+                )
+            )
 
     acquisition = accepted_fact(facts, "installation.verified_acquisition")
     acquisition_value = mapping_value(acquisition.value) if acquisition is not None else {}

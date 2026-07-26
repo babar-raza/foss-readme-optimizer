@@ -164,6 +164,37 @@ def test_existing_limitations_section_is_not_duplicated():
     )
 
 
+def test_existing_partial_limitations_section_is_completed_without_replacement():
+    org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    facts, revision = _facts(org_repo)
+    limitations = facts.selected_fact("product.limitations")
+    source = (
+        "# Aspose.Cells FOSS for Java\n\n"
+        "Spreadsheet library for Java developers.\n\n"
+        "## Limitations\n\n"
+        "- Existing maintainer-authored limitation that must remain.\n\n"
+        "## Support\n\n"
+        "Open an issue for help.\n"
+    )
+
+    candidate, plan = build_readme_document_candidate(
+        org_repo, source, facts, base_revision=revision
+    )
+    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert decision.valid, decision.errors
+    assert candidate.count("## Limitations") == 1
+    assert candidate.count("## Repository-verified constraints") == 1
+    assert "Existing maintainer-authored limitation that must remain." in candidate
+    for limitation in limitations.value:
+        assert limitation in candidate
+    assert any(
+        operation.operation_id == "readme.limitations.complete-verified"
+        and limitations.fact_id in operation.fact_ids
+        for operation in plan.operations
+    )
+
+
 def test_single_unverified_usage_example_is_replaced_instead_of_duplicated():
     org_repo = "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     facts, revision = _facts(org_repo)

@@ -23,6 +23,7 @@ DOCUMENT_TEMPLATE_NAMES = (
     "agentic-overview-and-navigation.md",
     "product-overview-and-navigation.md",
     "verified-limitations.md",
+    "verified-repository-constraints.md",
     "verified-minimal-example.md",
     "verified-maven-acquisition.md",
     "verified-dotnet-nuget-acquisition.md",
@@ -213,6 +214,24 @@ def limitations_text(facts: ProductFactsV2) -> str:
     if not items:
         return ""
     return load_template("verified-limitations.md").format(items=items).strip()
+
+
+def missing_limitation_constraints_text(facts: ProductFactsV2, existing_text: str) -> str:
+    """Render a separate exact-fact section when existing limitations are incomplete."""
+
+    limitations = accepted_fact(facts, "product.limitations")
+    if limitations is None or not limitations.value:
+        return ""
+    values = limitations.value if isinstance(limitations.value, list) else [limitations.value]
+    missing = [
+        str(value).strip()
+        for value in values
+        if str(value).strip() and str(value).strip() not in existing_text
+    ]
+    items = "\n".join(f"- {value}" for value in missing)
+    if not items:
+        return ""
+    return load_template("verified-repository-constraints.md").format(items=items).strip()
 
 
 def overview_text(
