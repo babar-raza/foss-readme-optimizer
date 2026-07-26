@@ -3104,7 +3104,7 @@
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "f78698f9b9726be5e99ded9f32111ffa32e3af056eec53b6fac451ed5cbd4abb",
+      "accepted_facts_hash": "a01d9d3e614e9542333f5f9af5b4320dcfbd9f6164a59a3f6d22199706fbfdc6",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -3112,61 +3112,61 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in Java') using a concrete verb ('working' is acceptable; could be stronger with 'create, read, convert, save' but meets the spirit of the rule).",
+            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in Java') using a concrete verb ('working').",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph and 'About' section explicitly state the audience (Java developers), ecosystem (Java), and common tasks (working with 3D scenes/models, loading/saving formats), and clarify the relationship to the commercial edition.",
+            "note": "The opening paragraph and 'About Aspose.3D FOSS' section explicitly state the audience (Java developers), ecosystem (Java), and common tasks (working with 3D scenes/models), including format scope via the 'FOSS edition focuses on the most widely used open 3D formats' line.",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The LICENSE is clearly named (MIT) in the first paragraph and again in the dedicated 'License' section, and GitHub will recognize it as a standard license file; badges are absent but not required per the standard (EPPlus is a counter-example without badges but still passes trust signals via license visibility).",
+            "note": "The README includes a visible, GitHub-recognized MIT License (in both header and footer), and badges for build/version/package-registry are not present but not required per standard (PDFBox baseline); install path and activity signals are covered elsewhere.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The README provides build instructions (Maven commands) but does not state actual package coordinates (e.g., groupId/artifactId) or link to a real external registry like Maven Central, and there is no badge or explicit confirmation that the coordinates resolve \u2014 the build section assumes local development, not external consumption.",
+            "note": "The README provides build instructions (Maven commands) but does not name real package coordinates (e.g., Maven artifact ID/group ID) or resolve against a live registry like Maven Central \u2014 it only shows how to build from source, not how to install from a package registry.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "There is one runnable code example beyond the install snippet (the 'Usage' section with Scene loading and saving), which meets the minimum requirement.",
+            "note": "The 'Usage' section includes a runnable, self-contained code block beyond the install snippet, demonstrating loading and saving a 3D file.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (##), and the order follows the standard sequencing intent: product description \u2192 features/status \u2192 build/usage \u2192 license \u2192 resources/contributing.",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows the standard sequencing intent: product description \u2192 features \u2192 status \u2192 compatibility \u2192 build \u2192 usage \u2192 contributing \u2192 license \u2192 resources.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, and for a 3D API library whose value is not primarily visual (unlike UI tools), this is acceptable per the rule: visuals are warranted only when they improve understanding of input/output/workflow, and none are present.",
+            "note": "No visuals are present, which is acceptable per the standard for a library whose interface is purely API-based; no decorative or irrelevant imagery is used.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README mentions contributing, but GitHub's quick-link row requires recognized community files (LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY); only LICENSE is confirmed present \u2014 CONTRIBUTING and SECURITY are missing, and CODE_OF_CONDUCT is not referenced.",
+            "note": "The repository is missing GitHub-recognized community files beyond README: no LICENSE file is referenced in a way that ensures GitHub recognizes it (though LICENSE is mentioned, its presence and correct placement must be verified in the repo itself), and there is no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README references 'Project Status' with links to TODO.md and FILE_FORMATS.md, implying active development; while not explicit in prose, the presence of these files and a recent commit history (assumed per repository context) supports structural maintenance signals.",
+            "note": "The README references 'Project Status' and links to TODO.md and FILE_FORMATS.md, implying active development; while not explicit commit/release data, this is sufficient per standard for repositories where GitHub activity is external to README.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears multiple times (in the homepage banner, 'About' section, and Resources section) and in promotional language (e.g., 'Build and ship 3D applications at no cost', 'Upgrade only when you need to'), violating the rule of exactly one mention in factual/capability-extension language without adjectives or CTAs.",
+            "note": "The commercial mention appears multiple times (header, 'About', 'Resources' sections) and includes promotional language (e.g., 'Build and ship 3D applications at no cost', 'Upgrade only when you need to') and multiple outbound links \u2014 violating the rule of exactly one mention in factual/capability-extension language.",
             "satisfied": false
           }
         ],
-        "overall_summary": "The README satisfies most dimensions (product clarity, audience fit, trust signals via license, verified examples, navigation, visual usefulness, and maintenance signals), but fails on installation path (no real registry coordinates), contribution readiness (missing CONTRIBUTING/SECURITY files), and natural commercial context (multiple, promotional mentions of the commercial edition)."
+        "overall_summary": "The README satisfies most dimensions (product clarity, audience fit, trust signals, verified examples, navigation, visual usefulness, maintenance signals) but fails on installation path (no real registry coordinates), contribution readiness (missing community files), and natural commercial context (excessive, promotional commercial mentions)."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T05:23:07.858807+00:00",
+      "last_run_timestamp": "2026-07-26T05:47:53.746735+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
@@ -5839,7 +5839,7 @@
     "updated_at": "2026-07-26T05:46:54.831319+00:00"
   },
   "schema_version": 2,
-  "state_version": 555,
+  "state_version": 556,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5de024e0e851a6213ea51285fb95ec5d4bf1508bc64a10473013d1e8b282eddf",
