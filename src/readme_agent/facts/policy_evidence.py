@@ -44,6 +44,9 @@ def evidence_failures(
     """Reject escaped/missing evidence and absent required symbols."""
 
     evidence_paths, failures = safe_evidence_paths(root, paths)
+    if not required_symbols:
+        failures.append("required evidence symbol missing: at least one exact anchor is required")
+        return failures
     contents = [path.read_text(encoding="utf-8-sig", errors="replace") for path in evidence_paths]
     for symbol in required_symbols:
         if _IDENTIFIER.fullmatch(symbol):

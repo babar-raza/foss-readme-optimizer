@@ -316,10 +316,23 @@ class TestDraftProductTruth:
         assert parameters["properties"]["capabilities"]["items"]["properties"]["evidence_paths"][
             "items"
         ]["enum"] == ["README.md"]
+        assert "required_symbols" in parameters["properties"]["capabilities"]["items"]["required"]
+        assert (
+            parameters["properties"]["capabilities"]["items"]["properties"]["required_symbols"][
+                "minItems"
+            ]
+            == 1
+        )
         assert parameters["properties"]["minimal_example"]["properties"]["language"]["enum"] == [
             "java"
         ]
-        assert "required_symbols" not in parameters["properties"]["minimal_example"]["required"]
+        assert "required_symbols" in parameters["properties"]["minimal_example"]["required"]
+        assert (
+            parameters["properties"]["minimal_example"]["properties"]["required_symbols"][
+                "minItems"
+            ]
+            == 1
+        )
         assert captured["init"][1]["timeout"] == agentic_drafting._REQUEST_TIMEOUT_SECONDS
         assert captured["init"][1]["max_tokens"] == agentic_drafting._MAX_RESPONSE_TOKENS
 

@@ -234,11 +234,12 @@ def _draft_product_truth_tool_schema(
             },
             "required_symbols": {
                 "type": "array",
+                "minItems": 1,
                 "maxItems": 4,
                 "items": {"type": "string"},
             },
         },
-        "required": ["value", "evidence_paths"],
+        "required": ["value", "evidence_paths", "required_symbols"],
     }
     return {
         "type": "function",
@@ -299,6 +300,7 @@ def _draft_product_truth_tool_schema(
                             },
                             "required_symbols": {
                                 "type": "array",
+                                "minItems": 1,
                                 "maxItems": 4,
                                 "items": {"type": "string"},
                             },
@@ -308,6 +310,7 @@ def _draft_product_truth_tool_schema(
                             "class_name",
                             "code",
                             "evidence_paths",
+                            "required_symbols",
                         ],
                     },
                 },
