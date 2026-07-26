@@ -146,6 +146,14 @@ def test_file_path_without_a_claim_anchor_is_not_technical_evidence(tmp_path):
     assert failures == ["required evidence symbol missing: at least one exact anchor is required"]
 
 
+def test_blank_claim_anchor_is_not_technical_evidence(tmp_path):
+    (tmp_path / "Widget.java").write_text("public class Widget {}", encoding="utf-8")
+
+    failures = evidence_failures(tmp_path, ["Widget.java"], [" "])
+
+    assert failures == ["required evidence symbol missing: blank anchors are invalid"]
+
+
 def test_disposable_example_verification_does_not_write_snapshot(tmp_path, monkeypatch):
     source = tmp_path / "src" / "Widget.java"
     source.parent.mkdir()

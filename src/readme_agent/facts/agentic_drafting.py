@@ -236,7 +236,7 @@ def _draft_product_truth_tool_schema(
                 "type": "array",
                 "minItems": 1,
                 "maxItems": 4,
-                "items": {"type": "string"},
+                "items": {"type": "string", "minLength": 1},
             },
         },
         "required": ["value", "evidence_paths", "required_symbols"],
@@ -302,7 +302,7 @@ def _draft_product_truth_tool_schema(
                                 "type": "array",
                                 "minItems": 1,
                                 "maxItems": 4,
-                                "items": {"type": "string"},
+                                "items": {"type": "string", "minLength": 1},
                             },
                         },
                         "required": [

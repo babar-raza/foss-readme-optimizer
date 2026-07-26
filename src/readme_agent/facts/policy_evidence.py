@@ -49,6 +49,9 @@ def evidence_failures(
         return failures
     contents = [path.read_text(encoding="utf-8-sig", errors="replace") for path in evidence_paths]
     for symbol in required_symbols:
+        if not symbol.strip():
+            failures.append("required evidence symbol missing: blank anchors are invalid")
+            continue
         if _IDENTIFIER.fullmatch(symbol):
             pattern = re.compile(rf"(?<![A-Za-z0-9_]){re.escape(symbol)}(?![A-Za-z0-9_])")
             found = any(pattern.search(content) is not None for content in contents)
