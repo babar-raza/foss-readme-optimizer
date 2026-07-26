@@ -618,6 +618,24 @@ class TestProductFactsBoundary:
             reason="advance",
             source_revision="abc123",
         )
+        for status in (
+            "PLAN_READY",
+            "CANDIDATE_GENERATED",
+            "DETERMINISTIC_VALIDATED",
+            "AGENT_REVIEWING",
+            "AGENT_REVIEW_REJECTED",
+            "REPAIRING",
+            "CANDIDATE_GENERATED",
+        ):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="test",
+                reason="consume one repair attempt against the old facts",
+                source_revision="abc123",
+            )
+        assert backend.load(org_repo).readme_poc_lifecycle.repair_attempts_for_revision == 1
 
         reopened = record_product_facts_outcome(
             backend,
@@ -634,6 +652,7 @@ class TestProductFactsBoundary:
             "BLOCKED_MISSING_EVIDENCE",
         ]
         assert reopened.facts_hash == "facts-b"
+        assert reopened.repair_attempts_for_revision == 0
 
 
 class TestReadmeCandidateBoundary:

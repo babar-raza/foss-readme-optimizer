@@ -284,9 +284,9 @@ def transition_readme_poc_status(
                 f"{org_repo!r} at the same source revision {prior.source_revision!r}"
             )
         repair_attempts = prior.repair_attempts_for_revision
-        if source_changed:
-            repair_attempts = 0
-        if reset_repair_attempts:
+        facts_changed = facts_hash is not None and facts_hash != prior.facts_hash
+        prompt_changed = prompt_hash is not None and prompt_hash != prior.prompt_hash
+        if source_changed or facts_changed or prompt_changed or reset_repair_attempts:
             repair_attempts = 0
         reviewer_standard_changed = (
             reviewer_standard_hash is not None
