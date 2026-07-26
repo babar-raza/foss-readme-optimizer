@@ -4805,6 +4805,17 @@
         "reason": "The candidate README is factually accurate, complete, specific to this product, and ready to ship. Every claim in the candidate is traceable to the supplied ProductFacts: the product identity, audience, problems solved, capabilities, formats, installation coordinates, and release state are all verified. The 'At a glance' section correctly reflects the verified audience, problems solved, and capabilities. All format support claims match the verified formats fact. The installation instructions correctly show the package name and version from the manifest. The architecture section accurately describes the module structure. The original README content is preserved, and no valuable information is silently dropped. The README is well-structured, readable, and developer-focused, with no generic boilerplate or overpromotion. The commercial context is present but appropriately placed after product substance.",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "AGENT_APPROVED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a"
+        ],
+        "from_status": "AGENT_APPROVED",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-07-26T08:02:12.996680+00:00",
+        "reason": "unchanged approved candidate reused without another bundle or agentic review",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "NO_OP_PROVEN"
       }
     ],
     "presentation_plan_hash": "59970ed05fa696e646316bd36638a562d6dd17ec159caa8172e90a802152cc5b",
@@ -4814,11 +4825,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "AGENT_APPROVED",
-    "updated_at": "2026-07-26T07:56:44.102070+00:00"
+    "status": "NO_OP_PROVEN",
+    "updated_at": "2026-07-26T08:02:12.996680+00:00"
   },
   "schema_version": 2,
-  "state_version": 280,
+  "state_version": 281,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9e63ff6e9f22fa71b2e4dc0f398db4a51f35047cca6453241e1567ed5ff36c6d",
