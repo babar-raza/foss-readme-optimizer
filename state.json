@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-TRUTH-01A-FACT-CONTRACT",
+    "claim_expires_at": "2026-07-26T14:37:32.193332+00:00",
+    "claim_id": "8bf0f1f49bf24dc090a84db32c55d7a2",
+    "claimed_at": "2026-07-26T14:07:32.193332+00:00",
+    "claimed_by": "Codex",
     "graph_sha256": "ae7552e241aa8bd79e8a74b02388ea272f687979e9ea0ffeae5f53a5d940bcb6",
-    "last_evaluated_at": "2026-07-26T14:05:27.239285+00:00",
+    "last_evaluated_at": "2026-07-26T14:07:32.193332+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -136,7 +136,7 @@
       "L8-REVIEW-05-REAL-CAMPAIGN": "TODO",
       "L8-STAGING-VERIFIED-PROPOSAL-PROOF": "TODO",
       "L8-TRUTH-01-STAGE-LIMIT": "CLOSED",
-      "L8-TRUTH-01A-FACT-CONTRACT": "REGRESSED",
+      "L8-TRUTH-01A-FACT-CONTRACT": "IN_PROGRESS",
       "L8-TRUTH-01B-LLM-CALL-LEDGER": "TODO",
       "L8-TRUTH-01C-PROMPT-HYGIENE": "TODO",
       "L8-TRUTH-02-ROOT-ROLES": "TODO",
@@ -1521,6 +1521,15 @@
         "reason": "Indispensable anti-drift safety contribution independently verified and checksum recorded",
         "task_id": "L8-MISSION-GOAL-GUARD",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-26T14:07:32.193389+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-TRUTH-01A-FACT-CONTRACT",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -1529,7 +1538,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 169,
+  "state_version": 170,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
