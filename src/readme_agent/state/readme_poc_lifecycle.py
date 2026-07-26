@@ -85,7 +85,14 @@ _README_POC_TRANSITIONS: dict[ReadmePocStatusV2, set[ReadmePocStatusV2]] = {
         "FACTS_COLLECTING",
         "SYSTEM_FAILURE",
     },
-    "DETERMINISTIC_VALIDATION_FAILED": {"REPAIRING"},
+    # A facts/prompt/evidence change invalidates the failed candidate just as
+    # it invalidates a validated one. Recollection must be legal here rather
+    # than wedging the repository on an obsolete deterministic verdict.
+    "DETERMINISTIC_VALIDATION_FAILED": {
+        "REPAIRING",
+        "FACTS_COLLECTING",
+        "SYSTEM_FAILURE",
+    },
     "DETERMINISTIC_VALIDATED": {"AGENT_REVIEWING", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "AGENT_REVIEWING": {
         "AGENT_APPROVED",

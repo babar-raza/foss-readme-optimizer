@@ -309,6 +309,44 @@ class TestValidTransitions:
         assert regenerated.status == "CANDIDATE_GENERATED"
         assert regenerated.history[-1].evidence_refs == ["evidence/repair-1.json"]
 
+    def test_deterministic_validation_failure_reopens_when_fact_inputs_change(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        transition_readme_poc_status(
+            backend,
+            org_repo,
+            "SNAPSHOTTED",
+            observed_by="t",
+            reason="r",
+            source_revision="a" * 40,
+        )
+        for status in [
+            "PROFILED",
+            "FACTS_COLLECTING",
+            "FACTS_READY",
+            "README_ASSESSED",
+            "PLAN_READY",
+            "CANDIDATE_GENERATED",
+            "DETERMINISTIC_VALIDATION_FAILED",
+        ]:
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="t",
+                reason="r",
+            )
+
+        reopened = transition_readme_poc_status(
+            backend,
+            org_repo,
+            "FACTS_COLLECTING",
+            observed_by="supervisor_product_truth",
+            reason="fact inputs changed; invalidating the failed candidate",
+        )
+
+        assert reopened.status == "FACTS_COLLECTING"
+
     def test_agent_review_rejection_repairs_back_to_candidate_generated(self):
         """The goal's own explicit example: `AGENT_REVIEW_REJECTED` ->
         `REPAIRING` -> `CANDIDATE_GENERATED` again."""
