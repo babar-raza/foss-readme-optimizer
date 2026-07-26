@@ -434,6 +434,15 @@
         "reason": "profiled immutable repository snapshot",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "PROFILED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "PROFILED",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T01:27:34.191956+00:00",
+        "reason": "collecting and reconciling repository product truth",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "presentation_plan_hash": null,
@@ -443,11 +452,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "PROFILED",
-    "updated_at": "2026-07-26T01:25:39.206718+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-26T01:27:34.191956+00:00"
   },
   "schema_version": 2,
-  "state_version": 26,
+  "state_version": 27,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d4d127f734d171f953a2512a0e57b7e9125b2d631b53d24c637f697b603a83fa",
