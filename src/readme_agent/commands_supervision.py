@@ -401,6 +401,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         PortfolioRepositoryResultV1,
         completed_local_poc_status,
         mark_failed_member_retryable,
+        recover_completed_local_poc_status,
         select_portfolio_trigger,
         write_portfolio_summary,
     )
@@ -494,6 +495,27 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             )
         except Exception as exc:  # noqa: BLE001 -- portfolio failure isolation is contractual
             print(f"{entry.org_repo}: SYSTEM_FAILURE: {type(exc).__name__}: {exc}", file=sys.stderr)
+            failure_detail = f"portfolio_member_failure:{type(exc).__name__}:{exc}"
+            try:
+                recovered_status = recover_completed_local_poc_status(
+                    state_backend,
+                    entry.org_repo,
+                )
+            except Exception as recovery_check_exc:  # noqa: BLE001 -- preserve original failure
+                recovered_status = None
+                failure_detail += (
+                    f"; completion_recovery_failed:{type(recovery_check_exc).__name__}:"
+                    f"{recovery_check_exc}"
+                )
+            if recovered_status is not None:
+                results.append(
+                    PortfolioRepositoryResultV1(
+                        org_repo=entry.org_repo,
+                        status=recovered_status,
+                        exit_code=0,
+                    )
+                )
+                continue
             trigger_key = getattr(
                 repository_args,
                 "_active_trigger_key",
@@ -504,7 +526,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     state_backend,
                     entry.org_repo,
                     trigger_key,
-                    failure_detail=f"portfolio_member_failure:{type(exc).__name__}",
+                    failure_detail=failure_detail,
                 )
             except Exception as recovery_exc:  # noqa: BLE001 -- retain the original failure
                 print(
@@ -517,6 +539,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     org_repo=entry.org_repo,
                     status="SYSTEM_FAILURE",
                     exit_code=1,
+                    blocked_reason=failure_detail,
                     blocked_category="agent_fixable",
                 )
             )

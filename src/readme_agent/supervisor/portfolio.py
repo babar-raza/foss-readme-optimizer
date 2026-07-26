@@ -156,6 +156,30 @@ def completed_local_poc_status(
     return lifecycle.status
 
 
+def recover_completed_local_poc_status(
+    backend: StateBackend,
+    org_repo: str,
+) -> str | None:
+    """Recover a member that completed before portfolio aggregation failed."""
+
+    state = backend.load(org_repo)
+    if (
+        state is None
+        or not isinstance(state.readme_poc_lifecycle, ReadmePocLifecycleStateV2)
+        or not state.readme_poc_lifecycle.source_revision
+    ):
+        return None
+    from readme_agent import paths
+
+    org, repo = org_repo.split("/", maxsplit=1)
+    bundle_dir = paths.readme_poc_repository_dir(
+        org,
+        repo,
+        state.readme_poc_lifecycle.source_revision,
+    )
+    return completed_local_poc_status(state, bundle_dir)
+
+
 def select_portfolio_trigger(state: RunStateV2 | None) -> PortfolioTriggerSelectionV1:
     """Resume retryable work, but never steal accepted/processing work.
 

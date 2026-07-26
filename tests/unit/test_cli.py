@@ -599,6 +599,53 @@ class TestLocalPocPortfolioCommand:
         assert '"registry_count": 2' in rendered
         assert "SYSTEM_FAILURE" in rendered
 
+    def test_portfolio_recovers_member_completed_before_aggregation_exception(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.paths as paths
+        import readme_agent.registry.loader as loader_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.portfolio as portfolio_module
+
+        monkeypatch.setattr(
+            loader_module,
+            "load_products",
+            lambda path: (argparse.Namespace(org_repo="org/repo"),),
+        )
+        monkeypatch.setattr(
+            git_backend_module,
+            "default_state_backend",
+            lambda: _LifecycleFakeBackend(),
+        )
+        monkeypatch.setattr(
+            paths,
+            "readme_poc_portfolio_summary_path",
+            lambda: tmp_path / "summary.json",
+        )
+        monkeypatch.setattr(
+            supervision_module,
+            "cmd_supervise",
+            lambda member_args: (_ for _ in ()).throw(RuntimeError("post-terminal failure")),
+        )
+        monkeypatch.setattr(
+            portfolio_module,
+            "recover_completed_local_poc_status",
+            lambda backend, org_repo: "NO_OP_PROVEN",
+        )
+        args = argparse.Namespace(
+            registry="data/products.json",
+            execution_profile="local_poc",
+            domain=None,
+            resume_trigger_key=None,
+            no_registry_heal=False,
+        )
+
+        assert supervision_module._cmd_supervise_registry(args) == 0
+        rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
+        assert '"status": "NO_OP_PROVEN"' in rendered
+        assert "SYSTEM_FAILURE" not in rendered
+
     def test_registry_pass_automatically_resumes_retryable_member_work(self, monkeypatch, tmp_path):
         import readme_agent.commands_supervision as supervision_module
         import readme_agent.paths as paths
