@@ -11,6 +11,14 @@ from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle import transition_trigger
 from readme_agent.state.schema import RunStateV2
 
+_COMPLETE_LOCAL_POC_STATUSES = {
+    "NO_OP_PROVEN",
+    "HUMAN_REVIEW_READY",
+    "HUMAN_ACCEPTED",
+    "PR_ELIGIBLE",
+    "PR_PROOF_COMPLETE",
+}
+
 
 class PortfolioRepositoryResultV1(BaseModel):
     """Terminal result for one registry entry within a local POC pass."""
@@ -38,17 +46,7 @@ class PortfolioPocSummaryV1(BaseModel):
         # unchanged rerun is a mandatory proof boundary.  Every later state
         # retains that approval, so this derives the headline denominator
         # without a separate mutable counter.
-        return sum(
-            result.status
-            in {
-                "NO_OP_PROVEN",
-                "HUMAN_REVIEW_READY",
-                "HUMAN_ACCEPTED",
-                "PR_ELIGIBLE",
-                "PR_PROOF_COMPLETE",
-            }
-            for result in self.results
-        )
+        return sum(result.status in _COMPLETE_LOCAL_POC_STATUSES for result in self.results)
 
     @property
     def system_failure_count(self) -> int:
@@ -71,6 +69,15 @@ class PortfolioTriggerSelectionV1(BaseModel):
 
     resume_trigger_key: str | None = None
     active_trigger_key: str | None = None
+
+
+def completed_local_poc_status(state: RunStateV2 | None) -> str | None:
+    """Return a durable complete status so later slices can advance the cursor."""
+
+    if state is None or state.readme_poc_lifecycle is None:
+        return None
+    status = state.readme_poc_lifecycle.status
+    return status if status in _COMPLETE_LOCAL_POC_STATUSES else None
 
 
 def select_portfolio_trigger(state: RunStateV2 | None) -> PortfolioTriggerSelectionV1:

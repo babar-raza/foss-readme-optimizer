@@ -3,6 +3,7 @@
 from readme_agent.supervisor.portfolio import (
     PortfolioPocSummaryV1,
     PortfolioRepositoryResultV1,
+    completed_local_poc_status,
     mark_failed_member_retryable,
     select_portfolio_trigger,
     write_portfolio_summary,
@@ -75,6 +76,34 @@ def test_trigger_selection_resumes_retryable_but_never_steals_active_work():
     )
     assert selected.resume_trigger_key is None
     assert selected.active_trigger_key == "active"
+
+
+def test_completed_local_poc_status_advances_later_portfolio_slices():
+    from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+    from readme_agent.state.schema import RunStateV2
+
+    state = RunStateV2(
+        org_repo="org/repo",
+        readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+            org_repo="org/repo",
+            source_revision="abc123",
+            status="NO_OP_PROVEN",
+        ),
+    )
+
+    assert completed_local_poc_status(state) == "NO_OP_PROVEN"
+    assert (
+        completed_local_poc_status(
+            state.model_copy(
+                update={
+                    "readme_poc_lifecycle": state.readme_poc_lifecycle.model_copy(
+                        update={"status": "AGENT_APPROVED"}
+                    )
+                }
+            )
+        )
+        is None
+    )
 
 
 def test_failed_member_returns_its_processing_trigger_to_retryable():

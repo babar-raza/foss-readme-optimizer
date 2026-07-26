@@ -399,6 +399,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     from readme_agent.supervisor.portfolio import (
         PortfolioPocSummaryV1,
         PortfolioRepositoryResultV1,
+        completed_local_poc_status,
         mark_failed_member_retryable,
         select_portfolio_trigger,
         write_portfolio_summary,
@@ -431,6 +432,16 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         # sweep during the pass would invalidate its dynamic denominator.
         repository_args.no_registry_heal = True
         try:
+            persisted = state_backend.load(entry.org_repo)
+            if complete_status := completed_local_poc_status(persisted):
+                results.append(
+                    PortfolioRepositoryResultV1(
+                        org_repo=entry.org_repo,
+                        status=complete_status,
+                        exit_code=0,
+                    )
+                )
+                continue
             # Recover only expired work. An explicitly retryable trigger can
             # resume immediately; an unexpired accepted/processing trigger is
             # still owned by another worker and must never be stolen.
