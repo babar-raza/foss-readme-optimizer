@@ -1260,63 +1260,8 @@
         },
         "fresh_fingerprint": "c79347e79f898c370f41c52c9e430ff380918c9a8a09e41e68bf8409d086876a",
         "independent_review": {
-          "attempts": 0,
-          "escalation": null,
-          "final_review": {
-            "failed_criteria": [],
-            "preserve": [],
-            "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, compatibility, installation coordinates, verified acquisition, minimal example, license, release state, and limitations. The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections required by the presentation plan. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The README establishes the product as useful, credible, and clearly explained before any commercial links. There are no generic-template symptoms, overpromotion, or unsupported claims.",
-            "required_repair": "",
-            "sections_affected": [],
-            "verdict": "ACCEPT"
-          },
-          "outcome_kind": "accepted",
-          "repair_history": [
-            {
-              "candidate_sha256": "39ebadb29a8eeaed3620b87f2cd22b9d89fc5d354d91ded93e836f3ce62e6986",
-              "deterministic_validation": {
-                "checks": {
-                  "adoption_preserved_source": true,
-                  "candidate_has_presentation_span": true,
-                  "candidate_hash_matches": true,
-                  "candidate_matches_independent_render": true,
-                  "document_reconstruction": true,
-                  "fact_citations": true,
-                  "facts_hash_matches": true,
-                  "needs_write_matches": true,
-                  "protected_content": true,
-                  "source_document_hash": true,
-                  "source_span_hashes": true,
-                  "template_hash_matches": true,
-                  "verified_example_present": true,
-                  "verified_overview_present": true
-                },
-                "nonce": "20260726-013922-e4a9",
-                "reason": null,
-                "requirement_map": {
-                  "fact_backed_document_plan": true,
-                  "immutable_snapshot": true,
-                  "protected_content": true,
-                  "verified_example": true
-                },
-                "token": "7ae52f32ea8d2596eec8b7cac55cb7e1220ad48019d18e5fa1016c8704281bb4",
-                "verdict": "accept"
-              },
-              "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-013922-e4a9"
-              ],
-              "repair_attempt": 0,
-              "review": {
-                "failed_criteria": [],
-                "preserve": [],
-                "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, compatibility, installation coordinates, verified acquisition, minimal example, license, release state, and limitations. The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections required by the presentation plan. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The README establishes the product as useful, credible, and clearly explained before any commercial links. There are no generic-template symptoms, overpromotion, or unsupported claims.",
-                "required_repair": "",
-                "sections_affected": [],
-                "verdict": "ACCEPT"
-              },
-              "review_pass": 1
-            }
-          ]
+          "agentic_review_reused": true,
+          "outcome_kind": "unchanged_no_op"
         },
         "llm_called": false,
         "llm_calls": [],
@@ -2749,7 +2694,7 @@
             "verified_example_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260726-013922-e4a9",
+          "nonce": "20260726-020736-53d7",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -2757,7 +2702,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "7ae52f32ea8d2596eec8b7cac55cb7e1220ad48019d18e5fa1016c8704281bb4",
+          "token": "f450f06037a7f06b47393bd46b28f312f43bca1a2ddb178252684bf2358bcd89",
           "verdict": "accept"
         },
         "written": false
@@ -2765,7 +2710,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T01:40:12.697333+00:00",
+      "last_run_timestamp": "2026-07-26T02:07:58.115472+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
@@ -3144,7 +3089,7 @@
     "updated_at": "2026-07-26T02:07:52.794612+00:00"
   },
   "schema_version": 2,
-  "state_version": 180,
+  "state_version": 181,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a8e32a7021c7a54179604c1ef00ac2e07d681ec262b542afc27855c711f6337f",
