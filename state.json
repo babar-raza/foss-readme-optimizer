@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION",
+    "claim_expires_at": "2026-07-26T18:22:48.527174+00:00",
+    "claim_id": "ebdfe1257416449db976eb8d209a78eb",
+    "claimed_at": "2026-07-26T17:52:48.527174+00:00",
+    "claimed_by": "codex",
     "graph_sha256": "0f19cac13b80e9f2dea1653d2f1f8740e3384062c91c8ca3994a512a9a883c35",
-    "last_evaluated_at": "2026-07-26T17:52:30.536500+00:00",
+    "last_evaluated_at": "2026-07-26T17:52:48.527174+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -140,7 +140,7 @@
       "L8-TRUTH-01B-LLM-CALL-LEDGER": "CLOSED",
       "L8-TRUTH-01C-PROMPT-HYGIENE": "CLOSED",
       "L8-TRUTH-02-ROOT-ROLES": "CLOSED",
-      "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION": "TODO",
+      "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION": "IN_PROGRESS",
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "TODO",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "TODO",
       "L8-TRUTH-02D-RUST-API-TRUTH": "TODO",
@@ -1752,6 +1752,15 @@
         "reason": "The role-classified root inventory and selected-product fact binding satisfy L8-033 with checksum-complete clean-tree evidence",
         "task_id": "L8-TRUTH-02-ROOT-ROLES",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-26T17:52:48.527230+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -1760,7 +1769,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 198,
+  "state_version": 199,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
