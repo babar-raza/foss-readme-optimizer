@@ -2427,6 +2427,17 @@
         "reason": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every claim in the candidate is traceable to the supplied ProductFacts: the opening paragraph and bullet list correctly reflect the verified audience, capabilities, compatibility, and formats; the installation instructions match the manifest coordinates and source-build verification; the Quick Start example matches the verified minimal example; all symbology, render, encoding, and error-handling sections are preserved from the original README and align with repository evidence; the requirements and license sections are factually correct. The 'At a glance' section adds a fact-backed overview as required by the presentation plan, and the navigation section is added to improve usability. No promotional content crowds out product substance, and the document shows the project as actively maintained with verified examples and clear installation path.",
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
         "to_status": "AGENT_APPROVED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45"
+        ],
+        "from_status": "AGENT_APPROVED",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-07-26T06:52:52.741820+00:00",
+        "reason": "unchanged approved candidate reused without another bundle or agentic review",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "to_status": "NO_OP_PROVEN"
       }
     ],
     "presentation_plan_hash": "e6292290dca1dbd2a179fff9712ea2eeb9111ed073d34982d91822ed5ac170d1",
@@ -2436,11 +2447,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
-    "status": "AGENT_APPROVED",
-    "updated_at": "2026-07-26T06:28:04.215208+00:00"
+    "status": "NO_OP_PROVEN",
+    "updated_at": "2026-07-26T06:52:52.741820+00:00"
   },
   "schema_version": 2,
-  "state_version": 91,
+  "state_version": 92,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
