@@ -2467,12 +2467,13 @@
     "details": {},
     "fact_acceptance_component_hashes": {
       "classification_semantics": "f35f7e197c8861491ad33247632e783b7d65ae7581867c10ab64bc7d4f7fcd90",
+      "conflict_semantics": "a27bac54aac9881e5be4dfaf5121e27fffd3fbd4eb8a36ab167a5709fd9c8403",
       "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
       "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
       "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
       "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
     },
-    "fact_acceptance_contract_hash": "48b5824e14ca11b7fca3cbd3ac3d00d863fdc4accf5a5b69c11430f314107ebb",
+    "fact_acceptance_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -2488,6 +2489,24 @@
         "occurred_at": "2026-07-26T10:14:27.983660+00:00",
         "outcome": "BLOCKED_MISSING_EVIDENCE",
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "schema_version": 1,
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
+      },
+      {
+        "component_hashes": {
+          "classification_semantics": "f35f7e197c8861491ad33247632e783b7d65ae7581867c10ab64bc7d4f7fcd90",
+          "conflict_semantics": "a27bac54aac9881e5be4dfaf5121e27fffd3fbd4eb8a36ab167a5709fd9c8403",
+          "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
+          "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
+        },
+        "contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+        "facts_hash": "6f5b0723dd2be837ea14afd72dba485327836a66d9e76e464718c0043bb7e964",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T10:38:51.990727+00:00",
+        "outcome": "BLOCKED_MISSING_EVIDENCE",
+        "reason": "persisted fact graph replayed under the current acceptance contract after abandoned-trigger recovery",
         "schema_version": 1,
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
       }
@@ -2656,10 +2675,10 @@
     "schema_version": 2,
     "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
     "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-07-26T10:14:26.573129+00:00"
+    "updated_at": "2026-07-26T10:38:51.990727+00:00"
   },
   "schema_version": 2,
-  "state_version": 122,
+  "state_version": 123,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
