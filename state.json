@@ -1413,7 +1413,7 @@
     "updated_at": "2026-07-26T07:16:43.562329+00:00"
   },
   "schema_version": 2,
-  "state_version": 166,
+  "state_version": 167,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
@@ -1496,13 +1496,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:StateBackendError: README-POC repair attempts exhausted for 'aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript' at source revision 227894a1120c22b9b6522564e23dc1d14c8fc39a",
       "last_checkpoint_id": "2dbb4feee3d8a4fd9a5295c85f417b2378a88925c1ac7ea4fcb6d4aac56c4ce6",
-      "lease_expires_at": "2026-07-26T07:26:34.121871+00:00",
+      "lease_expires_at": null,
       "recovery_count": 1,
-      "status": "processing",
-      "updated_at": "2026-07-26T07:18:27.352606+00:00"
+      "status": "blocked",
+      "updated_at": "2026-07-26T07:18:34.981966+00:00"
     }
   },
   "trigger_records": {},
