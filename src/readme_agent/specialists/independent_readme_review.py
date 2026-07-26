@@ -74,6 +74,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from collections.abc import Callable
 from typing import Literal, Protocol
 
@@ -88,6 +89,7 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.reviewer_client import LiveIndependentReviewClient
 from readme_agent.llm.verification_prompts import build_independent_readme_review_messages
+from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2, ReadmePocStatusV2
 from readme_agent.state.readme_poc_lifecycle import transition_readme_poc_status
@@ -172,6 +174,35 @@ class IndependentReadmeReviewResultV1(BaseModel):
 
 class _AnalysisClientLike(Protocol):
     def analyze(self, messages: list[dict]) -> AnalysisResult: ...
+
+
+def _accepted_literal_phrases(facts: ProductFactsV2) -> set[str]:
+    accepted: set[str] = set()
+    for fact_id in facts.selected_fact_ids.values():
+        fact = facts.fact_by_id(fact_id)
+        if fact.verification_state not in {"verified", "policy_approved"}:
+            continue
+        if fact.has_unresolved_conflict:
+            continue
+        accepted.update(phrase.casefold() for phrase in fact_strings(fact.value))
+    return accepted
+
+
+def _contradicted_missing_evidence_claims(
+    review: IndependentReadmeReviewResultV1,
+    facts: ProductFactsV2,
+) -> list[str]:
+    """Find claims the reviewer called unsupported despite literal accepted evidence."""
+
+    if review.verdict != "BLOCKED_MISSING_EVIDENCE":
+        return []
+    review_text = f"{review.reasoning}\n{review.required_repair}"
+    quoted = [
+        *re.findall(r'["“]([^"”\n]{8,})["”]', review_text),
+        *re.findall(r"[‘']([^’'\n]{8,})[’']", review_text),
+    ]
+    accepted = _accepted_literal_phrases(facts)
+    return sorted({claim for claim in quoted if claim.strip().casefold() in accepted})
 
 
 def run_independent_readme_review(
@@ -269,6 +300,11 @@ def run_independent_readme_review(
                 f"independent_readme_review response did not match the required verdict "
                 f"schema: {exc}"
             ) from exc
+        if contradicted_claims := _contradicted_missing_evidence_claims(review, product_facts):
+            raise LLMError(
+                "independent reviewer classified literal accepted fact text as missing evidence: "
+                f"{contradicted_claims}"
+            )
 
     if backend is not None:
         record_review_verdict(backend, org_repo, review, repair_attempt=repair_attempt)
