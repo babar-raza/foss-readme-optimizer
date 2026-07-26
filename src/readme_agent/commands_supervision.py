@@ -515,34 +515,34 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                         exit_code=0,
                     )
                 )
-                continue
-            trigger_key = getattr(
-                repository_args,
-                "_active_trigger_key",
-                repository_args.resume_trigger_key,
-            )
-            try:
-                mark_failed_member_retryable(
-                    state_backend,
-                    entry.org_repo,
-                    trigger_key,
-                    failure_detail=failure_detail,
+            else:
+                trigger_key = getattr(
+                    repository_args,
+                    "_active_trigger_key",
+                    repository_args.resume_trigger_key,
                 )
-            except Exception as recovery_exc:  # noqa: BLE001 -- retain the original failure
-                print(
-                    f"{entry.org_repo}: lifecycle recovery also failed: "
-                    f"{type(recovery_exc).__name__}: {recovery_exc}",
-                    file=sys.stderr,
+                try:
+                    mark_failed_member_retryable(
+                        state_backend,
+                        entry.org_repo,
+                        trigger_key,
+                        failure_detail=failure_detail,
+                    )
+                except Exception as recovery_exc:  # noqa: BLE001 -- retain original failure
+                    print(
+                        f"{entry.org_repo}: lifecycle recovery also failed: "
+                        f"{type(recovery_exc).__name__}: {recovery_exc}",
+                        file=sys.stderr,
+                    )
+                results.append(
+                    PortfolioRepositoryResultV1(
+                        org_repo=entry.org_repo,
+                        status="SYSTEM_FAILURE",
+                        exit_code=1,
+                        blocked_reason=failure_detail,
+                        blocked_category="agent_fixable",
+                    )
                 )
-            results.append(
-                PortfolioRepositoryResultV1(
-                    org_repo=entry.org_repo,
-                    status="SYSTEM_FAILURE",
-                    exit_code=1,
-                    blocked_reason=failure_detail,
-                    blocked_category="agent_fixable",
-                )
-            )
         if entry_index + 1 < len(entries) and time.monotonic() - slice_started >= slice_budget:
             execution_slice_complete = False
             break

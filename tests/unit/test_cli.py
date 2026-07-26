@@ -774,6 +774,55 @@ class TestLocalPocPortfolioCommand:
         assert '"execution_slice_complete": false' in rendered
         assert '"registry_count": 2' in rendered
 
+    def test_recovered_terminal_member_still_honors_slice_budget(self, monkeypatch, tmp_path):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.paths as paths
+        import readme_agent.registry.loader as loader_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.portfolio as portfolio_module
+
+        monkeypatch.setattr(
+            loader_module,
+            "load_products",
+            lambda path: (
+                argparse.Namespace(org_repo="org/one"),
+                argparse.Namespace(org_repo="org/two"),
+            ),
+        )
+        monkeypatch.setattr(
+            git_backend_module,
+            "default_state_backend",
+            lambda: _LifecycleFakeBackend(),
+        )
+        monkeypatch.setattr(
+            paths,
+            "readme_poc_portfolio_summary_path",
+            lambda: tmp_path / "summary.json",
+        )
+        monkeypatch.setattr(
+            supervision_module,
+            "cmd_supervise",
+            lambda member_args: (_ for _ in ()).throw(RuntimeError("post-terminal failure")),
+        )
+        monkeypatch.setattr(
+            portfolio_module,
+            "recover_completed_local_poc_status",
+            lambda backend, org_repo: "NO_OP_PROVEN",
+        )
+        args = argparse.Namespace(
+            registry="data/products.json",
+            execution_profile="local_poc",
+            domain=None,
+            resume_trigger_key=None,
+            no_registry_heal=False,
+            portfolio_time_budget_seconds=0,
+        )
+
+        assert supervision_module._cmd_supervise_registry(args) == 1
+        rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
+        assert '"execution_slice_complete": false' in rendered
+        assert rendered.count('"org_repo":') == 1
+
     def test_invalid_execution_profile_choice_rejected_by_argparse(self):
         with pytest.raises(SystemExit):
             _build_parser().parse_args(
