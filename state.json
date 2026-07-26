@@ -3048,54 +3048,43 @@
     "updated_at": "2026-07-26T01:40:07.724622+00:00"
   },
   "schema_version": 2,
-  "state_version": 162,
+  "state_version": 163,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "3ab69f8376c988bab261a58d60f877d78ca06630bd9f062e894a4b106334b0be",
+    "control_plane_fingerprint": "a8e32a7021c7a54179604c1ef00ac2e07d681ec262b542afc27855c711f6337f",
     "domain_coverage_complete": true,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260726-013748-7247",
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "last_run_id": "20260726-004807-f45b",
-    "last_run_timestamp": "2026-07-26T00:48:07.322762+00:00",
-    "last_status": "PARTIAL_WITH_FINDINGS",
+    "last_run_id": "20260726-014255-f1e4",
+    "last_run_timestamp": "2026-07-26T01:42:55.347496+00:00",
+    "last_status": "BLOCKED",
     "repair_history": [],
     "surface_freshness": {
       "github_generated_surface_audit": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-07-26T00:48:07.322720+00:00",
+        "last_checked_at": "2026-07-26T01:42:55.347431+00:00",
         "observed_hash": "5aa63e993b4b0124039130133a64d1617fca7b86acc1fd36e89770569d765be9",
         "surface_id": "github_generated_surface_audit",
         "ttl_seconds": 86400
       },
       "metadata_presentation": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-07-26T00:48:07.322720+00:00",
+        "last_checked_at": "2026-07-26T01:42:55.347431+00:00",
         "observed_hash": "0b0d72e132be26e9dacc197117284d0a34a676d2ff75ee602fd384978c9036b3",
         "surface_id": "metadata_presentation",
         "ttl_seconds": 86400
       },
       "package_release_audit": {
         "authoritative_source": "registry_api",
-        "last_checked_at": "2026-07-26T00:48:07.322720+00:00",
+        "last_checked_at": "2026-07-26T01:42:55.347431+00:00",
         "observed_hash": "d33550d7306eb2de77bead4dae6b99b5ddde6037670b8eb7ad12eb5d148f7322",
         "surface_id": "package_release_audit",
         "ttl_seconds": 21600
       },
       "visual_preparation": {
         "authoritative_source": "local_filesystem",
-        "last_checked_at": "2026-07-26T00:48:07.322720+00:00",
+        "last_checked_at": "2026-07-26T01:42:55.347431+00:00",
         "observed_hash": "23c2b9a110b6f00ff9ab5f3f7c00796a4c188e299b21db46963052852b6efd2e",
         "surface_id": "visual_preparation",
         "ttl_seconds": 86400
@@ -3110,7 +3099,7 @@
           "blocked_category": null,
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-26T00:46:27.580931+00:00",
+          "created_at": "2026-07-26T01:41:30.932705+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -3129,8 +3118,855 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "4369fa5f22784112abb8cbe69b8c3bfa",
-          "terminal_at": "2026-07-26T00:46:32.587731+00:00"
+          "task_id": "92b60835811e49cb94300706a52bfb4b",
+          "terminal_at": "2026-07-26T01:41:35.882953+00:00"
+        },
+        {
+          "arguments": {
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+          },
+          "blocked_category": null,
+          "blocked_reason": null,
+          "capability_id": "get_product_facts",
+          "created_at": "2026-07-26T01:41:43.296300+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "declared_license": "MIT",
+            "detected_ecosystems": [
+              {
+                "confidence": 1.0,
+                "ecosystem": "java",
+                "evidence": "found pom.xml; parsed 6 field(s)",
+                "manifest_path": "pom.xml"
+              }
+            ],
+            "ecosystem": "java",
+            "family": "3d",
+            "link_whitelist_domains": [
+              "products.aspose.com",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "products.aspose.org",
+              "docs.aspose.org",
+              "kb.aspose.org",
+              "blog.aspose.org",
+              "forum.aspose.com"
+            ],
+            "local_product_verification": {
+              "build": {
+                "argv": [
+                  "C:\\tools\\apache-maven-3.9.16\\bin\\mvn.CMD",
+                  "-q",
+                  "-DskipTests",
+                  "package"
+                ],
+                "environment_names": [
+                  "APPDATA",
+                  "CI",
+                  "COMPUTERNAME",
+                  "COMSPEC",
+                  "GCM_INTERACTIVE",
+                  "GIT_TERMINAL_PROMPT",
+                  "GOPATH",
+                  "HOMEDRIVE",
+                  "HOMEPATH",
+                  "JAVA_HOME",
+                  "LOCALAPPDATA",
+                  "NUMBER_OF_PROCESSORS",
+                  "PATH",
+                  "PATHEXT",
+                  "PROCESSOR_ARCHITECTURE",
+                  "PROGRAMDATA",
+                  "PROGRAMFILES",
+                  "PROGRAMFILES(X86)",
+                  "SYSTEMROOT",
+                  "TEMP",
+                  "TMP",
+                  "USERDOMAIN",
+                  "USERNAME",
+                  "USERPROFILE",
+                  "WINDIR"
+                ],
+                "return_code": 0,
+                "stderr": "",
+                "stdout": "",
+                "timed_out": false
+              },
+              "detail": "source build and exact README example compilation passed",
+              "ecosystem": "java",
+              "example_compile": {
+                "argv": [
+                  "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\toolchains\\temurin-21.0.11+10\\jdk-21.0.11+10\\bin\\javac.exe",
+                  "-cp",
+                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-54yjq6gh\\repository\\target\\classes",
+                  "-d",
+                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-54yjq6gh\\repository\\target\\readme-agent-example",
+                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-54yjq6gh\\repository\\ReadmeExample.java"
+                ],
+                "environment_names": [
+                  "APPDATA",
+                  "CI",
+                  "COMPUTERNAME",
+                  "COMSPEC",
+                  "GCM_INTERACTIVE",
+                  "GIT_TERMINAL_PROMPT",
+                  "GOPATH",
+                  "HOMEDRIVE",
+                  "HOMEPATH",
+                  "JAVA_HOME",
+                  "LOCALAPPDATA",
+                  "NUMBER_OF_PROCESSORS",
+                  "PATH",
+                  "PATHEXT",
+                  "PROCESSOR_ARCHITECTURE",
+                  "PROGRAMDATA",
+                  "PROGRAMFILES",
+                  "PROGRAMFILES(X86)",
+                  "SYSTEMROOT",
+                  "TEMP",
+                  "TMP",
+                  "USERDOMAIN",
+                  "USERNAME",
+                  "USERPROFILE",
+                  "WINDIR"
+                ],
+                "return_code": 0,
+                "stderr": "",
+                "stdout": "",
+                "timed_out": false
+              },
+              "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+              "outcome": "SOURCE_BUILD_VERIFIED",
+              "schema_version": 1,
+              "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
+            },
+            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+            "package_roots": [
+              {
+                "confidence": 1.0,
+                "ecosystem": "java",
+                "evidence": "found pom.xml",
+                "manifest_path": "pom.xml",
+                "path": "."
+              }
+            ],
+            "platform": "java",
+            "policy_profile": "aspose-3d-foss",
+            "product_facts_v2": {
+              "facts": [
+                {
+                  "affected_surfaces": [
+                    "readme.opening",
+                    "metadata.description"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "product.identity:manifest-and-registry",
+                  "field": "product.identity",
+                  "source": {
+                    "location": "repository://pom.xml",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "mechanical_manifest"
+                  },
+                  "value": {
+                    "ecosystem": "java",
+                    "family": "3d",
+                    "manifest_names": [
+                      "Aspose.3D FOSS"
+                    ],
+                    "platform": "java",
+                    "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+                  },
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.opening",
+                    "metadata.description"
+                  ],
+                  "authoritative_owner": "product-policy-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "product.audience:approved-policy",
+                  "field": "product.audience",
+                  "source": {
+                    "location": "config/policies/aspose-3d-foss.yml",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "approved_policy"
+                  },
+                  "value": [
+                    "Java developers building 3D import, export, and scene-processing applications."
+                  ],
+                  "verification_state": "policy_approved"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.opening",
+                    "metadata.description"
+                  ],
+                  "authoritative_owner": "product-policy-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "product.problems_solved:approved-policy",
+                  "field": "product.problems_solved",
+                  "source": {
+                    "location": "config/policies/aspose-3d-foss.yml",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "approved_policy"
+                  },
+                  "value": [
+                    "Create, load, inspect, transform, and save 3D scenes with an open-source Java API."
+                  ],
+                  "verification_state": "policy_approved"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.capabilities",
+                    "metadata.description",
+                    "metadata.topics"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "product.capabilities:repository-evidence",
+                  "field": "product.capabilities",
+                  "source": {
+                    "location": "repository://src/main/java/com/aspose/threed/Material.java,src/main/java/com/aspose/threed/Mesh.java,src/main/java/com/aspose/threed/Scene.java,src/test/java/com/aspose/threed/MaterialTests.java,src/test/java/com/aspose/threed/SceneTest.java",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "mechanical_repository"
+                  },
+                  "value": [
+                    "Create, load, inspect, transform, and save 3D scenes.",
+                    "Model scene geometry and materials through mesh and material APIs."
+                  ],
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.capabilities",
+                    "metadata.topics"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "product.formats:repository-evidence",
+                  "field": "product.formats",
+                  "source": {
+                    "location": "repository://FILE_FORMATS.md,src/test/java/com/aspose/threed/ColladaTests.java,src/test/java/com/aspose/threed/GltfFormatTest.java,src/test/java/com/aspose/threed/StlFormatTest.java",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "mechanical_repository"
+                  },
+                  "value": [
+                    "Import and export glTF and GLB scenes.",
+                    "Import and export binary and ASCII STL scenes.",
+                    "Import and export Collada scenes."
+                  ],
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.capabilities",
+                    "metadata.topics"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "product.platforms:manifest",
+                  "field": "product.platforms",
+                  "source": {
+                    "location": "repository://pom.xml",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "mechanical_manifest"
+                  },
+                  "value": [
+                    "java"
+                  ],
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.installation"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "installation.coordinates:manifest",
+                  "field": "installation.coordinates",
+                  "source": {
+                    "location": "repository://pom.xml",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "mechanical_manifest"
+                  },
+                  "value": [
+                    {
+                      "artifact_id": "aspose-3d-foss",
+                      "ecosystem": "java",
+                      "group_id": "org.aspose",
+                      "manifest_path": "pom.xml",
+                      "name": "Aspose.3D FOSS",
+                      "path": ".",
+                      "version": "26.5.0"
+                    }
+                  ],
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.installation",
+                    "readme.example"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "installation.verified_acquisition:registry-maven_central",
+                  "field": "installation.verified_acquisition",
+                  "source": {
+                    "location": "registry-acquisition://java",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "external_registry"
+                  },
+                  "value": {
+                    "coordinate": {
+                      "artifact_id": "aspose-3d-foss",
+                      "group_id": "org.aspose"
+                    },
+                    "detail": "Maven Central: org.aspose:aspose-3d-foss found",
+                    "method": "maven_central",
+                    "outcome": "REGISTRY_VERIFIED"
+                  },
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.example"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "example.minimal:compiled-policy-example",
+                  "field": "example.minimal",
+                  "source": {
+                    "location": "local-product-verification://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "mechanical_test"
+                  },
+                  "value": {
+                    "class_name": "ReadmeExample",
+                    "code": "import com.aspose.threed.Scene;\n\npublic class ReadmeExample {\n    public static void main(String[] args) throws Exception {\n        Scene scene = new Scene();\n        scene.save(\"scene.stl\");\n    }\n}\n",
+                    "language": "java",
+                    "verification_detail": "source build and exact README example compilation passed",
+                    "verification_outcome": "SOURCE_BUILD_VERIFIED"
+                  },
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.resources",
+                    "metadata.homepage"
+                  ],
+                  "authoritative_owner": "documentation-policy-owner",
+                  "confidence": 0.75,
+                  "conflicts": [],
+                  "fact_id": "documentation.links:primary",
+                  "field": "documentation.links",
+                  "source": {
+                    "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "approved_policy"
+                  },
+                  "value": [
+                    {
+                      "family_url": "https://products.aspose.org/3d/",
+                      "label": "Aspose.3D FOSS for Java",
+                      "url": "https://products.aspose.org/3d/java/",
+                      "utm": null
+                    },
+                    {
+                      "family_url": "https://products.aspose.com/3d",
+                      "label": "Aspose.3D for Java",
+                      "url": "https://products.aspose.com/3d/java/",
+                      "utm": {
+                        "utm_campaign": "foss-readme-optimizer",
+                        "utm_medium": "readme",
+                        "utm_source": "github"
+                      }
+                    },
+                    "docs.aspose.org",
+                    "docs.aspose.com",
+                    "reference.aspose.com",
+                    "releases.aspose.com",
+                    "blog.aspose.org",
+                    "kb.aspose.org",
+                    "forum.aspose.com"
+                  ],
+                  "verification_state": "policy_approved"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.release"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "release.state:manifest-and-registry",
+                  "field": "release.state",
+                  "source": {
+                    "location": "repository://pom.xml",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "mechanical_manifest"
+                  },
+                  "value": [
+                    {
+                      "active": true,
+                      "path": ".",
+                      "version": "26.5.0"
+                    }
+                  ],
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.limitations"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "product.limitations:repository-evidence",
+                  "field": "product.limitations",
+                  "source": {
+                    "location": "repository://TODO.md,docs/foss-java-progress.md",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "mechanical_repository"
+                  },
+                  "value": [
+                    "Rendering and full commercial-API parity remain incomplete."
+                  ],
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.capabilities",
+                    "readme.installation"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "product.compatibility:manifest",
+                  "field": "product.compatibility",
+                  "source": {
+                    "location": "repository://pom.xml",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "mechanical_manifest"
+                  },
+                  "value": [
+                    {
+                      "ecosystem": "java",
+                      "manifest_path": "pom.xml",
+                      "minimum_runtime": "21"
+                    }
+                  ],
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.license",
+                    "community.license"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "confidence": 1.0,
+                  "conflicts": [],
+                  "fact_id": "product.license:license-file",
+                  "field": "product.license",
+                  "source": {
+                    "location": "repository://LICENSE",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "mechanical_repository"
+                  },
+                  "value": "MIT",
+                  "verification_state": "verified"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.resources",
+                    "community.support"
+                  ],
+                  "authoritative_owner": "support-policy-owner",
+                  "confidence": 0.75,
+                  "conflicts": [],
+                  "fact_id": "support.routes:primary",
+                  "field": "support.routes",
+                  "source": {
+                    "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "approved_policy"
+                  },
+                  "value": [
+                    "docs.aspose.org",
+                    "docs.aspose.com",
+                    "reference.aspose.com",
+                    "releases.aspose.com",
+                    "blog.aspose.org",
+                    "kb.aspose.org",
+                    "forum.aspose.com"
+                  ],
+                  "verification_state": "policy_approved"
+                },
+                {
+                  "affected_surfaces": [
+                    "readme.relationship"
+                  ],
+                  "authoritative_owner": "portfolio-policy-owner",
+                  "confidence": 0.9,
+                  "conflicts": [],
+                  "fact_id": "relationship.commercial_foss:primary",
+                  "field": "relationship.commercial_foss",
+                  "source": {
+                    "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+                    "retrieved_at": null,
+                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+                    "source_type": "approved_policy"
+                  },
+                  "value": [
+                    "open_source_scope",
+                    "commercial_upgrade_path"
+                  ],
+                  "verification_state": "policy_approved"
+                }
+              ],
+              "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+              "schema_version": 2,
+              "selected_fact_ids": {
+                "documentation.links": "documentation.links:primary",
+                "example.minimal": "example.minimal:compiled-policy-example",
+                "installation.coordinates": "installation.coordinates:manifest",
+                "installation.verified_acquisition": "installation.verified_acquisition:registry-maven_central",
+                "product.audience": "product.audience:approved-policy",
+                "product.capabilities": "product.capabilities:repository-evidence",
+                "product.compatibility": "product.compatibility:manifest",
+                "product.formats": "product.formats:repository-evidence",
+                "product.identity": "product.identity:manifest-and-registry",
+                "product.license": "product.license:license-file",
+                "product.limitations": "product.limitations:repository-evidence",
+                "product.platforms": "product.platforms:manifest",
+                "product.problems_solved": "product.problems_solved:approved-policy",
+                "relationship.commercial_foss": "relationship.commercial_foss:primary",
+                "release.state": "release.state:manifest-and-registry",
+                "support.routes": "support.routes:primary"
+              }
+            },
+            "products_com_link": {
+              "family_url": "https://products.aspose.com/3d",
+              "label": "Aspose.3D for Java",
+              "url": "https://products.aspose.com/3d/java/",
+              "utm": {
+                "utm_campaign": "foss-readme-optimizer",
+                "utm_medium": "readme",
+                "utm_source": "github"
+              }
+            },
+            "products_org_link": {
+              "family_url": "https://products.aspose.org/3d/",
+              "label": "Aspose.3D FOSS for Java",
+              "url": "https://products.aspose.org/3d/java/",
+              "utm": null
+            },
+            "prohibited_terms": [
+              "guarantee",
+              "100%",
+              "best in the world",
+              "free forever",
+              "no bugs"
+            ],
+            "relationship_talking_points": [
+              "open_source_scope",
+              "commercial_upgrade_path"
+            ],
+            "secondary_links": [
+              "docs.aspose.org",
+              "docs.aspose.com",
+              "reference.aspose.com",
+              "releases.aspose.com",
+              "blog.aspose.org",
+              "kb.aspose.org",
+              "forum.aspose.com"
+            ],
+            "source": {
+              "detected_ecosystems": "live repository clone (repository inspection)",
+              "identity_and_policy": "data/products.json + config/policies/aspose-3d-foss.yml",
+              "package_roots": "live repository clone (repository inspection)",
+              "unresolved_manifests": "live repository clone (repository inspection)"
+            },
+            "surface_ownership": {
+              "schema_version": 1,
+              "surfaces": [
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "local_patch"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "ownership_class": "repository_file",
+                  "required_permission": "local_write",
+                  "rollback": "revert the bounded file patch",
+                  "surface_id": "readme"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "local_patch"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "ownership_class": "repository_file",
+                  "required_permission": "local_write",
+                  "rollback": "revert the bounded file patch",
+                  "surface_id": "readme_visual"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "local_patch"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "ownership_class": "repository_file",
+                  "required_permission": "local_write",
+                  "rollback": "revert the bounded file patch",
+                  "surface_id": "license"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "local_patch"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "ownership_class": "repository_file",
+                  "required_permission": "local_write",
+                  "rollback": "revert the bounded file patch",
+                  "surface_id": "contributing"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "local_patch"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "ownership_class": "repository_file",
+                  "required_permission": "local_write",
+                  "rollback": "revert the bounded file patch",
+                  "surface_id": "code_of_conduct"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "local_patch"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "ownership_class": "repository_file",
+                  "required_permission": "local_write",
+                  "rollback": "revert the bounded file patch",
+                  "surface_id": "security"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "local_patch"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "ownership_class": "repository_file",
+                  "required_permission": "local_write",
+                  "rollback": "revert the bounded file patch",
+                  "surface_id": "support"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "local_patch"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "ownership_class": "repository_file",
+                  "required_permission": "local_write",
+                  "rollback": "revert the bounded file patch",
+                  "surface_id": "issue_templates"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "local_patch"
+                  ],
+                  "authoritative_owner": "repository-owner",
+                  "ownership_class": "repository_file",
+                  "required_permission": "local_write",
+                  "rollback": "revert the bounded file patch",
+                  "surface_id": "pull_request_templates"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "remote_apply"
+                  ],
+                  "authoritative_owner": "repository-settings-owner",
+                  "ownership_class": "settings_api",
+                  "required_permission": "github_apply",
+                  "rollback": "restore the recorded prior setting value",
+                  "surface_id": "description"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "remote_apply"
+                  ],
+                  "authoritative_owner": "repository-settings-owner",
+                  "ownership_class": "settings_api",
+                  "required_permission": "github_apply",
+                  "rollback": "restore the recorded prior setting value",
+                  "surface_id": "homepage"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "remote_apply"
+                  ],
+                  "authoritative_owner": "repository-settings-owner",
+                  "ownership_class": "settings_api",
+                  "required_permission": "github_apply",
+                  "rollback": "restore the recorded prior setting value",
+                  "surface_id": "topics"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "remote_apply"
+                  ],
+                  "authoritative_owner": "repository-settings-owner",
+                  "ownership_class": "settings_api",
+                  "required_permission": "github_apply",
+                  "rollback": "restore the recorded prior setting value",
+                  "surface_id": "feature_settings"
+                },
+                {
+                  "allowed_operations": [
+                    "audit",
+                    "propose",
+                    "manual_apply"
+                  ],
+                  "authoritative_owner": "repository-settings-owner",
+                  "ownership_class": "manual_ui",
+                  "required_permission": "manual_ui",
+                  "rollback": "operator restores the prior asset through the UI",
+                  "surface_id": "social_preview"
+                },
+                {
+                  "allowed_operations": [
+                    "audit"
+                  ],
+                  "authoritative_owner": "product-owner",
+                  "ownership_class": "product_owned",
+                  "required_permission": "read_only_network",
+                  "rollback": "not applicable: this system has no write operation",
+                  "surface_id": "releases"
+                },
+                {
+                  "allowed_operations": [
+                    "audit"
+                  ],
+                  "authoritative_owner": "product-owner",
+                  "ownership_class": "product_owned",
+                  "required_permission": "read_only_network",
+                  "rollback": "not applicable: this system has no write operation",
+                  "surface_id": "packages"
+                },
+                {
+                  "allowed_operations": [
+                    "audit"
+                  ],
+                  "authoritative_owner": "product-owner",
+                  "ownership_class": "product_owned",
+                  "required_permission": "read_only_network",
+                  "rollback": "not applicable: this system has no write operation",
+                  "surface_id": "release_package_facts"
+                },
+                {
+                  "allowed_operations": [
+                    "audit"
+                  ],
+                  "authoritative_owner": "github",
+                  "ownership_class": "github_generated",
+                  "required_permission": "read_only_network",
+                  "rollback": "not applicable: this system has no write operation",
+                  "surface_id": "contributors"
+                },
+                {
+                  "allowed_operations": [
+                    "audit"
+                  ],
+                  "authoritative_owner": "github",
+                  "ownership_class": "github_generated",
+                  "required_permission": "read_only_network",
+                  "rollback": "not applicable: this system has no write operation",
+                  "surface_id": "languages"
+                },
+                {
+                  "allowed_operations": [
+                    "audit"
+                  ],
+                  "authoritative_owner": "github",
+                  "ownership_class": "github_generated",
+                  "required_permission": "read_only_network",
+                  "rollback": "not applicable: this system has no write operation",
+                  "surface_id": "repository_signals"
+                },
+                {
+                  "allowed_operations": [
+                    "audit"
+                  ],
+                  "authoritative_owner": "github",
+                  "ownership_class": "github_generated",
+                  "required_permission": "read_only_network",
+                  "rollback": "not applicable: this system has no write operation",
+                  "surface_id": "page_layout"
+                }
+              ]
+            },
+            "unresolved_manifests": [],
+            "word_limit": {
+              "max": 120,
+              "min": 20
+            }
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "cfe83347ab5b4a31b08a53b1511b97cc",
+          "terminal_at": "2026-07-26T01:41:54.946293+00:00"
         },
         {
           "arguments": {
@@ -3139,7 +3975,7 @@
           "blocked_category": null,
           "blocked_reason": null,
           "capability_id": "detect_readme_gaps",
-          "created_at": "2026-07-26T00:46:39.437391+00:00",
+          "created_at": "2026-07-26T01:42:09.690746+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -3151,8 +3987,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "2f526a3509f044dd9e2f45c7b2052466",
-          "terminal_at": "2026-07-26T00:46:44.330029+00:00"
+          "task_id": "71df99999df647dfbc6b9c06a40f37b9",
+          "terminal_at": "2026-07-26T01:42:14.672186+00:00"
         },
         {
           "arguments": {
@@ -3161,7 +3997,7 @@
           "blocked_category": null,
           "blocked_reason": null,
           "capability_id": "render_readme_candidate",
-          "created_at": "2026-07-26T00:46:55.505555+00:00",
+          "created_at": "2026-07-26T01:42:22.719630+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -4510,8 +5346,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "5ece401748e94be7b4a076c229dbf8a2",
-          "terminal_at": "2026-07-26T00:47:00.989218+00:00"
+          "task_id": "b638ff58bd5d49a2ad4d44ffce6c4ede",
+          "terminal_at": "2026-07-26T01:42:28.359648+00:00"
         },
         {
           "arguments": {
@@ -4520,7 +5356,7 @@
           "blocked_category": null,
           "blocked_reason": null,
           "capability_id": "verify_package_acquisition",
-          "created_at": "2026-07-26T00:47:16.065625+00:00",
+          "created_at": "2026-07-26T01:42:43.733986+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -4540,874 +5376,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "43dc8279b2c84e0f866f944f127d5a28",
-          "terminal_at": "2026-07-26T00:47:22.081701+00:00"
-        },
-        {
-          "arguments": {
-            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
-          },
-          "blocked_category": null,
-          "blocked_reason": null,
-          "capability_id": "check_install_path",
-          "created_at": "2026-07-26T00:47:30.614362+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "evidence": "Maven Central: org.aspose:aspose-3d-foss found",
-            "install_path_resolved": true
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "43b0e4e7b9f647848c919bde6debb659",
-          "terminal_at": "2026-07-26T00:47:36.636350+00:00"
-        },
-        {
-          "arguments": {
-            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
-          },
-          "blocked_category": null,
-          "blocked_reason": null,
-          "capability_id": "get_product_facts",
-          "created_at": "2026-07-26T00:47:45.554561+00:00",
-          "depends_on": [],
-          "gap": null,
-          "result": {
-            "declared_license": "MIT",
-            "detected_ecosystems": [
-              {
-                "confidence": 1.0,
-                "ecosystem": "java",
-                "evidence": "found pom.xml; parsed 6 field(s)",
-                "manifest_path": "pom.xml"
-              }
-            ],
-            "ecosystem": "java",
-            "family": "3d",
-            "link_whitelist_domains": [
-              "products.aspose.com",
-              "docs.aspose.com",
-              "reference.aspose.com",
-              "releases.aspose.com",
-              "products.aspose.org",
-              "docs.aspose.org",
-              "kb.aspose.org",
-              "blog.aspose.org",
-              "forum.aspose.com"
-            ],
-            "local_product_verification": {
-              "build": {
-                "argv": [
-                  "C:\\tools\\apache-maven-3.9.16\\bin\\mvn.CMD",
-                  "-q",
-                  "-DskipTests",
-                  "package"
-                ],
-                "environment_names": [
-                  "APPDATA",
-                  "CI",
-                  "COMPUTERNAME",
-                  "COMSPEC",
-                  "GCM_INTERACTIVE",
-                  "GIT_TERMINAL_PROMPT",
-                  "GOPATH",
-                  "HOMEDRIVE",
-                  "HOMEPATH",
-                  "JAVA_HOME",
-                  "LOCALAPPDATA",
-                  "NUMBER_OF_PROCESSORS",
-                  "PATH",
-                  "PATHEXT",
-                  "PROCESSOR_ARCHITECTURE",
-                  "PROGRAMDATA",
-                  "PROGRAMFILES",
-                  "PROGRAMFILES(X86)",
-                  "SYSTEMROOT",
-                  "TEMP",
-                  "TMP",
-                  "USERDOMAIN",
-                  "USERNAME",
-                  "USERPROFILE",
-                  "WINDIR"
-                ],
-                "return_code": 0,
-                "stderr": "",
-                "stdout": "",
-                "timed_out": false
-              },
-              "detail": "source build and exact README example compilation passed",
-              "ecosystem": "java",
-              "example_compile": {
-                "argv": [
-                  "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\toolchains\\temurin-21.0.11+10\\jdk-21.0.11+10\\bin\\javac.exe",
-                  "-cp",
-                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-57lfgk9r\\repository\\target\\classes",
-                  "-d",
-                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-57lfgk9r\\repository\\target\\readme-agent-example",
-                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-57lfgk9r\\repository\\ReadmeExample.java"
-                ],
-                "environment_names": [
-                  "APPDATA",
-                  "CI",
-                  "COMPUTERNAME",
-                  "COMSPEC",
-                  "GCM_INTERACTIVE",
-                  "GIT_TERMINAL_PROMPT",
-                  "GOPATH",
-                  "HOMEDRIVE",
-                  "HOMEPATH",
-                  "JAVA_HOME",
-                  "LOCALAPPDATA",
-                  "NUMBER_OF_PROCESSORS",
-                  "PATH",
-                  "PATHEXT",
-                  "PROCESSOR_ARCHITECTURE",
-                  "PROGRAMDATA",
-                  "PROGRAMFILES",
-                  "PROGRAMFILES(X86)",
-                  "SYSTEMROOT",
-                  "TEMP",
-                  "TMP",
-                  "USERDOMAIN",
-                  "USERNAME",
-                  "USERPROFILE",
-                  "WINDIR"
-                ],
-                "return_code": 0,
-                "stderr": "",
-                "stdout": "",
-                "timed_out": false
-              },
-              "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
-              "outcome": "SOURCE_BUILD_VERIFIED",
-              "schema_version": 1,
-              "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
-            },
-            "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
-            "package_roots": [
-              {
-                "confidence": 1.0,
-                "ecosystem": "java",
-                "evidence": "found pom.xml",
-                "manifest_path": "pom.xml",
-                "path": "."
-              }
-            ],
-            "platform": "java",
-            "policy_profile": "aspose-3d-foss",
-            "product_facts_v2": {
-              "facts": [
-                {
-                  "affected_surfaces": [
-                    "readme.opening",
-                    "metadata.description"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "product.identity:manifest-and-registry",
-                  "field": "product.identity",
-                  "source": {
-                    "location": "repository://pom.xml",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "mechanical_manifest"
-                  },
-                  "value": {
-                    "ecosystem": "java",
-                    "family": "3d",
-                    "manifest_names": [
-                      "Aspose.3D FOSS"
-                    ],
-                    "platform": "java",
-                    "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
-                  },
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.opening",
-                    "metadata.description"
-                  ],
-                  "authoritative_owner": "product-policy-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "product.audience:approved-policy",
-                  "field": "product.audience",
-                  "source": {
-                    "location": "config/policies/aspose-3d-foss.yml",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "approved_policy"
-                  },
-                  "value": [
-                    "Java developers building 3D import, export, and scene-processing applications."
-                  ],
-                  "verification_state": "policy_approved"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.opening",
-                    "metadata.description"
-                  ],
-                  "authoritative_owner": "product-policy-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "product.problems_solved:approved-policy",
-                  "field": "product.problems_solved",
-                  "source": {
-                    "location": "config/policies/aspose-3d-foss.yml",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "approved_policy"
-                  },
-                  "value": [
-                    "Create, load, inspect, transform, and save 3D scenes with an open-source Java API."
-                  ],
-                  "verification_state": "policy_approved"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.capabilities",
-                    "metadata.description",
-                    "metadata.topics"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "product.capabilities:repository-evidence",
-                  "field": "product.capabilities",
-                  "source": {
-                    "location": "repository://src/main/java/com/aspose/threed/Material.java,src/main/java/com/aspose/threed/Mesh.java,src/main/java/com/aspose/threed/Scene.java,src/test/java/com/aspose/threed/MaterialTests.java,src/test/java/com/aspose/threed/SceneTest.java",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "mechanical_repository"
-                  },
-                  "value": [
-                    "Create, load, inspect, transform, and save 3D scenes.",
-                    "Model scene geometry and materials through mesh and material APIs."
-                  ],
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.capabilities",
-                    "metadata.topics"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "product.formats:repository-evidence",
-                  "field": "product.formats",
-                  "source": {
-                    "location": "repository://FILE_FORMATS.md,src/test/java/com/aspose/threed/ColladaTests.java,src/test/java/com/aspose/threed/GltfFormatTest.java,src/test/java/com/aspose/threed/StlFormatTest.java",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "mechanical_repository"
-                  },
-                  "value": [
-                    "Import and export glTF and GLB scenes.",
-                    "Import and export binary and ASCII STL scenes.",
-                    "Import and export Collada scenes."
-                  ],
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.capabilities",
-                    "metadata.topics"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "product.platforms:manifest",
-                  "field": "product.platforms",
-                  "source": {
-                    "location": "repository://pom.xml",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "mechanical_manifest"
-                  },
-                  "value": [
-                    "java"
-                  ],
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.installation"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "installation.coordinates:manifest",
-                  "field": "installation.coordinates",
-                  "source": {
-                    "location": "repository://pom.xml",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "mechanical_manifest"
-                  },
-                  "value": [
-                    {
-                      "artifact_id": "aspose-3d-foss",
-                      "ecosystem": "java",
-                      "group_id": "org.aspose",
-                      "manifest_path": "pom.xml",
-                      "name": "Aspose.3D FOSS",
-                      "path": ".",
-                      "version": "26.5.0"
-                    }
-                  ],
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.installation",
-                    "readme.example"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "installation.verified_acquisition:registry-maven_central",
-                  "field": "installation.verified_acquisition",
-                  "source": {
-                    "location": "registry-acquisition://java",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "external_registry"
-                  },
-                  "value": {
-                    "coordinate": {
-                      "artifact_id": "aspose-3d-foss",
-                      "group_id": "org.aspose"
-                    },
-                    "detail": "Maven Central: org.aspose:aspose-3d-foss found",
-                    "method": "maven_central",
-                    "outcome": "REGISTRY_VERIFIED"
-                  },
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.example"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "example.minimal:compiled-policy-example",
-                  "field": "example.minimal",
-                  "source": {
-                    "location": "local-product-verification://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "mechanical_test"
-                  },
-                  "value": {
-                    "class_name": "ReadmeExample",
-                    "code": "import com.aspose.threed.Scene;\n\npublic class ReadmeExample {\n    public static void main(String[] args) throws Exception {\n        Scene scene = new Scene();\n        scene.save(\"scene.stl\");\n    }\n}\n",
-                    "language": "java",
-                    "verification_detail": "source build and exact README example compilation passed",
-                    "verification_outcome": "SOURCE_BUILD_VERIFIED"
-                  },
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.resources",
-                    "metadata.homepage"
-                  ],
-                  "authoritative_owner": "documentation-policy-owner",
-                  "confidence": 0.75,
-                  "conflicts": [],
-                  "fact_id": "documentation.links:primary",
-                  "field": "documentation.links",
-                  "source": {
-                    "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "approved_policy"
-                  },
-                  "value": [
-                    {
-                      "family_url": "https://products.aspose.org/3d/",
-                      "label": "Aspose.3D FOSS for Java",
-                      "url": "https://products.aspose.org/3d/java/",
-                      "utm": null
-                    },
-                    {
-                      "family_url": "https://products.aspose.com/3d",
-                      "label": "Aspose.3D for Java",
-                      "url": "https://products.aspose.com/3d/java/",
-                      "utm": {
-                        "utm_campaign": "foss-readme-optimizer",
-                        "utm_medium": "readme",
-                        "utm_source": "github"
-                      }
-                    },
-                    "docs.aspose.org",
-                    "docs.aspose.com",
-                    "reference.aspose.com",
-                    "releases.aspose.com",
-                    "blog.aspose.org",
-                    "kb.aspose.org",
-                    "forum.aspose.com"
-                  ],
-                  "verification_state": "policy_approved"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.release"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "release.state:manifest-and-registry",
-                  "field": "release.state",
-                  "source": {
-                    "location": "repository://pom.xml",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "mechanical_manifest"
-                  },
-                  "value": [
-                    {
-                      "active": true,
-                      "path": ".",
-                      "version": "26.5.0"
-                    }
-                  ],
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.limitations"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "product.limitations:repository-evidence",
-                  "field": "product.limitations",
-                  "source": {
-                    "location": "repository://TODO.md,docs/foss-java-progress.md",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "mechanical_repository"
-                  },
-                  "value": [
-                    "Rendering and full commercial-API parity remain incomplete."
-                  ],
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.capabilities",
-                    "readme.installation"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "product.compatibility:manifest",
-                  "field": "product.compatibility",
-                  "source": {
-                    "location": "repository://pom.xml",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "mechanical_manifest"
-                  },
-                  "value": [
-                    {
-                      "ecosystem": "java",
-                      "manifest_path": "pom.xml",
-                      "minimum_runtime": "21"
-                    }
-                  ],
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.license",
-                    "community.license"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "confidence": 1.0,
-                  "conflicts": [],
-                  "fact_id": "product.license:license-file",
-                  "field": "product.license",
-                  "source": {
-                    "location": "repository://LICENSE",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "mechanical_repository"
-                  },
-                  "value": "MIT",
-                  "verification_state": "verified"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.resources",
-                    "community.support"
-                  ],
-                  "authoritative_owner": "support-policy-owner",
-                  "confidence": 0.75,
-                  "conflicts": [],
-                  "fact_id": "support.routes:primary",
-                  "field": "support.routes",
-                  "source": {
-                    "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "approved_policy"
-                  },
-                  "value": [
-                    "docs.aspose.org",
-                    "docs.aspose.com",
-                    "reference.aspose.com",
-                    "releases.aspose.com",
-                    "blog.aspose.org",
-                    "kb.aspose.org",
-                    "forum.aspose.com"
-                  ],
-                  "verification_state": "policy_approved"
-                },
-                {
-                  "affected_surfaces": [
-                    "readme.relationship"
-                  ],
-                  "authoritative_owner": "portfolio-policy-owner",
-                  "confidence": 0.9,
-                  "conflicts": [],
-                  "fact_id": "relationship.commercial_foss:primary",
-                  "field": "relationship.commercial_foss",
-                  "source": {
-                    "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Java",
-                    "retrieved_at": null,
-                    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-                    "source_type": "approved_policy"
-                  },
-                  "value": [
-                    "open_source_scope",
-                    "commercial_upgrade_path"
-                  ],
-                  "verification_state": "policy_approved"
-                }
-              ],
-              "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
-              "schema_version": 2,
-              "selected_fact_ids": {
-                "documentation.links": "documentation.links:primary",
-                "example.minimal": "example.minimal:compiled-policy-example",
-                "installation.coordinates": "installation.coordinates:manifest",
-                "installation.verified_acquisition": "installation.verified_acquisition:registry-maven_central",
-                "product.audience": "product.audience:approved-policy",
-                "product.capabilities": "product.capabilities:repository-evidence",
-                "product.compatibility": "product.compatibility:manifest",
-                "product.formats": "product.formats:repository-evidence",
-                "product.identity": "product.identity:manifest-and-registry",
-                "product.license": "product.license:license-file",
-                "product.limitations": "product.limitations:repository-evidence",
-                "product.platforms": "product.platforms:manifest",
-                "product.problems_solved": "product.problems_solved:approved-policy",
-                "relationship.commercial_foss": "relationship.commercial_foss:primary",
-                "release.state": "release.state:manifest-and-registry",
-                "support.routes": "support.routes:primary"
-              }
-            },
-            "products_com_link": {
-              "family_url": "https://products.aspose.com/3d",
-              "label": "Aspose.3D for Java",
-              "url": "https://products.aspose.com/3d/java/",
-              "utm": {
-                "utm_campaign": "foss-readme-optimizer",
-                "utm_medium": "readme",
-                "utm_source": "github"
-              }
-            },
-            "products_org_link": {
-              "family_url": "https://products.aspose.org/3d/",
-              "label": "Aspose.3D FOSS for Java",
-              "url": "https://products.aspose.org/3d/java/",
-              "utm": null
-            },
-            "prohibited_terms": [
-              "guarantee",
-              "100%",
-              "best in the world",
-              "free forever",
-              "no bugs"
-            ],
-            "relationship_talking_points": [
-              "open_source_scope",
-              "commercial_upgrade_path"
-            ],
-            "secondary_links": [
-              "docs.aspose.org",
-              "docs.aspose.com",
-              "reference.aspose.com",
-              "releases.aspose.com",
-              "blog.aspose.org",
-              "kb.aspose.org",
-              "forum.aspose.com"
-            ],
-            "source": {
-              "detected_ecosystems": "live repository clone (repository inspection)",
-              "identity_and_policy": "data/products.json + config/policies/aspose-3d-foss.yml",
-              "package_roots": "live repository clone (repository inspection)",
-              "unresolved_manifests": "live repository clone (repository inspection)"
-            },
-            "surface_ownership": {
-              "schema_version": 1,
-              "surfaces": [
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "local_patch"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "ownership_class": "repository_file",
-                  "required_permission": "local_write",
-                  "rollback": "revert the bounded file patch",
-                  "surface_id": "readme"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "local_patch"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "ownership_class": "repository_file",
-                  "required_permission": "local_write",
-                  "rollback": "revert the bounded file patch",
-                  "surface_id": "readme_visual"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "local_patch"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "ownership_class": "repository_file",
-                  "required_permission": "local_write",
-                  "rollback": "revert the bounded file patch",
-                  "surface_id": "license"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "local_patch"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "ownership_class": "repository_file",
-                  "required_permission": "local_write",
-                  "rollback": "revert the bounded file patch",
-                  "surface_id": "contributing"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "local_patch"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "ownership_class": "repository_file",
-                  "required_permission": "local_write",
-                  "rollback": "revert the bounded file patch",
-                  "surface_id": "code_of_conduct"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "local_patch"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "ownership_class": "repository_file",
-                  "required_permission": "local_write",
-                  "rollback": "revert the bounded file patch",
-                  "surface_id": "security"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "local_patch"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "ownership_class": "repository_file",
-                  "required_permission": "local_write",
-                  "rollback": "revert the bounded file patch",
-                  "surface_id": "support"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "local_patch"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "ownership_class": "repository_file",
-                  "required_permission": "local_write",
-                  "rollback": "revert the bounded file patch",
-                  "surface_id": "issue_templates"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "local_patch"
-                  ],
-                  "authoritative_owner": "repository-owner",
-                  "ownership_class": "repository_file",
-                  "required_permission": "local_write",
-                  "rollback": "revert the bounded file patch",
-                  "surface_id": "pull_request_templates"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "remote_apply"
-                  ],
-                  "authoritative_owner": "repository-settings-owner",
-                  "ownership_class": "settings_api",
-                  "required_permission": "github_apply",
-                  "rollback": "restore the recorded prior setting value",
-                  "surface_id": "description"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "remote_apply"
-                  ],
-                  "authoritative_owner": "repository-settings-owner",
-                  "ownership_class": "settings_api",
-                  "required_permission": "github_apply",
-                  "rollback": "restore the recorded prior setting value",
-                  "surface_id": "homepage"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "remote_apply"
-                  ],
-                  "authoritative_owner": "repository-settings-owner",
-                  "ownership_class": "settings_api",
-                  "required_permission": "github_apply",
-                  "rollback": "restore the recorded prior setting value",
-                  "surface_id": "topics"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "remote_apply"
-                  ],
-                  "authoritative_owner": "repository-settings-owner",
-                  "ownership_class": "settings_api",
-                  "required_permission": "github_apply",
-                  "rollback": "restore the recorded prior setting value",
-                  "surface_id": "feature_settings"
-                },
-                {
-                  "allowed_operations": [
-                    "audit",
-                    "propose",
-                    "manual_apply"
-                  ],
-                  "authoritative_owner": "repository-settings-owner",
-                  "ownership_class": "manual_ui",
-                  "required_permission": "manual_ui",
-                  "rollback": "operator restores the prior asset through the UI",
-                  "surface_id": "social_preview"
-                },
-                {
-                  "allowed_operations": [
-                    "audit"
-                  ],
-                  "authoritative_owner": "product-owner",
-                  "ownership_class": "product_owned",
-                  "required_permission": "read_only_network",
-                  "rollback": "not applicable: this system has no write operation",
-                  "surface_id": "releases"
-                },
-                {
-                  "allowed_operations": [
-                    "audit"
-                  ],
-                  "authoritative_owner": "product-owner",
-                  "ownership_class": "product_owned",
-                  "required_permission": "read_only_network",
-                  "rollback": "not applicable: this system has no write operation",
-                  "surface_id": "packages"
-                },
-                {
-                  "allowed_operations": [
-                    "audit"
-                  ],
-                  "authoritative_owner": "product-owner",
-                  "ownership_class": "product_owned",
-                  "required_permission": "read_only_network",
-                  "rollback": "not applicable: this system has no write operation",
-                  "surface_id": "release_package_facts"
-                },
-                {
-                  "allowed_operations": [
-                    "audit"
-                  ],
-                  "authoritative_owner": "github",
-                  "ownership_class": "github_generated",
-                  "required_permission": "read_only_network",
-                  "rollback": "not applicable: this system has no write operation",
-                  "surface_id": "contributors"
-                },
-                {
-                  "allowed_operations": [
-                    "audit"
-                  ],
-                  "authoritative_owner": "github",
-                  "ownership_class": "github_generated",
-                  "required_permission": "read_only_network",
-                  "rollback": "not applicable: this system has no write operation",
-                  "surface_id": "languages"
-                },
-                {
-                  "allowed_operations": [
-                    "audit"
-                  ],
-                  "authoritative_owner": "github",
-                  "ownership_class": "github_generated",
-                  "required_permission": "read_only_network",
-                  "rollback": "not applicable: this system has no write operation",
-                  "surface_id": "repository_signals"
-                },
-                {
-                  "allowed_operations": [
-                    "audit"
-                  ],
-                  "authoritative_owner": "github",
-                  "ownership_class": "github_generated",
-                  "required_permission": "read_only_network",
-                  "rollback": "not applicable: this system has no write operation",
-                  "surface_id": "page_layout"
-                }
-              ]
-            },
-            "unresolved_manifests": [],
-            "word_limit": {
-              "max": 120,
-              "min": 20
-            }
-          },
-          "state": "PASSED",
-          "supersedes": null,
-          "task_id": "46d1f08605444c1294bbd327b07a77bb",
-          "terminal_at": "2026-07-26T00:47:56.834216+00:00"
+          "task_id": "bd30bf095994441f965be224a20b819e",
+          "terminal_at": "2026-07-26T01:42:50.262779+00:00"
         }
       ]
     }
