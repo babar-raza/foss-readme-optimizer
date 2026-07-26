@@ -3913,11 +3913,13 @@
           "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
         },
         "contract_hash": "82cea1a74fb614b96f49fcbe3c1a54272e8fa643eb7216bc9a0f2b4fd609505c",
+        "facts_hash": "624efe92f5687815f2711ee4bd9e492a6c43900202457c949df7e283fb965962",
         "observed_by": "supervisor_product_truth",
         "occurred_at": "2026-07-26T10:10:57.803938+00:00",
         "outcome": "BLOCKED_MISSING_EVIDENCE",
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
-        "schema_version": 1
+        "schema_version": 1,
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
       }
     ],
     "facts_hash": "624efe92f5687815f2711ee4bd9e492a6c43900202457c949df7e283fb965962",
@@ -4570,7 +4572,7 @@
     "updated_at": "2026-07-26T10:10:56.428445+00:00"
   },
   "schema_version": 2,
-  "state_version": 282,
+  "state_version": 283,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -4770,6 +4772,28 @@
       "recovery_count": 0,
       "status": "blocked",
       "updated_at": "2026-07-26T10:11:14.537617+00:00"
+    },
+    "operator:20260726-102321-fe73:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
+      "accepted_at": "2026-07-26T10:23:26.272269+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260726-102321-fe73:aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-07-26T10:23:21.814316+00:00",
+        "provider_event_id": "20260726-102321-fe73",
+        "repository_scope": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-07-26T10:23:26.272279+00:00"
     }
   },
   "trigger_records": {},
