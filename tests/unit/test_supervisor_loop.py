@@ -2108,14 +2108,13 @@ class TestSpecialistFailureIsolation:
         assert result.blocked_reason.startswith("specialist_failed:")
         assert result.blocked_category == "agent_fixable"
 
-    def test_a_raising_specialists_error_never_looks_like_no_change_to_the_shortcut(
-        self, project, monkeypatch
-    ):
-        """An `ERROR`-status domain must fail the `all(status == "NO_CHANGE")`
-        convergence-shortcut check, forcing the real bootstrap/planner loop
-        to run -- an errored specialist silently masquerading as a converged,
-        nothing-to-do repo would be a much worse failure mode than the crash
-        this fix already prevents."""
+    def test_a_raising_specialists_error_stops_before_general_planning(self, project, monkeypatch):
+        """A specialist error fails closed without bootstrap/planner work.
+
+        The error must never masquerade as a converged no-change result, but
+        once its first failing boundary is known, general planning cannot
+        repair that specialist and must not spend calls rediscovering it.
+        """
 
         def _raising_run_domain(domain, org_repo, backend):
             raise RuntimeError("simulated failure")
@@ -2137,9 +2136,11 @@ class TestSpecialistFailureIsolation:
         assert result.blocked_reason is not None
         assert result.blocked_reason.startswith("specialist_failed:")
         assert result.blocked_category == "agent_fixable"
-        # The bootstrap dispatch only happens past the shortcut -- direct
-        # proof the full loop ran rather than short-circuiting.
-        assert "inspect_repository" in [t.capability_id for t in result.task_graph.tasks.values()]
+        assert result.task_graph.tasks == {}
+        assert any(
+            decision.kind == "stop" and "deterministic specialist-failure stop" in decision.detail
+            for decision in result.decisions
+        )
 
 
 class TestDomainCoverageTracking:
