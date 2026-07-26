@@ -1893,6 +1893,15 @@
         "reason": "independent review wiring failed: RuntimeError: repair composition failed: execution_error:LLMError: composition changed deterministic source-bound dispositions: ['missing:at-a-glance:replace_generic!=add']",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T07:53:25.616141+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "presentation_plan_hash": "2b7e5a5e123e98efd048436d4b7caaca9e45195fb5f057d2c672e0ad40b252fe",
@@ -1902,11 +1911,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-26T07:42:41.342549+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-26T07:53:25.616141+00:00"
   },
   "schema_version": 2,
-  "state_version": 239,
+  "state_version": 240,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9e63ff6e9f22fa71b2e4dc0f398db4a51f35047cca6453241e1567ed5ff36c6d",
