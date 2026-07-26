@@ -2511,7 +2511,7 @@
     "updated_at": "2026-07-26T06:52:52.741820+00:00"
   },
   "schema_version": 2,
-  "state_version": 110,
+  "state_version": 111,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
@@ -2616,13 +2616,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: RepositorySnapshotError: snapshot root disappeared: D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\baseline\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python",
       "last_checkpoint_id": "cd555f2f3a7c6be208a22f22e73744304305f088b29c632bb395241fa063e194",
-      "lease_expires_at": "2026-07-26T10:26:47.722029+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-26T10:12:12.974609+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-26T10:12:28.004181+00:00"
     },
     "operator:20260726-101139-e29d:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
       "accepted_at": "2026-07-26T10:11:46.533648+00:00",
