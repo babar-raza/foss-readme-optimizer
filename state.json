@@ -1295,20 +1295,33 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): The candidate README contains a critical factual inaccuracy in the 'At a glance' section. The text 'Developers using TypeScript for Create and manipulate 3D scenes' is grammatically malformed and does not constitute a coherent audience statement. The verified product fact for 'product.audience' is 'Developers using typescript for Create and manipulate 3D scenes' (note lowercase 'typescript'), but the candidate has capitalized 'TypeScript' and removed the preposition 'for' after 'TypeScript', making the phrase nonsensical. Additionally, the 'At a glance' section is incomplete and lacks proper sentence structure, failing to clearly communicate the product's purpose. While the rest of the README is factually sound and complete, this specific defect in the newly added 'At a glance' section violates the requirement for product clarity and developer usefulness. The section must be repaired to accurately reflect the verified audience and problems-solved facts with proper grammar and clarity.",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "product_clarity",
+          "readability",
+          "developer_usefulness"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T07:14:55.061047+00:00",
+        "reason": "entering repair attempt 1/2: Rewrite the 'At a glance' section to use grammatically correct, factually accurate language that matches the verified facts: 'Developers using TypeScript for creating and manipulating 3D scenes' and 'Hierarchical node structure' should be rephrased as complete, coherent statements or bullet points that clearly communicate the product's audience and purpose.",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "REPAIRING"
       }
     ],
     "presentation_plan_hash": "c44dcdb87d9c0adf3c223df4d57a6d1c41dc670560a9f6161ba2349e55c1063a",
     "prompt_hash": "0aac33fd400c397644d6d10473017ebc54952f5932f75eb660ee40937558c2f6",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 1,
+    "repair_attempts_for_revision": 2,
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-07-26T07:14:50.094513+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-07-26T07:14:55.061047+00:00"
   },
   "schema_version": 2,
-  "state_version": 151,
+  "state_version": 152,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
