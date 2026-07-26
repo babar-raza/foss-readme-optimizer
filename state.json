@@ -2567,7 +2567,7 @@
     "updated_at": "2026-07-26T00:45:05.337623+00:00"
   },
   "schema_version": 2,
-  "state_version": 101,
+  "state_version": 102,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ab69f8376c988bab261a58d60f877d78ca06630bd9f062e894a4b106334b0be",
@@ -4936,12 +4936,12 @@
         "workflow_run_id": null
       },
       "failure_classification": null,
-      "failure_detail": null,
+      "failure_detail": "PARTIAL_WITH_FINDINGS",
       "last_checkpoint_id": "5baa6396400ab5a42cc7b9a66d34651cd109c334de1a7760d0d9759e19509380",
-      "lease_expires_at": "2026-07-26T00:55:47.109085+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-26T00:48:17.117437+00:00"
+      "status": "completed",
+      "updated_at": "2026-07-26T00:48:23.331336+00:00"
     }
   },
   "trigger_records": {},
