@@ -338,9 +338,16 @@ def transition_readme_poc_status(
                 or fact_acceptance_component_hashes != prior.fact_acceptance_component_hashes
             )
         ):
+            binding_facts_hash = facts_hash or prior.facts_hash
+            if next_source_revision is None or binding_facts_hash is None:
+                raise StateBackendError(
+                    "fact acceptance requires a source revision and canonical facts hash"
+                )
             acceptance_history = [
                 *acceptance_history,
                 FactAcceptanceBindingV1(
+                    source_revision=next_source_revision,
+                    facts_hash=binding_facts_hash,
                     contract_hash=fact_acceptance_contract_hash,
                     component_hashes=fact_acceptance_component_hashes or {},
                     outcome=to_status,
@@ -456,6 +463,8 @@ def bind_fact_acceptance_contract(
         ):
             return state
         binding = FactAcceptanceBindingV1(
+            source_revision=source_revision,
+            facts_hash=facts_hash,
             contract_hash=contract_hash,
             component_hashes=component_hashes,
             outcome=outcome,

@@ -94,15 +94,16 @@ def _changed_evidence_gate_requires_recollection(
     stored_components: dict[str, str],
     current_contract: FactAcceptanceContractV1,
 ) -> bool:
-    """Do not relabel facts whose underlying positive/negative evidence gate changed."""
+    """Recollect when a changed component can alter the persisted selected fact graph."""
 
     if not stored_components:
         # One-time migration for bundles created before this contract existed.
         # Their exact four known outcomes are replayed and promoted as evidence
         # by L8-TRUTH-01A before this compatibility path can be removed.
         return False
-    return stored_components.get("evidence_polarity") != current_contract.component_hashes.get(
-        "evidence_polarity"
+    return any(
+        stored_components.get(component) != current_contract.component_hashes.get(component)
+        for component in current_contract.recollect_on_component_change
     )
 
 

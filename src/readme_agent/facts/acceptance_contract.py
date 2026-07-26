@@ -9,6 +9,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
+from readme_agent.facts.gating import SurfaceFactRequirementV1, evaluate_surface_facts
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 
@@ -30,6 +31,11 @@ README_TRUTH_FIELDS = (
 )
 ACCEPTED_VERIFICATION_STATES = ("policy_approved", "verified")
 BLOCKING_CONFLICT_STATUSES = ("unresolved",)
+RECOLLECT_ON_COMPONENT_CHANGE = (
+    "fact_schema",
+    "fact_eligibility",
+    "evidence_polarity",
+)
 VISITOR_RENDER_FIELDS = (
     "product.audience",
     "product.problems_solved",
@@ -39,6 +45,7 @@ VISITOR_RENDER_FIELDS = (
 
 _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
     "classification_semantics": ("acceptance_contract.py",),
+    "conflict_semantics": ("acceptance_contract.py", "schema_v2.py"),
     "fact_schema": ("schema_v2.py",),
     "fact_eligibility": ("gating.py",),
     "evidence_polarity": ("policy_evidence.py", "interpretive_evidence.py"),
@@ -55,6 +62,7 @@ class FactAcceptanceContractV1(BaseModel):
     required_fields: tuple[str, ...]
     accepted_verification_states: tuple[str, ...]
     blocking_conflict_statuses: tuple[str, ...]
+    recollect_on_component_change: tuple[str, ...]
     visitor_render_fields: tuple[str, ...]
     component_hashes: dict[str, str]
 
@@ -90,6 +98,7 @@ def current_fact_acceptance_contract() -> FactAcceptanceContractV1:
         required_fields=README_TRUTH_FIELDS,
         accepted_verification_states=ACCEPTED_VERIFICATION_STATES,
         blocking_conflict_statuses=BLOCKING_CONFLICT_STATUSES,
+        recollect_on_component_change=RECOLLECT_ON_COMPONENT_CHANGE,
         visitor_render_fields=VISITOR_RENDER_FIELDS,
         component_hashes={
             name: _component_hash(root, relative_paths)
@@ -105,7 +114,10 @@ def classify_product_truth(
     """Classify the current graph without trusting a persisted terminal label."""
 
     active_contract = contract or current_fact_acceptance_contract()
-    selected = [facts.selected_fact(field) for field in active_contract.required_fields]
+    try:
+        selected = [facts.selected_fact(field) for field in active_contract.required_fields]
+    except KeyError:
+        return "BLOCKED_MISSING_EVIDENCE"
     if any(
         fact.verification_state == "conflicting"
         or any(
@@ -119,6 +131,17 @@ def classify_product_truth(
         fact.verification_state not in active_contract.accepted_verification_states
         for fact in selected
     ):
+        return "BLOCKED_MISSING_EVIDENCE"
+    eligibility = evaluate_surface_facts(
+        facts,
+        [
+            SurfaceFactRequirementV1(
+                surface_id="readme",
+                required_fields=list(active_contract.required_fields),
+            )
+        ],
+    )[0]
+    if not eligibility.eligible:
         return "BLOCKED_MISSING_EVIDENCE"
     if any(
         (view := visitor_fact_render_view(facts, field)) is None or not view.phrases

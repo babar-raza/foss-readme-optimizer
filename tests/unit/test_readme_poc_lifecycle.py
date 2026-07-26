@@ -618,6 +618,8 @@ class TestProductFactsBoundary:
         assert len(repeated.history) == history_count
         assert len(repeated.fact_acceptance_history) == 1
         assert repeated.fact_acceptance_contract_hash == "c" * 64
+        assert repeated.fact_acceptance_history[0].source_revision == "abc123"
+        assert repeated.fact_acceptance_history[0].facts_hash == "facts-a"
 
     def test_records_collecting_then_ready_and_is_idempotent(self):
         backend = FakeReadmePocBackend()

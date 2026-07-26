@@ -251,8 +251,10 @@ class FactAcceptanceBindingV1(BaseModel):
     """Append-only record of one fact graph evaluated under one exact contract."""
 
     schema_version: Literal[1] = 1
-    contract_hash: str
-    component_hashes: dict[str, str]
+    source_revision: str = Field(min_length=1)
+    facts_hash: str = Field(min_length=1)
+    contract_hash: str = Field(min_length=1)
+    component_hashes: dict[str, str] = Field(min_length=1)
     outcome: Literal[
         "FACTS_READY",
         "BLOCKED_FACT_CONFLICT",

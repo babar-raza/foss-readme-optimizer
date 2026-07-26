@@ -8,6 +8,7 @@ from readme_agent.facts.acceptance_contract import (
 )
 from readme_agent.facts.schema_v2 import (
     REQUIRED_PRODUCT_FIELDS,
+    FactConflictV2,
     FactRecordV2,
     FactSourceV2,
     ProductFactsV2,
@@ -55,11 +56,17 @@ def test_contract_hash_covers_every_named_acceptance_component():
     assert contract.required_fields == README_TRUTH_FIELDS
     assert set(contract.component_hashes) == {
         "classification_semantics",
+        "conflict_semantics",
         "fact_schema",
         "fact_eligibility",
         "evidence_polarity",
         "visitor_render_eligibility",
     }
+    assert contract.recollect_on_component_change == (
+        "fact_schema",
+        "fact_eligibility",
+        "evidence_polarity",
+    )
     assert len(contract.canonical_hash()) == 64
     assert all(len(digest) == 64 for digest in contract.component_hashes.values())
 
@@ -81,6 +88,15 @@ def test_component_or_rule_change_changes_the_contract_hash():
 
     assert component_changed.canonical_hash() != contract.canonical_hash()
     assert membership_changed.canonical_hash() != contract.canonical_hash()
+
+
+def test_classification_honors_the_contract_verification_states():
+    facts = _facts()
+    contract = current_fact_acceptance_contract().model_copy(
+        update={"accepted_verification_states": ("policy_approved",)}
+    )
+
+    assert classify_product_truth(facts, contract) == "BLOCKED_MISSING_EVIDENCE"
 
 
 def test_component_hash_is_checkout_line_ending_invariant(tmp_path):
@@ -107,3 +123,70 @@ def test_classification_uses_the_versioned_required_field_membership():
         update={"required_fields": (*contract.required_fields, "product.limitations")}
     )
     assert classify_product_truth(facts, stricter) == "BLOCKED_MISSING_EVIDENCE"
+
+
+def test_missing_contract_field_fails_closed_instead_of_raising():
+    facts = _facts()
+    contract = current_fact_acceptance_contract().model_copy(
+        update={"required_fields": (*README_TRUTH_FIELDS, "product.not_yet_defined")}
+    )
+
+    assert classify_product_truth(facts, contract) == "BLOCKED_MISSING_EVIDENCE"
+
+
+def test_classification_uses_fact_eligibility_and_conflict_semantics():
+    facts = _facts()
+    audience = facts.selected_fact("product.audience")
+    blocked_audience = audience.model_copy(update={"verification_state": "blocked"})
+    blocked = facts.model_copy(
+        update={
+            "facts": [
+                blocked_audience if fact.fact_id == audience.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    conflicting_audience = audience.model_copy(
+        update={
+            "verification_state": "conflicting",
+            "conflicts": [
+                FactConflictV2(
+                    conflicting_fact_id=descriptive_fact_id(
+                        "product.audience", "conflicting-fixture"
+                    ),
+                    conflicting_value=["Operators using Python"],
+                    conflicting_source=audience.source,
+                    status="unresolved",
+                    reason="controlled conflict",
+                    authoritative_owner="repository-owner",
+                    affected_surfaces=["readme"],
+                )
+            ],
+        }
+    )
+    conflicting = facts.model_copy(
+        update={
+            "facts": [
+                conflicting_audience if fact.fact_id == audience.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    assert classify_product_truth(blocked) == "BLOCKED_MISSING_EVIDENCE"
+    assert classify_product_truth(conflicting) == "BLOCKED_FACT_CONFLICT"
+
+
+def test_verified_but_non_renderable_visitor_fact_is_not_accepted():
+    facts = _facts()
+    audience = facts.selected_fact("product.audience")
+    non_renderable = audience.model_copy(update={"value": {"internal": "audience-code"}})
+    altered = facts.model_copy(
+        update={
+            "facts": [
+                non_renderable if fact.fact_id == audience.fact_id else fact for fact in facts.facts
+            ]
+        }
+    )
+
+    assert classify_product_truth(altered) == "BLOCKED_MISSING_EVIDENCE"

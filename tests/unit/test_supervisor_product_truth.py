@@ -560,7 +560,13 @@ def test_changed_fact_input_contract_invalidates_only_the_cached_agent_draft(tmp
     assert backend.load(ORG_REPO).readme_poc_lifecycle.prompt_hash == "2" * 64
 
 
-def test_changed_evidence_polarity_contract_recollects_before_reaccepting(tmp_path, monkeypatch):
+@pytest.mark.parametrize(
+    "changed_component",
+    ["fact_schema", "fact_eligibility", "evidence_polarity"],
+)
+def test_changed_fact_graph_contract_recollects_before_reaccepting(
+    tmp_path, monkeypatch, changed_component
+):
     snapshot = _snapshot(tmp_path)
     backend = _ready_backend(snapshot)
     facts = _facts()
@@ -583,7 +589,7 @@ def test_changed_evidence_polarity_contract_recollects_before_reaccepting(tmp_pa
         update={
             "component_hashes": {
                 **original_contract.component_hashes,
-                "evidence_polarity": "0" * 64,
+                changed_component: "0" * 64,
             }
         }
     )
