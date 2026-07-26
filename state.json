@@ -36,6 +36,23 @@
       "started_at": "2026-07-26T01:51:32.153967+00:00",
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-015111-aa9d:aspose-cells-foss/Aspose.Cells-FOSS-for-Go"
+    },
+    "7c21bac09ca1aca506432b2bd2038ec74b39e23156c99cec36f52de8b9396d51": {
+      "action": "repository_snapshot_v1",
+      "attempt": 1,
+      "checkpoint_id": "7c21bac09ca1aca506432b2bd2038ec74b39e23156c99cec36f52de8b9396d51",
+      "completed_at": "2026-07-26T01:52:01.453342+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "e99fa8afac0913163b4ea0687eb6003cb90791ad8da1c7c4a0520c2673d12a84",
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+      "run_id": "20260726-015111-aa9d",
+      "schema_version": 1,
+      "stage": "profile_completed",
+      "started_at": "2026-07-26T01:52:01.453332+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260726-015111-aa9d:aspose-cells-foss/Aspose.Cells-FOSS-for-Go"
     }
   },
   "domain_states": {},
@@ -85,7 +102,7 @@
     "updated_at": "2026-07-26T01:51:54.781756+00:00"
   },
   "schema_version": 2,
-  "state_version": 6,
+  "state_version": 7,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260726-015111-aa9d:aspose-cells-foss/Aspose.Cells-FOSS-for-Go": {
@@ -104,11 +121,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "40fdc547540eccd758e411ffa1a5439236ca864eb03227919d5e2d831f7accb3",
+      "last_checkpoint_id": "7c21bac09ca1aca506432b2bd2038ec74b39e23156c99cec36f52de8b9396d51",
       "lease_expires_at": "2026-07-26T02:06:26.528319+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T01:51:32.153982+00:00"
+      "updated_at": "2026-07-26T01:52:01.453342+00:00"
     }
   },
   "trigger_records": {},
