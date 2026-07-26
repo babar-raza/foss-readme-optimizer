@@ -4190,11 +4190,13 @@
           "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
         },
         "contract_hash": "82cea1a74fb614b96f49fcbe3c1a54272e8fa643eb7216bc9a0f2b4fd609505c",
+        "facts_hash": "65977ae5d5c3ebb0c9066ea6d70f57824749b595f8cfc164d02bb26f7bd3a4b6",
         "observed_by": "supervisor_product_truth",
         "occurred_at": "2026-07-26T10:11:11.091898+00:00",
         "outcome": "BLOCKED_MISSING_EVIDENCE",
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
-        "schema_version": 1
+        "schema_version": 1,
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
       }
     ],
     "facts_hash": "65977ae5d5c3ebb0c9066ea6d70f57824749b595f8cfc164d02bb26f7bd3a4b6",
@@ -4916,7 +4918,7 @@
     "updated_at": "2026-07-26T10:11:09.609702+00:00"
   },
   "schema_version": 2,
-  "state_version": 299,
+  "state_version": 300,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9e63ff6e9f22fa71b2e4dc0f398db4a51f35047cca6453241e1567ed5ff36c6d",
@@ -5116,6 +5118,28 @@
       "recovery_count": 0,
       "status": "blocked",
       "updated_at": "2026-07-26T10:11:28.339184+00:00"
+    },
+    "operator:20260726-102636-9e6f:aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript": {
+      "accepted_at": "2026-07-26T10:26:40.922808+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260726-102636-9e6f:aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-07-26T10:26:36.554093+00:00",
+        "provider_event_id": "20260726-102636-9e6f",
+        "repository_scope": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-07-26T10:26:40.922817+00:00"
     }
   },
   "trigger_records": {},
