@@ -1023,6 +1023,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-084802-86fe:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "5884253dcbfb6ee4d5f02cc6d2dacee7d877f38ec80fb3f6442d1723f0866b88": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "5884253dcbfb6ee4d5f02cc6d2dacee7d877f38ec80fb3f6442d1723f0866b88",
+      "completed_at": "2026-07-26T09:40:58.156530+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-094050-c209",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-26T09:40:58.156517+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260726-084802-86fe:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "59b19056e0e457f06bc1e106a26dc8923057b4fcf3ab4882cbd0d8034bcd7a30": {
       "action": null,
       "attempt": 1,
@@ -6353,7 +6370,7 @@
     "updated_at": "2026-07-26T08:27:47.828297+00:00"
   },
   "schema_version": 2,
-  "state_version": 653,
+  "state_version": 654,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ab98c6daf5199c8227b6f4209180d0e318786a76daa8d9896870d222671501b2",
@@ -6810,11 +6827,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "f6e8cfb7d2b91ecb0a60429aeecb47897cf04ad0661d40d4879a098e73a2bb99",
+      "last_checkpoint_id": "5884253dcbfb6ee4d5f02cc6d2dacee7d877f38ec80fb3f6442d1723f0866b88",
       "lease_expires_at": null,
       "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-07-26T09:40:42.078332+00:00"
+      "updated_at": "2026-07-26T09:40:58.156530+00:00"
     }
   },
   "trigger_records": {},
