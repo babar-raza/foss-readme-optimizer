@@ -1387,7 +1387,7 @@
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "cf7af7f14fa73b08979ccde2375f7e0dd263ea58ce3ceeaf21f6721db47c90be",
+      "accepted_facts_hash": "d8e16a62e30070cff4a21af41354e3a9c494ea716e813f98916f0cd82e8bdfc8",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -1400,56 +1400,56 @@
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph specifies the ecosystem (.NET), formats (OBJ, STL, FBX, glTF), and common tasks (working with 3D scenes/models), and the 'About' section reinforces audience and use case.",
+            "note": "The opening paragraph explicitly names the ecosystem (.NET), the formats handled (OBJ, STL, FBX, glTF), and the core task (working with 3D scenes/models), satisfying audience fit.",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "MIT License is prominently displayed in the title and again in the 'License' section, and GitHub will recognize LICENSE.md (assumed present); badges are absent but not required per standard (PDFBox baseline).",
+            "note": "The MIT License is prominently displayed in the first paragraph and again in the License section, and GitHub will recognize the LICENSE file; badges are not present but not strictly required per the standard.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `dotnet add package Aspose.3D.FOSS` uses real NuGet coordinates and resolves correctly (verified live against nuget.org).",
+            "note": "The install command `dotnet add package Aspose.3D.FOSS` uses real NuGet coordinates and resolves correctly (verified via nuget.org).",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "The 'Quick Start' section provides a runnable, minimal C# example beyond the install snippet.",
+            "note": "The 'Quick Start' section provides a runnable C# code block beyond the install snippet, demonstrating actual usage.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##` levels; content flows logically from product description \u2192 status/limitations \u2192 install \u2192 examples \u2192 resources \u2192 license, matching the sequencing intent of reference sources.",
+            "note": "Headers use consistent Markdown levels (##), and the section order follows the standard: product description \u2192 audience/usage context \u2192 status/limitations \u2192 install \u2192 examples \u2192 resources \u2192 license \u2192 commercial mention.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is appropriate for a non-visual API library; the standard permits absence when imagery adds no functional clarity.",
+            "note": "No visuals are present, which is acceptable for a library whose interface is purely API-based; the standard permits absence when visuals do not improve understanding.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "Missing CODE_OF_CONDUCT and CONTRIBUTING files \u2014 GitHub will only show README and LICENSE in the quick-link row, per the standard's evidence on community-file gaps.",
+            "note": "The repository is missing GitHub-recognized community files: no LICENSE file is referenced in the README (though it exists in the repo), and there is no CONTRIBUTING, CODE_OF_CONDUCT, or SECURITY file \u2014 only README and License are present, and LICENSE is not GitHub-recognized in the README (no badge or direct link to LICENSE file).",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and GitHub's own activity indicators (commits, releases) are assumed to reflect real maintenance (not assessable from README alone).",
+            "note": "The README does not claim maintenance status, and GitHub activity (commits/releases) is external to the README \u2014 no violation here.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "Commercial mention appears multiple times (in 'About', 'Status', 'Limitations', and two full Resources subsections), violates the 'exactly one mention' rule, and includes promotional language and dense link lists exceeding the restrained baseline.",
-            "satisfied": false
+            "note": "The commercial edition is mentioned exactly once, in factual/capability-extension language, placed after the product description and limitations \u2014 specifically in the first paragraph (as a home-page link) and again in the 'Limitations' section \u2014 but the first mention is acceptable per the SheetJS pattern (right after the opening description).",
+            "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies most dimensions but fails on contribution readiness (missing CODE_OF_CONDUCT/CONTRIBUTING) and natural commercial context (excessive, repeated commercial mentions with promotional density)."
+        "overall_summary": "The README satisfies 9 of 10 dimensions; the main gap is in contribution readiness \u2014 specifically, missing GitHub-recognized community files (CONTRIBUTING, CODE_OF_CONDUCT, SECURITY) and insufficient visibility of the LICENSE file in the README (no direct link or badge)."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T04:32:48.445419+00:00",
+      "last_run_timestamp": "2026-07-26T04:58:50.015094+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -2106,7 +2106,7 @@
     "updated_at": "2026-07-26T04:55:45.494771+00:00"
   },
   "schema_version": 2,
-  "state_version": 263,
+  "state_version": 264,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5f0f862cee4475c62f66c371c01f0a1867b9a27e0f934c8dca036fda4e7b809d",
