@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -12,6 +13,7 @@ from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle import transition_trigger
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2
+from readme_agent.supervisor.stage_limit import lifecycle_stage_reaches_limit
 
 _COMPLETE_LOCAL_POC_STATUSES = {
     "NO_OP_PROVEN",
@@ -20,6 +22,7 @@ _COMPLETE_LOCAL_POC_STATUSES = {
     "PR_ELIGIBLE",
     "PR_PROOF_COMPLETE",
 }
+PortfolioTargetStageV1 = Literal["FACTS_READY", "NO_OP_PROVEN"]
 
 
 class PortfolioRepositoryResultV1(BaseModel):
@@ -35,8 +38,9 @@ class PortfolioRepositoryResultV1(BaseModel):
 class PortfolioPocSummaryV1(BaseModel):
     """Derived portfolio state; never a hand-maintained progress ledger."""
 
-    schema_version: int = 2
+    schema_version: int = 3
     registry_path: str
+    target_lifecycle_stage: PortfolioTargetStageV1 = "NO_OP_PROVEN"
     generated_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
     registry_count: int = Field(ge=0)
     execution_slice_complete: bool = True
@@ -48,7 +52,10 @@ class PortfolioPocSummaryV1(BaseModel):
         # unchanged rerun is a mandatory proof boundary.  Every later state
         # retains that approval, so this derives the headline denominator
         # without a separate mutable counter.
-        return sum(result.status in _COMPLETE_LOCAL_POC_STATUSES for result in self.results)
+        return sum(
+            result.exit_code == 0 and result.status in _COMPLETE_LOCAL_POC_STATUSES
+            for result in self.results
+        )
 
     @property
     def system_failure_count(self) -> int:
@@ -57,9 +64,23 @@ class PortfolioPocSummaryV1(BaseModel):
             for result in self.results
         )
 
+    @property
+    def target_complete_count(self) -> int:
+        """Count repositories that honestly reached this bounded campaign target."""
+
+        if self.target_lifecycle_stage == "FACTS_READY":
+            return sum(
+                result.exit_code == 0
+                and lifecycle_stage_reaches_limit("FACTS_READY", result.status)
+                for result in self.results
+            )
+        return self.complete_agent_approved_count
+
     def summary_line(self) -> str:
         return (
             "local_poc portfolio: "
+            f"target={self.target_lifecycle_stage} "
+            f"complete={self.target_complete_count}/{self.registry_count} "
             f"agent_approved={self.complete_agent_approved_count}/{self.registry_count} "
             f"system_failed={self.system_failure_count} processed={len(self.results)} "
             f"slice_complete={self.execution_slice_complete}"

@@ -29,6 +29,7 @@ def test_summary_derives_counts_and_writes_a_checksum(tmp_path):
     write_portfolio_summary(path, summary)
 
     assert summary.complete_agent_approved_count == 1
+    assert summary.target_complete_count == 1
     assert summary.system_failure_count == 1
     assert summary.execution_slice_complete is True
     assert '"registry_count": 2' in path.read_text(encoding="utf-8")
@@ -37,6 +38,32 @@ def test_summary_derives_counts_and_writes_a_checksum(tmp_path):
         .read_text(encoding="utf-8")
         .endswith("  portfolio-summary.json\n")
     )
+
+
+def test_facts_target_summary_counts_only_fact_ready_or_later_lifecycle_states():
+    summary = PortfolioPocSummaryV1(
+        registry_path="data/products.json",
+        target_lifecycle_stage="FACTS_READY",
+        registry_count=5,
+        results=[
+            PortfolioRepositoryResultV1(org_repo="org/ready", status="FACTS_READY", exit_code=0),
+            PortfolioRepositoryResultV1(org_repo="org/later", status="NO_OP_PROVEN", exit_code=0),
+            PortfolioRepositoryResultV1(
+                org_repo="org/missing",
+                status="BLOCKED_MISSING_EVIDENCE",
+                exit_code=1,
+            ),
+            PortfolioRepositoryResultV1(
+                org_repo="org/active", status="ACTIVE_TRIGGER", exit_code=1
+            ),
+            PortfolioRepositoryResultV1(
+                org_repo="org/stale-later", status="NO_OP_PROVEN", exit_code=1
+            ),
+        ],
+    )
+
+    assert summary.target_complete_count == 2
+    assert "target=FACTS_READY complete=2/5" in summary.summary_line()
 
 
 def test_trigger_selection_resumes_retryable_but_never_steals_active_work():

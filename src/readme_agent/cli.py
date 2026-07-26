@@ -164,6 +164,16 @@ def _build_parser() -> argparse.ArgumentParser:
             "Valid only with a durable execution profile; used by the recovery matrix."
         ),
     )
+    from readme_agent.supervisor.stage_limit import README_POC_STAGE_LIMITS
+
+    p_supervise.add_argument(
+        "--max-readme-poc-stage",
+        choices=README_POC_STAGE_LIMITS,
+        help=(
+            "Stop the canonical local_poc runtime after this lifecycle boundary. "
+            "Later capabilities, acceptance claims, and artifacts must not run."
+        ),
+    )
     p_supervise.add_argument(
         "--domain",
         default=None,

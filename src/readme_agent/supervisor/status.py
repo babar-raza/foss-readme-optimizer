@@ -8,6 +8,7 @@ CONVERGED_STATUSES = frozenset(
         "CONVERGED_APPLIED",
         "CONVERGED_PROPOSAL_READY",
         "CONVERGED_NO_TRACKED_CHANGE",
+        "STAGE_COMPLETE",
     }
 )
 

@@ -232,7 +232,11 @@ class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
             return result
         type(self).saw_repair_hint = True
         arguments = dict(result.arguments)
-        arguments["overview_fact_ids"] = list(reversed(arguments["overview_fact_ids"]))
+        # The renderer now deterministically de-duplicates overlapping phrases,
+        # so reversing the same complete set no longer changes the candidate.
+        # Select a bounded subset to model a real repair that removes the
+        # rejected generic overview material.
+        arguments["overview_fact_ids"] = arguments["overview_fact_ids"][:1]
         return ForcedToolResult(arguments=arguments, meta=result.meta)
 
 
@@ -642,6 +646,42 @@ def project(tmp_path, monkeypatch):
 
 
 class TestBasicLoop:
+    def test_facts_stage_limit_stops_before_every_specialist(self, project, monkeypatch):
+        from readme_agent.supervisor import loop as loop_module
+
+        backend = FakeStateBackend()
+        monkeypatch.setattr(loop_module, "no_change_gate_holds", lambda *args, **kwargs: True)
+
+        def _specialists_must_not_run(*args, **kwargs):
+            raise AssertionError("facts-only execution must not enter the specialist tier")
+
+        monkeypatch.setattr(loop_module, "run_specialist_tier", _specialists_must_not_run)
+
+        result = supervise_repo(
+            ORG_REPO,
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+            readme_poc_stage_limit="FACTS_READY",
+        )
+
+        lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+        assert result.status == "STAGE_COMPLETE"
+        assert lifecycle is not None
+        assert lifecycle.status == "FACTS_READY"
+        assert backend.load(ORG_REPO).domain_states == {}
+        assert result.decisions[0].kind == "readme_poc_stage_complete"
+        assert result.requested_readme_stage == "FACTS_READY"
+        assert result.readme_lifecycle_status == "FACTS_READY"
+
+    def test_stage_limit_requires_lifecycle_tracking(self, project):
+        with pytest.raises(RuntimeError, match="require lifecycle tracking"):
+            supervise_repo(
+                ORG_REPO,
+                write_evidence_bundle=False,
+                readme_poc_stage_limit="FACTS_READY",
+            )
+
     def test_local_poc_records_snapshot_and_profile_before_later_stages(self, project, monkeypatch):
         backend = FakeStateBackend()
 

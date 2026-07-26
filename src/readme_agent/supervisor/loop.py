@@ -40,6 +40,7 @@ from readme_agent.supervisor.evidence import write_supervise_evidence as _write_
 from readme_agent.supervisor.models import DecisionSummary, SuperviseResult
 from readme_agent.supervisor.planner_loop import run_planner_loop
 from readme_agent.supervisor.specialist_tier import run_specialist_tier
+from readme_agent.supervisor.stage_limit import ReadmePocStageLimitV1, evaluate_stage_boundary
 from readme_agent.supervisor.state_tracking import (
     load_prior_run_state as _load_prior_run_state,
 )
@@ -185,6 +186,7 @@ def supervise_repo(
     verify_local_product_facts: bool = False,
     track_readme_poc_lifecycle: bool = False,
     product_truth_client: Any | None = None,
+    readme_poc_stage_limit: ReadmePocStageLimitV1 | None = None,
 ) -> SuperviseResult:
     # require_listed(), not require_permitted() (decision #40): most of a
     # supervised run is read-only planning/observation, so mode is not
@@ -195,6 +197,8 @@ def supervise_repo(
         raise RuntimeError("strict GitHub execution requires a durable state backend")
     if require_evidence_bundle and not write_evidence_bundle:
         raise RuntimeError("execution profile requires a terminal evidence bundle")
+    if readme_poc_stage_limit is not None and not track_readme_poc_lifecycle:
+        raise RuntimeError("README POC stage limits require lifecycle tracking")
 
     if entry.ecosystem is None and entry.platform not in known_manifest_globs():
         return SuperviseResult(
@@ -295,6 +299,7 @@ def supervise_repo(
             current_control_plane_fingerprint,
             now=datetime.now(UTC),
         )
+        and readme_poc_stage_limit is None
         and (not track_readme_poc_lifecycle or _readme_poc_noop_gate_holds(prior_full_state))
     ):
         graph = TaskGraph()
@@ -431,7 +436,10 @@ def supervise_repo(
             evidence_refs=[str(poc_bundle_dir / "source" / "repository-profile.json")],
         )
         mark_local_poc_profiled(repository_snapshot, poc_bundle_dir)
-        from readme_agent.supervisor.product_truth import prepare_local_product_truth
+        from readme_agent.supervisor.product_truth import (
+            classify_product_truth,
+            prepare_local_product_truth,
+        )
 
         with repository_snapshot_scope(
             repository_snapshot,
@@ -443,8 +451,63 @@ def supervise_repo(
                 state_backend,
                 client=product_truth_client,
             )
+        lifecycle_recorder = current_lifecycle_recorder()
+        if lifecycle_recorder is not None:
+            lifecycle_recorder.checkpoint(
+                "snapshot_captured",
+                outputs={
+                    "upstream_revision": current_revision,
+                    "repository_snapshot_v1": repository_snapshot.model_dump(mode="json"),
+                },
+            )
+        if readme_poc_stage_limit is not None:
+            current_fact_status = classify_product_truth(prepared_product_truth.facts)
+            boundary = evaluate_stage_boundary(
+                readme_poc_stage_limit,
+                current_fact_status,
+            )
+            if not boundary.reached:
+                return SuperviseResult(
+                    status="BLOCKED",
+                    org_repo=org_repo,
+                    task_graph=TaskGraph(),
+                    blocked_reason=(
+                        f"stage_limit_not_reached:{boundary.requested_stage}:"
+                        f"{boundary.observed_stage}"
+                    ),
+                    blocked_category="agent_fixable",
+                    decisions=[
+                        DecisionSummary(
+                            turn=0,
+                            kind="readme_poc_stage_blocked",
+                            detail=(
+                                f"requested {boundary.requested_stage}; product truth reached "
+                                f"{boundary.observed_stage}; no later capability executed"
+                            ),
+                        )
+                    ],
+                    requested_readme_stage=boundary.requested_stage,
+                    readme_lifecycle_status=boundary.observed_stage,
+                )
+            return SuperviseResult(
+                status="STAGE_COMPLETE",
+                org_repo=org_repo,
+                task_graph=TaskGraph(),
+                decisions=[
+                    DecisionSummary(
+                        turn=0,
+                        kind="readme_poc_stage_complete",
+                        detail=(
+                            f"requested {boundary.requested_stage}; observed "
+                            f"{boundary.observed_stage}; no later capability executed"
+                        ),
+                    )
+                ],
+                requested_readme_stage=boundary.requested_stage,
+                readme_lifecycle_status=boundary.observed_stage,
+            )
     lifecycle_recorder = current_lifecycle_recorder()
-    if lifecycle_recorder is not None:
+    if lifecycle_recorder is not None and not track_readme_poc_lifecycle:
         lifecycle_recorder.checkpoint(
             "snapshot_captured",
             outputs={
@@ -454,12 +517,16 @@ def supervise_repo(
         )
     # Wave 9.7 (`FRESH-010`): same 7-condition gate as the pre-clone probe
     # shortcut above, not the bare 3-condition `is_fresh()`.
-    if no_change_gate_holds(
-        prior_full_state,
-        current_revision,
-        current_control_plane_fingerprint,
-        now=datetime.now(UTC),
-    ) and (not track_readme_poc_lifecycle or _readme_poc_noop_gate_holds(prior_full_state)):
+    if (
+        no_change_gate_holds(
+            prior_full_state,
+            current_revision,
+            current_control_plane_fingerprint,
+            now=datetime.now(UTC),
+        )
+        and readme_poc_stage_limit is None
+        and (not track_readme_poc_lifecycle or _readme_poc_noop_gate_holds(prior_full_state))
+    ):
         graph = TaskGraph()
         return SuperviseResult(
             status="CONVERGED_NO_CHANGE",

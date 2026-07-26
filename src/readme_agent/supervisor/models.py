@@ -3,6 +3,8 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from readme_agent.state.lifecycle_schema import ReadmePocStatusV2
+from readme_agent.supervisor.stage_limit import ReadmePocStageLimitV1
 from readme_agent.supervisor.task import TaskGraph
 
 
@@ -26,3 +28,5 @@ class SuperviseResult:
     blocked_reason: str | None = None
     blocked_category: str | None = None
     evidence_dir: Path | None = None
+    requested_readme_stage: ReadmePocStageLimitV1 | None = None
+    readme_lifecycle_status: ReadmePocStatusV2 | None = None

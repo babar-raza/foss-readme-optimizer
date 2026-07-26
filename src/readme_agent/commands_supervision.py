@@ -66,6 +66,13 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             return 2
     else:
         profile = None
+    readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
+    if readme_poc_stage_limit is not None and (profile is None or profile.name != "local_poc"):
+        print(
+            "error: --max-readme-poc-stage is only valid with --execution-profile local_poc",
+            file=sys.stderr,
+        )
+        return 2
 
     # Resolve and prove durable state before preflight can make an LLM
     # connectivity call. A GitHub profile may never degrade to ephemeral
@@ -237,6 +244,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
                     require_independent_verification=profile.require_independent_verification,
                     verify_local_product_facts=profile.verify_local_product_facts,
                     track_readme_poc_lifecycle=profile.name == "local_poc",
+                    readme_poc_stage_limit=readme_poc_stage_limit,
                     **dynamic_planning_kwargs,
                 )
     except Exception as exc:
@@ -413,6 +421,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     # lifecycle state the canonical runs actually persisted, not their
     # console exit codes.
     state_backend = _force_durable_state_backend()
+    readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
     results: list[PortfolioRepositoryResultV1] = []
     slice_started = time.monotonic()
     execution_slice_complete = True
@@ -442,7 +451,9 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     repo,
                     lifecycle.source_revision,
                 )
-                if complete_status := completed_local_poc_status(persisted, bundle_dir):
+                if readme_poc_stage_limit is None and (
+                    complete_status := completed_local_poc_status(persisted, bundle_dir)
+                ):
                     results.append(
                         PortfolioRepositoryResultV1(
                             org_repo=entry.org_repo,
@@ -480,9 +491,15 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                 PortfolioRepositoryResultV1(
                     org_repo=entry.org_repo,
                     status=(
-                        lifecycle.status
-                        if lifecycle is not None
-                        else ("NO_POC_LIFECYCLE" if exit_code == 0 else "NON_SUCCESS_TERMINAL")
+                        terminal_result.readme_lifecycle_status
+                        if readme_poc_stage_limit is not None
+                        and terminal_result is not None
+                        and terminal_result.readme_lifecycle_status is not None
+                        else (
+                            lifecycle.status
+                            if lifecycle is not None
+                            else ("NO_POC_LIFECYCLE" if exit_code == 0 else "NON_SUCCESS_TERMINAL")
+                        )
                     ),
                     exit_code=exit_code,
                     blocked_reason=(
@@ -497,9 +514,13 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             print(f"{entry.org_repo}: SYSTEM_FAILURE: {type(exc).__name__}: {exc}", file=sys.stderr)
             failure_detail = f"portfolio_member_failure:{type(exc).__name__}:{exc}"
             try:
-                recovered_status = recover_completed_local_poc_status(
-                    state_backend,
-                    entry.org_repo,
+                recovered_status = (
+                    recover_completed_local_poc_status(
+                        state_backend,
+                        entry.org_repo,
+                    )
+                    if readme_poc_stage_limit is None
+                    else None
                 )
             except Exception as recovery_check_exc:  # noqa: BLE001 -- preserve original failure
                 recovered_status = None
@@ -550,6 +571,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     summary = PortfolioPocSummaryV1(
         registry_path=str(registry_path),
         registry_count=len(entries),
+        target_lifecycle_stage=(readme_poc_stage_limit or "NO_OP_PROVEN"),
         execution_slice_complete=execution_slice_complete,
         results=results,
     )

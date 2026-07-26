@@ -70,7 +70,9 @@ class PreparedProductTruthV1(BaseModel):
     bundle_dir: str
 
 
-def _fact_outcome(facts: ProductFactsV2) -> ReadmePocStatusV2:
+def classify_product_truth(facts: ProductFactsV2) -> ReadmePocStatusV2:
+    """Classify the current graph without trusting a persisted terminal label."""
+
     selected = [facts.selected_fact(field) for field in _README_TRUTH_FIELDS]
     if any(fact.verification_state == "conflicting" for fact in selected):
         return "BLOCKED_FACT_CONFLICT"
@@ -232,7 +234,7 @@ def prepare_local_product_truth(
             resolution_source = "agent_draft"
             prompt_hash = prompt_registry.prompt_hash("draft_product_truth")
 
-    lifecycle_status = _fact_outcome(facts)
+    lifecycle_status = classify_product_truth(facts)
     bundle_dir = write_local_poc_product_facts(
         snapshot,
         facts,

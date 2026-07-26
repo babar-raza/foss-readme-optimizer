@@ -442,6 +442,45 @@ class TestExecutionProfileFlag:
         )
         assert args.execution_profile == "github_observe"
 
+    def test_facts_stage_limit_is_typed_by_argparse(self):
+        args = _build_parser().parse_args(
+            [
+                "supervise",
+                "--registry",
+                "data/products.json",
+                "--execution-profile",
+                "local_poc",
+                "--max-readme-poc-stage",
+                "FACTS_READY",
+            ]
+        )
+        assert args.max_readme_poc_stage == "FACTS_READY"
+
+        with pytest.raises(SystemExit):
+            _build_parser().parse_args(
+                [
+                    "supervise",
+                    "--registry",
+                    "data/products.json",
+                    "--execution-profile",
+                    "local_poc",
+                    "--max-readme-poc-stage",
+                    "AGENT_APPROVED",
+                ]
+            )
+
+    def test_stage_limit_is_rejected_outside_local_poc(self, capsys):
+        args = argparse.Namespace(
+            repo="org/repo",
+            registry=None,
+            durable_state=False,
+            domain=None,
+            execution_profile="local_dry_run",
+            max_readme_poc_stage="FACTS_READY",
+        )
+        assert cmd_supervise(args) == 2
+        assert "only valid with --execution-profile local_poc" in capsys.readouterr().err
+
     def test_local_poc_profile_requires_the_registry_target(self, capsys):
         args = argparse.Namespace(
             repo="org/repo",
@@ -482,6 +521,7 @@ class TestExecutionProfileFlag:
             domain=None,
             execution_profile="local_poc",
             enable_dynamic_planning=False,
+            max_readme_poc_stage="FACTS_READY",
         )
 
         assert cmd_supervise(args) == 0
@@ -489,6 +529,7 @@ class TestExecutionProfileFlag:
         assert captured["enable_specialist_skip"] is True
         assert captured["require_independent_verification"] is True
         assert captured["verify_local_product_facts"] is True
+        assert captured["readme_poc_stage_limit"] == "FACTS_READY"
         assert captured["allowed_permission_classes"] == {
             "read_only_local",
             "read_only_network",
@@ -500,6 +541,61 @@ class TestExecutionProfileFlag:
 
 
 class TestLocalPocPortfolioCommand:
+    def test_facts_stage_runs_heterogeneous_registry_without_promoting_persisted_labels(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.paths as paths
+        import readme_agent.registry.loader as loader_module
+        import readme_agent.state.git_backend as git_backend_module
+
+        monkeypatch.setattr(
+            loader_module,
+            "load_products",
+            lambda path: (
+                argparse.Namespace(org_repo="org/java", ecosystem="java"),
+                argparse.Namespace(org_repo="org/python", ecosystem="python"),
+            ),
+        )
+        monkeypatch.setattr(
+            git_backend_module,
+            "default_state_backend",
+            lambda: _LifecycleFakeBackend(),
+        )
+        monkeypatch.setattr(
+            paths,
+            "readme_poc_portfolio_summary_path",
+            lambda: tmp_path / "summary.json",
+        )
+
+        calls: list[str] = []
+
+        def _fake_member_run(member_args):
+            calls.append(member_args.repo)
+            result = _terminal_supervise_result("STAGE_COMPLETE")
+            result.requested_readme_stage = "FACTS_READY"
+            result.readme_lifecycle_status = "FACTS_READY"
+            member_args._terminal_supervise_result = result
+            return 0
+
+        monkeypatch.setattr(supervision_module, "cmd_supervise", _fake_member_run)
+        args = argparse.Namespace(
+            registry="data/products.json",
+            execution_profile="local_poc",
+            domain=None,
+            resume_trigger_key=None,
+            no_registry_heal=False,
+            max_readme_poc_stage="FACTS_READY",
+        )
+
+        assert supervision_module._cmd_supervise_registry(args) == 0
+        assert calls == ["org/java", "org/python"]
+        rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
+        assert '"status": "FACTS_READY"' in rendered
+        assert '"target_lifecycle_stage": "FACTS_READY"' in rendered
+        assert '"registry_count": 2' in rendered
+        assert "NO_OP_PROVEN" not in rendered
+
     def test_registry_uses_the_canonical_supervisor_for_every_mode_and_isolates_failures(
         self, monkeypatch, tmp_path
     ):
