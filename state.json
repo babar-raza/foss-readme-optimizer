@@ -547,6 +547,23 @@
       "task_id": "2f526a3509f044dd9e2f45c7b2052466",
       "trigger_dedup_key": "operator:20260726-004030-cd83:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "76d80b68a780ebd6151ae69903bb653efd30a4bc70d923cd58adc6baf8b42238": {
+      "action": "check_install_path",
+      "attempt": 1,
+      "checkpoint_id": "76d80b68a780ebd6151ae69903bb653efd30a4bc70d923cd58adc6baf8b42238",
+      "completed_at": "2026-07-26T02:36:50.253247+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8848874b8acbf6071559280c378cbc2f13c44b035cfdfc34574996b5d7bbf133",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-023022-ddba",
+      "schema_version": 1,
+      "stage": "task_started",
+      "started_at": "2026-07-26T02:36:50.253239+00:00",
+      "task_id": "45de456de00a4123b6afde092c4a4a96",
+      "trigger_dedup_key": "operator:20260726-023022-ddba:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "77731ab26a705938a9d36b5d702ba76d165eeac5c157c773bf977b5f7e03b017": {
       "action": "verify_package_acquisition",
       "attempt": 1,
@@ -3718,7 +3735,7 @@
     "updated_at": "2026-07-26T02:34:24.172848+00:00"
   },
   "schema_version": 2,
-  "state_version": 244,
+  "state_version": 245,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a8e32a7021c7a54179604c1ef00ac2e07d681ec262b542afc27855c711f6337f",
@@ -3878,11 +3895,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "13b644c910773f9d5e6ebe6329c6640ea95b9249a2129e80e806ee2acc7a637b",
+      "last_checkpoint_id": "76d80b68a780ebd6151ae69903bb653efd30a4bc70d923cd58adc6baf8b42238",
       "lease_expires_at": "2026-07-26T02:45:39.251588+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T02:36:41.442248+00:00"
+      "updated_at": "2026-07-26T02:36:50.253247+00:00"
     }
   },
   "trigger_records": {},
