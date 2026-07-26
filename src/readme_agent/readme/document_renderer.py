@@ -35,7 +35,7 @@ from readme_agent.readme.document_plan import (
     ReadmeDocumentOperationV1,
     ReadmeDocumentPlanV1,
 )
-from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.document_structure import code_blocks_in_span, parse_headings
 from readme_agent.readme.document_templates import (
     accepted_fact,
     document_template_hash,
@@ -328,23 +328,50 @@ def build_readme_document_candidate(
 
     if exact_code and exact_code not in inner_text:
         if example_target is not None:
-            byte_offset = len(inner_text[: example_target.heading_end].encode("utf-8"))
-            operations.append(
-                build_operation(
-                    operation_id="readme.example.insert-verified-minimal",
-                    operation="insert_after",
-                    source=source,
-                    start=byte_offset,
-                    end=byte_offset,
-                    replacement="\n" + example_text(facts, base_revision) + "\n\n",
-                    fact_ids=[example.fact_id] if example is not None else [],
-                    treatment="additive",
-                    rationale=(
-                        "Lead the usage section with the exact minimal example compiled against "
-                        "the verified source build."
-                    ),
-                )
+            existing_examples = code_blocks_in_span(
+                inner_text,
+                example_target.heading_end,
+                example_target.section_end,
             )
+            if len(existing_examples) == 1:
+                existing_example = existing_examples[0]
+                start = len(inner_text[: existing_example.start].encode("utf-8"))
+                end = len(inner_text[: existing_example.end].encode("utf-8"))
+                operations.append(
+                    build_operation(
+                        operation_id="readme.example.replace-unverified-minimal",
+                        operation="replace",
+                        source=source,
+                        start=start,
+                        end=end,
+                        replacement=example_text(facts, base_revision) + "\n",
+                        fact_ids=[example.fact_id] if example is not None else [],
+                        treatment="authoritative_fact_correction",
+                        rationale=(
+                            "Replace the one existing usage example with the exact minimal example "
+                            "compiled against the verified source build."
+                        ),
+                    )
+                )
+            else:
+                byte_offset = len(inner_text[: example_target.heading_end].encode("utf-8"))
+                operations.append(
+                    build_operation(
+                        operation_id="readme.example.insert-verified-minimal",
+                        operation="insert_after",
+                        source=source,
+                        start=byte_offset,
+                        end=byte_offset,
+                        replacement="\n" + example_text(facts, base_revision) + "\n\n",
+                        fact_ids=[example.fact_id] if example is not None else [],
+                        treatment="additive",
+                        rationale=(
+                            "Lead the usage section with the exact minimal example compiled "
+                            "against the verified source build; preserve multiple existing "
+                            "examples until their individual roles can be assessed."
+                        ),
+                    )
+                )
 
     relationship = accepted_fact(facts, "relationship.commercial_foss")
     callout = _PROMOTIONAL_CALLOUT.search(inner_text)

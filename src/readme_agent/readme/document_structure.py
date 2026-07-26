@@ -22,6 +22,13 @@ class Heading:
     section_end: int
 
 
+@dataclass(frozen=True)
+class CodeBlock:
+    start: int
+    end: int
+    content: str
+
+
 def line_offsets(text: str) -> list[int]:
     offsets = [0]
     for line in text.splitlines(keepends=True):
@@ -49,6 +56,22 @@ def parse_headings(text: str) -> list[Heading]:
                 break
         headings.append(Heading(level, title, start, heading_end, section_end))
     return headings
+
+
+def code_blocks_in_span(text: str, start: int, end: int) -> list[CodeBlock]:
+    """Return Markdown code blocks wholly contained in one character span."""
+
+    offsets = line_offsets(text)
+    blocks: list[CodeBlock] = []
+    for token in MarkdownIt("commonmark").parse(text):
+        if token.type not in {"fence", "code_block"} or token.map is None:
+            continue
+        start_line, end_line = token.map
+        block_start = offsets[start_line]
+        block_end = offsets[end_line]
+        if start <= block_start and block_end <= end:
+            blocks.append(CodeBlock(start=block_start, end=block_end, content=token.content))
+    return blocks
 
 
 def github_anchor(title: str) -> str:

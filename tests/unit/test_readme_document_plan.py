@@ -132,6 +132,55 @@ def test_existing_limitations_section_is_not_duplicated():
     )
 
 
+def test_single_unverified_usage_example_is_replaced_instead_of_duplicated():
+    org_repo = "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    facts, revision = _facts(org_repo)
+    example = facts.selected_fact("example.minimal")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"verification_state": "verified"})
+                if fact.fact_id == example.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = """# Aspose.3D FOSS for Java
+
+## Usage
+
+Introductory guidance remains.
+
+```java
+Scene scene = new Scene("testdata/input/cube.obj");
+scene.save("output.stl");
+```
+
+Follow-on guidance remains.
+"""
+
+    candidate, plan = build_readme_document_candidate(
+        org_repo, source, facts, base_revision=revision
+    )
+    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert decision.valid, decision.errors
+    assert 'new Scene("testdata/input/cube.obj")' not in candidate
+    assert facts.selected_fact("example.minimal").value["code"].rstrip() in candidate
+    assert candidate.count("```java") == 1
+    assert "Introductory guidance remains." in candidate
+    assert "Follow-on guidance remains." in candidate
+    replacement = next(
+        operation
+        for operation in plan.operations
+        if operation.operation_id == "readme.example.replace-unverified-minimal"
+    )
+    assert replacement.operation == "replace"
+    assert replacement.protected_content_treatment == "authoritative_fact_correction"
+    assert facts.selected_fact("example.minimal").fact_id in replacement.fact_ids
+
+
 def test_cells_keeps_verified_maven_install_and_adds_verified_example():
     """Corrected 2026-07-24: org.aspose:aspose-cells-foss IS published on Maven
     Central (the prior resolver queried the wrong endpoint) -- the renderer must
