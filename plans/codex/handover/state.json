@@ -1,22 +1,24 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "handover_status": "HANDOVER_READY",
   "snapshot": {
     "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
     "branch": "main",
-    "head": "e454f7ff1a9885a87b54be59585ebf6f358b4912",
-    "snapshot_note": "Historical snapshot taken immediately before committing this handover refresh; always re-read live HEAD and durable state.",
-    "durable_mission_state_version": 132,
-    "mission_graph_sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f",
+    "head": "8737a702ba3a30a7e3dcdc9e1d0222850eb688eb",
+    "origin_main": "a6db18cff0cf56bdb3d59b9a390adb5c5e776829",
+    "working_tree": "clean",
+    "snapshot_note": "Verified 2026-07-26 after graph migration. Re-read live HEAD, tree, and durable state before acting.",
+    "durable_mission_state_version": 152,
+    "mission_graph_sha256": "2dc10819cddaf6ab96770665fa02b850f67fff57c7b44e3cb1fb332f28c86bcc",
     "graph_drift": false
   },
   "mission": {
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "current_phase": "Gate A full-registry local execution",
-    "current_task": "L8-LOCAL-FULL-REGISTRY-GATE-A",
-    "next_action": "Continue the existing .venv/Scripts/readme-agent supervise --registry data/products.json --execution-profile local_poc worker; prove the compiler-grounded .NET repair, then repair and rerun until every current entry is NO_OP_PROVEN.",
+    "current_phase": "Atomic local product-truth qualification",
+    "current_task": "L8-TRUTH-01-STAGE-LIMIT",
+    "next_action": "Run one real read-only FACTS_READY bounded proof against commit 8737a70, verify zero later-stage artifacts or calls, then close or repair L8-TRUTH-01-STAGE-LIMIT.",
     "mission_complete": false,
-    "unresolved_task_count": 12,
+    "unresolved_task_count": 65,
     "blocked_external_task_count": 1
   },
   "authority": [
@@ -28,71 +30,99 @@
     {
       "path": "plans/master.md",
       "role": "architecture, decisions, sequence, and maturity gates",
-      "sha256": "1ae2d4824b5d6859512efcac8b964643a428e639635d39df9dd8051e6e5a7e7a"
+      "sha256": "47f03530e524a26129b3c13f53b089d1cbe38f6e116061813643a643bc7156cd"
     },
     {
       "path": "plans/requirements.md",
       "role": "normative obligations and acceptance",
-      "sha256": "e975648a5883e5dfb3fc80301decc5273976e7f79ae2f97f802c85de28a5a728"
+      "sha256": "048ebcaf5816bd680fb4784fb93fc1d8eea2cb78f244043f72dd046f4648b321"
     },
     {
       "path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
       "role": "sole executable task graph",
-      "sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f"
+      "sha256": "2dc10819cddaf6ab96770665fa02b850f67fff57c7b44e3cb1fb332f28c86bcc"
     },
     {
       "path": "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md",
-      "role": "supporting execution design only",
-      "sha256": "718934d77c89f27e058ecd5f75ca9cad47b2d7f522b7f307aff6d39111e2d24b"
+      "role": "supporting multi-perspective execution design",
+      "sha256": "b06072932215ba95d44a50fd8d1b10720660969ae6df8c2bd60b6f5f9eafdfab"
     }
   ],
+  "history_integrity": {
+    "git_history_intact": true,
+    "verified_ancestor_commits": [
+      "f8b83a41506fb22a6884f494f1b16ffb8213076e",
+      "a7ac3311debe3c1561711e639c59d225748d815e",
+      "f89da6056b13cae19e02a72aa6d5ebf3fc371ee1",
+      "80432cc",
+      "a6db18cff0cf56bdb3d59b9a390adb5c5e776829"
+    ],
+    "lost_or_stale_layer": "The former handover and terminal lifecycle claims were stale; no cited main-branch commit was lost."
+  },
   "completed_verified": [
     {
       "task_id": "L8-LOCAL-PORTFOLIO-RUNTIME",
-      "evidence": "runs/level8-local-portfolio-runtime-verification/"
-    },
-    {
-      "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
-      "evidence": "durable mission state version 132"
-    },
-    {
-      "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
-      "evidence": "durable mission state version 132"
-    },
-    {
-      "task_id": "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR",
-      "evidence": "durable mission state version 132"
-    },
-    {
-      "task_id": "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
-      "evidence": "durable mission state version 132"
+      "status": "CLOSED",
+      "limitation": "Foundation remains usable, but later acceptance assumptions were regressed and atomized."
     }
   ],
   "implemented_unverified": [
     {
+      "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+      "status": "REROUTED",
+      "reason": "Must close through the L8-TRUTH-* children under the corrected acceptance contract."
+    },
+    {
+      "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+      "status": "REGRESSED",
+      "reason": "Preserved material claims are not completely fact/owner/uncertainty bound."
+    },
+    {
+      "task_id": "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR",
+      "status": "REGRESSED",
+      "reason": "Live reviewer output accepted defective or insufficiently grounded candidates."
+    },
+    {
+      "task_id": "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
+      "status": "REGRESSED",
+      "reason": "Synthetic qualification did not predict current real end-to-end acceptance."
+    },
+    {
       "task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
-      "commits": [
-        "42ef68e",
-        "386562d",
-        "8cc3906",
-        "9d4c79e",
-        "3292e9b",
-        "f324e67",
-        "6bdd765",
-        "89b66d8",
-        "136626b",
-        "5457d5f",
-        "052901c",
-        "b5fa7eb",
-        "7e1d119",
-        "ade9929",
-        "6ec3795",
-        "e454f7f"
-      ],
-      "missing_proof": "All current registry entries must reach AGENT_APPROVED and NO_OP_PROVEN with checksum-valid manifests; Java is proven, .NET repair and the remaining portfolio are still executing."
+      "status": "REGRESSED",
+      "reason": "No current repository bundle satisfies the corrected complete trust standard."
     }
   ],
   "remaining_tasks": [
+    "L8-TRUTH-01-STAGE-LIMIT",
+    "L8-TRUTH-01A-FACT-CONTRACT",
+    "L8-TRUTH-02-ROOT-ROLES",
+    "L8-TRUTH-03-CLAIM-POLARITY",
+    "L8-TRUTH-03A-ISOLATED-EXECUTOR",
+    "L8-TRUTH-04-ACQUISITION",
+    "L8-TRUTH-05-PUBLIC-EXAMPLES",
+    "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+    "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+    "L8-TRUTH-08-FULL-PREFLIGHT",
+    "L8-COMPOSE-01-ASSESSMENT-CORPUS",
+    "L8-COMPOSE-02-EXISTING-SECTIONS",
+    "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
+    "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS",
+    "L8-COMPOSE-03-OPERATION-COVERAGE",
+    "L8-COMPOSE-04-PRESENTATION-LINT",
+    "L8-COMPOSE-05-SEVEN-CANDIDATES",
+    "L8-REVIEW-01-QUALITY-BLIND",
+    "L8-REVIEW-02-FACTUAL-BLIND",
+    "L8-REVIEW-03-EFFECTIVE-REPAIR",
+    "L8-REVIEW-04-NO-OP-CACHE",
+    "L8-REVIEW-05-REAL-CAMPAIGN",
+    "L8-QUAL-01-CAMPAIGN-PREFLIGHT",
+    "L8-QUAL-02-SEVEN-E2E",
+    "L8-QUAL-03-RECOVERY",
+    "L8-QUAL-04-GOLDEN-SET",
+    "L8-QUAL-04A-FREEZE-CONTROLS",
+    "L8-QUAL-04B-COST-BASELINE",
+    "L8-QUAL-05-FREEZE",
     "L8-LOCAL-FULL-REGISTRY-GATE-A",
     "GATE-B-HUMAN-REVIEW",
     "ACT-CANONICAL-WORKFLOW-PROOF",
@@ -105,26 +135,24 @@
   ],
   "blockers": [
     {
-      "id": "PRODUCTION-AUTHORITY-DEFERRED",
-      "classification": "external_authority_deferred",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "classification": "BLOCKED_EXTERNAL",
       "blocks_current_task": false,
-      "unblock_condition": "Request GitHub App and production authority only after Gates A, B, C, act, and staging prerequisites are satisfied."
+      "unblock_condition": "Hosted GitHub authority and infrastructure are requested only after Gates A, B, act, staging, and Gate C."
     }
   ],
-  "evidence_paths": [
-    "runs/level8-local-portfolio-runtime-verification/",
-    "runs/level8-local-portfolio-product-truth-verification/",
-    "runs/readme-poc/",
-    "runs/level8-local-full-registry-gate-a-live-resume-10/",
-    "plans/investigations/evidence/draft-product-truth-route-characterization-2026-07-25/",
-    "plans/investigations/evidence/independent-readme-reviewer-route-characterization-2026-07-25/"
+  "critical_evidence": [
+    "logs/2026-07-26.md",
+    "plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json",
+    "runs/readme-poc/portfolio-summary.json",
+    "plans/investigations/evidence/level8-local-readme-assessment-composition-b2679e4/acceptance-manifest.json",
+    "plans/investigations/evidence/level8-local-heterogeneous-qualification-d30a811/agentic-qualification-summary.json"
   ],
   "resume_protocol": [
-    "Read AGENTS.md, plans/GOVERNANCE.md, plans/idea.md, plans/master.md, plans/requirements.md, and the complete task graph.",
-    "Verify branch, HEAD, working tree, authority hashes, active processes, and durable mission status.",
-    "If graph drift is reported, run mission evaluate; never let this snapshot override durable state.",
-    "Do not steal an unexpired claim; use the existing lease recovery mechanism.",
-    "Execute the current task's first failing boundary, then focused, integration, regression, safety, live-like, recovery, and idempotency proof as applicable.",
+    "Read AGENTS.md, plans/GOVERNANCE.md, plans/idea.md, plans/master.md, plans/requirements.md, the supporting plan, and the active taskcard.",
+    "Verify branch, HEAD, working tree, active processes, graph hash, and mission status.",
+    "If graph drift exists, evaluate; then retain or reclaim only through the durable lease mechanism.",
+    "Execute the real read-only proof for L8-TRUTH-01-STAGE-LIMIT and verify zero later-stage calls or artifacts.",
     "Repair agent-fixable failures, update the same evidence/task/requirements/log state, commit to main with the Codex trailer, rebuild eligibility, and continue."
   ]
 }
