@@ -96,7 +96,11 @@ _README_POC_TRANSITIONS: dict[ReadmePocStatusV2, set[ReadmePocStatusV2]] = {
         "SYSTEM_FAILURE",
     },
     "AGENT_REVIEW_REJECTED": {"REPAIRING", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
-    "REPAIRING": {"CANDIDATE_GENERATED"},
+    # Repair invokes the same fallible renderer/LLM/tool seams as initial
+    # composition. An execution failure there must remain a truthful,
+    # recoverable lifecycle outcome rather than making portfolio isolation
+    # itself fail while attempting to record the error.
+    "REPAIRING": {"CANDIDATE_GENERATED", "SYSTEM_FAILURE"},
     "AGENT_APPROVED": {"NO_OP_PROVEN", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "NO_OP_PROVEN": {"HUMAN_REVIEW_READY", "FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "HUMAN_REVIEW_READY": {"HUMAN_ACCEPTED", "REPAIRING", "FACTS_COLLECTING"},

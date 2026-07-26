@@ -35,6 +35,15 @@ from readme_agent.retry import RetryableOperationError, run_http_with_retry
 DEFAULT_TEMPERATURE = 0.0
 DEFAULT_MAX_TOKENS = 300
 _RETRYABLE_STATUS = {429, 502, 503, 504}
+_MAX_RESPONSE_ATTEMPTS = 2
+_RETRYABLE_RESPONSE_ERRORS = (
+    "forced tool call response was not valid JSON",
+    "forced tool call response missing 'choices[0]'",
+    "forced tool call response contained no tool_calls",
+    "forced tool call response must contain exactly one tool call",
+    "forced tool call response used unexpected function",
+    "forced tool call arguments were not valid JSON",
+)
 
 
 class ForcedToolResult(BaseModel):
@@ -88,6 +97,24 @@ class LiveForcedToolClient:
 
     def call(self, messages: list[dict], tool_schema: dict) -> ForcedToolResult:
         function_name = tool_schema["function"]["name"]
+        last_error: LLMError | None = None
+        for attempt in range(_MAX_RESPONSE_ATTEMPTS):
+            try:
+                response = self._request(messages, tool_schema)
+                return self._parse_response(response, expected_function_name=function_name)
+            except LLMError as exc:
+                if not str(exc).startswith(_RETRYABLE_RESPONSE_ERRORS):
+                    raise
+                last_error = exc
+                if attempt + 1 == _MAX_RESPONSE_ATTEMPTS:
+                    break
+        assert last_error is not None
+        raise LLMError(
+            "forced tool call returned an invalid structured response "
+            f"after {_MAX_RESPONSE_ATTEMPTS} attempts: {last_error}"
+        ) from last_error
+
+    def _request(self, messages: list[dict], tool_schema: dict) -> requests.Response:
         try:
             resp = run_http_with_retry(
                 "llm_call",
@@ -99,7 +126,7 @@ class LiveForcedToolClient:
             raise LLMError(f"forced tool call failed after retries: {exc}") from exc
         if resp.status_code != 200:
             raise LLMError(f"forced tool call failed: HTTP {resp.status_code}: {resp.text[:500]}")
-        return self._parse_response(resp, expected_function_name=function_name)
+        return resp
 
     def _parse_response(
         self,

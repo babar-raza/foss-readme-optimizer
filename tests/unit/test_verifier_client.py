@@ -176,6 +176,75 @@ class TestLiveForcedToolClientHappyPath:
 
 
 class TestLiveForcedToolClientRetry:
+    def test_retries_malformed_tool_arguments_then_succeeds(self, monkeypatch):
+        calls = {"n": 0}
+
+        def fake_post(url, json, headers, timeout):
+            calls["n"] += 1
+            arguments = '{"flagged":' if calls["n"] == 1 else '{"flagged": false}'
+            return FakeResponse(
+                200,
+                {
+                    "choices": [
+                        {
+                            "message": {
+                                "tool_calls": [
+                                    {
+                                        "id": f"call{calls['n']}",
+                                        "function": {
+                                            "name": "report_prose_quality_finding",
+                                            "arguments": arguments,
+                                        },
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+            )
+
+        monkeypatch.setattr(verifier_client.requests, "post", fake_post)
+        client = LiveForcedToolClient("https://example/v1", "key", "qwen3-next")
+
+        result = client.call([], TOOL_SCHEMA)
+
+        assert calls["n"] == 2
+        assert result.arguments == {"flagged": False}
+
+    def test_fails_after_two_malformed_structured_responses(self, monkeypatch):
+        calls = {"n": 0}
+
+        def fake_post(url, json, headers, timeout):
+            calls["n"] += 1
+            return FakeResponse(
+                200,
+                {
+                    "choices": [
+                        {
+                            "message": {
+                                "tool_calls": [
+                                    {
+                                        "id": f"call{calls['n']}",
+                                        "function": {
+                                            "name": "report_prose_quality_finding",
+                                            "arguments": '{"flagged":',
+                                        },
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+            )
+
+        monkeypatch.setattr(verifier_client.requests, "post", fake_post)
+        client = LiveForcedToolClient("https://example/v1", "key", "qwen3-next")
+
+        with pytest.raises(LLMError, match="after 2 attempts"):
+            client.call([], TOOL_SCHEMA)
+
+        assert calls["n"] == 2
+
     def test_retries_on_503_then_succeeds(self, monkeypatch):
         calls = {"n": 0}
         body = {

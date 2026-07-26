@@ -339,6 +339,40 @@ class TestValidTransitions:
         )
         assert regenerated.status == "CANDIDATE_GENERATED"
 
+    def test_repair_execution_failure_is_recorded_and_recoverable(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        for status in [
+            "SNAPSHOTTED",
+            "PROFILED",
+            "FACTS_COLLECTING",
+            "FACTS_READY",
+            "README_ASSESSED",
+            "PLAN_READY",
+            "CANDIDATE_GENERATED",
+            "DETERMINISTIC_VALIDATION_FAILED",
+            "REPAIRING",
+        ]:
+            transition_readme_poc_status(backend, org_repo, status, observed_by="t", reason="r")
+
+        failed = transition_readme_poc_status(
+            backend,
+            org_repo,
+            "SYSTEM_FAILURE",
+            observed_by="candidate-repair",
+            reason="renderer execution failed",
+        )
+        assert failed.status == "SYSTEM_FAILURE"
+
+        recovered = transition_readme_poc_status(
+            backend,
+            org_repo,
+            "REPAIRING",
+            observed_by="recovery-sweep",
+            reason="retry repair",
+        )
+        assert recovered.status == "REPAIRING"
+
     def test_human_rejection_routes_through_repairing_back_to_candidate_generated(self):
         backend = FakeReadmePocBackend()
         org_repo = "org/repo"
