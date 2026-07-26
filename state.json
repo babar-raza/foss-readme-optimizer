@@ -1158,7 +1158,7 @@
     "updated_at": "2026-07-26T06:41:13.495631+00:00"
   },
   "schema_version": 2,
-  "state_version": 129,
+  "state_version": 130,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
@@ -1252,13 +1252,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:StateBackendError:invalid README-POC lifecycle transition 'DETERMINISTIC_VALIDATION_FAILED' -> 'DETERMINISTIC_VALIDATION_FAILED' for 'aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript'",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "9d9ad5363569daa74b01c09b0251edbc43ded6305887ffdde10abc537219e56d",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-26T07:09:52.838830+00:00",
       "recovery_count": 0,
-      "status": "retryable",
-      "updated_at": "2026-07-26T06:54:47.976161+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-26T06:54:52.838830+00:00"
     }
   },
   "trigger_records": {},
