@@ -1,0 +1,77 @@
+{
+  "source_sha256": "ee94d0e536598657b760006a4db078f7a5a52bcc18d7ebef536765a3fcb3167f",
+  "facts_hash": "f645ff956649ea5e509162dcd4616a606d8f87321a47d0ed5ef028d361e93379",
+  "sections": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:0:119"
+      ]
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:0:160"
+      ]
+    },
+    {
+      "section_id": "heading:119",
+      "disposition": "repair",
+      "fact_ids": [
+        "example.minimal:missing"
+      ],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:119:160"
+      ]
+    },
+    {
+      "section_id": "missing:at-a-glance",
+      "disposition": "add",
+      "fact_ids": [
+        "product.audience:missing",
+        "product.problems_solved:missing",
+        "product.capabilities:missing"
+      ],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "verified ProductFactsV2 and Markdown section inventory"
+      ]
+    }
+  ],
+  "material_claims": [
+    {
+      "claim_id": "claim:25:a1666e6b9c390f59",
+      "source_byte_start": 25,
+      "source_byte_end": 118,
+      "content_sha256": "a1666e6b9c390f59c161bea8fa630832b52875a6f46237b21451c45376a4ec7e",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:25:118"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:135:3c0310ce6026e5fc",
+      "source_byte_start": 135,
+      "source_byte_end": 160,
+      "content_sha256": "3c0310ce6026e5fc0a2ccda813ca00262c725c41c94e385585495f9fea1fad20",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:135:160"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    }
+  ]
+}

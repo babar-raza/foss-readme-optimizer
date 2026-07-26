@@ -1,0 +1,254 @@
+{
+  "product.identity:manifest-and-registry": {
+    "field": "product.identity",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.audience:missing": {
+    "field": "product.audience",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.problems_solved:missing": {
+    "field": "product.problems_solved",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.capabilities:missing": {
+    "field": "product.capabilities",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "product.formats:missing": {
+    "field": "product.formats",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "product.platforms:manifest": {
+    "field": "product.platforms",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "installation.coordinates:missing": {
+    "field": "installation.coordinates",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "missing",
+    "confidence": 0.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "installation.verified_acquisition:registry-maven_central": {
+    "field": "installation.verified_acquisition",
+    "source": {
+      "source_type": "external_registry",
+      "location": "registry-acquisition://java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  },
+  "example.minimal:missing": {
+    "field": "example.minimal",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  },
+  "documentation.links:primary": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "documentation-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "release.state:missing": {
+    "field": "release.state",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "missing",
+    "confidence": 0.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  },
+  "product.limitations:missing": {
+    "field": "product.limitations",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "product.compatibility:missing": {
+    "field": "product.compatibility",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "product.license:license-file": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://LICENSE",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "support.routes:missing": {
+    "field": "support.routes",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "missing",
+    "confidence": 0.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "community.support"
+    ]
+  },
+  "relationship.commercial_foss:primary": {
+    "field": "relationship.commercial_foss",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://example-foss/Example-FOSS-for-Java",
+      "source_revision": "6af92f49b3cbb564495810a40dc02182aec99e1e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "portfolio-policy-owner",
+    "affected_surfaces": [
+      "readme.relationship"
+    ]
+  }
+}

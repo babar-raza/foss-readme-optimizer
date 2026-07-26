@@ -1,0 +1,26 @@
+{
+  "tasks": [
+    {
+      "task_id": "3c92bef0a9ac418e8c18efcd2502549f",
+      "capability_id": "inspect_repository",
+      "arguments": {
+        "org_repo": "example-foss/Example-FOSS-for-Java"
+      },
+      "depends_on": [],
+      "state": "PASSED",
+      "result": {
+        "org_repo": "example-foss/Example-FOSS-for-Java",
+        "has_readme": true,
+        "has_license_file": true,
+        "readme_length_chars": 160,
+        "manifest_keys": []
+      },
+      "gap": null,
+      "blocked_reason": null,
+      "blocked_category": null,
+      "supersedes": null,
+      "created_at": "2026-07-25T22:55:59.206317+00:00",
+      "terminal_at": "2026-07-25T22:55:59.370818+00:00"
+    }
+  ]
+}

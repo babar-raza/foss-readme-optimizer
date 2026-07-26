@@ -1,0 +1,67 @@
+{
+  "verdict": "accept",
+  "candidate_verification": {
+    "verdict": "accept",
+    "reason": null,
+    "checks": {
+      "candidate_matches_independent_render": true,
+      "source_document_hash": true,
+      "adoption_preserved_source": true,
+      "candidate_has_presentation_span": true,
+      "facts_hash_matches": true,
+      "template_hash_matches": true,
+      "candidate_hash_matches": true,
+      "source_span_hashes": true,
+      "fact_citations": true,
+      "document_reconstruction": true,
+      "protected_content": true,
+      "verified_example_present": true,
+      "verified_overview_present": true,
+      "needs_write_matches": true
+    },
+    "requirement_map": {
+      "immutable_snapshot": true,
+      "fact_backed_document_plan": true,
+      "verified_example": true,
+      "protected_content": true
+    },
+    "nonce": "20260725-225557-050e",
+    "token": "55ffff2228a38205ff768c6594ad1803de5e792fa77b3c53818e002b90874f06"
+  },
+  "factuality": {
+    "valid": true,
+    "product_facts_v2_hash": "f645ff956649ea5e509162dcd4616a606d8f87321a47d0ed5ef028d361e93379",
+    "claim_conflicts": [],
+    "protected_content_losses": [],
+    "error": null
+  },
+  "bundle_verification": {
+    "status": "checked",
+    "bundle_dir": "C:\\tmp\\rr-closure-proof-20260726-0355\\test_local_poc_repairs_revalid0\\runs\\readme-proposal-bundles\\example-foss__Example-FOSS-for-Java\\20260725-225557-7084-repair-1",
+    "org_repo": "example-foss/Example-FOSS-for-Java",
+    "verified": true,
+    "checks": {
+      "all_artifacts_present": true,
+      "artifact_checksums_match": true,
+      "schemas_valid": true,
+      "source_hash_matches_plan": true,
+      "facts_hash_matches_plan": true,
+      "candidate_hash_matches_plan": true,
+      "agentic_plan_repository_matches": true,
+      "agentic_plan_source_hash_matches": true,
+      "agentic_plan_facts_hash_matches": true,
+      "agentic_plan_assessment_hash_matches": true,
+      "independent_reconstruction_byte_identical": true,
+      "reconstructed_plan_matches": true,
+      "assessment_reconstructed": true,
+      "claim_map_reconstructed": true,
+      "operations_cite_selected_facts": true,
+      "cited_facts_accepted": true,
+      "independent_validation_valid": true,
+      "recomputed_validation_consistent_with_stored": true,
+      "native_git_apply_produces_candidate": true,
+      "acquisition_matches_live_registry": true
+    },
+    "failures": []
+  }
+}
