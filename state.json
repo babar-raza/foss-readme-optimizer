@@ -696,6 +696,18 @@
         "reason": "repaired candidate passed all deterministic validation gates",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\20260726-005554-fc30-repair-2"
+        ],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T00:56:01.798925+00:00",
+        "reason": "independent review restarted after deterministic validation",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "AGENT_REVIEWING"
       }
     ],
     "presentation_plan_hash": "7887f224508909b928ff6edd6bbc1140763cb4b6e0501b7ed41669e1c706d1cb",
@@ -705,11 +717,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-07-26T00:55:56.994923+00:00"
+    "status": "AGENT_REVIEWING",
+    "updated_at": "2026-07-26T00:56:01.798925+00:00"
   },
   "schema_version": 2,
-  "state_version": 57,
+  "state_version": 58,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4ae54a45e624bd3c36b495cec8479fed6d4bff92315e9d6b644d3f2da468d4af",
