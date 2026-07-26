@@ -611,6 +611,20 @@
         "reason": "independent review restarted after deterministic validation",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "product_specificity",
+          "readability",
+          "developer_usefulness",
+          "preservation_of_valuable_content"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T00:55:06.067167+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 2 (max repair attempts 2): The candidate README contains several issues that prevent it from being ACCEPT. First, the 'At a glance' section includes the vague, non-specific phrase 'open_source_scope' (line 14), which is unsupported by the facts and does not convey meaningful product information. Second, the 'At a glance' section lists 'Rendering functionality is not available and throws NotImplementedException' as a capability, which is factually accurate per product.limitations:repository-evidence, but placing it in an 'at a glance' overview without context is misleading and harms readability. Third, the 'In this README' navigation list is redundant and adds no value, especially since the original README had no such table of contents. Fourth, the candidate omits the 'open_source_scope' claim from the original README's 'Relationship' section, which was preserved in the original and is factually supported by relationship.commercial_foss:primary. These are presentation and completeness defects, not factual conflicts or unsupported claims requiring BLOCKED verdicts.",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "presentation_plan_hash": "3b7a5624fbd0e3abefa58e1fef2a8b8466f70d0376ef440be71ea8d2423e0956",
@@ -620,11 +634,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T00:54:52.538955+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-07-26T00:55:06.067167+00:00"
   },
   "schema_version": 2,
-  "state_version": 50,
+  "state_version": 51,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4ae54a45e624bd3c36b495cec8479fed6d4bff92315e9d6b644d3f2da468d4af",
