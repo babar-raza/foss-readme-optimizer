@@ -171,6 +171,13 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
         facts=records,
         selected_fact_ids={fact.field: fact.fact_id for fact in records},
     )
+    write_local_poc_product_facts(
+        snapshot,
+        facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        local_verification_contract_hash="v" * 64,
+    )
     source_text = (tmp_path / "README.md").read_text(encoding="utf-8")
     candidate, document_plan = build_readme_document_candidate(
         snapshot.org_repo,
@@ -233,6 +240,7 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     assert (bundle / "candidate" / "claim-map.json").is_file()
     manifest = (bundle / "manifest.json").read_text(encoding="utf-8")
     assert '"lifecycle_status": "CANDIDATE_GENERATED"' in manifest
+    assert '"local_verification_contract_hash": "' + ("v" * 64) + '"' in manifest
     checksum_inventory = (bundle / "sha256sums.txt").read_text(encoding="utf-8")
     assert "assessment/current-readme-assessment.json" in checksum_inventory
     assert "candidate/README.md" in checksum_inventory

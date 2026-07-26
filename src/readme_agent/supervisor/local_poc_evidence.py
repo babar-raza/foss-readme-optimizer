@@ -305,6 +305,7 @@ def write_local_poc_readme_candidate(
     write_redacted_json(
         manifest_path,
         {
+            **prior_manifest,
             "schema_version": 1,
             "org_repo": snapshot.org_repo,
             "source_revision": snapshot.source_revision,
