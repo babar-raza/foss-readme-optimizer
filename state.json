@@ -464,7 +464,7 @@
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
     },
     "independent_verification": {
-      "accepted_facts_hash": "4e4a225a784673bf06d327c5e570306c35aa053c7766a933041426dbbe6103f8",
+      "accepted_facts_hash": "d791a1fb1c148589dd59f531df1bcc866dcba2a5206fe7b4324f2f39b41acb14",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -476,7 +476,12 @@
           "adversarial_cross_domain"
         ],
         "completeness": {},
-        "failure_escalations": {},
+        "failure_escalations": {
+          "readme_presentation": {
+            "consecutive_failure_count": 1,
+            "last_failure_reason": "bundle_verification_rejected"
+          }
+        },
         "requirement_map": {
           "CAP-006": {
             "capability_id": "classify_upstream_change",
@@ -484,13 +489,63 @@
             "exercised_without_error": true
           },
           "EFF-001": {
-            "capability_id": "commit_readme_write",
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "FACT-003": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "L8-007": {
+            "capability_id": "build_presentation_plan",
             "domain": "readme_presentation",
             "exercised_without_error": true
           },
           "LLM-010": {
             "capability_id": "review_visual_asset_accuracy",
             "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "OWN-011": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "PRL-001": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "PRL-002": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "PRL-004": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "PRL-007": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "PRL-008": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "RDM-003": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "RDM-004": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
             "exercised_without_error": true
           },
           "RDM-020": {
@@ -504,8 +559,8 @@
             "exercised_without_error": true
           },
           "VER-001": {
-            "capability_id": "verify_readme_candidate",
-            "domain": "readme_presentation",
+            "capability_id": "verify_readme_proposal_bundle",
+            "domain": "independent_verification",
             "exercised_without_error": true
           },
           "VER-002": {
@@ -518,7 +573,7 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T13:53:22.676571+00:00",
+      "last_run_timestamp": "2026-07-26T06:42:31.623520+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
@@ -984,7 +1039,7 @@
     "updated_at": "2026-07-26T06:41:13.495631+00:00"
   },
   "schema_version": 2,
-  "state_version": 108,
+  "state_version": 109,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "64a67a1e490604edf99ba6ee3ddd0f444e2e6eed27ab83face4a8b9b42412f5f",
