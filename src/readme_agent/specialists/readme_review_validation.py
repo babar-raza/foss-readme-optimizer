@@ -92,6 +92,7 @@ def materialize_and_verify_bundle(
     write_readme_proposal_bundle(
         bundle_dir,
         original_readme=render_result["original_text"],
+        immutable_source_readme=render_result.get("source_text", render_result["original_text"]),
         candidate_readme=render_result["final_text"],
         patch_text=str(presentation_plan["git_patch_proof"].get("patch") or ""),
         product_facts_v2=render_result["product_facts_v2"],

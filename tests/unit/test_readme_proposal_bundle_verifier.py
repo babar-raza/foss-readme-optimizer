@@ -104,6 +104,7 @@ def bundle(tmp_path) -> Path:
     write_readme_proposal_bundle(
         dst,
         original_readme=original,
+        immutable_source_readme=original,
         candidate_readme=candidate,
         patch_text=patch["patch"],
         product_facts_v2=facts.model_dump(mode="json"),
@@ -121,6 +122,48 @@ class TestAcceptsUntampered:
         verdict = verify_readme_proposal_bundle(bundle)
         assert verdict.verified, verdict.failures
         assert all(verdict.checks.values())
+
+    def test_work_clone_preimage_may_differ_from_immutable_source(self, bundle):
+        immutable_source = (bundle / "immutable-source-readme.md").read_text(encoding="utf-8")
+        candidate = (bundle / "candidate-readme.md").read_text(encoding="utf-8")
+        facts = ProductFactsV2.model_validate_json(
+            (bundle / "product-facts-v2.json").read_text(encoding="utf-8")
+        )
+        revision = json.loads(
+            (bundle / "readme-document-plan-v1.json").read_text(encoding="utf-8")
+        )["immutable_base_revision"]
+        current_work = immutable_source + "\n<!-- stale work-clone-only state -->\n"
+        entry = require_listed(facts.org_repo)
+        assert entry.policy_profile is not None
+        presentation_plan, patch, executable, records = build_document_repository_presentation_plan(
+            facts.org_repo,
+            immutable_source,
+            current_work,
+            candidate,
+            facts,
+            load_policy(entry.policy_profile).surface_ownership,
+            base_revision=revision,
+        )
+        assert executable
+        write_readme_proposal_bundle(
+            bundle,
+            original_readme=current_work,
+            immutable_source_readme=immutable_source,
+            candidate_readme=candidate,
+            patch_text=patch["patch"],
+            product_facts_v2=facts.model_dump(mode="json"),
+            readme_assessment_v1=records["readme_assessment"],
+            readme_document_plan_v1=records["readme_document_plan"],
+            claim_map_v1=records["claim_map"],
+            repository_presentation_plan_v1=presentation_plan.model_dump(mode="json"),
+            document_validation=records["document_validation"],
+        )
+
+        verdict = verify_readme_proposal_bundle(bundle)
+
+        assert verdict.verified, verdict.failures
+        assert verdict.checks["source_hash_matches_plan"]
+        assert verdict.checks["native_git_apply_produces_candidate"]
 
 
 class TestRejectsTampering:

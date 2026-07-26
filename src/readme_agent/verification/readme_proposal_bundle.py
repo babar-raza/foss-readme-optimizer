@@ -39,6 +39,7 @@ VERIFIER_IDENTITY = "independent-readme-proposal-bundle-verifier"
 _ACCEPTED_FACT_STATES = {"verified", "policy_approved"}
 _REQUIRED_ARTIFACTS = (
     "original-readme.md",
+    "immutable-source-readme.md",
     "candidate-readme.md",
     "proposal.patch",
     "product-facts-v2.json",
@@ -176,6 +177,7 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         )
 
     original = (bundle_dir / "original-readme.md").read_text(encoding="utf-8")
+    immutable_source = (bundle_dir / "immutable-source-readme.md").read_text(encoding="utf-8")
     candidate = (bundle_dir / "candidate-readme.md").read_text(encoding="utf-8")
     patch_text = (bundle_dir / "proposal.patch").read_text(encoding="utf-8")
 
@@ -217,8 +219,8 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
 
     record(
         "source_hash_matches_plan",
-        sha256_hex(original) == plan.source_sha256,
-        "plan source_sha256 != sha256(original-readme.md)",
+        sha256_hex(immutable_source) == plan.source_sha256,
+        "plan source_sha256 != sha256(immutable-source-readme.md)",
     )
     record(
         "facts_hash_matches_plan",
@@ -238,8 +240,8 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         )
         record(
             "agentic_plan_source_hash_matches",
-            agentic_plan.source_sha256 == sha256_hex(original),
-            "agentic composition source hash does not match original README",
+            agentic_plan.source_sha256 == sha256_hex(immutable_source),
+            "agentic composition source hash does not match immutable source README",
         )
         record(
             "agentic_plan_facts_hash_matches",
@@ -255,7 +257,7 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
     # The load-bearing independence check: rebuild the candidate from scratch.
     recon_candidate, recon_plan = build_readme_document_candidate(
         org_repo,
-        original,
+        immutable_source,
         facts,
         base_revision=plan.immutable_base_revision,
         agentic_composition_plan=(
@@ -264,14 +266,14 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
     )
     recon_assessment = assess_readme_document(
         org_repo,
-        original,
+        immutable_source,
         facts,
         base_revision=plan.immutable_base_revision,
     )
     recon_claim_map = build_readme_claim_map(
         recon_plan,
         facts,
-        source_text=original,
+        source_text=immutable_source,
         candidate_text=recon_candidate,
     )
     record(
@@ -309,7 +311,7 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
     record("operations_cite_selected_facts", cited_ok, "an operation cites a non-selected fact")
     record("cited_facts_accepted", accepted_ok, "an operation cites an unaccepted fact")
 
-    validation = validate_readme_document_candidate(original, candidate, plan, facts)
+    validation = validate_readme_document_candidate(immutable_source, candidate, plan, facts)
     record(
         "independent_validation_valid",
         validation.valid,

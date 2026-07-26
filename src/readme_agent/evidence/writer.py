@@ -176,6 +176,7 @@ def write_readme_proposal_bundle(
     bundle_dir: Path,
     *,
     original_readme: str,
+    immutable_source_readme: str,
     candidate_readme: str,
     patch_text: str,
     product_facts_v2: dict,
@@ -186,7 +187,7 @@ def write_readme_proposal_bundle(
     document_validation: dict,
     agentic_composition_plan_v1: dict | None = None,
 ) -> None:
-    """RPOC-050/051: materialize the 8-file independent-verifier evidence
+    """RPOC-050/051: materialize the independent-verifier evidence
     bundle (`verification/readme_proposal_bundle.py::_REQUIRED_ARTIFACTS`)
     `specialists/readme_presentation.py`'s new `_review_node` needs, reusing
     this module's own atomic-write/redaction discipline (`_atomic_write_
@@ -202,6 +203,7 @@ def write_readme_proposal_bundle(
     plain, unnormalized `sha256_hex`) could never match."""
     bundle_dir.mkdir(parents=True, exist_ok=True)
     _atomic_write_text(bundle_dir / "original-readme.md", original_readme)
+    _atomic_write_text(bundle_dir / "immutable-source-readme.md", immutable_source_readme)
     _atomic_write_text(bundle_dir / "candidate-readme.md", candidate_readme)
     _atomic_write_text(bundle_dir / "proposal.patch", patch_text)
     _atomic_write_json(bundle_dir / "product-facts-v2.json", product_facts_v2)
