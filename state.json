@@ -1195,7 +1195,7 @@
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "191cabdbd07e59a7324945debea2730aedf80edc7fd2de4242d6df96a7c31c6a",
+      "accepted_facts_hash": "3ef401285b7a189bac181b116c15031a27c3122e04ac3b65e1909d6125456c63",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -1203,61 +1203,61 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using concrete verbs: 'enables developers to create, manipulate, and convert 3D scenes and models programmatically'.",
+            "note": "The opening paragraph clearly states what the product does ('enables developers to create, manipulate, and convert 3D scenes and models') using concrete verbs.",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph explicitly names the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert 3D scenes/models).",
+            "note": "The opening paragraph specifies the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The MIT License is clearly named in the first paragraph and linked to a LICENSE file, satisfying the highest-priority trust signal.",
+            "note": "MIT License is explicitly named and linked in the first paragraph, and badges for package registry (pip) and version are present in the installation section.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `pip install aspose-3d-foss` is present and uses real PyPI coordinates (verified via live check of PyPI).",
+            "note": "The install command `pip install aspose-3d-foss` uses real PyPI coordinates and resolves correctly.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there is a working 'Quick Start' code block that imports, opens, and inspects an OBJ file \u2014 a runnable, realistic example.",
+            "note": "Beyond the install snippet, there is a full 'Quick Start' section with a runnable Python code example that imports, opens, and inspects a 3D model.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows the intended sequencing: product description \u2192 features \u2192 install \u2192 examples \u2192 license \u2192 resources.",
+            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows logical flow: product description \u2192 features \u2192 install \u2192 examples \u2192 details \u2192 license \u2192 resources.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals (images, diagrams) are present, and none are warranted for this API-focused library \u2014 but the standard allows absence; however, the README includes a '\ud83c\udfe0' emoji in a callout, which is decorative and does not demonstrate input/output/workflow.",
+            "note": "No visuals are present, and none are warranted: for a pure API library like this, a diagram showing input\u2192transformation\u2192output would be useful, but none is provided.",
             "satisfied": false
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The repository has a LICENSE file (MIT), and GitHub will recognize it; while CONTRIBUTING and CODE_OF_CONDUCT files are not present, the standard prioritizes LICENSE recognition, which is satisfied.",
-            "satisfied": true
+            "note": "The repository lacks GitHub-recognized community files: no LICENSE file is visible in the README (though mentioned), and there is no CONTRIBUTING, CODE_OF_CONDUCT, or SECURITY file referenced or linked.",
+            "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and GitHub's own activity indicators (commits, releases) are assumed to be present per repository health \u2014 no false claims are made.",
+            "note": "While not stated in prose, the README implies active maintenance via current format support and version compatibility, and GitHub activity (not in README) would be the audit source.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial edition is mentioned *before* the product description (in the first callout block), violating the rule that the product must be explained first; also, the Resources section contains two dense commercial link blocks (12+ links total), exceeding the 'exactly one mention' and restrained tone expected across reference sources.",
+            "note": "Commercial mentions appear multiple times (in the banner, 'About', 'Features', and 'Resources' sections), and the Resources section is overly promotional with 12+ links across three dense subsections \u2014 violating the 'exactly one mention' and 'low density' rules.",
             "satisfied": false
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with critical failures in commercial context placement and density: the commercial mention appears before the product description and is repeated across multiple sections with excessive outbound links, violating the standard\u2019s emphasis on factual, single-mention, restrained framing."
+        "overall_summary": "The README satisfies most core presentation dimensions (product clarity, audience fit, trust signals, installation, examples, navigation), but fails on contribution readiness (missing community files), visual usefulness (no illustrative diagram), and natural commercial context (overly frequent and dense commercial promotion)."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T06:12:46.308351+00:00",
+      "last_run_timestamp": "2026-07-26T06:29:42.621846+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -4452,7 +4452,7 @@
     "updated_at": "2026-07-26T06:28:50.298797+00:00"
   },
   "schema_version": 2,
-  "state_version": 242,
+  "state_version": 243,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
