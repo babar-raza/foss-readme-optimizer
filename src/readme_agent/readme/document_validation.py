@@ -178,9 +178,8 @@ def validate_readme_document_candidate(
         if (selected := _accepted(facts, field_name)) is not None
     ]
     checks["verified_overview_present"] = candidate_span is not None and all(
-        fragment in candidate_span.content
+        any(fragment in candidate_span.content for fragment in _text_fragments(selected.value))
         for selected in overview_facts
-        for fragment in _text_fragments(selected.value)
     )
     if not checks["verified_overview_present"]:
         errors.append("fact-backed audience/problem overview is absent")

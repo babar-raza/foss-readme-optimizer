@@ -19,6 +19,7 @@ from readme_agent.readme.agentic_operation_coverage import (
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_renderer import build_readme_document_candidate
+from readme_agent.readme.document_validation import validate_readme_document_candidate
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROOF_PATH = (
@@ -273,6 +274,101 @@ def test_agentic_plan_materializes_literal_fact_text_instead_of_authored_prose()
         facts.selected_fact("product.audience").value
     )
     assert all("Best-in-class" not in sentence.text for sentence in plan.overview_sentences)
+
+
+def test_agentic_plan_selects_distinct_literal_phrases_when_fact_lists_overlap():
+    facts, revision = _facts()
+    problem = facts.selected_fact("product.problems_solved")
+    capability = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                (
+                    fact.model_copy(update={"value": ["Shared task", "Second problem"]})
+                    if fact.fact_id == problem.fact_id
+                    else (
+                        fact.model_copy(update={"value": ["Shared task", "Distinct capability"]})
+                        if fact.fact_id == capability.fact_id
+                        else fact
+                    )
+                )
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _draft(facts)
+    draft["overview_sentences"].append(
+        {
+            "text": "Shared task",
+            "supporting_fact_ids": [capability.fact_id],
+        }
+    )
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(_cover_assessment(draft, assessment)),
+        max_attempts=1,
+    )
+
+    texts = [sentence.text for sentence in plan.overview_sentences]
+    assert len({text.casefold() for text in texts}) == len(texts)
+    assert "Distinct capability" in texts
+
+
+def test_document_validation_accepts_one_representative_phrase_per_overview_fact():
+    facts, revision = _facts()
+    problem = facts.selected_fact("product.problems_solved")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                (
+                    fact.model_copy(
+                        update={"value": ["Primary verified task", "Secondary verified task"]}
+                    )
+                    if fact.fact_id == problem.fact_id
+                    else fact
+                )
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(_cover_assessment(_draft(facts), assessment)),
+        max_attempts=1,
+    )
+    candidate, document_plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=plan.model_dump(mode="json"),
+    )
+
+    result = validate_readme_document_candidate(source, candidate, document_plan, facts)
+
+    assert result.valid, result.errors
+    assert "Primary verified task" in candidate
+    assert "Secondary verified task" not in candidate
 
 
 def test_renderer_rejects_a_composition_plan_rebound_to_another_source():

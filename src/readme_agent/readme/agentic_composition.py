@@ -173,16 +173,29 @@ def _materialize_tool_draft(
         raise LLMError("composition selected duplicate overview fact IDs")
     required_ids = _required_overview_ids(facts)
     materialized_ids = list(dict.fromkeys([*selected_ids, *sorted(required_ids)]))
+    used_phrases: set[str] = set()
+    overview_sentences: list[AgenticOverviewSentenceV1] = []
+    for fact_id in materialized_ids:
+        phrases = phrases_by_fact_id[fact_id]
+        text = next(
+            (
+                phrase
+                for phrase in phrases
+                if phrase.strip().rstrip(".").casefold() not in used_phrases
+            ),
+            phrases[0],
+        )
+        used_phrases.add(text.strip().rstrip(".").casefold())
+        overview_sentences.append(
+            AgenticOverviewSentenceV1(
+                text=text,
+                supporting_fact_ids=[fact_id],
+            )
+        )
     return AgenticCompositionDraftV1(
         repository_summary=tool_draft.repository_summary,
         section_decisions=tool_draft.section_decisions,
-        overview_sentences=[
-            AgenticOverviewSentenceV1(
-                text=phrases_by_fact_id[fact_id][0],
-                supporting_fact_ids=[fact_id],
-            )
-            for fact_id in materialized_ids
-        ],
+        overview_sentences=overview_sentences,
     )
 
 
