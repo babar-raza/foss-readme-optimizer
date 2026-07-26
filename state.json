@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "2dc10819cddaf6ab96770665fa02b850f67fff57c7b44e3cb1fb332f28c86bcc",
-    "last_evaluated_at": "2026-07-26T09:49:29.244116+00:00",
+    "last_evaluated_at": "2026-07-26T09:49:44.315960+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -74,7 +74,7 @@
       "L8-REVIEW-04A-REAL-CORPUS": "TODO",
       "L8-REVIEW-05-REAL-CAMPAIGN": "TODO",
       "L8-STAGING-VERIFIED-PROPOSAL-PROOF": "TODO",
-      "L8-TRUTH-01-STAGE-LIMIT": "SCORED",
+      "L8-TRUTH-01-STAGE-LIMIT": "CLOSED",
       "L8-TRUTH-01A-FACT-CONTRACT": "TODO",
       "L8-TRUTH-02-ROOT-ROLES": "TODO",
       "L8-TRUTH-03-CLAIM-POLARITY": "TODO",
@@ -1370,6 +1370,19 @@
         "reason": "Acceptance scored pass for the FACTS_READY slice: public runtime boundary, heterogeneous fixture fan-out, honest target summary, zero later-stage calls, clean-tree real representative, checksum-valid evidence. L8-015 remains broader than this slice and must not be called fully implemented until downstream ceilings close.",
         "task_id": "L8-TRUTH-01-STAGE-LIMIT",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/local-product-truth-stage-limit-java-representative/README.md",
+          "commit:97e02a9f97f344804513fa768a74228b100414cc",
+          "commit:c0a982a"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-26T09:49:44.315952+00:00",
+        "reason": "Closed the atomic FACTS_READY stage-limit task only. Later product-truth acceptance, composition, review, qualification, and Gate A remain governed by their dependent tasks.",
+        "task_id": "L8-TRUTH-01-STAGE-LIMIT",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -1378,7 +1391,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 155,
+  "state_version": 156,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
