@@ -7,20 +7,20 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
-    "claim_expires_at": "2026-07-26T04:38:01.999792+00:00",
-    "claim_id": "61db8853cade41ae889b4432f00d69b4",
-    "claimed_at": "2026-07-26T04:08:01.999792+00:00",
-    "claimed_by": "codex-autonomous-executor",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f",
-    "last_evaluated_at": "2026-07-26T04:08:01.999792+00:00",
+    "last_evaluated_at": "2026-07-26T04:16:36.770589+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
-      "L8-LOCAL-FULL-REGISTRY-GATE-A": "IN_PROGRESS",
+      "L8-LOCAL-FULL-REGISTRY-GATE-A": "REGRESSED",
       "L8-LOCAL-HETEROGENEOUS-QUALIFICATION": "CLOSED",
       "L8-LOCAL-HUMAN-REVIEW-GATE-B": "TODO",
       "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "CLOSED",
@@ -1185,6 +1185,20 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "runs/evidence/20260726-030202-11e4",
+          "runs/evidence/20260726-034246-6f1d",
+          "runs/evidence/20260726-035304-84b1",
+          "commit:f21740df97d5693e4af941e7ddeae2884dfed9f5"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex-gate-a-reconciliation",
+        "occurred_at": "2026-07-26T04:16:36.770583+00:00",
+        "reason": "Live full-registry evidence disproves closure: real candidates contain product-truth, composition, review, and qualification defects; regress to the first affected boundary before further fan-out.",
+        "task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -1193,7 +1207,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 136,
+  "state_version": 137,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
