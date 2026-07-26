@@ -4120,6 +4120,15 @@
         "reason": "unchanged approved candidate reused without another bundle or agentic review",
         "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-07-26T03:00:39.457235+00:00",
+        "reason": "independent review wiring failed: StateBackendError: invalid README-POC lifecycle transition 'NO_OP_PROVEN' -> 'AGENT_APPROVED' for 'aspose-3d-foss/Aspose.3D-FOSS-for-Java'",
+        "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "presentation_plan_hash": "cf60bffa24c5f00196ddb9ae7e578ee1fa4c29beffb99befebaa3c2a99609613",
@@ -4129,11 +4138,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-07-26T02:48:26.991084+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-07-26T03:00:39.457235+00:00"
   },
   "schema_version": 2,
-  "state_version": 303,
+  "state_version": 304,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0899e7de6c57e6251bdde687c2b60d06d67e196fa6cb9143818ec607060bf449",
