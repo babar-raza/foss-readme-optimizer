@@ -69,7 +69,10 @@ REVIEW_ARCHETYPES = (
         "C++ developers inspecting presentations",
         "read PPTX slide titles",
         "PPTX",
-        "source build with CMake; no registry package is published",
+        (
+            "source build with `cmake -S . -B build` then "
+            "`cmake --build build`; no registry package is published"
+        ),
         'Presentation deck("input.pptx"); deck.slide(0).title()',
         "does not render slide previews",
         "renders slide previews",
