@@ -1361,7 +1361,7 @@
     },
     "readme_presentation": {
       "accepted_facts_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -1511,7 +1511,7 @@
           "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
           "tool_schema_sha256": "d5525dc7b556c6e3f7dfaff5be65cf716d9fdd61b3aa9f4d39d26f1c22e66f04"
         },
-        "agentic_composition_reused": false,
+        "agentic_composition_reused": true,
         "bundle_verification": {
           "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260726-062825-0ef2-repair-1",
           "checks": {
@@ -1551,168 +1551,12 @@
         },
         "fresh_fingerprint": "fb9af9a77cdb9f3b786dab680fd183cbd6dd3d1ae830f6b45b632a1db027b80a",
         "independent_review": {
-          "attempts": 1,
-          "escalation": null,
-          "final_review": {
-            "failed_criteria": [],
-            "preserve": [],
-            "reasoning": "The candidate README is factually accurate, complete, specific to this product, and ready to ship. Every claim in the candidate is traceable to the supplied ProductFactsV2: the product identity, audience, problems solved, formats, installation coordinates, license, and architecture are all verified. The 'At a glance' section uses the exact audience and problems-solved phrases from verified facts. The installation and example sections match the verified coordinates and minimal example. The format support claims are supported by the repository evidence assertions (despite some missing symbols, the assertions themselves are present). The commercial relationship section is preserved as intended by the relationship.commercial_foss fact. No concrete, externally checkable claims are missing evidence, and no factual conflicts exist.",
-            "required_repair": "",
-            "sections_affected": [],
-            "verdict": "ACCEPT"
-          },
-          "outcome_kind": "accepted",
-          "repair_history": [
-            {
-              "candidate_sha256": "b06321cc7a6deeea67d02e68584e9d02454dc854bb94a1762176e2e7e4dbfafa",
-              "deterministic_validation": {
-                "checks": {
-                  "adoption_preserved_source": true,
-                  "candidate_has_presentation_span": true,
-                  "candidate_hash_matches": true,
-                  "candidate_matches_independent_render": true,
-                  "document_reconstruction": true,
-                  "fact_citations": true,
-                  "facts_hash_matches": true,
-                  "needs_write_matches": true,
-                  "protected_content": true,
-                  "source_document_hash": true,
-                  "source_span_hashes": true,
-                  "template_hash_matches": true,
-                  "verified_example_present": true,
-                  "verified_limitations_present": true,
-                  "verified_overview_present": true
-                },
-                "nonce": "20260726-062651-eb7f",
-                "reason": null,
-                "requirement_map": {
-                  "fact_backed_document_plan": true,
-                  "immutable_snapshot": true,
-                  "protected_content": true,
-                  "verified_example": true
-                },
-                "token": "b532f2237a6369d4c7015b9419b995de161eb5c513e221b802612a036acc93cd",
-                "verdict": "accept"
-              },
-              "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260726-062651-eb7f"
-              ],
-              "repair_attempt": 0,
-              "review": {
-                "failed_criteria": [
-                  "product_specificity",
-                  "readability",
-                  "developer_usefulness",
-                  "commercial_context"
-                ],
-                "preserve": [],
-                "reasoning": "The candidate README contains several issues that prevent it from being ACCEPT. First, the 'At a glance' section is factually incomplete and misleading: it lists 'Developers using Python for Create and manipulate 3D scenes' as a standalone bullet point without context, and the second bullet 'Aspose.3D FOSS for Python' is just the product name without explaining what it does. This section fails to properly summarize the verified audience and problems solved facts. Second, the 'In this README' navigation list is redundant and adds no value\u2014it duplicates the table of contents that will appear automatically in GitHub. Third, the candidate README preserves the original's promotional callout in the 'Resources' section where it says 'Aspose.3D FOSS \u2014 free & open source (aspose.org)' and 'Aspose.3D \u2014 commercial On-Premise edition (aspose.com)' which creates an unbalanced presentation where commercial links precede product substance. The presentation plan explicitly intended to remove the promotional callout from the opening but did not address the Resources section imbalance. These are quality, completeness, and presentation defects that can be fixed with bounded edits without requiring new evidence.",
-                "required_repair": "Rewrite the 'At a glance' section to be factually complete and specific: use the verified audience fact to state 'Python developers who need to create and manipulate 3D scenes' and the verified problems solved facts to list the core capabilities. Remove the redundant 'In this README' navigation list. Reorder the Resources section to present FOSS resources first, then commercial resources, and ensure the commercial context does not dominate the product substance.",
-                "sections_affected": [
-                  "At a glance",
-                  "In this README",
-                  "Resources"
-                ],
-                "verdict": "REJECT_REPAIRABLE"
-              },
-              "review_pass": 1
-            },
-            {
-              "candidate_sha256": "b06321cc7a6deeea67d02e68584e9d02454dc854bb94a1762176e2e7e4dbfafa",
-              "deterministic_validation": {
-                "bundle_verification": {
-                  "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260726-062825-0ef2-repair-1",
-                  "checks": {
-                    "acquisition_matches_live_registry": true,
-                    "agentic_plan_assessment_hash_matches": true,
-                    "agentic_plan_facts_hash_matches": true,
-                    "agentic_plan_repository_matches": true,
-                    "agentic_plan_source_hash_matches": true,
-                    "all_artifacts_present": true,
-                    "artifact_checksums_match": true,
-                    "assessment_reconstructed": true,
-                    "candidate_hash_matches_plan": true,
-                    "cited_facts_accepted": true,
-                    "claim_map_reconstructed": true,
-                    "facts_hash_matches_plan": true,
-                    "independent_reconstruction_byte_identical": true,
-                    "independent_validation_valid": true,
-                    "native_git_apply_produces_candidate": true,
-                    "operations_cite_selected_facts": true,
-                    "recomputed_validation_consistent_with_stored": true,
-                    "reconstructed_plan_matches": true,
-                    "schemas_valid": true,
-                    "source_hash_matches_plan": true
-                  },
-                  "failures": [],
-                  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
-                  "status": "checked",
-                  "verified": true
-                },
-                "candidate_verification": {
-                  "checks": {
-                    "adoption_preserved_source": true,
-                    "candidate_has_presentation_span": true,
-                    "candidate_hash_matches": true,
-                    "candidate_matches_independent_render": true,
-                    "document_reconstruction": true,
-                    "fact_citations": true,
-                    "facts_hash_matches": true,
-                    "needs_write_matches": true,
-                    "protected_content": true,
-                    "source_document_hash": true,
-                    "source_span_hashes": true,
-                    "template_hash_matches": true,
-                    "verified_example_present": true,
-                    "verified_limitations_present": true,
-                    "verified_overview_present": true
-                  },
-                  "nonce": "20260726-062825-a260",
-                  "reason": null,
-                  "requirement_map": {
-                    "fact_backed_document_plan": true,
-                    "immutable_snapshot": true,
-                    "protected_content": true,
-                    "verified_example": true
-                  },
-                  "token": "f73f6df07217acb93507c218ad3a7b86c6727372c72532ae2e850564a9deca92",
-                  "verdict": "accept"
-                },
-                "factuality": {
-                  "claim_conflicts": [],
-                  "error": null,
-                  "product_facts_v2_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
-                  "protected_content_losses": [],
-                  "valid": true
-                },
-                "verdict": "accept"
-              },
-              "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260726-062825-0ef2-repair-1"
-              ],
-              "repair_attempt": 1,
-              "review": {
-                "failed_criteria": [],
-                "preserve": [],
-                "reasoning": "The candidate README is factually accurate, complete, specific to this product, and ready to ship. Every claim in the candidate is traceable to the supplied ProductFactsV2: the product identity, audience, problems solved, formats, installation coordinates, license, and architecture are all verified. The 'At a glance' section uses the exact audience and problems-solved phrases from verified facts. The installation and example sections match the verified coordinates and minimal example. The format support claims are supported by the repository evidence assertions (despite some missing symbols, the assertions themselves are present). The commercial relationship section is preserved as intended by the relationship.commercial_foss fact. No concrete, externally checkable claims are missing evidence, and no factual conflicts exist.",
-                "required_repair": "",
-                "sections_affected": [],
-                "verdict": "ACCEPT"
-              },
-              "review_pass": 2
-            }
-          ]
+          "agentic_review_reused": true,
+          "lifecycle_status_reused": "AGENT_APPROVED",
+          "outcome_kind": "unchanged_no_op"
         },
-        "llm_called": true,
-        "llm_calls": [
-          {
-            "input_sha256": "e3f02bc3a410a6c23fd121cd1ccee72e647bbad3e78e56e90228a78cdc86da31",
-            "job": "plan_readme_composition",
-            "model": "qwen3-next",
-            "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6"
-          }
-        ],
+        "llm_called": false,
+        "llm_calls": [],
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
@@ -3847,7 +3691,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260726-062825-a260",
+          "nonce": "20260726-063335-c620",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -3855,7 +3699,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "f73f6df07217acb93507c218ad3a7b86c6727372c72532ae2e850564a9deca92",
+          "token": "66dcc8830b0bc03e412fc579d5d6ba00d93e50f5797e483d72a209c7374ad6e9",
           "verdict": "accept"
         },
         "written": false
@@ -3863,7 +3707,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T06:28:55.159039+00:00",
+      "last_run_timestamp": "2026-07-26T06:33:51.912458+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -4560,7 +4404,7 @@
     "updated_at": "2026-07-26T06:33:46.628665+00:00"
   },
   "schema_version": 2,
-  "state_version": 263,
+  "state_version": 264,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
