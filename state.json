@@ -4048,54 +4048,43 @@
     "updated_at": "2026-07-26T02:48:26.991084+00:00"
   },
   "schema_version": 2,
-  "state_version": 286,
+  "state_version": 287,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "4409c1dda20b4a845b43e6a518189bb04a1dabfd811bb1850cfe050dd7d3706b",
+    "control_plane_fingerprint": "0899e7de6c57e6251bdde687c2b60d06d67e196fa6cb9143818ec607060bf449",
     "domain_coverage_complete": true,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260726-024612-6679",
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "last_run_id": "20260726-023729-d284",
-    "last_run_timestamp": "2026-07-26T02:37:29.944474+00:00",
+    "last_run_id": "20260726-025128-f733",
+    "last_run_timestamp": "2026-07-26T02:51:28.525371+00:00",
     "last_status": "PARTIAL_WITH_FINDINGS",
     "repair_history": [],
     "surface_freshness": {
       "github_generated_surface_audit": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-07-26T02:37:29.944435+00:00",
+        "last_checked_at": "2026-07-26T02:51:28.525300+00:00",
         "observed_hash": "5aa63e993b4b0124039130133a64d1617fca7b86acc1fd36e89770569d765be9",
         "surface_id": "github_generated_surface_audit",
         "ttl_seconds": 86400
       },
       "metadata_presentation": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-07-26T02:37:29.944435+00:00",
+        "last_checked_at": "2026-07-26T02:51:28.525300+00:00",
         "observed_hash": "0b0d72e132be26e9dacc197117284d0a34a676d2ff75ee602fd384978c9036b3",
         "surface_id": "metadata_presentation",
         "ttl_seconds": 86400
       },
       "package_release_audit": {
         "authoritative_source": "registry_api",
-        "last_checked_at": "2026-07-26T02:37:29.944435+00:00",
+        "last_checked_at": "2026-07-26T02:51:28.525300+00:00",
         "observed_hash": "d33550d7306eb2de77bead4dae6b99b5ddde6037670b8eb7ad12eb5d148f7322",
         "surface_id": "package_release_audit",
         "ttl_seconds": 21600
       },
       "visual_preparation": {
         "authoritative_source": "local_filesystem",
-        "last_checked_at": "2026-07-26T02:37:29.944435+00:00",
+        "last_checked_at": "2026-07-26T02:51:28.525300+00:00",
         "observed_hash": "23c2b9a110b6f00ff9ab5f3f7c00796a4c188e299b21db46963052852b6efd2e",
         "surface_id": "visual_preparation",
         "ttl_seconds": 86400
@@ -4110,7 +4099,7 @@
           "blocked_category": null,
           "blocked_reason": null,
           "capability_id": "inspect_repository",
-          "created_at": "2026-07-26T02:35:45.568106+00:00",
+          "created_at": "2026-07-26T02:49:48.852031+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -4129,8 +4118,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "03473a5dae4d4e5bb1818643b5646a2a",
-          "terminal_at": "2026-07-26T02:35:51.268918+00:00"
+          "task_id": "94194ad62d1d42f2b188f640146ec9b5",
+          "terminal_at": "2026-07-26T02:49:53.921835+00:00"
         },
         {
           "arguments": {
@@ -4139,7 +4128,7 @@
           "blocked_category": null,
           "blocked_reason": null,
           "capability_id": "detect_readme_gaps",
-          "created_at": "2026-07-26T02:35:58.263795+00:00",
+          "created_at": "2026-07-26T02:50:00.943287+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -4151,8 +4140,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "3a396e6e4df14831b33cdbd4228407ef",
-          "terminal_at": "2026-07-26T02:36:03.309846+00:00"
+          "task_id": "81c1453bd29f475f95cc6bba10d4fa00",
+          "terminal_at": "2026-07-26T02:50:05.954955+00:00"
         },
         {
           "arguments": {
@@ -4161,7 +4150,7 @@
           "blocked_category": null,
           "blocked_reason": null,
           "capability_id": "render_readme_candidate",
-          "created_at": "2026-07-26T02:36:14.201455+00:00",
+          "created_at": "2026-07-26T02:50:18.245265+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -5510,8 +5499,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "a9641f16aa7e408dba1bfa16185e807f",
-          "terminal_at": "2026-07-26T02:36:19.699471+00:00"
+          "task_id": "8ea352c194d549e7b8be052500440cbf",
+          "terminal_at": "2026-07-26T02:50:23.835821+00:00"
         },
         {
           "arguments": {
@@ -5520,7 +5509,7 @@
           "blocked_category": null,
           "blocked_reason": null,
           "capability_id": "verify_package_acquisition",
-          "created_at": "2026-07-26T02:36:35.274854+00:00",
+          "created_at": "2026-07-26T02:50:38.024942+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -5540,8 +5529,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "b50ae2af914c43b7ad393a4db3021ce4",
-          "terminal_at": "2026-07-26T02:36:41.442094+00:00"
+          "task_id": "2ecac5db742f462eb8aa729c500e1dbd",
+          "terminal_at": "2026-07-26T02:50:44.758276+00:00"
         },
         {
           "arguments": {
@@ -5550,7 +5539,7 @@
           "blocked_category": null,
           "blocked_reason": null,
           "capability_id": "check_install_path",
-          "created_at": "2026-07-26T02:36:50.251492+00:00",
+          "created_at": "2026-07-26T02:50:52.722131+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -5559,8 +5548,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "45de456de00a4123b6afde092c4a4a96",
-          "terminal_at": "2026-07-26T02:36:59.572408+00:00"
+          "task_id": "bc56f03269b94f988d00c9b409072a7c",
+          "terminal_at": "2026-07-26T02:50:59.441002+00:00"
         },
         {
           "arguments": {
@@ -5569,7 +5558,7 @@
           "blocked_category": null,
           "blocked_reason": null,
           "capability_id": "get_product_facts",
-          "created_at": "2026-07-26T02:37:08.278911+00:00",
+          "created_at": "2026-07-26T02:51:08.266656+00:00",
           "depends_on": [],
           "gap": null,
           "result": {
@@ -5641,10 +5630,10 @@
                 "argv": [
                   "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\toolchains\\temurin-21.0.11+10\\jdk-21.0.11+10\\bin\\javac.exe",
                   "-cp",
-                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-i8c_8wb3\\repository\\target\\classes",
+                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-eci8k7r8\\repository\\target\\classes",
                   "-d",
-                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-i8c_8wb3\\repository\\target\\readme-agent-example",
-                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-i8c_8wb3\\repository\\ReadmeExample.java"
+                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-eci8k7r8\\repository\\target\\readme-agent-example",
+                  "C:\\Users\\prora\\AppData\\Local\\Temp\\readme-agent-product-verification-eci8k7r8\\repository\\ReadmeExample.java"
                 ],
                 "environment_names": [
                   "APPDATA",
@@ -6406,8 +6395,8 @@
           },
           "state": "PASSED",
           "supersedes": null,
-          "task_id": "9571be719efe4b39b419f1960bc3b7f7",
-          "terminal_at": "2026-07-26T02:37:19.672034+00:00"
+          "task_id": "8a4ad05582a24dde9d38f0e03eb0fb73",
+          "terminal_at": "2026-07-26T02:51:20.140377+00:00"
         }
       ]
     }
