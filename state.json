@@ -428,6 +428,23 @@
       "task_id": "2f526a3509f044dd9e2f45c7b2052466",
       "trigger_dedup_key": "operator:20260726-004030-cd83:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "77731ab26a705938a9d36b5d702ba76d165eeac5c157c773bf977b5f7e03b017": {
+      "action": "verify_package_acquisition",
+      "attempt": 1,
+      "checkpoint_id": "77731ab26a705938a9d36b5d702ba76d165eeac5c157c773bf977b5f7e03b017",
+      "completed_at": "2026-07-26T02:10:43.113559+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8848874b8acbf6071559280c378cbc2f13c44b035cfdfc34574996b5d7bbf133",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-020405-09be",
+      "schema_version": 1,
+      "stage": "task_started",
+      "started_at": "2026-07-26T02:10:43.113545+00:00",
+      "task_id": "fa422f0aa98b48ce98d1dd78d4d0078f",
+      "trigger_dedup_key": "operator:20260726-020405-09be:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "8277e558290201a9c2a283244587e17cfaad070b90d9452b4f7b95ef159ca64a": {
       "action": "render_readme_candidate",
       "attempt": 1,
@@ -3242,7 +3259,7 @@
     "updated_at": "2026-07-26T02:07:52.794612+00:00"
   },
   "schema_version": 2,
-  "state_version": 195,
+  "state_version": 196,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a8e32a7021c7a54179604c1ef00ac2e07d681ec262b542afc27855c711f6337f",
@@ -5648,11 +5665,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "a6faba22ea713b0c9bdd797279ed852d79515fa4882ce929963f439d71b4160a",
+      "last_checkpoint_id": "77731ab26a705938a9d36b5d702ba76d165eeac5c157c773bf977b5f7e03b017",
       "lease_expires_at": "2026-07-26T02:19:24.395511+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T02:10:25.947232+00:00"
+      "updated_at": "2026-07-26T02:10:43.113559+00:00"
     }
   },
   "trigger_records": {},
