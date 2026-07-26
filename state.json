@@ -2846,6 +2846,15 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T01:40:07.724622+00:00",
+        "reason": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, compatibility, installation coordinates, verified acquisition, minimal example, license, release state, and limitations. The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections required by the presentation plan. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The README establishes the product as useful, credible, and clearly explained before any commercial links. There are no generic-template symptoms, overpromotion, or unsupported claims.",
+        "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+        "to_status": "AGENT_APPROVED"
       }
     ],
     "presentation_plan_hash": "cf60bffa24c5f00196ddb9ae7e578ee1fa4c29beffb99befebaa3c2a99609613",
@@ -2855,11 +2864,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T01:39:56.089434+00:00"
+    "status": "AGENT_APPROVED",
+    "updated_at": "2026-07-26T01:40:07.724622+00:00"
   },
   "schema_version": 2,
-  "state_version": 144,
+  "state_version": 145,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ab69f8376c988bab261a58d60f877d78ca06630bd9f062e894a4b106334b0be",
