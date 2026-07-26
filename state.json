@@ -5600,11 +5600,13 @@
           "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
         },
         "contract_hash": "b669d29e76fed1f0a80a6a8eda2b04322d5ad386abd00371bbda2d3d562940cc",
+        "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
         "observed_by": "supervisor_product_truth",
         "occurred_at": "2026-07-26T10:07:51.476964+00:00",
         "outcome": "FACTS_READY",
         "reason": "legacy cached fact graph re-evaluated under the current contract",
-        "schema_version": 1
+        "schema_version": 1,
+        "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
       }
     ],
     "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
@@ -6752,7 +6754,7 @@
     "updated_at": "2026-07-26T10:07:51.476964+00:00"
   },
   "schema_version": 2,
-  "state_version": 692,
+  "state_version": 693,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ab98c6daf5199c8227b6f4209180d0e318786a76daa8d9896870d222671501b2",
@@ -7302,6 +7304,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-07-26T10:10:05.622595+00:00"
+    },
+    "operator:20260726-102213-e2d8:aspose-3d-foss/Aspose.3D-FOSS-for-Java": {
+      "accepted_at": "2026-07-26T10:22:18.110757+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260726-102213-e2d8:aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-07-26T10:22:13.817822+00:00",
+        "provider_event_id": "20260726-102213-e2d8",
+        "repository_scope": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-07-26T10:22:18.110774+00:00"
     }
   },
   "trigger_records": {},
