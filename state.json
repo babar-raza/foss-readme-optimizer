@@ -836,6 +836,23 @@
       "task_id": "fa422f0aa98b48ce98d1dd78d4d0078f",
       "trigger_dedup_key": "operator:20260726-020405-09be:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "778dbc7fc8048dab4d8f59da60122a30f055a9a6682fe67a6a22197ca8c8ead1": {
+      "action": "verify_package_acquisition",
+      "attempt": 1,
+      "checkpoint_id": "778dbc7fc8048dab4d8f59da60122a30f055a9a6682fe67a6a22197ca8c8ead1",
+      "completed_at": "2026-07-26T03:14:30.153907+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8848874b8acbf6071559280c378cbc2f13c44b035cfdfc34574996b5d7bbf133",
+      "output_hash": "a8d9265511575a69bb608d8afa49ad7c7b9b03412a4e70c7ae854873dc2e43f2",
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-030748-ddc7",
+      "schema_version": 1,
+      "stage": "task_completed",
+      "started_at": "2026-07-26T03:14:30.153904+00:00",
+      "task_id": "70f120684f624eef9c6edfefa1346045",
+      "trigger_dedup_key": "operator:20260726-030748-ddc7:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "7e661c12f3e24a5db896d834e71384e8cc9e3f602f79a7b73afd6b7ded3b7dd1": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -4533,7 +4550,7 @@
     "updated_at": "2026-07-26T03:12:01.473697+00:00"
   },
   "schema_version": 2,
-  "state_version": 349,
+  "state_version": 350,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b136913f3e269d10929cb35d9626881afa8abb5a135e2f4cd4748fcf817d5568",
@@ -4761,11 +4778,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "cc8c7d92b1dd182f2dcf57d7bae80b74e46ad0ab221eb16d8045b55e973dc029",
+      "last_checkpoint_id": "778dbc7fc8048dab4d8f59da60122a30f055a9a6682fe67a6a22197ca8c8ead1",
       "lease_expires_at": "2026-07-26T03:23:06.465073+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T03:14:23.363345+00:00"
+      "updated_at": "2026-07-26T03:14:30.153907+00:00"
     }
   },
   "trigger_records": {},
