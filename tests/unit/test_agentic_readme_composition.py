@@ -565,7 +565,7 @@ def test_agentic_plan_requires_one_decision_for_every_assessed_section():
         )
 
 
-def test_agentic_plan_cannot_reclassify_a_deterministic_section_disposition():
+def test_agentic_plan_canonicalizes_copied_dispositions_to_deterministic_assessment():
     facts, revision = _facts()
     source = "# Product\n"
     assessment = assess_readme_document(
@@ -577,15 +577,20 @@ def test_agentic_plan_cannot_reclassify_a_deterministic_section_disposition():
     draft = _cover_assessment(_draft(facts), assessment)
     draft["section_decisions"][0]["disposition"] = "rewrite"
 
-    with pytest.raises(LLMError, match="changed deterministic source-bound dispositions"):
-        plan_readme_composition(
-            facts.org_repo,
-            source,
-            facts,
-            assessment,
-            client=_client(draft),
-            max_attempts=1,
-        )
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(draft),
+        max_attempts=1,
+    )
+
+    dispositions = {section.section_id: section.disposition for section in assessment.sections}
+    assert all(
+        decision.disposition == dispositions[decision.section_id]
+        for decision in plan.section_decisions
+    )
 
 
 def test_actionable_agentic_decision_requires_a_bounded_document_operation():
@@ -640,6 +645,59 @@ def test_agentic_plan_repairs_a_rejected_first_response():
         facts.selected_fact("product.audience").value
     )
     assert plan.attempt_count == 2
+
+
+def test_semantic_retry_preserves_independent_repair_and_exact_source_dispositions():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    invalid["overview_sentences"][0]["supporting_fact_ids"] = ["invented:fact"]
+    valid = _cover_assessment(_draft(facts), assessment)
+    messages_seen: list[list[dict]] = []
+    results = iter(
+        [
+            ForcedToolResult(
+                arguments=_tool_arguments(invalid),
+                meta=LLMResponseMeta(model="fixture-author"),
+            ),
+            ForcedToolResult(
+                arguments=_tool_arguments(valid),
+                meta=LLMResponseMeta(model="fixture-author"),
+            ),
+        ]
+    )
+
+    class CapturingClient:
+        def call(self, messages, tool_schema):
+            messages_seen.append(messages)
+            return next(results)
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=CapturingClient(),
+        review_repair={
+            "failed_criteria": ["opening clarity"],
+            "sections_affected": ["At a glance"],
+            "required_repair": "Replace the malformed candidate overview.",
+            "preserve": ["maintainer introduction"],
+        },
+    )
+
+    retry_prompt = messages_seen[1][1]["content"]
+    assert plan.attempt_count == 2
+    assert "Replace the malformed candidate overview." in retry_prompt
+    assert "copy its paired disposition exactly" in retry_prompt
+    assert '"section_id": "missing:at-a-glance"' in retry_prompt
+    assert '"disposition": "add"' in retry_prompt
 
 
 def test_agentic_plan_fails_closed_after_bounded_semantic_retries():

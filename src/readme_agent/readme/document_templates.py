@@ -229,17 +229,29 @@ def overview_text(
         and heading.title.strip().lower() not in {"at a glance", "in this readme"}
     )
     if agentic_overview_sentences:
-        sentences = "\n".join(
-            f"- {str(sentence['text']).strip()}" for sentence in agentic_overview_sentences
-        )
-        return (
-            load_template("agentic-overview-and-navigation.md")
+        selected: dict[str, str] = {}
+        for sentence in agentic_overview_sentences:
+            text = str(sentence["text"]).strip()
+            for fact_id in sentence.get("supporting_fact_ids", []):
+                try:
+                    field = facts.fact_by_id(str(fact_id)).field
+                except KeyError:
+                    continue
+                selected.setdefault(field, text)
+        rendered = (
+            load_template("product-overview-and-navigation.md")
             .format(
-                sentences=sentences,
+                audience=selected.get("product.audience", _OMIT_LINE),
+                problem=selected.get("product.problems_solved", _OMIT_LINE),
+                capabilities=selected.get("product.capabilities", _OMIT_LINE),
+                formats=selected.get("product.formats", _OMIT_LINE),
+                minimum_runtime=selected.get("product.compatibility", _OMIT_LINE),
+                limitations=selected.get("product.limitations", _OMIT_LINE),
                 navigation=navigation or "- Continue with the repository guidance below.",
             )
             .strip()
         )
+        return "\n".join(line for line in rendered.splitlines() if _OMIT_LINE not in line).strip()
     rendered = (
         load_template("product-overview-and-navigation.md")
         .format(

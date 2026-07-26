@@ -221,6 +221,29 @@ def _materialize_tool_draft(
     )
 
 
+def _bind_source_dispositions(
+    draft: AgenticCompositionDraftV1,
+    assessment: ReadmeAssessmentV1,
+) -> AgenticCompositionDraftV1:
+    """Replace copied model dispositions with the authoritative deterministic values."""
+
+    dispositions = {
+        section.section_id: section.disposition for section in _planning_sections(assessment)
+    }
+    return draft.model_copy(
+        update={
+            "section_decisions": [
+                (
+                    decision.model_copy(update={"disposition": dispositions[decision.section_id]})
+                    if decision.section_id in dispositions
+                    else decision
+                )
+                for decision in draft.section_decisions
+            ]
+        }
+    )
+
+
 def _validate_draft(
     draft: AgenticCompositionDraftV1,
     assessment: ReadmeAssessmentV1,
@@ -402,7 +425,7 @@ def plan_readme_composition(
         if review_repair is not None
         else None
     )
-    repair_hints_section = (
+    independent_repair_hints = (
         "INDEPENDENT REVIEW REPAIR. The prior candidate was rejected. "
         "Address only the bounded findings below, preserve the named content, "
         "and still obey every deterministic section disposition and fact-ID constraint:\n"
@@ -410,6 +433,7 @@ def plan_readme_composition(
         if repair_request is not None
         else ""
     )
+    repair_hints_section = independent_repair_hints
     last_error: LLMError | None = None
     for attempt in range(1, max_attempts + 1):
         input_payload = {
@@ -437,6 +461,7 @@ def plan_readme_composition(
             result = resolved_client.call(messages, tool_schema)
             tool_draft = _AgenticCompositionToolDraftV1.model_validate(result.arguments)
             draft = _materialize_tool_draft(tool_draft, overview_phrase_options, facts)
+            draft = _bind_source_dispositions(draft, assessment)
             _validate_draft(draft, assessment, facts)
         except (LLMError, ValidationError) as exc:
             last_error = (
@@ -446,11 +471,14 @@ def plan_readme_composition(
             )
             if attempt == max_attempts:
                 raise last_error from exc
-            repair_hints_section = _repair_hints(
+            deterministic_repair_hints = _repair_hints(
                 last_error,
                 assessment,
                 facts,
                 attempt=attempt + 1,
+            )
+            repair_hints_section = "\n\n".join(
+                hint for hint in (independent_repair_hints, deterministic_repair_hints) if hint
             )
             continue
         return ReadmeAgenticCompositionPlanV1(
@@ -480,8 +508,17 @@ def _repair_hints(
     return (
         f"REPAIR ATTEMPT {attempt}. The previous JSON was rejected: {error}\n"
         "Call submit_readme_composition_plan again. Include exactly one "
-        "section_decision for each of these IDs:\n"
-        + json.dumps([section.section_id for section in _planning_sections(assessment)])
+        "section_decision for each source-bound ID and copy its paired disposition exactly:\n"
+        + json.dumps(
+            [
+                {
+                    "section_id": section.section_id,
+                    "disposition": section.disposition,
+                }
+                for section in _planning_sections(assessment)
+            ],
+            sort_keys=True,
+        )
         + "\nFor overview_fact_ids, select fact IDs from these options; deterministic code "
         "will materialize literal phrases:\n"
         + json.dumps(exact_overview_phrases, ensure_ascii=False)
