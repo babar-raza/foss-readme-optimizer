@@ -1068,6 +1068,20 @@
         "reason": "independent review restarted after deterministic validation",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "completeness",
+          "product_specificity",
+          "developer_usefulness",
+          "readability"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T03:51:40.605110+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 3 (max repair attempts 2): The candidate README contains several quality and completeness issues that prevent it from being ACCEPT. First, the 'At a glance' section is factually redundant and poorly constructed: it repeats the same phrase 'Developers using python for Create and manipulate 3D scenes' three times, and the bullet points under 'Create and manipulate 3D scenes' are not distinct facts but overlapping rephrasings. The facts support a concise, non-repetitive overview. Second, the Quick Start section includes the verified minimal example but presents it in a way that is not developer-friendly (a single-line code block with internal semicolons), and the subsequent example uses `mesh._control_points` which accesses a private attribute not documented in the public API\u2014this contradicts the 'Quick Start' purpose of being approachable. Third, the README omits the 'Limitations' section entirely, which is explicitly supported by the facts (product.limitations:repository-evidence lists FBX parser bugs, missing texture loading, unimplemented animation, and NotImplementedError in exporters). While the candidate passes deterministic checks (schema, citations, hash alignment), it fails product-quality criteria: completeness (missing limitations), specificity (generic/repetitive 'At a glance'), and developer usefulness (unfriendly minimal example, private API usage). These are bounded repairs: the 'At a glance' section can be rewritten using the distinct facts from product.audience, product.problems_solved, and product.capabilities; the Quick Start example should use public APIs; and a 'Limitations' section should be added.",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "presentation_plan_hash": "919d83932234817362773cfe5aba8469d48d05176eeb212fc2b89c2d399dbb59",
@@ -1077,11 +1091,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T03:51:23.364969+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-07-26T03:51:40.605110+00:00"
   },
   "schema_version": 2,
-  "state_version": 106,
+  "state_version": 107,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d4d127f734d171f953a2512a0e57b7e9125b2d631b53d24c637f697b603a83fa",
