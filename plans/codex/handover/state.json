@@ -4,19 +4,19 @@
   "snapshot": {
     "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
     "branch": "main",
-    "head": "c6b824d3817482666ed547427076fa6eb1c78629",
+    "head": "b5fa7eb65900f34554ad141e59c5777a3b663766",
     "snapshot_note": "Historical snapshot taken immediately before committing this handover refresh; always re-read live HEAD and durable state.",
-    "durable_mission_state_version": 94,
-    "mission_graph_sha256": "8db1168d8a5a84eaa1b5fc057c1cb22b16651cc70f44bfbe2e0c33de1cb3b09b",
+    "durable_mission_state_version": 132,
+    "mission_graph_sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f",
     "graph_drift": false
   },
   "mission": {
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "current_phase": "Gate A local product truth",
-    "current_task": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
-    "next_action": ".venv/Scripts/python plans/investigations/tools/prove_local_portfolio_product_truth_representatives.py",
+    "current_phase": "Gate A full-registry local execution",
+    "current_task": "L8-LOCAL-FULL-REGISTRY-GATE-A",
+    "next_action": "Continue the existing .venv/Scripts/readme-agent supervise --registry data/products.json --execution-profile local_poc worker; prove the compiler-grounded .NET repair, then repair and rerun until every current entry is NO_OP_PROVEN.",
     "mission_complete": false,
-    "unresolved_task_count": 16,
+    "unresolved_task_count": 12,
     "blocked_external_task_count": 1
   },
   "authority": [
@@ -33,12 +33,12 @@
     {
       "path": "plans/requirements.md",
       "role": "normative obligations and acceptance",
-      "sha256": "5f55ff5bc8ee18596e5663d3f33996e11f3512c6741e835140b62ec4ea868753"
+      "sha256": "e975648a5883e5dfb3fc80301decc5273976e7f79ae2f97f802c85de28a5a728"
     },
     {
       "path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
       "role": "sole executable task graph",
-      "sha256": "8db1168d8a5a84eaa1b5fc057c1cb22b16651cc70f44bfbe2e0c33de1cb3b09b"
+      "sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f"
     },
     {
       "path": "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md",
@@ -50,23 +50,45 @@
     {
       "task_id": "L8-LOCAL-PORTFOLIO-RUNTIME",
       "evidence": "runs/level8-local-portfolio-runtime-verification/"
+    },
+    {
+      "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+      "evidence": "durable mission state version 132"
+    },
+    {
+      "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+      "evidence": "durable mission state version 132"
+    },
+    {
+      "task_id": "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR",
+      "evidence": "durable mission state version 132"
+    },
+    {
+      "task_id": "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
+      "evidence": "durable mission state version 132"
     }
   ],
   "implemented_unverified": [
     {
-      "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+      "task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
       "commits": [
-        "922c960",
-        "c6b824d"
+        "42ef68e",
+        "386562d",
+        "8cc3906",
+        "9d4c79e",
+        "3292e9b",
+        "f324e67",
+        "6bdd765",
+        "89b66d8",
+        "136626b",
+        "5457d5f",
+        "052901c",
+        "b5fa7eb"
       ],
-      "missing_proof": "Stable-tree live proof for Java, .NET, Python, TypeScript, C++, Go, and Rust plus independent evidence review."
+      "missing_proof": "All current registry entries must reach AGENT_APPROVED and NO_OP_PROVEN with checksum-valid manifests; Java is proven, .NET repair and the remaining portfolio are still executing."
     }
   ],
   "remaining_tasks": [
-    "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
-    "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
-    "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR",
-    "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
     "L8-LOCAL-FULL-REGISTRY-GATE-A",
     "GATE-B-HUMAN-REVIEW",
     "ACT-CANONICAL-WORKFLOW-PROOF",
@@ -88,6 +110,8 @@
   "evidence_paths": [
     "runs/level8-local-portfolio-runtime-verification/",
     "runs/level8-local-portfolio-product-truth-verification/",
+    "runs/readme-poc/",
+    "runs/level8-local-full-registry-gate-a-live-resume-6/",
     "plans/investigations/evidence/draft-product-truth-route-characterization-2026-07-25/",
     "plans/investigations/evidence/independent-readme-reviewer-route-characterization-2026-07-25/"
   ],

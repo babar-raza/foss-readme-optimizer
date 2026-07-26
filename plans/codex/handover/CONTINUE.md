@@ -19,9 +19,9 @@ Read and obey, in order:
 5. Durable mission state for the active task, claim, transitions, and completion status.
 6. `plans/codex/handover/HANDOVER.md`, `state.json`, and `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` as supporting snapshots.
 
-The handover snapshot was `main` at `c6b824d3817482666ed547427076fa6eb1c78629`, state
-version 94, graph hash `8db1168d8a5a84eaa1b5fc057c1cb22b16651cc70f44bfbe2e0c33de1cb3b09b`,
-with `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH` active. These are not a substitute for live verification.
+The handover snapshot was `main` at `b5fa7eb65900f34554ad141e59c5777a3b663766`, state
+version 132, graph hash `b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f`,
+with `L8-LOCAL-FULL-REGISTRY-GATE-A` active. These are not a substitute for live verification.
 
 ## Mandatory Startup
 
@@ -66,21 +66,26 @@ Refresh `HANDOVER.md`, this file, and `state.json` after every durable transitio
 
 ## First Task Now
 
-The expected live task is `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`. The canonical local runtime task is
-already durably closed. The first boundary now is the committed seven-ecosystem live proof:
+The expected live task is `L8-LOCAL-FULL-REGISTRY-GATE-A`. First inspect active processes. At this
+snapshot, one canonical worker was running from the resume-6 checkpoint:
 
 ```powershell
-.venv/Scripts/python `
-  plans/investigations/tools/prove_local_portfolio_product_truth_representatives.py
+.venv/Scripts/readme-agent supervise `
+  --registry data/products.json `
+  --execution-profile local_poc
 ```
 
-Repair each agent-fixable Java, .NET, Python, TypeScript, C++, Go, or Rust lane at its first failure.
-Require the exact prepared fact graph to reach the renderer, retain visible narrow fact blocks, and
-write redacted checksum-complete evidence. Then run the focused product-truth/lifecycle/security
-tests plus supervisor integration/regression proof and independently review the evidence. Do not
-transition on offline tests alone.
+Do not launch a duplicate while that process is alive. Continue monitoring
+`runs/level8-local-full-registry-gate-a-live-resume-6/`, repair each agent-fixable repository at
+its first boundary, restart only from a durable checkpoint when committed code must be loaded, and
+repeat full sweeps until every current registry entry is `NO_OP_PROVEN`. Java already has one
+verified no-op manifest. The next explicit live boundary is .NET: confirm the committed
+compiler-diagnostic repair and cache invalidation produce a compiling example and an approved
+candidate. Then continue Python, TypeScript, C++, Go, Rust, and every remaining portfolio entry.
 
-The succeeding chain is fixed by dependencies:
+The dependency display below includes four already-closed local tasks for context. Do not reclaim
+or re-execute them: the active first line for continuation is
+`L8-LOCAL-FULL-REGISTRY-GATE-A`, followed by Gate B.
 
 ```text
 L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH

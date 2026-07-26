@@ -7,13 +7,13 @@
 | Field | Value |
 |---|---|
 | Repository | `D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer` |
-| Branch / snapshot HEAD | `main` / `c6b824d3817482666ed547427076fa6eb1c78629` |
-| Tree | Only the three canonical handover files were dirty while this snapshot was refreshed. |
+| Branch / snapshot HEAD | `main` / `b5fa7eb65900f34554ad141e59c5777a3b663766` |
+| Tree | Clean before this in-place handover refresh; runtime artifacts remain under ignored `runs/`. |
 | Mission | `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` |
-| Durable state | Version 94; graph SHA-256 `8db1168d8a5a84eaa1b5fc057c1cb22b16651cc70f44bfbe2e0c33de1cb3b09b` |
-| Active task | `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH` |
-| Mission status | 16 unresolved, one external block, graph drift false, mission complete false |
-| Exact next action | Run and repair the seven-ecosystem live product-truth proof; start with [CONTINUE.md](CONTINUE.md). |
+| Durable state | Version 132; graph SHA-256 `b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f` |
+| Active task | `L8-LOCAL-FULL-REGISTRY-GATE-A` |
+| Mission status | 12 unresolved, one external block, graph drift false, mission complete false |
+| Exact next action | Continue the active canonical full-registry worker and repair its first failing boundary; start with [CONTINUE.md](CONTINUE.md). |
 
 The snapshot was produced by `readme-agent supervise --mission-action status`. Any change to the graph, durable state, HEAD, or working tree makes it historical. The supervisor's Git-ref state is the live task-status authority.
 
@@ -51,20 +51,26 @@ Non-goals and hard limits: no auto-merge, readying a draft, force push, target d
   .venv/Scripts/readme-agent supervise --registry data/products.json --execution-profile local_poc
   ```
 
-- `L8-LOCAL-PORTFOLIO-RUNTIME` is durably closed with evidence under
-  `runs/level8-local-portfolio-runtime-verification/`; the graph now has
-  `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH` active.
-- Commits `922c960` and `c6b824d` bind one immutable `ProductFactsV2` graph through rendering and
-  independent review, add C++/Rust verification, and normalize the .NET drafting contract.
-- Focused current-tree proof passed: 105 product-truth/lifecycle/reviewer/security tests, six
-  local-POC supervisor/write-gate tests, and 27 mission-control/portfolio-tool tests.
+- The dependency chain through `L8-LOCAL-HETEROGENEOUS-QUALIFICATION` is durably closed; mission
+  status version 132 names `L8-LOCAL-FULL-REGISTRY-GATE-A` as active with no graph drift.
+- `aspose-3d-foss/Aspose.3D-FOSS-for-Java` reached `NO_OP_PROVEN` in
+  `runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Java/8de5f467e93138b3605acdc46ca40e93f0364ee8/manifest.json`.
+- Commits `42ef68e`, `386562d`, `8cc3906`, `9d4c79e`, `3292e9b`, `f324e67`, `6bdd765`,
+  `89b66d8`, `136626b`, `5457d5f`, `052901c`, and `b5fa7eb` repair the live Gate-A truth
+  boundaries: multi-root .NET verification, fail-closed evidence contracts, structured
+  repository-bound drafting, malformed-response recovery, truthful repair failure transitions,
+  larger/longer inference, and compiler-grounded example repair.
+- Focused proof for the latest slices passed: 49 lifecycle/forced-tool tests, 68
+  reviewer/prose/specialist tests, 33 product-truth/local-verification/security tests, and 36
+  cache/evidence/product-truth tests, plus Ruff and mypy on every changed source seam.
 - Existing foundation evidence is inspectable under `level8-wave1-heterogeneous-fail-closed-2026-07-23/`, `level8-local-immutable-snapshot-and-facts-corrected-acquisition-2026-07-24/`, and `level8-wave4-local-presentation-plan-foundation-2026-07-23/`.
 
 ### IMPLEMENTED_BUT_UNVERIFIED
 
-- The active product-truth implementation is committed and offline-proven, but its required
-  Java/.NET/Python/TypeScript/C++/Go/Rust live representative proof has not yet completed from the
-  stable committed tree. The proof command is the exact next action.
+- Gate A remains incomplete. Java is `NO_OP_PROVEN`; .NET was correctly
+  `BLOCKED_MISSING_EVIDENCE` because its drafted example did not compile. The compiler-diagnostic
+  repair and cache invalidation are committed but still need live confirmation. No complete
+  `portfolio-summary.json` exists yet.
 
 ### PARTIAL OR CONTRADICTED
 
@@ -86,12 +92,9 @@ Non-goals and hard limits: no auto-merge, readying a draft, force push, target d
 
 The supervisor must select the highest-priority dependency-ready task. The intended dependency sequence is:
 
-1. `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`: finish live representative proof for the committed
-   snapshot-grounded `ProductFactsV2` flow, acquisition/example verification, and conflict handling.
-2. `L8-LOCAL-README-ASSESSMENT-COMPOSITION`: fact-cited source-span plans, protected content, candidate README, and native patch.
-3. `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`: mandatory deterministic validation, independent review, durable reviewer state, bounded repair, revalidation, and no-op proof.
-4. `L8-LOCAL-HETEROGENEOUS-QUALIFICATION`: representative ecosystem controls, 100% deterministic validation, and 100 governed agentic evaluations across three sessions at >=95%.
-5. `L8-LOCAL-FULL-REGISTRY-GATE-A`: every dynamically loaded entry approved with a complete manifest and no-op proof.
+1. `L8-LOCAL-FULL-REGISTRY-GATE-A`: execute the canonical profile over the runtime-loaded registry,
+   repair every agent-fixable failure, and repeat unchanged sweeps until every entry is
+   agent-approved and no-op-proven with a valid manifest.
 7. Gate B human review of already approved bundles; rejection re-enters repair.
 8. Canonical workflow proof under `act`.
 9. Disposable GitHub staging.
@@ -99,11 +102,14 @@ The supervisor must select the highest-priority dependency-ready task. The inten
 11. Gate D GitHub App and hosted runtime, only after Gate C.
 12. Controlled Level 5, heterogeneous Level 7 with 30 clean days, then Level 8 with 90 clean days and an independent reproducible award.
 
-The current first boundary is `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`: execute
-`.venv/Scripts/python plans/investigations/tools/prove_local_portfolio_product_truth_representatives.py`,
-repair each agent-fixable lane at its first failure, verify all seven representative graphs and
-their exact renderer consumption, then capture a stable-tree checksum inventory and independent
-review. Do not transition on offline tests alone.
+The current command is
+`.venv/Scripts/readme-agent supervise --registry data/products.json --execution-profile local_poc`.
+At snapshot time its resume-6 process tree was active and logging to
+`runs/level8-local-full-registry-gate-a-live-resume-6/`. Do not launch a duplicate while that
+worker is alive. The first pending proof is that the new compiler-grounded repair regenerates and
+verifies the .NET example; then continue every remaining registry entry and run unchanged sweeps.
+Gate A closes only when `approved == len(data/products.json)`, `system_failed == 0`,
+`unprocessed == 0`, and `manifest_failures == 0`.
 
 ## 6. Continuous Execution Contract
 
