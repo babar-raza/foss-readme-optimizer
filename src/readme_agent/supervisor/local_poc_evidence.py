@@ -147,7 +147,13 @@ def write_local_poc_product_facts(
         write_redacted_json(facts_dir / "proposed-product-truth.json", proposed_product_truth)
     facts_hash = facts.canonical_hash()
     prior_manifest = _existing_manifest(bundle_dir, snapshot.source_revision)
-    if prior_manifest.get("candidate_hash") and prior_manifest.get("facts_hash") == facts_hash:
+    if (
+        prior_manifest.get("candidate_hash")
+        and prior_manifest.get("facts_hash") == facts_hash
+        and prior_manifest.get("prompt_hash") == prompt_hash
+        and prior_manifest.get("local_verification_contract_hash")
+        == local_verification_contract_hash
+    ):
         refresh_sha256sums(bundle_dir)
         return bundle_dir
     write_redacted_json(

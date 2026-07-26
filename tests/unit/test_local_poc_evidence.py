@@ -244,3 +244,15 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     checksum_inventory = (bundle / "sha256sums.txt").read_text(encoding="utf-8")
     assert "assessment/current-readme-assessment.json" in checksum_inventory
     assert "candidate/README.md" in checksum_inventory
+
+    write_local_poc_product_facts(
+        snapshot,
+        facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        local_verification_contract_hash="w" * 64,
+    )
+    invalidated_manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
+    assert invalidated_manifest["lifecycle_status"] == "FACTS_READY"
+    assert invalidated_manifest["local_verification_contract_hash"] == "w" * 64
+    assert "candidate_hash" not in invalidated_manifest
