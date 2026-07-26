@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-TRUTH-01C-PROMPT-HYGIENE",
+    "claim_expires_at": "2026-07-26T16:07:39.451404+00:00",
+    "claim_id": "df4aa290b4f64af98479a949ffed4c02",
+    "claimed_at": "2026-07-26T15:37:39.451404+00:00",
+    "claimed_by": "codex",
     "graph_sha256": "2f72cd4b7401551f8764e165ab1619c9494bdfedd560c74861a42d39bd4b90f4",
-    "last_evaluated_at": "2026-07-26T15:33:46.304966+00:00",
+    "last_evaluated_at": "2026-07-26T15:37:39.451404+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -138,7 +138,7 @@
       "L8-TRUTH-01-STAGE-LIMIT": "CLOSED",
       "L8-TRUTH-01A-FACT-CONTRACT": "CLOSED",
       "L8-TRUTH-01B-LLM-CALL-LEDGER": "CLOSED",
-      "L8-TRUTH-01C-PROMPT-HYGIENE": "TODO",
+      "L8-TRUTH-01C-PROMPT-HYGIENE": "IN_PROGRESS",
       "L8-TRUTH-02-ROOT-ROLES": "TODO",
       "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION": "TODO",
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "TODO",
@@ -1635,6 +1635,15 @@
         "reason": "The LLM call ledger contribution is independently verified, current, and complete; no mandatory acceptance item remains.",
         "task_id": "L8-TRUTH-01B-LLM-CALL-LEDGER",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-26T15:37:39.451459+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-TRUTH-01C-PROMPT-HYGIENE",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -1643,7 +1652,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 180,
+  "state_version": 181,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
