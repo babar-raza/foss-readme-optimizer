@@ -191,6 +191,38 @@ def _resolve_cited_fact(facts_so_far: ProductFactsV2, fact_id: str) -> FactRecor
     return fact
 
 
+def _audience_platform_values(facts: list[FactRecordV2]) -> set[str]:
+    """Return literal platform identifiers that may complete the audience scaffold."""
+
+    values: set[str] = set()
+    for fact in facts:
+        if fact.field == "product.platforms":
+            rows = fact.value if isinstance(fact.value, list) else [fact.value]
+            values.update(str(row).strip().casefold() for row in rows if str(row).strip())
+        elif fact.field == "product.identity" and isinstance(fact.value, dict):
+            for key in ("platform", "ecosystem"):
+                value = str(fact.value.get(key) or "").strip()
+                if value:
+                    values.add(value.casefold())
+    return values
+
+
+def _audience_shape_failure(
+    claim: InterpretiveClaimV1,
+    cited_facts: list[FactRecordV2],
+) -> str | None:
+    """Require a complete audience label, never capability text forced into a fragment."""
+
+    match = re.fullmatch(r"developers using (.+?)\.?", claim.text.strip(), flags=re.IGNORECASE)
+    platforms = _audience_platform_values(cited_facts)
+    if match is None or match.group(1).strip().casefold() not in platforms:
+        return (
+            f"{claim.claim_id}: audience must be exactly 'Developers using "
+            "<cited literal platform or ecosystem>.'"
+        )
+    return None
+
+
 def _claim_result(
     field_name: str,
     claim: InterpretiveClaimV1,
@@ -203,7 +235,7 @@ def _claim_result(
         return False, 0.0, [f"{claim.claim_id}: rejected -- no supporting_fact_ids cited"]
 
     reasons: list[str] = []
-    resolved_values: list[str] = []
+    resolved_facts: list[FactRecordV2] = []
     for fact_id in claim.supporting_fact_ids:
         cited = _resolve_cited_fact(facts_so_far, fact_id)
         if cited is None:
@@ -212,12 +244,18 @@ def _claim_result(
                 "currently-selected fact in a verified/policy_approved state"
             )
             continue
-        resolved_values.append(_value_text(cited.value))
+        resolved_facts.append(cited)
     if reasons:
         # (b) requires EVERY cited fact ID to resolve -- one bad citation fails the claim,
         # it does not just shrink the grounding pool.
         return False, 0.0, reasons
 
+    if field_name == "product.audience":
+        shape_failure = _audience_shape_failure(claim, resolved_facts)
+        if shape_failure is not None:
+            return False, 0.0, [shape_failure]
+
+    resolved_values = [_value_text(fact.value) for fact in resolved_facts]
     tokens = _significant_tokens(claim.text, field_name)
     if not tokens:
         return False, 0.0, [f"{claim.claim_id}: claim text has no significant tokens to ground"]

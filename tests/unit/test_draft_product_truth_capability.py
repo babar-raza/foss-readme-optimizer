@@ -64,7 +64,12 @@ def _established_fact(field_name: str, value, qualifier: str = "established") ->
 
 _IDENTITY = _established_fact(
     "product.identity",
-    "Widget is a backend library for Java developers to read and write XLSX files.",
+    {
+        "family": "widget",
+        "platform": "java",
+        "ecosystem": "java",
+        "summary": "Widget is a backend library for Java developers to read and write XLSX files.",
+    },
     "identity",
 )
 
@@ -108,7 +113,7 @@ def _good_draft() -> DraftProductTruthV1:
         audience=[
             InterpretiveClaimV1(
                 claim_id="audience-1",
-                text="Java developers who read and write XLSX files.",
+                text="Developers using Java.",
                 supporting_fact_ids=[_IDENTITY.fact_id],
             )
         ],
@@ -493,7 +498,11 @@ class TestEvidenceBackedFactsFeedForwardIntoRepairGrounding:
         root = _make_repo(tmp_path)
         # No rich descriptive fact available up front -- only a bare
         # mechanical identity fact with no product-shape vocabulary at all.
-        bare_identity = _established_fact("product.identity", {"family": "widget"}, "identity")
+        bare_identity = _established_fact(
+            "product.identity",
+            {"family": "widget", "platform": "java", "ecosystem": "java"},
+            "identity",
+        )
         records = [bare_identity]
         seen = {"product.identity"}
         for field_name in REQUIRED_PRODUCT_FIELDS:
@@ -534,7 +543,7 @@ class TestEvidenceBackedFactsFeedForwardIntoRepairGrounding:
                     audience=[
                         InterpretiveClaimV1(
                             claim_id="a1",
-                            text="Java developers who create and process Widget objects.",
+                            text="Developers using Java for Widget objects.",
                             supporting_fact_ids=[bare_identity.fact_id],
                         )
                     ],
@@ -566,8 +575,8 @@ class TestEvidenceBackedFactsFeedForwardIntoRepairGrounding:
                 audience=[
                     InterpretiveClaimV1(
                         claim_id="a1",
-                        text="Create and process Widget objects.",
-                        supporting_fact_ids=[capabilities_fact_id],
+                        text="Developers using Java.",
+                        supporting_fact_ids=[bare_identity.fact_id],
                     )
                 ],
                 problems_solved=[
@@ -610,7 +619,7 @@ class TestToPolicyShape:
     def test_drafted_result_round_trips_through_real_product_truth_policy(self):
         shape = capability._to_policy_shape(_good_draft())
 
-        assert shape["audience"] == ["Java developers who read and write XLSX files."]
+        assert shape["audience"] == ["Developers using Java."]
         assert shape["capabilities"][0]["evidence_paths"] == ["src/Widget.java"]
         assert shape["minimal_example"]["language"] == "java"
 

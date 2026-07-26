@@ -61,7 +61,12 @@ def _facts_so_far(*established):
 
 _IDENTITY = _established_fact(
     "product.identity",
-    "Aspose.Widget is a backend document processing engine for enterprise developers.",
+    {
+        "family": "widget",
+        "platform": "java",
+        "ecosystem": "java",
+        "repository": "acme/widget",
+    },
     "identity",
 )
 _CAPABILITIES = _established_fact(
@@ -75,11 +80,8 @@ def test_all_claims_pass_yields_verified_agent_drafted_fact():
     facts_so_far = _facts_so_far(_IDENTITY, _CAPABILITIES)
     claim = InterpretiveClaimV1(
         claim_id="audience-1",
-        text=(
-            "Enterprise developers with a backend document processing engine to convert "
-            "and merge PDF documents."
-        ),
-        supporting_fact_ids=[_IDENTITY.fact_id, _CAPABILITIES.fact_id],
+        text="Developers using Java.",
+        supporting_fact_ids=[_IDENTITY.fact_id],
     )
 
     fact = groundedness_fact_candidate(
@@ -96,12 +98,12 @@ def test_all_claims_pass_yields_verified_agent_drafted_fact():
     assert fact.value == [claim.text]
 
 
-def test_audience_allows_only_bounded_grammatical_scaffolding():
+def test_audience_allows_only_a_cited_platform_in_the_bounded_scaffold():
     facts_so_far = _facts_so_far(_IDENTITY, _CAPABILITIES)
     claim = InterpretiveClaimV1(
         claim_id="audience-1",
-        text="Developers using a backend document processing engine to convert PDF documents.",
-        supporting_fact_ids=[_IDENTITY.fact_id, _CAPABILITIES.fact_id],
+        text="Developers using java.",
+        supporting_fact_ids=[_IDENTITY.fact_id],
     )
 
     fact = groundedness_fact_candidate(
@@ -115,11 +117,33 @@ def test_audience_allows_only_bounded_grammatical_scaffolding():
     assert fact.verification_state == "verified"
 
 
+def test_audience_rejects_capability_text_appended_as_an_ungrammatical_for_phrase():
+    facts_so_far = _facts_so_far(_IDENTITY, _CAPABILITIES)
+    claim = InterpretiveClaimV1(
+        claim_id="audience-1",
+        text="Developers using Java for Convert and merge PDF documents.",
+        supporting_fact_ids=[_IDENTITY.fact_id, _CAPABILITIES.fact_id],
+    )
+
+    fact = groundedness_fact_candidate(
+        "product.audience",
+        [claim],
+        facts_so_far,
+        source_revision="abc123",
+        observed_at=None,
+    )
+
+    assert fact.verification_state == "blocked"
+    assert any(
+        "audience must be exactly" in reason for reason in fact.value["groundedness_failures"]
+    )
+
+
 def test_audience_scaffolding_does_not_allow_unsupported_positioning():
     facts_so_far = _facts_so_far(_IDENTITY, _CAPABILITIES)
     claim = InterpretiveClaimV1(
         claim_id="audience-1",
-        text="Developers using a powerful free alternative to convert PDF documents.",
+        text="Developers using a powerful free alternative.",
         supporting_fact_ids=[_IDENTITY.fact_id, _CAPABILITIES.fact_id],
     )
 
@@ -133,7 +157,7 @@ def test_audience_scaffolding_does_not_allow_unsupported_positioning():
 
     assert fact.verification_state == "blocked"
     failures = fact.value["groundedness_failures"]
-    assert any("alternative" in reason and "powerful" in reason for reason in failures)
+    assert any("audience must be exactly" in reason for reason in failures)
 
 
 def test_problems_solved_does_not_receive_audience_scaffolding():
@@ -214,15 +238,17 @@ def test_low_lexical_coverage_blocks_the_whole_field():
     )
 
     assert fact.verification_state == "blocked"
-    assert any("lexical coverage" in reason for reason in fact.value["groundedness_failures"])
+    assert any(
+        "audience must be exactly" in reason for reason in fact.value["groundedness_failures"]
+    )
 
 
 def test_mixed_pass_and_fail_claims_block_the_whole_field_not_partial_credit():
     facts_so_far = _facts_so_far(_IDENTITY, _CAPABILITIES)
     passing = InterpretiveClaimV1(
         claim_id="problem-1",
-        text="Enterprise developers who convert and merge PDF documents.",
-        supporting_fact_ids=[_IDENTITY.fact_id, _CAPABILITIES.fact_id],
+        text="Convert and merge PDF documents.",
+        supporting_fact_ids=[_CAPABILITIES.fact_id],
     )
     failing = InterpretiveClaimV1(
         claim_id="problem-2",
