@@ -507,7 +507,7 @@
     "assessment_hash": null,
     "candidate_hash": null,
     "details": {},
-    "facts_hash": null,
+    "facts_hash": "c76dd01e204931b768089ea143a9e751d1c68ffc709442fa8c9e30535bb48111",
     "history": [
       {
         "evidence_refs": [
@@ -539,6 +539,19 @@
         "reason": "collecting and reconciling repository product truth",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T02:01:17.515301+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "FACTS_READY"
       }
     ],
     "presentation_plan_hash": null,
@@ -548,11 +561,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-26T02:01:11.321169+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-07-26T02:01:17.515301+00:00"
   },
   "schema_version": 2,
-  "state_version": 88,
+  "state_version": 89,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "16ac72e7decf4be9eb7d2864488cc7f7f0679704c94925e3f008c3e2914ebbc2",
