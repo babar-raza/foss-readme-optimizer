@@ -1320,6 +1320,18 @@
         "reason": "candidate regenerated for repair attempt 1/2",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "CANDIDATE_GENERATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\20260726-071607-af8b-repair-1"
+        ],
+        "from_status": "CANDIDATE_GENERATED",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T07:16:15.638894+00:00",
+        "reason": "repaired candidate passed all deterministic validation gates",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "DETERMINISTIC_VALIDATED"
       }
     ],
     "presentation_plan_hash": "c44dcdb87d9c0adf3c223df4d57a6d1c41dc670560a9f6161ba2349e55c1063a",
@@ -1329,11 +1341,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "CANDIDATE_GENERATED",
-    "updated_at": "2026-07-26T07:16:10.472115+00:00"
+    "status": "DETERMINISTIC_VALIDATED",
+    "updated_at": "2026-07-26T07:16:15.638894+00:00"
   },
   "schema_version": 2,
-  "state_version": 154,
+  "state_version": 155,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
