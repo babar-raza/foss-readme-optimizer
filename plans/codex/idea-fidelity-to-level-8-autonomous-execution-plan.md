@@ -88,6 +88,7 @@ finding.
 | Visitor/product value | `runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Java/8de5f467e93138b3605acdc46ca40e93f0364ee8/candidate/README.md` | The first approved output is less polished than its lifecycle suggests. Internal tokens, repetition, and two examples are visible in the first screen. Gate A must optimize the artifact a visitor sees, not the sophistication of the machinery that produced it. |
 | Plan executability | The same bundle's `planning/agentic-composition-plan.json` says to repair the Usage section, while `planning/readme-document-plan.json` only inserts another example. | The agentic plan is partly advisory metadata. Every actionable assessment must compile into candidate-producing operations, or “agentic management” is not real. |
 | Epistemic truth | The Java fact graph stores typed structures and policy enums, while the current overview flattens nested values into literal strings. The .NET bundle is `BLOCKED_MISSING_EVIDENCE` after a missing type/namespace. | Provenance validity does not imply prose suitability. Facts need separate typed render views; examples need symbol-level public-API proof, not merely plausible model output. |
+| Evidence polarity | The .NET draft labeled existing rendering, mesh, export, and license APIs as limitations because the gate proved only that their positive symbols existed. | Evidence must prove the direction of a claim, not merely share its vocabulary. Negative constraints require explicit constraint evidence; positive API existence can never prove absence, incompleteness, or exclusion. |
 | Independent review | `review/independent-agent-review.json` accepts the defective Java candidate and makes favorable assertions not reflected in the candidate. | Showing the reviewer producer plans and a deterministic acceptance result creates anchoring. Quality review and factual/plan review must be separated and reviewer statements must cite candidate spans. |
 | Repair economics | The Python bundle's repair history records two identical candidate hashes after `REJECT_REPAIRABLE`. | A bounded retry count is meaningless if the operation space cannot change. Candidate-delta and finding-resolution checks must run before another costly review call. |
 | Qualification validity | `plans/investigations/evidence/level8-local-heterogeneous-qualification-d30a811/agentic-qualification-summary.json` scores 157/159, but the first live approved artifact fails obvious quality checks. | Synthetic classification accuracy overstates end-to-end readiness. Qualification must include full real pipeline outputs and hidden real holdouts, with zero critical false accepts. |
@@ -310,15 +311,18 @@ failing acceptance case; the current Java false acceptance is rejected by the ne
    synthesize the smallest example only through the ecosystem adapter and require compile/run
    proof with diagnostic-driven repair. A missing import, namespace, symbol, private member, or
    unverified external input prevents `example.minimal` from becoming verified.
-4. Distinguish facts required for a useful README from optional enhancement facts. An unresolved
+4. Enforce evidence polarity. Capabilities require positive implementation evidence; limitations
+   require an exact repository-authored constraint anchor such as unsupported, incomplete, only,
+   requires, or out-of-scope wording. A shared symbol or file path is not directional proof.
+5. Distinguish facts required for a useful README from optional enhancement facts. An unresolved
    optional fact is omitted; an essential identity/acquisition/usage fact creates a narrow block.
-5. Reconcile source-build-only repositories truthfully. Never describe a source build as a
+6. Reconcile source-build-only repositories truthfully. Never describe a source build as a
    published package, and never make an unpublished artifact a global repository block when a
    verified build path exists.
 
-Exit: no raw internal value can enter prose; every selected example uses public APIs and passes its
-ecosystem proof; each real representative has enough visitor-facing truth or one exact essential
-fact block.
+Exit: no raw internal value can enter prose; every selected fact has evidence with the correct
+claim direction; every selected example uses public APIs and passes its ecosystem proof; each real
+representative has enough visitor-facing truth or one exact essential fact block.
 
 ### Phase 5 -- executable assessment and composition
 
