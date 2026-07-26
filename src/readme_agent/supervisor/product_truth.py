@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from readme_agent import paths
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import README_PRESENTATION
+from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.schema_v2 import README_DRAFTABLE_PRODUCT_FIELDS, ProductFactsV2
 from readme_agent.llm import prompt_registry
@@ -108,6 +109,12 @@ def load_prepared_product_truth(
     facts_path = bundle_dir / "facts" / "product-facts.json"
     findings_path = bundle_dir / "facts" / "findings.json"
     proposal_path = bundle_dir / "facts" / "proposed-product-truth.json"
+    manifest_path = bundle_dir / "manifest.json"
+    if not manifest_path.is_file():
+        return None
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("local_verification_contract_hash") != local_verification_contract_hash():
+        return None
     if not facts_path.is_file():
         raise RuntimeError(
             "durable product-facts evidence is missing for "
@@ -234,6 +241,7 @@ def prepare_local_product_truth(
         proposed_product_truth=proposed_product_truth,
         lifecycle_status=lifecycle_status,
         prompt_hash=prompt_hash,
+        local_verification_contract_hash=local_verification_contract_hash(),
     )
     record_product_facts_outcome(
         state_backend,

@@ -113,6 +113,7 @@ def test_product_facts_boundary_writes_provenance_conflicts_and_acquisition(tmp_
         facts,
         findings=[],
         resolution_source="repository_and_policy",
+        local_verification_contract_hash="v" * 64,
     )
 
     assert (bundle / "facts" / "product-facts.json").is_file()
@@ -126,6 +127,7 @@ def test_product_facts_boundary_writes_provenance_conflicts_and_acquisition(tmp_
     manifest = (bundle / "manifest.json").read_text(encoding="utf-8")
     assert '"lifecycle_status": "FACTS_READY"' in manifest
     assert facts.canonical_hash() in manifest
+    assert '"local_verification_contract_hash": "' + ("v" * 64) + '"' in manifest
 
 
 def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(

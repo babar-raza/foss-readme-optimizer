@@ -346,12 +346,13 @@ def test_missing_durable_fact_evidence_fails_closed(tmp_path, monkeypatch):
         product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION)
 
 
-def test_changed_drafting_prompt_invalidates_only_the_cached_agent_draft(tmp_path, monkeypatch):
+def test_changed_fact_input_contract_invalidates_only_the_cached_agent_draft(tmp_path, monkeypatch):
     snapshot = _snapshot(tmp_path)
     backend = _ready_backend(snapshot)
     base = _facts(draftable_missing=True)
     drafted = _facts()
     prompt_hash = {"value": "1" * 64}
+    verification_hash = {"value": "a" * 64}
     calls = []
 
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
@@ -367,6 +368,11 @@ def test_changed_drafting_prompt_invalidates_only_the_cached_agent_draft(tmp_pat
         product_truth.prompt_registry,
         "prompt_hash",
         lambda prompt_id: prompt_hash["value"],
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "local_verification_contract_hash",
+        lambda: verification_hash["value"],
     )
 
     def dispatch(*args, **kwargs):
@@ -384,11 +390,14 @@ def test_changed_drafting_prompt_invalidates_only_the_cached_agent_draft(tmp_pat
 
     first = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
     cached = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    verification_hash["value"] = "b" * 64
+    verifier_refreshed = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
     prompt_hash["value"] = "2" * 64
-    refreshed = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    prompt_refreshed = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
 
     assert first.resolution_source == "agent_draft"
     assert cached.resolution_source == "durable_revision_cache"
-    assert refreshed.resolution_source == "agent_draft"
-    assert len(calls) == 2
+    assert verifier_refreshed.resolution_source == "agent_draft"
+    assert prompt_refreshed.resolution_source == "agent_draft"
+    assert len(calls) == 3
     assert backend.load(ORG_REPO).readme_poc_lifecycle.prompt_hash == "2" * 64

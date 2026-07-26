@@ -19,6 +19,7 @@ import pytest
 
 from readme_agent.facts import local_verification as lv
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
+from readme_agent.profile.schema import PackageRoot
 from readme_agent.registry.models import MinimalExamplePolicy
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 
@@ -171,7 +172,72 @@ class TestVerifyDotnetMocked:
         assert (example_dir / "ReadmeExample.cs").read_text(
             encoding="utf-8"
         ) == "Console.WriteLine(1);"
+        assert calls[0]["argv"] == ["C:/dotnet.exe", "build", str(repo_csproj), "--nologo"]
         assert calls[1]["workspace"] == example_dir
+
+    def test_multi_root_build_selects_project_that_owns_example_evidence(
+        self, tmp_path, monkeypatch
+    ):
+        _which_only(monkeypatch, {"dotnet": "C:/dotnet.exe"})
+        workspace = _workspace(tmp_path)
+        main_project = workspace / "src" / "main" / "Widget" / "Widget.csproj"
+        converter_project = workspace / "src" / "converter" / "Converter.csproj"
+        test_project = workspace / "src" / "test" / "Widget.Tests" / "Widget.Tests.csproj"
+        for project in (main_project, converter_project, test_project):
+            project.parent.mkdir(parents=True)
+            project.write_text(
+                '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup>'
+                "<TargetFramework>net8.0</TargetFramework>"
+                "</PropertyGroup></Project>",
+                encoding="utf-8",
+            )
+        snapshot = _snapshot(tmp_path).model_copy(
+            update={
+                "package_roots": (
+                    PackageRoot(
+                        path="src/converter",
+                        ecosystem="net",
+                        manifest_path="src/converter/Converter.csproj",
+                        confidence=1.0,
+                        evidence="fixture",
+                    ),
+                    PackageRoot(
+                        path="src/main/Widget",
+                        ecosystem="net",
+                        manifest_path="src/main/Widget/Widget.csproj",
+                        confidence=1.0,
+                        evidence="fixture",
+                    ),
+                    PackageRoot(
+                        path="src/test/Widget.Tests",
+                        ecosystem="net",
+                        manifest_path="src/test/Widget.Tests/Widget.Tests.csproj",
+                        confidence=1.0,
+                        evidence="fixture",
+                    ),
+                )
+            }
+        )
+        example = MinimalExamplePolicy(
+            language="dotnet",
+            class_name="ReadmeExample",
+            code="new Widget.Scene();",
+            evidence_paths=["src/main/Widget/Scene.cs"],
+        )
+        calls = _scripted_execute_example(
+            monkeypatch,
+            [
+                _result(argv=["dotnet", "build"], return_code=0),
+                _result(argv=["dotnet", "build"], return_code=0),
+            ],
+        )
+
+        result = lv._verify_dotnet(snapshot, example, workspace)
+
+        assert result.outcome == "SOURCE_BUILD_VERIFIED"
+        assert calls[0]["argv"] == ["C:/dotnet.exe", "build", str(main_project), "--nologo"]
+        generated = workspace.parent / "dotnet-example" / "ReadmeAgentExample.csproj"
+        assert f'ProjectReference Include="{main_project}"' in generated.read_text(encoding="utf-8")
 
     def test_example_compile_failure_is_build_failed(self, tmp_path, monkeypatch):
         _which_only(monkeypatch, {"dotnet": "C:/dotnet.exe"})

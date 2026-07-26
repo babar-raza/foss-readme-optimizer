@@ -103,6 +103,7 @@ def write_local_poc_product_facts(
     proposed_product_truth: dict | None = None,
     lifecycle_status: str = "FACTS_READY",
     prompt_hash: str | None = None,
+    local_verification_contract_hash: str,
 ) -> Path:
     """Persist the fact graph and its inspectable provenance projections."""
     org, repo = snapshot.org_repo.split("/", maxsplit=1)
@@ -159,6 +160,7 @@ def write_local_poc_product_facts(
             "facts_hash": facts_hash,
             "resolution_source": resolution_source,
             "prompt_hash": prompt_hash,
+            "local_verification_contract_hash": local_verification_contract_hash,
             "complete": False,
             "completed_stages": ["SNAPSHOTTED", "PROFILED", lifecycle_status],
         },

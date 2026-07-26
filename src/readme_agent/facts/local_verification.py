@@ -32,6 +32,26 @@ _COPY_IGNORE = shutil.ignore_patterns(
     "node_modules",
     "target",
 )
+_VERIFICATION_CONTRACT_FILES = (
+    "local_verification.py",
+    "example_execution.py",
+    "example_verification_schema.py",
+    "example_verifiers/cpp.py",
+    "example_verifiers/rust.py",
+)
+
+
+def local_verification_contract_hash() -> str:
+    """Fingerprint every implementation file that determines example acceptance."""
+
+    root = Path(__file__).parent
+    digest = hashlib.sha256()
+    for relative_path in _VERIFICATION_CONTRACT_FILES:
+        digest.update(relative_path.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update((root / relative_path).read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
 
 
 def _cache_key(snapshot: RepositorySnapshotV1, example: MinimalExamplePolicy) -> str:
@@ -44,6 +64,7 @@ def _cache_key(snapshot: RepositorySnapshotV1, example: MinimalExamplePolicy) ->
             example.class_name,
             example.code,
             env.java_home() or "",
+            local_verification_contract_hash(),
         ]
     )
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
@@ -272,12 +293,57 @@ def _dotnet_hermetic_environment(workspace: Path) -> dict[str, str]:
     return environment
 
 
-def _discover_csproj(workspace: Path) -> Path | None:
-    """First top-level `*.csproj`, mirroring `_verify_java`'s assumption that
-    the build manifest (there, `pom.xml`) lives at the snapshot root -- not a
-    recursive search, to keep this bounded and predictable."""
-    candidates = sorted(workspace.glob("*.csproj"))
-    return candidates[0] if candidates else None
+def _discover_csproj(
+    snapshot: RepositorySnapshotV1,
+    example: MinimalExamplePolicy,
+    workspace: Path,
+) -> Path | None:
+    """Select the profiled .NET project that owns the example evidence.
+
+    RepositorySnapshotV1 already records every package root, so a multi-project
+    repository must not be treated as if a project file necessarily lives at
+    its root. Evidence-path ownership is the strongest deterministic selector;
+    a production/library root is the bounded fallback when the example cites
+    only repository-wide documentation.
+    """
+
+    candidates: list[tuple[str, Path]] = []
+    for package_root in snapshot.package_roots:
+        if package_root.ecosystem not in {"net", "dotnet"}:
+            continue
+        relative = Path(package_root.manifest_path)
+        candidate = (workspace / relative).resolve()
+        try:
+            candidate.relative_to(workspace.resolve())
+        except ValueError:
+            continue
+        if candidate.is_file() and candidate.suffix.lower() == ".csproj":
+            candidates.append((relative.as_posix().lower(), candidate))
+
+    if not candidates:
+        candidates = [
+            (candidate.relative_to(workspace).as_posix().lower(), candidate)
+            for candidate in sorted(workspace.glob("*.csproj"))
+        ]
+    if not candidates:
+        return None
+
+    evidence_paths = [Path(path).as_posix().lower() for path in example.evidence_paths]
+
+    def selection_key(item: tuple[str, Path]) -> tuple[int, int, int, str]:
+        manifest_path, _ = item
+        package_path = Path(manifest_path).parent.as_posix().rstrip(".").rstrip("/")
+        owns_evidence = any(
+            evidence_path == package_path or evidence_path.startswith(f"{package_path}/")
+            for evidence_path in evidence_paths
+            if package_path
+        )
+        path_parts = set(Path(manifest_path).parts)
+        is_test_or_sample = bool(path_parts & {"test", "tests", "sample", "samples", "converter"})
+        is_main = "/main/" in f"/{manifest_path}/"
+        return (not owns_evidence, is_test_or_sample, not is_main, manifest_path)
+
+    return min(candidates, key=selection_key)[1]
 
 
 def _dotnet_target_framework(csproj_path: Path | None) -> str:
@@ -324,9 +390,15 @@ def _verify_dotnet(
             build=_missing_tool_result("dotnet"),
         )
 
+    repo_csproj = _discover_csproj(snapshot, example, workspace)
     process_environment = _dotnet_hermetic_environment(workspace)
+    build_argv = (
+        [dotnet, "build", str(repo_csproj), "--nologo"]
+        if repo_csproj is not None
+        else [dotnet, "build", "--nologo"]
+    )
     build = execute_example(
-        [dotnet, "build", "--nologo"],
+        build_argv,
         workspace=workspace,
         timeout_seconds=300,
         base_environment=process_environment,
@@ -352,7 +424,6 @@ def _verify_dotnet(
     # `_verify_java`'s own scaffold analog is `workspace/target/readme-agent-
     # example`, kept inside the repo copy only because Java needs no second
     # manifest file to add a compilation unit next to existing sources.
-    repo_csproj = _discover_csproj(workspace)
     target_framework = _dotnet_target_framework(repo_csproj)
     project_reference = (
         f'  <ItemGroup>\n    <ProjectReference Include="{repo_csproj}" />\n  </ItemGroup>\n'
