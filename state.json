@@ -2,6 +2,7 @@
   "accepted_facts_hash": null,
   "accepted_status": null,
   "capability_outputs": [],
+  "checkpoints": {},
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "37dc24a925b87b88d9c723069d3df0585cd31e68e7e69e3d340b6eecb6c7a876",
@@ -350,10 +351,13 @@
   },
   "last_run_id": null,
   "last_run_timestamp": null,
+  "mission_execution": null,
   "open_proposals": {},
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 20,
+  "readme_poc_lifecycle": null,
+  "schema_version": 2,
+  "state_version": 21,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4ae54a45e624bd3c36b495cec8479fed6d4bff92315e9d6b644d3f2da468d4af",
@@ -365,6 +369,7 @@
     "last_run_timestamp": "2026-07-22T13:44:59.700024+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
+    "surface_freshness": {},
     "task_graph_snapshot": {
       "tasks": [
         {
@@ -417,6 +422,31 @@
       ]
     }
   },
+  "trigger_lifecycles": {
+    "operator:20260726-004832-29b6:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
+      "accepted_at": "2026-07-26T00:48:36.571447+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260726-004832-29b6:aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-07-26T00:48:32.230190+00:00",
+        "provider_event_id": "20260726-004832-29b6",
+        "repository_scope": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-07-26T00:48:36.571461+00:00"
+    }
+  },
+  "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
 }
