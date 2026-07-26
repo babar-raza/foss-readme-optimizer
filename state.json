@@ -857,6 +857,15 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): The candidate README contains several issues that prevent it from being ACCEPT. First, the 'At a glance' section includes 'Rendering functionality is not available and throws NotImplementedException' as a capability, which is factually correct per product.limitations:repository-evidence, but it is presented in a way that conflates capabilities with limitations in the overview. Second, the 'open_source_scope' item in 'At a glance' is vague marketing language without product-specific detail, failing specificity. Third, the 'In this README' navigation list duplicates standard sections but omits the 'At a glance' section itself, creating a self-referential inconsistency. Fourth, the candidate does not preserve the original README's valuable 'AGENTS.md' reference in the 'Documentation & Resources' section, which is present in the original and supported by the presentation plan's 'preserve' disposition for that section. These are quality, completeness, and specificity defects, not fact conflicts or missing evidence, so they fall under REJECT_REPAIRABLE.",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-07-26T00:58:42.286689+00:00",
+        "reason": "independent review wiring failed: StateBackendError: README-POC repair attempts exhausted for 'aspose-3d-foss/Aspose.3D-FOSS-for-.NET' at source revision 6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "presentation_plan_hash": "3b7a5624fbd0e3abefa58e1fef2a8b8466f70d0376ef440be71ea8d2423e0956",
@@ -866,11 +875,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-07-26T00:58:34.983897+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-07-26T00:58:42.286689+00:00"
   },
   "schema_version": 2,
-  "state_version": 71,
+  "state_version": 72,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4ae54a45e624bd3c36b495cec8479fed6d4bff92315e9d6b644d3f2da468d4af",
