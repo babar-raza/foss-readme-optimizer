@@ -42,6 +42,21 @@ def _text_phrases(value: object) -> list[str]:
     return [str(item).strip() for item in values if isinstance(item, str) and item.strip()]
 
 
+def _audience_phrases(value: object) -> list[str]:
+    phrases = _text_phrases(value)
+    normalized: list[str] = []
+    for phrase in phrases:
+        for ecosystem, label in _ECOSYSTEM_LABELS.items():
+            phrase = re.sub(
+                rf"\busing\s+{re.escape(ecosystem)}\b",
+                f"using {label}",
+                phrase,
+                flags=re.IGNORECASE,
+            )
+        normalized.append(phrase)
+    return normalized
+
+
 def _identity_phrases(value: object) -> list[str]:
     if not isinstance(value, dict):
         return []
@@ -83,7 +98,7 @@ def _no_direct_prose(_value: object) -> list[str]:
 
 
 _FIELD_RENDERERS: dict[str, Callable[[object], list[str]]] = {
-    "product.audience": _text_phrases,
+    "product.audience": _audience_phrases,
     "product.problems_solved": _text_phrases,
     "product.capabilities": _text_phrases,
     "product.formats": _text_phrases,

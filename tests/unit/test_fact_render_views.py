@@ -55,3 +55,28 @@ def test_compatibility_normalizes_repeated_language_and_plus_suffix():
 
     assert view is not None
     assert view.phrases == ["Requires Go 1.24 or later."]
+
+
+def test_audience_normalizes_internal_ecosystem_token_without_mutating_fact():
+    facts = _facts()
+    audience = facts.selected_fact("product.audience")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={"value": ["Developers using net for Scene graph management."]}
+                )
+                if fact.fact_id == audience.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    view = visitor_fact_render_view(facts, "product.audience")
+
+    assert view is not None
+    assert view.phrases == ["Developers using .NET for Scene graph management."]
+    assert facts.selected_fact("product.audience").value == [
+        "Developers using net for Scene graph management."
+    ]
