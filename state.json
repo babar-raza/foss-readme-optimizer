@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "2dc10819cddaf6ab96770665fa02b850f67fff57c7b44e3cb1fb332f28c86bcc",
-    "last_evaluated_at": "2026-07-26T09:49:15.040682+00:00",
+    "last_evaluated_at": "2026-07-26T09:49:29.244116+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -74,7 +74,7 @@
       "L8-REVIEW-04A-REAL-CORPUS": "TODO",
       "L8-REVIEW-05-REAL-CAMPAIGN": "TODO",
       "L8-STAGING-VERIFIED-PROPOSAL-PROOF": "TODO",
-      "L8-TRUTH-01-STAGE-LIMIT": "VERIFIED",
+      "L8-TRUTH-01-STAGE-LIMIT": "SCORED",
       "L8-TRUTH-01A-FACT-CONTRACT": "TODO",
       "L8-TRUTH-02-ROOT-ROLES": "TODO",
       "L8-TRUTH-03-CLAIM-POLARITY": "TODO",
@@ -1359,6 +1359,17 @@
         "reason": "Focused stage/CLI/portfolio tests passed; 130 lifecycle/profile/allow-list/push-blocking/security regressions passed; clean-tree real Java run returned STAGE_COMPLETE with FACTS_READY, zero LLM calls, empty specialist inventory, no effects, and zero AGENT_APPROVED count.",
         "task_id": "L8-TRUTH-01-STAGE-LIMIT",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/local-product-truth-stage-limit-java-representative/README.md"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-26T09:49:29.244110+00:00",
+        "reason": "Acceptance scored pass for the FACTS_READY slice: public runtime boundary, heterogeneous fixture fan-out, honest target summary, zero later-stage calls, clean-tree real representative, checksum-valid evidence. L8-015 remains broader than this slice and must not be called fully implemented until downstream ceilings close.",
+        "task_id": "L8-TRUTH-01-STAGE-LIMIT",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -1367,7 +1378,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 154,
+  "state_version": 155,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
