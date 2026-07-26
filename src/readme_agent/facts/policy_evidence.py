@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
@@ -11,6 +12,8 @@ from readme_agent.facts.schema_v2 import (
     descriptive_fact_id,
 )
 from readme_agent.registry.models import EvidenceBackedProductFact
+
+_IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
 
 def safe_evidence_paths(root: Path, paths: list[str]) -> tuple[list[Path], list[str]]:
@@ -43,7 +46,12 @@ def evidence_failures(
     evidence_paths, failures = safe_evidence_paths(root, paths)
     contents = [path.read_text(encoding="utf-8-sig", errors="replace") for path in evidence_paths]
     for symbol in required_symbols:
-        if not any(symbol in content for content in contents):
+        if _IDENTIFIER.fullmatch(symbol):
+            pattern = re.compile(rf"(?<![A-Za-z0-9_]){re.escape(symbol)}(?![A-Za-z0-9_])")
+            found = any(pattern.search(content) is not None for content in contents)
+        else:
+            found = any(symbol in content for content in contents)
+        if not found:
             failures.append(f"required evidence symbol missing: {symbol}")
     return failures
 

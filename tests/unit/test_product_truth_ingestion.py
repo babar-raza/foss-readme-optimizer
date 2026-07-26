@@ -6,6 +6,7 @@ from types import SimpleNamespace
 
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.local_verification import verify_local_product_example
+from readme_agent.facts.policy_evidence import evidence_failures
 from readme_agent.facts.repository_ingestion import ingest_repository_product_facts
 from readme_agent.profile.schema import PackageRoot, RepositoryProfile
 from readme_agent.registry.models import PolicyProfile
@@ -123,6 +124,18 @@ def test_missing_or_escaped_evidence_blocks_only_technical_assertion(tmp_path):
     assert capabilities.verification_state == "blocked"
     assert "escapes snapshot" in capabilities.value["evidence_failures"][0]
     assert audience.verification_state == "policy_approved"
+
+
+def test_identifier_evidence_does_not_match_inside_a_different_symbol(tmp_path):
+    source = tmp_path / "Node.cs"
+    source.write_text(
+        "public class Node { public BoundingBox Bounds { get; } }",
+        encoding="utf-8",
+    )
+
+    failures = evidence_failures(tmp_path, ["Node.cs"], ["Box"])
+
+    assert failures == ["required evidence symbol missing: Box"]
 
 
 def test_disposable_example_verification_does_not_write_snapshot(tmp_path, monkeypatch):
