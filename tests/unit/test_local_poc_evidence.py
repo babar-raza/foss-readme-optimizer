@@ -5,6 +5,10 @@ import json
 from pathlib import Path
 
 from readme_agent import paths
+from readme_agent.facts.root_role_schema import (
+    PackageRootRoleInventoryV1,
+    PackageRootRoleV1,
+)
 from readme_agent.facts.schema_v2 import (
     REQUIRED_PRODUCT_FIELDS,
     FactRecordV2,
@@ -109,6 +113,24 @@ def test_product_facts_boundary_writes_provenance_conflicts_and_acquisition(tmp_
         org_repo=snapshot.org_repo,
         facts=records,
         selected_fact_ids={fact.field: fact.fact_id for fact in records},
+        package_root_roles=PackageRootRoleInventoryV1(
+            org_repo=snapshot.org_repo,
+            source_revision=snapshot.source_revision,
+            selection_state="selected",
+            selected_product_manifest_path="pom.xml",
+            selection_rationale=["sole product root"],
+            roots=[
+                PackageRootRoleV1(
+                    path=".",
+                    ecosystem="java",
+                    manifest_path="pom.xml",
+                    role="product",
+                    confidence=1.0,
+                    parsed_identity={"artifact_id": "product"},
+                    rationale=["selected as the distributed product root"],
+                )
+            ],
+        ),
     )
 
     bundle = write_local_poc_product_facts(
@@ -125,6 +147,11 @@ def test_product_facts_boundary_writes_provenance_conflicts_and_acquisition(tmp_
     assert (bundle / "facts" / "provenance.json").is_file()
     assert (bundle / "facts" / "conflicts.json").is_file()
     assert (bundle / "facts" / "acquisition.json").is_file()
+    persisted_facts = json.loads(
+        (bundle / "facts" / "product-facts.json").read_text(encoding="utf-8")
+    )
+    assert persisted_facts["package_root_roles"]["selected_product_manifest_path"] == "pom.xml"
+    assert persisted_facts["package_root_roles"]["roots"][0]["role"] == "product"
     checksum_inventory = (bundle / "sha256sums.txt").read_text(encoding="utf-8")
     assert "facts/product-facts.json" in checksum_inventory
     assert "facts/provenance.json" in checksum_inventory

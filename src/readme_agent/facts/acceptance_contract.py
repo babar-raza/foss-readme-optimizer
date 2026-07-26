@@ -35,6 +35,7 @@ RECOLLECT_ON_COMPONENT_CHANGE = (
     "fact_schema",
     "fact_eligibility",
     "evidence_polarity",
+    "root_role_selection",
 )
 VISITOR_RENDER_FIELDS = (
     "product.audience",
@@ -49,6 +50,13 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
     "fact_schema": ("schema_v2.py",),
     "fact_eligibility": ("gating.py",),
     "evidence_polarity": ("policy_evidence.py", "interpretive_evidence.py"),
+    "root_role_selection": (
+        "root_role_schema.py",
+        "root_role_evidence.py",
+        "root_roles.py",
+        "manifest_facts.py",
+        "repository_ingestion.py",
+    ),
     "visitor_render_eligibility": ("render_views.py",),
 }
 

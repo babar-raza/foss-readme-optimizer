@@ -60,12 +60,14 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "fact_schema",
         "fact_eligibility",
         "evidence_polarity",
+        "root_role_selection",
         "visitor_render_eligibility",
     }
     assert contract.recollect_on_component_change == (
         "fact_schema",
         "fact_eligibility",
         "evidence_polarity",
+        "root_role_selection",
     )
     assert len(contract.canonical_hash()) == 64
     assert all(len(digest) == 64 for digest in contract.component_hashes.values())

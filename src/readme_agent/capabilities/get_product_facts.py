@@ -48,6 +48,7 @@ MANIFEST = CapabilityManifest(
         "detected_ecosystems": "array",
         "unresolved_manifests": "array",
         "package_roots": "array",
+        "package_root_roles": "object",
         "surface_ownership": "object",
         "product_facts_v2": "object",
         "local_product_verification": "object",

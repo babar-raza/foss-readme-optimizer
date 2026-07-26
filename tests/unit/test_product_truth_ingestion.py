@@ -127,41 +127,45 @@ def test_manifest_compatibility_normalizes_every_ecosystem_runtime_contract(tmp_
             '[package]\nname = "widget"\nversion = "1.0.0"\nrust-version = "1.75"\n'
         ),
     }
-    package_roots = []
+    observed_requirements = {}
     for relative_path, content in manifests.items():
         path = tmp_path / relative_path
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content, encoding="utf-8")
         package_root, manifest_name = relative_path.split("/", maxsplit=1)
         ecosystem = "net" if package_root == "net" else package_root
-        package_roots.append(
-            PackageRoot(
-                path=package_root,
-                ecosystem=ecosystem,
-                manifest_path=relative_path,
-                confidence=1.0,
-                evidence=f"found {manifest_name}",
-            )
+        profile = RepositoryProfile(
+            org_repo=f"acme/widget-{ecosystem}",
+            package_roots=[
+                PackageRoot(
+                    path=package_root,
+                    ecosystem=ecosystem,
+                    manifest_path=relative_path,
+                    confidence=1.0,
+                    evidence=f"found {manifest_name}",
+                )
+            ],
         )
-    source = tmp_path / "src" / "Widget.java"
-    source.parent.mkdir()
-    source.write_text("public class Widget {}", encoding="utf-8")
-    profile = RepositoryProfile(org_repo="acme/widget", package_roots=package_roots)
+        candidates = ingest_repository_product_facts(
+            SimpleNamespace(
+                family="widget",
+                platform=ecosystem,
+                ecosystem=ecosystem,
+                active=True,
+            ),
+            _policy("src/Widget.java", "public class Widget"),
+            profile,
+            tmp_path,
+            "abc1234",
+        )
+        compatibility = next(fact for fact in candidates if fact.field == "product.compatibility")
+        row = compatibility.value[0]
+        observed_requirements[ecosystem] = (
+            row["runtime_label"],
+            row["minimum_runtime"],
+        )
 
-    candidates = ingest_repository_product_facts(
-        _entry(),
-        _policy("src/Widget.java", "public class Widget"),
-        profile,
-        tmp_path,
-        "abc1234",
-    )
-
-    compatibility = next(fact for fact in candidates if fact.field == "product.compatibility")
-    requirements = {
-        item["ecosystem"]: (item["runtime_label"], item["minimum_runtime"])
-        for item in compatibility.value
-    }
-    assert requirements == {
+    assert observed_requirements == {
         "cpp": ("CMake", "3.20"),
         "net": (".NET", "netcoreapp3.1"),
         "python": ("Python", ">=3.11"),

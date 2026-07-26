@@ -4,17 +4,17 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "d052ec8e26c6d2e42b3fe38f062804ed1ae2e446ac8c5d9a36e46be5a17dd0f9",
+  "source_sha256": "1f697cc4da15d85d5cbe1142287901710cb27c11db180fe85da8e3f8f22eb930",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 424,
-  "mandatory_requirement_rows": 398,
+  "total_requirement_rows": 425,
+  "mandatory_requirement_rows": 399,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 34,
     "excluded_backlog": 26,
-    "open_mandatory": 212,
+    "open_mandatory": 213,
     "preserved_verified": 152
   },
   "taskcard_counts": {
@@ -29,6 +29,7 @@
     "L8-TRUTH-01A-FACT-CONTRACT": 1,
     "L8-TRUTH-01B-LLM-CALL-LEDGER": 1,
     "L8-TRUTH-01C-PROMPT-HYGIENE": 1,
+    "L8-TRUTH-02-ROOT-ROLES": 1,
     "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION": 1,
     "L8-TRUTH-02B-PYTHON-API-TRUTH": 1,
     "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": 1,
@@ -3437,6 +3438,14 @@
       "priority": "P0",
       "requirement_status": "PLANNED",
       "task_id": "L8-TRUTH-02D-RUST-API-TRUTH",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-033",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-TRUTH-02-ROOT-ROLES",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }

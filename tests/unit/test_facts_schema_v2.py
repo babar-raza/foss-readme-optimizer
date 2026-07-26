@@ -1,5 +1,8 @@
 """ProductFactsV2 provenance, trust-boundary, and identity contracts."""
 
+import hashlib
+import json
+
 import pytest
 from pydantic import ValidationError
 
@@ -122,6 +125,17 @@ def test_canonical_hash_is_order_stable_and_repeatable():
     facts = _complete_facts()
     assert facts.canonical_hash() == facts.model_copy().canonical_hash()
     assert len(facts.canonical_hash()) == 64
+
+
+def test_additive_root_role_field_preserves_legacy_fact_hash_when_absent():
+    facts = _complete_facts()
+    legacy_payload = facts.model_dump(mode="json")
+    legacy_payload.pop("package_root_roles")
+    legacy_hash = hashlib.sha256(
+        json.dumps(legacy_payload, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+
+    assert facts.canonical_hash() == legacy_hash
 
 
 def test_fact_ids_are_descriptive_not_sequence_numbers():

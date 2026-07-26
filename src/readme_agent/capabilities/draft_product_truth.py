@@ -153,7 +153,12 @@ def _reset_fields_to_missing(
         )
         kept.append(missing)
         selected[field_name] = missing.fact_id
-    return ProductFactsV2(org_repo=facts_so_far.org_repo, facts=kept, selected_fact_ids=selected)
+    return ProductFactsV2(
+        org_repo=facts_so_far.org_repo,
+        facts=kept,
+        selected_fact_ids=selected,
+        package_root_roles=facts_so_far.package_root_roles,
+    )
 
 
 def _replace_facts(
@@ -172,7 +177,12 @@ def _replace_facts(
     selected = dict(facts_so_far.selected_fact_ids)
     for field_name, fact in updates.items():
         selected[field_name] = fact.fact_id
-    return ProductFactsV2(org_repo=facts_so_far.org_repo, facts=kept, selected_fact_ids=selected)
+    return ProductFactsV2(
+        org_repo=facts_so_far.org_repo,
+        facts=kept,
+        selected_fact_ids=selected,
+        package_root_roles=facts_so_far.package_root_roles,
+    )
 
 
 class DraftProductTruthOrchestrationResultV1(BaseModel):
@@ -590,6 +600,7 @@ def execute(
             retrieved_at=observed_at,
         ),
         missing_field_surfaces=SURFACE_DEPENDENCIES,
+        package_root_roles=facts_so_far.package_root_roles,
     )
 
     return {

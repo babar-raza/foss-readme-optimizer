@@ -14,6 +14,7 @@ from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_f
 from readme_agent.facts.policy_evidence import evidence_failures
 from readme_agent.facts.repository_ingestion import ingest_repository_product_facts
 from readme_agent.facts.resolution import resolve_product_facts
+from readme_agent.facts.root_roles import classify_package_root_roles
 from readme_agent.facts.schema import ProductFactsV1
 from readme_agent.facts.schema_v2 import (
     FactRecordV2,
@@ -211,6 +212,12 @@ def collect_product_facts(
     )
     source_revision = snapshot.source_revision if snapshot is not None else profile.source_revision
     observed_at = None if source_revision is not None else datetime.now(UTC).isoformat()
+    package_root_roles = classify_package_root_roles(
+        entry,
+        profile,
+        root,
+        source_revision,
+    )
 
     required = policy.required_elements
     result = {
@@ -232,6 +239,7 @@ def collect_product_facts(
         ],
         "unresolved_manifests": profile.unresolved_manifests,
         "package_roots": [root.model_dump() for root in profile.package_roots],
+        "package_root_roles": package_root_roles.model_dump(mode="json"),
         "surface_ownership": policy.surface_ownership.model_dump(mode="json"),
         "source": {
             "identity_and_policy": (
@@ -240,6 +248,9 @@ def collect_product_facts(
             "detected_ecosystems": "live repository clone (repository inspection)",
             "unresolved_manifests": "live repository clone (repository inspection)",
             "package_roots": "live repository clone (repository inspection)",
+            "package_root_roles": (
+                "deterministic classification of immutable repository package roots"
+            ),
         },
     }
     product_facts_v1 = ProductFactsV1.from_capability_results(result)
@@ -277,6 +288,7 @@ def collect_product_facts(
             root,
             source_revision,
             observed_at,
+            root_roles=package_root_roles,
         )
     )
     local_candidates, local_verification = _local_verification_facts(
@@ -298,6 +310,7 @@ def collect_product_facts(
             retrieved_at=observed_at,
         ),
         missing_field_surfaces=SURFACE_DEPENDENCIES,
+        package_root_roles=package_root_roles,
     )
     active_facts = current_product_facts(org_repo)
     if active_facts is not None:

@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from collections import defaultdict
 
+from readme_agent.facts.root_role_schema import PackageRootRoleInventoryV1
 from readme_agent.facts.schema_v2 import (
     REQUIRED_PRODUCT_FIELDS,
     ConflictStatus,
@@ -56,6 +57,7 @@ def resolve_product_facts(
     missing_source: FactSourceV2,
     required_fields: tuple[str, ...] = REQUIRED_PRODUCT_FIELDS,
     missing_field_surfaces: dict[str, list[str]] | None = None,
+    package_root_roles: PackageRootRoleInventoryV1 | None = None,
 ) -> ProductFactsV2:
     """Resolve candidates without discarding lower-precedence provenance.
 
@@ -134,4 +136,9 @@ def resolve_product_facts(
         output.extend(ranked)
         selected[field_name] = ranked[0].fact_id
 
-    return ProductFactsV2(org_repo=org_repo, facts=output, selected_fact_ids=selected)
+    return ProductFactsV2(
+        org_repo=org_repo,
+        facts=output,
+        selected_fact_ids=selected,
+        package_root_roles=package_root_roles,
+    )

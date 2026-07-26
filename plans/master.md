@@ -1744,6 +1744,14 @@ that is the only permanence they carry; text is always the decision as it stands
     prompt content, stale documentation, and removal of a referenced prompt fail before paid
     fan-out. Git history is the archive; timestamped prompt copies are prohibited.
 
+    Every detected package root is retained but role-classified before visitor facts are accepted:
+    `product`, `test`, `sample`, `converter`, `generator`, `benchmark`, `build_tool`, or
+    `unknown`. Selection uses normalized paths, manifest identity, and local project-reference
+    evidence under one versioned fact-acceptance component. Only the deterministically selected
+    distributed-product root may supply installation coordinates, compatibility, or release
+    state. Equal or insufficient evidence leaves roots `unknown` and blocks only those dependent
+    fields; it never guesses or adds a repository-specific branch.
+
     The same audit traced the Python and TypeScript Gate-A blocks to missing public-consumer-surface
     truth, not to a need for more prose calls. This repository currently parses their manifests
     and performs weak detached checks, while the sibling `aspose.org` pipeline already has
@@ -1763,7 +1771,7 @@ that is the only permanence they carry; text is always the decision as it stands
     exports/declarations and compile against a pinned packed/built artifact in an isolated
     consumer project. Rust must prove Cargo/lib identity, visibility, modules/re-exports, impls,
     examples, and format direction. These tasks precede claim polarity, acquisition/example
-    qualification, and all further heterogeneous LLM campaigns. See `L8-027`–`L8-032`.
+    qualification, and all further heterogeneous LLM campaigns. See `L8-027`–`L8-033`.
 
 ## Architecture
 

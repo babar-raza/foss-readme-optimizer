@@ -9,6 +9,8 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from readme_agent.facts.root_role_schema import PackageRootRoleInventoryV1
+
 FactSourceType = Literal[
     "mechanical_repository",
     "mechanical_manifest",
@@ -158,6 +160,7 @@ class ProductFactsV2(_StrictModel):
     org_repo: str
     facts: list[FactRecordV2]
     selected_fact_ids: dict[str, str]
+    package_root_roles: PackageRootRoleInventoryV1 | None = None
 
     @field_validator("org_repo")
     @classmethod
@@ -202,7 +205,14 @@ class ProductFactsV2(_StrictModel):
         return [fact for fact in self.facts if fact.field == field_name]
 
     def canonical_hash(self) -> str:
-        canonical = json.dumps(self.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))
+        payload = self.model_dump(mode="json")
+        # Additive migration: facts persisted before root-role classification have
+        # no package_root_roles key. Preserve their canonical hash so the current
+        # acceptance-contract mismatch can trigger a governed recollection instead
+        # of looking like evidence corruption.
+        if self.package_root_roles is None:
+            payload.pop("package_root_roles", None)
+        canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 

@@ -844,6 +844,13 @@ class TestGetProductFactsCapability:
             }
         ]
         assert result["source"]["package_roots"] == "live repository clone (repository inspection)"
+        assert result["package_root_roles"]["selection_state"] == "selected"
+        assert result["package_root_roles"]["selected_product_manifest_path"] == "pom.xml"
+        assert result["package_root_roles"]["roots"][0]["role"] == "product"
+        assert result["product_facts_v2"]["package_root_roles"] == result["package_root_roles"]
+        assert result["source"]["package_root_roles"] == (
+            "deterministic classification of immutable repository package roots"
+        )
 
     def test_execute_allows_disabled_repo(self, monkeypatch, tmp_path):
         """Decision #40: mode == "disabled" means push access is unverified,
