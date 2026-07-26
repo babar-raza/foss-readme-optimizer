@@ -924,7 +924,7 @@
     "assessment_hash": "9c5becf5d93754ce459e500caf46ac1d3207d05f25fdeb4f162514231cbb779b",
     "candidate_hash": "020b1938fc268441a452d3bc901108725e6d56336d4c265586dc6512af4b9797",
     "details": {},
-    "facts_hash": "02b9395f28f94e3ac7ef46d880a4e810ec27a37c642b56e8eca0cd9aefc7835d",
+    "facts_hash": "ea328dad53bcdd364761eb97fc41e72e8b100a1d453292b96f1fd314d76199dc",
     "history": [
       {
         "evidence_refs": [
@@ -1231,20 +1231,33 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T04:37:09.810727+00:00",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "BLOCKED_MISSING_EVIDENCE"
       }
     ],
     "presentation_plan_hash": "919d83932234817362773cfe5aba8469d48d05176eeb212fc2b89c2d399dbb59",
-    "prompt_hash": "b53d82eda3870063402f18a96283005e00b5d807604a2a7fd14ba529352eb81f",
+    "prompt_hash": "1fa813999b888d3e85a94cfd542813594af3c890f0926c4b19b39b89bd048859",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 2,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-26T04:37:04.832292+00:00"
+    "status": "BLOCKED_MISSING_EVIDENCE",
+    "updated_at": "2026-07-26T04:37:09.810727+00:00"
   },
   "schema_version": 2,
-  "state_version": 122,
+  "state_version": 123,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b898c7e760d1f7fa0762956ba962cc45be8ed36013c0d2030ed1df0380bf91b3",
