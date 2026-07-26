@@ -137,3 +137,17 @@ def build_independent_readme_review_messages(
         {"role": "system", "content": manifest.system.strip()},
         {"role": "user", "content": user_content},
     ]
+
+
+def build_independent_readme_review_retry_message(accepted_fact_refs_json: str) -> dict:
+    """Build the governed semantic-retry turn for a contradicted missing-evidence verdict."""
+
+    manifest = prompt_registry.get("independent_readme_review")
+    assert manifest is not None, "prompts/verification/independent_readme_review.yaml missing"
+    assert manifest.turn_context_template is not None
+    content = (
+        Template(manifest.turn_context_template)
+        .substitute(accepted_fact_refs_json=accepted_fact_refs_json)
+        .strip()
+    )
+    return {"role": "user", "content": content}

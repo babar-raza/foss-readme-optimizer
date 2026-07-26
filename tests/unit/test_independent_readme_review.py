@@ -352,7 +352,8 @@ class TestResponseSchemaValidation:
 
     def test_literal_fact_false_negative_is_retried_before_system_failure(self):
         facts = _facts_result()["product_facts_v2"]
-        client = FixtureAnalysisClient(
+        messages_seen: list[list[dict]] = []
+        results = iter(
             [
                 _verdict_result(
                     {
@@ -370,17 +371,26 @@ class TestResponseSchemaValidation:
             ]
         )
 
+        class CapturingClient:
+            def analyze(self, messages):
+                messages_seen.append(messages)
+                return next(results)
+
         review = reviewer.run_independent_readme_review(
             ORG_REPO,
             WELL_GROUNDED_README,
             WELL_GROUNDED_README,
             _PRESENTATION_PLAN,
             _DETERMINISTIC_VALIDATION_RESULT,
-            client=client,
+            client=CapturingClient(),
             product_facts_v2=facts,
         )
 
         assert review.verdict == "ACCEPT"
+        retry_message = messages_seen[1][-1]["content"]
+        assert '"quoted_claim": "acmecells"' in retry_message
+        assert '"fact_id": "product.identity:primary"' in retry_message
+        assert "Do not repeat BLOCKED_MISSING_EVIDENCE" in retry_message
 
 
 class TestRecordReviewVerdict:

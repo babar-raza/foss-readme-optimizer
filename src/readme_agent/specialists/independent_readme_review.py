@@ -89,7 +89,10 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.reviewer_client import LiveIndependentReviewClient
-from readme_agent.llm.verification_prompts import build_independent_readme_review_messages
+from readme_agent.llm.verification_prompts import (
+    build_independent_readme_review_messages,
+    build_independent_readme_review_retry_message,
+)
 from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2, ReadmePocStatusV2
@@ -210,6 +213,35 @@ def _contradicted_missing_evidence_claims(
     return sorted({claim for claim in quoted if claim.strip().casefold() in accepted})
 
 
+def _accepted_literal_fact_refs(
+    facts: ProductFactsV2,
+    contradicted_claims: list[str],
+) -> list[dict[str, str]]:
+    """Return the exact selected facts that disprove a reviewer's absence claim."""
+
+    claims_by_normalized = {claim.strip().casefold(): claim for claim in contradicted_claims}
+    refs: list[dict[str, str]] = []
+    for fact_id in facts.selected_fact_ids.values():
+        fact = facts.fact_by_id(fact_id)
+        if fact.verification_state not in {"verified", "policy_approved"}:
+            continue
+        if fact.has_unresolved_conflict:
+            continue
+        for phrase in fact_strings(fact.value):
+            quoted_claim = claims_by_normalized.get(phrase.casefold())
+            if quoted_claim is None:
+                continue
+            refs.append(
+                {
+                    "quoted_claim": quoted_claim,
+                    "fact_id": fact.fact_id,
+                    "field": fact.field,
+                    "verification_state": fact.verification_state,
+                }
+            )
+    return sorted(refs, key=lambda item: (item["quoted_claim"].casefold(), item["fact_id"]))
+
+
 def run_independent_readme_review(
     org_repo: str,
     original_readme_text: str,
@@ -314,6 +346,13 @@ def run_independent_readme_review(
                     "independent reviewer repeatedly classified literal accepted fact text as "
                     f"missing evidence: {contradicted_claims}"
                 )
+            accepted_fact_refs = _accepted_literal_fact_refs(product_facts, contradicted_claims)
+            messages = [
+                *messages,
+                build_independent_readme_review_retry_message(
+                    json.dumps(accepted_fact_refs, ensure_ascii=False, sort_keys=True)
+                ),
+            ]
 
     if backend is not None:
         record_review_verdict(backend, org_repo, review, repair_attempt=repair_attempt)
