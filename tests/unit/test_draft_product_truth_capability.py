@@ -5,12 +5,11 @@ draft -> gate -> bounded-repair cycle described by `RPOC-033`.
 Every test drives `orchestrate_product_truth_draft()` directly against a
 real temp-directory repository root and a real `ProductFactsV2`, with a
 fake `draft_fn`/`verify_example_fn` standing in for the live LLM call and
-the real disposable build -- but `capabilities/formats/limitations` and
-`audience/problems_solved` are routed through the REAL, unmodified
-`facts/policy_evidence.py::evidence_fact_candidate()`/`facts/interpretive_
-evidence.py::groundedness_fact_candidate()`, never a reimplementation or a
-mock of either. Two additional spy tests confirm the exact call shape each
-real gate receives.
+the real disposable build -- but `capabilities/formats`, `limitations`,
+and `audience/problems_solved` are routed through the real
+`evidence_fact_candidate()`, `limitation_fact_candidate()`, and
+`groundedness_fact_candidate()` gates, never a mock. The focused tests also
+prove that positive API evidence cannot be misclassified as a limitation.
 
 `tests/unit/test_agentic_drafting.py` covers `facts/agentic_drafting.py`
 itself (the bounded-context selector, the citable-facts filter, and
@@ -390,7 +389,67 @@ class TestRealGateSpies:
             verify_example_fn=_always_verified_example,
         )
 
-        assert set(recorded) == {"product.capabilities", "product.formats", "product.limitations"}
+        assert set(recorded) == {"product.capabilities", "product.formats"}
+
+    def test_positive_api_symbols_cannot_prove_a_negative_limitation(self, tmp_path):
+        root = _make_repo(tmp_path)
+        draft = _good_draft().model_copy(
+            update={
+                "limitations": [
+                    EvidenceBackedProductFact(
+                        value="Widget processing is incomplete.",
+                        evidence_paths=["src/Widget.java"],
+                        required_symbols=["Widget"],
+                    )
+                ]
+            }
+        )
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=lambda hints, facts: draft,
+            verify_example_fn=_always_verified_example,
+        )
+
+        limitation = result.gated_facts["product.limitations"]
+        assert limitation.verification_state == "blocked"
+        assert "does not express a constraint" in str(limitation.value)
+
+    def test_explicit_constraint_anchor_can_prove_a_limitation(self, tmp_path):
+        root = _make_repo(tmp_path)
+        (root / "LIMITATIONS.md").write_text(
+            "Streaming mode is not supported.\n",
+            encoding="utf-8",
+        )
+        draft = _good_draft().model_copy(
+            update={
+                "limitations": [
+                    EvidenceBackedProductFact(
+                        value="Streaming mode is not supported.",
+                        evidence_paths=["LIMITATIONS.md"],
+                        required_symbols=["not supported"],
+                    )
+                ]
+            }
+        )
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=lambda hints, facts: draft,
+            verify_example_fn=_always_verified_example,
+        )
+
+        limitation = result.gated_facts["product.limitations"]
+        assert limitation.verification_state == "verified"
+        assert limitation.value == ["Streaming mode is not supported."]
 
     def test_groundedness_fact_candidate_is_invoked_for_each_interpretive_field(
         self, tmp_path, monkeypatch

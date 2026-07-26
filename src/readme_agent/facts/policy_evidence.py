@@ -14,6 +14,12 @@ from readme_agent.facts.schema_v2 import (
 from readme_agent.registry.models import EvidenceBackedProductFact
 
 _IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+_LIMITATION_CUE = re.compile(
+    r"(?:\b(?:cannot|deprecated|experimental|incomplete|limited|limitation|"
+    r"not|only|out\s+of\s+scope|partial|requires?|unavailable|unsupported)\b|"
+    r"(?:NotImplemented|NotSupported|Unsupported)[A-Za-z0-9_]*Exception)",
+    re.IGNORECASE,
+)
 
 
 def safe_evidence_paths(root: Path, paths: list[str]) -> tuple[list[Path], list[str]]:
@@ -98,4 +104,49 @@ def evidence_fact_candidate(
         authoritative_owner="repository-owner",
         confidence=0.0 if failures else 1.0,
         affected_surfaces=SURFACE_DEPENDENCIES[field_name],
+    )
+
+
+def limitation_fact_candidate(
+    root: Path,
+    source_revision: str | None,
+    observed_at: str | None,
+    specifications: list[EvidenceBackedProductFact],
+) -> FactRecordV2:
+    """Require explicit constraint evidence before accepting a drafted limitation.
+
+    An API symbol proves that a feature exists; it does not prove that the
+    feature is absent, incomplete, or otherwise limited. Agent-drafted
+    limitations therefore need an exact evidence anchor that itself expresses
+    a constraint. An empty limitations list remains an honest verified result.
+    """
+
+    candidate = evidence_fact_candidate(
+        root,
+        source_revision,
+        observed_at,
+        "product.limitations",
+        specifications,
+    )
+    semantic_failures = [
+        (f"limitation evidence does not express a constraint: {specification.value}")
+        for specification in specifications
+        if not any(_LIMITATION_CUE.search(symbol) for symbol in specification.required_symbols)
+    ]
+    if not semantic_failures:
+        return candidate
+    existing_failures = (
+        list(candidate.value.get("evidence_failures", []))
+        if isinstance(candidate.value, dict)
+        else []
+    )
+    return candidate.model_copy(
+        update={
+            "value": {
+                "assertions": [specification.value for specification in specifications],
+                "evidence_failures": existing_failures + semantic_failures,
+            },
+            "verification_state": "blocked",
+            "confidence": 0.0,
+        }
     )

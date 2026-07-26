@@ -3,10 +3,9 @@ loop (`RPOC-033`, sprint charter Part B.2 Phase 2 Lane F, design Part C.5).
 
 `facts/agentic_drafting.py::draft_product_truth()` produces exactly one
 candidate draft; this module is where that draft becomes something trusted
-enough to report: `capabilities`/`formats`/`limitations` are routed through
-the EXISTING, UNMODIFIED `facts/policy_evidence.py::evidence_fact_candidate()`
-(the same mechanical evidence-path/required-symbol gate a human-authored
-policy YAML's own `product_truth` block already goes through);
+enough to report: `capabilities`/`formats` are routed through
+`facts/policy_evidence.py::evidence_fact_candidate()` and drafted limitations
+through its stricter `limitation_fact_candidate()` polarity gate;
 `audience`/`problems_solved` are routed through the EXISTING, UNMODIFIED
 `facts/interpretive_evidence.py::groundedness_fact_candidate()` (the new
 citation/lexical-coverage gate `RPOC-032` built for exactly this kind of
@@ -58,7 +57,11 @@ from readme_agent.facts.local_verification import (
     verify_local_product_example,
 )
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
-from readme_agent.facts.policy_evidence import evidence_fact_candidate, evidence_failures
+from readme_agent.facts.policy_evidence import (
+    evidence_fact_candidate,
+    evidence_failures,
+    limitation_fact_candidate,
+)
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.repository_examples import repository_readme_example_candidates
 from readme_agent.facts.resolution import resolve_product_facts
@@ -304,10 +307,13 @@ def _gate_draft(
     verify_example_fn: VerifyExampleFn,
 ) -> dict[str, FactRecordV2]:
     """Routes each field through its real, unmodified gate -- never a
-    reimplementation. `capabilities`/`formats`/`limitations` ->
+    reimplementation. `capabilities`/`formats` ->
     `evidence_fact_candidate()` (identical call shape
     `facts/repository_ingestion.py::ingest_repository_product_facts()`
-    already uses for a human-authored policy's own `product_truth`).
+    already uses for a human-authored policy's own `product_truth`);
+    `limitations` -> `limitation_fact_candidate()`, which additionally
+    prevents positive API-existence evidence from proving a negative
+    limitation.
     `audience`/`problems_solved` -> `groundedness_fact_candidate()`.
     `minimal_example` -> `_gate_minimal_example()` above."""
     return {
@@ -317,8 +323,8 @@ def _gate_draft(
         "product.formats": evidence_fact_candidate(
             root, source_revision, observed_at, "product.formats", draft.formats
         ),
-        "product.limitations": evidence_fact_candidate(
-            root, source_revision, observed_at, "product.limitations", draft.limitations
+        "product.limitations": limitation_fact_candidate(
+            root, source_revision, observed_at, draft.limitations
         ),
         "product.audience": groundedness_fact_candidate(
             "product.audience", draft.audience, facts_so_far, source_revision, observed_at
