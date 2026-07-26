@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "2f72cd4b7401551f8764e165ab1619c9494bdfedd560c74861a42d39bd4b90f4",
-    "last_evaluated_at": "2026-07-26T15:33:08.563764+00:00",
+    "last_evaluated_at": "2026-07-26T15:33:18.424648+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -128,7 +128,7 @@
       "L8-STAGING-VERIFIED-PROPOSAL-PROOF": "TODO",
       "L8-TRUTH-01-STAGE-LIMIT": "CLOSED",
       "L8-TRUTH-01A-FACT-CONTRACT": "CLOSED",
-      "L8-TRUTH-01B-LLM-CALL-LEDGER": "IMPLEMENTED",
+      "L8-TRUTH-01B-LLM-CALL-LEDGER": "VERIFIED",
       "L8-TRUTH-01C-PROMPT-HYGIENE": "TODO",
       "L8-TRUTH-02-ROOT-ROLES": "TODO",
       "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION": "TODO",
@@ -1587,6 +1587,19 @@
         "reason": "Shared transport capture, typed ledgers, run and portfolio reconciliation, and historical UNKNOWN_LEGACY handling are implemented at commit 6c9e0da.",
         "task_id": "L8-TRUTH-01B-LLM-CALL-LEDGER",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-llm-call-ledger/mission-contribution.json",
+          "plans/investigations/evidence/level8-llm-call-ledger/verification.json",
+          "plans/investigations/evidence/level8-llm-call-ledger/representative-run-manifest.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-26T15:33:18.424643+00:00",
+        "reason": "Focused, security, manifest, portfolio, live-like, and clean-tree official checks pass with checksum-complete evidence.",
+        "task_id": "L8-TRUTH-01B-LLM-CALL-LEDGER",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -1595,7 +1608,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 177,
+  "state_version": 178,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
