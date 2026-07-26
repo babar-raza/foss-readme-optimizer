@@ -80,7 +80,7 @@ def _bind_campaign_source(output: Path) -> dict:
     path = output / "campaign-source.json"
     if path.is_file():
         recorded = json.loads(path.read_text(encoding="utf-8"))
-        if recorded != snapshot:
+        if recorded.get("source_files") != snapshot["source_files"]:
             raise RuntimeError(
                 "qualification campaign source changed; preserve this run as diagnostic "
                 "and start all three sessions in a new output directory"
