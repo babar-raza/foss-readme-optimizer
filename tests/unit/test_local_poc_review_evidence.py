@@ -35,6 +35,7 @@ def test_blocked_fact_verdict_remains_distinct_from_repairable_rejection(tmp_pat
         repair_history=[],
         lifecycle_status="BLOCKED_FACT_CONFLICT",
         deterministic_validation_passed=True,
+        reviewer_standard_hash="review-v1",
     )
 
     final = json.loads((bundle_dir / "review" / "final-verdict.json").read_text(encoding="utf-8"))
@@ -61,6 +62,7 @@ def test_review_evidence_rejects_unknown_lifecycle_status(tmp_path):
             repair_history=[],
             lifecycle_status="UNKNOWN",
             deterministic_validation_passed=True,
+            reviewer_standard_hash="review-v1",
         )
 
 
@@ -75,6 +77,7 @@ def test_deterministic_repair_failure_is_not_recorded_as_agent_rejection(tmp_pat
         repair_history=[{"repair_attempt": 1}],
         lifecycle_status="DETERMINISTIC_VALIDATION_FAILED",
         deterministic_validation_passed=False,
+        reviewer_standard_hash="review-v1",
     )
 
     final = json.loads((bundle_dir / "review" / "final-verdict.json").read_text(encoding="utf-8"))
@@ -82,4 +85,5 @@ def test_deterministic_repair_failure_is_not_recorded_as_agent_rejection(tmp_pat
     assert final["verdict"] == "DETERMINISTIC_VALIDATION_FAILED"
     assert final["deterministic_validation_passed"] is False
     assert manifest["lifecycle_status"] == "DETERMINISTIC_VALIDATION_FAILED"
+    assert manifest["reviewer_standard_hash"] == "review-v1"
     assert "DETERMINISTIC_VALIDATION_FAILED" in manifest["completed_stages"]

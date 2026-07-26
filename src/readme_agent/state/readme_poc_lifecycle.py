@@ -280,6 +280,16 @@ def transition_readme_poc_status(
         repair_attempts = prior.repair_attempts_for_revision
         if source_changed:
             repair_attempts = 0
+        reviewer_standard_changed = (
+            reviewer_standard_hash is not None
+            and reviewer_standard_hash != prior.reviewer_standard_hash
+        )
+        if to_status in {"README_ASSESSED", "AGENT_REVIEWING"} and reviewer_standard_changed:
+            # A materially different independent-review contract is a new
+            # acceptance boundary. Do not spend its repair budget on verdicts
+            # produced by an older prompt, while retaining the append-only
+            # history that explains why the reset occurred.
+            repair_attempts = 0
         if to_status == "REPAIRING":
             repair_attempts += 1
             if repair_attempts > 2:
@@ -356,6 +366,7 @@ def record_readme_candidate_artifacts(
     assessment_hash: str,
     presentation_plan_hash: str,
     candidate_hash: str,
+    reviewer_standard_hash: str,
     evidence_refs: list[str],
 ) -> ReadmePocLifecycleStateV2:
     """Persist assessment, plan, and candidate boundaries without duplicate events."""
@@ -391,6 +402,7 @@ def record_readme_candidate_artifacts(
             "PR_PROOF_COMPLETE",
         }
         and hashes_match
+        and stored.reviewer_standard_hash == reviewer_standard_hash
     ):
         return stored
 
@@ -405,6 +417,7 @@ def record_readme_candidate_artifacts(
             evidence_refs=evidence_refs,
             source_revision=source_revision,
             assessment_hash=assessment_hash,
+            reviewer_standard_hash=reviewer_standard_hash,
         )
     if current.status != "PLAN_READY":
         current = transition_readme_poc_status(

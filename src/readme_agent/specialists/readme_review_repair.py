@@ -10,6 +10,7 @@ from readme_agent.capabilities.domains import README_PRESENTATION
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import StateBackendError
 from readme_agent.evidence.writer import generate_run_id
+from readme_agent.llm import prompt_registry
 from readme_agent.repository_snapshot import current_repository_snapshot
 from readme_agent.specialists.independent_readme_review import (
     IndependentReadmeReviewResultV1,
@@ -50,6 +51,7 @@ def _persist_local_candidate(
         assessment_hash=assessment_hash,
         presentation_plan_hash=plan_hash,
         candidate_hash=candidate_hash,
+        reviewer_standard_hash=prompt_registry.prompt_hash("independent_readme_review"),
         evidence_refs=[
             str(bundle_dir / "assessment" / "current-readme-assessment.json"),
             str(bundle_dir / "planning" / "readme-document-plan.json"),

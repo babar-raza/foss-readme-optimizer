@@ -11,6 +11,7 @@ from readme_agent import paths
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.errors import StateBackendError
 from readme_agent.evidence.writer import generate_run_id
+from readme_agent.llm import prompt_registry
 from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import current_repository_snapshot
 from readme_agent.specialists.independent_readme_review import (
@@ -192,6 +193,7 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         }
 
     if lifecycle_backend is not None:
+        reviewer_standard_hash = prompt_registry.prompt_hash("independent_readme_review")
         current = lifecycle_backend.load(org_repo)
         lifecycle = current.readme_poc_lifecycle if current is not None else None
         if lifecycle is None:
@@ -213,6 +215,7 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 observed_by=INDEPENDENT_VERIFICATION,
                 reason="independent README review started after deterministic validation",
                 evidence_refs=[str(proposal_bundle_dir)],
+                reviewer_standard_hash=reviewer_standard_hash,
             )
 
     initial_context = {
@@ -316,6 +319,7 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             repair_history=review_outcome.repair_history,
             lifecycle_status=final_lifecycle_status,
             deterministic_validation_passed=final_deterministic_passed,
+            reviewer_standard_hash=prompt_registry.prompt_hash("independent_readme_review"),
         )
     if review_outcome.outcome_kind != "accepted":
         return {

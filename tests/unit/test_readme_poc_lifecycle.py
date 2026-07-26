@@ -625,6 +625,7 @@ class TestReadmeCandidateBoundary:
             assessment_hash="assessment-a",
             presentation_plan_hash="plan-a",
             candidate_hash="candidate-a",
+            reviewer_standard_hash="reviewer-a",
             evidence_refs=["assessment", "plan", "candidate"],
         )
         second = record_readme_candidate_artifacts(
@@ -634,6 +635,7 @@ class TestReadmeCandidateBoundary:
             assessment_hash="assessment-a",
             presentation_plan_hash="plan-a",
             candidate_hash="candidate-a",
+            reviewer_standard_hash="reviewer-a",
             evidence_refs=["assessment", "plan", "candidate"],
         )
 
@@ -647,6 +649,86 @@ class TestReadmeCandidateBoundary:
             "CANDIDATE_GENERATED",
         ]
         assert second == first
+
+    def test_changed_reviewer_standard_resets_only_its_obsolete_repair_budget(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        for status in (
+            "SNAPSHOTTED",
+            "PROFILED",
+            "FACTS_COLLECTING",
+            "FACTS_READY",
+            "README_ASSESSED",
+            "PLAN_READY",
+            "CANDIDATE_GENERATED",
+            "DETERMINISTIC_VALIDATED",
+        ):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="test",
+                reason="advance",
+                source_revision="abc123",
+            )
+        transition_readme_poc_status(
+            backend,
+            org_repo,
+            "AGENT_REVIEWING",
+            observed_by="test",
+            reason="old review",
+            reviewer_standard_hash="reviewer-a",
+        )
+        for _attempt in range(2):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                "AGENT_REVIEW_REJECTED",
+                observed_by="test",
+                reason="rejected",
+            )
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                "REPAIRING",
+                observed_by="test",
+                reason="repair",
+            )
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                "CANDIDATE_GENERATED",
+                observed_by="test",
+                reason="regenerated",
+            )
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                "DETERMINISTIC_VALIDATED",
+                observed_by="test",
+                reason="validated",
+            )
+            if _attempt == 0:
+                transition_readme_poc_status(
+                    backend,
+                    org_repo,
+                    "AGENT_REVIEWING",
+                    observed_by="test",
+                    reason="same review",
+                    reviewer_standard_hash="reviewer-a",
+                )
+
+        changed = transition_readme_poc_status(
+            backend,
+            org_repo,
+            "AGENT_REVIEWING",
+            observed_by="test",
+            reason="new review standard",
+            reviewer_standard_hash="reviewer-b",
+        )
+
+        assert changed.repair_attempts_for_revision == 0
+        assert changed.reviewer_standard_hash == "reviewer-b"
 
 
 class TestSerializationRoundTrip:

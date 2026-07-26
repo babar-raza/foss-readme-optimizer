@@ -80,6 +80,8 @@ def test_trigger_selection_resumes_retryable_but_never_steals_active_work():
 
 def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
     from readme_agent.evidence.writer import refresh_sha256sums, write_redacted_json
+    from readme_agent.llm import prompt_registry
+    from readme_agent.readme.document_templates import document_template_hash
     from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
     from readme_agent.state.schema import RunStateV2
 
@@ -100,7 +102,16 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
             "source_revision": source_revision,
             "lifecycle_status": "NO_OP_PROVEN",
             "complete": True,
+            "reviewer_standard_hash": prompt_registry.prompt_hash("independent_readme_review"),
         },
+    )
+    write_redacted_json(
+        bundle_dir / "planning" / "readme-document-plan.json",
+        {"template_sha256": document_template_hash()},
+    )
+    write_redacted_json(
+        bundle_dir / "planning" / "agentic-composition-plan.json",
+        {"prompt_sha256": prompt_registry.prompt_hash("plan_readme_composition")},
     )
     write_redacted_json(bundle_dir / "review" / "final-verdict.json", {"accepted": True})
     refresh_sha256sums(bundle_dir)

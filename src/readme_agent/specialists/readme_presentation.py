@@ -93,6 +93,7 @@ from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import LLMError, StateBackendError
 from readme_agent.evidence.writer import generate_run_id
+from readme_agent.llm import prompt_registry
 from readme_agent.orchestrator import record_accepted_readme_state
 from readme_agent.readme.agentic_composition import validate_readme_composition_plan
 from readme_agent.readme.assessment import assess_readme_document
@@ -378,6 +379,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                     assessment_hash=assessment_hash,
                     presentation_plan_hash=presentation_plan_hash,
                     candidate_hash=candidate_hash,
+                    reviewer_standard_hash=prompt_registry.prompt_hash("independent_readme_review"),
                     evidence_refs=[
                         str(local_bundle_dir / "assessment" / "current-readme-assessment.json"),
                         str(local_bundle_dir / "planning" / "readme-document-plan.json"),

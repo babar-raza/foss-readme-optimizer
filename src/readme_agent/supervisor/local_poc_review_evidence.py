@@ -37,6 +37,7 @@ def write_local_poc_review_evidence(
     repair_history: list[dict],
     lifecycle_status: str,
     deterministic_validation_passed: bool,
+    reviewer_standard_hash: str,
 ) -> None:
     """Write the reviewer boundary and advance the existing manifest in place."""
 
@@ -85,6 +86,7 @@ def write_local_poc_review_evidence(
     manifest.update(
         {
             "lifecycle_status": lifecycle_status,
+            "reviewer_standard_hash": reviewer_standard_hash,
             "complete": False,
             "completed_stages": completed,
         }

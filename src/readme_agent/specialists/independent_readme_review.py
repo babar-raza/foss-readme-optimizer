@@ -86,6 +86,7 @@ from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_P
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import LLMError
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.llm import prompt_registry
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.reviewer_client import LiveIndependentReviewClient
 from readme_agent.llm.verification_prompts import build_independent_readme_review_messages
@@ -691,6 +692,9 @@ def run_independent_review_with_repair_loop(
                         observed_by=_OBSERVED_BY,
                         reason="independent review restarted after deterministic validation",
                         evidence_refs=list(ctx.get("evidence_refs", [])),
+                        reviewer_standard_hash=prompt_registry.prompt_hash(
+                            "independent_readme_review"
+                        ),
                     )
             if deterministic_passed:
                 break

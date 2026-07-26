@@ -90,11 +90,20 @@ def completed_local_poc_status(
 
     manifest_path = bundle_dir / "manifest.json"
     inventory_path = bundle_dir / "sha256sums.txt"
-    if not manifest_path.is_file() or not inventory_path.is_file():
+    document_plan_path = bundle_dir / "planning" / "readme-document-plan.json"
+    agentic_plan_path = bundle_dir / "planning" / "agentic-composition-plan.json"
+    if (
+        not manifest_path.is_file()
+        or not inventory_path.is_file()
+        or not document_plan_path.is_file()
+        or not agentic_plan_path.is_file()
+    ):
         return None
 
     try:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        document_plan = json.loads(document_plan_path.read_text(encoding="utf-8"))
+        agentic_plan = json.loads(agentic_plan_path.read_text(encoding="utf-8"))
         inventory_lines = inventory_path.read_text(encoding="utf-8").splitlines()
         expected: dict[str, str] = {}
         for line in inventory_lines:
@@ -115,6 +124,20 @@ def completed_local_poc_status(
         or manifest.get("org_repo") != state.org_repo
         or manifest.get("source_revision") != lifecycle.source_revision
         or manifest.get("lifecycle_status") != lifecycle.status
+    ):
+        return None
+
+    from readme_agent.llm import prompt_registry
+    from readme_agent.readme.document_templates import document_template_hash
+
+    if document_plan.get("template_sha256") != document_template_hash():
+        return None
+    if agentic_plan and agentic_plan.get("prompt_sha256") != prompt_registry.prompt_hash(
+        "plan_readme_composition"
+    ):
+        return None
+    if manifest.get("reviewer_standard_hash") != prompt_registry.prompt_hash(
+        "independent_readme_review"
     ):
         return None
 
