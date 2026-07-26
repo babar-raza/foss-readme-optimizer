@@ -114,6 +114,8 @@ def test_product_facts_boundary_writes_provenance_conflicts_and_acquisition(tmp_
         findings=[],
         resolution_source="repository_and_policy",
         local_verification_contract_hash="v" * 64,
+        fact_acceptance_contract_hash="a" * 64,
+        fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
     )
 
     assert (bundle / "facts" / "product-facts.json").is_file()
@@ -177,6 +179,8 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
         findings=[],
         resolution_source="repository_and_policy",
         local_verification_contract_hash="v" * 64,
+        fact_acceptance_contract_hash="a" * 64,
+        fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
     )
     source_text = (tmp_path / "README.md").read_text(encoding="utf-8")
     candidate, document_plan = build_readme_document_candidate(
@@ -251,6 +255,8 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
         findings=[],
         resolution_source="repository_and_policy",
         local_verification_contract_hash="w" * 64,
+        fact_acceptance_contract_hash="a" * 64,
+        fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
     )
     invalidated_manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
     assert invalidated_manifest["lifecycle_status"] == "FACTS_READY"

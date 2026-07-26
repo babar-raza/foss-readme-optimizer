@@ -10,6 +10,11 @@ from pydantic import BaseModel, ConfigDict, Field
 from readme_agent import paths
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import README_PRESENTATION
+from readme_agent.facts.acceptance_contract import (
+    FactAcceptanceContractV1,
+    classify_product_truth,
+    current_fact_acceptance_contract,
+)
 from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.schema_v2 import README_DRAFTABLE_PRODUCT_FIELDS, ProductFactsV2
@@ -18,22 +23,19 @@ from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV1, ReadmePocStatusV2
-from readme_agent.state.readme_poc_lifecycle import record_product_facts_outcome
-from readme_agent.supervisor.local_poc_evidence import write_local_poc_product_facts
+from readme_agent.state.readme_poc_lifecycle import (
+    bind_fact_acceptance_contract,
+    record_product_facts_outcome,
+)
+from readme_agent.supervisor.local_poc_evidence import (
+    bind_local_poc_fact_acceptance,
+    reclassify_local_poc_fact_acceptance,
+    write_local_poc_product_facts,
+)
 
 ResolutionSource = Literal["repository_and_policy", "agent_draft", "durable_revision_cache"]
 
 _DRAFTABLE_ECOSYSTEMS = frozenset({"java", "net", "python", "typescript", "go", "cpp", "rust"})
-_README_TRUTH_FIELDS = (
-    "product.audience",
-    "product.problems_solved",
-    "product.capabilities",
-    "product.formats",
-    "installation.verified_acquisition",
-    "example.minimal",
-    "product.license",
-    "relationship.commercial_foss",
-)
 _CACHEABLE_LIFECYCLE_STATES = frozenset(
     {
         "FACTS_READY",
@@ -55,6 +57,10 @@ _CACHEABLE_LIFECYCLE_STATES = frozenset(
         "PR_PROOF_COMPLETE",
     }
 )
+_FACTS_READY_OR_LATER_STATES = _CACHEABLE_LIFECYCLE_STATES - {
+    "BLOCKED_FACT_CONFLICT",
+    "BLOCKED_MISSING_EVIDENCE",
+}
 
 
 class PreparedProductTruthV1(BaseModel):
@@ -70,17 +76,6 @@ class PreparedProductTruthV1(BaseModel):
     bundle_dir: str
 
 
-def classify_product_truth(facts: ProductFactsV2) -> ReadmePocStatusV2:
-    """Classify the current graph without trusting a persisted terminal label."""
-
-    selected = [facts.selected_fact(field) for field in _README_TRUTH_FIELDS]
-    if any(fact.verification_state == "conflicting" for fact in selected):
-        return "BLOCKED_FACT_CONFLICT"
-    if any(fact.verification_state not in {"verified", "policy_approved"} for fact in selected):
-        return "BLOCKED_MISSING_EVIDENCE"
-    return "FACTS_READY"
-
-
 def _facts_need_drafting(facts: ProductFactsV2) -> bool:
     return any(
         facts.selected_fact(field).verification_state not in {"verified", "policy_approved"}
@@ -89,12 +84,35 @@ def _facts_need_drafting(facts: ProductFactsV2) -> bool:
     )
 
 
+def _cached_outcome_matches_lifecycle(status: str, outcome: ReadmePocStatusV2) -> bool:
+    if outcome == "FACTS_READY":
+        return status in _FACTS_READY_OR_LATER_STATES
+    return status == outcome
+
+
+def _changed_evidence_gate_requires_recollection(
+    stored_components: dict[str, str],
+    current_contract: FactAcceptanceContractV1,
+) -> bool:
+    """Do not relabel facts whose underlying positive/negative evidence gate changed."""
+
+    if not stored_components:
+        # One-time migration for bundles created before this contract existed.
+        # Their exact four known outcomes are replayed and promoted as evidence
+        # by L8-TRUTH-01A before this compatibility path can be removed.
+        return False
+    return stored_components.get("evidence_polarity") != current_contract.component_hashes.get(
+        "evidence_polarity"
+    )
+
+
 def load_prepared_product_truth(
     org_repo: str,
     state_backend: StateBackend,
     source_revision: str,
 ) -> PreparedProductTruthV1 | None:
-    """Load the exact supervisor-persisted graph without recollecting it."""
+    """Load and reaccept the exact persisted graph under the current contract."""
+
     state = state_backend.load(org_repo)
     lifecycle = state.readme_poc_lifecycle if state is not None else None
     if (
@@ -149,12 +167,71 @@ def load_prepared_product_truth(
         "draft_product_truth"
     ):
         return None
+    contract = current_fact_acceptance_contract()
+    contract_hash = contract.canonical_hash()
+    manifest_contract_current = (
+        manifest.get("fact_acceptance_contract_hash") == contract_hash
+        and manifest.get("fact_acceptance_component_hashes") == contract.component_hashes
+    )
+    lifecycle_contract_current = (
+        lifecycle.fact_acceptance_contract_hash == contract_hash
+        and lifecycle.fact_acceptance_component_hashes == contract.component_hashes
+    )
+    outcome = classify_product_truth(facts, contract)
+    returned_lifecycle_status = lifecycle.status
+    if not (manifest_contract_current and lifecycle_contract_current):
+        if _changed_evidence_gate_requires_recollection(
+            lifecycle.fact_acceptance_component_hashes,
+            contract,
+        ):
+            return None
+        if _cached_outcome_matches_lifecycle(lifecycle.status, outcome):
+            bind_fact_acceptance_contract(
+                state_backend,
+                org_repo,
+                source_revision=source_revision,
+                facts_hash=facts.canonical_hash(),
+                contract_hash=contract_hash,
+                component_hashes=contract.component_hashes,
+                outcome=outcome,
+                reason="legacy cached fact graph re-evaluated under the current contract",
+            )
+            bind_local_poc_fact_acceptance(
+                bundle_dir,
+                source_revision=source_revision,
+                contract_hash=contract_hash,
+                component_hashes=contract.component_hashes,
+            )
+        else:
+            reclassify_local_poc_fact_acceptance(
+                bundle_dir,
+                source_revision=source_revision,
+                lifecycle_status=outcome,
+                contract_hash=contract_hash,
+                component_hashes=contract.component_hashes,
+            )
+            record_product_facts_outcome(
+                state_backend,
+                org_repo,
+                source_revision=source_revision,
+                facts_hash=facts.canonical_hash(),
+                outcome=outcome,
+                evidence_refs=[
+                    str(facts_path),
+                    str(bundle_dir / "facts" / "provenance.json"),
+                    str(bundle_dir / "facts" / "conflicts.json"),
+                ],
+                prompt_hash=lifecycle.prompt_hash,
+                fact_acceptance_contract_hash=contract_hash,
+                fact_acceptance_component_hashes=contract.component_hashes,
+            )
+            returned_lifecycle_status = outcome
     return PreparedProductTruthV1(
         facts=facts,
         findings=findings,
         proposed_product_truth=proposed_product_truth,
         resolution_source="durable_revision_cache",
-        lifecycle_status=lifecycle.status,
+        lifecycle_status=returned_lifecycle_status,
         bundle_dir=str(bundle_dir),
     )
 
@@ -234,7 +311,9 @@ def prepare_local_product_truth(
             resolution_source = "agent_draft"
             prompt_hash = prompt_registry.prompt_hash("draft_product_truth")
 
-    lifecycle_status = classify_product_truth(facts)
+    fact_acceptance_contract = current_fact_acceptance_contract()
+    fact_acceptance_contract_hash = fact_acceptance_contract.canonical_hash()
+    lifecycle_status = classify_product_truth(facts, fact_acceptance_contract)
     bundle_dir = write_local_poc_product_facts(
         snapshot,
         facts,
@@ -244,6 +323,8 @@ def prepare_local_product_truth(
         lifecycle_status=lifecycle_status,
         prompt_hash=prompt_hash,
         local_verification_contract_hash=local_verification_contract_hash(),
+        fact_acceptance_contract_hash=fact_acceptance_contract_hash,
+        fact_acceptance_component_hashes=fact_acceptance_contract.component_hashes,
     )
     record_product_facts_outcome(
         state_backend,
@@ -257,6 +338,8 @@ def prepare_local_product_truth(
             str(bundle_dir / "facts" / "conflicts.json"),
         ],
         prompt_hash=prompt_hash,
+        fact_acceptance_contract_hash=fact_acceptance_contract_hash,
+        fact_acceptance_component_hashes=fact_acceptance_contract.component_hashes,
     )
     return PreparedProductTruthV1(
         facts=facts,

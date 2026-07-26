@@ -27,6 +27,7 @@ from readme_agent.errors import StateBackendError
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.cas import save_state_patch
 from readme_agent.state.lifecycle_schema import (
+    FactAcceptanceBindingV1,
     ReadmePocLifecycleStateV1,
     ReadmePocLifecycleStateV2,
     ReadmePocStatusV2,
@@ -234,6 +235,8 @@ def transition_readme_poc_status(
     presentation_plan_hash: str | None = None,
     candidate_hash: str | None = None,
     prompt_hash: str | None = None,
+    fact_acceptance_contract_hash: str | None = None,
+    fact_acceptance_component_hashes: dict[str, str] | None = None,
     reviewer_standard_hash: str | None = None,
     protected_content_fingerprint: str | None = None,
     reset_repair_attempts: bool = False,
@@ -286,7 +289,14 @@ def transition_readme_poc_status(
         repair_attempts = prior.repair_attempts_for_revision
         facts_changed = facts_hash is not None and facts_hash != prior.facts_hash
         prompt_changed = prompt_hash is not None and prompt_hash != prior.prompt_hash
-        if source_changed or facts_changed or prompt_changed or reset_repair_attempts:
+        fact_acceptance_changed = (
+            fact_acceptance_contract_hash is not None
+            and fact_acceptance_contract_hash != prior.fact_acceptance_contract_hash
+        )
+        fact_inputs_changed = (
+            source_changed or facts_changed or prompt_changed or fact_acceptance_changed
+        )
+        if fact_inputs_changed or reset_repair_attempts:
             repair_attempts = 0
         reviewer_standard_changed = (
             reviewer_standard_hash is not None
@@ -314,6 +324,30 @@ def transition_readme_poc_status(
             occurred_at=now,
             source_revision=next_source_revision,
         )
+        acceptance_history = prior.fact_acceptance_history
+        if (
+            fact_acceptance_contract_hash is not None
+            and to_status
+            in {
+                "FACTS_READY",
+                "BLOCKED_FACT_CONFLICT",
+                "BLOCKED_MISSING_EVIDENCE",
+            }
+            and (
+                fact_acceptance_changed
+                or fact_acceptance_component_hashes != prior.fact_acceptance_component_hashes
+            )
+        ):
+            acceptance_history = [
+                *acceptance_history,
+                FactAcceptanceBindingV1(
+                    contract_hash=fact_acceptance_contract_hash,
+                    component_hashes=fact_acceptance_component_hashes or {},
+                    outcome=to_status,
+                    observed_by=observed_by,
+                    reason=reason,
+                ),
+            ]
         next_lifecycle = prior.model_copy(
             update={
                 "status": to_status,
@@ -328,38 +362,116 @@ def transition_readme_poc_status(
                 "assessment_hash": (
                     assessment_hash
                     if assessment_hash is not None
-                    else (None if source_changed else prior.assessment_hash)
+                    else (None if fact_inputs_changed else prior.assessment_hash)
                 ),
                 "presentation_plan_hash": (
                     presentation_plan_hash
                     if presentation_plan_hash is not None
-                    else (None if source_changed else prior.presentation_plan_hash)
+                    else (None if fact_inputs_changed else prior.presentation_plan_hash)
                 ),
                 "candidate_hash": (
                     candidate_hash
                     if candidate_hash is not None
-                    else (None if source_changed else prior.candidate_hash)
+                    else (None if fact_inputs_changed else prior.candidate_hash)
                 ),
                 "prompt_hash": (
                     prompt_hash
                     if prompt_hash is not None
                     else (None if source_changed else prior.prompt_hash)
                 ),
+                "fact_acceptance_contract_hash": (
+                    fact_acceptance_contract_hash
+                    if fact_acceptance_contract_hash is not None
+                    else (None if source_changed else prior.fact_acceptance_contract_hash)
+                ),
+                "fact_acceptance_component_hashes": (
+                    fact_acceptance_component_hashes
+                    if fact_acceptance_component_hashes is not None
+                    else ({} if source_changed else prior.fact_acceptance_component_hashes)
+                ),
+                "fact_acceptance_history": acceptance_history,
                 "reviewer_standard_hash": (
                     reviewer_standard_hash
                     if reviewer_standard_hash is not None
-                    else (None if source_changed else prior.reviewer_standard_hash)
+                    else (None if fact_inputs_changed else prior.reviewer_standard_hash)
                 ),
                 "protected_content_fingerprint": (
                     protected_content_fingerprint
                     if protected_content_fingerprint is not None
-                    else (None if source_changed else prior.protected_content_fingerprint)
+                    else (None if fact_inputs_changed else prior.protected_content_fingerprint)
                 ),
                 "repair_attempts_for_revision": repair_attempts,
-                "details": {} if source_changed else prior.details,
+                "details": {} if fact_inputs_changed else prior.details,
             }
         )
         return state.model_copy(update={"readme_poc_lifecycle": next_lifecycle})
+
+    saved = save_state_patch(backend, org_repo, patch, max_retries=max_retries)
+    assert isinstance(saved.readme_poc_lifecycle, ReadmePocLifecycleStateV2)
+    return saved.readme_poc_lifecycle
+
+
+def bind_fact_acceptance_contract(
+    backend: StateBackend,
+    org_repo: str,
+    *,
+    source_revision: str,
+    facts_hash: str,
+    contract_hash: str,
+    component_hashes: dict[str, str],
+    outcome: ReadmePocStatusV2,
+    observed_by: str = "supervisor_product_truth",
+    reason: str = "cached fact graph accepted by the current contract",
+    max_retries: int = 5,
+) -> ReadmePocLifecycleStateV2:
+    """Bind a still-valid cached graph without reopening a later valid lifecycle stage."""
+
+    if outcome not in {
+        "FACTS_READY",
+        "BLOCKED_FACT_CONFLICT",
+        "BLOCKED_MISSING_EVIDENCE",
+    }:
+        raise StateBackendError(f"invalid fact-acceptance outcome {outcome!r}")
+    now = datetime.now(UTC).isoformat()
+
+    def patch(state: RunStateV2) -> RunStateV2:
+        stored = state.readme_poc_lifecycle
+        lifecycle = (
+            _migrate_v1_lifecycle(stored)
+            if isinstance(stored, ReadmePocLifecycleStateV1)
+            else stored
+        )
+        if (
+            lifecycle is None
+            or lifecycle.source_revision != source_revision
+            or lifecycle.facts_hash != facts_hash
+        ):
+            raise StateBackendError(
+                f"cannot bind fact acceptance for {org_repo!r} without matching "
+                f"{source_revision!r}/{facts_hash!r} lifecycle state"
+            )
+        if (
+            lifecycle.fact_acceptance_contract_hash == contract_hash
+            and lifecycle.fact_acceptance_component_hashes == component_hashes
+        ):
+            return state
+        binding = FactAcceptanceBindingV1(
+            contract_hash=contract_hash,
+            component_hashes=component_hashes,
+            outcome=outcome,
+            observed_by=observed_by,
+            reason=reason,
+            occurred_at=now,
+        )
+        updated = lifecycle.model_copy(
+            update={
+                "updated_at": now,
+                "fact_acceptance_contract_hash": contract_hash,
+                "fact_acceptance_component_hashes": component_hashes,
+                "fact_acceptance_history": [*lifecycle.fact_acceptance_history, binding],
+            }
+        )
+        return state.model_copy(update={"readme_poc_lifecycle": updated})
 
     saved = save_state_patch(backend, org_repo, patch, max_retries=max_retries)
     assert isinstance(saved.readme_poc_lifecycle, ReadmePocLifecycleStateV2)
@@ -611,6 +723,8 @@ def record_product_facts(
     facts_hash: str,
     evidence_refs: list[str],
     prompt_hash: str | None = None,
+    fact_acceptance_contract_hash: str | None = None,
+    fact_acceptance_component_hashes: dict[str, str] | None = None,
 ) -> ReadmePocLifecycleStateV2:
     """Record one provenance-complete fact graph without skipping boundaries.
 
@@ -626,6 +740,8 @@ def record_product_facts(
         outcome="FACTS_READY",
         evidence_refs=evidence_refs,
         prompt_hash=prompt_hash,
+        fact_acceptance_contract_hash=fact_acceptance_contract_hash,
+        fact_acceptance_component_hashes=fact_acceptance_component_hashes,
     )
 
 
@@ -638,6 +754,8 @@ def record_product_facts_outcome(
     outcome: ReadmePocStatusV2,
     evidence_refs: list[str],
     prompt_hash: str | None = None,
+    fact_acceptance_contract_hash: str | None = None,
+    fact_acceptance_component_hashes: dict[str, str] | None = None,
 ) -> ReadmePocLifecycleStateV2:
     """Persist a ready or narrowly blocked fact result through the legal boundary."""
     if outcome not in {
@@ -659,6 +777,8 @@ def record_product_facts_outcome(
     if (
         lifecycle.facts_hash == facts_hash
         and lifecycle.prompt_hash == prompt_hash
+        and lifecycle.fact_acceptance_contract_hash == fact_acceptance_contract_hash
+        and lifecycle.fact_acceptance_component_hashes == (fact_acceptance_component_hashes or {})
         and lifecycle.status == outcome
     ):
         return lifecycle
@@ -694,4 +814,6 @@ def record_product_facts_outcome(
         source_revision=source_revision,
         facts_hash=facts_hash,
         prompt_hash=prompt_hash,
+        fact_acceptance_contract_hash=fact_acceptance_contract_hash,
+        fact_acceptance_component_hashes=fact_acceptance_component_hashes,
     )

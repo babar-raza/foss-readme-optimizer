@@ -104,6 +104,8 @@ def write_local_poc_product_facts(
     lifecycle_status: str = "FACTS_READY",
     prompt_hash: str | None = None,
     local_verification_contract_hash: str,
+    fact_acceptance_contract_hash: str,
+    fact_acceptance_component_hashes: dict[str, str],
 ) -> Path:
     """Persist the fact graph and its inspectable provenance projections."""
     org, repo = snapshot.org_repo.split("/", maxsplit=1)
@@ -153,6 +155,9 @@ def write_local_poc_product_facts(
         and prior_manifest.get("prompt_hash") == prompt_hash
         and prior_manifest.get("local_verification_contract_hash")
         == local_verification_contract_hash
+        and prior_manifest.get("fact_acceptance_contract_hash") == fact_acceptance_contract_hash
+        and prior_manifest.get("fact_acceptance_component_hashes")
+        == fact_acceptance_component_hashes
     ):
         refresh_sha256sums(bundle_dir)
         return bundle_dir
@@ -167,12 +172,82 @@ def write_local_poc_product_facts(
             "resolution_source": resolution_source,
             "prompt_hash": prompt_hash,
             "local_verification_contract_hash": local_verification_contract_hash,
+            "fact_acceptance_contract_hash": fact_acceptance_contract_hash,
+            "fact_acceptance_component_hashes": fact_acceptance_component_hashes,
             "complete": False,
             "completed_stages": ["SNAPSHOTTED", "PROFILED", lifecycle_status],
         },
     )
     refresh_sha256sums(bundle_dir)
     return bundle_dir
+
+
+def bind_local_poc_fact_acceptance(
+    bundle_dir: Path,
+    *,
+    source_revision: str,
+    contract_hash: str,
+    component_hashes: dict[str, str],
+) -> None:
+    """Attach the current contract to a still-valid later-stage manifest."""
+
+    manifest = _existing_manifest(bundle_dir, source_revision)
+    if not manifest:
+        raise RuntimeError(
+            f"cannot bind fact acceptance without a matching manifest at {bundle_dir}"
+        )
+    if (
+        manifest.get("fact_acceptance_contract_hash") == contract_hash
+        and manifest.get("fact_acceptance_component_hashes") == component_hashes
+    ):
+        return
+    write_redacted_json(
+        bundle_dir / "manifest.json",
+        {
+            **manifest,
+            "fact_acceptance_contract_hash": contract_hash,
+            "fact_acceptance_component_hashes": component_hashes,
+        },
+    )
+    refresh_sha256sums(bundle_dir)
+
+
+def reclassify_local_poc_fact_acceptance(
+    bundle_dir: Path,
+    *,
+    source_revision: str,
+    lifecycle_status: str,
+    contract_hash: str,
+    component_hashes: dict[str, str],
+) -> None:
+    """Reopen a stale later manifest at its current blocked fact boundary."""
+
+    manifest = _existing_manifest(bundle_dir, source_revision)
+    if not manifest:
+        raise RuntimeError(
+            f"cannot reclassify fact acceptance without a matching manifest at {bundle_dir}"
+        )
+    invalidated_keys = {
+        "assessment_hash",
+        "presentation_plan_hash",
+        "agentic_composition_plan_hash",
+        "candidate_hash",
+        "reviewer_standard_hash",
+        "complete",
+    }
+    retained = {key: value for key, value in manifest.items() if key not in invalidated_keys}
+    write_redacted_json(
+        bundle_dir / "manifest.json",
+        {
+            **retained,
+            "lifecycle_status": lifecycle_status,
+            "fact_acceptance_contract_hash": contract_hash,
+            "fact_acceptance_component_hashes": component_hashes,
+            "complete": False,
+            "completed_stages": ["SNAPSHOTTED", "PROFILED", lifecycle_status],
+        },
+    )
+    refresh_sha256sums(bundle_dir)
 
 
 def _canonical_hash(value: dict) -> str:

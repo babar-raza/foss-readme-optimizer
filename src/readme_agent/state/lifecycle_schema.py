@@ -247,6 +247,22 @@ class ReadmePocTransitionV2(BaseModel):
     source_revision: str | None = None
 
 
+class FactAcceptanceBindingV1(BaseModel):
+    """Append-only record of one fact graph evaluated under one exact contract."""
+
+    schema_version: Literal[1] = 1
+    contract_hash: str
+    component_hashes: dict[str, str]
+    outcome: Literal[
+        "FACTS_READY",
+        "BLOCKED_FACT_CONFLICT",
+        "BLOCKED_MISSING_EVIDENCE",
+    ]
+    observed_by: str
+    reason: str
+    occurred_at: str = Field(default_factory=utc_now_iso)
+
+
 class ReadmePocLifecycleStateV2(BaseModel):
     """Current per-repository local-POC lifecycle in the existing state slot."""
 
@@ -260,6 +276,9 @@ class ReadmePocLifecycleStateV2(BaseModel):
     presentation_plan_hash: str | None = None
     candidate_hash: str | None = None
     prompt_hash: str | None = None
+    fact_acceptance_contract_hash: str | None = None
+    fact_acceptance_component_hashes: dict[str, str] = Field(default_factory=dict)
+    fact_acceptance_history: list[FactAcceptanceBindingV1] = Field(default_factory=list)
     reviewer_standard_hash: str | None = None
     protected_content_fingerprint: str | None = None
     repair_attempts_for_revision: int = Field(default=0, ge=0, le=2)

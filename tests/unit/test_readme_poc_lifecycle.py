@@ -27,6 +27,7 @@ from readme_agent.state.lifecycle_schema import (
 )
 from readme_agent.state.migrations import ensure_run_state_v2, load_run_state_json
 from readme_agent.state.readme_poc_lifecycle import (
+    bind_fact_acceptance_contract,
     legal_next_readme_poc_statuses,
     record_deterministic_validation_failure,
     record_product_facts_outcome,
@@ -562,6 +563,62 @@ class TestLegalNextIntrospection:
 
 
 class TestProductFactsBoundary:
+    def test_current_contract_can_bind_without_reopening_a_valid_later_stage(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        for status in ("SNAPSHOTTED", "PROFILED", "FACTS_COLLECTING"):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="test",
+                reason="advance",
+                source_revision="abc123",
+            )
+        transition_readme_poc_status(
+            backend,
+            org_repo,
+            "FACTS_READY",
+            observed_by="test",
+            reason="legacy facts",
+            source_revision="abc123",
+            facts_hash="facts-a",
+        )
+        transition_readme_poc_status(
+            backend,
+            org_repo,
+            "README_ASSESSED",
+            observed_by="test",
+            reason="later stage remains valid",
+            source_revision="abc123",
+        )
+        history_count = len(backend.load(org_repo).readme_poc_lifecycle.history)
+
+        bound = bind_fact_acceptance_contract(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            facts_hash="facts-a",
+            contract_hash="c" * 64,
+            component_hashes={"evidence_polarity": "p" * 64},
+            outcome="FACTS_READY",
+        )
+        repeated = bind_fact_acceptance_contract(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            facts_hash="facts-a",
+            contract_hash="c" * 64,
+            component_hashes={"evidence_polarity": "p" * 64},
+            outcome="FACTS_READY",
+        )
+
+        assert bound.status == "README_ASSESSED"
+        assert repeated.status == "README_ASSESSED"
+        assert len(repeated.history) == history_count
+        assert len(repeated.fact_acceptance_history) == 1
+        assert repeated.fact_acceptance_contract_hash == "c" * 64
+
     def test_records_collecting_then_ready_and_is_idempotent(self):
         backend = FakeReadmePocBackend()
         org_repo = "org/repo"

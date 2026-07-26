@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -95,6 +96,12 @@ def _facts(*, draftable_missing: bool = False, conflict_field: str | None = None
         location=f"repository://{ORG_REPO}",
         source_revision=REVISION,
     )
+    renderable_values = {
+        "product.audience": ["Developers using Java"],
+        "product.problems_solved": ["Process widget files"],
+        "product.capabilities": ["Create and inspect widgets"],
+        "product.formats": ["WGT"],
+    }
     records = []
     for field in REQUIRED_PRODUCT_FIELDS:
         missing = draftable_missing and field in README_DRAFTABLE_PRODUCT_FIELDS
@@ -102,7 +109,7 @@ def _facts(*, draftable_missing: bool = False, conflict_field: str | None = None
             FactRecordV2(
                 fact_id=descriptive_fact_id(field, "fixture"),
                 field=field,
-                value=None if missing else {"field": field},
+                value=None if missing else renderable_values.get(field, {"field": field}),
                 source=source,
                 verification_state=(
                     "conflicting"
@@ -137,6 +144,71 @@ def _ready_backend(snapshot: RepositorySnapshotV1) -> _Backend:
         evidence_refs=["profile"],
     )
     return backend
+
+
+def _facts_with_missing(field_name: str) -> ProductFactsV2:
+    facts = _facts()
+    records = [
+        (
+            fact.model_copy(
+                update={
+                    "value": None,
+                    "verification_state": "missing",
+                    "confidence": 0.0,
+                }
+            )
+            if fact.field == field_name
+            else fact
+        )
+        for fact in facts.facts
+    ]
+    return facts.model_copy(update={"facts": records})
+
+
+def _advance_to_no_op(backend: _Backend) -> None:
+    for status in (
+        "README_ASSESSED",
+        "PLAN_READY",
+        "CANDIDATE_GENERATED",
+        "DETERMINISTIC_VALIDATED",
+        "AGENT_REVIEWING",
+        "AGENT_APPROVED",
+        "NO_OP_PROVEN",
+    ):
+        transition_readme_poc_status(
+            backend,
+            ORG_REPO,
+            status,
+            observed_by="legacy-fixture",
+            reason="simulate a terminal bundle written before contract binding",
+            source_revision=REVISION,
+        )
+
+
+def _remove_fact_acceptance_binding(backend: _Backend, bundle_dir: Path) -> None:
+    state = backend.load(ORG_REPO)
+    assert state is not None
+    lifecycle = state.readme_poc_lifecycle
+    assert lifecycle is not None
+    backend.states[ORG_REPO] = state.model_copy(
+        update={
+            "readme_poc_lifecycle": lifecycle.model_copy(
+                update={
+                    "fact_acceptance_contract_hash": None,
+                    "fact_acceptance_component_hashes": {},
+                    "fact_acceptance_history": [],
+                }
+            )
+        }
+    )
+    manifest_path = bundle_dir / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest.pop("fact_acceptance_contract_hash", None)
+    manifest.pop("fact_acceptance_component_hashes", None)
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
 
 
 @pytest.mark.parametrize(
@@ -323,6 +395,91 @@ def test_later_lifecycle_stage_reuses_the_same_durable_fact_graph(tmp_path, monk
     assert cached.facts == facts
 
 
+def test_legacy_valid_terminal_graph_binds_current_contract_without_reopening(
+    tmp_path, monkeypatch
+):
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    facts = _facts()
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: {"product_facts_v2": facts},
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(ecosystem="java"),
+    )
+    prepared = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    _advance_to_no_op(backend)
+    _remove_fact_acceptance_binding(backend, Path(prepared.bundle_dir))
+    status_history_count = len(backend.load(ORG_REPO).readme_poc_lifecycle.history)
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: pytest.fail("valid legacy facts must be rebound without recollection"),
+    )
+
+    cached = product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION)
+
+    assert cached is not None
+    lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert lifecycle.status == "NO_OP_PROVEN"
+    assert len(lifecycle.history) == status_history_count
+    assert len(lifecycle.fact_acceptance_history) == 1
+    assert lifecycle.fact_acceptance_contract_hash is not None
+    manifest = json.loads((Path(prepared.bundle_dir) / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["lifecycle_status"] == "FACTS_READY"
+    assert manifest["fact_acceptance_contract_hash"] == lifecycle.fact_acceptance_contract_hash
+
+
+def test_legacy_false_terminal_graph_reopens_at_current_blocked_fact_boundary(
+    tmp_path, monkeypatch
+):
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    facts = _facts_with_missing("installation.verified_acquisition")
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: {"product_facts_v2": facts},
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(ecosystem="python"),
+    )
+    prepared = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    _advance_to_no_op(backend)
+    _remove_fact_acceptance_binding(backend, Path(prepared.bundle_dir))
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: pytest.fail("legacy migration must classify its persisted fact graph"),
+    )
+
+    cached = product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION)
+
+    assert cached is not None
+    lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert lifecycle.status == "BLOCKED_MISSING_EVIDENCE"
+    assert [item.to_status for item in lifecycle.history[-2:]] == [
+        "FACTS_COLLECTING",
+        "BLOCKED_MISSING_EVIDENCE",
+    ]
+    assert lifecycle.assessment_hash is None
+    assert lifecycle.presentation_plan_hash is None
+    assert lifecycle.candidate_hash is None
+    assert len(lifecycle.fact_acceptance_history) == 1
+    manifest = json.loads((Path(prepared.bundle_dir) / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["lifecycle_status"] == "BLOCKED_MISSING_EVIDENCE"
+    assert manifest["complete"] is False
+    assert "candidate_hash" not in manifest
+
+
 def test_missing_durable_fact_evidence_fails_closed(tmp_path, monkeypatch):
     snapshot = _snapshot(tmp_path)
     backend = _ready_backend(snapshot)
@@ -401,3 +558,48 @@ def test_changed_fact_input_contract_invalidates_only_the_cached_agent_draft(tmp
     assert prompt_refreshed.resolution_source == "agent_draft"
     assert len(calls) == 3
     assert backend.load(ORG_REPO).readme_poc_lifecycle.prompt_hash == "2" * 64
+
+
+def test_changed_evidence_polarity_contract_recollects_before_reaccepting(tmp_path, monkeypatch):
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    facts = _facts()
+    collection_calls = []
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+
+    def collect(org_repo):
+        collection_calls.append(org_repo)
+        return {"product_facts_v2": facts}
+
+    monkeypatch.setattr(product_truth, "collect_product_facts", collect)
+    monkeypatch.setattr(
+        product_truth,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(ecosystem="java"),
+    )
+    original_contract = product_truth.current_fact_acceptance_contract()
+    product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    changed_contract = original_contract.model_copy(
+        update={
+            "component_hashes": {
+                **original_contract.component_hashes,
+                "evidence_polarity": "0" * 64,
+            }
+        }
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "current_fact_acceptance_contract",
+        lambda: changed_contract,
+    )
+
+    refreshed = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert collection_calls == [ORG_REPO, ORG_REPO]
+    assert refreshed.lifecycle_status == "FACTS_READY"
+    assert [item.to_status for item in lifecycle.history[-2:]] == [
+        "FACTS_COLLECTING",
+        "FACTS_READY",
+    ]
+    assert lifecycle.fact_acceptance_contract_hash == changed_contract.canonical_hash()
