@@ -7,7 +7,7 @@
 | Field | Value |
 |---|---|
 | Repository | `D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer` |
-| Branch / snapshot HEAD | `main` / `b5fa7eb65900f34554ad141e59c5777a3b663766` |
+| Branch / snapshot HEAD | `main` / `6ec3795468a64d35866ee1b90c9200767ca0ff1b` |
 | Tree | Clean before this in-place handover refresh; runtime artifacts remain under ignored `runs/`. |
 | Mission | `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` |
 | Durable state | Version 132; graph SHA-256 `b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f` |
@@ -56,7 +56,8 @@ Non-goals and hard limits: no auto-merge, readying a draft, force push, target d
 - `aspose-3d-foss/Aspose.3D-FOSS-for-Java` reached `NO_OP_PROVEN` in
   `runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Java/8de5f467e93138b3605acdc46ca40e93f0364ee8/manifest.json`.
 - Commits `42ef68e`, `386562d`, `8cc3906`, `9d4c79e`, `3292e9b`, `f324e67`, `6bdd765`,
-  `89b66d8`, `136626b`, `5457d5f`, `052901c`, and `b5fa7eb` repair the live Gate-A truth
+  `89b66d8`, `136626b`, `5457d5f`, `052901c`, `b5fa7eb`, `7e1d119`, `ade9929`, and
+  `6ec3795` repair the live Gate-A truth
   boundaries: multi-root .NET verification, fail-closed evidence contracts, structured
   repository-bound drafting, malformed-response recovery, truthful repair failure transitions,
   larger/longer inference, and compiler-grounded example repair.
@@ -69,8 +70,10 @@ Non-goals and hard limits: no auto-merge, readying a draft, force push, target d
 
 - Gate A remains incomplete. Java is `NO_OP_PROVEN`; .NET was correctly
   `BLOCKED_MISSING_EVIDENCE` because its drafted example did not compile. The compiler-diagnostic
-  repair and cache invalidation are committed but still need live confirmation. No complete
-  `portfolio-summary.json` exists yet.
+  repair is proven to reach the next model turn, and the v5 prompt now requires a six-statement
+  self-contained example. Python exposed a separate 8,000-token `finish_reason='length'`; the v5
+  contract now caps result cardinality and code size. Both v5 live reruns remain pending. No
+  complete `portfolio-summary.json` exists yet.
 
 ### PARTIAL OR CONTRADICTED
 
@@ -104,8 +107,8 @@ The supervisor must select the highest-priority dependency-ready task. The inten
 
 The current command is
 `.venv/Scripts/readme-agent supervise --registry data/products.json --execution-profile local_poc`.
-At snapshot time its resume-6 process tree was active and logging to
-`runs/level8-local-full-registry-gate-a-live-resume-6/`. Do not launch a duplicate while that
+At snapshot time its resume-9 process tree was active and logging to
+`runs/level8-local-full-registry-gate-a-live-resume-9/`. Do not launch a duplicate while that
 worker is alive. The first pending proof is that the new compiler-grounded repair regenerates and
 verifies the .NET example; then continue every remaining registry entry and run unchanged sweeps.
 Gate A closes only when `approved == len(data/products.json)`, `system_failed == 0`,
