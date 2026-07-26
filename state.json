@@ -259,18 +259,18 @@
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "b0cbd32b354971846f864e329cd5df5bf968e36c6e98b378fbe5474c42a5082e",
+      "accepted_facts_hash": "a3ec2f7102ebcf9f196185d35bd72dd21c5b8a3c90805acb4966f9039983c667",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": "no live resolver registered for ecosystem 'typescript'",
+        "evidence": "npm: aspose-3d-foss NOT FOUND (404)",
         "handoff_findings": [
           {
             "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-22T13:50:28.610492+00:00",
+            "detected_at": "2026-07-26T01:33:37.647277+00:00",
             "evidence": {
-              "detail": "no live resolver registered for ecosystem 'typescript'"
+              "detail": "npm: aspose-3d-foss NOT FOUND (404)"
             },
             "surface": "packages"
           }
@@ -283,7 +283,7 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T13:50:28.611269+00:00",
+      "last_run_timestamp": "2026-07-26T01:33:37.648083+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
@@ -523,7 +523,7 @@
     "updated_at": "2026-07-26T01:32:43.429864+00:00"
   },
   "schema_version": 2,
-  "state_version": 36,
+  "state_version": 37,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "64a67a1e490604edf99ba6ee3ddd0f444e2e6eed27ab83face4a8b9b42412f5f",
