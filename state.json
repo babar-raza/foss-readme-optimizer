@@ -54,6 +54,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-004030-cd83:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "4424d599adbee1a088fcebedc732a935be90443f264ae5c57a9f61ab597d2419": {
+      "action": "check_install_path",
+      "attempt": 1,
+      "checkpoint_id": "4424d599adbee1a088fcebedc732a935be90443f264ae5c57a9f61ab597d2419",
+      "completed_at": "2026-07-26T00:47:36.636432+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8848874b8acbf6071559280c378cbc2f13c44b035cfdfc34574996b5d7bbf133",
+      "output_hash": "b3b2d453e0aa1e73fb3398dc850909bd22d13f58a7e714291a97a4aa4eb89b45",
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-004030-cd83",
+      "schema_version": 1,
+      "stage": "task_completed",
+      "started_at": "2026-07-26T00:47:36.636430+00:00",
+      "task_id": "43b0e4e7b9f647848c919bde6debb659",
+      "trigger_dedup_key": "operator:20260726-004030-cd83:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "50eb3e399572154c2f1fa1102694c83e75f58b09d1308394bc2453d8dc302ba3": {
       "action": "inspect_repository",
       "attempt": 1,
@@ -2499,7 +2516,7 @@
     "updated_at": "2026-07-26T00:45:05.337623+00:00"
   },
   "schema_version": 2,
-  "state_version": 95,
+  "state_version": 96,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "21d27014158683ec7540d1ea1b964158e04aeb7aa2f789ee6c94f1c88076cda7",
@@ -2542,11 +2559,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "71c428d7865dc8d826e6263ef2e4cbd1bb73b24c7641245de4019b7a7bc99db1",
+      "last_checkpoint_id": "4424d599adbee1a088fcebedc732a935be90443f264ae5c57a9f61ab597d2419",
       "lease_expires_at": "2026-07-26T00:55:47.109085+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T00:47:30.616014+00:00"
+      "updated_at": "2026-07-26T00:47:36.636432+00:00"
     }
   },
   "trigger_records": {},
