@@ -885,54 +885,43 @@
     "updated_at": "2026-07-26T08:10:25.755892+00:00"
   },
   "schema_version": 2,
-  "state_version": 122,
+  "state_version": 123,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "e601b5948d773ff382c90ba5b085b8268af8d035f3f1693077a10a79f2d55463",
+    "control_plane_fingerprint": "892fd614e5a03a8d301271ee4fc0318d6261aaaeac9e94432b9d23a6c5ec7268",
     "domain_coverage_complete": false,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260726-080733-8fc1",
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
-    "last_run_id": "20260726-070817-2215",
-    "last_run_timestamp": "2026-07-26T07:08:17.188065+00:00",
+    "last_run_id": "20260726-081155-2baa",
+    "last_run_timestamp": "2026-07-26T08:11:55.764778+00:00",
     "last_status": "BLOCKED",
     "repair_history": [],
     "surface_freshness": {
       "github_generated_surface_audit": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-07-26T07:08:17.188027+00:00",
+        "last_checked_at": "2026-07-26T08:11:55.764736+00:00",
         "observed_hash": "438be16338a64e9a1dd3835029928201f32cbd92b89ab4bed550fce7730e5e33",
         "surface_id": "github_generated_surface_audit",
         "ttl_seconds": 86400
       },
       "metadata_presentation": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-07-26T07:08:17.188027+00:00",
+        "last_checked_at": "2026-07-26T08:11:55.764736+00:00",
         "observed_hash": "22af6a6c9ae9d8cbf17dfeadebfbe31ebeac886deca41d582f6c85ad624368ca",
         "surface_id": "metadata_presentation",
         "ttl_seconds": 86400
       },
       "package_release_audit": {
         "authoritative_source": "registry_api",
-        "last_checked_at": "2026-07-26T07:08:17.188027+00:00",
+        "last_checked_at": "2026-07-26T08:11:55.764736+00:00",
         "observed_hash": "bf5bcbfa4b4cce5e4f8dc6d746e3ee7fb1124a411d0af5c99f8892684f18efd3",
         "surface_id": "package_release_audit",
         "ttl_seconds": 21600
       },
       "visual_preparation": {
         "authoritative_source": "local_filesystem",
-        "last_checked_at": "2026-07-26T07:08:17.188027+00:00",
+        "last_checked_at": "2026-07-26T08:11:55.764736+00:00",
         "observed_hash": "0af81d48035b623d1b72c1f5a0fde0db1db29341e436c1a54fe2bc515d422144",
         "surface_id": "visual_preparation",
         "ttl_seconds": 86400
