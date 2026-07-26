@@ -1475,6 +1475,15 @@
         "reason": "verdict=BLOCKED_MISSING_EVIDENCE (blocked, not repair-eligible), review pass 1 (max repair attempts 2): The candidate README contains a concrete, externally checkable product claim in the 'At a glance' section: 'FBX parser has bugs with nested scope parsing'. While the product facts confirm FBX parser bugs exist (product.limitations:repository-evidence), they do not specify the bug is about 'nested scope parsing' \u2014 the fact only states 'FBX parser has bugs' without that level of technical detail. This specific technical claim about the nature of the bug is not supported by any supplied fact, making it unsupported. Since this is a concrete, externally checkable assertion absent from the facts, it triggers BLOCKED_MISSING_EVIDENCE, not REJECT_REPAIRABLE, even though removing or generalizing the phrase would be a bounded edit.",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T05:33:33.120847+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "presentation_plan_hash": "673df7c3f37d420243f0b8693cf7cf01195429debc9ff9182c5139a99d92315e",
@@ -1484,11 +1493,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-07-26T04:40:12.694101+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-26T05:33:33.120847+00:00"
   },
   "schema_version": 2,
-  "state_version": 158,
+  "state_version": 159,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b2c4be837c02c84c08f5e17f181df33cf13ce07f6dd046c180b1aca0f29947dd",
