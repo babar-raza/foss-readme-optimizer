@@ -432,6 +432,19 @@
         "reason": "independent review restarted after deterministic validation",
         "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "product_specificity",
+          "developer_usefulness",
+          "readability"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T01:58:00.755761+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 2 (max repair attempts 2): The candidate README contains a new 'At a glance' section that repeats the same phrase three times: 'create, read, and write ECMA-376 Office Open XML spreadsheets'. This is redundant and not specific to this product \u2014 it's generic boilerplate that fails the 'product specificity' and 'developer usefulness' criteria. The 'At a glance' section should use distinct, fact-backed bullet points drawn from the verified facts (audience, problems solved, capabilities) without repetition. While all concrete product claims in the rest of the README are fact-supported and match the ProductFacts, this redundancy and lack of specificity make the candidate not ready to ship as-is. The issue is in the 'At a glance' section only; all other sections are factually sound and should be preserved.",
+        "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "presentation_plan_hash": "bd3d5bd99eb55677b26951b9e36d5e95985377cf73ba672426ef688ae4d53d5b",
@@ -441,11 +454,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "adb60864e60953ed7f4eaa0f51718ca172dac01f",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T01:57:45.563182+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-07-26T01:58:00.755761+00:00"
   },
   "schema_version": 2,
-  "state_version": 30,
+  "state_version": 31,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
