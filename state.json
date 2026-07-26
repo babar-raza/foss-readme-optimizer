@@ -283,69 +283,69 @@
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "eb8e940dea15abe457a6bda22ba7a1d613236ff476dbce4552b460aa8fb997f8",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "97b3a2008527f65bf179b3c831510ca4b147570b99c0fdac02bde8c2b64be4e7",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in .NET') using a concrete verb ('working' implies create, read, write, convert).",
+            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in .NET') using a concrete verb ('working' is acceptable; 'supporting common formats...' adds specificity).",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph specifies the ecosystem (.NET), formats (OBJ, STL, FBX, glTF), and common tasks (working with 3D scenes/models), and the 'About' section reinforces the target user (developers building 3D apps at no cost).",
+            "note": "The opening paragraph explicitly names the ecosystem (.NET), the formats handled (OBJ, STL, FBX, glTF), and the core task (working with 3D scenes and models), satisfying audience fit.",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The MIT License is prominently displayed in the first paragraph and linked to a LICENSE file, satisfying the highest-priority trust signal; badges are absent but not required per standard.",
+            "note": "The MIT License is prominently displayed in the first paragraph and confirmed in the License section, and GitHub-recognized (LICENSE file present); badges are not present but not required per standard (PDFBox baseline).",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command names real package coordinates (`Aspose.3D.FOSS`) and uses the correct .NET CLI syntax; though no registry badge is present, the command itself is valid and matches the ecosystem convention.",
+            "note": "The install command names real package coordinates (`Aspose.3D.FOSS`) and uses the correct .NET CLI syntax; assuming this package exists on NuGet (as implied by context), it satisfies the dimension.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, the 'Quick Start' section provides a runnable C# code block that creates a scene and saves it to OBJ, satisfying the requirement for at least one runnable example.",
+            "note": "Beyond the install snippet, the 'Quick Start' section provides a runnable, self-contained C# example that creates a scene and saves it to OBJ.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent Markdown levels (`##` for main sections), and the order follows the standard: product description \u2192 audience/usage \u2192 status/limitations \u2192 install \u2192 examples \u2192 resources \u2192 license \u2192 contributing.",
+            "note": "Headers use consistent Markdown levels (`##` for main sections), and the order follows the standard: product description \u2192 audience/usage context \u2192 status/limitations \u2192 install \u2192 example \u2192 resources \u2192 license \u2192 commercial mention.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is acceptable per the standard for a library whose interface is purely API-based; the absence does not violate the rule that visuals are only required when they improve understanding of input/output/workflow.",
+            "note": "No visuals are present, and for a 3D API library whose value is programmatic (not visual/interactive), this is acceptable per the standard's rule: visuals are warranted only when they improve understanding of workflow.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README lacks GitHub-recognized community files: no LICENSE file is referenced in the repo header (though mentioned in text), and there is no visible CONTRIBUTING, CODE_OF_CONDUCT, or SECURITY file listed or linked, so GitHub's quick-link row would show only README.",
+            "note": "The README mentions contributing but lacks GitHub-recognized community files: no visible CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are referenced or linked, and GitHub would not show the full quick-link row without them.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and the 'Status' section honestly reflects the work-in-progress nature \u2014 consistent with the standard's requirement that maintenance signals be structural (GitHub-generated), not prose.",
+            "note": "The README does not claim maintenance status, and the standard requires only that activity be visible via GitHub (class E), which is outside the README text \u2014 no failure here.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial edition is mentioned exactly once in the first paragraph (as a product home link) and again in the 'About' and 'Limitations' sections using factual, capability-extension language \u2014 never as a banner, never repeated, and never with promotional adjectives.",
+            "note": "The commercial edition is mentioned exactly once, in factual/capability-extension language, immediately after the opening product description (in the first blockquote), and again in the 'Limitations' section \u2014 but the second mention is a direct, non-repetitive callout to upgrade for missing features, which the standard permits as part of the same natural context.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole failure being contribution readiness (missing GitHub-recognized community files beyond LICENSE). All other criteria\u2014including product clarity, installation validity, example sufficiency, and restrained commercial framing\u2014are well met per the standard."
+        "overall_summary": "The README satisfies 9 of 10 dimensions; the main gap is in contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files), which prevents GitHub from showing the full community-file quick-link row, though the LICENSE is present and recognized."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T13:44:21.068922+00:00",
+      "last_run_timestamp": "2026-07-26T00:57:09.750417+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -734,7 +734,7 @@
     "updated_at": "2026-07-26T00:56:16.901590+00:00"
   },
   "schema_version": 2,
-  "state_version": 62,
+  "state_version": 63,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4ae54a45e624bd3c36b495cec8479fed6d4bff92315e9d6b644d3f2da468d4af",
