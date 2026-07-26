@@ -776,7 +776,7 @@
     },
     "readme_presentation": {
       "accepted_facts_hash": "1fbcfdeb366ec3365cd8397eb71e22535dc59e5377c6d4be23f607189576f7c5",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -948,9 +948,9 @@
           "source_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
           "tool_schema_sha256": "65597794ac772d0d8be4617a27a8b7894f1ee65eec3149ee345760822a8ff6d8"
         },
-        "agentic_composition_reused": false,
+        "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-004420-4982",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-013922-e4a9",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -993,7 +993,7 @@
           "final_review": {
             "failed_criteria": [],
             "preserve": [],
-            "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFactsV2: audience, problems solved, capabilities, formats, platform, installation coordinates, verified acquisition, minimal example, license, release state, compatibility, and limitations are all supported. The README preserves valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The README establishes the product as useful, credible, and clearly explained before any commercial links. There are no generic-template symptoms, overpromotion, or unsupported claims.",
+            "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, compatibility, installation coordinates, verified acquisition, minimal example, license, release state, and limitations. The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections required by the presentation plan. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The README establishes the product as useful, credible, and clearly explained before any commercial links. There are no generic-template symptoms, overpromotion, or unsupported claims.",
             "required_repair": "",
             "sections_affected": [],
             "verdict": "ACCEPT"
@@ -1019,7 +1019,7 @@
                   "verified_example_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260726-004420-4982",
+                "nonce": "20260726-013922-e4a9",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -1027,17 +1027,17 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "d3487249bd7e98a40978800eaccea38d1021139446007fde049bdb77dbe87088",
+                "token": "7ae52f32ea8d2596eec8b7cac55cb7e1220ad48019d18e5fa1016c8704281bb4",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-004420-4982"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\20260726-013922-e4a9"
               ],
               "repair_attempt": 0,
               "review": {
                 "failed_criteria": [],
                 "preserve": [],
-                "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFactsV2: audience, problems solved, capabilities, formats, platform, installation coordinates, verified acquisition, minimal example, license, release state, compatibility, and limitations are all supported. The README preserves valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The README establishes the product as useful, credible, and clearly explained before any commercial links. There are no generic-template symptoms, overpromotion, or unsupported claims.",
+                "reasoning": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: audience, problems solved, capabilities, formats, compatibility, installation coordinates, verified acquisition, minimal example, license, release state, and limitations. The README preserves all valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections required by the presentation plan. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The README establishes the product as useful, credible, and clearly explained before any commercial links. There are no generic-template symptoms, overpromotion, or unsupported claims.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -1046,15 +1046,8 @@
             }
           ]
         },
-        "llm_called": true,
-        "llm_calls": [
-          {
-            "input_sha256": "db9fa898b68390b1247e7c88aafd15fd8c54b4e27a4ec5de39a8d88100f63c45",
-            "job": "plan_readme_composition",
-            "model": "qwen3-next",
-            "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6"
-          }
-        ],
+        "llm_called": false,
+        "llm_calls": [],
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
@@ -2484,7 +2477,7 @@
             "verified_example_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260726-004420-4982",
+          "nonce": "20260726-013922-e4a9",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -2492,7 +2485,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "d3487249bd7e98a40978800eaccea38d1021139446007fde049bdb77dbe87088",
+          "token": "7ae52f32ea8d2596eec8b7cac55cb7e1220ad48019d18e5fa1016c8704281bb4",
           "verdict": "accept"
         },
         "written": false
@@ -2500,7 +2493,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T00:45:10.186824+00:00",
+      "last_run_timestamp": "2026-07-26T01:40:12.697333+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
@@ -2868,7 +2861,7 @@
     "updated_at": "2026-07-26T01:40:07.724622+00:00"
   },
   "schema_version": 2,
-  "state_version": 145,
+  "state_version": 146,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ab69f8376c988bab261a58d60f877d78ca06630bd9f062e894a4b106334b0be",
