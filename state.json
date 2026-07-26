@@ -2539,7 +2539,7 @@
     "updated_at": "2026-07-26T05:31:56.474307+00:00"
   },
   "schema_version": 2,
-  "state_version": 325,
+  "state_version": 326,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b990b6271b33bb76ec8395fd83fe98a115c00beb7eb93c52761ed2f8ff27b498",
@@ -2688,13 +2688,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:StateBackendError: README-POC repair attempts exhausted for 'aspose-3d-foss/Aspose.3D-FOSS-for-.NET' at source revision 6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
       "last_checkpoint_id": "14806b76ff69db1c107695081f9dbfdd155db539248db8734642bef421d9d9d1",
-      "lease_expires_at": "2026-07-26T05:41:14.848466+00:00",
+      "lease_expires_at": null,
       "recovery_count": 1,
-      "status": "processing",
-      "updated_at": "2026-07-26T05:33:37.137086+00:00"
+      "status": "blocked",
+      "updated_at": "2026-07-26T05:33:43.482035+00:00"
     }
   },
   "trigger_records": {},
