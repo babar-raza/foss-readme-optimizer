@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "implementation_commit": "44580f495fd005e8c5ea17103ff872bd41884882",
+  "tree_precondition_start": "clean",
+  "tree_precondition_end": "clean",
+  "official_command": ".venv/Scripts/python scripts/governance/run_official_checks.py",
+  "official_exit_code": 0,
+  "results": {
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "mypy_src": "passed",
+    "pytest_non_live": {
+      "passed": 1755,
+      "deselected": 24,
+      "seconds": 872.56
+    },
+    "plan_structure": "passed_with_55_historical_advisory_warnings",
+    "verifier_wiring": "passed",
+    "requirement_taskcard_coverage": "424_rows_current",
+    "semantic_traceability": "148_implemented_rows_checked_0_closure_findings",
+    "workflow_syntax": "actionlint_unavailable_nonblocking_skip"
+  },
+  "focused_command": ".venv/Scripts/python -m pytest -q tests/unit/test_mission_control.py tests/unit/test_git_state_backend_fetch.py tests/unit/test_state_schema.py tests/unit/test_portfolio.py",
+  "focused_result": "51 passed",
+  "live_status_command": ".venv/Scripts/readme-agent supervise --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml --mission-action status --mission-observer Codex",
+  "live_status_result": "state version 169; denominator 31; first boundary FACTS_READY; exact next task L8-TRUTH-01A-FACT-CONTRACT; graph drift false",
+  "independent_boundary": "The official deterministic verification runner and negative-control tests are separate from mission transition acceptance and reproduced the committed implementation."
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-MISSION-GOAL-GUARD",
+  "goal_ids": [
+    "GOAL-AUTONOMY"
+  ],
+  "core_contribution": {
+    "kind": "indispensable_safety",
+    "summary": "Add validated task goal/contribution bindings and a durable lifecycle scoreboard so selection, transition, and closure remain tied to the presentable full-portfolio deliverable."
+  },
+  "acceptance_checks_passed": [
+    "GOAL-CORE-PRESENTABLE-PORTFOLIO remains active until complete mission closure.",
+    "Every remaining task binds one or more subordinate goals and one visible-output, blocker-removal, safety, or acceptance-proof contribution.",
+    "Status reports dynamic denominator and every required local lifecycle count from durable repository state.",
+    "Closing a machinery task without its evidenced contribution or corresponding scoreboard/blocker delta fails closed.",
+    "Restart and graph migration preserve the same scoreboard and next eligible task."
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-mission-goal-guard/verification.json",
+    "plans/investigations/evidence/level8-mission-goal-guard/goal-binding-inventory.json",
+    "plans/investigations/evidence/level8-mission-goal-guard/durable-lifecycle-scoreboard.json",
+    "plans/investigations/evidence/level8-mission-goal-guard/runtime-artifact-comparison.json"
+  ],
+  "scoreboard_before_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "scoreboard_after_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

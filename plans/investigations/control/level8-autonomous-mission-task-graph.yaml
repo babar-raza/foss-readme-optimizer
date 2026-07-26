@@ -98,12 +98,12 @@ mission_authority:
   - goal_id: GOAL-AUTONOMY
     role: subordinate
     summary: Keep execution safe, restartable, isolated, idempotent, observable, and evidence-complete.
-    acceptance_boundary: Every accepted task and trigger resumes or reaches a truthful terminal state without
-      unauthorized effects.
+    acceptance_boundary: Every accepted task and trigger resumes or reaches a truthful terminal state
+      without unauthorized effects.
   - goal_id: GOAL-DELIVERY
     role: subordinate
-    summary: Carry accepted local deliverables through human review, workflow, staging, proposal, and hosted
-      runtime gates in order.
+    summary: Carry accepted local deliverables through human review, workflow, staging, proposal, and
+      hosted runtime gates in order.
     acceptance_boundary: Gate B, act, staging, Gate C, and GitHub App proof close without premature access
       requests or writes.
   - goal_id: GOAL-MATURITY
@@ -211,7 +211,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Extend the existing supervisor, without creating another controller, so it loads this graph, validates it, reconciles durable state, claims the next eligible task, and evaluates mission completion."
+    summary: Extend the existing supervisor, without creating another controller, so it loads this graph,
+      validates it, reconciles durable state, claims the next eligible task, and evaluates mission completion.
   requirement_ids: []
 - task_id: L8-MISSION-GOAL-GUARD
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -286,7 +287,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Add validated task goal/contribution bindings and a durable lifecycle scoreboard so selection, transition, and closure remain tied to the presentable full-portfolio deliverable."
+    summary: Add validated task goal/contribution bindings and a durable lifecycle scoreboard so selection,
+      transition, and closure remain tied to the presentable full-portfolio deliverable.
   requirement_ids:
   - L8-025
 - task_id: L8-REQUIREMENT-TO-TASKCARD-COVERAGE
@@ -348,7 +350,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Add stable, deduplicated taskcards for every mandatory non-deprecated requirement and record verified completion without reopening valid evidence."
+    summary: Add stable, deduplicated taskcards for every mandatory non-deprecated requirement and record
+      verified completion without reopening valid evidence.
   requirement_ids: []
 - task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -409,7 +412,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Preserve the valuable dirty candidate, establish the Level-8 Waves 0-8 sequence as the sole active program, and eliminate status and evidence overclaims after satisfying all edit gates."
+    summary: Preserve the valuable dirty candidate, establish the Level-8 Waves 0-8 sequence as the sole
+      active program, and eliminate status and evidence overclaims after satisfying all edit gates.
   requirement_ids:
   - GOV-001
   - GOV-002
@@ -503,7 +507,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Replace the contradictory active execution tracks with the approved Level-8 Waves 0-8 while preserving decision history and current evidence."
+    summary: Replace the contradictory active execution tracks with the approved Level-8 Waves 0-8 while
+      preserving decision history and current evidence.
   requirement_ids: []
   blocker_attempts:
   - blocker_id: LEVEL8-MASTER-SECTION-APPROVAL
@@ -610,7 +615,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Investigate every finding, add exact existing evidence when genuine, downgrade unsupported claims when permitted, and drive the semantic matrix to zero high-confidence findings."
+    summary: Investigate every finding, add exact existing evidence when genuine, downgrade unsupported
+      claims when permitted, and drive the semantic matrix to zero high-confidence findings.
   requirement_ids: []
 - task_id: L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -661,7 +667,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Inventory provenance and useful content, preserve it without legitimizing a conflicting plan, and record the exact gated migration/disposition."
+    summary: Inventory provenance and useful content, preserve it without legitimizing a conflicting plan,
+      and record the exact gated migration/disposition.
   requirement_ids: []
 - task_id: L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -709,7 +716,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Clone the current committed HEAD into runs, install only from the committed lock, and rerun all official checks without relying on the dirty source working tree."
+    summary: Clone the current committed HEAD into runs, install only from the committed lock, and rerun
+      all official checks without relying on the dirty source working tree.
   requirement_ids: []
 - task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -770,7 +778,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Decompose the runtime seams, route compatibility commands through the same capability, authorization, effect-ledger, and verifier spine, and make every required failure fail closed."
+    summary: Decompose the runtime seams, route compatibility commands through the same capability, authorization,
+      effect-ledger, and verifier spine, and make every required failure fail closed.
   requirement_ids:
   - CORE-001
   - CORE-002
@@ -913,7 +922,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Introduce versioned trigger, checkpoint, health, and manifest contracts and prove recovery at every lifecycle boundary under the Git-ref state backend."
+    summary: Introduce versioned trigger, checkpoint, health, and manifest contracts and prove recovery
+      at every lifecycle boundary under the Git-ref state backend.
   requirement_ids:
   - OPS-001
   - OPS-002
@@ -1022,7 +1032,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Implement ProductFactsV2, precedence/conflict behavior, claim citations, surface ownership, protected-content fingerprints, isolated example execution, and prompt-injection treatment."
+    summary: Implement ProductFactsV2, precedence/conflict behavior, claim citations, surface ownership,
+      protected-content fingerprints, isolated example execution, and prompt-injection treatment.
   requirement_ids:
   - OWN-001
   - OWN-002
@@ -1140,7 +1151,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Complete the safe repository-local Wave 3 foundation while leaving hosted execution, production effects, and Wave 3 closure dependent on the blocked Wave 2 production proof."
+    summary: Complete the safe repository-local Wave 3 foundation while leaving hosted execution, production
+      effects, and Wave 3 closure dependent on the blocked Wave 2 production proof.
   requirement_ids: []
 - task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1204,7 +1216,8 @@ taskcards:
   - GOAL-PROFILE
   core_contribution:
     kind: visible_deliverable
-    summary: "Implement RepositoryPresentationPlanV1, AST/source-span README patches, archetype-specific intelligence, metadata/community/visual proposals, ownership constraints, and governed golden evaluation."
+    summary: Implement RepositoryPresentationPlanV1, AST/source-span README patches, archetype-specific
+      intelligence, metadata/community/visual proposals, ownership constraints, and governed golden evaluation.
   requirement_ids:
   - RDM-001
   - RDM-002
@@ -1393,7 +1406,8 @@ taskcards:
   - GOAL-PROFILE
   core_contribution:
     kind: visible_deliverable
-    summary: "Complete the safe repository-local Wave 4 planning and patch foundation while leaving production proposals, model-route scoring, and full Wave 4 closure dependent on the blocked production chain."
+    summary: Complete the safe repository-local Wave 4 planning and patch foundation while leaving production
+      proposals, model-route scoring, and full Wave 4 closure dependent on the blocked production chain.
   requirement_ids: []
 - task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1488,7 +1502,9 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: visible_deliverable
-    summary: "Make direct local, complete current-workflow act, and isolated staging execution pass in that order against one canonical runtime before any production credential or production-pilot work resumes."
+    summary: Make direct local, complete current-workflow act, and isolated staging execution pass in
+      that order against one canonical runtime before any production credential or production-pilot work
+      resumes.
   requirement_ids:
   - L8-014
 - task_id: L8-PREPRODUCTION-TRUTHFUL-BASELINE
@@ -1550,7 +1566,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: visible_deliverable
-    summary: "Finish deterministic finding, proposal, remaining-work, and stop classification and restore every official local check without weakening any safety boundary."
+    summary: Finish deterministic finding, proposal, remaining-work, and stop classification and restore
+      every official local check without weakening any safety boundary.
   requirement_ids: []
 - task_id: L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1609,7 +1626,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Make every fact, plan, render, and verifier consume one revision and populate enough verified truth to author the three Java pilot READMEs."
+    summary: Make every fact, plan, render, and verifier consume one revision and populate enough verified
+      truth to author the three Java pilot READMEs.
   requirement_ids: []
 - task_id: L8-LOCAL-README-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1665,7 +1683,8 @@ taskcards:
   - GOAL-PROFILE
   core_contribution:
     kind: visible_deliverable
-    summary: "Coordinate the governed local-portfolio child tasks and close only from their aggregate evidence after every registry entry reaches Gate-A acceptance."
+    summary: Coordinate the governed local-portfolio child tasks and close only from their aggregate evidence
+      after every registry entry reaches Gate-A acceptance.
   requirement_ids: []
 - task_id: L8-LOCAL-PORTFOLIO-RUNTIME
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1716,7 +1735,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Add --registry and the fail-closed local_poc profile to supervise, loading every current products.json entry and persisting one durable per-repository lifecycle."
+    summary: Add --registry and the fail-closed local_poc profile to supervise, loading every current
+      products.json entry and persisting one durable per-repository lifecycle.
   requirement_ids: []
 - task_id: L8-TRUTH-01-STAGE-LIMIT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1775,7 +1795,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Add a typed stage limit to the existing supervise runtime so a registry run can stop honestly at FACTS_READY without invoking later phases."
+    summary: Add a typed stage limit to the existing supervise runtime so a registry run can stop honestly
+      at FACTS_READY without invoking later phases.
   requirement_ids:
   - L8-015
 - task_id: L8-TRUTH-01A-FACT-CONTRACT
@@ -1837,7 +1858,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Bind cached facts and later lifecycle state to required fields, eligibility, polarity, conflict, and render-view contract hashes."
+    summary: Bind cached facts and later lifecycle state to required fields, eligibility, polarity, conflict,
+      and render-view contract hashes.
   requirement_ids:
   - L8-018
 - task_id: L8-TRUTH-01B-LLM-CALL-LEDGER
@@ -1918,7 +1940,9 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Add one redacted append-only call ledger at the shared live/fixture client-provider seam and reconcile exact per-repository, revision, stage, job, attempt, token, latency, outcome, cache, and optional cost totals into run and portfolio manifests."
+    summary: Add one redacted append-only call ledger at the shared live/fixture client-provider seam
+      and reconcile exact per-repository, revision, stage, job, attempt, token, latency, outcome, cache,
+      and optional cost totals into run and portfolio manifests.
   requirement_ids:
   - L8-027
 - task_id: L8-TRUTH-01C-PROMPT-HYGIENE
@@ -1991,7 +2015,9 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Reconcile every active prompt to one declared owner, job, runtime consumer, contract, and invalidation scope and block paid fan-out on orphan, duplicate, inline, stale, or unsafe prompt changes."
+    summary: Reconcile every active prompt to one declared owner, job, runtime consumer, contract, and
+      invalidation scope and block paid fan-out on orphan, duplicate, inline, stale, or unsafe prompt
+      changes.
   requirement_ids:
   - L8-028
 - task_id: L8-TRUTH-02-ROOT-ROLES
@@ -2047,7 +2073,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Classify product, test, sample, converter, generator, benchmark, build-tool, and unknown roots and select the distributed product root deterministically."
+    summary: Classify product, test, sample, converter, generator, benchmark, build-tool, and unknown
+      roots and select the distributed product root deterministically.
   requirement_ids: []
 - task_id: L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2112,7 +2139,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Freeze a source-to-local provenance, license, dependency, contract, and test matrix for the smallest compatible committed sibling behaviors before implementing the three platform adapters."
+    summary: Freeze a source-to-local provenance, license, dependency, contract, and test matrix for the
+      smallest compatible committed sibling behaviors before implementing the three platform adapters.
   requirement_ids:
   - L8-029
 - task_id: L8-TRUTH-02B-PYTHON-API-TRUTH
@@ -2181,7 +2209,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Adapt package-root, canonical-import, re-export, public-API, property, typed-field, and snippet extraction and prove selected symbols through an installed pinned package in an isolated consumer."
+    summary: Adapt package-root, canonical-import, re-export, public-API, property, typed-field, and snippet
+      extraction and prove selected symbols through an installed pinned package in an isolated consumer.
   requirement_ids:
   - L8-030
 - task_id: L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH
@@ -2247,7 +2276,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Adapt package-root, exports/declarations, public-API, visibility, snippet, format, and completeness behavior and compile an isolated consumer against the pinned packed or built artifact."
+    summary: Adapt package-root, exports/declarations, public-API, visibility, snippet, format, and completeness
+      behavior and compile an isolated consumer against the pinned packed or built artifact.
   requirement_ids:
   - L8-031
 - task_id: L8-TRUTH-02D-RUST-API-TRUTH
@@ -2317,7 +2347,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Adapt Cargo/lib identity, module/re-export, visibility, type/member/trait/implementation, rustdoc, snippet, and format extraction and verify a pinned isolated consumer example."
+    summary: Adapt Cargo/lib identity, module/re-export, visibility, type/member/trait/implementation,
+      rustdoc, snippet, and format extraction and verify a pinned isolated consumer example.
   requirement_ids:
   - L8-032
 - task_id: L8-TRUTH-03-CLAIM-POLARITY
@@ -2377,7 +2408,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Require positive implementation evidence for capabilities and explicit constraint evidence for limitations."
+    summary: Require positive implementation evidence for capabilities and explicit constraint evidence
+      for limitations.
   requirement_ids: []
 - task_id: L8-TRUTH-03A-ISOLATED-EXECUTOR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2444,7 +2476,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Provide one disposable OS-isolated executor with bounded resources, filesystem, processes, time, and deny-by-default network."
+    summary: Provide one disposable OS-isolated executor with bounded resources, filesystem, processes,
+      time, and deny-by-default network.
   requirement_ids:
   - L8-019
 - task_id: L8-TRUTH-04-ACQUISITION
@@ -2514,7 +2547,9 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Select a registry-verified coordinate when published and a reproducible source-build path otherwise, while executing repository or dependency build code only inside a disposable OS-isolated executor with bounded resources and deny-by-default network."
+    summary: Select a registry-verified coordinate when published and a reproducible source-build path
+      otherwise, while executing repository or dependency build code only inside a disposable OS-isolated
+      executor with bounded resources and deny-by-default network.
   requirement_ids: []
 - task_id: L8-TRUTH-05-PUBLIC-EXAMPLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2582,7 +2617,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs for selected examples in the same disposable OS-isolated executor used for acquisition proof."
+    summary: Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs
+      for selected examples in the same disposable OS-isolated executor used for acquisition proof.
   requirement_ids: []
 - task_id: L8-TRUTH-06-INTERPRETIVE-VIEWS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2641,7 +2677,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Ground audience and problem statements with citations and make typed render views the only prose-eligible fact interface."
+    summary: Ground audience and problem statements with citations and make typed render views the only
+      prose-eligible fact interface.
   requirement_ids: []
 - task_id: L8-TRUTH-07-SEVEN-ECOSYSTEMS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2693,7 +2730,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Run the facts-only canonical supervisor for one real Java, .NET, Python, TypeScript, C++, Go, and Rust repository."
+    summary: Run the facts-only canonical supervisor for one real Java, .NET, Python, TypeScript, C++,
+      Go, and Rust repository.
   requirement_ids: []
 - task_id: L8-TRUTH-08-FULL-REGISTRY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2746,7 +2784,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Run every current registry entry only through FACTS_READY and classify any essential external fact blocks exactly."
+    summary: Run every current registry entry only through FACTS_READY and classify any essential external
+      fact blocks exactly.
   requirement_ids: []
 - task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2810,7 +2849,8 @@ taskcards:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: "Produce provenance-complete ProductFactsV2 graphs plus typed visitor-facing render views and public-API-verified examples for every supported ecosystem."
+    summary: Produce provenance-complete ProductFactsV2 graphs plus typed visitor-facing render views
+      and public-API-verified examples for every supported ecosystem.
   requirement_ids: []
 - task_id: L8-COMPOSE-00-CHARACTERIZE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2862,7 +2902,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Freeze public inputs, outputs, candidate bytes, plan hashes, and known failure fixtures before structural extraction."
+    summary: Freeze public inputs, outputs, candidate bytes, plan hashes, and known failure fixtures before
+      structural extraction.
   requirement_ids: []
 - task_id: L8-COMPOSE-01A-SECTION-REGRESSIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2917,7 +2958,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Capture failing real and synthetic cases for partial limitations, examples, installation, and overview sections before implementation."
+    summary: Capture failing real and synthetic cases for partial limitations, examples, installation,
+      and overview sections before implementation.
   requirement_ids: []
 - task_id: L8-COMPOSE-02A-OPERATION-REGRESSIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2976,7 +3018,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Capture advisory-decision, competing-example, stale-span, and reconstruction failures before tightening operation coverage."
+    summary: Capture advisory-decision, competing-example, stale-span, and reconstruction failures before
+      tightening operation coverage.
   requirement_ids: []
 - task_id: L8-COMPOSE-03A-PRESENTATION-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3031,7 +3074,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Freeze real and synthetic raw-token, duplication, competing-example, identity, navigation, and ordering defects with expected spans."
+    summary: Freeze real and synthetic raw-token, duplication, competing-example, identity, navigation,
+      and ordering defects with expected spans.
   requirement_ids: []
 - task_id: L8-COMPOSE-04A-CANDIDATE-FIXTURES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3085,7 +3129,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Freeze immutable source revisions, fact bundles, and expected composition obligations for seven real representatives."
+    summary: Freeze immutable source revisions, fact bundles, and expected composition obligations for
+      seven real representatives.
   requirement_ids: []
 - task_id: L8-COMPOSE-01-DECOMPOSE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3140,7 +3185,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Split renderer and agentic-composition responsibilities behind unchanged public seams before adding editorial behavior."
+    summary: Split renderer and agentic-composition responsibilities behind unchanged public seams before
+      adding editorial behavior.
   requirement_ids: []
 - task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3211,7 +3257,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Keep ownership and idempotency metadata in durable evidence while producing marker-free factual README headers, verified badges, and sanitized repository-specific Mermaid overview graphs."
+    summary: Keep ownership and idempotency metadata in durable evidence while producing marker-free factual
+      README headers, verified badges, and sanitized repository-specific Mermaid overview graphs.
   requirement_ids:
   - L8-021
 - task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
@@ -3316,7 +3363,9 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Produce domain-pure verified article catalogs, select only reader-useful contextual links through configured-or-deterministic automatic slot allocation, and enforce Enterprise Edition as the sole visitor-facing aspose.com product edition name."
+    summary: Produce domain-pure verified article catalogs, select only reader-useful contextual links
+      through configured-or-deterministic automatic slot allocation, and enforce Enterprise Edition as
+      the sole visitor-facing aspose.com product edition name.
   requirement_ids:
   - L8-022
   - L8-023
@@ -3389,7 +3438,9 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Inventory every material source content unit, preferentially reuse it after evidence or authoritative-owner validation, improve it only with verified clarity, correct contradictions, and withhold unresolved factual material without losing its traceability."
+    summary: Inventory every material source content unit, preferentially reuse it after evidence or authoritative-owner
+      validation, improve it only with verified clarity, correct contradictions, and withhold unresolved
+      factual material without losing its traceability.
   requirement_ids: []
 - task_id: L8-COMPOSE-02B-FINAL-CLAIM-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3456,7 +3507,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Inventory every material inherited and generated content unit and freeze its expected evidence, owner validation, reuse, improvement, uncertainty, correction, or omission disposition."
+    summary: Inventory every material inherited and generated content unit and freeze its expected evidence,
+      owner validation, reuse, improvement, uncertainty, correction, or omission disposition.
   requirement_ids:
   - L8-020
 - task_id: L8-COMPOSE-03-OPERATION-COVERAGE
@@ -3521,7 +3573,9 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Reject any actionable assessment without a candidate-producing source-span operation, account for every material inherited and generated final-candidate claim through an accepted fact, authoritative owner, or explicit uncertainty/correction operation, and independently reconstruct the result."
+    summary: Reject any actionable assessment without a candidate-producing source-span operation, account
+      for every material inherited and generated final-candidate claim through an accepted fact, authoritative
+      owner, or explicit uncertainty/correction operation, and independently reconstruct the result.
   requirement_ids: []
 - task_id: L8-COMPOSE-04-PRESENTATION-LINT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3576,7 +3630,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Deterministically reject internal tokens, semantic duplicates, competing examples, cross-product leakage, malformed navigation, and promotional imbalance."
+    summary: Deterministically reject internal tokens, semantic duplicates, competing examples, cross-product
+      leakage, malformed navigation, and promotional imbalance.
   requirement_ids: []
 - task_id: L8-COMPOSE-05-SEVEN-CANDIDATES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3629,7 +3684,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Run the stage-limited canonical supervisor through deterministic validation for one real representative per supported ecosystem."
+    summary: Run the stage-limited canonical supervisor through deterministic validation for one real
+      representative per supported ecosystem.
   requirement_ids: []
 - task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3692,7 +3748,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: "Compile every actionable assessment into bounded ReadmeDocumentPlanV1 operations and generate the candidate solely by applying those operations to the immutable source."
+    summary: Compile every actionable assessment into bounded ReadmeDocumentPlanV1 operations and generate
+      the candidate solely by applying those operations to the immutable source.
   requirement_ids: []
 - task_id: L8-REVIEW-00-CONTEXT-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3750,7 +3807,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches, and verdict combination."
+    summary: Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches,
+      and verdict combination.
   requirement_ids: []
 - task_id: L8-REVIEW-01A-FINDING-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3808,7 +3866,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Require candidate spans for content findings and exact fact/evidence references with valid polarity for factual findings."
+    summary: Require candidate spans for content findings and exact fact/evidence references with valid
+      polarity for factual findings.
   requirement_ids: []
 - task_id: L8-REVIEW-02A-REPAIR-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3866,7 +3925,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Bind repair instructions to source operations and prove candidate delta plus finding resolution before rereview."
+    summary: Bind repair instructions to source operations and prove candidate delta plus finding resolution
+      before rereview.
   requirement_ids: []
 - task_id: L8-REVIEW-03A-CACHE-MEASUREMENT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3938,7 +3998,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Reuse valid facts, composition, and review artifacts by complete input fingerprints while still proving no change."
+    summary: Reuse valid facts, composition, and review artifacts by complete input fingerprints while
+      still proving no change.
   requirement_ids: []
 - task_id: L8-REVIEW-04A-REAL-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3996,7 +4057,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Run good, defective, repairable, conflicting, and missing-evidence outputs across seven real representatives."
+    summary: Run good, defective, repairable, conflicting, and missing-evidence outputs across seven real
+      representatives.
   requirement_ids: []
 - task_id: L8-REVIEW-01-FREEZE-ROLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4052,7 +4114,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Define separate blind visitor-quality and fact-and-plan reviewer contracts with independent prompts, contexts, identities, and caches."
+    summary: Define separate blind visitor-quality and fact-and-plan reviewer contracts with independent
+      prompts, contexts, identities, and caches.
   requirement_ids: []
 - task_id: L8-REVIEW-02-FINDING-GROUNDING
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4112,7 +4175,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Require candidate spans for quality findings and exact fact or evidence references with checked polarity for factual findings."
+    summary: Require candidate spans for quality findings and exact fact or evidence references with checked
+      polarity for factual findings.
   requirement_ids: []
 - task_id: L8-REVIEW-03-EFFECTIVE-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4168,7 +4232,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Check candidate and operation deltas plus cited-finding resolution before spending another independent review call."
+    summary: Check candidate and operation deltas plus cited-finding resolution before spending another
+      independent review call.
   requirement_ids: []
 - task_id: L8-REVIEW-04-NO-OP-CACHE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4238,7 +4303,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Reuse valid fact, authoring, validation, and review results on unchanged reruns without duplicate state or LLM work."
+    summary: Reuse valid fact, authoring, validation, and review results on unchanged reruns without duplicate
+      state or LLM work.
   requirement_ids: []
 - task_id: L8-REVIEW-05-REAL-CAMPAIGN
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4295,7 +4361,7 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Accept strong and reject defective real candidate outputs across all seven supported ecosystems."
+    summary: Accept strong and reject defective real candidate outputs across all seven supported ecosystems.
   requirement_ids: []
 - task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4353,7 +4419,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Enforce blind visitor-quality review plus independent factual/plan review, combine both fail-closed, and require every repair to materially change and resolve the responsible candidate spans."
+    summary: Enforce blind visitor-quality review plus independent factual/plan review, combine both fail-closed,
+      and require every repair to materially change and resolve the responsible candidate spans.
   requirement_ids: []
 - task_id: L8-QUAL-00-CAMPAIGN-SCHEMA
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4406,7 +4473,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Hash HEAD, registry, source revisions, dependencies, prompts, templates, facts, renderer, validators, reviewer, and lifecycle contracts."
+    summary: Hash HEAD, registry, source revisions, dependencies, prompts, templates, facts, renderer,
+      validators, reviewer, and lifecycle contracts.
   requirement_ids: []
 - task_id: L8-QUAL-01A-REPRESENTATIVE-INPUTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4459,7 +4527,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Run the complete canonical pipeline twice for one real representative per ecosystem under the immutable campaign."
+    summary: Run the complete canonical pipeline twice for one real representative per ecosystem under
+      the immutable campaign.
   requirement_ids: []
 - task_id: L8-QUAL-02A-FAILURE-MATRIX
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4522,7 +4591,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Add portfolio-wide writer exclusion and renew the mission claim through long clone, build, LLM, test, and cohort operations."
+    summary: Add portfolio-wide writer exclusion and renew the mission claim through long clone, build,
+      LLM, test, and cohort operations.
   requirement_ids: []
 - task_id: L8-QUAL-03A-EVALUATION-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4582,7 +4652,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Run at least 100 evaluations in three independent sessions using synthetic and frozen real-output controls."
+    summary: Run at least 100 evaluations in three independent sessions using synthetic and frozen real-output
+      controls.
   requirement_ids: []
 - task_id: L8-QUAL-04A-FREEZE-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4634,7 +4705,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Mark the qualified campaign immutable and enforce representative requalification after any dependent contract change."
+    summary: Mark the qualified campaign immutable and enforce representative requalification after any
+      dependent contract change.
   requirement_ids: []
 - task_id: L8-QUAL-01-CAMPAIGN-IDENTITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4691,7 +4763,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Bind control HEAD, registry, source revisions, dependencies, prompts, templates, fact contract, renderer, validators, reviewer, and lifecycle hashes."
+    summary: Bind control HEAD, registry, source revisions, dependencies, prompts, templates, fact contract,
+      renderer, validators, reviewer, and lifecycle hashes.
   requirement_ids:
   - L8-016
 - task_id: L8-QUAL-02-SEVEN-E2E
@@ -4742,7 +4815,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Run first proposal and unchanged no-op for one real representative per supported ecosystem under one campaign."
+    summary: Run first proposal and unchanged no-op for one real representative per supported ecosystem
+      under one campaign.
   requirement_ids: []
 - task_id: L8-QUAL-03-RECOVERY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4805,7 +4879,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Enforce a portfolio writer lease, renew mission claims, and recover cancellation without duplicate work or descendants."
+    summary: Enforce a portfolio writer lease, renew mission claims, and recover cancellation without
+      duplicate work or descendants.
   requirement_ids:
   - L8-017
 - task_id: L8-QUAL-04-GOLDEN-SET
@@ -4861,7 +4936,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Run at least 100 evaluations across three sessions with complete real-output controls and automatic route disablement."
+    summary: Run at least 100 evaluations across three sessions with complete real-output controls and
+      automatic route disablement.
   requirement_ids: []
 - task_id: L8-QUAL-04B-COST-BASELINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4924,7 +5000,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Measure official checks and cold, warm, per-stage, clone, registry, LLM, and no-op runtime cost under the accepted representative campaign."
+    summary: Measure official checks and cold, warm, per-stage, clone, registry, LLM, and no-op runtime
+      cost under the accepted representative campaign.
   requirement_ids: []
 - task_id: L8-QUAL-05-FREEZE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4976,7 +5053,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Make Gate-A preflight require the exact accepted campaign and reject execution after any dependent contract mutation."
+    summary: Make Gate-A preflight require the exact accepted campaign and reject execution after any
+      dependent contract mutation.
   requirement_ids: []
 - task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5037,7 +5115,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Qualify the complete canonical pipeline on a frozen real-output campaign across all supported ecosystems before full-registry fan-out."
+    summary: Qualify the complete canonical pipeline on a frozen real-output campaign across all supported
+      ecosystems before full-registry fan-out.
   requirement_ids: []
 - task_id: L8-GATEA-00-COHORT-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5090,7 +5169,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Process the runtime denominator in deterministic ecosystem/family cohorts under one campaign and portfolio writer lease."
+    summary: Process the runtime denominator in deterministic ecosystem/family cohorts under one campaign
+      and portfolio writer lease.
   requirement_ids: []
 - task_id: L8-GATEA-01A-FAILURE-ROUTING
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5149,7 +5229,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Classify each non-success as truth, composition, review, recovery, or genuine external fact work and repair upstream."
+    summary: Classify each non-success as truth, composition, review, recovery, or genuine external fact
+      work and repair upstream.
   requirement_ids: []
 - task_id: L8-GATEA-02A-CURRENT-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5204,7 +5285,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Complete deterministic validation, independent review/repair, and an unchanged no-op rerun for every eligible entry."
+    summary: Complete deterministic validation, independent review/repair, and an unchanged no-op rerun
+      for every eligible entry.
   requirement_ids: []
 - task_id: L8-GATEA-03A-REPRO-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5261,7 +5343,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Rebuild the denominator and every accepted result from registry, campaign, state, bundles, and checksum inventories."
+    summary: Rebuild the denominator and every accepted result from registry, campaign, state, bundles,
+      and checksum inventories.
   requirement_ids: []
 - task_id: L8-GATEA-01-COHORTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5321,7 +5404,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Execute the frozen denominator in ecosystem or family cohorts with one writer lease and an incremental current-state summary."
+    summary: Execute the frozen denominator in ecosystem or family cohorts with one writer lease and an
+      incremental current-state summary.
   requirement_ids: []
 - task_id: L8-GATEA-02-HEAL-FAILURES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5384,7 +5468,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Classify each failure at its first responsible boundary, repair it, requalify the affected representative, and rerun only invalidated repositories."
+    summary: Classify each failure at its first responsible boundary, repair it, requalify the affected
+      representative, and rerun only invalidated repositories.
   requirement_ids: []
 - task_id: L8-GATEA-03-NO-OP
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5441,7 +5526,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Reach independent approval and unchanged no-op proof for every eligible current registry entry under the identical frozen campaign."
+    summary: Reach independent approval and unchanged no-op proof for every eligible current registry
+      entry under the identical frozen campaign.
   requirement_ids: []
 - task_id: L8-GATEA-04-REPRODUCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5499,7 +5585,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Reconstruct the portfolio result and checksum inventory from the frozen registry and per-repository bundles without trusting the runtime summary."
+    summary: Reconstruct the portfolio result and checksum inventory from the frozen registry and per-repository
+      bundles without trusting the runtime summary.
   requirement_ids: []
 - task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5554,7 +5641,8 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: "Execute the canonical profile across every current registry entry until each has a checksum-valid agent-approved local bundle and unchanged rerun proof."
+    summary: Execute the canonical profile across every current registry entry until each has a checksum-valid
+      agent-approved local bundle and unchanged rerun proof.
   requirement_ids: []
 - task_id: L8-LOCAL-HUMAN-REVIEW-GATE-B
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5605,7 +5693,8 @@ taskcards:
   - GOAL-DELIVERY
   core_contribution:
     kind: acceptance_proof
-    summary: "Present only agent-approved, no-op-proven local README bundles for human review and record a separate acceptance decision for every current registry entry."
+    summary: Present only agent-approved, no-op-proven local README bundles for human review and record
+      a separate acceptance decision for every current registry entry.
   requirement_ids: []
 - task_id: L8-LOCAL-CENTRAL-AGENT-RESILIENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5662,7 +5751,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: visible_deliverable
-    summary: "Produce one-command local proof across README, metadata, community, visual handoff, package/release, generated signals, cross-surface validation, and recovery scenarios."
+    summary: Produce one-command local proof across README, metadata, community, visual handoff, package/release,
+      generated signals, cross-surface validation, and recovery scenarios.
   requirement_ids: []
 - task_id: L8-ACT-CANONICAL-WORKFLOW-PARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5715,7 +5805,8 @@ taskcards:
   - GOAL-AUTONOMY
   core_contribution:
     kind: indispensable_safety
-    summary: "Run the same reusable workflow through every applicable job and trigger path with isolated local state and no production authentication fallback."
+    summary: Run the same reusable workflow through every applicable job and trigger path with isolated
+      local state and no production authentication fallback.
   requirement_ids: []
 - task_id: L8-STAGING-VERIFIED-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5770,7 +5861,8 @@ taskcards:
   - GOAL-DELIVERY
   core_contribution:
     kind: acceptance_proof
-    summary: "Create disposable staging targets and prove the production-equivalent proposal lifecycle without changing any target default branch."
+    summary: Create disposable staging targets and prove the production-equivalent proposal lifecycle
+      without changing any target default branch.
   requirement_ids: []
 - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -5833,7 +5925,8 @@ taskcards:
   - GOAL-DELIVERY
   core_contribution:
     kind: acceptance_proof
-    summary: "After full Gate-A/B acceptance, separate verified proposal construction from terminal authorized effects and prove the PR lifecycle locally without provisioning or using GitHub App credentials."
+    summary: After full Gate-A/B acceptance, separate verified proposal construction from terminal authorized
+      effects and prove the PR lifecycle locally without provisioning or using GitHub App credentials.
   requirement_ids:
   - SAFE-001
   - SAFE-002
@@ -5942,7 +6035,8 @@ taskcards:
   - GOAL-DELIVERY
   core_contribution:
     kind: acceptance_proof
-    summary: "Execute the full baseline, facts, plan, surfaces, verified draft PR, rerun, overwrite, interruption, duplicate, and isolated-failure matrix for 3D, Cells, and PDF Java."
+    summary: Execute the full baseline, facts, plan, surfaces, verified draft PR, rerun, overwrite, interruption,
+      duplicate, and isolated-failure matrix for 3D, Cells, and PDF Java.
   requirement_ids:
   - PIL-001
   - PIL-002
@@ -6011,7 +6105,8 @@ taskcards:
   - GOAL-DELIVERY
   core_contribution:
     kind: acceptance_proof
-    summary: "After Gate C is independently accepted, provision and integrate the production GitHub App with separate read/effect tokens and no PAT fallback."
+    summary: After Gate C is independently accepted, provision and integrate the production GitHub App
+      with separate read/effect tokens and no PAT fallback.
   requirement_ids:
   - AUTH-008
   - L8-001
@@ -6071,7 +6166,8 @@ taskcards:
   - GOAL-MATURITY
   core_contribution:
     kind: acceptance_proof
-    summary: "Prove observe/proposal mode for the full registry, then one authorized representative per Java, .NET, Python, TypeScript, C++, Go, and Rust, followed by 30 clean production days."
+    summary: Prove observe/proposal mode for the full registry, then one authorized representative per
+      Java, .NET, Python, TypeScript, C++, Go, and Rust, followed by 30 clean production days.
   requirement_ids:
   - ONB-001
   - ONB-002
@@ -6135,7 +6231,9 @@ taskcards:
   - GOAL-MATURITY
   core_contribution:
     kind: acceptance_proof
-    summary: "Operate the complete system for 90 consecutive days with weekly portfolio audits, automatic regression disablement, dependency and authorization monitoring, recovery, proposal freshness, dead-man monitoring, quality/traffic reporting, and independent audit."
+    summary: Operate the complete system for 90 consecutive days with weekly portfolio audits, automatic
+      regression disablement, dependency and authorization monitoring, recovery, proposal freshness, dead-man
+      monitoring, quality/traffic reporting, and independent audit.
   requirement_ids:
   - DEP-001
   - DEP-002
@@ -6155,7 +6253,7 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: c6ff2a708a1ef390822b94f4ac1cb2fad7debfff58976f58b18b82d55e728d50
+  source_sha256: b1422df4cac81b7e1f729c8a85a122e868b500f9515a80742cd2a36147ed8ded
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 424
   mandatory_requirement_rows: 398
@@ -8661,9 +8759,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-025
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: IMPLEMENTED
     task_id: L8-MISSION-GOAL-GUARD
-    disposition: open_mandatory
+    disposition: preserved_verified
     semantic_findings: []
   - requirement_id: L8-026
     priority: P0

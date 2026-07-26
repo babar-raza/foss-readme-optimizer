@@ -1,0 +1,1016 @@
+{
+  "schema_version": 1,
+  "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+  "graph_sha256": "ae7552e241aa8bd79e8a74b02388ea272f687979e9ea0ffeae5f53a5d940bcb6",
+  "core_goal_id": "GOAL-CORE-PRESENTABLE-PORTFOLIO",
+  "task_count": 91,
+  "bindings": [
+    {
+      "task_id": "L8-MISSION-CONTROL-CONSUMER",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Extend the existing supervisor, without creating another controller, so it loads this graph, validates it, reconciles durable state, claims the next eligible task, and evaluates mission completion."
+      }
+    },
+    {
+      "task_id": "L8-MISSION-GOAL-GUARD",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Add validated task goal/contribution bindings and a durable lifecycle scoreboard so selection, transition, and closure remain tied to the presentable full-portfolio deliverable."
+      }
+    },
+    {
+      "task_id": "L8-REQUIREMENT-TO-TASKCARD-COVERAGE",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Add stable, deduplicated taskcards for every mandatory non-deprecated requirement and record verified completion without reopening valid evidence."
+      }
+    },
+    {
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "status": "REROUTED",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Preserve the valuable dirty candidate, establish the Level-8 Waves 0-8 sequence as the sole active program, and eliminate status and evidence overclaims after satisfying all edit gates."
+      }
+    },
+    {
+      "task_id": "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Replace the contradictory active execution tracks with the approved Level-8 Waves 0-8 while preserving decision history and current evidence."
+      }
+    },
+    {
+      "task_id": "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Investigate every finding, add exact existing evidence when genuine, downgrade unsupported claims when permitted, and drive the semantic matrix to zero high-confidence findings."
+      }
+    },
+    {
+      "task_id": "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Inventory provenance and useful content, preserve it without legitimizing a conflicting plan, and record the exact gated migration/disposition."
+      }
+    },
+    {
+      "task_id": "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Clone the current committed HEAD into runs, install only from the committed lock, and rerun all official checks without relying on the dirty source working tree."
+      }
+    },
+    {
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Decompose the runtime seams, route compatibility commands through the same capability, authorization, effect-ledger, and verifier spine, and make every required failure fail closed."
+      }
+    },
+    {
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "status": "BLOCKED_EXTERNAL",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Introduce versioned trigger, checkpoint, health, and manifest contracts and prove recovery at every lifecycle boundary under the Git-ref state backend."
+      }
+    },
+    {
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Implement ProductFactsV2, precedence/conflict behavior, claim citations, surface ownership, protected-content fingerprints, isolated example execution, and prompt-injection treatment."
+      }
+    },
+    {
+      "task_id": "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Complete the safe repository-local Wave 3 foundation while leaving hosted execution, production effects, and Wave 3 closure dependent on the blocked Wave 2 production proof."
+      }
+    },
+    {
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-PROFILE"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Implement RepositoryPresentationPlanV1, AST/source-span README patches, archetype-specific intelligence, metadata/community/visual proposals, ownership constraints, and governed golden evaluation."
+      }
+    },
+    {
+      "task_id": "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-PROFILE"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Complete the safe repository-local Wave 4 planning and patch foundation while leaving production proposals, model-route scoring, and full Wave 4 closure dependent on the blocked production chain."
+      }
+    },
+    {
+      "task_id": "L8-PREPRODUCTION-IDEA-FIDELITY-GATE",
+      "status": "REROUTED",
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Make direct local, complete current-workflow act, and isolated staging execution pass in that order against one canonical runtime before any production credential or production-pilot work resumes."
+      }
+    },
+    {
+      "task_id": "L8-PREPRODUCTION-TRUTHFUL-BASELINE",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Finish deterministic finding, proposal, remaining-work, and stop classification and restore every official local check without weakening any safety boundary."
+      }
+    },
+    {
+      "task_id": "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Make every fact, plan, render, and verifier consume one revision and populate enough verified truth to author the three Java pilot READMEs."
+      }
+    },
+    {
+      "task_id": "L8-LOCAL-README-PROPOSAL-PROOF",
+      "status": "REROUTED",
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-PROFILE"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Coordinate the governed local-portfolio child tasks and close only from their aggregate evidence after every registry entry reaches Gate-A acceptance."
+      }
+    },
+    {
+      "task_id": "L8-LOCAL-PORTFOLIO-RUNTIME",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Add --registry and the fail-closed local_poc profile to supervise, loading every current products.json entry and persisting one durable per-repository lifecycle."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-01-STAGE-LIMIT",
+      "status": "CLOSED",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Add a typed stage limit to the existing supervise runtime so a registry run can stop honestly at FACTS_READY without invoking later phases."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-01A-FACT-CONTRACT",
+      "status": "REGRESSED",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Bind cached facts and later lifecycle state to required fields, eligibility, polarity, conflict, and render-view contract hashes."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-01B-LLM-CALL-LEDGER",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Add one redacted append-only call ledger at the shared live/fixture client-provider seam and reconcile exact per-repository, revision, stage, job, attempt, token, latency, outcome, cache, and optional cost totals into run and portfolio manifests."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-01C-PROMPT-HYGIENE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Reconcile every active prompt to one declared owner, job, runtime consumer, contract, and invalidation scope and block paid fan-out on orphan, duplicate, inline, stale, or unsafe prompt changes."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-02-ROOT-ROLES",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Classify product, test, sample, converter, generator, benchmark, build-tool, and unknown roots and select the distributed product root deterministically."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Freeze a source-to-local provenance, license, dependency, contract, and test matrix for the smallest compatible committed sibling behaviors before implementing the three platform adapters."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-02B-PYTHON-API-TRUTH",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Adapt package-root, canonical-import, re-export, public-API, property, typed-field, and snippet extraction and prove selected symbols through an installed pinned package in an isolated consumer."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Adapt package-root, exports/declarations, public-API, visibility, snippet, format, and completeness behavior and compile an isolated consumer against the pinned packed or built artifact."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-02D-RUST-API-TRUTH",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Adapt Cargo/lib identity, module/re-export, visibility, type/member/trait/implementation, rustdoc, snippet, and format extraction and verify a pinned isolated consumer example."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Require positive implementation evidence for capabilities and explicit constraint evidence for limitations."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-03A-ISOLATED-EXECUTOR",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Provide one disposable OS-isolated executor with bounded resources, filesystem, processes, time, and deny-by-default network."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-04-ACQUISITION",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Select a registry-verified coordinate when published and a reproducible source-build path otherwise, while executing repository or dependency build code only inside a disposable OS-isolated executor with bounded resources and deny-by-default network."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs for selected examples in the same disposable OS-isolated executor used for acquisition proof."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Ground audience and problem statements with citations and make typed render views the only prose-eligible fact interface."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Run the facts-only canonical supervisor for one real Java, .NET, Python, TypeScript, C++, Go, and Rust repository."
+      }
+    },
+    {
+      "task_id": "L8-TRUTH-08-FULL-REGISTRY",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Run every current registry entry only through FACTS_READY and classify any essential external fact blocks exactly."
+      }
+    },
+    {
+      "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+      "status": "REROUTED",
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Produce provenance-complete ProductFactsV2 graphs plus typed visitor-facing render views and public-API-verified examples for every supported ecosystem."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-00-CHARACTERIZE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Freeze public inputs, outputs, candidate bytes, plan hashes, and known failure fixtures before structural extraction."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-01A-SECTION-REGRESSIONS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Capture failing real and synthetic cases for partial limitations, examples, installation, and overview sections before implementation."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Capture advisory-decision, competing-example, stale-span, and reconstruction failures before tightening operation coverage."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-03A-PRESENTATION-CORPUS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Freeze real and synthetic raw-token, duplication, competing-example, identity, navigation, and ordering defects with expected spans."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-04A-CANDIDATE-FIXTURES",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Freeze immutable source revisions, fact bundles, and expected composition obligations for seven real representatives."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-01-DECOMPOSE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Split renderer and agentic-composition responsibilities behind unchanged public seams before adding editorial behavior."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Keep ownership and idempotency metadata in durable evidence while producing marker-free factual README headers, verified badges, and sanitized repository-specific Mermaid overview graphs."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-01C-CONTEXTUAL-LINKING",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Produce domain-pure verified article catalogs, select only reader-useful contextual links through configured-or-deterministic automatic slot allocation, and enforce Enterprise Edition as the sole visitor-facing aspose.com product edition name."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-02-EXISTING-SECTIONS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Inventory every material source content unit, preferentially reuse it after evidence or authoritative-owner validation, improve it only with verified clarity, correct contradictions, and withhold unresolved factual material without losing its traceability."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Inventory every material inherited and generated content unit and freeze its expected evidence, owner validation, reuse, improvement, uncertainty, correction, or omission disposition."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-03-OPERATION-COVERAGE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Reject any actionable assessment without a candidate-producing source-span operation, account for every material inherited and generated final-candidate claim through an accepted fact, authoritative owner, or explicit uncertainty/correction operation, and independently reconstruct the result."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Deterministically reject internal tokens, semantic duplicates, competing examples, cross-product leakage, malformed navigation, and promotional imbalance."
+      }
+    },
+    {
+      "task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Run the stage-limited canonical supervisor through deterministic validation for one real representative per supported ecosystem."
+      }
+    },
+    {
+      "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+      "status": "REGRESSED",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Compile every actionable assessment into bounded ReadmeDocumentPlanV1 operations and generate the candidate solely by applying those operations to the immutable source."
+      }
+    },
+    {
+      "task_id": "L8-REVIEW-00-CONTEXT-CORPUS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches, and verdict combination."
+      }
+    },
+    {
+      "task_id": "L8-REVIEW-01A-FINDING-CONTROLS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Require candidate spans for content findings and exact fact/evidence references with valid polarity for factual findings."
+      }
+    },
+    {
+      "task_id": "L8-REVIEW-02A-REPAIR-CONTROLS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Bind repair instructions to source operations and prove candidate delta plus finding resolution before rereview."
+      }
+    },
+    {
+      "task_id": "L8-REVIEW-03A-CACHE-MEASUREMENT",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Reuse valid facts, composition, and review artifacts by complete input fingerprints while still proving no change."
+      }
+    },
+    {
+      "task_id": "L8-REVIEW-04A-REAL-CORPUS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Run good, defective, repairable, conflicting, and missing-evidence outputs across seven real representatives."
+      }
+    },
+    {
+      "task_id": "L8-REVIEW-01-FREEZE-ROLES",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Define separate blind visitor-quality and fact-and-plan reviewer contracts with independent prompts, contexts, identities, and caches."
+      }
+    },
+    {
+      "task_id": "L8-REVIEW-02-FINDING-GROUNDING",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Require candidate spans for quality findings and exact fact or evidence references with checked polarity for factual findings."
+      }
+    },
+    {
+      "task_id": "L8-REVIEW-03-EFFECTIVE-REPAIR",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Check candidate and operation deltas plus cited-finding resolution before spending another independent review call."
+      }
+    },
+    {
+      "task_id": "L8-REVIEW-04-NO-OP-CACHE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Reuse valid fact, authoring, validation, and review results on unchanged reruns without duplicate state or LLM work."
+      }
+    },
+    {
+      "task_id": "L8-REVIEW-05-REAL-CAMPAIGN",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Accept strong and reject defective real candidate outputs across all seven supported ecosystems."
+      }
+    },
+    {
+      "task_id": "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR",
+      "status": "REGRESSED",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Enforce blind visitor-quality review plus independent factual/plan review, combine both fail-closed, and require every repair to materially change and resolve the responsible candidate spans."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-00-CAMPAIGN-SCHEMA",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Hash HEAD, registry, source revisions, dependencies, prompts, templates, facts, renderer, validators, reviewer, and lifecycle contracts."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-01A-REPRESENTATIVE-INPUTS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Run the complete canonical pipeline twice for one real representative per ecosystem under the immutable campaign."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-02A-FAILURE-MATRIX",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Add portfolio-wide writer exclusion and renew the mission claim through long clone, build, LLM, test, and cohort operations."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-03A-EVALUATION-CORPUS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Run at least 100 evaluations in three independent sessions using synthetic and frozen real-output controls."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-04A-FREEZE-CONTROLS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Mark the qualified campaign immutable and enforce representative requalification after any dependent contract change."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-01-CAMPAIGN-IDENTITY",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Bind control HEAD, registry, source revisions, dependencies, prompts, templates, fact contract, renderer, validators, reviewer, and lifecycle hashes."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-02-SEVEN-E2E",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Run first proposal and unchanged no-op for one real representative per supported ecosystem under one campaign."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-03-RECOVERY",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Enforce a portfolio writer lease, renew mission claims, and recover cancellation without duplicate work or descendants."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-04-GOLDEN-SET",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Run at least 100 evaluations across three sessions with complete real-output controls and automatic route disablement."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-04B-COST-BASELINE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Measure official checks and cold, warm, per-stage, clone, registry, LLM, and no-op runtime cost under the accepted representative campaign."
+      }
+    },
+    {
+      "task_id": "L8-QUAL-05-FREEZE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Make Gate-A preflight require the exact accepted campaign and reject execution after any dependent contract mutation."
+      }
+    },
+    {
+      "task_id": "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
+      "status": "REGRESSED",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Qualify the complete canonical pipeline on a frozen real-output campaign across all supported ecosystems before full-registry fan-out."
+      }
+    },
+    {
+      "task_id": "L8-GATEA-00-COHORT-CONTROLS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Process the runtime denominator in deterministic ecosystem/family cohorts under one campaign and portfolio writer lease."
+      }
+    },
+    {
+      "task_id": "L8-GATEA-01A-FAILURE-ROUTING",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Classify each non-success as truth, composition, review, recovery, or genuine external fact work and repair upstream."
+      }
+    },
+    {
+      "task_id": "L8-GATEA-02A-CURRENT-CONTRACT",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Complete deterministic validation, independent review/repair, and an unchanged no-op rerun for every eligible entry."
+      }
+    },
+    {
+      "task_id": "L8-GATEA-03A-REPRO-CONTROLS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Rebuild the denominator and every accepted result from registry, campaign, state, bundles, and checksum inventories."
+      }
+    },
+    {
+      "task_id": "L8-GATEA-01-COHORTS",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Execute the frozen denominator in ecosystem or family cohorts with one writer lease and an incremental current-state summary."
+      }
+    },
+    {
+      "task_id": "L8-GATEA-02-HEAL-FAILURES",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Classify each failure at its first responsible boundary, repair it, requalify the affected representative, and rerun only invalidated repositories."
+      }
+    },
+    {
+      "task_id": "L8-GATEA-03-NO-OP",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Reach independent approval and unchanged no-op proof for every eligible current registry entry under the identical frozen campaign."
+      }
+    },
+    {
+      "task_id": "L8-GATEA-04-REPRODUCE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Reconstruct the portfolio result and checksum inventory from the frozen registry and per-repository bundles without trusting the runtime summary."
+      }
+    },
+    {
+      "task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
+      "status": "REGRESSED",
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Execute the canonical profile across every current registry entry until each has a checksum-valid agent-approved local bundle and unchanged rerun proof."
+      }
+    },
+    {
+      "task_id": "L8-LOCAL-HUMAN-REVIEW-GATE-B",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-DELIVERY"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Present only agent-approved, no-op-proven local README bundles for human review and record a separate acceptance decision for every current registry entry."
+      }
+    },
+    {
+      "task_id": "L8-LOCAL-CENTRAL-AGENT-RESILIENCE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Produce one-command local proof across README, metadata, community, visual handoff, package/release, generated signals, cross-surface validation, and recovery scenarios."
+      }
+    },
+    {
+      "task_id": "L8-ACT-CANONICAL-WORKFLOW-PARITY",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-AUTONOMY"
+      ],
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Run the same reusable workflow through every applicable job and trigger path with isolated local state and no production authentication fallback."
+      }
+    },
+    {
+      "task_id": "L8-STAGING-VERIFIED-PROPOSAL-PROOF",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-DELIVERY"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Create disposable staging targets and prove the production-equivalent proposal lifecycle without changing any target default branch."
+      }
+    },
+    {
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-DELIVERY"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "After full Gate-A/B acceptance, separate verified proposal construction from terminal authorized effects and prove the PR lifecycle locally without provisioning or using GitHub App credentials."
+      }
+    },
+    {
+      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-DELIVERY"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Execute the full baseline, facts, plan, surfaces, verified draft PR, rerun, overwrite, interruption, duplicate, and isolated-failure matrix for 3D, Cells, and PDF Java."
+      }
+    },
+    {
+      "task_id": "L8-GATE-D-GITHUB-APP-INTEGRATION",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-DELIVERY"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "After Gate C is independently accepted, provision and integrate the production GitHub App with separate read/effect tokens and no PAT fallback."
+      }
+    },
+    {
+      "task_id": "L8-WAVE7-HETEROGENEOUS-PORTFOLIO",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-MATURITY"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Prove observe/proposal mode for the full registry, then one authorized representative per Java, .NET, Python, TypeScript, C++, Go, and Rust, followed by 30 clean production days."
+      }
+    },
+    {
+      "task_id": "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE",
+      "status": "TODO",
+      "goal_ids": [
+        "GOAL-MATURITY"
+      ],
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Operate the complete system for 90 consecutive days with weekly portfolio audits, automatic regression disablement, dependency and authorization monitoring, recovery, proposal freshness, dead-man monitoring, quality/traffic reporting, and independent audit."
+      }
+    }
+  ]
+}

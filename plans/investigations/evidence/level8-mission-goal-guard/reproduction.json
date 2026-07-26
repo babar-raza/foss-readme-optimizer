@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "graph_file_sha256": "ae7552e241aa8bd79e8a74b02388ea272f687979e9ea0ffeae5f53a5d940bcb6",
+  "commands": [
+    ".venv/Scripts/python -m pytest -q tests/unit/test_mission_control.py tests/unit/test_git_state_backend_fetch.py tests/unit/test_state_schema.py tests/unit/test_portfolio.py",
+    ".venv/Scripts/python -m ruff check .",
+    ".venv/Scripts/python -m ruff format --check .",
+    ".venv/Scripts/python -m mypy src",
+    ".venv/Scripts/python scripts/governance/build_level8_requirement_taskcard_coverage.py --check",
+    ".venv/Scripts/readme-agent supervise --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml --mission-action status --mission-observer Codex"
+  ]
+}

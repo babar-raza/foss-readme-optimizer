@@ -95,13 +95,13 @@ Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-req
 
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
-under `act` → isolated staging → production**. At the latest 2026-07-26 read-only checkpoint,
-durable mission state version 158 records active task `L8-TRUTH-01A-FACT-CONTRACT`; the reviewed
-91-task graph and 424-row requirement coverage validate at SHA-256
-`cc06a302611adac69bab94d52341750f4061ab9a96a9ad0a5e6cbca69e5e5095`, but durable status correctly
-reports graph drift until mission `evaluate` migrates the added tasks without stealing a live
-claim or deleting transition history. Local evidence remains partial and existing bundles cannot
-prove their real LLM call counts; absent transport evidence is `UNKNOWN_LEGACY`, not zero.
+under `act` → isolated staging → production**. At the latest 2026-07-26 checkpoint, durable state
+version 169 has closed `L8-MISSION-GOAL-GUARD` and names `L8-TRUTH-01A-FACT-CONTRACT` next. The
+31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
+`HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. The 91-task graph and 424-row
+coverage validate at SHA-256 `ae7552e241aa8bd79e8a74b02388ea272f687979e9ea0ffeae5f53a5d940bcb6`.
+Clean commit `44580f4` passed all official checks, including 1,755 non-live tests. Existing bundles
+still cannot prove their real LLM call counts; absent transport evidence is `UNKNOWN_LEGACY`.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 
@@ -2270,6 +2270,9 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 - [ ] **Local pre-production Gate A — atomic idea-fidelity proof**
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
         immutable revision bundles, and mandatory dynamic planning foundation.
+  - [x] Bind all executable mission work to the immutable core deliverable and subordinate goals;
+        derive the durable 31-repository lifecycle scoreboard, first failing boundary, and exact
+        next task; reject contribution-free closure (`L8-025`, commit `44580f4`).
   - [ ] Product truth: implement the stage ceiling and cache revalidation; install transport-level
         per-README LLM accounting and the blocking prompt inventory; adapt pinned committed
         `aspose.org` Python, TypeScript, and Rust public-consumer-surface behavior; then complete
@@ -2375,6 +2378,10 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       those master sections.
 - [x] **Wave 1 correctness gate:** every required specialist/task/validation/verifier/effect
       failure is terminally non-successful; no alternate production mutation path remains.
+- [x] **Mission goal guard:** all 91 taskcards have validated goal/contribution bindings; durable
+      status derives the current denominator and lifecycle counts; restart preserves the same
+      first boundary/next task; ordinary reports cannot close a task without matching,
+      independently verified contribution evidence.
 - [ ] **Local stage-boundary gate:** a facts-only public supervisor run reaches `FACTS_READY`
       without composition/reviewer calls or later lifecycle claims; every later stage has the same
       fail-closed ceiling behavior; cached terminal states are re-evaluated against the current
