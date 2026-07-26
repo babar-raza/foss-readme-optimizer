@@ -740,6 +740,15 @@
         "reason": "independent review wiring failed: LLMError: independent reviewer classified literal accepted fact text as missing evidence: ['Aspose.cells.Cpp.FOSS', 'NuGet: Aspose.cells.Cpp.FOSS found']",
         "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T08:07:10.610863+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "presentation_plan_hash": "83572b36e14e2bd1448e5e4660b92ed4c3e92af714bff290efd8ca01c5974df7",
@@ -749,11 +758,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-26T07:06:50.041784+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-26T08:07:10.610863+00:00"
   },
   "schema_version": 2,
-  "state_version": 98,
+  "state_version": 99,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e601b5948d773ff382c90ba5b085b8268af8d035f3f1693077a10a79f2d55463",
