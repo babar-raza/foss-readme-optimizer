@@ -8,12 +8,12 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
-    "claim_expires_at": "2026-07-26T02:22:07.317908+00:00",
-    "claim_id": "bbd367b530a14818abc98e342023f3e6",
-    "claimed_at": "2026-07-26T01:52:07.317908+00:00",
+    "claim_expires_at": "2026-07-26T02:54:02.359147+00:00",
+    "claim_id": "bab86593da534e8987712507d7f8de19",
+    "claimed_at": "2026-07-26T02:24:02.359147+00:00",
     "claimed_by": "codex-autonomous-executor",
     "graph_sha256": "b575c29e6404d8268310756e54a25b0249a374b41a7729c106222261b7ebfa9f",
-    "last_evaluated_at": "2026-07-26T01:52:07.317908+00:00",
+    "last_evaluated_at": "2026-07-26T02:24:02.359147+00:00",
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "task_statuses": {
@@ -1149,6 +1149,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-07-26T02:24:02.359166+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex-autonomous-executor",
+        "occurred_at": "2026-07-26T02:24:02.359227+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -1157,7 +1175,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 132,
+  "state_version": 133,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
