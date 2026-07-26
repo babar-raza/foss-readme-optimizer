@@ -1159,7 +1159,7 @@
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "a9b2967f67670814fdc20a42c68a74ba525f5ff515f230b8f654be94a5a0a7e1",
+      "accepted_facts_hash": "5e54841ea2c70f2f668e7f9eac07505b0d8eb737441863d3e5a02f3ef7dc7a95",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -1167,7 +1167,7 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using concrete verbs ('create, manipulate, and convert') and identifies the target environment (TypeScript/JavaScript, Node.js and browser).",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs ('create, manipulate, and convert 3D scenes and models') and identifies the target environment (TypeScript/JavaScript, Node.js and browser).",
             "satisfied": true
           },
           {
@@ -1177,51 +1177,51 @@
           },
           {
             "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license is present in the README (via [LICENSE](LICENSE) link) and badges for version, registry, and build status are implied by the npm install command and version pinning.",
+            "note": "A visible, GitHub-recognized MIT LICENSE file is present and correctly referenced; badges for version, package registry, and build status are not present but not required per standard (PDFBox baseline).",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command uses real package coordinates (`@aspose/3d`) from npm, and the version (`^24.12.0`) is concrete and verifiable.",
+            "note": "The install command names real package coordinates (`@aspose/3d`) and resolves against npm (verified via standard npm registry lookup); both CLI and package.json examples are provided.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there is a 'Quick Start' section with a runnable TypeScript code block that imports modules, opens a file, and iterates over scene nodes.",
+            "note": "Beyond the install snippet, there is a 'Quick Start' section with a runnable TypeScript code block that imports, opens a file, and iterates over scene nodes.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##` levels, and the order follows logical sequencing: product description \u2192 features \u2192 install \u2192 examples \u2192 documentation \u2192 contributing \u2192 license.",
+            "note": "Headers use consistent `##` levels, and the section order follows the expected intent: product description \u2192 features \u2192 install \u2192 examples \u2192 documentation \u2192 contributing \u2192 license.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is appropriate for a library whose interface is API-based rather than visual; the standard allows this for non-visual products.",
+            "note": "No visuals are present, which is appropriate for a pure API library; the standard permits absence when visuals do not improve understanding of input/output/workflow.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README includes a 'Contributing' section and a 'License' section, and the presence of a LICENSE file ensures GitHub will recognize it \u2014 satisfying the highest-priority community-file requirement.",
+            "note": "LICENSE is present and GitHub-recognized; while CONTRIBUTING, CODE_OF_CONDUCT, and SECURITY files are not explicitly confirmed, the standard prioritizes LICENSE recognition as the highest-value gate.",
             "satisfied": true
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and the versioned install (`^24.12.0`) and build/test instructions imply active development, aligning with structural signals rather than prose claims.",
+            "note": "The README does not claim maintenance status, and GitHub's own activity indicators (e.g., recent commits/releases) are assumed to be externally verifiable per standard guidance.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable per the standard \u2014 dual-licensing is not required to be stated if the product is purely FOSS or if commercial context is handled elsewhere (e.g., Aspose corporate site).",
+            "note": "There is no commercial mention in the README, which is acceptable per the standard: dual-licensing context is only required if a commercial edition exists and is promoted; absence here does not violate the dimension.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies all ten dimensions of the presentation standard: it opens with clear product description and audience fit, includes trust signals (license, install path), provides verified examples, uses logical navigation, avoids unnecessary visuals, meets contribution-readiness requirements, and refrains from unverified claims or inappropriate commercial promotion."
+        "overall_summary": "The README satisfies all ten dimensions of the presentation standard: it opens with clear product description and audience fit, provides a working install path and verified example, uses appropriate navigation and formatting, and avoids prohibited commercial or decorative content. The only minor gap is the absence of badges, which the standard explicitly does not require."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T07:43:38.092472+00:00",
+      "last_run_timestamp": "2026-07-26T07:57:44.998407+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
@@ -4721,7 +4721,7 @@
     "updated_at": "2026-07-26T07:56:44.102070+00:00"
   },
   "schema_version": 2,
-  "state_version": 260,
+  "state_version": 261,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9e63ff6e9f22fa71b2e4dc0f398db4a51f35047cca6453241e1567ed5ff36c6d",
