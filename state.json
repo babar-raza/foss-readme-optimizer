@@ -1151,11 +1151,13 @@
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
     },
     "readme_presentation": {
-      "accepted_facts_hash": "93625f45ae3b5a4f7fc76d153ec6ac7d2b7d589cb31f1641ea4426ba2f4ba505",
-      "accepted_status": "FIRST_OBSERVATION",
-      "consecutive_failure_count": 3,
+      "accepted_facts_hash": "d1b74811b06b500e15069b013b1c310e4bde8a69d772ccd2b4291f8d09f6d3bd",
+      "accepted_status": "CHANGED",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
+        "agentic_composition_plan": {},
+        "agentic_composition_reused": false,
         "committed": false,
         "fresh_fingerprint": "b6f14a6b3486d36e00bf0703ff9987f741ae927f51fed19bfe0c3d690b4df02d",
         "llm_called": false,
@@ -1164,9 +1166,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "presentation_plan",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T03:41:30.162237+00:00",
+      "last_run_timestamp": "2026-07-26T04:31:56.214357+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -1734,7 +1736,7 @@
     "updated_at": "2026-07-26T03:39:29.583768+00:00"
   },
   "schema_version": 2,
-  "state_version": 211,
+  "state_version": 212,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e4e42f08a2a395107a79f4ccdb250b105ce49c94552d7debdc063feb7a238861",
