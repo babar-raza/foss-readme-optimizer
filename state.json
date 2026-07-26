@@ -20,6 +20,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-014850-d24b:aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"
     },
+    "13f0efac26fd70daf2fb4a96145c4f1fe285caa69cb8d6d814ad1de0a516f0f6": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "13f0efac26fd70daf2fb4a96145c4f1fe285caa69cb8d6d814ad1de0a516f0f6",
+      "completed_at": "2026-07-26T08:12:06.263217+00:00",
+      "detail": null,
+      "failure_classification": "validation_failed",
+      "input_hash": null,
+      "output_hash": "b037c05cd4dc489d731d62ffa378d7294517eb5ce3288a429fb93f8b1a9886eb",
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "run_id": "20260726-080441-a272",
+      "schema_version": 1,
+      "stage": "final_acceptance",
+      "started_at": "2026-07-26T08:12:06.263205+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260726-080441-a272:aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"
+    },
     "1c8b769fb7e059b4418b1c39b907c31a1634d9208667a49f18dfe45de422c01c": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -885,7 +902,7 @@
     "updated_at": "2026-07-26T08:10:25.755892+00:00"
   },
   "schema_version": 2,
-  "state_version": 123,
+  "state_version": 124,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "892fd614e5a03a8d301271ee4fc0318d6261aaaeac9e94432b9d23a6c5ec7268",
@@ -970,11 +987,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "f761ba08dd684fead2bb8d16d3de1ad61aad73627db31a572fdabd267798f7b0",
+      "last_checkpoint_id": "13f0efac26fd70daf2fb4a96145c4f1fe285caa69cb8d6d814ad1de0a516f0f6",
       "lease_expires_at": "2026-07-26T08:20:07.057059+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T08:11:46.264268+00:00"
+      "updated_at": "2026-07-26T08:12:06.263217+00:00"
     }
   },
   "trigger_records": {},
