@@ -314,6 +314,7 @@ class TestDraftProductTruth:
             "java"
         ]
         assert "required_symbols" not in parameters["properties"]["minimal_example"]["required"]
+        assert captured["init"][1]["timeout"] == agentic_drafting._REQUEST_TIMEOUT_SECONDS
         assert captured["init"][1]["max_tokens"] == agentic_drafting._MAX_RESPONSE_TOKENS
 
     def test_invalid_response_raises_llm_error(self, tmp_path, monkeypatch):

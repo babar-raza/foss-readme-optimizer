@@ -95,6 +95,7 @@ _MODEL_ROUTE_JOB = "draft_product_truth"
 # structured payload to survive; the forced-tool client still retries one
 # malformed structured response and fails closed after that.
 _MAX_RESPONSE_TOKENS = 8000
+_REQUEST_TIMEOUT_SECONDS = 180
 
 # Bounded repo-context budget (RPOC-033): stays well inside qwen3-next's own
 # proven-safe ~71k-token context ceiling (`plans/investigations/
@@ -464,6 +465,7 @@ def draft_product_truth(
             env.llm_base_url(),
             env.llm_api_key(),
             env.llm_model_for_job(_MODEL_ROUTE_JOB),
+            timeout=_REQUEST_TIMEOUT_SECONDS,
             max_tokens=_MAX_RESPONSE_TOKENS,
         ).call(
             messages,
