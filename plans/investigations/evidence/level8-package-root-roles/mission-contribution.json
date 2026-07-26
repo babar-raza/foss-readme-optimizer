@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-02-ROOT-ROLES",
+  "goal_ids": [
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Classify product, test, sample, converter, generator, benchmark, build-tool, and unknown roots and select the distributed product root deterministically."
+  },
+  "acceptance_checks_passed": [
+    "Non-product roots cannot silently supply visitor-facing product facts"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-package-root-roles/verification.json",
+    "plans/investigations/evidence/level8-package-root-roles/root-role-inventory.json",
+    "plans/investigations/evidence/level8-package-root-roles/selected-product-facts.json",
+    "plans/investigations/evidence/level8-package-root-roles/source-revision-and-checksums.json",
+    "plans/investigations/evidence/level8-package-root-roles/official-checks.stdout.log"
+  ],
+  "scoreboard_before_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "scoreboard_after_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

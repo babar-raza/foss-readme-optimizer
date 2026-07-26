@@ -1,0 +1,82 @@
+{
+  "installation.coordinates": {
+    "fact_id": "installation.coordinates:manifest",
+    "field": "installation.coordinates",
+    "value": [
+      {
+        "path": "src/main/Aspose.ThreeD",
+        "ecosystem": "net",
+        "manifest_path": "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+        "name": "Aspose.3D.FOSS",
+        "version": "26.1.0",
+        "root_role": "product"
+      }
+    ],
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "authoritative_owner": "repository-owner",
+    "confidence": 1.0,
+    "conflicts": [],
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "product.compatibility": {
+    "fact_id": "product.compatibility:manifest",
+    "field": "product.compatibility",
+    "value": [
+      {
+        "ecosystem": "net",
+        "runtime_label": ".NET",
+        "minimum_runtime": "netcoreapp3.1",
+        "manifest_path": "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+        "root_role": "product"
+      }
+    ],
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "authoritative_owner": "repository-owner",
+    "confidence": 1.0,
+    "conflicts": [],
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "release.state": {
+    "fact_id": "release.state:manifest-and-registry",
+    "field": "release.state",
+    "value": [
+      {
+        "path": "src/main/Aspose.ThreeD",
+        "manifest_path": "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+        "version": "26.1.0",
+        "active": true,
+        "root_role": "product"
+      }
+    ],
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "authoritative_owner": "repository-owner",
+    "confidence": 1.0,
+    "conflicts": [],
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-02-ROOT-ROLES",
+  "implementation_commit": "027383b26915ec1f7166e681b8b17476a5d95c44",
+  "branch": "main",
+  "verified_at": "2026-07-26T17:49:30.540942+00:00",
+  "tree_precondition": "CLEAN_AT_START_HEAD_UNCHANGED",
+  "focused_check": {
+    "command": ".venv\\Scripts\\python.exe -m pytest -q tests/unit/test_package_root_roles.py tests/unit/test_product_truth_ingestion.py tests/unit/test_facts_schema_v2.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_fact_render_views.py tests/unit/test_profile.py tests/unit/test_profile_cached.py tests/unit/test_ecosystems.py tests/unit/test_capabilities.py tests/unit/test_supervisor_product_truth.py tests/unit/test_local_poc_evidence.py",
+    "exit_code": 0,
+    "stdout": "........................................................................ [ 28%]\n........................................................................ [ 56%]\n........................................................................ [ 85%]\n.....................................                                    [100%]\n253 passed in 16.91s",
+    "stderr": ""
+  },
+  "official_check": {
+    "command": ".venv\\Scripts\\python.exe scripts/governance/run_official_checks.py",
+    "exit_code": 0,
+    "raw_stdout": "official-checks.stdout.log",
+    "raw_stderr": "official-checks.stderr.log"
+  },
+  "real_regression": {
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+    "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+    "selected_product_manifest": "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+    "excluded_roles": [
+      "converter",
+      "test"
+    ],
+    "selected_coordinate": "Aspose.3D.FOSS",
+    "selected_compatibility": "netcoreapp3.1",
+    "selected_release": "26.1.0"
+  },
+  "negative_controls_passed": [
+    "newer converter framework cannot become product compatibility",
+    "test project cannot become an installation coordinate",
+    "root ordering cannot change selection or inventory hash",
+    "Windows and Git path separators produce the same inventory",
+    "ambiguous equal candidates remain unknown and block dependent facts",
+    "test, sample, converter, generator, benchmark, and build-tool roles are typed",
+    "single-root Java and Python controls select reproducibly",
+    "legacy facts without root roles retain their canonical hash for migration"
+  ],
+  "verdict": "VERIFIED"
+}

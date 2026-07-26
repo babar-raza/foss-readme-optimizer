@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+  "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+  "selection_state": "selected",
+  "selected_product_manifest_path": "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+  "selection_rationale": [
+    "the sole non-secondary root matching the registry ecosystem was selected",
+    "manifest identity matches registry product family",
+    "manifest identity declares the FOSS package",
+    "manifest declares a distributable package identity",
+    "referenced by another repository root: src/converter/Converter.csproj, src/test/Aspose.ThreeD.Tests/Aspose.ThreeD.Tests.csproj",
+    "path identifies a product/library root"
+  ],
+  "roots": [
+    {
+      "path": "src/converter",
+      "ecosystem": "net",
+      "manifest_path": "src/converter/Converter.csproj",
+      "role": "converter",
+      "confidence": 1.0,
+      "parsed_identity": {
+        "name": "Aspose.3D.Converter",
+        "version": "1.0.0"
+      },
+      "referenced_manifest_paths": [
+        "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj"
+      ],
+      "rationale": [
+        "path token(s) identify converter: converter"
+      ]
+    },
+    {
+      "path": "src/main/Aspose.ThreeD",
+      "ecosystem": "net",
+      "manifest_path": "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+      "role": "product",
+      "confidence": 1.0,
+      "parsed_identity": {
+        "name": "Aspose.3D.FOSS",
+        "version": "26.1.0"
+      },
+      "referenced_manifest_paths": [],
+      "rationale": [
+        "selected as the distributed product root",
+        "the sole non-secondary root matching the registry ecosystem was selected",
+        "manifest identity matches registry product family",
+        "manifest identity declares the FOSS package",
+        "manifest declares a distributable package identity",
+        "referenced by another repository root: src/converter/Converter.csproj, src/test/Aspose.ThreeD.Tests/Aspose.ThreeD.Tests.csproj",
+        "path identifies a product/library root"
+      ]
+    },
+    {
+      "path": "src/test/Aspose.ThreeD.Tests",
+      "ecosystem": "net",
+      "manifest_path": "src/test/Aspose.ThreeD.Tests/Aspose.ThreeD.Tests.csproj",
+      "role": "test",
+      "confidence": 1.0,
+      "parsed_identity": {},
+      "referenced_manifest_paths": [
+        "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj"
+      ],
+      "rationale": [
+        "manifest declares IsTestProject=true"
+      ]
+    }
+  ]
+}

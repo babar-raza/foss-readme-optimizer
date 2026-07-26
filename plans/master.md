@@ -96,13 +96,13 @@ Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-req
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
 under `act` → isolated staging → production**. At the latest 2026-07-26 checkpoint, durable state
-version 191 closed `L8-TRUTH-01C-PROMPT-HYGIENE` and claimed
-`L8-TRUTH-02-ROOT-ROLES`. The
+version 200 closed `L8-TRUTH-02-ROOT-ROLES` and claimed `L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION`. The
 31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
-`HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. The 91-task graph and 424-row
-coverage validate at SHA-256 `25c2dcb69f6fde1a5fb8d86cfd04d34174db3546aa6e53c6a56097fa29bc6dd5`.
-Clean commit `432bfe8` passed all official checks (1,781 tests). Exact LLM accounting and
-fail-closed prompt-drift gates are active; pre-ledger bundles remain `UNKNOWN_LEGACY`.
+`HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. The 91-task graph and 425-row
+coverage validate at SHA-256 `9607604df11734738f17b0d367d3245b9775914556b34ebd37c0402b0cf2bac0`.
+Clean commit `027383b` passed all official checks (1,787 tests). Package-root roles now prevent
+converter, test, and tooling manifests from supplying visitor facts. Exact LLM accounting and
+fail-closed prompt-drift gates remain active; pre-ledger bundles remain `UNKNOWN_LEGACY`.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 
@@ -2291,10 +2291,13 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         output contract, invalidation scope, call-site inventory, and dependency hash; fail paid
         entry and the provider boundary closed on drift (`L8-TRUTH-01C`, `L8-028`, commit
         `432bfe8`).
-  - [ ] Remaining product truth: classify and select distributed package roots; adapt pinned
-        committed `aspose.org` Python, TypeScript, and Rust public-consumer-surface behavior; then
-        complete claim polarity, OS-isolated acquisition/public examples, render views,
-        seven-ecosystem proof, and facts-only full-registry preflight (`L8-TRUTH-*` task group).
+  - [x] Package-root truth: classify every root by role, persist the full inventory, select the
+        distributed product deterministically, and prevent converter/test/tooling manifests from
+        supplying visitor facts (`L8-TRUTH-02`, `L8-033`, commit `027383b`).
+  - [ ] Remaining product truth: adapt pinned committed `aspose.org` Python, TypeScript, and Rust
+        public-consumer-surface behavior; then complete claim polarity, OS-isolated
+        acquisition/public examples, render views, seven-ecosystem proof, and facts-only
+        full-registry preflight (`L8-TRUTH-*` task group).
   - [ ] Composition: split active monoliths, reconcile existing sections, require complete
         operation and inherited-claim coverage, enforce presentation lint, and produce seven
         deterministic candidates (`L8-COMPOSE-*` task group).
@@ -2413,6 +2416,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       inline, stale, or still-referenced deletion controls fail before a paid campaign. Clean
       commit `432bfe8` passed all official checks (1,781 tests); checksum-complete raw proof:
       `plans/investigations/evidence/level8-prompt-hygiene/`.
+- [x] **Package-root truth gate:** the real Aspose.3D FOSS for .NET three-project revision selects
+      only `src/main/Aspose.ThreeD/Aspose.ThreeD.csproj`; converter/test coordinates, target
+      frameworks, and versions cannot become visitor facts. Java/Python, ambiguity,
+      order/separator, every secondary role, cache migration, and persistence controls pass.
+      Clean commit `027383b` passed 1,787 tests; checksum-complete proof:
+      `plans/investigations/evidence/level8-package-root-roles/`.
 - [ ] **Python/TypeScript/Rust truth gate:** committed `aspose.org` source/test provenance is
       reconstructable and adapted without runtime sibling dependency; Python selected imports and
       public symbols, TypeScript package exports/declarations and disposable consumer compilation,
