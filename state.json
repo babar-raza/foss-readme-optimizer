@@ -404,6 +404,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-07-26T01:46:44.672264+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "to_status": "PROFILED"
       }
     ],
     "presentation_plan_hash": null,
@@ -413,11 +424,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-07-26T01:46:38.104297+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-07-26T01:46:44.672264+00:00"
   },
   "schema_version": 2,
-  "state_version": 37,
+  "state_version": 38,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "78edf277646cd39c7748990dc14512a0d031a5d82cb3d57641cf71ab0d70ead8",
