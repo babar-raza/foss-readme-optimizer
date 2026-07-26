@@ -443,6 +443,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-07-26T01:30:55.851474+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "PROFILED"
       }
     ],
     "presentation_plan_hash": null,
@@ -452,11 +463,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-07-26T01:30:49.088212+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-07-26T01:30:55.851474+00:00"
   },
   "schema_version": 2,
-  "state_version": 28,
+  "state_version": 29,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "64a67a1e490604edf99ba6ee3ddd0f444e2e6eed27ab83face4a8b9b42412f5f",
