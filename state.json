@@ -619,7 +619,7 @@
     "assessment_hash": "106ae67952fbc77d468241cb7f4e1a007ae78ff4b02dbd87d4889019bd6fac22",
     "candidate_hash": "afa2abd93297976397256353d24bd89c3dd9e85abd8c8a884986306c84bbc3e9",
     "details": {},
-    "facts_hash": "6421aca98cf17b32a2180e6cd82ffede8b134fd0ebcbb9fd04dffc68bf981bf0",
+    "facts_hash": "e01b60f9adea5d6b1db88f04f1d4a6659e40f96e7513c7f38c7bae0dd8b27d92",
     "history": [
       {
         "evidence_refs": [
@@ -749,20 +749,33 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T08:07:16.281493+00:00",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "to_status": "BLOCKED_MISSING_EVIDENCE"
       }
     ],
     "presentation_plan_hash": "83572b36e14e2bd1448e5e4660b92ed4c3e92af714bff290efd8ca01c5974df7",
-    "prompt_hash": "0aac33fd400c397644d6d10473017ebc54952f5932f75eb660ee40937558c2f6",
+    "prompt_hash": "dbd1ccfc666fc7afd3294492f8c8cc49c872b8754f02b7e45481774c10d2f6bd",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-26T08:07:10.610863+00:00"
+    "status": "BLOCKED_MISSING_EVIDENCE",
+    "updated_at": "2026-07-26T08:07:16.281493+00:00"
   },
   "schema_version": 2,
-  "state_version": 99,
+  "state_version": 100,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e601b5948d773ff382c90ba5b085b8268af8d035f3f1693077a10a79f2d55463",
