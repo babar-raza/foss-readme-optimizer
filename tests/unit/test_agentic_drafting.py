@@ -295,6 +295,12 @@ class TestDraftProductTruth:
         parameters = function["parameters"]
         assert set(parameters["required"]) == set(parameters["properties"])
         assert parameters["additionalProperties"] is False
+        assert parameters["properties"]["audience"]["maxItems"] == 1
+        assert parameters["properties"]["capabilities"]["maxItems"] == 8
+        assert (
+            parameters["properties"]["minimal_example"]["properties"]["evidence_paths"]["maxItems"]
+            == 4
+        )
         assert parameters["properties"]["problems_solved"]["items"]["type"] == "object"
         assert set(parameters["properties"]["problems_solved"]["items"]["required"]) == {
             "claim_id",

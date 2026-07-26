@@ -184,11 +184,11 @@ class DraftProductTruthV1(BaseModel):
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
-    audience: list[InterpretiveClaimV1] = Field(min_length=1)
-    problems_solved: list[InterpretiveClaimV1] = Field(min_length=1)
-    capabilities: list[EvidenceBackedProductFact] = Field(min_length=1)
-    formats: list[EvidenceBackedProductFact] = Field(min_length=1)
-    limitations: list[EvidenceBackedProductFact] = Field(default_factory=list)
+    audience: list[InterpretiveClaimV1] = Field(min_length=1, max_length=1)
+    problems_solved: list[InterpretiveClaimV1] = Field(min_length=1, max_length=4)
+    capabilities: list[EvidenceBackedProductFact] = Field(min_length=1, max_length=8)
+    formats: list[EvidenceBackedProductFact] = Field(min_length=1, max_length=8)
+    limitations: list[EvidenceBackedProductFact] = Field(default_factory=list, max_length=4)
     minimal_example: MinimalExamplePolicy
 
 
@@ -211,10 +211,11 @@ def _draft_product_truth_tool_schema(
         "additionalProperties": False,
         "properties": {
             "claim_id": {"type": "string", "minLength": 1},
-            "text": {"type": "string", "minLength": 1},
+            "text": {"type": "string", "minLength": 1, "maxLength": 300},
             "supporting_fact_ids": {
                 "type": "array",
                 "minItems": 1,
+                "maxItems": 3,
                 "items": fact_id_items,
             },
         },
@@ -224,13 +225,18 @@ def _draft_product_truth_tool_schema(
         "type": "object",
         "additionalProperties": False,
         "properties": {
-            "value": {"type": "string", "minLength": 1},
+            "value": {"type": "string", "minLength": 1, "maxLength": 200},
             "evidence_paths": {
                 "type": "array",
                 "minItems": 1,
+                "maxItems": 4,
                 "items": evidence_path_items,
             },
-            "required_symbols": {"type": "array", "items": {"type": "string"}},
+            "required_symbols": {
+                "type": "array",
+                "maxItems": 4,
+                "items": {"type": "string"},
+            },
         },
         "required": ["value", "evidence_paths"],
     }
@@ -248,25 +254,30 @@ def _draft_product_truth_tool_schema(
                     "audience": {
                         "type": "array",
                         "minItems": 1,
+                        "maxItems": 1,
                         "items": interpretive_claim_schema,
                     },
                     "problems_solved": {
                         "type": "array",
                         "minItems": 1,
+                        "maxItems": 4,
                         "items": interpretive_claim_schema,
                     },
                     "capabilities": {
                         "type": "array",
                         "minItems": 1,
+                        "maxItems": 8,
                         "items": evidence_backed_fact_schema,
                     },
                     "formats": {
                         "type": "array",
                         "minItems": 1,
+                        "maxItems": 8,
                         "items": evidence_backed_fact_schema,
                     },
                     "limitations": {
                         "type": "array",
+                        "maxItems": 4,
                         "items": evidence_backed_fact_schema,
                     },
                     "minimal_example": {
@@ -275,14 +286,20 @@ def _draft_product_truth_tool_schema(
                         "properties": {
                             "language": {"type": "string", "enum": [language]},
                             "class_name": {"type": "string", "minLength": 1},
-                            "code": {"type": "string", "minLength": 1},
+                            "code": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 2000,
+                            },
                             "evidence_paths": {
                                 "type": "array",
                                 "minItems": 1,
+                                "maxItems": 4,
                                 "items": evidence_path_items,
                             },
                             "required_symbols": {
                                 "type": "array",
+                                "maxItems": 4,
                                 "items": {"type": "string"},
                             },
                         },
