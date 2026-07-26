@@ -37,13 +37,11 @@ exactly what `facts/policy_evidence.py::evidence_fact_candidate()` already
 accepts, unmodified. A passed draft is therefore already policy-YAML-shaped
 with zero translation.
 
-**LLM client: `llm/analysis_client.py::LiveAnalysisClient`, not `llm/
-live_client.py::LiveLLMClient`** -- the same documented deviation RPOC-022
-already made for `specialists/independent_readme_review.py`, for the
-identical reason: `LiveLLMClient._parse_response()` is hardcoded to the one
-narrow `relationship_explained`-shaped `LLMBlockResponse` schema; this job's
-real output has entirely different fields and would raise a
-`ValidationError` on every real response through that client.
+**LLM client: `llm/verifier_client.py::LiveForcedToolClient`, not free-form
+JSON** -- the full-registry Gate-A run proved that a valid JSON response can
+still drift from the nested `DraftProductTruthV1` contract. Production forces
+one native tool carrying the complete schema; injected fixture analysis
+clients retain the same offline test seam.
 
 **Model route**: `env.py::JOB_MODEL_ROUTING["draft_product_truth"]`,
 live-characterized in `plans/investigations/evidence/draft-product-truth-
@@ -67,8 +65,9 @@ from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.inspection import file_inventory
-from readme_agent.llm.analysis_client import AnalysisResult, LiveAnalysisClient
+from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.generation_prompts import build_draft_product_truth_messages
+from readme_agent.llm.verifier_client import LiveForcedToolClient
 from readme_agent.registry.loader import require_listed
 from readme_agent.registry.models import EvidenceBackedProductFact, MinimalExamplePolicy
 
@@ -181,6 +180,119 @@ class DraftProductTruthV1(BaseModel):
     formats: list[EvidenceBackedProductFact] = Field(min_length=1)
     limitations: list[EvidenceBackedProductFact] = Field(default_factory=list)
     minimal_example: MinimalExamplePolicy
+
+
+_INTERPRETIVE_CLAIM_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "properties": {
+        "claim_id": {"type": "string", "minLength": 1},
+        "text": {"type": "string", "minLength": 1},
+        "supporting_fact_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1},
+        },
+    },
+    "required": ["claim_id", "text", "supporting_fact_ids"],
+}
+_EVIDENCE_BACKED_FACT_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "properties": {
+        "value": {"type": "string", "minLength": 1},
+        "evidence_paths": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1},
+        },
+        "required_symbols": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["value", "evidence_paths", "required_symbols"],
+}
+DRAFT_PRODUCT_TRUTH_TOOL_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "submit_product_truth_draft",
+        "description": (
+            "Submit one repository-grounded product-truth draft for deterministic verification."
+        ),
+        "parameters": {
+            "type": "object",
+            "additionalProperties": False,
+            "properties": {
+                "audience": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": _INTERPRETIVE_CLAIM_SCHEMA,
+                },
+                "problems_solved": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": _INTERPRETIVE_CLAIM_SCHEMA,
+                },
+                "capabilities": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": _EVIDENCE_BACKED_FACT_SCHEMA,
+                },
+                "formats": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": _EVIDENCE_BACKED_FACT_SCHEMA,
+                },
+                "limitations": {
+                    "type": "array",
+                    "items": _EVIDENCE_BACKED_FACT_SCHEMA,
+                },
+                "minimal_example": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "properties": {
+                        "language": {
+                            "type": "string",
+                            "enum": [
+                                "java",
+                                "dotnet",
+                                "python",
+                                "typescript",
+                                "go",
+                                "cpp",
+                                "rust",
+                            ],
+                        },
+                        "class_name": {"type": "string", "minLength": 1},
+                        "code": {"type": "string", "minLength": 1},
+                        "evidence_paths": {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {"type": "string", "minLength": 1},
+                        },
+                        "required_symbols": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                        },
+                    },
+                    "required": [
+                        "language",
+                        "class_name",
+                        "code",
+                        "evidence_paths",
+                        "required_symbols",
+                    ],
+                },
+            },
+            "required": [
+                "audience",
+                "problems_solved",
+                "capabilities",
+                "formats",
+                "limitations",
+                "minimal_example",
+            ],
+        },
+    },
+}
 
 
 class _AnalysisClientLike(Protocol):
@@ -327,12 +439,6 @@ def draft_product_truth(
         _citable_objective_facts(facts_so_far), sort_keys=True, default=str
     )
 
-    resolved_client: _AnalysisClientLike = client or LiveAnalysisClient(
-        env.llm_base_url(),
-        env.llm_api_key(),
-        env.llm_model_for_job(_MODEL_ROUTE_JOB),
-        max_tokens=_MAX_RESPONSE_TOKENS,
-    )
     messages = build_draft_product_truth_messages(
         org_repo,
         _draft_language(entry.ecosystem),
@@ -340,7 +446,16 @@ def draft_product_truth(
         repository_context,
         _format_repair_hints(repair_hints),
     )
-    result: AnalysisResult = resolved_client.analyze(messages)
+    if client is not None:
+        result: AnalysisResult = client.analyze(messages)
+    else:
+        forced_result = LiveForcedToolClient(
+            env.llm_base_url(),
+            env.llm_api_key(),
+            env.llm_model_for_job(_MODEL_ROUTE_JOB),
+            max_tokens=_MAX_RESPONSE_TOKENS,
+        ).call(messages, DRAFT_PRODUCT_TRUTH_TOOL_SCHEMA)
+        result = AnalysisResult(parsed=forced_result.arguments, meta=forced_result.meta)
     try:
         return DraftProductTruthV1.model_validate(result.parsed)
     except ValidationError as exc:

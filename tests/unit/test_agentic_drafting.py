@@ -1,9 +1,8 @@
 """Unit tests for `facts/agentic_drafting.py`: the bounded repository-
 context selector, the citable-objective-facts filter, the repair-hint
 formatter, and `draft_product_truth()`'s own LLM-call wiring (mocked via
-`FixtureAnalysisClient` -- no live network call in this file; the real live
-call is `capabilities/draft_product_truth.py`'s own dry-run proof, run once
-directly, not through the automated suite)."""
+fixture analysis and forced-tool clients -- no live network call in this
+file)."""
 
 from __future__ import annotations
 
@@ -260,6 +259,47 @@ class TestDraftProductTruth:
         assert isinstance(draft, DraftProductTruthV1)
         assert draft.minimal_example.language == "java"
         assert draft.audience[0].text == "Java developers."
+
+    def test_production_transport_forces_the_complete_nested_schema(self, tmp_path, monkeypatch):
+        captured = {}
+
+        class FakeForcedToolClient:
+            def __init__(self, *args, **kwargs):
+                captured["init"] = (args, kwargs)
+
+            def call(self, messages, tool_schema):
+                captured["messages"] = messages
+                captured["tool_schema"] = tool_schema
+                return SimpleNamespace(arguments=_draft_payload(), meta=LLMResponseMeta())
+
+        monkeypatch.setattr(
+            agentic_drafting,
+            "require_listed",
+            lambda org_repo: SimpleNamespace(org="acme", repo_name="widget", ecosystem="java"),
+        )
+        monkeypatch.setattr(agentic_drafting.paths, "baseline_dir", lambda org, repo: tmp_path)
+        monkeypatch.setattr(agentic_drafting, "clone_baseline", lambda entry, path: None)
+        monkeypatch.setattr(agentic_drafting, "LiveForcedToolClient", FakeForcedToolClient)
+        (tmp_path / "README.md").write_text("# Widget", encoding="utf-8")
+
+        draft = agentic_drafting.draft_product_truth(
+            ORG_REPO,
+            facts_so_far=_facts_so_far(),
+        )
+
+        assert draft.audience[0].supporting_fact_ids == ["product.identity:q"]
+        function = captured["tool_schema"]["function"]
+        assert function["name"] == "submit_product_truth_draft"
+        parameters = function["parameters"]
+        assert set(parameters["required"]) == set(parameters["properties"])
+        assert parameters["additionalProperties"] is False
+        assert parameters["properties"]["problems_solved"]["items"]["type"] == "object"
+        assert set(parameters["properties"]["problems_solved"]["items"]["required"]) == {
+            "claim_id",
+            "text",
+            "supporting_fact_ids",
+        }
+        assert captured["init"][1]["max_tokens"] == agentic_drafting._MAX_RESPONSE_TOKENS
 
     def test_invalid_response_raises_llm_error(self, tmp_path, monkeypatch):
         monkeypatch.setattr(
