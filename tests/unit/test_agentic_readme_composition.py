@@ -324,6 +324,35 @@ def test_agentic_plan_selects_distinct_literal_phrases_when_fact_lists_overlap()
     assert "Distinct capability" in texts
 
 
+def test_agentic_plan_rejects_internal_relationship_codes_as_overview_prose():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    relationship = facts.selected_fact("relationship.commercial_foss")
+    draft["overview_sentences"].append(
+        {
+            "text": "open_source_scope",
+            "supporting_fact_ids": [relationship.fact_id],
+        }
+    )
+
+    with pytest.raises(LLMError, match="ineligible overview fact IDs"):
+        plan_readme_composition(
+            facts.org_repo,
+            source,
+            facts,
+            assessment,
+            client=_client(draft),
+            max_attempts=1,
+        )
+
+
 def test_document_validation_accepts_one_representative_phrase_per_overview_fact():
     facts, revision = _facts()
     problem = facts.selected_fact("product.problems_solved")

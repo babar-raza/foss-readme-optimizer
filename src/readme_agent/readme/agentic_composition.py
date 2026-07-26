@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from readme_agent import env
 from readme_agent.errors import LLMError
+from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm.generation_prompts import (
     build_readme_composition_messages,
@@ -107,30 +108,16 @@ def _canonical_hash(payload: object) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
-def _strings(value: object) -> list[str]:
-    if isinstance(value, str):
-        return [value]
-    if isinstance(value, list):
-        return [text for item in value for text in _strings(item)]
-    if isinstance(value, dict):
-        return [text for item in value.values() for text in _strings(item)]
-    return []
-
-
 def _overview_phrase_options(facts: ProductFactsV2) -> list[dict]:
     accepted_ids = _accepted_fact_ids(facts)
     options = []
     for field in _OVERVIEW_FIELD_PREFERENCE:
-        fact_id = facts.selected_fact_ids.get(field)
-        if fact_id not in accepted_ids:
+        view = visitor_fact_render_view(facts, field)
+        if view is None or view.fact_id not in accepted_ids:
             continue
-        phrases = [
-            phrase.strip()
-            for phrase in _strings(facts.fact_by_id(fact_id).value)
-            if len(phrase.strip()) >= 4
-        ]
+        phrases = [phrase.strip() for phrase in view.phrases if len(phrase.strip()) >= 4]
         if phrases:
-            options.append({"fact_id": fact_id, "phrases": phrases[:8]})
+            options.append({"fact_id": view.fact_id, "phrases": phrases[:8]})
     return options
 
 
@@ -250,10 +237,15 @@ def _validate_draft(
     if unknown_facts := cited_ids - accepted_ids:
         raise LLMError(f"composition cited unaccepted fact IDs: {sorted(unknown_facts)}")
     for sentence in draft.overview_sentences:
+        views = [
+            visitor_fact_render_view(facts, facts.fact_by_id(fact_id).field)
+            for fact_id in sentence.supporting_fact_ids
+        ]
         grounded_phrases = [
             phrase.strip()
-            for fact_id in sentence.supporting_fact_ids
-            for phrase in _strings(facts.fact_by_id(fact_id).value)
+            for view in views
+            if view is not None
+            for phrase in view.phrases
             if len(phrase.strip()) >= 4
         ]
         normalized_sentence = sentence.text.strip().rstrip(".").casefold()
