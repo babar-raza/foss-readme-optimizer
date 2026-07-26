@@ -33,19 +33,21 @@ green. These are entry findings, not closure claims.
 
 ## Current execution checkpoint and route correction (2026-07-26)
 
-The live checkpoint reviewed on 2026-07-26 is control-repository `main` at
-`92a35c7` after coherent overview-composition, generated-example, and verified-limitations
-repairs. Focused README reconstruction, bundle, and integration verification passed for those
-slices. Durable mission state version 136 had no graph drift and carried active task
-`L8-LOCAL-FULL-REGISTRY-GATE-A`; its expired claim was recovered through the existing lease
-mechanism. Long work must continue renewing that lease, and narrative state never overrides the
-durable record.
+The latest reconciled checkpoint in this document is control-repository `main` at
+`80432ccb023ff336ede7d7030027b30f3e69a208`. Durable mission state version 147 has no graph drift
+and carries active task `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`. This is an observed checkpoint, not an
+instruction to trust a historical hash: every continuation must re-read HEAD, the tree, live
+processes, and durable mission state before acting.
 
-The current runtime denominator is 31. Only ten revision-addressed `runs/readme-poc` manifests
-exist. Their latest lifecycle distribution is one `AGENT_APPROVED`, one
-`AGENT_REVIEW_REJECTED`, three `BLOCKED_MISSING_EVIDENCE`, three `CANDIDATE_GENERATED`, and two
-`PROFILED`. No repository has current `NO_OP_PROVEN` evidence, so Gate A is zero of the dynamic
-denominator regardless of candidate count.
+The runtime denominator observed at this checkpoint is 31 and remains dynamically loaded. A
+bounded portfolio slice reports Java `NO_OP_PROVEN` and .NET `SYSTEM_FAILURE`; it is diagnostic,
+not official campaign evidence, because its worker began before the recorded HEAD and the tree
+moved during execution. The .NET deterministic bundle verifier accepted the candidate, while the
+independent reviewer rejected it after two repair attempts. The repair history also contains a
+review assertion that the selected minimal example was `BUILD_FAILED`, although the persisted
+selected fact says `SOURCE_BUILD_VERIFIED`. This proves that producer evidence can be internally
+consistent while reviewer reasoning is stale or false. No current claim of complete Gate A follows
+from candidate count, lifecycle labels, or an isolated no-op.
 
 The first real full-registry execution disproved the assumption that the upstream composition,
 review, and heterogeneous-qualification tasks could remain closed:
@@ -95,6 +97,13 @@ finding.
 | State and invalidation | Durable state version 135 marks composition/review/heterogeneous children `CLOSED`, while live Gate-A evidence disproves their acceptance assumptions. | Child closure is conditional on its contract and evidence standard. A newly observed live counterexample must reopen the first responsible child and invalidate dependent approvals automatically. |
 | Time and concurrency | Gate A was recovered from expired claims three times; focused supervisor tests exceeded 60 seconds and left descendants until explicitly stopped. | Long-running work needs lease heartbeats, per-boundary time budgets, descendant cleanup, and resumable cohort execution. Otherwise the controller creates false regressions and operational churn. |
 | Portfolio consistency | The registry has 31 entries, but only ten manifests and no current portfolio summary. Prompt, renderer, fact, and reviewer changes invalidate different stages at different times. | Gate A needs a frozen campaign identity. Without it, the denominator and contract move during execution and “31 complete” can become an endless or internally inconsistent target. |
+| Reviewer accountability | The .NET reviewer called a selected `SOURCE_BUILD_VERIFIED` example `BUILD_FAILED` and based repair instructions on that false premise. | An independent reviewer is another fallible producer, not an oracle. Every material reviewer finding needs a candidate span and, for factual reasoning, an exact fact/evidence reference whose polarity is checked before the finding controls repair or lifecycle state. |
+| Repository topology | The .NET snapshot contains converter, main-library, and test projects with different target frameworks. An unscoped compatibility view initially surfaced `.NET 10` from tooling instead of `.NET Core 3.1` from the acquired library. | Package roots have roles. Visitor claims bind to the acquired or distributed product root; test, sample, benchmark, converter, generator, and build-tool manifests are corroborating context, not interchangeable product truth. |
+| Maintainer legitimacy | Byte preservation can retain stale promotion and unverified parity claims, while aggressive reconstruction can erase maintainer intent and repository-specific guidance. | The system needs claim-level ownership and confidence, not a binary preserve/rewrite choice. Machine-verifiable corrections may be automatic; subjective positioning and maintainer voice require policy ownership and visible rationale. |
+| Cost and latency | One real repository can require source builds, several LLM calls, bundle reconstruction, independent review, and two ineffective repair attempts. Full fan-out multiplies every defect by the registry denominator. | Cost, elapsed time, and call count are acceptance properties. Representative qualification, cache validity, changed-candidate prechecks, bounded cohorts, and per-stage budgets must be proved before scaling. |
+| Security and legal | Repository text, examples, manifests, and linked material are untrusted; README changes can also alter license presentation, attribution, or commands visitors execute. | Prompt-injection resistance is necessary but insufficient. Examples run secret-free, fetched artifacts are pinned, licenses and attribution are ownership-sensitive, and no generated command becomes visitor-facing without deterministic safety and provenance checks. |
+| Measurement causality | `idea.md` includes referral and traffic reporting, but traffic can change because of releases, campaigns, search ranking, or portfolio seasonality. | Traffic is an operational outcome signal, not proof that a README change is correct. Quality and safety gates remain primary; impact reporting needs baselines, change windows, and confounder notes and must never reward exaggeration. |
+| Environment fidelity | A local source build can pass on one workstation while hosted Actions fails on runner images, rate limits, permissions, or network policy. | Local proof establishes product intelligence, not production readiness. `act`, disposable staging, and hosted canary evidence remain separate gates using the same contracts and artifacts. |
 | Delivery governance | `plans/idea.md` requires Gate A/B before Java PR/App work; production access is not needed for the defects above. | Do not ask for GitHub App or product-write authority. The present critical path is entirely local and agent-fixable. |
 | Maturity claim | Level 7 requires 30 production days and Level 8 requires 90; those clocks cannot begin before accepted hosted operation exists. | Architecture and test volume cannot compress elapsed operational proof. POC, Level 5, Level 7, and Level 8 remain distinct earned states with separate evidence. |
 
@@ -103,10 +112,11 @@ The principal architectural correction is therefore:
 ```text
 facts as evidence graph
   -> typed visitor-facing fact views
+  -> package-root role and ownership resolution
   -> executable agentic document operations
   -> deterministic reconstruction and presentation lint
   -> blind visitor-quality review
-  -> independent factual/plan review
+  -> independently grounded factual/plan review
   -> candidate-changing targeted repair
   -> real heterogeneous pipeline qualification
   -> frozen full-registry campaign
@@ -246,8 +256,9 @@ promoted to one named evidence directory under `plans/investigations/evidence/`.
 3. Repair current Ruff/format failures and establish one stable official-check result.
 4. Correct stale current-count and encoding defects in touched supporting documents.
 5. Update this document in place; mark RPOC and PRODSYS records supporting-only.
-6. Obtain the required fresh approval before editing `master.md` Mission, Status, Decision Ledger,
-   Architecture, Build Checklist, and Verification Checklist. Revise decision #78 in place.
+6. Edit `master.md` freely under current repository governance when delivery evidence changes its
+   Mission, Status, Decision Ledger, Architecture, Build Checklist, or Verification Checklist.
+   Revise decision #78 in place instead of adding a competing decision.
 7. Synchronize idea, requirements, governance, roadmap, status generator, root README, AGENTS,
    logs, and master under the approved authority change.
 8. Commit coherent verified slices directly to `main`.
@@ -307,16 +318,20 @@ failing acceptance case; the current Java false acceptance is rejected by the ne
 2. Keep `ProductFactsV2` as the provenance graph, but add typed, user-facing render views for
    identity, compatibility, relationship, acquisition, and support. Internal enums, manifest
    keys, repository slugs, and classification tokens are never eligible prose.
-3. Prefer an existing public repository example that can be isolated and executed. If none exists,
+3. Classify every package root as product, test, sample, converter, generator, benchmark, build
+   tool, or unknown. Bind installation, compatibility, and minimal-example claims to the root
+   that supplies the acquired or distributed product; other roots may corroborate but must not
+   silently override it.
+4. Prefer an existing public repository example that can be isolated and executed. If none exists,
    synthesize the smallest example only through the ecosystem adapter and require compile/run
    proof with diagnostic-driven repair. A missing import, namespace, symbol, private member, or
    unverified external input prevents `example.minimal` from becoming verified.
-4. Enforce evidence polarity. Capabilities require positive implementation evidence; limitations
+5. Enforce evidence polarity. Capabilities require positive implementation evidence; limitations
    require an exact repository-authored constraint anchor such as unsupported, incomplete, only,
    requires, or out-of-scope wording. A shared symbol or file path is not directional proof.
-5. Distinguish facts required for a useful README from optional enhancement facts. An unresolved
+6. Distinguish facts required for a useful README from optional enhancement facts. An unresolved
    optional fact is omitted; an essential identity/acquisition/usage fact creates a narrow block.
-6. Reconcile source-build-only repositories truthfully. Never describe a source build as a
+7. Reconcile source-build-only repositories truthfully. Never describe a source build as a
    published package, and never make an unpublished artifact a global repository block when a
    verified build path exists.
 
@@ -356,7 +371,10 @@ ecosystem-specific.
    - a factual/plan review sees the candidate, ProductFactsV2, claim map, and executable plan and
      checks support, preservation, and plan fidelity.
 2. Combine both judgments deterministically. Either rejection prevents `AGENT_APPROVED`.
-   Reviewer reasoning is itself checked: claims about content must point to candidate spans.
+   Reviewer reasoning is itself checked: claims about content must point to candidate spans;
+   factual premises must cite exact selected fact IDs and evidence excerpts; the cited evidence
+   must prove the direction of the finding. An ungrounded or contradicted review is
+   `SYSTEM_FAILURE`, never a repair instruction.
 3. Calibrate the model route on the real-output acceptance corpus. The existing synthetic
    95-percent threshold remains necessary but is insufficient; real-output false-accept rate must
    be zero for all known critical defects and remain below the governed threshold on holdouts.
@@ -370,6 +388,9 @@ ecosystem-specific.
 6. Preserve separate author/reviewer prompts, contexts, identities, caches, and evidence. If the
    current gateway route cannot satisfy the real corpus, disable it and qualify another available
    route before fan-out.
+7. Record per-stage duration, LLM call count, cache hit or miss, build time, and failure class.
+   Establish a representative cost and latency envelope before the frozen campaign; a route that
+   is correct but cannot finish within the resumable cohort budget is not portfolio-ready.
 
 Exit: the former Java false acceptance is rejected and repaired; controlled real defects are
 detected; repair changes the responsible operations and resolves the findings; identical reruns
@@ -472,36 +493,32 @@ reproducibility audit.
 
 ## Exact autonomous resume sequence
 
-Execution resumes in this order; it does not restart the current 31-repository sweep:
+Execution resumes in this order; it does not start an official 31-repository campaign:
 
 1. Re-read live HEAD, tree, processes, graph hash, durable state, claim expiry, and the evidence
-   paths in the multi-perspective table. Inspect the preserved limitations-rendering slice and
-   either complete it as part of the executable-composition repair or retain it uncommitted; never
-   discard it.
-2. Run the focused checks for the two commits that landed around the stop boundary and the
-   preserved slice. Repair process leakage or test latency before starting another live worker.
-3. Transition `L8-LOCAL-FULL-REGISTRY-GATE-A` from active work to a regressed state, citing the
-   Java false acceptance, Python ineffective repair, and .NET example block. Do not classify any
-   of them external.
-4. Reopen and strengthen the first responsible existing task boundaries rather than adding
-   overlapping resolver IDs: `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`,
-   `L8-LOCAL-README-ASSESSMENT-COMPOSITION`, `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`, and
-   `L8-LOCAL-HETEROGENEOUS-QUALIFICATION`. Reconcile the changed graph/state through its governed
-   migration.
-5. Keep Gate A dependent on `L8-LOCAL-HETEROGENEOUS-QUALIFICATION`, whose strengthened acceptance
-   now requires the real-output corpus, frozen campaign, seven complete real pipelines, and zero
-   critical false accepts. Earlier synthetic evidence remains historical support and cannot close
-   the strengthened task.
-6. Execute those reopened tasks in dependency order. After each task, run focused proof, the real
-   holdout relevant to that task, regression/safety checks, independent verification, and a
-   checksum inventory before closure.
-7. Freeze a qualified campaign only after all seven real ecosystem representatives are
-   `AGENT_APPROVED` and `NO_OP_PROVEN`.
-8. Resume Gate A in bounded cohorts and publish the dynamic portfolio summary after every
-   repository. A new live defect reopens the first responsible resolver, requalifies the affected
+   paths in the multi-perspective table. Enforce one portfolio writer and treat any run whose HEAD
+   moved as diagnostic only.
+2. Continue the active `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH` task. Qualify package-root roles,
+   visitor-facing facts, evidence polarity, verified acquisition, and executable examples on real
+   Java, .NET, Python, TypeScript, C++, Go, and Rust representatives. Close it only with stable
+   real-output evidence; otherwise repair its first failing boundary.
+3. Execute `L8-LOCAL-README-ASSESSMENT-COMPOSITION`. Make every material non-preserve decision
+   compile to a candidate-changing operation and add deterministic presentation lint. Prove the
+   previously defective Java and .NET artifacts are rejected or corrected.
+4. Execute `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`. Add span/fact-grounded reviewer findings,
+   contradicted-review rejection, repair routing, candidate-delta checks, and finding-resolution
+   checks before another paid review call.
+5. Execute `L8-LOCAL-HETEROGENEOUS-QUALIFICATION` through the complete public supervisor path.
+   Require seven real representatives to reach `AGENT_APPROVED` and unchanged `NO_OP_PROVEN`,
+   with recovery, idempotency, safety, and measured cost/latency evidence.
+6. Freeze the registry, repository revisions, control HEAD, prompt/fact/renderer/validator/reviewer
+   hashes, dependency lock, and cost envelope as one named campaign.
+7. Resume Gate A in bounded cohorts and publish the dynamic portfolio summary after every
+   repository. A new live defect reopens the first responsible task, requalifies the affected
    representative, and resumes only invalidated repositories.
-9. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with
-   `act`, staging, Gate C, Gate D, and Levels 5/7/8 in the dependency order above.
+8. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with
+   `act`, staging, Gate C, Gate D, Level 5, Level 7's 30-day proof, and Level 8's 90-day proof in
+   the dependency order above.
 
 ## Verification, evidence, and human boundaries
 
@@ -513,12 +530,12 @@ The official control-repository gate runs Ruff, format check, mypy, non-live pyt
 blocking coverage, blocking semantic traceability, blocking verifier enforcement, actionlint, and
 `git diff --check` against a recorded stable tree.
 
-Human involvement is limited to fresh approval for the specified `master.md` sections, Gate-B review
-of already agent-approved candidates, Docker/staging access if unavailable locally, staging
-credentials, exact per-product-push approval, GitHub App registration and secrets after Gate C,
-genuinely manual UI actions, independent acceptance authority, and elapsed production time. All
-other implementation, testing, remediation, evidence, commits, setup, monitoring, and continuation
-is autonomous.
+Human involvement is limited to Gate-B review of already agent-approved candidates, Docker or
+staging access if unavailable locally, staging credentials, exact per-product-push approval,
+GitHub App registration and secrets after Gate C, genuinely manual UI actions, independent
+acceptance authority, and elapsed production time. `plans/master.md` remains freely editable under
+the current repository governance. All other implementation, testing, remediation, evidence,
+commits, setup, monitoring, and continuation is autonomous.
 
 The mission closes only when every mandatory graph task is `CLOSED`, all requirements are
 truthfully evidenced, all gates pass, the 30-day and 90-day periods complete, the independent audit
