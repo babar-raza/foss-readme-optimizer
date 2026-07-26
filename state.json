@@ -1855,7 +1855,7 @@
     "updated_at": "2026-07-26T07:42:41.342549+00:00"
   },
   "schema_version": 2,
-  "state_version": 233,
+  "state_version": 234,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9e63ff6e9f22fa71b2e4dc0f398db4a51f35047cca6453241e1567ed5ff36c6d",
@@ -1982,13 +1982,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:RuntimeError: repair composition failed: execution_error:LLMError: composition changed deterministic source-bound dispositions: ['missing:at-a-glance:replace_generic!=add']",
       "last_checkpoint_id": "4fc9b452d9171876e1e025f89a74e04474245a00ca5c5bf363996e016a377d11",
-      "lease_expires_at": "2026-07-26T07:50:44.450447+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-26T07:44:25.229846+00:00"
+      "status": "blocked",
+      "updated_at": "2026-07-26T07:44:31.692364+00:00"
     }
   },
   "trigger_records": {},
