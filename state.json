@@ -1799,6 +1799,15 @@
         "reason": "entering repair attempt 1/2: Replace the 'At a glance' section with a concise, fact-backed paragraph that accurately describes the product's purpose, audience, and key capabilities, based on the verified facts: product.identity, product.audience, product.capabilities, and product.formats. The paragraph should explain that this is an open-source 3D file format library for TypeScript/JavaScript developers that enables programmatic creation, manipulation, and conversion of 3D scenes and models in Node.js and browser environments, supporting formats like OBJ, GLTF, STL, 3MF, FBX, and Collada.",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REPAIRING",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-07-26T07:42:41.342549+00:00",
+        "reason": "independent review wiring failed: RuntimeError: repair composition failed: execution_error:LLMError: composition changed deterministic source-bound dispositions: ['missing:at-a-glance:replace_generic!=add']",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "presentation_plan_hash": "2b7e5a5e123e98efd048436d4b7caaca9e45195fb5f057d2c672e0ad40b252fe",
@@ -1808,11 +1817,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "REPAIRING",
-    "updated_at": "2026-07-26T07:41:26.203098+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-07-26T07:42:41.342549+00:00"
   },
   "schema_version": 2,
-  "state_version": 224,
+  "state_version": 225,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
