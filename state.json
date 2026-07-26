@@ -2605,6 +2605,15 @@
         "reason": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFactsV2: audience, problems solved, capabilities, formats, platform, installation coordinates, verified acquisition, minimal example, license, release state, compatibility, and limitations are all supported. The README preserves valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding the fact-backed 'At a glance' and 'Installation' sections. The minimal verified example matches the compiled policy example exactly. All links are real, relevant, and correctly targeted. The README establishes the product as useful, credible, and clearly explained before any commercial links. There are no generic-template symptoms, overpromotion, or unsupported claims.",
         "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
         "to_status": "AGENT_APPROVED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_APPROVED",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T01:19:15.450111+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "presentation_plan_hash": "cf60bffa24c5f00196ddb9ae7e578ee1fa4c29beffb99befebaa3c2a99609613",
@@ -2614,11 +2623,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "status": "AGENT_APPROVED",
-    "updated_at": "2026-07-26T00:45:05.337623+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-26T01:19:15.450111+00:00"
   },
   "schema_version": 2,
-  "state_version": 107,
+  "state_version": 108,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ab69f8376c988bab261a58d60f877d78ca06630bd9f062e894a4b106334b0be",
