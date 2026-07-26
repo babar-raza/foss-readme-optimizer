@@ -29,6 +29,14 @@ _FRAMEWORK_RANK: dict[str, int] = {
     "net7.0": 70,
     "net8.0": 80,
     "net9.0": 90,
+    "net10.0": 100,
+    "netcoreapp1.0": 30,
+    "netcoreapp1.1": 31,
+    "netcoreapp2.0": 32,
+    "netcoreapp2.1": 33,
+    "netcoreapp2.2": 34,
+    "netcoreapp3.0": 35,
+    "netcoreapp3.1": 36,
 }
 
 

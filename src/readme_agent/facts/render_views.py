@@ -25,6 +25,16 @@ _FAMILY_LABELS = {
     "cells": "Aspose.Cells",
     "pdf": "Aspose.PDF",
 }
+_RUNTIME_LABELS = {
+    ".net": ".NET",
+    "cmake": "CMake",
+    "go": "Go",
+    "java": "Java",
+    "node": "Node.js",
+    "node.js": "Node.js",
+    "python": "Python",
+    "rust": "Rust",
+}
 
 
 class VisitorFactRenderViewV1(BaseModel):
@@ -70,8 +80,16 @@ def _normalized_runtime(label: str, runtime: str) -> str:
     value = runtime.strip()
     value = re.sub(rf"^{re.escape(label)}\s*", "", value, flags=re.IGNORECASE)
     value = value.removesuffix("+").strip()
-    if label == ".NET" and value.casefold().startswith("net"):
-        value = value[3:]
+    if label == ".NET":
+        folded = value.casefold()
+        if folded.startswith("netcoreapp"):
+            value = "Core " + value[len("netcoreapp") :]
+        elif folded.startswith("netstandard"):
+            value = "Standard " + value[len("netstandard") :]
+        elif folded.startswith("net"):
+            value = value[3:]
+    if value.startswith(">=") and not re.search(r"[,<|^~*]", value[2:]):
+        value = value[2:].strip()
     return value
 
 
@@ -83,11 +101,14 @@ def _compatibility_phrases(value: object) -> list[str]:
             continue
         ecosystem = str(row.get("ecosystem") or row.get("platform") or "").strip().lower()
         runtime = str(row.get("minimum_runtime") or "").strip()
-        label = _ECOSYSTEM_LABELS.get(ecosystem)
+        runtime_label = str(row.get("runtime_label") or "").strip().lower()
+        label = _RUNTIME_LABELS.get(runtime_label) or _ECOSYSTEM_LABELS.get(ecosystem)
         if label and runtime:
             normalized_runtime = _normalized_runtime(label, runtime)
             if normalized_runtime:
-                phrases.append(f"Requires {label} {normalized_runtime} or later.")
+                has_upper_bound = bool(re.search(r"[,<|^~*]", runtime.removeprefix(">=")))
+                suffix = "." if has_upper_bound else " or later."
+                phrases.append(f"Requires {label} {normalized_runtime}{suffix}")
     return phrases
 
 

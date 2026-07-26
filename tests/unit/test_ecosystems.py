@@ -296,6 +296,7 @@ class TestRustParser:
             'name = "aspose-cells-foss-rust"\n'
             'version = "26.7.0"\n'
             'edition = "2021"\n'
+            'rust-version = "1.75"\n'
             'license = "MIT"\n\n'
             "[lib]\n"
             'name = "aspose_cells_foss_rust"\n'
@@ -308,6 +309,7 @@ class TestRustParser:
         assert info["name"] == "aspose-cells-foss-rust"
         assert info["version"] == "26.7.0"
         assert info["edition"] == "2021"
+        assert info["rust_version"] == "1.75"
         assert info["license"] == "MIT"
         assert info["lib_name"] == "aspose_cells_foss_rust"
 

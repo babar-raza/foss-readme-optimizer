@@ -27,6 +27,8 @@ def parse_cargo_toml(cargo_toml_path: Path) -> dict[str, str]:
         info["license"] = package["license"]
     if package.get("edition"):
         info["edition"] = package["edition"]
+    if package.get("rust-version"):
+        info["rust_version"] = package["rust-version"]
 
     lib = data.get("lib", {})
     if lib.get("name"):

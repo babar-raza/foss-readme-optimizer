@@ -13,6 +13,16 @@ from readme_agent.license.auditor import detect_license
 from readme_agent.profile.schema import RepositoryProfile
 from readme_agent.registry.models import PolicyProfile, ProductEntry
 
+_RUNTIME_REQUIREMENT_FIELDS: dict[str, tuple[str, str]] = {
+    "cpp": ("cmake_min_version", "CMake"),
+    "go": ("runtime_min_version", "Go"),
+    "java": ("runtime_min_version", "Java"),
+    "net": ("min_framework", ".NET"),
+    "python": ("requires_python", "Python"),
+    "rust": ("rust_version", "Rust"),
+    "typescript": ("engines_node", "Node.js"),
+}
+
 
 def _source(
     source_type: str,
@@ -83,11 +93,16 @@ def _manifest_candidates(
             if value is not None
         }
         coordinates.append(coordinate)
-        runtime = parsed.get("runtime_min_version")
+        requirement_key, runtime_label = _RUNTIME_REQUIREMENT_FIELDS.get(
+            package_root.ecosystem,
+            ("runtime_min_version", package_root.ecosystem),
+        )
+        runtime = parsed.get(requirement_key)
         if runtime:
             compatibility.append(
                 {
                     "ecosystem": package_root.ecosystem,
+                    "runtime_label": runtime_label,
                     "minimum_runtime": runtime,
                     "manifest_path": package_root.manifest_path,
                 }

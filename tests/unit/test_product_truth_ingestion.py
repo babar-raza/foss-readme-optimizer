@@ -109,6 +109,67 @@ def test_repository_assertion_requires_existing_path_and_symbol(tmp_path):
     assert coordinates.value[0]["version"] == "1.2.3"
 
 
+def test_manifest_compatibility_normalizes_every_ecosystem_runtime_contract(tmp_path):
+    manifests = {
+        "net/widget.csproj": (
+            "<Project><PropertyGroup>"
+            "<TargetFrameworks>net10.0;net8.0;netcoreapp3.1</TargetFrameworks>"
+            "</PropertyGroup></Project>"
+        ),
+        "python/pyproject.toml": (
+            '[project]\nname = "widget"\nversion = "1.0.0"\nrequires-python = ">=3.11"\n'
+        ),
+        "typescript/package.json": (
+            '{"name":"widget","version":"1.0.0","engines":{"node":">=18,<22"}}'
+        ),
+        "cpp/CMakeLists.txt": ("cmake_minimum_required(VERSION 3.20)\nproject(widget)\n"),
+        "rust/Cargo.toml": (
+            '[package]\nname = "widget"\nversion = "1.0.0"\nrust-version = "1.75"\n'
+        ),
+    }
+    package_roots = []
+    for relative_path, content in manifests.items():
+        path = tmp_path / relative_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+        package_root, manifest_name = relative_path.split("/", maxsplit=1)
+        ecosystem = "net" if package_root == "net" else package_root
+        package_roots.append(
+            PackageRoot(
+                path=package_root,
+                ecosystem=ecosystem,
+                manifest_path=relative_path,
+                confidence=1.0,
+                evidence=f"found {manifest_name}",
+            )
+        )
+    source = tmp_path / "src" / "Widget.java"
+    source.parent.mkdir()
+    source.write_text("public class Widget {}", encoding="utf-8")
+    profile = RepositoryProfile(org_repo="acme/widget", package_roots=package_roots)
+
+    candidates = ingest_repository_product_facts(
+        _entry(),
+        _policy("src/Widget.java", "public class Widget"),
+        profile,
+        tmp_path,
+        "abc1234",
+    )
+
+    compatibility = next(fact for fact in candidates if fact.field == "product.compatibility")
+    requirements = {
+        item["ecosystem"]: (item["runtime_label"], item["minimum_runtime"])
+        for item in compatibility.value
+    }
+    assert requirements == {
+        "cpp": ("CMake", "3.20"),
+        "net": (".NET", "netcoreapp3.1"),
+        "python": ("Python", ">=3.11"),
+        "rust": ("Rust", "1.75"),
+        "typescript": ("Node.js", ">=18,<22"),
+    }
+
+
 def test_missing_or_escaped_evidence_blocks_only_technical_assertion(tmp_path):
     profile = RepositoryProfile(org_repo="acme/widget")
     candidates = ingest_repository_product_facts(

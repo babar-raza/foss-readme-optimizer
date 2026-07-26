@@ -57,6 +57,68 @@ def test_compatibility_normalizes_repeated_language_and_plus_suffix():
     assert view.phrases == ["Requires Go 1.24 or later."]
 
 
+def test_compatibility_uses_runtime_label_and_preserves_upper_bound():
+    facts = _facts("net")
+    compatibility = facts.selected_fact("product.compatibility")
+    compatibility = compatibility.model_copy(
+        update={
+            "verification_state": "verified",
+            "value": [
+                {
+                    "ecosystem": "typescript",
+                    "runtime_label": "Node.js",
+                    "minimum_runtime": ">=18,<22",
+                    "manifest_path": "package.json",
+                }
+            ],
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                compatibility if fact.fact_id == compatibility.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    view = visitor_fact_render_view(facts, "product.compatibility")
+
+    assert view is not None
+    assert view.phrases == ["Requires Node.js >=18,<22."]
+
+
+def test_dotnet_target_framework_has_a_visitor_facing_runtime_name():
+    facts = _facts("net")
+    compatibility = facts.selected_fact("product.compatibility")
+    compatibility = compatibility.model_copy(
+        update={
+            "verification_state": "verified",
+            "value": [
+                {
+                    "ecosystem": "net",
+                    "runtime_label": ".NET",
+                    "minimum_runtime": "netcoreapp3.1",
+                    "manifest_path": "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+                }
+            ],
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                compatibility if fact.fact_id == compatibility.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    view = visitor_fact_render_view(facts, "product.compatibility")
+
+    assert view is not None
+    assert view.phrases == ["Requires .NET Core 3.1 or later."]
+
+
 def test_audience_normalizes_internal_ecosystem_token_without_mutating_fact():
     facts = _facts()
     audience = facts.selected_fact("product.audience")
