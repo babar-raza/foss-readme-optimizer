@@ -1230,20 +1230,35 @@
         "reason": "deterministic README proposal bundle verification rejected candidate",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "DETERMINISTIC_VALIDATION_FAILED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\candidate\\claim-map.json"
+        ],
+        "from_status": "DETERMINISTIC_VALIDATION_FAILED",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-26T07:14:09.581525+00:00",
+        "reason": "resume the unchanged candidate at its failed validation/review boundary",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "REPAIRING"
       }
     ],
     "presentation_plan_hash": "c44dcdb87d9c0adf3c223df4d57a6d1c41dc670560a9f6161ba2349e55c1063a",
     "prompt_hash": "0aac33fd400c397644d6d10473017ebc54952f5932f75eb660ee40937558c2f6",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "DETERMINISTIC_VALIDATION_FAILED",
-    "updated_at": "2026-07-26T06:41:13.495631+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-07-26T07:14:09.581525+00:00"
   },
   "schema_version": 2,
-  "state_version": 145,
+  "state_version": 146,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
