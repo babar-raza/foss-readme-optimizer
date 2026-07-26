@@ -164,6 +164,28 @@ def test_blocked_facts_are_neither_cited_nor_introduced_into_candidate():
     }.intersection({claim.fact_id for claim in claim_map.claims})
 
 
+def test_empty_verified_limitations_do_not_create_an_actionable_section():
+    facts, revision = _java_facts()
+    selected = facts.selected_fact("product.limitations")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": []}) if fact.fact_id == selected.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    assessment = assess_readme_document(
+        facts.org_repo,
+        "# Product\n\nRepository-specific guidance.\n",
+        facts,
+        base_revision=revision,
+    )
+
+    assert all(section.section_id != "missing:limitations" for section in assessment.sections)
+
+
 def test_blocked_build_failed_example_cannot_survive_in_candidate():
     facts, revision = _java_facts()
     source = "# Aspose.Cells FOSS for Java\n\nExisting maintainer introduction.\n"

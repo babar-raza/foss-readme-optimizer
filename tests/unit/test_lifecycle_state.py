@@ -14,6 +14,7 @@ from readme_agent.state.health import build_health_report
 from readme_agent.state.lifecycle import (
     LifecycleRecorder,
     accept_trigger,
+    acquire_lifecycle_lock,
     transition_trigger,
 )
 from readme_agent.state.lifecycle_schema import TriggerEnvelopeV2
@@ -117,6 +118,27 @@ class TestLifecycleSchemasAndMigration:
 
 
 class TestLifecycleTransitions:
+    def test_lifecycle_lock_retries_a_brief_release_race(self):
+        backend = LifecycleBackend()
+        attempts = 0
+        original_acquire = backend.acquire_lock
+
+        def briefly_held(org_repo):
+            nonlocal attempts
+            attempts += 1
+            return None if attempts < 3 else original_acquire(org_repo)
+
+        backend.acquire_lock = briefly_held
+
+        lock = acquire_lifecycle_lock(
+            backend,
+            "org/repo",
+            sleep=lambda _seconds: None,
+        )
+
+        assert attempts == 3
+        backend.release_lock(lock)
+
     def test_full_lifecycle_is_terminal_and_checkpointed(self):
         backend = LifecycleBackend()
         accepted = accept_trigger(backend, envelope())

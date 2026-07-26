@@ -17,7 +17,11 @@ from readme_agent.readme.assessment_claims import (
     assess_material_claims,
 )
 from readme_agent.readme.document_structure import Heading, parse_headings
-from readme_agent.readme.document_templates import accepted_fact, installation_text
+from readme_agent.readme.document_templates import (
+    accepted_fact,
+    installation_text,
+    limitations_text,
+)
 
 AssessmentDisposition = Literal[
     "preserve",
@@ -256,7 +260,7 @@ def assess_readme_document(
             ("product.limitations",),
             "Add limitations that are explicitly supported by verified repository evidence.",
             not titles.intersection({"limitations", "known limitations", "known limits"})
-            and accepted_fact(facts, "product.limitations") is not None,
+            and bool(limitations_text(facts)),
         ),
     )
     for section_id, heading, fields, rationale, eligible in additions:

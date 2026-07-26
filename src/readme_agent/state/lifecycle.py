@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
@@ -9,7 +10,8 @@ from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from readme_agent.errors import StateBackendError
-from readme_agent.state.backend import StateBackend, safe_release_lock
+from readme_agent.retry import RetryableOperationError, run_with_retry
+from readme_agent.state.backend import Lock, StateBackend, safe_release_lock
 from readme_agent.state.cas import load_required_state, save_state_patch
 from readme_agent.state.checkpoints import record_checkpoint
 from readme_agent.state.lifecycle_schema import (
@@ -60,9 +62,7 @@ def accept_trigger(
     """Accept once; unfinished duplicates resume instead of being suppressed."""
 
     org_repo = envelope.repository_scope
-    lock = backend.acquire_lock(org_repo)
-    if lock is None:
-        raise StateBackendError(f"could not acquire lifecycle lock for {org_repo!r}")
+    lock = acquire_lifecycle_lock(backend, org_repo, max_attempts=max_retries)
     try:
         current = backend.load(org_repo)
         if current is not None:
@@ -90,6 +90,37 @@ def accept_trigger(
         return TriggerAcceptance(accepted, should_execute=True)
     finally:
         safe_release_lock(backend.release_lock, lock, label="lifecycle-lock")
+
+
+def acquire_lifecycle_lock(
+    backend: StateBackend,
+    org_repo: str,
+    *,
+    max_attempts: int = 5,
+    sleep: Callable[[float], None] | None = None,
+) -> Lock:
+    """Absorb brief state-ref release races without stealing a live lease."""
+
+    def attempt() -> Lock:
+        acquired = backend.acquire_lock(org_repo)
+        if acquired is None:
+            raise RetryableOperationError(
+                f"lifecycle lock for {org_repo!r} is still held",
+            )
+        return acquired
+
+    try:
+        return run_with_retry(
+            "state_cas",
+            attempt,
+            sleep=sleep,
+            max_attempts=max_attempts,
+        )
+    except RetryableOperationError as exc:
+        raise StateBackendError(
+            f"could not acquire lifecycle lock for {org_repo!r} after "
+            f"{max_attempts} bounded attempts"
+        ) from exc
 
 
 def transition_trigger(
