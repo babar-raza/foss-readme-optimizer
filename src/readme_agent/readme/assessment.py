@@ -250,6 +250,14 @@ def assess_readme_document(
             not titles.intersection({"quick start", "usage", "getting started"})
             and bool(_example_code(facts)),
         ),
+        (
+            "limitations",
+            "Known limitations",
+            ("product.limitations",),
+            "Add limitations that are explicitly supported by verified repository evidence.",
+            not titles.intersection({"limitations", "known limitations", "known limits"})
+            and accepted_fact(facts, "product.limitations") is not None,
+        ),
     )
     for section_id, heading, fields, rationale, eligible in additions:
         if not eligible:
@@ -261,7 +269,14 @@ def assess_readme_document(
         ]
         if not fact_ids:
             continue
-        insertion = _byte_offset(source_text, first_h2.start if first_h2 else len(source_text))
+        insertion = _byte_offset(
+            source_text,
+            len(source_text)
+            if section_id == "limitations"
+            else first_h2.start
+            if first_h2
+            else len(source_text),
+        )
         sections.append(
             ReadmeSectionAssessmentV1(
                 section_id=f"missing:{section_id}",

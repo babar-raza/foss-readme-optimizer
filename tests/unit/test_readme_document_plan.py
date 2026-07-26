@@ -85,6 +85,53 @@ def test_missing_usage_section_gets_the_verified_minimal_example():
     )
 
 
+def test_missing_limitations_section_gets_every_verified_limitation():
+    org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    facts, revision = _facts(org_repo)
+    limitations = facts.selected_fact("product.limitations")
+    source = "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n"
+
+    candidate, plan = build_readme_document_candidate(
+        org_repo, source, facts, base_revision=revision
+    )
+    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert decision.valid, decision.errors
+    assert "## Known limitations" in candidate
+    for limitation in limitations.value:
+        assert limitation in candidate
+    assert any(
+        operation.operation_id == "readme.limitations.add-verified"
+        and limitations.fact_id in operation.fact_ids
+        for operation in plan.operations
+    )
+
+
+def test_existing_limitations_section_is_not_duplicated():
+    org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    facts, revision = _facts(org_repo)
+    limitations = facts.selected_fact("product.limitations")
+    source = (
+        "# Aspose.Cells FOSS for Java\n\n"
+        "Spreadsheet library for Java developers.\n\n"
+        "## Limitations\n\n"
+        + "\n".join(f"- {limitation}" for limitation in limitations.value)
+        + "\n"
+    )
+
+    candidate, plan = build_readme_document_candidate(
+        org_repo, source, facts, base_revision=revision
+    )
+    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert decision.valid, decision.errors
+    assert candidate.count("## Limitations") == 1
+    assert "## Known limitations" not in candidate
+    assert all(
+        operation.operation_id != "readme.limitations.add-verified" for operation in plan.operations
+    )
+
+
 def test_cells_keeps_verified_maven_install_and_adds_verified_example():
     """Corrected 2026-07-24: org.aspose:aspose-cells-foss IS published on Maven
     Central (the prior resolver queried the wrong endpoint) -- the renderer must

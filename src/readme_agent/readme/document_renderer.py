@@ -42,6 +42,7 @@ from readme_agent.readme.document_templates import (
     example_text,
     first_mapping,
     installation_text,
+    limitations_text,
     mapping_value,
     overview_text,
 )
@@ -184,6 +185,35 @@ def build_readme_document_candidate(
                 rationale=(
                     "Put verified audience, purpose, scope, navigation, and any missing source "
                     "acquisition path before secondary repository detail."
+                ),
+            )
+        )
+
+    has_limitations = any(
+        heading.level == 2
+        and heading.title.strip().lower() in {"limitations", "known limitations", "known limits"}
+        for heading in headings
+    )
+    verified_limitations = limitations_text(facts)
+    if not has_limitations and verified_limitations:
+        byte_offset = len(source)
+        separator = (
+            "" if inner_text.endswith("\n\n") else "\n" if inner_text.endswith("\n") else "\n\n"
+        )
+        limitation = accepted_fact(facts, "product.limitations")
+        operations.append(
+            build_operation(
+                operation_id="readme.limitations.add-verified",
+                operation="insert_after",
+                source=source,
+                start=byte_offset,
+                end=byte_offset,
+                replacement=separator + verified_limitations + "\n",
+                fact_ids=[limitation.fact_id] if limitation is not None else [],
+                treatment="additive",
+                rationale=(
+                    "Expose repository-verified limitations instead of silently presenting "
+                    "incomplete capability coverage."
                 ),
             )
         )

@@ -184,6 +184,16 @@ def validate_readme_document_candidate(
     if not checks["verified_overview_present"]:
         errors.append("fact-backed audience/problem overview is absent")
 
+    limitations = _accepted(facts, "product.limitations")
+    limitation_fragments = _text_fragments(limitations.value) if limitations is not None else []
+    checks["verified_limitations_present"] = candidate_span is not None and (
+        limitations is None
+        or not limitation_fragments
+        or all(fragment in candidate_span.content for fragment in limitation_fragments)
+    )
+    if not checks["verified_limitations_present"]:
+        errors.append("selected verified limitations are absent")
+
     return DocumentCandidateValidationV1(
         valid=not errors,
         checks=checks,

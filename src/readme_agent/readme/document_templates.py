@@ -21,6 +21,7 @@ TEMPLATE_ROOT = _PROJECT_ROOT / "templates" / "readme"
 DOCUMENT_TEMPLATE_NAMES = (
     "agentic-overview-and-navigation.md",
     "product-overview-and-navigation.md",
+    "verified-limitations.md",
     "verified-minimal-example.md",
     "verified-maven-acquisition.md",
     "verified-dotnet-nuget-acquisition.md",
@@ -191,6 +192,19 @@ def example_text(facts: ProductFactsV2, source_revision: str) -> str:
         )
         .strip()
     )
+
+
+def limitations_text(facts: ProductFactsV2) -> str:
+    """Render every selected verified limitation without editorial invention."""
+
+    limitations = accepted_fact(facts, "product.limitations")
+    if limitations is None or not limitations.value:
+        return ""
+    values = limitations.value if isinstance(limitations.value, list) else [limitations.value]
+    items = "\n".join(f"- {str(value).strip()}" for value in values if str(value).strip())
+    if not items:
+        return ""
+    return load_template("verified-limitations.md").format(items=items).strip()
 
 
 def overview_text(
