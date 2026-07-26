@@ -394,6 +394,23 @@
       "task_id": "5ece401748e94be7b4a076c229dbf8a2",
       "trigger_dedup_key": "operator:20260726-004030-cd83:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "607d2c872a0aae0385ab1cf71719296a114093b647d810cc2a9204b21abd83a5": {
+      "action": "verify_package_acquisition",
+      "attempt": 1,
+      "checkpoint_id": "607d2c872a0aae0385ab1cf71719296a114093b647d810cc2a9204b21abd83a5",
+      "completed_at": "2026-07-26T02:36:35.277731+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8848874b8acbf6071559280c378cbc2f13c44b035cfdfc34574996b5d7bbf133",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-023022-ddba",
+      "schema_version": 1,
+      "stage": "task_started",
+      "started_at": "2026-07-26T02:36:35.277718+00:00",
+      "task_id": "b50ae2af914c43b7ad393a4db3021ce4",
+      "trigger_dedup_key": "operator:20260726-023022-ddba:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "670aa3318b186e7bd426ad1eab54c2c05998c959299ef1b31608dbf1cba2464f": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -3684,7 +3701,7 @@
     "updated_at": "2026-07-26T02:34:24.172848+00:00"
   },
   "schema_version": 2,
-  "state_version": 242,
+  "state_version": 243,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a8e32a7021c7a54179604c1ef00ac2e07d681ec262b542afc27855c711f6337f",
@@ -3844,11 +3861,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "7fd936e93077a0114982e2c9486c3c37cb982284b1bc8bd846aa18e1c753e9a3",
+      "last_checkpoint_id": "607d2c872a0aae0385ab1cf71719296a114093b647d810cc2a9204b21abd83a5",
       "lease_expires_at": "2026-07-26T02:45:39.251588+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T02:36:19.699938+00:00"
+      "updated_at": "2026-07-26T02:36:35.277731+00:00"
     }
   },
   "trigger_records": {},
