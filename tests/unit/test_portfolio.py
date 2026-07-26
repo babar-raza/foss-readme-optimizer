@@ -78,20 +78,34 @@ def test_trigger_selection_resumes_retryable_but_never_steals_active_work():
     assert selected.active_trigger_key == "active"
 
 
-def test_completed_local_poc_status_advances_later_portfolio_slices():
+def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
+    from readme_agent.evidence.writer import refresh_sha256sums, write_redacted_json
     from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
     from readme_agent.state.schema import RunStateV2
 
+    source_revision = "a" * 40
     state = RunStateV2(
         org_repo="org/repo",
         readme_poc_lifecycle=ReadmePocLifecycleStateV2(
             org_repo="org/repo",
-            source_revision="abc123",
+            source_revision=source_revision,
             status="NO_OP_PROVEN",
         ),
     )
+    bundle_dir = tmp_path / source_revision
+    write_redacted_json(
+        bundle_dir / "manifest.json",
+        {
+            "org_repo": "org/repo",
+            "source_revision": source_revision,
+            "lifecycle_status": "NO_OP_PROVEN",
+            "complete": True,
+        },
+    )
+    write_redacted_json(bundle_dir / "review" / "final-verdict.json", {"accepted": True})
+    refresh_sha256sums(bundle_dir)
 
-    assert completed_local_poc_status(state) == "NO_OP_PROVEN"
+    assert completed_local_poc_status(state, bundle_dir) == "NO_OP_PROVEN"
     assert (
         completed_local_poc_status(
             state.model_copy(
@@ -100,10 +114,14 @@ def test_completed_local_poc_status_advances_later_portfolio_slices():
                         update={"status": "AGENT_APPROVED"}
                     )
                 }
-            )
+            ),
+            bundle_dir,
         )
         is None
     )
+
+    write_redacted_json(bundle_dir / "review" / "final-verdict.json", {"accepted": False})
+    assert completed_local_poc_status(state, bundle_dir) is None
 
 
 def test_failed_member_returns_its_processing_trigger_to_retryable():

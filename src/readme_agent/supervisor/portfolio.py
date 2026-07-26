@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -9,6 +10,7 @@ from pydantic import BaseModel, Field
 
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle import transition_trigger
+from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2
 
 _COMPLETE_LOCAL_POC_STATUSES = {
@@ -71,13 +73,64 @@ class PortfolioTriggerSelectionV1(BaseModel):
     active_trigger_key: str | None = None
 
 
-def completed_local_poc_status(state: RunStateV2 | None) -> str | None:
-    """Return a durable complete status so later slices can advance the cursor."""
+def completed_local_poc_status(
+    state: RunStateV2 | None,
+    bundle_dir: Path,
+) -> str | None:
+    """Return a complete status only when its revision bundle is checksum-valid."""
 
-    if state is None or state.readme_poc_lifecycle is None:
+    if state is None or not isinstance(
+        state.readme_poc_lifecycle,
+        ReadmePocLifecycleStateV2,
+    ):
         return None
-    status = state.readme_poc_lifecycle.status
-    return status if status in _COMPLETE_LOCAL_POC_STATUSES else None
+    lifecycle = state.readme_poc_lifecycle
+    if lifecycle.status not in _COMPLETE_LOCAL_POC_STATUSES:
+        return None
+
+    manifest_path = bundle_dir / "manifest.json"
+    inventory_path = bundle_dir / "sha256sums.txt"
+    if not manifest_path.is_file() or not inventory_path.is_file():
+        return None
+
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        inventory_lines = inventory_path.read_text(encoding="utf-8").splitlines()
+        expected: dict[str, str] = {}
+        for line in inventory_lines:
+            digest, relative = line.split("  ", maxsplit=1)
+            if (
+                len(digest) != 64
+                or any(char not in "0123456789abcdef" for char in digest)
+                or not relative
+                or relative in expected
+            ):
+                return None
+            expected[relative] = digest
+    except (OSError, UnicodeError, ValueError, json.JSONDecodeError):
+        return None
+
+    if (
+        manifest.get("complete") is not True
+        or manifest.get("org_repo") != state.org_repo
+        or manifest.get("source_revision") != lifecycle.source_revision
+        or manifest.get("lifecycle_status") != lifecycle.status
+    ):
+        return None
+
+    actual = {
+        path.relative_to(bundle_dir).as_posix(): path
+        for path in bundle_dir.rglob("*")
+        if path.is_file() and path.name != "sha256sums.txt"
+    }
+    if set(expected) != set(actual):
+        return None
+
+    from readme_agent.evidence.writer import sha256_file
+
+    if any(sha256_file(actual[relative])[0] != digest for relative, digest in expected.items()):
+        return None
+    return lifecycle.status
 
 
 def select_portfolio_trigger(state: RunStateV2 | None) -> PortfolioTriggerSelectionV1:

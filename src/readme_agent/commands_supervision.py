@@ -433,15 +433,23 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         repository_args.no_registry_heal = True
         try:
             persisted = state_backend.load(entry.org_repo)
-            if complete_status := completed_local_poc_status(persisted):
-                results.append(
-                    PortfolioRepositoryResultV1(
-                        org_repo=entry.org_repo,
-                        status=complete_status,
-                        exit_code=0,
-                    )
+            lifecycle = persisted.readme_poc_lifecycle if persisted is not None else None
+            if lifecycle is not None and lifecycle.source_revision:
+                org, repo = entry.org_repo.split("/", maxsplit=1)
+                bundle_dir = paths.readme_poc_repository_dir(
+                    org,
+                    repo,
+                    lifecycle.source_revision,
                 )
-                continue
+                if complete_status := completed_local_poc_status(persisted, bundle_dir):
+                    results.append(
+                        PortfolioRepositoryResultV1(
+                            org_repo=entry.org_repo,
+                            status=complete_status,
+                            exit_code=0,
+                        )
+                    )
+                    continue
             # Recover only expired work. An explicitly retryable trigger can
             # resume immediately; an unexpired accepted/processing trigger is
             # still owned by another worker and must never be stolen.
