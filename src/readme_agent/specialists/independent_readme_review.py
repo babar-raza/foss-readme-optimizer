@@ -93,7 +93,10 @@ from readme_agent.llm.verification_prompts import build_independent_readme_revie
 from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2, ReadmePocStatusV2
-from readme_agent.state.readme_poc_lifecycle import transition_readme_poc_status
+from readme_agent.state.readme_poc_lifecycle import (
+    record_deterministic_validation_failure,
+    transition_readme_poc_status,
+)
 
 _READ_ONLY_PERMISSIONS: set[PermissionClass] = {"read_only_local", "read_only_network"}
 
@@ -668,10 +671,9 @@ def run_independent_review_with_repair_loop(
                         evidence_refs=list(ctx.get("evidence_refs", [])),
                     )
                 if not deterministic_passed:
-                    transition_readme_poc_status(
+                    record_deterministic_validation_failure(
                         backend,
                         org_repo,
-                        "DETERMINISTIC_VALIDATION_FAILED",
                         observed_by=_OBSERVED_BY,
                         reason="repaired candidate failed deterministic validation",
                         evidence_refs=list(ctx.get("evidence_refs", [])),

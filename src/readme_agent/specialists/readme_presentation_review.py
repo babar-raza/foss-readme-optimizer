@@ -24,7 +24,10 @@ from readme_agent.specialists.readme_review_validation import (
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.domain_state import merge_details
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
-from readme_agent.state.readme_poc_lifecycle import transition_readme_poc_status
+from readme_agent.state.readme_poc_lifecycle import (
+    record_deterministic_validation_failure,
+    transition_readme_poc_status,
+)
 from readme_agent.state.schema import DomainStateV1
 from readme_agent.supervisor.local_poc_review_evidence import (
     write_local_poc_no_op_evidence,
@@ -156,10 +159,9 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         )
         if not bundle_verification_record.get("verified"):
             if lifecycle_backend is not None:
-                transition_readme_poc_status(
+                record_deterministic_validation_failure(
                     lifecycle_backend,
                     org_repo,
-                    "DETERMINISTIC_VALIDATION_FAILED",
                     observed_by=INDEPENDENT_VERIFICATION,
                     reason="deterministic README proposal bundle verification rejected candidate",
                     evidence_refs=[str(proposal_bundle_dir)],

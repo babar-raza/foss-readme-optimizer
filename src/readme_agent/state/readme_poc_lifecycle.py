@@ -400,10 +400,35 @@ def record_readme_candidate_artifacts(
             "HUMAN_ACCEPTED",
             "PR_ELIGIBLE",
             "PR_PROOF_COMPLETE",
+            "SYSTEM_FAILURE",
         }
         and hashes_match
         and stored.reviewer_standard_hash == reviewer_standard_hash
     ):
+        if stored.status in {
+            "DETERMINISTIC_VALIDATION_FAILED",
+            "AGENT_REVIEW_REJECTED",
+            "SYSTEM_FAILURE",
+        }:
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                "REPAIRING",
+                observed_by="readme-presentation-composition",
+                reason=("resume the unchanged candidate at its failed validation/review boundary"),
+                evidence_refs=evidence_refs,
+                source_revision=source_revision,
+            )
+            return transition_readme_poc_status(
+                backend,
+                org_repo,
+                "CANDIDATE_GENERATED",
+                observed_by="readme-presentation-composition",
+                reason="candidate rematerialized for deterministic revalidation",
+                evidence_refs=evidence_refs,
+                source_revision=source_revision,
+                candidate_hash=candidate_hash,
+            )
         return stored
 
     current = stored
@@ -439,6 +464,32 @@ def record_readme_candidate_artifacts(
         evidence_refs=evidence_refs,
         source_revision=source_revision,
         candidate_hash=candidate_hash,
+    )
+
+
+def record_deterministic_validation_failure(
+    backend: StateBackend,
+    org_repo: str,
+    *,
+    observed_by: str,
+    reason: str,
+    evidence_refs: list[str] | None = None,
+) -> ReadmePocLifecycleStateV2:
+    """Record a deterministic rejection once and preserve it on an unchanged retry."""
+
+    state = backend.load(org_repo)
+    stored = state.readme_poc_lifecycle if state is not None else None
+    if not isinstance(stored, ReadmePocLifecycleStateV2):
+        raise StateBackendError(f"{org_repo!r} has no V2 README candidate lifecycle to validate")
+    if stored.status == "DETERMINISTIC_VALIDATION_FAILED":
+        return stored
+    return transition_readme_poc_status(
+        backend,
+        org_repo,
+        "DETERMINISTIC_VALIDATION_FAILED",
+        observed_by=observed_by,
+        reason=reason,
+        evidence_refs=evidence_refs,
     )
 
 

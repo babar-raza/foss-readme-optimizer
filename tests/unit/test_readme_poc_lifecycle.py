@@ -28,6 +28,7 @@ from readme_agent.state.lifecycle_schema import (
 from readme_agent.state.migrations import ensure_run_state_v2, load_run_state_json
 from readme_agent.state.readme_poc_lifecycle import (
     legal_next_readme_poc_statuses,
+    record_deterministic_validation_failure,
     record_product_facts_outcome,
     record_readme_candidate_artifacts,
     record_repository_profile,
@@ -88,6 +89,46 @@ class FakeReadmePocBackend:
 
 
 class TestValidTransitions:
+    def test_unchanged_deterministic_failure_retry_is_idempotent(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        for status in (
+            "SNAPSHOTTED",
+            "PROFILED",
+            "FACTS_COLLECTING",
+            "FACTS_READY",
+            "README_ASSESSED",
+            "PLAN_READY",
+            "CANDIDATE_GENERATED",
+        ):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="test",
+                reason="advance",
+                source_revision="abc123",
+            )
+
+        first = record_deterministic_validation_failure(
+            backend,
+            org_repo,
+            observed_by="test",
+            reason="bundle rejected",
+            evidence_refs=["bundle-a"],
+        )
+        second = record_deterministic_validation_failure(
+            backend,
+            org_repo,
+            observed_by="test",
+            reason="unchanged bundle rejected again",
+            evidence_refs=["bundle-b"],
+        )
+
+        assert first.status == "DETERMINISTIC_VALIDATION_FAILED"
+        assert second == first
+        assert first.history[-1].evidence_refs == ["bundle-a"]
+
     def test_snapshot_record_is_idempotent_for_the_same_revision(self):
         backend = FakeReadmePocBackend()
         first = record_repository_snapshot(
@@ -649,6 +690,54 @@ class TestReadmeCandidateBoundary:
             "CANDIDATE_GENERATED",
         ]
         assert second == first
+
+    def test_failed_candidate_restart_reenters_repair_before_revalidation(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        for status in ("SNAPSHOTTED", "PROFILED", "FACTS_COLLECTING", "FACTS_READY"):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="test",
+                reason="advance",
+                source_revision="abc123",
+            )
+        record_readme_candidate_artifacts(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            assessment_hash="assessment-a",
+            presentation_plan_hash="plan-a",
+            candidate_hash="candidate-a",
+            reviewer_standard_hash="reviewer-a",
+            evidence_refs=["candidate"],
+        )
+        transition_readme_poc_status(
+            backend,
+            org_repo,
+            "DETERMINISTIC_VALIDATION_FAILED",
+            observed_by="test",
+            reason="verifier rejected",
+        )
+
+        resumed = record_readme_candidate_artifacts(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            assessment_hash="assessment-a",
+            presentation_plan_hash="plan-a",
+            candidate_hash="candidate-a",
+            reviewer_standard_hash="reviewer-a",
+            evidence_refs=["candidate"],
+        )
+
+        assert resumed.status == "CANDIDATE_GENERATED"
+        assert resumed.repair_attempts_for_revision == 1
+        assert [item.to_status for item in resumed.history[-2:]] == [
+            "REPAIRING",
+            "CANDIDATE_GENERATED",
+        ]
 
     def test_changed_reviewer_standard_resets_only_its_obsolete_repair_budget(self):
         backend = FakeReadmePocBackend()
