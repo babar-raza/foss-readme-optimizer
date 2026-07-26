@@ -284,7 +284,9 @@ class TestDraftProductTruth:
 
         draft = agentic_drafting.draft_product_truth(
             ORG_REPO,
-            facts_so_far=_facts_so_far(),
+            facts_so_far=_facts_so_far(
+                _fact("product.identity", {"ecosystem": "java"}, state="verified")
+            ),
         )
 
         assert draft.audience[0].supporting_fact_ids == ["product.identity:q"]
@@ -299,6 +301,19 @@ class TestDraftProductTruth:
             "text",
             "supporting_fact_ids",
         }
+        assert (
+            "product.identity:q"
+            in parameters["properties"]["problems_solved"]["items"]["properties"][
+                "supporting_fact_ids"
+            ]["items"]["enum"]
+        )
+        assert parameters["properties"]["capabilities"]["items"]["properties"]["evidence_paths"][
+            "items"
+        ]["enum"] == ["README.md"]
+        assert parameters["properties"]["minimal_example"]["properties"]["language"]["enum"] == [
+            "java"
+        ]
+        assert "required_symbols" not in parameters["properties"]["minimal_example"]["required"]
         assert captured["init"][1]["max_tokens"] == agentic_drafting._MAX_RESPONSE_TOKENS
 
     def test_invalid_response_raises_llm_error(self, tmp_path, monkeypatch):

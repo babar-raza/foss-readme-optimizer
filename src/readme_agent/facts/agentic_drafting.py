@@ -53,6 +53,7 @@ own, differently-shaped characterization.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Protocol
 
@@ -130,6 +131,7 @@ _ECOSYSTEM_SOURCE_GLOBS: dict[str, tuple[str, ...]] = {
     "rust": ("*.rs",),
 }
 _DOC_GLOBS = ("*.md", "*.rst")
+_CONTEXT_PATH_HEADER = re.compile(r"(?m)^--- (?P<path>.+) ---$")
 
 # Always excluded from what this module shows the model as "already-
 # established, citable objective facts": product.audience/problems_solved
@@ -182,117 +184,119 @@ class DraftProductTruthV1(BaseModel):
     minimal_example: MinimalExamplePolicy
 
 
-_INTERPRETIVE_CLAIM_SCHEMA = {
-    "type": "object",
-    "additionalProperties": False,
-    "properties": {
-        "claim_id": {"type": "string", "minLength": 1},
-        "text": {"type": "string", "minLength": 1},
-        "supporting_fact_ids": {
-            "type": "array",
-            "minItems": 1,
-            "items": {"type": "string", "minLength": 1},
-        },
-    },
-    "required": ["claim_id", "text", "supporting_fact_ids"],
-}
-_EVIDENCE_BACKED_FACT_SCHEMA = {
-    "type": "object",
-    "additionalProperties": False,
-    "properties": {
-        "value": {"type": "string", "minLength": 1},
-        "evidence_paths": {
-            "type": "array",
-            "minItems": 1,
-            "items": {"type": "string", "minLength": 1},
-        },
-        "required_symbols": {"type": "array", "items": {"type": "string"}},
-    },
-    "required": ["value", "evidence_paths", "required_symbols"],
-}
-DRAFT_PRODUCT_TRUTH_TOOL_SCHEMA = {
-    "type": "function",
-    "function": {
-        "name": "submit_product_truth_draft",
-        "description": (
-            "Submit one repository-grounded product-truth draft for deterministic verification."
-        ),
-        "parameters": {
-            "type": "object",
-            "additionalProperties": False,
-            "properties": {
-                "audience": {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": _INTERPRETIVE_CLAIM_SCHEMA,
-                },
-                "problems_solved": {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": _INTERPRETIVE_CLAIM_SCHEMA,
-                },
-                "capabilities": {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": _EVIDENCE_BACKED_FACT_SCHEMA,
-                },
-                "formats": {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": _EVIDENCE_BACKED_FACT_SCHEMA,
-                },
-                "limitations": {
-                    "type": "array",
-                    "items": _EVIDENCE_BACKED_FACT_SCHEMA,
-                },
-                "minimal_example": {
-                    "type": "object",
-                    "additionalProperties": False,
-                    "properties": {
-                        "language": {
-                            "type": "string",
-                            "enum": [
-                                "java",
-                                "dotnet",
-                                "python",
-                                "typescript",
-                                "go",
-                                "cpp",
-                                "rust",
-                            ],
-                        },
-                        "class_name": {"type": "string", "minLength": 1},
-                        "code": {"type": "string", "minLength": 1},
-                        "evidence_paths": {
-                            "type": "array",
-                            "minItems": 1,
-                            "items": {"type": "string", "minLength": 1},
-                        },
-                        "required_symbols": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                        },
-                    },
-                    "required": [
-                        "language",
-                        "class_name",
-                        "code",
-                        "evidence_paths",
-                        "required_symbols",
-                    ],
-                },
+def _draft_product_truth_tool_schema(
+    *,
+    accepted_fact_ids: list[str],
+    evidence_paths: list[str],
+    language: str,
+) -> dict:
+    """Bind model identifiers to the exact facts and files supplied in this turn."""
+
+    fact_id_items: dict = {"type": "string", "minLength": 1}
+    if accepted_fact_ids:
+        fact_id_items["enum"] = accepted_fact_ids
+    evidence_path_items: dict = {"type": "string", "minLength": 1}
+    if evidence_paths:
+        evidence_path_items["enum"] = evidence_paths
+    interpretive_claim_schema = {
+        "type": "object",
+        "additionalProperties": False,
+        "properties": {
+            "claim_id": {"type": "string", "minLength": 1},
+            "text": {"type": "string", "minLength": 1},
+            "supporting_fact_ids": {
+                "type": "array",
+                "minItems": 1,
+                "items": fact_id_items,
             },
-            "required": [
-                "audience",
-                "problems_solved",
-                "capabilities",
-                "formats",
-                "limitations",
-                "minimal_example",
-            ],
         },
-    },
-}
+        "required": ["claim_id", "text", "supporting_fact_ids"],
+    }
+    evidence_backed_fact_schema = {
+        "type": "object",
+        "additionalProperties": False,
+        "properties": {
+            "value": {"type": "string", "minLength": 1},
+            "evidence_paths": {
+                "type": "array",
+                "minItems": 1,
+                "items": evidence_path_items,
+            },
+            "required_symbols": {"type": "array", "items": {"type": "string"}},
+        },
+        "required": ["value", "evidence_paths"],
+    }
+    return {
+        "type": "function",
+        "function": {
+            "name": "submit_product_truth_draft",
+            "description": (
+                "Submit one repository-grounded product-truth draft for deterministic verification."
+            ),
+            "parameters": {
+                "type": "object",
+                "additionalProperties": False,
+                "properties": {
+                    "audience": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": interpretive_claim_schema,
+                    },
+                    "problems_solved": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": interpretive_claim_schema,
+                    },
+                    "capabilities": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": evidence_backed_fact_schema,
+                    },
+                    "formats": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": evidence_backed_fact_schema,
+                    },
+                    "limitations": {
+                        "type": "array",
+                        "items": evidence_backed_fact_schema,
+                    },
+                    "minimal_example": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "properties": {
+                            "language": {"type": "string", "enum": [language]},
+                            "class_name": {"type": "string", "minLength": 1},
+                            "code": {"type": "string", "minLength": 1},
+                            "evidence_paths": {
+                                "type": "array",
+                                "minItems": 1,
+                                "items": evidence_path_items,
+                            },
+                            "required_symbols": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                        },
+                        "required": [
+                            "language",
+                            "class_name",
+                            "code",
+                            "evidence_paths",
+                        ],
+                    },
+                },
+                "required": [
+                    "audience",
+                    "problems_solved",
+                    "capabilities",
+                    "formats",
+                    "limitations",
+                    "minimal_example",
+                ],
+            },
+        },
+    }
 
 
 class _AnalysisClientLike(Protocol):
@@ -435,13 +439,13 @@ def draft_product_truth(
     baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
     clone_baseline(entry, baseline_path)
     repository_context = _select_bounded_repo_context(baseline_path, entry.ecosystem)
-    objective_facts_json = json.dumps(
-        _citable_objective_facts(facts_so_far), sort_keys=True, default=str
-    )
+    citable_facts = _citable_objective_facts(facts_so_far)
+    objective_facts_json = json.dumps(citable_facts, sort_keys=True, default=str)
+    draft_language = _draft_language(entry.ecosystem)
 
     messages = build_draft_product_truth_messages(
         org_repo,
-        _draft_language(entry.ecosystem),
+        draft_language,
         objective_facts_json,
         repository_context,
         _format_repair_hints(repair_hints),
@@ -454,7 +458,17 @@ def draft_product_truth(
             env.llm_api_key(),
             env.llm_model_for_job(_MODEL_ROUTE_JOB),
             max_tokens=_MAX_RESPONSE_TOKENS,
-        ).call(messages, DRAFT_PRODUCT_TRUTH_TOOL_SCHEMA)
+        ).call(
+            messages,
+            _draft_product_truth_tool_schema(
+                accepted_fact_ids=[str(fact["fact_id"]) for fact in citable_facts["facts"]],
+                evidence_paths=sorted(
+                    match.group("path")
+                    for match in _CONTEXT_PATH_HEADER.finditer(repository_context)
+                ),
+                language=draft_language,
+            ),
+        )
         result = AnalysisResult(parsed=forced_result.arguments, meta=forced_result.meta)
     try:
         return DraftProductTruthV1.model_validate(result.parsed)
