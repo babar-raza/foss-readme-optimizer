@@ -88,6 +88,23 @@
       "task_id": "b50ae2af914c43b7ad393a4db3021ce4",
       "trigger_dedup_key": "operator:20260726-023022-ddba:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "1bfa7bf1efca121bc507d6bfa8d1510380d877eda2ef43635020d8f378c4d1dc": {
+      "action": "render_readme_candidate",
+      "attempt": 1,
+      "checkpoint_id": "1bfa7bf1efca121bc507d6bfa8d1510380d877eda2ef43635020d8f378c4d1dc",
+      "completed_at": "2026-07-26T02:50:18.247111+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8848874b8acbf6071559280c378cbc2f13c44b035cfdfc34574996b5d7bbf133",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-024513-ed7f",
+      "schema_version": 1,
+      "stage": "task_started",
+      "started_at": "2026-07-26T02:50:18.247103+00:00",
+      "task_id": "8ea352c194d549e7b8be052500440cbf",
+      "trigger_dedup_key": "operator:20260726-024513-ed7f:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "1ed3f1c3cc9d71897a0537ed48bec621809cf86e41bdf1c4ba4cd225b55c8b0c": {
       "action": "inspect_repository",
       "attempt": 1,
@@ -3912,7 +3929,7 @@
     "updated_at": "2026-07-26T02:48:26.991084+00:00"
   },
   "schema_version": 2,
-  "state_version": 277,
+  "state_version": 278,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4409c1dda20b4a845b43e6a518189bb04a1dabfd811bb1850cfe050dd7d3706b",
@@ -6403,11 +6420,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "a5404d869ed6d84026f177bdef9160168f4c0c0c417e24e07889a384e7fcc17a",
+      "last_checkpoint_id": "1bfa7bf1efca121bc507d6bfa8d1510380d877eda2ef43635020d8f378c4d1dc",
       "lease_expires_at": "2026-07-26T03:00:31.484934+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T02:50:05.955060+00:00"
+      "updated_at": "2026-07-26T02:50:18.247111+00:00"
     }
   },
   "trigger_records": {},
