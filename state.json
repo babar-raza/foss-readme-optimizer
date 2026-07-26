@@ -1557,6 +1557,20 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "readability",
+          "completeness",
+          "trust_signals",
+          "product_specificity"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T07:27:46.519329+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): The candidate README contains several quality and completeness issues that prevent it from being ACCEPT. First, the 'At a glance' section is poorly structured and contains redundant, non-specific phrases like 'Aspose.3D FOSS for TypeScript' and 'Developers using TypeScript for Create and manipulate 3D scenes' (which is grammatically incorrect and lacks a proper verb). Second, the 'In this README' navigation list is unnecessary and adds no value, especially since the table of contents is already implied by the Markdown structure. Third, the candidate omits critical trust signals: the license information is missing from the README body (only referenced in the original via a link to LICENSE, but the candidate does not include a license section header or mention), and the product.license fact is marked as 'missing' in the ProductFacts. While the original README had a license section, the candidate does not preserve it, which is a completeness defect. Additionally, the 'At a glance' section does not clearly articulate the product's value proposition or problem-solving scope in a developer-friendly way, and the facts used to justify it (product.audience, product.problems_solved, product.capabilities) are not presented cohesively. These are presentation and completeness defects, not factual conflicts or unsupported claims, so they fall under REJECT_REPAIRABLE.",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "presentation_plan_hash": "d60aee156f09efc0805571dd690d894bf4ef7b231b7a529cc4b85d20e3167fac",
@@ -1566,11 +1580,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T07:27:28.462609+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-07-26T07:27:46.519329+00:00"
   },
   "schema_version": 2,
-  "state_version": 189,
+  "state_version": 190,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
