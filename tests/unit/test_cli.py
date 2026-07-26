@@ -818,6 +818,49 @@ class TestLocalPocPortfolioCommand:
         with pytest.raises(StateBackendError, match="state write unavailable"):
             cmd_supervise(args)
 
+    def test_unhandled_runtime_failure_persists_redacted_first_boundary(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.env as env
+        import readme_agent.paths as paths
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.loop as loop_module
+
+        _stub_preflight_ok(monkeypatch)
+        backend = _LifecycleFakeBackend()
+        secret = "sk-" + ("a" * 24)
+        monkeypatch.setenv("LLM_API_KEY", secret)
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(env, "github_run_id", lambda: "run-runtime-failure")
+        monkeypatch.setattr(env, "github_event_name", lambda: "workflow_dispatch")
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+
+        def _fail_supervision(*args, **kwargs):
+            raise RuntimeError(f"compiler failed\ncredential={secret}")
+
+        monkeypatch.setattr(loop_module, "supervise_repo", _fail_supervision)
+        args = argparse.Namespace(
+            repo="org/repo",
+            durable_state=False,
+            domain=None,
+            execution_profile="github_observe",
+        )
+
+        with pytest.raises(RuntimeError, match="compiler failed"):
+            cmd_supervise(args)
+
+        lifecycle = next(iter(backend._state.trigger_lifecycles.values()))
+        assert lifecycle.status == "retryable"
+        assert lifecycle.failure_classification == "transient"
+        assert lifecycle.failure_detail is not None
+        assert lifecycle.failure_detail.startswith(
+            "unhandled_runtime_failure:RuntimeError:compiler failed "
+        )
+        assert "[REDACTED]" in lifecycle.failure_detail
+        assert secret not in lifecycle.failure_detail
+        assert "\n" not in lifecycle.failure_detail
+        assert len(lifecycle.failure_detail) <= 1024
+
     def test_duplicate_github_run_id_short_circuits_without_calling_supervise_repo(
         self, monkeypatch, tmp_path
     ):

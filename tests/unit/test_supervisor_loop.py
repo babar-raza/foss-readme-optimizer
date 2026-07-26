@@ -644,6 +644,13 @@ def project(tmp_path, monkeypatch):
 class TestBasicLoop:
     def test_local_poc_records_snapshot_and_profile_before_later_stages(self, project, monkeypatch):
         backend = FakeStateBackend()
+
+        class _PlannerMustNotRun:
+            def plan(self, messages, tools):
+                raise AssertionError(
+                    "local Gate A must stop after independent README approval/no-op"
+                )
+
         monkeypatch.setattr(
             readme_presentation,
             "dispatch_gated_effect",
@@ -652,9 +659,7 @@ class TestBasicLoop:
 
         first = supervise_repo(
             ORG_REPO,
-            planner_client=FixturePlannerClient(
-                [PlannerTurn(content="done", meta=LLMResponseMeta())]
-            ),
+            planner_client=_PlannerMustNotRun(),
             state_backend=backend,
             write_evidence_bundle=True,
             track_readme_poc_lifecycle=True,
@@ -669,9 +674,7 @@ class TestBasicLoop:
         )
         second = supervise_repo(
             ORG_REPO,
-            planner_client=FixturePlannerClient(
-                [PlannerTurn(content="done", meta=LLMResponseMeta())]
-            ),
+            planner_client=_PlannerMustNotRun(),
             state_backend=backend,
             write_evidence_bundle=True,
             track_readme_poc_lifecycle=True,
@@ -749,6 +752,27 @@ class TestBasicLoop:
             "AGENT_APPROVED",
             "NO_OP_PROVEN",
         ]
+
+        # Force a real specialist-tier rerun from the already-proven
+        # NO_OP_PROVEN state. This reproduces the live portfolio failure
+        # where review was invoked again and attempted the illegal
+        # NO_OP_PROVEN -> AGENT_APPROVED transition.
+        from readme_agent.supervisor import loop as loop_module
+
+        monkeypatch.setattr(loop_module, "no_change_gate_holds", lambda *args, **kwargs: False)
+        history_before_third = list(lifecycle.history)
+        third = supervise_repo(
+            ORG_REPO,
+            planner_client=_PlannerMustNotRun(),
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+        )
+        lifecycle_after_third = backend.load(ORG_REPO).readme_poc_lifecycle
+        assert lifecycle_after_third is not None
+        assert third.status == "CONVERGED_NO_TRACKED_CHANGE"
+        assert lifecycle_after_third.status == "NO_OP_PROVEN"
+        assert lifecycle_after_third.history == history_before_third
 
     def test_local_poc_repairs_revalidates_and_rereviews_before_accepting(
         self,

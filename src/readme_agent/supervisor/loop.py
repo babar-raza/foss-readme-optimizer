@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 from readme_agent import paths
+from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_PRESENTATION
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.ecosystems.registry import known_manifest_globs
 from readme_agent.errors import GitSafetyError
@@ -28,6 +29,7 @@ from readme_agent.state.schema import (
     SupervisorStateV1,
 )
 from readme_agent.supervisor.convergence import (
+    ConvergenceOutcome,
     compute_control_plane_fingerprint,
     no_change_gate_holds,
 )
@@ -104,6 +106,52 @@ def _readme_poc_noop_gate_holds(prior: RunStateV2 | None) -> bool:
         "PR_ELIGIBLE",
         "PR_PROOF_COMPLETE",
     }
+
+
+def _local_poc_readme_gate_outcome(
+    *,
+    enabled: bool,
+    state_backend: StateBackend | None,
+    org_repo: str,
+    specialist_results: dict[str, DomainStateV1],
+) -> tuple[ConvergenceOutcome, str] | None:
+    """Stop local Gate A once its independently reviewed README boundary holds.
+
+    The general planner manages all presentation surfaces. Gate A is narrower:
+    it qualifies one local README bundle per registry entry. Continuing into
+    general planning after that boundary can only duplicate work and, with a
+    planner that never emits stop, falsely turn approval into
+    ``repair_exhausted``. Any specialist error still fails closed and the
+    independent-verification specialist must have completed successfully.
+    """
+
+    if not enabled or state_backend is None:
+        return None
+    if any(
+        (result.accepted_status or "").startswith("ERROR:")
+        for result in specialist_results.values()
+    ):
+        return None
+    readme_result = specialist_results.get(README_PRESENTATION)
+    verifier_result = specialist_results.get(INDEPENDENT_VERIFICATION)
+    if readme_result is None or verifier_result is None:
+        return None
+
+    loaded = state_backend.load(org_repo)
+    lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
+    if lifecycle is None:
+        return None
+    if lifecycle.status == "AGENT_APPROVED":
+        return ConvergenceOutcome(status="CONVERGED_PROPOSAL_READY"), lifecycle.status
+    if lifecycle.status in {
+        "NO_OP_PROVEN",
+        "HUMAN_REVIEW_READY",
+        "HUMAN_ACCEPTED",
+        "PR_ELIGIBLE",
+        "PR_PROOF_COMPLETE",
+    }:
+        return ConvergenceOutcome(status="CONVERGED_NO_TRACKED_CHANGE"), lifecycle.status
+    return None
 
 
 def supervise_repo(
@@ -512,8 +560,6 @@ def supervise_repo(
         unrecorded_failures = tier.unrecorded_failures
         escalation_alerts = tier.escalation_alerts
         retry_alerts = tier.retry_alerts
-        from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
-
         verifier_result = specialist_results.get(INDEPENDENT_VERIFICATION)
         if lifecycle_recorder is not None and verifier_result is not None:
             lifecycle_recorder.checkpoint(
@@ -564,6 +610,12 @@ def supervise_repo(
                 blocked_reason="required_independent_verifier_missing",
                 blocked_category="agent_fixable",
             )
+        local_poc_gate = _local_poc_readme_gate_outcome(
+            enabled=track_readme_poc_lifecycle,
+            state_backend=state_backend,
+            org_repo=org_repo,
+            specialist_results=specialist_results,
+        )
         # Wave 8.6 (`ORC-003` reversal): `and not r.skipped_this_run` is the
         # crux correctness guarantee -- a domain the skip mechanism carried
         # forward (never a fresh classification this run) must never
@@ -661,34 +713,50 @@ def supervise_repo(
                     blocked_category="infra_external",
                 )
         try:
-            facts_context = (
-                product_facts_scope(prepared_product_truth.facts)
-                if prepared_product_truth is not None
-                else nullcontext()
-            )
-            with (
-                repository_snapshot_scope(
-                    repository_snapshot,
-                    allow_local_fact_verification=verify_local_product_facts,
-                ),
-                facts_context,
-                proposal_only_scope(track_readme_poc_lifecycle),
-            ):
-                planner = run_planner_loop(
-                    org_repo=org_repo,
-                    specialist_results=specialist_results,
-                    initial_decisions=[*escalation_alerts, *retry_alerts],
-                    state_backend=state_backend,
-                    planner_client=planner_client,
-                    repair_planner_client=repair_planner_client,
-                    allowed_permission_classes=allowed_permission_classes,
-                    max_turns=max_turns,
-                    no_progress_turn_limit=NO_PROGRESS_TURN_LIMIT,
-                    dossier_token_budget=DOSSIER_TOKEN_BUDGET,
+            if local_poc_gate is not None:
+                outcome, lifecycle_status = local_poc_gate
+                graph = TaskGraph()
+                decisions = [
+                    *escalation_alerts,
+                    *retry_alerts,
+                    DecisionSummary(
+                        turn=0,
+                        kind="local_poc_readme_gate",
+                        detail=(
+                            "independently reviewed local README boundary reached "
+                            f"({lifecycle_status}); general multi-surface planning skipped"
+                        ),
+                    ),
+                ]
+            else:
+                facts_context = (
+                    product_facts_scope(prepared_product_truth.facts)
+                    if prepared_product_truth is not None
+                    else nullcontext()
                 )
-            graph = planner.graph
-            decisions = planner.decisions
-            outcome = planner.outcome
+                with (
+                    repository_snapshot_scope(
+                        repository_snapshot,
+                        allow_local_fact_verification=verify_local_product_facts,
+                    ),
+                    facts_context,
+                    proposal_only_scope(track_readme_poc_lifecycle),
+                ):
+                    planner = run_planner_loop(
+                        org_repo=org_repo,
+                        specialist_results=specialist_results,
+                        initial_decisions=[*escalation_alerts, *retry_alerts],
+                        state_backend=state_backend,
+                        planner_client=planner_client,
+                        repair_planner_client=repair_planner_client,
+                        allowed_permission_classes=allowed_permission_classes,
+                        max_turns=max_turns,
+                        no_progress_turn_limit=NO_PROGRESS_TURN_LIMIT,
+                        dossier_token_budget=DOSSIER_TOKEN_BUDGET,
+                    )
+                graph = planner.graph
+                decisions = planner.decisions
+                outcome = planner.outcome
 
             run_id = generate_run_id() if write_evidence_bundle else None
             # Wave 9.7: the specialist tier ran this turn -- refresh every

@@ -76,10 +76,24 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     # proposal bundle. Earlier lifecycle invalidation checks bind source,
     # facts, prompts, reviewer standard, and protected content; this final
     # candidate hash check binds the exact rendered bytes before reuse.
+    #
+    # NO_OP_PROVEN and its later human/PR states are already beyond this
+    # review boundary. A resumed portfolio pass can still enter this node
+    # because the source README continues to differ from the candidate. It
+    # must reuse the proven result, not invoke the reviewer again and attempt
+    # the illegal NO_OP_PROVEN -> AGENT_APPROVED regression.
     if (
         lifecycle_backend is not None
         and lifecycle is not None
-        and lifecycle.status == "AGENT_APPROVED"
+        and lifecycle.status
+        in {
+            "AGENT_APPROVED",
+            "NO_OP_PROVEN",
+            "HUMAN_REVIEW_READY",
+            "HUMAN_ACCEPTED",
+            "PR_ELIGIBLE",
+            "PR_PROOF_COMPLETE",
+        }
     ):
         if not isinstance(lifecycle, ReadmePocLifecycleStateV2):
             raise StateBackendError("approved local README lifecycle must use the V2 contract")
@@ -94,25 +108,29 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             raise StateBackendError(
                 "approved README lifecycle has no revision-addressed evidence bundle"
             )
-        transition_readme_poc_status(
-            lifecycle_backend,
-            org_repo,
-            "NO_OP_PROVEN",
-            observed_by=INDEPENDENT_VERIFICATION,
-            reason="unchanged approved candidate reused without another bundle or agentic review",
-            evidence_refs=[str(local_bundle_dir)],
-        )
-        write_local_poc_no_op_evidence(
-            local_bundle_dir,
-            candidate_hash=candidate_hash,
-            agentic_review_reused=True,
-        )
+        if lifecycle.status == "AGENT_APPROVED":
+            transition_readme_poc_status(
+                lifecycle_backend,
+                org_repo,
+                "NO_OP_PROVEN",
+                observed_by=INDEPENDENT_VERIFICATION,
+                reason=(
+                    "unchanged approved candidate reused without another bundle or agentic review"
+                ),
+                evidence_refs=[str(local_bundle_dir)],
+            )
+            write_local_poc_no_op_evidence(
+                local_bundle_dir,
+                candidate_hash=candidate_hash,
+                agentic_review_reused=True,
+            )
         return {
             "details": merge_details(
                 state_without_patch,
                 independent_review={
                     "outcome_kind": "unchanged_no_op",
                     "agentic_review_reused": True,
+                    "lifecycle_status_reused": lifecycle.status,
                 },
             )
         }

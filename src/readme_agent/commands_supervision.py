@@ -4,8 +4,18 @@ import argparse
 import sys
 from pathlib import Path
 
+from readme_agent import env
 from readme_agent.commands_compatibility import _durable_state_backend
+from readme_agent.evidence.redaction import redact
 from readme_agent.state.lifecycle_schema import FailureClassificationV1, TriggerStatusV2
+
+
+def _unhandled_runtime_failure_detail(exc: Exception) -> str:
+    """Preserve the first failing boundary without leaking secrets or unbounded output."""
+
+    message = redact(str(exc), env.secret_values()).replace("\r", " ").replace("\n", " ")
+    prefix = f"unhandled_runtime_failure:{type(exc).__name__}:"
+    return prefix + message[: max(0, 1024 - len(prefix))]
 
 
 def cmd_supervise(args: argparse.Namespace) -> int:
@@ -229,7 +239,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
                 lifecycle_recorder.envelope.dedup_key,
                 "retryable",
                 failure_classification="transient",
-                failure_detail=f"unhandled_runtime_failure:{type(exc).__name__}",
+                failure_detail=_unhandled_runtime_failure_detail(exc),
             )
         raise
     if profile is not None and profile.require_evidence_bundle and result.evidence_dir is None:
