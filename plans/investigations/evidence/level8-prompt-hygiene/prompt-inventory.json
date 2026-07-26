@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "prompt_registry_content_hash": "c616b7e80509226e0cf14b94a399b579b2864a68b09a77aa89aae768c3dc99fc",
+  "prompt_hashes": {
+    "draft_product_truth": "f593603096d4d9720cee61c4c3c0ee7ce063360ee0504889c1a08bc2782076ff",
+    "independent_readme_review": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
+    "plan_readme_composition": "a901ec4d6deb6c18df150cec82e7e46f9f08b91d758dc3ee35d3d9c5803ec7d8",
+    "presentation_standard_compliance": "e5e204c87c552a86881d06ab4d5cf72710634a0185c5ac12a17747a428afe0da",
+    "prose_quality_check": "fcf388aea6222820812286a58be939bc490627738f0a8e9f7c2264b2b9f1ffc6",
+    "relationship_explained": "56bedae87b3798899a10d3f5171987dff286ba0b0e99d9730eb92164fa57c38a",
+    "repair_capability_selection": "eca5e50e1427e924800ea37f0db46d6c510bce1d873218910767fd2415e6e1e6",
+    "specialist_selection_turn": "f6907af0523d0b8ea8c1473d7cecaa4ae4cb85359e3a9e02a220157444cc71c9",
+    "supervisor_turn": "f3f487bfe78872eb2ccc4462e4036701b163aea61d4c28ed631dfe1be3ba4f70",
+    "visual_asset_accuracy": "9171a25b57b68b85f4b058ae4c7b86281349668ae29224fd7ba0f4d2e7cc328d"
+  },
+  "dependency_hashes": {
+    "AGENT_REVIEWING": "ef2f83e6a68233a71a5156d430ac7b4bcb4b074bbb0c26ac3f682fb7ef11fe11",
+    "CANDIDATE_GENERATED": "56bedae87b3798899a10d3f5171987dff286ba0b0e99d9730eb92164fa57c38a",
+    "DETERMINISTIC_VALIDATED": "fcf388aea6222820812286a58be939bc490627738f0a8e9f7c2264b2b9f1ffc6",
+    "FACTS_COLLECTING": "f593603096d4d9720cee61c4c3c0ee7ce063360ee0504889c1a08bc2782076ff",
+    "PLAN_READY": "a901ec4d6deb6c18df150cec82e7e46f9f08b91d758dc3ee35d3d9c5803ec7d8",
+    "README_ASSESSED": "e5e204c87c552a86881d06ab4d5cf72710634a0185c5ac12a17747a428afe0da",
+    "REPAIRING": "eca5e50e1427e924800ea37f0db46d6c510bce1d873218910767fd2415e6e1e6",
+    "SPECIALIST_SELECTION": "f6907af0523d0b8ea8c1473d7cecaa4ae4cb85359e3a9e02a220157444cc71c9",
+    "SUPERVISOR_PLANNING": "f3f487bfe78872eb2ccc4462e4036701b163aea61d4c28ed631dfe1be3ba4f70"
+  },
+  "entries": [
+    {
+      "prompt_id": "draft_product_truth",
+      "path": "prompts/generation/draft_product_truth.yaml",
+      "sha256": "f593603096d4d9720cee61c4c3c0ee7ce063360ee0504889c1a08bc2782076ff",
+      "category": "generation",
+      "version": "12",
+      "model_route": "draft_product_truth",
+      "owner": "readme_agent.capabilities.draft_product_truth",
+      "runtime_consumer": "readme_agent.llm.generation_prompts",
+      "output_contract": "DraftProductTruthV1",
+      "invalidation_scope": "FACTS_COLLECTING",
+      "dependent_artifacts": [
+        "facts/proposed-product-truth.json",
+        "facts/product-facts.json"
+      ],
+      "content_reference_paths": [
+        "src/readme_agent/llm/generation_prompts.py"
+      ],
+      "hash_reference_paths": [
+        "src/readme_agent/supervisor/product_truth.py"
+      ],
+      "route_reference_paths": [
+        "src/readme_agent/facts/agentic_drafting.py"
+      ]
+    },
+    {
+      "prompt_id": "independent_readme_review",
+      "path": "prompts/verification/independent_readme_review.yaml",
+      "sha256": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
+      "category": "verification",
+      "version": "8",
+      "model_route": "independent_readme_review",
+      "owner": "readme_agent.specialists.independent_readme_review",
+      "runtime_consumer": "readme_agent.llm.verification_prompts",
+      "output_contract": "IndependentReadmeReviewResultV1",
+      "invalidation_scope": "AGENT_REVIEWING",
+      "dependent_artifacts": [
+        "review/independent-agent-review.json",
+        "review/final-verdict.json"
+      ],
+      "content_reference_paths": [
+        "src/readme_agent/llm/verification_prompts.py"
+      ],
+      "hash_reference_paths": [
+        "src/readme_agent/specialists/independent_readme_review.py",
+        "src/readme_agent/specialists/readme_presentation.py",
+        "src/readme_agent/specialists/readme_presentation_review.py",
+        "src/readme_agent/specialists/readme_review_repair.py",
+        "src/readme_agent/supervisor/portfolio.py"
+      ],
+      "route_reference_paths": [
+        "src/readme_agent/commands_governance.py",
+        "src/readme_agent/specialists/independent_readme_review.py"
+      ]
+    },
+    {
+      "prompt_id": "plan_readme_composition",
+      "path": "prompts/generation/plan_readme_composition.yaml",
+      "sha256": "a901ec4d6deb6c18df150cec82e7e46f9f08b91d758dc3ee35d3d9c5803ec7d8",
+      "category": "generation",
+      "version": "3",
+      "model_route": "plan_readme_composition",
+      "owner": "readme_agent.capabilities.plan_readme_composition",
+      "runtime_consumer": "readme_agent.llm.generation_prompts",
+      "output_contract": "ReadmeAgenticCompositionPlanV1",
+      "invalidation_scope": "PLAN_READY",
+      "dependent_artifacts": [
+        "planning/agentic-composition-plan.json",
+        "candidate/README.md"
+      ],
+      "content_reference_paths": [
+        "src/readme_agent/llm/generation_prompts.py"
+      ],
+      "hash_reference_paths": [
+        "src/readme_agent/supervisor/portfolio.py"
+      ],
+      "route_reference_paths": [
+        "src/readme_agent/readme/agentic_composition.py"
+      ]
+    },
+    {
+      "prompt_id": "presentation_standard_compliance",
+      "path": "prompts/analysis/presentation_standard_compliance.yaml",
+      "sha256": "e5e204c87c552a86881d06ab4d5cf72710634a0185c5ac12a17747a428afe0da",
+      "category": "analysis",
+      "version": "1",
+      "model_route": "presentation_standard_compliance",
+      "owner": "readme_agent.capabilities.compare_against_presentation_standard",
+      "runtime_consumer": "readme_agent.llm.analysis_prompts",
+      "output_contract": "presentation-standard-comparison-v1",
+      "invalidation_scope": "README_ASSESSED",
+      "dependent_artifacts": [
+        "assessment/presentation-standard-comparison.json"
+      ],
+      "content_reference_paths": [
+        "src/readme_agent/llm/analysis_prompts.py"
+      ],
+      "hash_reference_paths": [],
+      "route_reference_paths": [
+        "src/readme_agent/capabilities/compare_against_presentation_standard.py"
+      ]
+    },
+    {
+      "prompt_id": "prose_quality_check",
+      "path": "prompts/verification/prose_quality_check.yaml",
+      "sha256": "fcf388aea6222820812286a58be939bc490627738f0a8e9f7c2264b2b9f1ffc6",
+      "category": "verification",
+      "version": "1",
+      "model_route": "prose_quality_check",
+      "owner": "readme_agent.capabilities.verify_prose_quality",
+      "runtime_consumer": "readme_agent.llm.verification_prompts",
+      "output_contract": "prose-quality-finding-v1",
+      "invalidation_scope": "DETERMINISTIC_VALIDATED",
+      "dependent_artifacts": [
+        "review/deterministic-validation.json"
+      ],
+      "content_reference_paths": [
+        "src/readme_agent/llm/verification_prompts.py"
+      ],
+      "hash_reference_paths": [],
+      "route_reference_paths": [
+        "src/readme_agent/capabilities/verify_prose_quality.py"
+      ]
+    },
+    {
+      "prompt_id": "relationship_explained",
+      "path": "prompts/generation/relationship_explained.yaml",
+      "sha256": "56bedae87b3798899a10d3f5171987dff286ba0b0e99d9730eb92164fa57c38a",
+      "category": "generation",
+      "version": "1",
+      "model_route": "relationship_explained",
+      "owner": "readme_agent.readme.candidate_pipeline",
+      "runtime_consumer": "readme_agent.llm.prompts",
+      "output_contract": "LLMBlockResponse",
+      "invalidation_scope": "CANDIDATE_GENERATED",
+      "dependent_artifacts": [
+        "candidate/README.md"
+      ],
+      "content_reference_paths": [
+        "src/readme_agent/llm/prompts.py"
+      ],
+      "hash_reference_paths": [],
+      "route_reference_paths": [
+        "src/readme_agent/readme/candidate_pipeline.py"
+      ]
+    },
+    {
+      "prompt_id": "repair_capability_selection",
+      "path": "prompts/planning/repair_capability_selection.yaml",
+      "sha256": "eca5e50e1427e924800ea37f0db46d6c510bce1d873218910767fd2415e6e1e6",
+      "category": "planning",
+      "version": "1",
+      "model_route": "repair_capability_selection",
+      "owner": "readme_agent.supervisor.repair",
+      "runtime_consumer": "readme_agent.llm.planning_prompts",
+      "output_contract": "PlannerTurn-repair-capability-selection",
+      "invalidation_scope": "REPAIRING",
+      "dependent_artifacts": [
+        "planning/selected-capabilities.json",
+        "review/repair-history.json"
+      ],
+      "content_reference_paths": [
+        "src/readme_agent/llm/planning_prompts.py"
+      ],
+      "hash_reference_paths": [],
+      "route_reference_paths": [
+        "src/readme_agent/commands_supervision.py"
+      ]
+    },
+    {
+      "prompt_id": "specialist_selection_turn",
+      "path": "prompts/planning/specialist_selection_turn.yaml",
+      "sha256": "f6907af0523d0b8ea8c1473d7cecaa4ae4cb85359e3a9e02a220157444cc71c9",
+      "category": "planning",
+      "version": "1",
+      "model_route": "specialist_selection",
+      "owner": "readme_agent.supervisor.specialist_selection",
+      "runtime_consumer": "readme_agent.llm.planning_prompts",
+      "output_contract": "PlannerTurn-select-specialists-to-skip",
+      "invalidation_scope": "SPECIALIST_SELECTION",
+      "dependent_artifacts": [
+        "planning/selected-capabilities.json"
+      ],
+      "content_reference_paths": [
+        "src/readme_agent/llm/planning_prompts.py"
+      ],
+      "hash_reference_paths": [],
+      "route_reference_paths": [
+        "src/readme_agent/commands_supervision.py"
+      ]
+    },
+    {
+      "prompt_id": "supervisor_turn",
+      "path": "prompts/planning/supervisor_turn.yaml",
+      "sha256": "f3f487bfe78872eb2ccc4462e4036701b163aea61d4c28ed631dfe1be3ba4f70",
+      "category": "planning",
+      "version": "2",
+      "model_route": "supervisor_planning",
+      "owner": "readme_agent.supervisor.planner_loop",
+      "runtime_consumer": "readme_agent.llm.planning_prompts",
+      "output_contract": "PlannerTurn-capability-or-stop",
+      "invalidation_scope": "SUPERVISOR_PLANNING",
+      "dependent_artifacts": [
+        "planning/selected-capabilities.json"
+      ],
+      "content_reference_paths": [
+        "src/readme_agent/llm/planning_prompts.py"
+      ],
+      "hash_reference_paths": [],
+      "route_reference_paths": [
+        "src/readme_agent/commands_governance.py",
+        "src/readme_agent/supervisor/planner_loop.py"
+      ]
+    },
+    {
+      "prompt_id": "visual_asset_accuracy",
+      "path": "prompts/verification/visual_asset_accuracy.yaml",
+      "sha256": "9171a25b57b68b85f4b058ae4c7b86281349668ae29224fd7ba0f4d2e7cc328d",
+      "category": "verification",
+      "version": "1",
+      "model_route": "visual_asset_accuracy",
+      "owner": "readme_agent.capabilities.review_visual_asset_accuracy",
+      "runtime_consumer": "readme_agent.llm.analysis_prompts",
+      "output_contract": "visual-asset-accuracy-v1",
+      "invalidation_scope": "AGENT_REVIEWING",
+      "dependent_artifacts": [
+        "review/visual-asset-accuracy.json"
+      ],
+      "content_reference_paths": [
+        "src/readme_agent/llm/analysis_prompts.py"
+      ],
+      "hash_reference_paths": [],
+      "route_reference_paths": [
+        "src/readme_agent/capabilities/review_visual_asset_accuracy.py"
+      ]
+    }
+  ],
+  "errors": []
+}

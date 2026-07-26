@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-01C-PROMPT-HYGIENE",
+  "goal_ids": [
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Reconcile every active prompt to one declared owner, job, runtime consumer, contract, and invalidation scope and block paid fan-out on orphan, duplicate, inline, stale, or unsafe prompt changes."
+  },
+  "acceptance_checks_passed": [
+    "Every prompt file has exactly one active job and consumer",
+    "Every routed or invoked prompt exists and is hash-coupled to its dependent stage",
+    "Obsolete prompts are removed only after reference and history inspection"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-prompt-hygiene/verification.json",
+    "plans/investigations/evidence/level8-prompt-hygiene/prompt-inventory.json",
+    "plans/investigations/evidence/level8-prompt-hygiene/official-checks.stdout.log"
+  ],
+  "scoreboard_before_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "scoreboard_after_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

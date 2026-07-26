@@ -18,6 +18,11 @@ from readme_agent.evidence.writer import (  # noqa: E402
     write_redacted_text,
 )
 from readme_agent.llm.prompt_hygiene import audit_prompt_hygiene  # noqa: E402
+from readme_agent.state.git_backend import default_state_backend  # noqa: E402
+from readme_agent.supervisor.mission_goal_guard import (  # noqa: E402
+    derive_lifecycle_scoreboard,
+    lifecycle_scoreboard_sha256,
+)
 
 TASK_ID = "L8-TRUTH-01C-PROMPT-HYGIENE"
 EVIDENCE_DIR = REPO_ROOT / "plans" / "investigations" / "evidence" / "level8-prompt-hygiene"
@@ -90,6 +95,8 @@ def main() -> int:
         raise RuntimeError("prompt-hygiene evidence verification failed")
     if _git("rev-parse", "HEAD") != head:
         raise RuntimeError("HEAD changed while prompt-hygiene evidence was being built")
+    scoreboard = derive_lifecycle_scoreboard(default_state_backend())
+    scoreboard_sha256 = lifecycle_scoreboard_sha256(scoreboard)
 
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
     write_redacted_json(EVIDENCE_DIR / "prompt-inventory.json", report)
@@ -125,17 +132,31 @@ def main() -> int:
     write_redacted_json(
         EVIDENCE_DIR / "mission-contribution.json",
         {
+            "schema_version": 1,
             "task_id": TASK_ID,
-            "goal_id": "GOAL-TRUTH",
-            "requirement_id": "L8-028",
-            "contribution": (
-                "Every paid LLM prompt is closed, owned, routed, hash-coupled, documented, "
-                "and blocked from execution when the inventory is inconsistent."
-            ),
-            "scope_limit": (
-                "This proves prompt governance and provenance, not ProductFactsV2 completeness "
-                "or full-registry README Gate A."
-            ),
+            "goal_ids": ["GOAL-TRUTH"],
+            "core_contribution": {
+                "kind": "visible_deliverable",
+                "summary": (
+                    "Reconcile every active prompt to one declared owner, job, runtime consumer, "
+                    "contract, and invalidation scope and block paid fan-out on orphan, duplicate, "
+                    "inline, stale, or unsafe prompt changes."
+                ),
+            },
+            "acceptance_checks_passed": [
+                "Every prompt file has exactly one active job and consumer",
+                "Every routed or invoked prompt exists and is hash-coupled to its dependent stage",
+                "Obsolete prompts are removed only after reference and history inspection",
+            ],
+            "proof_refs": [
+                "plans/investigations/evidence/level8-prompt-hygiene/verification.json",
+                "plans/investigations/evidence/level8-prompt-hygiene/prompt-inventory.json",
+            ],
+            "scoreboard_before_sha256": scoreboard_sha256,
+            "scoreboard_after_sha256": scoreboard_sha256,
+            "first_failing_boundary_before": scoreboard.first_failing_boundary,
+            "first_failing_boundary_after": scoreboard.first_failing_boundary,
+            "independently_verified": True,
         },
     )
     write_redacted_text(

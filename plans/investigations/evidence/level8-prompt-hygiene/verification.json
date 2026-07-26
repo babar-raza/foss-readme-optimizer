@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-01C-PROMPT-HYGIENE",
+  "implementation_commit": "432bfe8ad3e44ddd045d984b3ceb7ee221e18cee",
+  "branch": "main",
+  "verified_at": "2026-07-26T16:42:05.002925+00:00",
+  "tree_precondition": "CLEAN_AT_START_HEAD_UNCHANGED",
+  "checks": [
+    {
+      "command": ".venv\\Scripts\\python.exe -m pytest -q tests/unit/test_prompt_hygiene.py tests/unit/test_prompt_registry.py tests/unit/test_llm_call_ledger.py tests/unit/test_planner_client.py tests/unit/test_verifier_client.py tests/unit/test_analysis_client.py tests/unit/test_specialist_selection.py tests/unit/test_repair.py tests/unit/test_golden_set.py tests/unit/test_golden_set_qualification.py tests/unit/test_local_poc_evidence.py tests/unit/test_manifest_v2.py tests/unit/test_supervisor_dossier.py",
+      "exit_code": 0,
+      "stdout": "........................................................................ [ 47%]\n........................................................................ [ 94%]\n.........                                                                [100%]\n153 passed in 35.85s",
+      "stderr": ""
+    },
+    {
+      "command": ".venv\\Scripts\\python.exe scripts/governance/check_prompt_hygiene.py",
+      "exit_code": 0,
+      "stdout": "Prompt hygiene clean: 10 active prompt(s)",
+      "stderr": ""
+    }
+  ],
+  "official_check": {
+    "command": ".venv/Scripts/python scripts/governance/run_official_checks.py",
+    "implementation_commit": "432bfe8ad3e44ddd045d984b3ceb7ee221e18cee",
+    "full_non_live_suite": "1781 passed, 24 deselected in 837.84s",
+    "prompt_inventory": "Prompt hygiene clean: 10 active prompt(s)",
+    "requirement_coverage": "Level-8 requirement coverage current: 424 rows",
+    "tree_state": "TREE CLEAN",
+    "runner_verdict": "All official checks passed.",
+    "raw_stdout": "official-checks.stdout.log",
+    "raw_stderr": "official-checks.stderr.log",
+    "actionlint_status": "not installed; workflow syntax was not independently linted in this run"
+  },
+  "negative_controls_passed": [
+    "unregistered prompt file",
+    "orphan model route",
+    "deleted referenced prompt",
+    "duplicate prompt ID",
+    "duplicate semantic model route",
+    "category/path mismatch",
+    "prompt ID/filename mismatch",
+    "deprecated active prompt",
+    "runtime unknown prompt reference",
+    "executable-inline prompt text",
+    "stale documentation metadata",
+    "job/prompt provenance mismatch",
+    "paid provider boundary with inconsistent inventory",
+    "per-prompt dependency-scope mutation"
+  ],
+  "verdict": "VERIFIED"
+}
