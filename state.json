@@ -561,20 +561,34 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): The candidate README contains several issues that violate product-quality standards despite passing deterministic checks. First, the 'At a glance' section includes 'Rendering functionality is not available and throws NotImplementedException' as a capability, which is factually correct per product.limitations:repository-evidence, but presenting it in a 'capabilities' section is misleading and contradicts the presentation plan's intent to highlight verified capabilities positively. Second, the 'open_source_scope' item in 'At a glance' is vague marketing language without product-specific detail, failing specificity. Third, the 'In this README' navigation list duplicates standard sections but omits 'At a glance' from the list despite being added, creating inconsistency. Fourth, the example code in 'Quick Start' is factually supported but the ProductFacts show 'example.minimal:agent-drafted-example' has verification_outcome='BUILD_FAILED', indicating the example may not work \u2014 this is a completeness issue for developer usefulness. Finally, the commercial context section ordering places commercial links before FOSS product substance in the Resources section, violating the 'product must be established as useful, credible, and clearly explained BEFORE promotional or commercial links' rule. These are all quality/presentation defects where every concrete product claim is fact-supported, making REJECT_REPAIRABLE appropriate.",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "product_specificity",
+          "readability",
+          "developer_usefulness",
+          "commercial_context_ordering"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T00:54:10.863226+00:00",
+        "reason": "entering repair attempt 1/2: Remove 'open_source_scope' from 'At a glance' as it is vague marketing language; reframe 'At a glance' to list only verified capabilities without including limitations; update 'In this README' to include 'At a glance' in the navigation list; replace or annotate the 'Quick Start' example to acknowledge the BUILD_FAILED verification status; reorder the Resources section to present FOSS product substance before commercial upgrade paths and links.",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "REPAIRING"
       }
     ],
     "presentation_plan_hash": "3b7a5624fbd0e3abefa58e1fef2a8b8466f70d0376ef440be71ea8d2423e0956",
     "prompt_hash": "d32e6c3a7d9a340cacab1fed600b7a65855995ab0f75dab763f795f0cb15981a",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-07-26T00:54:05.995092+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-07-26T00:54:10.863226+00:00"
   },
   "schema_version": 2,
-  "state_version": 45,
+  "state_version": 46,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4ae54a45e624bd3c36b495cec8479fed6d4bff92315e9d6b644d3f2da468d4af",
