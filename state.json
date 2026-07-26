@@ -4299,6 +4299,15 @@
         "reason": "unchanged approved candidate reused without another bundle or agentic review",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-26T08:34:28.515777+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "presentation_plan_hash": "b63df3f5b57ef33067e28596c631db71488492224c98292dc73fcbf62e3deaa8",
@@ -4308,11 +4317,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-07-26T06:09:19.070340+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-26T08:34:28.515777+00:00"
   },
   "schema_version": 2,
-  "state_version": 394,
+  "state_version": 395,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0701d4a1514d93b196e7d0b571dc29ce8b150c92da1afbbf6afe59defa1d7f0",
