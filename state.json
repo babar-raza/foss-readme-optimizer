@@ -311,20 +311,33 @@
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
+        "blocked_findings": [
+          {
+            "reason": "missing or conflicting ProductFactsV2 dependencies",
+            "surface_id": "metadata.description"
+          },
+          {
+            "reason": "missing or conflicting ProductFactsV2 dependencies",
+            "surface_id": "metadata.topics"
+          }
+        ],
         "current_description": null,
         "current_homepage": null,
         "current_topics": [],
+        "fact_citations": {
+          "metadata.homepage": [
+            "documentation.links:primary"
+          ]
+        },
         "has_proposal": true,
-        "proposed_description": "cells FOSS library for cpp",
+        "proposed_description": null,
         "proposed_homepage": "https://products.aspose.org/cells/cpp/",
-        "proposed_topics": [
-          "cpp"
-        ]
+        "proposed_topics": null
       },
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-23T07:10:45.720432+00:00",
+      "last_run_timestamp": "2026-07-26T07:05:08.009967+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
@@ -554,7 +567,7 @@
     "updated_at": "2026-07-26T07:04:00.267709+00:00"
   },
   "schema_version": 2,
-  "state_version": 74,
+  "state_version": 75,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "48f1ece42ffbb0cdbb92cad8d638cc7dffb73b6230cf032a65893d22c5b305d6",
