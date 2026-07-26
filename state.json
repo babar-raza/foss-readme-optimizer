@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "ae5d0d563f2eb688024b21eafd1d494211e9872e5c056ee00775937710c5d8f5",
-    "last_evaluated_at": "2026-07-26T13:59:07.803979+00:00",
+    "last_evaluated_at": "2026-07-26T13:59:18.766020+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -109,7 +109,7 @@
       "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "REGRESSED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
-      "L8-MISSION-GOAL-GUARD": "VERIFIED",
+      "L8-MISSION-GOAL-GUARD": "SCORED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
       "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "CLOSED",
       "L8-QUAL-00-CAMPAIGN-SCHEMA": "TODO",
@@ -1499,6 +1499,17 @@
         "reason": "Focused, negative-control, restart, live-status, and full clean-tree checks passed",
         "task_id": "L8-MISSION-GOAL-GUARD",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-mission-goal-guard/durable-lifecycle-scoreboard.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-26T13:59:18.766014+00:00",
+        "reason": "Durable 31-repository lifecycle scoreboard reproduced and compared with current runtime artifacts",
+        "task_id": "L8-MISSION-GOAL-GUARD",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -1507,7 +1518,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 165,
+  "state_version": 166,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
