@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "ae7552e241aa8bd79e8a74b02388ea272f687979e9ea0ffeae5f53a5d940bcb6",
-    "last_evaluated_at": "2026-07-26T14:09:14.151462+00:00",
+    "last_evaluated_at": "2026-07-26T14:09:43.830349+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -127,7 +127,7 @@
       "L8-REVIEW-05-REAL-CAMPAIGN": "TODO",
       "L8-STAGING-VERIFIED-PROPOSAL-PROOF": "TODO",
       "L8-TRUTH-01-STAGE-LIMIT": "CLOSED",
-      "L8-TRUTH-01A-FACT-CONTRACT": "VERIFIED",
+      "L8-TRUTH-01A-FACT-CONTRACT": "SCORED",
       "L8-TRUTH-01B-LLM-CALL-LEDGER": "TODO",
       "L8-TRUTH-01C-PROMPT-HYGIENE": "TODO",
       "L8-TRUTH-02-ROOT-ROLES": "TODO",
@@ -1543,6 +1543,17 @@
         "reason": "Four persisted terminal bundles and contract mutation controls independently reproduce current outcomes",
         "task_id": "L8-TRUTH-01A-FACT-CONTRACT",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/fact-acceptance-contract.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-26T14:09:43.830345+00:00",
+        "reason": "Valid Java truth is retained while three stale terminal states reopen at missing evidence",
+        "task_id": "L8-TRUTH-01A-FACT-CONTRACT",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -1551,7 +1562,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 172,
+  "state_version": 173,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
