@@ -1344,6 +1344,19 @@
         "reason": "independent review restarted after deterministic validation",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "readability",
+          "developer_usefulness",
+          "product_specificity"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T07:16:35.764959+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 2 (max repair attempts 2): The candidate README contains a critical factual inaccuracy in the 'At a glance' section. The section states: '- Developers using TypeScript for Create and manipulate 3D scenes' and '- Hierarchical node structure'. These are not complete sentences and do not form coherent descriptions of the product's audience or capabilities. The first item is a fragment that incorrectly frames the audience as 'Developers using TypeScript for Create and manipulate 3D scenes' (grammatically incorrect and confusing), and the second item is a bare noun phrase 'Hierarchical node structure' that does not describe what the product does for developers. The product facts show the audience is 'Developers using typescript for Create and manipulate 3D scenes' (also a fragment in the fact, but that is the verified source) and problems solved includes 'Hierarchical node structure' as one item among others. However, the candidate's presentation of these as standalone bullet points in 'At a glance' is incoherent and fails to communicate the product's value. This is a quality/presentation defect (incomplete, incoherent, and not developer-useful) rather than a factual conflict or missing evidence, since the underlying facts are present but misapplied. The 'At a glance' section should be rewritten to be complete, coherent, and useful.",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "presentation_plan_hash": "c44dcdb87d9c0adf3c223df4d57a6d1c41dc670560a9f6161ba2349e55c1063a",
@@ -1353,11 +1366,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T07:16:21.220967+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-07-26T07:16:35.764959+00:00"
   },
   "schema_version": 2,
-  "state_version": 156,
+  "state_version": 157,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6f49b41374fec2a885ad9cb5b5f9198569f14395d7a9dec512577c1b4a8ec2aa",
