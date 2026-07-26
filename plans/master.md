@@ -96,7 +96,8 @@ Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-req
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
 under `act` → isolated staging → production**. At the latest 2026-07-26 checkpoint, durable state
-version 169 has closed `L8-MISSION-GOAL-GUARD` and names `L8-TRUTH-01A-FACT-CONTRACT` next. The
+version 174 has closed `L8-TRUTH-01A-FACT-CONTRACT` and names `L8-TRUTH-01B-LLM-CALL-LEDGER`
+next. The
 31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
 `HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. The 91-task graph and 424-row
 coverage validate at SHA-256 `ae7552e241aa8bd79e8a74b02388ea272f687979e9ea0ffeae5f53a5d940bcb6`.

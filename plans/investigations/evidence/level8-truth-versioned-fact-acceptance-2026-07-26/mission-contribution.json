@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-01A-FACT-CONTRACT",
+  "goal_ids": [
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Bind cached facts and later lifecycle state to required fields, eligibility, polarity, conflict, and render-view contract hashes."
+  },
+  "acceptance_checks_passed": [
+    "Invalid cached truth reopens at the earliest fact stage",
+    "unchanged valid Java truth remains reusable"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/fact-acceptance-contract.json",
+    "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/replay-results.json",
+    "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/execution.json"
+  ],
+  "scoreboard_before_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "scoreboard_after_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
