@@ -10,7 +10,9 @@ from readme_agent.commands_compatibility import _durable_state_backend
 from readme_agent.evidence.redaction import redact
 from readme_agent.state.lifecycle_schema import FailureClassificationV1, TriggerStatusV2
 
-_LOCAL_POC_EXECUTION_SLICE_SECONDS = 480.0
+# Bound one invocation below common interactive/Actions cancellation windows;
+# durable per-repository state makes the next invocation resume the portfolio.
+_LOCAL_POC_EXECUTION_SLICE_SECONDS = 300.0
 
 
 def _unhandled_runtime_failure_detail(exc: Exception) -> str:
