@@ -360,6 +360,23 @@
       "task_id": "cfe83347ab5b4a31b08a53b1511b97cc",
       "trigger_dedup_key": "operator:20260726-011750-2878:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "ab0cb21cea3992449f846f53767543e7ddd509557831aaadd535ee246f69fa6c": {
+      "action": "detect_readme_gaps",
+      "attempt": 1,
+      "checkpoint_id": "ab0cb21cea3992449f846f53767543e7ddd509557831aaadd535ee246f69fa6c",
+      "completed_at": "2026-07-26T01:42:14.672346+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8848874b8acbf6071559280c378cbc2f13c44b035cfdfc34574996b5d7bbf133",
+      "output_hash": "a5523c6f4ac0df805d66f4ec6fd7ab79a411827dd5b1c4e88c1585d1e309b04f",
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-013605-23fd",
+      "schema_version": 1,
+      "stage": "task_completed",
+      "started_at": "2026-07-26T01:42:14.672340+00:00",
+      "task_id": "71df99999df647dfbc6b9c06a40f37b9",
+      "trigger_dedup_key": "operator:20260726-011750-2878:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "ad2d810ec9743e7146286ba5bd1b9a83f4ef437dfba8a26c2723ae46ab1022df": {
       "action": "inspect_repository",
       "attempt": 1,
@@ -2963,7 +2980,7 @@
     "updated_at": "2026-07-26T01:40:07.724622+00:00"
   },
   "schema_version": 2,
-  "state_version": 157,
+  "state_version": 158,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ab69f8376c988bab261a58d60f877d78ca06630bd9f062e894a4b106334b0be",
@@ -5366,11 +5383,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "ee0cfb67f05fde8247b8925a06f6e79d4866b8684deb0f48305fa57e07b9ddc6",
+      "last_checkpoint_id": "ab0cb21cea3992449f846f53767543e7ddd509557831aaadd535ee246f69fa6c",
       "lease_expires_at": "2026-07-26T01:51:18.405180+00:00",
       "recovery_count": 1,
       "status": "processing",
-      "updated_at": "2026-07-26T01:42:09.694315+00:00"
+      "updated_at": "2026-07-26T01:42:14.672346+00:00"
     }
   },
   "trigger_records": {},
