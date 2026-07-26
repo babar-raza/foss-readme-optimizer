@@ -4843,6 +4843,15 @@
         "reason": "independent review restarted after deterministic validation",
         "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T03:32:43.656149+00:00",
+        "reason": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete claim is traceable to the supplied ProductFactsV2: installation coordinates and Maven Central verification are correctly cited; capabilities (create/load/transform/save 3D scenes, glTF/GLB, STL, Collada support) match repository evidence; limitations (rendering incomplete) are fact-backed; audience and problems solved align with policy-approved facts; license is MIT per LICENSE file; Java platform and minimum runtime 21 are from pom.xml; the minimal example is the exact compiled example verified against source build. The README preserves valuable original content (About, Project Status, API Compatibility, Building, Contributing, License, Resources, Acknowledgments) while adding fact-backed overview and installation sections. Platform/ecosystem correctness is maintained (Java, Maven). Examples are correct and verified. No unsupported removals or generic boilerplate are present. Commercial links are appropriately placed after product substance, and the README clearly establishes the product as useful, credible, and well-explained before any promotional content.",
+        "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+        "to_status": "AGENT_APPROVED"
       }
     ],
     "presentation_plan_hash": "cf60bffa24c5f00196ddb9ae7e578ee1fa4c29beffb99befebaa3c2a99609613",
@@ -4852,11 +4861,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T03:32:31.236408+00:00"
+    "status": "AGENT_APPROVED",
+    "updated_at": "2026-07-26T03:32:43.656149+00:00"
   },
   "schema_version": 2,
-  "state_version": 386,
+  "state_version": 387,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "501d93344b3a21d4221aaafde9abf43f582169a4b9317b01d80a4177ed206fde",
