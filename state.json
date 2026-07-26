@@ -2734,6 +2734,15 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T06:03:43.312709+00:00",
+        "reason": "The candidate README is factually accurate, complete, specific to this real product, and ready to ship as-is. Every concrete product claim is traceable to the supplied ProductFacts: the package name 'Aspose.3D.FOSS' and version 26.1.0 match the manifest; the supported formats (OBJ, STL, FBX, glTF, Collada, PLY) are explicitly listed in the formats fact; the audience and problems solved match the agent-drafted facts; the installation command and quick start example match the verified facts; the limitations section correctly reflects the blocked functionality (rendering, license APIs, proprietary formats) as evidenced in the limitations fact; and all external links are policy-approved. The 'At a glance' section concisely captures the verified audience and capabilities without overpromising. The README preserves all valuable original content (installation, quick start, resources, license) and correctly positions the commercial relationship after the product substance. No generic boilerplate, unsupported claims, or promotional content precedes the product description. The document is well-structured, readable, and developer-useful.",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "AGENT_APPROVED"
       }
     ],
     "presentation_plan_hash": "b63df3f5b57ef33067e28596c631db71488492224c98292dc73fcbf62e3deaa8",
@@ -2743,11 +2752,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T06:03:28.983544+00:00"
+    "status": "AGENT_APPROVED",
+    "updated_at": "2026-07-26T06:03:43.312709+00:00"
   },
   "schema_version": 2,
-  "state_version": 355,
+  "state_version": 356,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b990b6271b33bb76ec8395fd83fe98a115c00beb7eb93c52761ed2f8ff27b498",
