@@ -8,7 +8,9 @@ mechanical check today -- unlike `product.capabilities`/`product.formats`/
 required symbols). That check does not apply here: there is no file/symbol that proves an
 audience or problem-statement claim. Instead, every drafted claim must cite other
 already-established facts from the same `ProductFactsV2` object, and every significant
-word in the claim text must literally appear in at least one of its cited facts' values.
+product word in the claim text must literally appear in at least one of its cited facts'
+values. Audience claims receive only the fixed grammatical scaffold declared below;
+that scaffold cannot introduce a product, feature, quality, use case, or outcome.
 This is intentionally a crude, deterministic lexical-coverage check -- not a semantic one
 -- so its pass/fail behavior stays simple and predictable rather than another model
 grading its own homework.
@@ -148,14 +150,23 @@ _STOPWORDS = frozenset(
     }
 )
 
+# Audience claims need a minimal grammatical frame that repository facts do not
+# mechanically contain. Keep this deliberately field-specific and tiny: it can
+# describe who uses the evidenced product, but cannot introduce a product,
+# feature, quality, use case, or outcome that the citations do not contain.
+_FIELD_SCAFFOLD_TOKENS: dict[str, frozenset[str]] = {
+    "product.audience": frozenset({"developers", "users", "using"}),
+}
 
-def _significant_tokens(text: str) -> list[str]:
+
+def _significant_tokens(text: str, field_name: str | None = None) -> list[str]:
     """Lowercase, tokenize, and drop stopwords/single characters -- deterministic, no NLP."""
 
+    ignored = _STOPWORDS | _FIELD_SCAFFOLD_TOKENS.get(field_name or "", frozenset())
     return [
         token
         for token in _TOKEN_RE.findall(text.lower())
-        if token not in _STOPWORDS and len(token) > 1
+        if token not in ignored and len(token) > 1
     ]
 
 
@@ -181,7 +192,9 @@ def _resolve_cited_fact(facts_so_far: ProductFactsV2, fact_id: str) -> FactRecor
 
 
 def _claim_result(
-    claim: InterpretiveClaimV1, facts_so_far: ProductFactsV2
+    field_name: str,
+    claim: InterpretiveClaimV1,
+    facts_so_far: ProductFactsV2,
 ) -> tuple[bool, float, list[str]]:
     """Evaluate one claim against (a) non-empty citations, (b) citation resolution, and
     (c) full lexical coverage. Returns (passed, coverage_ratio, failure_reasons)."""
@@ -205,7 +218,7 @@ def _claim_result(
         # it does not just shrink the grounding pool.
         return False, 0.0, reasons
 
-    tokens = _significant_tokens(claim.text)
+    tokens = _significant_tokens(claim.text, field_name)
     if not tokens:
         return False, 0.0, [f"{claim.claim_id}: claim text has no significant tokens to ground"]
 
@@ -251,7 +264,7 @@ def groundedness_fact_candidate(
         failures.append(f"{field_name}: no claims were drafted for this field")
 
     for claim in claims:
-        passed, coverage, reasons = _claim_result(claim, facts_so_far)
+        passed, coverage, reasons = _claim_result(field_name, claim, facts_so_far)
         if passed:
             coverages.append(coverage)
         else:

@@ -25,6 +25,12 @@ class SpecialistTierResult:
     retry_alerts: list[DecisionSummary]
 
 
+def _is_retryable_execution_failure(result: DomainStateV1) -> bool:
+    """Retry an invocation failure, never a deterministic or agentic verdict."""
+
+    return (result.accepted_status or "").startswith("ERROR:execution_error:")
+
+
 def run_specialist_tier(
     *,
     org_repo: str,
@@ -101,9 +107,7 @@ def run_specialist_tier(
 
     retry_alerts: list[DecisionSummary] = []
     for domain in [
-        key
-        for key, result in results.items()
-        if (result.accepted_status or "").startswith("ERROR:")
+        key for key, result in results.items() if _is_retryable_execution_failure(result)
     ]:
         try:
             retry_result = specialists_registry.run_domain(

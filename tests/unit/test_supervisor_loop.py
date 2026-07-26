@@ -2006,6 +2006,62 @@ class TestSpecialistFailureIsolation:
     try/except -- with only one specialist ever registered, this was latent;
     Wave 7 registering six more makes it a real risk."""
 
+    def test_semantic_review_exhaustion_is_not_blindly_retried(self, tmp_path, monkeypatch):
+        from readme_agent.supervisor.specialist_tier import run_specialist_tier
+
+        calls = 0
+
+        def _semantic_failure(domain, org_repo, backend, **kwargs):
+            nonlocal calls
+            calls += 1
+            return DomainStateV1(
+                domain=domain,
+                accepted_status=("ERROR:independent_review_repair_exhausted:REJECT_REPAIRABLE"),
+            )
+
+        monkeypatch.setattr(specialists_registry, "all_domains", lambda: ["readme_presentation"])
+        monkeypatch.setattr(specialists_registry, "run_domain", _semantic_failure)
+
+        result = run_specialist_tier(
+            org_repo=ORG_REPO,
+            baseline_path=tmp_path,
+            state_backend=None,
+            current_revision="a" * 40,
+            enable_specialist_skip=False,
+            specialist_selection_client=None,
+            escalation_alert_threshold=3,
+        )
+
+        assert calls == 1
+        assert result.retry_alerts == []
+        assert result.results["readme_presentation"].accepted_status.startswith(
+            "ERROR:independent_review_repair_exhausted:"
+        )
+
+    def test_execution_error_keeps_single_bounded_retry(self, tmp_path, monkeypatch):
+        from readme_agent.supervisor.specialist_tier import run_specialist_tier
+
+        statuses = iter(["ERROR:execution_error:transient", "NO_CHANGE"])
+
+        def _recovering_domain(domain, org_repo, backend, **kwargs):
+            return DomainStateV1(domain=domain, accepted_status=next(statuses))
+
+        monkeypatch.setattr(specialists_registry, "all_domains", lambda: ["readme_presentation"])
+        monkeypatch.setattr(specialists_registry, "run_domain", _recovering_domain)
+
+        result = run_specialist_tier(
+            org_repo=ORG_REPO,
+            baseline_path=tmp_path,
+            state_backend=None,
+            current_revision="a" * 40,
+            enable_specialist_skip=False,
+            specialist_selection_client=None,
+            escalation_alert_threshold=3,
+        )
+
+        assert result.results["readme_presentation"].accepted_status == "NO_CHANGE"
+        assert len(result.retry_alerts) == 1
+
     def test_a_raising_specialist_does_not_abort_the_run(self, project, monkeypatch):
         def _raising_run_domain(domain, org_repo, backend):
             raise RuntimeError("simulated network timeout inside a specialist")
@@ -2629,6 +2685,47 @@ class TestMaxTurns:
             "specialist_failed:readme_presentation:ERROR:verification_rejected:controlled"
         )
         assert result.blocked_category == "agent_fixable"
+
+    def test_known_specialist_failure_never_spends_a_general_planner_turn(
+        self, project, monkeypatch
+    ):
+        from readme_agent.supervisor import loop
+        from readme_agent.supervisor.specialist_tier import SpecialistTierResult
+
+        specialist_error = DomainStateV1(
+            domain="readme_presentation",
+            accepted_status="ERROR:independent_review_repair_exhausted:REJECT_REPAIRABLE",
+        )
+        monkeypatch.setattr(
+            loop,
+            "run_specialist_tier",
+            lambda **kwargs: SpecialistTierResult(
+                domains=["readme_presentation"],
+                results={"readme_presentation": specialist_error},
+                unrecorded_failures={},
+                escalation_alerts=[],
+                retry_alerts=[],
+            ),
+        )
+
+        class _PlannerMustNotRun:
+            def plan(self, messages, tools):
+                raise AssertionError("general planner was called after specialist failure")
+
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=_PlannerMustNotRun(),
+            write_evidence_bundle=False,
+            max_turns=20,
+        )
+
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason == (
+            "specialist_failed:readme_presentation:"
+            "ERROR:independent_review_repair_exhausted:REJECT_REPAIRABLE"
+        )
+        assert result.blocked_category == "agent_fixable"
+        assert any("before general planning" in decision.detail for decision in result.decisions)
 
 
 class TestWriteCapableModeGate:

@@ -96,6 +96,66 @@ def test_all_claims_pass_yields_verified_agent_drafted_fact():
     assert fact.value == [claim.text]
 
 
+def test_audience_allows_only_bounded_grammatical_scaffolding():
+    facts_so_far = _facts_so_far(_IDENTITY, _CAPABILITIES)
+    claim = InterpretiveClaimV1(
+        claim_id="audience-1",
+        text="Developers using a backend document processing engine to convert PDF documents.",
+        supporting_fact_ids=[_IDENTITY.fact_id, _CAPABILITIES.fact_id],
+    )
+
+    fact = groundedness_fact_candidate(
+        "product.audience",
+        [claim],
+        facts_so_far,
+        source_revision="abc123",
+        observed_at=None,
+    )
+
+    assert fact.verification_state == "verified"
+
+
+def test_audience_scaffolding_does_not_allow_unsupported_positioning():
+    facts_so_far = _facts_so_far(_IDENTITY, _CAPABILITIES)
+    claim = InterpretiveClaimV1(
+        claim_id="audience-1",
+        text="Developers using a powerful free alternative to convert PDF documents.",
+        supporting_fact_ids=[_IDENTITY.fact_id, _CAPABILITIES.fact_id],
+    )
+
+    fact = groundedness_fact_candidate(
+        "product.audience",
+        [claim],
+        facts_so_far,
+        source_revision="abc123",
+        observed_at=None,
+    )
+
+    assert fact.verification_state == "blocked"
+    failures = fact.value["groundedness_failures"]
+    assert any("alternative" in reason and "powerful" in reason for reason in failures)
+
+
+def test_problems_solved_does_not_receive_audience_scaffolding():
+    facts_so_far = _facts_so_far(_IDENTITY, _CAPABILITIES)
+    claim = InterpretiveClaimV1(
+        claim_id="problem-1",
+        text="Developers using a backend document processing engine.",
+        supporting_fact_ids=[_IDENTITY.fact_id],
+    )
+
+    fact = groundedness_fact_candidate(
+        "product.problems_solved",
+        [claim],
+        facts_so_far,
+        source_revision="abc123",
+        observed_at=None,
+    )
+
+    assert fact.verification_state == "blocked"
+    assert any("using" in reason for reason in fact.value["groundedness_failures"])
+
+
 def test_empty_supporting_fact_ids_blocks_the_whole_field():
     facts_so_far = _facts_so_far(_IDENTITY, _CAPABILITIES)
     claim = InterpretiveClaimV1(

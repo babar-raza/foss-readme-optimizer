@@ -59,6 +59,28 @@ def run_planner_loop(
     decisions = list(initial_decisions)
     applied_any_effect = False
 
+    specialist_outcome = final_status(
+        graph,
+        applied_any_effect=False,
+        specialist_results=specialist_results,
+    )
+    if specialist_outcome.status == "BLOCKED":
+        decisions.append(
+            DecisionSummary(
+                turn=0,
+                kind="stop",
+                detail=(
+                    "deterministic specialist-failure stop before general planning: "
+                    f"{specialist_outcome.blocked_reason}"
+                ),
+            )
+        )
+        return PlannerLoopResult(
+            graph=graph,
+            decisions=decisions,
+            outcome=specialist_outcome,
+        )
+
     bootstrap = graph.add_task(
         Task(capability_id="inspect_repository", arguments={"org_repo": org_repo})
     )

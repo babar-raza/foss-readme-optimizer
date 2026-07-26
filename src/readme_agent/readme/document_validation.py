@@ -152,16 +152,25 @@ def validate_readme_document_candidate(
         f"unauthorized protected-content loss: {loss.fragment_id}" for loss in unauthorized_losses
     )
 
+    selected_example = facts.selected_fact("example.minimal")
     example = _accepted(facts, "example.minimal")
-    example_value = example.value if example is not None and isinstance(example.value, dict) else {}
+    example_value = selected_example.value if isinstance(selected_example.value, dict) else {}
     exact_example = str(example_value.get("code", "")).rstrip()
+    example_is_present = bool(
+        exact_example and candidate_span is not None and exact_example in candidate_span.content
+    )
+    # A narrowly blocked example may be omitted while unrelated README work
+    # continues. It may never be rendered, though: its code is still untrusted
+    # even when a candidate operation did not cite the blocked fact ID.
     checks["verified_example_present"] = (
-        example is None
-        or not exact_example
-        or bool(candidate_span is not None and exact_example in candidate_span.content)
+        example_is_present if example is not None and exact_example else not example_is_present
     )
     if not checks["verified_example_present"]:
-        errors.append("selected verified minimal example is absent")
+        errors.append(
+            "selected verified minimal example is absent"
+            if example is not None
+            else "selected unverified minimal example is present"
+        )
 
     overview_facts = [
         selected

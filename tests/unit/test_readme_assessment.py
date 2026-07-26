@@ -164,6 +164,41 @@ def test_blocked_facts_are_neither_cited_nor_introduced_into_candidate():
     }.intersection({claim.fact_id for claim in claim_map.claims})
 
 
+def test_blocked_build_failed_example_cannot_survive_in_candidate():
+    facts, revision = _java_facts()
+    source = "# Aspose.Cells FOSS for Java\n\nExisting maintainer introduction.\n"
+    candidate, plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    selected_example = facts.selected_fact("example.minimal")
+    blocked_example = selected_example.model_copy(
+        update={
+            "verification_state": "blocked",
+            "confidence": 0.0,
+            "value": {
+                **selected_example.value,
+                "verification_outcome": "BUILD_FAILED",
+            },
+        }
+    )
+    blocked_facts = facts.model_copy(
+        update={
+            "facts": [
+                blocked_example if fact.fact_id == selected_example.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    validation = validate_readme_document_candidate(source, candidate, plan, blocked_facts)
+
+    assert validation.checks["verified_example_present"] is False
+    assert "selected unverified minimal example is present" in validation.errors
+
+
 def test_conflicted_installation_and_example_are_investigated_without_fact_citations():
     facts, revision = _java_facts()
     conflicted = _conflicted_fields(
