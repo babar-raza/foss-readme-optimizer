@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
@@ -142,6 +143,20 @@ def _required_overview_ids(facts: ProductFactsV2) -> set[str]:
     return audience_problem or {option["fact_id"] for option in options[:2]}
 
 
+def _overview_words(text: str) -> str:
+    """Normalize punctuation so one grounded phrase can subsume another."""
+
+    return " ".join(re.findall(r"[a-z0-9]+", text.casefold()))
+
+
+def _phrases_overlap(left: str, right: str) -> bool:
+    left_words = _overview_words(left)
+    right_words = _overview_words(right)
+    return bool(
+        left_words and right_words and (left_words in right_words or right_words in left_words)
+    )
+
+
 def _materialize_tool_draft(
     tool_draft: _AgenticCompositionToolDraftV1,
     overview_phrase_options: list[dict],
@@ -173,6 +188,26 @@ def _materialize_tool_draft(
             phrases[0],
         )
         used_phrases.add(text.strip().rstrip(".").casefold())
+        overlapping_index = next(
+            (
+                index
+                for index, sentence in enumerate(overview_sentences)
+                if _phrases_overlap(sentence.text, text)
+            ),
+            None,
+        )
+        if overlapping_index is not None:
+            existing = overview_sentences[overlapping_index]
+            rendered_text = (
+                text
+                if len(_overview_words(text)) > len(_overview_words(existing.text))
+                else existing.text
+            )
+            overview_sentences[overlapping_index] = AgenticOverviewSentenceV1(
+                text=rendered_text,
+                supporting_fact_ids=list(dict.fromkeys([*existing.supporting_fact_ids, fact_id])),
+            )
+            continue
         overview_sentences.append(
             AgenticOverviewSentenceV1(
                 text=text,

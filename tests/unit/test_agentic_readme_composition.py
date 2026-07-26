@@ -324,6 +324,65 @@ def test_agentic_plan_selects_distinct_literal_phrases_when_fact_lists_overlap()
     assert "Distinct capability" in texts
 
 
+def test_agentic_plan_coalesces_one_literal_phrase_that_subsumes_another():
+    facts, revision = _facts()
+    problem = facts.selected_fact("product.problems_solved")
+    capability = facts.selected_fact("product.capabilities")
+    short_phrase = "Create, load, inspect, transform, and save 3D scenes."
+    long_phrase = (
+        "Create, load, inspect, transform, and save 3D scenes with an open-source Java API."
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                (
+                    fact.model_copy(update={"value": [long_phrase]})
+                    if fact.fact_id == problem.fact_id
+                    else (
+                        fact.model_copy(update={"value": [short_phrase]})
+                        if fact.fact_id == capability.fact_id
+                        else fact
+                    )
+                )
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _draft(facts)
+    draft["overview_sentences"].append(
+        {
+            "text": short_phrase,
+            "supporting_fact_ids": [capability.fact_id],
+        }
+    )
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(_cover_assessment(draft, assessment)),
+        max_attempts=1,
+    )
+
+    overlapping = next(
+        sentence
+        for sentence in plan.overview_sentences
+        if problem.fact_id in sentence.supporting_fact_ids
+    )
+    assert overlapping.text == long_phrase
+    assert overlapping.supporting_fact_ids == [problem.fact_id, capability.fact_id]
+    assert (
+        sum(short_phrase.rstrip(".") in sentence.text for sentence in plan.overview_sentences) == 1
+    )
+
+
 def test_agentic_plan_rejects_internal_relationship_codes_as_overview_prose():
     facts, revision = _facts()
     source = "# Product\n"

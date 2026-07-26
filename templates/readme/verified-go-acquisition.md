@@ -4,4 +4,4 @@ Add the module published for this repository:
 go get {module_name}@latest
 ```
 
-The module was verified through the Go module proxy for repository revision `{source_revision}`.
+The module was verified through the Go module proxy.
