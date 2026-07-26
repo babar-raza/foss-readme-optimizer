@@ -6,9 +6,8 @@ own "extensible families grow by adding a file" convention."""
 import time
 from typing import Any
 
-import requests
-
 from readme_agent.errors import LLMError
+from readme_agent.llm.call_transport import ProviderCallSession
 from readme_agent.retry import RetryableOperationError, run_http_with_retry
 
 _RETRYABLE_STATUS = {429, 502, 503, 504}
@@ -21,13 +20,20 @@ def get_embedding(
     if api_key:
         headers["Authorization"] = f"Bearer {api_key}"
     payload: dict[str, Any] = {"model": model, "input": text}
+    session = ProviderCallSession(
+        job="embeddings",
+        prompt_id="embeddings",
+        prompt_sha256=None,
+        provider="configured_gateway",
+        model=model,
+    )
 
     try:
         resp = run_http_with_retry(
             "llm_call",
-            lambda: requests.post(
+            lambda: session.post(
                 f"{base_url.rstrip('/')}/embeddings",
-                json=payload,
+                payload=payload,
                 headers=headers,
                 timeout=timeout,
             ),
@@ -41,10 +47,14 @@ def get_embedding(
 
     try:
         body = resp.json()
+        data = body.get("data") or []
+        if not data or not isinstance(data[0], dict) or "embedding" not in data[0]:
+            raise LLMError("embedding response missing 'data[0].embedding'")
     except ValueError as exc:
+        session.finalize(resp, "response_invalid")
         raise LLMError(f"embedding response was not valid JSON: {exc}") from exc
-
-    data = body.get("data") or []
-    if not data or not isinstance(data[0], dict) or "embedding" not in data[0]:
-        raise LLMError("embedding response missing 'data[0].embedding'")
+    except LLMError:
+        session.finalize(resp, "response_invalid")
+        raise
+    session.finalize(resp, "success")
     return list(data[0]["embedding"])

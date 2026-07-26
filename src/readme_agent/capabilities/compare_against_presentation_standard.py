@@ -86,7 +86,11 @@ def execute(
     standard_excerpt = _STANDARD_DOC_PATH.read_text(encoding="utf-8")
 
     resolved_client = client or LiveAnalysisClient(
-        llm_base_url(), llm_api_key(), llm_model_for_job("presentation_standard_compliance")
+        llm_base_url(),
+        llm_api_key(),
+        llm_model_for_job("presentation_standard_compliance"),
+        job="presentation_standard_compliance",
+        prompt_id="presentation_standard_compliance",
     )
     messages = build_presentation_standard_compliance_messages(
         org_repo, readme_text, standard_excerpt

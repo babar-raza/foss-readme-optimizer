@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+  "source_sha256": "7859c3ae45eb7c3bc355bdc9463a4236fa2d1b02d721407d7dae48a22f26303e",
+  "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
+  "assessment_hash": "943b7b8a3dda01eecc7eba332921cb2da4818f84c8ed332023837b3c931f84c0",
+  "prompt_sha256": "fbbfa13a084ddbf31a292bbeaf3ab03bba48ed4859e66fb0c78a918ea9515ec6",
+  "tool_schema_sha256": "f6ffc65a0f8ccfb414f4048ceadc85743f2165ebbfe14f56dcc8b657b3aad47a",
+  "input_sha256": "e027c8944273cf427b8f22b1bdbdc23836635aa96e7355a1b6a2f2045f3e400d",
+  "model": "qwen3-next",
+  "attempt_count": 1,
+  "repository_summary": "Aspose.3D FOSS for Java is a free, open-source Java library compatible with Aspose.3D for Java, supporting import/export of glTF, STL, and Collada formats. It targets Java developers building 3D scene processing applications and requires Java 21+. The project is MIT-licensed, actively maintained, and available on Maven Central. Limitations include incomplete rendering and commercial-API parity.",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "remove_update",
+      "priority": 100,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening contains a promotional callout that must be replaced with a bounded product-first correction using verified facts."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:622",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:1545",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:1708",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2067",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2200",
+      "disposition": "repair",
+      "priority": 50,
+      "supporting_fact_ids": [
+        "example.minimal:compiled-policy-example"
+      ],
+      "rationale": "The Usage section must be repaired to match the exact locally verified minimal example: import Scene, instantiate, and save to STL."
+    },
+    {
+      "section_id": "heading:2379",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2477",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:2590",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:3816",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "missing:at-a-glance",
+      "disposition": "add",
+      "priority": 90,
+      "supporting_fact_ids": [
+        "product.audience:approved-policy",
+        "product.problems_solved:approved-policy",
+        "product.capabilities:repository-evidence"
+      ],
+      "rationale": "Add a fact-backed overview section using verified audience, problems solved, and capabilities facts."
+    },
+    {
+      "section_id": "missing:installation",
+      "disposition": "add",
+      "priority": 80,
+      "supporting_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-maven_central"
+      ],
+      "rationale": "Add the Maven Central installation coordinates verified in the manifest."
+    },
+    {
+      "section_id": "missing:limitations",
+      "disposition": "add",
+      "priority": 70,
+      "supporting_fact_ids": [
+        "product.limitations:repository-evidence"
+      ],
+      "rationale": "Add the explicitly verified limitation about rendering and commercial-API parity."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Java developers building 3D import, export, and scene-processing applications.",
+      "supporting_fact_ids": [
+        "product.audience:approved-policy"
+      ]
+    },
+    {
+      "text": "Create, load, inspect, transform, and save 3D scenes with an open-source Java API.",
+      "supporting_fact_ids": [
+        "product.problems_solved:approved-policy",
+        "product.capabilities:repository-evidence"
+      ]
+    }
+  ]
+}

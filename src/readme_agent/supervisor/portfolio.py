@@ -7,7 +7,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, computed_field, model_validator
 
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle import transition_trigger
@@ -33,6 +33,26 @@ class PortfolioRepositoryResultV1(BaseModel):
     exit_code: int
     blocked_reason: str | None = None
     blocked_category: str | None = None
+    llm_accounting_status: Literal["EXACT", "UNKNOWN_LEGACY"] = "UNKNOWN_LEGACY"
+    llm_call_count: int | None = Field(default=None, ge=0)
+    llm_call_ids: list[str] = Field(default_factory=list)
+    llm_calls_by_job: dict[str, int] = Field(default_factory=dict)
+    llm_fixture_call_count: int | None = Field(default=None, ge=0)
+    llm_cache_reuse_count: int | None = Field(default=None, ge=0)
+
+    @model_validator(mode="after")
+    def _reconcile_llm_calls(self) -> PortfolioRepositoryResultV1:
+        if self.llm_accounting_status == "UNKNOWN_LEGACY":
+            if self.llm_call_count is not None or self.llm_call_ids:
+                raise ValueError("UNKNOWN_LEGACY portfolio member cannot claim exact calls")
+            return self
+        if self.llm_call_count != len(self.llm_call_ids):
+            raise ValueError("portfolio member call count does not match unique call IDs")
+        if len(set(self.llm_call_ids)) != len(self.llm_call_ids):
+            raise ValueError("portfolio member contains duplicate LLM call IDs")
+        if self.llm_call_count != sum(self.llm_calls_by_job.values()):
+            raise ValueError("portfolio member per-job LLM totals do not reconcile")
+        return self
 
 
 class PortfolioPocSummaryV1(BaseModel):
@@ -45,6 +65,39 @@ class PortfolioPocSummaryV1(BaseModel):
     registry_count: int = Field(ge=0)
     execution_slice_complete: bool = True
     results: list[PortfolioRepositoryResultV1]
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def llm_accounting_status(self) -> Literal["EXACT", "UNKNOWN_LEGACY"]:
+        return (
+            "EXACT"
+            if len(self.results) == self.registry_count
+            and all(result.llm_accounting_status == "EXACT" for result in self.results)
+            else "UNKNOWN_LEGACY"
+        )
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def llm_provider_call_count(self) -> int | None:
+        if self.llm_accounting_status != "EXACT":
+            return None
+        return sum(result.llm_call_count or 0 for result in self.results)
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def llm_calls_by_job(self) -> dict[str, int]:
+        totals: dict[str, int] = {}
+        for result in self.results:
+            for job, count in result.llm_calls_by_job.items():
+                totals[job] = totals.get(job, 0) + count
+        return dict(sorted(totals.items()))
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def llm_cache_reuse_count(self) -> int | None:
+        if self.llm_accounting_status != "EXACT":
+            return None
+        return sum(result.llm_cache_reuse_count or 0 for result in self.results)
 
     @property
     def complete_agent_approved_count(self) -> int:
@@ -83,7 +136,9 @@ class PortfolioPocSummaryV1(BaseModel):
             f"complete={self.target_complete_count}/{self.registry_count} "
             f"agent_approved={self.complete_agent_approved_count}/{self.registry_count} "
             f"system_failed={self.system_failure_count} processed={len(self.results)} "
-            f"slice_complete={self.execution_slice_complete}"
+            f"slice_complete={self.execution_slice_complete} "
+            f"llm_accounting={self.llm_accounting_status} "
+            f"provider_calls={self.llm_provider_call_count}"
         )
 
 

@@ -4,6 +4,7 @@ import argparse
 import sys
 import time
 from pathlib import Path
+from typing import Literal, TypedDict
 
 from readme_agent import env
 from readme_agent.commands_compatibility import _durable_state_backend
@@ -13,6 +14,15 @@ from readme_agent.state.lifecycle_schema import FailureClassificationV1, Trigger
 # Bound one invocation below common interactive/Actions cancellation windows;
 # durable per-repository state makes the next invocation resume the portfolio.
 _LOCAL_POC_EXECUTION_SLICE_SECONDS = 300.0
+
+
+class _PortfolioLlmAccounting(TypedDict, total=False):
+    llm_accounting_status: Literal["EXACT", "UNKNOWN_LEGACY"]
+    llm_call_count: int | None
+    llm_call_ids: list[str]
+    llm_calls_by_job: dict[str, int]
+    llm_fixture_call_count: int | None
+    llm_cache_reuse_count: int | None
 
 
 def _unhandled_runtime_failure_detail(exc: Exception) -> str:
@@ -88,7 +98,6 @@ def cmd_supervise(args: argparse.Namespace) -> int:
 
     lifecycle_recorder = None
     if profile is not None and profile.requires_durable_state:
-        from readme_agent import env
         from readme_agent.errors import StateBackendError
         from readme_agent.evidence.writer import generate_run_id
         from readme_agent.state.lifecycle import LifecycleRecorder, accept_trigger
@@ -190,6 +199,20 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         print(format_summary(preflight_result))
         return 3
 
+    from readme_agent.evidence.writer import generate_run_id
+    from readme_agent.llm.call_ledger import start_llm_call_accounting
+
+    accounting_run_id = (
+        lifecycle_recorder.run_id if lifecycle_recorder is not None else generate_run_id()
+    )
+    start_llm_call_accounting(
+        args.repo,
+        accounting_run_id,
+        campaign_id=env.github_run_id() or accounting_run_id,
+        stage="PRE_SNAPSHOT",
+    )
+    args._llm_accounting_run_id = accounting_run_id
+
     if domain is not None:
         return _cmd_supervise_single_domain(args.repo, domain, state_backend)
 
@@ -209,17 +232,24 @@ def cmd_supervise(args: argparse.Namespace) -> int:
     dynamic_planning_kwargs: dict = {}
     dynamic_planning_required = profile is not None and profile.name == "local_poc"
     if getattr(args, "enable_dynamic_planning", False) or dynamic_planning_required:
-        from readme_agent import env
         from readme_agent.llm.planner_client import LivePlannerClient
 
         base_url, api_key = env.llm_base_url(), env.llm_api_key()
         dynamic_planning_kwargs = {
             "enable_specialist_skip": True,
             "specialist_selection_client": LivePlannerClient(
-                base_url, api_key, env.llm_model_for_job("specialist_selection")
+                base_url,
+                api_key,
+                env.llm_model_for_job("specialist_selection"),
+                job="specialist_selection",
+                prompt_id="specialist_selection",
             ),
             "repair_planner_client": LivePlannerClient(
-                base_url, api_key, env.llm_model_for_job("repair_capability_selection")
+                base_url,
+                api_key,
+                env.llm_model_for_job("repair_capability_selection"),
+                job="repair_capability_selection",
+                prompt_id="repair_capability_selection",
             ),
         }
 
@@ -352,12 +382,20 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             detail=failure_detail,
             failure_classification=failure_classification,
         )
+    from readme_agent.llm.call_ledger import current_llm_accounting_summary
+
+    llm_summary = current_llm_accounting_summary()
     print(
         f"{args.repo}: {result.status}"
         + (
             f" ({result.blocked_reason}; category={result.blocked_category})"
             if result.blocked_reason
             else ""
+        )
+        + (
+            f" [llm_accounting={llm_summary.status}; "
+            f"provider_calls={llm_summary.provider_call_count}; "
+            f"cache_reuse={llm_summary.cache_reuse_count}]"
         )
     )
     for d in result.decisions:
@@ -369,6 +407,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
     # to derive an honest portfolio summary.  It is never persisted or used
     # to control execution; durable state and manifests remain authoritative.
     args._terminal_supervise_result = result
+    args._llm_accounting_summary = llm_summary
     return exit_code
 
 
@@ -414,6 +453,34 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         write_portfolio_summary,
     )
 
+    zero_llm_accounting: _PortfolioLlmAccounting = {
+        "llm_accounting_status": "EXACT",
+        "llm_call_count": 0,
+        "llm_call_ids": [],
+        "llm_calls_by_job": {},
+        "llm_fixture_call_count": 0,
+        "llm_cache_reuse_count": 0,
+    }
+
+    def _current_llm_accounting(
+        member_args: argparse.Namespace,
+    ) -> _PortfolioLlmAccounting:
+        from readme_agent.llm.call_ledger import current_llm_accounting_summary
+
+        if not getattr(member_args, "_llm_accounting_run_id", None):
+            return zero_llm_accounting.copy()
+        summary = current_llm_accounting_summary()
+        if summary.status != "EXACT":
+            return {}
+        return {
+            "llm_accounting_status": "EXACT",
+            "llm_call_count": summary.provider_call_count,
+            "llm_call_ids": summary.call_ids,
+            "llm_calls_by_job": summary.calls_by_job,
+            "llm_fixture_call_count": summary.fixture_call_count,
+            "llm_cache_reuse_count": summary.cache_reuse_count,
+        }
+
     registry_path = Path(args.registry)
     entries = load_products(registry_path)
     # Resolve the one durable backend before the fan-out.  It is deliberately
@@ -454,11 +521,44 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                 if readme_poc_stage_limit is None and (
                     complete_status := completed_local_poc_status(persisted, bundle_dir)
                 ):
+                    from readme_agent.evidence.writer import generate_run_id
+                    from readme_agent.llm.call_ledger import (
+                        bind_llm_repository_revision,
+                        record_non_provider_call,
+                        start_llm_call_accounting,
+                    )
+
+                    cache_run_id = generate_run_id()
+                    start_llm_call_accounting(
+                        entry.org_repo,
+                        cache_run_id,
+                        campaign_id=cache_run_id,
+                        stage="NO_OP_PROOF",
+                    )
+                    bind_llm_repository_revision(
+                        lifecycle.source_revision,
+                        stage="NO_OP_PROOF",
+                    )
+                    record_non_provider_call(
+                        job="local_poc_complete_bundle",
+                        prompt_id="local_poc_complete_bundle",
+                        prompt_sha256=None,
+                        model="cache",
+                        disposition="cache_reuse",
+                        request={
+                            "org_repo": entry.org_repo,
+                            "source_revision": lifecycle.source_revision,
+                            "status": complete_status,
+                        },
+                    )
                     results.append(
                         PortfolioRepositoryResultV1(
                             org_repo=entry.org_repo,
                             status=complete_status,
                             exit_code=0,
+                            **_current_llm_accounting(
+                                argparse.Namespace(_llm_accounting_run_id=cache_run_id)
+                            ),
                         )
                     )
                     continue
@@ -479,6 +579,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                             f"unexpired_active_trigger:{trigger_selection.active_trigger_key}"
                         ),
                         blocked_category="infra_external",
+                        **zero_llm_accounting,
                     )
                 )
                 continue
@@ -508,6 +609,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     blocked_category=(
                         terminal_result.blocked_category if terminal_result is not None else None
                     ),
+                    **_current_llm_accounting(repository_args),
                 )
             )
         except Exception as exc:  # noqa: BLE001 -- portfolio failure isolation is contractual
@@ -534,6 +636,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                         org_repo=entry.org_repo,
                         status=recovered_status,
                         exit_code=0,
+                        **_current_llm_accounting(repository_args),
                     )
                 )
             else:
@@ -562,6 +665,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                         exit_code=1,
                         blocked_reason=failure_detail,
                         blocked_category="agent_fixable",
+                        **_current_llm_accounting(repository_args),
                     )
                 )
         if entry_index + 1 < len(entries) and time.monotonic() - slice_started >= slice_budget:

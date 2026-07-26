@@ -31,6 +31,8 @@ import requests
 from pydantic import BaseModel
 
 from readme_agent.errors import LLMError
+from readme_agent.llm.call_ledger import known_prompt_hash, record_non_provider_call
+from readme_agent.llm.call_transport import ProviderCallSession
 from readme_agent.llm.schema import LLMResponseMeta, Usage
 from readme_agent.retry import RetryableOperationError, run_http_with_retry
 
@@ -60,6 +62,9 @@ class LiveAnalysisClient:
         model: str,
         timeout: float = 90,
         max_tokens: int = DEFAULT_MAX_TOKENS,
+        *,
+        job: str = "structured_analysis",
+        prompt_id: str | None = None,
     ):
         """`max_tokens` (RPOC-033): optional, defaults to the prior hardcoded
         `DEFAULT_MAX_TOKENS` -- backward compatible for every existing
@@ -79,6 +84,8 @@ class LiveAnalysisClient:
         self.model = model
         self.timeout = timeout
         self.max_tokens = max_tokens
+        self.job = job
+        self.prompt_id = prompt_id or job
 
     def _headers(self) -> dict[str, str]:
         headers = {"Content-Type": "application/json"}
@@ -86,25 +93,36 @@ class LiveAnalysisClient:
             headers["Authorization"] = f"Bearer {self.api_key}"
         return headers
 
-    def _post_once(self, messages: list[dict]) -> requests.Response:
+    def _post_once(
+        self,
+        messages: list[dict],
+        session: ProviderCallSession,
+    ) -> requests.Response:
         payload: dict[str, Any] = {
             "model": self.model,
             "messages": messages,
             "temperature": DEFAULT_TEMPERATURE,
             "max_tokens": self.max_tokens,
         }
-        return requests.post(
+        return session.post(
             f"{self.base_url}/chat/completions",
-            json=payload,
+            payload=payload,
             headers=self._headers(),
             timeout=self.timeout,
         )
 
     def analyze(self, messages: list[dict]) -> AnalysisResult:
+        session = ProviderCallSession(
+            job=self.job,
+            prompt_id=self.prompt_id,
+            prompt_sha256=known_prompt_hash(self.prompt_id),
+            provider="configured_gateway",
+            model=self.model,
+        )
         try:
             resp = run_http_with_retry(
                 "llm_call",
-                lambda: self._post_once(messages),
+                lambda: self._post_once(messages, session),
                 retryable_statuses=_RETRYABLE_STATUS,
                 sleep=time.sleep,
             )
@@ -112,7 +130,13 @@ class LiveAnalysisClient:
             raise LLMError(f"analysis call failed after retries: {exc}") from exc
         if resp.status_code != 200:
             raise LLMError(f"analysis call failed: HTTP {resp.status_code}: {resp.text[:500]}")
-        return self._parse_response(resp)
+        try:
+            result = self._parse_response(resp)
+        except LLMError:
+            session.finalize(resp, "response_invalid")
+            raise
+        session.finalize(resp, "success")
+        return result
 
     def _parse_response(self, resp: requests.Response) -> AnalysisResult:
         try:
@@ -157,9 +181,17 @@ class FixtureAnalysisClient:
     """Returns a pre-seeded sequence of results, one per call -- mirrors
     `FixturePlannerClient`'s test-parity role."""
 
-    def __init__(self, results: list[AnalysisResult]):
+    def __init__(
+        self,
+        results: list[AnalysisResult],
+        *,
+        job: str = "structured_analysis",
+        prompt_id: str | None = None,
+    ):
         self._results = list(results)
         self._index = 0
+        self.job = job
+        self.prompt_id = prompt_id or job
 
     def analyze(self, messages: list[dict]) -> AnalysisResult:
         if self._index >= len(self._results):
@@ -169,4 +201,12 @@ class FixtureAnalysisClient:
             )
         result = self._results[self._index]
         self._index += 1
+        record_non_provider_call(
+            job=self.job,
+            prompt_id=self.prompt_id,
+            prompt_sha256=known_prompt_hash(self.prompt_id),
+            model=result.meta.model or "fixture",
+            disposition="fixture",
+            request=messages,
+        )
         return result

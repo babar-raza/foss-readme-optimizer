@@ -26,6 +26,8 @@ class LiveIndependentReviewClient:
             model,
             timeout=timeout,
             max_tokens=max_tokens,
+            job="independent_readme_review",
+            prompt_id="independent_readme_review",
         )
 
     def analyze(self, messages: list[dict]) -> AnalysisResult:

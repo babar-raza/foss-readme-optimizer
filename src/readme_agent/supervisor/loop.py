@@ -409,6 +409,9 @@ def supervise_repo(
         )
     repository_snapshot = capture_repository_snapshot(entry, baseline_path)
     current_revision = repository_snapshot.source_revision
+    from readme_agent.llm.call_ledger import bind_llm_repository_revision, set_llm_stage
+
+    bind_llm_repository_revision(current_revision, stage="FACTS_COLLECTING")
     prepared_product_truth = None
     if track_readme_poc_lifecycle:
         if state_backend is None:
@@ -451,6 +454,7 @@ def supervise_repo(
                 state_backend,
                 client=product_truth_client,
             )
+        set_llm_stage("README_PROCESSING")
         lifecycle_recorder = current_lifecycle_recorder()
         if lifecycle_recorder is not None:
             lifecycle_recorder.checkpoint(

@@ -1401,7 +1401,7 @@ class TestGoldenSetRunCommand:
         calls = iter(tool_calls)
 
         class _FakeLivePlannerClient:
-            def __init__(self, base_url, api_key, model):
+            def __init__(self, base_url, api_key, model, **kwargs):
                 self.model = model
 
             def plan(self, messages, tools):

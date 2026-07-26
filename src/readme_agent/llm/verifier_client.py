@@ -29,6 +29,8 @@ import requests
 from pydantic import BaseModel
 
 from readme_agent.errors import LLMError
+from readme_agent.llm.call_ledger import known_prompt_hash, record_non_provider_call
+from readme_agent.llm.call_transport import ProviderCallSession
 from readme_agent.llm.schema import LLMResponseMeta, Usage
 from readme_agent.retry import RetryableOperationError, run_http_with_retry
 
@@ -63,6 +65,9 @@ class LiveForcedToolClient:
         model: str,
         timeout: float = 90,
         max_tokens: int = DEFAULT_MAX_TOKENS,
+        *,
+        job: str = "forced_tool_call",
+        prompt_id: str | None = None,
     ):
         if max_tokens < 1:
             raise ValueError("max_tokens must be at least 1")
@@ -71,6 +76,8 @@ class LiveForcedToolClient:
         self.model = model
         self.timeout = timeout
         self.max_tokens = max_tokens
+        self.job = job
+        self.prompt_id = prompt_id or job
 
     def _headers(self) -> dict[str, str]:
         headers = {"Content-Type": "application/json"}
@@ -78,7 +85,12 @@ class LiveForcedToolClient:
             headers["Authorization"] = f"Bearer {self.api_key}"
         return headers
 
-    def _post_once(self, messages: list[dict], tool_schema: dict) -> requests.Response:
+    def _post_once(
+        self,
+        messages: list[dict],
+        tool_schema: dict,
+        session: ProviderCallSession,
+    ) -> requests.Response:
         function_name = tool_schema["function"]["name"]
         payload: dict[str, Any] = {
             "model": self.model,
@@ -88,9 +100,9 @@ class LiveForcedToolClient:
             "temperature": DEFAULT_TEMPERATURE,
             "max_tokens": self.max_tokens,
         }
-        return requests.post(
+        return session.post(
             f"{self.base_url}/chat/completions",
-            json=payload,
+            payload=payload,
             headers=self._headers(),
             timeout=self.timeout,
         )
@@ -98,27 +110,45 @@ class LiveForcedToolClient:
     def call(self, messages: list[dict], tool_schema: dict) -> ForcedToolResult:
         function_name = tool_schema["function"]["name"]
         last_error: LLMError | None = None
+        session = ProviderCallSession(
+            job=self.job,
+            prompt_id=self.prompt_id,
+            prompt_sha256=known_prompt_hash(self.prompt_id),
+            provider="configured_gateway",
+            model=self.model,
+        )
         for attempt in range(_MAX_RESPONSE_ATTEMPTS):
+            response: requests.Response | None = None
             try:
-                response = self._request(messages, tool_schema)
-                return self._parse_response(response, expected_function_name=function_name)
+                response = self._request(messages, tool_schema, session)
+                result = self._parse_response(response, expected_function_name=function_name)
             except LLMError as exc:
+                if response is not None:
+                    session.finalize(response, "response_invalid")
                 if not str(exc).startswith(_RETRYABLE_RESPONSE_ERRORS):
                     raise
                 last_error = exc
                 if attempt + 1 == _MAX_RESPONSE_ATTEMPTS:
                     break
+            else:
+                session.finalize(response, "success")
+                return result
         assert last_error is not None
         raise LLMError(
             "forced tool call returned an invalid structured response "
             f"after {_MAX_RESPONSE_ATTEMPTS} attempts: {last_error}"
         ) from last_error
 
-    def _request(self, messages: list[dict], tool_schema: dict) -> requests.Response:
+    def _request(
+        self,
+        messages: list[dict],
+        tool_schema: dict,
+        session: ProviderCallSession,
+    ) -> requests.Response:
         try:
             resp = run_http_with_retry(
                 "llm_call",
-                lambda: self._post_once(messages, tool_schema),
+                lambda: self._post_once(messages, tool_schema, session),
                 retryable_statuses=_RETRYABLE_STATUS,
                 sleep=time.sleep,
             )
@@ -188,9 +218,17 @@ class FixtureForcedToolClient:
     """Returns a pre-seeded sequence of results, one per call -- mirrors
     `FixturePlannerClient`'s test-parity role."""
 
-    def __init__(self, results: list[ForcedToolResult]):
+    def __init__(
+        self,
+        results: list[ForcedToolResult],
+        *,
+        job: str = "forced_tool_call",
+        prompt_id: str | None = None,
+    ):
         self._results = list(results)
         self._index = 0
+        self.job = job
+        self.prompt_id = prompt_id or job
 
     def call(self, messages: list[dict], tool_schema: dict) -> ForcedToolResult:
         if self._index >= len(self._results):
@@ -200,4 +238,12 @@ class FixtureForcedToolClient:
             )
         result = self._results[self._index]
         self._index += 1
+        record_non_provider_call(
+            job=self.job,
+            prompt_id=self.prompt_id,
+            prompt_sha256=known_prompt_hash(self.prompt_id),
+            model=result.meta.model or "fixture",
+            disposition="fixture",
+            request={"messages": messages, "tool_schema": tool_schema},
+        )
         return result

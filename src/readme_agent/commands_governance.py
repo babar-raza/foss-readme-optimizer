@@ -81,6 +81,8 @@ def cmd_golden_set_run(args: argparse.Namespace) -> int:
                 base_url,
                 api_key,
                 env.llm_model_for_job("supervisor_planning"),
+                job="supervisor_planning",
+                prompt_id="supervisor_planning",
             ),
             lambda: LiveIndependentReviewClient(
                 base_url,
@@ -122,7 +124,13 @@ def cmd_golden_set_run(args: argparse.Namespace) -> int:
             return 1
         return 0
 
-    client = LivePlannerClient(base_url, api_key, env.llm_model_for_job(args.job))
+    client = LivePlannerClient(
+        base_url,
+        api_key,
+        env.llm_model_for_job(args.job),
+        job=args.job,
+        prompt_id=args.job,
+    )
 
     results = run_golden_set(client)
     summary = summarize(results)

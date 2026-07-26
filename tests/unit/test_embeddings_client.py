@@ -5,7 +5,7 @@ import pytest
 import requests
 
 from readme_agent.errors import LLMError
-from readme_agent.llm import embeddings_client
+from readme_agent.llm import call_transport, embeddings_client
 from readme_agent.llm.embeddings_client import get_embedding
 
 
@@ -26,7 +26,7 @@ class TestGetEmbeddingHappyPath:
         def fake_post(url, json, headers, timeout):
             return FakeResponse(200, body)
 
-        monkeypatch.setattr(embeddings_client.requests, "post", fake_post)
+        monkeypatch.setattr(call_transport.requests, "post", fake_post)
 
         result = get_embedding("some text", "qwen3-embedding-8b", "https://example/v1", "key")
 
@@ -36,7 +36,7 @@ class TestGetEmbeddingHappyPath:
         def fake_post(url, json, headers, timeout):
             return FakeResponse(200, {"data": []})
 
-        monkeypatch.setattr(embeddings_client.requests, "post", fake_post)
+        monkeypatch.setattr(call_transport.requests, "post", fake_post)
 
         with pytest.raises(LLMError):
             get_embedding("some text", "qwen3-embedding-8b", "https://example/v1", "key")
@@ -53,7 +53,7 @@ class TestGetEmbeddingRetry:
                 return FakeResponse(503, text="unavailable")
             return FakeResponse(200, body)
 
-        monkeypatch.setattr(embeddings_client.requests, "post", fake_post)
+        monkeypatch.setattr(call_transport.requests, "post", fake_post)
         monkeypatch.setattr(embeddings_client.time, "sleep", lambda _: None)
 
         result = get_embedding("text", "model", "https://example/v1", "key")
@@ -64,7 +64,7 @@ class TestGetEmbeddingRetry:
         def fake_post(url, json, headers, timeout):
             return FakeResponse(503, text="unavailable")
 
-        monkeypatch.setattr(embeddings_client.requests, "post", fake_post)
+        monkeypatch.setattr(call_transport.requests, "post", fake_post)
         monkeypatch.setattr(embeddings_client.time, "sleep", lambda _: None)
 
         with pytest.raises(LLMError):
@@ -80,7 +80,7 @@ class TestGetEmbeddingRetry:
                 raise requests.ConnectionError("boom")
             return FakeResponse(200, body)
 
-        monkeypatch.setattr(embeddings_client.requests, "post", fake_post)
+        monkeypatch.setattr(call_transport.requests, "post", fake_post)
         monkeypatch.setattr(embeddings_client.time, "sleep", lambda _: None)
 
         result = get_embedding("text", "model", "https://example/v1", "key")
@@ -93,7 +93,7 @@ class TestGetEmbeddingRetry:
             calls["n"] += 1
             return FakeResponse(400, text="bad request")
 
-        monkeypatch.setattr(embeddings_client.requests, "post", fake_post)
+        monkeypatch.setattr(call_transport.requests, "post", fake_post)
 
         with pytest.raises(LLMError):
             get_embedding("text", "model", "https://example/v1", "key")

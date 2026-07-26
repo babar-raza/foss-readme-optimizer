@@ -9,6 +9,7 @@ from readme_agent.evidence.writer import (
     refresh_sha256sums,
     write_redacted_json,
 )
+from readme_agent.supervisor.local_poc_evidence import write_local_poc_manifest
 
 
 def _load_manifest(bundle_dir: Path) -> dict:
@@ -91,7 +92,7 @@ def write_local_poc_review_evidence(
             "completed_stages": completed,
         }
     )
-    write_redacted_json(bundle_dir / "manifest.json", manifest)
+    write_local_poc_manifest(bundle_dir, manifest)
     refresh_sha256sums(bundle_dir)
 
 
@@ -103,6 +104,11 @@ def write_local_poc_no_op_evidence(
 ) -> None:
     """Complete Gate-A repository evidence after an unchanged rerun."""
 
+    from readme_agent.llm.call_ledger import current_llm_accounting_summary
+
+    llm_summary = current_llm_accounting_summary()
+    if llm_summary.status == "EXACT" and llm_summary.provider_call_count != 0:
+        raise RuntimeError("unchanged README no-op made one or more new provider calls")
     write_redacted_json(
         bundle_dir / "review" / "no-op-proof.json",
         {
@@ -111,6 +117,9 @@ def write_local_poc_no_op_evidence(
             "patch_created": False,
             "duplicate_bundle_created": False,
             "agentic_review_reused": agentic_review_reused,
+            "llm_accounting_status": llm_summary.status,
+            "new_provider_call_count": llm_summary.provider_call_count,
+            "new_cache_reuse_count": llm_summary.cache_reuse_count,
         },
     )
     manifest = _load_manifest(bundle_dir)
@@ -121,5 +130,5 @@ def write_local_poc_no_op_evidence(
             "completed_stages": _completed_stages(manifest, "NO_OP_PROVEN"),
         }
     )
-    write_redacted_json(bundle_dir / "manifest.json", manifest)
+    write_local_poc_manifest(bundle_dir, manifest)
     refresh_sha256sums(bundle_dir)

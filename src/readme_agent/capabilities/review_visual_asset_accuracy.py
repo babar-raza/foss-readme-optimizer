@@ -115,7 +115,11 @@ def execute(
     )
 
     resolved_client = client or LiveAnalysisClient(
-        llm_base_url(), llm_api_key(), llm_model_for_job("visual_asset_accuracy")
+        llm_base_url(),
+        llm_api_key(),
+        llm_model_for_job("visual_asset_accuracy"),
+        job="visual_asset_accuracy",
+        prompt_id="visual_asset_accuracy",
     )
     messages = build_visual_asset_accuracy_messages(
         org_repo, product_facts_excerpt, image_bytes, media_type

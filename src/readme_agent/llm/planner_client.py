@@ -20,6 +20,8 @@ import requests
 from pydantic import BaseModel
 
 from readme_agent.errors import LLMError
+from readme_agent.llm.call_ledger import known_prompt_hash, record_non_provider_call
+from readme_agent.llm.call_transport import ProviderCallSession
 from readme_agent.llm.schema import LLMResponseMeta, Usage
 from readme_agent.retry import RetryableOperationError, run_http_with_retry
 
@@ -49,11 +51,22 @@ class LivePlannerClient:
     that logic is private to `LiveLLMClient`. Flagged here rather than
     silently repeated uncredited."""
 
-    def __init__(self, base_url: str, api_key: str | None, model: str, timeout: float = 90):
+    def __init__(
+        self,
+        base_url: str,
+        api_key: str | None,
+        model: str,
+        timeout: float = 90,
+        *,
+        job: str = "supervisor_planning",
+        prompt_id: str | None = None,
+    ):
         self.base_url = base_url.rstrip("/")
         self.api_key = api_key
         self.model = model
         self.timeout = timeout
+        self.job = job
+        self.prompt_id = prompt_id or job
 
     def _headers(self) -> dict[str, str]:
         headers = {"Content-Type": "application/json"}
@@ -61,7 +74,12 @@ class LivePlannerClient:
             headers["Authorization"] = f"Bearer {self.api_key}"
         return headers
 
-    def _post_once(self, messages: list[dict], tools: list[dict]) -> requests.Response:
+    def _post_once(
+        self,
+        messages: list[dict],
+        tools: list[dict],
+        session: ProviderCallSession,
+    ) -> requests.Response:
         payload: dict[str, Any] = {
             "model": self.model,
             "messages": messages,
@@ -70,18 +88,25 @@ class LivePlannerClient:
             "temperature": DEFAULT_TEMPERATURE,
             "max_tokens": DEFAULT_MAX_TOKENS,
         }
-        return requests.post(
+        return session.post(
             f"{self.base_url}/chat/completions",
-            json=payload,
+            payload=payload,
             headers=self._headers(),
             timeout=self.timeout,
         )
 
     def plan(self, messages: list[dict], tools: list[dict]) -> PlannerTurn:
+        session = ProviderCallSession(
+            job=self.job,
+            prompt_id=self.prompt_id,
+            prompt_sha256=known_prompt_hash(self.prompt_id),
+            provider="configured_gateway",
+            model=self.model,
+        )
         try:
             resp = run_http_with_retry(
                 "llm_call",
-                lambda: self._post_once(messages, tools),
+                lambda: self._post_once(messages, tools, session),
                 retryable_statuses=_RETRYABLE_STATUS,
                 sleep=time.sleep,
             )
@@ -89,7 +114,13 @@ class LivePlannerClient:
             raise LLMError(f"planner call failed after retries: {exc}") from exc
         if resp.status_code != 200:
             raise LLMError(f"planner call failed: HTTP {resp.status_code}: {resp.text[:500]}")
-        return self._parse_response(resp)
+        try:
+            result = self._parse_response(resp)
+        except LLMError:
+            session.finalize(resp, "response_invalid")
+            raise
+        session.finalize(resp, "success")
+        return result
 
     def _parse_response(self, resp: requests.Response) -> PlannerTurn:
         try:
@@ -128,9 +159,17 @@ class FixturePlannerClient:
     `FixtureLLMClient`'s test-parity role, but a planner needs a *sequence*
     of responses (one per round), not one canned response."""
 
-    def __init__(self, turns: list[PlannerTurn]):
+    def __init__(
+        self,
+        turns: list[PlannerTurn],
+        *,
+        job: str = "supervisor_planning",
+        prompt_id: str | None = None,
+    ):
         self._turns = list(turns)
         self._index = 0
+        self.job = job
+        self.prompt_id = prompt_id or job
 
     def plan(self, messages: list[dict], tools: list[dict]) -> PlannerTurn:
         if self._index >= len(self._turns):
@@ -140,4 +179,12 @@ class FixturePlannerClient:
             )
         turn = self._turns[self._index]
         self._index += 1
+        record_non_provider_call(
+            job=self.job,
+            prompt_id=self.prompt_id,
+            prompt_sha256=known_prompt_hash(self.prompt_id),
+            model=turn.meta.model or "fixture",
+            disposition="fixture",
+            request={"messages": messages, "tools": tools},
+        )
         return turn

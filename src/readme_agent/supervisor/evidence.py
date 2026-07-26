@@ -11,6 +11,7 @@ from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.evidence.manifest_v3 import RunManifestV3
 from readme_agent.evidence.writer import refresh_sha256sums, write_run_manifest_v3
 from readme_agent.llm import prompt_registry
+from readme_agent.llm.call_ledger import current_llm_accounting_summary
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.lifecycle import LifecycleRecorder, current_lifecycle_recorder
 from readme_agent.state.schema import DomainStateV1, SurfaceFreshnessContractV1
@@ -104,6 +105,7 @@ def write_supervise_evidence(
         and (manifest := capability_registry.get(task.capability_id)) is not None
         and manifest.side_effect_class in {"local_write", "remote_write"}
     ]
+    llm_summary = current_llm_accounting_summary()
     write_run_manifest_v3(
         evidence_dir,
         RunManifestV3(
@@ -117,6 +119,20 @@ def write_supervise_evidence(
             domain_coverage_complete=domain_coverage_complete,
             surface_freshness=surface_freshness or {},
             requirement_ids_exercised=requirement_results,
+            llm_accounting_status=llm_summary.status,
+            llm_call_count=llm_summary.provider_call_count,
+            llm_calls=[
+                job for job, count in llm_summary.calls_by_job.items() for _ in range(count)
+            ],
+            llm_call_ids=llm_summary.call_ids,
+            llm_calls_by_job=llm_summary.calls_by_job,
+            llm_fixture_call_count=llm_summary.fixture_call_count,
+            llm_cache_reuse_count=llm_summary.cache_reuse_count,
+            llm_prompt_tokens=llm_summary.prompt_tokens,
+            llm_completion_tokens=llm_summary.completion_tokens,
+            llm_total_tokens=llm_summary.total_tokens,
+            llm_ledger_path=llm_summary.ledger_path,
+            llm_ledger_sha256=llm_summary.ledger_sha256,
             trigger=lifecycle_recorder.envelope if lifecycle_recorder else None,
             trigger_status="processing" if lifecycle_recorder else None,
             checkpoints=lifecycle_recorder.checkpoints() if lifecycle_recorder else [],

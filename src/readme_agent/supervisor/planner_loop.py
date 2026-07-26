@@ -37,6 +37,8 @@ def _default_planner_client() -> LivePlannerClient:
         env.llm_base_url(),
         env.llm_api_key(),
         env.llm_model_for_job("supervisor_planning"),
+        job="supervisor_planning",
+        prompt_id="supervisor_planning",
     )
 
 

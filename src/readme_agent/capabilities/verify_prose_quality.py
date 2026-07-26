@@ -67,6 +67,10 @@ def execute(
     client: ForcedToolClient | None = None,
 ) -> dict:
     resolved_client = client or LiveForcedToolClient(
-        llm_base_url(), llm_api_key(), llm_model_for_job("prose_quality_check")
+        llm_base_url(),
+        llm_api_key(),
+        llm_model_for_job("prose_quality_check"),
+        job="prose_quality_check",
+        prompt_id="prose_quality_check",
     )
     return check_prose_quality(final_text, resolved_client)

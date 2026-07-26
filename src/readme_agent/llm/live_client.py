@@ -19,6 +19,8 @@ import requests
 from pydantic import ValidationError
 
 from readme_agent.errors import LLMError
+from readme_agent.llm.call_ledger import known_prompt_hash
+from readme_agent.llm.call_transport import ProviderCallSession
 from readme_agent.llm.client import GeneratedResult
 from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta, Usage
 from readme_agent.retry import RetryableOperationError, run_http_with_retry
@@ -39,11 +41,22 @@ def _unwrap_fence(text: str) -> tuple[str, bool]:
 
 
 class LiveLLMClient:
-    def __init__(self, base_url: str, api_key: str | None, model: str, timeout: float = 90):
+    def __init__(
+        self,
+        base_url: str,
+        api_key: str | None,
+        model: str,
+        timeout: float = 90,
+        *,
+        job: str = "relationship_explained",
+        prompt_id: str = "relationship_explained",
+    ):
         self.base_url = base_url.rstrip("/")
         self.api_key = api_key
         self.model = model
         self.timeout = timeout
+        self.job = job
+        self.prompt_id = prompt_id
 
     def _headers(self) -> dict[str, str]:
         headers = {"Content-Type": "application/json"}
@@ -51,25 +64,36 @@ class LiveLLMClient:
             headers["Authorization"] = f"Bearer {self.api_key}"
         return headers
 
-    def _post_once(self, messages: list[dict[str, str]]) -> requests.Response:
+    def _post_once(
+        self,
+        messages: list[dict[str, str]],
+        session: ProviderCallSession,
+    ) -> requests.Response:
         payload: dict[str, Any] = {
             "messages": messages,
             "model": self.model,
             "temperature": DEFAULT_TEMPERATURE,
             "max_tokens": DEFAULT_MAX_TOKENS,
         }
-        return requests.post(
+        return session.post(
             f"{self.base_url}/chat/completions",
-            json=payload,
+            payload=payload,
             headers=self._headers(),
             timeout=self.timeout,
         )
 
     def generate(self, messages: list[dict[str, str]]) -> GeneratedResult:
+        session = ProviderCallSession(
+            job=self.job,
+            prompt_id=self.prompt_id,
+            prompt_sha256=known_prompt_hash(self.prompt_id),
+            provider="configured_gateway",
+            model=self.model,
+        )
         try:
             resp = run_http_with_retry(
                 "llm_call",
-                lambda: self._post_once(messages),
+                lambda: self._post_once(messages, session),
                 retryable_statuses=_RETRYABLE_STATUS,
                 sleep=time.sleep,
             )
@@ -78,7 +102,13 @@ class LiveLLMClient:
         if resp.status_code != 200:
             # Any other 4xx/5xx: never retried, masks bugs (auth/schema).
             raise LLMError(f"LLM call failed: HTTP {resp.status_code}: {resp.text[:500]}")
-        return self._parse_response(resp)
+        try:
+            result = self._parse_response(resp)
+        except LLMError:
+            session.finalize(resp, "response_invalid")
+            raise
+        session.finalize(resp, "success")
+        return result
 
     def _parse_response(self, resp: requests.Response) -> GeneratedResult:
         try:

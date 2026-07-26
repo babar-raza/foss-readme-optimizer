@@ -487,6 +487,8 @@ def draft_product_truth(
             env.llm_model_for_job(_MODEL_ROUTE_JOB),
             timeout=_REQUEST_TIMEOUT_SECONDS,
             max_tokens=_MAX_RESPONSE_TOKENS,
+            job=_MODEL_ROUTE_JOB,
+            prompt_id="draft_product_truth",
         ).call(
             messages,
             _draft_product_truth_tool_schema(

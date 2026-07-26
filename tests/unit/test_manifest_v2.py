@@ -17,7 +17,8 @@ class TestRunManifestV2Defaults:
         assert manifest.domain_coverage_complete is None
         assert manifest.surface_freshness == {}
         assert manifest.facts_hash is None
-        assert manifest.llm_call_count == 0
+        assert manifest.llm_accounting_status == "UNKNOWN_LEGACY"
+        assert manifest.llm_call_count is None
         assert manifest.llm_calls == []
         # Wave 13.2/13.3/9.5 fields -- not yet populated by anything, must
         # stay explicit None, never faked.

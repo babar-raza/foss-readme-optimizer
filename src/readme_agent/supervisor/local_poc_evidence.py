@@ -13,6 +13,7 @@ from readme_agent.evidence.writer import (
     write_redacted_text,
 )
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.llm.bundle_accounting import local_bundle_llm_accounting_fields
 from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
@@ -28,6 +29,24 @@ def _existing_manifest(bundle_dir: Path, source_revision: str) -> dict:
     if not isinstance(loaded, dict) or loaded.get("source_revision") != source_revision:
         return {}
     return loaded
+
+
+def write_local_poc_manifest(bundle_dir: Path, manifest: dict) -> None:
+    """Write one bundle manifest with cumulative, fail-closed LLM accounting."""
+
+    path = bundle_dir / "manifest.json"
+    prior: dict = {}
+    if path.is_file():
+        loaded = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(loaded, dict):
+            prior = loaded
+    write_redacted_json(
+        path,
+        {
+            **manifest,
+            **local_bundle_llm_accounting_fields(bundle_dir, prior),
+        },
+    )
 
 
 def write_local_poc_snapshot(snapshot: RepositorySnapshotV1) -> Path:
@@ -60,8 +79,8 @@ def write_local_poc_snapshot(snapshot: RepositorySnapshotV1) -> Path:
         readme = snapshot.root_path / snapshot.readme_path
         write_redacted_text(source_dir / "README.md", readme.read_text(encoding="utf-8"))
     if not prior_manifest:
-        write_redacted_json(
-            bundle_dir / "manifest.json",
+        write_local_poc_manifest(
+            bundle_dir,
             {
                 "schema_version": 1,
                 "org_repo": snapshot.org_repo,
@@ -80,8 +99,8 @@ def mark_local_poc_profiled(snapshot: RepositorySnapshotV1, bundle_dir: Path) ->
     if _existing_manifest(bundle_dir, snapshot.source_revision).get("candidate_hash"):
         refresh_sha256sums(bundle_dir)
         return
-    write_redacted_json(
-        bundle_dir / "manifest.json",
+    write_local_poc_manifest(
+        bundle_dir,
         {
             "schema_version": 1,
             "org_repo": snapshot.org_repo,
@@ -161,8 +180,8 @@ def write_local_poc_product_facts(
     ):
         refresh_sha256sums(bundle_dir)
         return bundle_dir
-    write_redacted_json(
-        bundle_dir / "manifest.json",
+    write_local_poc_manifest(
+        bundle_dir,
         {
             "schema_version": 1,
             "org_repo": snapshot.org_repo,
@@ -201,8 +220,8 @@ def bind_local_poc_fact_acceptance(
         and manifest.get("fact_acceptance_component_hashes") == component_hashes
     ):
         return
-    write_redacted_json(
-        bundle_dir / "manifest.json",
+    write_local_poc_manifest(
+        bundle_dir,
         {
             **manifest,
             "fact_acceptance_contract_hash": contract_hash,
@@ -236,8 +255,8 @@ def reclassify_local_poc_fact_acceptance(
         "complete",
     }
     retained = {key: value for key, value in manifest.items() if key not in invalidated_keys}
-    write_redacted_json(
-        bundle_dir / "manifest.json",
+    write_local_poc_manifest(
+        bundle_dir,
         {
             **retained,
             "lifecycle_status": lifecycle_status,
@@ -383,8 +402,8 @@ def write_local_poc_readme_candidate(
         if same_candidate
         else "CANDIDATE_GENERATED"
     )
-    write_redacted_json(
-        manifest_path,
+    write_local_poc_manifest(
+        bundle_dir,
         {
             **prior_manifest,
             "schema_version": 1,

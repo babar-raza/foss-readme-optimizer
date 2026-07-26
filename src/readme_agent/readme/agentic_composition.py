@@ -414,6 +414,8 @@ def plan_readme_composition(
         model=env.llm_model_for_job(_JOB),
         timeout=env.llm_timeout_seconds(),
         max_tokens=6000,
+        job=_JOB,
+        prompt_id=_JOB,
     )
     tool_schema = build_readme_composition_tool_schema(
         section_ids=[section["section_id"] for section in assessment_payload["sections"]],
