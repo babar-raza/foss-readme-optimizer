@@ -449,7 +449,8 @@ they are dependency-interleaved children of the same aggregate tasks listed belo
 | `L8-QUAL-02-SEVEN-E2E` | Run first proposal and unchanged no-op for one real representative per ecosystem under that campaign. | seven `NO_OP_PROVEN` manifests; zero prohibited writes. | QUAL-01 |
 | `L8-QUAL-03-RECOVERY` | Prove single-writer lease, mission heartbeat, cancellation/resume, duplicate trigger, controlled failure, and descendant cleanup. | fault injection at every local lifecycle boundary. | QUAL-02 |
 | `L8-QUAL-04-GOLDEN-SET` | Run at least 100 governed evaluations in three sessions with 100% deterministic and at least 95% agentic accuracy, zero critical false accepts, and auto-disable regression. | three-session result inventory and route-disable proof. | QUAL-03 |
-| `L8-QUAL-05-FREEZE` | Freeze the accepted campaign and prohibit Gate-A execution after any contract mutation until representative requalification passes again. | enforced preflight rejection and signed campaign manifest. | QUAL-04 |
+| `L8-QUAL-04B-COST-BASELINE` | Measure official-check, per-stage, clone, registry, LLM, and warm/no-op latency and call counts under the accepted representative contract. | reproducible cold/warm distributions and explicit optimization triggers. | QUAL-04A |
+| `L8-QUAL-05-FREEZE` | Freeze the accepted campaign and prohibit Gate-A execution after any contract mutation until representative requalification passes again. | enforced preflight rejection and signed campaign manifest. | QUAL-04B |
 
 #### Gate-A boundary (`L8-LOCAL-FULL-REGISTRY-GATE-A`)
 

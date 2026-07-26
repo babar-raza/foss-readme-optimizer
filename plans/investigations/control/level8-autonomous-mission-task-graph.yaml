@@ -3797,6 +3797,64 @@ taskcards:
   closeout_rules:
   - All governed thresholds pass under the campaign identity
   requirement_ids: []
+- task_id: L8-QUAL-04B-COST-BASELINE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  title: Measure the qualified contract before optimizing portfolio scale
+  source_audit_finding: Performance changes were proposed from stale timing data before the current staged
+    runtime existed.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Measure official checks and cold, warm, per-stage, clone, registry, LLM, and no-op runtime
+    cost under the accepted representative campaign.
+  why_it_matters: Optimization must target a measured critical path without caching or parallelizing invalid
+    work.
+  allowed_paths:
+  - scripts/diagnostics/
+  - runs/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - src/readme_agent/
+  - .github/workflows/
+  dependencies:
+  - L8-QUAL-04A-FREEZE-CONTROLS
+  expected_outputs:
+  - Reproducible timing distributions
+  - call counts
+  - cache provenance
+  - explicit optimization triggers
+  acceptance_checks:
+  - Measurements bind the campaign identity and distinguish cold
+  - warm
+  - blocked
+  - and no-op outcomes
+  verification:
+  - Repeated official-check and seven-representative stage measurements with variance and failure labels
+  negative_controls:
+  - A faster stale or lower-confidence answer cannot count as an equivalent result
+  regression_checks:
+  - Measurement schema
+  - redaction
+  - checksum
+  - and reproduction controls
+  evidence_requirements:
+  - Commands
+  - environment
+  - campaign hash
+  - raw timings
+  - calls
+  - outcomes
+  - SHA-256 inventory
+  rollback_or_recovery: Discard only invalid measurements and retain the qualified contract.
+  failure_reroute: Repair measurement instrumentation without changing runtime behavior.
+  closeout_rules:
+  - Every proposed optimization has a measured trigger and correctness-preserving acceptance condition
+  requirement_ids: []
 - task_id: L8-QUAL-05-FREEZE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -3819,7 +3877,7 @@ taskcards:
   forbidden_paths:
   - production target repository remotes
   dependencies:
-  - L8-QUAL-04A-FREEZE-CONTROLS
+  - L8-QUAL-04B-COST-BASELINE
   expected_outputs:
   - Signed campaign manifest
   - Gate-A preflight
