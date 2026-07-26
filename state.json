@@ -940,6 +940,20 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "product_specificity",
+          "example_correctness",
+          "readability",
+          "completeness"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T03:48:43.700765+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): The candidate README contains several quality and completeness issues that prevent it from being ACCEPT. First, the 'At a glance' section is redundant and poorly constructed: it repeats the same phrase 'Developers using python for Create and manipulate 3D scenes' three times, and then lists the same 'Create and manipulate 3D scenes' three more times \u2014 this is not specific, useful, or factually grounded in the product facts. Second, the minimal example in the 'Quick Start' section uses a private attribute `_control_points` instead of the public `control_points` property, which contradicts the verified example fact that specifies `mesh._control_points.append(...)` \u2014 this is a factual inaccuracy that could mislead users. Third, the 'Python Version Support' section lists versions as 'Python 3.7+', 'Python 3.8+', etc., which is ambiguous and not factually supported; the facts do not specify version support, so this section should either be removed or rephrased to avoid unsupported claims. Finally, the presentation plan indicates the 'At a glance' section was added as 'missing:at-a-glance', but the facts do not require such a section, and the content added is generic and not product-specific. These are repairable issues that do not rise to the level of BLOCKED_FACT_CONFLICT or BLOCKED_MISSING_EVIDENCE because they are presentation and wording defects, not unsupported product claims.",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "presentation_plan_hash": "919d83932234817362773cfe5aba8469d48d05176eeb212fc2b89c2d399dbb59",
@@ -949,11 +963,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T03:48:27.321685+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-07-26T03:48:43.700765+00:00"
   },
   "schema_version": 2,
-  "state_version": 94,
+  "state_version": 95,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d4d127f734d171f953a2512a0e57b7e9125b2d631b53d24c637f697b603a83fa",
