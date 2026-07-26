@@ -71,6 +71,23 @@
       "task_id": "9571be719efe4b39b419f1960bc3b7f7",
       "trigger_dedup_key": "operator:20260726-023022-ddba:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     },
+    "1301351f954b33026d6d00d9808ef080103b40b2e4a7f2c1be442df3b7743067": {
+      "action": "get_product_facts",
+      "attempt": 1,
+      "checkpoint_id": "1301351f954b33026d6d00d9808ef080103b40b2e4a7f2c1be442df3b7743067",
+      "completed_at": "2026-07-26T02:51:08.268376+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8848874b8acbf6071559280c378cbc2f13c44b035cfdfc34574996b5d7bbf133",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "run_id": "20260726-024513-ed7f",
+      "schema_version": 1,
+      "stage": "task_started",
+      "started_at": "2026-07-26T02:51:08.268368+00:00",
+      "task_id": "8a4ad05582a24dde9d38f0e03eb0fb73",
+      "trigger_dedup_key": "operator:20260726-024513-ed7f:aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+    },
     "13b644c910773f9d5e6ebe6329c6640ea95b9249a2129e80e806ee2acc7a637b": {
       "action": "verify_package_acquisition",
       "attempt": 1,
@@ -4014,7 +4031,7 @@
     "updated_at": "2026-07-26T02:48:26.991084+00:00"
   },
   "schema_version": 2,
-  "state_version": 283,
+  "state_version": 284,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4409c1dda20b4a845b43e6a518189bb04a1dabfd811bb1850cfe050dd7d3706b",
@@ -6505,11 +6522,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "e37c8232de5530817b5667db5110de1dc37f5851329a0798c686af4bc964044c",
+      "last_checkpoint_id": "1301351f954b33026d6d00d9808ef080103b40b2e4a7f2c1be442df3b7743067",
       "lease_expires_at": "2026-07-26T03:00:31.484934+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T02:50:59.441176+00:00"
+      "updated_at": "2026-07-26T02:51:08.268376+00:00"
     }
   },
   "trigger_records": {},
