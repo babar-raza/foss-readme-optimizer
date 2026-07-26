@@ -2432,11 +2432,13 @@
           "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
         },
         "contract_hash": "48b5824e14ca11b7fca3cbd3ac3d00d863fdc4accf5a5b69c11430f314107ebb",
+        "facts_hash": "6f5b0723dd2be837ea14afd72dba485327836a66d9e76e464718c0043bb7e964",
         "observed_by": "supervisor_product_truth",
         "occurred_at": "2026-07-26T10:14:27.983660+00:00",
         "outcome": "BLOCKED_MISSING_EVIDENCE",
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
-        "schema_version": 1
+        "schema_version": 1,
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
       }
     ],
     "facts_hash": "6f5b0723dd2be837ea14afd72dba485327836a66d9e76e464718c0043bb7e964",
@@ -2606,7 +2608,7 @@
     "updated_at": "2026-07-26T10:14:26.573129+00:00"
   },
   "schema_version": 2,
-  "state_version": 117,
+  "state_version": 118,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
@@ -2712,12 +2714,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: RepositorySnapshotError: snapshot root disappeared: D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\baseline\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "cd555f2f3a7c6be208a22f22e73744304305f088b29c632bb395241fa063e194",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-07-26T10:12:28.004181+00:00"
+      "updated_at": "2026-07-26T10:34:35.147774+00:00"
     },
     "operator:20260726-101139-e29d:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
       "accepted_at": "2026-07-26T10:11:46.533648+00:00",
