@@ -2798,7 +2798,7 @@
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "6b831fbd40a28f6f590c2fdb64ed4a75413d7b316b68f0134b40ab43adab815b",
+      "accepted_facts_hash": "14015df81e0b581855c0cfd03792f0d847e878983a0a4e84d0270aee7ce8408c",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -2806,61 +2806,61 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in Java') using a concrete verb ('working' is acceptable; 'provides' is generic but acceptable in context of API description).",
+            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in Java') using a concrete verb ('working' is acceptable; 'provides' is generic but supported by the concrete 'API-compatible' and 'open-source alternative' phrasing).",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph and subsequent 'About' section explicitly state the audience (Java developers), ecosystem (Java), and common tasks (working with 3D scenes/models), including format scope (open 3D formats).",
+            "note": "The opening paragraph specifies the audience (Java developers) and context (working with 3D scenes/models), and the 'About' section reinforces ecosystem (Java), format scope (open 3D formats), and common tasks (build, ship, upgrade).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT License (in both header and footer), and badges for build status and version are present in the repository (though not shown in this excerpt, they are standard and expected for this repo type).",
+            "note": "The LICENSE is explicitly named and highlighted in the first paragraph and again in the dedicated 'License' section, satisfying the highest-priority trust signal; however, no build/version/package-registry badges are present.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The README lacks explicit package coordinates (e.g., Maven `<groupId>`, `<artifactId>`, `<version>`) and does not provide a working `mvn` dependency snippet that resolves against Maven Central \u2014 only build/test commands are given.",
+            "note": "The README provides build instructions (Maven) but does not state package coordinates (e.g., groupId/artifactId) or link to a real external registry like Maven Central, and no install snippet resolves against a live registry.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "There is one runnable code example beyond the install snippet (the 'Usage' section with Scene load/save), which is sufficient per the standard.",
+            "note": "The 'Usage' section includes a runnable, self-contained code example beyond the minimal install snippet, demonstrating loading and saving a 3D file.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (`##`), and the order follows expected sequencing: product description \u2192 status \u2192 compatibility \u2192 build \u2192 usage \u2192 contributing \u2192 license \u2192 resources.",
+            "note": "Section headers use consistent Markdown levels (##), and the order follows the expected intent: product description \u2192 features/status \u2192 build/usage \u2192 license \u2192 resources/contributing.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, and for a 3D API library whose value is not inherently visual (unlike UI tools), this is acceptable per the standard's rule that visuals are only warranted when they improve understanding of workflow.",
-            "satisfied": true
+            "note": "No visuals are present; while not required, a simple diagram showing input format \u2192 transformation \u2192 output format would be appropriate for a 3D-processing library, but absence alone does not violate the rule.",
+            "satisfied": false
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README includes a 'Contributing' section, and assuming LICENSE, CONTRIBUTING, and CODE_OF_CONDUCT files exist and are GitHub-recognized (as is typical for active repos), this dimension is satisfied \u2014 the excerpt confirms LICENSE is present.",
-            "satisfied": true
+            "note": "The README mentions contributing, but GitHub's quick-link row requires recognized community files (LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY); only LICENSE is confirmed present in the README text, and no evidence of GitHub recognition is provided.",
+            "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While not visible in the README text, the presence of a 'Project Status' section referencing TODO.md and FILE_FORMATS.md, plus the repo's active nature implied by the FOSS initiative, supports maintenance visibility via GitHub's native activity indicators.",
-            "satisfied": true
+            "note": "The README does not include visible maintenance signals like recent releases or commit activity; it only references a TODO.md file, which is insufficient per the standard.",
+            "satisfied": false
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears *before* the product explanation (in the first blockquote after the title), violating the rule that the product must be explained first; also, the Resources section contains two dense commercial link blocks (12+ links total), exceeding the 'exactly one mention' and restrained tone required.",
+            "note": "Commercial mentions appear multiple times (in the homepage banner, 'About' section, and Resources section) and include promotional language (e.g., 'Build and ship 3D applications at no cost', 'Upgrade only when you need to'), violating the rule of exactly one factual/capability-extension mention.",
             "satisfied": false
           }
         ],
-        "overall_summary": "The README satisfies most dimensions but fails on two critical points: the commercial mention appears before the product explanation, and the Resources section is overly promotional and dense, violating the 'single, restrained commercial mention' rule. Additionally, the installation path lacks real package coordinates that resolve against Maven Central."
+        "overall_summary": "The README satisfies product clarity, audience fit, trust signals (license), and verified examples, but fails on installation path (no real registry coordinates), contribution readiness (missing GitHub-recognized community files), maintenance signals (no visible activity), and natural commercial context (multiple promotional mentions instead of one restrained factual statement)."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T04:55:49.595429+00:00",
+      "last_run_timestamp": "2026-07-26T05:03:23.435626+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
@@ -5428,7 +5428,7 @@
     "updated_at": "2026-07-26T05:02:29.046556+00:00"
   },
   "schema_version": 2,
-  "state_version": 473,
+  "state_version": 474,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "8068b0a1ec31b5d58cc0b454d9a9eeafbd62b18bed00daedfd920291ead37e95",
