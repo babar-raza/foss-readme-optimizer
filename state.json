@@ -1878,6 +1878,20 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "product_specificity",
+          "readability",
+          "developer_usefulness",
+          "commercial_context"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_readme_review",
+        "occurred_at": "2026-07-26T06:27:45.838372+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): The candidate README contains several issues that prevent it from being ACCEPT. First, the 'At a glance' section is factually incomplete and misleading: it lists 'Developers using Python for Create and manipulate 3D scenes' as a standalone bullet point without context, and the second bullet 'Aspose.3D FOSS for Python' is just the product name without explaining what it does. This section fails to properly summarize the verified audience and problems solved facts. Second, the 'In this README' navigation list is redundant and adds no value\u2014it duplicates the table of contents that will appear automatically in GitHub. Third, the candidate README preserves the original's promotional callout in the 'Resources' section where it says 'Aspose.3D FOSS \u2014 free & open source (aspose.org)' and 'Aspose.3D \u2014 commercial On-Premise edition (aspose.com)' which creates an unbalanced presentation where commercial links precede product substance. The presentation plan explicitly intended to remove the promotional callout from the opening but did not address the Resources section imbalance. These are quality, completeness, and presentation defects that can be fixed with bounded edits without requiring new evidence.",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "presentation_plan_hash": "a6a78dd0d367742c1f303a971f26d1e0ee8072c38e2151dcd5df60da9866f6c5",
@@ -1887,11 +1901,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-26T06:27:24.887007+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-07-26T06:27:45.838372+00:00"
   },
   "schema_version": 2,
-  "state_version": 232,
+  "state_version": 233,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
