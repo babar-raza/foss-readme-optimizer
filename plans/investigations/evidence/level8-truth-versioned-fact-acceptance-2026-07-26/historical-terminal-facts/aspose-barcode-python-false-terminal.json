@@ -1,0 +1,431 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "barcode",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "manifest_names": [
+          "aspose-barcode-foss"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:agent-drafted-grounded",
+      "field": "product.audience",
+      "value": [
+        "Developers using python for Generate barcodes for Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code."
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.audience",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": "2026-07-26T06:23:12.826077+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:groundedness-blocked",
+      "field": "product.problems_solved",
+      "value": {
+        "claims": [
+          "No system dependencies — pure Python, with Pillow used only for PNG output.",
+          "Fully typed (ships a py.typed marker).",
+          "Linear and 2D symbologies: Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code."
+        ],
+        "groundedness_failures": [
+          "no-system-deps: lexical coverage 0.12 -- unmatched tokens ['dependencies', 'output', 'pillow', 'pure', 'python', 'system', 'used']",
+          "standards-compliant: lexical coverage 0.33 -- unmatched tokens ['fully', 'marker', 'py', 'ships']",
+          "multiple-symbologies: lexical coverage 0.79 -- unmatched tokens ['2d', 'linear', 'symbologies']"
+        ]
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.problems_solved",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": "2026-07-26T06:23:12.826077+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": [
+        "Generate barcodes for Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code",
+        "Render barcodes as SVG",
+        "Render barcodes as PNG",
+        "Control rendering with RenderOptions",
+        "Encode with symbology-specific options",
+        "Custom renderer support",
+        "Error handling with typed exceptions"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": "2026-07-26T06:23:12.826077+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": [
+        "SVG output",
+        "PNG output"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,src/aspose_barcode_foss/result.py",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": "2026-07-26T06:23:12.826077+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "python"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "python",
+          "manifest_path": "pyproject.toml",
+          "name": "aspose-barcode-foss",
+          "version": "0.1.0"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:disposable-source-build",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "source_build",
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "detail": "source build and exact README example compilation passed"
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-product-verification://aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:agent-drafted-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "python",
+        "class_name": "readme_example",
+        "code": "from aspose_barcode_foss import code128\n\nbarcode = code128(\"Hello-World\")\nsvg = barcode.to_svg()       # -> str\npng = barcode.to_png()       # -> bytes\n",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED",
+        "verification_detail": "source build and exact README example compilation passed"
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://example.minimal",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": "2026-07-26T06:23:12.826077+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/barcode/python/",
+          "family_url": "https://products.aspose.org/barcode/",
+          "label": "Aspose.BarCode FOSS for Python",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/barcode/python/",
+          "family_url": "https://products.aspose.com/barcode",
+          "label": "Aspose.BarCode for Python",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "version": "0.1.0",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": {
+        "assertions": [
+          "PDF output is not yet implemented (to_pdf raises NotImplementedError)"
+        ],
+        "evidence_failures": [
+          "limitation evidence does not express a constraint: PDF output is not yet implemented (to_pdf raises NotImplementedError)"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,src/aspose_barcode_foss/result.py",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": "2026-07-26T06:23:12.826077+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:manifest",
+      "field": "product.compatibility",
+      "value": [
+        {
+          "ecosystem": "python",
+          "runtime_label": "Python",
+          "minimum_runtime": ">=3.12",
+          "manifest_path": "pyproject.toml"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:agent-drafted-grounded",
+    "product.problems_solved": "product.problems_solved:groundedness-blocked",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:disposable-source-build",
+    "example.minimal": "example.minimal:agent-drafted-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:manifest",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

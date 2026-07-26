@@ -22,28 +22,48 @@ README bundle for every current `data/products.json` entry. The denominator is l
 no fixed repository count is authoritative. The final outcome is the complete central
 repository-presentation system and independently reproducible Level-8 award in `plans/idea.md`.
 
-### Goal stack
+### Immutable core goal and subordinate goal system
 
-Execution follows one goal at a time:
+`GOAL-CORE-PRESENTABLE-PORTFOLIO` is always active and cannot be replaced by the currently claimed
+task: produce a professional, repository-specific, factually accountable README and GitHub-profile
+bundle for every runtime-loaded `data/products.json` entry, independently approve it, prove an
+unchanged no-op, and then carry the same deliverable through the ordered human, publication,
+production, and maturity gates. The project is not successful because it has schemas, tests,
+controllers, reports, evidence directories, or maturity prose; those are supporting means.
 
-1. **Truth goal:** every repository has a current-contract, provenance-complete fact graph; no
-   composition or review runs while this goal is active.
-2. **Composition goal:** facts and assessed source spans deterministically reconstruct one
-   repository-specific candidate with complete material-claim accountability.
-3. **Review goal:** an independent reviewer accepts good candidates, rejects real defects, and
-   produces a candidate-changing bounded repair when repair is possible.
-4. **Qualification goal:** Java, .NET, Python, TypeScript, C++, Go, and Rust pass first-run,
-   recovery, and unchanged no-op under one frozen contract.
-5. **Portfolio goal:** the exact qualified contract reaches every current registry entry with
-   checksum-valid approved/no-op evidence and zero remote writes.
-6. **Delivery goal:** Gate B review, `act`, disposable staging, and Gate C draft-PR proof pass in
-   order before hosted credentials are requested.
-7. **Maturity goal:** the complete surface system earns Level 5, then Level 7's 30-day window and
-   Level 8's 90-day independently audited window.
+Six subordinate goals may own dependency-ready work, but none is an alternate stopping point:
 
-At the current checkpoint, only goal 1 is active and only
-`L8-TRUTH-01-STAGE-LIMIT` is ready. A later goal cannot be used as a shortcut or as evidence for
-an earlier one.
+1. `GOAL-TRUTH` -- verified product, acquisition, example, limitation, compatibility, and link
+   evidence needed by the core bundle.
+2. `GOAL-README` -- the actual marker-free product-specific README, badge header, visual overview,
+   examples, contextual links, native patch, validation, repair, approval, and no-op proof.
+3. `GOAL-PROFILE` -- GitHub description, homepage, topics, community-file findings,
+   generated-surface observations, and product illustration.
+4. `GOAL-AUTONOMY` -- the same output through one safe, resumable, isolated, idempotent,
+   evidence-complete `supervise` runtime.
+5. `GOAL-DELIVERY` -- Gate B, `act`, staging, Gate C, and hosted GitHub App operation in order.
+6. `GOAL-MATURITY` -- complete surfaces, Level 5, heterogeneous Level 7, and the independently
+   audited 30-day and 90-day operating windows.
+
+Every task must name its subordinate goal and one measurable core contribution: a visible output,
+the removal of its first failing boundary, an indispensable safety condition, or required
+acceptance proof. A task that provides none is moved to backlog. After every transition, execution
+recomputes a goal scoreboard from durable repository lifecycle state:
+
+```text
+registry denominator
+→ FACTS_READY
+→ CANDIDATE_GENERATED
+→ DETERMINISTIC_VALIDATED
+→ AGENT_APPROVED
+→ NO_OP_PROVEN
+→ HUMAN_ACCEPTED
+```
+
+The scoreboard also names the first failing boundary, the exact next task, and whether that task
+produces output or removes a blocker. Closing machinery without advancing a lifecycle count or
+removing its evidenced blocker is a drift failure. Dependency ordering still prevents downstream
+work from masquerading as upstream proof, but the core deliverable remains active throughout.
 
 The audit baseline at adoption was `main` at
 `f89da6056b13cae19e02a72aa6d5ebf3fc371ee1`, with a large valuable in-flight candidate tree. At
@@ -56,13 +76,24 @@ green. These are entry findings, not closure claims.
 
 ## Current execution checkpoint and route correction (2026-07-26)
 
-The latest reconciled checkpoint in this document is control-repository `main` at
-`a6db18cff0cf56bdb3d59b9a390adb5c5e776829`. The tree is clean. Durable mission state version 147
-has graph hash `3315bef4993b11cd374d8cfd11a4519c355d8494b0783ccb2e70ca1e75c150af`,
-no graph drift, and active task `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`; its recorded claim lease is
-expired and must be recovered through mission evaluation before further implementation is
-claimed. This is an observed checkpoint, not an instruction to trust a historical hash: every
-continuation must re-read HEAD, the tree, live processes, and durable mission state before acting.
+The current review checkpoint is control-repository `main` at
+`769874f99f7924fbc7069c61976e8213b366f868` with an intentionally preserved dirty tree containing
+the uncommitted presentation-contract plan, the domain-pure Aspose link-catalog split and tests,
+and the earlier fact-acceptance evidence directory. This supersedes the stale clean-HEAD and
+single-goal snapshot previously written here. Requirement coverage now maps 424 rows, the graph
+loads with 91 taskcards at hash
+`cc06a302611adac69bab94d52341750f4061ab9a96a9ad0a5e6cbca69e5e5095`, and the focused coverage
+check passes. The latest read-only mission status reports durable state version 158, recorded
+active task `L8-TRUTH-01A-FACT-CONTRACT`, 73 unresolved tasks, one external block, and expected
+graph drift because this reviewed graph has not yet been migrated into durable state.
+
+After the user finalizes this plan, the first execution action is mission `evaluate`, which must
+reconcile the graph addition and the recorded claim lease without stealing live work or deleting
+transition history. Evaluation—not this narrative—decides whether to resume/reclaim
+`L8-TRUTH-01A-FACT-CONTRACT` or select `L8-MISSION-GOAL-GUARD`. The goal guard must close before
+ordinary work can claim mission completion; after the fact contract closes, paid work stays
+blocked behind `L8-TRUTH-01B-LLM-CALL-LEDGER` and `L8-TRUTH-01C-PROMPT-HYGIENE`. No narrative
+“current goal” overrides the immutable core goal or durable state.
 
 The runtime denominator observed at this checkpoint is 31 and remains dynamically loaded. Ten
 repository revision directories contain manifests and four are labeled `NO_OP_PROVEN`, but direct
@@ -202,11 +233,40 @@ finding.
 | Complexity-to-value ratio | The control repository now has 275 Python source files and about 35,000 source lines, while no current README bundle survives the corrected end-to-end trust standard. | Machinery volume is not maturity. New work must close a visible failing output boundary, reuse an existing seam, and delete or split obsolete overlap; characterization without a concrete acceptance decision is not a deliverable. |
 | Historical continuity | Git ancestry and reflog retain the implementation commits, but the handover's task/status snapshot is stale and contradicts live state. | Narrative handovers are derived views. Refresh them automatically from HEAD, graph, mission state, and evidence after transitions; never use them to override durable state or to prove completion. |
 | Cost and latency | One real repository can require source builds, several LLM calls, bundle reconstruction, independent review, and two ineffective repair attempts. Full fan-out multiplies every defect by the registry denominator. | Cost, elapsed time, and call count are acceptance properties. Representative qualification, cache validity, changed-candidate prechecks, bounded cohorts, and per-stage budgets must be proved before scaling. |
+| LLM accounting | `RunManifestV2` exposes `llm_call_count`/`llm_calls` but defaults them to zero; the canonical supervisor path does not emit records at the live client/provider boundary. The older evidence writer records only caller-supplied labels. | Existing README bundles cannot prove their call count. Mark them `UNKNOWN_LEGACY`; add one per-attempt redacted transport ledger and reconcile it into per-README and portfolio manifests before another paid campaign. |
+| Prompt hygiene | The category layout and eager schema registry are sound. The stale `prompts/README.md` two-prompt claim was corrected during this plan update to inventory all ten active manifests, but manifests still do not declare owner/consumer/invalidation scope and no blocking check reconciles files, routes, call sites, or inline prompt text. | Keep the current categories, add ownership and dependency metadata plus one exact inventory check, and use Git history rather than backup/timestamped prompt files. Prompt mutations reopen only dependent stages. |
+| Python product truth | The local adapter parses packaging metadata and detached syntax checks can succeed without proving that a selected module/symbol is publicly importable. The sibling pipeline already resolves package roots, `src`/namespace layouts, re-exports, visibility, typed fields, and stacked property decorators. | Adapt the committed public-API seams and prove the exact import/symbol in an installed disposable consumer. Do not spend another composition/review call on Python until this boundary passes. |
+| TypeScript product truth | The local adapter parses `package.json`; repository-wide `tsc` plus a detached example does not establish that the package export map or generated declarations expose the selected API. | Adapt package-root, export/declaration, API-surface, format, and completeness behavior; pack/build the pinned artifact and compile a disposable consumer against its real exports. |
+| Rust product truth | Local Cargo metadata and `cargo check` exist, but public visibility, modules/re-exports, traits/impls, fields/variants, rustdoc, and false-format controls are absent. | Adapt the sibling's three committed Rust implementation/hardening slices and their tests before Rust is treated as supported heterogeneous truth. |
 | Security and legal | Repository text, examples, manifests, and linked material are untrusted; README changes can also alter license presentation, attribution, or commands visitors execute. | Prompt-injection resistance is necessary but insufficient. Examples run secret-free, fetched artifacts are pinned, licenses and attribution are ownership-sensitive, and no generated command becomes visitor-facing without deterministic safety and provenance checks. |
 | Measurement causality | `idea.md` includes referral and traffic reporting, but traffic can change because of releases, campaigns, search ranking, or portfolio seasonality. | Traffic is an operational outcome signal, not proof that a README change is correct. Quality and safety gates remain primary; impact reporting needs baselines, change windows, and confounder notes and must never reward exaggeration. |
 | Environment fidelity | A local source build can pass on one workstation while hosted Actions fails on runner images, rate limits, permissions, or network policy. | Local proof establishes product intelligence, not production readiness. `act`, disposable staging, and hosted canary evidence remain separate gates using the same contracts and artifacts. |
 | Delivery governance | `plans/idea.md` requires Gate A/B before Java PR/App work; production access is not needed for the defects above. | Do not ask for GitHub App or product-write authority. The present critical path is entirely local and agent-fixable. |
 | Maturity claim | Level 7 requires 30 production days and Level 8 requires 90; those clocks cannot begin before accepted hosted operation exists. | Architecture and test volume cannot compress elapsed operational proof. POC, Level 5, Level 7, and Level 8 remain distinct earned states with separate evidence. |
+
+### Pinned `aspose.org` reuse boundary
+
+The sibling repository at `D:\onedrive\Documents\GitHub\aspose.org` was inspected read-only on
+`main` at `512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9`. Its working tree is dirty, including metrics
+files, so the working copy is not an admissible dependency or evidence source. Adaptation reads
+only committed blobs with `git show <commit>:<path>`, records their SHA-256 and license, and maps
+each source test to a local contract/test. The runtime must work when the sibling checkout is
+missing.
+
+The proven source seams are:
+
+| Platform/concern | Committed source and tests to evaluate | Required local result |
+| --- | --- | --- |
+| Shared syntax/package extraction | `scripts/pipeline/extraction/tree_helpers.py`, `package_root.py`, `package_manifest.py`, `api_surface.py`, `formats.py`, `snippets.py`, and `outputs.py` at pinned HEAD | Small adapters behind `src/readme_agent/ecosystems/` and facts/public-API seams; no sibling import or monolithic copy |
+| Python | `test_python_property_decorator_stack.py`, `test_scout_extraction.py`; property fix `08a861ad37b395c4db9432a6071f8dce42adfc6f` | Canonical package/import, public re-exports/symbols, full decorator-stack property handling, exact installed-consumer example proof |
+| TypeScript | `commands/diagnostics/typescript_api_completeness.py`, `test_scout_extraction.py`; diagnostic commit `de78f8bc0c11645f3bec77fa265197483849f7f6` | `exports`/declaration-aware public surface and disposable consumer compilation against the pinned packed/built package |
+| Rust | `test_rust_extraction.py`, `test_rust_platform_maps.py`, Rust fixture; commits `e131074708b17a85e078d3ba0939a0d126ea525a`, `e157b7ff992e8f6f48a969644b66422a653e75ba`, `abd634df3d9b2060b77b98aa9d6788553573ceea` | Cargo/lib identity, visibility/re-export/module/impl/field/variant/rustdoc truth, pinned acquisition, isolated example, and false-format controls |
+| LLM metrics design reference | committed `commands/ops/metrics_schema.py`, `config/metrics_callsite_registry.yaml`, `tests/test_metrics_autonomous_capture.py` at pinned HEAD | Reuse the principles of transport-level automatic capture, call-site completeness, retries/cache distinction, tokens, redaction, and reconciliation; do not copy its Google-Sheet-specific payload or uncommitted changes |
+
+Tree-sitter is a candidate dependency, not a preapproved conclusion. The implementing task must
+evaluate the pinned sibling dependency/version and the current maintained package before adding a
+direct lock entry. If it is adopted, parsing stays deterministic and syntax failures become typed
+capability gaps; regex fallbacks may not silently claim public-API proof.
 
 The principal architectural correction is therefore:
 
@@ -411,10 +471,16 @@ they are dependency-interleaved children of the same aggregate tasks listed belo
 | --- | --- | --- | --- |
 | `L8-TRUTH-01-STAGE-LIMIT` | Add a typed `supervise` lifecycle ceiling so a facts run cannot invoke composition or review. | CLI/profile tests; one fixture registry reaches facts only; zero later-stage calls. | local portfolio runtime |
 | `L8-TRUTH-01A-FACT-CONTRACT` | Version the complete fact-acceptance contract and re-evaluate cached fact graphs before reusing later lifecycle state. | the three falsely terminal real bundles reopen at the fact boundary; Java remains valid. | TRUTH-01 |
-| `L8-TRUTH-02-ROOT-ROLES` | Classify product/test/sample/converter/generator/benchmark/build roots and bind compatibility/acquisition to the distributed product root. | .NET multi-root regression plus Java and Python controls. | TRUTH-01A |
-| `L8-TRUTH-03-CLAIM-POLARITY` | Require positive evidence for capabilities and explicit directional evidence for limitations; shared vocabulary is insufficient. | false limitation controls and real .NET limitation evidence. | TRUTH-02 |
-| `L8-TRUTH-03A-ISOLATED-EXECUTOR` | Provide a disposable OS-isolated, resource-bounded, network-governed executor before any repository or dependency code may run. | hostile build-script, filesystem/network/process escape, timeout, cleanup, and environment-image digest controls. | TRUTH-03 |
-| `L8-TRUTH-04-ACQUISITION` | Verify registry coordinates or an exact source-build path without converting unpublished packages into global blocks. | known-false Cells Maven, NuGet, Go, Rust, C++, and isolated source-build controls. | TRUTH-03A |
+| `L8-TRUTH-01B-LLM-CALL-LEDGER` | Capture every provider attempt/cache reuse at the shared client seam and reconcile exact per-README/job totals, tokens, latency, outcomes, and optional cost into manifests. | success/failure/timeout/retry/cache/cancel/resume/redaction/dedup controls; legacy unknown; one exact new representative; unchanged no-op has zero new provider calls. | TRUTH-01A |
+| `L8-TRUTH-01C-PROMPT-HYGIENE` | Make the active prompt registry a closed owner/consumer/job/dependency inventory and block paid fan-out on orphan, duplicate, inline, stale, or unsafe-deletion findings. | current-tree reconciliation plus negative controls and dependency-scoped cache invalidation. | TRUTH-01B |
+| `L8-TRUTH-02-ROOT-ROLES` | Classify product/test/sample/converter/generator/benchmark/build roots and bind compatibility/acquisition to the distributed product root. | .NET multi-root regression plus Java and Python controls. | TRUTH-01C |
+| `L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION` | Freeze a provenance/license/test matrix for the pinned committed sibling extraction seams and select the smallest compatible dependencies/public seams. | every adopted behavior has commit/path/hash/source-test/local-test mapping; sibling absent/dirty controls. | TRUTH-02 |
+| `L8-TRUTH-03A-ISOLATED-EXECUTOR` | Provide a disposable OS-isolated, resource-bounded, network-governed executor before any repository or dependency code may run. | hostile build-script, filesystem/network/process escape, timeout, cleanup, and environment-image digest controls. | TRUTH-02A |
+| `L8-TRUTH-02B-PYTHON-API-TRUTH` | Adapt package/import/public-API/re-export/property/snippet behavior and prove selected symbols from an installed pinned package in the isolated consumer. | real Python representative plus namespace/src/__all__/re-export/private/stacked-property/missing-import controls. | TRUTH-03A |
+| `L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH` | Adapt package export/declaration/public-surface behavior and compile exact examples against a pinned packed/built artifact in an isolated consumer project. | real TypeScript representative plus exports/subpaths/declarations/private/missing-export/unpublished controls. | TRUTH-03A |
+| `L8-TRUTH-02D-RUST-API-TRUTH` | Adapt Cargo identity, visibility, modules/re-exports, impls, fields/variants, snippets, and formats from the three committed Rust slices. | real Cells Rust plus restricted-visibility/path/re-export/trait/format/acquisition/example controls. | TRUTH-03A |
+| `L8-TRUTH-03-CLAIM-POLARITY` | Require positive evidence for capabilities and explicit directional evidence for limitations; shared vocabulary is insufficient. | false limitation controls and real .NET limitation evidence. | TRUTH-02B + TRUTH-02C + TRUTH-02D |
+| `L8-TRUTH-04-ACQUISITION` | Verify registry coordinates or an exact source-build path without converting unpublished packages into global blocks. | known-false Cells Maven, NuGet, Go, Rust, C++, and isolated source-build controls. | TRUTH-03 |
 | `L8-TRUTH-05-PUBLIC-EXAMPLES` | Prove imports/namespaces/public symbols and compile or execute examples in the same isolated executor in every supported ecosystem. | one real Java, .NET, Python, TypeScript, C++, Go, and Rust example plus filesystem/network/process escape negatives. | TRUTH-04 |
 | `L8-TRUTH-06-INTERPRETIVE-VIEWS` | Ground audience/problem facts and expose only typed visitor-facing render views; reject slugs, enum tokens, manifest keys, and fragments. | Java raw-token, TypeScript sentence, and product-identity controls. | TRUTH-05 |
 | `L8-TRUTH-07-SEVEN-ECOSYSTEMS` | Run the same stage-limited runtime to `FACTS_READY` for one real representative per supported ecosystem. | seven checksum-valid fact bundles with reproduction commands. | TRUTH-06 |
@@ -425,8 +491,10 @@ they are dependency-interleaved children of the same aggregate tasks listed belo
 | ID | Complete behavior | Focused proof | Depends on |
 | --- | --- | --- | --- |
 | `L8-COMPOSE-01-DECOMPOSE` | Split the oversized renderer/composition responsibilities before adding further editorial behavior. | public seams unchanged; focused renderer/composition regression. | product-truth aggregate closure |
-| `L8-COMPOSE-02-EXISTING-SECTIONS` | Reconcile verified limitations, examples, installation, and overview facts inside existing sections without duplication or unsupported loss. | real .NET partial-limitations case plus existing-section controls. | COMPOSE-01 |
-| `L8-COMPOSE-02B-FINAL-CLAIM-CORPUS` | Inventory material inherited and generated claims, including preserved prose, and freeze unsupported/parity/performance/proprietary-format controls. | real Python/TypeScript/Java claim inventories with expected ownership and fact bindings. | COMPOSE-02A |
+| `L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT` | Remove visitor-visible agent metadata and produce fact-backed headers, applicable badges, and repository-specific Mermaid overviews. | seven marker-free representative candidates; badge/fact and diagram/fact maps; legacy-marker migration. | COMPOSE-01 |
+| `L8-COMPOSE-01C-CONTEXTUAL-LINKING` | Build domain-pure article catalogs, add only reader-useful context-bound links under configured-or-size-derived total/domain/surface ceilings, and render every `aspose.com` product as its Enterprise Edition. | seven example-to-article cases, every auto tier and configured override, catalog/count negatives, and legacy-terminology correction. | COMPOSE-01B |
+| `L8-COMPOSE-02-EXISTING-SECTIONS` | Treat product-agent-curated source content as the preferred reusable base; preserve or improve each validated content unit, correct contradictions, and withhold unresolved material without silently discarding it. | real strong/partial README controls proving validated reuse, evidence-backed correction, explicit uncertainty, and unjustified-loss rejection. | COMPOSE-01C + section regressions |
+| `L8-COMPOSE-02B-FINAL-CLAIM-CORPUS` | Inventory every material inherited and generated content unit, including claims, commands, examples, limitations, terminology, workflows, and maintainer explanations, and freeze its evidence/owner/correction/uncertainty/omission disposition. | real Python/TypeScript/Java inventories with expected ownership, fact bindings, reuse decisions, and stale/unresolved controls. | COMPOSE-02A |
 | `L8-COMPOSE-03-OPERATION-COVERAGE` | Compile every actionable assessment into a bounded operation and require every material final-candidate claim to have an accepted fact, authoritative owner, or uncertainty/correction action. | plan-to-operation coverage, full-candidate claim coverage, inherited unsupported-claim controls, and immutable reconstruction. | COMPOSE-02B |
 | `L8-COMPOSE-04-PRESENTATION-LINT` | Reject raw internal values, semantic duplicates, competing examples, cross-product leakage, malformed navigation, and promotional imbalance. | real Java/Python controls plus prompt-injection and strong-content fixtures. | COMPOSE-03 |
 | `L8-COMPOSE-05-SEVEN-CANDIDATES` | Produce product-specific candidate/patch/claim-map bundles for the seven representatives without invoking independent review. | stage-limited `CANDIDATE_GENERATED` bundles and byte-identical reconstruction. | COMPOSE-04 |
@@ -489,51 +557,97 @@ failing acceptance case; the current Java false acceptance is rejected by the ne
 
 ### Phase 4 -- renderable product truth, not internal data leakage
 
-1. Capture real default branch, revision, README or explicit absence, inventory, package roots,
+1. Before another paid repository call, add `LlmCallRecordV1` at the shared live/fixture client
+   boundary. Record success, failure, timeout, retry, and cache reuse with repository/revision,
+   campaign/run/stage/job, prompt ID/hash, provider/model, attempt, timing, hashes, tokens, and
+   optional versioned cost. Reconcile call IDs into per-README and portfolio manifests. Mark prior
+   bundles without transport records `UNKNOWN_LEGACY`; never backfill an invented zero.
+2. Reconcile `prompts/` as one closed active inventory. Add owner, job/consumer,
+   input/output contract, and invalidation scope to each manifest; compare files to
+   `JOB_MODEL_ROUTING`, the eager registry, runtime call sites, and documentation. Block paid
+   fan-out on orphaned, duplicated, inline, stale, or still-referenced-deletion findings.
+3. Freeze the committed `aspose.org` adaptation matrix from the pinned sources above. Record source
+   commit/path/hash/license/source test, selected local seam/test, dependency decision, and any
+   deliberately rejected behavior. Do not read the sibling working copy at runtime.
+4. Capture real default branch, revision, README or explicit absence, inventory, package roots,
    manifests, examples, tests, docs, licenses, tags, and releases.
-2. Keep `ProductFactsV2` as the provenance graph, but add typed, user-facing render views for
+5. Keep `ProductFactsV2` as the provenance graph, but add typed, user-facing render views for
    identity, compatibility, relationship, acquisition, and support. Internal enums, manifest
    keys, repository slugs, and classification tokens are never eligible prose.
-3. Classify every package root as product, test, sample, converter, generator, benchmark, build
+6. Classify every package root as product, test, sample, converter, generator, benchmark, build
    tool, or unknown. Bind installation, compatibility, and minimal-example claims to the root
    that supplies the acquired or distributed product; other roots may corroborate but must not
    silently override it.
-4. Prefer an existing public repository example that can be isolated and executed. If none exists,
+7. Build one disposable, resource-bounded, deny-by-default-network executor before accepting any
+   repository/dependency build or example result. Then close the three blocker adapters:
+   - Python resolves `src`/namespace/package roots, canonical imports, `__all__`/re-exports,
+     visibility, typed fields, and full decorator stacks, then installs the pinned package and
+     imports/uses the exact public symbols in an isolated consumer.
+   - TypeScript resolves `exports`/`types`/`main`/`module`, declaration or source public exports,
+     visibility, and formats, then compiles a disposable consumer against a pinned packed/built
+     artifact and its real export map.
+   - Rust resolves Cargo/lib identity, canonical crate name, modules including `#[path]`, bare
+     versus restricted visibility, re-exports, types/fields/variants/traits/impls/rustdoc,
+     snippets, and format direction, then checks the pinned example in the isolated executor.
+8. Prefer an existing public repository example that can be isolated and executed. If none exists,
    synthesize the smallest example only through the ecosystem adapter and require compile/run
    proof with diagnostic-driven repair. A missing import, namespace, symbol, private member, or
    unverified external input prevents `example.minimal` from becoming verified.
-5. Enforce evidence polarity. Capabilities require positive implementation evidence; limitations
+9. Enforce evidence polarity. Capabilities require positive implementation evidence; limitations
    require an exact repository-authored constraint anchor such as unsupported, incomplete, only,
    requires, or out-of-scope wording. A shared symbol or file path is not directional proof.
-6. Distinguish facts required for a useful README from optional enhancement facts. An unresolved
+10. Distinguish facts required for a useful README from optional enhancement facts. An unresolved
    optional fact is omitted; an essential identity/acquisition/usage fact creates a narrow block.
-7. Reconcile source-build-only repositories truthfully. Never describe a source build as a
+11. Reconcile source-build-only repositories truthfully. Never describe a source build as a
    published package, and never make an unpublished artifact a global repository block when a
    verified build path exists.
 
 Exit: no raw internal value can enter prose; every selected fact has evidence with the correct
-claim direction; every selected example uses public APIs and passes its ecosystem proof; each real
-representative has enough visitor-facing truth or one exact essential fact block.
+claim direction; every selected example uses a public consumer surface and passes its ecosystem
+proof; Python, TypeScript, and Rust blockers pass their pinned-source negative controls; every new
+LLM call is exactly attributable; the prompt inventory is clean; and each real representative has
+enough visitor-facing truth or one exact essential fact block.
 
 ### Phase 5 -- executable assessment and composition
 
-1. Classify every material existing section and claim as preserve, rewrite, investigate, repair,
-   remove/update, replace-generic, add, or not-applicable.
-2. Require every non-preserve assessment decision to map to one or more bounded
+1. Begin from the exact product-agent-curated README and inventory every material claim, command,
+   example, limitation, terminology choice, workflow, and maintainer explanation. Prefer reuse:
+   preserve validated content, improve it only when the change adds verified clarity, correct
+   contradictions with cited evidence, and withhold unresolved factual material while retaining
+   its source span and owner handoff. Never regenerate wholesale merely because it is easier.
+2. Classify every material existing content unit as preserve-validated, improve-validated,
+   investigate, correct, uncertainty/owner-handoff, omit-unsupported, add, or not-applicable.
+3. Require every non-preserve assessment decision to map to one or more bounded
    `ReadmeDocumentPlanV1` operations. A decision that is not executable is a validation failure,
    not explanatory metadata.
-3. Generate the candidate solely by applying the document plan to the immutable source. Rebuild
+4. Generate the candidate solely by applying the document plan to the immutable source. Rebuild
    the candidate independently from source plus operations and require byte identity.
-4. Let the agentic author write visitor-facing section prose with explicit sentence/paragraph
+5. Let the agentic author write visitor-facing section prose with explicit sentence/paragraph
    fact citations. Deterministic code constrains allowed facts, source spans, protected content,
    commands, coordinates, links, examples, and claim-map integrity; it must not flatten arbitrary
    nested fact values into prose.
-5. Add deterministic presentation validators for raw-token leakage, exact and semantic
+6. Treat a link as contextual only when its verified target directly extends the adjacent claim,
+   workflow, command, format, or code example. An exact family/platform/API-matched docs, KB, or
+   reference article outranks a generic product page; product-domain preference breaks only ties.
+   Store the target title and evidence plus a binding to the exact candidate section and
+   claim/example ID. If no verified target adds useful detail, add no link.
+7. Render every visitor-facing `aspose.com` product label as the verified product name plus
+   `Enterprise Edition`. Correct legacy “commercial,” “On-Premise,” “paid,” “full,” or
+   “proprietary edition” labels; retain them only inside immutable historical negative fixtures or
+   machine-only compatibility fields that cannot render.
+8. Allocate Aspose link slots through typed policy. Explicit configured total, parent-domain, and
+   `products`/`docs`/`kb`/`blog`/`reference` maxima replace automatic allocation. Otherwise use the
+   deterministic pre-link content-unit tiers in `L8-024`. Slots are maxima, not quotas, and neither
+   configuration nor automatic availability can bypass context, verification, placement, or
+   anti-promotion rules.
+9. Add deterministic presentation validators for raw-token leakage, exact and semantic
    duplication, duplicate examples, heading/navigation consistency, unsupported plan omissions,
-   and stale or contradictory maintainer claims.
-6. Preserve the owned-span safety property, but do not confuse byte preservation with quality.
-   Valuable content is preserved; evidence-backed corrections replace or remove the exact
-   governed spans.
+   stale or contradictory maintainer claims, contextual-link bindings, link allocation, and
+   Enterprise Edition terminology.
+10. Preserve the owned-span safety property, but do not confuse byte preservation with quality.
+    Valuable validated content is preserved or improved; evidence-backed corrections replace the
+    exact governed spans; unresolved content stays traceable outside factual presentation; the
+    verifier rejects both unsupported retention and unjustified loss.
 
 Exit: the plan, patch, candidate, and claim map agree exactly; the 3D Java usage repair removes or
 reconciles the competing example; all real representatives are materially product- and
@@ -564,9 +678,11 @@ ecosystem-specific.
 6. Preserve separate author/reviewer prompts, contexts, identities, caches, and evidence. If the
    current gateway route cannot satisfy the real corpus, disable it and qualify another available
    route before fan-out.
-7. Record per-stage duration, LLM call count, cache hit or miss, build time, and failure class.
-   Establish a representative cost and latency envelope before the frozen campaign; a route that
-   is correct but cannot finish within the resumable cohort budget is not portfolio-ready.
+7. Derive per-stage duration, provider-call count, cache reuse, token totals, build time, failure
+   class, and optional cost exclusively from the reconciled call/build ledgers. Reviewer retries
+   remain separate attempts, and a cache hit never masquerades as a provider call. Establish a
+   representative cost and latency envelope before the frozen campaign; a route that is correct
+   but cannot finish within the resumable cohort budget is not portfolio-ready.
 
 Exit: the former Java false acceptance is rejected and repaired; controlled real defects are
 detected; repair changes the responsible operations and resolves the findings; identical reruns
@@ -674,25 +790,37 @@ Execution resumes in this order; it does not start an official 31-repository cam
 1. Re-read live HEAD, tree, processes, graph hash, durable state, claim expiry, and the evidence
    paths in the multi-perspective table. Enforce one portfolio writer and treat any run whose HEAD
    moved as diagnostic only.
-2. Continue the active `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH` task. Qualify package-root roles,
-   visitor-facing facts, evidence polarity, verified acquisition, and executable examples on real
-   Java, .NET, Python, TypeScript, C++, Go, and Rust representatives. Close it only with stable
+2. Rebuild requirement coverage for the reviewed graph, validate it, run mission `status` and
+   `evaluate`, and reconcile any historical claim without stealing a live lease. Execute
+   `L8-MISSION-GOAL-GUARD` before resuming ordinary machinery work so every remaining task has a
+   validated subordinate-goal and core-contribution binding and status exposes the live lifecycle
+   scoreboard.
+3. Resume the exact highest-priority task selected by durable evaluation. When that task is within
+   `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`, close the stage/acceptance-contract boundary, then
+   `L8-TRUTH-01B-LLM-CALL-LEDGER` and `L8-TRUTH-01C-PROMPT-HYGIENE` before making another paid
+   repository call. Classify roots, freeze `L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION`, build the isolated
+   executor, and close the Python, TypeScript, and Rust public-consumer-surface tasks. Then qualify
+   evidence polarity, acquisition, visitor-facing facts, and executable examples on real Java,
+   .NET, Python, TypeScript, C++, Go, and Rust representatives. Close work only with stable
    real-output evidence; otherwise repair its first failing boundary.
-3. Execute `L8-LOCAL-README-ASSESSMENT-COMPOSITION`. Make every material non-preserve decision
-   compile to a candidate-changing operation and add deterministic presentation lint. Prove the
-   previously defective Java and .NET artifacts are rejected or corrected.
-4. Execute `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`. Add span/fact-grounded reviewer findings,
+4. Execute `L8-LOCAL-README-ASSESSMENT-COMPOSITION`. Decompose first, then complete the
+   marker-free header/visual contract and `L8-COMPOSE-01C-CONTEXTUAL-LINKING`: domain-pure
+   article catalogs, exact example-to-article context bindings, and configured-over-automatic
+   total/domain/surface allocation. Then make every material non-preserve decision compile to a
+   candidate-changing operation and add deterministic presentation lint. Prove the previously
+   defective Java and .NET artifacts are rejected or corrected.
+5. Execute `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`. Add span/fact-grounded reviewer findings,
    contradicted-review rejection, repair routing, candidate-delta checks, and finding-resolution
    checks before another paid review call.
-5. Execute `L8-LOCAL-HETEROGENEOUS-QUALIFICATION` through the complete public supervisor path.
+6. Execute `L8-LOCAL-HETEROGENEOUS-QUALIFICATION` through the complete public supervisor path.
    Require seven real representatives to reach `AGENT_APPROVED` and unchanged `NO_OP_PROVEN`,
    with recovery, idempotency, safety, and measured cost/latency evidence.
-6. Freeze the registry, repository revisions, control HEAD, prompt/fact/renderer/validator/reviewer
+7. Freeze the registry, repository revisions, control HEAD, prompt/fact/renderer/validator/reviewer
    hashes, dependency lock, and cost envelope as one named campaign.
-7. Resume Gate A in bounded cohorts and publish the dynamic portfolio summary after every
+8. Resume Gate A in bounded cohorts and publish the dynamic portfolio summary after every
    repository. A new live defect reopens the first responsible task, requalifies the affected
    representative, and resumes only invalidated repositories.
-8. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with
+9. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with
    `act`, staging, Gate C, Gate D, Level 5, Level 7's 30-day proof, and Level 8's 90-day proof in
    the dependency order above.
 

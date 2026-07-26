@@ -17,6 +17,7 @@ from readme_agent.supervisor.mission_control import (
     persist_evaluation,
     transition_task,
 )
+from readme_agent.supervisor.mission_goal_guard import derive_lifecycle_scoreboard
 from readme_agent.supervisor.mission_graph import load_mission_graph
 
 
@@ -62,6 +63,10 @@ def run_mission_command(args: argparse.Namespace) -> int:
 
     state = record.mission_execution
     assert state is not None
+    if action == "status":
+        state = state.model_copy(
+            update={"lifecycle_scoreboard": derive_lifecycle_scoreboard(backend)}
+        )
     evaluation = evaluate_mission(graph, state)
     print(f"mission: {evaluation.mission_id}")
     print(f"state_version: {record.state_version}")
@@ -72,6 +77,32 @@ def run_mission_command(args: argparse.Namespace) -> int:
     )
     print(f"unresolved_tasks: {len(evaluation.unresolved_task_ids)}")
     print(f"blocked_external_tasks: {len(evaluation.blocked_external_task_ids)}")
+    scoreboard = evaluation.lifecycle_scoreboard
+    if scoreboard is not None:
+        print(f"portfolio_denominator: {scoreboard.denominator}")
+        print(f"facts_ready: {scoreboard.facts_ready}/{scoreboard.denominator}")
+        print(f"candidate_generated: {scoreboard.candidate_generated}/{scoreboard.denominator}")
+        print(
+            "deterministic_validated: "
+            f"{scoreboard.deterministic_validated}/{scoreboard.denominator}"
+        )
+        print(f"agent_approved: {scoreboard.agent_approved}/{scoreboard.denominator}")
+        print(f"no_op_proven: {scoreboard.no_op_proven}/{scoreboard.denominator}")
+        print(f"human_accepted: {scoreboard.human_accepted}/{scoreboard.denominator}")
+        print(f"first_failing_boundary: {scoreboard.first_failing_boundary}")
+    print(f"core_goal_active: {str(evaluation.core_goal_active).lower()}")
+    if evaluation.next_task is None:
+        print("next_task: -")
+        print("next_task_goals: -")
+        print("next_task_contribution: -")
+    else:
+        print(f"next_task: {evaluation.next_task.task_id}")
+        print(f"next_task_goals: {', '.join(evaluation.next_task.goal_ids)}")
+        print(
+            "next_task_contribution: "
+            f"{evaluation.next_task.core_contribution.kind}: "
+            f"{evaluation.next_task.core_contribution.summary}"
+        )
     drifted = has_graph_drift(state, graph_sha256)
     print(f"graph_drift: {str(drifted).lower()}")
     print(f"mission_complete: {str(evaluation.mission_complete).lower()}")

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-01A-FACT-CONTRACT",
+  "requirement_id": "L8-018",
+  "generated_at": "2026-07-26T10:52:34.526951+00:00",
+  "control_head": "769874f99f7924fbc7069c61976e8213b366f868",
+  "control_branch": "main",
+  "command": [
+    ".venv/Scripts/python",
+    "plans/investigations/tools/collect_fact_acceptance_contract_replay_evidence.py"
+  ],
+  "execution_boundary": "Persisted ProductFactsV2 classification and durable metadata reconciliation only",
+  "prohibited_operations_observed": [],
+  "product_remote_writes": 0,
+  "llm_calls": 0,
+  "repository_builds": 0,
+  "package_installs": 0,
+  "example_executions": 0,
+  "historical_terminal_claim_source": "logs/2026-07-26.md#requirements-gate-a-trust-contract"
+}

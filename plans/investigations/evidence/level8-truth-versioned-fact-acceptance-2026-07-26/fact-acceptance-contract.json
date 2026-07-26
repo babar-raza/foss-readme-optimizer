@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "required_fields": [
+    "product.audience",
+    "product.problems_solved",
+    "product.capabilities",
+    "product.formats",
+    "installation.verified_acquisition",
+    "example.minimal",
+    "product.license",
+    "relationship.commercial_foss"
+  ],
+  "accepted_verification_states": [
+    "policy_approved",
+    "verified"
+  ],
+  "blocking_conflict_statuses": [
+    "unresolved"
+  ],
+  "recollect_on_component_change": [
+    "fact_schema",
+    "fact_eligibility",
+    "evidence_polarity"
+  ],
+  "visitor_render_fields": [
+    "product.audience",
+    "product.problems_solved",
+    "product.capabilities",
+    "product.formats"
+  ],
+  "component_hashes": {
+    "classification_semantics": "f35f7e197c8861491ad33247632e783b7d65ae7581867c10ab64bc7d4f7fcd90",
+    "conflict_semantics": "a27bac54aac9881e5be4dfaf5121e27fffd3fbd4eb8a36ab167a5709fd9c8403",
+    "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
+    "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+    "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
+    "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
+  }
+}

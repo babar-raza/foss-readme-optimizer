@@ -1,0 +1,175 @@
+[
+  {
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+    "historical_terminal_status": "NO_OP_PROVEN",
+    "historical_facts_path": "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/historical-terminal-facts/aspose-3d-java-valid-terminal.json",
+    "historical_facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
+    "current_contract_outcome": "FACTS_READY",
+    "blocking_fields": [],
+    "durable_state_version": 700,
+    "durable_status_after_replay": "NO_OP_PROVEN",
+    "durable_facts_hash_after_replay": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
+    "durable_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+    "latest_acceptance_binding": {
+      "schema_version": 1,
+      "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+      "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
+      "contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+      "component_hashes": {
+        "classification_semantics": "f35f7e197c8861491ad33247632e783b7d65ae7581867c10ab64bc7d4f7fcd90",
+        "conflict_semantics": "a27bac54aac9881e5be4dfaf5121e27fffd3fbd4eb8a36ab167a5709fd9c8403",
+        "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
+        "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+        "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
+        "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
+      },
+      "outcome": "FACTS_READY",
+      "observed_by": "supervisor_product_truth",
+      "reason": "legacy cached fact graph re-evaluated under the current contract",
+      "occurred_at": "2026-07-26T10:22:54.146258+00:00"
+    },
+    "manifest_path": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Java/8de5f467e93138b3605acdc46ca40e93f0364ee8/manifest.json",
+    "manifest_status_after_replay": "NO_OP_PROVEN",
+    "manifest_complete_after_replay": true,
+    "manifest_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23"
+  },
+  {
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+    "historical_terminal_status": "NO_OP_PROVEN",
+    "historical_facts_path": "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/historical-terminal-facts/aspose-3d-python-false-terminal.json",
+    "historical_facts_hash": "c69342cc863ad1e899dbef39132636db5c90cc88b5c1528bef2b6251bf1313e4",
+    "current_contract_outcome": "BLOCKED_MISSING_EVIDENCE",
+    "blocking_fields": [
+      {
+        "field": "product.capabilities",
+        "fact_id": "product.capabilities:repository-evidence",
+        "reason": "verification_state=blocked"
+      },
+      {
+        "field": "product.formats",
+        "fact_id": "product.formats:repository-evidence",
+        "reason": "verification_state=blocked"
+      }
+    ],
+    "durable_state_version": 292,
+    "durable_status_after_replay": "BLOCKED_MISSING_EVIDENCE",
+    "durable_facts_hash_after_replay": "b87279be79a3ba7ed94b2778877c4dfa390a01b63fa246cb4639a6f585d65bd7",
+    "durable_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+    "latest_acceptance_binding": {
+      "schema_version": 1,
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "facts_hash": "b87279be79a3ba7ed94b2778877c4dfa390a01b63fa246cb4639a6f585d65bd7",
+      "contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+      "component_hashes": {
+        "classification_semantics": "f35f7e197c8861491ad33247632e783b7d65ae7581867c10ab64bc7d4f7fcd90",
+        "conflict_semantics": "a27bac54aac9881e5be4dfaf5121e27fffd3fbd4eb8a36ab167a5709fd9c8403",
+        "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
+        "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+        "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
+        "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
+      },
+      "outcome": "BLOCKED_MISSING_EVIDENCE",
+      "observed_by": "supervisor_product_truth",
+      "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+      "occurred_at": "2026-07-26T10:26:08.836810+00:00"
+    },
+    "manifest_path": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/manifest.json",
+    "manifest_status_after_replay": "BLOCKED_MISSING_EVIDENCE",
+    "manifest_complete_after_replay": false,
+    "manifest_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23"
+  },
+  {
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+    "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+    "historical_terminal_status": "NO_OP_PROVEN",
+    "historical_facts_path": "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/historical-terminal-facts/aspose-3d-typescript-false-terminal.json",
+    "historical_facts_hash": "65977ae5d5c3ebb0c9066ea6d70f57824749b595f8cfc164d02bb26f7bd3a4b6",
+    "current_contract_outcome": "BLOCKED_MISSING_EVIDENCE",
+    "blocking_fields": [
+      {
+        "field": "installation.verified_acquisition",
+        "fact_id": "installation.verified_acquisition:disposable-source-build",
+        "reason": "verification_state=blocked"
+      },
+      {
+        "field": "example.minimal",
+        "fact_id": "example.minimal:agent-drafted-example",
+        "reason": "verification_state=blocked"
+      },
+      {
+        "field": "product.license",
+        "fact_id": "product.license:missing",
+        "reason": "verification_state=missing"
+      }
+    ],
+    "durable_state_version": 309,
+    "durable_status_after_replay": "BLOCKED_MISSING_EVIDENCE",
+    "durable_facts_hash_after_replay": "ce7e40b36a6a38459af00ea86eee3303879e143b735cc8dc05d1f97aba8349cf",
+    "durable_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+    "latest_acceptance_binding": {
+      "schema_version": 1,
+      "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+      "facts_hash": "ce7e40b36a6a38459af00ea86eee3303879e143b735cc8dc05d1f97aba8349cf",
+      "contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+      "component_hashes": {
+        "classification_semantics": "f35f7e197c8861491ad33247632e783b7d65ae7581867c10ab64bc7d4f7fcd90",
+        "conflict_semantics": "a27bac54aac9881e5be4dfaf5121e27fffd3fbd4eb8a36ab167a5709fd9c8403",
+        "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
+        "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+        "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
+        "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
+      },
+      "outcome": "BLOCKED_MISSING_EVIDENCE",
+      "observed_by": "supervisor_product_truth",
+      "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+      "occurred_at": "2026-07-26T10:29:15.898711+00:00"
+    },
+    "manifest_path": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript/227894a1120c22b9b6522564e23dc1d14c8fc39a/manifest.json",
+    "manifest_status_after_replay": "BLOCKED_MISSING_EVIDENCE",
+    "manifest_complete_after_replay": false,
+    "manifest_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23"
+  },
+  {
+    "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+    "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+    "historical_terminal_status": "NO_OP_PROVEN",
+    "historical_facts_path": "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/historical-terminal-facts/aspose-barcode-python-false-terminal.json",
+    "historical_facts_hash": "81c63498ac84ae8b9ad826350f0415065084fda393835596cd2fef528f98739e",
+    "current_contract_outcome": "BLOCKED_MISSING_EVIDENCE",
+    "blocking_fields": [
+      {
+        "field": "product.problems_solved",
+        "fact_id": "product.problems_solved:groundedness-blocked",
+        "reason": "verification_state=blocked"
+      }
+    ],
+    "durable_state_version": 123,
+    "durable_status_after_replay": "BLOCKED_MISSING_EVIDENCE",
+    "durable_facts_hash_after_replay": "6f5b0723dd2be837ea14afd72dba485327836a66d9e76e464718c0043bb7e964",
+    "durable_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+    "latest_acceptance_binding": {
+      "schema_version": 1,
+      "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+      "facts_hash": "6f5b0723dd2be837ea14afd72dba485327836a66d9e76e464718c0043bb7e964",
+      "contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+      "component_hashes": {
+        "classification_semantics": "f35f7e197c8861491ad33247632e783b7d65ae7581867c10ab64bc7d4f7fcd90",
+        "conflict_semantics": "a27bac54aac9881e5be4dfaf5121e27fffd3fbd4eb8a36ab167a5709fd9c8403",
+        "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
+        "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+        "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
+        "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
+      },
+      "outcome": "BLOCKED_MISSING_EVIDENCE",
+      "observed_by": "supervisor_product_truth",
+      "reason": "persisted fact graph replayed under the current acceptance contract after abandoned-trigger recovery",
+      "occurred_at": "2026-07-26T10:38:51.990727+00:00"
+    },
+    "manifest_path": "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/manifest.json",
+    "manifest_status_after_replay": "BLOCKED_MISSING_EVIDENCE",
+    "manifest_complete_after_replay": false,
+    "manifest_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23"
+  }
+]

@@ -249,6 +249,56 @@ class GitStateBackend:
             return None
         return load_run_state_json(_read_blob(sha, "state.json"))
 
+    def load_many(self, org_repos: list[str]) -> dict[str, RunStateV2 | None]:
+        """Fetch the state namespace once, then resolve requested records locally.
+
+        Portfolio status previously called ``load()`` once per registry entry,
+        turning one read-only scoreboard into dozens of sequential network
+        fetches. A unique wildcard tracking namespace preserves the same
+        concurrent-reader isolation while reducing the remote operation to one.
+        """
+
+        if not org_repos:
+            return {}
+        local_prefix = f"refs/readme-agent-fetch/{os.getpid()}-{uuid4().hex}"
+        refspec = f"+{STATE_REF_PREFIX}/*:{local_prefix}/*"
+        fetched = run_git(["fetch", "--no-write-fetch-head", "origin", refspec])
+        if fetched.returncode != 0:
+            if "couldn't find remote ref" in fetched.stderr.lower():
+                return dict.fromkeys(org_repos)
+            raise StateBackendError(f"bulk fetch of {STATE_REF_PREFIX} failed: {fetched.stderr}")
+
+        listed = run_git(["for-each-ref", "--format=%(refname) %(objectname)", local_prefix])
+        if listed.returncode != 0:
+            raise StateBackendError(
+                f"listing isolated bulk state refs under {local_prefix} failed: {listed.stderr}"
+            )
+        refs: dict[str, str] = {}
+        local_refs: list[str] = []
+        for line in listed.stdout.splitlines():
+            ref_name, sha = line.split(" ", maxsplit=1)
+            local_refs.append(ref_name)
+            refs[ref_name.removeprefix(f"{local_prefix}/")] = sha
+        try:
+            result: dict[str, RunStateV2 | None] = {}
+            for org_repo in org_repos:
+                sha = refs.get(_ref_key(org_repo))
+                result[org_repo] = (
+                    load_run_state_json(_read_blob(sha, "state.json")) if sha is not None else None
+                )
+            return result
+        finally:
+            if local_refs:
+                cleanup = run_git(
+                    ["update-ref", "--stdin"],
+                    input_text="".join(f"delete {ref_name}\n" for ref_name in local_refs),
+                )
+                if cleanup.returncode != 0:
+                    raise StateBackendError(
+                        f"cleanup of isolated bulk refs under {local_prefix} failed: "
+                        f"{cleanup.stderr}"
+                    )
+
     def save(
         self,
         org_repo: str,

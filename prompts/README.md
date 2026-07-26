@@ -45,13 +45,24 @@ found in — checked at build time, fails loud on mismatch.
    compute_control_plane_fingerprint()` instead.
 4. **Prompt changes are behavior changes.** They land with the tests that cover them, like any
    `src/` change.
+5. **The active tree is not an archive.** Do not create timestamped, backup, draft, or superseded
+   copies here. Inspect references and history before removing an obsolete prompt; Git history
+   preserves it after its consumer and replacement are reconciled.
 
 ## Current state
 
-Two prompts are registered (Wave 8.5, `GOV-024`): `prompts/generation/relationship_explained.yaml`
-(the relationship-explanation paragraph, migrated from the former `system.txt`/`user.txt` pair,
-`GOV-016`) and `prompts/planning/supervisor_turn.yaml` (the autonomous supervisor's planner
-prompt, migrated from a hardcoded string literal in `supervisor/loop.py`). Both are loaded and
-schema-validated by `src/readme_agent/llm/prompt_registry.py`; `build_prompt()`
-(`llm/prompts.py`) and the supervisor's dossier assembly (`supervisor/dossier.py`) both read
-through this one registry — no other module reads `prompts/` directly.
+Ten active manifests are registered:
+
+| Category | Prompt IDs |
+|---|---|
+| `analysis` | `presentation_standard_compliance` |
+| `generation` | `draft_product_truth`, `plan_readme_composition`, `relationship_explained` |
+| `planning` | `repair_capability_selection`, `specialist_selection_turn`, `supervisor_turn` |
+| `verification` | `independent_readme_review`, `prose_quality_check`, `visual_asset_accuracy` |
+
+They are loaded and schema-validated by `src/readme_agent/llm/prompt_registry.py`. The registry
+already rejects duplicate IDs and category/path disagreement and hashes every registered prompt.
+The remaining production-hygiene work is tracked by `L8-028` and
+`L8-TRUTH-01C-PROMPT-HYGIENE`: add owner/consumer/dependency metadata and a blocking inventory that
+reconciles files, model routes, runtime call sites, documentation, and inline-prompt exclusions
+before another paid portfolio campaign.

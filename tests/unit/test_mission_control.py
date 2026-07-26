@@ -2,6 +2,7 @@
 
 import hashlib
 import importlib.util
+import json
 from copy import deepcopy
 from pathlib import Path
 
@@ -9,7 +10,10 @@ import pytest
 import yaml
 
 from readme_agent.errors import ConfigError
+from readme_agent.registry.loader import load_products
 from readme_agent.state.backend import SaveResult
+from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+from readme_agent.state.mission_goal_schema import MissionContributionEvidenceV1
 from readme_agent.state.schema import MissionExecutionStateV1, RunStateV1
 from readme_agent.supervisor.mission_control import (
     claim_next_task,
@@ -18,6 +22,10 @@ from readme_agent.supervisor.mission_control import (
     mission_state_key,
     persist_evaluation,
     transition_task,
+)
+from readme_agent.supervisor.mission_goal_guard import (
+    derive_lifecycle_scoreboard,
+    lifecycle_scoreboard_sha256,
 )
 from readme_agent.supervisor.mission_graph import load_mission_graph
 
@@ -56,6 +64,32 @@ class _MemoryStateBackend:
         return SaveResult(outcome="saved", new_version=new_version)
 
 
+def _write_contribution_evidence(
+    tmp_path: Path,
+    backend: _MemoryStateBackend,
+    task,
+) -> Path:
+    proof_path = tmp_path / f"{task.task_id}-proof.txt"
+    proof_path.write_text("independent task proof", encoding="utf-8")
+    scoreboard = derive_lifecycle_scoreboard(backend)
+    scoreboard_hash = lifecycle_scoreboard_sha256(scoreboard)
+    evidence = MissionContributionEvidenceV1(
+        task_id=task.task_id,
+        goal_ids=task.goal_ids,
+        core_contribution=task.core_contribution,
+        acceptance_checks_passed=task.acceptance_checks,
+        proof_refs=[str(proof_path)],
+        scoreboard_before_sha256=scoreboard_hash,
+        scoreboard_after_sha256=scoreboard_hash,
+        first_failing_boundary_before=scoreboard.first_failing_boundary,
+        first_failing_boundary_after=scoreboard.first_failing_boundary,
+        independently_verified=True,
+    )
+    evidence_path = tmp_path / f"{task.task_id}-contribution.json"
+    evidence_path.write_text(evidence.model_dump_json(indent=2), encoding="utf-8")
+    return evidence_path
+
+
 def test_real_level8_graph_is_schema_valid_and_acyclic():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
 
@@ -64,6 +98,15 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert len(graph.taskcards) >= 30
     assert len(graph_hash) == 64
     tasks = {task.task_id: task for task in graph.taskcards}
+    assert tasks["L8-TRUTH-01A-FACT-CONTRACT"].goal_ids == ["GOAL-TRUTH"]
+    assert tasks["L8-COMPOSE-02-EXISTING-SECTIONS"].goal_ids == ["GOAL-README"]
+    assert tasks["L8-WAVE4-PRESENTATION-INTELLIGENCE"].goal_ids == [
+        "GOAL-README",
+        "GOAL-PROFILE",
+    ]
+    assert tasks["L8-MISSION-GOAL-GUARD"].goal_ids == ["GOAL-AUTONOMY"]
+    assert tasks["L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"].goal_ids == ["GOAL-DELIVERY"]
+    assert tasks["L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"].goal_ids == ["GOAL-MATURITY"]
     local_poc_children = {
         task.task_id
         for task in graph.taskcards
@@ -137,6 +180,76 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert coverage.source_sha256 == hashlib.sha256(requirements_path.read_bytes()).hexdigest()
 
 
+@pytest.mark.parametrize(
+    ("mutation", "message"),
+    [
+        (lambda task: task.pop("goal_ids"), "invalid mission task graph"),
+        (
+            lambda task: task.update(goal_ids=["GOAL-NARRATIVE-ONLY"]),
+            "invalid mission task graph",
+        ),
+        (
+            lambda task: task["core_contribution"].update(
+                summary="complete the task and support the mission"
+            ),
+            "vague core contribution",
+        ),
+    ],
+)
+def test_graph_rejects_missing_unknown_or_vague_goal_bindings(tmp_path, mutation, message):
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    mutation(raw["taskcards"][0])
+    invalid = tmp_path / "invalid-goal-binding.yaml"
+    invalid.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match=message):
+        load_mission_graph(invalid)
+
+
+def test_dynamic_scoreboard_counts_durable_lifecycle_progress(tmp_path):
+    products = list(load_products())[:6]
+    products_path = tmp_path / "products.json"
+    source_products = json.loads((REPO_ROOT / "data" / "products.json").read_text(encoding="utf-8"))
+    selected_org_repos = {entry.org_repo for entry in products}
+    products_path.write_text(
+        json.dumps(
+            [
+                item
+                for item in source_products
+                if f"{item['repo_url'].split('/')[3]}/{item['repo_name']}" in selected_org_repos
+            ]
+        ),
+        encoding="utf-8",
+    )
+    backend = _MemoryStateBackend()
+    statuses = (
+        "FACTS_READY",
+        "CANDIDATE_GENERATED",
+        "DETERMINISTIC_VALIDATED",
+        "AGENT_APPROVED",
+        "NO_OP_PROVEN",
+        "HUMAN_ACCEPTED",
+    )
+    for entry, status in zip(products, statuses, strict=True):
+        backend.records[entry.org_repo] = RunStateV1(
+            org_repo=entry.org_repo,
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(status=status),
+        )
+
+    scoreboard = derive_lifecycle_scoreboard(backend, products_path=products_path)
+
+    assert scoreboard.denominator == 6
+    assert (
+        scoreboard.facts_ready,
+        scoreboard.candidate_generated,
+        scoreboard.deterministic_validated,
+        scoreboard.agent_approved,
+        scoreboard.no_op_proven,
+        scoreboard.human_accepted,
+    ) == (6, 5, 4, 3, 2, 1)
+    assert scoreboard.first_failing_boundary == "CANDIDATE_GENERATED"
+
+
 def test_requirement_coverage_classifier_handles_every_extractor_status():
     extractor = _load_tool_module(
         "extract_requirements_for_status_contract",
@@ -163,7 +276,13 @@ def test_evaluate_initializes_and_preserves_the_bootstrap_claim():
     assert state is not None
     assert state.active_task_id == "L8-MISSION-CONTROL-CONSUMER"
     assert state.task_statuses[state.active_task_id] == "IN_PROGRESS"
-    assert evaluate_mission(graph, state).mission_complete is False
+    evaluation = evaluate_mission(graph, state)
+    assert evaluation.mission_complete is False
+    assert state.lifecycle_scoreboard is not None
+    assert state.lifecycle_scoreboard.denominator == len(load_products())
+    assert state.next_task is not None
+    assert state.next_task.task_id == state.active_task_id
+    assert evaluation.core_goal_active is True
 
 
 def test_read_only_evaluation_accepts_a_new_graph_task_before_state_reconciliation():
@@ -199,11 +318,13 @@ def test_claim_is_idempotent_while_a_task_is_already_active():
     assert second.state_version == first.state_version
 
 
-def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task():
+def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task(tmp_path):
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     backend = _MemoryStateBackend()
     persist_evaluation(backend, graph, graph_hash)
     task_id = "L8-MISSION-CONTROL-CONSUMER"
+    task = next(task for task in graph.taskcards if task.task_id == task_id)
+    contribution_evidence = _write_contribution_evidence(tmp_path, backend, task)
 
     for status in ("IMPLEMENTED", "VERIFIED", "SCORED", "CLOSED"):
         record = transition_task(
@@ -214,19 +335,24 @@ def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task():
             to_status=status,
             observed_by="test-verifier",
             reason=f"test transition to {status}",
-            evidence_refs=[f"evidence/{status.lower()}.json"],
+            evidence_refs=(
+                [str(contribution_evidence)]
+                if status == "CLOSED"
+                else [f"evidence/{status.lower()}.json"]
+            ),
         )
 
     state = record.mission_execution
     assert state is not None
     evaluation = evaluate_mission(graph, state)
     assert [task.task_id for task in evaluation.eligible_tasks] == [
-        "L8-REQUIREMENT-TO-TASKCARD-COVERAGE"
+        "L8-MISSION-GOAL-GUARD",
+        "L8-REQUIREMENT-TO-TASKCARD-COVERAGE",
     ]
 
     claimed = claim_next_task(backend, graph, graph_hash, claimed_by="test-worker")
     assert claimed.mission_execution is not None
-    assert claimed.mission_execution.active_task_id == "L8-REQUIREMENT-TO-TASKCARD-COVERAGE"
+    assert claimed.mission_execution.active_task_id == "L8-MISSION-GOAL-GUARD"
 
 
 def test_rerouted_parent_does_not_unlock_dependent_tasks():
@@ -247,7 +373,7 @@ def test_rerouted_parent_does_not_unlock_dependent_tasks():
 
     eligible = [task.task_id for task in evaluate_mission(graph, state).eligible_tasks]
 
-    assert eligible == []
+    assert eligible == ["L8-MISSION-GOAL-GUARD"]
     assert "L8-WAVE1-CANONICAL-SAFETY-SPINE" not in eligible
 
 
@@ -317,6 +443,29 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
             observed_by="test",
             reason="no evidence",
             evidence_refs=[],
+        )
+
+    for status in ("IMPLEMENTED", "VERIFIED", "SCORED"):
+        transition_task(
+            backend,
+            graph,
+            graph_hash,
+            task_id="L8-MISSION-CONTROL-CONSUMER",
+            to_status=status,
+            observed_by="test",
+            reason=f"reach {status} for closure guard",
+            evidence_refs=[f"evidence/{status.lower()}.json"],
+        )
+    with pytest.raises(ConfigError, match="valid contribution evidence"):
+        transition_task(
+            backend,
+            graph,
+            graph_hash,
+            task_id="L8-MISSION-CONTROL-CONSUMER",
+            to_status="CLOSED",
+            observed_by="test",
+            reason="ordinary report cannot close the task",
+            evidence_refs=["evidence/report.json"],
         )
 
 

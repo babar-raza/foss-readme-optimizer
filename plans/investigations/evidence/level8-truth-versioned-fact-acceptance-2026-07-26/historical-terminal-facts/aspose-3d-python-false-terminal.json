@@ -1,0 +1,431 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "3d",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "manifest_names": [
+          "aspose-3d-foss"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://setup.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:agent-drafted-grounded",
+      "field": "product.audience",
+      "value": [
+        "Developers using python for Create and manipulate 3D scenes"
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.audience",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": "2026-07-26T06:22:37.468549+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:agent-drafted-grounded",
+      "field": "product.problems_solved",
+      "value": [
+        "Create and manipulate 3D scenes",
+        "Hierarchical node structure",
+        "Mesh and entity management",
+        "Material system with Lambert, Phong, and PBR materials"
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.problems_solved",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": "2026-07-26T06:22:37.468549+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": {
+        "assertions": [
+          "Create and manipulate 3D scenes",
+          "Hierarchical node structure",
+          "Mesh and entity management",
+          "Material system with Lambert, Phong, and PBR materials",
+          "Vector math (Vector2, Vector3, Vector4, Matrix4, Quaternion)",
+          "Triangulation support for polygon conversion",
+          "Keyframe animation support"
+        ],
+        "evidence_failures": [
+          "required evidence symbol missing: Transform",
+          "required evidence symbol missing: LambertMaterial",
+          "required evidence symbol missing: PhongMaterial",
+          "required evidence symbol missing: PbrMaterial",
+          "required evidence symbol missing: triangulate",
+          "required evidence symbol missing: PolygonModifier"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,aspose/threed/A3DObject.py,aspose/threed/AssetInfo.py,aspose/threed/BonePose.py,aspose/threed/Entity.py,aspose/threed/INamedObject.py,docs/foss-python-progress.md",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": "2026-07-26T06:22:37.468549+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": {
+        "assertions": [
+          "OBJ - Wavefront OBJ with full material support",
+          "GLTF - GL Transmission Format (glTF 2.0)",
+          "STL - Stereo Lithography format",
+          "3MF - 3D Manufacturing Format"
+        ],
+        "evidence_failures": [
+          "required evidence symbol missing: GltfLoadOptions",
+          "required evidence symbol missing: GltfSaveOptions",
+          "required evidence symbol missing: GltfImporter",
+          "required evidence symbol missing: ThreeMfLoadOptions"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,aspose/threed/FileFormat.py,docs/IMPLEMENTATION_SUMMARY.md,docs/OBJ_IMPORTER_IMPLEMENTATION.md,docs/STL_IMPORT_IMPLEMENTATION.md,tests/test_3mf_exporter.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": "2026-07-26T06:22:37.468549+00:00"
+      },
+      "verification_state": "blocked",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "python"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://setup.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "python",
+          "manifest_path": "setup.py",
+          "name": "aspose-3d-foss",
+          "version": "26.1.0"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://setup.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:disposable-source-build",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "method": "source_build",
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "detail": "source build and exact README example compilation passed"
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-product-verification://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:agent-drafted-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "python",
+        "class_name": "readme_example",
+        "code": "from aspose.threed import Scene\nfrom aspose.threed.formats.obj import ObjLoadOptions\n\n# Create a new scene\nscene = Scene()\n\n# Import an OBJ file\noptions = ObjLoadOptions()\noptions.enable_materials = True\noptions.flip_coordinate_system = False\nscene.open(\"model.obj\", options)\n\n# Access imported data\nfor node in scene.root_node.child_nodes:\n    if node.entity:\n        mesh = node.entity\n        print(f\"Mesh: {node.name}\")\n        print(f\"  Vertices: {len(mesh.control_points)}\")\n        print(f\"  Polygons: {mesh.polygon_count}\")\n",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED",
+        "verification_detail": "source build and exact README example compilation passed"
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://example.minimal",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": "2026-07-26T06:22:37.468549+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/3d/python/",
+          "family_url": "https://products.aspose.org/3d/",
+          "label": "Aspose.3D FOSS for Python",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/3d/python-net/",
+          "family_url": "https://products.aspose.com/3d",
+          "label": "Aspose.3D for Python",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "version": "26.1.0",
+          "active": true
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://setup.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": [],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": "2026-07-26T06:22:37.468549+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:missing",
+      "field": "product.compatibility",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "conflicts": [],
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:agent-drafted-grounded",
+    "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:disposable-source-build",
+    "example.minimal": "example.minimal:agent-drafted-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:missing",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  }
+}

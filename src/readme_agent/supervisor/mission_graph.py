@@ -8,6 +8,24 @@ import yaml
 from readme_agent.errors import ConfigError
 from readme_agent.supervisor.mission_schema import MissionTaskGraphV1, TaskCardV1
 
+_CORE_GOAL_ID = "GOAL-CORE-PRESENTABLE-PORTFOLIO"
+_SUBORDINATE_GOAL_IDS = {
+    "GOAL-TRUTH",
+    "GOAL-README",
+    "GOAL-PROFILE",
+    "GOAL-AUTONOMY",
+    "GOAL-DELIVERY",
+    "GOAL-MATURITY",
+}
+_VAGUE_CONTRIBUTIONS = {
+    "complete the task",
+    "complete the task and support the mission",
+    "improve the system",
+    "support the mission",
+    "continue the plan",
+    "tbd",
+}
+
 
 def load_mission_graph(path: Path) -> tuple[MissionTaskGraphV1, str]:
     """Load one escape-safe YAML graph and return it with its byte hash."""
@@ -31,6 +49,16 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
         raise ConfigError("mission must stay locked to autonomous_supervision")
     if not authority.mission_locked:
         raise ConfigError("mission_authority.mission_locked must be true")
+    goal_ids = [goal.goal_id for goal in authority.goal_catalog]
+    if len(goal_ids) != len(set(goal_ids)):
+        raise ConfigError("mission goal_catalog contains duplicate goal IDs")
+    if authority.core_goal_id != _CORE_GOAL_ID:
+        raise ConfigError(f"mission core goal must remain {_CORE_GOAL_ID}")
+    if set(goal_ids) != {_CORE_GOAL_ID, *_SUBORDINATE_GOAL_IDS}:
+        raise ConfigError("mission goal_catalog does not define the complete governed hierarchy")
+    core_goals = [goal for goal in authority.goal_catalog if goal.role == "core"]
+    if len(core_goals) != 1 or core_goals[0].goal_id != _CORE_GOAL_ID:
+        raise ConfigError("mission goal_catalog must contain exactly one governed core goal")
 
     by_id: dict[str, TaskCardV1] = {}
     for task in graph.taskcards:
@@ -40,6 +68,17 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
             raise ConfigError(
                 f"task {task.task_id!r} belongs to {task.mission_id!r}, "
                 f"not mission {authority.mission_id!r}"
+            )
+        if len(task.goal_ids) != len(set(task.goal_ids)):
+            raise ConfigError(f"task {task.task_id!r} has duplicate goal_ids")
+        if not set(task.goal_ids) <= _SUBORDINATE_GOAL_IDS:
+            raise ConfigError(f"task {task.task_id!r} has an unknown subordinate goal")
+        summary = " ".join(task.core_contribution.summary.lower().split())
+        if summary in _VAGUE_CONTRIBUTIONS:
+            raise ConfigError(f"task {task.task_id!r} has a vague core contribution")
+        if summary == " ".join(task.why_it_matters.lower().split()):
+            raise ConfigError(
+                f"task {task.task_id!r} uses rationale instead of a concrete core contribution"
             )
         by_id[task.task_id] = task
 

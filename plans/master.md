@@ -23,7 +23,7 @@ approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
   intent and positioning that code cannot prove. Existing README prose is a claim to verify,
   never truth merely because it already exists.
 - **Credibility first, referral value second.** The system helps a developer understand,
-  acquire, use, and trust each FOSS product before presenting relevant commercial context.
+  acquire, use, and trust each FOSS product before presenting relevant Enterprise Edition context.
   Referral reporting is an outcome metric; it may never override factuality, ownership, or trust.
 - **Central repository-presentation system, not a generic README rewriter.** The system assesses
   every applicable presentation surface, produces repository-specific plans, changes only
@@ -48,6 +48,39 @@ approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
   controlled Level-5 pilot; heterogeneous production evidence and 30 clean days establish
   Levels 6–7; Level 8 requires an independently reproducible 90-day unattended proof.
 
+### Goal hierarchy and anti-drift contract
+
+`GOAL-CORE-PRESENTABLE-PORTFOLIO` is always active until the mission closes: every current
+`data/products.json` repository must receive a professional, product-specific, factually
+accountable README and GitHub-profile bundle, independently approved and unchanged-no-op-proven
+locally, then pass the ordered human, publication, production, and maturity gates. A task, test,
+schema, report, evidence bundle, or maturity label is never a substitute for that visitor-facing
+deliverable.
+
+Six subordinate goals organize necessary work without becoming alternate destinations:
+
+1. `GOAL-TRUTH` supplies verified product, acquisition, example, compatibility, limitation, and
+   link facts required by the deliverable.
+2. `GOAL-README` produces the actual visitor-facing README, patch, claim map, visual, validation,
+   independent approval, repair, and no-op proof.
+3. `GOAL-PROFILE` produces the repository description, homepage, topics, community-file findings,
+   generated-surface observations, and product illustration package.
+4. `GOAL-AUTONOMY` makes the same deliverable repeatable, restartable, isolated, idempotent,
+   evidence-complete, and safe through `supervise`.
+5. `GOAL-DELIVERY` proves Gate B, `act`, staging, Gate C, and hosted GitHub App operation in the
+   required order.
+6. `GOAL-MATURITY` proves the complete presentation portfolio over the Level-5 pilot and the
+   independently audited 30-day and 90-day operating windows.
+
+Every executable task must state which subordinate goal it serves and identify one concrete core
+contribution: a visible deliverable produced, a first failing boundary removed, a safety condition
+without which the deliverable cannot run, or required acceptance proof completed. Work that does
+none of these is backlog, not critical-path execution. After every task transition, the durable
+status view must recompute the dynamic registry denominator and counts for `FACTS_READY`,
+`CANDIDATE_GENERATED`, `DETERMINISTIC_VALIDATED`, `AGENT_APPROVED`, `NO_OP_PROVEN`, and
+`HUMAN_ACCEPTED`, plus the first failing boundary and exact next task. Closing a machinery task
+without improving one of those states or removing its evidenced blocker is a drift failure.
+
 ## Status
 
 The repository has a substantial capability, safety, authorization, state, specialist, evidence,
@@ -55,25 +88,22 @@ and proposal foundation, but it is **not Level 8**. The only active sequence is 
 Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-requirement counts,
 `logs/` for history; evidence bundles live under `plans/investigations/evidence/`.
 
-- **Wave 0 — truth consolidation** (2026-07-23, complete): working-tree candidates inventoried
-  without implicit acceptance; all 85 semantic-closure findings consumed (76 proven, 9 downgraded
-  to `PARTIAL`); a fresh `--no-local` clone of `146d81d` passed the full check suite. Evidence:
-  `level8-semantic-closure-verification.json`, `implementation-truth-matrix-2026/`,
-  `level8-requirement-taskcard-coverage/`, `level8-wave0-fresh-clone-head-reproduction/`.
-- **Wave 1 — canonical correctness & safety spine** (2026-07-23, complete): `supervise_repo()` is
-  the only production runtime; all 23 capabilities are typed and gated (verifier, authorization,
-  effect ledger); heterogeneous false-success statuses replay as `BLOCKED`. Commit `0169964`;
-  evidence `level8-wave1-heterogeneous-fail-closed-2026-07-23/`.
+- **Wave 0 — truth consolidation** (2026-07-23, complete): 85 semantic findings consumed and fresh
+  clone `146d81d` passed official checks; exact evidence is indexed in the 2026-07-23 log.
+- **Wave 1 — canonical safety spine** (2026-07-23, complete): `supervise_repo()` is the only
+  production runtime and heterogeneous false-success cases fail closed (commit `0169964`).
 
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
-under `act` → isolated staging → production**. At the 2026-07-26 checkpoint, durable mission
-state version 147 has active task `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`; its claim lease expired and
-must be recovered through mission evaluation. The current local evidence is partial: the registry
-denominator is 31, ten revision directories contain manifests, and only one current reviewer-v8
-bundle is no-op-proven. Two concurrent portfolio writers were stopped; their overlapping output is
-diagnostic, not acceptance evidence. **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind the local,
-`act`, staging, and ordered Gate A/B/C prerequisites; it is not the active implementation wave.**
+under `act` → isolated staging → production**. At the latest 2026-07-26 read-only checkpoint,
+durable mission state version 158 records active task `L8-TRUTH-01A-FACT-CONTRACT`; the reviewed
+91-task graph and 424-row requirement coverage validate at SHA-256
+`cc06a302611adac69bab94d52341750f4061ab9a96a9ad0a5e6cbca69e5e5095`, but durable status correctly
+reports graph drift until mission `evaluate` migrates the added tasks without stealing a live
+claim or deleting transition history. Local evidence remains partial and existing bundles cannot
+prove their real LLM call counts; absent transport evidence is `UNKNOWN_LEGACY`, not zero.
+**Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
+acceptance; it is not the active implementation wave.**
 
 **Corrected near-term target (decision #78).** Gate A is system proof across every runtime-loaded
 `data/products.json` entry: a default-branch-based, agent-approved, no-op-proven local README
@@ -87,6 +117,9 @@ composition, live review, repair, and no-op, so fixes restarted expensive downst
 governed correction is stage-bounded `supervise`, atomic child tasks, seven-ecosystem
 qualification, a frozen campaign, and only then full-registry fan-out. Requirements `L8-015`
 through `L8-017` and the `L8-TRUTH-*` through `L8-GATEA-*` task groups define those boundaries.
+Decision #80 adds the immediate prerequisites before further paid fan-out: exact per-README LLM
+accounting, prompt-registry hygiene, and pinned committed Python/TypeScript/Rust public-consumer
+truth adapted from `aspose.org`.
 
 `plans/requirements.md` is the normative obligation register; `logs/` is history;
 `plans/investigations/control/level8-autonomous-mission-task-graph.yaml` is the execution overlay
@@ -1597,11 +1630,16 @@ that is the only permanence they carry; text is always the decision as it stands
     accepted Wave 6 proof. Waves are **not renumbered** — renumbering would break existing
     external references to wave numbers — instead the Wave 5 and Wave 6 Build Checklist entries
     below carry this corrected precedence as explicit added language. Two related standing
-    constraints, also charter-directed: the existing README and any product-agent content remain
-    evidence to investigate, never unquestioned truth and never disposable input; LLM/agentic
-    reasoning is required for repository interpretation, product/platform-aware selection, and
-    composition; and deterministic code supplies safety/validation around that judgment rather
-    than replacing it. **Execution granularity correction (2026-07-26):** the canonical supervisor
+    constraints, also charter-directed: the existing README is presumed valuable because it was
+    curated by the product-development agent, but it is not presumed true. Every material claim,
+    command, example, limitation, terminology choice, and maintainer-authored explanation is
+    inventoried and preferentially reused only after accepted fact or authoritative-owner
+    validation. Contradicted content is corrected with evidence; unresolved content is omitted or
+    retained only as explicit uncertainty for owner resolution. Wholesale regeneration may not
+    discard it merely for convenience. LLM/agentic reasoning is required for repository
+    interpretation, product/platform-aware selection, and composition; deterministic code supplies
+    safety/validation around that judgment rather than replacing it. **Execution granularity
+    correction (2026-07-26):** the canonical supervisor
     remains the only runtime, but local execution is stage-bounded. Product truth, composition,
     independent review/repair, heterogeneous qualification, and Gate-A fan-out close as separate
     dependency-ordered task groups. A frozen Gate-A campaign binds control HEAD, registry and
@@ -1612,6 +1650,119 @@ that is the only permanence they carry; text is always the decision as it stands
     measures progress against the runtime denominator. See `plans/idea.md`'s
     "README POC Readiness and Ordered Delivery Gates" section; `plans/requirements.md` `FACT-017`,
     `VER-011`, `ORC-009`, `PIL-015`, `PIL-016`, `AUTH-008`, `GOV-029`, and `L8-015`–`L8-017`.
+
+79. **README candidates are visitor-facing documents, not containers for agent metadata.** Prompted
+    directly by user review (2026-07-26): generated README output must contain no HTML comments,
+    ownership markers, hashes, or other agent-internal annotations. Durable plans, manifests, and
+    state retain provenance and idempotency data outside the README. Every candidate adopts a
+    consistent, fact-backed header: preserve or derive one factual H1 and render only verified
+    package, download, and license badges applicable to that repository. The opening README must
+    never lead with `aspose.org` or `aspose.com` links or promotional language. Verified product
+    links belong in the separate, fact-backed repository-metadata proposal and may also be woven
+    naturally into relevant below-the-fold prose or end-of-document resources. They must support
+    the reader's current task, preserve the meaning and tone of the surrounding section, and never
+    appear as a forced link quota, repetitive call to action, keyword-stuffed sentence, or
+    standalone promotional block. Link allocation is policy-configurable. A configured policy
+    supplies maximum total slots, maximum `aspose.org` and `aspose.com` slots, and maximum
+    `products`, `docs`, `kb`, `blog`, and `reference` surface slots; those configured maxima
+    replace automatic allocation for that repository. In automatic mode, a Markdown-AST pass
+    computes pre-link content units as visible prose words plus 100 units per verified code-example
+    block, excluding URLs, badges, HTML comments, and Mermaid source. The maximum total is 2 for at
+    most 600 units, 3 for 601–1,200, 4 for 1,201–2,000, 5 for 2,001–3,000, and 6 above 3,000.
+    Automatic parent-domain maxima are `ceil(total/2)` for `aspose.org` and
+    `ceil(2*total/3)` for `aspose.com`. Automatic surface maxima are two each for `products`,
+    `docs`, `kb`, and `reference` (bounded by total) and one for `blog`; contextual demand,
+    family/platform correctness, and the overall maximum determine which slots are actually used.
+    Markdown links, autolinks, raw URLs, image targets, and HTML link targets all count; repeating
+    the same destination counts again. Zero is valid, every number is a ceiling rather than a
+    target, and unused slots remain empty. Configuration overrides the automatic allocation only;
+    it can never override factual support, URL verification, contextual relevance, opening
+    placement, independent review, or anti-promotion controls. Relative repository links and the
+    separate GitHub About/homepage proposal are outside this README-only count. It must never invent a
+    build, release, download, package, support, or status claim. Every `At a glance` section includes a
+    deterministic Mermaid flowchart with bounded, sanitized labels derived only from accepted
+    identity, audience, problem, capability, or format facts; unavailable branches are omitted,
+    never guessed. Legacy marker-wrapped input remains readable solely for migration, but a
+    regenerated candidate strips it. The header and diagram are deterministic validator inputs,
+    not an LLM-only styling convention. See `L8-021` and
+    `L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT`. The same task produces the separate GitHub profile
+    proposal: product-first description, approved product homepage, exhaustive fact-derived topics,
+    and observations for generated releases, packages, contributors, and languages. It audits the
+    repository-file tabs for `CODE_OF_CONDUCT`, `LICENSE`, `CONTRIBUTING`, and `SECURITY`, and
+    prepares a provenance-recorded AI-generated product illustration for README use. GitHub UI
+    tabs and generated signals are never falsely claimed as automated effects. Any Aspose URL is
+    selected only from its domain-appropriate catalog with `http_status == 200`; no renderer,
+    policy, planner, or agent may construct an Aspose URL from family/platform strings. Direct
+    contextual relevance has first priority: a verified docs, KB, or reference article that
+    explains the exact adjacent API, workflow, format, or code example outranks a generic product
+    landing page. Among equally useful destinations, verified `products.aspose.org` and
+    `products.aspose.com` entries have priority over other Aspose subdomains.
+    The FOSS/platform-specific `products.aspose.org` entry is preferred for the GitHub homepage
+    proposal when available; a `products.aspose.com` entry is used where the prose truthfully
+    explains or compares the corresponding Enterprise Edition. Priority is a tie-breaker among
+    useful links, not a requirement to include either domain, and never overrides the opening-link
+    prohibition or README link ceilings. The misleading combined catalog is migrated into two
+    concrete governed datasets: `data/aspose_com_links.json` for `*.aspose.com` and
+    `data/aspose_org_links.json` for `*.aspose.org`. Both are produced by one shared deterministic
+    generator core and use the same provenance, HTTP-verification, output-hash, atomic-write, and
+    non-empty-output contract. The initial `.org` catalog losslessly preserves the 36 previously
+    live-probed records removed from the `.com` catalog; remaining generator work populates it from
+    discoverable source/sitemap URLs plus the dynamic registry scope and then live verifies each
+    candidate. String construction alone never establishes a valid link. Consumers read the
+    domain-appropriate catalog through one typed lookup seam. Contextual article records include
+    target title, family, platform/ecosystem where applicable, subject/API terms, verification
+    time, and source/sitemap provenance. Every selected link records the exact candidate section,
+    claim, or code-example ID it supports and why the target adds useful detail. A merely
+    product-related, lexically similar, or promotional target is not contextual. See `L8-022` and
+    `L8-023`. Every visitor-facing `aspose.com` product reference uses the verified product name
+    plus the exact title-cased descriptor `Enterprise Edition`. `Commercial edition`,
+    `On-Premise edition`, `paid version`, `full version`, `proprietary edition`, and similar
+    substitutes are prohibited output terminology. Legacy source prose using those terms is an
+    explicit correction input, not protected wording to preserve. Machine-only compatibility
+    identifiers may retain older internal taxonomy but may never render. See `L8-026`.
+
+80. **Count LLM work at the transport boundary, keep prompts as a closed registry, and adapt
+    proven ecosystem truth instead of retrying weak manifest-only paths.** The 2026-07-26 audit
+    found that `RunManifestV2.llm_call_count` defaults to zero while canonical supervisor call
+    sites do not populate it centrally. The older writer proves only caller-supplied legacy
+    counts. Consequently, the existing 3D Java candidate cannot currently answer how many LLM
+    provider calls produced it; its historical count is `UNKNOWN_LEGACY`, not zero. Before another
+    paid representative or portfolio campaign, one append-only redacted `LlmCallRecordV1` ledger
+    is emitted at the shared live/fixture client-provider seam for every attempt and cache reuse.
+    It binds call ID, repository/revision, run/campaign/stage, job/capability, prompt ID/hash,
+    provider/model, attempt, timing, outcome, request/response hashes, and provider-reported tokens.
+    Retries and failed/time-out attempts count; cache hits are separately visible. Per-README and
+    portfolio manifests reconcile unique records, expose per-job totals and cost when a versioned
+    pricing source exists, and fail closed on inconsistency. Raw prompts/responses and secrets
+    never enter this ledger. An unchanged no-op makes zero new provider calls for unchanged jobs.
+
+    The prompt registry is a closed active set, not an archive or scratchpad. Each manifest declares
+    one owner, job, runtime consumer, input/output contract, and dependency/invalidation scope.
+    A blocking inventory reconciles `prompts/`, `JOB_MODEL_ROUTING`, registry entries, call sites,
+    and documentation; orphaned files/routes, duplicate semantic jobs, unregistered or inline
+    prompt content, stale documentation, and removal of a referenced prompt fail before paid
+    fan-out. Git history is the archive; timestamped prompt copies are prohibited.
+
+    The same audit traced the Python and TypeScript Gate-A blocks to missing public-consumer-surface
+    truth, not to a need for more prose calls. This repository currently parses their manifests
+    and performs weak detached checks, while the sibling `aspose.org` pipeline already has
+    committed tree-sitter extraction, package-root resolution, re-export/public-API analysis,
+    snippets, formats, and tests for Python and TypeScript, plus mature Rust support. Reuse is
+    adaptation, not a runtime dependency or wholesale copy: read committed sources through Git,
+    pin commit/path/hash/license/test provenance, compare contracts, and port the smallest behavior
+    behind this project's ecosystem registry, `ProductFactsV2`, isolated executor, and validators.
+    The pinned baseline is sibling HEAD
+    `512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9`; Python's stacked-property regression is
+    `08a861ad37b395c4db9432a6071f8dce42adfc6f`; Rust's implementation/hardening commits are
+    `e131074708b17a85e078d3ba0939a0d126ea525a`,
+    `e157b7ff992e8f6f48a969644b66422a653e75ba`, and
+    `abd634df3d9b2060b77b98aa9d6788553573ceea`. The sibling working tree is dirty, so only committed
+    blobs and tests are admissible evidence. Python must prove canonical imports and selected
+    public symbols in an installed isolated consumer. TypeScript must resolve real package
+    exports/declarations and compile against a pinned packed/built artifact in an isolated
+    consumer project. Rust must prove Cargo/lib identity, visibility, modules/re-exports, impls,
+    examples, and format direction. These tasks precede claim polarity, acquisition/example
+    qualification, and all further heterogeneous LLM campaigns. See `L8-027`–`L8-032`.
 
 ## Architecture
 
@@ -1666,6 +1817,9 @@ or effect identity is uncertain. Production profiles never accept PAT/`GH_TOKEN`
   timestamps, and failure classification.
 - `ProductFactsV2`: stable fact IDs, values, provenance, revision/time, verification, owner,
   confidence, conflicts, and affected surfaces.
+- `LlmCallRecordV1`: one redacted append-only provider-attempt or cache-reuse record bound to
+  repository/revision, run/campaign/stage, job, prompt hash, provider/model, attempt, timing,
+  outcome, hashes, tokens, and optional versioned cost.
 - `RepositoryPresentationPlanV1`: findings, surface actions, dependencies, fact citations,
   ownership class, operation, validators, rollback, and stop conditions.
 - `VerifiedProposalV1`: immutable base revision, facts/plan/candidate hashes, validation and
@@ -1677,6 +1831,9 @@ or effect identity is uncertain. Production profiles never accept PAT/`GH_TOKEN`
 
 All contracts have explicit migrations from supported older schemas. Unknown/newer versions fail
 closed. Recovery resumes or reconciles from checkpoints; it does not infer success from absence.
+Prompt manifests and ecosystem-adaptation provenance are campaign dependencies: a prompt inventory
+or adapter/source-test mismatch blocks dependent fan-out and invalidates only the earliest affected
+stage.
 
 ### Facts and surface ownership
 
@@ -2050,12 +2207,13 @@ new work. The normative obligations they must satisfy are maintained separately 
 research outputs. **Status (2026-07-18): deliverables 1 and 2 are complete; deliverable 3 remains
 open, blocked on analytics access this environment does not have.**
 
-1. **Product-presentation standard** → `docs/presentation-standard.md` — **delivered**. Studied
+1. **Product-presentation standard** → `docs/presentation-standard.md` — **partial pending
+   Enterprise Edition terminology reconciliation (`L8-026`)**. Studied
    `n8n-io/n8n`, four additional leading FOSS/dual-license repositories (iText, EPPlus, SheetJS,
    Apache PDFBox — exceeding the required 2–3), and the NuGet Aspose.Cells page. Defines the ten
    required principles (product clarity, audience fit, trust signals, installation path, verified
    examples, navigation, visual usefulness, contribution readiness, maintenance signals, natural
-   commercial context), first-screen/first-minute/first-install criteria, the
+   Enterprise Edition context), first-screen/first-minute/first-install criteria, the
    illustration-vs-social-preview distinction, a ten-point Phase-21 review checklist, and three
    deliberately different reference patterns by product type.
 
@@ -2112,10 +2270,11 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 - [ ] **Local pre-production Gate A — atomic idea-fidelity proof**
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
         immutable revision bundles, and mandatory dynamic planning foundation.
-  - [ ] Product truth: implement the stage ceiling, package-root roles, claim polarity,
-        current-contract cache revalidation, OS-isolated acquisition/public examples, render
-        views, seven-ecosystem proof, and facts-only full-registry preflight (`L8-TRUTH-*` task
-        group).
+  - [ ] Product truth: implement the stage ceiling and cache revalidation; install transport-level
+        per-README LLM accounting and the blocking prompt inventory; adapt pinned committed
+        `aspose.org` Python, TypeScript, and Rust public-consumer-surface behavior; then complete
+        package-root roles, claim polarity, OS-isolated acquisition/public examples, render views,
+        seven-ecosystem proof, and facts-only full-registry preflight (`L8-TRUTH-*` task group).
   - [ ] Composition: split active monoliths, reconcile existing sections, require complete
         operation and inherited-claim coverage, enforce presentation lint, and produce seven
         deterministic candidates (`L8-COMPOSE-*` task group).
@@ -2220,6 +2379,17 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       without composition/reviewer calls or later lifecycle claims; every later stage has the same
       fail-closed ceiling behavior; cached terminal states are re-evaluated against the current
       fact-acceptance contract.
+- [ ] **LLM-accounting gate:** every provider attempt, retry, failure, timeout, and cache reuse is
+      transport-recorded and reconciled by README/revision/stage/job in manifests and portfolio
+      summaries; legacy unknowns are explicit; unchanged no-op jobs make zero new provider calls.
+- [ ] **Prompt-hygiene gate:** active prompt files, registry entries, model routes, call sites,
+      owners/consumers, documentation, and dependency hashes reconcile exactly; orphan, duplicate,
+      inline, stale, or still-referenced deletion controls fail before a paid campaign.
+- [ ] **Python/TypeScript/Rust truth gate:** committed `aspose.org` source/test provenance is
+      reconstructable and adapted without runtime sibling dependency; Python selected imports and
+      public symbols, TypeScript package exports/declarations and disposable consumer compilation,
+      and Rust visibility/re-exports/impls/examples all pass real representative and negative
+      controls.
 - [ ] **Local untrusted-execution gate:** source builds and examples for every supported ecosystem
       run in a disposable OS-isolated, resource-bounded, network-governed environment; hostile
       repository/dependency code cannot access the operator host or leave descendants.

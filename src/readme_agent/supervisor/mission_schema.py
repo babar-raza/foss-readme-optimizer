@@ -4,6 +4,12 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from readme_agent.state.mission_goal_schema import (
+    CoreContributionV1,
+    MissionGoalDefinitionV1,
+    MissionGoalId,
+    SubordinateGoalId,
+)
 from readme_agent.state.schema import MissionTaskStatus
 
 
@@ -35,6 +41,8 @@ class MissionAuthorityV1(_StrictModel):
     out_of_scope_items: list[str]
     mandatory_acceptance_criteria: list[str]
     conflicts_found: list[str]
+    core_goal_id: MissionGoalId
+    goal_catalog: list[MissionGoalDefinitionV1]
     mission_locked: bool
 
 
@@ -85,6 +93,8 @@ class TaskCardV1(_StrictModel):
     rollback_or_recovery: str
     failure_reroute: str
     closeout_rules: list[str]
+    goal_ids: list[SubordinateGoalId] = Field(min_length=1)
+    core_contribution: CoreContributionV1
     requirement_ids: list[str] = Field(default_factory=list)
     blocker_attempts: list[BlockerAttemptV1] = Field(default_factory=list)
     exact_external_action: str | None = None
@@ -128,7 +138,7 @@ class RequirementCoverageV1(_StrictModel):
 
 
 class MissionTaskGraphV1(_StrictModel):
-    schema_version: Literal[1]
+    schema_version: Literal[2]
     autonomous_execution_contract: AutonomousExecutionContractV1
     mission_authority: MissionAuthorityV1
     verified_baseline: dict

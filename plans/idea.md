@@ -15,8 +15,23 @@ The product should therefore come first. A visitor should be able to understand 
 - how to install and use it; and
 - whether it is actively maintained.
 
-Links to Aspose and the related commercial product should then be included naturally where they
-provide useful context.
+Links to Aspose and the related Enterprise Edition should then be included naturally where they
+provide useful context. Every visitor-facing reference to an `aspose.com` product uses
+**Enterprise Edition** as its edition name—never “commercial edition,” “On-Premise edition,”
+“paid version,” “full version,” or another substitute. “Context” means direct reader utility in
+the surrounding content: when a
+README shows a code example, format workflow, command, or API, a verified documentation, knowledge
+base, or reference article that explains that exact material may be linked in the adjacent prose.
+A generic product page is not a contextual substitute for a more useful exact article. If no
+verified target directly helps with the nearby content, the natural result is no link.
+
+Aspose-link density must adapt to the README rather than follow a universal quota. Repository
+policy may explicitly configure maximum total, `aspose.org`/`aspose.com`, and
+`products`/`docs`/`kb`/`blog`/`reference` slots. When it does, those configured maxima replace the
+automatic allocation. Otherwise the system derives conservative maxima deterministically from
+the README's visible content size and verified code examples. Every slot is a ceiling, not a
+target; configuration or available capacity never justifies an irrelevant, unverified, repetitive,
+awkward, or promotional link.
 
 ## Production-Readiness Standard
 
@@ -36,6 +51,11 @@ when necessary, and continuously improve repository READMEs using verified repos
 baseline outcome is non-negotiable and must not be displaced by broader presentation features,
 research work, or infrastructure development. It must be achieved while preserving the system's
 truthfulness, safety, verification, and repository-protection requirements.
+
+That core deliverable remains active throughout execution. Product truth, README composition,
+GitHub-profile presentation, autonomous operation, delivery, and maturity are subordinate goals
+that organize necessary work; none may replace the full-registry presentable outcome or become a
+stopping point merely because its machinery, tests, or evidence exist.
 
 ## README POC Readiness and Ordered Delivery Gates
 
@@ -74,21 +94,41 @@ on is actually accepted, not merely attempted:
 
 Two standing constraints apply across every gate:
 
-- **The existing README and any product-agent-supplied content are evidence to investigate, not
-  unquestioned truth and not disposable input.** The system must reconcile them against
-  independently verifiable repository evidence — neither trusting them uncritically because they
-  already exist, nor discarding them wholesale because a fresh generation is easier than
-  reconciliation.
+- **The existing README is a high-value, product-agent-curated source to reuse wherever
+  validation permits—not unquestioned truth and not disposable input.** The product-development
+  agent may have recorded important capabilities, limitations, examples, terminology, workflows,
+  and maintainer intent that other sources do not express as clearly. The system must inventory
+  every material content unit and seek to preserve or improve it, but each unit must first be
+  validated against accepted repository/package evidence or an authoritative owner. Verified
+  content is reused; stale or contradicted content is corrected with evidence; unresolved content
+  is omitted or carried as explicit uncertainty for owner resolution. Regeneration convenience is
+  never a reason to discard valuable curated information.
 - **LLM/agentic reasoning is required for repository interpretation and composition.** Understanding
   what a repository's product actually does, who it is for, and how to present it credibly is a
   judgment task no fixed rule set can fully express. Deterministic code supplies safety,
   validation, and verification around that judgment — it does not substitute for it. A candidate
   produced by phrase-matching or template-filling alone, with no genuine interpretive reasoning
   behind it, does not satisfy this standard even if it passes every deterministic check.
+- **Every LLM interaction is attributable to the README it helped produce.** Production evidence
+  records every attempted provider call and cache reuse by repository, immutable source revision,
+  lifecycle stage, job, prompt ID/hash, model, retry attempt, outcome, latency, and token usage
+  when the provider reports it. Per-README and portfolio totals must reconcile with the underlying
+  call records. An unchanged no-op may reuse accepted results but must make zero new provider
+  calls for those unchanged jobs.
+- **Prompt assets remain a small governed registry, not an accumulating scratch directory.** Every
+  runtime prompt has one owner, one job/consumer, one schema-validated manifest, and one dependency
+  hash. Unknown, duplicated, orphaned, deprecated-without-replacement, or executable-inline prompts
+  fail the official inventory check before another paid portfolio campaign.
 - **Product and platform decisions belong to the system.** The system detects the product,
   ecosystem, repository shape, and available evidence, then selects the appropriate capabilities,
   facts, sections, examples, and validation paths itself. A normal run does not require a human to
   choose a product-specific template, capability, skill, or command sequence.
+- **Ecosystem truth includes the package's public consumer surface, not only its manifest.** Python
+  imports and exported symbols, TypeScript package exports and declarations, and Rust visibility,
+  modules, and re-exports must be proved before examples or capability claims are accepted. The
+  committed extraction modules and regressions in the sibling `aspose.org` pipeline are a proven
+  reference to adapt behind this project's contracts; the system must not depend on that sibling
+  working tree at runtime or copy it without provenance and compatibility review.
 
 Battle-tested, proven tools and libraries are preferred over new custom infrastructure. Building a
 bespoke mechanism where an established one already solves the problem requires a documented reason

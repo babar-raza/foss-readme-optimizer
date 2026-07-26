@@ -8,11 +8,19 @@ from uuid import uuid4
 
 from readme_agent.errors import ConfigError, StateBackendError
 from readme_agent.state.backend import StateBackend
+from readme_agent.state.mission_goal_schema import (
+    MissionLifecycleScoreboardV1,
+    MissionNextTaskV1,
+)
 from readme_agent.state.schema import (
     MissionExecutionStateV1,
     MissionTaskStatus,
     MissionTransitionV1,
     RunStateV1,
+)
+from readme_agent.supervisor.mission_goal_guard import (
+    derive_lifecycle_scoreboard,
+    validate_task_contribution_evidence,
 )
 from readme_agent.supervisor.mission_schema import MissionTaskGraphV1, TaskCardV1
 
@@ -54,6 +62,9 @@ class MissionEvaluation:
     eligible_tasks: list[TaskCardV1]
     unresolved_task_ids: list[str]
     blocked_external_task_ids: list[str]
+    lifecycle_scoreboard: MissionLifecycleScoreboardV1 | None
+    next_task: MissionNextTaskV1 | None
+    core_goal_active: bool
     mission_complete: bool
 
 
@@ -225,13 +236,42 @@ def evaluate_mission(
         and not blocked_external
         and all(status_for(task) == "CLOSED" for task in graph.taskcards)
     )
+    selected = active or (eligible[0] if eligible else None)
+    next_task = (
+        MissionNextTaskV1(
+            task_id=selected.task_id,
+            goal_ids=selected.goal_ids,
+            core_contribution=selected.core_contribution,
+        )
+        if selected is not None
+        else None
+    )
     return MissionEvaluation(
         mission_id=graph.mission_authority.mission_id,
         active_task=active,
         eligible_tasks=eligible,
         unresolved_task_ids=unresolved,
         blocked_external_task_ids=blocked_external,
+        lifecycle_scoreboard=state.lifecycle_scoreboard,
+        next_task=next_task,
+        core_goal_active=not complete,
         mission_complete=complete,
+    )
+
+
+def _refresh_goal_state(
+    backend: StateBackend,
+    graph: MissionTaskGraphV1,
+    state: MissionExecutionStateV1,
+) -> MissionExecutionStateV1:
+    scoreboard = derive_lifecycle_scoreboard(backend)
+    with_scoreboard = state.model_copy(update={"lifecycle_scoreboard": scoreboard})
+    evaluation = evaluate_mission(graph, with_scoreboard)
+    return with_scoreboard.model_copy(
+        update={
+            "next_task": evaluation.next_task,
+            "mission_complete": evaluation.mission_complete,
+        }
     )
 
 
@@ -245,7 +285,7 @@ def _save_with_retry(
         record, expected = _load_or_initialize(backend, graph, graph_sha256)
         state = record.mission_execution
         assert state is not None
-        next_state = mutator(state)
+        next_state = _refresh_goal_state(backend, graph, mutator(state))
         if next_state == state:
             return record
         result = backend.save(
@@ -353,11 +393,18 @@ def transition_task(
         raise ConfigError(f"unknown mission task_id {task_id!r}")
     if to_status in {"IMPLEMENTED", "VERIFIED", "SCORED", "CLOSED"} and not evidence_refs:
         raise ConfigError(f"transition to {to_status} requires at least one evidence reference")
+    task = next(task for task in graph.taskcards if task.task_id == task_id)
 
     def transition(state: MissionExecutionStateV1) -> MissionExecutionStateV1:
         from_status = state.task_statuses[task_id]
         if to_status not in _TRANSITIONS[from_status]:
             raise ConfigError(f"invalid mission transition {from_status} -> {to_status}")
+        if to_status == "CLOSED":
+            validate_task_contribution_evidence(
+                task,
+                evidence_refs,
+                derive_lifecycle_scoreboard(backend),
+            )
         if state.active_task_id not in {None, task_id}:
             raise ConfigError(
                 f"task {task_id!r} cannot transition while {state.active_task_id!r} is active"

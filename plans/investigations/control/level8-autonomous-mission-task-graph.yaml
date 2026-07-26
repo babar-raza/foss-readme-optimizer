@@ -1,4 +1,4 @@
-schema_version: 1
+schema_version: 2
 autonomous_execution_contract:
   selected_mechanism: readme-agent-supervisor
   mechanism_type: autonomous_supervision
@@ -16,12 +16,24 @@ autonomous_execution_contract:
   mechanism_locked: true
 mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  mission_summary: Implement and verify the Level-8 Central Repository-Presentation System incrementally
-    through the repository's sole production supervisor, preserving the existing safety, registry, validation,
-    state, specialist, and evidence foundations.
+  mission_summary: Keep GOAL-CORE-PRESENTABLE-PORTFOLIO active until every current registry repository
+    has a professional, product-specific, independently approved and no-op-proven README and GitHub-profile
+    bundle, then carry those same deliverables through the ordered delivery and Level-8 gates using the
+    sole production supervisor.
   governing_plan_path: plans/master.md
   current_phase: Wave 0 - truth consolidation and shippable baseline
   in_scope_outcomes:
+  - 'GOAL-CORE-PRESENTABLE-PORTFOLIO: complete visitor-facing README and profile bundles for the dynamic
+    registry denominator; machinery is supporting work rather than the deliverable.'
+  - 'GOAL-TRUTH: verified facts, examples, acquisition, limitations, compatibility, and contextual-link
+    evidence.'
+  - 'GOAL-README: marker-free product-specific candidate, visual, patch, validation, approval, repair,
+    and no-op proof.'
+  - 'GOAL-PROFILE: description, homepage, topics, community-file findings, generated-surface observations,
+    and product illustration.'
+  - 'GOAL-AUTONOMY: safe, resumable, isolated, idempotent, evidence-complete execution through supervise.'
+  - 'GOAL-DELIVERY: Gate B, act, staging, Gate C, and hosted GitHub App proof in order.'
+  - 'GOAL-MATURITY: Level 5, heterogeneous Level 7, and independently audited Level 8.'
   - One canonical production supervisor and no alternate mutation path.
   - Restartable GitHub Actions runtime with durable lifecycle recovery.
   - Provenance-complete product facts and surface ownership.
@@ -36,6 +48,10 @@ mission_authority:
   - Writes to GitHub-generated surfaces.
   - Unreviewed onboarding into write-enabled operation.
   mandatory_acceptance_criteria:
+  - Every task transition recomputes the dynamic-denominator lifecycle scoreboard, first failing boundary,
+    exact next task, subordinate goal, and concrete core contribution.
+  - No machinery task closes unless it produces a visible deliverable, removes its evidenced first failing
+    boundary, establishes an indispensable safety condition, or completes required acceptance proof.
   - Every accepted trigger is terminal or visibly retryable or blocked.
   - No unauthorized, duplicate, default-branch, package, release, or generated-surface write.
   - No false-success terminal state.
@@ -54,6 +70,47 @@ mission_authority:
     implementation taskcards.
   - Requirement closure prose and current repository evidence contain semantic contradictions, including
     VER-001 and the still-live alternate mutation path.
+  core_goal_id: GOAL-CORE-PRESENTABLE-PORTFOLIO
+  goal_catalog:
+  - goal_id: GOAL-CORE-PRESENTABLE-PORTFOLIO
+    role: core
+    summary: Deliver and continuously prove professional repository-specific presentation for the full
+      dynamic portfolio.
+    acceptance_boundary: Remains active until every mandatory mission task closes and Level 8 is independently
+      awarded.
+  - goal_id: GOAL-TRUTH
+    role: subordinate
+    summary: Establish provenance-complete product truth that safely governs every visitor-facing claim.
+    acceptance_boundary: Every required fact is accepted, narrowly blocked, or explicitly omitted with
+      traceable evidence.
+  - goal_id: GOAL-README
+    role: subordinate
+    summary: Produce product-specific README candidates that preserve validated source knowledge and pass
+      deterministic and independent review.
+    acceptance_boundary: Every current registry repository is agent-approved and no-op-proven before human
+      review.
+  - goal_id: GOAL-PROFILE
+    role: subordinate
+    summary: Produce professional repository-profile proposals and visual assets across every governed
+      presentation surface.
+    acceptance_boundary: Every applicable profile surface has a truthful proposal, observation, or manual
+      handoff.
+  - goal_id: GOAL-AUTONOMY
+    role: subordinate
+    summary: Keep execution safe, restartable, isolated, idempotent, observable, and evidence-complete.
+    acceptance_boundary: Every accepted task and trigger resumes or reaches a truthful terminal state without
+      unauthorized effects.
+  - goal_id: GOAL-DELIVERY
+    role: subordinate
+    summary: Carry accepted local deliverables through human review, workflow, staging, proposal, and hosted
+      runtime gates in order.
+    acceptance_boundary: Gate B, act, staging, Gate C, and GitHub App proof close without premature access
+      requests or writes.
+  - goal_id: GOAL-MATURITY
+    role: subordinate
+    summary: Demonstrate heterogeneous production operation and the independently reproducible Level-8
+      evidence window.
+    acceptance_boundary: Level 5, Level 7, and Level 8 gates are independently awarded from current evidence.
   mission_locked: true
 verified_baseline:
   repository_root: D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
@@ -150,7 +207,88 @@ taskcards:
   - Implementation exists and all focused checks pass.
   - A real CLI claim is observed in persisted state.
   - An immediate rerun proves no duplicate claim.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Extend the existing supervisor, without creating another controller, so it loads this graph, validates it, reconciles durable state, claims the next eligible task, and evaluates mission completion."
   requirement_ids: []
+- task_id: L8-MISSION-GOAL-GUARD
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Bind durable execution to the immutable core deliverable and measurable subordinate goals
+  source_audit_finding: The supporting plan exposed one generic stale current goal, allowing machinery
+    completion to obscure whether any presentable README or profile bundle became closer to acceptance.
+  audit_classification: not_attempted
+  priority: P0
+  lane: mission-control
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Add validated task goal/contribution bindings and a durable lifecycle scoreboard so selection,
+    transition, and closure remain tied to the presentable full-portfolio deliverable.
+  why_it_matters: Autonomous execution drifts when a schema, test, report, or evidence bundle can become
+    the de facto goal instead of a visitor-facing accepted result.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/state/
+  - src/readme_agent/cli.py
+  - src/readme_agent/commands.py
+  - tests/
+  - scripts/retrofits/
+  - docs/architecture.md
+  - plans/investigations/control/
+  - plans/investigations/evidence/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-MISSION-CONTROL-CONSUMER
+  expected_outputs:
+  - Versioned task goal_ids and core_contribution contracts with a graph/state migration
+  - Validation requiring every nonterminal task to use known governed goal IDs and a concrete contribution
+  - Durable dynamic-denominator lifecycle scoreboard and first-failing-boundary derivation
+  - Status and transition enforcement that exposes the exact next task and rejects unevidenced drift closure
+  - Goal bindings for every remaining task in the sole mission graph
+  acceptance_checks:
+  - GOAL-CORE-PRESENTABLE-PORTFOLIO remains active until complete mission closure.
+  - Every remaining task binds one or more subordinate goals and one visible-output, blocker-removal,
+    safety, or acceptance-proof contribution.
+  - Status reports dynamic denominator and every required local lifecycle count from durable repository
+    state.
+  - Closing a machinery task without its evidenced contribution or corresponding scoreboard/blocker delta
+    fails closed.
+  - Restart and graph migration preserve the same scoreboard and next eligible task.
+  verification:
+  - Schema, loader, migration, graph-drift, selection, transition, scoreboard, and CLI status tests.
+  - Representative truth, README, profile, autonomy, delivery, and maturity task bindings.
+  - Real current runs/readme-poc state compared with the generated scoreboard.
+  negative_controls:
+  - Missing, unknown, generic, circular, or narrative-only goal bindings.
+  - Schema/test/report/evidence existence used as the sole closure predicate.
+  - Hard-coded registry denominator or stale narrative task used as current state.
+  regression_checks:
+  - mission load, claim, lease, transition, reconciliation, coverage, resume, and stop evaluation
+  evidence_requirements:
+  - Before/after graph and state schema
+  - migrated task binding inventory
+  - raw lifecycle input and generated scoreboard
+  - rejected closure controls
+  - restart result
+  - checksums
+  rollback_or_recovery: Preserve prior mission transition history, roll back only the goal-binding schema
+    migration, and keep the core goal explicit in authority documents.
+  failure_reroute: Repair schema/state migration first, then scoreboard derivation, then task binding
+    gaps; never disable the guard to continue unrelated machinery work.
+  closeout_rules:
+  - All remaining tasks are machine-validated against the goal hierarchy.
+  - The live status view identifies the core progress, first failing boundary, and exact next task.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Add validated task goal/contribution bindings and a durable lifecycle scoreboard so selection, transition, and closure remain tied to the presentable full-portfolio deliverable."
+  requirement_ids:
+  - L8-025
 - task_id: L8-REQUIREMENT-TO-TASKCARD-COVERAGE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -206,6 +344,11 @@ taskcards:
   closeout_rules:
   - Coverage is exactly 100 percent for mandatory requirements.
   - All exceptions are classified and evidenced.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Add stable, deduplicated taskcards for every mandatory non-deprecated requirement and record verified completion without reopening valid evidence."
   requirement_ids: []
 - task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -262,6 +405,11 @@ taskcards:
   closeout_rules:
   - All Wave 0 exit gates pass.
   - The accepted plan and task graph agree.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Preserve the valuable dirty candidate, establish the Level-8 Waves 0-8 sequence as the sole active program, and eliminate status and evidence overclaims after satisfying all edit gates."
   requirement_ids:
   - GOV-001
   - GOV-002
@@ -351,6 +499,11 @@ taskcards:
   closeout_rules:
   - The exact governance gate is satisfied.
   - All six section amendments are independently reviewed.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Replace the contradictory active execution tracks with the approved Level-8 Waves 0-8 while preserving decision history and current evidence."
   requirement_ids: []
   blocker_attempts:
   - blocker_id: LEVEL8-MASTER-SECTION-APPROVAL
@@ -453,6 +606,11 @@ taskcards:
   closeout_rules:
   - All 85 findings are individually consumed.
   - The semantic matrix is clean.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Investigate every finding, add exact existing evidence when genuine, downgrade unsupported claims when permitted, and drive the semantic matrix to zero high-confidence findings."
   requirement_ids: []
 - task_id: L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -499,6 +657,11 @@ taskcards:
   closeout_rules:
   - All artifacts have an evidence-backed disposition.
   - Original content remains recoverable.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Inventory provenance and useful content, preserve it without legitimizing a conflicting plan, and record the exact gated migration/disposition."
   requirement_ids: []
 - task_id: L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -542,6 +705,11 @@ taskcards:
   failure_reroute: Repair the first failing committed boundary, then recreate a new fresh clone.
   closeout_rules:
   - Current HEAD reproduces cleanly from scratch.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Clone the current committed HEAD into runs, install only from the committed lock, and rerun all official checks without relying on the dirty source working tree."
   requirement_ids: []
 - task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -598,6 +766,11 @@ taskcards:
   closeout_rules:
   - All Wave 1 exit gates pass.
   - Independent verifier confirms no alternate mutation route.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Decompose the runtime seams, route compatibility commands through the same capability, authorization, effect-ledger, and verifier spine, and make every required failure fail closed."
   requirement_ids:
   - CORE-001
   - CORE-002
@@ -736,6 +909,11 @@ taskcards:
   closeout_rules:
   - All Wave 2 exit gates pass.
   - Recovery is proven in production-like execution.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Introduce versioned trigger, checkpoint, health, and manifest contracts and prove recovery at every lifecycle boundary under the Git-ref state backend."
   requirement_ids:
   - OPS-001
   - OPS-002
@@ -840,6 +1018,11 @@ taskcards:
   closeout_rules:
   - All Wave 3 exit gates pass.
   - Independent factuality reviewer accepts representative facts.
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Implement ProductFactsV2, precedence/conflict behavior, claim citations, surface ownership, protected-content fingerprints, isolated example execution, and prompt-injection treatment."
   requirement_ids:
   - OWN-001
   - OWN-002
@@ -953,6 +1136,11 @@ taskcards:
   closeout_rules:
   - All repository-local acceptance checks pass with inspected evidence.
   - The parent Wave 3 task remains dependent on both this child and Wave 2 production closure.
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Complete the safe repository-local Wave 3 foundation while leaving hosted execution, production effects, and Wave 3 closure dependent on the blocked Wave 2 production proof."
   requirement_ids: []
 - task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1011,6 +1199,12 @@ taskcards:
   closeout_rules:
   - All Wave 4 exit gates pass.
   - Independent reviewers accept repository-specific proposals.
+  goal_ids:
+  - GOAL-README
+  - GOAL-PROFILE
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Implement RepositoryPresentationPlanV1, AST/source-span README patches, archetype-specific intelligence, metadata/community/visual proposals, ownership constraints, and governed golden evaluation."
   requirement_ids:
   - RDM-001
   - RDM-002
@@ -1194,6 +1388,12 @@ taskcards:
   closeout_rules:
   - All repository-local acceptance checks pass with inspected evidence.
   - Parent Wave 4 remains dependent on both this child and the production Wave 3 parent.
+  goal_ids:
+  - GOAL-README
+  - GOAL-PROFILE
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Complete the safe repository-local Wave 4 planning and patch foundation while leaving production proposals, model-route scoring, and full Wave 4 closure dependent on the blocked production chain."
   requirement_ids: []
 - task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1283,6 +1483,12 @@ taskcards:
   - All local, act, and isolated staging acceptance checks pass in order.
   - Remaining GitHub App, real scheduler, external dead-man, 30-day, and 90-day proofs stay explicitly
     open as production gates.
+  goal_ids:
+  - GOAL-README
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Make direct local, complete current-workflow act, and isolated staging execution pass in that order against one canonical runtime before any production credential or production-pilot work resumes."
   requirement_ids:
   - L8-014
 - task_id: L8-PREPRODUCTION-TRUTHFUL-BASELINE
@@ -1339,6 +1545,12 @@ taskcards:
   closeout_rules:
   - All official checks pass.
   - Independent review accepts the terminal and stop semantics.
+  goal_ids:
+  - GOAL-README
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Finish deterministic finding, proposal, remaining-work, and stop classification and restore every official local check without weakening any safety boundary."
   requirement_ids: []
 - task_id: L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1393,6 +1605,11 @@ taskcards:
   closeout_rules:
   - All three pilots have sufficient verified core README facts.
   - Independent factuality review accepts the provenance.
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Make every fact, plan, render, and verifier consume one revision and populate enough verified truth to author the three Java pilot READMEs."
   requirement_ids: []
 - task_id: L8-LOCAL-README-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1443,6 +1660,12 @@ taskcards:
   closeout_rules:
   - This parent is first rerouted to its children and never satisfies another dependency while rerouted.
   - It reopens and closes only after every mandatory child is CLOSED with aggregate evidence.
+  goal_ids:
+  - GOAL-README
+  - GOAL-PROFILE
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Coordinate the governed local-portfolio child tasks and close only from their aggregate evidence after every registry entry reaches Gate-A acceptance."
   requirement_ids: []
 - task_id: L8-LOCAL-PORTFOLIO-RUNTIME
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1489,6 +1712,11 @@ taskcards:
   closeout_rules:
   - A representative multi-ecosystem registry completes through the same supervise path.
   - Interrupted work resumes without duplicate LLM calls, bundles, or remote effects.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Add --registry and the fail-closed local_poc profile to supervise, loading every current products.json entry and persisting one durable per-repository lifecycle."
   requirement_ids: []
 - task_id: L8-TRUTH-01-STAGE-LIMIT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1543,6 +1771,11 @@ taskcards:
   failure_reroute: Repair the canonical runtime boundary before any further portfolio call.
   closeout_rules:
   - One real read-only representative stops at FACTS_READY with no later-stage artifacts
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Add a typed stage limit to the existing supervise runtime so a registry run can stop honestly at FACTS_READY without invoking later phases."
   requirement_ids:
   - L8-015
 - task_id: L8-TRUTH-01A-FACT-CONTRACT
@@ -1600,8 +1833,167 @@ taskcards:
   failure_reroute: Repair contract dependency mapping before any cached fact reuse.
   closeout_rules:
   - Every reused terminal fact graph passes the current complete acceptance contract
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Bind cached facts and later lifecycle state to required fields, eligibility, polarity, conflict, and render-view contract hashes."
   requirement_ids:
   - L8-018
+- task_id: L8-TRUTH-01B-LLM-CALL-LEDGER
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Account for every LLM attempt and cache reuse per README
+  source_audit_finding: RunManifestV2 defaults LLM usage to zero while the canonical supervisor does not
+    emit a durable record at the shared client/provider boundary, so existing README bundles cannot prove
+    their real call count.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Add one redacted append-only call ledger at the shared live/fixture client-provider seam
+    and reconcile exact per-repository, revision, stage, job, attempt, token, latency, outcome, cache,
+    and optional cost totals into run and portfolio manifests.
+  why_it_matters: LLM cost, retries, no-op behavior, and provenance cannot be managed from caller-supplied
+    labels or default-zero manifest fields.
+  allowed_paths:
+  - src/readme_agent/llm/
+  - src/readme_agent/evidence/
+  - src/readme_agent/supervisor/
+  - src/readme_agent/state/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-TRUTH-01A-FACT-CONTRACT
+  expected_outputs:
+  - LlmCallRecordV1 and append-only redacted storage
+  - transport-level capture for every attempt and cache reuse
+  - per-README and portfolio reconciliation
+  - explicit UNKNOWN_LEGACY migration outcome
+  acceptance_checks:
+  - Retries and failed or timed-out attempts count as provider calls
+  - Cache reuse is visible but is not counted as a provider call
+  - Unique call IDs and per-job totals reconcile exactly in every finalized manifest
+  - Unchanged no-op jobs make zero new provider calls
+  verification:
+  - Shared live and fixture client tests
+  - one live-like representative candidate
+  - historical 3D legacy classification
+  - manifest and portfolio reproduction
+  negative_controls:
+  - Missing records
+  - duplicate call IDs
+  - retry undercount
+  - cache-hit overcount
+  - secret or raw-content leakage
+  - inferred historical zero
+  regression_checks:
+  - LLM client
+  - retry
+  - cache
+  - redaction
+  - manifest
+  - lifecycle
+  - cancellation
+  - and no-op suites
+  evidence_requirements:
+  - Call ledger
+  - per-job reconciliation
+  - token/latency outcomes
+  - cache disposition
+  - manifest
+  - checksums
+  rollback_or_recovery: Retain immutable call records and fail manifest finalization until reconciliation
+    is repaired; never discard attempts or synthesize counts.
+  failure_reroute: Repair the shared client capture seam before another paid repository call.
+  closeout_rules:
+  - Every new LLM interaction is reconstructably attributable to one README lifecycle
+  - Historical unknowns are explicit and no unchanged job creates a provider call
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Add one redacted append-only call ledger at the shared live/fixture client-provider seam and reconcile exact per-repository, revision, stage, job, attempt, token, latency, outcome, cache, and optional cost totals into run and portfolio manifests."
+  requirement_ids:
+  - L8-027
+- task_id: L8-TRUTH-01C-PROMPT-HYGIENE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Keep the prompt registry closed, owned, current, and dependency-scoped
+  source_audit_finding: The categorical prompt registry is sound and the stale two-prompt documentation
+    was corrected to list all ten active manifests, but no blocking inventory reconciles prompt files,
+    owners, consumers, model routes, call sites, or executable-inline text.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Reconcile every active prompt to one declared owner, job, runtime consumer, contract, and
+    invalidation scope and block paid fan-out on orphan, duplicate, inline, stale, or unsafe prompt changes.
+  why_it_matters: An accumulating or weakly referenced prompt directory makes cost, cache invalidation,
+    review independence, and production behavior untraceable.
+  allowed_paths:
+  - prompts/
+  - src/readme_agent/llm/
+  - src/readme_agent/env.py
+  - scripts/governance/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-TRUTH-01B-LLM-CALL-LEDGER
+  expected_outputs:
+  - Extended prompt ownership and dependency contract
+  - exact file/registry/route/call-site inventory
+  - blocking hygiene check
+  - current prompts documentation
+  acceptance_checks:
+  - Every prompt file has exactly one active job and consumer
+  - Every routed or invoked prompt exists and is hash-coupled to its dependent stage
+  - Obsolete prompts are removed only after reference and history inspection
+  verification:
+  - Current-tree inventory
+  - prompt mutation invalidation
+  - official-check integration
+  negative_controls:
+  - Orphan file or route
+  - duplicate semantic job
+  - category mismatch
+  - inline prompt
+  - stale documentation
+  - deletion of a referenced prompt
+  regression_checks:
+  - Prompt registry
+  - model routing
+  - control-plane fingerprint
+  - cache
+  - author/reviewer independence
+  evidence_requirements:
+  - Prompt inventory
+  - owner/consumer map
+  - prompt and registry hashes
+  - negative-control results
+  - checksums
+  rollback_or_recovery: Restore a still-referenced prompt from Git history and keep paid fan-out disabled
+    until the inventory is exact.
+  failure_reroute: Repair the registry or call-site mismatch instead of adding a backup prompt file.
+  closeout_rules:
+  - The active prompt tree, runtime consumers, model routes, documentation, and hashes reconcile exactly
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Reconcile every active prompt to one declared owner, job, runtime consumer, contract, and invalidation scope and block paid fan-out on orphan, duplicate, inline, stale, or unsafe prompt changes."
+  requirement_ids:
+  - L8-028
 - task_id: L8-TRUTH-02-ROOT-ROLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -1626,7 +2018,7 @@ taskcards:
   forbidden_paths:
   - production target repository remotes
   dependencies:
-  - L8-TRUTH-01A-FACT-CONTRACT
+  - L8-TRUTH-01C-PROMPT-HYGIENE
   expected_outputs:
   - Typed root-role records
   - selected product-root evidence
@@ -1651,7 +2043,283 @@ taskcards:
   failure_reroute: Improve role evidence rather than add repository-specific branches.
   closeout_rules:
   - Every representative root is typed and the distributed root is reproducible
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Classify product, test, sample, converter, generator, benchmark, build-tool, and unknown roots and select the distributed product root deterministically."
   requirement_ids: []
+- task_id: L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Adapt pinned committed ecosystem extraction from aspose.org
+  source_audit_finding: The sibling aspose.org pipeline already has committed Python, TypeScript, and
+    Rust package/public-API extraction and regressions that are absent from this repository, while its
+    current working tree is dirty and cannot be used directly.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Freeze a source-to-local provenance, license, dependency, contract, and test matrix for the
+    smallest compatible committed sibling behaviors before implementing the three platform adapters.
+  why_it_matters: Reusing proven behavior reduces risk and time, but copying a dirty monolith or depending
+    on another checkout would make this runtime unreproducible.
+  allowed_paths:
+  - plans/investigations/
+  - docs/
+  - logs/
+  - tests/fixtures/
+  forbidden_paths:
+  - production target repository remotes
+  - sibling aspose.org working-tree writes
+  dependencies:
+  - L8-TRUTH-02-ROOT-ROLES
+  expected_outputs:
+  - Pinned source commit/path/SHA-256/license/test matrix
+  - local seam and dependency decision per adopted behavior
+  - rejected-behavior rationale
+  acceptance_checks:
+  - Every adopted behavior is read from committed Git blobs and maps to a local public seam and test
+  - The planned runtime has no sibling checkout dependency
+  verification:
+  - Reconstruct files with git show from pinned commits
+  - compare source tests and local contracts
+  - remove or dirty sibling checkout in a dependency negative control
+  negative_controls:
+  - Uncommitted sibling content
+  - stale sibling narrative documentation
+  - wholesale pipeline copy
+  - missing license or dependency review
+  regression_checks:
+  - Repository layout
+  - dependency lock
+  - public-seam
+  - and provenance checks
+  evidence_requirements:
+  - Sibling HEAD 512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9
+  - Python commit 08a861ad37b395c4db9432a6071f8dce42adfc6f
+  - Rust commits e131074708b17a85e078d3ba0939a0d126ea525a, e157b7ff992e8f6f48a969644b66422a653e75ba, and
+    abd634df3d9b2060b77b98aa9d6788553573ceea
+  - source/local hashes and tests
+  rollback_or_recovery: Keep the matrix and reject only the incompatible behavior; do not weaken the public-consumer
+    truth requirement.
+  failure_reroute: Evaluate another maintained parser only for the incompatible seam and record the decision
+    under GOV-015.
+  closeout_rules:
+  - Python, TypeScript, and Rust adaptation scopes are pinned, test-mapped, and independently reproducible
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Freeze a source-to-local provenance, license, dependency, contract, and test matrix for the smallest compatible committed sibling behaviors before implementing the three platform adapters."
+  requirement_ids:
+  - L8-029
+- task_id: L8-TRUTH-02B-PYTHON-API-TRUTH
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Prove Python package imports and public symbols
+  source_audit_finding: Manifest parsing and detached syntax checks admit examples that reference private
+    or non-importable Python APIs.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Adapt package-root, canonical-import, re-export, public-API, property, typed-field, and snippet
+    extraction and prove selected symbols through an installed pinned package in an isolated consumer.
+  why_it_matters: A syntactically valid example is harmful when visitors cannot import or call its API.
+  allowed_paths:
+  - src/readme_agent/ecosystems/
+  - src/readme_agent/facts/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - ungoverned host package installation
+  dependencies:
+  - L8-TRUTH-03A-ISOLATED-EXECUTOR
+  expected_outputs:
+  - Python package-root and public-API facts
+  - canonical import and selected-symbol proof
+  - isolated installed-consumer example result
+  acceptance_checks:
+  - src and namespace layouts, __all__, re-exports, visibility, typed fields, and full decorator stacks
+    are deterministic
+  - Only installed and importable public symbols become README facts
+  verification:
+  - Real Aspose Python representative
+  - pinned sibling regressions
+  - isolated consumer build/import
+  negative_controls:
+  - Private underscore API
+  - missing re-export
+  - stacked property decorators
+  - unresolved import
+  - detached py_compile treated as sufficient
+  regression_checks:
+  - Python manifest
+  - package-root
+  - fact
+  - example
+  - isolation
+  - and redaction suites
+  evidence_requirements:
+  - Package/import graph
+  - public symbol record
+  - isolated command/image/dependency pins
+  - source and result hashes
+  rollback_or_recovery: Keep Python facts narrowly blocked when the public consumer surface cannot be
+    proved.
+  failure_reroute: Repair the generic Python adapter rather than add repository-specific branches.
+  closeout_rules:
+  - The representative Python README inputs contain only installed, public, compiler/interpreter-resolved
+    APIs
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Adapt package-root, canonical-import, re-export, public-API, property, typed-field, and snippet extraction and prove selected symbols through an installed pinned package in an isolated consumer."
+  requirement_ids:
+  - L8-030
+- task_id: L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Prove TypeScript package exports and consumer compilation
+  source_audit_finding: package.json parsing and repository-wide tsc plus a detached example do not prove
+    that the shipped export map or declarations expose a selected symbol.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Adapt package-root, exports/declarations, public-API, visibility, snippet, format, and completeness
+    behavior and compile an isolated consumer against the pinned packed or built artifact.
+  why_it_matters: A README must use the package consumers actually install, not an internal source path.
+  allowed_paths:
+  - src/readme_agent/ecosystems/
+  - src/readme_agent/facts/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - ungoverned host npm installation
+  dependencies:
+  - L8-TRUTH-03A-ISOLATED-EXECUTOR
+  expected_outputs:
+  - TypeScript package export and declaration facts
+  - public symbol completeness result
+  - isolated pinned consumer compilation
+  acceptance_checks:
+  - exports, subpaths, types, main, module, declarations, and visibility resolve deterministically
+  - Every selected symbol is exported and compiler-resolved from the packed or built package
+  verification:
+  - Real Aspose TypeScript representative
+  - pinned sibling completeness behavior
+  - disposable consumer tsc
+  negative_controls:
+  - Missing or private export
+  - stale generated declaration
+  - wrong subpath
+  - multi-root mismatch
+  - detached example treated as sufficient
+  regression_checks:
+  - TypeScript manifest
+  - package-root
+  - facts
+  - example
+  - isolation
+  - and format suites
+  evidence_requirements:
+  - Export/declaration graph
+  - packed artifact hash
+  - lock and isolated image
+  - compiler command/result
+  rollback_or_recovery: Keep only export-dependent facts blocked and preserve unrelated repository truth.
+  failure_reroute: Repair the generic TypeScript adapter or emit a typed unsupported export-pattern gap.
+  closeout_rules:
+  - The representative TypeScript README inputs compile from the exact public package surface
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Adapt package-root, exports/declarations, public-API, visibility, snippet, format, and completeness behavior and compile an isolated consumer against the pinned packed or built artifact."
+  requirement_ids:
+  - L8-031
+- task_id: L8-TRUTH-02D-RUST-API-TRUTH
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  title: Prove Rust visibility, re-exports, implementations, and examples
+  source_audit_finding: Cargo metadata and cargo check exist locally, but Rust public-API and format truth
+    from the sibling's three committed implementation and hardening slices is absent.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-product-truth
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Adapt Cargo/lib identity, module/re-export, visibility, type/member/trait/implementation,
+    rustdoc, snippet, and format extraction and verify a pinned isolated consumer example.
+  why_it_matters: Text occurrence and restricted visibility cannot support a public Rust README claim.
+  allowed_paths:
+  - src/readme_agent/ecosystems/
+  - src/readme_agent/facts/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - ungoverned host Cargo execution
+  dependencies:
+  - L8-TRUTH-03A-ISOLATED-EXECUTOR
+  expected_outputs:
+  - Rust package and public-API fact records
+  - pinned source or registry acquisition
+  - isolated cargo-check example result
+  acceptance_checks:
+  - Bare pub and restricted visibility, path modules, re-exports, traits, inherent/trait impls, fields,
+    variants, and canonical crate names are distinguished
+  - False formats and unpublished package assumptions do not reach facts
+  verification:
+  - Real Cells Rust representative
+  - pinned sibling Rust tests and fixture intent
+  - isolated locked cargo check
+  negative_controls:
+  - pub(crate), pub(super), or pub(in) treated as public
+  - missing re-export
+  - path-mapped module
+  - hyphenated crate import
+  - false format
+  - unpublished registry assumption
+  regression_checks:
+  - Rust manifest
+  - package-root
+  - facts
+  - examples
+  - isolation
+  - and formats
+  evidence_requirements:
+  - Module/export/API graph
+  - Cargo metadata and lock
+  - source commit
+  - isolated command/result
+  - checksums
+  rollback_or_recovery: Return explicit unsupported Rust truth for the affected surface without blocking
+    unrelated repositories.
+  failure_reroute: Repair the generic Rust adapter from the first failing committed regression.
+  closeout_rules:
+  - The representative Rust README inputs use only publicly reachable, checked, correctly directed APIs
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Adapt Cargo/lib identity, module/re-export, visibility, type/member/trait/implementation, rustdoc, snippet, and format extraction and verify a pinned isolated consumer example."
+  requirement_ids:
+  - L8-032
 - task_id: L8-TRUTH-03-CLAIM-POLARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -1676,7 +2344,9 @@ taskcards:
   forbidden_paths:
   - production target repository remotes
   dependencies:
-  - L8-TRUTH-02-ROOT-ROLES
+  - L8-TRUTH-02B-PYTHON-API-TRUTH
+  - L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH
+  - L8-TRUTH-02D-RUST-API-TRUTH
   expected_outputs:
   - Polarity contract
   - accepted constraint anchors
@@ -1703,6 +2373,11 @@ taskcards:
   failure_reroute: Refresh directional evidence before composition.
   closeout_rules:
   - Every selected capability and limitation has directionally valid evidence
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Require positive implementation evidence for capabilities and explicit constraint evidence for limitations."
   requirement_ids: []
 - task_id: L8-TRUTH-03A-ISOLATED-EXECUTOR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1729,7 +2404,7 @@ taskcards:
   - production target repository remotes
   - ungoverned host package installation
   dependencies:
-  - L8-TRUTH-03-CLAIM-POLARITY
+  - L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION
   expected_outputs:
   - Typed isolated-execution contract
   - immutable image identity
@@ -1765,6 +2440,11 @@ taskcards:
   failure_reroute: Repair the executor boundary before acquisition or example verification.
   closeout_rules:
   - No repository or dependency code used for fact verification executes on the operator host
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Provide one disposable OS-isolated executor with bounded resources, filesystem, processes, time, and deny-by-default network."
   requirement_ids:
   - L8-019
 - task_id: L8-TRUTH-04-ACQUISITION
@@ -1794,7 +2474,7 @@ taskcards:
   forbidden_paths:
   - production target repository remotes
   dependencies:
-  - L8-TRUTH-03A-ISOLATED-EXECUTOR
+  - L8-TRUTH-03-CLAIM-POLARITY
   expected_outputs:
   - Acquisition outcomes for each ecosystem
   - exact commands
@@ -1830,6 +2510,11 @@ taskcards:
   closeout_rules:
   - Each representative has one truthful acquisition result
   - Every executed build is reproducible from a pinned isolated environment
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Select a registry-verified coordinate when published and a reproducible source-build path otherwise, while executing repository or dependency build code only inside a disposable OS-isolated executor with bounded resources and deny-by-default network."
   requirement_ids: []
 - task_id: L8-TRUTH-05-PUBLIC-EXAMPLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1893,6 +2578,11 @@ taskcards:
   closeout_rules:
   - Seven public examples pass or have exact ecosystem capability gaps
   - Every passing example names its immutable executor image and dependency inputs
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs for selected examples in the same disposable OS-isolated executor used for acquisition proof."
   requirement_ids: []
 - task_id: L8-TRUTH-06-INTERPRETIVE-VIEWS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1947,6 +2637,11 @@ taskcards:
   failure_reroute: Redraft or narrow the interpretive field without inventing policy approval.
   closeout_rules:
   - Every selected interpretive fact has a validated visitor-facing view
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Ground audience and problem statements with citations and make typed render views the only prose-eligible fact interface."
   requirement_ids: []
 - task_id: L8-TRUTH-07-SEVEN-ECOSYSTEMS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -1994,6 +2689,11 @@ taskcards:
   failure_reroute: Reopen the first responsible truth task.
   closeout_rules:
   - All seven representatives are FACTS_READY under one fact contract
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Run the facts-only canonical supervisor for one real Java, .NET, Python, TypeScript, C++, Go, and Rust repository."
   requirement_ids: []
 - task_id: L8-TRUTH-08-FULL-REGISTRY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2042,6 +2742,11 @@ taskcards:
   failure_reroute: Reopen the exact upstream truth child and continue unaffected entries.
   closeout_rules:
   - The product-truth aggregate can close from complete portfolio evidence
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Run every current registry entry only through FACTS_READY and classify any essential external fact blocks exactly."
   requirement_ids: []
 - task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2101,6 +2806,11 @@ taskcards:
   - Every representative has useful verified render views and a public-API usage path or a narrowly-scoped
     visible essential-fact block.
   - Real Java, .NET, and Python regression bundles pass, not only synthetic fact fixtures.
+  goal_ids:
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Produce provenance-complete ProductFactsV2 graphs plus typed visitor-facing render views and public-API-verified examples for every supported ecosystem."
   requirement_ids: []
 - task_id: L8-COMPOSE-00-CHARACTERIZE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2148,6 +2858,11 @@ taskcards:
   failure_reroute: Repair seam parity before editorial changes.
   closeout_rules:
   - Touched non-wiring modules have one responsibility and tests mirror the split
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Freeze public inputs, outputs, candidate bytes, plan hashes, and known failure fixtures before structural extraction."
   requirement_ids: []
 - task_id: L8-COMPOSE-01A-SECTION-REGRESSIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2173,7 +2888,7 @@ taskcards:
   forbidden_paths:
   - production target repository remotes
   dependencies:
-  - L8-COMPOSE-01-DECOMPOSE
+  - L8-COMPOSE-01C-CONTEXTUAL-LINKING
   expected_outputs:
   - Bounded fact-cited section operations and partial-section regression fixtures
   acceptance_checks:
@@ -2198,6 +2913,11 @@ taskcards:
   failure_reroute: Route fact polarity upstream and operation defects locally.
   closeout_rules:
   - Commit a6db18c is accepted only after real .NET and duplicate-content proof
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Capture failing real and synthetic cases for partial limitations, examples, installation, and overview sections before implementation."
   requirement_ids: []
 - task_id: L8-COMPOSE-02A-OPERATION-REGRESSIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2252,6 +2972,11 @@ taskcards:
   - patch
   - candidate
   - and claim map agree exactly
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Capture advisory-decision, competing-example, stale-span, and reconstruction failures before tightening operation coverage."
   requirement_ids: []
 - task_id: L8-COMPOSE-03A-PRESENTATION-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2302,6 +3027,11 @@ taskcards:
   failure_reroute: Repair the earliest fact, operation, or lint rule.
   closeout_rules:
   - Known critical defects have zero deterministic false accepts
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Freeze real and synthetic raw-token, duplication, competing-example, identity, navigation, and ordering defects with expected spans."
   requirement_ids: []
 - task_id: L8-COMPOSE-04A-CANDIDATE-FIXTURES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2351,6 +3081,11 @@ taskcards:
   failure_reroute: Reopen the responsible composition child.
   closeout_rules:
   - All seven candidates pass deterministic composition acceptance
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Freeze immutable source revisions, fact bundles, and expected composition obligations for seven real representatives."
   requirement_ids: []
 - task_id: L8-COMPOSE-01-DECOMPOSE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2401,21 +3136,209 @@ taskcards:
   failure_reroute: Repair seam mismatch before editorial work.
   closeout_rules:
   - Public outputs and hashes remain identical for the characterization corpus
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Split renderer and agentic-composition responsibilities behind unchanged public seams before adding editorial behavior."
   requirement_ids: []
-- task_id: L8-COMPOSE-02-EXISTING-SECTIONS
+- task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
-  title: Reconcile verified facts with existing README sections
-  source_audit_finding: Existing limitations, installation, overview, and usage sections can be preserved
-    incompletely or duplicated by additive operations.
+  title: Replace visible agent markers with factual README headers and Mermaid at-a-glance visuals
+  source_audit_finding: User review found HTML ownership comments in the strongest Java candidate and
+    no consistent badge header or visual at-a-glance summary.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Keep ownership and idempotency metadata in durable evidence while producing marker-free factual
+    README headers, verified badges, and sanitized repository-specific Mermaid overview graphs.
+  why_it_matters: A README is a visitor-facing document; visible automation metadata and generic text-only
+    openings undermine trust and presentation quality.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - src/readme_agent/verification/
+  - templates/readme/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-01-DECOMPOSE
+  expected_outputs:
+  - Marker-free candidate migration with durable provenance preservation
+  - Fact-backed header and badge renderer
+  - Sanitized Mermaid at-a-glance renderer
+  - Deterministic validation and real representative fixtures
+  acceptance_checks:
+  - No generated README contains HTML comments or agent metadata.
+  - Every badge has accepted-fact provenance and every diagram node has accepted-fact provenance.
+  - Legacy marker-wrapped input regenerates to equivalent marker-free content without losing protected
+    facts.
+  - No false package, build, status, download, documentation, or cross-product badge survives.
+  verification:
+  - Java, .NET, Python, TypeScript, C++, Go, and Rust representative rendering.
+  - Mermaid parse, unsafe-label, prompt-injection, and diagram-specificity controls.
+  - Header/badge, document-plan, native-patch, protected-content, and independent-verifier regressions.
+  negative_controls:
+  - No universal badge set, static product name substitution, unsupported status badge, or source README
+    claim may become a header or diagram fact.
+  regression_checks:
+  - marker migration
+  - document rendering
+  - factuality
+  - validation
+  - bundle verifier
+  - and no-op rerender suites
+  evidence_requirements:
+  - Reference-pattern rationale
+  - source and candidate README pairs
+  - fact-to-badge and fact-to-node maps
+  - Mermaid parse results
+  - native patches
+  - checksums
+  rollback_or_recovery: Revert only the affected header or diagram operation and retain durable evidence.
+  failure_reroute: Route unsupported metadata to product truth and unsafe rendering to the deterministic
+    renderer.
+  closeout_rules:
+  - The accepted seven-representative corpus has marker-free, fact-backed, product-specific headers and
+    diagrams before composition advances.
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Keep ownership and idempotency metadata in durable evidence while producing marker-free factual README headers, verified badges, and sanitized repository-specific Mermaid overview graphs."
+  requirement_ids:
+  - L8-021
+- task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Select and allocate verified contextual README links
+  source_audit_finding: User review clarified that a natural link must directly help with adjacent prose
+    or code, while the existing catalog lacks article-level context and the fixed link ceiling cannot
+    adapt to README size or explicit policy. The current renderer, relationship prompt, presentation standard,
+    and real historical candidates also use prohibited commercial or On-Premise labels for aspose.com
+    products.
   audit_classification: partially_done
   priority: P0
   lane: local-readme-composition
   owner: readme-agent-supervisor
   status: TODO
-  objective: Preserve maintainer content while adding only missing verified facts and correcting only
-    evidence-backed contradictions.
-  why_it_matters: The system must improve strong and partial READMEs without duplication or silent loss.
+  objective: Produce domain-pure verified article catalogs, select only reader-useful contextual links
+    through configured-or-deterministic automatic slot allocation, and enforce Enterprise Edition as the
+    sole visitor-facing aspose.com product edition name.
+  why_it_matters: A directly relevant docs or KB article can make an example useful, while generic, excessive,
+    or mechanically injected links make the README promotional and erode trust.
+  allowed_paths:
+  - src/readme_agent/links/
+  - src/readme_agent/readme/
+  - src/readme_agent/registry/
+  - src/readme_agent/validation/
+  - src/readme_agent/verification/
+  - config/policies/
+  - data/aspose_com_links.json
+  - data/aspose_org_links.json
+  - data/README.md
+  - scripts/fetch_aspose_com_links.py
+  - scripts/data-refresh/
+  - scripts/retrofits/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
+  expected_outputs:
+  - Shared deterministic generator core for separate .com and .org catalogs with article-level records
+  - Typed domain-aware catalog lookup with no formatted or ad hoc URLs
+  - LinkAllocationPolicyV1 with auto and configured modes
+  - Deterministic Markdown-AST content-unit and slot-allocation calculation
+  - ContextualLinkBindingV1 tying each selected target to a section, claim or example, and support rationale
+  - Contextual link planner, renderer operations, count validator, and representative fixtures
+  - Enterprise Edition terminology renderer and deterministic visitor-facing validator
+  acceptance_checks:
+  - Every selected URL is an http_status 200 record from its parent-domain catalog.
+  - A verified docs, KB, or reference article that explains the adjacent example outranks a generic product
+    page; products.aspose.org and products.aspose.com priority applies only to equally useful targets.
+  - The current registry has reproducible family/platform and relevant article discovery provenance.
+  - Configured total, parent-domain, and products/docs/kb/blog/reference maxima completely replace auto
+    allocation while remaining ceilings rather than quotas.
+  - Automatic allocation uses the exact content-unit tiers and domain/surface maxima in L8-024.
+  - Markdown, autolink, raw URL, image, HTML, subdomain, and repeated-target occurrences count consistently.
+  - Zero links is valid and every unused slot remains empty.
+  - Links appear only in relevant below-the-fold prose or end resources, never as forced quotas, repetitive
+    calls to action, keyword stuffing, or standalone promotional blocks.
+  - Every visitor-facing Aspose product reference associated with an aspose.com target uses the verified
+    product name plus the exact descriptor Enterprise Edition.
+  verification:
+  - Java, .NET, Python, TypeScript, C++, Go, and Rust example-to-article selection.
+  - Every automatic size boundary and verified-code-block content-unit calculation.
+  - Configured-over-auto precedence for total, domain, and each surface slot.
+  - Catalog refresh, lookup, document-plan, patch, factuality, independent-review, and no-op regressions.
+  negative_controls:
+  - Wrong family, wrong platform, superficial keyword match, unsupported article body, stale or non-200
+    URL, awkward anchor, promotional landing page, duplicate link, and absent relevant article.
+  - No guessed, cross-domain, empty-refresh, duplicate-truth, or catalog-disagreement URL becomes linkable.
+  - No configured slot bypasses factual support, context binding, opening placement, or anti-promotion
+    rules.
+  - No lower-priority product or subdomain target replaces a more useful verified contextual article.
+  - No commercial, On-Premise, paid, full, proprietary, premium, or other edition label survives in visitor-facing
+    Aspose output; non-Aspose fixture terminology remains outside this brand rule.
+  regression_checks:
+  - link catalog domain purity and checksums
+  - policy loading and hashing
+  - Enterprise Edition author, renderer, validator, reviewer, repair, metadata, visual, and no-op paths
+  - Markdown parsing and occurrence counting
+  - document rendering and native patching
+  - independent verification
+  - no-op rerender
+  evidence_requirements:
+  - Catalog source/sitemap/live-probe provenance and checksums
+  - Link allocation policy and pre-link content-unit calculation
+  - Candidate-target ranking and context-binding records
+  - Legacy-to-Enterprise-Edition terminology correction map
+  - Source and candidate README pairs with native patches
+  - Seven-ecosystem positive and negative results
+  rollback_or_recovery: Remove only the affected link operations, retain catalog and context evidence,
+    and reopen the earliest catalog, policy, selection, or rendering boundary.
+  failure_reroute: Route missing target evidence to catalog refresh, content mismatch to contextual selection,
+    and allocation defects to deterministic policy validation.
+  closeout_rules:
+  - Seven representative candidates demonstrate useful contextual linking or an evidence-backed zero-link
+    decision under both auto and configured allocation before existing-section composition advances.
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Produce domain-pure verified article catalogs, select only reader-useful contextual links through configured-or-deterministic automatic slot allocation, and enforce Enterprise Edition as the sole visitor-facing aspose.com product edition name."
+  requirement_ids:
+  - L8-022
+  - L8-023
+  - L8-024
+  - L8-026
+- task_id: L8-COMPOSE-02-EXISTING-SECTIONS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Reconcile verified facts with existing README sections
+  source_audit_finding: Product-agent-curated limitations, installation, overview, usage, terminology,
+    and maintainer guidance are valuable, but additive or wholesale-regeneration paths can either preserve
+    stale claims or discard validated information.
+  audit_classification: partially_done
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Inventory every material source content unit, preferentially reuse it after evidence or authoritative-owner
+    validation, improve it only with verified clarity, correct contradictions, and withhold unresolved
+    factual material without losing its traceability.
+  why_it_matters: Product-development agents curated repository-specific knowledge that must not be discarded,
+    but visitors must not inherit stale or incorrect claims merely because they already exist.
   allowed_paths:
   - src/readme_agent/readme/
   - tests/
@@ -2429,16 +3352,22 @@ taskcards:
   - L8-COMPOSE-01A-SECTION-REGRESSIONS
   expected_outputs:
   - Section reconciliation rules
+  - Per-content-unit validation and reuse dispositions
   - protected-content rationale
   - bounded operations
   acceptance_checks:
-  - Existing valuable bytes remain or have an exact evidence-backed correction
+  - Validated product-agent content remains or has an exact evidence-backed improvement
+  - Contradicted content is corrected and unresolved content cannot render as fact
+  - No content is lost merely because wholesale regeneration is easier
   verification:
   - Real .NET partial-limitations case plus installation
   - overview
   - and usage controls
   negative_controls:
-  - No duplicate limitations or examples and no unsupported deletion
+  - Unsupported preservation
+  - unjustified loss
+  - duplicate limitations or examples
+  - and unresolved content presented as fact
   regression_checks:
   - Assessment
   - protected-content
@@ -2447,6 +3376,8 @@ taskcards:
   evidence_requirements:
   - Source spans
   - fact IDs
+  - authoritative owner or uncertainty where mechanical proof is unavailable
+  - reuse, improvement, correction, or omission disposition
   - operation rationale
   - candidate diff
   - checksums
@@ -2454,21 +3385,28 @@ taskcards:
   failure_reroute: Send false facts upstream and operation defects to composition repair.
   closeout_rules:
   - Every changed existing section has complete fact and ownership justification
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Inventory every material source content unit, preferentially reuse it after evidence or authoritative-owner validation, improve it only with verified clarity, correct contradictions, and withhold unresolved factual material without losing its traceability."
   requirement_ids: []
 - task_id: L8-COMPOSE-02B-FINAL-CLAIM-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
   title: Freeze complete inherited and generated claim accountability controls
-  source_audit_finding: Current claim maps cover generated operations but omit material preserved parity,
-    performance, format, capability, and example claims.
+  source_audit_finding: Current claim maps cover generated operations but omit material product-agent-curated
+    parity, performance, format, capability, example, command, limitation, workflow, terminology, and
+    maintainer-explanation content.
   audit_classification: not_attempted
   priority: P0
   lane: local-readme-composition
   owner: readme-agent-supervisor
   status: TODO
-  objective: Inventory every material final-candidate claim and freeze its expected fact, ownership, uncertainty,
-    correction, or removal disposition.
-  why_it_matters: Byte preservation protects content but cannot silently endorse its truth.
+  objective: Inventory every material inherited and generated content unit and freeze its expected evidence,
+    owner validation, reuse, improvement, uncertainty, correction, or omission disposition.
+  why_it_matters: Product-agent content is the preferred reusable source, but byte preservation cannot
+    silently endorse its truth and regeneration cannot silently erase it.
   allowed_paths:
   - src/readme_agent/readme/
   - src/readme_agent/presentation/
@@ -2482,9 +3420,11 @@ taskcards:
   expected_outputs:
   - Real inherited-claim corpus
   - generated-claim controls
+  - product-agent reuse and unjustified-loss controls
   - expected complete-coverage map
   acceptance_checks:
-  - Every material candidate claim has one explicit accountable disposition
+  - Every material source and candidate content unit has one explicit accountable disposition
+  - Validated source knowledge survives and stale or unresolved knowledge cannot render as fact
   verification:
   - Real Java
   - Python
@@ -2495,6 +3435,7 @@ taskcards:
   - and example negatives
   negative_controls:
   - Preserve and byte retention cannot substitute for factual or ownership acceptance
+  - Regeneration convenience cannot substitute for a justified loss disposition
   regression_checks:
   - Assessment claims
   - fact grounding
@@ -2511,6 +3452,11 @@ taskcards:
   failure_reroute: Send false facts upstream and uncovered material claims to composition.
   closeout_rules:
   - The corpus detects every known inherited-claim blind spot before implementation
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Inventory every material inherited and generated content unit and freeze its expected evidence, owner validation, reuse, improvement, uncertainty, correction, or omission disposition."
   requirement_ids:
   - L8-020
 - task_id: L8-COMPOSE-03-OPERATION-COVERAGE
@@ -2571,6 +3517,11 @@ taskcards:
   closeout_rules:
   - Candidate bytes are exactly reproducible from immutable source and operations
   - Plan intent, patch, candidate, and complete final-candidate claim map agree exactly
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Reject any actionable assessment without a candidate-producing source-span operation, account for every material inherited and generated final-candidate claim through an accepted fact, authoritative owner, or explicit uncertainty/correction operation, and independently reconstruct the result."
   requirement_ids: []
 - task_id: L8-COMPOSE-04-PRESENTATION-LINT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2621,6 +3572,11 @@ taskcards:
   failure_reroute: Repair the originating fact or operation rather than waive the defect.
   closeout_rules:
   - All known critical presentation defects are deterministic failures
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Deterministically reject internal tokens, semantic duplicates, competing examples, cross-product leakage, malformed navigation, and promotional imbalance."
   requirement_ids: []
 - task_id: L8-COMPOSE-05-SEVEN-CANDIDATES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2669,6 +3625,11 @@ taskcards:
   failure_reroute: Reopen the first responsible composition child.
   closeout_rules:
   - Seven deterministic candidates pass under one composition contract
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Run the stage-limited canonical supervisor through deterministic validation for one real representative per supported ecosystem."
   requirement_ids: []
 - task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2727,6 +3688,11 @@ taskcards:
   - No bundle can claim verification was skipped because a plan is absent.
   - The real 3D Java bundle contains no raw tokens or duplicate overview/usage content and its Usage repair
     is exactly represented by executable operations.
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Compile every actionable assessment into bounded ReadmeDocumentPlanV1 operations and generate the candidate solely by applying those operations to the immutable source."
   requirement_ids: []
 - task_id: L8-REVIEW-00-CONTEXT-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2780,6 +3746,11 @@ taskcards:
   - Reviewer roles are separate
   - frozen
   - and fail closed
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches, and verdict combination."
   requirement_ids: []
 - task_id: L8-REVIEW-01A-FINDING-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2833,6 +3804,11 @@ taskcards:
   failure_reroute: Retry boundedly with exact reconciliation evidence, then qualify another route.
   closeout_rules:
   - Commit 6d88c99 is accepted only after real Cells C++ and negative-control proof
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Require candidate spans for content findings and exact fact/evidence references with valid polarity for factual findings."
   requirement_ids: []
 - task_id: L8-REVIEW-02A-REPAIR-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2886,6 +3862,11 @@ taskcards:
   closeout_rules:
   - Every rereview follows a material
   - relevant candidate change
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Bind repair instructions to source operations and prove candidate delta plus finding resolution before rereview."
   requirement_ids: []
 - task_id: L8-REVIEW-03A-CACHE-MEASUREMENT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -2953,6 +3934,11 @@ taskcards:
   - No-op is fast
   - checksum-valid
   - and contains no unnecessary live call
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Reuse valid facts, composition, and review artifacts by complete input fingerprints while still proving no change."
   requirement_ids: []
 - task_id: L8-REVIEW-04A-REAL-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3006,6 +3992,11 @@ taskcards:
   failure_reroute: Reopen the first responsible review child.
   closeout_rules:
   - Seven real outputs are correctly reviewed under one standard
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Run good, defective, repairable, conflicting, and missing-evidence outputs across seven real representatives."
   requirement_ids: []
 - task_id: L8-REVIEW-01-FREEZE-ROLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3057,6 +4048,11 @@ taskcards:
   failure_reroute: Repair reviewer wiring before any live review campaign.
   closeout_rules:
   - The two reviewers are structurally and evidentially independent
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Define separate blind visitor-quality and fact-and-plan reviewer contracts with independent prompts, contexts, identities, and caches."
   requirement_ids: []
 - task_id: L8-REVIEW-02-FINDING-GROUNDING
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3112,6 +4108,11 @@ taskcards:
   failure_reroute: Retry only transient semantic mismatch, then repair the reviewer contract.
   closeout_rules:
   - Every material review conclusion is inspectably grounded
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Require candidate spans for quality findings and exact fact or evidence references with checked polarity for factual findings."
   requirement_ids: []
 - task_id: L8-REVIEW-03-EFFECTIVE-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3163,6 +4164,11 @@ taskcards:
   failure_reroute: Route fact defects to truth and operation defects to composition.
   closeout_rules:
   - Every rereviewed candidate has a meaningful verified delta
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Check candidate and operation deltas plus cited-finding resolution before spending another independent review call."
   requirement_ids: []
 - task_id: L8-REVIEW-04-NO-OP-CACHE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3228,6 +4234,11 @@ taskcards:
   failure_reroute: Repair the first false reuse or false invalidation.
   closeout_rules:
   - A true unchanged second run reaches NO_OP_PROVEN with zero unnecessary work
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Reuse valid fact, authoring, validation, and review results on unchanged reruns without duplicate state or LLM work."
   requirement_ids: []
 - task_id: L8-REVIEW-05-REAL-CAMPAIGN
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3280,6 +4291,11 @@ taskcards:
   failure_reroute: Reopen the responsible review, composition, or truth child.
   closeout_rules:
   - Real representative outputs demonstrate reliable approval and rejection
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Accept strong and reject defective real candidate outputs across all seven supported ecosystems."
   requirement_ids: []
 - task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3333,6 +4349,11 @@ taskcards:
   - Identical reruns create no patch, duplicate lifecycle event, bundle, or unnecessary LLM call.
   - Fact blocks remain visible and never become generic replacement prose.
   - Controlled real rejections produce changed, finding-resolving candidates before rereview.
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Enforce blind visitor-quality review plus independent factual/plan review, combine both fail-closed, and require every repair to materially change and resolve the responsible candidate spans."
   requirement_ids: []
 - task_id: L8-QUAL-00-CAMPAIGN-SCHEMA
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3381,6 +4402,11 @@ taskcards:
   failure_reroute: Repair missing campaign inputs before any live qualification.
   closeout_rules:
   - One reproducible campaign identity governs every later local proof
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Hash HEAD, registry, source revisions, dependencies, prompts, templates, facts, renderer, validators, reviewer, and lifecycle contracts."
   requirement_ids: []
 - task_id: L8-QUAL-01A-REPRESENTATIVE-INPUTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3429,6 +4455,11 @@ taskcards:
   failure_reroute: Reopen the first upstream atomic child.
   closeout_rules:
   - Seven representatives are no-op-proven under one contract
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Run the complete canonical pipeline twice for one real representative per ecosystem under the immutable campaign."
   requirement_ids: []
 - task_id: L8-QUAL-02A-FAILURE-MATRIX
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3487,6 +4518,11 @@ taskcards:
   failure_reroute: Repair control-plane safety before further live runs.
   closeout_rules:
   - Exactly one writer and one recoverable logical execution exist
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Add portfolio-wide writer exclusion and renew the mission claim through long clone, build, LLM, test, and cohort operations."
   requirement_ids: []
 - task_id: L8-QUAL-03A-EVALUATION-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3542,6 +4578,11 @@ taskcards:
   failure_reroute: Qualify another governed route or repair the failing boundary.
   closeout_rules:
   - All thresholds pass across three independent sessions
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Run at least 100 evaluations in three independent sessions using synthetic and frozen real-output controls."
   requirement_ids: []
 - task_id: L8-QUAL-04A-FREEZE-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3589,6 +4630,11 @@ taskcards:
   failure_reroute: Reopen the invalidated qualification child.
   closeout_rules:
   - A single accepted campaign is eligible for Gate A
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Mark the qualified campaign immutable and enforce representative requalification after any dependent contract change."
   requirement_ids: []
 - task_id: L8-QUAL-01-CAMPAIGN-IDENTITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3641,6 +4687,11 @@ taskcards:
   - The campaign identity is complete
   - deterministic
   - and checksum-valid
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Bind control HEAD, registry, source revisions, dependencies, prompts, templates, fact contract, renderer, validators, reviewer, and lifecycle hashes."
   requirement_ids:
   - L8-016
 - task_id: L8-QUAL-02-SEVEN-E2E
@@ -3687,6 +4738,11 @@ taskcards:
   failure_reroute: Reopen the first failing truth, composition, or review child.
   closeout_rules:
   - Seven real repositories reach no-op under one frozen contract
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Run first proposal and unchanged no-op for one real representative per supported ecosystem under one campaign."
   requirement_ids: []
 - task_id: L8-QUAL-03-RECOVERY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3745,6 +4801,11 @@ taskcards:
   failure_reroute: Repair the first state or cleanup boundary before qualification continues.
   closeout_rules:
   - Crash and duplicate scenarios leave one correct resumable state
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Enforce a portfolio writer lease, renew mission claims, and recover cancellation without duplicate work or descendants."
   requirement_ids:
   - L8-017
 - task_id: L8-QUAL-04-GOLDEN-SET
@@ -3796,6 +4857,11 @@ taskcards:
   failure_reroute: Repair and repeat all three sessions under the changed contract.
   closeout_rules:
   - All governed thresholds pass under the campaign identity
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Run at least 100 evaluations across three sessions with complete real-output controls and automatic route disablement."
   requirement_ids: []
 - task_id: L8-QUAL-04B-COST-BASELINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3854,6 +4920,11 @@ taskcards:
   failure_reroute: Repair measurement instrumentation without changing runtime behavior.
   closeout_rules:
   - Every proposed optimization has a measured trigger and correctness-preserving acceptance condition
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Measure official checks and cold, warm, per-stage, clone, registry, LLM, and no-op runtime cost under the accepted representative campaign."
   requirement_ids: []
 - task_id: L8-QUAL-05-FREEZE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3901,6 +4972,11 @@ taskcards:
   failure_reroute: Reopen the earliest invalidated qualification task.
   closeout_rules:
   - One immutable campaign is eligible for full-registry execution
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Make Gate-A preflight require the exact accepted campaign and reject execution after any dependent contract mutation."
   requirement_ids: []
 - task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3957,6 +5033,11 @@ taskcards:
   - Representative first run, repair, cancellation/resume, controlled failure, and no-op cases pass through
     the public supervisor before portfolio fan-out.
   - Long-running operations renew their mission claim and leave no descendant processes.
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Qualify the complete canonical pipeline on a frozen real-output campaign across all supported ecosystems before full-registry fan-out."
   requirement_ids: []
 - task_id: L8-GATEA-00-COHORT-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4005,6 +5086,11 @@ taskcards:
   failure_reroute: Continue unaffected cohorts and reopen the responsible upstream child.
   closeout_rules:
   - Every registry member has an attempted current-campaign terminal boundary
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Process the runtime denominator in deterministic ecosystem/family cohorts under one campaign and portfolio writer lease."
   requirement_ids: []
 - task_id: L8-GATEA-01A-FAILURE-ROUTING
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4059,6 +5145,11 @@ taskcards:
   failure_reroute: Reopen the exact atomic child and keep unrelated members valid.
   closeout_rules:
   - All agent-fixable portfolio findings are resolved and requalified
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Classify each non-success as truth, composition, review, recovery, or genuine external fact work and repair upstream."
   requirement_ids: []
 - task_id: L8-GATEA-02A-CURRENT-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4109,6 +5200,11 @@ taskcards:
   failure_reroute: Return any failure to Gate-A healing.
   closeout_rules:
   - The approved numerator equals the eligible dynamic denominator
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Complete deterministic validation, independent review/repair, and an unchanged no-op rerun for every eligible entry."
   requirement_ids: []
 - task_id: L8-GATEA-03A-REPRO-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4161,6 +5257,11 @@ taskcards:
   failure_reroute: Return discrepancies to the exact owning Gate-A task.
   closeout_rules:
   - Independent verification awards local full-registry Gate A only
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Rebuild the denominator and every accepted result from registry, campaign, state, bundles, and checksum inventories."
   requirement_ids: []
 - task_id: L8-GATEA-01-COHORTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4216,6 +5317,11 @@ taskcards:
   failure_reroute: Continue unaffected cohorts and reopen the first failing upstream task.
   closeout_rules:
   - All cohorts are scheduled once under the frozen campaign
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Execute the frozen denominator in ecosystem or family cohorts with one writer lease and an incremental current-state summary."
   requirement_ids: []
 - task_id: L8-GATEA-02-HEAL-FAILURES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4274,6 +5380,11 @@ taskcards:
   failure_reroute: Reopen the precise atomic task and retain unaffected campaign results.
   closeout_rules:
   - All remaining non-successes require true external authority or facts
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Classify each failure at its first responsible boundary, repair it, requalify the affected representative, and rerun only invalidated repositories."
   requirement_ids: []
 - task_id: L8-GATEA-03-NO-OP
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4326,6 +5437,11 @@ taskcards:
   failure_reroute: Return to Gate-A healing for any non-external regression.
   closeout_rules:
   - Every dynamically loaded repository is current-contract NO_OP_PROVEN or later
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Reach independent approval and unchanged no-op proof for every eligible current registry entry under the identical frozen campaign."
   requirement_ids: []
 - task_id: L8-GATEA-04-REPRODUCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4379,6 +5495,11 @@ taskcards:
   failure_reroute: Return discrepancies to Gate-A healing and rerun affected verification.
   closeout_rules:
   - The independent verifier awards locally proven full-registry README POC only
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Reconstruct the portfolio result and checksum inventory from the frozen registry and per-repository bundles without trusting the runtime summary."
   requirement_ids: []
 - task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4429,6 +5550,11 @@ taskcards:
   closeout_rules:
   - Every dynamically loaded registry entry has a complete local AGENT_APPROVED bundle and no-op proof.
   - The result is labeled local Gate A, never Level 5, 7, or 8.
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Execute the canonical profile across every current registry entry until each has a checksum-valid agent-approved local bundle and unchanged rerun proof."
   requirement_ids: []
 - task_id: L8-LOCAL-HUMAN-REVIEW-GATE-B
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4475,6 +5601,11 @@ taskcards:
   closeout_rules:
   - Every runtime-loaded registry entry has a valid HUMAN_ACCEPTED record.
   - No Gate-C task becomes eligible before this task closes.
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Present only agent-approved, no-op-proven local README bundles for human review and record a separate acceptance decision for every current registry entry."
   requirement_ids: []
 - task_id: L8-LOCAL-CENTRAL-AGENT-RESILIENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4526,6 +5657,12 @@ taskcards:
   closeout_rules:
   - Every locally applicable idea.md obligation passes.
   - Remaining obligations are explicitly production-only or manual-UI.
+  goal_ids:
+  - GOAL-README
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: visible_deliverable
+    summary: "Produce one-command local proof across README, metadata, community, visual handoff, package/release, generated signals, cross-surface validation, and recovery scenarios."
   requirement_ids: []
 - task_id: L8-ACT-CANONICAL-WORKFLOW-PARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4574,6 +5711,11 @@ taskcards:
   failure_reroute: Repair act parity before staging.
   closeout_rules:
   - Every applicable current-workflow job reaches an honest terminal result.
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: "Run the same reusable workflow through every applicable job and trigger path with isolated local state and no production authentication fallback."
   requirement_ids: []
 - task_id: L8-STAGING-VERIFIED-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4624,6 +5766,11 @@ taskcards:
   failure_reroute: Keep verified candidates in no-effect mode while access is unavailable.
   closeout_rules:
   - Staging acceptance passes before production App provisioning begins.
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Create disposable staging targets and prove the production-equivalent proposal lifecycle without changing any target default branch."
   requirement_ids: []
 - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -4682,6 +5829,11 @@ taskcards:
   closeout_rules:
   - All Wave 5 exit gates pass.
   - Independent verifier reproduces exactly-one behavior.
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: "After full Gate-A/B acceptance, separate verified proposal construction from terminal authorized effects and prove the PR lifecycle locally without provisioning or using GitHub App credentials."
   requirement_ids:
   - SAFE-001
   - SAFE-002
@@ -4786,6 +5938,11 @@ taskcards:
   closeout_rules:
   - All Wave 6 pilot obligations pass.
   - Level 5 is awarded by independent review.
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Execute the full baseline, facts, plan, surfaces, verified draft PR, rerun, overwrite, interruption, duplicate, and isolated-failure matrix for 3D, Cells, and PDF Java."
   requirement_ids:
   - PIL-001
   - PIL-002
@@ -4850,6 +6007,11 @@ taskcards:
   closeout_rules:
   - AUTH-008 and L8-001 acceptance evidence are independently reproduced.
   - No App integration step predates the accepted Gate-C evidence timestamp.
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: "After Gate C is independently accepted, provision and integrate the production GitHub App with separate read/effect tokens and no PAT fallback."
   requirement_ids:
   - AUTH-008
   - L8-001
@@ -4905,6 +6067,11 @@ taskcards:
   closeout_rules:
   - Level 6 and Level 7 gates pass.
   - Thirty-day evidence is independently reproduced.
+  goal_ids:
+  - GOAL-MATURITY
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Prove observe/proposal mode for the full registry, then one authorized representative per Java, .NET, Python, TypeScript, C++, Go, and Rust, followed by 30 clean production days."
   requirement_ids:
   - ONB-001
   - ONB-002
@@ -4964,6 +6131,11 @@ taskcards:
   closeout_rules:
   - Every Level-8 acceptance criterion passes.
   - The supervisor reevaluates the mission and finds no eligible work.
+  goal_ids:
+  - GOAL-MATURITY
+  core_contribution:
+    kind: acceptance_proof
+    summary: "Operate the complete system for 90 consecutive days with weekly portfolio audits, automatic regression disablement, dependency and authorization monitoring, recovery, proposal freshness, dead-man monitoring, quality/traffic reporting, and independent audit."
   requirement_ids:
   - DEP-001
   - DEP-002
@@ -4983,10 +6155,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 1d9af295d5d51f730487774e649ffcad81f6cf4a2207fca01d5566807d111e18
+  source_sha256: c6ff2a708a1ef390822b94f4ac1cb2fad7debfff58976f58b18b82d55e728d50
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 412
-  mandatory_requirement_rows: 386
+  total_requirement_rows: 424
+  mandatory_requirement_rows: 398
   excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -6031,9 +7203,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: LLM-015
     priority: P2
-    requirement_status: IMPLEMENTED
+    requirement_status: PARTIAL
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
-    disposition: preserved_verified
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: LLM-016
     priority: P2
@@ -6673,9 +7845,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: DOC-004
     priority: P1
-    requirement_status: IMPLEMENTED
+    requirement_status: PARTIAL
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
-    disposition: preserved_verified
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: DOC-005
     priority: P1
@@ -7461,5 +8633,77 @@ requirement_coverage:
     priority: P0
     requirement_status: PLANNED
     task_id: L8-COMPOSE-02B-FINAL-CLAIM-CORPUS
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-021
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-022
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-023
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-024
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-025
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-MISSION-GOAL-GUARD
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-026
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-027
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-TRUTH-01B-LLM-CALL-LEDGER
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-028
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-TRUTH-01C-PROMPT-HYGIENE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-029
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-030
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-TRUTH-02B-PYTHON-API-TRUTH
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-031
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-032
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-TRUTH-02D-RUST-API-TRUTH
     disposition: open_mandatory
     semantic_findings: []

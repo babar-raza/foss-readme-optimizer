@@ -1,0 +1,103 @@
+"""Typed durable contracts that bind mission work to portfolio outcomes."""
+
+from __future__ import annotations
+
+from typing import Literal
+
+from pydantic import BaseModel, ConfigDict, Field
+
+MissionGoalId = Literal[
+    "GOAL-CORE-PRESENTABLE-PORTFOLIO",
+    "GOAL-TRUTH",
+    "GOAL-README",
+    "GOAL-PROFILE",
+    "GOAL-AUTONOMY",
+    "GOAL-DELIVERY",
+    "GOAL-MATURITY",
+]
+SubordinateGoalId = Literal[
+    "GOAL-TRUTH",
+    "GOAL-README",
+    "GOAL-PROFILE",
+    "GOAL-AUTONOMY",
+    "GOAL-DELIVERY",
+    "GOAL-MATURITY",
+]
+CoreContributionKind = Literal[
+    "visible_deliverable",
+    "first_boundary_removal",
+    "indispensable_safety",
+    "acceptance_proof",
+]
+MissionLifecycleBoundary = Literal[
+    "FACTS_READY",
+    "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATED",
+    "AGENT_APPROVED",
+    "NO_OP_PROVEN",
+    "HUMAN_ACCEPTED",
+    "MISSION_CLOSED",
+]
+
+
+class _StrictModel(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+
+class MissionGoalDefinitionV1(_StrictModel):
+    """One governed goal in the immutable mission hierarchy."""
+
+    goal_id: MissionGoalId
+    role: Literal["core", "subordinate"]
+    summary: str = Field(min_length=20)
+    acceptance_boundary: str = Field(min_length=10)
+
+
+class CoreContributionV1(_StrictModel):
+    """Concrete way a task advances the core visitor-facing deliverable."""
+
+    kind: CoreContributionKind
+    summary: str = Field(min_length=30)
+
+
+class MissionLifecycleScoreboardV1(_StrictModel):
+    """Dynamic-denominator progress derived from durable repository lifecycles."""
+
+    schema_version: Literal[1] = 1
+    registry_path: str
+    registry_sha256: str
+    denominator: int = Field(ge=0)
+    facts_ready: int = Field(ge=0)
+    candidate_generated: int = Field(ge=0)
+    deterministic_validated: int = Field(ge=0)
+    agent_approved: int = Field(ge=0)
+    no_op_proven: int = Field(ge=0)
+    human_accepted: int = Field(ge=0)
+    missing_lifecycle_repositories: list[str] = Field(default_factory=list)
+    lifecycle_status_counts: dict[str, int] = Field(default_factory=dict)
+    first_failing_boundary: MissionLifecycleBoundary
+    derived_at: str
+
+
+class MissionNextTaskV1(_StrictModel):
+    """Exact durable continuation selected from graph state."""
+
+    task_id: str
+    goal_ids: list[SubordinateGoalId] = Field(min_length=1)
+    core_contribution: CoreContributionV1
+
+
+class MissionContributionEvidenceV1(_StrictModel):
+    """Machine-checkable proof that one task made its declared contribution."""
+
+    schema_version: Literal[1] = 1
+    task_id: str
+    goal_ids: list[SubordinateGoalId] = Field(min_length=1)
+    core_contribution: CoreContributionV1
+    acceptance_checks_passed: list[str] = Field(min_length=1)
+    proof_refs: list[str] = Field(min_length=1)
+    scoreboard_before_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    scoreboard_after_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    first_failing_boundary_before: MissionLifecycleBoundary
+    first_failing_boundary_after: MissionLifecycleBoundary
+    independently_verified: bool

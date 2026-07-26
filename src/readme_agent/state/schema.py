@@ -18,6 +18,10 @@ from readme_agent.state.lifecycle_schema import (
     ReadmePocLifecycleStateV2,
     TriggerLifecycleV2,
 )
+from readme_agent.state.mission_goal_schema import (
+    MissionLifecycleScoreboardV1,
+    MissionNextTaskV1,
+)
 
 
 class HandoffFindingV1(BaseModel):
@@ -408,6 +412,10 @@ class MissionExecutionStateV1(BaseModel):
     # and mission control reconciles them before another worker can claim.
     claim_expires_at: str | None = None
     transition_history: list[MissionTransitionV1] = Field(default_factory=list)
+    # Additive goal-guard state. Older mission records deserialize safely and
+    # are populated by the next evaluate/claim/transition reconciliation.
+    lifecycle_scoreboard: MissionLifecycleScoreboardV1 | None = None
+    next_task: MissionNextTaskV1 | None = None
     mission_complete: bool = False
     last_evaluated_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
 

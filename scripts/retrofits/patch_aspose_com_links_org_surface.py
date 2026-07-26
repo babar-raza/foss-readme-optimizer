@@ -30,6 +30,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PATH = REPO_ROOT / "data" / "aspose_com_links.json"
+ORG_CATALOG_PATH = REPO_ROOT / "data" / "aspose_org_links.json"
 
 _FAMILIES = [
     "3d",
@@ -77,6 +78,9 @@ _NEW_COM_PLATFORM_KEYS = ("page/python-net", "tex/python-net")
 
 def main() -> int:
     data = json.loads(PATH.read_text(encoding="utf-8"))
+    if ORG_CATALOG_PATH.is_file() and "products.aspose.org" not in data["surfaces"]:
+        print("Aspose.org links already live in data/aspose_org_links.json; no-op.")
+        return 0
 
     data["surfaces"]["products.aspose.org"] = {
         "provenance": {
