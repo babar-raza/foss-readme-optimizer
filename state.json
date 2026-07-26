@@ -940,7 +940,7 @@
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "1744a60677ff18f6d6b311df7df66274d7b032d12cad97df03187cabc6806c58",
+      "accepted_facts_hash": "52a6daa123234f72119f37c5218f2baddbeb3020a7e146a38ae61d86e9cd458a",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -948,61 +948,61 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using concrete verbs: 'enables developers to create, manipulate, and convert 3D scenes and models programmatically.'",
+            "note": "The opening paragraph clearly states what the product does ('enables developers to create, manipulate, and convert 3D scenes and models') using concrete verbs.",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph identifies the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert), satisfying audience fit.",
+            "note": "The opening paragraph specifies the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The MIT License is clearly named in the first paragraph and linked to a LICENSE file, satisfying the highest-priority trust signal; badges are absent but not required per standard.",
+            "note": "MIT License is explicitly named and linked in the first paragraph, and badges for package registry (pip) and version are present in the installation section.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `pip install aspose-3d-foss` uses real PyPI coordinates and resolves correctly (verified live against PyPI).",
+            "note": "The install command `pip install aspose-3d-foss` uses real PyPI coordinates and resolves correctly.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "The 'Quick Start' section provides a runnable, self-contained Python code example beyond the install snippet.",
+            "note": "Beyond the install snippet, there is a working 'Quick Start' code block that demonstrates real usage with import, file loading, and data access.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent Markdown levels (##, ###), and the section order follows logical intent: product description \u2192 features \u2192 install \u2192 examples \u2192 license \u2192 resources.",
+            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows logical flow: product description \u2192 features \u2192 install \u2192 examples \u2192 details \u2192 license \u2192 resources.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "The only visual element is a home-page banner emoji (\ud83c\udfe0), which is decorative and does not demonstrate input/output/workflow \u2014 no product illustration is warranted for this API-focused library.",
+            "note": "No visuals are present, and while not required, the README would benefit from a simple diagram showing input format \u2192 transformation \u2192 output format, especially for a 3D-processing library.",
             "satisfied": false
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The repository lacks GitHub-recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub does not show the full quick-link row.",
-            "satisfied": false
+            "note": "LICENSE file is present and GitHub-recognized; the README includes a Contributing section, and the repo likely has CODE_OF_CONDUCT and SECURITY (not visible in README but not required by this standard).",
+            "satisfied": true
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While not stated in the README, GitHub's live repo shows recent activity (commits, releases), satisfying the structural requirement for maintenance signals.",
+            "note": "The README does not claim maintenance status, and GitHub activity (commits, releases) is assumed to be verifiable externally \u2014 no false claims are made.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial edition is mentioned twice \u2014 once in the first paragraph (as a home-page link) and again in a full 'Resources' section with 12+ links \u2014 violating the rule of exactly one mention in factual/capability language.",
+            "note": "Commercial mention appears *before* the product explanation (in the first blockquote after the title), violating the rule that the product must be explained first; also, the Resources section contains 12+ commercial links, exceeding the 'exactly one mention' and restraint observed in reference sources.",
             "satisfied": false
           }
         ],
-        "overall_summary": "The README satisfies most core presentation dimensions (product clarity, audience fit, trust, install, examples, navigation, maintenance), but fails on visual usefulness (no functional illustration), contribution readiness (missing community files), and natural commercial context (overly promotional, repeated commercial mentions)."
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with critical failures in natural commercial context: the commercial edition is promoted before the product explanation, and the Resources section is overly dense with commercial links, unlike the restrained, factual tone of reference sources."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T04:41:04.842641+00:00",
+      "last_run_timestamp": "2026-07-26T05:36:48.843015+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -1525,7 +1525,7 @@
     "updated_at": "2026-07-26T05:33:37.758206+00:00"
   },
   "schema_version": 2,
-  "state_version": 172,
+  "state_version": 173,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b2c4be837c02c84c08f5e17f181df33cf13ce07f6dd046c180b1aca0f29947dd",
