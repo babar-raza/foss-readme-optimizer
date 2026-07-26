@@ -47,6 +47,23 @@
       "started_at": "2026-07-26T01:30:19.568866+00:00",
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-013007-b0fc:aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript"
+    },
+    "8914b1e1b8941cd9623e011a3e278b90e1656220bf207b894c84ad65ee9b4768": {
+      "action": "repository_snapshot_v1",
+      "attempt": 1,
+      "checkpoint_id": "8914b1e1b8941cd9623e011a3e278b90e1656220bf207b894c84ad65ee9b4768",
+      "completed_at": "2026-07-26T01:31:02.627210+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "5a07e01229ee0c0195eab2334fd0d825acab021521f2c203ba619e6025697ffa",
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+      "run_id": "20260726-013007-b0fc",
+      "schema_version": 1,
+      "stage": "profile_completed",
+      "started_at": "2026-07-26T01:31:02.627200+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260726-013007-b0fc:aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript"
     }
   },
   "domain_states": {
@@ -467,7 +484,7 @@
     "updated_at": "2026-07-26T01:30:55.851474+00:00"
   },
   "schema_version": 2,
-  "state_version": 29,
+  "state_version": 30,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "64a67a1e490604edf99ba6ee3ddd0f444e2e6eed27ab83face4a8b9b42412f5f",
@@ -575,11 +592,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "080a1f3817ab44f3f79c5b798ea3abb67ca5529fc7006be98348794ceb8070dc",
+      "last_checkpoint_id": "8914b1e1b8941cd9623e011a3e278b90e1656220bf207b894c84ad65ee9b4768",
       "lease_expires_at": "2026-07-26T01:45:26.384609+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-26T01:30:32.082548+00:00"
+      "updated_at": "2026-07-26T01:31:02.627210+00:00"
     }
   },
   "trigger_records": {},
