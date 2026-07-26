@@ -835,6 +835,17 @@
         "reason": "deterministic README proposal bundle verification passed",
         "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\20260726-080922-2d24"
+        ],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-07-26T08:09:58.783968+00:00",
+        "reason": "independent README review started after deterministic validation",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "to_status": "AGENT_REVIEWING"
       }
     ],
     "presentation_plan_hash": "d161d4a2a9c446e64532573362e3c3eb923831ad8b794f363f61d4b81b923d38",
@@ -844,11 +855,11 @@
     "reviewer_standard_hash": "69901515a0eac89c74de04b5b1410c461369fbd677b4b6d26ed8e2396920349a",
     "schema_version": 2,
     "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-07-26T08:09:53.499594+00:00"
+    "status": "AGENT_REVIEWING",
+    "updated_at": "2026-07-26T08:09:58.783968+00:00"
   },
   "schema_version": 2,
-  "state_version": 114,
+  "state_version": 115,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e601b5948d773ff382c90ba5b085b8268af8d035f3f1693077a10a79f2d55463",
