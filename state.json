@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "a7e4486a4ddb35a36efb44092893f06d870d003295b665d9d21e0e26dd25c7c5",
-    "last_evaluated_at": "2026-07-27T23:04:24.408746+00:00",
+    "last_evaluated_at": "2026-07-27T23:04:45.734497+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -139,7 +139,7 @@
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
-      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "SCORED",
+      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -2783,6 +2783,17 @@
         "reason": "Both governed acceptance checks, all negative controls, focused tests, and complete official checks pass.",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-interpretive-render-views/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T23:04:45.734484+00:00",
+        "reason": "Closed with current checksum-complete graph-matched contribution evidence.",
+        "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -2791,7 +2802,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 316,
+  "state_version": 317,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
