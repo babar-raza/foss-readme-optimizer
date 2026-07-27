@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "6120b6c9d1a1e64ac7bfc345a4dcab23dc55ca8ff5b40683244912240386a46c",
-    "last_evaluated_at": "2026-07-27T15:26:22.532412+00:00",
+    "last_evaluated_at": "2026-07-27T15:26:43.022890+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -137,7 +137,7 @@
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
       "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
-      "L8-TRUTH-04-ACQUISITION": "VERIFIED",
+      "L8-TRUTH-04-ACQUISITION": "SCORED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "TODO",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "TODO",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "TODO",
@@ -2219,6 +2219,18 @@
         "reason": "Clean detached proof at 2a1be4ac passed all live receipt/source controls, 85 focused tests, 1,856 full non-live tests, and every official check.",
         "task_id": "L8-TRUTH-04-ACQUISITION",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-acquisition-truth/mission-contribution.json",
+          "plans/investigations/evidence/level8-acquisition-truth/verification.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex-primary",
+        "occurred_at": "2026-07-27T15:26:43.022882+00:00",
+        "reason": "Goal contribution is independently scored: truthful installation acquisition is now available without falsely advancing portfolio lifecycle counts.",
+        "task_id": "L8-TRUTH-04-ACQUISITION",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -2227,7 +2239,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 254,
+  "state_version": 255,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
