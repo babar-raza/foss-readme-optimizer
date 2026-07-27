@@ -1,7 +1,7 @@
 {
   "generated_by": "plans/investigations/tools/traceability_matrix.py",
   "requirements_source": "plans/requirements.md",
-  "total_implemented_rows_checked": 156,
+  "total_implemented_rows_checked": 157,
   "rows_with_high_confidence_findings": [],
   "rows_with_informational_findings_only": [
     {
@@ -2406,6 +2406,35 @@
           "path": "plans/investigations/evidence/level8-typescript-export-truth/verification.json",
           "bytes": 3255,
           "sha256": "917f7710f38a4f0f2bcdfb929964fad0588acadbe7f835f71d401681a35bf932",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "L8-032",
+      "line": 666,
+      "priority": "P0",
+      "cited_paths": [
+        "plans/investigations/evidence/level8-rust-api-truth/verification.json"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/evidence/level8-rust-api-truth/verification.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/level8-rust-api-truth/verification.json",
+          "bytes": 5874,
+          "sha256": "87cc7e4eabeca281b4d1c86cc068710328afc50c32f13268857dd3a9b51d12ae",
           "json_valid": true
         }
       ],
@@ -6842,6 +6871,35 @@
           "path": "plans/investigations/evidence/level8-typescript-export-truth/verification.json",
           "bytes": 3255,
           "sha256": "917f7710f38a4f0f2bcdfb929964fad0588acadbe7f835f71d401681a35bf932",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "L8-032",
+      "line": 666,
+      "priority": "P0",
+      "cited_paths": [
+        "plans/investigations/evidence/level8-rust-api-truth/verification.json"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/evidence/level8-rust-api-truth/verification.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/level8-rust-api-truth/verification.json",
+          "bytes": 5874,
+          "sha256": "87cc7e4eabeca281b4d1c86cc068710328afc50c32f13268857dd3a9b51d12ae",
           "json_valid": true
         }
       ],
