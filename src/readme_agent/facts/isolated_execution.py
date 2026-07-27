@@ -231,12 +231,26 @@ def execute_isolated(
         if wait.returncode == 124:
             timed_out = True
             active_runner.run(["kill", container_id], timeout_seconds=15)
+            waited_exit_code: int | None = None
+        elif wait.returncode != 0:
+            detail = redact((wait.stderr or wait.stdout).strip())
+            raise IsolatedExecutionError(f"docker wait failed: {detail}")
+        else:
+            try:
+                waited_exit_code = int(wait.stdout.strip())
+            except ValueError as exc:
+                raise IsolatedExecutionError(
+                    "docker wait did not return one exact container exit code"
+                ) from exc
         logs = active_runner.run(["logs", container_id], timeout_seconds=30)
         stdout = redact(logs.stdout)
         stderr = redact(logs.stderr)
         inspect = _require_success(active_runner, ["container", "inspect", container_id])
         state = json.loads(inspect.stdout)[0]["State"]
-        return_code = 124 if timed_out else int(state["ExitCode"])
+        inspected_exit_code = int(state["ExitCode"])
+        if waited_exit_code is not None and waited_exit_code != inspected_exit_code:
+            raise IsolatedExecutionError("docker wait and inspect returned different exit codes")
+        return_code = 124 if timed_out else inspected_exit_code
         oom_killed = bool(state.get("OOMKilled", False))
     except BaseException as exc:
         execution_error = exc

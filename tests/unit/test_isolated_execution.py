@@ -8,7 +8,7 @@ import subprocess
 import pytest
 from pydantic import ValidationError
 
-from readme_agent.facts.isolated_execution import execute_isolated
+from readme_agent.facts.isolated_execution import IsolatedExecutionError, execute_isolated
 from readme_agent.facts.isolated_execution_inputs import build_isolated_input_bundle
 from readme_agent.facts.isolated_execution_schema import (
     IsolatedExecutionPolicyV1,
@@ -171,6 +171,35 @@ class DelayedListingCleanupRunner(ScriptedDockerRunner):
         )
 
 
+class InvalidWaitRunner(ScriptedDockerRunner):
+    """Return one invalid Docker wait response while retaining cleanup behavior."""
+
+    def __init__(self, *, returncode: int, stdout: str = "", stderr: str = "") -> None:
+        super().__init__()
+        self.wait_result = _completed(
+            ["wait"],
+            returncode=returncode,
+            stdout=stdout,
+            stderr=stderr,
+        )
+
+    def run(
+        self,
+        argv: list[str],
+        *,
+        timeout_seconds: float,
+        input_bytes: bytes | None = None,
+    ) -> subprocess.CompletedProcess[str]:
+        if argv[0] == "wait":
+            self.commands.append(argv)
+            return self.wait_result
+        return super().run(
+            argv,
+            timeout_seconds=timeout_seconds,
+            input_bytes=input_bytes,
+        )
+
+
 def _request(tmp_path) -> IsolatedExecutionRequestV1:
     (tmp_path / "input.txt").write_text("immutable input\n", encoding="utf-8")
     return IsolatedExecutionRequestV1(
@@ -304,3 +333,18 @@ def test_persistently_listed_resource_cannot_establish_truth(tmp_path):
 
     assert result.truth_eligible is False
     assert result.cleanup.complete is False
+
+
+@pytest.mark.parametrize(
+    ("runner", "message"),
+    [
+        (InvalidWaitRunner(returncode=1, stderr="daemon unavailable"), "docker wait failed"),
+        (InvalidWaitRunner(returncode=0, stdout=""), "one exact container exit code"),
+    ],
+)
+def test_invalid_docker_wait_response_fails_closed_after_cleanup(tmp_path, runner, message):
+    with pytest.raises(IsolatedExecutionError, match=message):
+        execute_isolated(_request(tmp_path), runner=runner)
+
+    assert len(runner.removed_containers) == 2
+    assert len(runner.removed_volumes) == 1
