@@ -137,7 +137,7 @@ def build_live_python_regression_control(
     bundle_root: Path,
     supervisor_manifest_path: Path,
 ) -> dict[str, Any]:
-    """Prove a repaired live run fails narrowly instead of emitting invalid citations."""
+    """Prove the repaired live run reaches FACTS_READY with grounded visitor views."""
     facts_path = bundle_root / "facts/product-facts.json"
     bundle_manifest_path = bundle_root / "manifest.json"
     facts = ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
@@ -147,6 +147,8 @@ def build_live_python_regression_control(
     audience = facts.selected_fact("product.audience")
     problem = facts.selected_fact("product.problems_solved")
     audience_support = [facts.fact_by_id(fact_id) for fact_id in audience.supporting_fact_ids]
+    problem_support = [facts.fact_by_id(fact_id) for fact_id in problem.supporting_fact_ids]
+    audience_view = visitor_fact_render_view(facts, "product.audience")
     problem_view = visitor_fact_render_view(facts, "product.problems_solved")
     checkpoints = supervisor_manifest.get("checkpoints", [])
     latest_run_id = supervisor_manifest.get("run_id")
@@ -157,9 +159,7 @@ def build_live_python_regression_control(
 
     checks = {
         "product_facts_v2_valid": True,
-        "bundle_blocked_narrowly": (
-            bundle_manifest.get("lifecycle_status") == "BLOCKED_MISSING_EVIDENCE"
-        ),
+        "bundle_reaches_facts_ready": bundle_manifest.get("lifecycle_status") == "FACTS_READY",
         "audience_verified_with_eligible_support": (
             audience.verification_state == "verified"
             and bool(audience.supporting_fact_ids)
@@ -168,14 +168,22 @@ def build_live_python_regression_control(
                 for supporting in audience_support
             )
         ),
-        "blocked_problem_has_no_citations": (
-            problem.verification_state == "blocked"
-            and not problem.supporting_fact_ids
-            and problem_view is None
+        "problem_verified_with_eligible_support": (
+            problem.verification_state == "verified"
+            and bool(problem.supporting_fact_ids)
+            and all(
+                supporting is not None and supporting.verification_state == "verified"
+                for supporting in problem_support
+            )
+        ),
+        "visitor_views_are_nonempty": (
+            audience_view is not None
+            and bool(audience_view.phrases)
+            and problem_view is not None
+            and bool(problem_view.phrases)
         ),
         "stage_ceiling_preserved": (
-            bundle_manifest.get("completed_stages")
-            == ["SNAPSHOTTED", "PROFILED", "BLOCKED_MISSING_EVIDENCE"]
+            bundle_manifest.get("completed_stages") == ["SNAPSHOTTED", "PROFILED", "FACTS_READY"]
             and "final_acceptance" in latest_stages
             and not {
                 "candidate_generated",
@@ -188,10 +196,11 @@ def build_live_python_regression_control(
             supervisor_manifest.get("verifier", {}).get("status") == "not_run"
             and supervisor_manifest.get("effects") == []
         ),
-        "exact_three_call_accounting": (
+        "exact_two_call_accounting": (
             bundle_manifest.get("llm_accounting_status") == "EXACT"
-            and bundle_manifest.get("llm_call_count") == 3
-            and bundle_manifest.get("llm_calls_by_job") == {"draft_product_truth": 3}
+            and supervisor_manifest.get("llm_accounting_status") == "EXACT"
+            and supervisor_manifest.get("llm_call_count") == 2
+            and supervisor_manifest.get("llm_calls_by_job") == {"draft_product_truth": 2}
         ),
     }
     return {
@@ -205,15 +214,13 @@ def build_live_python_regression_control(
             "fact_id": audience.fact_id,
             "verification_state": audience.verification_state,
             "supporting_fact_ids": audience.supporting_fact_ids,
-            "render_view": visitor_fact_render_view(facts, "product.audience").model_dump(
-                mode="json"
-            ),
+            "render_view": audience_view.model_dump(mode="json") if audience_view else None,
         },
         "problem": {
             "fact_id": problem.fact_id,
             "verification_state": problem.verification_state,
             "supporting_fact_ids": problem.supporting_fact_ids,
-            "render_view": None,
+            "render_view": problem_view.model_dump(mode="json") if problem_view else None,
         },
         "latest_checkpoint_stages": latest_stages,
         "checks": checks,

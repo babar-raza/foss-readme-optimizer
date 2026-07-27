@@ -25,6 +25,7 @@ from readme_agent.supervisor.mission_goal_guard import (
     derive_lifecycle_scoreboard,
     lifecycle_scoreboard_sha256,
 )
+from readme_agent.supervisor.mission_graph import load_mission_graph
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 EVIDENCE_DIR = REPO_ROOT / "plans/investigations/evidence/level8-interpretive-render-views"
@@ -43,13 +44,18 @@ LIVE_PYTHON_BUNDLE = (
     / "aspose-3d-foss__Aspose.3D-FOSS-for-Python"
     / "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
 )
-LIVE_PYTHON_SUPERVISOR_MANIFEST = REPO_ROOT / "runs/evidence/20260727-190335-7f10/manifest.json"
+LIVE_PYTHON_SUPERVISOR_MANIFEST = REPO_ROOT / "runs/evidence/20260727-205319-1552/manifest.json"
 LIVE_PYTHON_FIRST_FAILURE_LOG = (
     REPO_ROOT / "runs/level8-truth-seven-ecosystems/supervise.stderr.log"
 )
-LIVE_PYTHON_RETRY_STDOUT = REPO_ROOT / "runs/level8-truth-seven-ecosystems/python-retry.stdout.log"
-LIVE_PYTHON_RETRY_STDERR = REPO_ROOT / "runs/level8-truth-seven-ecosystems/python-retry.stderr.log"
+LIVE_PYTHON_SUCCESS_STDOUT = (
+    REPO_ROOT / "runs/level8-truth-seven-ecosystems/python-source-priority-repair.stdout.log"
+)
+LIVE_PYTHON_SUCCESS_STDERR = (
+    REPO_ROOT / "runs/level8-truth-seven-ecosystems/python-source-priority-repair.stderr.log"
+)
 TASK_ID = "L8-TRUTH-06-INTERPRETIVE-VIEWS"
+GRAPH_PATH = REPO_ROOT / "plans/investigations/control/level8-autonomous-mission-task-graph.yaml"
 PYTHON = sys.executable
 IMPLEMENTATION_PATHS = (
     "src/readme_agent/facts/acceptance_contract.py",
@@ -143,7 +149,7 @@ def _build(run_official: bool) -> list[str]:
             and controls["java_identity"]["render_view"]["phrases"]
         ),
         "negative_controls_pass": all(controls["negative_controls"].values()),
-        "live_python_citation_failure_eliminated": all(live_python["checks"].values()),
+        "live_python_facts_ready_with_grounded_views": all(live_python["checks"].values()),
         "focused_tests_pass": focused["exit_code"] == 0,
         "official_checks_pass": official is not None and official["exit_code"] == 0,
         "tree_stable": (
@@ -161,12 +167,12 @@ def _build(run_official: bool) -> list[str]:
         LIVE_PYTHON_FIRST_FAILURE_LOG.read_text(encoding="utf-8", errors="replace"),
     )
     write_redacted_text(
-        output_dir / "live-python-retry.stdout.log",
-        LIVE_PYTHON_RETRY_STDOUT.read_text(encoding="utf-8", errors="replace"),
+        output_dir / "live-python-success.stdout.log",
+        LIVE_PYTHON_SUCCESS_STDOUT.read_text(encoding="utf-8", errors="replace"),
     )
     write_redacted_text(
-        output_dir / "live-python-retry.stderr.log",
-        LIVE_PYTHON_RETRY_STDERR.read_text(encoding="utf-8", errors="replace"),
+        output_dir / "live-python-success.stderr.log",
+        LIVE_PYTHON_SUCCESS_STDERR.read_text(encoding="utf-8", errors="replace"),
     )
     write_redacted_text(output_dir / "focused-tests.stdout.log", focused["stdout"])
     write_redacted_text(output_dir / "focused-tests.stderr.log", focused["stderr"])
@@ -206,24 +212,17 @@ def _build(run_official: bool) -> list[str]:
         },
     )
     if not failures:
+        graph, _ = load_mission_graph(GRAPH_PATH)
+        task = next(task for task in graph.taskcards if task.task_id == TASK_ID)
         scoreboard = derive_lifecycle_scoreboard(default_state_backend())
         write_redacted_json(
             output_dir / "mission-contribution.json",
             {
                 "schema_version": 1,
                 "task_id": TASK_ID,
-                "goal_ids": ["GOAL-TRUTH"],
-                "core_contribution": {
-                    "kind": "visible_deliverable",
-                    "summary": (
-                        "Ground audience and problem statements with citations and make typed "
-                        "render views the only prose-eligible fact interface."
-                    ),
-                },
-                "acceptance_checks_passed": [
-                    "Only grammatical",
-                    "cited visitor text is eligible for composition",
-                ],
+                "goal_ids": task.goal_ids,
+                "core_contribution": task.core_contribution.model_dump(mode="json"),
+                "acceptance_checks_passed": task.acceptance_checks,
                 "proof_refs": [
                     "plans/investigations/evidence/level8-interpretive-render-views/"
                     "interpretive-render-controls.json",
