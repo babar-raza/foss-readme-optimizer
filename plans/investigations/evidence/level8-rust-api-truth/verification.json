@@ -3,13 +3,18 @@
   "task_id": "L8-TRUTH-02D-RUST-API-TRUTH",
   "requirement_id": "L8-032",
   "control_repository": {
-    "head": "23b691c2f05d178ef34898e71afe3809968a8797",
+    "head": "861ff0580d92ce85b09a53748f42031c1c9ede32",
     "branch": "main",
     "tree_clean_at_start": true,
     "tree_porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "builder_path": "plans/investigations/tools/build_rust_api_truth_evidence.py",
-    "builder_sha256": "afed18fb39269a2765727c1fa0729648470e17f6ad274f8da1b33c76beb5068f",
+    "builder_sha256": "45dce0807179e975bd7dfd9b8fb934338b4510b16364380c19d1d82ec0b2b0b2",
     "implementation": {
+      "pyproject.toml": "54e0a66f3d7c4b634b5b2ed60582154f8a4ca8d89faa7fb0df687039f58c9e5a",
+      "requirements-lock.txt": "340ea113f43edb978ea20f6316f19776760b011df1234d428970e5271259dabe",
+      "docs/architecture.md": "778099ff1bb714acb24c3c25cd115f3a62f332b7a5070385e4fedbc7f3abbda0",
+      "plans/investigations/tools/rust_api_truth_evidence_support.py": "12fbd6ace3cd982d5461f25b88ef631b698b82dd828f47571b260d9749250568",
+      "src/readme_agent/capabilities/draft_product_truth.py": "6fe8be13e10c9040c3993ca894e760b88279ac90a3f5e97a5c35b79bcfd6feba",
       "src/readme_agent/ecosystems/rust_api_schema.py": "5b02e803d0c1b352d23a3a425f9904608ca9cbf0753c4adf262a4a4066ff6353",
       "src/readme_agent/ecosystems/rust_format_truth.py": "cf4fb73b8b327e7a7a14a1928515b3d3870c452f687f8c87e8ec82a8c5c346d4",
       "src/readme_agent/ecosystems/rust_package_layout.py": "9b4167112f752cd411a8a172346ac0be3031374d34c09947eaf79842162bd70e",
@@ -18,10 +23,18 @@
       "src/readme_agent/ecosystems/rust_symbol_extraction.py": "e2189a0383c0f57cb2dbea8392e2353d6110afff71bd88ef5b1dbac891d62609",
       "src/readme_agent/ecosystems/rust_syntax.py": "6d5036e185473907d369330c92ea0b6e69a88f804039dfd23510abcd8ebfa355",
       "src/readme_agent/ecosystems/rust_use_resolution.py": "6ef11ebe1dc2dd206b05a124ff0591aaa4f44ce6deec707a506093f0df56c2eb",
+      "src/readme_agent/facts/example_verification_schema.py": "9f000cf7893536e31f736de37d32983d8f2df6c549506a493439aef22cbac012",
+      "src/readme_agent/facts/isolated_execution.py": "60707dde65c880d76a86684fe88b8cc017d6619cd65841722e4052b0b71712ad",
+      "src/readme_agent/facts/provider.py": "7f6a553926e62c2b8905dbcf9a96472dc991a9c6b262b56b72096ff363ab8984",
       "src/readme_agent/facts/rust_consumer.py": "ea586047438b23fb809f8b355e7c57d4c94ed3858e92ec584aa48ce703b20064",
+      "src/readme_agent/facts/rust_consumer_schema.py": "9cb33be4434f19a4474deff6b54d7980d7d0a7443a9478e359564a36e4681f05",
       "src/readme_agent/facts/rust_dependency_acquisition.py": "321b3124146d18a05109fd1c5a23fb61d690f68f53d76cc6d36913a89a4f9328",
+      "src/readme_agent/facts/rust_dependency_schema.py": "06768fe760b897bb846d497a9fb8c1f717cdc3f5a76f57204bafdcc7e3f4d9cc",
       "src/readme_agent/facts/rust_example_verifier.py": "e37cddcfbfc080b0a22d2706da3ed8bd14a106c742f5d2d721171417df18ce74",
       "src/readme_agent/facts/local_verification.py": "7bfe2feb2d75d79ce834958c33fd7fdce4ba209c4345b412378b699c15543900",
+      "tests/unit/test_draft_product_truth_capability.py": "f95c6429b5222ee8570ba4f6f9b90ccecb1440ecc1cc8c7f2fbdeca53978ce78",
+      "tests/unit/test_facts_provider.py": "07720e06c4a9284fcdf745d40d616b04f3a99818cc7962b39b918a25306116f2",
+      "tests/unit/test_local_verification.py": "5074ec5e781375c86558bbe2ee03c196a190282f1bf75fa27325ddccd7c577dc",
       "tests/unit/test_rust_public_api.py": "b94f6eaac5227d38d9faaeed5b6d2dec95670c225ffeab686d5b79c2dcc24424",
       "tests/unit/test_rust_consumer.py": "2e7153d47df12893dc8769330e687cf20aa104a08464fdb20f85aebfdc0e56b2",
       "tests/security/test_rust_consumer_docker_live.py": "fa696c074138af5180cf641567111c1f6221509f4607d7271500f9f10e124d54"
@@ -63,8 +76,10 @@
     "immutable_image": true,
     "offline_locked_command": true,
     "cleanup_complete": true,
-    "no_managed_resources_remain": true
+    "no_managed_resources_remain": false
   },
-  "failures": [],
-  "verdict": "VERIFIED"
+  "failures": [
+    "no_managed_resources_remain"
+  ],
+  "verdict": "FAILED"
 }
