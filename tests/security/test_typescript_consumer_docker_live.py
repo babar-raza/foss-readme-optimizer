@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import subprocess
 from pathlib import Path
 
@@ -17,7 +18,12 @@ from readme_agent.registry.loader import require_listed
 from readme_agent.registry.models import MinimalExamplePolicy
 from readme_agent.repository_snapshot import capture_repository_snapshot
 
-REPRESENTATIVE = Path("runs/baseline/aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript")
+REPRESENTATIVE = Path(
+    os.environ.get(
+        "README_AGENT_TYPESCRIPT_REPRESENTATIVE",
+        "runs/baseline/aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript",
+    )
+)
 ORG_REPO = "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript"
 
 
