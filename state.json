@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "6120b6c9d1a1e64ac7bfc345a4dcab23dc55ca8ff5b40683244912240386a46c",
-    "last_evaluated_at": "2026-07-27T17:46:54.540065+00:00",
+    "last_evaluated_at": "2026-07-27T17:47:06.741606+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -138,7 +138,7 @@
       "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
-      "L8-TRUTH-05-PUBLIC-EXAMPLES": "IMPLEMENTED",
+      "L8-TRUTH-05-PUBLIC-EXAMPLES": "VERIFIED",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "TODO",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "TODO",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
@@ -2264,6 +2264,17 @@
         "reason": "Seven ecosystem public-example verifiers are implemented through the canonical isolated verification seam.",
         "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-public-examples"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-27T17:47:06.741594+00:00",
+        "reason": "Committed evidence verifies real Java, .NET, Python, TypeScript, C++, Go, and Rust examples plus stale curated controls, hostile controls, focused tests, and official checks.",
+        "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -2272,7 +2283,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 259,
+  "state_version": 260,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
