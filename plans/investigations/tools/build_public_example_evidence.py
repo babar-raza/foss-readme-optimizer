@@ -1,4 +1,4 @@
-"""Build checksum-complete evidence for seven-ecosystem public examples."""
+"""Build checksum-complete evidence for seven ecosystem public examples."""
 
 from __future__ import annotations
 
@@ -10,11 +10,11 @@ from pathlib import Path
 from typing import Any
 
 from acquisition_truth_evidence_checks import verify_hostile_executor_controls
+from public_example_evidence_checks import evaluate_public_example_checks
 from public_example_evidence_support import (
     REPRESENTATIVES,
-    case_record,
-    curated_rejection_controls,
-    run_public_example_cases,
+    representative_roots,
+    verify_representatives,
 )
 
 from readme_agent.evidence.writer import (
@@ -37,6 +37,7 @@ ISOLATED_EXECUTOR_PROOF = REPO_ROOT / "plans/investigations/evidence/level8-isol
 TASK_ID = "L8-TRUTH-05-PUBLIC-EXAMPLES"
 PYTHON = sys.executable
 IMPLEMENTATION_PATHS = (
+    "src/readme_agent/facts/acceptance_contract.py",
     "src/readme_agent/facts/compiled_consumer.py",
     "src/readme_agent/facts/compiled_consumer_schema.py",
     "src/readme_agent/facts/cpp_example_verifier.py",
@@ -50,19 +51,41 @@ IMPLEMENTATION_PATHS = (
     "src/readme_agent/facts/rust_example_verifier.py",
     "src/readme_agent/facts/typescript_example_verifier.py",
 )
+EVIDENCE_MACHINERY_PATHS = (
+    "plans/investigations/tools/build_public_example_evidence.py",
+    "plans/investigations/tools/public_example_evidence_checks.py",
+    "plans/investigations/tools/public_example_evidence_support.py",
+)
 FOCUSED_COMMAND = (
     PYTHON,
     "-m",
     "pytest",
     "-q",
-    "tests/unit/test_repository_examples.py",
     "tests/unit/test_compiled_consumer_verifiers.py",
+    "tests/unit/test_repository_examples.py",
     "tests/unit/test_local_verification.py",
     "tests/unit/test_fact_acceptance_contract.py",
+    "tests/unit/test_acquisition.py",
+    "tests/unit/test_acquisition_pins.py",
+    "tests/unit/test_rust_consumer.py",
     "tests/security/test_example_execution_boundary.py",
-    "tests/security/test_isolated_execution_hostile_live.py",
+    "tests/security/test_no_secrets_in_evidence.py",
 )
 OFFICIAL_COMMAND = (PYTHON, "scripts/governance/run_official_checks.py")
+
+
+def _git(*args: str, root: Path = REPO_ROOT) -> str:
+    return subprocess.run(
+        ["git", "-C", str(root), *args],
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    ).stdout.strip()
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _run(command: tuple[str, ...]) -> dict[str, Any]:
@@ -83,23 +106,29 @@ def _run(command: tuple[str, ...]) -> dict[str, Any]:
     }
 
 
-def _git(*args: str, root: Path = REPO_ROOT) -> str:
-    return subprocess.run(
-        ["git", "-C", str(root), *args],
-        check=True,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-    ).stdout.strip()
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _write_failure(payload: dict[str, Any]) -> None:
+def _write_failure(
+    control: dict[str, Any],
+    checks: dict[str, bool],
+    focused: dict[str, Any],
+    official: dict[str, Any] | None,
+) -> None:
     FAILURE_DIR.mkdir(parents=True, exist_ok=True)
-    write_redacted_json(FAILURE_DIR / "verification.json", payload)
+    write_redacted_text(FAILURE_DIR / "focused-tests.stdout.log", focused["stdout"])
+    write_redacted_text(FAILURE_DIR / "focused-tests.stderr.log", focused["stderr"])
+    if official is not None:
+        write_redacted_text(FAILURE_DIR / "official-checks.stdout.log", official["stdout"])
+        write_redacted_text(FAILURE_DIR / "official-checks.stderr.log", official["stderr"])
+    write_redacted_json(
+        FAILURE_DIR / "verification.json",
+        {
+            "schema_version": 1,
+            "task_id": TASK_ID,
+            "control_repository": control,
+            "checks": checks,
+            "failures": [name for name, passed in checks.items() if not passed],
+            "verdict": "FAILED",
+        },
+    )
     refresh_sha256sums(FAILURE_DIR)
 
 
@@ -109,99 +138,52 @@ def _build(run_official: bool) -> list[str]:
         "head": _git("rev-parse", "HEAD"),
         "branch": _git("branch", "--show-current") or "HEAD",
         "tree_clean_at_start": not start_status,
-        "tree_porcelain_sha256": hashlib.sha256(start_status.encode("utf-8")).hexdigest(),
+        "tree_porcelain_sha256": hashlib.sha256(start_status.encode()).hexdigest(),
         "builder_path": Path(__file__).resolve().relative_to(REPO_ROOT).as_posix(),
         "builder_sha256": _sha256(Path(__file__).resolve()),
-        "support_sha256": _sha256(Path(__file__).with_name("public_example_evidence_support.py")),
         "implementation": {
             path: _sha256(REPO_ROOT / path) for path in sorted(IMPLEMENTATION_PATHS)
         },
+        "evidence_machinery": {
+            path: _sha256(REPO_ROOT / path) for path in sorted(EVIDENCE_MACHINERY_PATHS)
+        },
     }
-    cases, results = run_public_example_cases(REPO_ROOT)
-    rejection_controls = curated_rejection_controls(REPO_ROOT)
-    records = [case_record(case, results[case.ecosystem]) for case in cases]
-    hostile_controls = verify_hostile_executor_controls(ISOLATED_EXECUTOR_PROOF)
+    results, curated_controls = verify_representatives(REPO_ROOT)
+    roots = representative_roots(REPO_ROOT)
     remote_revisions = {
         ecosystem: remote_head_sha(require_listed(org_repo).clone_url)
         for ecosystem, org_repo in REPRESENTATIVES.items()
     }
+    hostile_controls = verify_hostile_executor_controls(ISOLATED_EXECUTOR_PROOF)
     focused = _run(FOCUSED_COMMAND)
     official = _run(OFFICIAL_COMMAND) if run_official else None
-    checks = {
-        "clean_committed_start": not start_status,
-        "all_seven_ecosystems_present": set(results) == set(REPRESENTATIVES),
-        "all_selected_examples_verified": all(
-            result.outcome == "SOURCE_BUILD_VERIFIED" and result.truth_eligible
-            for result in results.values()
-        ),
-        "all_selected_examples_network_denied": all(
-            result.isolated_execution is not None
-            and result.isolated_execution.policy.network_mode == "none"
-            for result in results.values()
-        ),
-        "all_selected_examples_cleanup_complete": all(
-            result.isolated_execution is not None and result.isolated_execution.cleanup.complete
-            for result in results.values()
-        ),
-        "all_selected_examples_have_public_symbols": all(
-            bool(result.verified_public_symbols) for result in results.values()
-        ),
-        "all_selected_examples_have_dependency_inputs": all(
-            bool(result.acquisition_dependency_pins) for result in results.values()
-        ),
-        "remote_default_revisions_match": all(
-            remote_revisions[case.ecosystem] == case.snapshot.source_revision for case in cases
-        ),
-        "python_curated_stale_example_rejected": (
-            rejection_controls["python"].outcome == "BUILD_FAILED"
-            and not rejection_controls["python"].truth_eligible
-        ),
-        "typescript_curated_stale_example_rejected": (
-            rejection_controls["typescript"].outcome == "BUILD_FAILED"
-            and not rejection_controls["typescript"].truth_eligible
-        ),
-        "hostile_executor_controls_pass": bool(hostile_controls.get("accepted")),
-        "focused_tests_pass": focused["exit_code"] == 0,
-        "official_checks_pass": official is not None and official["exit_code"] == 0,
-        "head_stable": _git("rev-parse", "HEAD") == control["head"],
-    }
+    checks = evaluate_public_example_checks(
+        control=control,
+        start_status=start_status,
+        current_head=_git("rev-parse", "HEAD"),
+        current_status=_git("status", "--porcelain=v1", "--untracked-files=all"),
+        results=results,
+        curated_controls=curated_controls,
+        remote_revisions=remote_revisions,
+        hostile_controls=hostile_controls,
+        focused_exit_code=focused["exit_code"],
+        official_exit_code=official["exit_code"] if official is not None else None,
+    )
+    checks["representative_revisions_stable"] = all(
+        _git("rev-parse", "HEAD", root=roots[ecosystem])
+        == results[ecosystem]["verification"]["source_revision"]
+        for ecosystem in roots
+    )
     failures = [name for name, passed in checks.items() if not passed]
     if failures:
-        _write_failure(
-            {
-                "schema_version": 1,
-                "task_id": TASK_ID,
-                "control_repository": control,
-                "checks": checks,
-                "failures": failures,
-                "records": records,
-                "verdict": "FAILED",
-            }
-        )
+        _write_failure(control, checks, focused, official)
         return failures
 
     scoreboard = derive_lifecycle_scoreboard(default_state_backend())
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
-    for ecosystem, result in sorted(results.items()):
-        write_redacted_json(
-            EVIDENCE_DIR / f"{ecosystem}-verification.json",
-            result.model_dump(mode="json"),
-        )
-    write_redacted_json(
-        EVIDENCE_DIR / "curated-readme-dispositions.json",
-        {
-            "schema_version": 1,
-            "principle": (
-                "Prefer product-agent-curated README content, but reuse no material unit until "
-                "accepted repository, package, public-API, and compiler evidence validates it."
-            ),
-            "records": records,
-            "rejection_controls": {
-                ecosystem: result.model_dump(mode="json")
-                for ecosystem, result in sorted(rejection_controls.items())
-            },
-        },
-    )
+    write_redacted_json(EVIDENCE_DIR / "example-verifications.json", results)
+    write_redacted_json(EVIDENCE_DIR / "curated-readme-controls.json", curated_controls)
+    write_redacted_json(EVIDENCE_DIR / "remote-revisions.json", remote_revisions)
     write_redacted_json(EVIDENCE_DIR / "hostile-executor-controls.json", hostile_controls)
     write_redacted_text(EVIDENCE_DIR / "focused-tests.stdout.log", focused["stdout"])
     write_redacted_text(EVIDENCE_DIR / "focused-tests.stderr.log", focused["stderr"])
@@ -217,21 +199,20 @@ def _build(run_official: bool) -> list[str]:
             "core_contribution": {
                 "kind": "visible_deliverable",
                 "summary": (
-                    "Prove imports or namespaces, public symbols, compilation or execution, and "
-                    "secret-free inputs for selected examples in the same disposable OS-isolated "
-                    "executor used for acquisition proof."
+                    "Prove imports or namespaces, public symbols, compilation or execution, "
+                    "and secret-free inputs for selected examples in the same disposable "
+                    "OS-isolated executor used for acquisition proof."
                 ),
             },
             "acceptance_checks_passed": [
-                "Unresolved",
-                "private",
-                "uncompiled",
-                "or secret-dependent examples cannot become verified",
+                "Unresolved, private, uncompiled, or secret-dependent examples cannot verify",
                 "Host-only compilation or execution cannot become verified",
+                "Stale curated README examples are rejected instead of silently reused",
+                "Filesystem, process, resource, and undeclared-network escapes fail closed",
             ],
             "proof_refs": [
-                "plans/investigations/evidence/level8-public-examples/"
-                "curated-readme-dispositions.json",
+                "plans/investigations/evidence/level8-public-examples/example-verifications.json",
+                "plans/investigations/evidence/level8-public-examples/curated-readme-controls.json",
                 "plans/investigations/evidence/level8-public-examples/"
                 "hostile-executor-controls.json",
                 "plans/investigations/evidence/level8-public-examples/verification.json",
@@ -258,7 +239,6 @@ def _build(run_official: bool) -> list[str]:
                 ),
             },
             "checks": checks,
-            "remote_default_revisions": remote_revisions,
             "failures": failures,
             "verdict": "VERIFIED",
         },
