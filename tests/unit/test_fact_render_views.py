@@ -218,6 +218,27 @@ def test_audience_normalizes_internal_ecosystem_token_without_mutating_fact():
     ]
 
 
+def test_verified_natural_lowercase_problem_phrase_is_preserved():
+    facts = _facts()
+    problem = facts.selected_fact("product.problems_solved")
+    natural_phrase = "creating, reading, and modifying document files"
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": [natural_phrase]})
+                if fact.fact_id == problem.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    view = visitor_fact_render_view(facts, "product.problems_solved")
+
+    assert view is not None
+    assert view.phrases == [natural_phrase]
+
+
 def test_agent_drafted_audience_requires_persisted_grounding_citations():
     facts = _facts()
     identity = facts.selected_fact("product.identity")

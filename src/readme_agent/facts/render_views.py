@@ -80,9 +80,7 @@ def _text_phrases(value: object) -> list[str]:
 
 def _sentence_phrases(value: object) -> list[str]:
     return [
-        phrase
-        for phrase in _text_phrases(value)
-        if len(re.findall(r"[A-Za-z0-9]+", phrase)) >= 2 and phrase[0].isupper()
+        phrase for phrase in _text_phrases(value) if len(re.findall(r"[A-Za-z0-9]+", phrase)) >= 2
     ]
 
 
