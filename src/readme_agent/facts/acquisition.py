@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Callable
 
 from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
+from readme_agent.ecosystems.registry_request import registry_request_url
 from readme_agent.ecosystems.resolver import ResolutionResult, resolve
 from readme_agent.facts.acquisition_schema import (
     AcquisitionDecisionV1,
@@ -30,9 +31,12 @@ def _registry_receipt(
     coordinate: dict[str, str],
     result: ResolutionResult,
 ) -> RegistryReceiptV1 | None:
+    expected_url = registry_request_url(resolver_ecosystem, coordinate)
     if (
-        result.registry_label is None
+        expected_url is None
+        or result.registry_label is None
         or result.request_url is None
+        or result.request_url != expected_url
         or result.status_code is None
         or result.response_sha256 is None
         or result.retrieved_at is None

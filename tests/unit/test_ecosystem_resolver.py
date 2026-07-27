@@ -1,4 +1,5 @@
 from readme_agent.ecosystems import resolver
+from readme_agent.ecosystems.registry_request import escape_go_module_path, registry_request_url
 
 
 class _StatusResponse:
@@ -173,12 +174,12 @@ class TestResolveGoProxy:
         assert not result.found
 
     def test_uppercase_module_path_is_escaped(self):
-        assert resolver._escape_go_module_path("github.com/PuerkitoBio/goquery") == (
+        assert escape_go_module_path("github.com/PuerkitoBio/goquery") == (
             "github.com/!puerkito!bio/goquery"
         )
 
     def test_already_lowercase_path_is_unchanged(self):
-        assert resolver._escape_go_module_path("github.com/pkg/errors") == "github.com/pkg/errors"
+        assert escape_go_module_path("github.com/pkg/errors") == "github.com/pkg/errors"
 
     def test_module_path_is_escaped_before_the_request(self, monkeypatch):
         captured_urls = []
@@ -274,3 +275,25 @@ class TestResolveVcpkg:
         result = resolver.resolve("cpp", {"name": "zlib"})
         assert not result.found
         assert "no live resolver registered" in result.detail
+
+
+def test_registry_request_urls_are_coordinate_specific():
+    assert (
+        registry_request_url("java", {"group_id": "org.aspose", "artifact_id": "aspose-cells-foss"})
+        == "https://repo1.maven.org/maven2/org/aspose/aspose-cells-foss/maven-metadata.xml"
+    )
+    assert registry_request_url("python", {"name": "aspose-3d-foss"}) == (
+        "https://pypi.org/pypi/aspose-3d-foss/json"
+    )
+    assert registry_request_url("typescript", {"name": "@aspose/3d"}) == (
+        "https://registry.npmjs.org/@aspose/3d"
+    )
+    assert registry_request_url("net", {"name": "Aspose.3D.FOSS"}) == (
+        "https://api.nuget.org/v3-flatcontainer/aspose.3d.foss/index.json"
+    )
+    assert registry_request_url("go", {"name": "github.com/Aspose/PDF"}) == (
+        "https://proxy.golang.org/github.com/!aspose/!p!d!f/@v/list"
+    )
+    assert registry_request_url("rust", {"name": "aspose-cells-foss"}) == (
+        "https://crates.io/api/v1/crates/aspose-cells-foss"
+    )

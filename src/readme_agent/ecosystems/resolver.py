@@ -44,16 +44,9 @@ from datetime import UTC, datetime
 
 import requests
 
+from readme_agent.ecosystems.registry_request import registry_request_url
 from readme_agent.retry import RetryableOperationError, run_http_with_retry
 
-_MAVEN_METADATA_URL_TEMPLATE = (
-    "https://repo1.maven.org/maven2/{group_path}/{artifact}/maven-metadata.xml"
-)
-_PYPI_URL_TEMPLATE = "https://pypi.org/pypi/{name}/json"
-_NPM_URL_TEMPLATE = "https://registry.npmjs.org/{name}"
-_NUGET_URL_TEMPLATE = "https://api.nuget.org/v3-flatcontainer/{name}/index.json"
-_GO_PROXY_URL_TEMPLATE = "https://proxy.golang.org/{module}/@v/list"
-_CRATES_IO_URL_TEMPLATE = "https://crates.io/api/v1/crates/{name}"
 # crates.io's crawler policy rejects generic library User-Agents outright --
 # live-verified 2026-07-25: the default `python-requests/x.y` UA gets 403 for
 # BOTH an existing crate (serde) and a made-up name, which would otherwise be
@@ -68,12 +61,6 @@ _CRATES_IO_HEADERS = {"User-Agent": "readme-agent-foss-optimizer (github.com/asp
 # a made-up one. This checks "is there a build recipe for this name in the
 # community index," the correct question for these two ecosystems, not "is
 # a binary hosted" (neither registry hosts binaries centrally).
-_CONAN_CENTER_URL_TEMPLATE = (
-    "https://raw.githubusercontent.com/conan-io/conan-center-index/master/recipes/{name}/config.yml"
-)
-_VCPKG_URL_TEMPLATE = (
-    "https://raw.githubusercontent.com/microsoft/vcpkg/master/ports/{name}/vcpkg.json"
-)
 _RETRYABLE_STATUS = {429, 502, 503, 504}
 
 
@@ -115,9 +102,8 @@ def _resolve_maven(manifest: dict[str, str], timeout: float = 10) -> ResolutionR
     artifact_id = manifest.get("artifact_id")
     if not group_id or not artifact_id:
         return ResolutionResult(False, "manifest missing group_id/artifact_id -- cannot resolve")
-    url = _MAVEN_METADATA_URL_TEMPLATE.format(
-        group_path=group_id.replace(".", "/"), artifact=artifact_id
-    )
+    url = registry_request_url("java", manifest)
+    assert url is not None
     return _resolve_by_existence_url(url, "Maven Central", f"{group_id}:{artifact_id}", timeout)
 
 
@@ -181,7 +167,9 @@ def _resolve_pypi(manifest: dict[str, str], timeout: float = 10) -> ResolutionRe
     name = manifest.get("name")
     if not name:
         return ResolutionResult(False, "manifest missing name -- cannot resolve")
-    return _resolve_by_existence_url(_PYPI_URL_TEMPLATE.format(name=name), "PyPI", name, timeout)
+    url = registry_request_url("python", manifest)
+    assert url is not None
+    return _resolve_by_existence_url(url, "PyPI", name, timeout)
 
 
 def _resolve_npm(manifest: dict[str, str], timeout: float = 10) -> ResolutionResult:
@@ -190,7 +178,9 @@ def _resolve_npm(manifest: dict[str, str], timeout: float = 10) -> ResolutionRes
     name = manifest.get("name")
     if not name:
         return ResolutionResult(False, "manifest missing name -- cannot resolve")
-    return _resolve_by_existence_url(_NPM_URL_TEMPLATE.format(name=name), "npm", name, timeout)
+    url = registry_request_url("typescript", manifest)
+    assert url is not None
+    return _resolve_by_existence_url(url, "npm", name, timeout)
 
 
 def _resolve_nuget(manifest: dict[str, str], timeout: float = 10) -> ResolutionResult:
@@ -201,17 +191,9 @@ def _resolve_nuget(manifest: dict[str, str], timeout: float = 10) -> ResolutionR
     name = manifest.get("name")
     if not name:
         return ResolutionResult(False, "manifest missing name -- cannot resolve")
-    return _resolve_by_existence_url(
-        _NUGET_URL_TEMPLATE.format(name=name.lower()), "NuGet", name, timeout
-    )
-
-
-def _escape_go_module_path(module: str) -> str:
-    """The Go module proxy protocol escapes uppercase letters as `!`+
-    lowercase (`golang.org/x/mod/module`'s own `EscapePath` convention) --
-    live-verified 2026-07-23: `proxy.golang.org/.../PuerkitoBio/...` 404s;
-    the escaped `.../!puerkito!bio/...` resolves."""
-    return "".join(f"!{c.lower()}" if c.isupper() else c for c in module)
+    url = registry_request_url("net", manifest)
+    assert url is not None
+    return _resolve_by_existence_url(url, "NuGet", name, timeout)
 
 
 def _resolve_go_proxy(manifest: dict[str, str], timeout: float = 10) -> ResolutionResult:
@@ -220,10 +202,9 @@ def _resolve_go_proxy(manifest: dict[str, str], timeout: float = 10) -> Resoluti
     name = manifest.get("name")
     if not name:
         return ResolutionResult(False, "manifest missing name -- cannot resolve")
-    escaped = _escape_go_module_path(name)
-    return _resolve_by_existence_url(
-        _GO_PROXY_URL_TEMPLATE.format(module=escaped), "Go proxy", name, timeout
-    )
+    url = registry_request_url("go", manifest)
+    assert url is not None
+    return _resolve_by_existence_url(url, "Go proxy", name, timeout)
 
 
 def _resolve_crates_io(manifest: dict[str, str], timeout: float = 10) -> ResolutionResult:
@@ -233,8 +214,10 @@ def _resolve_crates_io(manifest: dict[str, str], timeout: float = 10) -> Resolut
     name = manifest.get("name")
     if not name:
         return ResolutionResult(False, "manifest missing name -- cannot resolve")
+    url = registry_request_url("rust", manifest)
+    assert url is not None
     return _resolve_by_existence_url(
-        _CRATES_IO_URL_TEMPLATE.format(name=name),
+        url,
         "crates.io",
         name,
         timeout,
@@ -249,9 +232,9 @@ def _resolve_conan(manifest: dict[str, str], timeout: float = 10) -> ResolutionR
     name = manifest.get("name") or manifest.get("library_target")
     if not name:
         return ResolutionResult(False, "manifest missing name/library_target -- cannot resolve")
-    return _resolve_by_existence_url(
-        _CONAN_CENTER_URL_TEMPLATE.format(name=name.lower()), "Conan Center", name, timeout
-    )
+    url = registry_request_url("cpp_conan", manifest)
+    assert url is not None
+    return _resolve_by_existence_url(url, "Conan Center", name, timeout)
 
 
 def _resolve_vcpkg(manifest: dict[str, str], timeout: float = 10) -> ResolutionResult:
@@ -261,9 +244,9 @@ def _resolve_vcpkg(manifest: dict[str, str], timeout: float = 10) -> ResolutionR
     name = manifest.get("name") or manifest.get("library_target")
     if not name:
         return ResolutionResult(False, "manifest missing name/library_target -- cannot resolve")
-    return _resolve_by_existence_url(
-        _VCPKG_URL_TEMPLATE.format(name=name.lower()), "vcpkg", name, timeout
-    )
+    url = registry_request_url("cpp_vcpkg", manifest)
+    assert url is not None
+    return _resolve_by_existence_url(url, "vcpkg", name, timeout)
 
 
 _RESOLVERS = {

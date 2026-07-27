@@ -5,9 +5,10 @@ from datetime import UTC, datetime
 import pytest
 from pydantic import ValidationError
 
+from readme_agent.ecosystems.registry_request import registry_request_url
 from readme_agent.ecosystems.resolver import ResolutionResult
 from readme_agent.facts.acquisition import reconcile_acquisition, select_acquisition
-from readme_agent.facts.acquisition_schema import AcquisitionDecisionV1
+from readme_agent.facts.acquisition_schema import AcquisitionDecisionV1, RegistryReceiptV1
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.isolated_execution_schema import (
@@ -45,7 +46,7 @@ def _resolution(*, found: bool, blocked: bool = False) -> ResolutionResult:
         detail="network blocked" if blocked else ("found" if found else "NOT FOUND (404)"),
         blocked=blocked,
         registry_label="PyPI",
-        request_url="https://pypi.org/pypi/aspose-3d-foss/json",
+        request_url=registry_request_url("python", {"name": "aspose-3d-foss"}),
         status_code=status,
         response_sha256=None if blocked else "c" * 64,
         retrieved_at=datetime.now(UTC),
@@ -236,6 +237,56 @@ def test_legacy_found_result_without_http_receipt_fails_closed():
 
     assert decision.outcome == "BLOCKED_NETWORK"
     assert decision.truth_eligible is False
+
+
+def test_response_for_a_different_coordinate_cannot_be_relabelled_as_published():
+    mismatched = _resolution(found=True)
+    mismatched.request_url = registry_request_url("python", {"name": "different-package"})
+
+    decision = select_acquisition(
+        entry=_entry(),
+        source_revision=REVISION,
+        local_verification=None,
+        unavailable_detail="no verified example",
+        resolution=mismatched,
+    )
+
+    assert decision.outcome == "BLOCKED_NETWORK"
+    assert decision.registry_receipt is None
+    assert decision.truth_eligible is False
+
+
+def test_response_for_a_different_coordinate_cannot_prove_registry_absence():
+    mismatched = _resolution(found=False)
+    mismatched.request_url = registry_request_url("python", {"name": "different-package"})
+
+    decision = select_acquisition(
+        entry=_entry(),
+        source_revision=REVISION,
+        local_verification=_isolated_verification(),
+        unavailable_detail="no verified example",
+        resolution=mismatched,
+    )
+
+    assert decision.outcome == "NOT_PUBLISHED"
+    assert decision.registry_receipt is None
+    assert decision.source_build_receipt is None
+    assert decision.truth_eligible is False
+
+
+def test_registry_receipt_schema_rejects_a_url_for_another_coordinate():
+    with pytest.raises(ValidationError, match="exact coordinate"):
+        RegistryReceiptV1(
+            resolver_ecosystem="python",
+            registry_label="PyPI",
+            coordinate={"name": "aspose-3d-foss"},
+            request_url="https://pypi.org/pypi/different-package/json",
+            status_code=200,
+            response_sha256="c" * 64,
+            retrieved_at=datetime.now(UTC),
+            found=True,
+            detail="found",
+        )
 
 
 def test_source_build_decision_cannot_claim_a_coordinate_without_registry_absence():

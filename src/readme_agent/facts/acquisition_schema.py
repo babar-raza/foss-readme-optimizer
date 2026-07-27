@@ -7,6 +7,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from readme_agent.ecosystems.registry_request import registry_request_url
+
 AcquisitionOutcome = Literal[
     "REGISTRY_VERIFIED",
     "SOURCE_BUILD_VERIFIED",
@@ -42,6 +44,9 @@ class RegistryReceiptV1(_StrictModel):
     def status_matches_found(self) -> RegistryReceiptV1:
         if self.found != (200 <= self.status_code < 300):
             raise ValueError("registry receipt found flag must match its HTTP status")
+        expected_url = registry_request_url(self.resolver_ecosystem, self.coordinate)
+        if expected_url is None or self.request_url != expected_url:
+            raise ValueError("registry receipt URL must match its exact coordinate")
         return self
 
 
