@@ -96,13 +96,13 @@ Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-req
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
 under `act` → isolated staging → production**. At the latest 2026-07-26 checkpoint, durable state
-version 200 closed `L8-TRUTH-02-ROOT-ROLES` and claimed `L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION`. The
+version 209 closed `L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION` and claimed `L8-TRUTH-03A-ISOLATED-EXECUTOR`. The
 31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
 `HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. The 91-task graph and 425-row
-coverage validate at SHA-256 `9607604df11734738f17b0d367d3245b9775914556b34ebd37c0402b0cf2bac0`.
-Clean commit `027383b` passed all official checks (1,787 tests). Package-root roles now prevent
-converter, test, and tooling manifests from supplying visitor facts. Exact LLM accounting and
-fail-closed prompt-drift gates remain active; pre-ledger bundles remain `UNKNOWN_LEGACY`.
+coverage validate at SHA-256 `e9225ca994924b19b3d1774f66fd9e3bf92c1f56b8a2ff692e809361d70e000a`.
+Clean commit `2864834` passed all official checks (1,787 tests). Python, TypeScript, and Rust use
+only pinned sibling blobs and clean local seams; dirty/unlicensed sibling source is excluded.
+LLM accounting and prompt-drift gates remain active; pre-ledger bundles remain `UNKNOWN_LEGACY`.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 
@@ -2294,10 +2294,13 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [x] Package-root truth: classify every root by role, persist the full inventory, select the
         distributed product deterministically, and prevent converter/test/tooling manifests from
         supplying visitor facts (`L8-TRUTH-02`, `L8-033`, commit `027383b`).
-  - [ ] Remaining product truth: adapt pinned committed `aspose.org` Python, TypeScript, and Rust
-        public-consumer-surface behavior; then complete claim polarity, OS-isolated
-        acquisition/public examples, render views, seven-ecosystem proof, and facts-only
-        full-registry preflight (`L8-TRUTH-*` task group).
+  - [x] Ecosystem-adaptation contract: pin committed `aspose.org` Python, TypeScript, and Rust
+        behavior/tests; record hashes, absent sibling license, dependency choices, local seams,
+        and rejected shortcuts without a sibling runtime dependency (`L8-TRUTH-02A`, `L8-029`,
+        commit `2864834`).
+  - [ ] Remaining product truth: implement the three platform adapters, claim polarity,
+        OS-isolated acquisition/public examples, render views, seven-ecosystem proof, and
+        facts-only full-registry preflight (`L8-TRUTH-*` task group).
   - [ ] Composition: split active monoliths, reconcile existing sections, require complete
         operation and inherited-claim coverage, enforce presentation lint, and produce seven
         deterministic candidates (`L8-COMPOSE-*` task group).
@@ -2422,11 +2425,14 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       order/separator, every secondary role, cache migration, and persistence controls pass.
       Clean commit `027383b` passed 1,787 tests; checksum-complete proof:
       `plans/investigations/evidence/level8-package-root-roles/`.
-- [ ] **Python/TypeScript/Rust truth gate:** committed `aspose.org` source/test provenance is
-      reconstructable and adapted without runtime sibling dependency; Python selected imports and
-      public symbols, TypeScript package exports/declarations and disposable consumer compilation,
-      and Rust visibility/re-exports/impls/examples all pass real representative and negative
-      controls.
+- [x] **Aspose.org adaptation provenance gate:** nineteen pinned Python, TypeScript, and Rust
+      source/test blobs reconstruct from the object database while the 328-change sibling worktree
+      remains ignored; hashes, license constraints, dependencies, seams, and rejected shortcuts
+      are checksum-complete. Clean commit `2864834` passed 1,787 tests; proof:
+      `plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/`.
+- [ ] **Python/TypeScript/Rust truth gate:** Python selected imports and public symbols,
+      TypeScript package exports/declarations and disposable consumer compilation, and Rust
+      visibility/re-exports/impls/examples all pass real representative and negative controls.
 - [ ] **Local untrusted-execution gate:** source builds and examples for every supported ecosystem
       run in a disposable OS-isolated, resource-bounded, network-governed environment; hostile
       repository/dependency code cannot access the operator host or leave descendants.
