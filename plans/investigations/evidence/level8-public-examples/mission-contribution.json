@@ -13,7 +13,10 @@
     "private",
     "uncompiled",
     "or secret-dependent examples cannot become verified",
-    "Host-only compilation or execution cannot become verified"
+    "Host-only compilation or execution cannot become verified",
+    "Generated README examples contain no source comments, documentation comments, docstrings, explanatory annotations, or commented-out code in any supported language",
+    "Comment-like text inside a string literal is not falsely classified as a comment",
+    "Repository evidence anchors and actual imported public-consumer symbols are validated independently rather than conflated"
   ],
   "proof_refs": [
     "plans/investigations/evidence/level8-public-examples/example-verifications-summary.json",

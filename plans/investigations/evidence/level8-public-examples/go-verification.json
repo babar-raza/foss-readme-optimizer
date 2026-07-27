@@ -104,19 +104,19 @@
         "architecture": "amd64",
         "engine_version": "28.4.0"
       },
-      "container_id": "9ab83a86f0c37157ecda08bf12d3cd5f03d51fdd992fe5a8bf2563bc53fcdd17",
+      "container_id": "3851aeb3ad58be85397d3d7a831179337a06a0bf2a879b5a29d0700b25e20ff3",
       "process_inventory": [
         "PID                 PPID                USER                COMMAND",
-        "24677               24655               nobody              /bin/sh -euc go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent",
-        "24700               24677               nobody              go build -p=1 ./..."
+        "49334               49312               nobody              /bin/sh -euc go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent",
+        "49355               49334               nobody              go build -p=1 ./..."
       ],
       "return_code": 0,
       "stdout": "go version go1.24.13 linux/amd64\n",
       "stderr": "",
       "timed_out": false,
       "oom_killed": false,
-      "started_at": "2026-07-27T21:25:43.370707+00:00",
-      "finished_at": "2026-07-27T21:26:31.600275+00:00",
+      "started_at": "2026-07-27T21:47:37.711235+00:00",
+      "finished_at": "2026-07-27T21:48:24.120749+00:00",
       "cleanup": {
         "execution_container_removed": true,
         "seed_container_removed": true,
@@ -201,19 +201,19 @@
           "architecture": "amd64",
           "engine_version": "28.4.0"
         },
-        "container_id": "9ab83a86f0c37157ecda08bf12d3cd5f03d51fdd992fe5a8bf2563bc53fcdd17",
+        "container_id": "3851aeb3ad58be85397d3d7a831179337a06a0bf2a879b5a29d0700b25e20ff3",
         "process_inventory": [
           "PID                 PPID                USER                COMMAND",
-          "24677               24655               nobody              /bin/sh -euc go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent",
-          "24700               24677               nobody              go build -p=1 ./..."
+          "49334               49312               nobody              /bin/sh -euc go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent",
+          "49355               49334               nobody              go build -p=1 ./..."
         ],
         "return_code": 0,
         "stdout": "go version go1.24.13 linux/amd64\n",
         "stderr": "",
         "timed_out": false,
         "oom_killed": false,
-        "started_at": "2026-07-27T21:25:43.370707+00:00",
-        "finished_at": "2026-07-27T21:26:31.600275+00:00",
+        "started_at": "2026-07-27T21:47:37.711235+00:00",
+        "finished_at": "2026-07-27T21:48:24.120749+00:00",
         "cleanup": {
           "execution_container_removed": true,
           "seed_container_removed": true,
