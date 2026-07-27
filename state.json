@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "a7e4486a4ddb35a36efb44092893f06d870d003295b665d9d21e0e26dd25c7c5",
-    "last_evaluated_at": "2026-07-27T22:06:19.874462+00:00",
+    "last_evaluated_at": "2026-07-27T22:06:41.811199+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -64,7 +64,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Require positive implementation evidence for capabilities and explicit constraint evidence for limitations."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "task_id": "L8-TRUTH-03-CLAIM-POLARITY"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -135,7 +144,7 @@
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "CLOSED",
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
-      "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
+      "L8-TRUTH-03-CLAIM-POLARITY": "REGRESSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
@@ -2597,6 +2606,17 @@
         "reason": "Closed after the graph-derived contribution record covered all eight governed acceptance checks and the clean-HEAD replacement proof passed.",
         "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-claim-polarity/verification.json"
+        ],
+        "from_status": "CLOSED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T22:06:41.811193+00:00",
+        "reason": "Current implementation hashes differ materially from the closed proof: Python drafting repaired false limitation inference from positive 'is not None' evidence, so the directional-evidence contract requires current reproduction.",
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -2605,7 +2625,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 299,
+  "state_version": 300,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
