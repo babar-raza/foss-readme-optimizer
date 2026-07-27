@@ -55,8 +55,8 @@ Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposal
 
 | Status | Count |
 |---|---:|
-| IMPLEMENTED | 154 |
-| PLANNED | 123 |
+| IMPLEMENTED | 155 |
+| PLANNED | 122 |
 | PARTIAL | 82 |
 | GOVERNANCE | 34 |
 | BACKLOG | 26 |
@@ -67,8 +67,8 @@ Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposal
 
 ## Implementation-truth matrix summary (Wave 9.2)
 
-- 154 `IMPLEMENTED` rows checked.
+- 155 `IMPLEMENTED` rows checked.
 - 0 with a semantic closure finding.
-- 83 with informational-only findings (no test path cited -- often pre-dates this project's later per-row citation convention, not necessarily a real gap).
+- 84 with informational-only findings (no test path cited -- often pre-dates this project's later per-row citation convention, not necessarily a real gap).
 - 71 fully clean.
 - Full detail: `plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json`.

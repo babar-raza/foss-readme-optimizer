@@ -88,21 +88,18 @@ and proposal foundation, but it is **not Level 8**. The only active sequence is 
 Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-requirement counts,
 `logs/` for history; evidence bundles live under `plans/investigations/evidence/`.
 
-- **Wave 0 — truth consolidation** (2026-07-23, complete): 85 semantic findings consumed and fresh
-  clone `146d81d` passed official checks; exact evidence is indexed in the 2026-07-23 log.
-- **Wave 1 — canonical safety spine** (2026-07-23, complete): `supervise_repo()` is the only
-  production runtime and heterogeneous false-success cases fail closed (commit `0169964`).
-
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
 under `act` → isolated staging → production**. At the latest 2026-07-27 checkpoint, durable state
-version 214 closed `L8-TRUTH-03A-ISOLATED-EXECUTOR` and claimed `L8-TRUTH-02B-PYTHON-API-TRUTH`.
+version 220 closed `L8-TRUTH-02B-PYTHON-API-TRUTH`; version 221 claimed
+`L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH`.
 The 31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
-`HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. Clean commit `5d6bbf7` passed all
-official checks (1,792 tests); `plans/investigations/evidence/level8-isolated-executor/` proves
-pinned-image, non-root, cgroup, no-network, read-only-root, secret, timeout, process, and cleanup
-controls. Host diagnostics cannot become verified truth. `L8-019` stays partial until all seven
-ecosystems use this boundary. LLM accounting and prompt-drift gates remain active.
+`HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. Clean commit `7b75e80` passed all
+official checks (1,801 tests), and 64 focused checks plus the real Aspose.3D Python source install
+proved canonical imports and exact public symbols inside immutable, network-denied Docker.
+Checksum-complete evidence is under `plans/investigations/evidence/level8-python-api-truth/`.
+Host diagnostics cannot become verified truth. `L8-019` stays partial until all seven ecosystems
+use the isolated boundary. LLM accounting and prompt-drift gates remain active.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 
@@ -2298,6 +2295,10 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         behavior/tests; record hashes, absent sibling license, dependency choices, local seams,
         and rejected shortcuts without a sibling runtime dependency (`L8-TRUTH-02A`, `L8-029`,
         commit `2864834`).
+  - [x] Python public-consumer truth: resolve distribution roots, imports, re-exports, public
+        symbols, typed fields, and decorator stacks, then install the pinned package and exercise
+        selected APIs inside the disposable executor (`L8-TRUTH-02B`, `L8-030`, evidence commit
+        `c514fa7`).
   - [ ] Remaining product truth: implement the three platform adapters, claim polarity,
         OS-isolated acquisition/public examples, render views, seven-ecosystem proof, and
         facts-only full-registry preflight (`L8-TRUTH-*` task group).
@@ -2430,9 +2431,13 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       remains ignored; hashes, license constraints, dependencies, seams, and rejected shortcuts
       are checksum-complete. Clean commit `2864834` passed 1,787 tests; proof:
       `plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/`.
-- [ ] **Python/TypeScript/Rust truth gate:** Python selected imports and public symbols,
-      TypeScript package exports/declarations and disposable consumer compilation, and Rust
-      visibility/re-exports/impls/examples all pass real representative and negative controls.
+- [ ] **Python/TypeScript/Rust truth gate:**
+  - [x] Python selected imports, re-exports, and public symbols pass real representative,
+        negative-control, and isolated installed-consumer proof (`L8-030`, commit `c514fa7`).
+  - [ ] TypeScript package exports/declarations and disposable consumer compilation pass real
+        representative and negative controls (`L8-031`).
+  - [ ] Rust visibility/re-exports/impls/examples pass real representative and negative controls
+        (`L8-032`).
 - [ ] **Local untrusted-execution gate:** source builds and examples for every supported ecosystem
       run in a disposable OS-isolated, resource-bounded, network-governed environment; hostile
       repository/dependency code cannot access the operator host or leave descendants.
