@@ -38,11 +38,13 @@ from readme_agent.supervisor.mission_goal_guard import (
     derive_lifecycle_scoreboard,
     lifecycle_scoreboard_sha256,
 )
+from readme_agent.supervisor.mission_graph import load_mission_graph
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 EVIDENCE_DIR = REPO_ROOT / "plans/investigations/evidence/level8-acquisition-truth"
 FAILURE_DIR = REPO_ROOT / "runs/control/acquisition-truth-proof-failure"
 TASK_ID = "L8-TRUTH-04-ACQUISITION"
+GRAPH_PATH = REPO_ROOT / "plans/investigations/control/level8-autonomous-mission-task-graph.yaml"
 PYTHON = sys.executable
 SOURCE_PROOFS = {
     "python": REPO_ROOT / "plans/investigations/evidence/level8-python-api-truth",
@@ -193,6 +195,8 @@ def _build(run_official: bool) -> list[str]:
         _write_failure(control=control, checks=checks, focused=focused, official=official)
         return failures
 
+    graph, _ = load_mission_graph(GRAPH_PATH)
+    task = next(task for task in graph.taskcards if task.task_id == TASK_ID)
     scoreboard = derive_lifecycle_scoreboard(default_state_backend())
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
     write_redacted_json(
@@ -217,24 +221,9 @@ def _build(run_official: bool) -> list[str]:
         {
             "schema_version": 1,
             "task_id": TASK_ID,
-            "goal_ids": ["GOAL-TRUTH"],
-            "core_contribution": {
-                "kind": "visible_deliverable",
-                "summary": (
-                    "Select a registry-verified coordinate when published and a reproducible "
-                    "source-build path otherwise, while executing repository or dependency build "
-                    "code only inside a disposable OS-isolated executor with bounded resources "
-                    "and deny-by-default network."
-                ),
-            },
-            "acceptance_checks_passed": [
-                "False coordinates cannot reach FACTS_READY",
-                "unpublished packages with verified builds are not globally blocked",
-                (
-                    "A source-build result produced by an unsandboxed host subprocess is "
-                    "ineligible for verified truth"
-                ),
-            ],
+            "goal_ids": task.goal_ids,
+            "core_contribution": task.core_contribution.model_dump(mode="json"),
+            "acceptance_checks_passed": task.acceptance_checks,
             "proof_refs": [
                 "plans/investigations/evidence/level8-acquisition-truth/acquisition-decisions.json",
                 "plans/investigations/evidence/level8-acquisition-truth/"
