@@ -32,12 +32,21 @@ GRAPH_PATH = REPO_ROOT / "plans/investigations/control/level8-autonomous-mission
 REPRESENTATIVE = REPO_ROOT / "runs/baseline/aspose-3d-foss__Aspose.3D-FOSS-for-Python"
 TASK_ID = "L8-TRUTH-02B-PYTHON-API-TRUTH"
 REQUIREMENT_ID = "L8-030"
+PYTHON = str(REPO_ROOT / ".venv/Scripts/python.exe")
 FOCUSED_COMMAND = (
-    ".venv/Scripts/python -m pytest -q tests/unit/test_python_public_api.py "
-    "tests/unit/test_ecosystems.py tests/unit/test_local_verification.py "
-    "tests/security/test_example_execution_boundary.py"
+    PYTHON,
+    "-m",
+    "pytest",
+    "-q",
+    "tests/unit/test_python_public_api.py",
+    "tests/unit/test_ecosystems.py",
+    "tests/unit/test_local_verification.py",
+    "tests/security/test_example_execution_boundary.py",
 )
-OFFICIAL_COMMAND = ".venv/Scripts/python scripts/governance/run_official_checks.py"
+OFFICIAL_COMMAND = (
+    PYTHON,
+    "scripts/governance/run_official_checks.py",
+)
 
 
 def _git(*args: str, root: Path = REPO_ROOT) -> str:
@@ -53,11 +62,10 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _run(command: str) -> dict[str, Any]:
+def _run(command: tuple[str, ...]) -> dict[str, Any]:
     result = subprocess.run(
-        command,
+        list(command),
         cwd=REPO_ROOT,
-        shell=True,
         capture_output=True,
         text=True,
         encoding="utf-8",
@@ -65,7 +73,7 @@ def _run(command: str) -> dict[str, Any]:
         check=False,
     )
     return {
-        "command": command,
+        "command": " ".join(command),
         "exit_code": result.returncode,
         "stdout": result.stdout,
         "stderr": result.stderr,
