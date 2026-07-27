@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "9cf39331ba937687d815118d289fa6e545500b01d67e20dd44b0a0ed5bdf29ae",
-    "last_evaluated_at": "2026-07-27T13:14:38.945715+00:00",
+    "last_evaluated_at": "2026-07-27T13:14:50.886195+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -135,7 +135,7 @@
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "CLOSED",
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
-      "L8-TRUTH-03-CLAIM-POLARITY": "IMPLEMENTED",
+      "L8-TRUTH-03-CLAIM-POLARITY": "VERIFIED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "TODO",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "TODO",
@@ -2043,6 +2043,19 @@
         "reason": "Directional evidence contract implemented and bound to ProductFactsV2.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-claim-polarity/verification.json",
+          "plans/investigations/evidence/level8-claim-polarity/polarity-assessments.json",
+          "plans/investigations/evidence/level8-claim-polarity/mission-contribution.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex-primary",
+        "occurred_at": "2026-07-27T13:14:50.886191+00:00",
+        "reason": "Real .NET limitation, positive implementation, and opposite-polarity controls verified.",
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -2051,7 +2064,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 234,
+  "state_version": 235,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
