@@ -2,24 +2,24 @@
   "schema_version": 1,
   "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
   "control_repository": {
-    "head": "704f0f8e8c5ffd155fd1d8cb09865d1321562a7a",
+    "head": "e35a7a208d7fee6ca8b1fb985571d2a7a5ba218a",
     "branch": "main",
     "tree_clean_at_start": true,
-    "builder_sha256": "371e3120b218783a1050c3371c5da6f2984f6e098fd82a44d3ab3ad28df0e88b",
+    "builder_sha256": "a2598bf153a814b57e40aed589b821083b9679b373adb2aebbf6bfe30e5c40ae",
     "prompt_path": "prompts/generation/draft_product_truth.yaml",
-    "prompt_sha256": "0975ca4630426672aea2f499c97c03d7bd36460da954b26cc5977222645d1796",
+    "prompt_sha256": "a4cb174740a9db6ea9a3a38595476fca4cd6d47e23c49b0b2743e9fd32904d1e",
     "implementation": {
       "src/readme_agent/facts/acceptance_contract.py": "4ad2678bcca612fac1c65fddd4ba7684e737297865a8312ad42b5925c3ab918e",
-      "src/readme_agent/facts/agentic_drafting.py": "133481a10fd85273493e34e809cb5fb7c38fed954d91dcff08ddad5569e148e6",
-      "src/readme_agent/facts/interpretive_evidence.py": "635cc9dce11854dc81dad4ef43fe49be0ba4ca77542812d7f9cc5643e929ca82",
-      "src/readme_agent/facts/interpretive_resolution.py": "93069398e8ae5948786056ccf0c1bd0230db0ef4b46b8f731c3028b5b6fa7b18",
+      "src/readme_agent/facts/agentic_drafting.py": "816dd103cde228893df115ef31ddf3049ffce56018eeb34c5fbb639d9d116150",
+      "src/readme_agent/facts/interpretive_evidence.py": "b68bb0b4f726fea078492fdf234ab166d15b9160d11bf906da69b55298566826",
+      "src/readme_agent/facts/interpretive_resolution.py": "ef7462defad7c99e82f9a6860f724f6bc11cef2ae5f31285cebe323b9c5f41eb",
       "src/readme_agent/facts/render_views.py": "6537b60a10bf035cdc4c778c94dac84520815a50f976a52476b402fbfd0d0a75",
       "src/readme_agent/facts/schema_v2.py": "bbc979f3ea7d034589e0bd49ad0b2724787519a0a74f648187c1fad9d6e88723",
-      "src/readme_agent/capabilities/draft_product_truth.py": "972ca63e4777507629233dbc7014820a787b1c596f5f8fc3a6103491cfc04ca8"
+      "src/readme_agent/capabilities/draft_product_truth.py": "0259694dab4d8d98f047bbd186b1b35d107f0d4dec836cf6a014ad267bcb75d7"
     },
     "evidence_machinery": {
-      "plans/investigations/tools/build_interpretive_render_view_evidence.py": "371e3120b218783a1050c3371c5da6f2984f6e098fd82a44d3ab3ad28df0e88b",
-      "plans/investigations/tools/interpretive_render_view_evidence_support.py": "56d518275a69179243c9be786db9d11b5d585f47683cea74d520208bb33a6abd"
+      "plans/investigations/tools/build_interpretive_render_view_evidence.py": "a2598bf153a814b57e40aed589b821083b9679b373adb2aebbf6bfe30e5c40ae",
+      "plans/investigations/tools/interpretive_render_view_evidence_support.py": "c91baeddd2a293a900cdb7b526c08b5d85e0c2832d0588e04e708c251bc3e068"
     }
   },
   "commands": {
@@ -39,7 +39,7 @@
     "typescript_problem_grounded": true,
     "visitor_views_nonempty": true,
     "negative_controls_pass": true,
-    "live_python_citation_failure_eliminated": true,
+    "live_python_facts_ready_with_grounded_views": true,
     "focused_tests_pass": true,
     "official_checks_pass": true,
     "tree_stable": true
