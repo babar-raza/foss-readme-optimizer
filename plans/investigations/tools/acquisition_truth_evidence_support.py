@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -41,16 +42,34 @@ IMPLEMENTATION_PATHS = (
 
 
 def verify_evidence_inventory(root: Path) -> dict[str, Any]:
-    """Verify an existing evidence directory without regenerating its expensive proof."""
+    """Verify committed evidence bytes without regenerating its expensive proof."""
 
     inventory = root / "sha256sums.txt"
+    repository_root = Path(
+        subprocess.run(
+            ["git", "-C", str(root), "rev-parse", "--show-toplevel"],
+            check=True,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        ).stdout.strip()
+    )
+
+    def committed_bytes(path: Path) -> bytes:
+        relative = path.resolve().relative_to(repository_root.resolve()).as_posix()
+        return subprocess.run(
+            ["git", "-C", str(repository_root), "show", f"HEAD:{relative}"],
+            check=True,
+            capture_output=True,
+        ).stdout
+
     mismatches: list[str] = []
     records: list[dict[str, str]] = []
     for line in inventory.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
         expected, relative = line.split("  ", 1)
-        observed = hashlib.sha256((root / relative).read_bytes()).hexdigest()
+        observed = hashlib.sha256(committed_bytes(root / relative)).hexdigest()
         records.append({"path": relative, "sha256": observed})
         if observed != expected:
             mismatches.append(relative)
@@ -58,7 +77,7 @@ def verify_evidence_inventory(root: Path) -> dict[str, Any]:
     return {
         "path": root.as_posix(),
         "verification_verdict": verification.get("verdict"),
-        "inventory_sha256": hashlib.sha256(inventory.read_bytes()).hexdigest(),
+        "inventory_sha256": hashlib.sha256(committed_bytes(inventory)).hexdigest(),
         "file_count": len(records),
         "mismatches": mismatches,
         "accepted": verification.get("verdict") == "VERIFIED" and not mismatches,
