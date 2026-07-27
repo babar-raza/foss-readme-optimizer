@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "2129ad7d93cd90c586e40938cc6348aa4f5b9152aa9f1ab6e0577cfdb27ff73f",
-    "last_evaluated_at": "2026-07-27T14:44:49.030927+00:00",
+    "last_evaluated_at": "2026-07-27T14:45:35.206206+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -64,7 +64,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Select a registry-verified coordinate when published and a reproducible source-build path otherwise, while executing repository or dependency build code only inside a disposable OS-isolated executor with bounded resources and deny-by-default network."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "task_id": "L8-TRUTH-04-ACQUISITION"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -137,7 +146,7 @@
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
       "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
-      "L8-TRUTH-04-ACQUISITION": "BLOCKED",
+      "L8-TRUTH-04-ACQUISITION": "READY",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "TODO",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "TODO",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "TODO",
@@ -2172,6 +2181,18 @@
         "reason": "Independent controls prove claim polarity, curated README claim quarantine, and non-regression of the format evidence contract; all task acceptance checks and goal contribution evidence are complete.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-claim-polarity/verification.json",
+          "4352de88401f13014ab5fc267d7e2004dbfe21e9"
+        ],
+        "from_status": "BLOCKED",
+        "observed_by": "codex-primary",
+        "occurred_at": "2026-07-27T14:45:35.206199+00:00",
+        "reason": "The agent-fixable claim-polarity prerequisite is repaired, closed, and independently evidenced; acquisition work is ready to resume.",
+        "task_id": "L8-TRUTH-04-ACQUISITION",
+        "to_status": "READY"
       }
     ]
   },
@@ -2180,7 +2201,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 249,
+  "state_version": 250,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
