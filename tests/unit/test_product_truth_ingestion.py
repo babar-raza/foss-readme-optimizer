@@ -203,6 +203,20 @@ def test_identifier_evidence_does_not_match_inside_a_different_symbol(tmp_path):
     assert failures == ["required evidence symbol missing: Box"]
 
 
+def test_agentic_example_may_keep_one_real_anchor_when_an_extra_anchor_is_missing(tmp_path):
+    source = tmp_path / "Scene.cs"
+    source.write_text("public class Scene {}\n", encoding="utf-8")
+
+    failures = evidence_failures(
+        tmp_path,
+        ["Scene.cs"],
+        ["Scene", "MissingBox"],
+        allow_partial_symbols=True,
+    )
+
+    assert failures == []
+
+
 def test_file_path_without_a_claim_anchor_is_not_technical_evidence(tmp_path):
     (tmp_path / "Widget.java").write_text("public class Widget {}", encoding="utf-8")
 

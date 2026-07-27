@@ -277,16 +277,15 @@ def groundedness_fact_candidate(
     facts_so_far: ProductFactsV2,
     source_revision: str | None,
     observed_at: str | None,
+    *,
+    allow_partial: bool = False,
 ) -> FactRecordV2:
-    """Create one verified or wholly blocked interpretive fact candidate.
+    """Create one verified or narrowly blocked interpretive fact candidate.
 
-    All-or-nothing per field, mirroring `evidence_fact_candidate()`'s own failure shape:
-    if any claim fails (a) empty citations, (b) citation resolution, or (c) full lexical
-    coverage, the entire field is blocked with structured failure reasons -- no partial
-    credit for the claims that did pass. Only once every claim passes is the field
-    `verified`, sourced as `agent_drafted` (it has now been run through a real,
-    deterministic check), with confidence set to the mean per-claim lexical-coverage
-    ratio.
+    Default use remains all-or-nothing. Agentic drafting may explicitly
+    retain only individually proved sibling problem claims. Every selected
+    claim still requires complete citation resolution and 100% lexical
+    coverage; audience selection remains all-or-nothing.
     """
 
     source = FactSourceV2(
@@ -298,6 +297,7 @@ def groundedness_fact_candidate(
 
     failures: list[str] = []
     coverages: list[float] = []
+    accepted_claims: list[InterpretiveClaimV1] = []
     if not claims:
         failures.append(f"{field_name}: no claims were drafted for this field")
 
@@ -305,16 +305,23 @@ def groundedness_fact_candidate(
         passed, coverage, reasons = _claim_result(field_name, claim, facts_so_far)
         if passed:
             coverages.append(coverage)
+            accepted_claims.append(claim)
         else:
             failures.extend(reasons)
 
-    if failures:
+    selected_claims = claims
+    selected_failures = failures
+    if allow_partial and accepted_claims:
+        selected_claims = accepted_claims
+        selected_failures = []
+
+    if selected_failures:
         return FactRecordV2(
             fact_id=descriptive_fact_id(field_name, "groundedness-blocked"),
             field=field_name,
             value={
                 "claims": [claim.text for claim in claims],
-                "groundedness_failures": failures,
+                "groundedness_failures": selected_failures,
             },
             source=source,
             verification_state="blocked",
@@ -325,12 +332,12 @@ def groundedness_fact_candidate(
 
     confidence = sum(coverages) / len(coverages)
     supporting_fact_ids = list(
-        dict.fromkeys(fact_id for claim in claims for fact_id in claim.supporting_fact_ids)
+        dict.fromkeys(fact_id for claim in selected_claims for fact_id in claim.supporting_fact_ids)
     )
     return FactRecordV2(
         fact_id=descriptive_fact_id(field_name, "agent-drafted-grounded"),
         field=field_name,
-        value=[claim.text for claim in claims],
+        value=[claim.text for claim in selected_claims],
         source=source,
         verification_state="verified",
         authoritative_owner="repository-owner",

@@ -45,25 +45,39 @@ def evidence_failures(
     root: Path,
     paths: list[str],
     required_symbols: list[str],
+    *,
+    allow_partial_symbols: bool = False,
 ) -> list[str]:
-    """Reject escaped/missing evidence and absent required symbols."""
+    """Reject escaped/missing evidence and absent required symbols.
+
+    Generated examples may cite several drafting anchors while their
+    ecosystem verifier independently proves every actual public import. In
+    that narrow case at least one exact repository anchor is sufficient;
+    human policy and technical claims retain the all-symbols default.
+    """
 
     evidence_paths, failures = safe_evidence_paths(root, paths)
     if not required_symbols:
         failures.append("required evidence symbol missing: at least one exact anchor is required")
         return failures
     contents = [path.read_text(encoding="utf-8-sig", errors="replace") for path in evidence_paths]
+    symbol_failures: list[str] = []
+    found_count = 0
     for symbol in required_symbols:
         if not symbol.strip():
-            failures.append("required evidence symbol missing: blank anchors are invalid")
+            symbol_failures.append("required evidence symbol missing: blank anchors are invalid")
             continue
         if _IDENTIFIER.fullmatch(symbol):
             pattern = re.compile(rf"(?<![A-Za-z0-9_]){re.escape(symbol)}(?![A-Za-z0-9_])")
             found = any(pattern.search(content) is not None for content in contents)
         else:
             found = any(symbol in content for content in contents)
-        if not found:
-            failures.append(f"required evidence symbol missing: {symbol}")
+        if found:
+            found_count += 1
+        else:
+            symbol_failures.append(f"required evidence symbol missing: {symbol}")
+    if not allow_partial_symbols or found_count == 0:
+        failures.extend(symbol_failures)
     return failures
 
 

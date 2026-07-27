@@ -85,5 +85,6 @@ def reconcile_final_interpretive_grounding(
         grounding_facts,
         source_revision,
         observed_at,
+        allow_partial=True,
     )
     return reconciled

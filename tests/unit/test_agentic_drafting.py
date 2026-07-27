@@ -132,11 +132,12 @@ def test_product_truth_prompt_requires_subject_bound_capability_anchors():
     prompt = prompt_registry.get("draft_product_truth")
 
     assert prompt is not None
-    assert prompt.version == "15"
+    assert prompt.version == "16"
     assert "claim itself MUST name the exact subject" in prompt.system
     assert "one ambiguous, constraint-bearing, or subject-unbound" in prompt.system
     assert '"<verified product name> Enterprise Edition"' in prompt.system
     assert "must contain no source comments" in prompt.system
+    assert "add no unrelated or decorative anchors" in prompt.system
     assert "separately derives the actual imported package symbols" in prompt.system
 
 

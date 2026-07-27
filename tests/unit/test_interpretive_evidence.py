@@ -272,6 +272,33 @@ def test_mixed_pass_and_fail_claims_block_the_whole_field_not_partial_credit():
     assert not any(reason.startswith("problem-1") for reason in reasons)
 
 
+def test_agentic_problem_selection_keeps_only_fully_grounded_sibling_claims():
+    facts_so_far = _facts_so_far(_IDENTITY, _CAPABILITIES)
+    passing = InterpretiveClaimV1(
+        claim_id="problem-1",
+        text="Convert and merge PDF documents.",
+        supporting_fact_ids=[_CAPABILITIES.fact_id],
+    )
+    failing = InterpretiveClaimV1(
+        claim_id="problem-2",
+        text="Real-time video transcoding at massive scale.",
+        supporting_fact_ids=[_IDENTITY.fact_id, _CAPABILITIES.fact_id],
+    )
+
+    fact = groundedness_fact_candidate(
+        "product.problems_solved",
+        [passing, failing],
+        facts_so_far,
+        source_revision="abc123",
+        observed_at=None,
+        allow_partial=True,
+    )
+
+    assert fact.verification_state == "verified"
+    assert fact.value == [passing.text]
+    assert fact.supporting_fact_ids == [_CAPABILITIES.fact_id]
+
+
 def test_citation_to_a_fact_outside_the_accepted_verification_states_is_rejected():
     conflicting_capabilities = _established_fact(
         "product.capabilities",

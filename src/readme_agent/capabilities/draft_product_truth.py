@@ -257,7 +257,12 @@ def _gate_minimal_example(
         source_revision=source_revision,
         retrieved_at=observed_at,
     )
-    pre_check_failures = evidence_failures(root, example.evidence_paths, example.required_symbols)
+    pre_check_failures = evidence_failures(
+        root,
+        example.evidence_paths,
+        example.required_symbols,
+        allow_partial_symbols=True,
+    )
     quality_failures = generated_example_quality_failures(example.language, example.code)
     if pre_check_failures or quality_failures:
         return FactRecordV2(
@@ -367,6 +372,7 @@ def _gate_draft(
             facts_so_far,
             source_revision,
             observed_at,
+            allow_partial=True,
         ),
         "example.minimal": _gate_minimal_example(
             draft.minimal_example, root, source_revision, observed_at, verify_example_fn
