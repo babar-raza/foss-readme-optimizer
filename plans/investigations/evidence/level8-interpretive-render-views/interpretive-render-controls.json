@@ -1,0 +1,105 @@
+{
+  "java_identity": {
+    "source_value": {
+      "family": "cells",
+      "platform": "java",
+      "ecosystem": "java",
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "manifest_names": [
+        "Aspose.Cells FOSS for Java"
+      ]
+    },
+    "render_view": {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "phrases": [
+        "Aspose.Cells FOSS for Java"
+      ],
+      "citation_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    }
+  },
+  "typescript_audience": {
+    "grounded_fact": {
+      "fact_id": "product.audience:agent-drafted-grounded",
+      "field": "product.audience",
+      "value": [
+        "Developers using TypeScript."
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.audience",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    "render_view": {
+      "fact_id": "product.audience:agent-drafted-grounded",
+      "field": "product.audience",
+      "phrases": [
+        "Developers using TypeScript."
+      ],
+      "citation_fact_ids": [
+        "product.audience:agent-drafted-grounded",
+        "product.identity:manifest-and-registry"
+      ]
+    }
+  },
+  "typescript_problem": {
+    "grounded_fact": {
+      "fact_id": "product.problems_solved:agent-drafted-grounded",
+      "field": "product.problems_solved",
+      "value": [
+        "OBJ - Import/export with vertices, texture coordinates, normals, faces, objects, groups, smoothing groups, and materials"
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.problems_solved",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.formats:repository-evidence"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    "render_view": {
+      "fact_id": "product.problems_solved:agent-drafted-grounded",
+      "field": "product.problems_solved",
+      "phrases": [
+        "OBJ - Import/export with vertices, texture coordinates, normals, faces, objects, groups, smoothing groups, and materials"
+      ],
+      "citation_fact_ids": [
+        "product.problems_solved:agent-drafted-grounded",
+        "product.formats:repository-evidence"
+      ]
+    }
+  },
+  "negative_controls": {
+    "internal_tokens_have_no_view": true,
+    "nested_values_are_not_flattened": true,
+    "identity_omits_repository_slug": true,
+    "identity_omits_manifest_keys": true
+  }
+}
