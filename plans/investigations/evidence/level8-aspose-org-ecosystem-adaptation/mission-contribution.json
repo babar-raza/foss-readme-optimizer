@@ -1,11 +1,25 @@
 {
   "schema_version": 1,
-  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "task_id": "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION",
   "goal_ids": [
     "GOAL-TRUTH"
   ],
-  "contribution_kind": "visible_deliverable",
-  "summary": "Pinned and reconstructable Python, TypeScript, and Rust adaptation scopes with source hashes, license constraints, dependency decisions, local seams, tests, and rejected shortcuts.",
-  "closeout_ready": true
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Freeze a source-to-local provenance, license, dependency, contract, and test matrix for the smallest compatible committed sibling behaviors before implementing the three platform adapters."
+  },
+  "acceptance_checks_passed": [
+    "Every adopted behavior is read from committed Git blobs and maps to a local public seam and test",
+    "The planned runtime has no sibling checkout dependency"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/verification.json",
+    "plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/adaptation-matrix.json",
+    "plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/source-provenance.json"
+  ],
+  "scoreboard_before_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "scoreboard_after_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
 }
