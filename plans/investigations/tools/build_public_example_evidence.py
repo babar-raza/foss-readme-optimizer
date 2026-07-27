@@ -32,12 +32,14 @@ from readme_agent.supervisor.mission_goal_guard import (
     derive_lifecycle_scoreboard,
     lifecycle_scoreboard_sha256,
 )
+from readme_agent.supervisor.mission_graph import load_mission_graph
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 EVIDENCE_DIR = REPO_ROOT / "plans/investigations/evidence/level8-public-examples"
 FAILURE_DIR = REPO_ROOT / "runs/control/public-example-proof-failure"
 ISOLATED_EXECUTOR_PROOF = REPO_ROOT / "plans/investigations/evidence/level8-isolated-executor"
 TASK_ID = "L8-TRUTH-05-PUBLIC-EXAMPLES"
+GRAPH_PATH = REPO_ROOT / "plans/investigations/control/level8-autonomous-mission-task-graph.yaml"
 PYTHON = sys.executable
 IMPLEMENTATION_PATHS = (
     "src/readme_agent/facts/acceptance_contract.py",
@@ -197,6 +199,8 @@ def _build(run_official: bool) -> list[str]:
         _write_failure(control, checks, focused, official, results, curated_controls)
         return failures
 
+    graph, _ = load_mission_graph(GRAPH_PATH)
+    task = next(task for task in graph.taskcards if task.task_id == TASK_ID)
     scoreboard = derive_lifecycle_scoreboard(default_state_backend())
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
     remove_obsolete_combined_evidence(EVIDENCE_DIR)
@@ -233,22 +237,9 @@ def _build(run_official: bool) -> list[str]:
         {
             "schema_version": 1,
             "task_id": TASK_ID,
-            "goal_ids": ["GOAL-TRUTH"],
-            "core_contribution": {
-                "kind": "visible_deliverable",
-                "summary": (
-                    "Prove imports or namespaces, public symbols, compilation or execution, "
-                    "and secret-free inputs for selected examples in the same disposable "
-                    "OS-isolated executor used for acquisition proof."
-                ),
-            },
-            "acceptance_checks_passed": [
-                "Unresolved",
-                "private",
-                "uncompiled",
-                "or secret-dependent examples cannot become verified",
-                "Host-only compilation or execution cannot become verified",
-            ],
+            "goal_ids": task.goal_ids,
+            "core_contribution": task.core_contribution.model_dump(mode="json"),
+            "acceptance_checks_passed": task.acceptance_checks,
             "proof_refs": [
                 "plans/investigations/evidence/level8-public-examples/"
                 "example-verifications-summary.json",
