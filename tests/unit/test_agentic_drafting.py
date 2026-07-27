@@ -21,6 +21,7 @@ from readme_agent.facts.schema_v2 import (
     ProductFactsV2,
     descriptive_fact_id,
 )
+from readme_agent.llm import prompt_registry
 from readme_agent.llm.analysis_client import AnalysisResult, FixtureAnalysisClient
 from readme_agent.llm.schema import LLMResponseMeta
 
@@ -125,6 +126,16 @@ class TestFormatRepairHints:
 
         assert "product.capabilities" in text
         assert "evidence file missing: src/Nope.java" in text
+
+
+def test_product_truth_prompt_requires_subject_bound_capability_anchors():
+    prompt = prompt_registry.get("draft_product_truth")
+
+    assert prompt is not None
+    assert prompt.version == "14"
+    assert "claim itself MUST name the exact subject" in prompt.system
+    assert "one ambiguous, constraint-bearing, or subject-unbound" in prompt.system
+    assert '"<verified product name> Enterprise Edition"' in prompt.system
 
 
 class TestSelectBoundedRepoContext:
