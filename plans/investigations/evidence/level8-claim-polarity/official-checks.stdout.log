@@ -1,37 +1,38 @@
 All checks passed!
-571 files already formatted
-Success: no issues found in 324 source files
+595 files already formatted
+Success: no issues found in 333 source files
 ........................................................................ [  3%]
 ........................................................................ [  7%]
 ........................................................................ [ 11%]
 ........................................................................ [ 15%]
 ........................................................................ [ 19%]
-........................................................................ [ 23%]
-........................................................................ [ 27%]
-........................................................................ [ 31%]
+........................................................................ [ 22%]
+........................................................................ [ 26%]
+........................................................................ [ 30%]
 ........................................................................ [ 34%]
 ........................................................................ [ 38%]
-........................................................................ [ 42%]
-........................................................................ [ 46%]
-........................................................................ [ 50%]
-........................................................................ [ 54%]
-........................................................................ [ 58%]
-........................................................................ [ 62%]
-........................................................................ [ 66%]
-........................................................................ [ 69%]
-........................................................................ [ 73%]
-........................................................................ [ 77%]
-........................................................................ [ 81%]
-........................................................................ [ 85%]
-........................................................................ [ 89%]
-........................................................................ [ 93%]
-........................................................................ [ 97%]
-....................................................                     [100%]
-1852 passed, 34 deselected in 812.26s (0:13:32)
+........................................................................ [ 41%]
+........................................................................ [ 45%]
+........................................................................ [ 49%]
+........................................................................ [ 53%]
+........................................................................ [ 57%]
+........................................................................ [ 61%]
+........................................................................ [ 64%]
+........................................................................ [ 68%]
+........................................................................ [ 72%]
+........................................................................ [ 76%]
+........................................................................ [ 80%]
+........................................................................ [ 83%]
+........................................................................ [ 87%]
+........................................................................ [ 91%]
+........................................................................ [ 95%]
+........................................................................ [ 99%]
+...............                                                          [100%]
+1887 passed, 41 deselected in 847.91s (0:14:07)
 Plan structure clean (59 warning(s)).
 check_verifiers_are_wired: every verify_* function has a call site in src/
 Prompt hygiene clean: 10 active prompt(s)
-Level-8 requirement coverage current: 425 rows
+Level-8 requirement coverage current: 426 rows
 Checked 157 IMPLEMENTED rows.
   0 row(s) with a semantic closure finding.
   86 row(s) with informational-only findings (no test path cited).
@@ -57,23 +58,23 @@ $ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\p
 --- pytest -q (full non-live suite): OK
 
 === validate_plan_structure.py ===
-$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\claim-polarity-current-proof\scripts\governance\validate_plan_structure.py
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\validate_plan_structure.py
 --- validate_plan_structure.py: OK
 
 === check_verifiers_are_wired.py --check (PRODSYS-P2-T1) ===
-$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\claim-polarity-current-proof\scripts\governance\check_verifiers_are_wired.py --check
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\check_verifiers_are_wired.py --check
 --- check_verifiers_are_wired.py --check (PRODSYS-P2-T1): OK
 
 === check_prompt_hygiene.py ===
-$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\claim-polarity-current-proof\scripts\governance\check_prompt_hygiene.py
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\check_prompt_hygiene.py
 --- check_prompt_hygiene.py: OK
 
 === build_level8_requirement_taskcard_coverage.py --check (PRODSYS-P1-T3) ===
-$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\claim-polarity-current-proof\scripts\governance\build_level8_requirement_taskcard_coverage.py --check
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\build_level8_requirement_taskcard_coverage.py --check
 --- build_level8_requirement_taskcard_coverage.py --check (PRODSYS-P1-T3): OK
 
 === traceability_matrix.py --check ===
-$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\claim-polarity-current-proof\plans\investigations\tools\traceability_matrix.py --check
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\plans\investigations\tools\traceability_matrix.py --check
 --- traceability_matrix.py --check: OK
 
 === actionlint (workflow syntax) ===
