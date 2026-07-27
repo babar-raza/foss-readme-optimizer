@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import os
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -29,10 +31,15 @@ from readme_agent.supervisor.mission_graph import load_mission_graph
 REPO_ROOT = Path(__file__).resolve().parents[3]
 EVIDENCE_DIR = REPO_ROOT / "plans/investigations/evidence/level8-python-api-truth"
 GRAPH_PATH = REPO_ROOT / "plans/investigations/control/level8-autonomous-mission-task-graph.yaml"
-REPRESENTATIVE = REPO_ROOT / "runs/baseline/aspose-3d-foss__Aspose.3D-FOSS-for-Python"
+REPRESENTATIVE = Path(
+    os.environ.get(
+        "README_AGENT_PYTHON_REPRESENTATIVE",
+        str(REPO_ROOT / "runs/baseline/aspose-3d-foss__Aspose.3D-FOSS-for-Python"),
+    )
+).resolve()
 TASK_ID = "L8-TRUTH-02B-PYTHON-API-TRUTH"
 REQUIREMENT_ID = "L8-030"
-PYTHON = str(REPO_ROOT / ".venv/Scripts/python.exe")
+PYTHON = sys.executable
 FOCUSED_COMMAND = (
     PYTHON,
     "-m",
