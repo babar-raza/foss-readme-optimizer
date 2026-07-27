@@ -30,7 +30,7 @@
         ".readme-agent-consumer-driver.py"
       ],
       "return_code": 0,
-      "stdout": "README_AGENT_PYTHON_CONSUMER={\"verified_symbols\": [\"aspose.threed.Node\", \"aspose.threed.Node.child_nodes\", \"aspose.threed.Scene\", \"aspose.threed.Scene.root_node\"]}\n",
+      "stdout": "README_AGENT_PYTHON_CONSUMER={\"verified_symbols\": [\"aspose.threed.Node\", \"aspose.threed.Scene\"]}\n",
       "stderr": "",
       "timed_out": false,
       "environment_names": [
@@ -47,7 +47,7 @@
         ".readme-agent-consumer-driver.py"
       ],
       "return_code": 0,
-      "stdout": "README_AGENT_PYTHON_CONSUMER={\"verified_symbols\": [\"aspose.threed.Node\", \"aspose.threed.Node.child_nodes\", \"aspose.threed.Scene\", \"aspose.threed.Scene.root_node\"]}\n",
+      "stdout": "README_AGENT_PYTHON_CONSUMER={\"verified_symbols\": [\"aspose.threed.Node\", \"aspose.threed.Scene\"]}\n",
       "stderr": "",
       "timed_out": false,
       "environment_names": [
@@ -72,7 +72,7 @@
         "HOME",
         "PIP_CACHE_DIR"
       ],
-      "input_sha256": "8e475b10cef60370bb4ccee6e832b01a5d0785187abb960c94124aa800da2f28",
+      "input_sha256": "0979e69ff909b25a81f0bd6c911e4f4182d9cefc3bb346a7ca1b80e0c7a1f2fc",
       "input_file_count": 430,
       "policy_sha256": "b3e708e399833fa047f0f09384cb0349a4cdf49ded7a11ff7dc38c36d943b669",
       "policy": {
@@ -99,18 +99,18 @@
         "architecture": "amd64",
         "engine_version": "28.4.0"
       },
-      "container_id": "1b1333f3c22147b6a1414f57a11b132478db2706ce6d56c4e1c40d378eeb77ff",
+      "container_id": "9efd3b64578c81024d457cb3265feb6ef7f293b24155f4821faa81515251d06e",
       "process_inventory": [
         "PID                 PPID                USER                COMMAND",
-        "97634               97612               nobody              python -I .readme-agent-consumer-driver.py"
+        "29500               29479               nobody              python -I .readme-agent-consumer-driver.py"
       ],
       "return_code": 0,
-      "stdout": "README_AGENT_PYTHON_CONSUMER={\"verified_symbols\": [\"aspose.threed.Node\", \"aspose.threed.Node.child_nodes\", \"aspose.threed.Scene\", \"aspose.threed.Scene.root_node\"]}\n",
+      "stdout": "README_AGENT_PYTHON_CONSUMER={\"verified_symbols\": [\"aspose.threed.Node\", \"aspose.threed.Scene\"]}\n",
       "stderr": "",
       "timed_out": false,
       "oom_killed": false,
-      "started_at": "2026-07-27T17:27:39.104881+00:00",
-      "finished_at": "2026-07-27T17:27:48.364486+00:00",
+      "started_at": "2026-07-27T21:26:49.744020+00:00",
+      "finished_at": "2026-07-27T21:26:58.322310+00:00",
       "cleanup": {
         "execution_container_removed": true,
         "seed_container_removed": true,
@@ -120,9 +120,7 @@
     "truth_eligible": true,
     "verified_public_symbols": [
       "aspose.threed.Node",
-      "aspose.threed.Node.child_nodes",
-      "aspose.threed.Scene",
-      "aspose.threed.Scene.root_node"
+      "aspose.threed.Scene"
     ],
     "public_api_sha256": "363fb0eb0020079f069ddb32ad490ca30803032a7cf21ad5ae59fae50c8a7a14",
     "python_package": {

@@ -6,7 +6,7 @@
       "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
       "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
       "example_origin": "curated repository README",
-      "curated_content_disposition": "reuse unchanged only after public-symbol and compiler acceptance",
+      "curated_content_disposition": "reuse validated code after removing comments; preserve all executable bytes subject to public-symbol and compiler acceptance",
       "outcome": "SOURCE_BUILD_VERIFIED",
       "truth_eligible": true,
       "verified_public_symbols": [
@@ -35,7 +35,7 @@
       "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
       "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
       "example_origin": "curated repository README",
-      "curated_content_disposition": "reuse unchanged only after public-symbol and compiler acceptance",
+      "curated_content_disposition": "reuse validated code after removing comments; preserve all executable bytes subject to public-symbol and compiler acceptance",
       "outcome": "SOURCE_BUILD_VERIFIED",
       "truth_eligible": true,
       "verified_public_symbols": [
@@ -44,8 +44,8 @@
       "immutable_image": "mcr.microsoft.com/dotnet/sdk@sha256:3c0edbfe1549dd93fb789dc96299a40df865ad7bffefcaf38e8c05940686d641",
       "dependency_inputs": [
         "container_image=mcr.microsoft.com/dotnet/sdk@sha256:3c0edbfe1549dd93fb789dc96299a40df865ad7bffefcaf38e8c05940686d641",
-        "example_sha256=d487f15d0fc46a946b41616e23fbb7724930b6b7fa61a86fafa681b43d6d35e0",
-        "input_sha256=df22c796be5c100d385306e55006032483e7668aa90778bf44c8b4a913af53e7",
+        "example_sha256=9e66db07ed53c3853b0d50ca1e7b3296e8d24a8e03f2ec8adb48f7c7ee2dadf8",
+        "input_sha256=831f89848996fda8e22d90f67ce2418047b6236f13fdb21678c62d36bbd1d07c",
         "source_revision=6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "source_surface_sha256=5096fe61e36c83f3269e7dce320ca4c4fd1c4ba5aefc6b459a146cb0a20d4f5d",
         "dotnet_sdk=8.0.423",
@@ -58,7 +58,7 @@
       "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
       "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
       "example_origin": "repository-owned example source",
-      "curated_content_disposition": "curated README fragments are not complete programs; reuse the repository-owned complete example only after source and consumer compilation",
+      "curated_content_disposition": "curated README fragments are not complete programs; reuse the repository-owned complete comment-free example only after source and consumer compilation",
       "outcome": "SOURCE_BUILD_VERIFIED",
       "truth_eligible": true,
       "verified_public_symbols": [
@@ -67,8 +67,8 @@
       "immutable_image": "golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
       "dependency_inputs": [
         "container_image=golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
-        "example_sha256=324351f0c85737861c2e57d6b1594a19d8f133aa056f3d474321713b3dd9a777",
-        "input_sha256=b92b51a565791fd57d79658239af9b2e7f71fe4ed5c923c2bb60e9ef4f209a7d",
+        "example_sha256=e18752eaa8ffcc00802078fa28004930635cb7e768649f7d88fdd334729d99da",
+        "input_sha256=5a650038d6fdfecfcd06ece66035428d213f715026074929e6abdd981c91bee6",
         "source_revision=f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
         "source_surface_sha256=1584abbeda87a2a7f7d155e04bfa63343abc0fd87566c1e106b0cffc0de83f3a",
         "go_module_dependencies=none"
@@ -80,7 +80,7 @@
       "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
       "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
       "example_origin": "curated repository README",
-      "curated_content_disposition": "reuse unchanged only after public-symbol and compiler acceptance",
+      "curated_content_disposition": "reuse validated code after removing comments; preserve all executable bytes subject to public-symbol and compiler acceptance",
       "outcome": "SOURCE_BUILD_VERIFIED",
       "truth_eligible": true,
       "verified_public_symbols": [
@@ -110,9 +110,7 @@
       "truth_eligible": true,
       "verified_public_symbols": [
         "aspose.threed.Node",
-        "aspose.threed.Node.child_nodes",
-        "aspose.threed.Scene",
-        "aspose.threed.Scene.root_node"
+        "aspose.threed.Scene"
       ],
       "immutable_image": "python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
       "dependency_inputs": [
@@ -125,7 +123,7 @@
       "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
       "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
       "example_origin": "curated repository README",
-      "curated_content_disposition": "reuse unchanged only after public-symbol and compiler acceptance",
+      "curated_content_disposition": "reuse validated code after removing comments; preserve all executable bytes subject to public-symbol and compiler acceptance",
       "outcome": "SOURCE_BUILD_VERIFIED",
       "truth_eligible": true,
       "verified_public_symbols": [
