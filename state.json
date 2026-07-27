@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "2129ad7d93cd90c586e40938cc6348aa4f5b9152aa9f1ab6e0577cfdb27ff73f",
-    "last_evaluated_at": "2026-07-27T14:43:19.300491+00:00",
+    "last_evaluated_at": "2026-07-27T14:44:00.114351+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -135,7 +135,7 @@
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "CLOSED",
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
-      "L8-TRUTH-03-CLAIM-POLARITY": "SCORED",
+      "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "BLOCKED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "TODO",
@@ -2159,6 +2159,19 @@
         "reason": "Verified evidence satisfies every expected output, real .NET control, negative polarity control, regression suite, and checksum requirement.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-claim-polarity/mission-contribution.json",
+          "plans/investigations/evidence/level8-claim-polarity/verification.json",
+          "plans/investigations/evidence/level8-claim-polarity/sha256sums.txt"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex-primary",
+        "occurred_at": "2026-07-27T14:44:00.114337+00:00",
+        "reason": "Independent controls prove claim polarity, curated README claim quarantine, and non-regression of the format evidence contract; all task acceptance checks and goal contribution evidence are complete.",
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -2167,7 +2180,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 246,
+  "state_version": 247,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
