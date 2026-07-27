@@ -104,6 +104,34 @@ class ScriptedDockerRunner:
         raise AssertionError(f"unexpected Docker command: {argv}")
 
 
+class UncertainCleanupRunner(ScriptedDockerRunner):
+    """Return Docker-control uncertainty after resources were asked to be removed."""
+
+    def __init__(self, *, uncertain_inspections: int) -> None:
+        super().__init__()
+        self.uncertain_inspections = uncertain_inspections
+
+    def run(
+        self,
+        argv: list[str],
+        *,
+        timeout_seconds: float,
+        input_bytes: bytes | None = None,
+    ) -> subprocess.CompletedProcess[str]:
+        removed = (
+            argv[:2] == ["container", "inspect"] and argv[-1] in self.removed_containers
+        ) or (argv[:2] == ["volume", "inspect"] and argv[-1] in self.removed_volumes)
+        if removed and self.uncertain_inspections:
+            self.commands.append(argv)
+            self.uncertain_inspections -= 1
+            return _completed(argv, returncode=124, stderr="Docker control command timed out")
+        return super().run(
+            argv,
+            timeout_seconds=timeout_seconds,
+            input_bytes=input_bytes,
+        )
+
+
 def _request(tmp_path) -> IsolatedExecutionRequestV1:
     (tmp_path / "input.txt").write_text("immutable input\n", encoding="utf-8")
     return IsolatedExecutionRequestV1(
@@ -195,3 +223,27 @@ def test_cancellation_still_removes_containers_and_volume(tmp_path):
 
     assert len(runner.removed_containers) == 2
     assert len(runner.removed_volumes) == 1
+
+
+def test_cleanup_retries_transient_docker_inspection_uncertainty(tmp_path):
+    runner = UncertainCleanupRunner(uncertain_inspections=2)
+
+    result = execute_isolated(_request(tmp_path), runner=runner)
+
+    assert result.truth_eligible is True
+    assert result.cleanup.complete is True
+    execution_removals = [
+        argv
+        for argv in runner.commands
+        if argv[:2] == ["rm", "--force"] and "readme-agent-exec-" in argv[-1]
+    ]
+    assert len(execution_removals) == 3
+
+
+def test_cleanup_uncertainty_cannot_establish_truth(tmp_path):
+    runner = UncertainCleanupRunner(uncertain_inspections=100)
+
+    result = execute_isolated(_request(tmp_path), runner=runner)
+
+    assert result.truth_eligible is False
+    assert result.cleanup.complete is False

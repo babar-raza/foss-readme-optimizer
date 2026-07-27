@@ -12,6 +12,7 @@ from typing import Protocol
 from readme_agent.errors import ReadmeAgentError
 from readme_agent.evidence.redaction import redact
 from readme_agent.facts.example_execution import secret_free_environment
+from readme_agent.facts.isolated_cleanup import remove_docker_resource
 from readme_agent.facts.isolated_execution_inputs import build_isolated_input_bundle
 from readme_agent.facts.isolated_execution_schema import (
     ContainerCleanupV1,
@@ -135,11 +136,6 @@ def _resource_flags(request: IsolatedExecutionRequestV1) -> list[str]:
     ]
 
 
-def _removed(runner: DockerCommandRunner, kind: str, identity: str) -> bool:
-    inspect = runner.run([kind, "inspect", identity], timeout_seconds=10)
-    return inspect.returncode != 0
-
-
 def execute_isolated(
     request: IsolatedExecutionRequestV1,
     *,
@@ -154,9 +150,6 @@ def execute_isolated(
     volume = f"readme-agent-workspace-{suffix}"
     seed_name = f"readme-agent-seed-{suffix}"
     execution_name = f"readme-agent-exec-{suffix}"
-    seed_created = False
-    execution_created = False
-    volume_created = False
     container_id = ""
     process_inventory: list[str] = []
     return_code = 125
@@ -170,7 +163,6 @@ def execute_isolated(
         _require_success(
             active_runner, ["volume", "create", "--label", "readme-agent=true", volume]
         )
-        volume_created = True
         uid, gid = request.policy.user.split(":")
         seed = _require_success(
             active_runner,
@@ -192,7 +184,6 @@ def execute_isolated(
                 f"chown -R {uid}:{gid} {request.policy.workspace_path}",
             ],
         )
-        seed_created = True
         _require_success(
             active_runner,
             ["cp", "-", f"{seed_name}:{request.policy.workspace_path}"],
@@ -207,7 +198,6 @@ def execute_isolated(
         if seed_start.returncode != 0:
             raise IsolatedExecutionError("workspace ownership initialization failed")
         _require_success(active_runner, ["rm", "--force", seed_name])
-        seed_created = False
 
         create_argv = [
             "create",
@@ -227,7 +217,6 @@ def execute_isolated(
             ["--entrypoint", request.argv[0], request.policy.immutable_image, *request.argv[1:]]
         )
         create = _require_success(active_runner, create_argv)
-        execution_created = True
         container_id = create.stdout.strip()
         _require_success(active_runner, ["start", container_id])
         top = active_runner.run(
@@ -252,16 +241,12 @@ def execute_isolated(
     except BaseException as exc:
         execution_error = exc
     finally:
-        if execution_created:
-            active_runner.run(["rm", "--force", execution_name], timeout_seconds=15)
-        if seed_created:
-            active_runner.run(["rm", "--force", seed_name], timeout_seconds=15)
-        if volume_created:
-            active_runner.run(["volume", "rm", "--force", volume], timeout_seconds=15)
         cleanup = ContainerCleanupV1(
-            execution_container_removed=_removed(active_runner, "container", execution_name),
-            seed_container_removed=_removed(active_runner, "container", seed_name),
-            workspace_volume_removed=_removed(active_runner, "volume", volume),
+            execution_container_removed=remove_docker_resource(
+                active_runner, "container", execution_name
+            ),
+            seed_container_removed=remove_docker_resource(active_runner, "container", seed_name),
+            workspace_volume_removed=remove_docker_resource(active_runner, "volume", volume),
         )
     if execution_error is not None:
         if isinstance(execution_error, (KeyboardInterrupt, SystemExit)):
