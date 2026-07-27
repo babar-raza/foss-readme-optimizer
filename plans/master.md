@@ -1651,9 +1651,11 @@ that is the only permanence they carry; text is always the decision as it stands
     `VER-011`, `ORC-009`, `PIL-015`, `PIL-016`, `AUTH-008`, `GOV-029`, and `L8-015`–`L8-017`.
 
 79. **README candidates are visitor-facing documents, not containers for agent metadata.** Prompted
-    directly by user review (2026-07-26): generated README output must contain no HTML comments,
-    ownership markers, hashes, or other agent-internal annotations. Durable plans, manifests, and
-    state retain provenance and idempotency data outside the README. Every candidate adopts a
+    directly by user review (2026-07-26, clarified 2026-07-27): generated README output must
+    contain no comments in any form. This includes HTML comments, ownership markers, hashes,
+    agent-internal annotations, and comments/docstrings inside generated code examples. Durable
+    plans, manifests, and state retain provenance and idempotency data outside the README;
+    surrounding prose explains code without annotating the snippet itself. Every candidate adopts a
     consistent, fact-backed header: preserve or derive one factual H1 and render only verified
     package, download, and license badges applicable to that repository. The opening README must
     never lead with `aspose.org` or `aspose.com` links or promotional language. Verified product

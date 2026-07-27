@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import ast
-import re
 
 from readme_agent.ecosystems.python_api_schema import ConsumerExampleV1
 from readme_agent.ecosystems.python_public_api import inspect_python_public_api
@@ -15,12 +14,13 @@ from readme_agent.registry.models import MinimalExamplePolicy
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 
 
-def _selected_imports(
+def selected_python_consumer_imports(
     code: str,
     public_names: set[str],
     package_prefix: str,
-    declared_symbols: list[str],
 ) -> list[str]:
+    """Return exact distributed-package imports that the example actually selects."""
+
     tree = ast.parse(code, filename=".readme-agent-consumer.py")
     attempted: list[str] = []
     for node in ast.walk(tree):
@@ -38,21 +38,7 @@ def _selected_imports(
     missing = sorted(set(attempted) - public_names)
     if missing:
         raise ValueError(f"Python README example imports non-public symbols: {missing}")
-    selected = set(attempted)
-    for declaration in declared_symbols:
-        tokens = re.findall(r"[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*", declaration)
-        matches = [
-            name
-            for name in public_names
-            if any(name == token or name.endswith(f".{token}") for token in tokens)
-            and any(name == imported or name.startswith(f"{imported}.") for imported in attempted)
-        ]
-        if not matches:
-            raise ValueError(
-                f"declared Python example symbol is not a selected public API: {declaration!r}"
-            )
-        selected.add(min(matches, key=lambda name: (name.count("."), name)))
-    return sorted(selected)
+    return sorted(set(attempted))
 
 
 def _diagnostic(result) -> ExampleExecutionResultV1:
@@ -79,11 +65,10 @@ def verify(
         source_revision=snapshot.source_revision,
     )
     package_prefix = surface.package.canonical_import.split(".")[0]
-    required_symbols = _selected_imports(
+    required_symbols = selected_python_consumer_imports(
         example.code,
         {symbol.qualified_name for symbol in surface.symbols},
         package_prefix,
-        example.required_symbols,
     )
     proof = prove_python_consumer(
         snapshot,

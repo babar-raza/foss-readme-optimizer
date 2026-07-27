@@ -4,7 +4,30 @@ from __future__ import annotations
 
 import ast
 
+from pygments import lex
+from pygments.lexers import get_lexer_by_name
+from pygments.token import Comment, String
+
 _MAX_PYTHON_TOP_LEVEL_STATEMENTS = 8
+_LEXER_BY_LANGUAGE = {
+    "cpp": "cpp",
+    "dotnet": "csharp",
+    "go": "go",
+    "java": "java",
+    "python": "python",
+    "rust": "rust",
+    "typescript": "typescript",
+}
+
+
+def _contains_comment(language: str, source: str) -> bool:
+    lexer_name = _LEXER_BY_LANGUAGE.get(language)
+    if lexer_name is None:
+        return False
+    return any(
+        token in Comment or token in String.Doc
+        for token, _value in lex(source, get_lexer_by_name(lexer_name))
+    )
 
 
 def generated_example_quality_failures(language: str, source: str) -> list[str]:
@@ -16,13 +39,18 @@ def generated_example_quality_failures(language: str, source: str) -> list[str]:
     must not substitute an exhaustive import inventory for a working example.
     """
 
+    failures: list[str] = []
+    if _contains_comment(language, source):
+        failures.append(
+            "minimal README example contains a source comment or documentation comment; "
+            "regenerate it as comment-free visitor-facing code"
+        )
     if language != "python":
-        return []
+        return failures
     try:
         tree = ast.parse(source)
     except SyntaxError:
-        return []
-    failures: list[str] = []
+        return failures
     private_attributes = sorted(
         {
             node.attr

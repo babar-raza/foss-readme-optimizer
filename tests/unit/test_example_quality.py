@@ -1,5 +1,7 @@
 """Unit tests for generated README-example public-API quality checks."""
 
+import pytest
+
 from readme_agent.facts.example_quality import generated_example_quality_failures
 
 
@@ -70,3 +72,49 @@ def test_python_unused_import_is_rejected() -> None:
 
 def test_other_languages_remain_compiler_owned() -> None:
     assert generated_example_quality_failures("dotnet", "value._private") == []
+
+
+@pytest.mark.parametrize(
+    ("language", "source"),
+    [
+        ("java", "var scene = new Scene(); // create scene"),
+        ("dotnet", "var scene = new Scene(); /* create scene */"),
+        ("python", "# create scene\nscene = Scene()"),
+        ("typescript", "const scene = new Scene(); // create scene"),
+        ("go", "scene := NewScene() // create scene"),
+        ("cpp", "auto scene = Scene(); // create scene"),
+        ("rust", "let scene = Scene::new(); // create scene"),
+    ],
+)
+def test_comments_are_rejected_in_every_supported_example_language(
+    language: str,
+    source: str,
+) -> None:
+    failures = generated_example_quality_failures(language, source)
+
+    assert any("contains a source comment" in failure for failure in failures)
+
+
+@pytest.mark.parametrize(
+    ("language", "source"),
+    [
+        ("java", 'var url = "https://example.test/path";'),
+        ("dotnet", 'var url = "https://example.test/path";'),
+        ("python", 'url = "https://example.test/path"'),
+        ("typescript", 'const url = "https://example.test/path";'),
+        ("go", 'url := "https://example.test/path"'),
+        ("cpp", 'auto url = "https://example.test/path";'),
+        ("rust", 'let url = "https://example.test/path";'),
+    ],
+)
+def test_comment_like_text_inside_strings_is_allowed(language: str, source: str) -> None:
+    assert generated_example_quality_failures(language, source) == []
+
+
+def test_python_docstring_is_rejected_as_a_documentation_comment() -> None:
+    failures = generated_example_quality_failures(
+        "python",
+        '"""Explain the example."""\nscene = Scene()',
+    )
+
+    assert any("documentation comment" in failure for failure in failures)

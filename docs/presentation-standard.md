@@ -104,6 +104,12 @@ At least one runnable code block beyond the install snippet — n8n (`npx n8n` /
 iText ("Hello PDF!"), the NuGet Aspose.Cells page (four separate C# samples). A features list
 without a working example under-delivers relative to every reference studied.
 
+Generated examples are direct visitor guidance, not annotated source. They contain no source
+comments, documentation comments, docstrings, or commented-out code in any supported language;
+short surrounding prose explains the operation. Comment-like text inside a string literal is
+code data and is not rejected. This presentation rule is enforced before the same exact snippet
+is compiled or executed through its ecosystem's isolated public-consumer verifier.
+
 ### 6. Navigation
 
 None of the six references force identical section names or order (`RDM-015`) — n8n uses "Key

@@ -2577,11 +2577,17 @@ taskcards:
     for selected examples in the same disposable OS-isolated executor used for acquisition proof.
   why_it_matters: Visitor code must work, not merely look plausible.
   allowed_paths:
+  - pyproject.toml
+  - requirements-lock.txt
   - src/readme_agent/facts/
   - src/readme_agent/ecosystems/
   - tests/
+  - prompts/
   - .github/workflows/
   - docs/
+  - plans/master.md
+  - plans/requirements.md
+  - plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md
   - plans/investigations/
   - logs/
   forbidden_paths:
@@ -2596,6 +2602,11 @@ taskcards:
   - uncompiled
   - or secret-dependent examples cannot become verified
   - Host-only compilation or execution cannot become verified
+  - Generated README examples contain no source comments, documentation comments, docstrings, explanatory
+    annotations, or commented-out code in any supported language
+  - Comment-like text inside a string literal is not falsely classified as a comment
+  - Repository evidence anchors and actual imported public-consumer symbols are validated independently
+    rather than conflated
   verification:
   - One real Java
   - .NET
@@ -2607,6 +2618,8 @@ taskcards:
   negative_controls:
   - Textual symbol occurrence is not compile or execution proof
   - Filesystem, process, resource, and undeclared-network escape attempts fail closed
+  - Source comments and documentation comments fail before isolated execution
+  - URL-like and comment-like string literals remain valid
   regression_checks:
   - Example quality
   - execution
@@ -6265,7 +6278,7 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: e4647b239ea8bf3b40277af46fff10d0bd11d855701ddc2247dfc4a8d7c38b6e
+  source_sha256: 5b54b651a4ae9c6e182f75b3b77fc23e74e4e03a4c03d5fc1f926ba5b60103a3
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 426
   mandatory_requirement_rows: 400

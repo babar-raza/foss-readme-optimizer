@@ -23,6 +23,11 @@ dependencies = [
     # Tenacity's tested retry controller rather than another bespoke loop.
     "tenacity>=9.0",
     "Pillow>=10.0",
+    # Generated README examples must be visitor-facing code, never annotated
+    # with comments. Pygments supplies maintained lexers for every supported
+    # ecosystem so comment detection does not rely on regexes that mistake
+    # URL-like string literals for comments.
+    "Pygments>=2.17",
     # Wave 3 protected-content semantics use the CommonMark token stream;
     # Wave 4 source-span patching will reuse the same declared parser.
     "markdown-it-py>=4.0",
