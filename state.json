@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "2129ad7d93cd90c586e40938cc6348aa4f5b9152aa9f1ab6e0577cfdb27ff73f",
-    "last_evaluated_at": "2026-07-27T14:43:01.876502+00:00",
+    "last_evaluated_at": "2026-07-27T14:43:19.300491+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -135,7 +135,7 @@
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "CLOSED",
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
-      "L8-TRUTH-03-CLAIM-POLARITY": "VERIFIED",
+      "L8-TRUTH-03-CLAIM-POLARITY": "SCORED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "BLOCKED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "TODO",
@@ -2148,6 +2148,17 @@
         "reason": "Clean detached proof at implementation HEAD a5bbdf6e passed 1,852 non-live tests and every official governance check with checksum-complete evidence.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-claim-polarity/verification.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T14:43:19.300484+00:00",
+        "reason": "Verified evidence satisfies every expected output, real .NET control, negative polarity control, regression suite, and checksum requirement.",
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -2156,7 +2167,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 245,
+  "state_version": 246,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
