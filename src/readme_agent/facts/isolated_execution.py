@@ -111,6 +111,8 @@ def _image_identity(
 def _resource_flags(request: IsolatedExecutionRequestV1) -> list[str]:
     policy = request.policy
     return [
+        "--label",
+        "readme-agent=true",
         "--network",
         policy.network_mode,
         "--read-only",

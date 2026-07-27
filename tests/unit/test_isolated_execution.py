@@ -172,6 +172,7 @@ def test_executor_uses_named_volume_hardening_and_complete_cleanup(tmp_path):
     ][0]
     for expected in (
         ["--network", "none"],
+        ["--label", "readme-agent=true"],
         ["--read-only"],
         ["--cap-drop", "ALL"],
         ["--security-opt", "no-new-privileges:true"],
