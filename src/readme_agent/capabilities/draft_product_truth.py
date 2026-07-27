@@ -54,6 +54,7 @@ from readme_agent.facts.agentic_drafting import DraftProductTruthV1
 from readme_agent.facts.code_normalization import normalize_generated_code
 from readme_agent.facts.example_quality import generated_example_quality_failures
 from readme_agent.facts.interpretive_evidence import groundedness_fact_candidate
+from readme_agent.facts.interpretive_resolution import reconcile_final_interpretive_grounding
 from readme_agent.facts.local_verification import (
     LocalProductVerificationV1,
     verify_local_product_example,
@@ -437,6 +438,15 @@ def orchestrate_product_truth_draft(
             break
         hints = {field_name: _extract_failure_reasons(fact) for field_name, fact in blocked.items()}
         attempt += 1
+
+    gated = reconcile_final_interpretive_grounding(
+        facts_before_attempt=current_facts,
+        gated_facts=gated,
+        audience_claims=draft.audience,
+        problem_claims=draft.problems_solved,
+        source_revision=source_revision,
+        observed_at=observed_at,
+    )
 
     example_fact = gated.get("example.minimal")
     if example_fact is not None and example_fact.verification_state == "blocked":
