@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "6120b6c9d1a1e64ac7bfc345a4dcab23dc55ca8ff5b40683244912240386a46c",
-    "last_evaluated_at": "2026-07-27T15:26:43.022890+00:00",
+    "last_evaluated_at": "2026-07-27T15:53:19.384462+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -64,7 +64,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs for selected examples in the same disposable OS-isolated executor used for acquisition proof."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -137,7 +146,7 @@
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
       "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
-      "L8-TRUTH-04-ACQUISITION": "SCORED",
+      "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "TODO",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "TODO",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "TODO",
@@ -2231,6 +2240,19 @@
         "reason": "Goal contribution is independently scored: truthful installation acquisition is now available without falsely advancing portfolio lifecycle counts.",
         "task_id": "L8-TRUTH-04-ACQUISITION",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-acquisition-truth/mission-contribution.json",
+          "plans/investigations/evidence/level8-acquisition-truth/verification.json",
+          "plans/investigations/evidence/level8-acquisition-truth/sha256sums.txt"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex-primary",
+        "occurred_at": "2026-07-27T15:53:19.384445+00:00",
+        "reason": "Accepted clean acquisition proof at dcc704e7: live exact-coordinate registry receipts, revision-bound isolated source-build pins, hostile executor controls, 105 focused tests, and 1,861 non-live tests.",
+        "task_id": "L8-TRUTH-04-ACQUISITION",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -2239,7 +2261,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 255,
+  "state_version": 256,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
