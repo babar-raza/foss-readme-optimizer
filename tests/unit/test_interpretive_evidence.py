@@ -96,6 +96,7 @@ def test_all_claims_pass_yields_verified_agent_drafted_fact():
     assert fact.source.source_type == "agent_drafted"
     assert fact.confidence == 1.0
     assert fact.value == [claim.text]
+    assert fact.supporting_fact_ids == [_IDENTITY.fact_id]
 
 
 def test_audience_allows_only_a_cited_platform_in_the_bounded_scaffold():

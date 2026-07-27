@@ -111,6 +111,7 @@ class FactRecordV2(_StrictModel):
     verification_state: FactVerificationState
     authoritative_owner: str = Field(min_length=1)
     confidence: float = Field(ge=0.0, le=1.0)
+    supporting_fact_ids: list[str] = Field(default_factory=list)
     conflicts: list[FactConflictV2] = Field(default_factory=list)
     evidence_assessments: list[EvidencePolarityAssessmentV1] | None = None
     affected_surfaces: list[str] = Field(min_length=1)
@@ -209,6 +210,31 @@ class ProductFactsV2(_StrictModel):
                 raise ValueError(f"selected fact {fact_id!r} does not exist")
             if fact.field != field_name:
                 raise ValueError(f"selected field {field_name!r} points to fact for {fact.field!r}")
+        for fact in self.facts:
+            if len(fact.supporting_fact_ids) != len(set(fact.supporting_fact_ids)):
+                raise ValueError(f"fact {fact.fact_id!r} has duplicate supporting fact IDs")
+            for supporting_fact_id in fact.supporting_fact_ids:
+                supporting = by_id.get(supporting_fact_id)
+                if supporting is None:
+                    raise ValueError(
+                        f"fact {fact.fact_id!r} cites missing supporting fact "
+                        f"{supporting_fact_id!r}"
+                    )
+                if supporting_fact_id == fact.fact_id:
+                    raise ValueError(f"fact {fact.fact_id!r} cannot cite itself")
+                if self.selected_fact_ids.get(supporting.field) != supporting_fact_id:
+                    raise ValueError(
+                        f"fact {fact.fact_id!r} cites unselected supporting fact "
+                        f"{supporting_fact_id!r}"
+                    )
+                if (
+                    supporting.verification_state not in {"verified", "policy_approved"}
+                    or supporting.has_unresolved_conflict
+                ):
+                    raise ValueError(
+                        f"fact {fact.fact_id!r} cites ineligible supporting fact "
+                        f"{supporting_fact_id!r}"
+                    )
         missing_selections = set(REQUIRED_PRODUCT_FIELDS) - set(self.selected_fact_ids)
         if missing_selections:
             raise ValueError(
@@ -243,6 +269,8 @@ class ProductFactsV2(_StrictModel):
         for fact, fact_payload in zip(self.facts, payload["facts"], strict=True):
             if fact.evidence_assessments is None:
                 fact_payload.pop("evidence_assessments", None)
+            if not fact.supporting_fact_ids:
+                fact_payload.pop("supporting_fact_ids", None)
             if fact.field == "installation.verified_acquisition":
                 value = fact_payload.get("value")
                 if isinstance(value, dict):

@@ -324,6 +324,9 @@ def groundedness_fact_candidate(
         )
 
     confidence = sum(coverages) / len(coverages)
+    supporting_fact_ids = list(
+        dict.fromkeys(fact_id for claim in claims for fact_id in claim.supporting_fact_ids)
+    )
     return FactRecordV2(
         fact_id=descriptive_fact_id(field_name, "agent-drafted-grounded"),
         field=field_name,
@@ -332,5 +335,6 @@ def groundedness_fact_candidate(
         verification_state="verified",
         authoritative_owner="repository-owner",
         confidence=confidence,
+        supporting_fact_ids=supporting_fact_ids,
         affected_surfaces=SURFACE_DEPENDENCIES[field_name],
     )

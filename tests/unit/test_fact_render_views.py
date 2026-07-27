@@ -31,6 +31,7 @@ def test_identity_and_compatibility_have_explicit_visitor_phrases():
 
     assert identity is not None
     assert identity.phrases == ["Aspose.Cells FOSS for Java"]
+    assert identity.citation_fact_ids == [identity.fact_id]
     assert compatibility is not None
     assert compatibility.phrases == ["Requires Java 17 or later."]
 
@@ -215,3 +216,56 @@ def test_audience_normalizes_internal_ecosystem_token_without_mutating_fact():
     assert facts.selected_fact("product.audience").value == [
         "Developers using net for Scene graph management."
     ]
+
+
+def test_agent_drafted_audience_requires_persisted_grounding_citations():
+    facts = _facts()
+    identity = facts.selected_fact("product.identity")
+    audience = facts.selected_fact("product.audience")
+    without_citations = audience.model_copy(
+        update={
+            "source": audience.source.model_copy(update={"source_type": "agent_drafted"}),
+            "value": ["Developers using Java."],
+            "supporting_fact_ids": [],
+        }
+    )
+    blocked = facts.model_copy(
+        update={
+            "facts": [
+                without_citations if fact.fact_id == audience.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    assert visitor_fact_render_view(blocked, "product.audience") is None
+
+    grounded = without_citations.model_copy(update={"supporting_fact_ids": [identity.fact_id]})
+    accepted = blocked.model_copy(
+        update={
+            "facts": [
+                grounded if fact.fact_id == audience.fact_id else fact for fact in blocked.facts
+            ]
+        }
+    )
+    view = visitor_fact_render_view(accepted, "product.audience")
+
+    assert view is not None
+    assert view.phrases == ["Developers using Java."]
+    assert view.citation_fact_ids == [audience.fact_id, identity.fact_id]
+
+
+def test_internal_tokens_and_arbitrary_nested_values_have_no_render_view():
+    facts = _facts()
+    capabilities = facts.selected_fact("product.capabilities")
+    problems = facts.selected_fact("product.problems_solved")
+    replacements = {
+        capabilities.fact_id: capabilities.model_copy(update={"value": ["scene_graph"]}),
+        problems.fact_id: problems.model_copy(update={"value": {"manifest_key": "internal_value"}}),
+    }
+    unsafe = facts.model_copy(
+        update={"facts": [replacements.get(fact.fact_id, fact) for fact in facts.facts]}
+    )
+
+    assert visitor_fact_render_view(unsafe, "product.capabilities") is None
+    assert visitor_fact_render_view(unsafe, "product.problems_solved") is None

@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from collections.abc import Callable
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 
@@ -35,6 +35,18 @@ _RUNTIME_LABELS = {
     "python": "Python",
     "rust": "Rust",
 }
+_INTERNAL_TOKEN_RE = re.compile(
+    r"(?:[a-z0-9]+_[a-z0-9_]+|[a-z0-9]+(?:-[a-z0-9]+)+/[A-Za-z0-9._-]+|://)",
+    flags=re.IGNORECASE,
+)
+_KEY_VALUE_RE = re.compile(r"^[a-z][a-z0-9_]*\s*[:=]")
+_VISITOR_REQUIRED_FIELDS = {
+    "product.audience",
+    "product.problems_solved",
+    "product.capabilities",
+    "product.formats",
+}
+_INTERPRETIVE_FIELDS = {"product.audience", "product.problems_solved"}
 
 
 class VisitorFactRenderViewV1(BaseModel):
@@ -45,15 +57,37 @@ class VisitorFactRenderViewV1(BaseModel):
     fact_id: str
     field: str
     phrases: list[str]
+    citation_fact_ids: list[str] = Field(min_length=1)
+
+
+def _is_visitor_phrase(value: str) -> bool:
+    phrase = value.strip()
+    return bool(
+        phrase
+        and "\n" not in phrase
+        and not _INTERNAL_TOKEN_RE.search(phrase)
+        and not _KEY_VALUE_RE.search(phrase)
+        and not any(character in phrase for character in "{}[]")
+    )
 
 
 def _text_phrases(value: object) -> list[str]:
     values = value if isinstance(value, list) else [value]
-    return [str(item).strip() for item in values if isinstance(item, str) and item.strip()]
+    return [
+        str(item).strip() for item in values if isinstance(item, str) and _is_visitor_phrase(item)
+    ]
+
+
+def _sentence_phrases(value: object) -> list[str]:
+    return [
+        phrase
+        for phrase in _text_phrases(value)
+        if len(re.findall(r"[A-Za-z0-9]+", phrase)) >= 2 and phrase[0].isupper()
+    ]
 
 
 def _audience_phrases(value: object) -> list[str]:
-    phrases = _text_phrases(value)
+    phrases = _sentence_phrases(value)
     normalized: list[str] = []
     for phrase in phrases:
         for ecosystem, label in _ECOSYSTEM_LABELS.items():
@@ -166,7 +200,7 @@ def _no_direct_prose(_value: object) -> list[str]:
 
 _FIELD_RENDERERS: dict[str, Callable[[object], list[str]]] = {
     "product.audience": _audience_phrases,
-    "product.problems_solved": _text_phrases,
+    "product.problems_solved": _sentence_phrases,
     "product.capabilities": _text_phrases,
     "product.formats": _text_phrases,
     "product.limitations": _text_phrases,
@@ -190,14 +224,23 @@ def visitor_fact_render_view(
     fact: FactRecordV2 = facts.selected_fact(field)
     if fact.verification_state not in _ACCEPTED_STATES or fact.has_unresolved_conflict:
         return None
+    if (
+        field in _INTERPRETIVE_FIELDS
+        and fact.source.source_type == "agent_drafted"
+        and not fact.supporting_fact_ids
+    ):
+        return None
     value = (
         _acquired_package_compatibility(facts, fact.value)
         if field == "product.compatibility"
         else fact.value
     )
     phrases = list(dict.fromkeys(renderer(value)))
+    if field in _VISITOR_REQUIRED_FIELDS and not phrases:
+        return None
     return VisitorFactRenderViewV1(
         fact_id=fact.fact_id,
         field=field,
         phrases=phrases,
+        citation_fact_ids=list(dict.fromkeys([fact.fact_id, *fact.supporting_fact_ids])),
     )

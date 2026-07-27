@@ -168,6 +168,7 @@ def test_additive_truth_fields_preserve_legacy_fact_hash_when_absent():
     legacy_payload.pop("package_root_roles")
     for fact in legacy_payload["facts"]:
         fact.pop("evidence_assessments")
+        fact.pop("supporting_fact_ids")
     legacy_hash = hashlib.sha256(
         json.dumps(legacy_payload, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
@@ -179,3 +180,40 @@ def test_fact_ids_are_descriptive_not_sequence_numbers():
     assert descriptive_fact_id("installation.coordinates", "module-a") == (
         "installation.coordinates:module-a"
     )
+
+
+def test_product_facts_reject_missing_or_unselected_supporting_citations():
+    facts = _complete_facts()
+    audience = facts.selected_fact("product.audience").model_copy(
+        update={"supporting_fact_ids": ["product.identity:missing-citation"]}
+    )
+
+    with pytest.raises(ValidationError, match="missing supporting fact"):
+        ProductFactsV2(
+            org_repo=facts.org_repo,
+            facts=[audience if fact.fact_id == audience.fact_id else fact for fact in facts.facts],
+            selected_fact_ids=facts.selected_fact_ids,
+        )
+
+
+def test_product_facts_accept_selected_verified_supporting_citation():
+    facts = _complete_facts()
+    identity = facts.selected_fact("product.identity").model_copy(
+        update={"verification_state": "verified", "value": {"ecosystem": "java"}}
+    )
+    audience = facts.selected_fact("product.audience").model_copy(
+        update={
+            "verification_state": "verified",
+            "value": ["Developers using Java."],
+            "supporting_fact_ids": [identity.fact_id],
+        }
+    )
+    replacements = {identity.fact_id: identity, audience.fact_id: audience}
+
+    updated = ProductFactsV2(
+        org_repo=facts.org_repo,
+        facts=[replacements.get(fact.fact_id, fact) for fact in facts.facts],
+        selected_fact_ids=facts.selected_fact_ids,
+    )
+
+    assert updated.selected_fact("product.audience").supporting_fact_ids == [identity.fact_id]
