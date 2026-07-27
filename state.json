@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "fec95401999d2ed493dd834b4ebb7271d89aa010f0930403f6516ebe3dda273f",
-    "last_evaluated_at": "2026-07-27T20:07:44.984709+00:00",
+    "last_evaluated_at": "2026-07-27T20:07:58.339014+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -135,7 +135,7 @@
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "CLOSED",
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
-      "L8-TRUTH-03-CLAIM-POLARITY": "VERIFIED",
+      "L8-TRUTH-03-CLAIM-POLARITY": "SCORED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
@@ -2495,6 +2495,17 @@
         "reason": "Focused tests, 1,887-test official suite, checksum inventory, and live canonical .NET regression all verify claim-polarity behavior.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-claim-polarity/mission-contribution.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T20:07:58.339005+00:00",
+        "reason": "Independent evidence scores every selected directional assessment accepted and confirms exact three-call bounded runtime with no later effects.",
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -2503,7 +2514,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 288,
+  "state_version": 289,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
