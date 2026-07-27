@@ -81,9 +81,11 @@ def evidence_fact_candidate(
     failures: list[str] = []
     assessments: list[EvidencePolarityAssessmentV1] = []
     fact_id = descriptive_fact_id(field_name, "repository-evidence")
-    expected_polarity: ExpectedEvidencePolarity = (
-        "explicit_constraint" if field_name == "product.limitations" else "positive_implementation"
-    )
+    expected_polarity: ExpectedEvidencePolarity | None = None
+    if field_name == "product.capabilities":
+        expected_polarity = "positive_implementation"
+    elif field_name == "product.limitations":
+        expected_polarity = "explicit_constraint"
     for specification in specifications:
         structural_failures = evidence_failures(
             root,
@@ -91,7 +93,7 @@ def evidence_fact_candidate(
             specification.required_symbols,
         )
         failures.extend(structural_failures)
-        if not structural_failures:
+        if not structural_failures and expected_polarity is not None:
             for anchor in specification.required_symbols:
                 assessment = assess_evidence_polarity(
                     root=root,
@@ -124,7 +126,7 @@ def evidence_fact_candidate(
         verification_state="blocked" if failures else "verified",
         authoritative_owner="repository-owner",
         confidence=0.0 if failures else 1.0,
-        evidence_assessments=assessments,
+        evidence_assessments=assessments or None,
         affected_surfaces=SURFACE_DEPENDENCIES[field_name],
     )
 

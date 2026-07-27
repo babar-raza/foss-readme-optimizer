@@ -158,6 +158,26 @@ def test_comment_occurrence_cannot_prove_positive_implementation(tmp_path: Path)
     assert assessment.observed_polarity == "ambiguous_occurrence"
 
 
+def test_format_anchor_keeps_its_separate_directional_truth_contract(tmp_path: Path):
+    source = tmp_path / "src" / "FileFormat.java"
+    source.parent.mkdir()
+    source.write_text(
+        'public static final String GLTF = "glTF";\n',
+        encoding="utf-8",
+    )
+
+    fact = evidence_fact_candidate(
+        tmp_path,
+        "abc123",
+        None,
+        "product.formats",
+        [_spec("Import and export glTF scenes.", '"glTF"', "src/FileFormat.java")],
+    )
+
+    assert fact.verification_state == "verified"
+    assert fact.evidence_assessments is None
+
+
 def test_later_implementation_can_supersede_ambiguous_occurrence(tmp_path: Path):
     source = tmp_path / "src" / "Scene.cs"
     source.parent.mkdir()

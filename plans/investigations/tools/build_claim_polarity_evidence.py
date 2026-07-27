@@ -22,6 +22,7 @@ from readme_agent.facts.policy_evidence import (
     evidence_fact_candidate,
     limitation_fact_candidate,
 )
+from readme_agent.registry.loader import load_policy
 from readme_agent.registry.models import EvidenceBackedProductFact
 from readme_agent.state.git_backend import default_state_backend
 from readme_agent.supervisor.mission_goal_guard import (
@@ -37,6 +38,12 @@ REPRESENTATIVE = Path(
     os.environ.get(
         "README_AGENT_CLAIM_POLARITY_REPRESENTATIVE",
         str(REPO_ROOT / "runs/baseline/aspose-3d-foss__Aspose.3D-FOSS-for-.NET"),
+    )
+).resolve()
+FORMAT_REPRESENTATIVE = Path(
+    os.environ.get(
+        "README_AGENT_FORMAT_CONTRACT_REPRESENTATIVE",
+        str(REPO_ROOT / "runs/baseline/aspose-3d-foss__Aspose.3D-FOSS-for-Java"),
     )
 ).resolve()
 TASK_ID = "L8-TRUTH-03-CLAIM-POLARITY"
@@ -149,6 +156,8 @@ def _write(run_official: bool) -> list[str]:
         raise RuntimeError("claim-polarity proof requires a clean committed control tree")
     representative_head = _git("rev-parse", "HEAD", root=REPRESENTATIVE)
     representative_status = _git("status", "--porcelain=v1", root=REPRESENTATIVE)
+    format_head = _git("rev-parse", "HEAD", root=FORMAT_REPRESENTATIVE)
+    format_status = _git("status", "--porcelain=v1", root=FORMAT_REPRESENTATIVE)
     real_controls = build_real_controls(REPRESENTATIVE, REPO_ROOT)
     limitation = limitation_fact_candidate(
         REPRESENTATIVE,
@@ -181,6 +190,16 @@ def _write(run_official: bool) -> list[str]:
         None,
         [_spec("Rendering functionality is not available.", "not available")],
     )
+    format_policy = load_policy("aspose-3d-foss")
+    if format_policy.product_truth is None:
+        raise RuntimeError("aspose-3d-foss product truth is missing")
+    format_fact = evidence_fact_candidate(
+        FORMAT_REPRESENTATIVE,
+        format_head,
+        None,
+        "product.formats",
+        format_policy.product_truth.formats,
+    )
     direct_assessments = {
         "verified_limitation": limitation.evidence_assessments[0].model_dump(mode="json"),
         "verified_capability": save_capability.evidence_assessments[0].model_dump(mode="json"),
@@ -210,6 +229,8 @@ def _write(run_official: bool) -> list[str]:
         "focused_tests_pass": focused["exit_code"] == 0,
         "official_checks_pass": bool(official and official["exit_code"] == 0 and tree_stable),
         "representative_is_clean": not representative_status,
+        "format_representative_is_clean": not format_status,
+        "format_representative_revision_bound": len(format_head) == 40,
         "representative_revision_bound": len(representative_head) == 40,
         "source_checksum_bound": len(_sha256(source)) == 64,
         "curated_readme_claim_captured": _readme_claim(representative_head)["line_number"] == 30,
@@ -231,6 +252,10 @@ def _write(run_official: bool) -> list[str]:
             for item in (limitation, save_capability, render_capability, vague_constraint)
         ),
         "real_dotnet_opposite_polarity_controls_pass": real_controls["verdict"] == "VERIFIED",
+        "format_contract_remains_separate": (
+            format_fact.verification_state == "verified"
+            and format_fact.evidence_assessments is None
+        ),
     }
     failures = [name for name, passed in checks.items() if not passed]
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
@@ -251,6 +276,19 @@ def _write(run_official: bool) -> list[str]:
     )
     write_redacted_json(EVIDENCE_DIR / "polarity-assessments.json", direct_assessments)
     write_redacted_json(EVIDENCE_DIR / "real-dotnet-controls.json", real_controls)
+    write_redacted_json(
+        EVIDENCE_DIR / "format-contract-control.json",
+        {
+            "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+            "source_revision": format_head,
+            "tree_clean": not format_status,
+            "fact": format_fact.model_dump(mode="json"),
+            "expected_contract": (
+                "formats require their own structural/directional truth and do not inherit "
+                "capability implementation polarity"
+            ),
+        },
+    )
     write_redacted_json(
         EVIDENCE_DIR / "fact-records.json",
         {
@@ -304,6 +342,7 @@ def _write(run_official: bool) -> list[str]:
                 "plans/investigations/evidence/level8-claim-polarity/verification.json",
                 "plans/investigations/evidence/level8-claim-polarity/polarity-assessments.json",
                 "plans/investigations/evidence/level8-claim-polarity/real-dotnet-controls.json",
+                "plans/investigations/evidence/level8-claim-polarity/format-contract-control.json",
                 "plans/investigations/evidence/level8-claim-polarity/fact-records.json",
             ],
             "scoreboard_before_sha256": scoreboard_hash,
