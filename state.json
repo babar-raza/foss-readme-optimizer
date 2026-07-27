@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-TRUTH-04-ACQUISITION",
-    "claim_expires_at": "2026-07-27T22:55:56.033036+00:00",
-    "claim_id": "6be3583f42864b9e993cf9bb4ae43339",
-    "claimed_at": "2026-07-27T22:25:56.033036+00:00",
-    "claimed_by": "Codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "a7e4486a4ddb35a36efb44092893f06d870d003295b665d9d21e0e26dd25c7c5",
-    "last_evaluated_at": "2026-07-27T22:25:56.033036+00:00",
+    "last_evaluated_at": "2026-07-27T22:43:48.860008+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -64,16 +64,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "visible_deliverable",
-        "summary": "Select a registry-verified coordinate when published and a reproducible source-build path otherwise, while executing repository or dependency build code only inside a disposable OS-isolated executor with bounded resources and deny-by-default network."
-      },
-      "goal_ids": [
-        "GOAL-TRUTH"
-      ],
-      "task_id": "L8-TRUTH-04-ACQUISITION"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -146,7 +137,7 @@
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
       "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
-      "L8-TRUTH-04-ACQUISITION": "IN_PROGRESS",
+      "L8-TRUTH-04-ACQUISITION": "IMPLEMENTED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
@@ -2692,6 +2683,17 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-TRUTH-04-ACQUISITION",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-acquisition-truth/acquisition-decisions.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T22:43:48.860001+00:00",
+        "reason": "Current acquisition contracts, ecosystem verifiers, and graph-bound contribution builder are implemented.",
+        "task_id": "L8-TRUTH-04-ACQUISITION",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -2700,7 +2702,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 307,
+  "state_version": 308,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
