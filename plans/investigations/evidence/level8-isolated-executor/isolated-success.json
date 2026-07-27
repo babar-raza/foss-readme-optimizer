@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "isolation_kind": "docker_container",
+  "truth_eligible": true,
+  "org_repo": "control/isolation-proof",
+  "source_revision": "live-control",
+  "argv": [
+    "/bin/sh",
+    "./control.sh"
+  ],
+  "environment_names": [],
+  "input_sha256": "8e248ddd0d356aa3c41b444adbb42955211ba80ee2d9b2e1189b38ab8886a13e",
+  "input_file_count": 2,
+  "policy_sha256": "b996cb99037ed16f9f196ac9d39bb9409b44567a31ad1370fe8f7f7629f88534",
+  "policy": {
+    "schema_version": 1,
+    "immutable_image": "alpine@sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "cpu_limit": 0.5,
+    "memory_mebibytes": 128,
+    "pids_limit": 32,
+    "timeout_seconds": 10.0,
+    "tmpfs_mebibytes": 64,
+    "network_mode": "none",
+    "read_only_rootfs": true,
+    "cap_drop_all": true,
+    "no_new_privileges": true,
+    "seccomp_profile": "runtime-default",
+    "user": "65534:65534",
+    "workspace_path": "/workspace"
+  },
+  "image": {
+    "requested_reference": "alpine@sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "repo_digest": "alpine@sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "image_id": "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "operating_system": "linux",
+    "architecture": "amd64",
+    "engine_version": "28.4.0"
+  },
+  "container_id": "556b3bdb847a8666594577a955a625311a111018d3d9e0f6b89fa1bc6667035b",
+  "process_inventory": [
+    "PID                 PPID                USER                COMMAND",
+    "61941               61920               nobody              /bin/sh ./control.sh",
+    "61962               61941               nobody              sleep 1"
+  ],
+  "return_code": 0,
+  "stdout": "uid=65534\npids=32\nmemory=134217728\ncpu=50000 100000\ninterfaces=lo\nroot_read_only=true\nisolation_controls_passed=true\n",
+  "stderr": "",
+  "timed_out": false,
+  "oom_killed": false,
+  "started_at": "2026-07-27T03:36:45.738175+00:00",
+  "finished_at": "2026-07-27T03:36:48.213449+00:00",
+  "cleanup": {
+    "execution_container_removed": true,
+    "seed_container_removed": true,
+    "workspace_volume_removed": true
+  }
+}

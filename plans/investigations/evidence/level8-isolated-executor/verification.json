@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-03A-ISOLATED-EXECUTOR",
+  "requirement_id": "L8-019",
+  "control_repository": {
+    "head": "5d6bbf7746ae1b585cf17905698b85be352fed34",
+    "branch": "main",
+    "tree_clean_at_start": true,
+    "tree_porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "builder_path": "plans/investigations/tools/build_isolated_executor_evidence.py",
+    "builder_sha256": "acf5d16c8252795e409318b9de4abff4c2462b18fdb07aa5b35771be7bd17bf5",
+    "support_path": "plans/investigations/tools/isolated_executor_evidence_support.py",
+    "support_sha256": "6c98a66581ae1e38aa6150e4f3233d71d9b88bd20f67e669dffef15238e8c908",
+    "implementation": {
+      "src/readme_agent/facts/isolated_execution.py": "b3eb39ef6ee79ca9022cfb081969884b41b1bdf0499cc5e084e1997dd727a864",
+      "src/readme_agent/facts/isolated_execution_inputs.py": "5a86f0d1bc55d54fe88b79211b729fafc321257c4ad9f6b2a030128eb4d3ab45",
+      "src/readme_agent/facts/isolated_execution_schema.py": "9ec811d10928188415f720bd186f8b7c9a56ddd7ee888b259cd5d10dc252400c",
+      "src/readme_agent/facts/example_execution.py": "20e7b037f7269fe64286f48bde74519394ba8e96ffc43987323e9308ab6549c7",
+      "src/readme_agent/facts/example_verification_schema.py": "bfd6359b7bab7a1d65f85bc16f290db9ca093a126bbc3cd07c42d63a6006a8b0",
+      "src/readme_agent/facts/local_verification.py": "1a69a6b86fcfe8808edcde0cee3caa149c93f72a6df48d3da1e77e7ad3897618"
+    }
+  },
+  "checks": {
+    "official_checks_pass": true,
+    "effective_controls_match_policy": true,
+    "immutable_image_observed": true,
+    "process_inventory_recorded": true,
+    "secret_not_in_output": true,
+    "success_cleanup_complete": true,
+    "timeout_killed": true,
+    "timeout_cleanup_complete": true,
+    "host_truth_ineligible": true,
+    "no_managed_resources_remain": true
+  },
+  "official_check": {
+    "command": ".venv/Scripts/python scripts/governance/run_official_checks.py",
+    "exit_code": 0,
+    "tree_stable": true,
+    "raw_stdout": "official-checks.stdout.log",
+    "raw_stderr": "official-checks.stderr.log"
+  },
+  "failures": [],
+  "verdict": "VERIFIED"
+}

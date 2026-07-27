@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-03A-ISOLATED-EXECUTOR",
+  "goal_ids": [
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Provide one disposable OS-isolated executor with bounded resources, filesystem, processes, time, and deny-by-default network."
+  },
+  "acceptance_checks_passed": [
+    "Host execution is ineligible for verified truth",
+    "isolated execution records complete reproducible provenance"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-isolated-executor/verification.json",
+    "plans/investigations/evidence/level8-isolated-executor/isolated-success.json",
+    "plans/investigations/evidence/level8-isolated-executor/isolated-timeout.json"
+  ],
+  "scoreboard_before_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "scoreboard_after_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

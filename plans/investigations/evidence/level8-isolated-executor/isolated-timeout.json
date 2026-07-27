@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "isolation_kind": "docker_container",
+  "truth_eligible": true,
+  "org_repo": "control/isolation-timeout-proof",
+  "source_revision": "live-timeout-control",
+  "argv": [
+    "/bin/sh",
+    "./timeout.sh"
+  ],
+  "environment_names": [],
+  "input_sha256": "8e248ddd0d356aa3c41b444adbb42955211ba80ee2d9b2e1189b38ab8886a13e",
+  "input_file_count": 2,
+  "policy_sha256": "66980b46c2a33bfccdccf8e9dafdeed972af3404b6dbcd25b1057319b675b746",
+  "policy": {
+    "schema_version": 1,
+    "immutable_image": "alpine@sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "cpu_limit": 0.5,
+    "memory_mebibytes": 128,
+    "pids_limit": 32,
+    "timeout_seconds": 0.2,
+    "tmpfs_mebibytes": 64,
+    "network_mode": "none",
+    "read_only_rootfs": true,
+    "cap_drop_all": true,
+    "no_new_privileges": true,
+    "seccomp_profile": "runtime-default",
+    "user": "65534:65534",
+    "workspace_path": "/workspace"
+  },
+  "image": {
+    "requested_reference": "alpine@sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "repo_digest": "alpine@sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "image_id": "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "operating_system": "linux",
+    "architecture": "amd64",
+    "engine_version": "28.4.0"
+  },
+  "container_id": "4ce4bfcacdf7de3e6790444b6ef67c344ba347eae04654a78f5b1bcccb8ba60c",
+  "process_inventory": [
+    "PID                 PPID                USER                COMMAND",
+    "62145               62122               nobody              /bin/sh ./timeout.sh",
+    "62158               62145               nobody              sleep 30"
+  ],
+  "return_code": 124,
+  "stdout": "",
+  "stderr": "",
+  "timed_out": true,
+  "oom_killed": false,
+  "started_at": "2026-07-27T03:36:48.404329+00:00",
+  "finished_at": "2026-07-27T03:36:50.632713+00:00",
+  "cleanup": {
+    "execution_container_removed": true,
+    "seed_container_removed": true,
+    "workspace_volume_removed": true
+  }
+}
