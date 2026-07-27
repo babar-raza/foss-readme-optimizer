@@ -24,6 +24,12 @@ from readme_agent.evidence.writer import (
     write_redacted_json,
     write_redacted_text,
 )
+from readme_agent.state.git_backend import default_state_backend
+from readme_agent.supervisor.mission_goal_guard import (
+    derive_lifecycle_scoreboard,
+    lifecycle_scoreboard_sha256,
+)
+from readme_agent.supervisor.mission_graph import load_mission_graph
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 CONTRACT_PATH = (
@@ -41,6 +47,9 @@ OFFICIAL_COMMAND = (
     "scripts/governance/run_official_checks.py",
 )
 SUPPORT_PATH = Path(__file__).with_name("aspose_org_adaptation_evidence_support.py")
+GRAPH_PATH = (
+    REPO_ROOT / "plans" / "investigations" / "control" / "level8-autonomous-mission-task-graph.yaml"
+)
 
 
 def _git(*args: str) -> str:
@@ -217,20 +226,39 @@ def _write_evidence(
         "verdict": "VERIFIED" if not failures and official is not None else "PRELIMINARY",
     }
     write_redacted_json(EVIDENCE_DIR / "verification.json", verification)
+    graph, _ = load_mission_graph(GRAPH_PATH)
+    task = next(
+        task for task in graph.taskcards if task.task_id == "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION"
+    )
+    scoreboard = derive_lifecycle_scoreboard(default_state_backend())
+    scoreboard_hash = lifecycle_scoreboard_sha256(scoreboard)
     write_redacted_json(
         EVIDENCE_DIR / "mission-contribution.json",
         {
             "schema_version": 1,
-            "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-            "task_id": "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION",
-            "goal_ids": ["GOAL-TRUTH"],
-            "contribution_kind": "visible_deliverable",
-            "summary": (
-                "Pinned and reconstructable Python, TypeScript, and Rust adaptation scopes "
-                "with source hashes, license constraints, dependency decisions, local seams, "
-                "tests, and rejected shortcuts."
-            ),
-            "closeout_ready": not failures and official is not None,
+            "task_id": task.task_id,
+            "goal_ids": task.goal_ids,
+            "core_contribution": task.core_contribution.model_dump(mode="json"),
+            "acceptance_checks_passed": task.acceptance_checks,
+            "proof_refs": [
+                (
+                    "plans/investigations/evidence/"
+                    "level8-aspose-org-ecosystem-adaptation/verification.json"
+                ),
+                (
+                    "plans/investigations/evidence/"
+                    "level8-aspose-org-ecosystem-adaptation/adaptation-matrix.json"
+                ),
+                (
+                    "plans/investigations/evidence/"
+                    "level8-aspose-org-ecosystem-adaptation/source-provenance.json"
+                ),
+            ],
+            "scoreboard_before_sha256": scoreboard_hash,
+            "scoreboard_after_sha256": scoreboard_hash,
+            "first_failing_boundary_before": scoreboard.first_failing_boundary,
+            "first_failing_boundary_after": scoreboard.first_failing_boundary,
+            "independently_verified": not failures and official is not None,
         },
     )
     command = (
