@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "fec95401999d2ed493dd834b4ebb7271d89aa010f0930403f6516ebe3dda273f",
-    "last_evaluated_at": "2026-07-27T20:09:24.262076+00:00",
+    "last_evaluated_at": "2026-07-27T20:09:37.067266+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -147,7 +147,7 @@
       "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
-      "L8-TRUTH-05-PUBLIC-EXAMPLES": "REGRESSED",
+      "L8-TRUTH-05-PUBLIC-EXAMPLES": "READY",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
@@ -2538,6 +2538,18 @@
         "reason": "Reopened because the real .NET verified example contains README-visible source comments forbidden by the user requirement, while the real Python representative remains blocked on an unselected public symbol.",
         "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [
+          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/6a209e8fc3dfc305df39a417037e32a4d4c7b2be/facts/product-facts.json",
+          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/facts/product-facts.json"
+        ],
+        "from_status": "REGRESSED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T20:09:37.067261+00:00",
+        "reason": "Public-example repair is agent-fixable and ready: enforce comment-free generated examples deterministically and repair Python public API selection.",
+        "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+        "to_status": "READY"
       }
     ]
   },
@@ -2546,7 +2558,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 291,
+  "state_version": 292,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
