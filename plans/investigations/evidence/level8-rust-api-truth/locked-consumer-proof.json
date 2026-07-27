@@ -37299,7 +37299,7 @@
     "vendor_sha256": "afebcf290b2f81d57370f893b41a8c51d740b46af60cadadb609b9ec3f8759da",
     "config_sha256": "77e9219c27274120197571fd165cbe4121963b5ad3bc0b20b383c86ef0ce6c2b",
     "lock_package_count": 93,
-    "acquired_at": "2026-07-27T11:23:51.474163+00:00",
+    "acquired_at": "2026-07-27T12:17:43.456002+00:00",
     "cleanup_complete": true
   },
   "verified_symbols": [
@@ -37355,18 +37355,19 @@
       "architecture": "amd64",
       "engine_version": "28.4.0"
     },
-    "container_id": "14fea1c478cd6f21967d9ca94559634ee690d7d39a2477ffe73c8b92eee7f2d4",
+    "container_id": "cf70e993eaf850a2cdc3c7c1733d47d17706f943263da123118a3a457c451d06",
     "process_inventory": [
       "PID                 PPID                USER                COMMAND",
-      "30144               30123               nobody              /usr/local/rustup/toolchains/1.88.0-x86_64-unknown-linux-gnu/bin/cargo check --locked --offline --manifest-path consumer/Cargo.toml"
+      "87801               87779               nobody              /usr/local/rustup/toolchains/1.88.0-x86_64-unknown-linux-gnu/bin/cargo check --locked --offline --manifest-path consumer/Cargo.toml",
+      "87829               87801               nobody              /usr/local/rustup/toolchains/1.88.0-x86_64-unknown-linux-gnu/bin/rustc -vV"
     ],
     "return_code": 0,
     "stdout": "",
-    "stderr": "   Compiling libc v0.2.189\n   Compiling version_check v0.9.5\n   Compiling generic-array v0.14.7\n   Compiling jobserver v0.1.35\n    Checking typenum v1.20.1\n   Compiling find-msvc-tools v0.1.9\n   Compiling shlex v2.0.1\n   Compiling cc v1.4.0\n   Compiling pkg-config v0.3.33\n    Checking crypto-common v0.1.7\n    Checking cfg-if v1.0.4\n    Checking subtle v2.6.1\n   Compiling zstd-sys v2.0.16+zstd.1.5.7\n    Checking block-buffer v0.10.4\n    Checking digest v0.10.7\n    Checking cpufeatures v0.2.17\n   Compiling bzip2-sys v0.1.13+1.0.8\n   Compiling zstd-safe v5.0.2+zstd.1.5.2\n   Compiling crc32fast v1.5.0\n   Compiling autocfg v1.5.1\n   Compiling num-traits v0.2.19\n    Checking inout v0.1.4\n    Checking adler2 v2.0.1\n    Checking simd-adler32 v0.3.10\n   Compiling zmij v1.0.23\n   Compiling serde_core v1.0.229\n    Checking rand_core v0.6.4\n    Checking base64ct v1.8.3\n    Checking password-hash v0.4.2\n    Checking miniz_oxide v0.8.9\n    Checking cipher v0.4.4\n    Checking sha2 v0.10.9\n    Checking hmac v0.12.1\n    Checking num-conv v0.2.2\n    Checking deranged v0.5.8\n    Checking powerfmt v0.2.0\n   Compiling getrandom v0.3.4\n    Checking time-core v0.1.9\n   Compiling serde_json v1.0.151\n    Checking time v0.3.54\n    Checking pbkdf2 v0.11.0\n    Checking flate2 v1.1.9\n    Checking bzip2 v0.4.4\n    Checking zstd v0.11.2+zstd.1.5.2\n    Checking aes v0.8.4\n    Checking sha1 v0.10.7\n    Checking iana-time-zone v0.1.65\n    Checking memchr v2.8.3\n    Checking itoa v1.0.18\n    Checking byteorder v1.5.0\n    Checking constant_time_eq v0.1.5\n    Checking zip v0.6.6\n    Checking chrono v0.4.45\n    Checking base64 v0.22.1\n    Checking roxmltree v0.20.0\n    Checking aspose-cells-foss-rust v26.7.0 (/workspace/package)\n    Checking readme-agent-rust-consumer v0.0.0 (/workspace/consumer)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 23.23s\n",
+    "stderr": "   Compiling libc v0.2.189\n   Compiling version_check v0.9.5\n   Compiling generic-array v0.14.7\n   Compiling jobserver v0.1.35\n   Compiling shlex v2.0.1\n   Compiling find-msvc-tools v0.1.9\n    Checking typenum v1.20.1\n   Compiling cc v1.4.0\n   Compiling pkg-config v0.3.33\n    Checking crypto-common v0.1.7\n    Checking cfg-if v1.0.4\n    Checking subtle v2.6.1\n   Compiling zstd-sys v2.0.16+zstd.1.5.7\n    Checking block-buffer v0.10.4\n    Checking digest v0.10.7\n    Checking cpufeatures v0.2.17\n   Compiling bzip2-sys v0.1.13+1.0.8\n   Compiling crc32fast v1.5.0\n   Compiling autocfg v1.5.1\n   Compiling zstd-safe v5.0.2+zstd.1.5.2\n   Compiling num-traits v0.2.19\n    Checking inout v0.1.4\n    Checking rand_core v0.6.4\n    Checking adler2 v2.0.1\n    Checking simd-adler32 v0.3.10\n   Compiling zmij v1.0.23\n   Compiling serde_core v1.0.229\n    Checking base64ct v1.8.3\n    Checking password-hash v0.4.2\n    Checking miniz_oxide v0.8.9\n    Checking cipher v0.4.4\n    Checking sha2 v0.10.9\n    Checking hmac v0.12.1\n   Compiling getrandom v0.3.4\n    Checking deranged v0.5.8\n   Compiling serde_json v1.0.151\n    Checking powerfmt v0.2.0\n    Checking num-conv v0.2.2\n    Checking time-core v0.1.9\n    Checking time v0.3.54\n    Checking pbkdf2 v0.11.0\n    Checking flate2 v1.1.9\n    Checking bzip2 v0.4.4\n    Checking zstd v0.11.2+zstd.1.5.2\n    Checking aes v0.8.4\n    Checking sha1 v0.10.7\n    Checking itoa v1.0.18\n    Checking iana-time-zone v0.1.65\n    Checking memchr v2.8.3\n    Checking byteorder v1.5.0\n    Checking constant_time_eq v0.1.5\n    Checking zip v0.6.6\n    Checking chrono v0.4.45\n    Checking roxmltree v0.20.0\n    Checking base64 v0.22.1\n    Checking aspose-cells-foss-rust v26.7.0 (/workspace/package)\n    Checking readme-agent-rust-consumer v0.0.0 (/workspace/consumer)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 24.23s\n",
     "timed_out": false,
     "oom_killed": false,
-    "started_at": "2026-07-27T11:58:19.465463+00:00",
-    "finished_at": "2026-07-27T11:58:46.442609+00:00",
+    "started_at": "2026-07-27T12:38:01.529152+00:00",
+    "finished_at": "2026-07-27T12:38:33.391461+00:00",
     "cleanup": {
       "execution_container_removed": true,
       "seed_container_removed": true,
