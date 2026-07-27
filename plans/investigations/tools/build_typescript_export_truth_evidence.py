@@ -169,7 +169,11 @@ def _write(run_official: bool) -> list[str]:
             and isolated.get("policy", {}).get("immutable_image") == immutable_image()
         ),
         "cleanup_complete": all(
-            (result.get("cleanup") or {}).get("complete") for result in (isolated, stale_isolated)
+            cleanup and all(cleanup.values())
+            for cleanup in (
+                isolated.get("cleanup") or {},
+                stale_isolated.get("cleanup") or {},
+            )
         ),
         "no_managed_resources_remain": not any(inventory.values()),
     }
