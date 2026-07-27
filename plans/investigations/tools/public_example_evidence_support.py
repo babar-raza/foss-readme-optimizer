@@ -78,11 +78,25 @@ def _readme_example(root: Path, ecosystem: str) -> MinimalExamplePolicy:
     return candidates[0]
 
 
-def _selected_example(root: Path, ecosystem: str) -> tuple[MinimalExamplePolicy, str]:
+def _selected_example(root: Path, ecosystem: str) -> tuple[MinimalExamplePolicy, str, str]:
     if ecosystem == "python":
-        return _PYTHON_EXAMPLE, "repository-source-backed correction of stale README example"
+        return (
+            _PYTHON_EXAMPLE,
+            "repository-source-backed correction of stale README example",
+            (
+                "reject curated README import because the installed package cannot load "
+                "aspose.threed.formats.collada; reuse only source-and-package-verified symbols"
+            ),
+        )
     if ecosystem == "typescript":
-        return _TYPESCRIPT_EXAMPLE, "repository-source-backed correction of stale README import"
+        return (
+            _TYPESCRIPT_EXAMPLE,
+            "repository-source-backed correction of stale README import",
+            (
+                "reject curated README package roots because the compiler cannot resolve them; "
+                "use the compiler-resolved built-package import"
+            ),
+        )
     if ecosystem == "go":
         source_path = "_examples/text_extraction/main.go"
         return (
@@ -94,8 +108,16 @@ def _selected_example(root: Path, ecosystem: str) -> tuple[MinimalExamplePolicy,
                 required_symbols=['pdf.Open("testdata/binder1.pdf")'],
             ),
             "repository-owned example source",
+            (
+                "curated README fragments are not complete programs; reuse the repository-owned "
+                "complete example only after source and consumer compilation"
+            ),
         )
-    return _readme_example(root, ecosystem), "curated repository README"
+    return (
+        _readme_example(root, ecosystem),
+        "curated repository README",
+        "reuse unchanged only after public-symbol and compiler acceptance",
+    )
 
 
 def verify_representatives(repo_root: Path) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -108,10 +130,11 @@ def verify_representatives(repo_root: Path) -> tuple[dict[str, Any], dict[str, A
         org_repo = REPRESENTATIVES[ecosystem]
         root = roots[ecosystem]
         snapshot = capture_repository_snapshot(require_listed(org_repo), root)
-        example, origin = _selected_example(root, ecosystem)
+        example, origin, disposition = _selected_example(root, ecosystem)
         result = verify_local_product_example(snapshot, example)
         results[ecosystem] = {
             "example_origin": origin,
+            "curated_content_disposition": disposition,
             "example": example.model_dump(mode="json"),
             "verification": result.model_dump(mode="json"),
             "repository_clean": not _git(root, "status", "--porcelain=v1"),
@@ -125,6 +148,7 @@ def verify_representatives(repo_root: Path) -> tuple[dict[str, Any], dict[str, A
         result = verify_local_product_example(snapshot, curated)
         controls[f"stale_{ecosystem}_readme_example"] = {
             "example_origin": "curated repository README",
+            "curated_content_disposition": "reject as stale and require evidence-backed correction",
             "example": curated.model_dump(mode="json"),
             "verification": result.model_dump(mode="json"),
         }

@@ -182,7 +182,17 @@ def _build(run_official: bool) -> list[str]:
     scoreboard = derive_lifecycle_scoreboard(default_state_backend())
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
     write_redacted_json(EVIDENCE_DIR / "example-verifications.json", results)
-    write_redacted_json(EVIDENCE_DIR / "curated-readme-controls.json", curated_controls)
+    write_redacted_json(
+        EVIDENCE_DIR / "curated-readme-controls.json",
+        {
+            "schema_version": 1,
+            "principle": (
+                "Treat product-agent-curated README content as high-value preferred input, but "
+                "reuse no material unit until accepted evidence validates it."
+            ),
+            "controls": curated_controls,
+        },
+    )
     write_redacted_json(EVIDENCE_DIR / "remote-revisions.json", remote_revisions)
     write_redacted_json(EVIDENCE_DIR / "hostile-executor-controls.json", hostile_controls)
     write_redacted_text(EVIDENCE_DIR / "focused-tests.stdout.log", focused["stdout"])
