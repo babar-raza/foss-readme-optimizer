@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "9cf39331ba937687d815118d289fa6e545500b01d67e20dd44b0a0ed5bdf29ae",
-    "last_evaluated_at": "2026-07-27T13:15:03.081621+00:00",
+    "last_evaluated_at": "2026-07-27T13:15:18.044791+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -64,7 +64,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Select a registry-verified coordinate when published and a reproducible source-build path otherwise, while executing repository or dependency build code only inside a disposable OS-isolated executor with bounded resources and deny-by-default network."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "task_id": "L8-TRUTH-04-ACQUISITION"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -135,7 +144,7 @@
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "CLOSED",
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
-      "L8-TRUTH-03-CLAIM-POLARITY": "SCORED",
+      "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "TODO",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "TODO",
@@ -2069,6 +2078,19 @@
         "reason": "Focused and full official proof passed with checksum-complete evidence.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-claim-polarity/verification.json",
+          "plans/investigations/evidence/level8-claim-polarity/polarity-assessments.json",
+          "plans/investigations/evidence/level8-claim-polarity/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex-primary",
+        "occurred_at": "2026-07-27T13:15:18.044777+00:00",
+        "reason": "Claim-polarity contribution independently verified; no selected limitation relies on a positive symbol.",
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -2077,7 +2099,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 236,
+  "state_version": 237,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
