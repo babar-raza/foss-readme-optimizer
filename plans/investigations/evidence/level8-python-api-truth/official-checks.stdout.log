@@ -1,0 +1,87 @@
+All checks passed!
+534 files already formatted
+Success: no issues found in 300 source files
+........................................................................ [  3%]
+........................................................................ [  7%]
+........................................................................ [ 11%]
+........................................................................ [ 15%]
+........................................................................ [ 19%]
+........................................................................ [ 23%]
+........................................................................ [ 27%]
+........................................................................ [ 31%]
+........................................................................ [ 35%]
+........................................................................ [ 39%]
+........................................................................ [ 43%]
+........................................................................ [ 47%]
+........................................................................ [ 51%]
+........................................................................ [ 55%]
+........................................................................ [ 59%]
+........................................................................ [ 63%]
+........................................................................ [ 67%]
+........................................................................ [ 71%]
+........................................................................ [ 75%]
+........................................................................ [ 79%]
+........................................................................ [ 83%]
+........................................................................ [ 87%]
+........................................................................ [ 91%]
+........................................................................ [ 95%]
+........................................................................ [ 99%]
+.                                                                        [100%]
+1801 passed, 27 deselected in 893.27s (0:14:53)
+Plan structure clean (57 warning(s)).
+check_verifiers_are_wired: every verify_* function has a call site in src/
+Prompt hygiene clean: 10 active prompt(s)
+Level-8 requirement coverage current: 425 rows
+Checked 154 IMPLEMENTED rows.
+  0 row(s) with a semantic closure finding.
+  83 row(s) with informational-only findings (no test path cited).
+  71 row(s) fully clean.
+
+=== Tree precondition (start) ===
+TREE CLEAN
+
+=== ruff check ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m ruff check .
+--- ruff check: OK
+
+=== ruff format --check ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m ruff format --check .
+--- ruff format --check: OK
+
+=== mypy src ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m mypy src
+--- mypy src: OK
+
+=== pytest -q (full non-live suite) ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m pytest -q
+--- pytest -q (full non-live suite): OK
+
+=== validate_plan_structure.py ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\proof-worktrees\python-api-truth-clean\scripts\governance\validate_plan_structure.py
+--- validate_plan_structure.py: OK
+
+=== check_verifiers_are_wired.py --check (PRODSYS-P2-T1) ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\proof-worktrees\python-api-truth-clean\scripts\governance\check_verifiers_are_wired.py --check
+--- check_verifiers_are_wired.py --check (PRODSYS-P2-T1): OK
+
+=== check_prompt_hygiene.py ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\proof-worktrees\python-api-truth-clean\scripts\governance\check_prompt_hygiene.py
+--- check_prompt_hygiene.py: OK
+
+=== build_level8_requirement_taskcard_coverage.py --check (PRODSYS-P1-T3) ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\proof-worktrees\python-api-truth-clean\scripts\governance\build_level8_requirement_taskcard_coverage.py --check
+--- build_level8_requirement_taskcard_coverage.py --check (PRODSYS-P1-T3): OK
+
+=== traceability_matrix.py --check ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\proof-worktrees\python-api-truth-clean\plans\investigations\tools\traceability_matrix.py --check
+--- traceability_matrix.py --check: OK
+
+=== actionlint (workflow syntax) ===
+--- actionlint not found on PATH -- skipped (install it for a real syntax check)
+
+=== Tree precondition (end) ===
+TREE CLEAN
+
+============================================================
+Tree state: TREE CLEAN
+All official checks passed.

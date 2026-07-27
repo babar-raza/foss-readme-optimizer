@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-02B-PYTHON-API-TRUTH",
+  "requirement_id": "L8-030",
+  "control_repository": {
+    "head": "7b75e8059235bb14bffe6274da1b9566acce5d0e",
+    "branch": "HEAD",
+    "tree_clean_at_start": true,
+    "tree_porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "builder_path": "plans/investigations/tools/build_python_api_truth_evidence.py",
+    "builder_sha256": "6a72d7499eb2ff99addfb91a8765097ec4a34a8dec35f52e0fc5eb412bf4943a",
+    "implementation": {
+      "src/readme_agent/ecosystems/python_api_schema.py": "58203df4ab6c1877224d1ac4d32a50437b6055ea8a93eece5dc6ac3b5c0b0488",
+      "src/readme_agent/ecosystems/python_package_layout.py": "43a65166ba36c7b817c500c11a72f1b21ffbe8220cd4add2495eff29435a95c8",
+      "src/readme_agent/ecosystems/python_public_api.py": "baaa3bf2e0b3b362f53b1e5f83785d0d43ca66b7dd8460fa504bd01aa6de9026",
+      "src/readme_agent/ecosystems/python_symbol_members.py": "c06325362e1d499c8766826357999f937078744270f10badea71b663fdc3b51c",
+      "src/readme_agent/facts/python_consumer.py": "5559489893cb49b3beabd8cf7bb6820b1f885102149f9446ba72bb981d626392",
+      "src/readme_agent/facts/python_consumer_schema.py": "9f325cdd2507675f9a291e2ca491e9fe0d3d7554e46a4ae119364e596da4500a",
+      "src/readme_agent/facts/python_example_verifier.py": "dd88304d057477eb368d082c934db7b2c67a9de7a486c9ca5f6f90946c415bac",
+      "src/readme_agent/facts/local_verification.py": "372c2b822fc45e40800e37c533e27a4e3d7236b9cc9e5a99ae525391cb4a11b1",
+      "tests/unit/test_python_public_api.py": "c263268127f15714770388af5251936393c869e5b12d8908e118187950f0dc77",
+      "tests/security/test_python_consumer_docker_live.py": "3abea4d7daea515f81460bb888d3e505d21d6111e2ab1b5c2e0066349c4a5d15"
+    }
+  },
+  "commands": {
+    "focused": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_python_public_api.py tests/unit/test_ecosystems.py tests/unit/test_local_verification.py tests/security/test_example_execution_boundary.py",
+      "exit_code": 0,
+      "raw_stdout": "focused-tests.stdout.log",
+      "raw_stderr": "focused-tests.stderr.log"
+    },
+    "official": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe scripts/governance/run_official_checks.py",
+      "exit_code": 0,
+      "tree_stable": true,
+      "raw_stdout": "official-checks.stdout.log",
+      "raw_stderr": "official-checks.stderr.log"
+    }
+  },
+  "checks": {
+    "focused_tests_pass": true,
+    "official_checks_pass": true,
+    "real_revision_bound": true,
+    "baseline_clean": true,
+    "canonical_import": true,
+    "expected_public_symbols": true,
+    "reexports_resolved": true,
+    "private_symbols_excluded": true,
+    "installed_consumer_accepted": true,
+    "network_denied": true,
+    "immutable_image": true,
+    "cleanup_complete": true,
+    "no_managed_resources_remain": true
+  },
+  "failures": [],
+  "verdict": "VERIFIED"
+}

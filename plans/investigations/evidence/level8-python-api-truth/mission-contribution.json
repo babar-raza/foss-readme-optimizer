@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-02B-PYTHON-API-TRUTH",
+  "goal_ids": [
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Adapt package-root, canonical-import, re-export, public-API, property, typed-field, and snippet extraction and prove selected symbols through an installed pinned package in an isolated consumer."
+  },
+  "acceptance_checks_passed": [
+    "src and namespace layouts, __all__, re-exports, visibility, typed fields, and full decorator stacks are deterministic",
+    "Only installed and importable public symbols become README facts"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-python-api-truth/verification.json",
+    "plans/investigations/evidence/level8-python-api-truth/public-api-surface.json",
+    "plans/investigations/evidence/level8-python-api-truth/installed-consumer-verification.json"
+  ],
+  "scoreboard_before_sha256": "01b63cc455aabd3ae03c58ea20c7aa6eac0384ae14397880aed3c080c5337c76",
+  "scoreboard_after_sha256": "01b63cc455aabd3ae03c58ea20c7aa6eac0384ae14397880aed3c080c5337c76",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
