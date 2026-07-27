@@ -1,0 +1,168 @@
+{
+  "verified_limitation": {
+    "fact_id": "product.limitations:repository-evidence",
+    "field": "product.limitations",
+    "value": [
+      "Rendering functionality is not available in the FOSS version."
+    ],
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "authoritative_owner": "repository-owner",
+    "confidence": 1.0,
+    "conflicts": [],
+    "evidence_assessments": [
+      {
+        "schema_version": 1,
+        "fact_id": "product.limitations:repository-evidence",
+        "claim_text": "Rendering functionality is not available in the FOSS version.",
+        "expected_polarity": "explicit_constraint",
+        "observed_polarity": "explicit_constraint",
+        "source_path": "src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "observed_at": null,
+        "line_number": 462,
+        "anchor": "This feature is not available in the FOSS version.",
+        "exact_excerpt": "\"This feature is not available in the FOSS version. \" +",
+        "context_excerpt": "/// </summary>\n        public void Render(Entities.Camera camera, string fileName)\n        {\n            throw new NotImplementedException(\n                \"This feature is not available in the FOSS version. \" +\n                \"Consider using Aspose.3D's commercial On-Premise API for full functionality.\");\n        }\n\n        /// <summary>",
+        "accepted": true,
+        "reason": "observed explicit_constraint matches expected explicit_constraint"
+      }
+    ],
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "verified_capability": {
+    "fact_id": "product.capabilities:repository-evidence",
+    "field": "product.capabilities",
+    "value": [
+      "Save scenes to a stream using a file format."
+    ],
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "authoritative_owner": "repository-owner",
+    "confidence": 1.0,
+    "conflicts": [],
+    "evidence_assessments": [
+      {
+        "schema_version": 1,
+        "fact_id": "product.capabilities:repository-evidence",
+        "claim_text": "Save scenes to a stream using a file format.",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "positive_implementation",
+        "source_path": "src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "observed_at": null,
+        "line_number": 351,
+        "anchor": "public void Save(Stream stream, FileFormat format)",
+        "exact_excerpt": "public void Save(Stream stream, FileFormat format)",
+        "context_excerpt": "/// <summary>\n        /// Saves the scene to stream using specified file format.\n        /// </summary>\n        public void Save(Stream stream, FileFormat format)\n        {\n            var options = format.CreateSaveOptions();\n            Save(stream, options);\n        }",
+        "accepted": true,
+        "reason": "observed positive_implementation matches expected positive_implementation"
+      }
+    ],
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "rejected_capability": {
+    "fact_id": "product.capabilities:repository-evidence",
+    "field": "product.capabilities",
+    "value": {
+      "assertions": [
+        "Render scenes to an external file."
+      ],
+      "evidence_failures": [
+        "observed explicit_constraint contradicts expected positive_implementation: Render scenes to an external file."
+      ]
+    },
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "retrieved_at": null
+    },
+    "verification_state": "blocked",
+    "authoritative_owner": "repository-owner",
+    "confidence": 0.0,
+    "conflicts": [],
+    "evidence_assessments": [
+      {
+        "schema_version": 1,
+        "fact_id": "product.capabilities:repository-evidence",
+        "claim_text": "Render scenes to an external file.",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "explicit_constraint",
+        "source_path": "src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "observed_at": null,
+        "line_number": 459,
+        "anchor": "public void Render(Entities.Camera camera, string fileName)",
+        "exact_excerpt": "public void Render(Entities.Camera camera, string fileName)",
+        "context_excerpt": "/// <summary>\n        /// Render the scene into external file from given camera's perspective.\n        /// The default output size is 1024x768 and output format is png\n        /// </summary>\n        public void Render(Entities.Camera camera, string fileName)\n        {\n            throw new NotImplementedException(\n                \"This feature is not available in the FOSS version. \" +\n                \"Consider using Aspose.3D's commercial On-Premise API for full functionality.\");",
+        "accepted": false,
+        "reason": "observed explicit_constraint contradicts expected positive_implementation"
+      }
+    ],
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "rejected_vague_constraint": {
+    "fact_id": "product.limitations:repository-evidence",
+    "field": "product.limitations",
+    "value": {
+      "assertions": [
+        "Rendering functionality is not available."
+      ],
+      "evidence_failures": [
+        "directional evidence anchor does not identify the claimed subject: Rendering functionality is not available."
+      ]
+    },
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "retrieved_at": null
+    },
+    "verification_state": "blocked",
+    "authoritative_owner": "repository-owner",
+    "confidence": 0.0,
+    "conflicts": [],
+    "evidence_assessments": [
+      {
+        "schema_version": 1,
+        "fact_id": "product.limitations:repository-evidence",
+        "claim_text": "Rendering functionality is not available.",
+        "expected_polarity": "explicit_constraint",
+        "observed_polarity": "explicit_constraint",
+        "source_path": "src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "observed_at": null,
+        "line_number": 462,
+        "anchor": "not available",
+        "exact_excerpt": "\"This feature is not available in the FOSS version. \" +",
+        "context_excerpt": "/// </summary>\n        public void Render(Entities.Camera camera, string fileName)\n        {\n            throw new NotImplementedException(\n                \"This feature is not available in the FOSS version. \" +\n                \"Consider using Aspose.3D's commercial On-Premise API for full functionality.\");\n        }\n\n        /// <summary>",
+        "accepted": false,
+        "reason": "directional evidence anchor does not identify the claimed subject"
+      }
+    ],
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+  "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+  "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+  "implementation_revision": "b28d7f7875fdcd1f7b18fe48f7b473381892aaae",
+  "repository_worktree_clean": true,
+  "cases": {
+    "positive_render_symbol_cannot_prove_capability": {
+      "schema_version": 1,
+      "fact_id": "product.capabilities:repository-evidence",
+      "claim_text": "Render scenes.",
+      "expected_polarity": "positive_implementation",
+      "observed_polarity": "explicit_constraint",
+      "source_path": "src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "observed_at": null,
+      "line_number": 459,
+      "anchor": "public void Render(Entities.Camera camera, string fileName)",
+      "exact_excerpt": "public void Render(Entities.Camera camera, string fileName)",
+      "context_excerpt": "/// <summary>\n        /// Render the scene into external file from given camera's perspective.\n        /// The default output size is 1024x768 and output format is png\n        /// </summary>\n        public void Render(Entities.Camera camera, string fileName)\n        {\n            throw new NotImplementedException(\n                \"This feature is not available in the FOSS version. \" +\n                \"Consider using Aspose.3D's commercial On-Premise API for full functionality.\");",
+      "accepted": false,
+      "reason": "observed explicit_constraint contradicts expected positive_implementation"
+    },
+    "render_stub_is_constraint": {
+      "schema_version": 1,
+      "fact_id": "product.limitations:repository-evidence",
+      "claim_text": "Scene.Render is not available in the FOSS version.",
+      "expected_polarity": "explicit_constraint",
+      "observed_polarity": "explicit_constraint",
+      "source_path": "src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "observed_at": null,
+      "line_number": 462,
+      "anchor": "This feature is not available in the FOSS version.",
+      "exact_excerpt": "\"This feature is not available in the FOSS version. \" +",
+      "context_excerpt": "/// </summary>\n        public void Render(Entities.Camera camera, string fileName)\n        {\n            throw new NotImplementedException(\n                \"This feature is not available in the FOSS version. \" +\n                \"Consider using Aspose.3D's commercial On-Premise API for full functionality.\");\n        }\n\n        /// <summary>",
+      "accepted": true,
+      "reason": "observed explicit_constraint matches expected explicit_constraint"
+    },
+    "repository_limitations_statement_is_constraint": {
+      "schema_version": 1,
+      "fact_id": "product.limitations:repository-evidence",
+      "claim_text": "Scene.Render throws NotImplementedException.",
+      "expected_polarity": "explicit_constraint",
+      "observed_polarity": "explicit_constraint",
+      "source_path": "docs/release-26.2.0.md",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "observed_at": null,
+      "line_number": 143,
+      "anchor": "The `Scene.Render()` method throws `NotImplementedException` - use On-Premise for rendering functionality",
+      "exact_excerpt": "1. **Rendering**: The `Scene.Render()` method throws `NotImplementedException` - use On-Premise for rendering functionality",
+      "context_excerpt": "4. For features marked as Category 1 (stubs), implement appropriate error handling\n\n## Known Limitations\n\n1. **Rendering**: The `Scene.Render()` method throws `NotImplementedException` - use On-Premise for rendering functionality\n2. **Advanced Mesh Operations**: Boolean operations and mesh simplification are not available\n3. **Proprietary Export**: Export to A3DW, PDF, USD, JT, 3MF is not available in export mode\n\n## Support",
+      "accepted": true,
+      "reason": "observed explicit_constraint matches expected explicit_constraint"
+    },
+    "scene_constructor_is_positive_implementation": {
+      "schema_version": 1,
+      "fact_id": "product.capabilities:repository-evidence",
+      "claim_text": "Construct a Scene.",
+      "expected_polarity": "positive_implementation",
+      "observed_polarity": "positive_implementation",
+      "source_path": "src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "observed_at": null,
+      "line_number": 30,
+      "anchor": "public Scene() : base()",
+      "exact_excerpt": "public Scene() : base()",
+      "context_excerpt": "/// <summary>\n        /// Initializes a new instance of the Scene class.\n        /// </summary>\n        public Scene() : base()\n        {\n            _subScenes = new List<Scene>();\n            _library = new List<A3DObject>();\n            _animationClips = new List<AnimationClip>();",
+      "accepted": true,
+      "reason": "observed positive_implementation matches expected positive_implementation"
+    }
+  },
+  "expected_acceptance": {
+    "render_stub_is_constraint": true,
+    "positive_render_symbol_cannot_prove_capability": false,
+    "repository_limitations_statement_is_constraint": true,
+    "scene_constructor_is_positive_implementation": true
+  },
+  "failures": [],
+  "verdict": "VERIFIED"
+}

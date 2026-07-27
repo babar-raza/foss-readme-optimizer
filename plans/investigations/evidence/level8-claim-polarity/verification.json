@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+  "control_repository": {
+    "head": "b28d7f7875fdcd1f7b18fe48f7b473381892aaae",
+    "branch": "main",
+    "tree_clean_at_start": true,
+    "tree_porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "builder_path": "plans/investigations/tools/build_claim_polarity_evidence.py",
+    "builder_sha256": "b592a8b8118d8b81cd29c041a135ef3145cb815a657e2351954fffe96bbd3182",
+    "implementation": {
+      "docs/architecture.md": "b16573239e586375fbc9363fac923781bdc5929c01a3fe39beff63228bc7ebf0",
+      "plans/investigations/tools/claim_polarity_evidence_support.py": "a9589c0865c9d7fb4d4350a8ad454efea7e7ecb56fff0816905c574ebcb8d964",
+      "prompts/generation/draft_product_truth.yaml": "0975ca4630426672aea2f499c97c03d7bd36460da954b26cc5977222645d1796",
+      "src/readme_agent/facts/acceptance_contract.py": "7cdb38f23106dcfdcd0145e25c3305c7104f38b30b3d67abce0d86265dfc7024",
+      "src/readme_agent/facts/evidence_polarity.py": "48dc5aaa589cbc3d9059ef4e20fd21b6e8b666736257443bccbd6b782676e6a6",
+      "src/readme_agent/facts/policy_evidence.py": "1807936f90c24966dc5d272a998ea8eadeb2889f8b94fb348484e62f461f97fa",
+      "src/readme_agent/facts/schema_v2.py": "469377bc4e0d2222438cf4a353c6c36f0303171e30760e34c428c456b35bc504",
+      "tests/unit/test_draft_product_truth_capability.py": "14ddea6d6d885d8b1ac2ff2eed81293a7466327964d96381f2e3936bda9c1c3f",
+      "tests/unit/test_evidence_polarity.py": "bf71020d281e2833fb1a24afcc7867cd930ae3f7baae40e06395eb01b1f8db1c",
+      "tests/unit/test_facts_schema_v2.py": "6d3ff249e4c88a1569c28eef3c16f284d4ed5e81dd28971f6823c6b3804af0be"
+    }
+  },
+  "commands": {
+    "focused": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_evidence_polarity.py tests/unit/test_draft_product_truth_capability.py tests/unit/test_product_truth_ingestion.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_facts_schema_v2.py tests/unit/test_facts_provider.py tests/unit/test_supervisor_product_truth.py",
+      "exit_code": 0
+    },
+    "official": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe scripts/governance/run_official_checks.py",
+      "exit_code": 0,
+      "tree_stable": true
+    }
+  },
+  "checks": {
+    "focused_tests_pass": true,
+    "official_checks_pass": true,
+    "representative_is_clean": true,
+    "representative_revision_bound": true,
+    "source_checksum_bound": true,
+    "curated_readme_claim_captured": true,
+    "constraint_anchor_exists": true,
+    "real_limitation_verified": true,
+    "real_positive_capability_verified": true,
+    "positive_render_claim_rejected": true,
+    "generic_constraint_fragment_rejected": true,
+    "exact_revision_excerpt_persisted": true,
+    "fact_record_retains_assessments": true,
+    "real_dotnet_opposite_polarity_controls_pass": true
+  },
+  "failures": [],
+  "verdict": "VERIFIED"
+}
