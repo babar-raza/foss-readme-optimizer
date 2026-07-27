@@ -151,17 +151,30 @@ def test_dotnet_consumer_binds_public_types_and_clears_package_sources(tmp_path,
         "namespace Aspose.Cells_FOSS; public class Workbook { public Workbook() {} }\n",
         encoding="utf-8",
     )
+    (project.parent / "CellsHelper.cs").write_text(
+        "namespace Aspose.Cells_FOSS.Utility; public class CellsHelper {}\n",
+        encoding="utf-8",
+    )
     calls: list[IsolatedExecutionRequestV1] = []
     monkeypatch.setattr(dotnet_example_verifier, "verify_repository_snapshot", lambda _: None)
 
     result = dotnet_example_verifier.verify(
         _snapshot(tmp_path),
-        _example("dotnet", "using Aspose.Cells_FOSS;\nvar book = new Workbook();\n"),
+        _example(
+            "dotnet",
+            "using Aspose.Cells_FOSS;\n"
+            "using Aspose.Cells_FOSS.Utility;\n"
+            "var book = new Workbook();\n"
+            "var helper = new CellsHelper();\n",
+        ),
         executor=_successful_executor(calls),
     )
 
     assert result.truth_eligible
-    assert result.verified_public_symbols == ["Aspose.Cells_FOSS.Workbook"]
+    assert result.verified_public_symbols == [
+        "Aspose.Cells_FOSS.Utility.CellsHelper",
+        "Aspose.Cells_FOSS.Workbook",
+    ]
     assert "-p:RestoreConfigFile=/workspace/.readme-agent/NuGet.Config" in calls[0].argv[-1]
     assert "dotnet --version" in calls[0].argv[-1]
     assert set(calls[0].environment) == {

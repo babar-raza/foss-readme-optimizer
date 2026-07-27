@@ -47,6 +47,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent import paths
 from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInputV1
+from readme_agent.ecosystems.dotnet_public_types import normalize_dotnet_public_type_usings
 from readme_agent.facts import agentic_drafting
 from readme_agent.facts.acquisition import reconcile_acquisition
 from readme_agent.facts.acquisition_schema import AcquisitionDecisionV1
@@ -309,11 +310,13 @@ def _gate_minimal_example(
     )
 
 
-def _normalize_draft_example(draft: DraftProductTruthV1) -> DraftProductTruthV1:
+def _normalize_draft_example(draft: DraftProductTruthV1, root: Path) -> DraftProductTruthV1:
     """Normalize generated code before both verification and evidence output."""
 
     example = draft.minimal_example
     normalized = normalize_generated_code(example.code)
+    if example.language == "dotnet":
+        normalized = normalize_dotnet_public_type_usings(root, normalized)
     if normalized == example.code:
         return draft
     return draft.model_copy(
@@ -438,7 +441,7 @@ def orchestrate_product_truth_draft(
     draft: DraftProductTruthV1
     gated: dict[str, FactRecordV2]
     while True:
-        draft = _normalize_draft_example(draft_fn(hints, current_facts))
+        draft = _normalize_draft_example(draft_fn(hints, current_facts), root)
         gated = _gate_draft(
             draft, current_facts, root, source_revision, observed_at, verify_example_fn
         )

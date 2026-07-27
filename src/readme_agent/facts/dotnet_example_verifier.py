@@ -9,6 +9,7 @@ from collections.abc import Callable
 from pathlib import Path
 from xml.sax.saxutils import escape
 
+from readme_agent.ecosystems.dotnet_public_types import public_dotnet_type_index
 from readme_agent.facts.compiled_consumer import (
     compiled_proof,
     copy_snapshot,
@@ -57,22 +58,16 @@ def _selected_sources(
     code: str,
 ) -> tuple[list[str], list[str]]:
     namespaces = sorted(set(re.findall(r"(?m)^\s*using\s+(Aspose(?:\.[A-Za-z_]\w*)+)\s*;", code)))
-    source_files = sorted(project.parent.rglob("*.cs"))
-    type_names = {
-        path.stem: path
-        for path in source_files
-        if re.search(
-            rf"\bpublic\s+(?:sealed\s+|abstract\s+|static\s+|partial\s+)*"
-            rf"(?:class|struct|interface|enum)\s+{re.escape(path.stem)}\b",
-            path.read_text(encoding="utf-8-sig", errors="replace"),
-        )
-    }
-    used_types = sorted(name for name in type_names if re.search(rf"\b{re.escape(name)}\b", code))
+    type_index = public_dotnet_type_index(project.parent)
+    used_types = sorted(name for name in type_index if re.search(rf"\b{re.escape(name)}\b", code))
     if not namespaces or not used_types:
         raise ValueError(".NET example must use a repository namespace and public source type")
     paths = [project.relative_to(snapshot.root_path).as_posix()]
-    paths.extend(type_names[name].relative_to(snapshot.root_path).as_posix() for name in used_types)
-    symbols = [f"{namespaces[0]}.{name}" for name in used_types]
+    paths.extend(
+        type_index[name].source_path.relative_to(snapshot.root_path).as_posix()
+        for name in used_types
+    )
+    symbols = [type_index[name].qualified_name for name in used_types]
     return sorted(set(paths)), sorted(set(symbols))
 
 
