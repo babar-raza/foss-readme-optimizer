@@ -4766,7 +4766,7 @@
     "updated_at": "2026-07-26T10:26:07.184438+00:00"
   },
   "schema_version": 2,
-  "state_version": 299,
+  "state_version": 300,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -5003,13 +5003,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: ValidationError: 1 validation error for ProductFactsV2   Value error, fact 'product.problems_solved:agent-drafted-grounded' cites ineligible supporting fact 'product.formats:repository-evidence' [type=value_error, input_value={'org_repo': 'aspose-3d-f...tory-root manifest'])])}, input_type=dict]     For further information visit https://errors.pydantic.dev/2.13/v/value_error",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "28d3085337d9b43baf15ed02716de4bc453d4e0d86b44cff45d80c0b345d2fd8",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-27T19:18:48.115099+00:00",
       "recovery_count": 0,
-      "status": "retryable",
-      "updated_at": "2026-07-27T19:03:43.105322+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-27T19:03:48.115099+00:00"
     }
   },
   "trigger_records": {},
