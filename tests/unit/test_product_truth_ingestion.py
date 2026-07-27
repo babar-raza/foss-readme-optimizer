@@ -5,7 +5,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
-from readme_agent.facts.local_verification import verify_host_product_example_diagnostic
+from readme_agent.facts.local_verification import run_host_product_example_diagnostic
 from readme_agent.facts.policy_evidence import evidence_failures
 from readme_agent.facts.repository_ingestion import ingest_repository_product_facts
 from readme_agent.profile.schema import PackageRoot, RepositoryProfile
@@ -275,7 +275,7 @@ def test_disposable_example_verification_does_not_write_snapshot(tmp_path, monke
         lambda major: fake_jdk_home,
     )
 
-    result = verify_host_product_example_diagnostic(snapshot, example)
+    result = run_host_product_example_diagnostic(snapshot, example)
 
     assert result.outcome == "SOURCE_BUILD_VERIFIED"
     assert result.truth_eligible is False

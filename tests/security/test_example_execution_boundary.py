@@ -91,7 +91,7 @@ def test_host_execution_is_permanently_ineligible_for_product_truth(tmp_path, mo
         lambda current: None,
     )
     monkeypatch.setattr(
-        "readme_agent.facts.local_verification.verify_host_product_example_diagnostic",
+        "readme_agent.facts.local_verification.run_host_product_example_diagnostic",
         lambda *_: (_ for _ in ()).throw(AssertionError("host verifier must not run")),
     )
 

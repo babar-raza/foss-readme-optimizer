@@ -787,7 +787,7 @@ _VERIFIERS = {
 }
 
 
-def verify_host_product_example_diagnostic(
+def run_host_product_example_diagnostic(
     snapshot: RepositorySnapshotV1,
     example: MinimalExamplePolicy,
 ) -> LocalProductVerificationV1:

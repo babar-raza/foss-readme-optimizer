@@ -109,7 +109,7 @@ class TestVerifiersRegistration:
         example = _example("java", "Example", "public class Example {}")
         example.language = "ruby"  # type: ignore[assignment]
         with pytest.raises(ValueError, match="no local example verifier registered"):
-            lv.verify_host_product_example_diagnostic(snapshot, example)
+            lv.run_host_product_example_diagnostic(snapshot, example)
 
 
 class TestVerifyDotnetMocked:
