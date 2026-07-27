@@ -6,6 +6,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from readme_agent.facts.example_quality import strip_source_comments
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.repository_examples import repository_readme_example_candidates
 from readme_agent.registry.loader import require_listed
@@ -99,24 +100,32 @@ def _selected_example(root: Path, ecosystem: str) -> tuple[MinimalExamplePolicy,
         )
     if ecosystem == "go":
         source_path = "_examples/text_extraction/main.go"
+        code = strip_source_comments("go", (root / source_path).read_text(encoding="utf-8"))
         return (
             MinimalExamplePolicy(
                 language="go",
                 class_name="readme_example",
-                code=(root / source_path).read_text(encoding="utf-8"),
+                code=code,
                 evidence_paths=[source_path],
                 required_symbols=['pdf.Open("testdata/binder1.pdf")'],
             ),
             "repository-owned example source",
             (
                 "curated README fragments are not complete programs; reuse the repository-owned "
-                "complete example only after source and consumer compilation"
+                "complete comment-free example only after source and consumer compilation"
             ),
         )
+    curated = _readme_example(root, ecosystem)
+    comment_free = curated.model_copy(
+        update={"code": strip_source_comments(ecosystem, curated.code)}
+    )
     return (
-        _readme_example(root, ecosystem),
+        comment_free,
         "curated repository README",
-        "reuse unchanged only after public-symbol and compiler acceptance",
+        (
+            "reuse validated code after removing comments; preserve all executable bytes "
+            "subject to public-symbol and compiler acceptance"
+        ),
     )
 
 

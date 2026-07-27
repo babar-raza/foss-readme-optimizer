@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from readme_agent.facts.example_quality import generated_example_quality_failures
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 
 _SECRET_MARKERS = ("TOKEN", "SECRET", "PASSWORD", "AUTH", "KEY")
@@ -44,6 +45,10 @@ def evaluate_public_example_checks(
         "all_examples_truth_eligible": all(
             result.truth_eligible and result.outcome == "SOURCE_BUILD_VERIFIED"
             for result in verified.values()
+        ),
+        "all_examples_comment_free": all(
+            not generated_example_quality_failures(ecosystem, item["example"]["code"])
+            for ecosystem, item in results.items()
         ),
         "public_symbols_proven": all(
             result.verified_public_symbols for result in verified.values()

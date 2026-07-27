@@ -2,7 +2,10 @@
 
 import pytest
 
-from readme_agent.facts.example_quality import generated_example_quality_failures
+from readme_agent.facts.example_quality import (
+    generated_example_quality_failures,
+    strip_source_comments,
+)
 
 
 def test_python_private_attribute_is_rejected() -> None:
@@ -118,3 +121,37 @@ def test_python_docstring_is_rejected_as_a_documentation_comment() -> None:
     )
 
     assert any("documentation comment" in failure for failure in failures)
+
+
+@pytest.mark.parametrize(
+    ("language", "source", "expected"),
+    [
+        (
+            "dotnet",
+            'var url = "https://example.com"; // save output\nSave(url);\n',
+            'var url = "https://example.com";\nSave(url);\n',
+        ),
+        (
+            "cpp",
+            'auto url = "https://example.com"; /* save output */\nSave(url);\n',
+            'auto url = "https://example.com";\nSave(url);\n',
+        ),
+        (
+            "go",
+            'url := "https://example.com" // save output\nsave(url)\n',
+            'url := "https://example.com"\nsave(url)\n',
+        ),
+        (
+            "rust",
+            'let url = "https://example.com"; // save output\nsave(url);\n',
+            'let url = "https://example.com";\nsave(url);\n',
+        ),
+    ],
+)
+def test_comment_removal_preserves_comment_like_string_literals(
+    language: str, source: str, expected: str
+) -> None:
+    normalized = strip_source_comments(language, source)
+
+    assert normalized == expected
+    assert generated_example_quality_failures(language, normalized) == []

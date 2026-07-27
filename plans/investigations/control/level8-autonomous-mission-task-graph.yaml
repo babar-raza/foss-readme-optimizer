@@ -2643,7 +2643,9 @@ taskcards:
     kind: visible_deliverable
     summary: Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs
       for selected examples in the same disposable OS-isolated executor used for acquisition proof.
-  requirement_ids: []
+  requirement_ids:
+  - L8-019
+  - L8-021
 - task_id: L8-TRUTH-06-INTERPRETIVE-VIEWS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH

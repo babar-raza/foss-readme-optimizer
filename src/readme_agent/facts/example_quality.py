@@ -30,6 +30,22 @@ def _contains_comment(language: str, source: str) -> bool:
     )
 
 
+def strip_source_comments(language: str, source: str) -> str:
+    """Remove source comments while preserving code layout and string literals."""
+
+    lexer_name = _LEXER_BY_LANGUAGE.get(language)
+    if lexer_name is None:
+        return source
+    rendered: list[str] = []
+    for token, value in lex(source, get_lexer_by_name(lexer_name)):
+        if token in Comment or token in String.Doc:
+            rendered.append("".join("\n" if character == "\n" else " " for character in value))
+        else:
+            rendered.append(value)
+    normalized = "\n".join(line.rstrip() for line in "".join(rendered).splitlines())
+    return normalized + ("\n" if source.endswith("\n") else "")
+
+
 def generated_example_quality_failures(language: str, source: str) -> list[str]:
     """Return deterministic public-API and minimality failures for generated code.
 
