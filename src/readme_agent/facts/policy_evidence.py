@@ -73,13 +73,23 @@ def evidence_fact_candidate(
     observed_at: str | None,
     field_name: str,
     specifications: list[EvidenceBackedProductFact],
+    *,
+    allow_partial: bool = False,
 ) -> FactRecordV2:
-    """Create one verified or narrowly blocked technical fact candidate."""
+    """Create one verified or narrowly blocked technical fact candidate.
+
+    Human-authored policy remains all-or-nothing by default. Agentic drafting
+    may explicitly request partial selection so one unsupported proposal does
+    not erase independently proved sibling assertions from the same field.
+    """
 
     values: list[str] = []
     locations: list[str] = []
     failures: list[str] = []
     assessments: list[EvidencePolarityAssessmentV1] = []
+    accepted_values: list[str] = []
+    accepted_locations: list[str] = []
+    accepted_assessments: list[EvidencePolarityAssessmentV1] = []
     fact_id = descriptive_fact_id(field_name, "repository-evidence")
     expected_polarity: ExpectedEvidencePolarity | None = None
     if field_name == "product.capabilities":
@@ -87,13 +97,13 @@ def evidence_fact_candidate(
     elif field_name == "product.limitations":
         expected_polarity = "explicit_constraint"
     for specification in specifications:
-        structural_failures = evidence_failures(
+        specification_failures = evidence_failures(
             root,
             specification.evidence_paths,
             specification.required_symbols,
         )
-        failures.extend(structural_failures)
-        if not structural_failures and expected_polarity is not None:
+        specification_assessments: list[EvidencePolarityAssessmentV1] = []
+        if not specification_failures and expected_polarity is not None:
             for anchor in specification.required_symbols:
                 assessment = assess_evidence_polarity(
                     root=root,
@@ -106,27 +116,55 @@ def evidence_fact_candidate(
                     observed_at=observed_at,
                 )
                 if assessment is None:
-                    failures.append(f"polarity evidence anchor unresolved: {anchor}")
+                    specification_failures.append(f"polarity evidence anchor unresolved: {anchor}")
                 else:
-                    assessments.append(assessment)
+                    specification_assessments.append(assessment)
                     if not assessment.accepted:
-                        failures.append(f"{assessment.reason}: {specification.value}")
+                        specification_failures.append(f"{assessment.reason}: {specification.value}")
         values.append(specification.value)
         locations.extend(specification.evidence_paths)
+        assessments.extend(specification_assessments)
+        if specification_failures:
+            failures.extend(specification_failures)
+        else:
+            accepted_values.append(specification.value)
+            accepted_locations.extend(specification.evidence_paths)
+            accepted_assessments.extend(specification_assessments)
+
+    selected_values = values
+    selected_locations = locations
+    selected_assessments = assessments
+    selected_failures = failures
+    if allow_partial and (
+        accepted_values or (field_name == "product.limitations" and not specifications)
+    ):
+        selected_values = accepted_values
+        selected_locations = accepted_locations
+        selected_assessments = accepted_assessments
+        selected_failures = []
+
     return FactRecordV2(
         fact_id=fact_id,
         field=field_name,
-        value={"assertions": values, "evidence_failures": failures} if failures else values,
+        value=(
+            {"assertions": selected_values, "evidence_failures": selected_failures}
+            if selected_failures
+            else selected_values
+        ),
         source=FactSourceV2(
             source_type="mechanical_repository",
-            location="repository://" + ",".join(sorted(set(locations))),
+            location=(
+                "repository://" + ",".join(sorted(set(selected_locations)))
+                if selected_locations
+                else "repository://verified-empty"
+            ),
             source_revision=source_revision,
             retrieved_at=observed_at,
         ),
-        verification_state="blocked" if failures else "verified",
+        verification_state="blocked" if selected_failures else "verified",
         authoritative_owner="repository-owner",
-        confidence=0.0 if failures else 1.0,
-        evidence_assessments=assessments or None,
+        confidence=0.0 if selected_failures else 1.0,
+        evidence_assessments=selected_assessments or None,
         affected_surfaces=SURFACE_DEPENDENCIES[field_name],
     )
 
@@ -136,6 +174,8 @@ def limitation_fact_candidate(
     source_revision: str | None,
     observed_at: str | None,
     specifications: list[EvidenceBackedProductFact],
+    *,
+    allow_partial: bool = False,
 ) -> FactRecordV2:
     """Require explicit constraint evidence before accepting a drafted limitation.
 
@@ -151,4 +191,5 @@ def limitation_fact_candidate(
         observed_at,
         "product.limitations",
         specifications,
+        allow_partial=allow_partial,
     )

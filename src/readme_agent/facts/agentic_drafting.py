@@ -221,26 +221,30 @@ def _draft_product_truth_tool_schema(
         },
         "required": ["claim_id", "text", "supporting_fact_ids"],
     }
-    evidence_backed_fact_schema = {
-        "type": "object",
-        "additionalProperties": False,
-        "properties": {
-            "value": {"type": "string", "minLength": 1, "maxLength": 200},
-            "evidence_paths": {
-                "type": "array",
-                "minItems": 1,
-                "maxItems": 4,
-                "items": evidence_path_items,
+
+    def evidence_backed_fact_schema(*, one_anchor: bool = False) -> dict:
+        required_symbols: dict = {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1 if one_anchor else 4,
+            "items": {"type": "string", "minLength": 1},
+        }
+        return {
+            "type": "object",
+            "additionalProperties": False,
+            "properties": {
+                "value": {"type": "string", "minLength": 1, "maxLength": 200},
+                "evidence_paths": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 4,
+                    "items": evidence_path_items,
+                },
+                "required_symbols": required_symbols,
             },
-            "required_symbols": {
-                "type": "array",
-                "minItems": 1,
-                "maxItems": 4,
-                "items": {"type": "string", "minLength": 1},
-            },
-        },
-        "required": ["value", "evidence_paths", "required_symbols"],
-    }
+            "required": ["value", "evidence_paths", "required_symbols"],
+        }
+
     return {
         "type": "function",
         "function": {
@@ -268,18 +272,18 @@ def _draft_product_truth_tool_schema(
                         "type": "array",
                         "minItems": 1,
                         "maxItems": 8,
-                        "items": evidence_backed_fact_schema,
+                        "items": evidence_backed_fact_schema(one_anchor=True),
                     },
                     "formats": {
                         "type": "array",
                         "minItems": 1,
                         "maxItems": 8,
-                        "items": evidence_backed_fact_schema,
+                        "items": evidence_backed_fact_schema(),
                     },
                     "limitations": {
                         "type": "array",
                         "maxItems": 4,
-                        "items": evidence_backed_fact_schema,
+                        "items": evidence_backed_fact_schema(),
                     },
                     "minimal_example": {
                         "type": "object",

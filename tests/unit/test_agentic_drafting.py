@@ -249,6 +249,19 @@ class TestDraftProductTruth:
     def test_net_registry_key_uses_the_dotnet_typed_example_language(self):
         assert agentic_drafting._draft_language("net") == "dotnet"
 
+    def test_capability_tool_contract_accepts_exactly_one_anchor_per_claim(self):
+        schema = agentic_drafting._draft_product_truth_tool_schema(
+            accepted_fact_ids=["product.platforms:q"],
+            evidence_paths=["src/Widget.java"],
+            language="java",
+        )
+        properties = schema["function"]["parameters"]["properties"]
+
+        assert (
+            properties["capabilities"]["items"]["properties"]["required_symbols"]["maxItems"] == 1
+        )
+        assert properties["formats"]["items"]["properties"]["required_symbols"]["maxItems"] == 4
+
     def test_valid_response_parses_into_draft_product_truth_v1(self, tmp_path, monkeypatch):
         monkeypatch.setattr(
             agentic_drafting,

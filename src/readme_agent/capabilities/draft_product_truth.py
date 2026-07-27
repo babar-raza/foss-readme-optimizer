@@ -336,13 +336,27 @@ def _gate_draft(
     `minimal_example` -> `_gate_minimal_example()` above."""
     return {
         "product.capabilities": evidence_fact_candidate(
-            root, source_revision, observed_at, "product.capabilities", draft.capabilities
+            root,
+            source_revision,
+            observed_at,
+            "product.capabilities",
+            draft.capabilities,
+            allow_partial=True,
         ),
         "product.formats": evidence_fact_candidate(
-            root, source_revision, observed_at, "product.formats", draft.formats
+            root,
+            source_revision,
+            observed_at,
+            "product.formats",
+            draft.formats,
+            allow_partial=True,
         ),
         "product.limitations": limitation_fact_candidate(
-            root, source_revision, observed_at, draft.limitations
+            root,
+            source_revision,
+            observed_at,
+            draft.limitations,
+            allow_partial=True,
         ),
         "product.audience": groundedness_fact_candidate(
             "product.audience", draft.audience, facts_so_far, source_revision, observed_at

@@ -203,6 +203,68 @@ def test_later_implementation_can_supersede_ambiguous_occurrence(tmp_path: Path)
     assert assessment.observed_polarity == "positive_implementation"
 
 
+def test_agentic_partial_selection_keeps_only_fully_proved_capabilities(tmp_path: Path):
+    source = tmp_path / "src" / "Scene.cs"
+    source.parent.mkdir()
+    source.write_text(
+        "public void SaveScene()\n{\n    WriteScene();\n}\n",
+        encoding="utf-8",
+    )
+
+    fact = evidence_fact_candidate(
+        tmp_path,
+        "abc123",
+        None,
+        "product.capabilities",
+        [
+            _spec("SaveScene output.", "SaveScene"),
+            _spec("Render scenes.", "MissingRender"),
+        ],
+        allow_partial=True,
+    )
+
+    assert fact.verification_state == "verified"
+    assert fact.value == ["SaveScene output."]
+    assert [assessment.anchor for assessment in fact.evidence_assessments] == ["SaveScene"]
+    assert all(assessment.accepted for assessment in fact.evidence_assessments)
+
+
+def test_human_policy_remains_all_or_nothing_when_one_capability_fails(tmp_path: Path):
+    source = tmp_path / "src" / "Scene.cs"
+    source.parent.mkdir()
+    source.write_text("public void SaveScene() {}\n", encoding="utf-8")
+
+    fact = evidence_fact_candidate(
+        tmp_path,
+        "abc123",
+        None,
+        "product.capabilities",
+        [
+            _spec("SaveScene output.", "SaveScene"),
+            _spec("Render scenes.", "MissingRender"),
+        ],
+    )
+
+    assert fact.verification_state == "blocked"
+    assert "MissingRender" in str(fact.value)
+
+
+def test_agentic_partial_selection_does_not_hide_unsupported_limitations(tmp_path: Path):
+    source = tmp_path / "LIMITATIONS.md"
+    source.write_text("This feature is not supported.\n", encoding="utf-8")
+
+    fact = limitation_fact_candidate(
+        tmp_path,
+        "abc123",
+        None,
+        [_spec("Rendering is not supported.", "not supported", "LIMITATIONS.md")],
+        allow_partial=True,
+    )
+
+    assert fact.verification_state == "blocked"
+    assert "does not identify the claimed subject" in str(fact.value)
+
+
 @pytest.mark.parametrize(
     ("update", "message"),
     [

@@ -432,9 +432,23 @@ class TestRealGateSpies:
         recorded: list[str] = []
         real = capability.evidence_fact_candidate
 
-        def spy(root_arg, source_revision, observed_at, field_name, specifications):
+        def spy(
+            root_arg,
+            source_revision,
+            observed_at,
+            field_name,
+            specifications,
+            **kwargs,
+        ):
             recorded.append(field_name)
-            return real(root_arg, source_revision, observed_at, field_name, specifications)
+            return real(
+                root_arg,
+                source_revision,
+                observed_at,
+                field_name,
+                specifications,
+                **kwargs,
+            )
 
         monkeypatch.setattr(capability, "evidence_fact_candidate", spy)
 
