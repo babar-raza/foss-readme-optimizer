@@ -101,6 +101,18 @@ class ScriptedDockerRunner:
                 returncode=1 if argv[-1] in self.removed_volumes else 0,
                 stderr="not found" if argv[-1] in self.removed_volumes else "",
             )
+        if argv[:2] == ["ps", "-aq"]:
+            name = argv[-1].removeprefix("name=")
+            return _completed(
+                argv,
+                stdout="" if name in self.removed_containers else f"{name}-id\n",
+            )
+        if argv[:3] == ["volume", "ls", "-q"]:
+            name = argv[-1].removeprefix("name=")
+            return _completed(
+                argv,
+                stdout="" if name in self.removed_volumes else f"{name}\n",
+            )
         raise AssertionError(f"unexpected Docker command: {argv}")
 
 
@@ -125,6 +137,33 @@ class UncertainCleanupRunner(ScriptedDockerRunner):
             self.commands.append(argv)
             self.uncertain_inspections -= 1
             return _completed(argv, returncode=124, stderr="Docker control command timed out")
+        return super().run(
+            argv,
+            timeout_seconds=timeout_seconds,
+            input_bytes=input_bytes,
+        )
+
+
+class DelayedListingCleanupRunner(ScriptedDockerRunner):
+    """Keep removed resources visible in Docker listings for a bounded interval."""
+
+    def __init__(self, *, lingering_listings: int) -> None:
+        super().__init__()
+        self.lingering_listings = lingering_listings
+
+    def run(
+        self,
+        argv: list[str],
+        *,
+        timeout_seconds: float,
+        input_bytes: bytes | None = None,
+    ) -> subprocess.CompletedProcess[str]:
+        listing = argv[:2] == ["ps", "-aq"] or argv[:3] == ["volume", "ls", "-q"]
+        if listing and self.lingering_listings:
+            self.commands.append(argv)
+            self.lingering_listings -= 1
+            name = argv[-1].removeprefix("name=")
+            return _completed(argv, stdout=f"{name}-visible\n")
         return super().run(
             argv,
             timeout_seconds=timeout_seconds,
@@ -242,6 +281,24 @@ def test_cleanup_retries_transient_docker_inspection_uncertainty(tmp_path):
 
 def test_cleanup_uncertainty_cannot_establish_truth(tmp_path):
     runner = UncertainCleanupRunner(uncertain_inspections=100)
+
+    result = execute_isolated(_request(tmp_path), runner=runner)
+
+    assert result.truth_eligible is False
+    assert result.cleanup.complete is False
+
+
+def test_cleanup_waits_for_docker_listing_to_converge(tmp_path):
+    runner = DelayedListingCleanupRunner(lingering_listings=2)
+
+    result = execute_isolated(_request(tmp_path), runner=runner)
+
+    assert result.truth_eligible is True
+    assert result.cleanup.complete is True
+
+
+def test_persistently_listed_resource_cannot_establish_truth(tmp_path):
+    runner = DelayedListingCleanupRunner(lingering_listings=100)
 
     result = execute_isolated(_request(tmp_path), runner=runner)
 

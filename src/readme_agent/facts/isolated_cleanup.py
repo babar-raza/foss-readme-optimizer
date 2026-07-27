@@ -34,6 +34,10 @@ def _absence_confirmed(result: subprocess.CompletedProcess[str]) -> bool:
     return any(marker in detail for marker in _NOT_FOUND_MARKERS)
 
 
+def _listing_is_empty(result: subprocess.CompletedProcess[str]) -> bool:
+    return result.returncode == 0 and not result.stdout.strip()
+
+
 def remove_docker_resource(
     runner: DockerCleanupRunner,
     kind: Literal["container", "volume"],
@@ -47,12 +51,18 @@ def remove_docker_resource(
         else ["volume", "rm", "--force", identity]
     )
     inspect = [kind, "inspect", identity]
+    listing = (
+        ["ps", "-aq", "--filter", f"name={identity}"]
+        if kind == "container"
+        else ["volume", "ls", "-q", "--filter", f"name={identity}"]
+    )
     for _attempt in range(_REMOVE_ATTEMPTS):
         try:
             runner.run(remove, timeout_seconds=30)
             observed = runner.run(inspect, timeout_seconds=10)
+            listed = runner.run(listing, timeout_seconds=10)
         except Exception:
             continue
-        if _absence_confirmed(observed):
+        if _absence_confirmed(observed) and _listing_is_empty(listed):
             return True
     return False
