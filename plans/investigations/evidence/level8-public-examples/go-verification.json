@@ -1,0 +1,227 @@
+{
+  "example_origin": "repository-owned example source",
+  "curated_content_disposition": "curated README fragments are not complete programs; reuse the repository-owned complete example only after source and consumer compilation",
+  "example": {
+    "language": "go",
+    "class_name": "readme_example",
+    "code": "package main\n\nimport (\n\t\"fmt\"\n\t\"log\"\n\t\"strings\"\n\n\tpdf \"github.com/aspose-pdf-foss/aspose-pdf-foss-for-go\"\n)\n\nfunc main() {\n\tdoc, err := pdf.Open(\"testdata/binder1.pdf\")\n\tif err != nil {\n\t\tlog.Fatalf(\"open: %v\", err)\n\t}\n\n\t// Extract text from each page individually.\n\tfmt.Println(\"=== Per-page text extraction ===\")\n\tfor i := 1; i <= doc.PageCount(); i++ {\n\t\tpage, err := doc.Page(i)\n\t\tif err != nil {\n\t\t\tlog.Fatalf(\"page %d: %v\", i, err)\n\t\t}\n\t\ttext, err := page.ExtractText()\n\t\tif err != nil {\n\t\t\tlog.Fatalf(\"extract page %d: %v\", i, err)\n\t\t}\n\t\tfmt.Printf(\"--- Page %d ---\\n\", i)\n\t\tif strings.TrimSpace(text) == \"\" {\n\t\t\tfmt.Println(\"(empty)\")\n\t\t} else {\n\t\t\tfmt.Println(text)\n\t\t}\n\t\tfmt.Println()\n\t}\n\n\t// Extract text from the entire document at once.\n\tfmt.Println(\"=== Full document text extraction ===\")\n\ttexts, err := doc.ExtractText()\n\tif err != nil {\n\t\tlog.Fatalf(\"extract all: %v\", err)\n\t}\n\tfor i, text := range texts {\n\t\tfmt.Printf(\"--- Page %d ---\\n\", i+1)\n\t\tif strings.TrimSpace(text) == \"\" {\n\t\t\tfmt.Println(\"(empty)\")\n\t\t} else {\n\t\t\tfmt.Println(text)\n\t\t}\n\t\tfmt.Println()\n\t}\n}\n",
+    "evidence_paths": [
+      "_examples/text_extraction/main.go"
+    ],
+    "required_symbols": [
+      "pdf.Open(\"testdata/binder1.pdf\")"
+    ]
+  },
+  "verification": {
+    "schema_version": 1,
+    "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+    "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+    "ecosystem": "go",
+    "outcome": "SOURCE_BUILD_VERIFIED",
+    "detail": "exact Go consumer compiled against immutable repository source",
+    "build": {
+      "argv": [
+        "/bin/sh",
+        "-euc",
+        "go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent"
+      ],
+      "return_code": 0,
+      "stdout": "go version go1.24.13 linux/amd64\n",
+      "stderr": "",
+      "timed_out": false,
+      "environment_names": [
+        "GOCACHE",
+        "GOMODCACHE",
+        "GOPATH",
+        "HOME",
+        "TMPDIR"
+      ],
+      "isolation_kind": "isolated_result_projection",
+      "truth_eligible": false
+    },
+    "example_compile": {
+      "argv": [
+        "/bin/sh",
+        "-euc",
+        "go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent"
+      ],
+      "return_code": 0,
+      "stdout": "go version go1.24.13 linux/amd64\n",
+      "stderr": "",
+      "timed_out": false,
+      "environment_names": [
+        "GOCACHE",
+        "GOMODCACHE",
+        "GOPATH",
+        "HOME",
+        "TMPDIR"
+      ],
+      "isolation_kind": "isolated_result_projection",
+      "truth_eligible": false
+    },
+    "isolated_execution": {
+      "schema_version": 1,
+      "isolation_kind": "docker_container",
+      "truth_eligible": true,
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "argv": [
+        "/bin/sh",
+        "-euc",
+        "go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent"
+      ],
+      "environment_names": [
+        "GOCACHE",
+        "GOMODCACHE",
+        "GOPATH",
+        "HOME",
+        "TMPDIR"
+      ],
+      "input_sha256": "b92b51a565791fd57d79658239af9b2e7f71fe4ed5c923c2bb60e9ef4f209a7d",
+      "input_file_count": 747,
+      "policy_sha256": "b7566bad8544220657ed2befa6c6c3c6f5672f1808113b5784b7af03daab9a6c",
+      "policy": {
+        "schema_version": 1,
+        "immutable_image": "golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+        "cpu_limit": 1.0,
+        "memory_mebibytes": 1536,
+        "pids_limit": 128,
+        "timeout_seconds": 300.0,
+        "tmpfs_mebibytes": 1024,
+        "network_mode": "none",
+        "read_only_rootfs": true,
+        "cap_drop_all": true,
+        "no_new_privileges": true,
+        "seccomp_profile": "runtime-default",
+        "user": "65534:65534",
+        "workspace_path": "/workspace"
+      },
+      "image": {
+        "requested_reference": "golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+        "repo_digest": "golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+        "image_id": "sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+        "operating_system": "linux",
+        "architecture": "amd64",
+        "engine_version": "28.4.0"
+      },
+      "container_id": "21777091af6c0c0d07024274171071afa73a29ab7e216f9381c2e05a589d3b94",
+      "process_inventory": [
+        "PID                 PPID                USER                COMMAND",
+        "92177               92152               nobody              /bin/sh -euc go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent",
+        "92201               92177               nobody              go build -p=1 ./..."
+      ],
+      "return_code": 0,
+      "stdout": "go version go1.24.13 linux/amd64\n",
+      "stderr": "",
+      "timed_out": false,
+      "oom_killed": false,
+      "started_at": "2026-07-27T17:26:04.171867+00:00",
+      "finished_at": "2026-07-27T17:27:20.042037+00:00",
+      "cleanup": {
+        "execution_container_removed": true,
+        "seed_container_removed": true,
+        "workspace_volume_removed": true
+      }
+    },
+    "truth_eligible": true,
+    "verified_public_symbols": [
+      "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.Open"
+    ],
+    "public_api_sha256": "1584abbeda87a2a7f7d155e04bfa63343abc0fd87566c1e106b0cffc0de83f3a",
+    "python_package": null,
+    "typescript_package": null,
+    "rust_package": null,
+    "rust_formats": [],
+    "rust_source_dependency": null,
+    "acquisition_dependency_pins": [
+      "container_image=golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+      "example_sha256=324351f0c85737861c2e57d6b1594a19d8f133aa056f3d474321713b3dd9a777",
+      "input_sha256=b92b51a565791fd57d79658239af9b2e7f71fe4ed5c923c2bb60e9ef4f209a7d",
+      "source_revision=f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "source_surface_sha256=1584abbeda87a2a7f7d155e04bfa63343abc0fd87566c1e106b0cffc0de83f3a",
+      "go_module_dependencies=none"
+    ],
+    "compiled_consumer": {
+      "schema_version": 1,
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "ecosystem": "go",
+      "source_paths": [
+        "annotation_text.go",
+        "document.go",
+        "go.mod"
+      ],
+      "selected_symbols": [
+        "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.Open"
+      ],
+      "source_sha256": "1584abbeda87a2a7f7d155e04bfa63343abc0fd87566c1e106b0cffc0de83f3a",
+      "example_sha256": "324351f0c85737861c2e57d6b1594a19d8f133aa056f3d474321713b3dd9a777",
+      "isolated_execution": {
+        "schema_version": 1,
+        "isolation_kind": "docker_container",
+        "truth_eligible": true,
+        "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "argv": [
+          "/bin/sh",
+          "-euc",
+          "go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent"
+        ],
+        "environment_names": [
+          "GOCACHE",
+          "GOMODCACHE",
+          "GOPATH",
+          "HOME",
+          "TMPDIR"
+        ],
+        "input_sha256": "b92b51a565791fd57d79658239af9b2e7f71fe4ed5c923c2bb60e9ef4f209a7d",
+        "input_file_count": 747,
+        "policy_sha256": "b7566bad8544220657ed2befa6c6c3c6f5672f1808113b5784b7af03daab9a6c",
+        "policy": {
+          "schema_version": 1,
+          "immutable_image": "golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+          "cpu_limit": 1.0,
+          "memory_mebibytes": 1536,
+          "pids_limit": 128,
+          "timeout_seconds": 300.0,
+          "tmpfs_mebibytes": 1024,
+          "network_mode": "none",
+          "read_only_rootfs": true,
+          "cap_drop_all": true,
+          "no_new_privileges": true,
+          "seccomp_profile": "runtime-default",
+          "user": "65534:65534",
+          "workspace_path": "/workspace"
+        },
+        "image": {
+          "requested_reference": "golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+          "repo_digest": "golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+          "image_id": "sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+          "operating_system": "linux",
+          "architecture": "amd64",
+          "engine_version": "28.4.0"
+        },
+        "container_id": "21777091af6c0c0d07024274171071afa73a29ab7e216f9381c2e05a589d3b94",
+        "process_inventory": [
+          "PID                 PPID                USER                COMMAND",
+          "92177               92152               nobody              /bin/sh -euc go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent",
+          "92201               92177               nobody              go build -p=1 ./..."
+        ],
+        "return_code": 0,
+        "stdout": "go version go1.24.13 linux/amd64\n",
+        "stderr": "",
+        "timed_out": false,
+        "oom_killed": false,
+        "started_at": "2026-07-27T17:26:04.171867+00:00",
+        "finished_at": "2026-07-27T17:27:20.042037+00:00",
+        "cleanup": {
+          "execution_container_removed": true,
+          "seed_container_removed": true,
+          "workspace_volume_removed": true
+        }
+      },
+      "accepted": true
+    }
+  },
+  "repository_clean": true
+}

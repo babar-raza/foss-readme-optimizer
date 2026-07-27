@@ -1,0 +1,223 @@
+{
+  "example_origin": "curated repository README",
+  "curated_content_disposition": "reuse unchanged only after public-symbol and compiler acceptance",
+  "example": {
+    "language": "java",
+    "class_name": "Main",
+    "code": "import org.aspose.cells_foss.Cell;\nimport org.aspose.cells_foss.Style;\nimport org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class Main {\n    public static void main(String[] args) {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n            sheet.setName(\"Report\");\n\n            sheet.getCells().get(\"A1\").putValue(\"Revenue\");\n            sheet.getCells().get(\"B1\").putValue(12500.75);\n\n            Cell total = sheet.getCells().get(\"B1\");\n            Style style = total.getStyle();\n            style.getFont().setBold(true);\n            style.setCustom(\"#,##0.00\");\n            total.setStyle(style);\n\n            sheet.getCells().getRows().get(0).setHeight(22.0);\n            sheet.getCells().getColumns().get(1).setWidth(14.5);\n\n            workbook.save(\"report.xlsx\");\n        }\n    }\n}\n",
+    "evidence_paths": [
+      "README.md"
+    ],
+    "required_symbols": [
+      "import org.aspose.cells_foss.Cell;"
+    ]
+  },
+  "verification": {
+    "schema_version": 1,
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+    "ecosystem": "java",
+    "outcome": "SOURCE_BUILD_VERIFIED",
+    "detail": "exact Java consumer compiled against immutable repository source",
+    "build": {
+      "argv": [
+        "/bin/sh",
+        "-euc",
+        "javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java"
+      ],
+      "return_code": 0,
+      "stdout": "javac 21.0.11\n",
+      "stderr": "",
+      "timed_out": false,
+      "environment_names": [
+        "HOME",
+        "TMPDIR"
+      ],
+      "isolation_kind": "isolated_result_projection",
+      "truth_eligible": false
+    },
+    "example_compile": {
+      "argv": [
+        "/bin/sh",
+        "-euc",
+        "javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java"
+      ],
+      "return_code": 0,
+      "stdout": "javac 21.0.11\n",
+      "stderr": "",
+      "timed_out": false,
+      "environment_names": [
+        "HOME",
+        "TMPDIR"
+      ],
+      "isolation_kind": "isolated_result_projection",
+      "truth_eligible": false
+    },
+    "isolated_execution": {
+      "schema_version": 1,
+      "isolation_kind": "docker_container",
+      "truth_eligible": true,
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "argv": [
+        "/bin/sh",
+        "-euc",
+        "javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java"
+      ],
+      "environment_names": [
+        "HOME",
+        "TMPDIR"
+      ],
+      "input_sha256": "b90fb2c91b33ad6aef3cefc153d34b4e47a1b8592f9c843c81bb3f00addd4f44",
+      "input_file_count": 393,
+      "policy_sha256": "ab3ebd3591bbf323e50cdaa5f1e90052a7143101a87400fdc76d5f9cb2766c7c",
+      "policy": {
+        "schema_version": 1,
+        "immutable_image": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+        "cpu_limit": 1.0,
+        "memory_mebibytes": 1024,
+        "pids_limit": 96,
+        "timeout_seconds": 300.0,
+        "tmpfs_mebibytes": 64,
+        "network_mode": "none",
+        "read_only_rootfs": true,
+        "cap_drop_all": true,
+        "no_new_privileges": true,
+        "seccomp_profile": "runtime-default",
+        "user": "65534:65534",
+        "workspace_path": "/workspace"
+      },
+      "image": {
+        "requested_reference": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+        "repo_digest": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+        "image_id": "sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+        "operating_system": "linux",
+        "architecture": "amd64",
+        "engine_version": "28.4.0"
+      },
+      "container_id": "994adc547b78a2d2c502d7aad83f7d4c309824fb883c7414045bf67b3b8fa0e3",
+      "process_inventory": [
+        "PID                 PPID                USER                COMMAND",
+        "97134               97113               nobody              /bin/sh -euc javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java",
+        "97149               97134               nobody              javac -version"
+      ],
+      "return_code": 0,
+      "stdout": "javac 21.0.11\n",
+      "stderr": "",
+      "timed_out": false,
+      "oom_killed": false,
+      "started_at": "2026-07-27T17:27:23.118029+00:00",
+      "finished_at": "2026-07-27T17:27:35.403468+00:00",
+      "cleanup": {
+        "execution_container_removed": true,
+        "seed_container_removed": true,
+        "workspace_volume_removed": true
+      }
+    },
+    "truth_eligible": true,
+    "verified_public_symbols": [
+      "org.aspose.cells_foss.Cell",
+      "org.aspose.cells_foss.Style",
+      "org.aspose.cells_foss.Workbook",
+      "org.aspose.cells_foss.Worksheet"
+    ],
+    "public_api_sha256": "cd0c455bfebea9948739b88271804c82634341b9edefc13a4f8248136cef42ad",
+    "python_package": null,
+    "typescript_package": null,
+    "rust_package": null,
+    "rust_formats": [],
+    "rust_source_dependency": null,
+    "acquisition_dependency_pins": [
+      "container_image=eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+      "example_sha256=620bfee6045fd9404fa7bcbbecef83ff58e9286e3c93007245757d068ea51ec8",
+      "input_sha256=b90fb2c91b33ad6aef3cefc153d34b4e47a1b8592f9c843c81bb3f00addd4f44",
+      "source_revision=2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "source_surface_sha256=cd0c455bfebea9948739b88271804c82634341b9edefc13a4f8248136cef42ad",
+      "java_release=17"
+    ],
+    "compiled_consumer": {
+      "schema_version": 1,
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "ecosystem": "java",
+      "source_paths": [
+        "pom.xml",
+        "src/main/java/org/aspose/cells_foss/Cell.java",
+        "src/main/java/org/aspose/cells_foss/Style.java",
+        "src/main/java/org/aspose/cells_foss/Workbook.java",
+        "src/main/java/org/aspose/cells_foss/Worksheet.java"
+      ],
+      "selected_symbols": [
+        "org.aspose.cells_foss.Cell",
+        "org.aspose.cells_foss.Style",
+        "org.aspose.cells_foss.Workbook",
+        "org.aspose.cells_foss.Worksheet"
+      ],
+      "source_sha256": "cd0c455bfebea9948739b88271804c82634341b9edefc13a4f8248136cef42ad",
+      "example_sha256": "620bfee6045fd9404fa7bcbbecef83ff58e9286e3c93007245757d068ea51ec8",
+      "isolated_execution": {
+        "schema_version": 1,
+        "isolation_kind": "docker_container",
+        "truth_eligible": true,
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "argv": [
+          "/bin/sh",
+          "-euc",
+          "javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java"
+        ],
+        "environment_names": [
+          "HOME",
+          "TMPDIR"
+        ],
+        "input_sha256": "b90fb2c91b33ad6aef3cefc153d34b4e47a1b8592f9c843c81bb3f00addd4f44",
+        "input_file_count": 393,
+        "policy_sha256": "ab3ebd3591bbf323e50cdaa5f1e90052a7143101a87400fdc76d5f9cb2766c7c",
+        "policy": {
+          "schema_version": 1,
+          "immutable_image": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+          "cpu_limit": 1.0,
+          "memory_mebibytes": 1024,
+          "pids_limit": 96,
+          "timeout_seconds": 300.0,
+          "tmpfs_mebibytes": 64,
+          "network_mode": "none",
+          "read_only_rootfs": true,
+          "cap_drop_all": true,
+          "no_new_privileges": true,
+          "seccomp_profile": "runtime-default",
+          "user": "65534:65534",
+          "workspace_path": "/workspace"
+        },
+        "image": {
+          "requested_reference": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+          "repo_digest": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+          "image_id": "sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+          "operating_system": "linux",
+          "architecture": "amd64",
+          "engine_version": "28.4.0"
+        },
+        "container_id": "994adc547b78a2d2c502d7aad83f7d4c309824fb883c7414045bf67b3b8fa0e3",
+        "process_inventory": [
+          "PID                 PPID                USER                COMMAND",
+          "97134               97113               nobody              /bin/sh -euc javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java",
+          "97149               97134               nobody              javac -version"
+        ],
+        "return_code": 0,
+        "stdout": "javac 21.0.11\n",
+        "stderr": "",
+        "timed_out": false,
+        "oom_killed": false,
+        "started_at": "2026-07-27T17:27:23.118029+00:00",
+        "finished_at": "2026-07-27T17:27:35.403468+00:00",
+        "cleanup": {
+          "execution_container_removed": true,
+          "seed_container_removed": true,
+          "workspace_volume_removed": true
+        }
+      },
+      "accepted": true
+    }
+  },
+  "repository_clean": true
+}

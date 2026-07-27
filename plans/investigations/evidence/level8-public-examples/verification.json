@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+  "control_repository": {
+    "head": "f7008d2216b8cce3abc9e394383a7804448fef8b",
+    "branch": "main",
+    "tree_clean_at_start": true,
+    "tree_porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "builder_path": "plans/investigations/tools/build_public_example_evidence.py",
+    "builder_sha256": "3d219ebdc64ca8d1d93ae330977fcd23a64fc48799d15e8dc1c27539555bd3eb",
+    "implementation": {
+      "src/readme_agent/facts/acceptance_contract.py": "4ad2678bcca612fac1c65fddd4ba7684e737297865a8312ad42b5925c3ab918e",
+      "src/readme_agent/facts/compiled_consumer.py": "da5bdf99043cafe52e96c4ae067def4ca27ef20574f0db19218fb602732e4d40",
+      "src/readme_agent/facts/compiled_consumer_schema.py": "ce7b179a41f86e3fb38ac75968149af7c813c922cb6d9395a4eb1f049ee187f5",
+      "src/readme_agent/facts/cpp_example_verifier.py": "b7d2c026049a01e3a37d8379881f00f188111954df8ed81d5a93813db9dd5235",
+      "src/readme_agent/facts/dotnet_example_verifier.py": "824b63abb936681bd1bf86d4f21606f54e3beaa11c2456f888428e8c7304184f",
+      "src/readme_agent/facts/example_verification_schema.py": "9cb37911a035c4d8c8632edc1021a2246fac3690fbc59c265654999c98be204f",
+      "src/readme_agent/facts/go_example_verifier.py": "13c629b1fceab2e303c941f30ab4ea037c9cbfb39e5d547b9ed26fcd82cd8395",
+      "src/readme_agent/facts/java_example_verifier.py": "dc859314ebab5ba88b8258226cbb6b8f5707c86fbd2abbc83c191e5c668d830e",
+      "src/readme_agent/facts/local_verification.py": "3e8a0c8f095565eba9ab38dec1d70798087728b92bbfa98657e965326186592f",
+      "src/readme_agent/facts/python_example_verifier.py": "d818c90432b931f605ffa55f3aa16523903f0e4d290757a58e4c3d9901e2aced",
+      "src/readme_agent/facts/repository_examples.py": "b80a66eabf05fc9e4e8f73afd857c4c52e55173db7e653a11994403381c72ee7",
+      "src/readme_agent/facts/rust_example_verifier.py": "6fce21eea4431802df04a7dfa43ba1fd28c69108f2953c13acd6146d7955379a",
+      "src/readme_agent/facts/typescript_example_verifier.py": "d95956f196370ae06f5edadebe3754e9e1784a3b7750484d92247ac83fa1469e"
+    },
+    "evidence_machinery": {
+      "plans/investigations/tools/build_public_example_evidence.py": "3d219ebdc64ca8d1d93ae330977fcd23a64fc48799d15e8dc1c27539555bd3eb",
+      "plans/investigations/tools/public_example_evidence_checks.py": "6d4164cfbf3b1a94731c51915942c84e7daa22df4fe65d0775d521a97a9e6578",
+      "plans/investigations/tools/public_example_evidence_support.py": "674bde3940784e9b636b868e80e68e6f8380d97ff6f91e6fed53bef66afce9b7"
+    }
+  },
+  "commands": {
+    "focused": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_compiled_consumer_verifiers.py tests/unit/test_repository_examples.py tests/unit/test_local_verification.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_acquisition.py tests/unit/test_acquisition_pins.py tests/unit/test_rust_consumer.py tests/security/test_example_execution_boundary.py tests/security/test_no_secrets_in_evidence.py",
+      "exit_code": 0
+    },
+    "official": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe scripts/governance/run_official_checks.py",
+      "exit_code": 0
+    }
+  },
+  "checks": {
+    "control_tree_clean": true,
+    "seven_ecosystems_present": true,
+    "representatives_clean": true,
+    "remote_default_revisions_match": true,
+    "all_examples_truth_eligible": true,
+    "public_symbols_proven": true,
+    "compiled_consumers_bound": true,
+    "package_surfaces_bound": true,
+    "immutable_images_named": true,
+    "dependency_inputs_pinned": true,
+    "secret_free_inputs": true,
+    "network_denied": true,
+    "cleanup_complete": true,
+    "stale_curated_examples_fail_closed": true,
+    "hostile_executor_controls_pass": true,
+    "focused_regressions_pass": true,
+    "official_checks_pass": true,
+    "tree_stable": true,
+    "representative_revisions_stable": true
+  },
+  "failures": [],
+  "verdict": "VERIFIED"
+}

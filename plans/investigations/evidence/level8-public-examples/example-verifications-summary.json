@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "representative_count": 7,
+  "records": {
+    "cpp": {
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "example_origin": "curated repository README",
+      "curated_content_disposition": "reuse unchanged only after public-symbol and compiler acceptance",
+      "outcome": "SOURCE_BUILD_VERIFIED",
+      "truth_eligible": true,
+      "verified_public_symbols": [
+        "Aspose::Cells_FOSS",
+        "aspose/cells_foss/Cell.h",
+        "aspose/cells_foss/Color.h",
+        "aspose/cells_foss/Font.h",
+        "aspose/cells_foss/Style.h",
+        "aspose/cells_foss/Workbook.h",
+        "aspose/cells_foss/Worksheet.h",
+        "aspose/cells_foss/WorksheetCollection.h"
+      ],
+      "immutable_image": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+      "dependency_inputs": [
+        "container_image=gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+        "example_sha256=7cf86708acb74a94667ac8505a1702f1da818cf17400f406fdbff673449c5d9e",
+        "input_sha256=eeb4dc2527a755acdc45fa48a389d489905fd48de9283d56bad85a19eefa409e",
+        "source_revision=3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "source_surface_sha256=770a9c3d040abe6931e75701165a9e2e047254fb84a829a2cadee174981e8040",
+        "cpp_language_standard=17"
+      ],
+      "network_mode": "none",
+      "cleanup_complete": true
+    },
+    "dotnet": {
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "example_origin": "curated repository README",
+      "curated_content_disposition": "reuse unchanged only after public-symbol and compiler acceptance",
+      "outcome": "SOURCE_BUILD_VERIFIED",
+      "truth_eligible": true,
+      "verified_public_symbols": [
+        "Aspose.ThreeD.Scene"
+      ],
+      "immutable_image": "mcr.microsoft.com/dotnet/sdk@sha256:3c0edbfe1549dd93fb789dc96299a40df865ad7bffefcaf38e8c05940686d641",
+      "dependency_inputs": [
+        "container_image=mcr.microsoft.com/dotnet/sdk@sha256:3c0edbfe1549dd93fb789dc96299a40df865ad7bffefcaf38e8c05940686d641",
+        "example_sha256=d487f15d0fc46a946b41616e23fbb7724930b6b7fa61a86fafa681b43d6d35e0",
+        "input_sha256=df22c796be5c100d385306e55006032483e7668aa90778bf44c8b4a913af53e7",
+        "source_revision=6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "source_surface_sha256=5096fe61e36c83f3269e7dce320ca4c4fd1c4ba5aefc6b459a146cb0a20d4f5d",
+        "dotnet_sdk=8.0.423",
+        "dotnet_target_framework=net8.0"
+      ],
+      "network_mode": "none",
+      "cleanup_complete": true
+    },
+    "go": {
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "example_origin": "repository-owned example source",
+      "curated_content_disposition": "curated README fragments are not complete programs; reuse the repository-owned complete example only after source and consumer compilation",
+      "outcome": "SOURCE_BUILD_VERIFIED",
+      "truth_eligible": true,
+      "verified_public_symbols": [
+        "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.Open"
+      ],
+      "immutable_image": "golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+      "dependency_inputs": [
+        "container_image=golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+        "example_sha256=324351f0c85737861c2e57d6b1594a19d8f133aa056f3d474321713b3dd9a777",
+        "input_sha256=b92b51a565791fd57d79658239af9b2e7f71fe4ed5c923c2bb60e9ef4f209a7d",
+        "source_revision=f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "source_surface_sha256=1584abbeda87a2a7f7d155e04bfa63343abc0fd87566c1e106b0cffc0de83f3a",
+        "go_module_dependencies=none"
+      ],
+      "network_mode": "none",
+      "cleanup_complete": true
+    },
+    "java": {
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "example_origin": "curated repository README",
+      "curated_content_disposition": "reuse unchanged only after public-symbol and compiler acceptance",
+      "outcome": "SOURCE_BUILD_VERIFIED",
+      "truth_eligible": true,
+      "verified_public_symbols": [
+        "org.aspose.cells_foss.Cell",
+        "org.aspose.cells_foss.Style",
+        "org.aspose.cells_foss.Workbook",
+        "org.aspose.cells_foss.Worksheet"
+      ],
+      "immutable_image": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+      "dependency_inputs": [
+        "container_image=eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+        "example_sha256=620bfee6045fd9404fa7bcbbecef83ff58e9286e3c93007245757d068ea51ec8",
+        "input_sha256=b90fb2c91b33ad6aef3cefc153d34b4e47a1b8592f9c843c81bb3f00addd4f44",
+        "source_revision=2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "source_surface_sha256=cd0c455bfebea9948739b88271804c82634341b9edefc13a4f8248136cef42ad",
+        "java_release=17"
+      ],
+      "network_mode": "none",
+      "cleanup_complete": true
+    },
+    "python": {
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "example_origin": "repository-source-backed correction of stale README example",
+      "curated_content_disposition": "reject curated README import because the installed package cannot load aspose.threed.formats.collada; reuse only source-and-package-verified symbols",
+      "outcome": "SOURCE_BUILD_VERIFIED",
+      "truth_eligible": true,
+      "verified_public_symbols": [
+        "aspose.threed.Node",
+        "aspose.threed.Node.child_nodes",
+        "aspose.threed.Scene",
+        "aspose.threed.Scene.root_node"
+      ],
+      "immutable_image": "python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
+      "dependency_inputs": [
+        "python_package_source_sha256=224ee6634ed03f7cd55c8d53f7b89e787e6be3c90a61f8f91cec8e2eb58bdbcb"
+      ],
+      "network_mode": "none",
+      "cleanup_complete": true
+    },
+    "rust": {
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+      "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+      "example_origin": "curated repository README",
+      "curated_content_disposition": "reuse unchanged only after public-symbol and compiler acceptance",
+      "outcome": "SOURCE_BUILD_VERIFIED",
+      "truth_eligible": true,
+      "verified_public_symbols": [
+        "aspose_cells_foss_rust::CellValue",
+        "aspose_cells_foss_rust::Workbook"
+      ],
+      "immutable_image": "rust@sha256:af306cfa71d987911a781c37b59d7d67d934f49684058f96cf72079c3626bfe0",
+      "dependency_inputs": [
+        "rust_package_source_sha256=44839dbe8d71e757fcbace715882bc7f78506cad09631f3dc8ff9daf80816aae",
+        "rust_manifest_sha256=5d70ce838a50c619f4059fe32940579be8829f49bdb394495ed93997a9b0a537",
+        "rust_dependency_snapshot_inventory_sha256=775e8d96f393a828312ca0520039293194792a566176a444de3e87c825119741",
+        "rust_dependency_lockfile_sha256=546e829d38c2b174455c948fa69ba2ba6868cdf3216576d7459ebc2b10a9e444",
+        "rust_dependency_vendor_sha256=afebcf290b2f81d57370f893b41a8c51d740b46af60cadadb609b9ec3f8759da",
+        "rust_dependency_config_sha256=77e9219c27274120197571fd165cbe4121963b5ad3bc0b20b383c86ef0ce6c2b",
+        "rust_dependency_package_count=93"
+      ],
+      "network_mode": "none",
+      "cleanup_complete": true
+    },
+    "typescript": {
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+      "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+      "example_origin": "repository-source-backed correction of stale README import",
+      "curated_content_disposition": "reject curated README package roots because the compiler cannot resolve them; use the compiler-resolved built-package import",
+      "outcome": "SOURCE_BUILD_VERIFIED",
+      "truth_eligible": true,
+      "verified_public_symbols": [
+        "Node",
+        "Node.childNodes",
+        "Scene",
+        "Scene.rootNode"
+      ],
+      "immutable_image": "node@sha256:6c74791e557ce11fc957704f6d4fe134a7bc8d6f5ca4403205b2966bd488f6b3",
+      "dependency_inputs": [
+        "typescript_package_source_sha256=531d615defbc876a19816ef6a79f8cb15d6c25f555c1d5490255b1fdab0d0d7b",
+        "typescript_built_artifact_sha256=03d8292362b5ffc2524994476189d37b665e6358d3099fd980b5f5500e5a3744",
+        "typescript_compiler_version=5.8.3",
+        "typescript_toolchain_typescript@5.8.3_sha256=72e75dbeb92c2e6eb9a34cb59d74fab5c2ee6f32a0324a89405f6165d5a08374",
+        "typescript_toolchain_@types/node@22.15.17_sha256=d4f15ddec10551421843fb307521d074614f70d00759e185488aec49e0b6e8f0",
+        "typescript_toolchain_undici-types@6.21.0_sha256=cfa1a9a5e18988850e548f4f6b629c58da32dc32bebb116e58ea301e516fd16d"
+      ],
+      "network_mode": "none",
+      "cleanup_complete": true
+    }
+  }
+}

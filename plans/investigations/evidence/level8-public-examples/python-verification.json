@@ -1,0 +1,173 @@
+{
+  "example_origin": "repository-source-backed correction of stale README example",
+  "curated_content_disposition": "reject curated README import because the installed package cannot load aspose.threed.formats.collada; reuse only source-and-package-verified symbols",
+  "example": {
+    "language": "python",
+    "class_name": "readme_example",
+    "code": "from aspose.threed import Node, Scene\n\nscene = Scene()\nnode = Node(\"README proof\")\nassert scene.root_node is not None\nassert node.name == \"README proof\"\nassert node.child_nodes == []\n",
+    "evidence_paths": [
+      "aspose/threed/Scene.py",
+      "aspose/threed/Node.py"
+    ],
+    "required_symbols": [
+      "Scene",
+      "Node",
+      "Scene.root_node",
+      "Node.child_nodes"
+    ]
+  },
+  "verification": {
+    "schema_version": 1,
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+    "ecosystem": "python",
+    "outcome": "SOURCE_BUILD_VERIFIED",
+    "detail": "pinned package installed and exact public Python imports/example executed",
+    "build": {
+      "argv": [
+        "python",
+        "-I",
+        ".readme-agent-consumer-driver.py"
+      ],
+      "return_code": 0,
+      "stdout": "README_AGENT_PYTHON_CONSUMER={\"verified_symbols\": [\"aspose.threed.Node\", \"aspose.threed.Node.child_nodes\", \"aspose.threed.Scene\", \"aspose.threed.Scene.root_node\"]}\n",
+      "stderr": "",
+      "timed_out": false,
+      "environment_names": [
+        "HOME",
+        "PIP_CACHE_DIR"
+      ],
+      "isolation_kind": "isolated_result_projection",
+      "truth_eligible": false
+    },
+    "example_compile": {
+      "argv": [
+        "python",
+        "-I",
+        ".readme-agent-consumer-driver.py"
+      ],
+      "return_code": 0,
+      "stdout": "README_AGENT_PYTHON_CONSUMER={\"verified_symbols\": [\"aspose.threed.Node\", \"aspose.threed.Node.child_nodes\", \"aspose.threed.Scene\", \"aspose.threed.Scene.root_node\"]}\n",
+      "stderr": "",
+      "timed_out": false,
+      "environment_names": [
+        "HOME",
+        "PIP_CACHE_DIR"
+      ],
+      "isolation_kind": "isolated_result_projection",
+      "truth_eligible": false
+    },
+    "isolated_execution": {
+      "schema_version": 1,
+      "isolation_kind": "docker_container",
+      "truth_eligible": true,
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "argv": [
+        "python",
+        "-I",
+        ".readme-agent-consumer-driver.py"
+      ],
+      "environment_names": [
+        "HOME",
+        "PIP_CACHE_DIR"
+      ],
+      "input_sha256": "8e475b10cef60370bb4ccee6e832b01a5d0785187abb960c94124aa800da2f28",
+      "input_file_count": 430,
+      "policy_sha256": "b3e708e399833fa047f0f09384cb0349a4cdf49ded7a11ff7dc38c36d943b669",
+      "policy": {
+        "schema_version": 1,
+        "immutable_image": "python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
+        "cpu_limit": 1.0,
+        "memory_mebibytes": 512,
+        "pids_limit": 64,
+        "timeout_seconds": 300.0,
+        "tmpfs_mebibytes": 64,
+        "network_mode": "none",
+        "read_only_rootfs": true,
+        "cap_drop_all": true,
+        "no_new_privileges": true,
+        "seccomp_profile": "runtime-default",
+        "user": "65534:65534",
+        "workspace_path": "/workspace"
+      },
+      "image": {
+        "requested_reference": "python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
+        "repo_digest": "python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
+        "image_id": "sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
+        "operating_system": "linux",
+        "architecture": "amd64",
+        "engine_version": "28.4.0"
+      },
+      "container_id": "1b1333f3c22147b6a1414f57a11b132478db2706ce6d56c4e1c40d378eeb77ff",
+      "process_inventory": [
+        "PID                 PPID                USER                COMMAND",
+        "97634               97612               nobody              python -I .readme-agent-consumer-driver.py"
+      ],
+      "return_code": 0,
+      "stdout": "README_AGENT_PYTHON_CONSUMER={\"verified_symbols\": [\"aspose.threed.Node\", \"aspose.threed.Node.child_nodes\", \"aspose.threed.Scene\", \"aspose.threed.Scene.root_node\"]}\n",
+      "stderr": "",
+      "timed_out": false,
+      "oom_killed": false,
+      "started_at": "2026-07-27T17:27:39.104881+00:00",
+      "finished_at": "2026-07-27T17:27:48.364486+00:00",
+      "cleanup": {
+        "execution_container_removed": true,
+        "seed_container_removed": true,
+        "workspace_volume_removed": true
+      }
+    },
+    "truth_eligible": true,
+    "verified_public_symbols": [
+      "aspose.threed.Node",
+      "aspose.threed.Node.child_nodes",
+      "aspose.threed.Scene",
+      "aspose.threed.Scene.root_node"
+    ],
+    "public_api_sha256": "363fb0eb0020079f069ddb32ad490ca30803032a7cf21ad5ae59fae50c8a7a14",
+    "python_package": {
+      "schema_version": 1,
+      "manifest_path": "setup.py",
+      "distribution_name": "aspose-3d-foss",
+      "version": "26.1.0",
+      "requires_python": ">=3.7",
+      "source_root": ".",
+      "package_paths": [
+        "aspose",
+        "aspose/pydrawing",
+        "aspose/threed",
+        "aspose/pydrawing/design",
+        "aspose/pydrawing/drawing2d",
+        "aspose/pydrawing/imaging",
+        "aspose/pydrawing/printing",
+        "aspose/pydrawing/text",
+        "aspose/threed/animation",
+        "aspose/threed/deformers",
+        "aspose/threed/entities",
+        "aspose/threed/formats",
+        "aspose/threed/profiles",
+        "aspose/threed/render",
+        "aspose/threed/shading",
+        "aspose/threed/utilities",
+        "aspose/threed/formats/collada",
+        "aspose/threed/formats/fbx",
+        "aspose/threed/formats/gltf",
+        "aspose/threed/formats/obj",
+        "aspose/threed/formats/stl",
+        "aspose/threed/formats/threemf"
+      ],
+      "canonical_import": "aspose.threed",
+      "namespace_packages": [],
+      "source_sha256": "224ee6634ed03f7cd55c8d53f7b89e787e6be3c90a61f8f91cec8e2eb58bdbcb"
+    },
+    "typescript_package": null,
+    "rust_package": null,
+    "rust_formats": [],
+    "rust_source_dependency": null,
+    "acquisition_dependency_pins": [
+      "python_package_source_sha256=224ee6634ed03f7cd55c8d53f7b89e787e6be3c90a61f8f91cec8e2eb58bdbcb"
+    ],
+    "compiled_consumer": null
+  },
+  "repository_clean": true
+}

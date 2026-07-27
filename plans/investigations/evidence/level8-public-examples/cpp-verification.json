@@ -1,0 +1,236 @@
+{
+  "example_origin": "curated repository README",
+  "curated_content_disposition": "reuse unchanged only after public-symbol and compiler acceptance",
+  "example": {
+    "language": "cpp",
+    "class_name": "readme_example",
+    "code": "#include \"aspose/cells_foss/Workbook.h\"\n#include \"aspose/cells_foss/WorksheetCollection.h\"\n#include \"aspose/cells_foss/Worksheet.h\"\n#include \"aspose/cells_foss/Cell.h\"\n#include \"aspose/cells_foss/Style.h\"\n#include \"aspose/cells_foss/Color.h\"\n#include \"aspose/cells_foss/Font.h\"\n\nusing namespace Aspose::Cells_FOSS;\n\nint main() {\n    Workbook workbook;\n    Worksheet& sheet = workbook.GetWorksheets()[0];\n\n    sheet.SetName(\"Products\");\n    sheet.GetCells()[\"A1\"].PutValue(\"Product\");\n    sheet.GetCells()[\"B1\"].PutValue(\"Price\");\n    sheet.GetCells()[\"A2\"].PutValue(\"Apple\");\n    sheet.GetCells()[\"B2\"].PutValue(2.99);\n    sheet.GetCells()[\"A3\"].PutValue(\"Orange\");\n    sheet.GetCells()[\"B3\"].PutValue(1.99);\n    sheet.GetCells()[\"B4\"].SetFormula(\"=SUM(B2:B3)\");\n\n    Style headerStyle = sheet.GetCells()[\"A1\"].GetStyle();\n    Font font;\n    font.SetBold(true);\n    font.SetColor(Color::FromArgb(255, 255, 255, 255));\n    headerStyle.SetFont(font);\n    headerStyle.SetPattern(FillPattern::Solid);\n    headerStyle.SetForegroundColor(Color::FromArgb(255, 34, 120, 212));\n    sheet.GetCells()[\"A1\"].SetStyle(headerStyle);\n    sheet.GetCells()[\"B1\"].SetStyle(headerStyle);\n\n    workbook.Save(\"products.xlsx\");\n    return 0;\n}\n",
+    "evidence_paths": [
+      "README.md"
+    ],
+    "required_symbols": [
+      "using namespace Aspose::Cells_FOSS;"
+    ]
+  },
+  "verification": {
+    "schema_version": 1,
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+    "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+    "ecosystem": "cpp",
+    "outcome": "SOURCE_BUILD_VERIFIED",
+    "detail": "exact C++ consumer compiled against immutable repository source",
+    "build": {
+      "argv": [
+        "/bin/sh",
+        "-euc",
+        "g++ --version | head -n 1; g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp"
+      ],
+      "return_code": 0,
+      "stdout": "g++ (GCC) 14.3.0\n",
+      "stderr": "",
+      "timed_out": false,
+      "environment_names": [
+        "HOME",
+        "TMPDIR"
+      ],
+      "isolation_kind": "isolated_result_projection",
+      "truth_eligible": false
+    },
+    "example_compile": {
+      "argv": [
+        "/bin/sh",
+        "-euc",
+        "g++ --version | head -n 1; g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp"
+      ],
+      "return_code": 0,
+      "stdout": "g++ (GCC) 14.3.0\n",
+      "stderr": "",
+      "timed_out": false,
+      "environment_names": [
+        "HOME",
+        "TMPDIR"
+      ],
+      "isolation_kind": "isolated_result_projection",
+      "truth_eligible": false
+    },
+    "isolated_execution": {
+      "schema_version": 1,
+      "isolation_kind": "docker_container",
+      "truth_eligible": true,
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "argv": [
+        "/bin/sh",
+        "-euc",
+        "g++ --version | head -n 1; g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp"
+      ],
+      "environment_names": [
+        "HOME",
+        "TMPDIR"
+      ],
+      "input_sha256": "eeb4dc2527a755acdc45fa48a389d489905fd48de9283d56bad85a19eefa409e",
+      "input_file_count": 429,
+      "policy_sha256": "0fc69b5d43204afec2a1c7809cf50e03d6c6143f329b7b6ac0e372b01cd5ab24",
+      "policy": {
+        "schema_version": 1,
+        "immutable_image": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+        "cpu_limit": 1.0,
+        "memory_mebibytes": 1536,
+        "pids_limit": 128,
+        "timeout_seconds": 300.0,
+        "tmpfs_mebibytes": 64,
+        "network_mode": "none",
+        "read_only_rootfs": true,
+        "cap_drop_all": true,
+        "no_new_privileges": true,
+        "seccomp_profile": "runtime-default",
+        "user": "65534:65534",
+        "workspace_path": "/workspace"
+      },
+      "image": {
+        "requested_reference": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+        "repo_digest": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+        "image_id": "sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+        "operating_system": "linux",
+        "architecture": "amd64",
+        "engine_version": "28.4.0"
+      },
+      "container_id": "d7047b611083cc76afb60fd6934433942db6f170bac25687564dbc69a5faa67f",
+      "process_inventory": [
+        "PID                 PPID                USER                COMMAND",
+        "91126               91103               nobody              /bin/sh -euc g++ --version | head -n 1; g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp",
+        "91141               91126               nobody              g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp",
+        "91142               91141               nobody              /usr/local/libexec/gcc/x86_64-linux-gnu/14.3.0/cc1plus -quiet -I Aspose.Cells.Foss.Cpp/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE .readme-agent/example.cpp -quiet -dumpdir a- -dumpbase example.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -std=c++17 -fsyntax-only -o /dev/null"
+      ],
+      "return_code": 0,
+      "stdout": "g++ (GCC) 14.3.0\n",
+      "stderr": "",
+      "timed_out": false,
+      "oom_killed": false,
+      "started_at": "2026-07-27T17:25:24.362464+00:00",
+      "finished_at": "2026-07-27T17:25:31.095903+00:00",
+      "cleanup": {
+        "execution_container_removed": true,
+        "seed_container_removed": true,
+        "workspace_volume_removed": true
+      }
+    },
+    "truth_eligible": true,
+    "verified_public_symbols": [
+      "Aspose::Cells_FOSS",
+      "aspose/cells_foss/Cell.h",
+      "aspose/cells_foss/Color.h",
+      "aspose/cells_foss/Font.h",
+      "aspose/cells_foss/Style.h",
+      "aspose/cells_foss/Workbook.h",
+      "aspose/cells_foss/Worksheet.h",
+      "aspose/cells_foss/WorksheetCollection.h"
+    ],
+    "public_api_sha256": "770a9c3d040abe6931e75701165a9e2e047254fb84a829a2cadee174981e8040",
+    "python_package": null,
+    "typescript_package": null,
+    "rust_package": null,
+    "rust_formats": [],
+    "rust_source_dependency": null,
+    "acquisition_dependency_pins": [
+      "container_image=gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+      "example_sha256=7cf86708acb74a94667ac8505a1702f1da818cf17400f406fdbff673449c5d9e",
+      "input_sha256=eeb4dc2527a755acdc45fa48a389d489905fd48de9283d56bad85a19eefa409e",
+      "source_revision=3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "source_surface_sha256=770a9c3d040abe6931e75701165a9e2e047254fb84a829a2cadee174981e8040",
+      "cpp_language_standard=17"
+    ],
+    "compiled_consumer": {
+      "schema_version": 1,
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "ecosystem": "cpp",
+      "source_paths": [
+        "Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+        "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Cell.h",
+        "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Color.h",
+        "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Font.h",
+        "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Style.h",
+        "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Workbook.h",
+        "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Worksheet.h",
+        "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/WorksheetCollection.h"
+      ],
+      "selected_symbols": [
+        "Aspose::Cells_FOSS",
+        "aspose/cells_foss/Cell.h",
+        "aspose/cells_foss/Color.h",
+        "aspose/cells_foss/Font.h",
+        "aspose/cells_foss/Style.h",
+        "aspose/cells_foss/Workbook.h",
+        "aspose/cells_foss/Worksheet.h",
+        "aspose/cells_foss/WorksheetCollection.h"
+      ],
+      "source_sha256": "770a9c3d040abe6931e75701165a9e2e047254fb84a829a2cadee174981e8040",
+      "example_sha256": "7cf86708acb74a94667ac8505a1702f1da818cf17400f406fdbff673449c5d9e",
+      "isolated_execution": {
+        "schema_version": 1,
+        "isolation_kind": "docker_container",
+        "truth_eligible": true,
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "argv": [
+          "/bin/sh",
+          "-euc",
+          "g++ --version | head -n 1; g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp"
+        ],
+        "environment_names": [
+          "HOME",
+          "TMPDIR"
+        ],
+        "input_sha256": "eeb4dc2527a755acdc45fa48a389d489905fd48de9283d56bad85a19eefa409e",
+        "input_file_count": 429,
+        "policy_sha256": "0fc69b5d43204afec2a1c7809cf50e03d6c6143f329b7b6ac0e372b01cd5ab24",
+        "policy": {
+          "schema_version": 1,
+          "immutable_image": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+          "cpu_limit": 1.0,
+          "memory_mebibytes": 1536,
+          "pids_limit": 128,
+          "timeout_seconds": 300.0,
+          "tmpfs_mebibytes": 64,
+          "network_mode": "none",
+          "read_only_rootfs": true,
+          "cap_drop_all": true,
+          "no_new_privileges": true,
+          "seccomp_profile": "runtime-default",
+          "user": "65534:65534",
+          "workspace_path": "/workspace"
+        },
+        "image": {
+          "requested_reference": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+          "repo_digest": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+          "image_id": "sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+          "operating_system": "linux",
+          "architecture": "amd64",
+          "engine_version": "28.4.0"
+        },
+        "container_id": "d7047b611083cc76afb60fd6934433942db6f170bac25687564dbc69a5faa67f",
+        "process_inventory": [
+          "PID                 PPID                USER                COMMAND",
+          "91126               91103               nobody              /bin/sh -euc g++ --version | head -n 1; g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp",
+          "91141               91126               nobody              g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp",
+          "91142               91141               nobody              /usr/local/libexec/gcc/x86_64-linux-gnu/14.3.0/cc1plus -quiet -I Aspose.Cells.Foss.Cpp/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE .readme-agent/example.cpp -quiet -dumpdir a- -dumpbase example.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -std=c++17 -fsyntax-only -o /dev/null"
+        ],
+        "return_code": 0,
+        "stdout": "g++ (GCC) 14.3.0\n",
+        "stderr": "",
+        "timed_out": false,
+        "oom_killed": false,
+        "started_at": "2026-07-27T17:25:24.362464+00:00",
+        "finished_at": "2026-07-27T17:25:31.095903+00:00",
+        "cleanup": {
+          "execution_container_removed": true,
+          "seed_container_removed": true,
+          "workspace_volume_removed": true
+        }
+      },
+      "accepted": true
+    }
+  },
+  "repository_clean": true
+}

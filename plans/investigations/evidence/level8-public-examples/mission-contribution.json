@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+  "goal_ids": [
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs for selected examples in the same disposable OS-isolated executor used for acquisition proof."
+  },
+  "acceptance_checks_passed": [
+    "Unresolved, private, uncompiled, or secret-dependent examples cannot verify",
+    "Host-only compilation or execution cannot become verified",
+    "Stale curated README examples are rejected instead of silently reused",
+    "Filesystem, process, resource, and undeclared-network escapes fail closed"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-public-examples/example-verifications-summary.json",
+    "plans/investigations/evidence/level8-public-examples/curated-readme-controls.json",
+    "plans/investigations/evidence/level8-public-examples/hostile-executor-controls.json",
+    "plans/investigations/evidence/level8-public-examples/verification.json"
+  ],
+  "scoreboard_before_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "scoreboard_after_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
