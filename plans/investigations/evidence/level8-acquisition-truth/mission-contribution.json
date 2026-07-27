@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-04-ACQUISITION",
+  "goal_ids": [
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Select registry-verified coordinates or exact revision-bound isolated source-build paths without converting unpublished packages into global blocks."
+  },
+  "acceptance_checks_passed": [
+    "False coordinates cannot reach FACTS_READY",
+    "Unpublished packages with verified isolated builds remain truth eligible",
+    "Host-only source builds cannot become verified truth"
+  ],
+  "scoreboard_before_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "scoreboard_after_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
