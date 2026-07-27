@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-02D-RUST-API-TRUTH",
+  "requirement_id": "L8-032",
+  "control_repository": {
+    "head": "23b691c2f05d178ef34898e71afe3809968a8797",
+    "branch": "main",
+    "tree_clean_at_start": true,
+    "tree_porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "builder_path": "plans/investigations/tools/build_rust_api_truth_evidence.py",
+    "builder_sha256": "afed18fb39269a2765727c1fa0729648470e17f6ad274f8da1b33c76beb5068f",
+    "implementation": {
+      "src/readme_agent/ecosystems/rust_api_schema.py": "5b02e803d0c1b352d23a3a425f9904608ca9cbf0753c4adf262a4a4066ff6353",
+      "src/readme_agent/ecosystems/rust_format_truth.py": "cf4fb73b8b327e7a7a14a1928515b3d3870c452f687f8c87e8ec82a8c5c346d4",
+      "src/readme_agent/ecosystems/rust_package_layout.py": "9b4167112f752cd411a8a172346ac0be3031374d34c09947eaf79842162bd70e",
+      "src/readme_agent/ecosystems/rust_public_api.py": "20215046bf4543eadbed570319fb0a30c283102ac12f9afdf2ff3a2afc30b115",
+      "src/readme_agent/ecosystems/rust_snippets.py": "c0f6dc0d75d5689eb1991f140ffdd8211ff3f3453a21d51585e960a2d4d91fe9",
+      "src/readme_agent/ecosystems/rust_symbol_extraction.py": "e2189a0383c0f57cb2dbea8392e2353d6110afff71bd88ef5b1dbac891d62609",
+      "src/readme_agent/ecosystems/rust_syntax.py": "6d5036e185473907d369330c92ea0b6e69a88f804039dfd23510abcd8ebfa355",
+      "src/readme_agent/ecosystems/rust_use_resolution.py": "6ef11ebe1dc2dd206b05a124ff0591aaa4f44ce6deec707a506093f0df56c2eb",
+      "src/readme_agent/facts/rust_consumer.py": "ea586047438b23fb809f8b355e7c57d4c94ed3858e92ec584aa48ce703b20064",
+      "src/readme_agent/facts/rust_dependency_acquisition.py": "321b3124146d18a05109fd1c5a23fb61d690f68f53d76cc6d36913a89a4f9328",
+      "src/readme_agent/facts/rust_example_verifier.py": "e37cddcfbfc080b0a22d2706da3ed8bd14a106c742f5d2d721171417df18ce74",
+      "src/readme_agent/facts/local_verification.py": "7bfe2feb2d75d79ce834958c33fd7fdce4ba209c4345b412378b699c15543900",
+      "tests/unit/test_rust_public_api.py": "b94f6eaac5227d38d9faaeed5b6d2dec95670c225ffeab686d5b79c2dcc24424",
+      "tests/unit/test_rust_consumer.py": "2e7153d47df12893dc8769330e687cf20aa104a08464fdb20f85aebfdc0e56b2",
+      "tests/security/test_rust_consumer_docker_live.py": "fa696c074138af5180cf641567111c1f6221509f4607d7271500f9f10e124d54"
+    }
+  },
+  "commands": {
+    "focused": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_rust_public_api.py tests/unit/test_rust_consumer.py tests/unit/test_ecosystems.py tests/unit/test_local_verification.py tests/unit/test_cpp_rust_example_verifiers.py tests/unit/test_isolated_execution.py tests/security/test_example_execution_boundary.py",
+      "exit_code": 0
+    },
+    "live": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q -m live tests/security/test_rust_consumer_docker_live.py",
+      "exit_code": 0
+    },
+    "official": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe scripts/governance/run_official_checks.py",
+      "exit_code": 0,
+      "tree_stable": true
+    }
+  },
+  "checks": {
+    "focused_tests_pass": true,
+    "live_docker_tests_pass": true,
+    "official_checks_pass": true,
+    "real_revision_bound": true,
+    "baseline_clean": true,
+    "canonical_crate": true,
+    "expected_public_symbols": true,
+    "private_fields_excluded": true,
+    "root_reexport_resolved": true,
+    "path_modules_resolved": true,
+    "repository_snippets_found": true,
+    "directional_xlsx_formats": true,
+    "registry_absence_verified": true,
+    "source_install_is_pinned": true,
+    "locked_dependency_bundle": true,
+    "consumer_accepted": true,
+    "network_separated": true,
+    "immutable_image": true,
+    "offline_locked_command": true,
+    "cleanup_complete": true,
+    "no_managed_resources_remain": true
+  },
+  "failures": [],
+  "verdict": "VERIFIED"
+}
