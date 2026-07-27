@@ -80,9 +80,9 @@ def test_host_execution_is_permanently_ineligible_for_product_truth(tmp_path, mo
         ),
     )
     example = MinimalExamplePolicy(
-        language="python",
+        language="java",
         class_name="example",
-        code="print('must not run on host')",
+        code="class Example {}",
         evidence_paths=["example.py"],
         required_symbols=[],
     )

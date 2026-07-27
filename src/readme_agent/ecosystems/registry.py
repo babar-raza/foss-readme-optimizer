@@ -25,7 +25,7 @@ _PARSERS = {
 # own multi-file-per-platform reality, not an invented simplification.
 _MANIFEST_GLOBS: dict[str, tuple[str, ...]] = {
     "java": ("pom.xml", "build.gradle"),
-    "python": ("pyproject.toml", "setup.py"),
+    "python": ("pyproject.toml", "setup.cfg", "setup.py"),
     "net": ("*.csproj",),
     "typescript": ("package.json",),
     "go": ("go.mod",),

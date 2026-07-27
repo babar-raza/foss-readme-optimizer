@@ -166,6 +166,22 @@ class TestPythonParser:
         assert info["name"] == "aspose-3d-foss"
         assert info["version"] == "1.2.3"
 
+    def test_parses_setup_cfg_when_no_pyproject(self, tmp_path):
+        (tmp_path / "setup.cfg").write_text(
+            "[metadata]\nname = aspose-widget-foss\nversion = 4.2\nlicense = MIT\n"
+            "[options]\npython_requires = >=3.11\n",
+            encoding="utf-8",
+        )
+
+        info = python.parse(tmp_path)
+
+        assert info == {
+            "name": "aspose-widget-foss",
+            "version": "4.2",
+            "license": "MIT",
+            "requires_python": ">=3.11",
+        }
+
     def test_no_manifest_returns_empty(self, tmp_path):
         assert python.parse(tmp_path) == {}
 

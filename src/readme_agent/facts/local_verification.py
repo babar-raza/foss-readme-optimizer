@@ -13,7 +13,7 @@ from pathlib import Path
 from threading import Lock
 
 from readme_agent import env
-from readme_agent.facts import java_toolchain
+from readme_agent.facts import java_toolchain, python_example_verifier
 from readme_agent.facts.example_execution import ExampleExecutionResultV1, execute_example
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.example_verifiers import cpp as cpp_verifier
@@ -39,6 +39,13 @@ _VERIFICATION_CONTRACT_FILES = (
     "isolated_execution.py",
     "isolated_execution_inputs.py",
     "isolated_execution_schema.py",
+    "python_consumer.py",
+    "python_consumer_schema.py",
+    "python_example_verifier.py",
+    "../ecosystems/python_api_schema.py",
+    "../ecosystems/python_package_layout.py",
+    "../ecosystems/python_public_api.py",
+    "../ecosystems/python_symbol_members.py",
     "example_quality.py",
     "repository_examples.py",
     "example_verification_schema.py",
@@ -776,6 +783,12 @@ def _verify_go(
     )
 
 
+IsolatedProductVerifier = Callable[
+    [RepositorySnapshotV1, MinimalExamplePolicy],
+    LocalProductVerificationV1,
+]
+
+
 _VERIFIERS = {
     "java": _verify_java,
     "dotnet": _verify_dotnet,
@@ -784,6 +797,10 @@ _VERIFIERS = {
     "go": _verify_go,
     "cpp": cpp_verifier.verify,
     "rust": rust_verifier.verify,
+}
+
+_ISOLATED_VERIFIERS: dict[str, IsolatedProductVerifier] = {
+    "python": python_example_verifier.verify,
 }
 
 
@@ -813,12 +830,6 @@ def run_host_product_example_diagnostic(
     return result
 
 
-IsolatedProductVerifier = Callable[
-    [RepositorySnapshotV1, MinimalExamplePolicy],
-    LocalProductVerificationV1,
-]
-
-
 def verify_local_product_example(
     snapshot: RepositorySnapshotV1,
     example: MinimalExamplePolicy,
@@ -828,7 +839,8 @@ def verify_local_product_example(
     """Verify through an OS-isolated adapter or fail closed without executing code."""
 
     verify_repository_snapshot(snapshot)
-    if isolated_verifier is None:
+    active_isolated_verifier = isolated_verifier or _ISOLATED_VERIFIERS.get(example.language)
+    if active_isolated_verifier is None:
         return LocalProductVerificationV1(
             org_repo=snapshot.org_repo,
             source_revision=snapshot.source_revision,
@@ -840,7 +852,7 @@ def verify_local_product_example(
             ),
             build=_missing_tool_result("isolated-executor"),
         )
-    result = isolated_verifier(snapshot, example)
+    result = active_isolated_verifier(snapshot, example)
     verify_repository_snapshot(snapshot)
     if result.org_repo != snapshot.org_repo or result.source_revision != snapshot.source_revision:
         raise ValueError("isolated verifier result does not belong to the immutable snapshot")

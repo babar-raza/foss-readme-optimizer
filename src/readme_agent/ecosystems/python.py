@@ -1,5 +1,6 @@
-"""Python platform manifest parser: pyproject.toml primary, setup.py regex
-fallback. Adapted from aspose.org's extraction/package_manifest.py
+"""Python manifest metadata parser for pyproject, setup.cfg, and setup.py.
+
+Adapted from aspose.org's extraction/package_manifest.py
 (_parse_python_manifest), GOVERNANCE.md rule 8 -- a real, in-production
 reference tuned against the same Aspose FOSS corpus this project targets, not
 written from scratch. This project targets Python 3.11+ only, so aspose.org's
@@ -23,6 +24,7 @@ list there, not a dict, and `.get("find", {})` on a list raised
 
 import re
 import tomllib
+from configparser import ConfigParser
 from pathlib import Path
 
 
@@ -80,6 +82,22 @@ def parse_setup_py(setup_py_path: Path) -> dict[str, str]:
     return info
 
 
+def parse_setup_cfg(setup_cfg_path: Path) -> dict[str, str]:
+    parser = ConfigParser()
+    parser.read(setup_cfg_path, encoding="utf-8")
+    info: dict[str, str] = {}
+    if parser.has_section("metadata"):
+        for source, target in (("name", "name"), ("version", "version"), ("license", "license")):
+            value = parser.get("metadata", source, fallback="").strip()
+            if value:
+                info[target] = value
+    if parser.has_section("options"):
+        requires_python = parser.get("options", "python_requires", fallback="").strip()
+        if requires_python:
+            info["requires_python"] = requires_python
+    return info
+
+
 def parse(repo_root: Path) -> dict[str, str]:
     """pyproject.toml is authoritative when present and yields a name;
     setup.py is only consulted when pyproject.toml is absent or incomplete
@@ -88,6 +106,11 @@ def parse(repo_root: Path) -> dict[str, str]:
     pyproject_path = repo_root / "pyproject.toml"
     if pyproject_path.exists():
         info.update(parse_pyproject(pyproject_path))
+
+    if not info.get("name"):
+        setup_cfg_path = repo_root / "setup.cfg"
+        if setup_cfg_path.exists():
+            info.update(parse_setup_cfg(setup_cfg_path))
 
     if not info.get("name"):
         setup_py_path = repo_root / "setup.py"

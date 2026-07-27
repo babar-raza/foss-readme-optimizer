@@ -148,6 +148,17 @@ def _local_verification_facts(
                     "code": truth.minimal_example.code,
                     "verification_outcome": example_outcome,
                     "verification_detail": example_detail,
+                    "verified_public_symbols": (
+                        local_result.verified_public_symbols if local_result is not None else []
+                    ),
+                    "public_api_sha256": (
+                        local_result.public_api_sha256 if local_result is not None else None
+                    ),
+                    "python_package": (
+                        local_result.python_package.model_dump(mode="json")
+                        if local_result is not None and local_result.python_package is not None
+                        else None
+                    ),
                 },
                 source=source,
                 verification_state="verified" if example_verified else "blocked",
