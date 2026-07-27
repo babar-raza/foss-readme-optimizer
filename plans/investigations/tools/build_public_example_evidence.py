@@ -10,9 +10,12 @@ from pathlib import Path
 from typing import Any
 
 from acquisition_truth_evidence_checks import verify_hostile_executor_controls
+from filelock import FileLock, Timeout
 from public_example_evidence_checks import evaluate_public_example_checks
 from public_example_evidence_support import (
     REPRESENTATIVES,
+    example_summary,
+    remove_obsolete_combined_evidence,
     representative_roots,
     verify_representatives,
 )
@@ -72,6 +75,7 @@ FOCUSED_COMMAND = (
     "tests/security/test_no_secrets_in_evidence.py",
 )
 OFFICIAL_COMMAND = (PYTHON, "scripts/governance/run_official_checks.py")
+LOCK_PATH = REPO_ROOT / "runs/control/locks/public-example-evidence.lock"
 
 
 def _git(*args: str, root: Path = REPO_ROOT) -> str:
@@ -181,7 +185,17 @@ def _build(run_official: bool) -> list[str]:
 
     scoreboard = derive_lifecycle_scoreboard(default_state_backend())
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
-    write_redacted_json(EVIDENCE_DIR / "example-verifications.json", results)
+    remove_obsolete_combined_evidence(EVIDENCE_DIR)
+    for ecosystem, item in sorted(results.items()):
+        write_redacted_json(EVIDENCE_DIR / f"{ecosystem}-verification.json", item)
+    write_redacted_json(
+        EVIDENCE_DIR / "example-verifications-summary.json",
+        {
+            "schema_version": 1,
+            "representative_count": len(results),
+            "records": example_summary(results),
+        },
+    )
     write_redacted_json(
         EVIDENCE_DIR / "curated-readme-controls.json",
         {
@@ -221,7 +235,8 @@ def _build(run_official: bool) -> list[str]:
                 "Filesystem, process, resource, and undeclared-network escapes fail closed",
             ],
             "proof_refs": [
-                "plans/investigations/evidence/level8-public-examples/example-verifications.json",
+                "plans/investigations/evidence/level8-public-examples/"
+                "example-verifications-summary.json",
                 "plans/investigations/evidence/level8-public-examples/curated-readme-controls.json",
                 "plans/investigations/evidence/level8-public-examples/"
                 "hostile-executor-controls.json",
@@ -269,7 +284,12 @@ def main() -> None:
     parser.add_argument("--official", action="store_true")
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
-    failures = _build(args.official)
+    LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        with FileLock(LOCK_PATH, timeout=0):
+            failures = _build(args.official)
+    except Timeout as exc:
+        raise SystemExit("public example proof already has an active sole-operator run") from exc
     if failures:
         raise SystemExit("public example proof failed: " + ", ".join(failures))
     print(f"wrote public example evidence to {EVIDENCE_DIR}")

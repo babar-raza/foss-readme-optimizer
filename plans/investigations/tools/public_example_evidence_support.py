@@ -154,3 +154,35 @@ def verify_representatives(repo_root: Path) -> tuple[dict[str, Any], dict[str, A
         }
 
     return results, controls
+
+
+def example_summary(results: dict[str, Any]) -> dict[str, Any]:
+    """Project large typed records into an inspectable portfolio index."""
+
+    summary: dict[str, Any] = {}
+    for ecosystem, item in sorted(results.items()):
+        verification = item["verification"]
+        execution = verification["isolated_execution"]
+        summary[ecosystem] = {
+            "org_repo": verification["org_repo"],
+            "source_revision": verification["source_revision"],
+            "example_origin": item["example_origin"],
+            "curated_content_disposition": item["curated_content_disposition"],
+            "outcome": verification["outcome"],
+            "truth_eligible": verification["truth_eligible"],
+            "verified_public_symbols": verification["verified_public_symbols"],
+            "immutable_image": execution["policy"]["immutable_image"],
+            "dependency_inputs": verification["acquisition_dependency_pins"],
+            "network_mode": execution["policy"]["network_mode"],
+            "cleanup_complete": all(execution["cleanup"].values()),
+        }
+    return summary
+
+
+def remove_obsolete_combined_evidence(evidence_dir: Path) -> None:
+    """Remove only the superseded large-file layout before writing split records."""
+
+    for name in ("example-verifications.json", "example-verifications.json.tmp"):
+        path = evidence_dir / name
+        if path.is_file():
+            path.unlink()
