@@ -225,6 +225,7 @@ def _verified_local_result() -> LocalProductVerificationV1:
         example_compile=ok,
         isolated_execution=isolated,
         truth_eligible=True,
+        acquisition_dependency_pins=["java_dependency_lock_sha256=" + "d" * 64],
     )
 
 

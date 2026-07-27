@@ -7,6 +7,7 @@ import re
 
 from readme_agent.ecosystems.python_api_schema import ConsumerExampleV1
 from readme_agent.ecosystems.python_public_api import inspect_python_public_api
+from readme_agent.facts.acquisition_pins import python_acquisition_pins
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.python_consumer import prove_python_consumer
@@ -107,4 +108,5 @@ def verify(
         verified_public_symbols=proof.verified_symbols,
         public_api_sha256=surface.canonical_hash(),
         python_package=surface.package,
+        acquisition_dependency_pins=python_acquisition_pins(surface.package),
     )

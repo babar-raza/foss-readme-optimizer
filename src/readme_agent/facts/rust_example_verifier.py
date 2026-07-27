@@ -9,6 +9,7 @@ from readme_agent.ecosystems.rust_package_layout import (
     pinned_rust_git_dependency,
 )
 from readme_agent.ecosystems.rust_public_api import inspect_rust_public_api
+from readme_agent.facts.acquisition_pins import rust_acquisition_pins
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.rust_consumer import prove_rust_consumer
@@ -70,4 +71,5 @@ def verify(
             org_repo=snapshot.org_repo,
             source_revision=snapshot.source_revision,
         ),
+        acquisition_dependency_pins=rust_acquisition_pins(proof),
     )

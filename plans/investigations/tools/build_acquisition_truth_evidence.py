@@ -4,19 +4,26 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import os
 import subprocess
 import sys
 from pathlib import Path
 from typing import Any
 
-from acquisition_truth_evidence_support import (
-    IMPLEMENTATION_PATHS,
-    build_acquisition_controls,
+from acquisition_truth_evidence_checks import (
+    evaluate_acquisition_checks,
+    verify_hostile_executor_controls,
+)
+from acquisition_truth_evidence_sources import (
     load_python_verification,
     load_rust_verification,
     load_typescript_verification,
     verify_evidence_inventory,
+)
+from acquisition_truth_evidence_support import (
+    EVIDENCE_MACHINERY_PATHS,
+    IMPLEMENTATION_PATHS,
+    build_acquisition_controls,
+    representative_roots,
 )
 
 from readme_agent.evidence.writer import (
@@ -24,6 +31,8 @@ from readme_agent.evidence.writer import (
     write_redacted_json,
     write_redacted_text,
 )
+from readme_agent.gitsafety.clone import remote_head_sha
+from readme_agent.registry.loader import load_products
 from readme_agent.state.git_backend import default_state_backend
 from readme_agent.supervisor.mission_goal_guard import (
     derive_lifecycle_scoreboard,
@@ -35,37 +44,26 @@ EVIDENCE_DIR = REPO_ROOT / "plans/investigations/evidence/level8-acquisition-tru
 FAILURE_DIR = REPO_ROOT / "runs/control/acquisition-truth-proof-failure"
 TASK_ID = "L8-TRUTH-04-ACQUISITION"
 PYTHON = sys.executable
-REPRESENTATIVES = {
-    "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": (
-        "aspose-cells-foss__Aspose.Cells-FOSS-for-Java"
-    ),
-    "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": "aspose-3d-foss__Aspose.3D-FOSS-for-.NET",
-    "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp": ("aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp"),
-    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go": "aspose-pdf-foss__Aspose-PDF-FOSS-for-Go",
-    "aspose-3d-foss/Aspose.3D-FOSS-for-Python": ("aspose-3d-foss__Aspose.3D-FOSS-for-Python"),
-    "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript": (
-        "aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript"
-    ),
-    "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust": (
-        "aspose-cells-foss__Aspose.Cells-FOSS-for-Rust"
-    ),
-}
 SOURCE_PROOFS = {
     "python": REPO_ROOT / "plans/investigations/evidence/level8-python-api-truth",
     "typescript": REPO_ROOT / "plans/investigations/evidence/level8-typescript-export-truth",
     "rust": REPO_ROOT / "plans/investigations/evidence/level8-rust-api-truth",
 }
+ISOLATED_EXECUTOR_PROOF = REPO_ROOT / "plans/investigations/evidence/level8-isolated-executor"
 FOCUSED_COMMAND = (
     PYTHON,
     "-m",
     "pytest",
     "-q",
     "tests/unit/test_acquisition.py",
+    "tests/unit/test_acquisition_pins.py",
     "tests/unit/test_ecosystem_resolver.py",
     "tests/unit/test_facts_provider.py",
     "tests/unit/test_draft_product_truth_capability.py",
     "tests/unit/test_fact_acceptance_contract.py",
     "tests/unit/test_facts_schema_v2.py",
+    "tests/unit/test_isolated_execution.py",
+    "tests/security/test_example_execution_boundary.py",
     "tests/security/test_no_secrets_in_evidence.py",
 )
 OFFICIAL_COMMAND = (PYTHON, "scripts/governance/run_official_checks.py")
@@ -101,16 +99,6 @@ def _git(*args: str, root: Path = REPO_ROOT) -> str:
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _representative_roots() -> dict[str, Path]:
-    baseline = Path(
-        os.environ.get(
-            "README_AGENT_ACQUISITION_BASELINE_ROOT",
-            str(REPO_ROOT / "runs/baseline"),
-        )
-    ).resolve()
-    return {org_repo: baseline / name for org_repo, name in REPRESENTATIVES.items()}
 
 
 def _write_failure(
@@ -152,9 +140,16 @@ def _build(run_official: bool) -> list[str]:
         "implementation": {
             path: _sha256(REPO_ROOT / path) for path in sorted(IMPLEMENTATION_PATHS)
         },
+        "evidence_machinery": {
+            path: _sha256(REPO_ROOT / path) for path in sorted(EVIDENCE_MACHINERY_PATHS)
+        },
     }
-    roots = _representative_roots()
+    roots = representative_roots(REPO_ROOT)
     revisions = {org_repo: _git("rev-parse", "HEAD", root=root) for org_repo, root in roots.items()}
+    entries = {entry.org_repo: entry for entry in load_products()}
+    remote_revisions = {
+        org_repo: remote_head_sha(entries[org_repo].clone_url) for org_repo in roots
+    }
     clean_representatives = {
         org_repo: not _git("status", "--porcelain=v1", root=root)
         for org_repo, root in roots.items()
@@ -169,6 +164,7 @@ def _build(run_official: bool) -> list[str]:
         SOURCE_PROOFS["typescript"] / "built-consumer-proof.json"
     )
     rust = load_rust_verification(SOURCE_PROOFS["rust"] / "locked-consumer-proof.json")
+    hostile_controls = verify_hostile_executor_controls(ISOLATED_EXECUTOR_PROOF)
     controls = build_acquisition_controls(
         revisions=revisions,
         python_verification=python,
@@ -177,57 +173,21 @@ def _build(run_official: bool) -> list[str]:
     )
     focused = _run(FOCUSED_COMMAND)
     official = _run(OFFICIAL_COMMAND) if run_official else None
-    decisions = controls["decisions"]
-    negatives = controls["negative_controls"]
-    expected_registry = {
-        "java_published",
-        "dotnet_published",
-        "cpp_nuget_published",
-        "go_proxy_published",
-    }
-    expected_source = {
-        "python_source_build",
-        "typescript_source_build",
-        "rust_source_build",
-    }
-    checks = {
-        "control_tree_clean": control["tree_clean_at_start"],
-        "representatives_clean": all(clean_representatives.values()),
-        "source_proof_inventories_valid": all(item["accepted"] for item in inventories.values()),
-        "source_revisions_match": all(
-            verification.source_revision == revisions[verification.org_repo]
-            for verification in (python, typescript, rust)
-        ),
-        "published_coordinates_have_receipts": all(
-            decisions[name]["outcome"] == "REGISTRY_VERIFIED"
-            and decisions[name]["registry_receipt"]["status_code"] == 200
-            for name in expected_registry
-        ),
-        "unpublished_sources_have_both_receipts": all(
-            decisions[name]["outcome"] == "SOURCE_BUILD_VERIFIED"
-            and decisions[name]["registry_receipt"]["status_code"] == 404
-            and decisions[name]["source_build_receipt"]["network_mode"] == "none"
-            for name in expected_source
-        ),
-        "synthetic_false_maven_rejected": (
-            decisions["synthetic_false_maven"]["truth_eligible"] is False
-            and decisions["synthetic_false_maven"]["registry_receipt"]["status_code"] == 404
-        ),
-        "readme_prose_cannot_verify_source": (
-            negatives["readme_prose_only"]["truth_eligible"] is False
-        ),
-        "host_only_build_cannot_verify_source": (
-            negatives["host_only_source_build"]["truth_eligible"] is False
-        ),
-        "network_uncertainty_blocks": (
-            negatives["network_uncertainty"]["outcome"] == "BLOCKED_NETWORK"
-            and negatives["network_uncertainty"]["truth_eligible"] is False
-        ),
-        "focused_tests_pass": focused["exit_code"] == 0,
-        "official_checks_pass": official is None or official["exit_code"] == 0,
-        "tree_stable": _git("rev-parse", "HEAD") == control["head"]
-        and _git("status", "--porcelain=v1", "--untracked-files=all") == start_status,
-    }
+    checks = evaluate_acquisition_checks(
+        control=control,
+        start_status=start_status,
+        current_head=_git("rev-parse", "HEAD"),
+        current_status=_git("status", "--porcelain=v1", "--untracked-files=all"),
+        clean_representatives=clean_representatives,
+        revisions=revisions,
+        remote_revisions=remote_revisions,
+        inventories=inventories,
+        source_verifications=(python, typescript, rust),
+        acquisition_controls=controls,
+        hostile_controls=hostile_controls,
+        focused_exit_code=focused["exit_code"],
+        official_exit_code=official["exit_code"] if official is not None else None,
+    )
     failures = [name for name, passed in checks.items() if not passed]
     if failures:
         _write_failure(control=control, checks=checks, focused=focused, official=official)
@@ -240,10 +200,12 @@ def _build(run_official: bool) -> list[str]:
         {
             "schema_version": 1,
             "revisions": revisions,
+            "remote_default_revisions": remote_revisions,
             "clean": clean_representatives,
         },
     )
     write_redacted_json(EVIDENCE_DIR / "source-proof-inventories.json", inventories)
+    write_redacted_json(EVIDENCE_DIR / "hostile-executor-controls.json", hostile_controls)
     write_redacted_json(EVIDENCE_DIR / "acquisition-decisions.json", controls)
     write_redacted_text(EVIDENCE_DIR / "focused-tests.stdout.log", focused["stdout"])
     write_redacted_text(EVIDENCE_DIR / "focused-tests.stderr.log", focused["stderr"])
@@ -259,14 +221,27 @@ def _build(run_official: bool) -> list[str]:
             "core_contribution": {
                 "kind": "visible_deliverable",
                 "summary": (
-                    "Select registry-verified coordinates or exact revision-bound isolated "
-                    "source-build paths without converting unpublished packages into global blocks."
+                    "Select a registry-verified coordinate when published and a reproducible "
+                    "source-build path otherwise, while executing repository or dependency build "
+                    "code only inside a disposable OS-isolated executor with bounded resources "
+                    "and deny-by-default network."
                 ),
             },
             "acceptance_checks_passed": [
                 "False coordinates cannot reach FACTS_READY",
-                "Unpublished packages with verified isolated builds remain truth eligible",
-                "Host-only source builds cannot become verified truth",
+                "unpublished packages with verified builds are not globally blocked",
+                (
+                    "A source-build result produced by an unsandboxed host subprocess is "
+                    "ineligible for verified truth"
+                ),
+            ],
+            "proof_refs": [
+                "plans/investigations/evidence/level8-acquisition-truth/acquisition-decisions.json",
+                "plans/investigations/evidence/level8-acquisition-truth/"
+                "source-proof-inventories.json",
+                "plans/investigations/evidence/level8-acquisition-truth/"
+                "hostile-executor-controls.json",
+                "plans/investigations/evidence/level8-acquisition-truth/verification.json",
             ],
             "scoreboard_before_sha256": lifecycle_scoreboard_sha256(scoreboard),
             "scoreboard_after_sha256": lifecycle_scoreboard_sha256(scoreboard),

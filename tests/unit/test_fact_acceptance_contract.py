@@ -1,6 +1,7 @@
 """Tests for the versioned cached-product-truth acceptance boundary."""
 
 from readme_agent.facts.acceptance_contract import (
+    _COMPONENT_FILES,
     README_TRUTH_FIELDS,
     _component_hash,
     classify_product_truth,
@@ -73,6 +74,8 @@ def test_contract_hash_covers_every_named_acceptance_component():
     )
     assert len(contract.canonical_hash()) == 64
     assert all(len(digest) == 64 for digest in contract.component_hashes.values())
+    assert "../ecosystems/registry_request.py" in _COMPONENT_FILES["acquisition_truth"]
+    assert "acquisition_pins.py" in _COMPONENT_FILES["acquisition_truth"]
 
 
 def test_component_or_rule_change_changes_the_contract_hash():

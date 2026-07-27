@@ -43,6 +43,7 @@ class LocalProductVerificationV1(BaseModel):
     rust_package: RustPackageLayoutV1 | None = None
     rust_formats: list[RustFormatEvidenceV1] = Field(default_factory=list)
     rust_source_dependency: str | None = None
+    acquisition_dependency_pins: list[str] = Field(default_factory=list)
 
     def fact_projection(self) -> dict[str, object]:
         """Return the reproducible public-surface fields safe for ProductFactsV2."""
@@ -61,6 +62,7 @@ class LocalProductVerificationV1(BaseModel):
             ),
             "rust_formats": [record.model_dump(mode="json") for record in self.rust_formats],
             "rust_source_dependency": self.rust_source_dependency,
+            "acquisition_dependency_pins": self.acquisition_dependency_pins,
         }
 
     @model_validator(mode="after")

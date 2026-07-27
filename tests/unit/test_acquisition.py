@@ -106,6 +106,9 @@ def _isolated_verification(*, truth_eligible: bool = True) -> LocalProductVerifi
         build=diagnostic,
         isolated_execution=isolated if truth_eligible else None,
         truth_eligible=truth_eligible,
+        acquisition_dependency_pins=(
+            ["python_package_source_sha256=" + "1" * 64] if truth_eligible else []
+        ),
     )
 
 
@@ -140,7 +143,25 @@ def test_registry_404_and_isolated_build_select_reproducible_source():
     assert decision.source_build_receipt is not None
     assert decision.source_build_receipt.network_mode == "none"
     assert decision.source_build_receipt.immutable_image == IMAGE
-    assert len(decision.source_build_receipt.dependency_pins) >= 3
+    assert (
+        "python_package_source_sha256=" + "1" * 64 in decision.source_build_receipt.dependency_pins
+    )
+
+
+def test_source_build_without_workload_dependency_inventory_fails_closed():
+    verification = _isolated_verification().model_copy(update={"acquisition_dependency_pins": []})
+
+    decision = select_acquisition(
+        entry=_entry(),
+        source_revision=REVISION,
+        local_verification=verification,
+        unavailable_detail="missing dependency inventory",
+        resolution=_resolution(found=False),
+    )
+
+    assert decision.outcome == "BLOCKED_LOCAL_VERIFICATION"
+    assert decision.truth_eligible is False
+    assert decision.source_build_receipt is None
 
 
 def test_later_isolated_proof_reconciles_the_same_negative_registry_receipt():

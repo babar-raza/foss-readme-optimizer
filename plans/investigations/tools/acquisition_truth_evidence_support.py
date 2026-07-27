@@ -2,27 +2,13 @@
 
 from __future__ import annotations
 
-import hashlib
-import json
-import subprocess
+import os
 from pathlib import Path
 from typing import Any
 
 from readme_agent.ecosystems.resolver import ResolutionResult
-from readme_agent.ecosystems.rust_api_schema import (
-    RustPackageLayoutV1,
-    RustPublicApiSurfaceV1,
-)
-from readme_agent.ecosystems.rust_format_truth import extract_rust_format_evidence
-from readme_agent.ecosystems.rust_package_layout import pinned_rust_git_dependency
-from readme_agent.ecosystems.typescript_api_schema import (
-    TypeScriptPackageLayoutV1,
-    TypeScriptPublicApiSurfaceV1,
-)
 from readme_agent.facts.acquisition import select_acquisition
-from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
-from readme_agent.facts.isolated_execution_schema import IsolatedExecutionResultV1
 from readme_agent.registry.loader import load_products
 from readme_agent.registry.models import ProductEntry
 
@@ -30,142 +16,54 @@ IMPLEMENTATION_PATHS = (
     "src/readme_agent/ecosystems/registry_request.py",
     "src/readme_agent/ecosystems/resolver.py",
     "src/readme_agent/facts/acquisition.py",
+    "src/readme_agent/facts/acquisition_pins.py",
     "src/readme_agent/facts/acquisition_schema.py",
     "src/readme_agent/facts/acceptance_contract.py",
+    "src/readme_agent/facts/example_verification_schema.py",
+    "src/readme_agent/facts/python_example_verifier.py",
+    "src/readme_agent/facts/typescript_example_verifier.py",
+    "src/readme_agent/facts/rust_example_verifier.py",
     "src/readme_agent/facts/provider.py",
     "src/readme_agent/facts/schema_v2.py",
     "src/readme_agent/capabilities/draft_product_truth.py",
     "tests/unit/test_acquisition.py",
+    "tests/unit/test_acquisition_pins.py",
     "tests/unit/test_ecosystem_resolver.py",
+    "tests/unit/test_fact_acceptance_contract.py",
     "tests/unit/test_facts_provider.py",
 )
+EVIDENCE_MACHINERY_PATHS = (
+    "plans/investigations/tools/acquisition_truth_evidence_checks.py",
+    "plans/investigations/tools/acquisition_truth_evidence_sources.py",
+    "plans/investigations/tools/acquisition_truth_evidence_support.py",
+)
+REPRESENTATIVE_BASELINE_NAMES = {
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": (
+        "aspose-cells-foss__Aspose.Cells-FOSS-for-Java"
+    ),
+    "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": "aspose-3d-foss__Aspose.3D-FOSS-for-.NET",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp": ("aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp"),
+    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go": "aspose-pdf-foss__Aspose-PDF-FOSS-for-Go",
+    "aspose-3d-foss/Aspose.3D-FOSS-for-Python": ("aspose-3d-foss__Aspose.3D-FOSS-for-Python"),
+    "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript": (
+        "aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript"
+    ),
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust": (
+        "aspose-cells-foss__Aspose.Cells-FOSS-for-Rust"
+    ),
+}
 
 
-def verify_evidence_inventory(root: Path) -> dict[str, Any]:
-    """Verify committed evidence bytes without regenerating its expensive proof."""
+def representative_roots(repository_root: Path) -> dict[str, Path]:
+    """Resolve the seven immutable representative baselines for this proof."""
 
-    inventory = root / "sha256sums.txt"
-    repository_root = Path(
-        subprocess.run(
-            ["git", "-C", str(root), "rev-parse", "--show-toplevel"],
-            check=True,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-        ).stdout.strip()
-    )
-
-    def committed_bytes(path: Path) -> bytes:
-        relative = path.resolve().relative_to(repository_root.resolve()).as_posix()
-        return subprocess.run(
-            ["git", "-C", str(repository_root), "show", f"HEAD:{relative}"],
-            check=True,
-            capture_output=True,
-        ).stdout
-
-    mismatches: list[str] = []
-    records: list[dict[str, str]] = []
-    for line in inventory.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        expected, relative = line.split("  ", 1)
-        observed = hashlib.sha256(committed_bytes(root / relative)).hexdigest()
-        records.append({"path": relative, "sha256": observed})
-        if observed != expected:
-            mismatches.append(relative)
-    verification = json.loads((root / "verification.json").read_text(encoding="utf-8"))
-    return {
-        "path": root.as_posix(),
-        "verification_verdict": verification.get("verdict"),
-        "inventory_sha256": hashlib.sha256(committed_bytes(inventory)).hexdigest(),
-        "file_count": len(records),
-        "mismatches": mismatches,
-        "accepted": verification.get("verdict") == "VERIFIED" and not mismatches,
-    }
-
-
-def _diagnostic(isolated: IsolatedExecutionResultV1) -> ExampleExecutionResultV1:
-    return ExampleExecutionResultV1(
-        argv=isolated.argv,
-        return_code=isolated.return_code,
-        stdout=isolated.stdout,
-        stderr=isolated.stderr,
-        timed_out=isolated.timed_out,
-        environment_names=isolated.environment_names,
-        isolation_kind="isolated_result_projection",
-    )
-
-
-def load_python_verification(path: Path) -> LocalProductVerificationV1:
-    """Load the canonical Python verifier output, which already uses the shared contract."""
-
-    return LocalProductVerificationV1.model_validate_json(path.read_text(encoding="utf-8"))
-
-
-def load_typescript_verification(path: Path) -> LocalProductVerificationV1:
-    """Project the accepted TypeScript consumer proof into the shared verification contract."""
-
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    isolated = IsolatedExecutionResultV1.model_validate(payload["isolated_execution"])
-    package = TypeScriptPackageLayoutV1.model_validate(payload["package"])
-    surface = TypeScriptPublicApiSurfaceV1.model_validate(payload["surface"])
-    accepted = payload["accepted"] is True and isolated.truth_eligible
-    return LocalProductVerificationV1(
-        org_repo=payload["org_repo"],
-        source_revision=payload["source_revision"],
-        ecosystem="typescript",
-        outcome="SOURCE_BUILD_VERIFIED" if accepted else "BUILD_FAILED",
-        detail=(
-            "pinned built package and exact TypeScript consumer compiled"
-            if accepted
-            else "TypeScript source-build proof was not accepted"
-        ),
-        build=_diagnostic(isolated),
-        example_compile=_diagnostic(isolated),
-        isolated_execution=isolated if accepted else None,
-        truth_eligible=accepted,
-        verified_public_symbols=payload["verified_symbols"] if accepted else [],
-        public_api_sha256=surface.canonical_hash() if accepted else None,
-        typescript_package=package if accepted else None,
-    )
-
-
-def load_rust_verification(path: Path) -> LocalProductVerificationV1:
-    """Project the accepted locked Cargo proof into the shared verification contract."""
-
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    isolated = IsolatedExecutionResultV1.model_validate(payload["isolated_execution"])
-    package = RustPackageLayoutV1.model_validate(payload["package"])
-    surface = RustPublicApiSurfaceV1.model_validate(payload["surface"])
-    accepted = payload["accepted"] is True and isolated.truth_eligible
-    return LocalProductVerificationV1(
-        org_repo=payload["org_repo"],
-        source_revision=payload["source_revision"],
-        ecosystem="rust",
-        outcome="SOURCE_BUILD_VERIFIED" if accepted else "BUILD_FAILED",
-        detail=(
-            "source-pinned crate and exact external Rust consumer passed locked offline Cargo check"
-            if accepted
-            else "Rust source-build proof was not accepted"
-        ),
-        build=_diagnostic(isolated),
-        example_compile=_diagnostic(isolated),
-        isolated_execution=isolated if accepted else None,
-        truth_eligible=accepted,
-        verified_public_symbols=payload["verified_symbols"] if accepted else [],
-        public_api_sha256=surface.canonical_hash() if accepted else None,
-        rust_package=package if accepted else None,
-        rust_formats=extract_rust_format_evidence(surface) if accepted else [],
-        rust_source_dependency=(
-            pinned_rust_git_dependency(
-                package,
-                org_repo=payload["org_repo"],
-                source_revision=payload["source_revision"],
-            )
-            if accepted
-            else None
-        ),
-    )
+    baseline = Path(
+        os.environ.get(
+            "README_AGENT_ACQUISITION_BASELINE_ROOT",
+            str(repository_root / "runs/baseline"),
+        )
+    ).resolve()
+    return {org_repo: baseline / name for org_repo, name in REPRESENTATIVE_BASELINE_NAMES.items()}
 
 
 def _entry(org_repo: str) -> ProductEntry:

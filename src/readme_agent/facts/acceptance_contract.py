@@ -48,8 +48,14 @@ VISITOR_RENDER_FIELDS = (
 _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
     "acquisition_truth": (
         "acquisition.py",
+        "acquisition_pins.py",
         "acquisition_schema.py",
+        "example_verification_schema.py",
+        "python_example_verifier.py",
+        "typescript_example_verifier.py",
+        "rust_example_verifier.py",
         "../ecosystems/foss_coordinate.py",
+        "../ecosystems/registry_request.py",
         "../ecosystems/resolver.py",
     ),
     "classification_semantics": ("acceptance_contract.py",),

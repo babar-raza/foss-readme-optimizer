@@ -6,6 +6,7 @@ import re
 
 from readme_agent.ecosystems.typescript_api_schema import TypeScriptConsumerExampleV1
 from readme_agent.ecosystems.typescript_package_layout import inspect_typescript_package_layout
+from readme_agent.facts.acquisition_pins import typescript_acquisition_pins
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.typescript_consumer import prove_typescript_consumer
@@ -85,4 +86,5 @@ def verify(
         verified_public_symbols=proof.verified_symbols,
         public_api_sha256=proof.surface.canonical_hash() if proof.surface else None,
         typescript_package=package,
+        acquisition_dependency_pins=typescript_acquisition_pins(proof),
     )

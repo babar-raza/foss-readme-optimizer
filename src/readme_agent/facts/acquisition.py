@@ -70,6 +70,7 @@ def _source_build_receipt(
         or verification.source_revision != source_revision
         or verification.isolated_execution.org_repo != org_repo
         or verification.isolated_execution.source_revision != source_revision
+        or not verification.acquisition_dependency_pins
     ):
         return None
     isolated = verification.isolated_execution
@@ -82,6 +83,7 @@ def _source_build_receipt(
         pins.add(f"public_api_sha256={verification.public_api_sha256}")
     if verification.rust_source_dependency is not None:
         pins.add(f"rust_source_dependency={verification.rust_source_dependency}")
+    pins.update(verification.acquisition_dependency_pins)
     return SourceBuildReceiptV1(
         org_repo=org_repo,
         source_revision=verification.source_revision,

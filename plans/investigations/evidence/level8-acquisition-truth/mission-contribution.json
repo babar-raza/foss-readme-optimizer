@@ -6,12 +6,17 @@
   ],
   "core_contribution": {
     "kind": "visible_deliverable",
-    "summary": "Select registry-verified coordinates or exact revision-bound isolated source-build paths without converting unpublished packages into global blocks."
+    "summary": "Select a registry-verified coordinate when published and a reproducible source-build path otherwise, while executing repository or dependency build code only inside a disposable OS-isolated executor with bounded resources and deny-by-default network."
   },
   "acceptance_checks_passed": [
     "False coordinates cannot reach FACTS_READY",
-    "Unpublished packages with verified isolated builds remain truth eligible",
-    "Host-only source builds cannot become verified truth"
+    "unpublished packages with verified builds are not globally blocked",
+    "A source-build result produced by an unsandboxed host subprocess is ineligible for verified truth"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-acquisition-truth/acquisition-decisions.json",
+    "plans/investigations/evidence/level8-acquisition-truth/source-proof-inventories.json",
+    "plans/investigations/evidence/level8-acquisition-truth/verification.json"
   ],
   "scoreboard_before_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
   "scoreboard_after_sha256": "3c621295615222c125c89c208f4b78a846f561a11f7de631cd56ee3e28311ca3",
