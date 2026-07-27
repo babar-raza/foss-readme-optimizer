@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+    "claim_expires_at": "2026-07-27T22:36:58.602169+00:00",
+    "claim_id": "028b847db9b54be68e35f9a73cc0db35",
+    "claimed_at": "2026-07-27T22:06:58.602169+00:00",
+    "claimed_by": "Codex",
     "graph_sha256": "a7e4486a4ddb35a36efb44092893f06d870d003295b665d9d21e0e26dd25c7c5",
-    "last_evaluated_at": "2026-07-27T22:06:41.811199+00:00",
+    "last_evaluated_at": "2026-07-27T22:06:58.602169+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -144,7 +144,7 @@
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "CLOSED",
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
-      "L8-TRUTH-03-CLAIM-POLARITY": "REGRESSED",
+      "L8-TRUTH-03-CLAIM-POLARITY": "IN_PROGRESS",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
@@ -2617,6 +2617,15 @@
         "reason": "Current implementation hashes differ materially from the closed proof: Python drafting repaired false limitation inference from positive 'is not None' evidence, so the directional-evidence contract requires current reproduction.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T22:06:58.602235+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -2625,7 +2634,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 300,
+  "state_version": 301,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
