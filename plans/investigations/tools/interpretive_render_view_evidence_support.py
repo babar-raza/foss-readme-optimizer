@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from pathlib import Path
 from typing import Any
 
@@ -124,4 +126,95 @@ def build_interpretive_controls(representative_root: Path) -> dict[str, Any]:
                 "manifest_names" not in " ".join(java_identity.phrases)
             ),
         },
+    }
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def build_live_python_regression_control(
+    bundle_root: Path,
+    supervisor_manifest_path: Path,
+) -> dict[str, Any]:
+    """Prove a repaired live run fails narrowly instead of emitting invalid citations."""
+    facts_path = bundle_root / "facts/product-facts.json"
+    bundle_manifest_path = bundle_root / "manifest.json"
+    facts = ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
+    bundle_manifest = json.loads(bundle_manifest_path.read_text(encoding="utf-8"))
+    supervisor_manifest = json.loads(supervisor_manifest_path.read_text(encoding="utf-8"))
+
+    audience = facts.selected_fact("product.audience")
+    problem = facts.selected_fact("product.problems_solved")
+    audience_support = [facts.fact_by_id(fact_id) for fact_id in audience.supporting_fact_ids]
+    problem_view = visitor_fact_render_view(facts, "product.problems_solved")
+    checkpoints = supervisor_manifest.get("checkpoints", [])
+    latest_run_id = supervisor_manifest.get("run_id")
+    latest_checkpoints = [
+        checkpoint for checkpoint in checkpoints if checkpoint.get("run_id") == latest_run_id
+    ]
+    latest_stages = [checkpoint.get("stage") for checkpoint in latest_checkpoints]
+
+    checks = {
+        "product_facts_v2_valid": True,
+        "bundle_blocked_narrowly": (
+            bundle_manifest.get("lifecycle_status") == "BLOCKED_MISSING_EVIDENCE"
+        ),
+        "audience_verified_with_eligible_support": (
+            audience.verification_state == "verified"
+            and bool(audience.supporting_fact_ids)
+            and all(
+                supporting is not None and supporting.verification_state == "verified"
+                for supporting in audience_support
+            )
+        ),
+        "blocked_problem_has_no_citations": (
+            problem.verification_state == "blocked"
+            and not problem.supporting_fact_ids
+            and problem_view is None
+        ),
+        "stage_ceiling_preserved": (
+            bundle_manifest.get("completed_stages")
+            == ["SNAPSHOTTED", "PROFILED", "BLOCKED_MISSING_EVIDENCE"]
+            and "final_acceptance" in latest_stages
+            and not {
+                "candidate_generated",
+                "deterministic_validated",
+                "agent_reviewing",
+                "effect_requested",
+            }.intersection(latest_stages)
+        ),
+        "verifier_and_effects_not_run": (
+            supervisor_manifest.get("verifier", {}).get("status") == "not_run"
+            and supervisor_manifest.get("effects") == []
+        ),
+        "exact_three_call_accounting": (
+            bundle_manifest.get("llm_accounting_status") == "EXACT"
+            and bundle_manifest.get("llm_call_count") == 3
+            and bundle_manifest.get("llm_calls_by_job") == {"draft_product_truth": 3}
+        ),
+    }
+    return {
+        "repository": facts.org_repo,
+        "source_revision": bundle_manifest.get("source_revision"),
+        "lifecycle_status": bundle_manifest.get("lifecycle_status"),
+        "facts_sha256": _sha256(facts_path),
+        "bundle_manifest_sha256": _sha256(bundle_manifest_path),
+        "supervisor_manifest_sha256": _sha256(supervisor_manifest_path),
+        "audience": {
+            "fact_id": audience.fact_id,
+            "verification_state": audience.verification_state,
+            "supporting_fact_ids": audience.supporting_fact_ids,
+            "render_view": visitor_fact_render_view(facts, "product.audience").model_dump(
+                mode="json"
+            ),
+        },
+        "problem": {
+            "fact_id": problem.fact_id,
+            "verification_state": problem.verification_state,
+            "supporting_fact_ids": problem.supporting_fact_ids,
+            "render_view": None,
+        },
+        "latest_checkpoint_stages": latest_stages,
+        "checks": checks,
     }

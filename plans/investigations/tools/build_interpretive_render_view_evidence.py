@@ -10,7 +10,10 @@ from pathlib import Path
 from typing import Any
 
 from filelock import FileLock, Timeout
-from interpretive_render_view_evidence_support import build_interpretive_controls
+from interpretive_render_view_evidence_support import (
+    build_interpretive_controls,
+    build_live_python_regression_control,
+)
 
 from readme_agent.evidence.writer import (
     refresh_sha256sums,
@@ -34,14 +37,28 @@ REPRESENTATIVE_ROOT = (
     / "representatives"
 )
 PROMPT_PATH = REPO_ROOT / "prompts/generation/draft_product_truth.yaml"
+LIVE_PYTHON_BUNDLE = (
+    REPO_ROOT
+    / "runs/readme-poc"
+    / "aspose-3d-foss__Aspose.3D-FOSS-for-Python"
+    / "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
+)
+LIVE_PYTHON_SUPERVISOR_MANIFEST = REPO_ROOT / "runs/evidence/20260727-190335-7f10/manifest.json"
+LIVE_PYTHON_FIRST_FAILURE_LOG = (
+    REPO_ROOT / "runs/level8-truth-seven-ecosystems/supervise.stderr.log"
+)
+LIVE_PYTHON_RETRY_STDOUT = REPO_ROOT / "runs/level8-truth-seven-ecosystems/python-retry.stdout.log"
+LIVE_PYTHON_RETRY_STDERR = REPO_ROOT / "runs/level8-truth-seven-ecosystems/python-retry.stderr.log"
 TASK_ID = "L8-TRUTH-06-INTERPRETIVE-VIEWS"
 PYTHON = sys.executable
 IMPLEMENTATION_PATHS = (
     "src/readme_agent/facts/acceptance_contract.py",
     "src/readme_agent/facts/agentic_drafting.py",
     "src/readme_agent/facts/interpretive_evidence.py",
+    "src/readme_agent/facts/interpretive_resolution.py",
     "src/readme_agent/facts/render_views.py",
     "src/readme_agent/facts/schema_v2.py",
+    "src/readme_agent/capabilities/draft_product_truth.py",
 )
 EVIDENCE_MACHINERY_PATHS = (
     "plans/investigations/tools/build_interpretive_render_view_evidence.py",
@@ -54,6 +71,7 @@ FOCUSED_COMMAND = (
     "-q",
     "tests/unit/test_agentic_drafting.py",
     "tests/unit/test_interpretive_evidence.py",
+    "tests/unit/test_interpretive_resolution.py",
     "tests/unit/test_fact_render_views.py",
     "tests/unit/test_fact_acceptance_contract.py",
     "tests/unit/test_draft_product_truth_capability.py",
@@ -99,6 +117,10 @@ def _build(run_official: bool) -> list[str]:
     start_status = _git("status", "--porcelain=v1", "--untracked-files=all")
     head = _git("rev-parse", "HEAD")
     controls = build_interpretive_controls(REPRESENTATIVE_ROOT)
+    live_python = build_live_python_regression_control(
+        LIVE_PYTHON_BUNDLE,
+        LIVE_PYTHON_SUPERVISOR_MANIFEST,
+    )
     focused = _run(FOCUSED_COMMAND)
     official = _run(OFFICIAL_COMMAND) if run_official else None
     audience = controls["typescript_audience"]
@@ -121,6 +143,7 @@ def _build(run_official: bool) -> list[str]:
             and controls["java_identity"]["render_view"]["phrases"]
         ),
         "negative_controls_pass": all(controls["negative_controls"].values()),
+        "live_python_citation_failure_eliminated": all(live_python["checks"].values()),
         "focused_tests_pass": focused["exit_code"] == 0,
         "official_checks_pass": official is not None and official["exit_code"] == 0,
         "tree_stable": (
@@ -132,6 +155,19 @@ def _build(run_official: bool) -> list[str]:
     output_dir = FAILURE_DIR if failures else EVIDENCE_DIR
     output_dir.mkdir(parents=True, exist_ok=True)
     write_redacted_json(output_dir / "interpretive-render-controls.json", controls)
+    write_redacted_json(output_dir / "live-python-regression-control.json", live_python)
+    write_redacted_text(
+        output_dir / "live-python-first-failure.stderr.log",
+        LIVE_PYTHON_FIRST_FAILURE_LOG.read_text(encoding="utf-8", errors="replace"),
+    )
+    write_redacted_text(
+        output_dir / "live-python-retry.stdout.log",
+        LIVE_PYTHON_RETRY_STDOUT.read_text(encoding="utf-8", errors="replace"),
+    )
+    write_redacted_text(
+        output_dir / "live-python-retry.stderr.log",
+        LIVE_PYTHON_RETRY_STDERR.read_text(encoding="utf-8", errors="replace"),
+    )
     write_redacted_text(output_dir / "focused-tests.stdout.log", focused["stdout"])
     write_redacted_text(output_dir / "focused-tests.stderr.log", focused["stderr"])
     if official is not None:
@@ -193,6 +229,8 @@ def _build(run_official: bool) -> list[str]:
                     "interpretive-render-controls.json",
                     "plans/investigations/evidence/level8-interpretive-render-views/"
                     "verification.json",
+                    "plans/investigations/evidence/level8-interpretive-render-views/"
+                    "live-python-regression-control.json",
                 ],
                 "scoreboard_before_sha256": lifecycle_scoreboard_sha256(scoreboard),
                 "scoreboard_after_sha256": lifecycle_scoreboard_sha256(scoreboard),
