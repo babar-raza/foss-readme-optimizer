@@ -9,6 +9,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from readme_agent.facts.evidence_polarity import EvidencePolarityAssessmentV1
 from readme_agent.facts.root_role_schema import PackageRootRoleInventoryV1
 
 FactSourceType = Literal[
@@ -111,6 +112,7 @@ class FactRecordV2(_StrictModel):
     authoritative_owner: str = Field(min_length=1)
     confidence: float = Field(ge=0.0, le=1.0)
     conflicts: list[FactConflictV2] = Field(default_factory=list)
+    evidence_assessments: list[EvidencePolarityAssessmentV1] | None = None
     affected_surfaces: list[str] = Field(min_length=1)
 
     @field_validator("fact_id", "field")
@@ -148,6 +150,32 @@ class FactRecordV2(_StrictModel):
                 "agent-drafted facts cannot claim policy_approved; "
                 "that state requires explicit human sign-off in policy YAML"
             )
+        return self
+
+    @model_validator(mode="after")
+    def _bind_directional_evidence(self) -> FactRecordV2:
+        if self.evidence_assessments is None:
+            return self
+        expected_polarity = (
+            "explicit_constraint"
+            if self.field == "product.limitations"
+            else "positive_implementation"
+        )
+        for assessment in self.evidence_assessments:
+            if assessment.fact_id != self.fact_id:
+                raise ValueError("evidence assessment fact ID must match its fact record")
+            if assessment.expected_polarity != expected_polarity:
+                raise ValueError("evidence assessment polarity must match the fact field")
+            if (
+                self.source.source_revision is not None
+                and assessment.source_revision != self.source.source_revision
+            ):
+                raise ValueError("evidence assessment revision must match its fact source")
+            if (
+                self.verification_state in {"verified", "policy_approved"}
+                and not assessment.accepted
+            ):
+                raise ValueError("accepted fact cannot retain rejected directional evidence")
         return self
 
     @property
@@ -212,6 +240,9 @@ class ProductFactsV2(_StrictModel):
         # of looking like evidence corruption.
         if self.package_root_roles is None:
             payload.pop("package_root_roles", None)
+        for fact, fact_payload in zip(self.facts, payload["facts"], strict=True):
+            if fact.evidence_assessments is None:
+                fact_payload.pop("evidence_assessments", None)
         canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 

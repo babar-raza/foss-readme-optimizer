@@ -5,6 +5,11 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from readme_agent.facts.evidence_polarity import (
+    EvidencePolarityAssessmentV1,
+    ExpectedEvidencePolarity,
+    assess_evidence_polarity,
+)
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.schema_v2 import (
     FactRecordV2,
@@ -14,12 +19,6 @@ from readme_agent.facts.schema_v2 import (
 from readme_agent.registry.models import EvidenceBackedProductFact
 
 _IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
-_LIMITATION_CUE = re.compile(
-    r"(?:\b(?:cannot|deprecated|experimental|incomplete|limited|limitation|"
-    r"not|only|out\s+of\s+scope|partial|requires?|unavailable|unsupported)\b|"
-    r"(?:NotImplemented|NotSupported|Unsupported)[A-Za-z0-9_]*Exception)",
-    re.IGNORECASE,
-)
 
 
 def safe_evidence_paths(root: Path, paths: list[str]) -> tuple[list[Path], list[str]]:
@@ -80,18 +79,40 @@ def evidence_fact_candidate(
     values: list[str] = []
     locations: list[str] = []
     failures: list[str] = []
+    assessments: list[EvidencePolarityAssessmentV1] = []
+    fact_id = descriptive_fact_id(field_name, "repository-evidence")
+    expected_polarity: ExpectedEvidencePolarity = (
+        "explicit_constraint" if field_name == "product.limitations" else "positive_implementation"
+    )
     for specification in specifications:
-        failures.extend(
-            evidence_failures(
-                root,
-                specification.evidence_paths,
-                specification.required_symbols,
-            )
+        structural_failures = evidence_failures(
+            root,
+            specification.evidence_paths,
+            specification.required_symbols,
         )
+        failures.extend(structural_failures)
+        if not structural_failures:
+            for anchor in specification.required_symbols:
+                assessment = assess_evidence_polarity(
+                    root=root,
+                    evidence_paths=specification.evidence_paths,
+                    anchor=anchor,
+                    fact_id=fact_id,
+                    claim_text=specification.value,
+                    expected_polarity=expected_polarity,
+                    source_revision=source_revision,
+                    observed_at=observed_at,
+                )
+                if assessment is None:
+                    failures.append(f"polarity evidence anchor unresolved: {anchor}")
+                else:
+                    assessments.append(assessment)
+                    if not assessment.accepted:
+                        failures.append(f"{assessment.reason}: {specification.value}")
         values.append(specification.value)
         locations.extend(specification.evidence_paths)
     return FactRecordV2(
-        fact_id=descriptive_fact_id(field_name, "repository-evidence"),
+        fact_id=fact_id,
         field=field_name,
         value={"assertions": values, "evidence_failures": failures} if failures else values,
         source=FactSourceV2(
@@ -103,6 +124,7 @@ def evidence_fact_candidate(
         verification_state="blocked" if failures else "verified",
         authoritative_owner="repository-owner",
         confidence=0.0 if failures else 1.0,
+        evidence_assessments=assessments,
         affected_surfaces=SURFACE_DEPENDENCIES[field_name],
     )
 
@@ -121,32 +143,10 @@ def limitation_fact_candidate(
     a constraint. An empty limitations list remains an honest verified result.
     """
 
-    candidate = evidence_fact_candidate(
+    return evidence_fact_candidate(
         root,
         source_revision,
         observed_at,
         "product.limitations",
         specifications,
-    )
-    semantic_failures = [
-        (f"limitation evidence does not express a constraint: {specification.value}")
-        for specification in specifications
-        if not any(_LIMITATION_CUE.search(symbol) for symbol in specification.required_symbols)
-    ]
-    if not semantic_failures:
-        return candidate
-    existing_failures = (
-        list(candidate.value.get("evidence_failures", []))
-        if isinstance(candidate.value, dict)
-        else []
-    )
-    return candidate.model_copy(
-        update={
-            "value": {
-                "assertions": [specification.value for specification in specifications],
-                "evidence_failures": existing_failures + semantic_failures,
-            },
-            "verification_state": "blocked",
-            "confidence": 0.0,
-        }
     )

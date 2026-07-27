@@ -468,7 +468,7 @@ class TestRealGateSpies:
 
         limitation = result.gated_facts["product.limitations"]
         assert limitation.verification_state == "blocked"
-        assert "does not express a constraint" in str(limitation.value)
+        assert "contradicts expected explicit_constraint" in str(limitation.value)
 
     def test_explicit_constraint_anchor_can_prove_a_limitation(self, tmp_path):
         root = _make_repo(tmp_path)
@@ -482,7 +482,7 @@ class TestRealGateSpies:
                     EvidenceBackedProductFact(
                         value="Streaming mode is not supported.",
                         evidence_paths=["LIMITATIONS.md"],
-                        required_symbols=["not supported"],
+                        required_symbols=["Streaming mode is not supported."],
                     )
                 ]
             }

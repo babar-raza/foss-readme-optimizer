@@ -49,7 +49,11 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
     "conflict_semantics": ("acceptance_contract.py", "schema_v2.py"),
     "fact_schema": ("schema_v2.py",),
     "fact_eligibility": ("gating.py",),
-    "evidence_polarity": ("policy_evidence.py", "interpretive_evidence.py"),
+    "evidence_polarity": (
+        "evidence_polarity.py",
+        "policy_evidence.py",
+        "interpretive_evidence.py",
+    ),
     "root_role_selection": (
         "root_role_schema.py",
         "root_role_evidence.py",
