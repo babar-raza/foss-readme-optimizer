@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
-    "claim_expires_at": "2026-07-27T20:39:50.041466+00:00",
-    "claim_id": "7a013e3abfba4f6c95f70d3f4788eee8",
-    "claimed_at": "2026-07-27T20:09:50.041466+00:00",
-    "claimed_by": "Codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "a7e4486a4ddb35a36efb44092893f06d870d003295b665d9d21e0e26dd25c7c5",
-    "last_evaluated_at": "2026-07-27T21:01:23.241102+00:00",
+    "last_evaluated_at": "2026-07-27T21:44:47.184884+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -64,16 +64,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "visible_deliverable",
-        "summary": "Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs for selected examples in the same disposable OS-isolated executor used for acquisition proof."
-      },
-      "goal_ids": [
-        "GOAL-TRUTH"
-      ],
-      "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -147,7 +138,7 @@
       "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
-      "L8-TRUTH-05-PUBLIC-EXAMPLES": "IN_PROGRESS",
+      "L8-TRUTH-05-PUBLIC-EXAMPLES": "IMPLEMENTED",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
@@ -2559,6 +2550,18 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-public-examples/example-verifications-summary.json",
+          "plans/investigations/evidence/level8-public-examples/curated-readme-controls.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T21:44:47.184879+00:00",
+        "reason": "Implemented comment-free, source-pinned, public-symbol-bound examples for all seven supported ecosystems, including .NET namespace and Python consumer repairs.",
+        "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -2567,7 +2570,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 295,
+  "state_version": 296,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
