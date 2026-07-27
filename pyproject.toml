@@ -29,6 +29,14 @@ dependencies = [
     # Proof publishers use a process-safe lock so concurrent sessions cannot
     # interleave files inside one checksum-addressed evidence root.
     "filelock>=3.12",
+    # Rust public-API truth needs syntax-aware module, visibility, re-export,
+    # trait, implementation, and member resolution. Use the maintained
+    # language grammar instead of textual `pub` matching or a bespoke parser.
+    # 0.26.0 has a reproducible Windows access violation while retaining and
+    # traversing nodes from the real Cells/Rust module graph. 0.25.2 exposes
+    # the same ABI/grammar contract without corrupting retained nodes.
+    "tree-sitter>=0.25.2,<0.26",
+    "tree-sitter-rust>=0.24.2,<0.25",
 ]
 
 [project.optional-dependencies]
