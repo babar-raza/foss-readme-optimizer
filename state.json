@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "a7e4486a4ddb35a36efb44092893f06d870d003295b665d9d21e0e26dd25c7c5",
-    "last_evaluated_at": "2026-07-27T21:45:22.738036+00:00",
+    "last_evaluated_at": "2026-07-27T22:06:19.874462+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -138,7 +138,7 @@
       "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
-      "L8-TRUTH-05-PUBLIC-EXAMPLES": "SCORED",
+      "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
@@ -2586,6 +2586,17 @@
         "reason": "Acceptance score is complete: 7/7 ecosystems truth-eligible and comment-free, focused 111/111 passed, official suite 1920/1920 passed with 41 deselected.",
         "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-public-examples/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T22:06:19.874449+00:00",
+        "reason": "Closed after the graph-derived contribution record covered all eight governed acceptance checks and the clean-HEAD replacement proof passed.",
+        "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -2594,7 +2605,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 298,
+  "state_version": 299,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
