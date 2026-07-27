@@ -461,6 +461,9 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         select_portfolio_trigger,
         write_portfolio_summary,
     )
+    from readme_agent.supervisor.portfolio_stage_cache import (
+        completed_bounded_product_truth_status,
+    )
 
     zero_llm_accounting: _PortfolioLlmAccounting = {
         "llm_accounting_status": "EXACT",
@@ -527,9 +530,17 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     repo,
                     lifecycle.source_revision,
                 )
-                if readme_poc_stage_limit is None and (
-                    complete_status := completed_local_poc_status(persisted, bundle_dir)
-                ):
+                complete_status = (
+                    completed_local_poc_status(persisted, bundle_dir)
+                    if readme_poc_stage_limit is None
+                    else completed_bounded_product_truth_status(
+                        state_backend,
+                        entry.org_repo,
+                        bundle_dir,
+                        readme_poc_stage_limit,
+                    )
+                )
+                if complete_status:
                     from readme_agent.evidence.writer import generate_run_id
                     from readme_agent.llm.call_ledger import (
                         bind_llm_repository_revision,
@@ -549,8 +560,16 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                         stage="NO_OP_PROOF",
                     )
                     record_non_provider_call(
-                        job="local_poc_complete_bundle",
-                        prompt_id="local_poc_complete_bundle",
+                        job=(
+                            "local_poc_complete_bundle"
+                            if readme_poc_stage_limit is None
+                            else "local_poc_bounded_stage_bundle"
+                        ),
+                        prompt_id=(
+                            "local_poc_complete_bundle"
+                            if readme_poc_stage_limit is None
+                            else "local_poc_bounded_stage_bundle"
+                        ),
                         prompt_sha256=None,
                         model="cache",
                         disposition="cache_reuse",
@@ -558,6 +577,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                             "org_repo": entry.org_repo,
                             "source_revision": lifecycle.source_revision,
                             "status": complete_status,
+                            "requested_stage": readme_poc_stage_limit,
                         },
                     )
                     results.append(
@@ -572,8 +592,8 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     )
                     continue
             # Recover only expired work. An explicitly retryable trigger can
-            # resume immediately; an unexpired accepted/processing trigger is
-            # still owned by another worker and must never be stolen.
+            # resume immediately; an unexpired accepted/processing trigger
+            # belongs to the sole operator's current or interrupted invocation.
             recovery_sweep(state_backend, [entry.org_repo])
             trigger_selection = select_portfolio_trigger(state_backend.load(entry.org_repo))
             if trigger_selection.active_trigger_key is not None:

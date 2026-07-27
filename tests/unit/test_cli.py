@@ -870,6 +870,78 @@ class TestLocalPocPortfolioCommand:
         assert '"execution_slice_complete": false' in rendered
         assert '"registry_count": 2' in rendered
 
+    def test_bounded_registry_pass_skips_current_fact_bundle_and_advances(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.paths as paths
+        import readme_agent.registry.loader as loader_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.portfolio_stage_cache as stage_cache_module
+        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+        from readme_agent.state.schema import RunStateV2
+        from tests.unit.test_state_backend import FakeStateBackend
+
+        backend = FakeStateBackend()
+        backend.save(
+            "org/one",
+            RunStateV2(
+                org_repo="org/one",
+                readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                    org_repo="org/one",
+                    source_revision="a" * 40,
+                    status="FACTS_READY",
+                ),
+            ),
+            None,
+        )
+        monkeypatch.setattr(
+            loader_module,
+            "load_products",
+            lambda path: (
+                argparse.Namespace(org_repo="org/one"),
+                argparse.Namespace(org_repo="org/two"),
+            ),
+        )
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            paths,
+            "readme_poc_portfolio_summary_path",
+            lambda: tmp_path / "summary.json",
+        )
+        monkeypatch.setattr(
+            stage_cache_module,
+            "completed_bounded_product_truth_status",
+            lambda state_backend, org_repo, bundle_dir, requested_stage: (
+                "FACTS_READY" if org_repo == "org/one" else None
+            ),
+        )
+        calls: list[str] = []
+
+        def _fake_member_run(member_args):
+            calls.append(member_args.repo)
+            member_args._terminal_supervise_result = _terminal_supervise_result()
+            return 0
+
+        monkeypatch.setattr(supervision_module, "cmd_supervise", _fake_member_run)
+        args = argparse.Namespace(
+            registry="data/products.json",
+            execution_profile="local_poc",
+            domain=None,
+            resume_trigger_key=None,
+            no_registry_heal=False,
+            max_readme_poc_stage="FACTS_READY",
+            portfolio_time_budget_seconds=0,
+        )
+
+        assert supervision_module._cmd_supervise_registry(args) == 0
+        assert calls == ["org/two"]
+        rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
+        assert '"org_repo": "org/one"' in rendered
+        assert '"status": "FACTS_READY"' in rendered
+        assert '"llm_cache_reuse_count": 1' in rendered
+        assert '"execution_slice_complete": true' in rendered
+
     def test_recovered_terminal_member_still_honors_slice_budget(self, monkeypatch, tmp_path):
         import readme_agent.commands_supervision as supervision_module
         import readme_agent.paths as paths
