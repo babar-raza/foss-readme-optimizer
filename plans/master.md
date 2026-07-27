@@ -95,14 +95,14 @@ Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-req
 
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
-under `act` → isolated staging → production**. At the latest 2026-07-26 checkpoint, durable state
-version 209 closed `L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION` and claimed `L8-TRUTH-03A-ISOLATED-EXECUTOR`. The
-31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
-`HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. The 91-task graph and 425-row
-coverage validate at SHA-256 `e9225ca994924b19b3d1774f66fd9e3bf92c1f56b8a2ff692e809361d70e000a`.
-Clean commit `2864834` passed all official checks (1,787 tests). Python, TypeScript, and Rust use
-only pinned sibling blobs and clean local seams; dirty/unlicensed sibling source is excluded.
-LLM accounting and prompt-drift gates remain active; pre-ledger bundles remain `UNKNOWN_LEGACY`.
+under `act` → isolated staging → production**. At the latest 2026-07-27 checkpoint, durable state
+version 214 closed `L8-TRUTH-03A-ISOLATED-EXECUTOR` and claimed `L8-TRUTH-02B-PYTHON-API-TRUTH`.
+The 31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
+`HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. Clean commit `5d6bbf7` passed all
+official checks (1,792 tests); `plans/investigations/evidence/level8-isolated-executor/` proves
+pinned-image, non-root, cgroup, no-network, read-only-root, secret, timeout, process, and cleanup
+controls. Host diagnostics cannot become verified truth. `L8-019` stays partial until all seven
+ecosystems use this boundary. LLM accounting and prompt-drift gates remain active.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 

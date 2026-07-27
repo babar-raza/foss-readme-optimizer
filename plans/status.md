@@ -56,8 +56,8 @@ Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposal
 | Status | Count |
 |---|---:|
 | IMPLEMENTED | 154 |
-| PLANNED | 124 |
-| PARTIAL | 81 |
+| PLANNED | 123 |
+| PARTIAL | 82 |
 | GOVERNANCE | 34 |
 | BACKLOG | 26 |
 | RESEARCH-GATED | 6 |
