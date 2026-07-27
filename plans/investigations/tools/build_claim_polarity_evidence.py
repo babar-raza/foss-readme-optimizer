@@ -7,6 +7,7 @@ import hashlib
 import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -22,6 +23,7 @@ from readme_agent.facts.policy_evidence import (
     evidence_fact_candidate,
     limitation_fact_candidate,
 )
+from readme_agent.facts.schema_v2 import FactRecordV2
 from readme_agent.registry.loader import load_policy
 from readme_agent.registry.models import EvidenceBackedProductFact
 from readme_agent.state.git_backend import default_state_backend
@@ -120,6 +122,32 @@ def _spec(value: str, anchor: str) -> EvidenceBackedProductFact:
     )
 
 
+def _python_boolean_control() -> FactRecordV2:
+    with tempfile.TemporaryDirectory(prefix="readme-agent-polarity-") as temporary:
+        root = Path(temporary)
+        source = root / "src" / "Scene.py"
+        source.parent.mkdir()
+        source.write_text(
+            "class Scene:\n"
+            "    def __init__(self, name=None):\n"
+            '        self.name = name if name is not None else ""\n',
+            encoding="utf-8",
+        )
+        return evidence_fact_candidate(
+            root,
+            "synthetic-python-revision",
+            None,
+            "product.capabilities",
+            [
+                EvidenceBackedProductFact(
+                    value="Scene object construction.",
+                    evidence_paths=["src/Scene.py"],
+                    required_symbols=["class Scene"],
+                )
+            ],
+        )
+
+
 def _control_state() -> dict[str, Any]:
     status = _git("status", "--porcelain=v1")
     return {
@@ -201,6 +229,9 @@ def _write(run_official: bool) -> list[str]:
         "product.formats",
         format_policy.product_truth.formats,
     )
+    python_boolean = _python_boolean_control()
+    if not python_boolean.evidence_assessments:
+        raise RuntimeError("Python boolean polarity control produced no evidence assessment")
     direct_assessments = {
         "verified_limitation": limitation.evidence_assessments[0].model_dump(mode="json"),
         "verified_capability": save_capability.evidence_assessments[0].model_dump(mode="json"),
@@ -208,6 +239,7 @@ def _write(run_official: bool) -> list[str]:
         "under_specific_constraint": vague_constraint.evidence_assessments[0].model_dump(
             mode="json"
         ),
+        "python_boolean_negation": python_boolean.evidence_assessments[0].model_dump(mode="json"),
     }
     focused = _run(FOCUSED_COMMAND)
     official = _run(OFFICIAL_COMMAND) if run_official else None
@@ -240,6 +272,11 @@ def _write(run_official: bool) -> list[str]:
         "real_positive_capability_verified": save_capability.verification_state == "verified",
         "positive_render_claim_rejected": render_capability.verification_state == "blocked",
         "generic_constraint_fragment_rejected": vague_constraint.verification_state == "blocked",
+        "python_boolean_negation_remains_positive": (
+            python_boolean.verification_state == "verified"
+            and python_boolean.evidence_assessments[0].observed_polarity
+            == "positive_implementation"
+        ),
         "exact_revision_excerpt_persisted": bool(
             constraint_recheck
             and constraint_recheck.accepted
@@ -317,6 +354,7 @@ def _write(run_official: bool) -> list[str]:
             "verified_capability": save_capability.model_dump(mode="json"),
             "rejected_capability": render_capability.model_dump(mode="json"),
             "rejected_vague_constraint": vague_constraint.model_dump(mode="json"),
+            "python_boolean_negation": python_boolean.model_dump(mode="json"),
         },
     )
     write_redacted_text(EVIDENCE_DIR / "focused-tests.stdout.log", focused["stdout"])
