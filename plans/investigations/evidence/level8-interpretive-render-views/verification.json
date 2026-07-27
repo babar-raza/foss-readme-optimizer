@@ -2,27 +2,29 @@
   "schema_version": 1,
   "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
   "control_repository": {
-    "head": "eca99365a9df8c6b136f4c47535c415818c20fab",
+    "head": "704f0f8e8c5ffd155fd1d8cb09865d1321562a7a",
     "branch": "main",
     "tree_clean_at_start": true,
-    "builder_sha256": "50679256324320a1cc0521dbdbaa0d2a9b28cee07d83bc080dc9f7688f001acd",
+    "builder_sha256": "371e3120b218783a1050c3371c5da6f2984f6e098fd82a44d3ab3ad28df0e88b",
     "prompt_path": "prompts/generation/draft_product_truth.yaml",
     "prompt_sha256": "0975ca4630426672aea2f499c97c03d7bd36460da954b26cc5977222645d1796",
     "implementation": {
       "src/readme_agent/facts/acceptance_contract.py": "4ad2678bcca612fac1c65fddd4ba7684e737297865a8312ad42b5925c3ab918e",
       "src/readme_agent/facts/agentic_drafting.py": "133481a10fd85273493e34e809cb5fb7c38fed954d91dcff08ddad5569e148e6",
       "src/readme_agent/facts/interpretive_evidence.py": "635cc9dce11854dc81dad4ef43fe49be0ba4ca77542812d7f9cc5643e929ca82",
+      "src/readme_agent/facts/interpretive_resolution.py": "93069398e8ae5948786056ccf0c1bd0230db0ef4b46b8f731c3028b5b6fa7b18",
       "src/readme_agent/facts/render_views.py": "6537b60a10bf035cdc4c778c94dac84520815a50f976a52476b402fbfd0d0a75",
-      "src/readme_agent/facts/schema_v2.py": "bbc979f3ea7d034589e0bd49ad0b2724787519a0a74f648187c1fad9d6e88723"
+      "src/readme_agent/facts/schema_v2.py": "bbc979f3ea7d034589e0bd49ad0b2724787519a0a74f648187c1fad9d6e88723",
+      "src/readme_agent/capabilities/draft_product_truth.py": "972ca63e4777507629233dbc7014820a787b1c596f5f8fc3a6103491cfc04ca8"
     },
     "evidence_machinery": {
-      "plans/investigations/tools/build_interpretive_render_view_evidence.py": "50679256324320a1cc0521dbdbaa0d2a9b28cee07d83bc080dc9f7688f001acd",
-      "plans/investigations/tools/interpretive_render_view_evidence_support.py": "45c46d6f3a168ca45682a6bed65408554d5753c8d9ec89bd497d7530cb5743c6"
+      "plans/investigations/tools/build_interpretive_render_view_evidence.py": "371e3120b218783a1050c3371c5da6f2984f6e098fd82a44d3ab3ad28df0e88b",
+      "plans/investigations/tools/interpretive_render_view_evidence_support.py": "56d518275a69179243c9be786db9d11b5d585f47683cea74d520208bb33a6abd"
     }
   },
   "commands": {
     "focused": {
-      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_agentic_drafting.py tests/unit/test_interpretive_evidence.py tests/unit/test_fact_render_views.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_draft_product_truth_capability.py tests/unit/test_agentic_readme_composition.py tests/security/test_no_secrets_in_evidence.py",
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_agentic_drafting.py tests/unit/test_interpretive_evidence.py tests/unit/test_interpretive_resolution.py tests/unit/test_fact_render_views.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_draft_product_truth_capability.py tests/unit/test_agentic_readme_composition.py tests/security/test_no_secrets_in_evidence.py",
       "exit_code": 0
     },
     "official": {
@@ -37,6 +39,7 @@
     "typescript_problem_grounded": true,
     "visitor_views_nonempty": true,
     "negative_controls_pass": true,
+    "live_python_citation_failure_eliminated": true,
     "focused_tests_pass": true,
     "official_checks_pass": true,
     "tree_stable": true

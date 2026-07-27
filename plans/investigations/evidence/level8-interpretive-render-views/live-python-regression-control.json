@@ -1,0 +1,48 @@
+{
+  "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+  "lifecycle_status": "BLOCKED_MISSING_EVIDENCE",
+  "facts_sha256": "2bad1fa3da39aef64be2f7489aa278a10b1f483bbba6ff96e9b3851c529c45c0",
+  "bundle_manifest_sha256": "aef90ac8f3952fcaf03058b737c8b6a9fafd207e45777dfb7310eb4b47363070",
+  "supervisor_manifest_sha256": "9d37f2b1e8eeb7f37d7acae87e9857a5cbb24620b46f46df4ca65275d16dc860",
+  "audience": {
+    "fact_id": "product.audience:agent-drafted-grounded",
+    "verification_state": "verified",
+    "supporting_fact_ids": [
+      "product.platforms:manifest"
+    ],
+    "render_view": {
+      "fact_id": "product.audience:agent-drafted-grounded",
+      "field": "product.audience",
+      "phrases": [
+        "Developers using Python."
+      ],
+      "citation_fact_ids": [
+        "product.audience:agent-drafted-grounded",
+        "product.platforms:manifest"
+      ]
+    }
+  },
+  "problem": {
+    "fact_id": "product.problems_solved:groundedness-blocked",
+    "verification_state": "blocked",
+    "supporting_fact_ids": [],
+    "render_view": null
+  },
+  "latest_checkpoint_stages": [
+    "trigger_accepted",
+    "run_started",
+    "profile_completed",
+    "snapshot_captured",
+    "final_acceptance"
+  ],
+  "checks": {
+    "product_facts_v2_valid": true,
+    "bundle_blocked_narrowly": true,
+    "audience_verified_with_eligible_support": true,
+    "blocked_problem_has_no_citations": true,
+    "stage_ceiling_preserved": true,
+    "verifier_and_effects_not_run": true,
+    "exact_three_call_accounting": true
+  }
+}
