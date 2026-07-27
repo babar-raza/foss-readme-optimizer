@@ -4,22 +4,22 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "7efe1677e439b193290da6711602b26bb751c5b232c90f41c647328a2c6e628e",
+  "source_sha256": "e4647b239ea8bf3b40277af46fff10d0bd11d855701ddc2247dfc4a8d7c38b6e",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 425,
-  "mandatory_requirement_rows": 399,
+  "total_requirement_rows": 426,
+  "mandatory_requirement_rows": 400,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
-    "active_governance": 34,
+    "active_governance": 35,
     "excluded_backlog": 26,
     "open_mandatory": 208,
     "preserved_verified": 157
   },
   "taskcard_counts": {
     "L8-MISSION-GOAL-GUARD": 1,
-    "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 36,
+    "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 37,
     "L8-WAVE1-CANONICAL-SAFETY-SPINE": 78,
     "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 51,
     "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 44,
@@ -268,6 +268,14 @@
     {
       "requirement_id": "GOV-029",
       "priority": "P1",
+      "requirement_status": "GOVERNANCE",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "active_governance",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-030",
+      "priority": "P0",
       "requirement_status": "GOVERNANCE",
       "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
       "disposition": "active_governance",
