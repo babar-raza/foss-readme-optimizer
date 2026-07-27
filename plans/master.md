@@ -91,12 +91,13 @@ Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-req
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
 under `act` → isolated staging → production**. At the latest 2026-07-27 checkpoint, durable state
-version 232 closed `L8-TRUTH-02D-RUST-API-TRUTH`; version 233 claimed
-`L8-TRUTH-03-CLAIM-POLARITY`.
+version 237 closed `L8-TRUTH-03-CLAIM-POLARITY`; version 238 claimed
+`L8-TRUTH-04-ACQUISITION`.
 The 31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
 `HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. Python, TypeScript, and Rust
 public-consumer truth are closed with clean real-repository, negative-control, isolation, and
-checksum proof; exact bundles, results, and repaired boundaries are indexed in
+checksum proof. Directional evidence preserves curated README information as valuable input while
+requiring revision-bound implementation/constraint proof; exact results are in
 `logs/2026-07-27.md`.
 Host diagnostics cannot become verified truth. `L8-019` stays partial until all seven ecosystems
 use the isolated boundary. LLM accounting and prompt-drift gates remain active.
@@ -2438,6 +2439,11 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         representative and negative controls (`L8-031`, evidence commit `30269c8`).
   - [x] Rust visibility/re-exports/impls/examples pass real representative, negative controls,
         and locked offline consumer proof (`L8-032`, evidence commit `8087fd27`).
+- [x] **Directional claim-evidence gate:** exact fact/revision/path/line/excerpt assessments accept
+      implemented capabilities and explicit subject-bound limitations while rejecting positive
+      symbols, comments, ambiguous occurrence, and generic constraint vocabulary; the real
+      Aspose.3D .NET `Scene.Render` limitation and `Scene.Save` implementation pass opposite-
+      polarity controls (evidence commit `c6aa3138`).
 - [ ] **Local untrusted-execution gate:** source builds and examples for every supported ecosystem
       run in a disposable OS-isolated, resource-bounded, network-governed environment; hostile
       repository/dependency code cannot access the operator host or leave descendants.
