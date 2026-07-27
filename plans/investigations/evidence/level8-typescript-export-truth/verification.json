@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH",
+  "requirement_id": "L8-031",
+  "control_repository": {
+    "head": "a0093d9dfb0cd0de9b106085b11869c3c83eafdf",
+    "branch": "HEAD",
+    "tree_clean_at_start": true,
+    "tree_porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "builder_path": "plans/investigations/tools/build_typescript_export_truth_evidence.py",
+    "builder_sha256": "9e6329047973a92d3627050c88d3d12be19ce6f6407a5ef77fba37f94ca4722d",
+    "implementation": {
+      "src/readme_agent/ecosystems/typescript_api_schema.py": "0e8f2ccafd998a195b2e620e888fca996a30ce4cbcc91d1178355cdf36f65b68",
+      "src/readme_agent/ecosystems/typescript_package_layout.py": "469a8d1fb2fa7277b9672b740f06aea3a02e61d82a96c1b4aca96ab1f0e0b87a",
+      "src/readme_agent/facts/typescript_consumer.py": "7c865a26c97a961a64cff0e4f623063b98439454a54e5fe62cde7d4eb468a97e",
+      "src/readme_agent/facts/typescript_consumer_driver.js": "6408022b6ae79c11a30f1e238fdd05917245548b7ac90cea65af40c03c4f33f1",
+      "src/readme_agent/facts/typescript_consumer_schema.py": "1dccc25e3f578c26c3ebd44a612f872e512668e907f96878d91ce6f1fccccdf3",
+      "src/readme_agent/facts/typescript_example_verifier.py": "90df93a1efa7061e7f85fb272a9434498dc22bacbfa99e4f38490ae1e5600559",
+      "src/readme_agent/facts/typescript_toolchain.py": "e742a4bedf7f6ec086adbda61be2878fb79eba4163a5f94288c492ddc8b3cc7f",
+      "src/readme_agent/facts/local_verification.py": "d50aa652d237b377a4d2e0b61bffc1468f9bd56f860de8e1d185dcd44f1fbfda",
+      "tests/unit/test_typescript_public_api.py": "8876cfd0dab7a9226fd913288bcb91410137da4ec638d7a8e0f7b5f0756433b7",
+      "tests/security/test_typescript_consumer_docker_live.py": "a3e5a424e61cdacc000498a1f45f480df75e0543b2abfaf1a350bbfd4cf7b671"
+    }
+  },
+  "commands": {
+    "focused": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_typescript_public_api.py tests/unit/test_ecosystems.py tests/unit/test_local_verification.py tests/security/test_example_execution_boundary.py",
+      "exit_code": 0
+    },
+    "live": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q -m live tests/security/test_typescript_consumer_docker_live.py",
+      "exit_code": 0
+    },
+    "official": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe scripts/governance/run_official_checks.py",
+      "exit_code": 0,
+      "tree_stable": true
+    }
+  },
+  "checks": {
+    "focused_tests_pass": true,
+    "live_docker_tests_pass": true,
+    "official_checks_pass": true,
+    "real_revision_bound": true,
+    "baseline_clean": true,
+    "canonical_built_import": true,
+    "expected_public_symbols": true,
+    "private_symbols_excluded": true,
+    "built_consumer_accepted": true,
+    "stale_root_rejected": true,
+    "compiler_pinned": true,
+    "toolchain_archives_hashed": true,
+    "network_denied": true,
+    "immutable_image": true,
+    "cleanup_complete": true,
+    "no_managed_resources_remain": true
+  },
+  "failures": [],
+  "verdict": "VERIFIED"
+}

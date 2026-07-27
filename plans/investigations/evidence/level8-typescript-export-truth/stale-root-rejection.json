@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+  "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+  "package": {
+    "schema_version": 1,
+    "manifest_path": "package.json",
+    "package_name": "@aspose/3d",
+    "version": "24.12.0",
+    "build_config_path": "tsconfig.json",
+    "source_root": "src",
+    "output_root": "dist",
+    "entry_points": [
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d",
+        "subpath": ".",
+        "declaration_path": "dist/index.d.ts",
+        "runtime_path": "dist/index.js",
+        "source_entry_path": null,
+        "declared_by": "types",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/animation",
+        "subpath": "./dist/aspose/threed/animation",
+        "declaration_path": "dist/aspose/threed/animation/index.d.ts",
+        "runtime_path": "dist/aspose/threed/animation/index.js",
+        "source_entry_path": "src/aspose/threed/animation/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/entities",
+        "subpath": "./dist/aspose/threed/entities",
+        "declaration_path": "dist/aspose/threed/entities/index.d.ts",
+        "runtime_path": "dist/aspose/threed/entities/index.js",
+        "source_entry_path": "src/aspose/threed/entities/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/formats/collada",
+        "subpath": "./dist/aspose/threed/formats/collada",
+        "declaration_path": "dist/aspose/threed/formats/collada/index.d.ts",
+        "runtime_path": "dist/aspose/threed/formats/collada/index.js",
+        "source_entry_path": "src/aspose/threed/formats/collada/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/formats/fbx",
+        "subpath": "./dist/aspose/threed/formats/fbx",
+        "declaration_path": "dist/aspose/threed/formats/fbx/index.d.ts",
+        "runtime_path": "dist/aspose/threed/formats/fbx/index.js",
+        "source_entry_path": "src/aspose/threed/formats/fbx/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/formats/gltf",
+        "subpath": "./dist/aspose/threed/formats/gltf",
+        "declaration_path": "dist/aspose/threed/formats/gltf/index.d.ts",
+        "runtime_path": "dist/aspose/threed/formats/gltf/index.js",
+        "source_entry_path": "src/aspose/threed/formats/gltf/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/formats",
+        "subpath": "./dist/aspose/threed/formats",
+        "declaration_path": "dist/aspose/threed/formats/index.d.ts",
+        "runtime_path": "dist/aspose/threed/formats/index.js",
+        "source_entry_path": "src/aspose/threed/formats/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/formats/obj",
+        "subpath": "./dist/aspose/threed/formats/obj",
+        "declaration_path": "dist/aspose/threed/formats/obj/index.d.ts",
+        "runtime_path": "dist/aspose/threed/formats/obj/index.js",
+        "source_entry_path": "src/aspose/threed/formats/obj/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/formats/stl",
+        "subpath": "./dist/aspose/threed/formats/stl",
+        "declaration_path": "dist/aspose/threed/formats/stl/index.d.ts",
+        "runtime_path": "dist/aspose/threed/formats/stl/index.js",
+        "source_entry_path": "src/aspose/threed/formats/stl/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/formats/threemf",
+        "subpath": "./dist/aspose/threed/formats/threemf",
+        "declaration_path": "dist/aspose/threed/formats/threemf/index.d.ts",
+        "runtime_path": "dist/aspose/threed/formats/threemf/index.js",
+        "source_entry_path": "src/aspose/threed/formats/threemf/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed",
+        "subpath": "./dist/aspose/threed",
+        "declaration_path": "dist/aspose/threed/index.d.ts",
+        "runtime_path": "dist/aspose/threed/index.js",
+        "source_entry_path": "src/aspose/threed/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/properties",
+        "subpath": "./dist/aspose/threed/properties",
+        "declaration_path": "dist/aspose/threed/properties/index.d.ts",
+        "runtime_path": "dist/aspose/threed/properties/index.js",
+        "source_entry_path": "src/aspose/threed/properties/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/shading",
+        "subpath": "./dist/aspose/threed/shading",
+        "declaration_path": "dist/aspose/threed/shading/index.d.ts",
+        "runtime_path": "dist/aspose/threed/shading/index.js",
+        "source_entry_path": "src/aspose/threed/shading/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      },
+      {
+        "schema_version": 1,
+        "import_specifier": "@aspose/3d/dist/aspose/threed/utilities",
+        "subpath": "./dist/aspose/threed/utilities",
+        "declaration_path": "dist/aspose/threed/utilities/index.d.ts",
+        "runtime_path": "dist/aspose/threed/utilities/index.js",
+        "source_entry_path": "src/aspose/threed/utilities/index.ts",
+        "declared_by": "legacy_index",
+        "conditions": [],
+        "declaration_preferred": true
+      }
+    ],
+    "canonical_import": "@aspose/3d/dist/aspose/threed",
+    "exports_restrict_subpaths": false,
+    "unsupported_export_patterns": [],
+    "source_sha256": "531d615defbc876a19816ef6a79f8cb15d6c25f555c1d5490255b1fdab0d0d7b"
+  },
+  "example": {
+    "schema_version": 1,
+    "code": "import { Scene } from '@aspose/3d';\nconst scene: Scene = new Scene();\nconsole.log(scene.rootNode);\n",
+    "import_specifier": "@aspose/3d",
+    "required_symbols": [
+      "Scene"
+    ]
+  },
+  "toolchain": {
+    "schema_version": 1,
+    "compiler_version": "5.8.3",
+    "immutable_image": "node@sha256:6c74791e557ce11fc957704f6d4fe134a7bc8d6f5ca4403205b2966bd488f6b3",
+    "artifacts": [
+      {
+        "schema_version": 1,
+        "name": "typescript",
+        "version": "5.8.3",
+        "filename": "typescript-5.8.3.tgz",
+        "url": "https://registry.npmjs.org/typescript/-/typescript-5.8.3.tgz",
+        "sha256": "72e75dbeb92c2e6eb9a34cb59d74fab5c2ee6f32a0324a89405f6165d5a08374"
+      },
+      {
+        "schema_version": 1,
+        "name": "@types/node",
+        "version": "22.15.17",
+        "filename": "types-node-22.15.17.tgz",
+        "url": "https://registry.npmjs.org/@types/node/-/node-22.15.17.tgz",
+        "sha256": "d4f15ddec10551421843fb307521d074614f70d00759e185488aec49e0b6e8f0"
+      },
+      {
+        "schema_version": 1,
+        "name": "undici-types",
+        "version": "6.21.0",
+        "filename": "undici-types-6.21.0.tgz",
+        "url": "https://registry.npmjs.org/undici-types/-/undici-types-6.21.0.tgz",
+        "sha256": "cfa1a9a5e18988850e548f4f6b629c58da32dc32bebb116e58ea301e516fd16d"
+      }
+    ]
+  },
+  "surface": null,
+  "built_artifact_sha256": "03d8292362b5ffc2524994476189d37b665e6358d3099fd980b5f5500e5a3744",
+  "verified_symbols": [],
+  "missing_symbols": [
+    "Scene"
+  ],
+  "diagnostics": [
+    "Cannot find module '@aspose/3d' or its corresponding type declarations."
+  ],
+  "isolated_execution": {
+    "schema_version": 1,
+    "isolation_kind": "docker_container",
+    "truth_eligible": true,
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+    "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+    "argv": [
+      "node",
+      ".readme-agent-typescript-driver.js"
+    ],
+    "environment_names": [
+      "HOME"
+    ],
+    "input_sha256": "df890f735ae79f6b6359115a5ac21a61a10ec918f8871503923a46bef4b3e15d",
+    "input_file_count": 212,
+    "policy_sha256": "ed0a2f32dab588d1da65dba6ba0b5f20af93edf5b0694bc1aea01c1fab179cdf",
+    "policy": {
+      "schema_version": 1,
+      "immutable_image": "node@sha256:6c74791e557ce11fc957704f6d4fe134a7bc8d6f5ca4403205b2966bd488f6b3",
+      "cpu_limit": 1.0,
+      "memory_mebibytes": 1024,
+      "pids_limit": 96,
+      "timeout_seconds": 300.0,
+      "tmpfs_mebibytes": 64,
+      "network_mode": "none",
+      "read_only_rootfs": true,
+      "cap_drop_all": true,
+      "no_new_privileges": true,
+      "seccomp_profile": "runtime-default",
+      "user": "65534:65534",
+      "workspace_path": "/workspace"
+    },
+    "image": {
+      "requested_reference": "node@sha256:6c74791e557ce11fc957704f6d4fe134a7bc8d6f5ca4403205b2966bd488f6b3",
+      "repo_digest": "node@sha256:6c74791e557ce11fc957704f6d4fe134a7bc8d6f5ca4403205b2966bd488f6b3",
+      "image_id": "sha256:6c74791e557ce11fc957704f6d4fe134a7bc8d6f5ca4403205b2966bd488f6b3",
+      "operating_system": "linux",
+      "architecture": "amd64",
+      "engine_version": "28.4.0"
+    },
+    "container_id": "9cbde4ca7156560367428d0db3fdd4ddb183c721ee903ea1094981321df16022",
+    "process_inventory": [
+      "PID                 PPID                USER                COMMAND",
+      "31474               31452               nobody              node .readme-agent-typescript-driver.js",
+      "31549               31474               nobody              tar -xzf /workspace/.readme-agent-toolchain-archives/typescript-5.8.3.tgz --strip-components=1 -C /workspace/.readme-agent-toolchain/node_modules/typescript",
+      "31550               31549               nobody              gzip -d"
+    ],
+    "return_code": 33,
+    "stdout": "README_AGENT_TYPESCRIPT_CONSUMER={\"accepted\":false,\"build\":{\"argv\":[\"node\",\"/workspace/.readme-agent-toolchain/node_modules/typescript/bin/tsc\",\"-p\",\"tsconfig.json\",\"--typeRoots\",\"/workspace/.readme-agent-toolchain/node_modules/@types\"],\"returnCode\":0,\"stdout\":\"\",\"stderr\":\"\"},\"packed\":{\"argv\":[\"tar\",\"--sort=name\",\"--mtime=@0\",\"--owner=0\",\"--group=0\",\"-czf\",\"/workspace/.readme-agent-built-package.tgz\",\"-C\",\"/workspace/.readme-agent-built-package\",\".\"],\"returnCode\":0,\"stdout\":\"\",\"stderr\":\"\"},\"installed\":{\"argv\":[\"tar\",\"-xzf\",\"/workspace/.readme-agent-built-package.tgz\",\"-C\",\"/workspace/.readme-agent-consumer/node_modules/@aspose/3d\"],\"returnCode\":0,\"stdout\":\"\",\"stderr\":\"\"},\"compile\":{\"argv\":[\"node\",\"/workspace/.readme-agent-toolchain/node_modules/typescript/bin/tsc\",\"-p\",\"tsconfig.json\"],\"returnCode\":2,\"stdout\":\"consumer.ts(1,23): error TS2307: Cannot find module '@aspose/3d' or its corresponding type declarations.\\n\",\"stderr\":\"\"},\"compilerVersion\":\"5.8.3\",\"builtArtifactSha256\":\"03d8292362b5ffc2524994476189d37b665e6358d3099fd980b5f5500e5a3744\",\"resolvedDeclarationPath\":null,\"symbols\":[],\"missingSymbols\":[\"Scene\"],\"diagnostics\":[\"Cannot find module '@aspose/3d' or its corresponding type declarations.\"]}\n",
+    "stderr": "",
+    "timed_out": false,
+    "oom_killed": false,
+    "started_at": "2026-07-27T10:21:51.570534+00:00",
+    "finished_at": "2026-07-27T10:22:01.718626+00:00",
+    "cleanup": {
+      "execution_container_removed": true,
+      "seed_container_removed": true,
+      "workspace_volume_removed": true
+    }
+  },
+  "accepted": false
+}
