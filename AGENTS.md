@@ -48,6 +48,28 @@ The unambiguous form works from any shell without activation — prefer it:
 `.venv/bin/`.) Activating instead (`.venv\Scripts\Activate.ps1` in PowerShell,
 `source .venv/Scripts/activate` in Git Bash) is fine too — then the bare commands above are safe.
 
+## One operator and standing command authority
+
+Codex is the sole operator for the current autonomous implementation sprint. Do not spawn or assume
+another repository-editing worker. Python, Git, Docker, compiler, and test child processes belong to
+Codex's one active command tree; they are not independent workers.
+
+Before starting a long test, proof builder, supervisor campaign, build, or workflow reproduction,
+inspect repository-owned processes. If an earlier top-level command is active, poll or resume that
+exact process tree rather than launching another. Run only one top-level test/proof/supervisor tree
+at a time during local implementation. Any descendants must remain attributable to it and must be
+terminated with it on cancellation. Future production concurrency is exercised only through the
+runtime's leases, deduplication, and isolation controls.
+
+The user has granted standing authority to run every safe, plan-bound command available in the
+current environment. Execute repository reads, network inspection, `.venv` operations, formatting,
+tests, isolated Docker/`act` work at the appropriate gate, Codex-owned process management, evidence
+generation, and control-repository edits/commits without asking for conversational approval. If a
+command fails, diagnose it and exhaust safe in-scope alternatives. Ask only when progress genuinely
+requires unavailable external authority, credentials, infrastructure, a manual UI action, or an
+explicitly gated external effect. Command access does not authorize product-repository writes,
+destructive history changes, secret disclosure, or deletion of non-disposable user data.
+
 CI (`.github/workflows/ci.yml`) runs exactly: `ruff check`, `ruff format --check`, `mypy src`,
 `pytest -q` on Python 3.11/3.12/3.13. All four must pass locally before you consider a change done.
 

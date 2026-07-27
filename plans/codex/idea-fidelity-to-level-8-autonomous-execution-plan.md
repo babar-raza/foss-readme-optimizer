@@ -102,11 +102,12 @@ re-evaluation of those four persisted fact graphs through the current
 and BarCode Python are `BLOCKED_MISSING_EVIDENCE`. Their terminal lifecycle/cache state therefore
 survived a changed fact-acceptance contract. Java's candidate is not accepted proof either: its
 claim map covers generated operations but not preserved parity, performance, proprietary-format,
-or no-rewrite assertions from the inherited README. Two concurrent `local_poc` runs were also
-observed and stopped at 13:49 local time after both wrote the same state/evidence tree. All current
-terminal labels are diagnostic until fact-contract revalidation and complete candidate-claim
-coverage land. No current Gate-A repository is independently trustworthy under the corrected
-standard.
+or no-rewrite assertions from the inherited README. One operator accidentally launched two
+overlapping `local_poc` process trees; they were stopped at 13:49 local time after both wrote the
+same state/evidence tree. This was an operator-side serialization failure, not evidence of multiple
+workers or concurrent repository editors. All current terminal labels are diagnostic until
+fact-contract revalidation and complete candidate-claim coverage land. No current Gate-A repository
+is independently trustworthy under the corrected standard.
 
 ### 2026-07-26 execution audit: why the previous route was too long
 
@@ -312,6 +313,46 @@ may create `BLOCKED_EXTERNAL`; unrelated ready work continues.
 
 No control-repository branches are created. Existing work is preserved: never reset, restore,
 clean, force-push, or silently overwrite it. Every AI-authored commit contains the Codex trailer.
+
+### One operator and one top-level process tree
+
+During this autonomous implementation sprint, Codex is the only operator and the only agent allowed
+to edit the control repository or launch top-level repository commands. Do not infer additional
+workers from child Python, Git, Docker, compiler, or test processes: they belong to the single
+operator's current process tree.
+
+Before starting any long-running test, proof builder, supervisor campaign, build, or workflow
+reproduction, inspect the repository process inventory. If an earlier top-level command from this
+operator is still active, attach to or poll that exact process tree; do not launch a duplicate.
+Run only one top-level test/proof/supervisor process tree at a time. Pytest-xdist, parallel test
+sessions, specialist concurrency, and portfolio fan-out remain disabled during local
+implementation unless a later measured task explicitly enables one behind the runtime's own
+lease/isolation proof. Subprocesses required by the one active command are allowed, must remain
+attributable to it, and must be terminated with their descendants on cancellation.
+
+The future production system still requires leases, deduplication, and concurrency controls because
+scheduled/event deliveries may overlap. That runtime obligation must not be misread as permission
+to run multiple local implementation operators.
+
+### Standing command authority
+
+The user has granted standing authority for Codex to run every safe, plan-bound command available
+in the current environment without a separate conversational approval. This includes repository
+inspection, network reads, `.venv` dependency operations, formatting, focused and official tests,
+Docker/isolated-executor work, `act`, local/staging preparation inside the authorized gate, runtime
+process management for processes Codex started, evidence generation, and control-repository
+edits/commits directly to `main`.
+
+Do not pause merely to ask permission to execute such a command. If a command fails because a tool,
+OS, sandbox, or credential boundary prevents it, diagnose and exhaust safe in-scope alternatives
+immediately. Request human action only when the remaining step genuinely requires unavailable
+external authority, credentials, infrastructure, a manual UI action, or an effect that the plan
+explicitly gates.
+
+Command authority is not effect authority. It does not authorize a product-repository push,
+default-branch write, merge, package/release publication, organization-setting change, secret
+disclosure, destructive history rewrite, or deletion of non-disposable user data. Those existing
+what/why/where, authorization-record, safety, and human-only boundaries remain unchanged.
 
 ## State-machine design
 
@@ -699,8 +740,8 @@ create no new call, patch, event, or bundle.
    defects are incorporated. Require 100-percent deterministic validation and at least 95-percent
    agentic accuracy, with zero critical false accepts.
 4. Add lease heartbeat/renewal around long repository, LLM, example-build, test, and portfolio
-   operations. Recovery may reclaim an actually expired worker, but ordinary long work must not
-   regress every 30 minutes.
+   operations. Recovery may reclaim an actually expired runtime claim/process tree, but ordinary
+   long work must not regress every 30 minutes.
 5. Freeze the accepted prompt, fact, renderer, validator, reviewer, and lifecycle hashes for the
    full-registry campaign. Any later contract change invalidates only the dependent artifacts and
    requires representative requalification before fan-out resumes.
@@ -787,9 +828,11 @@ reproducibility audit.
 
 Execution resumes in this order; it does not start an official 31-repository campaign:
 
-1. Re-read live HEAD, tree, processes, graph hash, durable state, claim expiry, and the evidence
-   paths in the multi-perspective table. Enforce one portfolio writer and treat any run whose HEAD
-   moved as diagnostic only.
+1. Re-read live HEAD, tree, graph hash, durable state, claim expiry, and the evidence paths in the
+   multi-perspective table. Inventory repository-owned processes and establish Codex as the sole
+   operator with exactly one active top-level command tree. Poll an existing tree instead of
+   launching an overlapping test/proof/supervisor run. Enforce one portfolio writer and treat any
+   run whose HEAD moved as diagnostic only.
 2. Rebuild requirement coverage for the reviewed graph, validate it, run mission `status` and
    `evaluate`, and reconcile any historical claim without stealing a live lease. Execute
    `L8-MISSION-GOAL-GUARD` before resuming ordinary machinery work so every remaining task has a
@@ -839,7 +882,9 @@ staging access if unavailable locally, staging credentials, exact per-product-pu
 GitHub App registration and secrets after Gate C, genuinely manual UI actions, independent
 acceptance authority, and elapsed production time. `plans/master.md` remains freely editable under
 the current repository governance. All other implementation, testing, remediation, evidence,
-commits, setup, monitoring, and continuation is autonomous.
+commits, setup, monitoring, command execution, and continuation is autonomous. The operator does
+not request permission for an available safe in-scope command; it requests only the external
+authority or resource that the command cannot supply.
 
 The mission closes only when every mandatory graph task is `CLOSED`, all requirements are
 truthfully evidenced, all gates pass, the 30-day and 90-day periods complete, the independent audit

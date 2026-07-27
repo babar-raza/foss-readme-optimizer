@@ -184,6 +184,24 @@ to add a project fact here, it belongs in `master.md` instead.
     does not choose the template, capability, skill, or command sequence. A repository is not
     human-review-ready merely because a candidate file exists: it must have an agent-approved,
     no-op-proven result. (Added 2026-07-25, user directive — see Decision #78.)
+19. **One local operator; safe commands execute under standing authority.** During the autonomous
+    implementation sprint, Codex is the sole control-repository operator. Do not infer multiple
+    workers from Python, Git, Docker, compiler, or test descendants of Codex's active command.
+    Before starting a long test, proof builder, supervisor campaign, build, or workflow
+    reproduction, inventory repository-owned processes. If a top-level process tree is active,
+    poll or resume it instead of launching another; only one such tree runs at a time. Future
+    production-trigger concurrency remains a runtime capability governed by leases,
+    deduplication, and isolation, not permission for concurrent local operators.
+
+    The user has granted standing authority for every safe, plan-bound command that the current
+    environment permits. Run reads, network inspection, `.venv` operations, formatting, tests,
+    isolated Docker/`act` work at the appropriate gate, Codex-owned process management, evidence
+    generation, and control-repository edits/commits without asking for conversational permission.
+    Diagnose and exhaust safe in-scope alternatives when a command fails. Ask only for genuinely
+    unavailable external authority, credentials, infrastructure, manual UI, or an explicitly gated
+    external effect. Shell access never implies product-write authority, destructive history,
+    secret disclosure, or deletion of non-disposable user data. (Added 2026-07-27, user directive;
+    see Decision #81 and `GOV-030`.)
 
 ## Applying a new requirement (the actual procedure)
 

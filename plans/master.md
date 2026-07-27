@@ -1771,6 +1771,30 @@ that is the only permanence they carry; text is always the decision as it stands
     examples, and format direction. These tasks precede claim polarity, acquisition/example
     qualification, and all further heterogeneous LLM campaigns. See `L8-027`–`L8-033`.
 
+81. **Local implementation has one operator, serialized top-level execution, and standing command
+    authority.** During the current autonomous sprint, Codex is the sole control-repository
+    operator: no second agent, worker, or concurrent editor is assumed or permitted. Child Python,
+    Git, Docker, compiler, and test processes are descendants of that one operator, not independent
+    workers. Before a long-running test, proof builder, supervisor campaign, build, or workflow
+    reproduction starts, Codex inventories repository-owned processes. An existing top-level
+    process tree is polled or resumed; a duplicate is not launched. Only one top-level
+    test/proof/supervisor tree runs at a time during local implementation, and cancellation
+    terminates its descendants. The historical 2026-07-26 overlap was one operator starting two
+    process trees, not multiple workers. Production leases and concurrency controls remain required
+    for future overlapping external triggers, but they do not authorize concurrent local operators.
+
+    The user grants standing authority to run every safe, in-scope command available in the current
+    environment without a separate conversational approval: reads, network inspection, `.venv`
+    operations, formatting, tests, isolated Docker/`act` work at the appropriate gate, process
+    management for Codex-started processes, evidence generation, and control-repository
+    edits/commits on `main`. A failed command is diagnosed and retried or replaced through safe
+    in-scope means; it is not converted into an approval question. Human action is requested only
+    for a genuine unavailable authority, credential, infrastructure, manual-UI, or separately
+    gated external effect. This standing command authority does not weaken product-push
+    what/why/where confirmation, authorization records, default-branch/merge/package/release
+    prohibitions, secret handling, destructive-history restrictions, or protection of
+    non-disposable user data. See `GOV-030` and Governance rule 19.
+
 ## Architecture
 
 ### Canonical production flow
@@ -1801,6 +1825,19 @@ schedule / repository_dispatch / workflow_call / operator request
 GitHub Actions is the production compute platform. A planning job emits the authoritative
 repository matrix; per-repository jobs use GitHub concurrency queuing plus durable CAS leases.
 GitHub concurrency is an optimization and overlap guard, not the recovery system.
+
+### Local implementation control
+
+The control repository has one operator: Codex. Local work is serialized at the top-level command
+tree even when the active command legitimately creates descendants. Before launching a long
+operation, the operator checks for an existing repository-owned process tree and polls or resumes it
+instead of starting another. Future production fan-out is exercised only inside the governed
+runtime and its lease/deduplication/isolation contracts; it is never simulated by overlapping local
+operators.
+
+Safe, plan-bound command execution uses the user's standing authority and proceeds without a
+separate approval exchange. External effect authority remains a distinct boundary and is never
+inferred from shell access.
 
 ### Trust and token boundaries
 
