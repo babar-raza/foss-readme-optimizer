@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "source_repository": {
+    "schema_version": 1,
+    "expected_remote": "https://github.com/aspose/aspose.org",
+    "actual_remote": "https://github.com/aspose/aspose.org",
+    "expected_head": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+    "actual_head": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+    "head_matches": true,
+    "working_tree_dirty": true,
+    "working_tree_change_count": 328,
+    "working_tree_porcelain_sha256": "51a3bb56afbd14bf43704a7f54bab3130f20a9e762bdc031597857a384c6b2b4",
+    "blob_reconstruction_uses_git_dir_only": true,
+    "working_tree_bytes_used": false
+  },
+  "verified_commits": [
+    "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+    "08a861ad37b395c4db9432a6071f8dce42adfc6f",
+    "e131074708b17a85e078d3ba0939a0d126ea525a",
+    "e157b7ff992e8f6f48a969644b66422a653e75ba",
+    "abd634df3d9b2060b77b98aa9d6788553573ceea"
+  ],
+  "committed_blob_records": [
+    {
+      "commit": "08a861ad37b395c4db9432a6071f8dce42adfc6f",
+      "path": "scripts/pipeline/extraction/api_surface.py",
+      "expected_sha256": "981474bdfbf18455258d1a453881fc0bb4581906da1370299468e6c25c39a507",
+      "actual_sha256": "981474bdfbf18455258d1a453881fc0bb4581906da1370299468e6c25c39a507",
+      "byte_count": 92430,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "08a861ad37b395c4db9432a6071f8dce42adfc6f",
+      "path": "scripts/pipeline/tests/test_python_property_decorator_stack.py",
+      "expected_sha256": "8430cd631f5abaca83ef51c388308e8b02cb81684c9afaf6598d3cf5fbf07f93",
+      "actual_sha256": "8430cd631f5abaca83ef51c388308e8b02cb81684c9afaf6598d3cf5fbf07f93",
+      "byte_count": 4018,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+      "path": "scripts/pipeline/commands/diagnostics/typescript_api_completeness.py",
+      "expected_sha256": "3d45cb53e5dc18a0c62269dd779ddca9c6d48e6eefb6a3c2ee7bc3a8c1420637",
+      "actual_sha256": "3d45cb53e5dc18a0c62269dd779ddca9c6d48e6eefb6a3c2ee7bc3a8c1420637",
+      "byte_count": 6199,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+      "path": "scripts/pipeline/extraction/api_surface.py",
+      "expected_sha256": "54940a61f958dd37046b76448c7b99f1dad70898d876300f045763dcd4a3a267",
+      "actual_sha256": "54940a61f958dd37046b76448c7b99f1dad70898d876300f045763dcd4a3a267",
+      "byte_count": 105819,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+      "path": "scripts/pipeline/extraction/package_manifest.py",
+      "expected_sha256": "f5cec4763e117ab3a0807dcaade2af4235852954bbcb84ddf03bc56ebedd7162",
+      "actual_sha256": "f5cec4763e117ab3a0807dcaade2af4235852954bbcb84ddf03bc56ebedd7162",
+      "byte_count": 13122,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+      "path": "scripts/pipeline/extraction/package_root.py",
+      "expected_sha256": "4217619dfa28c68a01db73ac1a679df4935e71d4997b6b2ecda321a99457c74a",
+      "actual_sha256": "4217619dfa28c68a01db73ac1a679df4935e71d4997b6b2ecda321a99457c74a",
+      "byte_count": 6039,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+      "path": "scripts/pipeline/extraction/snippets.py",
+      "expected_sha256": "932e368133b497e637170d08cfc9a5b8c184909a5878092bb7eb8ecf8ccd54d6",
+      "actual_sha256": "932e368133b497e637170d08cfc9a5b8c184909a5878092bb7eb8ecf8ccd54d6",
+      "byte_count": 26025,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+      "path": "scripts/pipeline/extraction/tree_helpers.py",
+      "expected_sha256": "17e2eddb6dabfb8bcce7950f82f6baea35494a5153c154201efafbfd4e54f49b",
+      "actual_sha256": "17e2eddb6dabfb8bcce7950f82f6baea35494a5153c154201efafbfd4e54f49b",
+      "byte_count": 37818,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+      "path": "scripts/pipeline/tests/test_python_property_decorator_stack.py",
+      "expected_sha256": "8430cd631f5abaca83ef51c388308e8b02cb81684c9afaf6598d3cf5fbf07f93",
+      "actual_sha256": "8430cd631f5abaca83ef51c388308e8b02cb81684c9afaf6598d3cf5fbf07f93",
+      "byte_count": 4018,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+      "path": "scripts/pipeline/tests/test_scout.py",
+      "expected_sha256": "864b6e4cc513040b8486daaabe37217f602dab45f6edca47473f1d3ee18350ab",
+      "actual_sha256": "864b6e4cc513040b8486daaabe37217f602dab45f6edca47473f1d3ee18350ab",
+      "byte_count": 9341,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "abd634df3d9b2060b77b98aa9d6788553573ceea",
+      "path": "scripts/pipeline/extraction/api_surface.py",
+      "expected_sha256": "54940a61f958dd37046b76448c7b99f1dad70898d876300f045763dcd4a3a267",
+      "actual_sha256": "54940a61f958dd37046b76448c7b99f1dad70898d876300f045763dcd4a3a267",
+      "byte_count": 105819,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "abd634df3d9b2060b77b98aa9d6788553573ceea",
+      "path": "scripts/pipeline/extraction/tree_helpers.py",
+      "expected_sha256": "17e2eddb6dabfb8bcce7950f82f6baea35494a5153c154201efafbfd4e54f49b",
+      "actual_sha256": "17e2eddb6dabfb8bcce7950f82f6baea35494a5153c154201efafbfd4e54f49b",
+      "byte_count": 37818,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "abd634df3d9b2060b77b98aa9d6788553573ceea",
+      "path": "scripts/pipeline/tests/test_rust_extraction.py",
+      "expected_sha256": "463a2064ccbf79b970d0857f78f896a5c8ee7489b4d59c0110ead31bc9f12386",
+      "actual_sha256": "463a2064ccbf79b970d0857f78f896a5c8ee7489b4d59c0110ead31bc9f12386",
+      "byte_count": 21288,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "abd634df3d9b2060b77b98aa9d6788553573ceea",
+      "path": "scripts/pipeline/tests/test_rust_platform_maps.py",
+      "expected_sha256": "956ed99591838518d046ac69ca73e96de74564d9972d599a33597babe3ebc7a7",
+      "actual_sha256": "956ed99591838518d046ac69ca73e96de74564d9972d599a33597babe3ebc7a7",
+      "byte_count": 12052,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "e131074708b17a85e078d3ba0939a0d126ea525a",
+      "path": "scripts/pipeline/extraction/package_manifest.py",
+      "expected_sha256": "f5cec4763e117ab3a0807dcaade2af4235852954bbcb84ddf03bc56ebedd7162",
+      "actual_sha256": "f5cec4763e117ab3a0807dcaade2af4235852954bbcb84ddf03bc56ebedd7162",
+      "byte_count": 13122,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "e131074708b17a85e078d3ba0939a0d126ea525a",
+      "path": "scripts/pipeline/extraction/package_root.py",
+      "expected_sha256": "4217619dfa28c68a01db73ac1a679df4935e71d4997b6b2ecda321a99457c74a",
+      "actual_sha256": "4217619dfa28c68a01db73ac1a679df4935e71d4997b6b2ecda321a99457c74a",
+      "byte_count": 6039,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "e131074708b17a85e078d3ba0939a0d126ea525a",
+      "path": "scripts/pipeline/tests/test_rust_extraction.py",
+      "expected_sha256": "35bb745aaac5d322787dbf5b5f3587a44d81775b2ebecf1baeb1cb6b1d2cc285",
+      "actual_sha256": "35bb745aaac5d322787dbf5b5f3587a44d81775b2ebecf1baeb1cb6b1d2cc285",
+      "byte_count": 17550,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "e157b7ff992e8f6f48a969644b66422a653e75ba",
+      "path": "scripts/pipeline/extraction/snippets.py",
+      "expected_sha256": "932e368133b497e637170d08cfc9a5b8c184909a5878092bb7eb8ecf8ccd54d6",
+      "actual_sha256": "932e368133b497e637170d08cfc9a5b8c184909a5878092bb7eb8ecf8ccd54d6",
+      "byte_count": 26025,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    },
+    {
+      "commit": "e157b7ff992e8f6f48a969644b66422a653e75ba",
+      "path": "scripts/pipeline/tests/test_rust_platform_maps.py",
+      "expected_sha256": "53c8eacc96633c8541e37c2e8255dae79f39324ee6915ae6841ec4f3b317153f",
+      "actual_sha256": "53c8eacc96633c8541e37c2e8255dae79f39324ee6915ae6841ec4f3b317153f",
+      "byte_count": 11679,
+      "verified": true,
+      "retrieval": "git --git-dir <sibling>/.git show <commit>:<path>"
+    }
+  ]
+}

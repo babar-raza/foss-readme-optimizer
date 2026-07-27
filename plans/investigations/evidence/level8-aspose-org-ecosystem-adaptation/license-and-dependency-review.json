@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "pinned_head": "512a6e8dcdf220f0d7a81ab7882245f95b6d4ef9",
+  "root_license_candidates": [
+    "LICENSE",
+    "LICENSE.md",
+    "COPYING",
+    "COPYING.md"
+  ],
+  "present_root_license_files": [],
+  "source_paths_with_spdx": [],
+  "actual_source_license_status": "no-root-license-or-source-spdx-at-pinned-head",
+  "transfer_rule": "behavioral-contract-and-regression-intent-only",
+  "verbatim_source_copy_allowed": false,
+  "rationale": "The sibling has no root LICENSE, LICENSE.md, COPYING, or source SPDX declaration at the pinned head. Reimplement observable behavior through local typed seams and preserve source provenance; do not copy the monolithic source.",
+  "dependency_review": [
+    {
+      "name": "tree-sitter",
+      "source_requirement": "tree-sitter>=0.25",
+      "source_path": "scripts/pipeline/requirements-extraction.txt",
+      "source_sha256": "c35535d0f043df00e7ac371e9a1498380a675ea083659161e64981de856ea771",
+      "license": "MIT",
+      "decision": "eligible-only-if-directly-declared-and-locked-by-an-adapter-task"
+    },
+    {
+      "name": "tree-sitter-language-pack",
+      "source_requirement": "tree-sitter-language-pack>=0.13",
+      "source_path": "scripts/pipeline/requirements-extraction.txt",
+      "source_sha256": "c35535d0f043df00e7ac371e9a1498380a675ea083659161e64981de856ea771",
+      "license": "MIT",
+      "decision": "eligible-for-rust-syntax-extraction-only-if-the-child-task-proves-the-smaller-language-specific-option-insufficient"
+    },
+    {
+      "name": "typescript",
+      "source_requirement": "not-used-by-sibling-extractor",
+      "source_path": null,
+      "source_sha256": null,
+      "license": "Apache-2.0",
+      "decision": "use-a-pinned-TypeScript-compiler-in-the-disposable-consumer-instead-of-the-sibling-regex-completeness-script"
+    }
+  ]
+}

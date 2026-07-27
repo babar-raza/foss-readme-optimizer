@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION",
+  "requirement_id": "L8-029",
+  "control_repository": {
+    "head": "e87bccfcb3e1e09943018aec7a424658ac4c87f9",
+    "branch": "main",
+    "tree_clean_at_start": true,
+    "tree_porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "contract_path": "plans/investigations/control/aspose-org-ecosystem-adaptation-contract.json",
+    "contract_sha256": "6b58cada8719de01a5daf9d4da1c4214bdd58a97c6cb692e6681f06d9b6bd9e4",
+    "builder_path": "plans/investigations/tools/build_aspose_org_ecosystem_adaptation_evidence.py",
+    "builder_sha256": "25972bb9f359f7b736567da0a5893cd6f8cadf1793757566c91363959589cd0a",
+    "support_path": "plans/investigations/tools/aspose_org_adaptation_evidence_support.py",
+    "support_sha256": "58e202f2b47263b95c0eaad99e91fd5cea61bf2f0fa38899c2cb357662857f5f"
+  },
+  "source_record_count": 19,
+  "platform_count": 3,
+  "working_tree_negative_control": {
+    "dirty": true,
+    "change_count": 328,
+    "committed_blobs_reconstructed_without_worktree": true
+  },
+  "checks": {
+    "pinned_commits_exist": true,
+    "all_source_tests_are_pinned": true,
+    "all_source_hashes_match": true,
+    "license_disposition_matches": true,
+    "current_local_seams_exist": true,
+    "runtime_has_no_sibling_checkout_dependency": true,
+    "sibling_head_and_remote_match": true,
+    "official_checks_pass": true
+  },
+  "official_check": {
+    "command": ".venv\\Scripts\\python.exe scripts/governance/run_official_checks.py",
+    "exit_code": 0,
+    "raw_stdout": "official-checks.stdout.log",
+    "raw_stderr": "official-checks.stderr.log"
+  },
+  "failures": [],
+  "verdict": "VERIFIED"
+}
