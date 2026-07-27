@@ -2,48 +2,35 @@
 
 from __future__ import annotations
 
-import json
 import shutil
 import subprocess
+import time
 import uuid
 from datetime import UTC, datetime
-from typing import Protocol
 
-from readme_agent.errors import ReadmeAgentError
 from readme_agent.evidence.redaction import redact
 from readme_agent.facts.example_execution import secret_free_environment
 from readme_agent.facts.isolated_cleanup import remove_docker_resource
+from readme_agent.facts.isolated_docker_control import (
+    DockerCommandRunner,
+    IsolatedExecutionError,
+    await_terminal_container_state,
+    inspect_container_image,
+    require_docker_success,
+)
 from readme_agent.facts.isolated_execution_inputs import build_isolated_input_bundle
 from readme_agent.facts.isolated_execution_schema import (
     ContainerCleanupV1,
-    ContainerImageIdentityV1,
     IsolatedExecutionRequestV1,
     IsolatedExecutionResultV1,
 )
 from readme_agent.gitsafety.process import run_bounded
 
 
-class IsolatedExecutionError(ReadmeAgentError):
-    """The fail-closed container boundary could not be established."""
-
-    exit_code = 3
-
-
-class DockerCommandRunner(Protocol):
-    """Narrow injectable seam around the trusted Docker CLI."""
-
-    def run(
-        self,
-        argv: list[str],
-        *,
-        timeout_seconds: float,
-        input_bytes: bytes | None = None,
-    ) -> subprocess.CompletedProcess[str]:
-        """Run one Docker control-plane command without ambient credentials."""
-
-
 class LocalDockerCommandRunner:
     """Bounded Docker CLI adapter used by the production executor."""
+
+    cleanup_stability_seconds = 1.0
 
     def __init__(self, executable: str | None = None) -> None:
         self._executable = executable or shutil.which("docker") or ""
@@ -63,52 +50,6 @@ class LocalDockerCommandRunner:
             input_bytes=input_bytes,
             env=secret_free_environment(),
         )
-
-
-def _require_success(
-    runner: DockerCommandRunner,
-    argv: list[str],
-    *,
-    timeout_seconds: float = 30,
-    input_bytes: bytes | None = None,
-) -> subprocess.CompletedProcess[str]:
-    result = runner.run(argv, timeout_seconds=timeout_seconds, input_bytes=input_bytes)
-    if result.returncode != 0:
-        detail = redact((result.stderr or result.stdout).strip())
-        raise IsolatedExecutionError(f"docker {' '.join(argv[:2])} failed: {detail}")
-    return result
-
-
-def inspect_container_image(
-    runner: DockerCommandRunner,
-    immutable_image: str,
-) -> ContainerImageIdentityV1:
-    """Verify one locally available immutable Linux container image."""
-
-    image_result = _require_success(
-        runner,
-        ["image", "inspect", immutable_image],
-    )
-    try:
-        image_record = json.loads(image_result.stdout)[0]
-    except (IndexError, KeyError, TypeError, json.JSONDecodeError) as exc:
-        raise IsolatedExecutionError("Docker returned invalid image identity JSON") from exc
-    repo_digests = image_record.get("RepoDigests") or []
-    if immutable_image not in repo_digests:
-        raise IsolatedExecutionError(
-            "locally resolved image does not advertise the requested immutable digest"
-        )
-    if image_record.get("Os") != "linux":
-        raise IsolatedExecutionError("isolated executor requires a Linux container image")
-    engine = _require_success(runner, ["version", "--format", "{{.Server.Version}}"])
-    return ContainerImageIdentityV1(
-        requested_reference=immutable_image,
-        repo_digest=immutable_image,
-        image_id=str(image_record["Id"]),
-        operating_system=str(image_record["Os"]),
-        architecture=str(image_record["Architecture"]),
-        engine_version=engine.stdout.strip(),
-    )
 
 
 def _resource_flags(request: IsolatedExecutionRequestV1) -> list[str]:
@@ -160,11 +101,11 @@ def execute_isolated(
     started_at = datetime.now(UTC).isoformat()
     execution_error: BaseException | None = None
     try:
-        _require_success(
+        require_docker_success(
             active_runner, ["volume", "create", "--label", "readme-agent=true", volume]
         )
         uid, gid = request.policy.user.split(":")
-        seed = _require_success(
+        seed = require_docker_success(
             active_runner,
             [
                 "create",
@@ -184,20 +125,20 @@ def execute_isolated(
                 f"chown -R {uid}:{gid} {request.policy.workspace_path}",
             ],
         )
-        _require_success(
+        require_docker_success(
             active_runner,
             ["cp", "-", f"{seed_name}:{request.policy.workspace_path}"],
             timeout_seconds=60,
             input_bytes=inputs.source_archive,
         )
-        seed_start = _require_success(
+        seed_start = require_docker_success(
             active_runner,
             ["start", "--attach", seed.stdout.strip()],
             timeout_seconds=60,
         )
         if seed_start.returncode != 0:
             raise IsolatedExecutionError("workspace ownership initialization failed")
-        _require_success(active_runner, ["rm", "--force", seed_name])
+        require_docker_success(active_runner, ["rm", "--force", seed_name])
 
         create_argv = [
             "create",
@@ -216,14 +157,15 @@ def execute_isolated(
         create_argv.extend(
             ["--entrypoint", request.argv[0], request.policy.immutable_image, *request.argv[1:]]
         )
-        create = _require_success(active_runner, create_argv)
+        create = require_docker_success(active_runner, create_argv)
         container_id = create.stdout.strip()
-        _require_success(active_runner, ["start", container_id])
+        require_docker_success(active_runner, ["start", container_id])
         top = active_runner.run(
             ["top", container_id, "-eo", "pid,ppid,user,args"], timeout_seconds=10
         )
         if top.returncode == 0:
             process_inventory = [line for line in top.stdout.splitlines() if line.strip()]
+        wait_started = time.monotonic()
         wait = active_runner.run(
             ["wait", container_id],
             timeout_seconds=request.policy.timeout_seconds,
@@ -242,11 +184,19 @@ def execute_isolated(
                 raise IsolatedExecutionError(
                     "docker wait did not return one exact container exit code"
                 ) from exc
-        logs = active_runner.run(["logs", container_id], timeout_seconds=30)
+        state_timeout = (
+            15.0
+            if timed_out
+            else max(0.1, request.policy.timeout_seconds - (time.monotonic() - wait_started))
+        )
+        state = await_terminal_container_state(
+            active_runner,
+            container_id,
+            timeout_seconds=state_timeout,
+        )
+        logs = require_docker_success(active_runner, ["logs", container_id])
         stdout = redact(logs.stdout)
         stderr = redact(logs.stderr)
-        inspect = _require_success(active_runner, ["container", "inspect", container_id])
-        state = json.loads(inspect.stdout)[0]["State"]
         inspected_exit_code = int(state["ExitCode"])
         if waited_exit_code is not None and waited_exit_code != inspected_exit_code:
             raise IsolatedExecutionError("docker wait and inspect returned different exit codes")

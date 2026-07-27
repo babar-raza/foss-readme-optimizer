@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import subprocess
+import time
 from typing import Literal, Protocol
 
 _REMOVE_ATTEMPTS = 3
@@ -38,6 +39,16 @@ def _listing_is_empty(result: subprocess.CompletedProcess[str]) -> bool:
     return result.returncode == 0 and not result.stdout.strip()
 
 
+def _resource_is_absent(
+    runner: DockerCleanupRunner,
+    inspect: list[str],
+    listing: list[str],
+) -> bool:
+    observed = runner.run(inspect, timeout_seconds=10)
+    listed = runner.run(listing, timeout_seconds=10)
+    return _absence_confirmed(observed) and _listing_is_empty(listed)
+
+
 def remove_docker_resource(
     runner: DockerCleanupRunner,
     kind: Literal["container", "volume"],
@@ -56,13 +67,16 @@ def remove_docker_resource(
         if kind == "container"
         else ["volume", "ls", "-q", "--filter", f"name={identity}"]
     )
+    stability_seconds = max(float(getattr(runner, "cleanup_stability_seconds", 0.0)), 0.0)
     for _attempt in range(_REMOVE_ATTEMPTS):
         try:
             runner.run(remove, timeout_seconds=30)
-            observed = runner.run(inspect, timeout_seconds=10)
-            listed = runner.run(listing, timeout_seconds=10)
+            absent = _resource_is_absent(runner, inspect, listing)
+            if absent and stability_seconds:
+                time.sleep(stability_seconds)
+                absent = _resource_is_absent(runner, inspect, listing)
         except Exception:
             continue
-        if _absence_confirmed(observed) and _listing_is_empty(listed):
+        if absent:
             return True
     return False

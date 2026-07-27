@@ -134,6 +134,8 @@ class AcquisitionRunner:
             return _completed(argv)
         if argv[:2] == ["container", "inspect"]:
             return _completed(argv, returncode=1, stderr="not found")
+        if argv[:2] == ["ps", "-aq"]:
+            return _completed(argv)
         raise AssertionError(f"unexpected Docker command: {argv}")
 
 
@@ -142,6 +144,23 @@ class FailingAcquisitionRunner(AcquisitionRunner):
         if argv[0] == "run":
             self.commands.append(argv)
             return _completed(argv, returncode=101, stderr="registry unavailable")
+        return super().run(
+            argv,
+            timeout_seconds=timeout_seconds,
+            input_bytes=input_bytes,
+        )
+
+
+class TransientAcquisitionRunner(AcquisitionRunner):
+    def __init__(self) -> None:
+        super().__init__()
+        self.failures_remaining = 1
+
+    def run(self, argv, *, timeout_seconds, input_bytes=None):
+        if argv[0] == "run" and self.failures_remaining:
+            self.commands.append(argv)
+            self.failures_remaining -= 1
+            return _completed(argv, returncode=125, stderr="Docker transport interrupted")
         return super().run(
             argv,
             timeout_seconds=timeout_seconds,
@@ -331,6 +350,25 @@ def test_acquisition_failure_cleans_container_and_publishes_no_bundle(tmp_path, 
     assert any(argv[:2] == ["rm", "--force"] for argv in runner.commands)
     assert any(argv[:2] == ["container", "inspect"] for argv in runner.commands)
     assert list(cache.glob("*/acquisition.json")) == []
+
+
+def test_transient_acquisition_control_failure_retries_idempotently(tmp_path, monkeypatch):
+    source = tmp_path / "source"
+    _source(source)
+    snapshot = _snapshot(source)
+    package = inspect_rust_package_layout(source)
+    runner = TransientAcquisitionRunner()
+    monkeypatch.setattr(rust_dependency_acquisition, "verify_repository_snapshot", lambda _: None)
+
+    bundle = acquire_rust_dependencies(
+        snapshot,
+        package,
+        cache_root=tmp_path / "cache",
+        runner=runner,
+    )
+
+    assert bundle.acquisition.lock_package_count == 1
+    assert len([argv for argv in runner.commands if argv[0] == "run"]) == 3
 
 
 def test_checksum_corruption_blocks_cache_reuse(tmp_path, monkeypatch):

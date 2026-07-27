@@ -116,6 +116,7 @@ def _control_state() -> dict[str, Any]:
         "src/readme_agent/ecosystems/rust_use_resolution.py",
         "src/readme_agent/facts/example_verification_schema.py",
         "src/readme_agent/facts/isolated_cleanup.py",
+        "src/readme_agent/facts/isolated_docker_control.py",
         "src/readme_agent/facts/isolated_execution.py",
         "src/readme_agent/facts/provider.py",
         "src/readme_agent/facts/rust_consumer.py",

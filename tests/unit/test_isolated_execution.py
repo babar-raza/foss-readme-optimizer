@@ -200,6 +200,44 @@ class InvalidWaitRunner(ScriptedDockerRunner):
         )
 
 
+class ConvergingStateRunner(ScriptedDockerRunner):
+    """Expose Docker's transient missing/running views before terminal state."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.state_observations = 0
+
+    def run(
+        self,
+        argv: list[str],
+        *,
+        timeout_seconds: float,
+        input_bytes: bytes | None = None,
+    ) -> subprocess.CompletedProcess[str]:
+        execution_state = (
+            argv[:2] == ["container", "inspect"]
+            and "readme-agent-exec-" in argv[-1]
+            and argv[-1] not in self.removed_containers
+        )
+        if execution_state:
+            self.commands.append(argv)
+            self.state_observations += 1
+            if self.state_observations == 1:
+                return _completed(argv, returncode=1, stderr="No such container")
+            if self.state_observations == 2:
+                return _completed(
+                    argv,
+                    stdout=json.dumps(
+                        [{"State": {"ExitCode": 0, "OOMKilled": False, "Running": True}}]
+                    ),
+                )
+        return super().run(
+            argv,
+            timeout_seconds=timeout_seconds,
+            input_bytes=input_bytes,
+        )
+
+
 def _request(tmp_path) -> IsolatedExecutionRequestV1:
     (tmp_path / "input.txt").write_text("immutable input\n", encoding="utf-8")
     return IsolatedExecutionRequestV1(
@@ -348,3 +386,13 @@ def test_invalid_docker_wait_response_fails_closed_after_cleanup(tmp_path, runne
 
     assert len(runner.removed_containers) == 2
     assert len(runner.removed_volumes) == 1
+
+
+def test_transient_docker_state_views_converge_before_acceptance(tmp_path):
+    runner = ConvergingStateRunner()
+
+    result = execute_isolated(_request(tmp_path), runner=runner)
+
+    assert result.truth_eligible is True
+    assert result.return_code == 0
+    assert runner.state_observations == 3

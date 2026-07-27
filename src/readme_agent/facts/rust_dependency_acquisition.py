@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import subprocess
 import tempfile
 import uuid
 from dataclasses import dataclass
@@ -15,14 +16,16 @@ from filelock import FileLock
 
 from readme_agent.ecosystems.rust_api_schema import RustPackageLayoutV1
 from readme_agent.evidence.redaction import redact
-from readme_agent.facts.isolated_execution import (
+from readme_agent.facts.isolated_cleanup import remove_docker_resource
+from readme_agent.facts.isolated_docker_control import (
     DockerCommandRunner,
     IsolatedExecutionError,
-    LocalDockerCommandRunner,
     inspect_container_image,
 )
+from readme_agent.facts.isolated_execution import LocalDockerCommandRunner
 from readme_agent.facts.rust_dependency_schema import RustDependencyAcquisitionV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1, verify_repository_snapshot
+from readme_agent.retry import RetryableOperationError, run_with_retry
 
 RUST_188_IMAGE = "rust@sha256:af306cfa71d987911a781c37b59d7d67d934f49684058f96cf72079c3626bfe0"
 _ENVIRONMENT = {
@@ -151,7 +154,23 @@ def _run_cargo(
     image: str,
     cargo_argv: list[str],
 ) -> str:
+    try:
+        return run_with_retry(
+            "package_registry",
+            lambda: _run_cargo_attempt(runner, workspace, image, cargo_argv),
+        )
+    except RetryableOperationError as exc:
+        raise IsolatedExecutionError(str(exc)) from exc
+
+
+def _run_cargo_attempt(
+    runner: DockerCommandRunner,
+    workspace: Path,
+    image: str,
+    cargo_argv: list[str],
+) -> str:
     name = f"readme-agent-rust-acquire-{uuid.uuid4().hex}"
+    result: subprocess.CompletedProcess[str] | None = None
     try:
         result = runner.run(
             _docker_argv(
@@ -162,16 +181,21 @@ def _run_cargo(
             ),
             timeout_seconds=600,
         )
-        if result.returncode != 0:
-            detail = redact((result.stderr or result.stdout).strip())
-            raise IsolatedExecutionError(
-                f"networked Cargo acquisition failed ({' '.join(cargo_argv)}): {detail}"
-            )
-        return result.stdout
     finally:
-        runner.run(["rm", "--force", name], timeout_seconds=15)
-        if runner.run(["container", "inspect", name], timeout_seconds=10).returncode == 0:
-            raise IsolatedExecutionError("networked Cargo acquisition container was not removed")
+        removed = remove_docker_resource(runner, "container", name)
+    if not removed:
+        raise IsolatedExecutionError(
+            f"networked Cargo acquisition resource cleanup could not be confirmed: {name}"
+        )
+    if result is None:
+        raise IsolatedExecutionError("networked Cargo acquisition returned no process result")
+    if result.returncode != 0:
+        detail = redact(f"{result.stdout}\n{result.stderr}".strip())
+        raise RetryableOperationError(
+            f"networked Cargo acquisition failed ({' '.join(cargo_argv)}, "
+            f"exit {result.returncode}): {detail}"
+        )
+    return result.stdout
 
 
 def _load_bundle(path: Path) -> RustDependencyBundle:
