@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH",
+    "claim_expires_at": "2026-07-27T09:26:23.761647+00:00",
+    "claim_id": "3b1870f1e9aa401fbc7700c1a6e98bc7",
+    "claimed_at": "2026-07-27T08:56:23.761647+00:00",
+    "claimed_by": "codex",
     "graph_sha256": "fcdfbf1f1181903a7f1fad9247866c4eb1d4e7ab063917f2f24e67ab376f4bf8",
-    "last_evaluated_at": "2026-07-27T08:56:06.784189+00:00",
+    "last_evaluated_at": "2026-07-27T08:56:23.761647+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -142,7 +142,7 @@
       "L8-TRUTH-02-ROOT-ROLES": "CLOSED",
       "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION": "CLOSED",
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
-      "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "TODO",
+      "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "IN_PROGRESS",
       "L8-TRUTH-02D-RUST-API-TRUTH": "TODO",
       "L8-TRUTH-03-CLAIM-POLARITY": "TODO",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
@@ -1921,6 +1921,15 @@
         "reason": "L8-030 independently verified with clean-checkout official proof, real isolated Aspose consumer, stable scoreboard, and checksum inventory",
         "task_id": "L8-TRUTH-02B-PYTHON-API-TRUTH",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-27T08:56:23.761710+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -1929,7 +1938,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 220,
+  "state_version": 221,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
