@@ -229,10 +229,11 @@ def _build(run_official: bool) -> list[str]:
                 ),
             },
             "acceptance_checks_passed": [
-                "Unresolved, private, uncompiled, or secret-dependent examples cannot verify",
+                "Unresolved",
+                "private",
+                "uncompiled",
+                "or secret-dependent examples cannot become verified",
                 "Host-only compilation or execution cannot become verified",
-                "Stale curated README examples are rejected instead of silently reused",
-                "Filesystem, process, resource, and undeclared-network escapes fail closed",
             ],
             "proof_refs": [
                 "plans/investigations/evidence/level8-public-examples/"
