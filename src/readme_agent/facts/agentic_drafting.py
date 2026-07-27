@@ -420,21 +420,43 @@ def _select_bounded_repo_context(root: Path, ecosystem: str | None) -> str:
         if text is not None:
             _add(manifest_path.relative_to(root).as_posix(), text)
 
-    candidates: set[Path] = set()
+    source_candidates: set[Path] = set()
     for pattern in _ECOSYSTEM_SOURCE_GLOBS.get(ecosystem or "", ()):
-        candidates.update(root.rglob(pattern))
+        source_candidates.update(root.rglob(pattern))
+    doc_candidates: set[Path] = set()
     for pattern in _DOC_GLOBS:
-        candidates.update(root.rglob(pattern))
+        doc_candidates.update(root.rglob(pattern))
 
     already_shown = {inventory.readme_path, *inventory.manifest_paths.values()}
-    ordered = sorted(
+    eligible_sources = {
+        path
+        for path in source_candidates
+        if path.is_file() and path not in already_shown and not _is_noise_path(root, path)
+    }
+    production_sources = sorted(
         (
             path
-            for path in candidates
-            if path.is_file() and path not in already_shown and not _is_noise_path(root, path)
+            for path in eligible_sources
+            if not {"test", "tests"} & {part.lower() for part in path.relative_to(root).parts}
         ),
         key=lambda path: (len(path.relative_to(root).parts), str(path)),
     )
+    test_sources = sorted(
+        (path for path in eligible_sources if path not in production_sources),
+        key=lambda path: (len(path.relative_to(root).parts), str(path)),
+    )
+    documentation = sorted(
+        (
+            path
+            for path in doc_candidates
+            if path.is_file()
+            and path not in already_shown
+            and path not in eligible_sources
+            and not _is_noise_path(root, path)
+        ),
+        key=lambda path: (len(path.relative_to(root).parts), str(path)),
+    )
+    ordered = [*production_sources, *test_sources, *documentation]
     for path in ordered:
         if budget <= 0:
             break

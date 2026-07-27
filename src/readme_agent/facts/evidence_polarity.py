@@ -21,6 +21,10 @@ _CONSTRAINT_CUE = re.compile(
     r"(?:NotImplemented|NotSupported|Unsupported)[A-Za-z0-9_]*Exception)",
     re.IGNORECASE,
 )
+_CODE_CONTEXT_CONSTRAINT_CUE = re.compile(
+    r"(?:NotImplemented|NotSupported|Unsupported)[A-Za-z0-9_]*(?:Error|Exception)",
+    re.IGNORECASE,
+)
 _WORD = re.compile(r"[A-Za-z][A-Za-z0-9_+-]*")
 _DEICTIC_CONSTRAINT = re.compile(
     r"\bthis\s+(?:feature|operation|method|format|path|mode|option)\b",
@@ -175,7 +179,7 @@ def _classify_occurrence(
 ) -> ObservedEvidencePolarity:
     if _CONSTRAINT_CUE.search(exact_excerpt) or (
         _positive_implementation_occurrence(path, exact_excerpt)
-        and _CONSTRAINT_CUE.search(context_excerpt)
+        and _CODE_CONTEXT_CONSTRAINT_CUE.search(context_excerpt)
     ):
         return "explicit_constraint"
     if _positive_implementation_occurrence(path, exact_excerpt):

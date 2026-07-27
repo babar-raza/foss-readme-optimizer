@@ -204,6 +204,24 @@ class TestSelectBoundedRepoContext:
 
         assert "Ignored" not in context
 
+    def test_production_source_precedes_tests_and_docs_under_budget(self, tmp_path, monkeypatch):
+        source = tmp_path / "package" / "Widget.py"
+        source.parent.mkdir()
+        source.write_text("class Widget:\n    pass\n", encoding="utf-8")
+        tests = tmp_path / "tests" / "test_widget.py"
+        tests.parent.mkdir()
+        tests.write_text("test detail " * 20, encoding="utf-8")
+        docs = tmp_path / "docs" / "guide.md"
+        docs.parent.mkdir()
+        docs.write_text("documentation detail " * 20, encoding="utf-8")
+        monkeypatch.setattr(agentic_drafting, "MAX_CONTEXT_CHARS", 80)
+
+        context = agentic_drafting._select_bounded_repo_context(tmp_path, "python")
+
+        assert "class Widget" in context
+        assert "test detail" not in context
+        assert "documentation detail" not in context
+
 
 def _draft_payload(**overrides) -> dict:
     base = {

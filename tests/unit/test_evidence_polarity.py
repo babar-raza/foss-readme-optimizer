@@ -69,6 +69,30 @@ def test_positive_symbol_near_explicit_stub_cannot_prove_capability(tmp_path: Pa
     assert fact.evidence_assessments[0].exact_excerpt == "public void Render()"
 
 
+def test_python_boolean_not_near_declaration_is_not_a_product_constraint(
+    tmp_path: Path,
+):
+    source = tmp_path / "src" / "Scene.py"
+    source.parent.mkdir()
+    source.write_text(
+        "class Scene:\n"
+        "    def __init__(self, name=None):\n"
+        '        self.name = name if name is not None else ""\n',
+        encoding="utf-8",
+    )
+
+    fact = evidence_fact_candidate(
+        tmp_path,
+        "abc123",
+        None,
+        "product.capabilities",
+        [_spec("Scene object construction.", "class Scene", "src/Scene.py")],
+    )
+
+    assert fact.verification_state == "verified"
+    assert fact.evidence_assessments[0].observed_polarity == "positive_implementation"
+
+
 def test_full_constraint_excerpt_binds_claim_subject(tmp_path: Path):
     source = tmp_path / "src" / "Scene.cs"
     source.parent.mkdir()

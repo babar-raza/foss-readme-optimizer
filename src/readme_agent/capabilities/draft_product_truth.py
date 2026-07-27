@@ -67,6 +67,9 @@ from readme_agent.facts.policy_evidence import (
     limitation_fact_candidate,
 )
 from readme_agent.facts.provider import collect_product_facts
+from readme_agent.facts.python_example_normalization import (
+    normalize_python_import_inventory,
+)
 from readme_agent.facts.repository_examples import repository_readme_example_candidates
 from readme_agent.facts.resolution import resolve_product_facts
 from readme_agent.facts.schema_v2 import (
@@ -317,11 +320,12 @@ def _normalize_draft_example(draft: DraftProductTruthV1, root: Path) -> DraftPro
     normalized = normalize_generated_code(example.code)
     if example.language == "dotnet":
         normalized = normalize_dotnet_public_type_usings(root, normalized)
-    if normalized == example.code:
+    normalized_example = example.model_copy(update={"code": normalized})
+    if example.language == "python":
+        normalized_example = normalize_python_import_inventory(root, normalized_example)
+    if normalized_example == example:
         return draft
-    return draft.model_copy(
-        update={"minimal_example": example.model_copy(update={"code": normalized})}
-    )
+    return draft.model_copy(update={"minimal_example": normalized_example})
 
 
 def _gate_draft(
