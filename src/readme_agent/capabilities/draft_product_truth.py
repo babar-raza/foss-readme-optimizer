@@ -277,7 +277,11 @@ def _gate_minimal_example(
     local_result = verify_example_fn(example)
     outcome = local_result.outcome if local_result is not None else "BLOCKED_LOCAL_VERIFICATION"
     detail = _local_verification_detail(local_result)
-    verified = outcome == "SOURCE_BUILD_VERIFIED"
+    verified = (
+        local_result is not None
+        and local_result.truth_eligible
+        and outcome == "SOURCE_BUILD_VERIFIED"
+    )
     return FactRecordV2(
         fact_id=descriptive_fact_id("example.minimal", "agent-drafted-example"),
         field="example.minimal",

@@ -3,6 +3,9 @@
 import sys
 
 from readme_agent.facts.example_execution import execute_example, secret_free_environment
+from readme_agent.facts.local_verification import verify_local_product_example
+from readme_agent.registry.models import MinimalExamplePolicy
+from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 
 
 def test_secret_free_environment_drops_every_credential_like_name():
@@ -52,3 +55,47 @@ def test_timeout_is_bounded(tmp_path):
 
     assert result.return_code == 124
     assert result.timed_out is True
+
+
+def test_host_execution_is_permanently_ineligible_for_product_truth(tmp_path, monkeypatch):
+    (tmp_path / "example.py").write_text("print('evidence')\n", encoding="utf-8")
+    result = execute_example(
+        [sys.executable, "-c", "print('host diagnostic only')"],
+        workspace=tmp_path,
+        timeout_seconds=10,
+        base_environment={},
+    )
+    assert result.isolation_kind == "host_secret_filtered"
+    assert result.truth_eligible is False
+
+    snapshot = RepositorySnapshotV1(
+        org_repo="acme/widget",
+        source_revision="abc1234",
+        snapshot_root=str(tmp_path.resolve()),
+        inventory_sha256="a" * 64,
+        captured_at="2026-07-26T00:00:00+00:00",
+        provenance=SnapshotProvenanceV1(
+            clone_url="https://example.test/acme/widget.git",
+            git_tree_sha256="a" * 64,
+        ),
+    )
+    example = MinimalExamplePolicy(
+        language="python",
+        class_name="example",
+        code="print('must not run on host')",
+        evidence_paths=["example.py"],
+        required_symbols=[],
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.local_verification.verify_repository_snapshot",
+        lambda current: None,
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.local_verification.verify_host_product_example_diagnostic",
+        lambda *_: (_ for _ in ()).throw(AssertionError("host verifier must not run")),
+    )
+
+    verification = verify_local_product_example(snapshot, example)
+
+    assert verification.outcome == "ISOLATION_REQUIRED"
+    assert verification.truth_eligible is False

@@ -1,4 +1,4 @@
-"""Verify source acquisition and exact examples in disposable secret-free workspaces."""
+"""Gate product truth on isolated verifiers and retain host-only diagnostics."""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ import re
 import shutil
 import tempfile
 import xml.etree.ElementTree as ET
+from collections.abc import Callable
 from pathlib import Path
 from threading import Lock
 
@@ -35,6 +36,9 @@ _COPY_IGNORE = shutil.ignore_patterns(
 _VERIFICATION_CONTRACT_FILES = (
     "local_verification.py",
     "example_execution.py",
+    "isolated_execution.py",
+    "isolated_execution_inputs.py",
+    "isolated_execution_schema.py",
     "example_quality.py",
     "repository_examples.py",
     "example_verification_schema.py",
@@ -783,11 +787,11 @@ _VERIFIERS = {
 }
 
 
-def verify_local_product_example(
+def verify_host_product_example_diagnostic(
     snapshot: RepositorySnapshotV1,
     example: MinimalExamplePolicy,
 ) -> LocalProductVerificationV1:
-    """Build a disposable copy and compile the policy's exact example."""
+    """Run the legacy host verifier for diagnostics, never for accepted truth."""
 
     verify_repository_snapshot(snapshot)
     verifier = _VERIFIERS.get(example.language)
@@ -806,4 +810,46 @@ def verify_local_product_example(
     verify_repository_snapshot(snapshot)
     with _CACHE_LOCK:
         _CACHE[key] = result
+    return result
+
+
+IsolatedProductVerifier = Callable[
+    [RepositorySnapshotV1, MinimalExamplePolicy],
+    LocalProductVerificationV1,
+]
+
+
+def verify_local_product_example(
+    snapshot: RepositorySnapshotV1,
+    example: MinimalExamplePolicy,
+    *,
+    isolated_verifier: IsolatedProductVerifier | None = None,
+) -> LocalProductVerificationV1:
+    """Verify through an OS-isolated adapter or fail closed without executing code."""
+
+    verify_repository_snapshot(snapshot)
+    if isolated_verifier is None:
+        return LocalProductVerificationV1(
+            org_repo=snapshot.org_repo,
+            source_revision=snapshot.source_revision,
+            ecosystem=example.language,
+            outcome="ISOLATION_REQUIRED",
+            detail=(
+                "repository build/example execution was not started because no "
+                "truth-eligible isolated verifier is registered"
+            ),
+            build=_missing_tool_result("isolated-executor"),
+        )
+    result = isolated_verifier(snapshot, example)
+    verify_repository_snapshot(snapshot)
+    if result.org_repo != snapshot.org_repo or result.source_revision != snapshot.source_revision:
+        raise ValueError("isolated verifier result does not belong to the immutable snapshot")
+    if result.outcome == "SOURCE_BUILD_VERIFIED" and not result.truth_eligible:
+        return result.model_copy(
+            update={
+                "outcome": "ISOLATION_REQUIRED",
+                "detail": "host-only or incomplete execution cannot verify product truth",
+                "truth_eligible": False,
+            }
+        )
     return result

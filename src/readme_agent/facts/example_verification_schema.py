@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, model_validator
 
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
+from readme_agent.facts.isolated_execution_schema import IsolatedExecutionResultV1
 
 
 class LocalProductVerificationV1(BaseModel):
@@ -18,7 +19,27 @@ class LocalProductVerificationV1(BaseModel):
     org_repo: str
     source_revision: str
     ecosystem: str
-    outcome: Literal["SOURCE_BUILD_VERIFIED", "BLOCKED_TOOLCHAIN", "BUILD_FAILED"]
+    outcome: Literal[
+        "SOURCE_BUILD_VERIFIED",
+        "BLOCKED_TOOLCHAIN",
+        "BUILD_FAILED",
+        "ISOLATION_REQUIRED",
+    ]
     detail: str
     build: ExampleExecutionResultV1
     example_compile: ExampleExecutionResultV1 | None = None
+    isolated_execution: IsolatedExecutionResultV1 | None = None
+    truth_eligible: bool = False
+
+    @model_validator(mode="after")
+    def verified_truth_requires_isolated_execution(self) -> LocalProductVerificationV1:
+        if self.truth_eligible and (
+            self.outcome != "SOURCE_BUILD_VERIFIED"
+            or self.isolated_execution is None
+            or not self.isolated_execution.truth_eligible
+            or self.isolated_execution.return_code != 0
+        ):
+            raise ValueError(
+                "truth-eligible product verification requires a successful isolated execution"
+            )
+        return self

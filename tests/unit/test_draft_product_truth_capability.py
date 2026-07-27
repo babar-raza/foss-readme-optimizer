@@ -28,6 +28,12 @@ from readme_agent.capabilities import draft_product_truth as capability
 from readme_agent.facts.agentic_drafting import DraftProductTruthV1
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.interpretive_evidence import InterpretiveClaimV1
+from readme_agent.facts.isolated_execution_schema import (
+    ContainerCleanupV1,
+    ContainerImageIdentityV1,
+    IsolatedExecutionPolicyV1,
+    IsolatedExecutionResultV1,
+)
 from readme_agent.facts.local_verification import LocalProductVerificationV1
 from readme_agent.facts.schema_v2 import (
     REQUIRED_PRODUCT_FIELDS,
@@ -168,6 +174,40 @@ def _verified_local_result() -> LocalProductVerificationV1:
     ok = ExampleExecutionResultV1(
         argv=["mvn"], return_code=0, stdout="", stderr="", timed_out=False, environment_names=[]
     )
+    image = "alpine@sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce"
+    isolated = IsolatedExecutionResultV1(
+        truth_eligible=True,
+        org_repo=ORG_REPO,
+        source_revision="abc1234",
+        argv=["mvn"],
+        environment_names=[],
+        input_sha256="a" * 64,
+        input_file_count=1,
+        policy_sha256="b" * 64,
+        policy=IsolatedExecutionPolicyV1(immutable_image=image),
+        image=ContainerImageIdentityV1(
+            requested_reference=image,
+            repo_digest=image,
+            image_id="sha256:" + "c" * 64,
+            operating_system="linux",
+            architecture="amd64",
+            engine_version="test",
+        ),
+        container_id="container",
+        process_inventory=["PID PPID USER COMMAND"],
+        return_code=0,
+        stdout="",
+        stderr="",
+        timed_out=False,
+        oom_killed=False,
+        started_at="2026-07-26T00:00:00+00:00",
+        finished_at="2026-07-26T00:00:01+00:00",
+        cleanup=ContainerCleanupV1(
+            execution_container_removed=True,
+            seed_container_removed=True,
+            workspace_volume_removed=True,
+        ),
+    )
     return LocalProductVerificationV1(
         org_repo=ORG_REPO,
         source_revision="abc1234",
@@ -176,6 +216,8 @@ def _verified_local_result() -> LocalProductVerificationV1:
         detail="source build and exact README example compilation passed",
         build=ok,
         example_compile=ok,
+        isolated_execution=isolated,
+        truth_eligible=True,
     )
 
 

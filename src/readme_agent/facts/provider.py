@@ -133,7 +133,11 @@ def _local_verification_facts(
         else:
             example_outcome = local_result.outcome
             example_detail = local_result.detail
-        example_verified = example_outcome == "SOURCE_BUILD_VERIFIED"
+        example_verified = (
+            local_result is not None
+            and local_result.truth_eligible
+            and example_outcome == "SOURCE_BUILD_VERIFIED"
+        )
         facts.append(
             FactRecordV2(
                 fact_id=descriptive_fact_id("example.minimal", "compiled-policy-example"),

@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import re
 from pathlib import Path
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -88,6 +89,8 @@ class ExampleExecutionResultV1(BaseModel):
     stderr: str
     timed_out: bool
     environment_names: list[str] = Field(default_factory=list)
+    isolation_kind: Literal["host_secret_filtered"] = "host_secret_filtered"
+    truth_eligible: Literal[False] = False
 
 
 def secret_free_environment(base: dict[str, str] | None = None) -> dict[str, str]:
@@ -114,8 +117,8 @@ def execute_example(
 ) -> ExampleExecutionResultV1:
     """Execute argv without a shell, interactive input, or inherited credentials.
 
-    This is a local secret/process boundary, not an OS sandbox. Production package
-    installation still belongs in a disposable isolated Actions job.
+    This is a local secret/process boundary, not an OS sandbox. Its typed result
+    is permanently ineligible for product-truth promotion.
     """
 
     if not argv or not argv[0]:

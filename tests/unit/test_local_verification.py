@@ -104,12 +104,12 @@ class TestVerifiersRegistration:
     def test_unregistered_language_fails_closed(self, tmp_path, monkeypatch):
         monkeypatch.setattr(lv, "verify_repository_snapshot", lambda snapshot: None)
         snapshot = _snapshot(tmp_path)
-        # Bypass pydantic's Literal validation to prove `verify_local_product_example`
+        # Bypass pydantic's Literal validation to prove the host diagnostic
         # itself still fails closed for anything `_VERIFIERS` doesn't recognize.
         example = _example("java", "Example", "public class Example {}")
         example.language = "ruby"  # type: ignore[assignment]
         with pytest.raises(ValueError, match="no local example verifier registered"):
-            lv.verify_local_product_example(snapshot, example)
+            lv.verify_host_product_example_diagnostic(snapshot, example)
 
 
 class TestVerifyDotnetMocked:
