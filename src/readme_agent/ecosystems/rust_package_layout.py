@@ -32,6 +32,28 @@ def _string_table(value: Any) -> dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
+def _declared_target_paths(
+    manifest: dict[str, Any],
+    package_root: Path,
+    repository_root: Path,
+) -> list[str]:
+    paths: set[str] = set()
+    for table_name in ("bin", "example"):
+        tables = manifest.get(table_name)
+        if not isinstance(tables, list):
+            continue
+        for table in tables:
+            if not isinstance(table, dict) or not isinstance(table.get("path"), str):
+                continue
+            path = package_root / table["path"]
+            if path.is_file() and path.suffix == ".rs":
+                paths.add(path.relative_to(repository_root).as_posix())
+    paths.update(
+        path.relative_to(repository_root).as_posix() for path in package_root.glob("examples/*.rs")
+    )
+    return sorted(paths)
+
+
 def inspect_rust_package_layout(repository_root: Path) -> RustPackageLayoutV1:
     """Return Cargo package and library identity without executing repository code."""
 
@@ -70,10 +92,7 @@ def inspect_rust_package_layout(repository_root: Path) -> RustPackageLayoutV1:
         rust_version=str(package["rust-version"]) if package.get("rust-version") else None,
         lib_path=(package_root / lib_path).relative_to(repository_root).as_posix(),
         dependency_names=sorted(str(name) for name in dependencies),
-        example_paths=sorted(
-            path.relative_to(repository_root).as_posix()
-            for path in package_root.glob("examples/*.rs")
-        ),
+        example_paths=_declared_target_paths(manifest, package_root, repository_root),
         test_paths=sorted(
             path.relative_to(repository_root).as_posix() for path in package_root.glob("tests/*.rs")
         ),

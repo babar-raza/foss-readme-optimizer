@@ -148,21 +148,18 @@ def _local_verification_facts(
                     "code": truth.minimal_example.code,
                     "verification_outcome": example_outcome,
                     "verification_detail": example_detail,
-                    "verified_public_symbols": (
-                        local_result.verified_public_symbols if local_result is not None else []
-                    ),
-                    "public_api_sha256": (
-                        local_result.public_api_sha256 if local_result is not None else None
-                    ),
-                    "python_package": (
-                        local_result.python_package.model_dump(mode="json")
-                        if local_result is not None and local_result.python_package is not None
-                        else None
-                    ),
-                    "typescript_package": (
-                        local_result.typescript_package.model_dump(mode="json")
-                        if local_result is not None and local_result.typescript_package is not None
-                        else None
+                    **(
+                        local_result.fact_projection()
+                        if local_result is not None
+                        else {
+                            "verified_public_symbols": [],
+                            "public_api_sha256": None,
+                            "python_package": None,
+                            "typescript_package": None,
+                            "rust_package": None,
+                            "rust_formats": [],
+                            "rust_source_dependency": None,
+                        }
                     ),
                 },
                 source=source,

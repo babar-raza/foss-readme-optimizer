@@ -30,12 +30,32 @@ _METHOD_PATTERNS: tuple[tuple[re.Pattern[str], RustFormatDirection], ...] = (
         "import",
     ),
 )
-_NON_FORMAT_NAMES = frozenset({"auto", "default", "none", "unknown"})
+_NON_FORMAT_NAMES = frozenset(
+    {
+        "auto",
+        "buffer",
+        "bytes",
+        "default",
+        "file",
+        "format",
+        "none",
+        "path",
+        "stream",
+        "string",
+        "unknown",
+        "writer",
+    }
+)
+_DESTINATION_SEPARATOR = re.compile(r"_(?:from|or|to|with)_")
 
 
 def _format_name(name: str) -> str:
     words = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "_", name).lower()
     return words.replace("_", "")
+
+
+def _method_format_name(remainder: str) -> str:
+    return _DESTINATION_SEPARATOR.split(remainder, maxsplit=1)[0]
 
 
 def _record(
@@ -82,7 +102,7 @@ def extract_rust_format_evidence(
             if match:
                 record = _record(
                     symbol,
-                    name=match.group(1),
+                    name=_method_format_name(match.group(1)),
                     direction=direction,
                     evidence_kind="explicit_io_method",
                 )

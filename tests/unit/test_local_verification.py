@@ -101,6 +101,7 @@ class TestVerifiersRegistration:
         assert lv._VERIFIERS["typescript"] is lv._verify_typescript
         assert lv._VERIFIERS["go"] is lv._verify_go
         assert lv._ISOLATED_VERIFIERS["typescript"] is lv.typescript_example_verifier.verify
+        assert lv._ISOLATED_VERIFIERS["rust"] is lv.rust_example_verifier.verify
 
     def test_unregistered_language_fails_closed(self, tmp_path, monkeypatch):
         monkeypatch.setattr(lv, "verify_repository_snapshot", lambda snapshot: None)

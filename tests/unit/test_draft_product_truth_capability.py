@@ -251,6 +251,10 @@ class TestAllFieldsPass:
         assert calls[0][0] is None
         for field_name in capability._GATED_FIELDS:
             assert result.gated_facts[field_name].verification_state == "verified", field_name
+        example_value = result.gated_facts["example.minimal"].value
+        assert example_value["verified_public_symbols"] == []
+        assert example_value["rust_package"] is None
+        assert example_value["rust_formats"] == []
 
         # Real evidence_fact_candidate()/groundedness_fact_candidate() reuse,
         # not a reimplementation -- confirmed structurally by their own

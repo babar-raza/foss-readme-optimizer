@@ -13,7 +13,12 @@ from pathlib import Path
 from threading import Lock
 
 from readme_agent import env
-from readme_agent.facts import java_toolchain, python_example_verifier, typescript_example_verifier
+from readme_agent.facts import (
+    java_toolchain,
+    python_example_verifier,
+    rust_example_verifier,
+    typescript_example_verifier,
+)
 from readme_agent.facts.example_execution import ExampleExecutionResultV1, execute_example
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.example_verifiers import cpp as cpp_verifier
@@ -47,12 +52,25 @@ _VERIFICATION_CONTRACT_FILES = (
     "typescript_consumer_schema.py",
     "typescript_example_verifier.py",
     "typescript_toolchain.py",
+    "rust_consumer.py",
+    "rust_consumer_schema.py",
+    "rust_dependency_acquisition.py",
+    "rust_dependency_schema.py",
+    "rust_example_verifier.py",
     "../ecosystems/python_api_schema.py",
     "../ecosystems/python_package_layout.py",
     "../ecosystems/python_public_api.py",
     "../ecosystems/python_symbol_members.py",
     "../ecosystems/typescript_api_schema.py",
     "../ecosystems/typescript_package_layout.py",
+    "../ecosystems/rust_api_schema.py",
+    "../ecosystems/rust_format_truth.py",
+    "../ecosystems/rust_package_layout.py",
+    "../ecosystems/rust_public_api.py",
+    "../ecosystems/rust_snippets.py",
+    "../ecosystems/rust_symbol_extraction.py",
+    "../ecosystems/rust_syntax.py",
+    "../ecosystems/rust_use_resolution.py",
     "example_quality.py",
     "repository_examples.py",
     "example_verification_schema.py",
@@ -809,6 +827,7 @@ _VERIFIERS = {
 _ISOLATED_VERIFIERS: dict[str, IsolatedProductVerifier] = {
     "python": python_example_verifier.verify,
     "typescript": typescript_example_verifier.verify,
+    "rust": rust_example_verifier.verify,
 }
 
 

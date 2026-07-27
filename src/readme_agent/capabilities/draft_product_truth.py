@@ -291,6 +291,7 @@ def _gate_minimal_example(
             "code": example.code,
             "verification_outcome": outcome,
             "verification_detail": detail,
+            **(local_result.fact_projection() if local_result is not None else {}),
         },
         source=source,
         verification_state="verified" if verified else "blocked",

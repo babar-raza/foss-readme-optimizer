@@ -100,3 +100,67 @@ class TestLocalVerificationFactsWithoutProductTruth:
         )
 
         assert "example.minimal" not in {f.field for f in facts}
+
+
+class _VerifiedRustResult:
+    outcome = "SOURCE_BUILD_VERIFIED"
+    detail = "locked offline Rust consumer passed"
+    truth_eligible = True
+
+    def fact_projection(self):
+        return {
+            "verified_public_symbols": ["widget::Root", "widget::Root.new"],
+            "public_api_sha256": "a" * 64,
+            "python_package": None,
+            "typescript_package": None,
+            "rust_package": {"crate_name": "widget"},
+            "rust_formats": [{"format": "xlsx", "direction": "export"}],
+            "rust_source_dependency": 'widget = { git = "https://example.invalid", rev = "abc" }',
+        }
+
+    def model_dump(self, *, mode):
+        assert mode == "json"
+        return {"outcome": self.outcome, **self.fact_projection()}
+
+
+def test_verified_rust_surface_is_preserved_in_example_product_fact(monkeypatch):
+    example = SimpleNamespace(
+        language="rust",
+        class_name="readme_example",
+        code="fn main() {}",
+        evidence_paths=["src/lib.rs"],
+        required_symbols=["widget::Root"],
+    )
+    policy = SimpleNamespace(product_truth=SimpleNamespace(minimal_example=example))
+    monkeypatch.setattr(provider, "current_repository_snapshot", lambda _org_repo: object())
+    monkeypatch.setattr(provider, "local_fact_verification_allowed", lambda: True)
+    monkeypatch.setattr(provider, "evidence_failures", lambda *_args: [])
+    monkeypatch.setattr(
+        provider,
+        "verify_local_product_example",
+        lambda _snapshot, _example: _VerifiedRustResult(),
+    )
+    monkeypatch.setattr(
+        provider,
+        "_registry_acquisition_fact",
+        lambda *_args, **_kwargs: _fake_registry_fact("crates_io"),
+    )
+
+    facts, verification = provider._local_verification_facts(
+        "acme/widget",
+        "abc123",
+        "2026-07-27T00:00:00+00:00",
+        root=object(),
+        policy=policy,
+        entry=SimpleNamespace(),
+    )
+
+    example_fact = next(fact for fact in facts if fact.field == "example.minimal")
+    assert example_fact.verification_state == "verified"
+    assert example_fact.value["verified_public_symbols"] == [
+        "widget::Root",
+        "widget::Root.new",
+    ]
+    assert example_fact.value["rust_package"] == {"crate_name": "widget"}
+    assert example_fact.value["rust_formats"] == [{"format": "xlsx", "direction": "export"}]
+    assert verification["outcome"] == "SOURCE_BUILD_VERIFIED"

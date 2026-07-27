@@ -28,6 +28,10 @@ rust-version = "1.80"
 
 [dependencies]
 serde = "1"
+
+[[bin]]
+name = "sample_export"
+path = "samples/export.rs"
 """.strip(),
     )
     _write(
@@ -136,7 +140,10 @@ pub struct Converter;
 
 impl Converter {
     pub fn save_to_html(&self) {}
+    pub fn save_xlsx_to_bytes(&self) {}
+    pub fn save_to_stream_with_format(&self) {}
     pub fn load_csv(&self) {}
+    pub fn load_from_path(&self) {}
     pub fn to_vec(&self) {}
     pub fn from_bits(&self) {}
 }
@@ -156,6 +163,7 @@ impl Mapped {
         root / "examples/basic.rs",
         "fn main() { let _root = widget_core::Root::new(); }\n",
     )
+    _write(root / "samples/export.rs", 'fn main() { println!("sample"); }\n')
     _write(root / "tests/public.rs", "#[test]\nfn public_api() {}\n")
 
 
@@ -183,7 +191,7 @@ def test_package_identity_and_revision_addressed_source_hash(tmp_path):
     assert first.package.edition == "2021"
     assert first.package.rust_version == "1.80"
     assert first.package.dependency_names == ["serde"]
-    assert first.package.example_paths == ["examples/basic.rs"]
+    assert first.package.example_paths == ["examples/basic.rs", "samples/export.rs"]
     assert first.package.test_paths == ["tests/public.rs"]
     assert first.package.acquisition == "pinned_source"
     assert {(snippet.kind, snippet.function_name) for snippet in first.snippets} == {
@@ -191,6 +199,9 @@ def test_package_identity_and_revision_addressed_source_hash(tmp_path):
         ("test_function", "root_roundtrip"),
         ("test_function", "public_api"),
     }
+    assert {
+        snippet.source_path for snippet in first.snippets if snippet.kind == "example_main"
+    } == {"examples/basic.rs", "samples/export.rs"}
     assert first.canonical_hash() == second.canonical_hash()
     assert first.parser.startswith("tree-sitter@0.25.2+tree-sitter-rust@")
     assert pinned_rust_git_dependency(
@@ -282,8 +293,12 @@ def test_formats_require_directional_enum_or_explicit_io_method(tmp_path):
     assert ("xlsx", "import", "format_enum_variant") in values
     assert ("csv", "import", "format_enum_variant") in values
     assert ("html", "export", "explicit_io_method") in values
+    assert ("xlsx", "export", "explicit_io_method") in values
     assert ("csv", "import", "explicit_io_method") in values
-    assert not any(item.format in {"vec", "bits", "unknown"} for item in records)
+    assert not any(
+        item.format in {"vec", "bits", "unknown", "xlsxtobytes", "stream", "path"}
+        for item in records
+    )
 
 
 def test_multi_package_root_requires_one_deterministic_cargo_package(tmp_path):

@@ -78,20 +78,22 @@ def _require_success(
     return result
 
 
-def _image_identity(
+def inspect_container_image(
     runner: DockerCommandRunner,
-    request: IsolatedExecutionRequestV1,
+    immutable_image: str,
 ) -> ContainerImageIdentityV1:
+    """Verify one locally available immutable Linux container image."""
+
     image_result = _require_success(
         runner,
-        ["image", "inspect", request.policy.immutable_image],
+        ["image", "inspect", immutable_image],
     )
     try:
         image_record = json.loads(image_result.stdout)[0]
     except (IndexError, KeyError, TypeError, json.JSONDecodeError) as exc:
         raise IsolatedExecutionError("Docker returned invalid image identity JSON") from exc
     repo_digests = image_record.get("RepoDigests") or []
-    if request.policy.immutable_image not in repo_digests:
+    if immutable_image not in repo_digests:
         raise IsolatedExecutionError(
             "locally resolved image does not advertise the requested immutable digest"
         )
@@ -99,8 +101,8 @@ def _image_identity(
         raise IsolatedExecutionError("isolated executor requires a Linux container image")
     engine = _require_success(runner, ["version", "--format", "{{.Server.Version}}"])
     return ContainerImageIdentityV1(
-        requested_reference=request.policy.immutable_image,
-        repo_digest=request.policy.immutable_image,
+        requested_reference=immutable_image,
+        repo_digest=immutable_image,
         image_id=str(image_record["Id"]),
         operating_system=str(image_record["Os"]),
         architecture=str(image_record["Architecture"]),
@@ -147,7 +149,7 @@ def execute_isolated(
 
     active_runner = runner or LocalDockerCommandRunner()
     inputs = build_isolated_input_bundle(request)
-    image = _image_identity(active_runner, request)
+    image = inspect_container_image(active_runner, request.policy.immutable_image)
     suffix = uuid.uuid4().hex
     volume = f"readme-agent-workspace-{suffix}"
     seed_name = f"readme-agent-seed-{suffix}"
