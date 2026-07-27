@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "6120b6c9d1a1e64ac7bfc345a4dcab23dc55ca8ff5b40683244912240386a46c",
-    "last_evaluated_at": "2026-07-27T18:44:25.028104+00:00",
+    "last_evaluated_at": "2026-07-27T18:45:22.534811+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -64,7 +64,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Run the facts-only canonical supervisor for one real Java, .NET, Python, TypeScript, C++, Go, and Rust repository."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -139,7 +148,7 @@
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
-      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "SCORED",
+      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "TODO",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -2339,6 +2348,17 @@
         "reason": "All task acceptance checks, negative controls, citations, checksums, and independent verification are green.",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-interpretive-render-views/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T18:45:22.534793+00:00",
+        "reason": "Checksum-complete mission contribution proves the governed visible deliverable.",
+        "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -2347,7 +2367,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 269,
+  "state_version": 270,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
