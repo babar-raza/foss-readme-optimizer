@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "fcdfbf1f1181903a7f1fad9247866c4eb1d4e7ab063917f2f24e67ab376f4bf8",
-    "last_evaluated_at": "2026-07-27T08:50:29.921268+00:00",
+    "last_evaluated_at": "2026-07-27T08:50:41.871971+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -141,7 +141,7 @@
       "L8-TRUTH-01C-PROMPT-HYGIENE": "CLOSED",
       "L8-TRUTH-02-ROOT-ROLES": "CLOSED",
       "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION": "CLOSED",
-      "L8-TRUTH-02B-PYTHON-API-TRUTH": "IMPLEMENTED",
+      "L8-TRUTH-02B-PYTHON-API-TRUTH": "VERIFIED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "TODO",
       "L8-TRUTH-02D-RUST-API-TRUTH": "TODO",
       "L8-TRUTH-03-CLAIM-POLARITY": "TODO",
@@ -1885,6 +1885,18 @@
         "reason": "Typed Python package/API truth and isolated consumer verification implemented in commits a480b18-da6cab9",
         "task_id": "L8-TRUTH-02B-PYTHON-API-TRUTH",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-python-api-truth/verification.json",
+          "plans/investigations/evidence/level8-python-api-truth/mission-contribution.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-27T08:50:41.871964+00:00",
+        "reason": "Clean detached checkout official suite and real immutable Docker consumer proof passed at 7b75e80",
+        "task_id": "L8-TRUTH-02B-PYTHON-API-TRUTH",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -1893,7 +1905,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 217,
+  "state_version": 218,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
