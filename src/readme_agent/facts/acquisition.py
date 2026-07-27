@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
+
 from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
 from readme_agent.ecosystems.resolver import ResolutionResult, resolve
 from readme_agent.facts.acquisition_schema import (
@@ -20,6 +22,7 @@ _REGISTRY_METHOD_NAMES = {
     "go": "go_proxy",
     "rust": "crates_io",
 }
+AcquisitionResolver = Callable[[str, dict[str, str]], ResolutionResult]
 
 
 def _registry_receipt(
@@ -96,6 +99,7 @@ def select_acquisition(
     local_verification: LocalProductVerificationV1 | None,
     unavailable_detail: str,
     resolution: ResolutionResult | None = None,
+    resolver: AcquisitionResolver | None = None,
 ) -> AcquisitionDecisionV1:
     """Prefer authoritative publication and otherwise require isolated source proof."""
 
@@ -143,7 +147,7 @@ def select_acquisition(
             truth_eligible=False,
         )
 
-    registry_result = resolution or resolve(resolver_ecosystem, coordinate)
+    registry_result = resolution or (resolver or resolve)(resolver_ecosystem, coordinate)
     receipt = _registry_receipt(resolver_ecosystem, coordinate, registry_result)
     method = _REGISTRY_METHOD_NAMES.get(resolver_ecosystem, resolver_ecosystem)
     if registry_result.found:

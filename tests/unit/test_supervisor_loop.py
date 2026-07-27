@@ -22,7 +22,7 @@ from readme_agent.capabilities import (
 )
 from readme_agent.ecosystems.resolver import ResolutionResult
 from readme_agent.errors import LLMError
-from readme_agent.facts import provider as facts_provider
+from readme_agent.facts import acquisition as facts_acquisition
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.gitsafety._git import run_git
 from readme_agent.llm.analysis_client import AnalysisResult
@@ -565,7 +565,7 @@ def project(tmp_path, monkeypatch):
         _complete_fixture_product_facts,
     )
     monkeypatch.setattr(
-        facts_provider,
+        facts_acquisition,
         "resolve",
         lambda ecosystem, coordinate: ResolutionResult(
             found=True,

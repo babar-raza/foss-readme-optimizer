@@ -695,6 +695,7 @@ class TestGetProductFactsCapability:
         fake_entry = SimpleNamespace(
             org="acme",
             repo_name="widget",
+            org_repo="acme/widget",
             mode="full",
             family="widget",
             platform="java",
@@ -782,6 +783,7 @@ class TestGetProductFactsCapability:
         fake_entry = SimpleNamespace(
             org="acme",
             repo_name="widget",
+            org_repo="acme/widget",
             mode="full",
             family="widget",
             platform="java",
@@ -870,6 +872,7 @@ class TestGetProductFactsCapability:
         fake_entry = SimpleNamespace(
             org="acme",
             repo_name="widget",
+            org_repo="acme/widget",
             mode="disabled",
             family="widget",
             platform="java",

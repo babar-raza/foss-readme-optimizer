@@ -41,6 +41,7 @@ def _acquisition_fact(
     """Select one receipt-backed registry or isolated source acquisition."""
 
     if source_revision is None:
+        org_repo = getattr(entry, "org_repo", f"{entry.org}/{entry.repo_name}")
         return FactRecordV2(
             fact_id=descriptive_fact_id("installation.verified_acquisition", "missing-revision"),
             field="installation.verified_acquisition",
@@ -52,7 +53,7 @@ def _acquisition_fact(
             },
             source=FactSourceV2(
                 source_type="mechanical_repository",
-                location=f"repository://{entry.org_repo}",
+                location=f"repository://{org_repo}",
                 retrieved_at=observed_at,
             ),
             verification_state="blocked",
