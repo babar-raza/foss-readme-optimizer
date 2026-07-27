@@ -62,5 +62,21 @@
     "context_excerpt": "/// </summary>\n        public void Render(Entities.Camera camera, string fileName)\n        {\n            throw new NotImplementedException(\n                \"This feature is not available in the FOSS version. \" +\n                \"Consider using Aspose.3D's commercial On-Premise API for full functionality.\");\n        }\n\n        /// <summary>",
     "accepted": false,
     "reason": "directional evidence anchor does not identify the claimed subject"
+  },
+  "python_boolean_negation": {
+    "schema_version": 1,
+    "fact_id": "product.capabilities:repository-evidence",
+    "claim_text": "Scene object construction.",
+    "expected_polarity": "positive_implementation",
+    "observed_polarity": "positive_implementation",
+    "source_path": "src/Scene.py",
+    "source_revision": "synthetic-python-revision",
+    "observed_at": null,
+    "line_number": 1,
+    "anchor": "class Scene",
+    "exact_excerpt": "class Scene:",
+    "context_excerpt": "class Scene:\n    def __init__(self, name=None):\n        self.name = name if name is not None else \"\"",
+    "accepted": true,
+    "reason": "observed positive_implementation matches expected positive_implementation"
   }
 }

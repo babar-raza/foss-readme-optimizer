@@ -168,5 +168,46 @@
     "affected_surfaces": [
       "readme.limitations"
     ]
+  },
+  "python_boolean_negation": {
+    "fact_id": "product.capabilities:repository-evidence",
+    "field": "product.capabilities",
+    "value": [
+      "Scene object construction."
+    ],
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/Scene.py",
+      "source_revision": "synthetic-python-revision",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "authoritative_owner": "repository-owner",
+    "confidence": 1.0,
+    "supporting_fact_ids": [],
+    "conflicts": [],
+    "evidence_assessments": [
+      {
+        "schema_version": 1,
+        "fact_id": "product.capabilities:repository-evidence",
+        "claim_text": "Scene object construction.",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "positive_implementation",
+        "source_path": "src/Scene.py",
+        "source_revision": "synthetic-python-revision",
+        "observed_at": null,
+        "line_number": 1,
+        "anchor": "class Scene",
+        "exact_excerpt": "class Scene:",
+        "context_excerpt": "class Scene:\n    def __init__(self, name=None):\n        self.name = name if name is not None else \"\"",
+        "accepted": true,
+        "reason": "observed positive_implementation matches expected positive_implementation"
+      }
+    ],
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
   }
 }
