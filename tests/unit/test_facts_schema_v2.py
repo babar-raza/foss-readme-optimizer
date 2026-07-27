@@ -127,6 +127,41 @@ def test_canonical_hash_is_order_stable_and_repeatable():
     assert len(facts.canonical_hash()) == 64
 
 
+def test_acquisition_receipt_time_is_provenance_not_no_op_identity():
+    facts = _complete_facts()
+    acquisition = facts.selected_fact("installation.verified_acquisition").model_copy(
+        update={
+            "value": {
+                "outcome": "REGISTRY_VERIFIED",
+                "registry_receipt": {
+                    "retrieved_at": "2026-07-27T00:00:00Z",
+                    "response_sha256": "a" * 64,
+                },
+            },
+            "verification_state": "verified",
+            "confidence": 1.0,
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                acquisition if fact.field == "installation.verified_acquisition" else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    later = facts.model_copy(deep=True)
+    later.selected_fact("installation.verified_acquisition").value["registry_receipt"][
+        "retrieved_at"
+    ] = "2026-07-27T01:00:00Z"
+
+    assert facts.canonical_hash() == later.canonical_hash()
+    later.selected_fact("installation.verified_acquisition").value["registry_receipt"][
+        "response_sha256"
+    ] = "b" * 64
+    assert facts.canonical_hash() != later.canonical_hash()
+
+
 def test_additive_truth_fields_preserve_legacy_fact_hash_when_absent():
     facts = _complete_facts()
     legacy_payload = facts.model_dump(mode="json")

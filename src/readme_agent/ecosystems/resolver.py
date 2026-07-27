@@ -37,8 +37,10 @@ a caller checks whichever registry it has actual evidence for, never both
 folded into one ambiguous "cpp" verdict.
 """
 
+import hashlib
 import time
 from dataclasses import dataclass
+from datetime import UTC, datetime
 
 import requests
 
@@ -86,6 +88,11 @@ class ResolutionResult:
     # rather than the false-negative `NOT_PUBLISHED`. Defaults `False`,
     # preserving every existing call site's exact behavior.
     blocked: bool = False
+    registry_label: str | None = None
+    request_url: str | None = None
+    status_code: int | None = None
+    response_sha256: str | None = None
+    retrieved_at: datetime | None = None
 
 
 def _registry_get(
@@ -123,12 +130,49 @@ def _resolve_by_existence_url(
     search-query API above."""
     try:
         resp = _registry_get(url, timeout=timeout, headers=headers)
-        if resp.status_code == 404:
-            return ResolutionResult(False, f"{label}: {subject} NOT FOUND (404)")
-        resp.raise_for_status()
-        return ResolutionResult(True, f"{label}: {subject} found")
     except (requests.RequestException, RetryableOperationError) as exc:
-        return ResolutionResult(False, f"network error resolving {label}: {exc}", blocked=True)
+        return ResolutionResult(
+            False,
+            f"network error resolving {label}: {exc}",
+            blocked=True,
+            registry_label=label,
+            request_url=url,
+            retrieved_at=datetime.now(UTC),
+        )
+    response_sha256 = hashlib.sha256(getattr(resp, "content", b"")).hexdigest()
+    retrieved_at = datetime.now(UTC)
+    if resp.status_code == 404:
+        return ResolutionResult(
+            False,
+            f"{label}: {subject} NOT FOUND (404)",
+            registry_label=label,
+            request_url=url,
+            status_code=resp.status_code,
+            response_sha256=response_sha256,
+            retrieved_at=retrieved_at,
+        )
+    try:
+        resp.raise_for_status()
+        return ResolutionResult(
+            True,
+            f"{label}: {subject} found",
+            registry_label=label,
+            request_url=url,
+            status_code=resp.status_code,
+            response_sha256=response_sha256,
+            retrieved_at=retrieved_at,
+        )
+    except (requests.RequestException, RetryableOperationError) as exc:
+        return ResolutionResult(
+            False,
+            f"network error resolving {label}: {exc}",
+            blocked=True,
+            registry_label=label,
+            request_url=url,
+            status_code=resp.status_code,
+            response_sha256=response_sha256,
+            retrieved_at=retrieved_at,
+        )
 
 
 def _resolve_pypi(manifest: dict[str, str], timeout: float = 10) -> ResolutionResult:

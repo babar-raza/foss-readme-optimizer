@@ -20,11 +20,14 @@ verification) lives outside the automated test suite, run once against
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
 
 from readme_agent.capabilities import draft_product_truth as capability
+from readme_agent.ecosystems.resolver import ResolutionResult
+from readme_agent.facts.acquisition import select_acquisition
 from readme_agent.facts.agentic_drafting import DraftProductTruthV1
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.interpretive_evidence import InterpretiveClaimV1
@@ -42,7 +45,11 @@ from readme_agent.facts.schema_v2 import (
     ProductFactsV2,
     descriptive_fact_id,
 )
-from readme_agent.registry.models import EvidenceBackedProductFact, MinimalExamplePolicy
+from readme_agent.registry.models import (
+    EvidenceBackedProductFact,
+    MinimalExamplePolicy,
+    ProductEntry,
+)
 
 ORG_REPO = "acme/widget"
 
@@ -853,13 +860,39 @@ class TestReplaceFacts:
 class TestSourceBuildAcquisitionPromotion:
     def test_verified_drafted_example_promotes_blocked_source_build(self):
         facts = _facts_so_far()
+        entry = ProductEntry(
+            family="widget",
+            platform="java",
+            repo_name="widget",
+            repo_url="https://github.com/acme/widget",
+            clone_url="https://github.com/acme/widget.git",
+            active=True,
+            discovered_via="fixture",
+            mode="dry_run",
+            ecosystem="java",
+            policy_profile="fixture",
+        )
+        prior = select_acquisition(
+            entry=entry,
+            source_revision="abc1234",
+            local_verification=None,
+            unavailable_detail="no example yet",
+            resolution=ResolutionResult(
+                found=False,
+                detail="Maven Central: org.aspose:aspose-widget-foss NOT FOUND (404)",
+                registry_label="Maven Central",
+                request_url=(
+                    "https://repo1.maven.org/maven2/org/aspose/"
+                    "aspose-widget-foss/maven-metadata.xml"
+                ),
+                status_code=404,
+                response_sha256="1" * 64,
+                retrieved_at=datetime(2026, 7, 27, tzinfo=UTC),
+            ),
+        )
         acquisition = _established_fact(
             "installation.verified_acquisition",
-            {
-                "method": "source_build",
-                "outcome": "BLOCKED_LOCAL_VERIFICATION",
-                "detail": "no example yet",
-            },
+            prior.model_dump(mode="json"),
             "disposable-source-build",
         ).model_copy(update={"verification_state": "blocked", "confidence": 0.0})
         facts = capability._replace_facts(facts, {"installation.verified_acquisition": acquisition})
@@ -872,11 +905,18 @@ class TestSourceBuildAcquisitionPromotion:
             "agent-drafted-example",
         )
 
-        updates = capability._promote_source_build_acquisition(facts, {"example.minimal": example})
+        updates = capability._promote_source_build_acquisition(
+            facts,
+            {"example.minimal": example},
+            entry=entry,
+            local_verification=_verified_local_result(),
+        )
 
         promoted = updates["installation.verified_acquisition"]
         assert promoted.verification_state == "verified"
         assert promoted.value["outcome"] == "SOURCE_BUILD_VERIFIED"
+        assert promoted.value["registry_receipt"]["status_code"] == 404
+        assert promoted.value["source_build_receipt"]["network_mode"] == "none"
         assert promoted.confidence == 1.0
 
 

@@ -37,14 +37,33 @@ def _fake_registry_fact(method: str = "pypi") -> FactRecordV2:
     )
 
 
+def _fake_blocked_source_fact(detail: str) -> FactRecordV2:
+    return FactRecordV2(
+        fact_id="installation.verified_acquisition:blocked-source-build",
+        field="installation.verified_acquisition",
+        value={
+            "method": "source_build",
+            "outcome": "BLOCKED_LOCAL_VERIFICATION",
+            "detail": detail,
+        },
+        source=FactSourceV2(
+            source_type="mechanical_test",
+            location="local-product-verification://acme/widget",
+            source_revision="abc123",
+        ),
+        verification_state="blocked",
+        authoritative_owner="repository-owner",
+        confidence=0.0,
+        affected_surfaces=["readme.overview-navigation-and-acquisition"],
+    )
+
+
 class TestLocalVerificationFactsWithoutProductTruth:
     """policy.product_truth is None -- the exact shape of every real, non-pilot policy
     profile in this repo today (only the 3 Java pilots have product_truth authored)."""
 
     def test_a_published_package_still_gets_a_registry_verified_acquisition_fact(self, monkeypatch):
-        monkeypatch.setattr(
-            provider, "_registry_acquisition_fact", lambda *a, **k: _fake_registry_fact()
-        )
+        monkeypatch.setattr(provider, "_acquisition_fact", lambda *a, **k: _fake_registry_fact())
         policy = SimpleNamespace(product_truth=None)
 
         facts, local_verification = provider._local_verification_facts(
@@ -68,7 +87,13 @@ class TestLocalVerificationFactsWithoutProductTruth:
         its own value=None placeholder, which the independent verifier correctly (but
         confusingly) reported as 'method=None -- an unpublished package cannot be
         verified' instead of the honest, complete source_build record this restores."""
-        monkeypatch.setattr(provider, "_registry_acquisition_fact", lambda *a, **k: None)
+        monkeypatch.setattr(
+            provider,
+            "_acquisition_fact",
+            lambda *a, **k: _fake_blocked_source_fact(
+                "no product_truth.minimal_example configured for this policy profile"
+            ),
+        )
         policy = SimpleNamespace(product_truth=None)
 
         facts, local_verification = provider._local_verification_facts(
@@ -92,7 +117,13 @@ class TestLocalVerificationFactsWithoutProductTruth:
         policy-authored minimal_example -- only the acquisition fact is restored by this
         fix, example.minimal legitimately stays absent (and resolve_product_facts() will
         mark it 'missing', an honest reflection of reality)."""
-        monkeypatch.setattr(provider, "_registry_acquisition_fact", lambda *a, **k: None)
+        monkeypatch.setattr(
+            provider,
+            "_acquisition_fact",
+            lambda *a, **k: _fake_blocked_source_fact(
+                "no product_truth.minimal_example configured for this policy profile"
+            ),
+        )
         policy = SimpleNamespace(product_truth=None)
 
         facts, _ = provider._local_verification_facts(
@@ -141,9 +172,7 @@ def test_verified_rust_surface_is_preserved_in_example_product_fact(monkeypatch)
         lambda _snapshot, _example: _VerifiedRustResult(),
     )
     monkeypatch.setattr(
-        provider,
-        "_registry_acquisition_fact",
-        lambda *_args, **_kwargs: _fake_registry_fact("crates_io"),
+        provider, "_acquisition_fact", lambda *_args, **_kwargs: _fake_registry_fact("crates_io")
     )
 
     facts, verification = provider._local_verification_facts(

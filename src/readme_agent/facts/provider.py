@@ -5,10 +5,10 @@ from __future__ import annotations
 from datetime import UTC, datetime
 
 from readme_agent import paths
-from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
-from readme_agent.ecosystems.resolver import resolve
 from readme_agent.errors import NotAllowlistedError
+from readme_agent.facts.acquisition import select_acquisition
 from readme_agent.facts.context import current_product_facts
+from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
 from readme_agent.facts.policy_evidence import evidence_failures
@@ -18,6 +18,7 @@ from readme_agent.facts.root_roles import classify_package_root_roles
 from readme_agent.facts.schema import ProductFactsV1
 from readme_agent.facts.schema_v2 import (
     FactRecordV2,
+    FactSourceType,
     FactSourceV2,
     descriptive_fact_id,
 )
@@ -29,60 +30,72 @@ from readme_agent.repository_snapshot import (
     local_fact_verification_allowed,
 )
 
-# ecosystems/resolver.py's dispatch key -> the acquisition method name recorded on the fact.
-# cpp resolves through the "net" (NuGet) resolver (see foss_coordinate.py) but the method name
-# stays "nuget", accurately describing where the package is actually installed from.
-_REGISTRY_METHOD_NAMES = {
-    "java": "maven_central",
-    "python": "pypi",
-    "net": "nuget",
-    "typescript": "npm",
-    "go": "go_proxy",
-    "rust": "crates_io",
-}
 
-
-def _registry_acquisition_fact(
+def _acquisition_fact(
     entry: ProductEntry,
     source_revision: str | None,
     observed_at: str | None,
-) -> FactRecordV2 | None:
-    """Resolve the canonical "aspose {family} foss" coordinate against the AUTHORITATIVE
-    registry (never the manifest's self-declared name, never a commercial package -- see
-    ecosystems/foss_coordinate.py). Returns a verified registry-acquisition fact when the
-    package IS published; ``None`` when it is genuinely not published, the check was
-    network-blocked, or the ecosystem has no canonical FOSS coordinate -- callers fall back
-    to source-build verification in every ``None`` case."""
-    if entry.ecosystem is None:
-        return None
-    resolver_ecosystem, coordinate = canonical_foss_coordinate(
-        entry.family, entry.ecosystem, entry.org, entry.repo_name
-    )
-    if resolver_ecosystem is None:
-        return None
-    result = resolve(resolver_ecosystem, coordinate)
-    if not result.found:
-        return None
-    method = _REGISTRY_METHOD_NAMES.get(resolver_ecosystem, resolver_ecosystem)
-    source = FactSourceV2(
-        source_type="external_registry",
-        location=f"registry-acquisition://{resolver_ecosystem}",
+    local_verification: LocalProductVerificationV1 | None,
+    unavailable_detail: str,
+) -> FactRecordV2:
+    """Select one receipt-backed registry or isolated source acquisition."""
+
+    if source_revision is None:
+        return FactRecordV2(
+            fact_id=descriptive_fact_id("installation.verified_acquisition", "missing-revision"),
+            field="installation.verified_acquisition",
+            value={
+                "method": "unresolved",
+                "outcome": "BLOCKED_LOCAL_VERIFICATION",
+                "detail": "immutable source revision is required for acquisition truth",
+                "truth_eligible": False,
+            },
+            source=FactSourceV2(
+                source_type="mechanical_repository",
+                location=f"repository://{entry.org_repo}",
+                retrieved_at=observed_at,
+            ),
+            verification_state="blocked",
+            authoritative_owner="repository-owner",
+            confidence=0.0,
+            affected_surfaces=SURFACE_DEPENDENCIES["installation.verified_acquisition"],
+        )
+    decision = select_acquisition(
+        entry=entry,
         source_revision=source_revision,
-        retrieved_at=observed_at,
+        local_verification=local_verification,
+        unavailable_detail=unavailable_detail,
     )
+    receipt = decision.registry_receipt
+    source_type: FactSourceType = (
+        "external_registry" if decision.outcome == "REGISTRY_VERIFIED" else "mechanical_test"
+    )
+    location = (
+        receipt.request_url
+        if receipt is not None
+        else f"local-product-verification://{entry.org_repo}"
+    )
+    qualifiers = {
+        "REGISTRY_VERIFIED": f"registry-{decision.method}",
+        "SOURCE_BUILD_VERIFIED": "disposable-source-build",
+        "NOT_PUBLISHED": "source-build-required",
+        "BLOCKED_NETWORK": "blocked-registry",
+        "CAPABILITY_GAP": "capability-gap",
+    }
+    qualifier = qualifiers.get(decision.outcome, "blocked-source-build")
     return FactRecordV2(
-        fact_id=descriptive_fact_id("installation.verified_acquisition", f"registry-{method}"),
+        fact_id=descriptive_fact_id("installation.verified_acquisition", qualifier),
         field="installation.verified_acquisition",
-        value={
-            "method": method,
-            "outcome": "REGISTRY_VERIFIED",
-            "detail": result.detail,
-            "coordinate": coordinate,
-        },
-        source=source,
-        verification_state="verified",
+        value=decision.model_dump(mode="json"),
+        source=FactSourceV2(
+            source_type=source_type,
+            location=location,
+            source_revision=source_revision,
+            retrieved_at=observed_at,
+        ),
+        verification_state="verified" if decision.truth_eligible else "blocked",
         authoritative_owner="repository-owner",
-        confidence=1.0,
+        confidence=1.0 if decision.truth_eligible else 0.0,
         affected_surfaces=SURFACE_DEPENDENCIES["installation.verified_acquisition"],
     )
 
@@ -180,25 +193,16 @@ def _local_verification_facts(
     # The "aspose {family} foss" rule: a genuinely published package is verified against its
     # AUTHORITATIVE registry and its install claim is kept, never stripped in favor of a
     # source-build substitute the package doesn't need. Only when the package is genuinely not
-    # published (or the check is network-blocked) does source-build remain the verified
-    # acquisition path -- see foss_coordinate.py and the ground-truth evidence bundle. This
+    # published does an isolated source-build remain eligible as the acquisition path. A
+    # network-blocked registry check fails closed rather than masquerading as unpublished; see
+    # foss_coordinate.py and the ground-truth evidence bundle. This
     # check runs regardless of whether product_truth exists -- see the function's own docstring.
-    acquisition = _registry_acquisition_fact(entry, source_revision, observed_at) or FactRecordV2(
-        fact_id=descriptive_fact_id(
-            "installation.verified_acquisition",
-            "disposable-source-build",
-        ),
-        field="installation.verified_acquisition",
-        value={
-            "method": "source_build",
-            "outcome": example_outcome,
-            "detail": example_detail,
-        },
-        source=source,
-        verification_state="verified" if example_verified else "blocked",
-        authoritative_owner="repository-owner",
-        confidence=1.0 if example_verified else 0.0,
-        affected_surfaces=SURFACE_DEPENDENCIES["installation.verified_acquisition"],
+    acquisition = _acquisition_fact(
+        entry,
+        source_revision,
+        observed_at,
+        local_result,
+        example_detail,
     )
     facts.append(acquisition)
     return facts, (local_result.model_dump(mode="json") if local_result is not None else None)

@@ -48,6 +48,8 @@ from pydantic import BaseModel, ConfigDict, Field
 from readme_agent import paths
 from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInputV1
 from readme_agent.facts import agentic_drafting
+from readme_agent.facts.acquisition import reconcile_acquisition
+from readme_agent.facts.acquisition_schema import AcquisitionDecisionV1
 from readme_agent.facts.agentic_drafting import DraftProductTruthV1
 from readme_agent.facts.code_normalization import normalize_generated_code
 from readme_agent.facts.example_quality import generated_example_quality_failures
@@ -74,7 +76,7 @@ from readme_agent.facts.schema_v2 import (
 )
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.registry.loader import require_listed
-from readme_agent.registry.models import MinimalExamplePolicy, ProductTruthPolicy
+from readme_agent.registry.models import MinimalExamplePolicy, ProductEntry, ProductTruthPolicy
 from readme_agent.repository_snapshot import (
     RepositorySnapshotV1,
     capture_repository_snapshot,
@@ -494,29 +496,40 @@ def _to_policy_shape(draft: DraftProductTruthV1) -> dict:
 def _promote_source_build_acquisition(
     facts_so_far: ProductFactsV2,
     gated_updates: dict[str, FactRecordV2],
+    *,
+    entry: ProductEntry,
+    local_verification: LocalProductVerificationV1 | None,
 ) -> dict[str, FactRecordV2]:
-    """Use the successful drafted-example build as source-acquisition proof."""
+    """Reconcile a drafted example against the prior receipt-backed acquisition."""
 
     updates = dict(gated_updates)
-    verified_example = updates["example.minimal"]
     acquisition = facts_so_far.selected_fact("installation.verified_acquisition")
-    if (
-        verified_example.verification_state == "verified"
-        and isinstance(verified_example.value, dict)
-        and isinstance(acquisition.value, dict)
-        and acquisition.value.get("method") == "source_build"
-    ):
-        updates["installation.verified_acquisition"] = acquisition.model_copy(
-            update={
-                "value": {
-                    "method": "source_build",
-                    "outcome": "SOURCE_BUILD_VERIFIED",
-                    "detail": verified_example.value["verification_detail"],
-                },
-                "verification_state": "verified",
-                "confidence": 1.0,
-            }
-        )
+    if not isinstance(acquisition.value, dict):
+        return updates
+    try:
+        prior = AcquisitionDecisionV1.model_validate(acquisition.value)
+    except ValueError:
+        # Legacy/incomplete acquisition state cannot be upgraded by example prose alone.
+        return updates
+    decision = reconcile_acquisition(
+        entry=entry,
+        prior=prior,
+        local_verification=local_verification,
+    )
+    if decision == prior:
+        return updates
+    updates["installation.verified_acquisition"] = acquisition.model_copy(
+        update={
+            "value": decision.model_dump(mode="json"),
+            "source": FactSourceV2(
+                source_type="mechanical_test",
+                location=f"local-product-verification://{entry.org_repo}",
+                source_revision=decision.source_revision,
+            ),
+            "verification_state": "verified" if decision.truth_eligible else "blocked",
+            "confidence": 1.0 if decision.truth_eligible else 0.0,
+        }
+    )
     return updates
 
 
@@ -555,6 +568,7 @@ def execute(
             f"injected product facts belong to {base_facts.org_repo!r}, not {org_repo!r}"
         )
 
+    entry = require_listed(org_repo)
     if base_facts is None:
         facts_result = collect_product_facts(org_repo)
         facts_so_far = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
@@ -563,7 +577,6 @@ def execute(
     drafting_facts_so_far = _reset_fields_to_missing(facts_so_far, _GATED_FIELDS)
 
     if repository_snapshot is None:
-        entry = require_listed(org_repo)
         baseline_path = paths.baseline_dir(entry.org, entry.repo_name)
         clone_baseline(entry, baseline_path)
         snapshot = capture_repository_snapshot(entry, baseline_path)
@@ -578,10 +591,14 @@ def execute(
             org_repo, facts_so_far=current_facts, repair_hints=hints, client=client
         )
 
+    verification_by_example: dict[str, LocalProductVerificationV1 | None] = {}
+
     def verify_example_fn(example: MinimalExamplePolicy) -> LocalProductVerificationV1 | None:
         if not local_fact_verification_allowed():
             return None
-        return verify_local_product_example(snapshot, example)
+        result = verify_local_product_example(snapshot, example)
+        verification_by_example[example.model_dump_json()] = result
+        return result
 
     result = orchestrate_product_truth_draft(
         org_repo,
@@ -593,7 +610,15 @@ def execute(
         verify_example_fn=verify_example_fn,
     )
 
-    gated_updates = _promote_source_build_acquisition(facts_so_far, result.gated_facts)
+    selected_verification = verification_by_example.get(
+        result.draft.minimal_example.model_dump_json()
+    )
+    gated_updates = _promote_source_build_acquisition(
+        facts_so_far,
+        result.gated_facts,
+        entry=entry,
+        local_verification=selected_verification,
+    )
     candidates = [fact for fact in facts_so_far.facts if fact.field not in gated_updates]
     candidates.extend(gated_updates.values())
     resolved = resolve_product_facts(

@@ -55,6 +55,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
 
     assert contract.required_fields == README_TRUTH_FIELDS
     assert set(contract.component_hashes) == {
+        "acquisition_truth",
         "classification_semantics",
         "conflict_semantics",
         "fact_schema",
@@ -66,6 +67,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
     assert contract.recollect_on_component_change == (
         "fact_schema",
         "fact_eligibility",
+        "acquisition_truth",
         "evidence_polarity",
         "root_role_selection",
     )

@@ -34,6 +34,7 @@ BLOCKING_CONFLICT_STATUSES = ("unresolved",)
 RECOLLECT_ON_COMPONENT_CHANGE = (
     "fact_schema",
     "fact_eligibility",
+    "acquisition_truth",
     "evidence_polarity",
     "root_role_selection",
 )
@@ -45,6 +46,12 @@ VISITOR_RENDER_FIELDS = (
 )
 
 _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
+    "acquisition_truth": (
+        "acquisition.py",
+        "acquisition_schema.py",
+        "../ecosystems/foss_coordinate.py",
+        "../ecosystems/resolver.py",
+    ),
     "classification_semantics": ("acceptance_contract.py",),
     "conflict_semantics": ("acceptance_contract.py", "schema_v2.py"),
     "fact_schema": ("schema_v2.py",),

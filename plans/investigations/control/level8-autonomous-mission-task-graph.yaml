@@ -2504,6 +2504,7 @@ taskcards:
   why_it_matters: Installation is a core README obligation and false acquisition guidance is a critical
     defect.
   allowed_paths:
+  - src/readme_agent/capabilities/draft_product_truth.py
   - src/readme_agent/facts/
   - src/readme_agent/ecosystems/
   - tests/
@@ -2525,7 +2526,8 @@ taskcards:
   - unpublished packages with verified builds are not globally blocked
   - A source-build result produced by an unsandboxed host subprocess is ineligible for verified truth
   verification:
-  - Cells Maven negative case plus NuGet
+  - Real Cells Maven positive case plus a synthetic false Maven coordinate
+  - NuGet
   - Python
   - TypeScript
   - C++

@@ -243,6 +243,14 @@ class ProductFactsV2(_StrictModel):
         for fact, fact_payload in zip(self.facts, payload["facts"], strict=True):
             if fact.evidence_assessments is None:
                 fact_payload.pop("evidence_assessments", None)
+            if fact.field == "installation.verified_acquisition":
+                value = fact_payload.get("value")
+                if isinstance(value, dict):
+                    receipt = value.get("registry_receipt")
+                    if isinstance(receipt, dict):
+                        # The receipt time is retained as provenance, but a fresh read of the
+                        # same response must not invalidate an otherwise identical no-op.
+                        receipt.pop("retrieved_at", None)
         canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 

@@ -8,6 +8,7 @@ class _StatusResponse:
 
     def __init__(self, status_code: int):
         self.status_code = status_code
+        self.content = f"fixture response {status_code}".encode()
 
     def raise_for_status(self):
         if self.status_code >= 400:
@@ -32,6 +33,9 @@ class TestResolveJava:
         )
         assert result.found
         assert "found" in result.detail
+        assert result.status_code == 200
+        assert result.request_url == captured[0]
+        assert result.response_sha256 is not None
         # authoritative endpoint, group dotted-path -> slashed
         assert captured[0] == (
             "https://repo1.maven.org/maven2/org/aspose/aspose-cells-foss/maven-metadata.xml"
@@ -44,6 +48,8 @@ class TestResolveJava:
         )
         assert not result.found
         assert "NOT FOUND" in result.detail
+        assert result.status_code == 404
+        assert result.response_sha256 is not None
 
     def test_missing_coordinates_fails_without_a_network_call(self, monkeypatch):
         def fail_if_called(*a, **k):
@@ -110,6 +116,8 @@ class TestResolvePypi:
         result = resolver.resolve("python", {"name": "requests"})
         assert not result.found
         assert result.blocked
+        assert result.status_code is None
+        assert result.response_sha256 is None
 
     def test_missing_name_fails_without_a_network_call(self, monkeypatch):
         def fail_if_called(*a, **k):
