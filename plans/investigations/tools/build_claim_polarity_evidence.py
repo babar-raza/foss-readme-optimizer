@@ -33,6 +33,7 @@ from readme_agent.supervisor.mission_graph import load_mission_graph
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 EVIDENCE_DIR = REPO_ROOT / "plans/investigations/evidence/level8-claim-polarity"
+FAILURE_DIR = REPO_ROOT / "runs/control/claim-polarity-proof-failure"
 GRAPH_PATH = REPO_ROOT / "plans/investigations/control/level8-autonomous-mission-task-graph.yaml"
 REPRESENTATIVE = Path(
     os.environ.get(
@@ -258,6 +259,26 @@ def _write(run_official: bool) -> list[str]:
         ),
     }
     failures = [name for name, passed in checks.items() if not passed]
+    if failures:
+        FAILURE_DIR.mkdir(parents=True, exist_ok=True)
+        write_redacted_text(FAILURE_DIR / "focused-tests.stdout.log", focused["stdout"])
+        write_redacted_text(FAILURE_DIR / "focused-tests.stderr.log", focused["stderr"])
+        if official:
+            write_redacted_text(FAILURE_DIR / "official-checks.stdout.log", official["stdout"])
+            write_redacted_text(FAILURE_DIR / "official-checks.stderr.log", official["stderr"])
+        write_redacted_json(
+            FAILURE_DIR / "verification.json",
+            {
+                "schema_version": 1,
+                "task_id": TASK_ID,
+                "control_repository": control,
+                "checks": checks,
+                "failures": failures,
+                "verdict": "FAILED",
+            },
+        )
+        refresh_sha256sums(FAILURE_DIR)
+        return failures
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
     write_redacted_json(
         EVIDENCE_DIR / "repository-snapshot.json",

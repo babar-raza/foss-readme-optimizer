@@ -2,23 +2,23 @@
   "schema_version": 1,
   "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
   "control_repository": {
-    "head": "b28d7f7875fdcd1f7b18fe48f7b473381892aaae",
+    "head": "15457e02f396d2167b8220f9513ad44043ed89a8",
     "branch": "main",
     "tree_clean_at_start": true,
     "tree_porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "builder_path": "plans/investigations/tools/build_claim_polarity_evidence.py",
-    "builder_sha256": "b592a8b8118d8b81cd29c041a135ef3145cb815a657e2351954fffe96bbd3182",
+    "builder_sha256": "861d79c5d327b007d359496e0673bfde2926a64ce246f61658c61b496594a65a",
     "implementation": {
-      "docs/architecture.md": "b16573239e586375fbc9363fac923781bdc5929c01a3fe39beff63228bc7ebf0",
+      "docs/architecture.md": "bdea48d780c845efd10cb025a007bdba5099c37f6859d4ea293c30f2b6acff8d",
       "plans/investigations/tools/claim_polarity_evidence_support.py": "a9589c0865c9d7fb4d4350a8ad454efea7e7ecb56fff0816905c574ebcb8d964",
       "prompts/generation/draft_product_truth.yaml": "0975ca4630426672aea2f499c97c03d7bd36460da954b26cc5977222645d1796",
-      "src/readme_agent/facts/acceptance_contract.py": "7cdb38f23106dcfdcd0145e25c3305c7104f38b30b3d67abce0d86265dfc7024",
+      "src/readme_agent/facts/acceptance_contract.py": "87146c81b98f4c3f3e54a3a5d2c01528216b5ddfb8f14c49af324404551f7b7a",
       "src/readme_agent/facts/evidence_polarity.py": "48dc5aaa589cbc3d9059ef4e20fd21b6e8b666736257443bccbd6b782676e6a6",
-      "src/readme_agent/facts/policy_evidence.py": "1807936f90c24966dc5d272a998ea8eadeb2889f8b94fb348484e62f461f97fa",
-      "src/readme_agent/facts/schema_v2.py": "469377bc4e0d2222438cf4a353c6c36f0303171e30760e34c428c456b35bc504",
-      "tests/unit/test_draft_product_truth_capability.py": "14ddea6d6d885d8b1ac2ff2eed81293a7466327964d96381f2e3936bda9c1c3f",
-      "tests/unit/test_evidence_polarity.py": "bf71020d281e2833fb1a24afcc7867cd930ae3f7baae40e06395eb01b1f8db1c",
-      "tests/unit/test_facts_schema_v2.py": "6d3ff249e4c88a1569c28eef3c16f284d4ed5e81dd28971f6823c6b3804af0be"
+      "src/readme_agent/facts/policy_evidence.py": "c6e60add14e38a2ae78c4bfc02b16e4dd6bf15fa6d4a771b896a5ac3bc4700d1",
+      "src/readme_agent/facts/schema_v2.py": "244ea3ae4111db756589f78558827de218106a88d94777185d8cca3648ba827d",
+      "tests/unit/test_draft_product_truth_capability.py": "72fd3f6e3cca823a06248f99a30c0b4197fc4f9d0b948d92c7f62b28a989b186",
+      "tests/unit/test_evidence_polarity.py": "a4d73365278f2780ce9a73daac5f6c22705c8d421816f5ded1cd401b5aa54242",
+      "tests/unit/test_facts_schema_v2.py": "f81919fad1cbe09a022b2e534879be7fa1652f997d0c0d6206b127107d4952e5"
     }
   },
   "commands": {
@@ -28,14 +28,16 @@
     },
     "official": {
       "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe scripts/governance/run_official_checks.py",
-      "exit_code": 0,
+      "exit_code": 1,
       "tree_stable": true
     }
   },
   "checks": {
     "focused_tests_pass": true,
-    "official_checks_pass": true,
+    "official_checks_pass": false,
     "representative_is_clean": true,
+    "format_representative_is_clean": true,
+    "format_representative_revision_bound": true,
     "representative_revision_bound": true,
     "source_checksum_bound": true,
     "curated_readme_claim_captured": true,
@@ -46,8 +48,11 @@
     "generic_constraint_fragment_rejected": true,
     "exact_revision_excerpt_persisted": true,
     "fact_record_retains_assessments": true,
-    "real_dotnet_opposite_polarity_controls_pass": true
+    "real_dotnet_opposite_polarity_controls_pass": true,
+    "format_contract_remains_separate": true
   },
-  "failures": [],
-  "verdict": "VERIFIED"
+  "failures": [
+    "official_checks_pass"
+  ],
+  "verdict": "FAILED"
 }
