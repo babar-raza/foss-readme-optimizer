@@ -13,7 +13,7 @@ from pathlib import Path
 from threading import Lock
 
 from readme_agent import env
-from readme_agent.facts import java_toolchain, python_example_verifier
+from readme_agent.facts import java_toolchain, python_example_verifier, typescript_example_verifier
 from readme_agent.facts.example_execution import ExampleExecutionResultV1, execute_example
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.example_verifiers import cpp as cpp_verifier
@@ -42,10 +42,17 @@ _VERIFICATION_CONTRACT_FILES = (
     "python_consumer.py",
     "python_consumer_schema.py",
     "python_example_verifier.py",
+    "typescript_consumer.py",
+    "typescript_consumer_driver.js",
+    "typescript_consumer_schema.py",
+    "typescript_example_verifier.py",
+    "typescript_toolchain.py",
     "../ecosystems/python_api_schema.py",
     "../ecosystems/python_package_layout.py",
     "../ecosystems/python_public_api.py",
     "../ecosystems/python_symbol_members.py",
+    "../ecosystems/typescript_api_schema.py",
+    "../ecosystems/typescript_package_layout.py",
     "example_quality.py",
     "repository_examples.py",
     "example_verification_schema.py",
@@ -801,6 +808,7 @@ _VERIFIERS = {
 
 _ISOLATED_VERIFIERS: dict[str, IsolatedProductVerifier] = {
     "python": python_example_verifier.verify,
+    "typescript": typescript_example_verifier.verify,
 }
 
 

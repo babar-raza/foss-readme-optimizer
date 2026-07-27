@@ -159,6 +159,11 @@ def _local_verification_facts(
                         if local_result is not None and local_result.python_package is not None
                         else None
                     ),
+                    "typescript_package": (
+                        local_result.typescript_package.model_dump(mode="json")
+                        if local_result is not None and local_result.typescript_package is not None
+                        else None
+                    ),
                 },
                 source=source,
                 verification_state="verified" if example_verified else "blocked",

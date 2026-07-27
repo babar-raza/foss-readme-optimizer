@@ -7,6 +7,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.ecosystems.python_api_schema import PythonPackageLayoutV1
+from readme_agent.ecosystems.typescript_api_schema import TypeScriptPackageLayoutV1
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.isolated_execution_schema import IsolatedExecutionResultV1
 
@@ -34,6 +35,7 @@ class LocalProductVerificationV1(BaseModel):
     verified_public_symbols: list[str] = Field(default_factory=list)
     public_api_sha256: str | None = None
     python_package: PythonPackageLayoutV1 | None = None
+    typescript_package: TypeScriptPackageLayoutV1 | None = None
 
     @model_validator(mode="after")
     def verified_truth_requires_isolated_execution(self) -> LocalProductVerificationV1:
@@ -47,7 +49,9 @@ class LocalProductVerificationV1(BaseModel):
                 "truth-eligible product verification requires a successful isolated execution"
             )
         if self.verified_public_symbols and (
-            not self.truth_eligible or self.public_api_sha256 is None or self.python_package is None
+            not self.truth_eligible
+            or self.public_api_sha256 is None
+            or (self.python_package is None and self.typescript_package is None)
         ):
             raise ValueError(
                 "verified public symbols require truth eligibility, API hash, and package layout"
