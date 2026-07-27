@@ -100,6 +100,10 @@ class TestVerifiersRegistration:
         assert lv._VERIFIERS["python"] is lv._verify_python
         assert lv._VERIFIERS["typescript"] is lv._verify_typescript
         assert lv._VERIFIERS["go"] is lv._verify_go
+        assert lv._ISOLATED_VERIFIERS["java"] is lv.java_example_verifier.verify
+        assert lv._ISOLATED_VERIFIERS["dotnet"] is lv.dotnet_example_verifier.verify
+        assert lv._ISOLATED_VERIFIERS["cpp"] is lv.cpp_example_verifier.verify
+        assert lv._ISOLATED_VERIFIERS["go"] is lv.go_example_verifier.verify
         assert lv._ISOLATED_VERIFIERS["typescript"] is lv.typescript_example_verifier.verify
         assert lv._ISOLATED_VERIFIERS["rust"] is lv.rust_example_verifier.verify
 

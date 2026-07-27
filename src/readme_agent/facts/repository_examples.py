@@ -52,6 +52,42 @@ def _evidence_anchor(source: str) -> str | None:
     return None
 
 
+def _imported_symbol_anchors(language: ExampleLanguage, source: str) -> list[str]:
+    """Extract exact README anchors that downstream public-API gates can resolve."""
+
+    if language == "python":
+        python_names = [
+            item.strip().split(" as ", 1)[0]
+            for group in re.findall(
+                r"(?m)^\s*from\s+aspose(?:\.[A-Za-z_]\w*)*\s+import\s+([^\n#]+)",
+                source,
+            )
+            for item in group.split(",")
+            if item.strip()
+        ]
+        return sorted(set(python_names))
+    if language == "typescript":
+        typescript_names = [
+            item.strip().split(" as ", 1)[0]
+            for group in re.findall(r"import\s*\{([^}]+)\}\s*from", source)
+            for item in group.split(",")
+            if item.strip()
+        ]
+        return sorted(set(typescript_names))
+    if language == "rust":
+        rust_names: list[str] = []
+        use_pattern = r"(?m)^\s*use\s+[A-Za-z_]\w*(?:::\{([^}]+)\}|::([A-Z]\w*))"
+        for group in re.findall(use_pattern, source):
+            braced, single = group
+            rust_names.extend(
+                item.strip().split(" as ", 1)[0] for item in braced.split(",") if item.strip()
+            )
+            if single:
+                rust_names.append(single)
+        return sorted(set(rust_names))
+    return []
+
+
 def repository_readme_example_candidates(
     root: Path,
     language: ExampleLanguage,
@@ -88,13 +124,14 @@ def repository_readme_example_candidates(
             or anchor is None
         ):
             continue
+        required_symbols = _imported_symbol_anchors(language, code) or [anchor]
         candidates.append(
             MinimalExamplePolicy(
                 language=language,
                 class_name=class_name(code),
                 code=code + "\n",
                 evidence_paths=evidence_paths,
-                required_symbols=[anchor],
+                required_symbols=required_symbols,
             )
         )
     return candidates

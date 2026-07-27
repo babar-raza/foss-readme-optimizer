@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import pytest
+
 from readme_agent.facts.repository_examples import repository_readme_example_candidates
+from readme_agent.facts.rust_example_verifier import _resolve_declared_symbols
 
 
 def test_extracts_only_bounded_language_matched_examples(tmp_path):
@@ -57,3 +60,49 @@ def test_repository_authored_native_example_keeps_required_compiler_scaffolding(
 
     assert len(candidates) == 1
     assert candidates[0].code == source
+
+
+def test_python_typescript_and_rust_examples_expose_imported_public_symbol_anchors(tmp_path):
+    cases = {
+        "python": (
+            "from aspose.threed import Scene, Node as PublicNode\n"
+            "scene = Scene()\nnode = PublicNode()\n",
+            ["Node", "Scene"],
+        ),
+        "typescript": (
+            "import { Scene, Node as PublicNode } from '@aspose/3d';\nconst scene = new Scene();\n",
+            ["Node", "Scene"],
+        ),
+        "rust": (
+            "use aspose_cells_foss_rust::{CellValue, Workbook};\n"
+            "fn main() { let _ = Workbook::new(); let _ = CellValue::Number(1.0); }\n",
+            ["CellValue", "Workbook"],
+        ),
+    }
+    for language, (code, expected) in cases.items():
+        (tmp_path / "README.md").write_text(
+            f"# Widget\n\n```{language}\n{code}```\n",
+            encoding="utf-8",
+        )
+
+        candidates = repository_readme_example_candidates(tmp_path, language)
+
+        assert candidates[0].required_symbols == expected
+
+
+def test_rust_readme_local_names_resolve_only_to_unique_public_symbols():
+    available = {
+        "aspose_cells_foss_rust::CellValue",
+        "aspose_cells_foss_rust::Workbook",
+    }
+
+    assert _resolve_declared_symbols(["Workbook", "CellValue"], available) == [
+        "aspose_cells_foss_rust::CellValue",
+        "aspose_cells_foss_rust::Workbook",
+    ]
+
+    with pytest.raises(ValueError, match="does not resolve uniquely"):
+        _resolve_declared_symbols(
+            ["Workbook"],
+            {"one::Workbook", "two::Workbook"},
+        )

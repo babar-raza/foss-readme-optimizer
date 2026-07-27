@@ -12,6 +12,7 @@ from readme_agent.ecosystems.rust_api_schema import (
     RustPackageLayoutV1,
 )
 from readme_agent.ecosystems.typescript_api_schema import TypeScriptPackageLayoutV1
+from readme_agent.facts.compiled_consumer_schema import CompiledConsumerProofV1
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.isolated_execution_schema import IsolatedExecutionResultV1
 
@@ -44,6 +45,7 @@ class LocalProductVerificationV1(BaseModel):
     rust_formats: list[RustFormatEvidenceV1] = Field(default_factory=list)
     rust_source_dependency: str | None = None
     acquisition_dependency_pins: list[str] = Field(default_factory=list)
+    compiled_consumer: CompiledConsumerProofV1 | None = None
 
     def fact_projection(self) -> dict[str, object]:
         """Return the reproducible public-surface fields safe for ProductFactsV2."""
@@ -63,6 +65,11 @@ class LocalProductVerificationV1(BaseModel):
             "rust_formats": [record.model_dump(mode="json") for record in self.rust_formats],
             "rust_source_dependency": self.rust_source_dependency,
             "acquisition_dependency_pins": self.acquisition_dependency_pins,
+            "compiled_consumer": (
+                self.compiled_consumer.model_dump(mode="json")
+                if self.compiled_consumer is not None
+                else None
+            ),
         }
 
     @model_validator(mode="after")
@@ -83,6 +90,7 @@ class LocalProductVerificationV1(BaseModel):
                 self.python_package is None
                 and self.typescript_package is None
                 and self.rust_package is None
+                and self.compiled_consumer is None
             )
         ):
             raise ValueError(

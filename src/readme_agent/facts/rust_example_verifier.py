@@ -17,6 +17,24 @@ from readme_agent.registry.models import MinimalExamplePolicy
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 
 
+def _resolve_declared_symbols(
+    declared: list[str],
+    available: set[str],
+) -> list[str]:
+    """Resolve README-local Rust names to unique syntax-proven public symbols."""
+
+    resolved: list[str] = []
+    for symbol in declared:
+        if symbol in available:
+            resolved.append(symbol)
+            continue
+        matches = sorted(name for name in available if name.endswith(f"::{symbol}"))
+        if len(matches) != 1:
+            raise ValueError(f"Rust README symbol does not resolve uniquely: {symbol!r}")
+        resolved.append(matches[0])
+    return sorted(set(resolved))
+
+
 def _diagnostic(result) -> ExampleExecutionResultV1:
     return ExampleExecutionResultV1(
         argv=result.argv,
@@ -43,7 +61,10 @@ def verify(
     )
     consumer = RustConsumerExampleV1(
         code=example.code,
-        required_symbols=example.required_symbols,
+        required_symbols=_resolve_declared_symbols(
+            example.required_symbols,
+            {symbol.qualified_name for symbol in surface.symbols},
+        ),
     )
     proof = prove_rust_consumer(snapshot, package, surface, consumer)
     diagnostic = _diagnostic(proof.isolated_execution)

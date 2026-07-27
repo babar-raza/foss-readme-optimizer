@@ -14,6 +14,10 @@ from threading import Lock
 
 from readme_agent import env
 from readme_agent.facts import (
+    cpp_example_verifier,
+    dotnet_example_verifier,
+    go_example_verifier,
+    java_example_verifier,
     java_toolchain,
     python_example_verifier,
     rust_example_verifier,
@@ -74,6 +78,12 @@ _VERIFICATION_CONTRACT_FILES = (
     "example_quality.py",
     "repository_examples.py",
     "example_verification_schema.py",
+    "compiled_consumer.py",
+    "compiled_consumer_schema.py",
+    "java_example_verifier.py",
+    "dotnet_example_verifier.py",
+    "cpp_example_verifier.py",
+    "go_example_verifier.py",
     "example_verifiers/cpp.py",
     "example_verifiers/rust.py",
     # This gate converts compiler output into repair feedback and decides
@@ -825,6 +835,10 @@ _VERIFIERS = {
 }
 
 _ISOLATED_VERIFIERS: dict[str, IsolatedProductVerifier] = {
+    "java": java_example_verifier.verify,
+    "dotnet": dotnet_example_verifier.verify,
+    "cpp": cpp_example_verifier.verify,
+    "go": go_example_verifier.verify,
     "python": python_example_verifier.verify,
     "typescript": typescript_example_verifier.verify,
     "rust": rust_example_verifier.verify,
@@ -879,7 +893,18 @@ def verify_local_product_example(
             ),
             build=_missing_tool_result("isolated-executor"),
         )
-    result = active_isolated_verifier(snapshot, example)
+    try:
+        result = active_isolated_verifier(snapshot, example)
+    except ValueError as exc:
+        return LocalProductVerificationV1(
+            org_repo=snapshot.org_repo,
+            source_revision=snapshot.source_revision,
+            ecosystem=example.language,
+            outcome="BUILD_FAILED",
+            detail=f"example rejected before isolated execution: {exc}",
+            build=_missing_tool_result("public-example-validation"),
+            truth_eligible=False,
+        )
     verify_repository_snapshot(snapshot)
     if result.org_repo != snapshot.org_repo or result.source_revision != snapshot.source_revision:
         raise ValueError("isolated verifier result does not belong to the immutable snapshot")

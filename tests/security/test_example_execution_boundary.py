@@ -3,6 +3,7 @@
 import sys
 
 from readme_agent.facts.example_execution import execute_example, secret_free_environment
+from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.registry.models import MinimalExamplePolicy
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
@@ -95,7 +96,58 @@ def test_host_execution_is_permanently_ineligible_for_product_truth(tmp_path, mo
         lambda *_: (_ for _ in ()).throw(AssertionError("host verifier must not run")),
     )
 
-    verification = verify_local_product_example(snapshot, example)
+    host_only = LocalProductVerificationV1(
+        org_repo=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+        ecosystem="java",
+        outcome="SOURCE_BUILD_VERIFIED",
+        detail="host diagnostic attempted to claim success",
+        build=result,
+        truth_eligible=False,
+    )
+    verification = verify_local_product_example(
+        snapshot,
+        example,
+        isolated_verifier=lambda *_: host_only,
+    )
 
     assert verification.outcome == "ISOLATION_REQUIRED"
     assert verification.truth_eligible is False
+
+
+def test_invalid_curated_example_is_a_typed_narrow_failure(tmp_path, monkeypatch):
+    snapshot = RepositorySnapshotV1(
+        org_repo="acme/widget",
+        source_revision="abc1234",
+        snapshot_root=str(tmp_path.resolve()),
+        inventory_sha256="a" * 64,
+        captured_at="2026-07-26T00:00:00+00:00",
+        provenance=SnapshotProvenanceV1(
+            clone_url="https://example.test/acme/widget.git",
+            git_tree_sha256="a" * 64,
+        ),
+    )
+    example = MinimalExamplePolicy(
+        language="typescript",
+        class_name="readme_example",
+        code="import { Scene } from '@stale/package';",
+        evidence_paths=["README.md"],
+        required_symbols=["Scene"],
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.local_verification.verify_repository_snapshot",
+        lambda current: None,
+    )
+
+    def reject(*_):
+        raise ValueError("package import is not compiler-resolved")
+
+    verification = verify_local_product_example(
+        snapshot,
+        example,
+        isolated_verifier=reject,
+    )
+
+    assert verification.outcome == "BUILD_FAILED"
+    assert verification.truth_eligible is False
+    assert "package import is not compiler-resolved" in verification.detail
