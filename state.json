@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-TRUTH-03A-ISOLATED-EXECUTOR",
+    "claim_expires_at": "2026-07-27T01:05:47.514882+00:00",
+    "claim_id": "1917742c67d44fc9ab76a427cc0ea260",
+    "claimed_at": "2026-07-27T00:35:47.514882+00:00",
+    "claimed_by": "Codex",
     "graph_sha256": "9607604df11734738f17b0d367d3245b9775914556b34ebd37c0402b0cf2bac0",
-    "last_evaluated_at": "2026-07-27T00:35:36.185751+00:00",
+    "last_evaluated_at": "2026-07-27T00:35:47.514882+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -145,7 +145,7 @@
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "TODO",
       "L8-TRUTH-02D-RUST-API-TRUTH": "TODO",
       "L8-TRUTH-03-CLAIM-POLARITY": "TODO",
-      "L8-TRUTH-03A-ISOLATED-EXECUTOR": "TODO",
+      "L8-TRUTH-03A-ISOLATED-EXECUTOR": "IN_PROGRESS",
       "L8-TRUTH-04-ACQUISITION": "TODO",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "TODO",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "TODO",
@@ -1809,6 +1809,15 @@
         "reason": "Adaptation scopes are pinned, test-mapped, independently reproducible, and ready for the three child implementations.",
         "task_id": "L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T00:35:47.514941+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-TRUTH-03A-ISOLATED-EXECUTOR",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -1817,7 +1826,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 207,
+  "state_version": 208,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
