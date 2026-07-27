@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+    "claim_expires_at": "2026-07-27T23:15:34.045240+00:00",
+    "claim_id": "0eaef5238b9145ee8d43479dd62e03cc",
+    "claimed_at": "2026-07-27T22:45:34.045240+00:00",
+    "claimed_by": "Codex",
     "graph_sha256": "a7e4486a4ddb35a36efb44092893f06d870d003295b665d9d21e0e26dd25c7c5",
-    "last_evaluated_at": "2026-07-27T22:45:16.263111+00:00",
+    "last_evaluated_at": "2026-07-27T22:45:34.045240+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -148,7 +148,7 @@
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
-      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "REGRESSED",
+      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "IN_PROGRESS",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -2748,6 +2748,15 @@
         "reason": "Interpretive proof hashes predate current agentic drafting, evidence selection, render resolution, and draft_product_truth behavior; reproduce visitor-facing grounding on the current chain.",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T22:45:34.045309+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -2756,7 +2765,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 312,
+  "state_version": 313,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
