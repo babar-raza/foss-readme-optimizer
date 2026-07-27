@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "6120b6c9d1a1e64ac7bfc345a4dcab23dc55ca8ff5b40683244912240386a46c",
-    "last_evaluated_at": "2026-07-27T18:43:32.452400+00:00",
+    "last_evaluated_at": "2026-07-27T18:43:46.196056+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -139,7 +139,7 @@
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
-      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "VERIFIED",
+      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "SCORED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "TODO",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -2328,6 +2328,17 @@
         "reason": "Representative Java and TypeScript controls plus 1880-test official regression proof passed.",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-interpretive-render-views"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T18:43:46.196050+00:00",
+        "reason": "All task acceptance checks, negative controls, citations, checksums, and independent verification are green.",
+        "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -2336,7 +2347,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 266,
+  "state_version": 267,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
