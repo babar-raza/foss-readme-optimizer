@@ -41,5 +41,6 @@ def test_real_aspose_python_package_installs_and_exposes_selected_public_symbols
     assert verification.outcome == "SOURCE_BUILD_VERIFIED", verification
     assert verification.truth_eligible is True
     assert verification.isolated_execution is not None
+    assert verification.build.isolation_kind == "isolated_result_projection"
     assert verification.isolated_execution.policy.network_mode == "none"
     assert verification.isolated_execution.cleanup.complete is True

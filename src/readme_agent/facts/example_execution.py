@@ -89,7 +89,10 @@ class ExampleExecutionResultV1(BaseModel):
     stderr: str
     timed_out: bool
     environment_names: list[str] = Field(default_factory=list)
-    isolation_kind: Literal["host_secret_filtered"] = "host_secret_filtered"
+    isolation_kind: Literal[
+        "host_secret_filtered",
+        "isolated_result_projection",
+    ] = "host_secret_filtered"
     truth_eligible: Literal[False] = False
 
 

@@ -62,6 +62,7 @@ def _diagnostic(result) -> ExampleExecutionResultV1:
         stderr=result.stderr,
         timed_out=result.timed_out,
         environment_names=result.environment_names,
+        isolation_kind="isolated_result_projection",
     )
 
 
