@@ -91,13 +91,15 @@ Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-req
 The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
 which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
 under `act` → isolated staging → production**. At the latest 2026-07-27 checkpoint, durable state
-version 220 closed `L8-TRUTH-02B-PYTHON-API-TRUTH`; version 221 claimed
-`L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH`.
+version 226 closed `L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH`; version 227 claimed
+`L8-TRUTH-02D-RUST-API-TRUTH`.
 The 31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
 `HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. Clean commit `7b75e80` passed all
 official checks (1,801 tests), and 64 focused checks plus the real Aspose.3D Python source install
 proved canonical imports and exact public symbols inside immutable, network-denied Docker.
 Checksum-complete evidence is under `plans/investigations/evidence/level8-python-api-truth/`.
+TypeScript commit `a0093d9` passed 1,808 non-live, 63 focused, and four live Docker tests; real
+revision `227894a` proved the built import and rejected the stale root. Evidence: `plans/investigations/evidence/level8-typescript-export-truth/`.
 Host diagnostics cannot become verified truth. `L8-019` stays partial until all seven ecosystems
 use the isolated boundary. LLM accounting and prompt-drift gates remain active.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
@@ -2434,8 +2436,8 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 - [ ] **Python/TypeScript/Rust truth gate:**
   - [x] Python selected imports, re-exports, and public symbols pass real representative,
         negative-control, and isolated installed-consumer proof (`L8-030`, commit `c514fa7`).
-  - [ ] TypeScript package exports/declarations and disposable consumer compilation pass real
-        representative and negative controls (`L8-031`).
+  - [x] TypeScript package exports/declarations and disposable consumer compilation pass real
+        representative and negative controls (`L8-031`, evidence commit `30269c8`).
   - [ ] Rust visibility/re-exports/impls/examples pass real representative and negative controls
         (`L8-032`).
 - [ ] **Local untrusted-execution gate:** source builds and examples for every supported ecosystem
