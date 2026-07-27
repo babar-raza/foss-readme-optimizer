@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "6120b6c9d1a1e64ac7bfc345a4dcab23dc55ca8ff5b40683244912240386a46c",
-    "last_evaluated_at": "2026-07-27T18:57:09.101290+00:00",
+    "last_evaluated_at": "2026-07-27T18:57:20.312361+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -147,7 +147,7 @@
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
-      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "REGRESSED",
+      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "READY",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -2389,6 +2389,15 @@
         "reason": "Seven-ecosystem live proof contradicted closure: cross-repair supporting citations can become ineligible in the final ProductFactsV2 graph.",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-27T18:57:20.312355+00:00",
+        "reason": "The agent-fixable citation invalidation has a concrete local repair and focused/live reproduction.",
+        "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+        "to_status": "READY"
       }
     ]
   },
@@ -2397,7 +2406,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 274,
+  "state_version": 275,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
