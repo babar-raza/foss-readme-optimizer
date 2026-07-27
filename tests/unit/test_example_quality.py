@@ -114,6 +114,13 @@ def test_comment_like_text_inside_strings_is_allowed(language: str, source: str)
     assert generated_example_quality_failures(language, source) == []
 
 
+def test_cpp_preprocessor_directives_are_code_not_comments() -> None:
+    source = '#include "widget.h"\n#define WIDGET_VERSION 1\n'
+
+    assert generated_example_quality_failures("cpp", source) == []
+    assert strip_source_comments("cpp", source) == source
+
+
 def test_python_docstring_is_rejected_as_a_documentation_comment() -> None:
     failures = generated_example_quality_failures(
         "python",

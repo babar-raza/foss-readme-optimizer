@@ -121,8 +121,16 @@ def _write_failure(
     checks: dict[str, bool],
     focused: dict[str, Any],
     official: dict[str, Any] | None,
+    results: dict[str, Any],
+    curated_controls: dict[str, Any],
 ) -> None:
     FAILURE_DIR.mkdir(parents=True, exist_ok=True)
+    for ecosystem, item in sorted(results.items()):
+        write_redacted_json(FAILURE_DIR / f"{ecosystem}-verification.json", item)
+    write_redacted_json(
+        FAILURE_DIR / "curated-readme-controls.json",
+        {"schema_version": 1, "controls": curated_controls},
+    )
     write_redacted_text(FAILURE_DIR / "focused-tests.stdout.log", focused["stdout"])
     write_redacted_text(FAILURE_DIR / "focused-tests.stderr.log", focused["stderr"])
     if official is not None:
@@ -186,7 +194,7 @@ def _build(run_official: bool) -> list[str]:
     )
     failures = [name for name, passed in checks.items() if not passed]
     if failures:
-        _write_failure(control, checks, focused, official)
+        _write_failure(control, checks, focused, official, results, curated_controls)
         return failures
 
     scoreboard = derive_lifecycle_scoreboard(default_state_backend())

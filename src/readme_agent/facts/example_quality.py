@@ -20,12 +20,18 @@ _LEXER_BY_LANGUAGE = {
 }
 
 
+def _is_source_comment(token) -> bool:
+    """Exclude compiler directives that Pygments classifies as preprocessor comments."""
+
+    return token in Comment and token not in Comment.Preproc and token not in Comment.PreprocFile
+
+
 def _contains_comment(language: str, source: str) -> bool:
     lexer_name = _LEXER_BY_LANGUAGE.get(language)
     if lexer_name is None:
         return False
     return any(
-        token in Comment or token in String.Doc
+        _is_source_comment(token) or token in String.Doc
         for token, _value in lex(source, get_lexer_by_name(lexer_name))
     )
 
@@ -38,7 +44,7 @@ def strip_source_comments(language: str, source: str) -> str:
         return source
     rendered: list[str] = []
     for token, value in lex(source, get_lexer_by_name(lexer_name)):
-        if token in Comment or token in String.Doc:
+        if _is_source_comment(token) or token in String.Doc:
             rendered.append("".join("\n" if character == "\n" else " " for character in value))
         else:
             rendered.append(value)
