@@ -1,6 +1,6 @@
 All checks passed!
-574 files already formatted
-Success: no issues found in 325 source files
+578 files already formatted
+Success: no issues found in 326 source files
 ........................................................................ [  3%]
 ........................................................................ [  7%]
 ........................................................................ [ 11%]
@@ -8,7 +8,7 @@ Success: no issues found in 325 source files
 ........................................................................ [ 19%]
 ........................................................................ [ 23%]
 ........................................................................ [ 27%]
-........................................................................ [ 31%]
+........................................................................ [ 30%]
 ........................................................................ [ 34%]
 ........................................................................ [ 38%]
 ........................................................................ [ 42%]
@@ -16,18 +16,18 @@ Success: no issues found in 325 source files
 ........................................................................ [ 50%]
 ........................................................................ [ 54%]
 ........................................................................ [ 58%]
-........................................................................ [ 62%]
+........................................................................ [ 61%]
 ........................................................................ [ 65%]
 ........................................................................ [ 69%]
 ........................................................................ [ 73%]
 ........................................................................ [ 77%]
 ........................................................................ [ 81%]
 ........................................................................ [ 85%]
-........................................................................ [ 89%]
-........................................................................ [ 93%]
+........................................................................ [ 88%]
+........................................................................ [ 92%]
 ........................................................................ [ 96%]
-........................................................                 [100%]
-1856 passed, 34 deselected in 852.55s (0:14:12)
+.............................................................            [100%]
+1861 passed, 34 deselected in 930.87s (0:15:30)
 Plan structure clean (59 warning(s)).
 check_verifiers_are_wired: every verify_* function has a call site in src/
 Prompt hygiene clean: 10 active prompt(s)
@@ -57,23 +57,23 @@ $ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\p
 --- pytest -q (full non-live suite): OK
 
 === validate_plan_structure.py ===
-$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\acquisition-truth-committed-byte-proof\scripts\governance\validate_plan_structure.py
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\validate_plan_structure.py
 --- validate_plan_structure.py: OK
 
 === check_verifiers_are_wired.py --check (PRODSYS-P2-T1) ===
-$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\acquisition-truth-committed-byte-proof\scripts\governance\check_verifiers_are_wired.py --check
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\check_verifiers_are_wired.py --check
 --- check_verifiers_are_wired.py --check (PRODSYS-P2-T1): OK
 
 === check_prompt_hygiene.py ===
-$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\acquisition-truth-committed-byte-proof\scripts\governance\check_prompt_hygiene.py
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\check_prompt_hygiene.py
 --- check_prompt_hygiene.py: OK
 
 === build_level8_requirement_taskcard_coverage.py --check (PRODSYS-P1-T3) ===
-$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\acquisition-truth-committed-byte-proof\scripts\governance\build_level8_requirement_taskcard_coverage.py --check
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\build_level8_requirement_taskcard_coverage.py --check
 --- build_level8_requirement_taskcard_coverage.py --check (PRODSYS-P1-T3): OK
 
 === traceability_matrix.py --check ===
-$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\acquisition-truth-committed-byte-proof\plans\investigations\tools\traceability_matrix.py --check
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\plans\investigations\tools\traceability_matrix.py --check
 --- traceability_matrix.py --check: OK
 
 === actionlint (workflow syntax) ===

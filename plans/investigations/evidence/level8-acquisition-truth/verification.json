@@ -2,29 +2,41 @@
   "schema_version": 1,
   "task_id": "L8-TRUTH-04-ACQUISITION",
   "control_repository": {
-    "head": "2a1be4ac4379034e21d2e5670fa3a71d13e1e501",
-    "branch": "HEAD",
+    "head": "dcc704e7d0aba3929383bf6295e5556e8041d57b",
+    "branch": "main",
     "tree_clean_at_start": true,
     "tree_porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "builder_path": "plans/investigations/tools/build_acquisition_truth_evidence.py",
-    "builder_sha256": "e237de8cf5a248883d71e14d7bdb5bb06392d125490eb224fa0aaf5a5e3c31ce",
+    "builder_sha256": "94d5fecb75c91fa26cb49aa79dd3e69b7ccf91f17ddc888a61a5baa87da36a5c",
     "implementation": {
-      "src/readme_agent/capabilities/draft_product_truth.py": "f881494f4d6869f5a5e9356ceb94deacb609499f904cb34a93ef86380f391f5f",
-      "src/readme_agent/ecosystems/registry_request.py": "bc6c31528cb4251e82011ff98084cd6184ec18cacb7f88c721837e9984b83434",
-      "src/readme_agent/ecosystems/resolver.py": "2b997abc9495697baf444d2cfbb9462e3f0749a8b224c8bd09e18ce924437098",
-      "src/readme_agent/facts/acceptance_contract.py": "f0d2f316ad7cdcbd4f8080d8038cf34fbdecc0b8b1773536e9b5cba201896bd7",
-      "src/readme_agent/facts/acquisition.py": "81ab83ba71c327e5546653d7c7c55c22d7c5254b0963ce778344bb57bc1f90e6",
-      "src/readme_agent/facts/acquisition_schema.py": "645e99f5afc6172fc27953d16f5c5f00be3faf65f5071c465edc0386e59b600d",
-      "src/readme_agent/facts/provider.py": "a609982bfff25e6f222ddb880ad2a5995ff7aecb8e0d3d3bf7739c591b1b609e",
-      "src/readme_agent/facts/schema_v2.py": "d163ff6e0a6258915df6505c5072dc29b43169b442268058e548d6a7986a52cc",
-      "tests/unit/test_acquisition.py": "a7b066d071384084b617965f1931537a5c8ad7a6785d4cb3e05677c746e04e01",
-      "tests/unit/test_ecosystem_resolver.py": "343d5abd52ea6e1f32caa10f0b941a5fc77af493259b23fc7a381036e98110d2",
-      "tests/unit/test_facts_provider.py": "dc8fab5793a22462cc4edec6bf6ea33ed7e87dc399d5c949c2166c0e29d8320e"
+      "src/readme_agent/capabilities/draft_product_truth.py": "21349dac6a5c6c1b6f91677394ba5e3205f7d0341819dfcca0f00f0a45cf33cf",
+      "src/readme_agent/ecosystems/registry_request.py": "f55a53f56713549191babcea0fd4c772fd16711e8d0e78185a9c1fecfc47ffd5",
+      "src/readme_agent/ecosystems/resolver.py": "d06be0aa845d4cb2636d275f5e1faef7440edcb8a895de827e477ce97aa0141f",
+      "src/readme_agent/facts/acceptance_contract.py": "6b6d595aeeee120c65bf1dc95d4fa05940b00dc7de66f0887b9381e073e4a67d",
+      "src/readme_agent/facts/acquisition.py": "36fa5c3595531ba736d3ff4bbdaa454e13b8a5b9cce4c01b41c5bc495a1e2f1f",
+      "src/readme_agent/facts/acquisition_pins.py": "518891c5b86e982d1b3e6a0117298fca56217735df67bf15f6ab4b4560cf9f1b",
+      "src/readme_agent/facts/acquisition_schema.py": "d8e0cb005937cee4a974b249404fc87ab038cf47e13ad06a41a7cbf14139fac3",
+      "src/readme_agent/facts/example_verification_schema.py": "3d2a449a19c7a496119777a2a7f72c7ca2d2099aeb9ae26e58e4191371a98464",
+      "src/readme_agent/facts/provider.py": "100cdeb75202d04a11aacdd00a76bb0a16d7aefe461d8042c0ba9ca113bba655",
+      "src/readme_agent/facts/python_example_verifier.py": "d818c90432b931f605ffa55f3aa16523903f0e4d290757a58e4c3d9901e2aced",
+      "src/readme_agent/facts/rust_example_verifier.py": "5f3679d620e8cd7930bf552fca037d62eb5bec6f6876d9723ef047525890fd9a",
+      "src/readme_agent/facts/schema_v2.py": "244ea3ae4111db756589f78558827de218106a88d94777185d8cca3648ba827d",
+      "src/readme_agent/facts/typescript_example_verifier.py": "d95956f196370ae06f5edadebe3754e9e1784a3b7750484d92247ac83fa1469e",
+      "tests/unit/test_acquisition.py": "27facaceaecf65a21761831a3d797859e70b3fdf15acf8a141019bce20f9b18c",
+      "tests/unit/test_acquisition_pins.py": "5d70dab05bac875933ffdc12cbb6efa3459f43368ecb473459a0cc20100d9b1c",
+      "tests/unit/test_ecosystem_resolver.py": "867ffed19c3cf2b6497a046b18c9f36e54b8fdf783b552a1b6574620589c4aa0",
+      "tests/unit/test_fact_acceptance_contract.py": "af7689c06ccd1d6d290ce6074bd3dc4b9a08b8b5f2e5b1619735be51e9fdc3b5",
+      "tests/unit/test_facts_provider.py": "c17047e4ca107485d5c90e31605fb568fb6cbc261ecf81daa44d63041398150d"
+    },
+    "evidence_machinery": {
+      "plans/investigations/tools/acquisition_truth_evidence_checks.py": "c9959988dad76bc80dc0ed97b64ba7e454d99374c57e7c1bdfbb5502c238e83b",
+      "plans/investigations/tools/acquisition_truth_evidence_sources.py": "408010497f5fb2793d67e3885dd5986b4e045a610e90586e3db8c208473b8ac7",
+      "plans/investigations/tools/acquisition_truth_evidence_support.py": "8ac4233e58b5e99a6eaaed24dc207467c1aabe2de00d6ec7308053e47c5450cb"
     }
   },
   "commands": {
     "focused": {
-      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_acquisition.py tests/unit/test_ecosystem_resolver.py tests/unit/test_facts_provider.py tests/unit/test_draft_product_truth_capability.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_facts_schema_v2.py tests/security/test_no_secrets_in_evidence.py",
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_acquisition.py tests/unit/test_acquisition_pins.py tests/unit/test_ecosystem_resolver.py tests/unit/test_facts_provider.py tests/unit/test_draft_product_truth_capability.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_facts_schema_v2.py tests/unit/test_isolated_execution.py tests/security/test_example_execution_boundary.py tests/security/test_no_secrets_in_evidence.py",
       "exit_code": 0
     },
     "official": {
@@ -35,6 +47,7 @@
   "checks": {
     "control_tree_clean": true,
     "representatives_clean": true,
+    "remote_default_revisions_match": true,
     "source_proof_inventories_valid": true,
     "source_revisions_match": true,
     "published_coordinates_have_receipts": true,
@@ -43,6 +56,7 @@
     "readme_prose_cannot_verify_source": true,
     "host_only_build_cannot_verify_source": true,
     "network_uncertainty_blocks": true,
+    "hostile_build_controls_pass": true,
     "focused_tests_pass": true,
     "official_checks_pass": true,
     "tree_stable": true

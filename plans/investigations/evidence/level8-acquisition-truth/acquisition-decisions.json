@@ -23,7 +23,7 @@
         "request_url": "https://repo1.maven.org/maven2/org/aspose/aspose-cells-foss/maven-metadata.xml",
         "status_code": 200,
         "response_sha256": "89f9b86060dca4385659ce86ef58db9a4049e0d480f5d2ba7a82a6b208a4523d",
-        "retrieved_at": "2026-07-27T15:09:29.906493Z",
+        "retrieved_at": "2026-07-27T15:36:23.569959Z",
         "found": true,
         "detail": "Maven Central: org.aspose:aspose-cells-foss found"
       },
@@ -51,7 +51,7 @@
         "request_url": "https://api.nuget.org/v3-flatcontainer/aspose.3d.foss/index.json",
         "status_code": 200,
         "response_sha256": "02933263abadd7162137dece70d66126d4bf959a1ad70fddd1c7a2c06535d2aa",
-        "retrieved_at": "2026-07-27T15:09:31.340570Z",
+        "retrieved_at": "2026-07-27T15:36:25.243293Z",
         "found": true,
         "detail": "NuGet: Aspose.3d.FOSS found"
       },
@@ -79,7 +79,7 @@
         "request_url": "https://api.nuget.org/v3-flatcontainer/aspose.cells.cpp.foss/index.json",
         "status_code": 200,
         "response_sha256": "dcc104dc157ff6a44cdb16855f6891326bb508d7941b97c2ff50d757940c327e",
-        "retrieved_at": "2026-07-27T15:09:33.511732Z",
+        "retrieved_at": "2026-07-27T15:36:26.634231Z",
         "found": true,
         "detail": "NuGet: Aspose.cells.Cpp.FOSS found"
       },
@@ -107,7 +107,7 @@
         "request_url": "https://proxy.golang.org/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go/@v/list",
         "status_code": 200,
         "response_sha256": "74d84e77efeaadaf563034ce2298194e1485cca6e120ee25d1484ec5f325d4d4",
-        "retrieved_at": "2026-07-27T15:09:34.955802Z",
+        "retrieved_at": "2026-07-27T15:36:28.795984Z",
         "found": true,
         "detail": "Go proxy: github.com/aspose-pdf-foss/aspose-pdf-foss-for-go found"
       },
@@ -135,7 +135,7 @@
         "request_url": "https://pypi.org/pypi/aspose-3d-foss/json",
         "status_code": 404,
         "response_sha256": "b82014934f66beeb9e05a37f65357c4b50db0349d25d68d818ed0319dd4feb40",
-        "retrieved_at": "2026-07-27T15:09:36.224346Z",
+        "retrieved_at": "2026-07-27T15:36:30.110808Z",
         "found": false,
         "detail": "PyPI: aspose-3d-foss NOT FOUND (404)"
       },
@@ -156,6 +156,7 @@
           "container_image=python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
           "input_sha256=8e475b10cef60370bb4ccee6e832b01a5d0785187abb960c94124aa800da2f28",
           "public_api_sha256=363fb0eb0020079f069ddb32ad490ca30803032a7cf21ad5ae59fae50c8a7a14",
+          "python_package_source_sha256=224ee6634ed03f7cd55c8d53f7b89e787e6be3c90a61f8f91cec8e2eb58bdbcb",
           "source_revision=ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
         ],
         "cleanup_complete": true,
@@ -185,7 +186,7 @@
         "request_url": "https://registry.npmjs.org/aspose-3d-foss",
         "status_code": 404,
         "response_sha256": "c8d3eae160a892e32837db3dcae515e843e5383fef52b8141940c8bcf8b6d59f",
-        "retrieved_at": "2026-07-27T15:09:37.721237Z",
+        "retrieved_at": "2026-07-27T15:36:31.930643Z",
         "found": false,
         "detail": "npm: aspose-3d-foss NOT FOUND (404)"
       },
@@ -205,7 +206,13 @@
           "container_image=node@sha256:6c74791e557ce11fc957704f6d4fe134a7bc8d6f5ca4403205b2966bd488f6b3",
           "input_sha256=a2d8251340d25a20f270ab409891a6ffc7bb571b5edcd7a1a6db4c5a1aab75ac",
           "public_api_sha256=d38bd3f20e44cba99248e8995862919a40806610bbc3675cee3b85813d34e323",
-          "source_revision=227894a1120c22b9b6522564e23dc1d14c8fc39a"
+          "source_revision=227894a1120c22b9b6522564e23dc1d14c8fc39a",
+          "typescript_built_artifact_sha256=03d8292362b5ffc2524994476189d37b665e6358d3099fd980b5f5500e5a3744",
+          "typescript_compiler_version=5.8.3",
+          "typescript_package_source_sha256=531d615defbc876a19816ef6a79f8cb15d6c25f555c1d5490255b1fdab0d0d7b",
+          "typescript_toolchain_@types/node@22.15.17_sha256=d4f15ddec10551421843fb307521d074614f70d00759e185488aec49e0b6e8f0",
+          "typescript_toolchain_typescript@5.8.3_sha256=72e75dbeb92c2e6eb9a34cb59d74fab5c2ee6f32a0324a89405f6165d5a08374",
+          "typescript_toolchain_undici-types@6.21.0_sha256=cfa1a9a5e18988850e548f4f6b629c58da32dc32bebb116e58ea301e516fd16d"
         ],
         "cleanup_complete": true,
         "return_code": 0,
@@ -234,7 +241,7 @@
         "request_url": "https://crates.io/api/v1/crates/aspose-cells-foss",
         "status_code": 404,
         "response_sha256": "7725c05bbeae1be26514e13093bcdbf1ff199dfe6834eace25b877a4641f32ed",
-        "retrieved_at": "2026-07-27T15:09:38.915798Z",
+        "retrieved_at": "2026-07-27T15:36:33.457930Z",
         "found": false,
         "detail": "crates.io: aspose-cells-foss NOT FOUND (404)"
       },
@@ -258,6 +265,13 @@
           "container_image=rust@sha256:af306cfa71d987911a781c37b59d7d67d934f49684058f96cf72079c3626bfe0",
           "input_sha256=29cd0d3463eba8ff4a1e1e19d49b6d5e4f89251db5ed33cfa0a0c8d581d126ce",
           "public_api_sha256=8080b9b022bf70521443e8ae7060ead93229c25447df608d397b8a948113024e",
+          "rust_dependency_config_sha256=77e9219c27274120197571fd165cbe4121963b5ad3bc0b20b383c86ef0ce6c2b",
+          "rust_dependency_lockfile_sha256=546e829d38c2b174455c948fa69ba2ba6868cdf3216576d7459ebc2b10a9e444",
+          "rust_dependency_package_count=93",
+          "rust_dependency_snapshot_inventory_sha256=775e8d96f393a828312ca0520039293194792a566176a444de3e87c825119741",
+          "rust_dependency_vendor_sha256=afebcf290b2f81d57370f893b41a8c51d740b46af60cadadb609b9ec3f8759da",
+          "rust_manifest_sha256=5d70ce838a50c619f4059fe32940579be8829f49bdb394495ed93997a9b0a537",
+          "rust_package_source_sha256=44839dbe8d71e757fcbace715882bc7f78506cad09631f3dc8ff9daf80816aae",
           "rust_source_dependency=aspose-cells-foss-rust = { git = \"https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust\", rev = \"0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e\" }",
           "source_revision=0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e"
         ],
@@ -290,7 +304,7 @@
         "request_url": "https://repo1.maven.org/maven2/org/aspose/aspose-readme-agent-nonexistent-acquisition-control-foss/maven-metadata.xml",
         "status_code": 404,
         "response_sha256": "e791ccfcfee9c0d299d07474d9bfcbfcbebf1181323be601220c8a823062ab99",
-        "retrieved_at": "2026-07-27T15:09:40.019034Z",
+        "retrieved_at": "2026-07-27T15:36:34.587589Z",
         "found": false,
         "detail": "Maven Central: org.aspose:aspose-readme-agent-nonexistent-acquisition-control-foss NOT FOUND (404)"
       },
@@ -320,7 +334,7 @@
         "request_url": "https://pypi.org/pypi/aspose-3d-foss/json",
         "status_code": 404,
         "response_sha256": "b82014934f66beeb9e05a37f65357c4b50db0349d25d68d818ed0319dd4feb40",
-        "retrieved_at": "2026-07-27T15:09:36.224346Z",
+        "retrieved_at": "2026-07-27T15:36:30.110808Z",
         "found": false,
         "detail": "PyPI: aspose-3d-foss NOT FOUND (404)"
       },
@@ -348,7 +362,7 @@
         "request_url": "https://pypi.org/pypi/aspose-3d-foss/json",
         "status_code": 404,
         "response_sha256": "b82014934f66beeb9e05a37f65357c4b50db0349d25d68d818ed0319dd4feb40",
-        "retrieved_at": "2026-07-27T15:09:36.224346Z",
+        "retrieved_at": "2026-07-27T15:36:30.110808Z",
         "found": false,
         "detail": "PyPI: aspose-3d-foss NOT FOUND (404)"
       },
