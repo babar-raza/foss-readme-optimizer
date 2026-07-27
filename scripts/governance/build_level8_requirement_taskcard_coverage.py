@@ -32,6 +32,14 @@ REPORT_PATH = (
     / "requirement-taskcard-coverage.json"
 )
 
+
+def canonical_text_sha256(path: Path) -> str:
+    """Hash UTF-8 text after normalizing checkout-specific line endings."""
+    text = path.read_text(encoding="utf-8")
+    canonical_text = text.replace("\r\n", "\n").replace("\r", "\n")
+    return hashlib.sha256(canonical_text.encode("utf-8")).hexdigest()
+
+
 ID_RE = re.compile(r"^[A-Z][A-Z0-9]{1,4}-\d{3}$")
 UNESCAPED_PIPE_RE = re.compile(r"(?<!\\)\|")
 
@@ -192,7 +200,7 @@ def build_coverage() -> tuple[dict, dict]:
     dispositions = [mapping["disposition"] for mapping in mappings]
     coverage = {
         "source_path": "plans/requirements.md",
-        "source_sha256": hashlib.sha256(REQUIREMENTS_PATH.read_bytes()).hexdigest(),
+        "source_sha256": canonical_text_sha256(REQUIREMENTS_PATH),
         "semantic_matrix_path": (
             "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json"
         ),

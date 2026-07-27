@@ -1,6 +1,5 @@
 """Offline tests for the supervisor's central mission-taskcard consumer."""
 
-import hashlib
 import importlib.util
 import json
 from copy import deepcopy
@@ -177,7 +176,22 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     )
     assert preproduction_mapping.task_id == "L8-PREPRODUCTION-IDEA-FIDELITY-GATE"
     requirements_path = REPO_ROOT / coverage.source_path
-    assert coverage.source_sha256 == hashlib.sha256(requirements_path.read_bytes()).hexdigest()
+    assert coverage.source_sha256 == coverage_tool.canonical_text_sha256(requirements_path)
+
+
+def test_requirement_coverage_source_hash_is_line_ending_independent(tmp_path: Path):
+    coverage_tool = _load_tool_module(
+        "build_level8_requirement_taskcard_coverage_line_endings",
+        "scripts/governance/build_level8_requirement_taskcard_coverage.py",
+    )
+    lf_path = tmp_path / "requirements-lf.md"
+    crlf_path = tmp_path / "requirements-crlf.md"
+    lf_path.write_bytes(b"# Requirements\n\n| ID | Status |\n")
+    crlf_path.write_bytes(b"# Requirements\r\n\r\n| ID | Status |\r\n")
+
+    assert coverage_tool.canonical_text_sha256(lf_path) == coverage_tool.canonical_text_sha256(
+        crlf_path
+    )
 
 
 @pytest.mark.parametrize(
