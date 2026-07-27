@@ -103,6 +103,12 @@ _ORDERED_BOUNDARIES: tuple[MissionLifecycleBoundary, ...] = (
 )
 
 
+def _canonical_text_sha256(path: Path) -> str:
+    text = path.read_text(encoding="utf-8")
+    canonical_text = text.replace("\r\n", "\n").replace("\r", "\n")
+    return hashlib.sha256(canonical_text.encode("utf-8")).hexdigest()
+
+
 def derive_lifecycle_scoreboard(
     backend: StateBackend,
     *,
@@ -111,7 +117,7 @@ def derive_lifecycle_scoreboard(
     """Read the dynamic registry and each repository's durable lifecycle."""
 
     entries = load_products(products_path)
-    registry_bytes = products_path.read_bytes()
+    registry_sha256 = _canonical_text_sha256(products_path)
     counts = {boundary: 0 for boundary in _ORDERED_BOUNDARIES}
     status_counts: dict[str, int] = {}
     missing: list[str] = []
@@ -146,7 +152,7 @@ def derive_lifecycle_scoreboard(
             break
     return MissionLifecycleScoreboardV1(
         registry_path=products_path.as_posix(),
-        registry_sha256=hashlib.sha256(registry_bytes).hexdigest(),
+        registry_sha256=registry_sha256,
         denominator=denominator,
         facts_ready=counts["FACTS_READY"],
         candidate_generated=counts["CANDIDATE_GENERATED"],
@@ -159,7 +165,7 @@ def derive_lifecycle_scoreboard(
         first_failing_boundary=first_failing,
         derived_at=max(
             watermarks,
-            default=f"registry:{hashlib.sha256(registry_bytes).hexdigest()}",
+            default=f"registry:{registry_sha256}",
         ),
     )
 

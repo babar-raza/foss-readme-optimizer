@@ -264,6 +264,23 @@ def test_dynamic_scoreboard_counts_durable_lifecycle_progress(tmp_path):
     assert scoreboard.first_failing_boundary == "CANDIDATE_GENERATED"
 
 
+def test_lifecycle_scoreboard_registry_hash_is_line_ending_independent(tmp_path: Path):
+    source = (REPO_ROOT / "data" / "products.json").read_text(encoding="utf-8")
+    canonical = source.replace("\r\n", "\n").replace("\r", "\n")
+    products_path = tmp_path / "products.json"
+    backend = _MemoryStateBackend()
+
+    products_path.write_bytes(canonical.encode("utf-8"))
+    lf_scoreboard = derive_lifecycle_scoreboard(backend, products_path=products_path)
+    products_path.write_bytes(canonical.replace("\n", "\r\n").encode("utf-8"))
+    crlf_scoreboard = derive_lifecycle_scoreboard(backend, products_path=products_path)
+
+    assert lf_scoreboard.registry_sha256 == crlf_scoreboard.registry_sha256
+    assert lifecycle_scoreboard_sha256(lf_scoreboard) == lifecycle_scoreboard_sha256(
+        crlf_scoreboard
+    )
+
+
 def test_requirement_coverage_classifier_handles_every_extractor_status():
     extractor = _load_tool_module(
         "extract_requirements_for_status_contract",
