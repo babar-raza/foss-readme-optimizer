@@ -40,6 +40,7 @@ OFFICIAL_COMMAND = (
     str(REPO_ROOT / ".venv" / "Scripts" / "python.exe"),
     "scripts/governance/run_official_checks.py",
 )
+SUPPORT_PATH = Path(__file__).with_name("aspose_org_adaptation_evidence_support.py")
 
 
 def _git(*args: str) -> str:
@@ -62,6 +63,8 @@ def _control_repository_state() -> dict[str, Any]:
         "contract_sha256": sha256(CONTRACT_PATH.read_bytes()),
         "builder_path": Path(__file__).resolve().relative_to(REPO_ROOT).as_posix(),
         "builder_sha256": sha256(Path(__file__).read_bytes()),
+        "support_path": SUPPORT_PATH.relative_to(REPO_ROOT).as_posix(),
+        "support_sha256": sha256(SUPPORT_PATH.read_bytes()),
     }
 
 
