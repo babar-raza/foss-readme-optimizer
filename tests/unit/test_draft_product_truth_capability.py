@@ -738,6 +738,52 @@ class TestGeneratedCodeNormalization:
 
 
 class TestGeneratedExampleQuality:
+    def test_invalid_python_syntax_drives_repair_without_reaching_verifier(self, tmp_path):
+        root = _make_repo(tmp_path)
+        good = _good_draft().model_copy(
+            update={
+                "minimal_example": _good_draft().minimal_example.model_copy(
+                    update={
+                        "language": "python",
+                        "code": "from package import Widget\n\nwidget = Widget()\n",
+                    }
+                )
+            }
+        )
+        bad = good.model_copy(
+            update={
+                "minimal_example": good.minimal_example.model_copy(
+                    update={"code": "from package import Widget,"}
+                )
+            }
+        )
+        calls: list[dict[str, list[str]] | None] = []
+        verified: list[str] = []
+
+        def draft_fn(hints, facts):
+            calls.append(hints)
+            return bad if hints is None else good
+
+        def verify(example):
+            verified.append(example.code)
+            return _always_verified_example(example)
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=draft_fn,
+            verify_example_fn=verify,
+        )
+
+        assert result.repair_attempts == 1
+        assert calls[1] is not None
+        assert "trailing comma" in calls[1]["example.minimal"][0]
+        assert verified == [good.minimal_example.code]
+        assert result.gated_facts["example.minimal"].verification_state == "verified"
+
     def test_private_python_attribute_blocks_before_compiler_and_drives_repair(self, tmp_path):
         root = _make_repo(tmp_path)
         bad = _good_draft()

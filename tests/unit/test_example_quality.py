@@ -73,6 +73,17 @@ def test_python_unused_import_is_rejected() -> None:
     assert "Mesh" in failures[0]
 
 
+def test_python_syntax_error_is_repairable_quality_failure() -> None:
+    failures = generated_example_quality_failures(
+        "python",
+        "from package import Scene,",
+    )
+
+    assert len(failures) == 1
+    assert "invalid syntax" in failures[0]
+    assert "trailing comma" in failures[0]
+
+
 def test_other_languages_remain_compiler_owned() -> None:
     assert generated_example_quality_failures("dotnet", "value._private") == []
 

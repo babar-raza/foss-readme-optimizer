@@ -55,10 +55,12 @@ def strip_source_comments(language: str, source: str) -> str:
 def generated_example_quality_failures(language: str, source: str) -> list[str]:
     """Return deterministic public-API and minimality failures for generated code.
 
-    Syntax and type correctness remain the ecosystem compiler's authority.
-    This check owns contracts a syntax-only Python compilation cannot prove:
-    README examples must use public APIs, must demonstrate an operation, and
-    must not substitute an exhaustive import inventory for a working example.
+    Type correctness remains the ecosystem compiler's authority. Python syntax
+    is parsed here because all later Python quality checks depend on the AST and
+    malformed model output must enter the repair loop instead of escaping as a
+    system failure. This check also owns contracts a syntax-only compilation
+    cannot prove: README examples must use public APIs, demonstrate an
+    operation, and not substitute an import inventory for a working example.
     """
 
     failures: list[str] = []
@@ -71,7 +73,11 @@ def generated_example_quality_failures(language: str, source: str) -> list[str]:
         return failures
     try:
         tree = ast.parse(source)
-    except SyntaxError:
+    except SyntaxError as exc:
+        failures.append(
+            "minimal Python README example has invalid syntax at "
+            f"line {exc.lineno or 'unknown'}: {exc.msg}; regenerate valid Python"
+        )
         return failures
     private_attributes = sorted(
         {
