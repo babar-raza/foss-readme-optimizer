@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "c54f3be7e6a6df22f1d5fb2f2c3d47d36332af706cfcfb6f83cf4ad26e24bbc2",
-    "last_evaluated_at": "2026-07-27T19:28:23.205523+00:00",
+    "last_evaluated_at": "2026-07-27T19:29:28.194210+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -63,7 +63,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Require positive implementation evidence for capabilities and explicit constraint evidence for limitations."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "task_id": "L8-TRUTH-03-CLAIM-POLARITY"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -134,7 +143,7 @@
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "CLOSED",
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
-      "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
+      "L8-TRUTH-03-CLAIM-POLARITY": "REGRESSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
@@ -2442,6 +2451,18 @@
         "reason": "Live Python citation regression repaired and independently proven under the canonical stage-limited runtime.",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [
+          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/6a209e8fc3dfc305df39a417037e32a4d4c7b2be/facts/product-facts.json",
+          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/facts/product-facts.json"
+        ],
+        "from_status": "CLOSED",
+        "observed_by": "Codex sole operator",
+        "occurred_at": "2026-07-27T19:29:28.194204+00:00",
+        "reason": "The seven-ecosystem live campaign found directionally ambiguous capability anchors in the real .NET and Python representatives, contradicting the task closeout rule.",
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -2450,7 +2471,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 282,
+  "state_version": 283,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
