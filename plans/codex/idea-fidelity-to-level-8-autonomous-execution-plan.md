@@ -77,26 +77,22 @@ green. These are entry findings, not closure claims.
 ## Current execution checkpoint and route correction (2026-07-28)
 
 The verified pre-edit checkpoint is control-repository `main` at
-`25a2820507febaf0f74860c6e363864105c22465`, clean and aligned with `origin/main`. Mission status
-loaded graph `a7e4486a4ddb35a36efb44092893f06d870d003295b665d9d21e0e26dd25c7c5` without drift and reported
-durable state version 320, active task `L8-TRUTH-07-SEVEN-ECOSYSTEMS`, 59 unresolved tasks, and one
-external block. This document is supporting explanation; after these edits, live `status` and
+`bbcc9434cd2a6580fe9d3f89159424998be1848a`, clean and 43 commits ahead of `origin/main`. Mission
+status loaded graph `717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f`
+without drift and reported durable state version 433, active task
+`L8-COMPOSE-04-PRESENTATION-LINT`, 48 unresolved tasks, one external block, and no eligible
+competing task. This document is supporting explanation; after these edits, live `status` and
 `evaluate` remain the only authority for graph migration and claim recovery.
 
-The accelerated graph was reconciled without stealing the active claim or deleting transition
-history. Durable state version 323 now binds graph
-`d04a940d4a1d9ca42b1b27fd8468500a69a11cab31ac0f7b9abc6418aa925aea`, retains
-`L8-TRUTH-07-SEVEN-ECOSYSTEMS` as the exact next task, and reports no graph drift.
-
-The runtime denominator is 31. Durable lifecycle state reports 7 repositories at `FACTS_READY` or
-later, one candidate through `NO_OP_PROVEN`, and zero `HUMAN_ACCEPTED`. The single no-op-proven
-3D Java candidate is not current-contract finalized output: it still contains visible marker
-metadata and lacks the current factual badge header and Mermaid overview, and its inherited-claim,
-link-allocation, and Enterprise Edition treatment predate `L8-020` through `L8-026`. The truthful
-latest-contract README result is therefore 0/31. Python, TypeScript, and Rust public-consumer truth,
-claim polarity, acquisition, public examples, and interpretive render views have current
-checksum-complete proof. The active seven-ecosystem facts task still needs a real Go
-representative under the same acceptance contract.
+The runtime denominator is 31. Durable lifecycle state reports 8 repositories at `FACTS_READY` or
+later, one at `CANDIDATE_GENERATED`, one at `DETERMINISTIC_VALIDATED`, one at `AGENT_APPROVED`, one
+through `NO_OP_PROVEN`, and zero `HUMAN_ACCEPTED`. Those counts are mechanically true lifecycle
+counts, not current-contract acceptance. The no-op-proven 3D Java candidate remains a negative
+control under the newer presentation contract: the current deterministic lint reports
+`promotional_imbalance` and `semantic_duplicate`, and the artifact still contains visitor-visible
+comments while lacking the required factual badge header and Mermaid overview. The truthful
+latest-contract README result is therefore 0/31 until the active lint task, candidate regeneration,
+deterministic validation, independent review, and no-op proof all close under one campaign.
 
 The recovery is convergence, not rollback: preserve the proven supervisor, safety, isolation,
 lifecycle, facts, evidence, reviewer, and LLM-accounting foundations; stop extending unrelated
@@ -120,12 +116,18 @@ still on product truth. That was the wrong execution granularity:
 2. Prompt, renderer, fact, or reviewer changes correctly invalidate dependent artifacts, but the
    portfolio was already fanning out before those contracts were frozen. Each fix therefore
    reopened earlier repositories and multiplied live-call cost.
-3. The portfolio command has per-repository trigger leases but no portfolio-wide single-writer
-   lease. Two complete runs can inspect and mutate the same durable records concurrently.
-4. The mission claim has a 30-minute expiry but portfolio, build, and LLM operations do not renew
-   it. The active product-truth claim expired hours before this audit.
-5. `portfolio-summary.json` describes only the current bounded prefix. It is not a frozen campaign
-   ledger and cannot by itself answer which of 31 repositories remain valid under the current
+3. The portfolio command has per-repository trigger/run leases but no portfolio-wide
+   single-writer lease, renewal protocol, or fencing generation. The current sprint has one human
+   operator and one Codex operator; this is not a multiple-worker incident. The defect is that the
+   runtime would still permit two overlapping invocations from that operator, or later from
+   scheduled/event deliveries, to inspect the same campaign and publish competing aggregate
+   results.
+4. The mission claim has a finite expiry but portfolio, build, and LLM operations do not renew it.
+   Long work can therefore remain correct at repository level while losing the mission-level
+   authority that is supposed to explain and serialize it.
+5. `portfolio-summary.json` describes only the latest bounded prefix and is overwritten by the next
+   slice. It is neither a frozen campaign ledger nor a serialized reduction of all accepted lane
+   results, so it cannot answer which repositories remain valid under the current
    prompt/renderer/reviewer contract.
 6. Runtime evidence is spread across many timestamped retry directories even though canonical
    revision-addressed bundles already exist. This increases audit cost without increasing proof.
@@ -255,12 +257,22 @@ targeted repair per repository/revision/campaign. Related repositories may share
 request only after typed per-repository accounting, outputs, verdicts, cache keys, and failure
 isolation pass cross-product and malformed-item controls.
 
-After seven-representative qualification, one supervisor may run two to four isolated repository
-lanes. Each lane owns its lease, revision root, lifecycle, evidence, and verdict; shared caches are
-read-only/content-addressed; aggregate updates are serialized; backpressure reduces concurrency.
-Before qualification, execution remains serial. One source/toolchain build feeds all dependent
-checks until its exact key changes. URL, registry, workflow, and license evidence is fetched once
-per normalized freshness key.
+Parallelism is owned only by the canonical supervisor. One operator starts one top-level
+supervisor process tree; the supervisor may later create process-isolated repository lanes after
+the applicable promotion gate. Each lane owns its lease, revision root, lifecycle, accounting,
+evidence, and result envelope. Shared caches are read-only/content-addressed; only the scheduler
+reduces lane results into campaign state; resource-specific backpressure lowers or pauses
+admission. A source/toolchain build feeds all dependent checks until its exact key changes. URL,
+registry, workflow, and license evidence is fetched once per normalized freshness key.
+
+The existing authoritative rule remains serial before seven-representative qualification until
+decision #83, `SCL-002`, `L8-017`, and `AGENTS.md` are explicitly synchronized. The production
+recommendation below replaces that coarse rule with a progressive concurrency ladder: keep the
+active shared presentation contract serial; prove lane isolation on fixtures; pass one
+current-contract Python canary; then admit at most two real representative lanes while promotion
+remains platform-ordered. Full-registry execution may increase to a measured two-to-four lanes only
+after the seven-representative contract is frozen. This recommendation is not executable authority
+while the governing documents still require complete serial qualification.
 
 The complete local official suite runs at four campaign boundaries: before resumed execution,
 after the first latest-contract README, after seven-representative qualification, and at Gate-A
@@ -285,8 +297,8 @@ task IDs, acceptance criteria, transitions, and evidence mappings:
 | Campaign | Included outcome | Shared verification boundary |
 | --- | --- | --- |
 | C1 -- first current-contract README | Finish contextual linking, existing-content reconciliation, complete claim accountability, operation coverage, presentation lint, composition, review, and effective repair for the highest-priority Python representative. | Focused/impact checks during implementation; one complete official suite, real Python lifecycle, independent review, repair control, and unchanged no-op at the accepted README boundary. |
-| C2 -- seven representatives | Extend the identical accepted contract through .NET, Java, C++, TypeScript, Rust, and Go; close reviewer grounding/cache behavior, recovery, golden-set qualification, campaign identity, and contract freeze. | Adapter/public-seam checks per ecosystem; one seven-repository end-to-end, recovery/idempotency campaign; one complete official suite and independent aggregate at qualification closure. |
-| C3 -- full-registry Gate A | Process every current registry entry in platform/family cohorts, heal only invalidated boundaries, prove no-op, and reproduce the portfolio aggregate. | Per-repository deterministic gates and manifest checks; one complete official suite and independent denominator/checksum reconstruction at Gate-A closure. |
+| C2 -- seven representatives | Extend the identical accepted contract through .NET, Java, C++, TypeScript, Rust, and Go; close reviewer grounding/cache behavior, process-lane isolation, recovery, golden-set qualification, campaign identity, and contract freeze. After governance synchronization and the Python canary, use at most two scheduler-owned lanes. | Adapter/public-seam checks per ecosystem; serial/two-lane equivalence; one seven-repository end-to-end recovery/idempotency campaign; one complete official suite and independent aggregate at qualification closure. |
+| C3 -- full-registry Gate A | Process every current registry entry in platform/family cohorts through adaptive two-to-four process lanes, heal only invalidated boundaries, prove no-op, and reproduce the serialized portfolio aggregate. | Per-repository deterministic gates and manifest checks; lane pressure/recovery/contamination controls; one complete official suite and independent denominator/checksum reconstruction at Gate-A closure. |
 | C4 -- local profile and workflow | Complete the remaining locally testable presentation surfaces and reproduce the same canonical supervisor under `act`. | Surface-specific integration/safety checks followed by one complete local multi-surface proof and one actual-workflow recovery/idempotency proof. |
 | C5 -- staging and controlled delivery | Prove proposal state in disposable staging, obtain Gate-C per-push approvals, prove the Java draft-PR lifecycle, then provision the hosted runtime. | Scenario matrix for create/no-op/update/drift/dedup/lost response/crash/authorization, default-branch byte identity, and token isolation. |
 | C6 -- Level 5 and heterogeneous rollout | Complete every `idea.md` surface, run the controlled three-Java pilot, then operate and prove the supported portfolio. | Independent Level-5 audit, one authorized lifecycle per ecosystem, portfolio health/recovery proof, and the uninterrupted day-1-to-day-30 evidence series. |
@@ -345,15 +357,307 @@ The following controls are part of the existing mission rather than a separate p
   repositories. Do not patch candidates individually.
 - **Resume, do not replay.** Persist stage outputs and transition receipts after each repository so
   cancellation, machine restart, or a narrow failure resumes from the last checksum-valid boundary.
-- **Bounded post-qualification lanes.** Remain serial through seven-representative qualification.
-  Afterwards the sole supervisor may use the measured safe count of two to four isolated repository
-  lanes, with serialized aggregation and no concurrent control-repository editing.
+- **Progressive, governed lanes.** Keep shared-contract repair serial. After process isolation,
+  campaign fencing, serialized reduction, and a Python canary pass, the sole supervisor may use
+  two representative lanes if the authoritative governance is synchronized. After complete
+  seven-representative qualification it may use the measured safe count of two to four lanes.
+  Concurrent control-repository editing remains prohibited.
 - **Measure before test parallelism.** Enable pytest-xdist, persistent clone optimization, CI cache
   changes, or physical multi-item LLM batching only after the cost-baseline task proves the change
   safe, faster, deterministic, and isolated. Otherwise keep them off the critical path.
 - **Impact map, not ritual reruns.** Record which modules/contracts each focused test proves.
   Rerun unaffected expensive suites only at their campaign boundary, while safety-critical touched
   seams always run immediately.
+
+## Production concurrency and repeatability design (2026-07-28)
+
+### Diagnosis: symptoms, root causes, and structural weaknesses
+
+The visible symptom is low throughput: the durable scoreboard is 8/31 at `FACTS_READY` and 1/31
+at candidate/no-op stages, while the only candidate fails the current presentation contract. The
+solution is not to fan the present command out over 31 repositories. That would multiply
+contract defects and produce results faster than they can be trusted.
+
+The production diagnosis is:
+
+| Class | Current evidence | Actual cause | Consequence |
+| --- | --- | --- | --- |
+| Symptom | `commands_supervision.py::_cmd_supervise_registry()` iterates one ordered `for` loop and stops after a wall-clock slice. | The portfolio adapter is a serial prefix runner, not a durable work scheduler. | Independent repositories and stages cannot use otherwise idle CPU, network, Docker, or LLM capacity. |
+| Symptom | Candidate files can exist while the durable lifecycle remains `FACTS_READY`, and an older `NO_OP_PROVEN` candidate now fails the current lint. | Artifact existence, lifecycle promotion, and current-contract validity are separate facts but are not represented by one campaign-scoped reduction. | Reruns and reports can disagree without either file being corrupt. |
+| Root cause | `stage_limit.py` types only `FACTS_READY`; the portfolio summary types only `FACTS_READY` and `NO_OP_PROVEN`. | The runtime cannot stop, resume, and schedule every lifecycle boundary independently. | Work is either under-scoped or allowed to run too far, increasing invalidation and paid-call waste. |
+| Root cause | `GitStateBackend` has per-repository write and run locks, but no renewable campaign lease, fencing epoch, or aggregate-writer contract. | Repository mutual exclusion is being asked to provide campaign ownership, which it cannot do. | A late or recovered invocation can publish a stale aggregate or continue after authority has moved. |
+| Root cause | `llm/call_ledger.py`, facts context, lifecycle recording, and execution flags use `ContextVar` or process-local state. | A naïve thread pool would not automatically carry the correct repository context and would share mutable module state. | Call accounting, facts, evidence, or lifecycle events could be attributed to the wrong repository. |
+| Root cause | Individual evidence files are atomic, but a complete bundle/campaign is not a transaction. | Atomic rename protects one file, not cross-file completeness or aggregate promotion. | A crash can leave valid-looking partial files that must not count as a completed stage. |
+| Root cause | The coarse control-plane fingerprint hashes broad capability/prompt/ruleset inputs, while lifecycle records also keep selected stage hashes. | Invalidation ownership is split and not compiled from one declared dependency graph. | Some edits reopen more work than necessary; other contract changes can leave stale terminal state until a later check notices. |
+| Root cause | LLM output is nondeterministic and retry/provider behavior is external, while exact cache eligibility is still being completed. | “Same repository” is not the same request unless source, facts, prompt, schema, model route, generation settings, and reviewer standard are identical. | Unchanged reruns can differ or spend again unless every job is hash-addressed and replayed from an accepted receipt. |
+| Structural weakness | Clone/API reads, Docker builds, CPU validators, author calls, reviewer calls, and Git-ref writes have different capacity and failure behavior but no separate admission budgets. | A single global lane count cannot protect the bottleneck resource. | Four lanes can mean four simultaneous native builds or reviewer calls, causing rate pressure, memory contention, and cascading retries. |
+| Structural weakness | Current platform priority is phrased as complete serial exhaustion. | Dispatch order, resource utilization, and acceptance-promotion order are conflated. | A slow Python build can idle independent deterministic or network capacity even when later-platform inputs are ready. |
+| Structural weakness | Recovery is repository-oriented; the latest prefix summary overwrites the previous one. | There is no durable campaign reducer with monotonic work-item receipts. | Restart safety exists in pieces but not as one reproducible portfolio result. |
+
+There was and is one operator. Child Python, Git, Docker, compiler, and test processes are not
+additional workers. The production risk is overlapping invocations and future scheduled
+deliveries, not a historical team of concurrent repository editors.
+
+### What remains intact
+
+The following are valuable and must not be weakened or replaced:
+
+- `supervise` remains the sole production runtime and capability-registry authority;
+- immutable repository snapshots, the allow-list, push-blocking, local no-write policy, and
+  isolated example/build execution remain hard gates;
+- per-repository CAS state, trigger deduplication, run locks, revision-addressed bundles,
+  redaction, checksums, and independent review remain the repository-level safety spine;
+- `ProductFactsV2`, protected-content/claim accountability, deterministic presentation lint,
+  bounded LLM use, and no-op proof remain acceptance requirements;
+- `data/platform_priorities.json` remains the configured priority source;
+- one human operator and one top-level supervisor command remain the local operating model;
+- no concurrency setting may lower a validator, skip a reviewer, widen a fact claim, or reinterpret
+  a failure as success.
+
+The serial `for` loop, coarse two-state stage ceiling, mutable prefix summary, non-renewable
+campaign authority, and undifferentiated lane count must be redesigned. They are implementation
+choices, not safety properties.
+
+### Target architecture: one scheduler, isolated lanes, one reducer
+
+Do not create a second controller or queue. Refactor the registry branch of the existing
+`supervise` command into `PortfolioSchedulerV1`:
+
+```text
+one operator / one top-level supervise process
+  -> load and hash registry + platform policy once
+  -> load or create immutable CampaignContractV1
+  -> acquire renewable campaign lease with fencing epoch
+  -> derive ready PortfolioWorkItemV1 rows from durable repository state
+  -> admit work through stage-specific resource bulkheads
+  -> spawn process-isolated repository lane
+       -> acquire renewable per-repository run lease
+       -> execute exactly one requested lifecycle boundary
+       -> write artifacts into a private attempt directory
+       -> validate and seal LaneResultV1
+  -> reject late/stale/foreign-fence results
+  -> serialized CampaignReducerV1 promotes one sealed result at a time
+  -> atomically update durable lifecycle and campaign aggregate
+  -> recompute readiness and continue
+```
+
+The lanes are child processes of the one supervisor, not agents, operators, or independent
+controllers. Use process isolation rather than threads because the current LLM accounting, facts,
+lifecycle, and execution contexts are process-local and because native tools can mutate process
+environment or leave descendants. A future implementation may prove an async/threaded read-only
+adapter safe for specific network collectors, but it is not the initial correctness boundary.
+
+The scheduler owns admission and aggregation only. It does not implement facts, composition,
+validation, or review. A lane calls the same public repository supervisor seam used by serial
+execution. The local executor is a bounded child process; the hosted executor may later be an
+Actions matrix job. Both consume and emit the same typed work/result contracts.
+
+### New or strengthened contracts
+
+These contracts extend existing state; they do not create a parallel ledger:
+
+- `CampaignContractV1`: campaign ID and SHA-256 over control HEAD, dependency lock, execution
+  profile, registry bytes, platform-priority bytes, immutable source-revision map, policy/catalog
+  inputs, fact-acceptance contract, family/ecosystem evidence, prompt manifests, model routes and
+  structured schemas, renderer/composer versions, deterministic rule versions, reviewer standard,
+  isolated-executor image/toolchain digests, and requested lifecycle ceiling.
+- `PortfolioWorkItemV1`: stable work ID; campaign and fence; repository/revision; platform/family;
+  earliest invalid stage; target stage; dependency/input hashes; resource class; attempt; lease;
+  estimated cost; and not-before time. It is derived from lifecycle state and receipts, never
+  hand-appended to another queue file.
+- `LaneResultV1`: work ID; campaign/fence; start and reached stages; terminal classification;
+  input/output hashes; artifact inventory; lifecycle transitions; LLM call ledger; resource/timing
+  observations; retryability; and worker identity.
+- `CampaignAggregateV1`: dynamic denominator, one current result per repository, pending/running/
+  retryable/blocked/accepted counts, first failing boundary, platform/cohort progress, resource
+  pressure, and checksum root. Only the reducer writes it.
+- `LeaseV2`: holder, scope, lease generation/fencing token, issued/renewed/expires times, and
+  cancellation state. Renewal is compare-and-swap. Every state/evidence promotion presents the
+  current fencing token; a stale worker may finish computation but cannot publish it.
+- `StageReceiptV1`: exact stage inputs, output hashes, validation result, campaign dependencies,
+  timestamps, and acceptance identity. A directory or candidate file without a sealed receipt
+  never advances the scoreboard.
+
+The campaign aggregate is a derived view of repository state plus sealed receipts. It is not
+allowed to overwrite history with a bounded prefix. The human-readable summary may be replaced on
+each reduction, while the durable aggregate version and receipt history remain monotonic.
+
+### Stage model and invalidation
+
+Extend the typed lifecycle ceiling through at least:
+
+```text
+FACTS_READY
+CANDIDATE_GENERATED
+DETERMINISTIC_VALIDATED
+AGENT_APPROVED
+NO_OP_PROVEN
+```
+
+Each stage declares its input dependencies once. Compile both cache keys and invalidation from that
+same declaration:
+
+- source revision or repository inventory change reopens snapshot-dependent stages;
+- fact-contract, policy, toolchain, or evidence change reopens facts and all dependent stages;
+- presentation policy/catalog/renderer change reopens assessment/composition and later stages;
+- deterministic-rule change reopens validation and later stages;
+- reviewer prompt/schema/route change reopens review and no-op, not facts or deterministic
+  composition;
+- aggregate/report code change rebuilds only the derived aggregate when stage receipts remain
+  valid.
+
+Admission closes immediately when a shared contract changes. The scheduler records a freeze
+barrier, stops launching new work, lets safe deterministic work drain or cancels paid/native work,
+computes the affected stage set, issues a new campaign identity when required, and requeues only
+invalidated work. Results from the old campaign cannot be promoted into the new one.
+
+For every LLM job, the cache key includes repository, immutable revision, stage, accepted fact/plan
+hashes, prompt and schema hashes, model route/provider parameters, and reviewer standard where
+applicable. An accepted identical receipt is replayed with zero provider calls. Retries have one
+logical call ID and separate attempt records. Different valid model output is permitted only under
+a new key/campaign and must pass the same deterministic and independent gates.
+
+### Progressive concurrency ladder
+
+Concurrency is a promoted capability, not a command-line preference:
+
+| Level | Eligibility | Allowed execution | Promotion proof |
+| --- | --- | --- | --- |
+| P0 -- contract repair | Current state through `L8-COMPOSE-04-PRESENTATION-LINT` and its fixture task. | One repository lane. No portfolio fan-out while the visitor contract is changing. | Current Java negative control fails for the expected reasons; focused lint/safety tests pass. |
+| P1 -- isolation proof | Scheduler contracts, campaign lease/fencing, process cleanup, stage receipts, and serialized reducer exist. | Two fixture lanes using different repositories and stages; no live paid fan-out. | Duplicate, stale-fence, crash, cancellation, lease expiry, cache-contamination, and aggregate-order tests produce the same result as serial reference execution. |
+| P2 -- representative pipeline | One current-contract Python canary reaches `DETERMINISTIC_VALIDATED`; P1 is green; shared contract is frozen. | At most two real repository lanes. One lane is reserved for the highest-priority critical-path item; a second may use a different idle resource class. | Seven representatives reach the required stage with no cross-repository leakage, no quality delta from serial reference, bounded resources, and exact accounting. |
+| P3 -- Gate A | Seven representatives are `NO_OP_PROVEN`; golden thresholds, recovery, cost baseline, and campaign freeze pass. | Adaptive two-to-four repository lanes inside one supervisor. | Full fault/rate/starvation matrix, measured speedup, no duplicate work/calls, and independent aggregate reproduction. |
+| P4 -- hosted operation | `act` and disposable staging prove the same contracts. | Actions matrix or hosted workers execute scheduler-issued items; per-repository effect lanes remain serialized and authorization-bound. | Trigger deduplication, lost-response/crash recovery, token isolation, default-branch byte identity, and health/backlog proof. |
+
+P2 is the recommended acceleration over the current all-serial qualification rule. Activating it
+requires a fresh governed synchronization of `master.md` decision #83 and its Status, Decision
+Ledger, Architecture, Build Checklist, and Verification Checklist sections, plus `SCL-002`,
+`L8-017`, the mission graph, and `AGENTS.md`. Until that happens, P0/P1 may be designed and tested
+without live fan-out, but representative execution remains serial.
+
+Platform priority becomes a deterministic admission and promotion policy rather than forced idle
+time:
+
+1. dependencies, recovery of an already owned claim, safety, and exact external blocks are handled
+   first;
+2. the highest-priority ready platform receives the first compatible resource slot;
+3. a later platform may use an otherwise idle, different resource bulkhead only while it cannot
+   delay the earlier platform;
+4. final qualification promotion and published cohort order remain Python, .NET, Java, C++,
+   TypeScript, Rust, Go;
+5. aging prevents indefinite starvation, but never lets later work consume capacity reserved for a
+   ready earlier-platform critical-path item.
+
+This distinction preserves the user's priority while permitting Python network wait, for example,
+to overlap with .NET deterministic validation. It does not permit skipping an agent-fixable Python
+defect.
+
+### Resource bulkheads and backpressure
+
+Do not use one global `max_workers` as the safety control. Start with conservative independent
+caps, then let `L8-QUAL-04B-COST-BASELINE` raise them only from measured evidence:
+
+| Resource class | Initial cap | Production rule |
+| --- | ---: | --- |
+| Campaign reducer / Git-ref aggregate writer | 1 | Never parallel. |
+| Per-repository mutating lifecycle writer | 1 per repository | Protected by renewable run lease and fence. |
+| GitHub/registry read I/O | 4 | Provider-specific rate limiter, `Retry-After`, jitter, and circuit breaker. |
+| Deterministic CPU validation | 2 | May rise to the smaller of 4 or measured safe CPU/RAM capacity. |
+| Docker/native consumer build | 1 | May rise to 2 only after memory, disk, network, cleanup, and hostile-script controls pass. |
+| LLM composition | 1 initially, maximum 2 | Separate token/request budget; no retry storm; deterministic prechecks already green. |
+| Independent LLM review | 1 | Kept separate from author capacity and context; quality is the bottleneck by design. |
+| Remote effect per repository | 1 | Inert locally; authorization, fresh token, refetch, and effect ledger required in staging/production. |
+
+Use conservative additive-increase/multiplicative-decrease admission: increase one slot only after a
+stable success window; halve the affected bulkhead on rate pressure, repeated retryable failure,
+cleanup lag, or resource saturation; reduce to one on uncertainty. Concurrency control may delay or
+retry work, never alter facts, prompts, validators, verdict thresholds, or terminal classification.
+Persist every admission/backpressure decision in the campaign evidence.
+
+### Implementation mapping to the existing mission
+
+No new mission or competing task tree is needed. Reconcile the design into these existing task
+owners:
+
+1. Finish `L8-COMPOSE-04-PRESENTATION-LINT` and `L8-COMPOSE-04A-CANDIDATE-FIXTURES` serially. They
+   freeze the shared visitor contract; concurrency before this boundary would amplify invalid
+   output.
+2. Extend the stage ceiling and sealed receipt behavior under
+   `L8-COMPOSE-05-SEVEN-CANDIDATES` so repositories can stop at deterministic candidate and
+   validation boundaries.
+3. Move the lane-isolation subset of `L8-QUAL-02A-FAILURE-MATRIX` before the live
+   seven-representative fan-out. Implement campaign lease renewal, fencing, process cleanup,
+   deterministic scheduling, and the serialized reducer there.
+4. Let `L8-QUAL-02-SEVEN-E2E` use P2 only after the Python canary and P1 proof. Preserve the
+   configured platform promotion order.
+5. Keep complete crash/recovery and long-duration heartbeat proof in
+   `L8-QUAL-03-RECOVERY`; P1 fixture proof is not a substitute for this real boundary.
+6. Measure queue wait, service time, provider pressure, cache reuse, call count, critical-path
+   utilization, and serial-versus-parallel equivalence in `L8-QUAL-04B-COST-BASELINE`.
+7. Freeze lane caps and all campaign dependencies in `L8-QUAL-05-FREEZE`.
+8. Implement adaptive P3 admission and cohort execution in
+   `L8-GATEA-00-COHORT-CONTROLS` and `L8-GATEA-01-COHORTS`; retain upstream repair and targeted
+   invalidation in the existing Gate-A healing tasks.
+
+The executable graph migration must preserve transition history, update the graph hash through the
+existing migration/evaluate path, and never steal the live
+`L8-COMPOSE-04-PRESENTATION-LINT` claim.
+
+### Verification and regression controls
+
+Concurrency is accepted only if it is observationally equivalent to the qualified serial path
+except for timing and recorded scheduling metadata:
+
+- deterministic scheduler tests: stable work IDs, configured priority, no duplicates, no
+  starvation, deterministic resume, and exact denominator;
+- lease/fencing tests: renewal, expiry, reclaim, stale worker completion, late result rejection,
+  reducer crash, and CAS conflict;
+- process-isolation tests: distinct ContextVars/accounting, environment, attempt roots, work clones,
+  caches, stdout/stderr, and descendant cleanup;
+- stage/invalidation tests: mutate every campaign dependency and assert only the owning stage and
+  descendants reopen;
+- artifact-transaction tests: crash before seal, after seal/before promotion, and after promotion;
+  partial files never count, while a sealed result promotes exactly once;
+- resource tests: one slow build, rate-limited API, LLM timeout/retry, disk pressure, memory
+  pressure, cancellation, and provider circuit opening affect only the owning bulkhead;
+- cache tests: cold, warm, no-op, corrupted, cross-repository, cross-revision, cross-prompt,
+  cross-model, and cross-campaign cases; no foreign cache hit is accepted;
+- quality tests: serial and concurrent runs use identical inputs and deterministic outputs; all
+  current presentation/factual/safety controls have identical verdicts; independent review still
+  catches seeded defects;
+- real P1/P2 proof: two fixture lanes, then Python plus one next-priority representative, followed
+  by the full seven-representative campaign;
+- Gate-A proof: two, three, and four lanes with backpressure, cancellation/resume, failure
+  isolation, exact LLM accounting, no remote writes, and independently reconstructed aggregate;
+- hosted proof: duplicate events, matrix job loss, scheduler absence, stale lease, lost response,
+  and one repository failure without portfolio loss.
+
+The promotion metric is not raw wall-clock speed. Record serial critical-path time, concurrent
+critical-path time, queue wait, CPU/RAM/disk peaks, provider calls/tokens/cost, cache reuse,
+retries, quality verdicts, false accepts/rejects, and recovery time. Promote a higher cap only when
+quality/safety are unchanged, p95 elapsed time improves materially, and resource/retry behavior
+remains within the recorded budget.
+
+### Tradeoffs, risks, and limits
+
+- Process lanes have startup and memory cost. At 31 repositories, two-to-four lanes are more likely
+  to be stable than unbounded fan-out; measurement may prove that two is the permanent local cap.
+- A single reducer is an intentional serialization point. It limits aggregate write throughput but
+  makes campaign state reproducible and prevents “last writer wins.”
+- Strict contract freezing can pause admission after a shared defect. This loses short-term
+  utilization but avoids paying to create invalid candidates across the portfolio.
+- Priority-preserving look-ahead is more complex than complete serial exhaustion. If evidence
+  cannot prove that it leaves the earlier platform unaffected, P2 remains at one lane.
+- LLM review and native builds may remain the bottlenecks. Concurrency cannot safely compress model
+  rate limits, toolchain time, external outages, human Gate B, per-push approval, or the 30/90-day
+  maturity windows.
+- Exact rerun byte identity is realistic for deterministic stages and cache replays. A genuinely
+  new LLM execution can vary; production consistency is therefore defined by identical inputs
+  reusing the accepted receipt and changed inputs passing unchanged quality gates, not by claiming
+  that nondeterministic generation itself is byte-stable.
+- Git-ref state remains viable at this scale, but campaign and lane measurements may show excessive
+  ref latency/contention. A backend migration is justified only from those measurements and must
+  preserve CAS, leases, fencing, transition history, and reproduction semantics.
 
 ### Disposition of the external testing/performance plan
 
@@ -370,16 +674,18 @@ The following parts are adopted into the existing mission:
 - measurement precedes optimization;
 - unchanged review/no-op caching belongs to `L8-REVIEW-04-NO-OP-CACHE`;
 - suite and per-stage cost measurement occurs immediately before qualification freeze;
-- clone persistence and two-to-four-lane portfolio concurrency activate only after single-writer
-  recovery and seven-representative correctness pass.
+- clone persistence and adaptive two-to-four-lane portfolio concurrency activate only after
+  single-writer recovery and seven-representative correctness pass; the narrower proposed
+  two-lane representative overlap activates only after fixture isolation, fencing, and the Python
+  current-contract canary pass.
 
-Pytest-xdist tiering, CI pip caching, cross-run clone persistence, specialist concurrency, and
-portfolio parallelism remain off the pre-qualification critical path. Post-qualification bounded
-portfolio lanes are accepted because repository state/evidence isolation is a Gate-A contract;
-other performance changes still require a measured trigger. Executing them early would delay the
-first trustworthy README while caching potentially invalid outputs. The external plan's separate
-`REQ-FAST-*` state machine and evidence authority are rejected; accepted work is represented only
-in the sole Level-8 graph.
+Pytest-xdist tiering, CI pip caching, cross-run clone persistence, and uncontrolled specialist
+concurrency remain off the pre-qualification critical path. Process-isolated representative
+overlap is admitted only by the progressive ladder above; post-qualification bounded portfolio
+lanes remain a Gate-A contract. Other performance changes still require a measured trigger.
+Executing them early would delay the first trustworthy README while caching potentially invalid
+outputs. The external plan's separate `REQ-FAST-*` state machine and evidence authority are
+rejected; accepted work is represented only in the sole Level-8 graph.
 
 The first real full-registry execution disproved the assumption that the upstream composition,
 review, and heterogeneous-qualification tasks could remain closed:
@@ -529,10 +835,11 @@ Before starting any long-running test, proof builder, supervisor campaign, build
 reproduction, inspect the repository process inventory. If an earlier top-level command from this
 operator is still active, attach to or poll that exact process tree; do not launch a duplicate.
 Run only one top-level test/proof/supervisor process tree at a time. Pytest-xdist, parallel test
-sessions, specialist concurrency, and portfolio fan-out remain disabled during local
-implementation unless a later measured task explicitly enables one behind the runtime's own
-lease/isolation proof. Subprocesses required by the one active command are allowed, must remain
-attributable to it, and must be terminated with their descendants on cancellation.
+sessions, and ad hoc portfolio commands remain disabled during local implementation. The canonical
+supervisor may create the process-isolated repository lanes defined by the progressive promotion
+ladder only after their lease/fencing/isolation gate is active; those lanes remain descendants of
+the one command and are not additional operators. Every child must remain attributable to its work
+item and must be terminated with its descendants on cancellation.
 
 The future production system still requires leases, deduplication, and concurrency controls because
 scheduled/event deliveries may overlap. That runtime obligation must not be misread as permission
@@ -734,7 +1041,7 @@ shared campaign evidence only at the next declared output boundary.
 | `L8-TRUTH-04-ACQUISITION` | Verify registry coordinates or an exact source-build path without converting unpublished packages into global blocks. | known-false Cells Maven, NuGet, Go, Rust, C++, and isolated source-build controls. | TRUTH-03 |
 | `L8-TRUTH-05-PUBLIC-EXAMPLES` | Prove imports/namespaces/public symbols and compile or execute comment-free visitor examples in the same isolated executor in every supported ecosystem. Evidence anchors remain source-grounding inputs; each consumer verifier derives the actual imported package symbols from the code instead of conflating those roles. | one real Python, .NET, Java, C++, TypeScript, Rust, and Go example in configured priority; source/documentation-comment and comment-like-string controls; filesystem/network/process escape negatives. | TRUTH-04 |
 | `L8-TRUTH-06-INTERPRETIVE-VIEWS` | Ground audience/problem facts and expose only typed visitor-facing render views; reject slugs, enum tokens, manifest keys, and fragments. | Java raw-token, TypeScript sentence, and product-identity controls. | TRUTH-05 |
-| `L8-TRUTH-07-SEVEN-ECOSYSTEMS` | Run the same stage-limited runtime to `FACTS_READY` for one real representative per supported ecosystem in Python, .NET, Java, C++, TypeScript, Rust, Go priority, completing the sole remaining Go boundary without repeating valid stages. Native-tool commands and raw-output hashes are part of every bundle. | seven checksum-valid fact bundles with reproduction commands and recorded configured order; zero later-stage or unnecessary LLM calls. | TRUTH-06 |
+| `L8-TRUTH-07-SEVEN-ECOSYSTEMS` | Preserve and revalidate only when invalidated the completed stage-limited `FACTS_READY` proof for one real representative per supported ecosystem in Python, .NET, Java, C++, TypeScript, Rust, Go priority. Native-tool commands and raw-output hashes remain part of every bundle. | seven checksum-valid fact bundles with reproduction commands and recorded configured order; zero later-stage or unnecessary LLM calls. | TRUTH-06 |
 
 #### Assessment/composition boundary (`L8-LOCAL-README-ASSESSMENT-COMPOSITION`)
 
@@ -764,18 +1071,18 @@ shared campaign evidence only at the next declared output boundary.
 | ID | Complete behavior | Focused proof | Depends on |
 | --- | --- | --- | --- |
 | `L8-QUAL-01-CAMPAIGN-IDENTITY` | Bind HEAD, registry, revisions, dependencies, prompts, templates, facts, renderer, validators, reviewer, and lifecycle hashes into one immutable campaign. | mutation of each dependency invalidates only its dependent stage. | review aggregate closure |
-| `L8-QUAL-02-SEVEN-E2E` | Run first proposal and unchanged no-op for one real representative per ecosystem under that campaign in Python, .NET, Java, C++, TypeScript, Rust, Go priority. | seven `NO_OP_PROVEN` manifests with the governed order; zero prohibited writes. | QUAL-01 |
-| `L8-QUAL-03-RECOVERY` | Prove single-writer lease, mission heartbeat, cancellation/resume, duplicate trigger, controlled failure, and descendant cleanup. | fault injection at every local lifecycle boundary. | QUAL-02 |
+| `L8-QUAL-02-SEVEN-E2E` | Run first proposal and unchanged no-op for one real representative per ecosystem under that campaign. After the Python canary and P1 isolation proof, use at most two process-isolated lanes while preserving configured admission and promotion priority. | seven `NO_OP_PROVEN` manifests; serial/concurrent equivalence; governed order; exact accounting; zero prohibited writes. | QUAL-01 + migrated P1 isolation prerequisite |
+| `L8-QUAL-03-RECOVERY` | Complete production-like proof of renewable campaign/repository leases, fencing, mission heartbeat, serialized reduction, cancellation/resume, duplicate trigger, controlled failure, and descendant cleanup. | fault injection at every local lifecycle boundary, including a stale lane that finishes after reclaim and is rejected. | QUAL-02 |
 | `L8-QUAL-04-GOLDEN-SET` | Run at least 100 governed evaluations in three sessions with 100% deterministic and at least 95% agentic accuracy, zero critical false accepts, and auto-disable regression. | three-session result inventory and route-disable proof. | QUAL-03 |
-| `L8-QUAL-04B-COST-BASELINE` | Measure official-check, per-stage, clone, registry, LLM, and warm/no-op latency and call counts under the accepted representative contract. | reproducible cold/warm distributions and explicit optimization triggers. | QUAL-04A |
-| `L8-QUAL-05-FREEZE` | Freeze the accepted campaign and prohibit Gate-A execution after any contract mutation until representative requalification passes again. | enforced preflight rejection and signed campaign manifest. | QUAL-04B |
+| `L8-QUAL-04B-COST-BASELINE` | Measure official-check, queue, service, per-stage, clone, registry, Docker, LLM, reducer, and warm/no-op latency, resources, retries, and call counts under the accepted representative contract; determine the safe P3 bulkhead caps. | reproducible cold/warm serial/two-lane distributions, quality equivalence, pressure controls, and explicit optimization triggers. | QUAL-04A |
+| `L8-QUAL-05-FREEZE` | Freeze the accepted campaign, stage dependency map, resource caps, and lane contract; prohibit Gate-A execution after any dependent mutation until targeted representative requalification passes again. | enforced preflight rejection, invalidation-scope controls, and signed campaign manifest. | QUAL-04B |
 
 #### Gate-A boundary (`L8-LOCAL-FULL-REGISTRY-GATE-A`)
 
 | ID | Complete behavior | Focused proof | Depends on |
 | --- | --- | --- | --- |
 | `L8-TRUTH-08-FULL-REGISTRY` | Run all dynamically loaded registry entries to `FACTS_READY`, isolating narrow essential-fact blocks only after the seven latest-contract lifecycles qualify. | `facts_ready + narrow_external_blocks == len(products)`; zero agent-fixable failures. | qualification aggregate closure |
-| `L8-GATEA-01-COHORTS` | Execute the frozen denominator in bounded, resumable ecosystem/family cohorts with one portfolio-wide writer lease and incremental summary, assigning ready cohorts in Python, .NET, Java, C++, TypeScript, Rust, Go priority. | interruption between every cohort resumes without duplicate work or order drift. | TRUTH-08 |
+| `L8-GATEA-01-COHORTS` | Execute the frozen denominator through `PortfolioSchedulerV1` in bounded, resumable ecosystem/family cohorts with one renewable campaign lease, fenced process lanes, stage bulkheads, and a serialized monotonic aggregate. Assign and promote ready work by the governed priority policy. | two-, three-, and four-lane interruption, stale-result, pressure, starvation, cache-contamination, and resume controls produce no duplicate work or order drift. | TRUTH-08 + GATEA-00 controls |
 | `L8-GATEA-02-HEAL-FAILURES` | Repair every agent-fixable failure at its upstream task, requalify the affected representative, and rerun only invalidated repositories. | no agent-fixable terminal remains; external blocks are exact and narrow. | GATEA-01 |
 | `L8-GATEA-03-NO-OP` | Obtain independent approval and unchanged no-op proof for every eligible current registry entry under the identical frozen campaign. | complete per-repository bundles and zero unnecessary second-run calls/effects. | GATEA-02 |
 | `L8-GATEA-04-REPRODUCE` | Independently reconstruct the portfolio result and checksum inventory from registry plus bundles. | approved equals dynamic denominator; failures, unprocessed, and manifest failures equal zero. | GATEA-03 |
@@ -1044,50 +1351,49 @@ Execution resumes in this order; it does not start an official 31-repository cam
 1. Re-read live HEAD, tree, graph hash, durable state, claim expiry, and the evidence paths in the
    multi-perspective table. Inventory repository-owned processes and establish Codex as the sole
    operator with exactly one active top-level command tree. Poll an existing tree instead of
-   launching an overlapping test/proof/supervisor run. Enforce one portfolio writer and treat any
-   run whose HEAD moved as diagnostic only.
-2. Rebuild requirement coverage for the reviewed graph, validate it, run mission `status` and
-   `evaluate`, and reconcile any historical claim without stealing a live lease. Execute
-   `L8-MISSION-GOAL-GUARD` before resuming ordinary machinery work so every remaining task has a
-   validated subordinate-goal and core-contribution binding and status exposes the live lifecycle
-   scoreboard.
-3. Resume `L8-TRUTH-07-SEVEN-ECOSYSTEMS` after durable evaluation. Complete the missing Go
-   representative through `go list`, `go doc`, and `go test` inside the existing isolated executor;
-   reuse unchanged valid facts for the other six ecosystems. Every representative records the
-   official/native command, pinned toolchain identity, raw-result hash, normalized facts, and
-   reproduction command. `FACTS_READY` requires support or explicit omission for every material
-   claim selected for the README, not optional exhaustive research. Target this boundary within one
-   working day; on breach, record and repair the exact first boundary. Do not start the full-registry
-   facts preflight.
-4. Execute `L8-LOCAL-README-ASSESSMENT-COMPOSITION`. First make the historical 3D Java candidate
-   fail the frozen current-contract validator. Then split only touched responsibilities and
-   implement marker/comment-free output, factual badges, fact-backed Mermaid, contextual
-   catalog-backed link allocation, exact Enterprise Edition terminology, and complete
-   inherited/generated claim dispositions. Factor inputs as validated source README plus
-   repository-bound family evidence, ecosystem evidence, and repository delta. Regenerate and
-   approve representatives in the binding order Python, .NET, Java, C++, TypeScript, Rust, Go,
-   with Python against the 1–2-working-day first-output target and all seven against the
-   3–5-working-day target. A breach cannot authorize a new abstraction or reduced gate.
-5. Execute `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`. Add span/fact-grounded reviewer findings,
+   launching an overlapping test/proof/supervisor run. Treat any run whose HEAD or campaign
+   dependencies moved as diagnostic only.
+2. Run mission `status`; if graph drift is reported, run `evaluate` and reconcile through the same
+   mission state without stealing the live claim. The verified starting task for this plan revision
+   is `L8-COMPOSE-04-PRESENTATION-LINT`; live durable state supersedes that snapshot on restart.
+3. Finish `L8-COMPOSE-04-PRESENTATION-LINT` serially. Prove the historical 3D Java candidate fails
+   for the exact current defects, complete the registered rules and focused validation/Markdown/
+   protected-content/specificity regressions, independently verify the evidence, and transition
+   only from checksum-complete proof.
+4. Execute `L8-COMPOSE-04A-CANDIDATE-FIXTURES`, extend typed stage ceilings/receipts, and produce the
+   first current-contract Python candidate through deterministic validation. Do not start paid or
+   native multi-repository fan-out before that canary is accepted. Continue composition with
+   marker/comment-free output, factual badges, fact-backed Mermaid, contextual catalog-backed link
+   allocation, exact Enterprise Edition terminology, and complete inherited/generated claim
+   dispositions.
+5. Before activating P2, obtain the required fresh section-specific governance approval and
+   synchronize `master.md` decision #83 and its Status, Decision Ledger, Architecture, Build
+   Checklist, and Verification Checklist sections, `SCL-002`, `L8-017`, the mission graph, and
+   `AGENTS.md`. Migrate the lane-isolation prerequisite ahead of live
+   `L8-QUAL-02-SEVEN-E2E` without deleting state history or changing the current claim.
+6. Implement and prove P1 inside the existing supervisor: campaign contract, renewable fenced
+   lease, derived work items, process-isolated lanes, stage receipts, serialized reducer, resource
+   bulkheads, and crash/cancellation cleanup. Two fixture lanes must be serial-equivalent before a
+   second real lane is admitted.
+7. Execute `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`. Add span/fact-grounded reviewer findings,
    contradicted-review rejection, repair routing, candidate-delta checks, and finding-resolution
    checks before another paid review call.
-6. Execute `L8-LOCAL-HETEROGENEOUS-QUALIFICATION` through the complete public supervisor path.
-   Require seven real representatives to reach current-contract `AGENT_APPROVED` and unchanged
-   `NO_OP_PROVEN`, with recovery, idempotency, safety, cache provenance, and measured cost/latency
-   evidence. The normal provider budget is one composition, one independent review, and one
-   targeted repair call; deterministic failures make zero new prose calls. Physical batching is
-   allowed only after per-repository schema, attribution, cache, verdict, and contamination controls
-   pass. Run the complete official suite once at this campaign boundary.
-7. Freeze the registry, repository revisions, control HEAD, prompt/fact/renderer/validator/reviewer
-   hashes, dependency lock, and cost envelope as one named campaign.
-8. Run `L8-TRUTH-08-FULL-REGISTRY` to the facts-only ceiling under the qualified contract, then
-   resume Gate A in two-to-four-lane family/ecosystem cohorts owned by one supervisor and publish
-   the serialized dynamic portfolio summary after every repository. Reuse exact build/tool and
-   freshness-bounded external-evidence results. A new live defect reopens the first responsible
-   task, requalifies the affected representative, and resumes only invalidated repositories.
-   Target Gate A within 7–12 working days and promote one closure evidence package after the final
-   official suite, not one package per failed attempt.
-9. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with
+8. Execute `L8-LOCAL-HETEROGENEOUS-QUALIFICATION` through the complete public supervisor path.
+   After the Python canary and P1 proof, admit at most two real process lanes under the governed
+   priority/admission policy. Require all seven real representatives to reach current-contract
+   `AGENT_APPROVED` and unchanged `NO_OP_PROVEN`, with serial equivalence, recovery, idempotency,
+   safety, cache provenance, exact call accounting, and measured cost/latency evidence. Run the
+   complete official suite once at this campaign boundary.
+9. Freeze the registry, repository revisions, control HEAD, prompt/fact/renderer/validator/reviewer
+   hashes, dependency lock, invalidation graph, lane caps, and cost envelope as one named campaign.
+10. Run `L8-TRUTH-08-FULL-REGISTRY` to the facts-only ceiling under the qualified contract, then
+    resume Gate A in adaptive two-to-four-lane family/ecosystem cohorts owned by one supervisor.
+    Reduce sealed results into one monotonic aggregate after each promotion. A new live defect
+    closes admission, reopens the first responsible task, requalifies the affected representative,
+    and resumes only invalidated repositories.
+    Promote one closure evidence package after the final official suite, not one package per failed
+    attempt.
+11. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with
    no-effect `act` work while Gate-B review is pending, then staging, Gate C, Gate D, and Level 5
    as their own dependencies permit. Start the complete Level-8 control/evidence series on hosted
    day 1, award Level 7 from days 1–30, and continue the same uninterrupted series to Level 8 at
@@ -1109,14 +1415,14 @@ blocking coverage, blocking semantic traceability, blocking verifier enforcement
 later gate that claims the same scope. Re-running it after every micro-fix is churn; skipping it at
 a declared boundary is incomplete proof.
 
-Human involvement is limited to Gate-B review of already agent-approved candidates, Docker or
-staging access if unavailable locally, staging credentials, exact per-product-push approval,
-GitHub App registration and secrets after Gate C, genuinely manual UI actions, independent
-acceptance authority, and elapsed production time. `plans/master.md` remains freely editable under
-the current repository governance. All other implementation, testing, remediation, evidence,
-commits, setup, monitoring, command execution, and continuation is autonomous. The operator does
-not request permission for an available safe in-scope command; it requests only the external
-authority or resource that the command cannot supply.
+Human involvement is limited to fresh section-specific `plans/master.md` approval when governance
+requires it, Gate-B review of already agent-approved candidates, Docker or staging access if
+unavailable locally, staging credentials, exact per-product-push approval, GitHub App registration
+and secrets after Gate C, genuinely manual UI actions, independent acceptance authority, and
+elapsed production time. All other implementation, testing, remediation, evidence, commits, setup,
+monitoring, command execution, and continuation is autonomous. The operator does not request
+permission for an available safe in-scope command; it requests only the external authority or
+resource that the command cannot supply.
 
 The mission closes only when every mandatory graph task is `CLOSED`, all requirements are
 truthfully evidenced, all gates pass, the 30-day and 90-day periods complete, the independent audit
