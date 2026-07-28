@@ -11,7 +11,12 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from claim_polarity_evidence_support import build_evidence as build_real_controls
+from claim_polarity_evidence_support import (
+    build_evidence as build_real_controls,
+)
+from claim_polarity_evidence_support import (
+    build_go_compound_identifier_evidence,
+)
 
 from readme_agent.evidence.writer import (
     refresh_sha256sums,
@@ -49,6 +54,12 @@ FORMAT_REPRESENTATIVE = Path(
         str(REPO_ROOT / "runs/baseline/aspose-3d-foss__Aspose.3D-FOSS-for-Java"),
     )
 ).resolve()
+GO_REPRESENTATIVE = Path(
+    os.environ.get(
+        "README_AGENT_GO_CLAIM_POLARITY_REPRESENTATIVE",
+        str(REPO_ROOT / "runs/baseline/aspose-pdf-foss__Aspose-PDF-FOSS-for-Go"),
+    )
+).resolve()
 TASK_ID = "L8-TRUTH-03-CLAIM-POLARITY"
 PYTHON = sys.executable
 SOURCE_PATH = "src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs"
@@ -74,9 +85,12 @@ IMPLEMENTATION_PATHS = (
     "plans/investigations/tools/claim_polarity_evidence_support.py",
     "prompts/generation/draft_product_truth.yaml",
     "src/readme_agent/facts/acceptance_contract.py",
+    "src/readme_agent/facts/agentic_drafting.py",
+    "src/readme_agent/facts/drafting_context.py",
     "src/readme_agent/facts/evidence_polarity.py",
     "src/readme_agent/facts/policy_evidence.py",
     "src/readme_agent/facts/schema_v2.py",
+    "tests/unit/test_agentic_drafting.py",
     "tests/unit/test_draft_product_truth_capability.py",
     "tests/unit/test_evidence_polarity.py",
     "tests/unit/test_facts_schema_v2.py",
@@ -187,7 +201,13 @@ def _write(run_official: bool) -> list[str]:
     representative_status = _git("status", "--porcelain=v1", root=REPRESENTATIVE)
     format_head = _git("rev-parse", "HEAD", root=FORMAT_REPRESENTATIVE)
     format_status = _git("status", "--porcelain=v1", root=FORMAT_REPRESENTATIVE)
+    go_head = _git("rev-parse", "HEAD", root=GO_REPRESENTATIVE)
+    go_status = _git("status", "--porcelain=v1", root=GO_REPRESENTATIVE)
     real_controls = build_real_controls(REPRESENTATIVE, REPO_ROOT)
+    go_compound_controls = build_go_compound_identifier_evidence(
+        GO_REPRESENTATIVE,
+        REPO_ROOT,
+    )
     limitation = limitation_fact_candidate(
         REPRESENTATIVE,
         representative_head,
@@ -263,6 +283,8 @@ def _write(run_official: bool) -> list[str]:
         "official_checks_pass": bool(official and official["exit_code"] == 0 and tree_stable),
         "representative_is_clean": not representative_status,
         "format_representative_is_clean": not format_status,
+        "go_representative_is_clean": not go_status,
+        "go_representative_revision_bound": len(go_head) == 40,
         "format_representative_revision_bound": len(format_head) == 40,
         "representative_revision_bound": len(representative_head) == 40,
         "source_checksum_bound": len(_sha256(source)) == 64,
@@ -290,6 +312,9 @@ def _write(run_official: bool) -> list[str]:
             for item in (limitation, save_capability, render_capability, vague_constraint)
         ),
         "real_dotnet_opposite_polarity_controls_pass": real_controls["verdict"] == "VERIFIED",
+        "real_go_compound_identifier_controls_pass": (
+            go_compound_controls["verdict"] == "VERIFIED"
+        ),
         "format_contract_remains_separate": (
             format_fact.verification_state == "verified"
             and format_fact.evidence_assessments is None
@@ -334,6 +359,10 @@ def _write(run_official: bool) -> list[str]:
     )
     write_redacted_json(EVIDENCE_DIR / "polarity-assessments.json", direct_assessments)
     write_redacted_json(EVIDENCE_DIR / "real-dotnet-controls.json", real_controls)
+    write_redacted_json(
+        EVIDENCE_DIR / "real-go-compound-identifier-controls.json",
+        go_compound_controls,
+    )
     write_redacted_json(
         EVIDENCE_DIR / "format-contract-control.json",
         {
@@ -401,6 +430,8 @@ def _write(run_official: bool) -> list[str]:
                 "plans/investigations/evidence/level8-claim-polarity/verification.json",
                 "plans/investigations/evidence/level8-claim-polarity/polarity-assessments.json",
                 "plans/investigations/evidence/level8-claim-polarity/real-dotnet-controls.json",
+                "plans/investigations/evidence/level8-claim-polarity/"
+                "real-go-compound-identifier-controls.json",
                 "plans/investigations/evidence/level8-claim-polarity/format-contract-control.json",
                 "plans/investigations/evidence/level8-claim-polarity/fact-records.json",
             ],

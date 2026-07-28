@@ -13,6 +13,7 @@ from readme_agent.facts.evidence_polarity import (
 )
 
 ORG_REPO = "aspose-3d-foss/Aspose.3D-FOSS-for-.NET"
+GO_ORG_REPO = "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go"
 SCENE_PATH = "src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs"
 LIMITATIONS_PATH = "docs/release-26.2.0.md"
 
@@ -114,6 +115,80 @@ def build_evidence(repository_root: Path, implementation_root: Path) -> dict[str
         "schema_version": 1,
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "repository": ORG_REPO,
+        "source_revision": source_revision,
+        "implementation_revision": implementation_revision,
+        "repository_worktree_clean": _git(repository_root, "status", "--short") == "",
+        "cases": {
+            case_id: assessment.model_dump(mode="json")
+            for case_id, assessment in sorted(cases.items())
+        },
+        "expected_acceptance": expected_acceptance,
+        "failures": failures,
+        "verdict": "VERIFIED" if not failures else "FAILED",
+    }
+
+
+def build_go_compound_identifier_evidence(
+    repository_root: Path,
+    implementation_root: Path,
+) -> dict[str, Any]:
+    """Prove real compound APIs bind narrowly to their visitor-facing subjects."""
+
+    source_revision = _git(repository_root, "rev-parse", "HEAD")
+    implementation_revision = _git(implementation_root, "rev-parse", "HEAD")
+    cases = {
+        "acroform_text_fields": _assessment(
+            repository_root=repository_root,
+            source_revision=source_revision,
+            path="_examples/acroform_build/main.go",
+            anchor="form.AddTextField",
+            claim="AcroForm field creation and manipulation",
+            expected="positive_implementation",
+            fact_id="product.capabilities:repository-evidence",
+        ),
+        "png_rendering": _assessment(
+            repository_root=repository_root,
+            source_revision=source_revision,
+            path="_examples/render/main.go",
+            anchor="RenderPNG",
+            claim="Image rendering to PNG",
+            expected="positive_implementation",
+            fact_id="product.capabilities:repository-evidence",
+        ),
+        "summary_copilot": _assessment(
+            repository_root=repository_root,
+            source_revision=source_revision,
+            path="_examples/ai_summary/main.go",
+            anchor="NewSummaryCopilot",
+            claim="AI summary copilots",
+            expected="positive_implementation",
+            fact_id="product.capabilities:repository-evidence",
+        ),
+        "unrelated_spreadsheet_claim": _assessment(
+            repository_root=repository_root,
+            source_revision=source_revision,
+            path="_examples/render/main.go",
+            anchor="RenderPNG",
+            claim="Create spreadsheet charts",
+            expected="positive_implementation",
+            fact_id="product.capabilities:repository-evidence",
+        ),
+    }
+    expected_acceptance = {
+        "acroform_text_fields": True,
+        "png_rendering": True,
+        "summary_copilot": True,
+        "unrelated_spreadsheet_claim": False,
+    }
+    failures = [
+        case_id
+        for case_id, accepted in expected_acceptance.items()
+        if cases[case_id].accepted is not accepted
+    ]
+    return {
+        "schema_version": 1,
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "repository": GO_ORG_REPO,
         "source_revision": source_revision,
         "implementation_revision": implementation_revision,
         "repository_worktree_clean": _git(repository_root, "status", "--short") == "",
