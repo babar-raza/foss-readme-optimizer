@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -33,6 +34,20 @@ PROOF_PATH = (
     / "level8-local-immutable-snapshot-and-facts-corrected-acquisition-2026-07-24"
     / "immutable-snapshot-and-product-facts-proof.json"
 )
+CHARACTERIZATION_SOURCE_SHA256 = "8b1084b2cf56cdea7673f8d3b7dea48e1e5205ae7c4b94e4831e6d07ca1b97e4"
+CHARACTERIZATION_FACTS_SHA256 = "c76dd01e204931b768089ea143a9e751d1c68ffc709442fa8c9e30535bb48111"
+CHARACTERIZATION_ASSESSMENT_SHA256 = (
+    "53d4b30eeb853fd293fe68d448424c06eadab633387ec846daa1bb2002e9bf39"
+)
+CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
+    "60c1314fbbcda45a526af321e9ab225610aa41e069d8f1bbfb32f5c0f4b8f0f7"
+)
+CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
+    "798c942bd40a8773c937e2855d95e72e6d8e57ae8a48dde2f4859de6b79f9215"
+)
+CHARACTERIZATION_CANDIDATE_SHA256 = (
+    "26aaf2532a7804410da44b399c7622a442dedd0956f9784ec3b96f4c867bdefa"
+)
 
 
 def _facts() -> tuple[ProductFactsV2, str]:
@@ -51,6 +66,11 @@ def _first_text(value: object) -> str:
     if isinstance(value, list):
         return str(value[0])
     return str(value)
+
+
+def _canonical_hash(value: object) -> str:
+    payload = json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
 
 
 def _draft(facts: ProductFactsV2, *, fact_id: str | None = None) -> dict:
@@ -168,6 +188,22 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
         agentic_composition_plan=plan.model_dump(mode="json"),
     )
 
+    assert hashlib.sha256(source.encode("utf-8")).hexdigest() == CHARACTERIZATION_SOURCE_SHA256
+    assert facts.canonical_hash() == CHARACTERIZATION_FACTS_SHA256
+    assert assessment.canonical_hash() == CHARACTERIZATION_ASSESSMENT_SHA256
+    assert plan.canonical_hash() == CHARACTERIZATION_AGENTIC_PLAN_SHA256
+    assert (
+        _canonical_hash(document_plan.model_dump(mode="json"))
+        == CHARACTERIZATION_DOCUMENT_PLAN_SHA256
+    )
+    assert (
+        hashlib.sha256(candidate.encode("utf-8")).hexdigest() == CHARACTERIZATION_CANDIDATE_SHA256
+    )
+    assert document_plan.candidate_sha256 == CHARACTERIZATION_CANDIDATE_SHA256
+    assert [operation.operation_id for operation in document_plan.operations] == [
+        "readme.overview-navigation-and-acquisition",
+        "readme.limitations.add-verified",
+    ]
     assert plan.model == "fixture-author"
     assert plan.attempt_count == 1
     assert plan.input_sha256

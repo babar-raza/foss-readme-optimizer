@@ -1,53 +1,34 @@
-"""Render a complete fact-backed README through bounded document operations.
-
-This module holds only the editorial policy -- ``build_readme_document_candidate``
-decides *which* bounded operations to apply for a repository. The supporting
-machinery lives in sibling modules, each with one responsibility
-(`GOVERNANCE.md` "no monoliths"):
-
-- ``document_structure``  -- markdown heading/section parsing and anchors;
-- ``document_templates``  -- template loading/hashing and fact-to-section prose;
-- ``document_operations`` -- operation construction and hash-checked application;
-- ``document_hashing``    -- the shared SHA-256 helper.
-
-``apply_document_operations`` and ``document_template_hash`` are re-exported here
-so existing importers (``document_validation``) keep their import path.
-"""
+"""Orchestrate bounded, fact-backed README section operations."""
 
 from __future__ import annotations
 
-import re
-
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.readme.acquisition_contracts import (
-    contradicted_package_claim_spans,
-    stale_coordinate_version_replacements,
-)
-from readme_agent.readme.agentic_composition import validate_readme_composition_plan
+from readme_agent.readme.agentic_composition_validation import validate_readme_composition_plan
 from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
 )
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.document_acquisition import (
+    build_acquisition_correction_operations,
+    build_registry_badge_operations,
+)
+from readme_agent.readme.document_examples import build_example_operations
 from readme_agent.readme.document_hashing import sha256_hex
-from readme_agent.readme.document_operations import apply_document_operations, build_operation
+from readme_agent.readme.document_limitations import build_limitation_operations
+from readme_agent.readme.document_opening import (
+    build_opening_operations,
+    build_promotional_callout_operations,
+)
+from readme_agent.readme.document_operations import apply_document_operations
 from readme_agent.readme.document_plan import (
     PresentationSpanAdoptionV1,
     ReadmeDocumentOperationV1,
     ReadmeDocumentPlanV1,
 )
-from readme_agent.readme.document_structure import code_blocks_in_span, parse_headings
-from readme_agent.readme.document_templates import (
-    accepted_fact,
-    document_template_hash,
-    example_text,
-    first_mapping,
-    installation_text,
-    limitations_text,
-    mapping_value,
-    missing_limitation_constraints_text,
-    overview_text,
-)
-from readme_agent.readme.fact_grounding import literal_fact_ids
+from readme_agent.readme.document_release import build_release_operations
+from readme_agent.readme.document_render_context import DocumentRenderContext
+from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.document_templates import document_template_hash
 from readme_agent.readme.markers import find_presentation_span, render_presentation_span
 
 __all__ = [
@@ -55,13 +36,6 @@ __all__ = [
     "build_readme_document_candidate",
     "document_template_hash",
 ]
-
-_PROMOTIONAL_CALLOUT = re.compile(
-    r"(?m)^>[^\n]*(?:products\.aspose\.org)[^\n]*(?:products\.aspose\.com)[^\n]*\n(?:\n)?",
-    re.IGNORECASE,
-)
-_MAVEN_CENTRAL_BADGE = re.compile(r"(?m)^\[!\[[^\]]*Maven Central[^\]]*\]\([^\n]*\)\]\([^\n]*\)\n")
-_DECLARED_VERSION = re.compile(r"\*\*Version\s+([^*]+)\*\*")
 
 
 def build_readme_document_candidate(
@@ -77,414 +51,40 @@ def build_readme_document_candidate(
     existing = find_presentation_span(source_text)
     inner_text = existing.content if existing is not None else source_text
     source = inner_text.encode("utf-8")
-    headings = parse_headings(inner_text)
-    operations: list[ReadmeDocumentOperationV1] = []
+    context = DocumentRenderContext(
+        org_repo=org_repo,
+        source_text=source_text,
+        inner_text=inner_text,
+        source=source,
+        facts=facts,
+        base_revision=base_revision,
+        headings=parse_headings(inner_text),
+    )
     assessment = assess_readme_document(
         org_repo,
         source_text,
         facts,
         base_revision=base_revision,
     )
-    validated_agentic_plan = None
-    if agentic_composition_plan:
-        validated_agentic_plan = validate_readme_composition_plan(
+    validated_agentic_plan = (
+        validate_readme_composition_plan(
             agentic_composition_plan,
             org_repo=org_repo,
             source_text=source_text,
             facts=facts,
             assessment=assessment,
         )
-
-    first_h2 = next((heading for heading in headings if heading.level == 2), None)
-    has_overview = any(
-        heading.level == 2 and heading.title.strip().lower() == "at a glance"
-        for heading in headings
+        if agentic_composition_plan
+        else None
     )
-    installation = next(
-        (
-            heading
-            for heading in headings
-            if heading.level == 2 and heading.title.strip().lower() == "installation"
-        ),
-        None,
-    )
-    overview_insert = ""
-    overview_fields = (
-        "product.audience",
-        "product.problems_solved",
-        "product.capabilities",
-        "product.formats",
-        "product.compatibility",
-        "product.limitations",
-    )
-    overview_fact_candidates = [
-        selected.fact_id
-        for field in overview_fields
-        if (selected := accepted_fact(facts, field)) is not None
-    ]
-    overview_fact_ids: list[str] = []
-    derived_installation_fact_ids: list[str] = []
-    verified_installation = installation_text(facts, org_repo, base_revision)
-    if not has_overview:
-        rendered_overview = overview_text(
-            facts,
-            headings,
-            (
-                [
-                    sentence.model_dump(mode="json")
-                    for sentence in validated_agentic_plan.overview_sentences
-                ]
-                if validated_agentic_plan is not None
-                else None
-            ),
-        )
-        overview_insert = rendered_overview + "\n\n"
-        if validated_agentic_plan is not None:
-            overview_fact_ids.extend(
-                fact_id
-                for sentence in validated_agentic_plan.overview_sentences
-                for fact_id in sentence.supporting_fact_ids
-            )
-        else:
-            overview_fact_ids.extend(
-                literal_fact_ids(rendered_overview, facts, overview_fact_candidates)
-            )
-    if installation is None and verified_installation:
-        overview_insert += "## Installation\n\n" + verified_installation + "\n\n"
-        derived_installation_fact_ids.extend(
-            selected.fact_id
-            for field in ("installation.coordinates", "installation.verified_acquisition")
-            if (selected := accepted_fact(facts, field)) is not None
-        )
-    example = accepted_fact(facts, "example.minimal")
-    example_value = example.value if example is not None and isinstance(example.value, dict) else {}
-    exact_code = str(example_value.get("code", "")).rstrip()
-    example_target = next(
-        (
-            heading
-            for heading in headings
-            if heading.level == 2 and heading.title.strip().lower() in {"quick start", "usage"}
-        ),
-        None,
-    )
-    if exact_code and exact_code not in inner_text and example_target is None:
-        overview_insert += "## Quick Start\n\n" + example_text(facts, base_revision) + "\n\n"
-        assert example is not None
-        overview_fact_ids.append(example.fact_id)
-    if overview_insert:
-        char_offset = first_h2.start if first_h2 is not None else len(inner_text)
-        byte_offset = len(inner_text[:char_offset].encode("utf-8"))
-        operations.append(
-            build_operation(
-                operation_id="readme.overview-navigation-and-acquisition",
-                operation="insert_before",
-                source=source,
-                start=byte_offset,
-                end=byte_offset,
-                replacement=overview_insert,
-                fact_ids=sorted(
-                    {
-                        *literal_fact_ids(overview_insert, facts, overview_fact_ids),
-                        *derived_installation_fact_ids,
-                    }
-                ),
-                treatment="additive",
-                rationale=(
-                    "Put verified audience, purpose, scope, navigation, and any missing source "
-                    "acquisition path before secondary repository detail."
-                ),
-            )
-        )
-
-    limitations_heading = next(
-        (
-            heading
-            for heading in headings
-            if heading.level == 2
-            and heading.title.strip().lower()
-            in {"limitations", "known limitations", "known limits"}
-        ),
-        None,
-    )
-    verified_limitations = limitations_text(facts)
-    if limitations_heading is None and verified_limitations:
-        byte_offset = len(source)
-        separator = (
-            "" if inner_text.endswith("\n\n") else "\n" if inner_text.endswith("\n") else "\n\n"
-        )
-        limitation = accepted_fact(facts, "product.limitations")
-        operations.append(
-            build_operation(
-                operation_id="readme.limitations.add-verified",
-                operation="insert_after",
-                source=source,
-                start=byte_offset,
-                end=byte_offset,
-                replacement=separator + verified_limitations + "\n",
-                fact_ids=[limitation.fact_id] if limitation is not None else [],
-                treatment="additive",
-                rationale=(
-                    "Expose repository-verified limitations instead of silently presenting "
-                    "incomplete capability coverage."
-                ),
-            )
-        )
-    elif limitations_heading is not None and verified_limitations:
-        section_text = inner_text[limitations_heading.heading_end : limitations_heading.section_end]
-        missing_constraints = missing_limitation_constraints_text(facts, section_text)
-        if missing_constraints:
-            byte_offset = len(inner_text[: limitations_heading.section_end].encode("utf-8"))
-            separator = (
-                ""
-                if section_text.endswith("\n\n")
-                else "\n"
-                if section_text.endswith("\n")
-                else "\n\n"
-            )
-            limitation = accepted_fact(facts, "product.limitations")
-            operations.append(
-                build_operation(
-                    operation_id="readme.limitations.complete-verified",
-                    operation="insert_before",
-                    source=source,
-                    start=byte_offset,
-                    end=byte_offset,
-                    replacement=separator + missing_constraints + "\n\n",
-                    fact_ids=[limitation.fact_id] if limitation is not None else [],
-                    treatment="additive",
-                    rationale=(
-                        "Complete the existing limitations section with exact repository-verified "
-                        "constraints while preserving its maintainer-authored content."
-                    ),
-                )
-            )
-
-    acquisition = accepted_fact(facts, "installation.verified_acquisition")
-    acquisition_value = mapping_value(acquisition.value) if acquisition is not None else {}
-    # The "aspose {family} foss" rule: only replace a registry install with source-build when
-    # the package is genuinely NOT published (method == "source_build"). A registry-verified
-    # package's correct install claim must never be stripped just because the README text
-    # happens to match one of these markers -- see foss_coordinate.py and provider.py.
-    package_genuinely_not_published = acquisition_value.get("method") == "source_build"
-
-    if installation is not None:
-        installation_body = inner_text[installation.heading_end : installation.section_end]
-        contradicted_spans = (
-            contradicted_package_claim_spans(installation_body)
-            if package_genuinely_not_published
-            else []
-        )
-        if contradicted_spans:
-            if not verified_installation:
-                raise ValueError(
-                    "verified source acquisition has no ecosystem-specific rendering contract"
-                )
-            insertion = len(inner_text[: installation.heading_end].encode("utf-8"))
-            operations.append(
-                build_operation(
-                    operation_id="readme.installation.verified-source-insertion",
-                    operation="insert_after",
-                    source=source,
-                    start=insertion,
-                    end=insertion,
-                    replacement="\n" + verified_installation + "\n\n",
-                    fact_ids=[
-                        selected.fact_id
-                        for field in (
-                            "installation.coordinates",
-                            "installation.verified_acquisition",
-                            "product.compatibility",
-                        )
-                        if (selected := accepted_fact(facts, field)) is not None
-                    ],
-                    treatment="additive",
-                    rationale=(
-                        "Add the source-build path that was executed for this immutable revision "
-                        "before removing only the contradicted package claim."
-                    ),
-                )
-            )
-            for index, (claim_start, claim_end) in enumerate(contradicted_spans, start=1):
-                start_character = installation.heading_end + claim_start
-                end_character = installation.heading_end + claim_end
-                start = len(inner_text[:start_character].encode("utf-8"))
-                end = len(inner_text[:end_character].encode("utf-8"))
-                operations.append(
-                    build_operation(
-                        operation_id=f"readme.installation.remove-false-package-claim:{index}",
-                        operation="remove",
-                        source=source,
-                        start=start,
-                        end=end,
-                        replacement="",
-                        fact_ids=[
-                            selected.fact_id
-                            for field in (
-                                "installation.coordinates",
-                                "installation.verified_acquisition",
-                            )
-                            if (selected := accepted_fact(facts, field)) is not None
-                        ],
-                        treatment="authoritative_fact_correction",
-                        rationale=(
-                            "Remove only the package-registry claim contradicted by the verified "
-                            "source-build acquisition, preserving adjacent maintainer content."
-                        ),
-                    )
-                )
-        coordinates = accepted_fact(facts, "installation.coordinates")
-        stale_versions = (
-            stale_coordinate_version_replacements(installation_body, coordinates.value)
-            if coordinates is not None and not package_genuinely_not_published
-            else []
-        )
-        for index, (version_start, version_end, selected_version) in enumerate(
-            stale_versions,
-            start=1,
-        ):
-            start_character = installation.heading_end + version_start
-            end_character = installation.heading_end + version_end
-            start = len(inner_text[:start_character].encode("utf-8"))
-            end = len(inner_text[:end_character].encode("utf-8"))
-            operations.append(
-                build_operation(
-                    operation_id=f"readme.installation.correct-coordinate-version:{index}",
-                    operation="replace",
-                    source=source,
-                    start=start,
-                    end=end,
-                    replacement=selected_version,
-                    fact_ids=literal_fact_ids(
-                        selected_version,
-                        facts,
-                        [coordinates.fact_id] if coordinates is not None else [],
-                    ),
-                    treatment="authoritative_fact_correction",
-                    rationale=(
-                        "Align the package acquisition coordinate with the selected immutable "
-                        "manifest version."
-                    ),
-                )
-            )
-
-    if exact_code and exact_code not in inner_text:
-        if example_target is not None:
-            existing_examples = code_blocks_in_span(
-                inner_text,
-                example_target.heading_end,
-                example_target.section_end,
-            )
-            if len(existing_examples) == 1:
-                existing_example = existing_examples[0]
-                start = len(inner_text[: existing_example.start].encode("utf-8"))
-                end = len(inner_text[: existing_example.end].encode("utf-8"))
-                operations.append(
-                    build_operation(
-                        operation_id="readme.example.replace-unverified-minimal",
-                        operation="replace",
-                        source=source,
-                        start=start,
-                        end=end,
-                        replacement=example_text(facts, base_revision) + "\n",
-                        fact_ids=[example.fact_id] if example is not None else [],
-                        treatment="authoritative_fact_correction",
-                        rationale=(
-                            "Replace the one existing usage example with the exact minimal example "
-                            "compiled against the verified source build."
-                        ),
-                    )
-                )
-            else:
-                byte_offset = len(inner_text[: example_target.heading_end].encode("utf-8"))
-                operations.append(
-                    build_operation(
-                        operation_id="readme.example.insert-verified-minimal",
-                        operation="insert_after",
-                        source=source,
-                        start=byte_offset,
-                        end=byte_offset,
-                        replacement="\n" + example_text(facts, base_revision) + "\n\n",
-                        fact_ids=[example.fact_id] if example is not None else [],
-                        treatment="additive",
-                        rationale=(
-                            "Lead the usage section with the exact minimal example compiled "
-                            "against the verified source build; preserve multiple existing "
-                            "examples until their individual roles can be assessed."
-                        ),
-                    )
-                )
-
-    relationship = accepted_fact(facts, "relationship.commercial_foss")
-    callout = _PROMOTIONAL_CALLOUT.search(inner_text)
-    if callout is not None and relationship is not None:
-        start = len(inner_text[: callout.start()].encode("utf-8"))
-        end = len(inner_text[: callout.end()].encode("utf-8"))
-        operations.append(
-            build_operation(
-                operation_id="readme.opening.remove-promotional-callout",
-                operation="remove",
-                source=source,
-                start=start,
-                end=end,
-                replacement="",
-                fact_ids=[relationship.fact_id],
-                treatment="authoritative_fact_correction",
-                rationale=(
-                    "Keep the first screen product-first; the existing relationship section "
-                    "continues to carry restrained commercial context."
-                ),
-            )
-        )
-
-    if package_genuinely_not_published:
-        maven_badge = _MAVEN_CENTRAL_BADGE.search(inner_text)
-        if maven_badge is not None:
-            start = len(inner_text[: maven_badge.start()].encode("utf-8"))
-            end = len(inner_text[: maven_badge.end()].encode("utf-8"))
-            operations.append(
-                build_operation(
-                    operation_id="readme.installation.remove-unverified-registry-badge",
-                    operation="remove",
-                    source=source,
-                    start=start,
-                    end=end,
-                    replacement="",
-                    fact_ids=[acquisition.fact_id] if acquisition is not None else [],
-                    treatment="authoritative_fact_correction",
-                    rationale=(
-                        "Remove a package-registry availability badge when the selected verified "
-                        "acquisition method is a source build."
-                    ),
-                )
-            )
-
-    release = accepted_fact(facts, "release.state")
-    release_value = first_mapping(release.value) if release is not None else {}
-    selected_version = str(release_value.get("version", "")).strip()
-    declared_version = _DECLARED_VERSION.search(inner_text)
-    if (
-        declared_version is not None
-        and selected_version
-        and declared_version.group(1).strip() != selected_version
-    ):
-        start = len(inner_text[: declared_version.start(1)].encode("utf-8"))
-        end = len(inner_text[: declared_version.end(1)].encode("utf-8"))
-        operations.append(
-            build_operation(
-                operation_id="readme.release.correct-manifest-version",
-                operation="replace",
-                source=source,
-                start=start,
-                end=end,
-                replacement=selected_version,
-                fact_ids=[release.fact_id] if release is not None else [],
-                treatment="authoritative_fact_correction",
-                rationale=(
-                    "Align the stated current version with the immutable revision's manifest."
-                ),
-            )
-        )
-
+    operations: list[ReadmeDocumentOperationV1] = []
+    operations.extend(build_opening_operations(context, validated_agentic_plan))
+    operations.extend(build_limitation_operations(context))
+    operations.extend(build_acquisition_correction_operations(context))
+    operations.extend(build_example_operations(context))
+    operations.extend(build_promotional_callout_operations(context))
+    operations.extend(build_registry_badge_operations(context))
+    operations.extend(build_release_operations(context))
     if validated_agentic_plan is not None:
         validate_agentic_operation_coverage(
             assessment,
