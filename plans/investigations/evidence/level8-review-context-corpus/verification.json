@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-00-CONTEXT-CORPUS",
+  "control_commit": "e2d66fc8fb17f322b9a86811eac4664aeb03dbc7",
+  "verdict": "VERIFIED",
+  "acceptance": {
+    "two_typed_reviewer_contracts": true,
+    "distinct_prompt_hashes": true,
+    "distinct_model_routes": true,
+    "hash_bound_inputs": true,
+    "author_cannot_self_accept": true,
+    "either_reviewer_can_fail_candidate": true,
+    "blind_context_excludes_producer_conclusions": true,
+    "factual_context_excludes_producer_and_blind_conclusions": true,
+    "deterministic_fail_closed_combination": true
+  },
+  "prompt_hashes": {
+    "plan_readme_composition": "a901ec4d6deb6c18df150cec82e7e46f9f08b91d758dc3ee35d3d9c5803ec7d8",
+    "blind_readme_quality_review": "fb02e55d384567509f45937e6f81edeefccadf6f48a7c5846af135798cf573f3",
+    "factual_readme_plan_review": "731c55765433d684b0dfaa550cd6c110460a5bbc72814426d7330544f8999cce"
+  },
+  "commands": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_readme_review_roles.py tests/unit/test_prompt_registry.py tests/unit/test_prompt_hygiene.py tests/unit/test_reviewer_client.py tests/unit/test_independent_readme_review.py",
+      "result": "55 passed in 22.01s"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_capability_dispatcher.py tests/unit/test_readme_poc_lifecycle.py tests/unit/test_lifecycle_state.py tests/unit/test_reviewer_client.py tests/unit/test_independent_readme_review.py tests/unit/test_readme_review_roles.py tests/unit/test_prompt_registry.py tests/unit/test_prompt_hygiene.py",
+      "result": "141 passed in 30.62s"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_specialists.py",
+      "result": "46 passed in 165.56s"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_reviewer_client.py tests/unit/test_readme_review_roles.py tests/unit/test_prompt_hygiene.py",
+      "result": "21 passed in 30.48s"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check .",
+      "result": "passed"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff format --check .",
+      "result": "694 files already formatted"
+    },
+    {
+      "command": ".venv/Scripts/python -m mypy src",
+      "result": "Success: no issues found in 386 source files"
+    }
+  ],
+  "non_proof": [
+    {
+      "command": "combined nine-file pytest regression invocation",
+      "result": "timed out at 183 seconds before terminal result; replaced by two non-overlapping bounded invocations covering the same files"
+    }
+  ],
+  "limits": [
+    "These contracts and offline controls prove structural context separation, not live-model accuracy.",
+    "The new roles are not yet the runtime acceptance authority; task L8-REVIEW-01-FREEZE-ROLES owns that wiring.",
+    "Distinct actor IDs are runtime identities recorded by the system, not cryptographic proof that two different foundation models produced the outputs."
+  ]
+}

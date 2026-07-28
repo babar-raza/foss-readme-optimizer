@@ -1,0 +1,18 @@
+Control commit:
+e2d66fc8fb17f322b9a86811eac4664aeb03dbc7
+
+From the repository root:
+
+.venv/Scripts/python -m pytest -q tests/unit/test_readme_review_roles.py tests/unit/test_prompt_registry.py tests/unit/test_prompt_hygiene.py tests/unit/test_reviewer_client.py tests/unit/test_independent_readme_review.py
+.venv/Scripts/python -m pytest -q tests/unit/test_capability_dispatcher.py tests/unit/test_readme_poc_lifecycle.py tests/unit/test_lifecycle_state.py tests/unit/test_reviewer_client.py tests/unit/test_independent_readme_review.py tests/unit/test_readme_review_roles.py tests/unit/test_prompt_registry.py tests/unit/test_prompt_hygiene.py
+.venv/Scripts/python -m pytest -q tests/unit/test_specialists.py
+.venv/Scripts/python -m ruff check .
+.venv/Scripts/python -m ruff format --check .
+.venv/Scripts/python -m mypy src
+
+Inspect prompt and role identity hashes:
+
+.venv/Scripts/python -c "from readme_agent.llm import prompt_registry; print({x: prompt_registry.prompt_hash(x) for x in ['plan_readme_composition', 'blind_readme_quality_review', 'factual_readme_plan_review']})"
+
+This evidence closes the contract/context corpus task only. It does not claim live route
+qualification or production runtime wiring; those are governed by downstream review tasks.

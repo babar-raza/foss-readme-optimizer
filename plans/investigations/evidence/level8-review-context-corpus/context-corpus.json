@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-00-CONTEXT-CORPUS",
+  "control_commit": "e2d66fc8fb17f322b9a86811eac4664aeb03dbc7",
+  "roles": {
+    "author": {
+      "actor_id": "composition-author",
+      "role": "author",
+      "prompt_id": "plan_readme_composition",
+      "prompt_sha256": "a901ec4d6deb6c18df150cec82e7e46f9f08b91d758dc3ee35d3d9c5803ec7d8"
+    },
+    "blind_quality": {
+      "actor_id": "blind-quality-route",
+      "role": "blind_quality_reviewer",
+      "prompt_id": "blind_readme_quality_review",
+      "prompt_sha256": "fb02e55d384567509f45937e6f81edeefccadf6f48a7c5846af135798cf573f3",
+      "allowed_context": [
+        "repository identity",
+        "original README bytes",
+        "candidate README bytes",
+        "visitor-quality rubric"
+      ],
+      "forbidden_context": [
+        "product facts",
+        "presentation plan",
+        "deterministic validation result",
+        "producer verdict",
+        "factual-plan reviewer verdict"
+      ]
+    },
+    "factual_plan": {
+      "actor_id": "factual-plan-route",
+      "role": "factual_plan_reviewer",
+      "prompt_id": "factual_readme_plan_review",
+      "prompt_sha256": "731c55765433d684b0dfaa550cd6c110460a5bbc72814426d7330544f8999cce",
+      "allowed_context": [
+        "repository identity",
+        "candidate README bytes",
+        "accepted ProductFactsV2",
+        "bounded presentation plan",
+        "factual-plan rubric"
+      ],
+      "forbidden_context": [
+        "deterministic validation result",
+        "producer verdict",
+        "blind-quality reviewer verdict"
+      ]
+    }
+  },
+  "controls": [
+    {
+      "id": "both-accept",
+      "blind_quality": "ACCEPT",
+      "factual_plan": "ACCEPT",
+      "expected_combined": "ACCEPT"
+    },
+    {
+      "id": "blind-can-fail",
+      "blind_quality": "REJECT_REPAIRABLE",
+      "factual_plan": "ACCEPT",
+      "expected_combined": "REJECT_REPAIRABLE"
+    },
+    {
+      "id": "factual-can-reject",
+      "blind_quality": "ACCEPT",
+      "factual_plan": "REJECT_REPAIRABLE",
+      "expected_combined": "REJECT_REPAIRABLE"
+    },
+    {
+      "id": "missing-evidence-block",
+      "blind_quality": "ACCEPT",
+      "factual_plan": "BLOCKED_MISSING_EVIDENCE",
+      "expected_combined": "BLOCKED_MISSING_EVIDENCE"
+    },
+    {
+      "id": "fact-conflict-block",
+      "blind_quality": "REJECT_REPAIRABLE",
+      "factual_plan": "BLOCKED_FACT_CONFLICT",
+      "expected_combined": "BLOCKED_FACT_CONFLICT"
+    },
+    {
+      "id": "system-failure-precedence",
+      "blind_quality": "SYSTEM_FAILURE",
+      "factual_plan": "ACCEPT",
+      "expected_combined": "SYSTEM_FAILURE"
+    },
+    {
+      "id": "author-reviewer-overlap",
+      "identity_overlap": true,
+      "expected_combined": "SYSTEM_FAILURE"
+    }
+  ]
+}
