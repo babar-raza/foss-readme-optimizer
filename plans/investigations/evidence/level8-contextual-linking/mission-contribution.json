@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-01C-CONTEXTUAL-LINKING",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Produce domain-pure verified article catalogs, select only reader-useful contextual links through configured-or-deterministic automatic slot allocation, and enforce Enterprise Edition as the sole visitor-facing aspose.com product edition name."
+  },
+  "acceptance_checks_passed": [
+    "Every selected URL is an http_status 200 record from its parent-domain catalog.",
+    "A verified docs, KB, or reference article that explains the adjacent example outranks a generic product page; products.aspose.org and products.aspose.com priority applies only to equally useful targets.",
+    "The current registry has reproducible family/platform and relevant article discovery provenance.",
+    "Configured total, parent-domain, and products/docs/kb/blog/reference maxima completely replace auto allocation while remaining ceilings rather than quotas.",
+    "Automatic allocation uses the exact content-unit tiers and domain/surface maxima in L8-024.",
+    "Markdown, autolink, raw URL, image, HTML, subdomain, and repeated-target occurrences count consistently.",
+    "Zero links is valid and every unused slot remains empty.",
+    "Links appear only in relevant below-the-fold prose or end resources, never as forced quotas, repetitive calls to action, keyword stuffing, or standalone promotional blocks.",
+    "Every visitor-facing Aspose product reference associated with an aspose.com target uses the verified product name plus the exact descriptor Enterprise Edition."
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-contextual-linking/acceptance-manifest.json",
+    "plans/investigations/evidence/level8-contextual-linking/evidence-verification.json",
+    "plans/investigations/evidence/level8-contextual-linking/focused-tests.txt"
+  ],
+  "scoreboard_before_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "scoreboard_after_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
