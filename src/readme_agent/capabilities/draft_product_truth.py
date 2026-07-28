@@ -72,6 +72,7 @@ from readme_agent.facts.python_example_normalization import (
 )
 from readme_agent.facts.repository_examples import repository_readme_example_candidates
 from readme_agent.facts.resolution import resolve_product_facts
+from readme_agent.facts.rust_example_normalization import normalize_rust_public_consumer
 from readme_agent.facts.schema_v2 import (
     README_DRAFTABLE_PRODUCT_FIELDS,
     FactRecordV2,
@@ -328,6 +329,8 @@ def _normalize_draft_example(draft: DraftProductTruthV1, root: Path) -> DraftPro
         normalized_example = normalize_python_import_inventory(root, normalized_example)
     if example.language == "typescript":
         normalized_example = normalize_typescript_package_consumer(root, normalized_example)
+    if example.language == "rust":
+        normalized_example = normalize_rust_public_consumer(root, normalized_example)
     if normalized_example == example:
         return draft
     return draft.model_copy(update={"minimal_example": normalized_example})

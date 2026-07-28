@@ -62,6 +62,7 @@ _VERIFICATION_CONTRACT_FILES = (
     "rust_consumer_schema.py",
     "rust_dependency_acquisition.py",
     "rust_dependency_schema.py",
+    "rust_example_normalization.py",
     "rust_example_verifier.py",
     "../ecosystems/python_api_schema.py",
     "../ecosystems/python_package_layout.py",
