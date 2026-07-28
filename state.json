@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f",
-    "last_evaluated_at": "2026-07-28T15:33:46.837648+00:00",
+    "last_evaluated_at": "2026-07-28T15:34:06.523877+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -73,7 +73,7 @@
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "CLOSED",
       "L8-COMPOSE-03-OPERATION-COVERAGE": "CLOSED",
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "CLOSED",
-      "L8-COMPOSE-04-PRESENTATION-LINT": "VERIFIED",
+      "L8-COMPOSE-04-PRESENTATION-LINT": "SCORED",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "TODO",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "TODO",
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
@@ -3762,6 +3762,19 @@
         "reason": "Clean-tree official checks passed with 2069 tests; focused evidence passed 206 tests and seven representative reconstruction/no-op checks.",
         "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/mission-contribution.json",
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/verification.json",
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/corpus-results.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T15:34:06.523871+00:00",
+        "reason": "All negative-corpus verdicts and exact spans matched; eight-rule inventory complete; zero representative presentation findings.",
+        "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -3770,7 +3783,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 435,
+  "state_version": 436,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
