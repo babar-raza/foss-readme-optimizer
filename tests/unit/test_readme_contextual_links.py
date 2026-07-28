@@ -77,8 +77,9 @@ For a broader feature set, see the [commercial On-Premise edition](https://produ
     binding = plan.contextual_links.bindings[0]
     assert binding.target_url == ("https://kb.aspose.org/3d/python/how-to-get-started-3d-python/")
     assert candidate.count(binding.target_url) == 1
-    assert "Aspose.3D for Python Enterprise Edition" in candidate
-    assert "https://products.aspose.com/3d/python-net/" not in candidate
+    assert (
+        "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)"
+    ) in candidate
     assert candidate.count("aspose.org") == 1
     assert "commercial On-Premise edition" not in candidate
 
