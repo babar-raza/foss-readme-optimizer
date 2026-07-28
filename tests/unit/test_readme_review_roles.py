@@ -43,12 +43,47 @@ def _record(
     verdict: str,
     candidate_hash: str = CANDIDATE_HASH,
 ) -> RoleReviewRecordV1:
+    failed = verdict not in {"ACCEPT", "SYSTEM_FAILURE"}
+    finding_kind = "quality" if role == "blind_quality_reviewer" else "factual"
+    polarity_result = (
+        "not_applicable"
+        if finding_kind == "quality"
+        else ("missing" if verdict != "BLOCKED_FACT_CONFLICT" else "contradicts")
+    )
     return RoleReviewRecordV1(
         identity=_identity(actor, role, prompt),
         candidate_sha256=candidate_hash,
         input_sha256=hashlib.sha256(f"{actor}:{candidate_hash}".encode()).hexdigest(),
         verdict=verdict,
         reasoning=f"{role} returned {verdict}",
+        failed_criteria=["criterion"] if failed else [],
+        sections_affected=["Overview"] if failed else [],
+        findings=(
+            [
+                {
+                    "finding_id": f"{finding_kind}.finding",
+                    "kind": finding_kind,
+                    "criterion": "criterion",
+                    "section": "Overview",
+                    "claim": "A grounded finding.",
+                    "quoted_candidate_span": "Specific, useful candidate.",
+                    "fact_id": "fact-1" if polarity_result == "contradicts" else None,
+                    "evidence_excerpt": (
+                        "contradicting evidence" if polarity_result == "contradicts" else None
+                    ),
+                    "expected_polarity": (
+                        "positive_implementation" if polarity_result == "contradicts" else None
+                    ),
+                    "observed_polarity": (
+                        "explicit_constraint" if polarity_result == "contradicts" else None
+                    ),
+                    "polarity_result": polarity_result,
+                    "required_repair": "Repair it.",
+                }
+            ]
+            if failed
+            else []
+        ),
     )
 
 

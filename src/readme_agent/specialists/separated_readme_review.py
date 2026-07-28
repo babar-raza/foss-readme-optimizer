@@ -40,6 +40,7 @@ from readme_agent.specialists.readme_review_roles import (
     json_hash,
 )
 from readme_agent.specialists.review_finding_grounding import (
+    GroundedReviewFindingV1,
     grounding_retry_context,
     validate_review_findings,
 )
@@ -97,6 +98,10 @@ def _record(
     input_sha256: str,
     verdict: FactualPlanVerdict,
     reasoning: str,
+    failed_criteria: list[str],
+    sections_affected: list[str],
+    required_repair: str,
+    findings: list[GroundedReviewFindingV1],
 ) -> RoleReviewRecordV1:
     return RoleReviewRecordV1(
         identity=identity,
@@ -104,6 +109,10 @@ def _record(
         input_sha256=input_sha256,
         verdict=verdict,
         reasoning=reasoning,
+        failed_criteria=failed_criteria,
+        sections_affected=sections_affected,
+        required_repair=required_repair,
+        findings=findings,
     )
 
 
@@ -298,6 +307,10 @@ def run_separated_readme_review(
         input_sha256=input_hash(blind_input),
         verdict=blind_result.verdict,
         reasoning=blind_result.reasoning,
+        failed_criteria=blind_result.failed_criteria,
+        sections_affected=blind_result.sections_affected,
+        required_repair=blind_result.required_repair,
+        findings=blind_result.findings,
     )
     factual_record = _record(
         identity=factual_identity,
@@ -305,6 +318,10 @@ def run_separated_readme_review(
         input_sha256=input_hash(factual_input),
         verdict=factual_result.verdict,
         reasoning=factual_result.reasoning,
+        failed_criteria=factual_result.failed_criteria,
+        sections_affected=factual_result.sections_affected,
+        required_repair=factual_result.required_repair,
+        findings=factual_result.findings,
     )
     combined = combine_review_verdicts(
         author=author,

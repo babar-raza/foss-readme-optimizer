@@ -78,6 +78,8 @@ def test_two_accepts_produce_hash_bound_separate_records():
     assert result.blind_quality_review.input_sha256 != result.factual_plan_review.input_sha256
     assert result.blind_quality_review.identity.prompt_id == "blind_readme_quality_review"
     assert result.factual_plan_review.identity.prompt_id == "factual_readme_plan_review"
+    assert result.blind_quality_review.findings == []
+    assert result.factual_plan_review.findings == []
 
     blind_context = "\n".join(message["content"] for message in blind.messages)
     factual_context = "\n".join(message["content"] for message in factual.messages)
@@ -127,6 +129,7 @@ def test_blind_rejection_vetoes_factual_acceptance():
     assert result.verdict == "REJECT_REPAIRABLE"
     assert result.failed_criteria == ["product_specificity"]
     assert result.required_repair == "Name the concrete purpose."
+    assert result.blind_quality_review.findings[0].finding_id == "quality.generic-opening"
 
 
 def test_factual_conflict_vetoes_blind_acceptance():

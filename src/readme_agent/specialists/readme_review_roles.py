@@ -154,6 +154,31 @@ class RoleReviewRecordV1(BaseModel):
     input_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     verdict: FactualPlanVerdict
     reasoning: str
+    failed_criteria: list[str] = Field(default_factory=list)
+    sections_affected: list[str] = Field(default_factory=list)
+    required_repair: str = ""
+    findings: list[GroundedReviewFindingV1] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _persisted_evidence_matches_verdict(self) -> RoleReviewRecordV1:
+        failure_details = (
+            self.failed_criteria,
+            self.sections_affected,
+            self.required_repair.strip(),
+            self.findings,
+        )
+        if self.verdict == "ACCEPT" and any(failure_details):
+            raise ValueError("accepted role record cannot carry failure evidence")
+        if self.verdict not in {"ACCEPT", "SYSTEM_FAILURE"} and (
+            not self.failed_criteria or not self.sections_affected or not self.findings
+        ):
+            raise ValueError("non-accept role record requires persisted grounded findings")
+        expected_kind = "quality" if self.identity.role == "blind_quality_reviewer" else "factual"
+        if self.identity.role != "author" and any(
+            finding.kind != expected_kind for finding in self.findings
+        ):
+            raise ValueError("role record finding kind does not match reviewer role")
+        return self
 
 
 class CombinedReadmeReviewV1(BaseModel):
