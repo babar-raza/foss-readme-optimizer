@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T18:23:12.163353+00:00",
+    "last_evaluated_at": "2026-07-28T18:26:29.869242+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 7,
@@ -61,7 +61,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Deterministically reject internal tokens, semantic duplicates, competing examples, cross-product leakage, malformed navigation, and promotional imbalance."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "task_id": "L8-COMPOSE-04-PRESENTATION-LINT"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
@@ -74,7 +83,7 @@
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "CLOSED",
       "L8-COMPOSE-03-OPERATION-COVERAGE": "CLOSED",
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "CLOSED",
-      "L8-COMPOSE-04-PRESENTATION-LINT": "CLOSED",
+      "L8-COMPOSE-04-PRESENTATION-LINT": "REOPENED",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "CLOSED",
       "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "CLOSED",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "REROUTED",
@@ -3978,6 +3987,17 @@
         "reason": "Rust representative now reaches deterministic validation and the durable diagnostic envelope prevents another blind paid retry.",
         "task_id": "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-seven-candidate-partial/go-presentation-lint-reopen.json"
+        ],
+        "from_status": "CLOSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T18:26:29.869227+00:00",
+        "reason": "The real Go representative exposed an agent-fixable presentation-lint failure after the task's prior closure.",
+        "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+        "to_status": "REOPENED"
       }
     ]
   },
@@ -3986,7 +4006,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 460,
+  "state_version": 461,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
