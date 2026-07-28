@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
+    "claim_expires_at": "2026-07-28T11:26:33.255216+00:00",
+    "claim_id": "fd3bbe38555640e0b0901aae50333bdc",
+    "claimed_at": "2026-07-28T10:56:33.255216+00:00",
+    "claimed_by": "Codex",
     "graph_sha256": "717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f",
-    "last_evaluated_at": "2026-07-28T10:56:09.401524+00:00",
+    "last_evaluated_at": "2026-07-28T10:56:33.255216+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -78,7 +78,7 @@
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "CLOSED",
       "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "CLOSED",
       "L8-COMPOSE-02-EXISTING-SECTIONS": "CLOSED",
-      "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "TODO",
+      "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "IN_PROGRESS",
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "TODO",
       "L8-COMPOSE-03-OPERATION-COVERAGE": "TODO",
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "TODO",
@@ -3510,6 +3510,15 @@
         "reason": "Closed with valid contribution evidence and source-span, fact-owner, uncertainty, operation, diff, validation, and checksum proof.",
         "task_id": "L8-COMPOSE-02-EXISTING-SECTIONS",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T10:56:33.255278+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -3518,7 +3527,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 412,
+  "state_version": 413,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
