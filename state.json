@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T06:39:47.987005+00:00",
+    "last_evaluated_at": "2026-07-28T06:39:58.968905+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -135,7 +135,7 @@
       "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
-      "L8-TRUTH-05-PUBLIC-EXAMPLES": "VERIFIED",
+      "L8-TRUTH-05-PUBLIC-EXAMPLES": "SCORED",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
@@ -2935,6 +2935,17 @@
         "reason": "Checksum-complete evidence verifies real isolated examples and official regression checks at commit da1b7816.",
         "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-public-examples/verification.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T06:39:58.968899+00:00",
+        "reason": "All governed acceptance checks are true for Python, .NET, Java, C++, TypeScript, Rust, and Go in configured order.",
+        "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -2943,7 +2954,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 336,
+  "state_version": 337,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
