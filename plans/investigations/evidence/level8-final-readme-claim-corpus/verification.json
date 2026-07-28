@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS",
+  "control_repository": {
+    "branch": "main",
+    "head": "18825e665ce1739df2d84319b8835d8f7076aaa1",
+    "working_tree_clean_at_start": true
+  },
+  "checks": {
+    "control_tree_clean_at_start": true,
+    "source_head_stable": true,
+    "java_python_typescript_present": true,
+    "every_material_claim_inventoried": true,
+    "every_claim_span_and_hash_exact": true,
+    "native_patches_apply": true,
+    "parity_performance_and_stale_example_loss_detected": true,
+    "surviving_unverified_installation_requires_owner": true,
+    "verified_example_and_format_are_fact_bound": true,
+    "preservation_is_not_factual_approval": true,
+    "regeneration_convenience_is_not_justified_loss": true,
+    "unbound_generated_claim_detected": true,
+    "focused_regressions_pass": true,
+    "zero_product_remote_writes": true
+  },
+  "verdict": "VERIFIED",
+  "reproduction_command": ".venv/Scripts/python plans/investigations/tools/build_final_claim_corpus_evidence.py"
+}

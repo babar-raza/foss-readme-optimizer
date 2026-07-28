@@ -1,0 +1,618 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "immutable_base_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+  "facts_hash": "5a93562591720caffc43713bd6dea51abfbb070b6af018c850220392eb997d7d",
+  "template_sha256": "6debd1cf49ee2b0f864145483a4a857e8f7175c9d958e907bf721a83e316f003",
+  "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+  "adoption": {
+    "marker_schema_version": null,
+    "metadata_location": "durable_evidence",
+    "already_adopted": false,
+    "source_document_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+    "source_inner_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+    "source_inner_bytes": 6908,
+    "preservation_check": "byte_identical"
+  },
+  "header_visuals": {
+    "schema_version": 1,
+    "title": "Aspose.3D FOSS for Python",
+    "title_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ],
+    "badges": [
+      {
+        "badge_id": "license",
+        "kind": "license",
+        "alt_text": "License: MIT",
+        "image_url": "https://img.shields.io/badge/License-MIT-blue",
+        "target_url": "LICENSE",
+        "fact_ids": [
+          "product.license:license-file"
+        ]
+      }
+    ],
+    "badge_markdown": "[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+    "diagram_nodes": [
+      {
+        "node_id": "product",
+        "role": "product",
+        "label": "Aspose.3D FOSS for Python",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "audience_1",
+        "role": "audience",
+        "label": "Developers using Python.",
+        "fact_ids": [
+          "product.audience:agent-drafted-grounded",
+          "product.platforms:manifest"
+        ]
+      },
+      {
+        "node_id": "problem_1",
+        "role": "problem",
+        "label": "OBJ - Wavefront OBJ with full material support",
+        "fact_ids": [
+          "product.problems_solved:agent-drafted-grounded",
+          "product.formats:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_1",
+        "role": "capability",
+        "label": "3D primitives including Box, Cylinder, Sphere, and Plane",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_2",
+        "role": "capability",
+        "label": "Animation system with keyframe support",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_1",
+        "role": "format",
+        "label": "OBJ - Wavefront OBJ with full material support",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_2",
+        "role": "format",
+        "label": "GLTF - GL Transmission Format (glTF 2.0)",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      }
+    ],
+    "mermaid_source": "flowchart LR\n  product[\"Aspose.3D FOSS for Python\"]\n  audience_1[\"Developers using Python.\"]\n  problem_1[\"OBJ - Wavefront OBJ with full material support\"]\n  capability_1[\"3D primitives including Box, Cylinder, Sphere, and Plane\"]\n  capability_2[\"Animation system with keyframe support\"]\n  format_1[\"OBJ - Wavefront OBJ with full material support\"]\n  format_2[\"GLTF - GL Transmission Format (glTF 2.0)\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2",
+    "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.3D FOSS for Python\"]\n  audience_1[\"Developers using Python.\"]\n  problem_1[\"OBJ - Wavefront OBJ with full material support\"]\n  capability_1[\"3D primitives including Box, Cylinder, Sphere, and Plane\"]\n  capability_2[\"Animation system with keyframe support\"]\n  format_1[\"OBJ - Wavefront OBJ with full material support\"]\n  format_2[\"GLTF - GL Transmission Format (glTF 2.0)\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2\n```"
+  },
+  "contextual_links": null,
+  "enterprise_terminology_corrections": [
+    {
+      "original": "full commercial edition",
+      "replacement": "Aspose.3D for Python Enterprise Edition",
+      "character_start": 499,
+      "character_end": 522
+    },
+    {
+      "original": "[Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/)",
+      "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+      "character_start": 524,
+      "character_end": 599
+    },
+    {
+      "original": "[aspose.com](https://products.aspose.com/3d)",
+      "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d)",
+      "character_start": 617,
+      "character_end": 661
+    },
+    {
+      "original": "the commercial Aspose.3D On-Premise library",
+      "replacement": "the Aspose.3D for Python Enterprise Edition",
+      "character_start": 791,
+      "character_end": 834
+    },
+    {
+      "original": "commercial edition",
+      "replacement": "Aspose.3D for Python Enterprise Edition",
+      "character_start": 1033,
+      "character_end": 1051
+    },
+    {
+      "original": "[commercial On-Premise edition](https://products.aspose.com/3d/python-net/)",
+      "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+      "character_start": 1190,
+      "character_end": 1265
+    },
+    {
+      "original": "commercial package",
+      "replacement": "Aspose.3D for Python Enterprise Edition",
+      "character_start": 1286,
+      "character_end": 1304
+    },
+    {
+      "original": "commercial edition",
+      "replacement": "Aspose.3D for Python Enterprise Edition",
+      "character_start": 1403,
+      "character_end": 1421
+    },
+    {
+      "original": "commercial On-Premise edition",
+      "replacement": "Aspose.3D for Python Enterprise Edition",
+      "character_start": 6006,
+      "character_end": 6035
+    },
+    {
+      "original": "[Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/)",
+      "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+      "character_start": 6051,
+      "character_end": 6126
+    },
+    {
+      "original": "full-featured commercial edition",
+      "replacement": "Aspose.3D for Python Enterprise Edition",
+      "character_start": 6129,
+      "character_end": 6161
+    },
+    {
+      "original": "[Aspose.3D product family](https://products.aspose.com/3d)",
+      "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d)",
+      "character_start": 6164,
+      "character_end": 6222
+    },
+    {
+      "original": "commercial package",
+      "replacement": "Aspose.3D for Python Enterprise Edition",
+      "character_start": 6476,
+      "character_end": 6494
+    }
+  ],
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 669,
+      "source_byte_end": 669,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** Developers using Python.\n- **Problem solved:** OBJ - Wavefront OBJ with full material support. GLTF - GL Transmission Format (glTF 2.0). STL - Stereo Lithography format. 3MF - 3D Manufacturing Format.\n- **Verified capabilities:** 3D primitives including Box, Cylinder, Sphere, and Plane. Animation system with keyframe support. Scene management with hierarchical node structure. File format import and export for OBJ, GLTF, STL, and 3MF.\n- **Verified formats:** OBJ - Wavefront OBJ with full material support. GLTF - GL Transmission Format (glTF 2.0). STL - Stereo Lithography format. 3MF - 3D Manufacturing Format.\n\n```mermaid\nflowchart LR\n  product[\"Aspose.3D FOSS for Python\"]\n  audience_1[\"Developers using Python.\"]\n  problem_1[\"OBJ - Wavefront OBJ with full material support\"]\n  capability_1[\"3D primitives including Box, Cylinder, Sphere, and Plane\"]\n  capability_2[\"Animation system with keyframe support\"]\n  format_1[\"OBJ - Wavefront OBJ with full material support\"]\n  format_2[\"GLTF - GL Transmission Format (glTF 2.0)\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2\n```\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Features](#features)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Supported Formats](#supported-formats)\n- [Python Version Support](#python-version-support)\n- [Format-Specific Features](#format-specific-features)\n- [Architecture](#architecture)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n",
+      "replacement_sha256": "7c98e258b0f73b36881ac992a64d09ec1665abc5d12f7e4faafc189d8f16da45",
+      "fact_ids": [
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.platforms:manifest",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.example.replace-unverified-minimal",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2478,
+      "source_byte_end": 3024,
+      "expected_sha256": "d9682cad1497d65cd09b0db655ad789a5c559795424e2543ca521f771e73d851",
+      "replacement_text": "### Minimal verified example\n\n```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```\n\nThis exact example was compiled against the source build at revision `ab1a2267a0ba6302311d0c7c4ad01494974c7d76`.\n",
+      "replacement_sha256": "164b2c1ec2501a52dc82b7abc7e8b1e6da19d7338c75a978c3b150f95cf7ca9e",
+      "fact_ids": [
+        "example.minimal:agent-drafted-example"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Replace the one existing usage example with the exact minimal example compiled against the verified source build.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.opening.remove-promotional-callout",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 349,
+      "source_byte_end": 669,
+      "expected_sha256": "76ed0afc2e1f6a926975f468eb63e5cb93e22d0150a1d73747e31561802c1f05",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Keep the first screen product-first; the existing relationship section continues to carry restrained commercial context.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 28,
+      "source_byte_end": 28,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+      "replacement_sha256": "1c6695b4496b1508d5f11e2e91d78c7143f40313f6f4943e6e32915a1080b0a0",
+      "fact_ids": [
+        "product.license:license-file"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Add only applicable package, version, download, and license badges.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-4",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 796,
+      "source_byte_end": 839,
+      "expected_sha256": "a0e7ed08a540a8d9a73633e74426bce6d18dea6a918b0a4274e3c88075eb3056",
+      "replacement_text": "the Aspose.3D for Python Enterprise Edition",
+      "replacement_sha256": "ab2bb2f5f003e05526eeb9beccad020265fb714127ba91ed670695d135d0ddd2",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-5",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 1040,
+      "source_byte_end": 1058,
+      "expected_sha256": "6a9654ca7f615d7366400eca3b84eaff676617f8045537ee9ac7f7ce423bc799",
+      "replacement_text": "Aspose.3D for Python Enterprise Edition",
+      "replacement_sha256": "7ca8105ab3818015d15c154c29b5eb4c458ccc0defadccd3901e19a4de8a1004",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-6",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 1199,
+      "source_byte_end": 1274,
+      "expected_sha256": "168a60de924d4777ac5eb7c8ead01018052f61bb04807a778adf93c18f2a34de",
+      "replacement_text": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+      "replacement_sha256": "5d017ff178b210b329b7547ef57cef172059e2eecb856d6034ece76b0e35b47b",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-7",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 1295,
+      "source_byte_end": 1313,
+      "expected_sha256": "a9a99ac2732ea7f99ea18fa7c86e9eb3162aa5cc62864aae160ead2db03319f5",
+      "replacement_text": "Aspose.3D for Python Enterprise Edition",
+      "replacement_sha256": "7ca8105ab3818015d15c154c29b5eb4c458ccc0defadccd3901e19a4de8a1004",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-8",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 1412,
+      "source_byte_end": 1430,
+      "expected_sha256": "6a9654ca7f615d7366400eca3b84eaff676617f8045537ee9ac7f7ce423bc799",
+      "replacement_text": "Aspose.3D for Python Enterprise Edition",
+      "replacement_sha256": "7ca8105ab3818015d15c154c29b5eb4c458ccc0defadccd3901e19a4de8a1004",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-9",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 6029,
+      "source_byte_end": 6058,
+      "expected_sha256": "436735e6c68ebf1e2f5e13aed5347550eb3cd65a9e8048e5cac47a147dae304c",
+      "replacement_text": "Aspose.3D for Python Enterprise Edition",
+      "replacement_sha256": "7ca8105ab3818015d15c154c29b5eb4c458ccc0defadccd3901e19a4de8a1004",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-10",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 6074,
+      "source_byte_end": 6149,
+      "expected_sha256": "ae9027aa619f5d51dd6eacca64a9f8fcf47586b224908b50e361cf63dc7981e3",
+      "replacement_text": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+      "replacement_sha256": "5d017ff178b210b329b7547ef57cef172059e2eecb856d6034ece76b0e35b47b",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-11",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 6154,
+      "source_byte_end": 6186,
+      "expected_sha256": "fd13791ed61e47a0180076411eba5e897a36f5613c643b8e0953208707222622",
+      "replacement_text": "Aspose.3D for Python Enterprise Edition",
+      "replacement_sha256": "7ca8105ab3818015d15c154c29b5eb4c458ccc0defadccd3901e19a4de8a1004",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-12",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 6189,
+      "source_byte_end": 6247,
+      "expected_sha256": "edf48592da9d5b7c90df1791abdb7821c1d30b03cf95fd9342d8a6af117a0b3f",
+      "replacement_text": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d)",
+      "replacement_sha256": "622382da547d3efd5f66661d35017d03ecc2b79bae27caca0e819eec8f79621a",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-13",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 6509,
+      "source_byte_end": 6527,
+      "expected_sha256": "a9a99ac2732ea7f99ea18fa7c86e9eb3162aa5cc62864aae160ead2db03319f5",
+      "replacement_text": "Aspose.3D for Python Enterprise Edition",
+      "replacement_sha256": "7ca8105ab3818015d15c154c29b5eb4c458ccc0defadccd3901e19a4de8a1004",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "b6f0e40820ba72abc885e7eb9347b32e3a45f0bfabf15fdc158bb00eddfa82c6"
+}
