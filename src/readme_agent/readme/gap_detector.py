@@ -35,7 +35,7 @@ _COMMERCIAL_LINK_RE = re.compile(r"products\.[a-z0-9-]+\.(org|com)\b", re.IGNORE
 # do with the FOSS-vs-commercial relationship -- caught by the ground-truth
 # fixture test, not by inspection, which is exactly why that test exists.
 _RELATIONSHIP_KEYWORDS_RE = re.compile(
-    r"\b(commercial|full-featured|full version|upgrade|paid|premium|proprietary|"
+    r"\b(Enterprise Edition|commercial|full-featured|full version|upgrade|paid|premium|proprietary|"
     r"broader feature|free version|lightweight version|a subset of)\b",
     re.IGNORECASE,
 )

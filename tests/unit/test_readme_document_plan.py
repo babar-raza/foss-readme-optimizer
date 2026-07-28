@@ -419,7 +419,8 @@ Existing guidance.
 
     assert decision.valid, decision.errors
     assert not any(line.startswith(">") for line in candidate.splitlines())
-    assert "commercial edition has broader format support" in candidate
+    assert "Aspose.Cells for Java Enterprise Edition has broader format support" in candidate
+    assert "commercial edition" not in candidate
 
 
 def test_identical_candidate_rerender_has_no_document_operations():

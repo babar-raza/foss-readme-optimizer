@@ -12,6 +12,7 @@ from readme_agent.gitsafety.hooks import install_pre_push_hook
 from readme_agent.gitsafety.neuter import neuter_push
 from readme_agent.gitsafety.verify import verify_push_blocked
 from readme_agent.inspection.file_inventory import scan
+from readme_agent.links.runtime_context import load_runtime_link_inputs
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.candidate_workspace import ensure_work_clone
 from readme_agent.readme.claim_map import build_readme_claim_map
@@ -84,6 +85,7 @@ def prepare_idea_fidelity_candidate(
         inventory = scan(work_path)
         work_readme = inventory.readme_path or (work_path / "README.md")
         original_text = work_readme.read_text(encoding="utf-8") if work_readme.exists() else ""
+        link_catalogs, link_allocation_policy = load_runtime_link_inputs(org_repo)
 
         final_text, document_plan = build_readme_document_candidate(
             org_repo,
@@ -91,6 +93,8 @@ def prepare_idea_fidelity_candidate(
             facts,
             base_revision=snapshot.source_revision,
             agentic_composition_plan=agentic_composition_plan,
+            link_catalogs=link_catalogs,
+            link_allocation_policy=link_allocation_policy,
         )
         assessment = assess_readme_document(
             org_repo,

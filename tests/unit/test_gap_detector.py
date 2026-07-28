@@ -77,3 +77,16 @@ def test_email_python_is_missing_everything_including_license():
     assert set(report.gaps) == set(REQUIRED_ELEMENTS)
     assert not report.license_mentioned
     assert not report.fully_compliant
+
+
+def test_enterprise_edition_relationship_is_recognized_without_legacy_label():
+    text = (
+        "# Product\n\nThe FOSS API relates to the "
+        "[Aspose.Widget Enterprise Edition](https://products.aspose.com/widget/), "
+        "which provides a broader feature set.\n"
+    )
+
+    report = detect(text, detected_license=None)
+
+    assert report.products_com_link
+    assert report.relationship_explained

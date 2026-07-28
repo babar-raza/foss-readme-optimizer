@@ -14,6 +14,7 @@ from pathlib import Path
 
 import requests
 from aspose_link_catalog_core import build_catalog, write_catalog_atomic
+from aspose_link_git_snapshot import materialize_git_snapshot
 from aspose_link_source_db import discover_com_records
 from aspose_link_source_tree import discover_org_records
 
@@ -29,6 +30,14 @@ DEFAULT_ASPOSE_ORG_ROOT = Path(r"D:\onedrive\Documents\GitHub\aspose.org")
 DEFAULT_COM_OUTPUT = REPO_ROOT / "data/aspose_com_links.json"
 DEFAULT_ORG_OUTPUT = REPO_ROOT / "data/aspose_org_links.json"
 DEFAULT_PRODUCTS = REPO_ROOT / "data/products.json"
+ASPOSE_ORG_SOURCE_PATHS = (
+    "content/products.aspose.org/en",
+    "content/docs.aspose.org/en",
+    "content/kb.aspose.org/en",
+    "content/reference.aspose.org/en",
+    "content/blog.aspose.org",
+    "data/aspose_com_targets.json",
+)
 
 
 def _sha256(path: Path) -> str:
@@ -298,19 +307,25 @@ def build_catalog_pair(
     """Build both catalogs from one registry scope and one deterministic core."""
 
     root = args.aspose_org_root.resolve()
-    target_path = (args.aspose_com_source or root / "data/aspose_com_targets.json").resolve()
-    target_map = json.loads(target_path.read_text(encoding="utf-8"))
     scope = _registry_scope(args.products)
     org_revision = _git_value(root, "rev-parse", "HEAD")
     org_retrieved_at = _git_value(root, "show", "-s", "--format=%cI", org_revision)
     live_at = datetime.now(UTC).isoformat()
-    org_records = discover_org_records(
-        source_root=root,
-        source_revision=org_revision,
-        retrieved_at=org_retrieved_at,
-        registry_scope=scope,
-        status_by_url=_legacy_statuses(args.org_output),
-    )
+    with materialize_git_snapshot(root, org_revision, ASPOSE_ORG_SOURCE_PATHS) as snapshot_root:
+        target_path = (
+            args.aspose_com_source.resolve()
+            if args.aspose_com_source
+            else snapshot_root / "data/aspose_com_targets.json"
+        )
+        target_map = json.loads(target_path.read_text(encoding="utf-8"))
+        org_records = discover_org_records(
+            source_root=snapshot_root,
+            source_revision=org_revision,
+            retrieved_at=org_retrieved_at,
+            registry_scope=scope,
+            status_by_url=_legacy_statuses(args.org_output),
+        )
+        target_hash = _sha256(target_path)
     discovered_org_urls = {record.url for record in org_records}
     org_records.extend(
         record
@@ -325,7 +340,6 @@ def build_catalog_pair(
         args.verify_org_pattern,
         verified_at=live_at,
     )
-    target_hash = _sha256(target_path)
     com_retrieved_at = _source_generated_at(target_map)
     com_records = discover_com_records(
         target_map=target_map,

@@ -7,6 +7,7 @@ from types import SimpleNamespace
 from readme_agent.facts.migration import migrate_product_facts_v1
 from readme_agent.facts.schema import ProductFactsV1
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.links.runtime_context import load_runtime_link_inputs
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.specialists import readme_factuality
 
@@ -153,11 +154,14 @@ def test_fact_dispatch_failure_rejects_before_verifier(monkeypatch):
 def test_snapshot_bound_v2_facts_do_not_reobserve_network(monkeypatch):
     facts = _complete_snapshot_facts()
     source = "# Widget\n"
+    link_catalogs, link_allocation_policy = load_runtime_link_inputs(facts.org_repo)
     candidate, _plan = build_readme_document_candidate(
         facts.org_repo,
         source,
         facts,
         base_revision=facts.selected_fact("product.identity").source.source_revision or "",
+        link_catalogs=link_catalogs,
+        link_allocation_policy=link_allocation_policy,
     )
 
     def unexpected_dispatch(*_args, **_kwargs):

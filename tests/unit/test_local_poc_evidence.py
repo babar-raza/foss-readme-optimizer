@@ -173,7 +173,7 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
         source_revision=snapshot.source_revision,
     )
     values = {
-        "product.identity": {"name": "Product", "ecosystem": "java"},
+        "product.identity": {"name": "Product", "family": "cells", "ecosystem": "java"},
         "product.audience": ["Java developers"],
         "product.problems_solved": ["Read product files"],
         "product.capabilities": ["Read files"],

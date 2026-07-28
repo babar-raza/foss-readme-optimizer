@@ -49,6 +49,8 @@ class TestBuildPromptLoadsExternalAssets:
         assert "aspose-3d-foss/Aspose.3D-FOSS-for-Java" in user
         assert "Aspose.3D FOSS" in user
         assert "MIT" in user
+        assert "Aspose.3D for Java Enterprise Edition" in user
+        assert "Commercial edition page" not in user
 
     def test_response_shape_braces_survive_template_substitution(self):
         # $-style placeholders (string.Template) must not choke on the

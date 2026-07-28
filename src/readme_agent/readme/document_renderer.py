@@ -3,6 +3,12 @@
 from __future__ import annotations
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.links.allocation import code_sha256
+from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
+from readme_agent.links.contextual_models import ContextualLinkPlanV1
+from readme_agent.links.contextual_selection import select_contextual_links
+from readme_agent.links.contextual_validation import validate_contextual_link_candidate
+from readme_agent.links.terminology import find_enterprise_terminology_findings
 from readme_agent.readme.agentic_composition_validation import validate_readme_composition_plan
 from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
@@ -20,6 +26,7 @@ from readme_agent.readme.document_header_visual import (
     build_existing_overview_diagram_operations,
 )
 from readme_agent.readme.document_limitations import build_limitation_operations
+from readme_agent.readme.document_links import apply_contextual_link_bindings
 from readme_agent.readme.document_opening import (
     build_opening_operations,
     build_promotional_callout_operations,
@@ -34,11 +41,17 @@ from readme_agent.readme.document_release import build_release_operations
 from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.document_templates import document_template_hash
+from readme_agent.readme.document_terminology import (
+    build_enterprise_terminology_operations,
+    canonicalize_operation_terminology,
+    enterprise_product_name,
+)
 from readme_agent.readme.header_visual import (
     has_marker_free_presentation_contract,
     render_readme_header_visual,
 )
 from readme_agent.readme.markers import find_presentation_span
+from readme_agent.registry.models import LinkAllocationPolicyV1
 
 __all__ = [
     "apply_document_operations",
@@ -54,6 +67,8 @@ def build_readme_document_candidate(
     *,
     base_revision: str,
     agentic_composition_plan: dict | None = None,
+    link_catalogs: AsposeLinkCatalogSetV1 | None = None,
+    link_allocation_policy: LinkAllocationPolicyV1 | None = None,
 ) -> tuple[str, ReadmeDocumentPlanV1]:
     """Return one reproducible candidate and its fine-grained source operations."""
 
@@ -106,6 +121,34 @@ def build_readme_document_candidate(
             for operation in operations
         ):
             operations.append(comment_operation)
+    product_name = enterprise_product_name(facts)
+    operations = canonicalize_operation_terminology(
+        operations,
+        product_name=product_name,
+        identity_fact_id=facts.selected_fact("product.identity").fact_id,
+    )
+    terminology_operations, terminology_corrections = build_enterprise_terminology_operations(
+        context,
+        operations,
+        product_name=product_name,
+    )
+    operations.extend(terminology_operations)
+    if (link_catalogs is None) != (link_allocation_policy is None):
+        raise ValueError("README link catalogs and allocation policy must be supplied together")
+    contextual_links: ContextualLinkPlanV1 | None = None
+    if link_catalogs is not None and link_allocation_policy is not None:
+        pre_link_candidate = apply_document_operations(source, operations).decode("utf-8")
+        example = facts.selected_fact("example.minimal")
+        example_value = example.value if isinstance(example.value, dict) else {}
+        example_code = str(example_value.get("code") or "").strip()
+        contextual_links = select_contextual_links(
+            facts,
+            pre_link_candidate,
+            link_catalogs,
+            link_allocation_policy,
+            verified_code_sha256s={code_sha256(example_code)} if example_code else set(),
+        )
+        operations = apply_contextual_link_bindings(context, operations, contextual_links)
     if validated_agentic_plan is not None:
         validate_agentic_operation_coverage(
             assessment,
@@ -113,6 +156,23 @@ def build_readme_document_candidate(
             operations,
         )
     rendered_inner = apply_document_operations(source, operations).decode("utf-8")
+    terminology_findings = find_enterprise_terminology_findings(
+        rendered_inner,
+        enterprise_product_name=product_name,
+    )
+    if terminology_findings:
+        raise ValueError("README candidate retains prohibited Enterprise Edition terminology")
+    if contextual_links is not None and link_catalogs is not None:
+        link_validation = validate_contextual_link_candidate(
+            contextual_links,
+            link_catalogs,
+            rendered_inner,
+            facts,
+        )
+        if not link_validation.valid:
+            raise ValueError(
+                "invalid contextual README links: " + "; ".join(link_validation.errors)
+            )
     facts_hash = facts.canonical_hash()
     candidate = rendered_inner
     plan = ReadmeDocumentPlanV1(
@@ -132,6 +192,8 @@ def build_readme_document_candidate(
             preservation_check="byte_identical",
         ),
         header_visuals=header_visuals,
+        contextual_links=contextual_links,
+        enterprise_terminology_corrections=terminology_corrections,
         operations=operations,
         candidate_sha256=sha256_hex(candidate),
     )

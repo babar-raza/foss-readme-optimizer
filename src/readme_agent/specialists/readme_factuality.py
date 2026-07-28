@@ -14,6 +14,7 @@ from readme_agent.facts.protected_content import (
 )
 from readme_agent.facts.schema import ProductFactsV1
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.links.runtime_context import load_runtime_link_inputs
 from readme_agent.readme.claim_verification import find_claim_conflicts
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
@@ -113,18 +114,22 @@ def evaluate_candidate_factuality(
                 product_facts_v2_hash=current_v2.canonical_hash(),
                 error="product identity has no immutable source revision",
             )
+        link_catalogs, link_allocation_policy = load_runtime_link_inputs(org_repo)
         expected, document_plan = build_readme_document_candidate(
             org_repo,
             immutable_source,
             current_v2,
             base_revision=source_revision,
             agentic_composition_plan=agentic_composition_plan,
+            link_catalogs=link_catalogs,
+            link_allocation_policy=link_allocation_policy,
         )
         document_validation = validate_readme_document_candidate(
             immutable_source,
             final_text,
             document_plan,
             current_v2,
+            link_catalogs=link_catalogs,
         )
         losses = [
             {"category": "document_plan", "reason": error} for error in document_validation.errors

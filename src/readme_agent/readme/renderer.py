@@ -21,6 +21,10 @@ specific element is actually a gap.
 
 from urllib.parse import urlencode
 
+from readme_agent.links.terminology import (
+    canonicalize_enterprise_edition,
+    find_enterprise_terminology_findings,
+)
 from readme_agent.readme.gap_detector import GapReport
 from readme_agent.registry.models import LinkSpec, PolicyProfile
 
@@ -47,9 +51,23 @@ def _render_resources(
 
     if "products_com_link" in gaps:
         com = policy.required_elements.products_com_link
-        parts.append(f"- **Commercial edition:** [{com.label}]({_with_utm(com)})")
+        enterprise_name = com.label.removesuffix(" Enterprise Edition").strip()
+        parts.append(
+            f"- **Enterprise Edition:** [{enterprise_name} Enterprise Edition]({_with_utm(com)})"
+        )
 
     if "relationship_explained" in gaps and relationship_paragraph:
+        com = policy.required_elements.products_com_link
+        enterprise_name = com.label.removesuffix(" Enterprise Edition").strip()
+        relationship_paragraph, _ = canonicalize_enterprise_edition(
+            relationship_paragraph,
+            enterprise_product_name=enterprise_name,
+        )
+        if find_enterprise_terminology_findings(
+            relationship_paragraph,
+            enterprise_product_name=enterprise_name,
+        ):
+            raise ValueError("relationship paragraph uses prohibited Aspose edition terminology")
         parts.append("")
         parts.append(relationship_paragraph)
 

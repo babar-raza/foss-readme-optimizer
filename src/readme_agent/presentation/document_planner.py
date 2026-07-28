@@ -7,6 +7,7 @@ import re
 from readme_agent.errors import ValidationFailure
 from readme_agent.facts.gating import TechnicalClaimV1, validate_claim_citations
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
 from readme_agent.presentation.git_patch import (
     BoundedSourcePatchV1,
     SourceSpanEditV1,
@@ -23,6 +24,7 @@ from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.registry.models import LinkAllocationPolicyV1
 from readme_agent.registry.surface_ownership import (
     SurfaceOwnershipMapV1,
     operation_allowed,
@@ -64,6 +66,8 @@ def build_document_repository_presentation_plan(
     *,
     base_revision: str,
     agentic_composition_plan: dict | None = None,
+    link_catalogs: AsposeLinkCatalogSetV1 | None = None,
+    link_allocation_policy: LinkAllocationPolicyV1 | None = None,
 ) -> tuple[RepositoryPresentationPlanV1, dict, bool, dict]:
     """Rebuild the document plan independently and prove the resulting Git patch."""
 
@@ -73,6 +77,8 @@ def build_document_repository_presentation_plan(
         facts,
         base_revision=base_revision,
         agentic_composition_plan=agentic_composition_plan,
+        link_catalogs=link_catalogs,
+        link_allocation_policy=link_allocation_policy,
     )
     if expected_candidate != candidate_text:
         raise ValidationFailure("README candidate differs from the independently rebuilt plan")
@@ -93,6 +99,7 @@ def build_document_repository_presentation_plan(
         candidate_text,
         document_plan,
         facts,
+        link_catalogs=link_catalogs,
     )
 
     ownership_rule = ownership.rule_for("readme")

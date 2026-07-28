@@ -25,6 +25,7 @@ from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
 from readme_agent.ecosystems.resolver import resolve
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety._git import run_git
+from readme_agent.links.runtime_context import load_runtime_link_inputs
 from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import ReadmeAssessmentV1, assess_readme_document
 from readme_agent.readme.claim_map import ReadmeClaimMapV1, build_readme_claim_map
@@ -254,6 +255,11 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
             "agentic composition assessment hash does not match ReadmeAssessmentV1",
         )
 
+    link_catalogs = None
+    link_allocation_policy = None
+    if plan.contextual_links is not None:
+        link_catalogs, link_allocation_policy = load_runtime_link_inputs(org_repo)
+
     # The load-bearing independence check: rebuild the candidate from scratch.
     recon_candidate, recon_plan = build_readme_document_candidate(
         org_repo,
@@ -263,6 +269,8 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         agentic_composition_plan=(
             agentic_plan.model_dump(mode="json") if agentic_plan is not None else None
         ),
+        link_catalogs=link_catalogs,
+        link_allocation_policy=link_allocation_policy,
     )
     recon_assessment = assess_readme_document(
         org_repo,
@@ -311,7 +319,13 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
     record("operations_cite_selected_facts", cited_ok, "an operation cites a non-selected fact")
     record("cited_facts_accepted", accepted_ok, "an operation cites an unaccepted fact")
 
-    validation = validate_readme_document_candidate(immutable_source, candidate, plan, facts)
+    validation = validate_readme_document_candidate(
+        immutable_source,
+        candidate,
+        plan,
+        facts,
+        link_catalogs=link_catalogs,
+    )
     record(
         "independent_validation_valid",
         validation.valid,

@@ -7,6 +7,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from readme_agent.links.contextual_models import ContextualLinkPlanV1
+from readme_agent.links.terminology import EnterpriseTerminologyCorrectionV1
 from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
 
 DocumentOperation = Literal[
@@ -112,6 +114,10 @@ class ReadmeDocumentPlanV1(_StrictModel):
     source_sha256: str
     adoption: PresentationSpanAdoptionV1
     header_visuals: ReadmeHeaderVisualV1 | None = None
+    contextual_links: ContextualLinkPlanV1 | None = None
+    enterprise_terminology_corrections: list[EnterpriseTerminologyCorrectionV1] = Field(
+        default_factory=list
+    )
     operations: list[ReadmeDocumentOperationV1]
     candidate_sha256: str
 

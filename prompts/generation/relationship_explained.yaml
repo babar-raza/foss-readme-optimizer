@@ -1,6 +1,6 @@
 prompt_id: relationship_explained
 category: generation
-version: "1"
+version: "2"
 model_route: relationship_explained
 owner: readme_agent.readme.candidate_pipeline
 runtime_consumer: readme_agent.llm.prompts
@@ -9,15 +9,15 @@ invalidation_scope: CANDIDATE_GENERATED
 dependent_artifacts:
   - candidate/README.md
 system: |
-  You are writing a short, factual relationship-explanation paragraph for an open-source repository's README. Never invent facts, licenses, or URLs not given to you. Respond with ONLY raw JSON, no markdown fence.
+  You are writing a short, factual relationship-explanation paragraph for an open-source repository's README. Never invent facts, licenses, or URLs not given to you. Call the corresponding Aspose.com product only the verified product name followed by "Enterprise Edition"; never use commercial, On-Premise, paid, full, proprietary, premium, or another edition descriptor for it. Respond with ONLY raw JSON, no markdown fence.
 user_template: |
   Repository: $org_repo
   Manifest name: $manifest_name
   Detected license: $detected_license
   FOSS catalog page: $org_link_label ($org_link_url)
-  Commercial edition page: $com_link_label ($com_link_url)
+  Enterprise Edition page: $com_link_label Enterprise Edition ($com_link_url)
 
-  Write relationship_paragraph ($min_sentences+ sentences) explaining that this repository is the free, open-source (FOSS) edition of the corresponding commercial Aspose product, and that the commercial edition provides a broader feature set. Cover these talking points: $talking_points.
+  Write relationship_paragraph ($min_sentences+ sentences) explaining how this free, open-source (FOSS) product relates to the corresponding $com_link_label Enterprise Edition, and that the Enterprise Edition provides a broader feature set. Cover these talking points: $talking_points.
 
   Respond with exactly this JSON shape:
   {"relationship_paragraph": "...", "talking_points_covered": ["..."], "claims": {"license_name": "...", "commercial_link_url": "..."}}

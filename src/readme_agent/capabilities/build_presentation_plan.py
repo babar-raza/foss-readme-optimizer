@@ -8,6 +8,7 @@ from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.inspection.file_inventory import scan
+from readme_agent.links.runtime_context import load_runtime_link_inputs
 from readme_agent.presentation.document_planner import (
     build_document_repository_presentation_plan,
 )
@@ -89,6 +90,7 @@ def execute(
             "render snapshot revision does not match the independently observed facts revision"
         )
     base_revision = source_revision or observed_revision
+    link_catalogs, link_allocation_policy = load_runtime_link_inputs(org_repo)
 
     if original_text is None:
         entry = require_listed(org_repo)
@@ -116,6 +118,8 @@ def execute(
                 ownership,
                 base_revision=base_revision,
                 agentic_composition_plan=agentic_composition_plan,
+                link_catalogs=link_catalogs,
+                link_allocation_policy=link_allocation_policy,
             )
         )
         return {

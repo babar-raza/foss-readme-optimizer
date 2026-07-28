@@ -64,6 +64,9 @@ class TestFullGapRendersOneSpanWithEveryElement:
         content = spans["resources"]
         assert content.count("products.aspose.org") == 1
         assert content.count("products.aspose.com") == 1
+        assert "**Enterprise Edition:**" in content
+        assert "Aspose.3D for Java Enterprise Edition" in content
+        assert "Commercial edition" not in content
         assert "MIT" in content
         assert "This is the FOSS edition of Aspose.3D." in content
 
@@ -109,3 +112,22 @@ class TestRendererNeverInventsUrls:
         assert "resources" in spans
         # No LLM paragraph supplied -- must not crash, and must not fabricate one.
         assert "None" not in spans["resources"]
+
+    def test_legacy_relationship_output_is_canonicalized_before_rendering(self):
+        report = GapReport(
+            license_mentioned=True,
+            products_org_link=True,
+            products_com_link=True,
+            relationship_explained=False,
+        )
+
+        spans = render_missing_elements(
+            report,
+            _policy(),
+            relationship_paragraph=(
+                "Aspose.3D FOSS shares APIs with the commercial On-Premise edition."
+            ),
+        )
+
+        assert "commercial On-Premise edition" not in spans["resources"]
+        assert "Aspose.3D for Java Enterprise Edition" in spans["resources"]

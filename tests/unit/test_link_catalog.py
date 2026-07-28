@@ -94,6 +94,18 @@ def test_load_and_exact_lookup_remove_tracking_only(tmp_path: Path) -> None:
     ] == ["aspose.org", "aspose.com"]
 
 
+def test_default_catalog_paths_do_not_depend_on_working_directory(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.chdir(tmp_path)
+
+    catalogs = load_aspose_link_catalogs()
+
+    assert catalogs.aspose_com.records
+    assert catalogs.aspose_org.records
+
+
 def test_slug_only_article_is_verified_but_not_linkable(tmp_path: Path) -> None:
     path = tmp_path / "catalog.json"
     _write(path, _payload("aspose.com", evidence="slug_only"))

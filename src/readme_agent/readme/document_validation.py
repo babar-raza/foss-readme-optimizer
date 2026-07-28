@@ -14,11 +14,15 @@ from readme_agent.facts.protected_content import (
 )
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
+from readme_agent.links.contextual_validation import validate_contextual_link_candidate
+from readme_agent.links.terminology import find_enterprise_terminology_findings
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import (
     apply_document_operations,
     document_template_hash,
 )
+from readme_agent.readme.document_terminology import enterprise_product_name
 from readme_agent.readme.header_visual_validation import validate_readme_header_visual
 from readme_agent.readme.markers import find_presentation_span
 
@@ -70,6 +74,8 @@ def validate_readme_document_candidate(
     candidate_text: str,
     plan: ReadmeDocumentPlanV1,
     facts: ProductFactsV2,
+    *,
+    link_catalogs: AsposeLinkCatalogSetV1 | None = None,
 ) -> DocumentCandidateValidationV1:
     """Reject stale spans, uncited corrections, reconstruction drift, and protected loss."""
 
@@ -215,6 +221,31 @@ def validate_readme_document_candidate(
     else:
         checks["header_visuals"] = False
         errors.append("fact-backed README header and Mermaid plan is absent")
+
+    product_name = enterprise_product_name(facts)
+    terminology_findings = find_enterprise_terminology_findings(
+        candidate_inner,
+        enterprise_product_name=product_name,
+    )
+    checks["enterprise_edition_terminology"] = not terminology_findings
+    errors.extend(
+        f"prohibited Enterprise terminology: {finding.excerpt}" for finding in terminology_findings
+    )
+    if plan.contextual_links is not None:
+        if link_catalogs is None:
+            checks["contextual_links"] = False
+            errors.append("contextual-link plan cannot be verified without its catalogs")
+        else:
+            contextual = validate_contextual_link_candidate(
+                plan.contextual_links,
+                link_catalogs,
+                candidate_inner,
+                facts,
+            )
+            checks["contextual_links"] = contextual.valid
+            errors.extend(contextual.errors)
+    else:
+        checks["contextual_links"] = True
 
     return DocumentCandidateValidationV1(
         valid=not errors,

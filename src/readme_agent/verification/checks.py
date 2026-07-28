@@ -28,6 +28,7 @@ from readme_agent.errors import NotAllowlistedError
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.inspection import file_inventory
+from readme_agent.links.runtime_context import load_runtime_link_inputs
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
 from readme_agent.readme.gap_detector import detect as detect_gaps
@@ -109,18 +110,22 @@ def _verify_presentation_candidate(
         entry = require_listed(org_repo)
         source_path = paths.baseline_dir(entry.org, entry.repo_name) / "README.md"
     source_text = source_path.read_text(encoding="utf-8") if source_path.exists() else ""
+    link_catalogs, link_allocation_policy = load_runtime_link_inputs(org_repo)
     expected, plan = build_readme_document_candidate(
         org_repo,
         source_text,
         facts,
         base_revision=source_revision,
         agentic_composition_plan=agentic_composition_plan,
+        link_catalogs=link_catalogs,
+        link_allocation_policy=link_allocation_policy,
     )
     validation = validate_readme_document_candidate(
         source_text,
         final_text,
         plan,
         facts,
+        link_catalogs=link_catalogs,
     )
     checks = {"candidate_matches_independent_render": expected == final_text, **validation.checks}
     if expected != final_text or not validation.valid:

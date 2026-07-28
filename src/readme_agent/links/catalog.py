@@ -17,8 +17,9 @@ from readme_agent.links.catalog_models import (
     AsposeLinkSurface,
 )
 
-ASPOSE_COM_CATALOG_PATH = Path("data/aspose_com_links.json")
-ASPOSE_ORG_CATALOG_PATH = Path("data/aspose_org_links.json")
+_PROJECT_ROOT = Path(__file__).resolve().parents[3]
+ASPOSE_COM_CATALOG_PATH = _PROJECT_ROOT / "data" / "aspose_com_links.json"
+ASPOSE_ORG_CATALOG_PATH = _PROJECT_ROOT / "data" / "aspose_org_links.json"
 _TRACKING_QUERY_KEYS = {"utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"}
 
 

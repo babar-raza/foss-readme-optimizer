@@ -34,7 +34,7 @@ DOCUMENT_CASES = (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
         "4fd648122e249d81f17552bf19dbb25ffe7c4ed94c058f513bdad5a766dc719f",
-        "7ac4d23e54ad9cfefb8d791657ed16d35feaa9186c65ca5c4ceee1679bc5ac59",
+        "d4681e630a14e58ed3b876f5c1483c4a4f4ea1debdefef6dc2b325c82933ec26",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
@@ -50,7 +50,7 @@ DOCUMENT_CASES = (
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
         "9ffe40a4bd492e4e8eae5872265a61467855947be5a94953953d63e05d30554d",
-        "883de21a0404f1d130449c87f331171fe9e3c7485126a90e36727d737084a5d3",
+        "f38b518bc103811296e4218b92e023b65314b49b61ffc8a5b5a7aef8ec9abdfb",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
@@ -66,7 +66,7 @@ DOCUMENT_CASES = (
             "## Installation\n\nExisting instructions.\n"
         ),
         "ecad9f11224899f302fb943972ba48610dc2763158729300cf8db96b95e551df",
-        "7a9619dfe4e376c3dc8d58610650e38e63090749edf313cf29e18e08fe7a9fd8",
+        "56cf3f2552c521a13b5705e661f1c46a2eb14c1218ab116d14b88e36b891b55c",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
@@ -127,6 +127,8 @@ def test_public_composition_call_signatures_are_characterized() -> None:
         "facts",
         "base_revision",
         "agentic_composition_plan",
+        "link_catalogs",
+        "link_allocation_policy",
     )
     assert signatures["plan"].parameters["client"].kind is inspect.Parameter.KEYWORD_ONLY
     assert signatures["render"].parameters["base_revision"].kind is inspect.Parameter.KEYWORD_ONLY

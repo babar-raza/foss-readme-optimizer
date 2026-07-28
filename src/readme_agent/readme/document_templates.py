@@ -20,6 +20,7 @@ from readme_agent.readme.document_structure import Heading, github_anchor
 _PROJECT_ROOT = Path(__file__).resolve().parents[3]
 TEMPLATE_ROOT = _PROJECT_ROOT / "templates" / "readme"
 DOCUMENT_TEMPLATE_NAMES = (
+    "contextual-example-link.md",
     "agentic-overview-and-navigation.md",
     "product-overview-and-navigation.md",
     "verified-limitations.md",

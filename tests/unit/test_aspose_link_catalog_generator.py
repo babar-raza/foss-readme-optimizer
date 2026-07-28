@@ -158,6 +158,24 @@ Verified article body.
         ),
     )
     revision = _commit_fixture(source_root)
+    _write(
+        source_root / "content/docs.aspose.org/en/cells/python/workbook/index.md",
+        "---\ntitle: Dirty uncommitted article\n---\n",
+    )
+    _write(
+        source_root / "data/aspose_com_targets.json",
+        json.dumps(
+            {
+                "provenance": {"generated_at": "2099-01-01T00:00:00+00:00"},
+                "all_urls": {
+                    "https://products.aspose.com/dirty/uncommitted/": {
+                        "http_status": 200,
+                        "platform": "python-net",
+                    }
+                },
+            }
+        ),
+    )
 
     command = [
         sys.executable,
@@ -197,6 +215,8 @@ Verified article body.
         "https://products.aspose.org/cells/",
     ]
     assert targets[0].content_evidence == "source_body"
+    assert targets[0].title == "Work with workbooks"
+    assert all("dirty/uncommitted" not in target.url for target in catalogs.records)
     assert all(
         record.http_verification_source and record.http_verification_evidence
         for record in catalogs.records
