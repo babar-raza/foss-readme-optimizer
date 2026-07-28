@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+    "claim_expires_at": "2026-07-28T06:14:18.769616+00:00",
+    "claim_id": "28f9352a95bc413791b869a57a4f1e11",
+    "claimed_at": "2026-07-28T05:44:18.769616+00:00",
+    "claimed_by": "codex",
     "graph_sha256": "d04a940d4a1d9ca42b1b27fd8468500a69a11cab31ac0f7b9abc6418aa925aea",
-    "last_evaluated_at": "2026-07-28T05:44:02.140007+00:00",
+    "last_evaluated_at": "2026-07-28T05:44:18.769616+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -144,7 +144,7 @@
       "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
-      "L8-TRUTH-05-PUBLIC-EXAMPLES": "REOPENED",
+      "L8-TRUTH-05-PUBLIC-EXAMPLES": "IN_PROGRESS",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
@@ -2913,6 +2913,15 @@
         "reason": "Acceptance is satisfied with checksum-complete evidence, full official checks, and real heterogeneous polarity controls.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REOPENED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T05:44:18.769683+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -2921,7 +2930,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 332,
+  "state_version": 333,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
