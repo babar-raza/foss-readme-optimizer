@@ -3199,36 +3199,114 @@ taskcards:
   dependencies:
   - L8-COMPOSE-04-PRESENTATION-LINT
   expected_outputs:
-  - Seven original/facts/assessment/plan/candidate/patch/claim-map bundles
+  - Seven immutable source revisions
+  - Accepted fact-bundle references
+  - Expected visitor-facing composition obligations
+  - Input checksum inventory
   acceptance_checks:
-  - Every bundle validates deterministically and is materially repository-specific
+  - Every input set is immutable and independently reconstructable
+  - No candidate or reviewer output is required or claimed by this input-freeze task
   verification:
-  - Independent reconstruction
-  - native patch apply
-  - specificity
-  - and checksum checks
+  - Independent source
+  - fact
+  - obligation
+  - and checksum reconstruction
   negative_controls:
-  - No reviewer verdict or candidate existence substitutes for composition acceptance
+  - Existing candidate or reviewer output cannot substitute for frozen inputs
   regression_checks:
   - No-write
-  - cancellation/resume
-  - and artifact idempotency controls
+  - immutable-revision
+  - and evidence-redaction controls
   evidence_requirements:
   - Frozen inputs
-  - outputs
   - command
   - environment
   - SHA-256 inventory
-  rollback_or_recovery: Resume the failed representative at its earliest invalid composition stage.
-  failure_reroute: Reopen the responsible composition child.
+  rollback_or_recovery: Refresh only the invalid source or fact input and issue a new input hash.
+  failure_reroute: Reopen the responsible truth or source-snapshot child.
   closeout_rules:
-  - All seven candidates pass deterministic composition acceptance
+  - All seven representative input sets are frozen under one current contract
   goal_ids:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: Freeze immutable source revisions, fact bundles, and expected composition obligations for
-      seven real representatives.
+    summary: Freeze immutable source revisions, accepted fact bundles, and expected composition obligations
+      for seven real representatives without claiming candidate output.
+  requirement_ids: []
+- task_id: L8-COMPOSE-04B-STAGE-TRANSACTIONS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Add transactional candidate and deterministic-validation stage boundaries
+  source_audit_finding: The canonical local runtime exposes only a FACTS_READY ceiling, while the next
+    evidence-only task requires candidate and deterministic-validation execution without invoking review;
+    current revision bundles are also mutated file-by-file rather than sealed and promoted as one stage.
+  audit_classification: not_attempted
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Extend the canonical supervise path through CANDIDATE_GENERATED and DETERMINISTIC_VALIDATED
+    ceilings and execute each stage through a private attempt, checksum seal, independent validation,
+    and idempotent reducer promotion.
+  why_it_matters: Candidate qualification and later repository concurrency need the same transactional
+    stage contract; an evidence task cannot safely implement or infer it.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/state/
+  - src/readme_agent/evidence/
+  - src/readme_agent/commands_supervision.py
+  - src/readme_agent/paths.py
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-04A-CANDIDATE-FIXTURES
+  expected_outputs:
+  - Typed candidate and deterministic-validation stage ceilings
+  - Private stage attempt and seal contracts
+  - Idempotent serial reducer promotion
+  - Receipt-bound compatibility-view manifest
+  acceptance_checks:
+  - A candidate-stage run cannot invoke independent review or repair
+  - An unsealed or stale-fence attempt cannot advance lifecycle or portfolio state
+  - A sealed result promotes exactly once and an identical promotion is a no-op
+  verification:
+  - Public CLI/profile proof
+  - crash before seal
+  - crash after seal before promotion
+  - promotion retry
+  - and compatibility-view reconstruction
+  negative_controls:
+  - A candidate file or parseable partial directory without a valid stage receipt cannot count
+  regression_checks:
+  - Lifecycle
+  - evidence
+  - redaction
+  - no-write
+  - trigger
+  - terminal-classifier
+  - and supervisor suites
+  evidence_requirements:
+  - Work and receipt schemas
+  - commands
+  - state transitions
+  - fault-injection results
+  - SHA-256 inventory
+  rollback_or_recovery: Ignore incomplete attempts and resume from the last sealed promoted receipt.
+  failure_reroute: Repair the first stage preparation, sealing, validation, or promotion boundary.
+  closeout_rules:
+  - Serial candidate and deterministic-validation stages use the same transaction contract required
+    by later scheduler lanes
+  goal_ids:
+  - GOAL-AUTONOMY
+  - GOAL-README
+  core_contribution:
+    kind: indispensable_safety
+    summary: Establish the transactional stage boundary required for isolated candidate qualification
+      and safe later repository lanes.
   requirement_ids: []
 - task_id: L8-COMPOSE-01-DECOMPOSE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -3757,7 +3835,7 @@ taskcards:
   - production target repository remotes
   - src/readme_agent/
   dependencies:
-  - L8-COMPOSE-04A-CANDIDATE-FIXTURES
+  - L8-COMPOSE-04B-STAGE-TRANSACTIONS
   expected_outputs:
   - Seven source
   - plan
