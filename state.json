@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+    "claim_expires_at": "2026-07-28T18:57:11.421500+00:00",
+    "claim_id": "d7b4812ce6dc47ba8d93854d690b4f80",
+    "claimed_at": "2026-07-28T18:27:11.421500+00:00",
+    "claimed_by": "codex",
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T18:26:56.977600+00:00",
+    "last_evaluated_at": "2026-07-28T18:27:11.421500+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 7,
@@ -83,7 +83,7 @@
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "CLOSED",
       "L8-COMPOSE-03-OPERATION-COVERAGE": "CLOSED",
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "CLOSED",
-      "L8-COMPOSE-04-PRESENTATION-LINT": "REOPENED",
+      "L8-COMPOSE-04-PRESENTATION-LINT": "IN_PROGRESS",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "CLOSED",
       "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "CLOSED",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "REROUTED",
@@ -3998,6 +3998,15 @@
         "reason": "The real Go representative exposed an agent-fixable presentation-lint failure after the task's prior closure.",
         "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
         "to_status": "REOPENED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REOPENED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T18:27:11.421585+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -4006,7 +4015,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 462,
+  "state_version": 463,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
