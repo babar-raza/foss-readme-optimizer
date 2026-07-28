@@ -1,0 +1,20 @@
+{
+  "competing_example_insert_rejected": true,
+  "competing_example_error": "agentic composition has actionable decisions without bounded operations: ['heading:11:repair']",
+  "stale_claim_span_rejected": true,
+  "stale_claim_span_checks": {
+    "repository_matches": true,
+    "facts_hash_matches": true,
+    "source_hash_matches": true,
+    "candidate_hash_matches": true,
+    "source_inventory_complete": true,
+    "candidate_inventory_complete": true,
+    "claim_ids_unique": true,
+    "claim_spans_exact": false,
+    "corrections_have_operations": true
+  },
+  "missing_accountability_map_rejected": true,
+  "missing_accountability_errors": [
+    "complete inherited/generated claim-accountability map is absent"
+  ]
+}

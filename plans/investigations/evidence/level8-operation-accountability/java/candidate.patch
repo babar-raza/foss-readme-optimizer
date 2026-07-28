@@ -1,0 +1,74 @@
+diff --git a/README.md b/README.md
+index afb99b9..a9a8073 100644
+--- a/README.md
++++ b/README.md
+@@ -1,8 +1,49 @@
+ # Aspose.Cells FOSS for Java
+ 
++[![Maven Central: org.aspose:aspose-cells-foss](https://img.shields.io/maven-central/v/org.aspose/aspose-cells-foss.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/org.aspose/aspose-cells-foss) [![Version: 26.7.0](https://img.shields.io/badge/Version-26.7.0-blue)](https://central.sonatype.com/artifact/org.aspose/aspose-cells-foss) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
++
+ Aspose.Cells FOSS for Java is a Java 17 spreadsheet library for creating, loading, modifying, and saving Excel `.xlsx` workbooks.
+ It exposes a user-facing API in `org.aspose.cells_foss` and keeps OOXML packaging, XML mapping, and XLSX serialization inside this repository.
+ 
++## At a glance
++
++- **For:** Developers using Java.
++- **Problem solved:** Cell values for strings, numbers, booleans, date/time values, and formulas. Defined names.
++- **Verified capabilities:** Cell values for strings, numbers, booleans, date/time values, and formulas. Defined names. Embedded charts with 21 standard chart types.
++- **Verified formats:** Load formats: AUTO, XLSX. Save format: XLSX.
++- **Runtime:** 17
++
++```mermaid
++flowchart LR
++  product["Aspose.Cells FOSS for Java"]
++  audience_1["Developers using Java."]
++  problem_1["Cell values for strings, numbers, booleans, date/time values, and formulas"]
++  capability_1["Cell values for strings, numbers, booleans, date/time values, and formulas"]
++  capability_2["Defined names"]
++  format_1["Load formats: AUTO, XLSX"]
++  format_2["Save format: XLSX"]
++  product --> audience_1
++  product --> problem_1
++  product --> capability_1
++  product --> capability_2
++  product --> format_1
++  product --> format_2
++```
++
++## In this README
++
++- [Installation](#installation)
++- [Current Scope](#current-scope)
++- [Supported Features](#supported-features)
++- [Known Limits](#known-limits)
++- [Build And Test](#build-and-test)
++- [Quick Start](#quick-start)
++- [Project Layout](#project-layout)
++- [Testing Coverage](#testing-coverage)
++- [Notes For Contributors](#notes-for-contributors)
++- [License](#license)
++- [Support](#support)
++
+ ## Installation
+ 
+ Add the following dependency to your `pom.xml`:
+@@ -11,7 +52,7 @@ Add the following dependency to your `pom.xml`:
+ <dependency>
+     <groupId>org.aspose</groupId>
+     <artifactId>aspose-cells-foss</artifactId>
+-    <version>1.0.0</version>
++    <version>26.7.0</version>
+ </dependency>
+ ```
+ 
+@@ -61,6 +102,10 @@ The library stores and round-trips formulas, but it is not a full spreadsheet ca
+ - ChartEx types (Waterfall, Treemap, Sunburst, Histogram, Box and Whisker, Funnel, Map) cannot be created programmatically; they are preserved verbatim across load/save
+ - Some APIs exist mainly to preserve OOXML metadata and package fidelity rather than to provide full Excel feature parity
+ 
++## Repository-verified constraints
++
++- ChartEx types (Waterfall, Treemap, Sunburst, Histogram, BoxAndWhisker, Funnel, Map) cannot be created programmatically; they are preserved verbatim across load/save
++
+ ## Build And Test
+ 
+ Requirements:

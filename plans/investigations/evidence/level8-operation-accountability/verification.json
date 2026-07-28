@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-03-OPERATION-COVERAGE",
+  "control_repository": {
+    "branch": "main",
+    "head": "4308d913e20f296e67c0cb97ec866a0c03cbfe46",
+    "working_tree_clean_at_start": true
+  },
+  "checks": {
+    "control_tree_clean_at_start": true,
+    "source_head_stable": true,
+    "three_real_ecosystems_proven": true,
+    "all_document_candidates_valid": true,
+    "all_accountability_maps_structurally_valid": true,
+    "all_approval_blockers_visible": true,
+    "every_non_preserve_decision_has_operation": true,
+    "immutable_reconstruction_exact": true,
+    "native_patches_apply": true,
+    "competing_example_insert_rejected": true,
+    "stale_claim_span_rejected": true,
+    "missing_accountability_map_rejected": true,
+    "focused_regressions_pass": true,
+    "zero_product_remote_writes": true
+  },
+  "verdict": "VERIFIED",
+  "reproduction_command": ".venv/Scripts/python plans/investigations/tools/build_operation_accountability_evidence.py"
+}

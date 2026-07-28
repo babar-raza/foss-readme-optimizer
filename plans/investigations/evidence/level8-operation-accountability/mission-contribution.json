@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-03-OPERATION-COVERAGE",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Reject any actionable assessment without a candidate-producing source-span operation, account for every material inherited and generated final-candidate claim through an accepted fact, authoritative owner, or explicit uncertainty/correction operation, and independently reconstruct the result."
+  },
+  "acceptance_checks_passed": [
+    "Every non-preserve decision changes or intentionally removes the exact governed span",
+    "Every material preserved claim has explicit truth, ownership, or uncertainty status"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-operation-accountability/verification.json",
+    "plans/investigations/evidence/level8-operation-accountability/python/decision-operation-map.json",
+    "plans/investigations/evidence/level8-operation-accountability/python/complete-claim-accountability-map.json"
+  ],
+  "scoreboard_before_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "scoreboard_after_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

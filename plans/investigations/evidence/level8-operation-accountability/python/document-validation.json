@@ -1,0 +1,28 @@
+{
+  "valid": true,
+  "checks": {
+    "source_document_hash": true,
+    "adoption_preserved_source": true,
+    "candidate_is_marker_free": true,
+    "candidate_has_no_comments": true,
+    "facts_hash_matches": true,
+    "template_hash_matches": true,
+    "candidate_hash_matches": true,
+    "source_span_hashes": true,
+    "fact_citations": true,
+    "document_reconstruction": true,
+    "protected_content": true,
+    "verified_example_present": true,
+    "verified_overview_present": true,
+    "verified_limitations_present": true,
+    "header_visuals": true,
+    "enterprise_edition_terminology": true,
+    "contextual_links": true,
+    "claim_accountability_complete": true,
+    "claim_accountability_gaps_visible": true
+  },
+  "errors": [],
+  "authorized_protected_corrections": [
+    "example:2058cc2a92de5906"
+  ]
+}
