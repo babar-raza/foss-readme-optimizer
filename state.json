@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "d04a940d4a1d9ca42b1b27fd8468500a69a11cab31ac0f7b9abc6418aa925aea",
-    "last_evaluated_at": "2026-07-28T04:52:38.469776+00:00",
+    "last_evaluated_at": "2026-07-28T04:52:49.459596+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -144,7 +144,7 @@
       "L8-TRUTH-03-CLAIM-POLARITY": "REOPENED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
-      "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
+      "L8-TRUTH-05-PUBLIC-EXAMPLES": "REOPENED",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
@@ -2843,6 +2843,18 @@
         "reason": "Real Go FACTS_READY negative control shows all drafted capabilities cite ambiguous README prose instead of positive source implementations; repair the governed selection/gating seam.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "REOPENED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-public-examples/go-verification.json",
+          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Go/f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69/facts/findings.json"
+        ],
+        "from_status": "CLOSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T04:52:49.459591+00:00",
+        "reason": "Real Go FACTS_READY negative control does not consume the already-proven repository-owned complete example and instead repeats malformed agent code; integrate generic verified source-example selection into the canonical path.",
+        "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
+        "to_status": "REOPENED"
       }
     ]
   },
@@ -2851,7 +2863,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 325,
+  "state_version": 326,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
