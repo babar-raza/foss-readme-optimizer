@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+  "verdict": "VERIFIED",
+  "control_repository": {
+    "branch": "main",
+    "head": "dfd573be6aa2bf15381c47d9e6d823a9fb5f0eca",
+    "durable_state_version": 360,
+    "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459"
+  },
+  "aggregate": {
+    "governed_child_count": 15,
+    "closed_child_count": 15,
+    "structured_child_contribution_count": 14,
+    "legacy_stage_limit_proof_count": 1,
+    "supported_ecosystem_count": 7,
+    "facts_ready_scoreboard_count": 8,
+    "portfolio_denominator": 31,
+    "scoreboard_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9"
+  },
+  "child_proof_refs": [
+    "plans/investigations/evidence/local-product-truth-stage-limit-java-representative/sha256sums.txt",
+    "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/mission-contribution.json",
+    "plans/investigations/evidence/level8-llm-call-ledger/mission-contribution.json",
+    "plans/investigations/evidence/level8-prompt-hygiene/mission-contribution.json",
+    "plans/investigations/evidence/level8-package-root-roles/mission-contribution.json",
+    "plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/mission-contribution.json",
+    "plans/investigations/evidence/level8-python-api-truth/mission-contribution.json",
+    "plans/investigations/evidence/level8-typescript-export-truth/mission-contribution.json",
+    "plans/investigations/evidence/level8-rust-api-truth/mission-contribution.json",
+    "plans/investigations/evidence/level8-claim-polarity/mission-contribution.json",
+    "plans/investigations/evidence/level8-isolated-executor/mission-contribution.json",
+    "plans/investigations/evidence/level8-acquisition-truth/mission-contribution.json",
+    "plans/investigations/evidence/level8-public-examples/mission-contribution.json",
+    "plans/investigations/evidence/level8-interpretive-render-views/mission-contribution.json",
+    "plans/investigations/evidence/level8-seven-ecosystem-facts/mission-contribution.json"
+  ],
+  "acceptance_checks": {
+    "false_coordinates_and_unsupported_facts_cannot_reach_candidate": true,
+    "missing_facts_block_only_dependent_claims": true,
+    "visitor_prose_requires_typed_render_view": true,
+    "java_dotnet_python_regression_cases_fail_before_facts_ready": true
+  },
+  "closeout_checks": {
+    "renderer_consumes_verified_merged_fact_graph": true,
+    "seven_representatives_have_useful_render_views_and_public_api_paths": true,
+    "full_registry_preflight_remains_deferred": true,
+    "real_java_dotnet_python_regression_bundles_pass": true,
+    "all_child_proof_refs_exist": true,
+    "all_structured_child_contributions_are_independently_verified": true,
+    "clean_head_seven_ecosystem_campaign_passes_official_checks": true,
+    "no_product_remote_write": true
+  },
+  "campaign_proof": {
+    "path": "plans/investigations/evidence/level8-seven-ecosystem-facts/verification.json",
+    "verdict": "VERIFIED",
+    "focused_test_count": 50,
+    "official_checks_passed": true,
+    "tree_clean_and_stable": true,
+    "provider_calls_on_unchanged_replay": 0,
+    "cache_reuses_on_unchanged_replay": 7
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+  "goal_ids": [
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Produce provenance-complete ProductFactsV2 graphs plus typed visitor-facing render views and public-API-verified examples for every supported ecosystem."
+  },
+  "acceptance_checks_passed": [
+    "False coordinates and unsupported facts cannot reach a candidate.",
+    "Missing facts block only their dependent claims.",
+    "Internal fact representation cannot become visitor-facing prose without an explicit render view.",
+    "The current Java raw-token, .NET missing-namespace, and Python private-API cases fail before FACTS_READY."
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-product-truth-aggregate/verification.json",
+    "plans/investigations/evidence/level8-seven-ecosystem-facts/verification.json",
+    "plans/investigations/evidence/level8-public-examples/verification.json",
+    "plans/investigations/evidence/level8-interpretive-render-views/verification.json"
+  ],
+  "scoreboard_before_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "scoreboard_after_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
