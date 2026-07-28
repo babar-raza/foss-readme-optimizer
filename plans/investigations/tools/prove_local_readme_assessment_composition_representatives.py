@@ -40,13 +40,13 @@ from readme_agent.verification.readme_proposal_bundle import (  # noqa: E402
 )
 
 REPRESENTATIVES = (
-    ("cpp", "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"),
-    ("go", "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go"),
-    ("java", "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"),
-    ("net", "aspose-3d-foss/Aspose.3D-FOSS-for-.NET"),
     ("python", "aspose-3d-foss/Aspose.3D-FOSS-for-Python"),
-    ("rust", "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust"),
+    ("net", "aspose-3d-foss/Aspose.3D-FOSS-for-.NET"),
+    ("java", "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"),
+    ("cpp", "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"),
     ("typescript", "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript"),
+    ("rust", "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust"),
+    ("go", "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go"),
 )
 TRUTH_ROOT = paths.runs_dir() / "level8-local-portfolio-product-truth-verification"
 DEFAULT_OUT_DIR = paths.runs_dir() / "level8-local-readme-assessment-composition-verification"

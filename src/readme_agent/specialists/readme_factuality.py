@@ -103,7 +103,7 @@ def evaluate_candidate_factuality(
             }
             for finding in find_claim_conflicts(final_text, facts_v1)
         ]
-    if find_presentation_span(final_text) is not None:
+    if product_facts_v2 is not None or find_presentation_span(final_text) is not None:
         immutable_source = source_text if source_text is not None else original_text
         identity = current_v2.selected_fact("product.identity")
         source_revision = identity.source.source_revision

@@ -1,0 +1,62 @@
+[
+  {
+    "node_id": "product",
+    "role": "product",
+    "label": "Aspose.PDF FOSS for Go",
+    "fact_ids": [
+      "product.identity:manifest-and-registry"
+    ]
+  },
+  {
+    "node_id": "audience_1",
+    "role": "audience",
+    "label": "Developers using Go.",
+    "fact_ids": [
+      "product.audience:agent-drafted-grounded",
+      "product.identity:manifest-and-registry",
+      "product.platforms:manifest",
+      "installation.coordinates:manifest"
+    ]
+  },
+  {
+    "node_id": "problem_1",
+    "role": "problem",
+    "label": "AcroForm field creation and editing",
+    "fact_ids": [
+      "product.problems_solved:agent-drafted-grounded",
+      "product.capabilities:repository-evidence"
+    ]
+  },
+  {
+    "node_id": "capability_1",
+    "role": "capability",
+    "label": "AcroForm field creation and editing",
+    "fact_ids": [
+      "product.capabilities:repository-evidence"
+    ]
+  },
+  {
+    "node_id": "capability_2",
+    "role": "capability",
+    "label": "Annotation creation and manipulation (16 types)",
+    "fact_ids": [
+      "product.capabilities:repository-evidence"
+    ]
+  },
+  {
+    "node_id": "format_1",
+    "role": "format",
+    "label": "PDF (ISO 32000-1 and ISO 32000-2)",
+    "fact_ids": [
+      "product.formats:repository-evidence"
+    ]
+  },
+  {
+    "node_id": "format_2",
+    "role": "format",
+    "label": "PNG",
+    "fact_ids": [
+      "product.formats:repository-evidence"
+    ]
+  }
+]

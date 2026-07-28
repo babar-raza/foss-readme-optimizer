@@ -101,7 +101,11 @@ def execute(
     if candidate_text is None:
         candidate_text = original_text
 
-    if find_presentation_span(candidate_text) is not None:
+    if (
+        product_facts_v2 is not None
+        or agentic_composition_plan is not None
+        or find_presentation_span(candidate_text) is not None
+    ):
         plan, document_patch_record, executable, document_records = (
             build_document_repository_presentation_plan(
                 org_repo,

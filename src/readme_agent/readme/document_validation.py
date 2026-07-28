@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -18,9 +19,11 @@ from readme_agent.readme.document_renderer import (
     apply_document_operations,
     document_template_hash,
 )
+from readme_agent.readme.header_visual_validation import validate_readme_header_visual
 from readme_agent.readme.markers import find_presentation_span
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
+_HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
 
 
 class DocumentCandidateValidationV1(BaseModel):
@@ -58,6 +61,10 @@ def _accepted(facts: ProductFactsV2, field_name: str):
     return fact
 
 
+def _comment_failures(candidate_text: str) -> list[str]:
+    return ["README contains an HTML comment"] if _HTML_COMMENT.search(candidate_text) else []
+
+
 def validate_readme_document_candidate(
     original_text: str,
     candidate_text: str,
@@ -72,24 +79,27 @@ def validate_readme_document_candidate(
     source_inner = source_span.content if source_span is not None else original_text
     source = source_inner.encode("utf-8")
     candidate_span = find_presentation_span(candidate_text)
+    candidate_inner = candidate_span.content if candidate_span is not None else candidate_text
+    candidate_inner_bytes = candidate_inner.encode("utf-8")
 
     checks["source_document_hash"] = _sha256(original_text) == plan.source_sha256
     checks["adoption_preserved_source"] = (
         _sha256(source) == plan.adoption.source_inner_sha256
         and len(source) == plan.adoption.source_inner_bytes
     )
-    checks["candidate_has_presentation_span"] = candidate_span is not None
-    checks["facts_hash_matches"] = (
-        plan.facts_hash == facts.canonical_hash()
-        and candidate_span is not None
-        and candidate_span.facts_hash == plan.facts_hash
+    checks["candidate_is_marker_free"] = (
+        "<!-- readme-agent:" not in candidate_text and "readme-agent" not in candidate_text
     )
+    comment_failures = _comment_failures(candidate_text)
+    checks["candidate_has_no_comments"] = not comment_failures
+    checks["facts_hash_matches"] = plan.facts_hash == facts.canonical_hash()
     checks["template_hash_matches"] = plan.template_sha256 == document_template_hash()
     checks["candidate_hash_matches"] = _sha256(candidate_text) == plan.candidate_sha256
 
     for name, passed in checks.items():
         if not passed:
             errors.append(f"{name} failed")
+    errors.extend(comment_failures)
 
     citations_valid = True
     span_hashes_valid = True
@@ -115,7 +125,10 @@ def validate_readme_document_candidate(
             if fact.verification_state not in _ACCEPTED_STATES or fact.has_unresolved_conflict:
                 citations_valid = False
                 errors.append(f"{operation.operation_id}: {fact_id} is {fact.verification_state}")
-        if operation.protected_content_treatment == "authoritative_fact_correction":
+        if operation.protected_content_treatment in {
+            "authoritative_fact_correction",
+            "presentation_policy_correction",
+        }:
             authorized_fragment_ids.update(
                 protected_fragment_ids_overlapping_byte_span(
                     source_inner,
@@ -128,27 +141,19 @@ def validate_readme_document_candidate(
     checks["fact_citations"] = citations_valid
 
     reconstructed = apply_document_operations(source, plan.operations)
-    checks["document_reconstruction"] = (
-        candidate_span is not None and reconstructed == candidate_span.content_bytes
-    )
+    checks["document_reconstruction"] = reconstructed == candidate_inner_bytes
     if not checks["document_reconstruction"]:
         errors.append("candidate inner bytes do not reconstruct from the document plan")
 
-    protected = (
-        validate_protected_content(
-            fingerprint_protected_content(source_inner),
-            fingerprint_protected_content(candidate_span.content if candidate_span else ""),
-            require_maintainer_region_unchanged=False,
-        )
-        if candidate_span is not None
-        else None
+    protected = validate_protected_content(
+        fingerprint_protected_content(source_inner),
+        fingerprint_protected_content(candidate_inner),
+        require_maintainer_region_unchanged=False,
     )
-    unauthorized_losses = (
-        [loss for loss in protected.losses if loss.fragment_id not in authorized_fragment_ids]
-        if protected is not None
-        else []
-    )
-    checks["protected_content"] = protected is not None and not unauthorized_losses
+    unauthorized_losses = [
+        loss for loss in protected.losses if loss.fragment_id not in authorized_fragment_ids
+    ]
+    checks["protected_content"] = not unauthorized_losses
     errors.extend(
         f"unauthorized protected-content loss: {loss.fragment_id}" for loss in unauthorized_losses
     )
@@ -157,9 +162,7 @@ def validate_readme_document_candidate(
     example = _accepted(facts, "example.minimal")
     example_value = selected_example.value if isinstance(selected_example.value, dict) else {}
     exact_example = str(example_value.get("code", "")).rstrip()
-    example_is_present = bool(
-        exact_example and candidate_span is not None and exact_example in candidate_span.content
-    )
+    example_is_present = bool(exact_example and exact_example in candidate_inner)
     # A narrowly blocked example may be omitted while unrelated README work
     # continues. It may never be rendered, though: its code is still untrusted
     # even when a candidate operation did not cite the blocked fact ID.
@@ -178,8 +181,8 @@ def validate_readme_document_candidate(
         for field_name in ("product.audience", "product.problems_solved")
         if (view := visitor_fact_render_view(facts, field_name)) is not None
     ]
-    checks["verified_overview_present"] = candidate_span is not None and all(
-        any(phrase.rstrip(".") in candidate_span.content for phrase in view.phrases)
+    checks["verified_overview_present"] = all(
+        any(phrase.rstrip(".") in candidate_inner for phrase in view.phrases)
         for view in overview_views
     )
     if not checks["verified_overview_present"]:
@@ -187,13 +190,31 @@ def validate_readme_document_candidate(
 
     limitations = _accepted(facts, "product.limitations")
     limitation_fragments = _text_fragments(limitations.value) if limitations is not None else []
-    checks["verified_limitations_present"] = candidate_span is not None and (
+    checks["verified_limitations_present"] = (
         limitations is None
         or not limitation_fragments
-        or all(fragment in candidate_span.content for fragment in limitation_fragments)
+        or all(fragment in candidate_inner for fragment in limitation_fragments)
     )
     if not checks["verified_limitations_present"]:
         errors.append("selected verified limitations are absent")
+
+    if plan.header_visuals is not None:
+        header_visuals = validate_readme_header_visual(
+            plan.header_visuals,
+            facts,
+            candidate_text=candidate_text,
+        )
+        checks["header_visuals"] = (
+            header_visuals.valid
+            and plan.header_visuals.mermaid_markdown in candidate_text
+            and candidate_text.count(plan.header_visuals.mermaid_markdown) == 1
+        )
+        errors.extend(header_visuals.errors)
+        if not checks["header_visuals"]:
+            errors.append("fact-backed README header or Mermaid diagram is absent")
+    else:
+        checks["header_visuals"] = False
+        errors.append("fact-backed README header and Mermaid plan is absent")
 
     return DocumentCandidateValidationV1(
         valid=not errors,

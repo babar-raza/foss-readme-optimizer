@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "immutable_base_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+  "facts_hash": "5a93562591720caffc43713bd6dea51abfbb070b6af018c850220392eb997d7d",
+  "template_sha256": "8559692c1d4199b4fd8da57f8619e3e54932afd66f96a86f0b3f58977ff17e33",
+  "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+  "adoption": {
+    "marker_schema_version": null,
+    "metadata_location": "durable_evidence",
+    "already_adopted": false,
+    "source_document_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+    "source_inner_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+    "source_inner_bytes": 6908,
+    "preservation_check": "byte_identical"
+  },
+  "header_visuals": {
+    "schema_version": 1,
+    "title": "Aspose.3D FOSS for Python",
+    "title_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ],
+    "badges": [
+      {
+        "badge_id": "license",
+        "kind": "license",
+        "alt_text": "License: MIT",
+        "image_url": "https://img.shields.io/badge/License-MIT-blue",
+        "target_url": "LICENSE",
+        "fact_ids": [
+          "product.license:license-file"
+        ]
+      }
+    ],
+    "badge_markdown": "[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+    "diagram_nodes": [
+      {
+        "node_id": "product",
+        "role": "product",
+        "label": "Aspose.3D FOSS for Python",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "audience_1",
+        "role": "audience",
+        "label": "Developers using Python.",
+        "fact_ids": [
+          "product.audience:agent-drafted-grounded",
+          "product.platforms:manifest"
+        ]
+      },
+      {
+        "node_id": "problem_1",
+        "role": "problem",
+        "label": "OBJ - Wavefront OBJ with full material support",
+        "fact_ids": [
+          "product.problems_solved:agent-drafted-grounded",
+          "product.formats:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_1",
+        "role": "capability",
+        "label": "3D primitives including Box, Cylinder, Sphere, and Plane",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_2",
+        "role": "capability",
+        "label": "Animation system with keyframe support",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_1",
+        "role": "format",
+        "label": "OBJ - Wavefront OBJ with full material support",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_2",
+        "role": "format",
+        "label": "GLTF - GL Transmission Format (glTF 2.0)",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      }
+    ],
+    "mermaid_source": "flowchart LR\n  product[\"Aspose.3D FOSS for Python\"]\n  audience_1[\"Developers using Python.\"]\n  problem_1[\"OBJ - Wavefront OBJ with full material support\"]\n  capability_1[\"3D primitives including Box, Cylinder, Sphere, and Plane\"]\n  capability_2[\"Animation system with keyframe support\"]\n  format_1[\"OBJ - Wavefront OBJ with full material support\"]\n  format_2[\"GLTF - GL Transmission Format (glTF 2.0)\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2",
+    "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.3D FOSS for Python\"]\n  audience_1[\"Developers using Python.\"]\n  problem_1[\"OBJ - Wavefront OBJ with full material support\"]\n  capability_1[\"3D primitives including Box, Cylinder, Sphere, and Plane\"]\n  capability_2[\"Animation system with keyframe support\"]\n  format_1[\"OBJ - Wavefront OBJ with full material support\"]\n  format_2[\"GLTF - GL Transmission Format (glTF 2.0)\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2\n```"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 669,
+      "source_byte_end": 669,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** Developers using Python.\n- **Problem solved:** OBJ - Wavefront OBJ with full material support. GLTF - GL Transmission Format (glTF 2.0). STL - Stereo Lithography format. 3MF - 3D Manufacturing Format.\n- **Verified capabilities:** 3D primitives including Box, Cylinder, Sphere, and Plane. Animation system with keyframe support. Scene management with hierarchical node structure. File format import and export for OBJ, GLTF, STL, and 3MF.\n- **Verified formats:** OBJ - Wavefront OBJ with full material support. GLTF - GL Transmission Format (glTF 2.0). STL - Stereo Lithography format. 3MF - 3D Manufacturing Format.\n\n```mermaid\nflowchart LR\n  product[\"Aspose.3D FOSS for Python\"]\n  audience_1[\"Developers using Python.\"]\n  problem_1[\"OBJ - Wavefront OBJ with full material support\"]\n  capability_1[\"3D primitives including Box, Cylinder, Sphere, and Plane\"]\n  capability_2[\"Animation system with keyframe support\"]\n  format_1[\"OBJ - Wavefront OBJ with full material support\"]\n  format_2[\"GLTF - GL Transmission Format (glTF 2.0)\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2\n```\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Features](#features)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Supported Formats](#supported-formats)\n- [Python Version Support](#python-version-support)\n- [Format-Specific Features](#format-specific-features)\n- [Architecture](#architecture)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n",
+      "replacement_sha256": "7c98e258b0f73b36881ac992a64d09ec1665abc5d12f7e4faafc189d8f16da45",
+      "fact_ids": [
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.platforms:manifest",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.example.replace-unverified-minimal",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2478,
+      "source_byte_end": 3024,
+      "expected_sha256": "d9682cad1497d65cd09b0db655ad789a5c559795424e2543ca521f771e73d851",
+      "replacement_text": "### Minimal verified example\n\n```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```\n\nThis exact example was compiled against the source build at revision `ab1a2267a0ba6302311d0c7c4ad01494974c7d76`.\n",
+      "replacement_sha256": "164b2c1ec2501a52dc82b7abc7e8b1e6da19d7338c75a978c3b150f95cf7ca9e",
+      "fact_ids": [
+        "example.minimal:agent-drafted-example"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Replace the one existing usage example with the exact minimal example compiled against the verified source build.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.opening.remove-promotional-callout",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 349,
+      "source_byte_end": 669,
+      "expected_sha256": "76ed0afc2e1f6a926975f468eb63e5cb93e22d0150a1d73747e31561802c1f05",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Keep the first screen product-first; the existing relationship section continues to carry restrained commercial context.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 28,
+      "source_byte_end": 28,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+      "replacement_sha256": "1c6695b4496b1508d5f11e2e91d78c7143f40313f6f4943e6e32915a1080b0a0",
+      "fact_ids": [
+        "product.license:license-file"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Add only applicable package, version, download, and license badges.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "7fcc50c9d414453f34f212bb6ee90e944e9f7066688a8f8473a2b5e754c15392"
+}

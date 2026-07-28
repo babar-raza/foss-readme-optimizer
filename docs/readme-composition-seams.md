@@ -18,8 +18,10 @@ The public sequence and returned contracts are:
 
 `tests/unit/test_readme_composition_characterization.py` freezes the exact call signatures and,
 using the committed three-Java ProductFactsV2 proof, the composition-plan, candidate-byte, and
-document-plan hashes for three distinct source shapes. Structural extraction must keep those
-values unchanged.
+document-plan hashes for three distinct source shapes. Structural extraction kept the original
+values unchanged. `L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT` deliberately revised the candidate and
+document-plan hashes after extraction to establish the factual marker-free header and Mermaid
+contract; those revised values are now the regression baseline.
 
 ## Before/after responsibility map
 
@@ -30,6 +32,21 @@ values unchanged.
 | `assessment.py` | Unchanged; source parsing and section classification remain independent. | `ReadmeAssessmentV1` and its canonical hash remain unchanged. |
 | `document_structure.py`, `document_templates.py`, `document_operations.py` | Unchanged shared parsing, deterministic fragment, and bounded-operation seams. | No authoring orchestration moves into deterministic helpers. |
 | `document_validation.py` | Unchanged independent reconstruction and validation. | Authoring never accepts its own output. |
+
+## Marker-free factual header contract
+
+`L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT` stores ownership, fact hashes, and idempotency metadata in
+the durable `ReadmeDocumentPlanV1` rather than HTML comments in the visitor-facing README.
+`markers.find_presentation_span()` remains a legacy migration parser only. Production candidates
+are raw Markdown and are recognized for no-op purposes through their exact factual title, badge
+row, and sanitized Mermaid structure.
+
+Badges are not a universal template. A package or version badge exists only when the selected
+acquisition fact is registry-verified and matches selected manifest/release facts; a license badge
+exists only for the selected verified license. Build, status, download, and documentation badges
+are removed unless a future accepted fact contract explicitly proves them. Every Mermaid node
+cites a selected accepted identity, audience, problem, capability, or format fact, and unsafe
+labels fail closed.
 
 Both extractions are behavior-preserving and bring each responsibility module below the governed
 roughly-300-line threshold. The active task still changes no editorial behavior: the frozen

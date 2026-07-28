@@ -43,10 +43,10 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "60c1314fbbcda45a526af321e9ab225610aa41e069d8f1bbfb32f5c0f4b8f0f7"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "798c942bd40a8773c937e2855d95e72e6d8e57ae8a48dde2f4859de6b79f9215"
+    "f0463f439186ec9206dd143ed6a50892e35cceba67a4accf6447e75fce94b3ad"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "26aaf2532a7804410da44b399c7622a442dedd0956f9784ec3b96f4c867bdefa"
+    "4a17526ce2b96f661ed70a2e0fea3f5d7225787cd7b2bccb9ec538574c606035"
 )
 
 
@@ -203,6 +203,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert [operation.operation_id for operation in document_plan.operations] == [
         "readme.overview-navigation-and-acquisition",
         "readme.limitations.add-verified",
+        "readme.header.badges",
     ]
     assert plan.model == "fixture-author"
     assert plan.attempt_count == 1
@@ -217,7 +218,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert {
         fact_id for sentence in plan.overview_sentences for fact_id in sentence.supporting_fact_ids
     } <= cited_ids
-    assert facts.selected_fact("product.formats").fact_id not in cited_ids
+    assert facts.selected_fact("product.formats").fact_id in cited_ids
     claim_map = build_readme_claim_map(
         document_plan,
         facts,

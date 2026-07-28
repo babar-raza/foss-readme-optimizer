@@ -8,7 +8,7 @@ from pathlib import Path
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
-from readme_agent.readme.markers import find_presentation_span, render_presentation_span
+from readme_agent.readme.markers import find_presentation_span
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 # Corrected 2026-07-24: repointed from level8-local-immutable-snapshot-and-facts-2026-07-24/,
@@ -54,9 +54,13 @@ def _force_source_build_acquisition(facts: ProductFactsV2) -> ProductFactsV2:
     return facts.model_copy(update={"facts": [*other_facts, forced]})
 
 
-def test_presentation_span_preserves_inner_bytes_without_final_newline():
+def test_legacy_presentation_span_preserves_inner_bytes_without_final_newline():
     source = "# Product\n\nExact bytes"
-    candidate = render_presentation_span(source, "a" * 64)
+    candidate = (
+        f'<!-- readme-agent:presentation hash="sha256:{"a" * 64}" '
+        f'schema="3" inner-bytes="{len(source.encode("utf-8"))}" -->\n'
+        f"{source}\n<!-- readme-agent:presentation:end -->\n"
+    )
 
     span = find_presentation_span(candidate)
 
@@ -380,7 +384,8 @@ Existing guidance.
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
     assert decision.valid, decision.errors
-    assert "maven-central" in candidate.lower()
+    assert "central.sonatype.com/artifact/org.aspose/aspose-pdf-foss" in candidate
+    assert "Maven Central: org.aspose:aspose-pdf-foss" in candidate
     assert "**Version 26.6.0**" in candidate
     assert "**Version 26.7**" not in candidate
 
@@ -413,10 +418,8 @@ Existing guidance.
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
     assert decision.valid, decision.errors
-    span = find_presentation_span(candidate)
-    assert span is not None
-    assert not any(line.startswith(">") for line in span.content.splitlines())
-    assert "commercial edition has broader format support" in span.content
+    assert not any(line.startswith(">") for line in candidate.splitlines())
+    assert "commercial edition has broader format support" in candidate
 
 
 def test_identical_candidate_rerender_has_no_document_operations():
@@ -431,6 +434,7 @@ def test_identical_candidate_rerender_has_no_document_operations():
 
     assert rerendered == candidate
     assert rerun_plan.adoption.already_adopted is True
+    assert rerun_plan.adoption.metadata_location == "durable_evidence"
     assert rerun_plan.operations == []
 
 

@@ -15,6 +15,7 @@ from readme_agent.readme.document_templates import (
     overview_text,
 )
 from readme_agent.readme.fact_grounding import literal_fact_ids
+from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
 
 _PROMOTIONAL_CALLOUT = re.compile(
     r"(?m)^>[^\n]*(?:products\.aspose\.org)[^\n]*(?:products\.aspose\.com)[^\n]*\n(?:\n)?",
@@ -25,6 +26,7 @@ _PROMOTIONAL_CALLOUT = re.compile(
 def build_opening_operations(
     context: DocumentRenderContext,
     agentic_plan: ReadmeAgenticCompositionPlanV1 | None,
+    visual_plan: ReadmeHeaderVisualV1,
 ) -> list[ReadmeDocumentOperationV1]:
     """Add missing overview, acquisition, and minimal-example sections as one operation."""
 
@@ -61,6 +63,7 @@ def build_opening_operations(
                 if agentic_plan is not None
                 else None
             ),
+            visual_plan.mermaid_markdown,
         )
         overview_insert = rendered_overview + "\n\n"
         if agentic_plan is not None:
@@ -73,6 +76,9 @@ def build_opening_operations(
             overview_fact_ids.extend(
                 literal_fact_ids(rendered_overview, context.facts, overview_fact_candidates)
             )
+        overview_fact_ids.extend(
+            fact_id for node in visual_plan.diagram_nodes for fact_id in node.fact_ids
+        )
     if installation is None and verified_installation:
         overview_insert += "## Installation\n\n" + verified_installation + "\n\n"
         derived_installation_fact_ids.extend(

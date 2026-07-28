@@ -1,0 +1,84 @@
+diff --git a/README.md b/README.md
+index f26e11a..0d353b9 100644
+--- a/README.md
++++ b/README.md
+@@ -1,8 +1,45 @@
+ # Aspose.3D FOSS for .NET
+ 
++[![NuGet: Aspose.3d.FOSS](https://img.shields.io/nuget/v/Aspose.3d.FOSS.svg?label=NuGet)](https://www.nuget.org/packages/Aspose.3d.FOSS) [![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://www.nuget.org/packages/Aspose.3d.FOSS) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
++
+ A free and open-source implementation of Aspose.3D for .NET, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in .NET, supporting common formats such as OBJ, STL, FBX, and glTF.
+ 
+-> 🏠 **Aspose.3D FOSS** lives on [aspose.org](https://products.aspose.org/3d/net/) — Aspose's home for free, open-source file-format libraries. The full commercial edition, [Aspose.3D for .NET](https://products.aspose.com/3d/net/), is available on [aspose.com](https://products.aspose.com/3d).
++## At a glance
++
++- **For:** Developers using .NET.
++- **Problem solved:** Scene graph management. FileFormat-based format detection. Scene save to file. Open file format loader.
++- **Verified capabilities:** Scene graph management. FileFormat-based format detection. Scene save to file. Open file format loader. Node hierarchy management. Entity rendering support.
++- **Verified formats:** FBX.
++- **Runtime:** netcoreapp3.1
++- **Current verified limitation:** License management APIs not available.
++
++```mermaid
++flowchart LR
++  product["Aspose.3D FOSS for .NET"]
++  audience_1["Developers using .NET."]
++  problem_1["Scene graph management"]
++  capability_1["Scene graph management"]
++  capability_2["FileFormat-based format detection"]
++  format_1["FBX"]
++  product --> audience_1
++  product --> problem_1
++  product --> capability_1
++  product --> capability_2
++  product --> format_1
++```
++
++## In this README
++
++- [About Aspose.3D FOSS](#about-aspose3d-foss)
++- [Status](#status)
++- [Limitations](#limitations)
++- [Installation](#installation)
++- [Quick Start](#quick-start)
++- [Documentation & Resources](#documentation-resources)
++- [Contributing](#contributing)
++- [License](#license)
++- [Resources](#resources)
++- [Acknowledgments](#acknowledgments)
+ 
+ ## About Aspose.3D FOSS
+ 
+@@ -33,6 +70,10 @@ Some advanced features are not available in this FOSS version:
+ 
+ For the full feature set, consider the [commercial Aspose.3D for .NET On-Premise API](https://products.aspose.com/3d/net/).
+ 
++## Repository-verified constraints
++
++- License management APIs not available
++
+ ## Installation
+ 
+ ```bash
+@@ -41,16 +82,14 @@ dotnet add package Aspose.3D.FOSS
+ 
+ ## Quick Start
+ 
+-```csharp
+-using Aspose.ThreeD;
++### Minimal verified example
+ 
+-// Create a new scene
+-var scene = new Scene();
+-
+-// Save to OBJ format
+-scene.Save("output.obj");
++```dotnet
++using Aspose.ThreeD; var scene = new Scene(); scene.Save(System.IO.Path.GetTempFileName());
+ ```
+ 
++This exact example was compiled against the source build at revision `6a209e8fc3dfc305df39a417037e32a4d4c7b2be`.
++
+ ## Documentation & Resources
+ 
+ See [AGENTS.md](AGENTS.md) for implementation status and development guidelines.

@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
+  "scope": "header-badge-mermaid-contract-only",
+  "portfolio_acceptance": "NOT_GATE_A",
+  "known_downstream_requirements": [
+    "L8-023",
+    "L8-024",
+    "L8-026"
+  ],
+  "configured_order": [
+    "python",
+    "net",
+    "java",
+    "cpp",
+    "typescript",
+    "rust",
+    "go"
+  ],
+  "source_branch": "main",
+  "source_head": "9889349117a4c1079d74a95815a2c6acda603706",
+  "control_tree_status_at_start": "M docs/architecture.md\n M docs/readme-composition-seams.md\n M plans/investigations/control/level8-autonomous-mission-task-graph.yaml\n M plans/investigations/tools/prove_local_readme_assessment_composition_representatives.py\n M src/readme_agent/capabilities/build_presentation_plan.py\n M src/readme_agent/readme/document_limitations.py\n M src/readme_agent/readme/document_opening.py\n M src/readme_agent/readme/document_plan.py\n M src/readme_agent/readme/document_renderer.py\n M src/readme_agent/readme/document_templates.py\n M src/readme_agent/readme/document_validation.py\n M src/readme_agent/readme/markers.py\n M src/readme_agent/specialists/readme_factuality.py\n M src/readme_agent/verification/checks.py\n M templates/readme/product-overview-and-navigation.md\n M tests/unit/test_agentic_readme_composition.py\n M tests/unit/test_readme_composition_characterization.py\n M tests/unit/test_readme_document_plan.py\n M tests/unit/test_readme_factuality.py\n?? plans/investigations/evidence/level8-readme-header-visual-contract/acceptance-manifest.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/evidence-verification.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/focused-tests.txt\n?? plans/investigations/evidence/level8-readme-header-visual-contract/reference-rationale.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/candidate-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/document-validation.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/fact-to-badge-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/fact-to-node-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/mermaid-parse.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/no-op-proof.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/original-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/product-facts-v2.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/proposal.patch\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/readme-document-plan-v1.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/candidate-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/document-validation.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/fact-to-badge-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/fact-to-node-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/mermaid-parse.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/no-op-proof.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/original-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/product-facts-v2.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/proposal.patch\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/readme-document-plan-v1.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/candidate-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/document-validation.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/fact-to-badge-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/fact-to-node-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/mermaid-parse.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/no-op-proof.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/original-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/product-facts-v2.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/proposal.patch\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/readme-document-plan-v1.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/candidate-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/document-validation.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/fact-to-badge-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/fact-to-node-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/mermaid-parse.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/no-op-proof.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/original-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/product-facts-v2.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/proposal.patch\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/readme-document-plan-v1.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/candidate-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/document-validation.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/fact-to-badge-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/fact-to-node-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/mermaid-parse.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/no-op-proof.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/original-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/product-facts-v2.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/proposal.patch\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/readme-document-plan-v1.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/candidate-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/document-validation.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/fact-to-badge-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/fact-to-node-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/mermaid-parse.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/no-op-proof.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/original-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/product-facts-v2.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/proposal.patch\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/readme-document-plan-v1.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/candidate-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/document-validation.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/fact-to-badge-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/fact-to-node-map.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/mermaid-parse.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/no-op-proof.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/original-readme.md\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/product-facts-v2.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/proposal.patch\n?? plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/readme-document-plan-v1.json\n?? plans/investigations/evidence/level8-readme-header-visual-contract/reproduction.txt\n?? plans/investigations/evidence/level8-readme-header-visual-contract/sha256sums.txt\n?? plans/investigations/tools/build_readme_header_visual_evidence.py\n?? src/readme_agent/readme/document_header_visual.py\n?? src/readme_agent/readme/header_badges.py\n?? src/readme_agent/readme/header_visual.py\n?? src/readme_agent/readme/header_visual_models.py\n?? src/readme_agent/readme/header_visual_validation.py\n?? tests/unit/test_readme_header_visual.py",
+  "representatives": [
+    {
+      "ecosystem": "python",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+      "candidate_sha256": "7fcc50c9d414453f34f212bb6ee90e944e9f7066688a8f8473a2b5e754c15392",
+      "patch_sha256": "62afdc7087aefe0f1d9ed702617d7a87971d4112179ca871c2713533fece6686",
+      "badge_kinds": [
+        "license"
+      ],
+      "badge_fact_ids": [
+        "product.license:license-file"
+      ],
+      "diagram_fact_ids": [
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.platforms:manifest",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "mermaid_node_count": 7,
+      "marker_free": true,
+      "validation_valid": true,
+      "git_apply_check_passed": true,
+      "no_op_proven": true
+    },
+    {
+      "ecosystem": "net",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "source_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+      "candidate_sha256": "60dde75a62fb49325aa17540cf8cec8ddcd1dc6539c0bcd8cf5f12da865168ff",
+      "patch_sha256": "03f9d37a0956e988266fb1b8cf2ec8e18dac82c772cfce15b5210702a227c96e",
+      "badge_kinds": [
+        "package",
+        "version",
+        "license"
+      ],
+      "badge_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-nuget",
+        "product.license:license-file",
+        "release.state:manifest-and-registry"
+      ],
+      "diagram_fact_ids": [
+        "installation.coordinates:manifest",
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.platforms:manifest",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "mermaid_node_count": 6,
+      "marker_free": true,
+      "validation_valid": true,
+      "git_apply_check_passed": true,
+      "no_op_proven": true
+    },
+    {
+      "ecosystem": "java",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+      "candidate_sha256": "603632871ce85257a271fab7de1abe0403329be7b755622a5b294a00c58023c4",
+      "patch_sha256": "9feb5e89056f870854329c3126462603664dd789d54a92530d73c2f000aa1a88",
+      "badge_kinds": [
+        "package",
+        "version",
+        "license"
+      ],
+      "badge_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-maven_central",
+        "product.license:license-file",
+        "release.state:manifest-and-registry"
+      ],
+      "diagram_fact_ids": [
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "mermaid_node_count": 7,
+      "marker_free": true,
+      "validation_valid": true,
+      "git_apply_check_passed": true,
+      "no_op_proven": true
+    },
+    {
+      "ecosystem": "cpp",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+      "candidate_sha256": "3684006bd930e533ccad41ed372e3926fbe482c7c15b3260a35f785acb4ffedc",
+      "patch_sha256": "2fb5a5348fef84b80c4c57f87baccfbdd612206b31fd64ecf812769948df6e0e",
+      "badge_kinds": [
+        "package",
+        "license"
+      ],
+      "badge_fact_ids": [
+        "installation.verified_acquisition:registry-nuget",
+        "product.license:license-file"
+      ],
+      "diagram_fact_ids": [
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "mermaid_node_count": 6,
+      "marker_free": true,
+      "validation_valid": true,
+      "git_apply_check_passed": true,
+      "no_op_proven": true
+    },
+    {
+      "ecosystem": "typescript",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+      "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+      "source_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+      "candidate_sha256": "c500b1db5127e064db7d2fd1e143825fb3ab3c704ab432a729a0c4ca8b78499a",
+      "patch_sha256": "a1a84535d375b18f51665a2d44210ee0f3e9cb8d99c2c1d604412a1a1fb278fd",
+      "badge_kinds": [
+        "license"
+      ],
+      "badge_fact_ids": [
+        "product.license:manifest"
+      ],
+      "diagram_fact_ids": [
+        "installation.coordinates:manifest",
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.platforms:manifest",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "mermaid_node_count": 7,
+      "marker_free": true,
+      "validation_valid": true,
+      "git_apply_check_passed": true,
+      "no_op_proven": true
+    },
+    {
+      "ecosystem": "rust",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+      "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+      "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+      "candidate_sha256": "33c3aba1051d78edf9b303011d444ebddb69d8a66a9f3f28ae5c0fda07b413bb",
+      "patch_sha256": "dd60f00d08ac449d7c05dafc12997d17041da81f11af818d9ab25f5e0ec82b60",
+      "badge_kinds": [
+        "license"
+      ],
+      "badge_fact_ids": [
+        "product.license:license-file"
+      ],
+      "diagram_fact_ids": [
+        "installation.coordinates:manifest",
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.platforms:manifest",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "mermaid_node_count": 6,
+      "marker_free": true,
+      "validation_valid": true,
+      "git_apply_check_passed": true,
+      "no_op_proven": true
+    },
+    {
+      "ecosystem": "go",
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "source_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+      "candidate_sha256": "a0f2d488444f1c26d35903bc484119295856ff7d527474c696bc720c5bac3978",
+      "patch_sha256": "5163d21542634d90854412dbf452591b1ad958273610de4415285d461cde2553",
+      "badge_kinds": [
+        "package",
+        "license"
+      ],
+      "badge_fact_ids": [
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.license:license-file"
+      ],
+      "diagram_fact_ids": [
+        "installation.coordinates:manifest",
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.platforms:manifest",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "mermaid_node_count": 7,
+      "marker_free": true,
+      "validation_valid": true,
+      "git_apply_check_passed": true,
+      "no_op_proven": true
+    }
+  ],
+  "checks": {
+    "configured_order_exact": true,
+    "seven_representatives": true,
+    "all_marker_free": true,
+    "all_valid": true,
+    "all_native_patches_apply": true,
+    "all_no_op_proven": true,
+    "focused_regressions_pass": true,
+    "source_head_stable": true,
+    "control_tree_clean_at_start": false,
+    "zero_remote_writes": true,
+    "zero_llm_calls": true
+  },
+  "focused_tests": {
+    "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_readme_header_visual.py tests/unit/test_readme_document_plan.py tests/unit/test_agentic_readme_composition.py tests/unit/test_readme_composition_characterization.py tests/unit/test_readme_factuality.py tests/unit/test_readme_proposal_bundle_verifier.py tests/unit/test_build_presentation_plan_capability.py tests/unit/test_protected_content.py tests/unit/test_verification_checks.py tests/unit/test_supervise_readme_proposal_review_integration.py",
+    "exit_code": 0
+  },
+  "reproduction_command": ".venv/Scripts/python plans/investigations/tools/build_readme_header_visual_evidence.py"
+}

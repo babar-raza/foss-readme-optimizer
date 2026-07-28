@@ -1,0 +1,86 @@
+diff --git a/README.md b/README.md
+index c952868..375a968 100644
+--- a/README.md
++++ b/README.md
+@@ -1,8 +1,47 @@
+ # Aspose.3D FOSS for Python
+ 
++[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
++
+ A powerful, free, and open-source 3D file format library for Python. Aspose.3D FOSS for Python enables developers to create, manipulate, and convert 3D scenes and models programmatically. It supports popular 3D file formats including OBJ, STL, glTF, 3MF, and more, and is released under the permissive **MIT License**.
+ 
+-> 🏠 **Aspose.3D FOSS** lives on [aspose.org](https://products.aspose.org/3d/python/) — Aspose's home for free, open-source file-format libraries. The full commercial edition, [Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/), is available on [aspose.com](https://products.aspose.com/3d).
++## At a glance
++
++- **For:** Developers using Python.
++- **Problem solved:** OBJ - Wavefront OBJ with full material support. GLTF - GL Transmission Format (glTF 2.0). STL - Stereo Lithography format. 3MF - 3D Manufacturing Format.
++- **Verified capabilities:** 3D primitives including Box, Cylinder, Sphere, and Plane. Animation system with keyframe support. Scene management with hierarchical node structure. File format import and export for OBJ, GLTF, STL, and 3MF.
++- **Verified formats:** OBJ - Wavefront OBJ with full material support. GLTF - GL Transmission Format (glTF 2.0). STL - Stereo Lithography format. 3MF - 3D Manufacturing Format.
++
++```mermaid
++flowchart LR
++  product["Aspose.3D FOSS for Python"]
++  audience_1["Developers using Python."]
++  problem_1["OBJ - Wavefront OBJ with full material support"]
++  capability_1["3D primitives including Box, Cylinder, Sphere, and Plane"]
++  capability_2["Animation system with keyframe support"]
++  format_1["OBJ - Wavefront OBJ with full material support"]
++  format_2["GLTF - GL Transmission Format (glTF 2.0)"]
++  product --> audience_1
++  product --> problem_1
++  product --> capability_1
++  product --> capability_2
++  product --> format_1
++  product --> format_2
++```
++
++## In this README
++
++- [About Aspose.3D FOSS](#about-aspose3d-foss)
++- [Features](#features)
++- [Installation](#installation)
++- [Quick Start](#quick-start)
++- [Supported Formats](#supported-formats)
++- [Python Version Support](#python-version-support)
++- [Format-Specific Features](#format-specific-features)
++- [Architecture](#architecture)
++- [Contributing](#contributing)
++- [License](#license)
++- [Resources](#resources)
++- [Acknowledgments](#acknowledgments)
+ 
+ ## About Aspose.3D FOSS
+ 
+@@ -49,28 +88,16 @@ pip install aspose-3d-foss
+ 
+ ## Quick Start
+ 
++### Minimal verified example
++
+ ```python
+ from aspose.threed import Scene
+-from aspose.threed.formats.obj import ObjLoadOptions
+ 
+-# Create a new scene
+ scene = Scene()
+-
+-# Import an OBJ file
+-options = ObjLoadOptions()
+-options.enable_materials = True
+-options.flip_coordinate_system = False
+-scene.open("model.obj", options)
+-
+-# Access imported data
+-for node in scene.root_node.child_nodes:
+-    if node.entity:
+-        mesh = node.entity
+-        print(f"Mesh: {node.name}")
+-        print(f"  Vertices: {len(mesh.control_points)}")
+-        print(f"  Polygons: {mesh.polygon_count}")
+ ```
+ 
++This exact example was compiled against the source build at revision `ab1a2267a0ba6302311d0c7c4ad01494974c7d76`.
++
+ ## Supported Formats
+ 
+ ### Import (Implemented)

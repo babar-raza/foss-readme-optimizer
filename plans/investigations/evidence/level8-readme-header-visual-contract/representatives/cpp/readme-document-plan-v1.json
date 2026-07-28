@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "immutable_base_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+  "facts_hash": "645a852f41606d8d8b0bf478c76146729395d393d282f7570ea22f9af317b13f",
+  "template_sha256": "8559692c1d4199b4fd8da57f8619e3e54932afd66f96a86f0b3f58977ff17e33",
+  "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+  "adoption": {
+    "marker_schema_version": null,
+    "metadata_location": "durable_evidence",
+    "already_adopted": false,
+    "source_document_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+    "source_inner_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+    "source_inner_bytes": 2396,
+    "preservation_check": "byte_identical"
+  },
+  "header_visuals": {
+    "schema_version": 1,
+    "title": "Aspose.Cells FOSS for C++",
+    "title_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ],
+    "badges": [
+      {
+        "badge_id": "package",
+        "kind": "package",
+        "alt_text": "NuGet: Aspose.cells.Cpp.FOSS",
+        "image_url": "https://img.shields.io/nuget/v/Aspose.cells.Cpp.FOSS.svg?label=NuGet",
+        "target_url": "https://www.nuget.org/packages/Aspose.cells.Cpp.FOSS",
+        "fact_ids": [
+          "installation.verified_acquisition:registry-nuget"
+        ]
+      },
+      {
+        "badge_id": "license",
+        "kind": "license",
+        "alt_text": "License: MIT",
+        "image_url": "https://img.shields.io/badge/License-MIT-blue",
+        "target_url": "LICENSE",
+        "fact_ids": [
+          "product.license:license-file"
+        ]
+      }
+    ],
+    "badge_markdown": "[![NuGet: Aspose.cells.Cpp.FOSS](https://img.shields.io/nuget/v/Aspose.cells.Cpp.FOSS.svg?label=NuGet)](https://www.nuget.org/packages/Aspose.cells.Cpp.FOSS) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+    "diagram_nodes": [
+      {
+        "node_id": "product",
+        "role": "product",
+        "label": "Aspose.Cells FOSS for C++",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "audience_1",
+        "role": "audience",
+        "label": "Developers using C++.",
+        "fact_ids": [
+          "product.audience:agent-drafted-grounded",
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "problem_1",
+        "role": "problem",
+        "label": "Workbook and worksheet management",
+        "fact_ids": [
+          "product.problems_solved:agent-drafted-grounded",
+          "product.capabilities:repository-evidence",
+          "product.formats:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_1",
+        "role": "capability",
+        "label": "Workbook and worksheet management",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_2",
+        "role": "capability",
+        "label": "Style model (font, fill, borders, alignment, number formats)",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_1",
+        "role": "format",
+        "label": ".xlsx",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      }
+    ],
+    "mermaid_source": "flowchart LR\n  product[\"Aspose.Cells FOSS for C++\"]\n  audience_1[\"Developers using C++.\"]\n  problem_1[\"Workbook and worksheet management\"]\n  capability_1[\"Workbook and worksheet management\"]\n  capability_2[\"Style model (font, fill, borders, alignment, number formats)\"]\n  format_1[\".xlsx\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1",
+    "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.Cells FOSS for C++\"]\n  audience_1[\"Developers using C++.\"]\n  problem_1[\"Workbook and worksheet management\"]\n  capability_1[\"Workbook and worksheet management\"]\n  capability_2[\"Style model (font, fill, borders, alignment, number formats)\"]\n  format_1[\".xlsx\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 180,
+      "source_byte_end": 180,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** Developers using C++.\n- **Problem solved:** Workbook and worksheet management. Style model (font, fill, borders, alignment, number formats).\n- **Verified capabilities:** Workbook and worksheet management. Style model (font, fill, borders, alignment, number formats). .xlsx load/save from file paths and streams. Cell values, formulas, merges, and number formats. Conditional formatting, data validation, hyperlinks, names, comments.\n- **Verified formats:** .xlsx.\n- **Runtime:** 3.16\n\n```mermaid\nflowchart LR\n  product[\"Aspose.Cells FOSS for C++\"]\n  audience_1[\"Developers using C++.\"]\n  problem_1[\"Workbook and worksheet management\"]\n  capability_1[\"Workbook and worksheet management\"]\n  capability_2[\"Style model (font, fill, borders, alignment, number formats)\"]\n  format_1[\".xlsx\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```\n\n## In this README\n\n- [Highlights](#highlights)\n- [How to build](#how-to-build)\n- [Quick Start](#quick-start)\n- [Supported Areas](#supported-areas)\n- [License](#license)\n- [Support](#support)\n\n## Installation\n\nInstall the package published for this repository:\n\n```bash\nnuget install Aspose.cells.Cpp.FOSS\n```\n\nThe package was verified against NuGet.\n\n",
+      "replacement_sha256": "e29885661210df2e2dae7579f09ceac5d9d28c7e90fabe35396f1a7c4984d006",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-nuget",
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 28,
+      "source_byte_end": 28,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n[![NuGet: Aspose.cells.Cpp.FOSS](https://img.shields.io/nuget/v/Aspose.cells.Cpp.FOSS.svg?label=NuGet)](https://www.nuget.org/packages/Aspose.cells.Cpp.FOSS) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+      "replacement_sha256": "2a0a3e91c22e6d68874a7ac7932266598c7fd05798a999e231a9ead0c4f18f71",
+      "fact_ids": [
+        "installation.verified_acquisition:registry-nuget",
+        "product.license:license-file"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Add only applicable package, version, download, and license badges.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "3684006bd930e533ccad41ed372e3926fbe482c7c15b3260a35f785acb4ffedc"
+}

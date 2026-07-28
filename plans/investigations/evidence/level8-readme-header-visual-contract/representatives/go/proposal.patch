@@ -1,0 +1,127 @@
+diff --git a/README.md b/README.md
+index 89f3ec0..cab3137 100644
+--- a/README.md
++++ b/README.md
+@@ -1,15 +1,56 @@
+ # Aspose.PDF FOSS for Go
+ 
+-[![test](https://github.com/aspose-pdf-foss/aspose-pdf-foss-for-go/actions/workflows/test.yml/badge.svg)](https://github.com/aspose-pdf-foss/aspose-pdf-foss-for-go/actions/workflows/test.yml)
+-[![lint](https://github.com/aspose-pdf-foss/aspose-pdf-foss-for-go/actions/workflows/lint.yml/badge.svg)](https://github.com/aspose-pdf-foss/aspose-pdf-foss-for-go/actions/workflows/lint.yml)
+-[![Go Reference](https://pkg.go.dev/badge/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.svg)](https://pkg.go.dev/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go)
+-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+-[![Go Version](https://img.shields.io/badge/go-1.24+-00ADD8?logo=go)](https://go.dev/dl/)
++[![Go Reference: github.com/aspose-pdf-foss/aspose-pdf-foss-for-go](https://pkg.go.dev/badge/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.svg)](https://pkg.go.dev/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
+ 
+ A **pure Go PDF library** — **no CGo, no native libraries, no external dependencies** (standard library only), MIT-licensed. Create, edit, render, sign, encrypt, convert, and validate PDF documents: split/merge/extract pages, extract and search text, fill and build AcroForms, draw text/vector graphics/tables, embed and subset fonts, apply digital signatures (PKCS#7, PAdES, timestamps), validate and convert PDF/A, author accessible Tagged PDF, and render pages to images (PNG/JPEG/GIF/BMP, multi-page TIFF) with a built-in dependency-free rasterizer. Convert **Markdown ⇄ PDF** (652/652 official CommonMark suite), export **PDF → HTML** (with fillable forms), **PDF → SVG**, **PDF → Markdown**, and place **SVG** or images onto pages. The `ai` subpackage adds AI copilots — summarization, OCR with a searchable-PDF pipeline, document Q&A — over any OpenAI-compatible endpoint.
+ 
+ Spec references throughout follow ISO 32000-1 (PDF 1.7) and ISO 32000-2 (PDF 2.0). The API shape mirrors Aspose.PDF for .NET where natural, so concepts transfer directly for migrants. Not to be confused with `aspose-pdf-go-cpp` (a CGo wrapper around a native library) — this project is 100% Go source, `go get` and cross-compile anywhere.
+ 
++## At a glance
++
++- **For:** Developers using Go.
++- **Problem solved:** AcroForm field creation and editing. Annotation creation and manipulation (16 types). Text rendering and extraction. Markdown to PDF conversion.
++- **Verified capabilities:** AcroForm field creation and editing. Annotation creation and manipulation (16 types). Text rendering and extraction. Image embedding and rendering. Font embedding and subsetting. Markdown to PDF conversion. PDF to Markdown conversion.
++- **Verified formats:** PDF (ISO 32000-1 and ISO 32000-2). PNG. JPEG. GIF. BMP. Multi-page TIFF. SVG. Markdown.
++- **Runtime:** Go 1.24+
++
++```mermaid
++flowchart LR
++  product["Aspose.PDF FOSS for Go"]
++  audience_1["Developers using Go."]
++  problem_1["AcroForm field creation and editing"]
++  capability_1["AcroForm field creation and editing"]
++  capability_2["Annotation creation and manipulation (16 types)"]
++  format_1["PDF (ISO 32000-1 and ISO 32000-2)"]
++  format_2["PNG"]
++  product --> audience_1
++  product --> problem_1
++  product --> capability_1
++  product --> capability_2
++  product --> format_1
++  product --> format_2
++```
++
++## In this README
++
++- [Install](#install)
++- [Quick Start](#quick-start)
++- [Feature Showcase](#feature-showcase)
++- [Features](#features)
++- [API Reference](#api-reference)
++- [License](#license)
++- [Product Page](#product-page)
++
++## Installation
++
++Add the module published for this repository:
++
++```bash
++go get github.com/aspose-pdf-foss/aspose-pdf-foss-for-go@latest
++```
++
++The module was verified through the Go module proxy.
++
+ ## Install
+ 
+ ```bash
+@@ -20,24 +61,48 @@ Requires Go 1.24 or newer. Standard library only — no transitive dependencies.
+ 
+ ## Quick Start
+ 
++### Minimal verified example
++
+ ```go
+-import pdf "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go"
++package main
+ 
+-// Open a PDF
+-doc, err := pdf.Open("input.pdf")
++import (
++	"flag"
++	"fmt"
++	"os"
++	"path/filepath"
++	"strings"
+ 
+-// Split into individual page documents
+-pages, err := doc.Split()
+-for i, p := range pages {
+-    p.Save(fmt.Sprintf("page%03d.pdf", i+1))
+-}
++	pdf "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go"
++)
+ 
+-// Merge multiple PDFs into one (Append mutates doc in place)
+-doc2, _ := pdf.Open("file2.pdf")
+-doc.Append(doc2)
+-doc.Save("merged.pdf")
++func main() {
++	embed := flag.Bool("embed", false, "embed images as data: URLs")
++	noImages := flag.Bool("no-images", false, "skip images")
++	flag.Parse()
++	if flag.NArg() != 1 {
++		fmt.Fprintln(os.Stderr, "usage: pdf_to_markdown [-embed|-no-images] <input.pdf>")
++		os.Exit(2)
++	}
++	doc, err := pdf.Open(flag.Arg(0))
++	if err != nil {
++		fmt.Fprintln(os.Stderr, "open:", err)
++		os.Exit(1)
++	}
++	stem := strings.TrimSuffix(filepath.Base(flag.Arg(0)), filepath.Ext(flag.Arg(0)))
++	outDir := filepath.Join("result_files", "markdown")
++	_ = os.MkdirAll(outDir, 0o755)
++	out := filepath.Join(outDir, stem+".md")
++	if err := doc.SaveMarkdown(out, pdf.MarkdownSaveOptions{EmbedImages: *embed, NoImages: *noImages}); err != nil {
++		fmt.Fprintln(os.Stderr, "convert:", err)
++		os.Exit(1)
++	}
++	fmt.Printf("%s: %d page(s)\n", out, doc.PageCount())
++}
+ ```
+ 
++This exact example was compiled against the source build at revision `f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69`.
++
+ See [`_examples/`](_examples/) for full runnable programs covering text, forms, annotations, tables, vector graphics, SVG, and the end-to-end `feature_showcase` demo. Short focused API snippets also appear under "Examples" on [pkg.go.dev](https://pkg.go.dev/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go).
+ 
+ ## Feature Showcase

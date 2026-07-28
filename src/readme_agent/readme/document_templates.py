@@ -238,6 +238,7 @@ def overview_text(
     facts: ProductFactsV2,
     headings: list[Heading],
     agentic_overview_sentences: list[dict] | None = None,
+    mermaid_markdown: str | None = None,
 ) -> str:
     compatibility = accepted_fact(facts, "product.compatibility")
     compatibility_value = mapping_value(compatibility.value) if compatibility else {}
@@ -266,11 +267,15 @@ def overview_text(
                 formats=selected.get("product.formats", _OMIT_LINE),
                 minimum_runtime=selected.get("product.compatibility", _OMIT_LINE),
                 limitations=selected.get("product.limitations", _OMIT_LINE),
+                mermaid=mermaid_markdown or _OMIT_LINE,
                 navigation=navigation or "- Continue with the repository guidance below.",
             )
             .strip()
         )
-        return "\n".join(line for line in rendered.splitlines() if _OMIT_LINE not in line).strip()
+        rendered = "\n".join(
+            line for line in rendered.splitlines() if _OMIT_LINE not in line
+        ).strip()
+        return rendered
     rendered = (
         load_template("product-overview-and-navigation.md")
         .format(
@@ -284,8 +289,10 @@ def overview_text(
                 else _OMIT_LINE
             ),
             limitations=visitor_text(facts, "product.limitations") or _OMIT_LINE,
+            mermaid=mermaid_markdown or _OMIT_LINE,
             navigation=navigation or "- Continue with the repository guidance below.",
         )
         .strip()
     )
-    return "\n".join(line for line in rendered.splitlines() if _OMIT_LINE not in line).strip()
+    rendered = "\n".join(line for line in rendered.splitlines() if _OMIT_LINE not in line).strip()
+    return rendered

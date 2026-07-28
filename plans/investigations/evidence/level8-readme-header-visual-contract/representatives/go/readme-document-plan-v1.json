@@ -1,0 +1,335 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "immutable_base_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+  "facts_hash": "f68f579d744784ed3db2c8b3429be4513e841d1d4d5d6bea2021619f36bb48ea",
+  "template_sha256": "8559692c1d4199b4fd8da57f8619e3e54932afd66f96a86f0b3f58977ff17e33",
+  "source_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+  "adoption": {
+    "marker_schema_version": null,
+    "metadata_location": "durable_evidence",
+    "already_adopted": false,
+    "source_document_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+    "source_inner_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+    "source_inner_bytes": 102171,
+    "preservation_check": "byte_identical"
+  },
+  "header_visuals": {
+    "schema_version": 1,
+    "title": "Aspose.PDF FOSS for Go",
+    "title_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ],
+    "badges": [
+      {
+        "badge_id": "package",
+        "kind": "package",
+        "alt_text": "Go Reference: github.com/aspose-pdf-foss/aspose-pdf-foss-for-go",
+        "image_url": "https://pkg.go.dev/badge/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.svg",
+        "target_url": "https://pkg.go.dev/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go",
+        "fact_ids": [
+          "installation.verified_acquisition:registry-go_proxy"
+        ]
+      },
+      {
+        "badge_id": "license",
+        "kind": "license",
+        "alt_text": "License: MIT",
+        "image_url": "https://img.shields.io/badge/License-MIT-blue",
+        "target_url": "LICENSE",
+        "fact_ids": [
+          "product.license:license-file"
+        ]
+      }
+    ],
+    "badge_markdown": "[![Go Reference: github.com/aspose-pdf-foss/aspose-pdf-foss-for-go](https://pkg.go.dev/badge/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.svg)](https://pkg.go.dev/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+    "diagram_nodes": [
+      {
+        "node_id": "product",
+        "role": "product",
+        "label": "Aspose.PDF FOSS for Go",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "audience_1",
+        "role": "audience",
+        "label": "Developers using Go.",
+        "fact_ids": [
+          "product.audience:agent-drafted-grounded",
+          "product.identity:manifest-and-registry",
+          "product.platforms:manifest",
+          "installation.coordinates:manifest"
+        ]
+      },
+      {
+        "node_id": "problem_1",
+        "role": "problem",
+        "label": "AcroForm field creation and editing",
+        "fact_ids": [
+          "product.problems_solved:agent-drafted-grounded",
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_1",
+        "role": "capability",
+        "label": "AcroForm field creation and editing",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_2",
+        "role": "capability",
+        "label": "Annotation creation and manipulation (16 types)",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_1",
+        "role": "format",
+        "label": "PDF (ISO 32000-1 and ISO 32000-2)",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_2",
+        "role": "format",
+        "label": "PNG",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      }
+    ],
+    "mermaid_source": "flowchart LR\n  product[\"Aspose.PDF FOSS for Go\"]\n  audience_1[\"Developers using Go.\"]\n  problem_1[\"AcroForm field creation and editing\"]\n  capability_1[\"AcroForm field creation and editing\"]\n  capability_2[\"Annotation creation and manipulation (16 types)\"]\n  format_1[\"PDF (ISO 32000-1 and ISO 32000-2)\"]\n  format_2[\"PNG\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2",
+    "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.PDF FOSS for Go\"]\n  audience_1[\"Developers using Go.\"]\n  problem_1[\"AcroForm field creation and editing\"]\n  capability_1[\"AcroForm field creation and editing\"]\n  capability_2[\"Annotation creation and manipulation (16 types)\"]\n  format_1[\"PDF (ISO 32000-1 and ISO 32000-2)\"]\n  format_2[\"PNG\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2\n```"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2014,
+      "source_byte_end": 2014,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** Developers using Go.\n- **Problem solved:** AcroForm field creation and editing. Annotation creation and manipulation (16 types). Text rendering and extraction. Markdown to PDF conversion.\n- **Verified capabilities:** AcroForm field creation and editing. Annotation creation and manipulation (16 types). Text rendering and extraction. Image embedding and rendering. Font embedding and subsetting. Markdown to PDF conversion. PDF to Markdown conversion.\n- **Verified formats:** PDF (ISO 32000-1 and ISO 32000-2). PNG. JPEG. GIF. BMP. Multi-page TIFF. SVG. Markdown.\n- **Runtime:** Go 1.24+\n\n```mermaid\nflowchart LR\n  product[\"Aspose.PDF FOSS for Go\"]\n  audience_1[\"Developers using Go.\"]\n  problem_1[\"AcroForm field creation and editing\"]\n  capability_1[\"AcroForm field creation and editing\"]\n  capability_2[\"Annotation creation and manipulation (16 types)\"]\n  format_1[\"PDF (ISO 32000-1 and ISO 32000-2)\"]\n  format_2[\"PNG\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2\n```\n\n## In this README\n\n- [Install](#install)\n- [Quick Start](#quick-start)\n- [Feature Showcase](#feature-showcase)\n- [Features](#features)\n- [API Reference](#api-reference)\n- [License](#license)\n- [Product Page](#product-page)\n\n## Installation\n\nAdd the module published for this repository:\n\n```bash\ngo get github.com/aspose-pdf-foss/aspose-pdf-foss-for-go@latest\n```\n\nThe module was verified through the Go module proxy.\n\n",
+      "replacement_sha256": "ab0fafbef7daa566d2c5fa44c6caefcf4230cc1310a091ab3b44735e269a4e2f",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.example.replace-unverified-minimal",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2194,
+      "source_byte_end": 2592,
+      "expected_sha256": "a7e48646fe38880f81088b23a8ae4cdd2f2313900ca18b8f4c15d05fd0c9087e",
+      "replacement_text": "### Minimal verified example\n\n```go\npackage main\n\nimport (\n\t\"flag\"\n\t\"fmt\"\n\t\"os\"\n\t\"path/filepath\"\n\t\"strings\"\n\n\tpdf \"github.com/aspose-pdf-foss/aspose-pdf-foss-for-go\"\n)\n\nfunc main() {\n\tembed := flag.Bool(\"embed\", false, \"embed images as data: URLs\")\n\tnoImages := flag.Bool(\"no-images\", false, \"skip images\")\n\tflag.Parse()\n\tif flag.NArg() != 1 {\n\t\tfmt.Fprintln(os.Stderr, \"usage: pdf_to_markdown [-embed|-no-images] <input.pdf>\")\n\t\tos.Exit(2)\n\t}\n\tdoc, err := pdf.Open(flag.Arg(0))\n\tif err != nil {\n\t\tfmt.Fprintln(os.Stderr, \"open:\", err)\n\t\tos.Exit(1)\n\t}\n\tstem := strings.TrimSuffix(filepath.Base(flag.Arg(0)), filepath.Ext(flag.Arg(0)))\n\toutDir := filepath.Join(\"result_files\", \"markdown\")\n\t_ = os.MkdirAll(outDir, 0o755)\n\tout := filepath.Join(outDir, stem+\".md\")\n\tif err := doc.SaveMarkdown(out, pdf.MarkdownSaveOptions{EmbedImages: *embed, NoImages: *noImages}); err != nil {\n\t\tfmt.Fprintln(os.Stderr, \"convert:\", err)\n\t\tos.Exit(1)\n\t}\n\tfmt.Printf(\"%s: %d page(s)\\n\", out, doc.PageCount())\n}\n```\n\nThis exact example was compiled against the source build at revision `f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69`.\n",
+      "replacement_sha256": "2c6697a1886aa7f2af751bb0972483fc0925eb78091436dc3ff4fa73b2090a80",
+      "fact_ids": [
+        "example.minimal:agent-drafted-example"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Replace the one existing usage example with the exact minimal example compiled against the verified source build.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 26,
+      "source_byte_end": 218,
+      "expected_sha256": "67eb6c318ea7d382916fc96b9946ea6f1ac4900925f40e5a60609425ef8a248f",
+      "replacement_text": "[![Go Reference: github.com/aspose-pdf-foss/aspose-pdf-foss-for-go](https://pkg.go.dev/badge/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.svg)](https://pkg.go.dev/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+      "replacement_sha256": "595c764ce413d503a9d25cec5a4cb3fe4324feaf61cb96ec060ba4e8f1045886",
+      "fact_ids": [
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.license:license-file"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Replace unsupported or stale badges with the exact accepted-fact set.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges.remove-extra:2",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 218,
+      "source_byte_end": 410,
+      "expected_sha256": "0b93514487328b7d6a28a5cc6a76c07fa5714132d29b0ea11bf43cb5be8119d1",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.license:license-file"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Remove opening badges outside the accepted-fact badge set.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges.remove-extra:3",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 410,
+      "source_byte_end": 578,
+      "expected_sha256": "d362f358073d986dbf0d9ecb45ddf33200aec04ff2f5d48b004836b18affae66",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.license:license-file"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Remove opening badges outside the accepted-fact badge set.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges.remove-extra:4",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 578,
+      "source_byte_end": 686,
+      "expected_sha256": "fd7e9b9fce31b5772629890c668938e6b28f0c264f93b1ec8f86bd7765a6d7ff",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.license:license-file"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Remove opening badges outside the accepted-fact badge set.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges.remove-extra:5",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 686,
+      "source_byte_end": 776,
+      "expected_sha256": "992dce2f2ccc03ba0954343d5434aa293dbb440240a0d76248fcd9718f1a31be",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [
+        "installation.verified_acquisition:registry-go_proxy",
+        "product.license:license-file"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Remove opening badges outside the accepted-fact badge set.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "a0f2d488444f1c26d35903bc484119295856ff7d527474c696bc720c5bac3978"
+}

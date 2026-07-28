@@ -106,7 +106,7 @@ def remove_span(text: str, span_name: str) -> str:
 
 
 def find_presentation_span(text: str) -> PresentationSpanMatch | None:
-    """Return the complete-document span without normalizing one source byte."""
+    """Return a legacy complete-document span without normalizing one source byte."""
 
     start_match = _PRESENTATION_START.match(text)
     if start_match is None or not text.endswith(_PRESENTATION_END):
@@ -136,12 +136,7 @@ def find_presentation_span(text: str) -> PresentationSpanMatch | None:
 
 
 def render_presentation_span(content: str, facts_hash: str) -> str:
-    """Wrap a complete README while preserving every UTF-8 content byte."""
+    """Return visitor-facing content; provenance now lives only in durable evidence."""
 
-    encoded = content.encode("utf-8")
-    separator = "" if content.endswith("\n") or not content else "\n"
-    return (
-        f'<!-- readme-agent:presentation hash="sha256:{facts_hash}" '
-        f'schema="{PRESENTATION_SCHEMA_VERSION}" inner-bytes="{len(encoded)}" -->\n'
-        f"{content}{separator}{_PRESENTATION_END}"
-    )
+    del facts_hash
+    return content

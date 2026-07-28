@@ -7,6 +7,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
+
 DocumentOperation = Literal[
     "preserve",
     "insert_before",
@@ -19,6 +21,7 @@ ProtectedContentTreatment = Literal[
     "preserve",
     "additive",
     "authoritative_fact_correction",
+    "presentation_policy_correction",
 ]
 _ID_PATTERN = re.compile(r"^[a-z][a-z0-9_.:-]*$")
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
@@ -31,7 +34,8 @@ class _StrictModel(BaseModel):
 class PresentationSpanAdoptionV1(_StrictModel):
     """Proof that adopting the outer span preserved the complete source document."""
 
-    marker_schema_version: Literal[3] = 3
+    marker_schema_version: Literal[3] | None = None
+    metadata_location: Literal["durable_evidence"] = "durable_evidence"
     already_adopted: bool
     source_document_sha256: str
     source_inner_sha256: str
@@ -107,6 +111,7 @@ class ReadmeDocumentPlanV1(_StrictModel):
     template_sha256: str
     source_sha256: str
     adoption: PresentationSpanAdoptionV1
+    header_visuals: ReadmeHeaderVisualV1 | None = None
     operations: list[ReadmeDocumentOperationV1]
     candidate_sha256: str
 

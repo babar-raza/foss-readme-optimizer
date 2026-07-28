@@ -33,11 +33,12 @@ DOCUMENT_CASES = (
     (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
-        "1b21177472d3901ac1f2eb0224b07e1d23664b3879b787be4ced229b445b3ea8",
-        "d79eef4f395b20941a7c384a8f28740af1f4d4cf79f93af5984122f8d6ecb4d6",
+        "4fd648122e249d81f17552bf19dbb25ffe7c4ed94c058f513bdad5a766dc719f",
+        "7ac4d23e54ad9cfefb8d791657ed16d35feaa9186c65ca5c4ceee1679bc5ac59",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
+            "readme.header.badges",
         ],
     ),
     (
@@ -48,12 +49,13 @@ DOCUMENT_CASES = (
             "[commercial](https://products.aspose.com/3d/)\n\n"
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
-        "4757d48bae3427cbfc46600d10f0440484c87e6ff6cd277633d8acb2ad28da0e",
-        "6cc975b770526f10399f5da61a0950874ef276cdcb78da232194d03e490dcf6d",
+        "9ffe40a4bd492e4e8eae5872265a61467855947be5a94953953d63e05d30554d",
+        "883de21a0404f1d130449c87f331171fe9e3c7485126a90e36727d737084a5d3",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
             "readme.opening.remove-promotional-callout",
+            "readme.header.badges",
         ],
     ),
     (
@@ -63,12 +65,13 @@ DOCUMENT_CASES = (
             "**Version 0.0.1**\n\n"
             "## Installation\n\nExisting instructions.\n"
         ),
-        "9d4877df42eef470ac7a0f6ff1cb162c4b27c48f76e479ecdd2e296452cf3b43",
-        "5f95e7c627f1b207e75fd32775a25c4e67099a443ef0eaf9e92cc02b47cd7ba9",
+        "ecad9f11224899f302fb943972ba48610dc2763158729300cf8db96b95e551df",
+        "7a9619dfe4e376c3dc8d58610650e38e63090749edf313cf29e18e08fe7a9fd8",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
             "readme.release.correct-manifest-version",
+            "readme.header.badges",
         ],
     ),
 )

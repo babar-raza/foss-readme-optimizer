@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "immutable_base_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+  "facts_hash": "8eca54c77cf369724d7705ba23a0593d9e5539e2ce6963097aa2a65f53a12525",
+  "template_sha256": "8559692c1d4199b4fd8da57f8619e3e54932afd66f96a86f0b3f58977ff17e33",
+  "source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+  "adoption": {
+    "marker_schema_version": null,
+    "metadata_location": "durable_evidence",
+    "already_adopted": false,
+    "source_document_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+    "source_inner_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+    "source_inner_bytes": 9450,
+    "preservation_check": "byte_identical"
+  },
+  "header_visuals": {
+    "schema_version": 1,
+    "title": "Aspose.Cells FOSS for Java",
+    "title_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ],
+    "badges": [
+      {
+        "badge_id": "package",
+        "kind": "package",
+        "alt_text": "Maven Central: org.aspose:aspose-cells-foss",
+        "image_url": "https://img.shields.io/maven-central/v/org.aspose/aspose-cells-foss.svg?label=Maven%20Central",
+        "target_url": "https://central.sonatype.com/artifact/org.aspose/aspose-cells-foss",
+        "fact_ids": [
+          "installation.verified_acquisition:registry-maven_central"
+        ]
+      },
+      {
+        "badge_id": "version",
+        "kind": "version",
+        "alt_text": "Version: 26.7.0",
+        "image_url": "https://img.shields.io/badge/Version-26.7.0-blue",
+        "target_url": "https://central.sonatype.com/artifact/org.aspose/aspose-cells-foss",
+        "fact_ids": [
+          "installation.verified_acquisition:registry-maven_central",
+          "installation.coordinates:manifest",
+          "release.state:manifest-and-registry"
+        ]
+      },
+      {
+        "badge_id": "license",
+        "kind": "license",
+        "alt_text": "License: MIT",
+        "image_url": "https://img.shields.io/badge/License-MIT-blue",
+        "target_url": "LICENSE",
+        "fact_ids": [
+          "product.license:license-file"
+        ]
+      }
+    ],
+    "badge_markdown": "[![Maven Central: org.aspose:aspose-cells-foss](https://img.shields.io/maven-central/v/org.aspose/aspose-cells-foss.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/org.aspose/aspose-cells-foss) [![Version: 26.7.0](https://img.shields.io/badge/Version-26.7.0-blue)](https://central.sonatype.com/artifact/org.aspose/aspose-cells-foss) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+    "diagram_nodes": [
+      {
+        "node_id": "product",
+        "role": "product",
+        "label": "Aspose.Cells FOSS for Java",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "audience_1",
+        "role": "audience",
+        "label": "Developers using Java.",
+        "fact_ids": [
+          "product.audience:agent-drafted-grounded",
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "problem_1",
+        "role": "problem",
+        "label": "Cell values for strings, numbers, booleans, date/time values, and formulas",
+        "fact_ids": [
+          "product.problems_solved:agent-drafted-grounded",
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_1",
+        "role": "capability",
+        "label": "Cell values for strings, numbers, booleans, date/time values, and formulas",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_2",
+        "role": "capability",
+        "label": "Defined names",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_1",
+        "role": "format",
+        "label": "Load formats: AUTO, XLSX",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_2",
+        "role": "format",
+        "label": "Save format: XLSX",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      }
+    ],
+    "mermaid_source": "flowchart LR\n  product[\"Aspose.Cells FOSS for Java\"]\n  audience_1[\"Developers using Java.\"]\n  problem_1[\"Cell values for strings, numbers, booleans, date/time values, and formulas\"]\n  capability_1[\"Cell values for strings, numbers, booleans, date/time values, and formulas\"]\n  capability_2[\"Defined names\"]\n  format_1[\"Load formats: AUTO, XLSX\"]\n  format_2[\"Save format: XLSX\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2",
+    "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.Cells FOSS for Java\"]\n  audience_1[\"Developers using Java.\"]\n  problem_1[\"Cell values for strings, numbers, booleans, date/time values, and formulas\"]\n  capability_1[\"Cell values for strings, numbers, booleans, date/time values, and formulas\"]\n  capability_2[\"Defined names\"]\n  format_1[\"Load formats: AUTO, XLSX\"]\n  format_2[\"Save format: XLSX\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2\n```"
+  },
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 304,
+      "source_byte_end": 304,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** Developers using Java.\n- **Problem solved:** Cell values for strings, numbers, booleans, date/time values, and formulas. Defined names.\n- **Verified capabilities:** Cell values for strings, numbers, booleans, date/time values, and formulas. Defined names. Embedded charts with 21 standard chart types.\n- **Verified formats:** Load formats: AUTO, XLSX. Save format: XLSX.\n- **Runtime:** 17\n- **Current verified limitation:** ChartEx types (Waterfall, Treemap, Sunburst, Histogram, BoxAndWhisker, Funnel, Map) cannot be created programmatically; they are preserved verbatim across load/save.\n\n```mermaid\nflowchart LR\n  product[\"Aspose.Cells FOSS for Java\"]\n  audience_1[\"Developers using Java.\"]\n  problem_1[\"Cell values for strings, numbers, booleans, date/time values, and formulas\"]\n  capability_1[\"Cell values for strings, numbers, booleans, date/time values, and formulas\"]\n  capability_2[\"Defined names\"]\n  format_1[\"Load formats: AUTO, XLSX\"]\n  format_2[\"Save format: XLSX\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2\n```\n\n## In this README\n\n- [Installation](#installation)\n- [Current Scope](#current-scope)\n- [Supported Features](#supported-features)\n- [Known Limits](#known-limits)\n- [Build And Test](#build-and-test)\n- [Quick Start](#quick-start)\n- [Project Layout](#project-layout)\n- [Testing Coverage](#testing-coverage)\n- [Notes For Contributors](#notes-for-contributors)\n- [License](#license)\n- [Support](#support)\n\n",
+      "replacement_sha256": "b10bd415ea7df368bb19e0ef1b9f0326f9a984e3a3c99d1b9450535b6f810324",
+      "fact_ids": [
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-evidence",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.limitations.complete-verified",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3567,
+      "source_byte_end": 3567,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## Repository-verified constraints\n\n- ChartEx types (Waterfall, Treemap, Sunburst, Histogram, BoxAndWhisker, Funnel, Map) cannot be created programmatically; they are preserved verbatim across load/save\n\n",
+      "replacement_sha256": "303042dd1febe2a3b37fe8dfd5e16974142d0a3006acfc5bb30d4a3918d7d4a0",
+      "fact_ids": [
+        "product.limitations:repository-evidence"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Complete the existing limitations section with exact repository-verified constraints while preserving its maintainer-authored content.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.installation.correct-coordinate-version:1",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 484,
+      "source_byte_end": 489,
+      "expected_sha256": "92521fc3cbd964bdc9f584a991b89fddaa5754ed1cc96d6d42445338669c1305",
+      "replacement_text": "26.7.0",
+      "replacement_sha256": "43d978d90c3d4677e27c06d0c6b2f2bbb5df683ca825f93f39568b11ed82f873",
+      "fact_ids": [
+        "installation.coordinates:manifest"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Align the package acquisition coordinate with the selected immutable manifest version.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 29,
+      "source_byte_end": 29,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n[![Maven Central: org.aspose:aspose-cells-foss](https://img.shields.io/maven-central/v/org.aspose/aspose-cells-foss.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/org.aspose/aspose-cells-foss) [![Version: 26.7.0](https://img.shields.io/badge/Version-26.7.0-blue)](https://central.sonatype.com/artifact/org.aspose/aspose-cells-foss) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+      "replacement_sha256": "533ec9c79c9e18661e2b2aed4d47264629d6757dffe053b8d49f53f6876475a1",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-maven_central",
+        "product.license:license-file",
+        "release.state:manifest-and-registry"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Add only applicable package, version, download, and license badges.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "603632871ce85257a271fab7de1abe0403329be7b755622a5b294a00c58023c4"
+}

@@ -1,0 +1,743 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "cells",
+        "platform": "cpp",
+        "ecosystem": "cpp",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "manifest_names": [
+          "aspose_cells_foss_cpp"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:agent-drafted-grounded",
+      "field": "product.audience",
+      "value": [
+        "Developers using cpp."
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.audience",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": "2026-07-28T07:04:44.588216+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:agent-drafted-grounded",
+      "field": "product.problems_solved",
+      "value": [
+        "Workbook and worksheet management",
+        "Style model (font, fill, borders, alignment, number formats)",
+        ".xlsx"
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.problems_solved",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": "2026-07-28T07:04:44.588216+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": [
+        "Workbook and worksheet management",
+        "Style model (font, fill, borders, alignment, number formats)",
+        ".xlsx load/save from file paths and streams",
+        "Cell values, formulas, merges, and number formats",
+        "Conditional formatting, data validation, hyperlinks, names, comments"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Cell.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Cells.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/ConditionalFormattingCollection.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/DefinedNameCollection.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/FillPattern.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Font.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/HyperlinkCollection.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Style.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/ValidationCollection.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Workbook.h,samples/src/main.cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": "2026-07-28T07:04:44.588216+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": [
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Workbook and worksheet management",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Workbook.h",
+          "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+          "observed_at": "2026-07-28T07:04:44.588216+00:00",
+          "line_number": 17,
+          "anchor": "Workbook",
+          "exact_excerpt": "class WorkbookModel;",
+          "context_excerpt": "namespace Aspose {\nnamespace Cells_FOSS {\n\nnamespace Core {\nclass WorkbookModel;\n}\n\nenum class SaveFormat;\nclass DefinedNameCollection;",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Style model (font, fill, borders, alignment, number formats)",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "samples/src/main.cpp",
+          "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+          "observed_at": "2026-07-28T07:04:44.588216+00:00",
+          "line_number": 47,
+          "anchor": "Style",
+          "exact_excerpt": "Style headerStyle = sheet.GetCells()[\"A1\"].GetStyle();",
+          "context_excerpt": "sheet.GetCells()[\"A3\"].PutValue(\"Orange\");\n    sheet.GetCells()[\"B3\"].PutValue(1.99);\n    sheet.GetCells()[\"B4\"].SetFormula(\"=SUM(B2:B3)\");\n\n    Style headerStyle = sheet.GetCells()[\"A1\"].GetStyle();\n    Font font;\n    font.SetBold(true);\n    font.SetColor(Color::FromArgb(255, 255, 255, 255));\n    headerStyle.SetFont(font);",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": ".xlsx load/save from file paths and streams",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "samples/src/main.cpp",
+          "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+          "observed_at": "2026-07-28T07:04:44.588216+00:00",
+          "line_number": 57,
+          "anchor": "Save",
+          "exact_excerpt": "workbook.Save(\"products.xlsx\");",
+          "context_excerpt": "headerStyle.SetForegroundColor(Color::FromArgb(255, 34, 120, 212));\n    sheet.GetCells()[\"A1\"].SetStyle(headerStyle);\n    sheet.GetCells()[\"B1\"].SetStyle(headerStyle);\n\n    workbook.Save(\"products.xlsx\");\n\n    return 0;\n}",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Cell values, formulas, merges, and number formats",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "samples/src/main.cpp",
+          "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+          "observed_at": "2026-07-28T07:04:44.588216+00:00",
+          "line_number": 39,
+          "anchor": "PutValue",
+          "exact_excerpt": "sheet.GetCells()[\"A1\"].PutValue(\"Product\");",
+          "context_excerpt": "Workbook workbook;\n    Worksheet& sheet = workbook.GetWorksheets()[0];\n\n    sheet.SetName(\"Products\");\n    sheet.GetCells()[\"A1\"].PutValue(\"Product\");\n    sheet.GetCells()[\"B1\"].PutValue(\"Price\");\n    sheet.GetCells()[\"A2\"].PutValue(\"Apple\");\n    sheet.GetCells()[\"B2\"].PutValue(2.99);\n    sheet.GetCells()[\"A3\"].PutValue(\"Orange\");",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Conditional formatting, data validation, hyperlinks, names, comments",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/ConditionalFormattingCollection.h",
+          "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+          "observed_at": "2026-07-28T07:04:44.588216+00:00",
+          "line_number": 14,
+          "anchor": "ConditionalFormattingCollection",
+          "exact_excerpt": "class ConditionalFormattingCollection final {",
+          "context_excerpt": "/// <summary>\n/// Represents a collection of conditional formatting objects.\n/// </summary>\nclass ConditionalFormattingCollection final {\npublic:\n    /// <summary>\n    /// Initializes a new instance of the ConditionalFormattingCollection class.\n    /// </summary>",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        }
+      ],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": [
+        ".xlsx"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/LoadFormat.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/SaveFormat.h,Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Workbook.h,README.md",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": "2026-07-28T07:04:44.588216+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "cpp"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": "Aspose.Cells.Foss.Cpp",
+          "ecosystem": "cpp",
+          "manifest_path": "Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+          "name": "aspose_cells_foss_cpp",
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:registry-nuget",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "schema_version": 1,
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "ecosystem": "cpp",
+        "method": "nuget",
+        "outcome": "REGISTRY_VERIFIED",
+        "detail": "NuGet: Aspose.cells.Cpp.FOSS found",
+        "coordinate": {
+          "name": "Aspose.cells.Cpp.FOSS"
+        },
+        "registry_receipt": {
+          "schema_version": 1,
+          "resolver_ecosystem": "net",
+          "registry_label": "NuGet",
+          "coordinate": {
+            "name": "Aspose.cells.Cpp.FOSS"
+          },
+          "request_url": "https://api.nuget.org/v3-flatcontainer/aspose.cells.cpp.foss/index.json",
+          "status_code": 200,
+          "response_sha256": "dcc104dc157ff6a44cdb16855f6891326bb508d7941b97c2ff50d757940c327e",
+          "retrieved_at": "2026-07-28T07:04:44.586344Z",
+          "found": true,
+          "detail": "NuGet: Aspose.cells.Cpp.FOSS found"
+        },
+        "source_build_receipt": null,
+        "truth_eligible": true
+      },
+      "source": {
+        "source_type": "external_registry",
+        "location": "https://api.nuget.org/v3-flatcontainer/aspose.cells.cpp.foss/index.json",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:agent-drafted-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "cpp",
+        "class_name": "readme_example",
+        "code": "#include \"aspose/cells_foss/Workbook.h\"\n#include \"aspose/cells_foss/WorksheetCollection.h\"\n#include \"aspose/cells_foss/Worksheet.h\"\n#include \"aspose/cells_foss/Cell.h\"\n#include \"aspose/cells_foss/Style.h\"\n#include \"aspose/cells_foss/Color.h\"\n#include \"aspose/cells_foss/Font.h\"\n\nusing namespace Aspose::Cells_FOSS;\n\nint main() {\n    Workbook workbook;\n    Worksheet& sheet = workbook.GetWorksheets()[0];\n\n    sheet.SetName(\"Products\");\n    sheet.GetCells()[\"A1\"].PutValue(\"Product\");\n    sheet.GetCells()[\"B1\"].PutValue(\"Price\");\n    sheet.GetCells()[\"A2\"].PutValue(\"Apple\");\n    sheet.GetCells()[\"B2\"].PutValue(2.99);\n    sheet.GetCells()[\"A3\"].PutValue(\"Orange\");\n    sheet.GetCells()[\"B3\"].PutValue(1.99);\n    sheet.GetCells()[\"B4\"].SetFormula(\"=SUM(B2:B3)\");\n\n    Style headerStyle = sheet.GetCells()[\"A1\"].GetStyle();\n    Font font;\n    font.SetBold(true);\n    font.SetColor(Color::FromArgb(255, 255, 255, 255));\n    headerStyle.SetFont(font);\n    headerStyle.SetPattern(FillPattern::Solid);\n    headerStyle.SetForegroundColor(Color::FromArgb(255, 34, 120, 212));\n    sheet.GetCells()[\"A1\"].SetStyle(headerStyle);\n    sheet.GetCells()[\"B1\"].SetStyle(headerStyle);\n\n    workbook.Save(\"products.xlsx\");\n    return 0;\n}\n",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED",
+        "verification_detail": "exact C++ consumer compiled against immutable repository source",
+        "verified_public_symbols": [
+          "Aspose::Cells_FOSS",
+          "aspose/cells_foss/Cell.h",
+          "aspose/cells_foss/Color.h",
+          "aspose/cells_foss/Font.h",
+          "aspose/cells_foss/Style.h",
+          "aspose/cells_foss/Workbook.h",
+          "aspose/cells_foss/Worksheet.h",
+          "aspose/cells_foss/WorksheetCollection.h"
+        ],
+        "public_api_sha256": "770a9c3d040abe6931e75701165a9e2e047254fb84a829a2cadee174981e8040",
+        "python_package": null,
+        "typescript_package": null,
+        "rust_package": null,
+        "rust_formats": [],
+        "rust_source_dependency": null,
+        "acquisition_dependency_pins": [
+          "container_image=gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+          "example_sha256=7cf86708acb74a94667ac8505a1702f1da818cf17400f406fdbff673449c5d9e",
+          "input_sha256=eeb4dc2527a755acdc45fa48a389d489905fd48de9283d56bad85a19eefa409e",
+          "source_revision=3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+          "source_surface_sha256=770a9c3d040abe6931e75701165a9e2e047254fb84a829a2cadee174981e8040",
+          "cpp_language_standard=17"
+        ],
+        "compiled_consumer": {
+          "schema_version": 1,
+          "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+          "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+          "ecosystem": "cpp",
+          "source_paths": [
+            "Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+            "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Cell.h",
+            "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Color.h",
+            "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Font.h",
+            "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Style.h",
+            "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Workbook.h",
+            "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/Worksheet.h",
+            "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/WorksheetCollection.h"
+          ],
+          "selected_symbols": [
+            "Aspose::Cells_FOSS",
+            "aspose/cells_foss/Cell.h",
+            "aspose/cells_foss/Color.h",
+            "aspose/cells_foss/Font.h",
+            "aspose/cells_foss/Style.h",
+            "aspose/cells_foss/Workbook.h",
+            "aspose/cells_foss/Worksheet.h",
+            "aspose/cells_foss/WorksheetCollection.h"
+          ],
+          "source_sha256": "770a9c3d040abe6931e75701165a9e2e047254fb84a829a2cadee174981e8040",
+          "example_sha256": "7cf86708acb74a94667ac8505a1702f1da818cf17400f406fdbff673449c5d9e",
+          "isolated_execution": {
+            "schema_version": 1,
+            "isolation_kind": "docker_container",
+            "truth_eligible": true,
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+            "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+            "argv": [
+              "/bin/sh",
+              "-euc",
+              "g++ --version | head -n 1; g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp"
+            ],
+            "environment_names": [
+              "HOME",
+              "TMPDIR"
+            ],
+            "input_sha256": "eeb4dc2527a755acdc45fa48a389d489905fd48de9283d56bad85a19eefa409e",
+            "input_file_count": 429,
+            "policy_sha256": "0fc69b5d43204afec2a1c7809cf50e03d6c6143f329b7b6ac0e372b01cd5ab24",
+            "policy": {
+              "schema_version": 1,
+              "immutable_image": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+              "cpu_limit": 1.0,
+              "memory_mebibytes": 1536,
+              "pids_limit": 128,
+              "timeout_seconds": 300.0,
+              "tmpfs_mebibytes": 64,
+              "network_mode": "none",
+              "read_only_rootfs": true,
+              "cap_drop_all": true,
+              "no_new_privileges": true,
+              "seccomp_profile": "runtime-default",
+              "user": "65534:65534",
+              "workspace_path": "/workspace"
+            },
+            "image": {
+              "requested_reference": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+              "repo_digest": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+              "image_id": "sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+              "operating_system": "linux",
+              "architecture": "amd64",
+              "engine_version": "28.4.0"
+            },
+            "container_id": "ec002a057783c418d06d1a56279e936c46352c34dd74ca15bc561ea8af6831cb",
+            "process_inventory": [
+              "PID                 PPID                USER                COMMAND",
+              "147270              147248              nobody              /bin/sh -euc g++ --version | head -n 1; g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp",
+              "147285              147270              nobody              g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp",
+              "147286              147285              nobody              /usr/local/libexec/gcc/x86_64-linux-gnu/14.3.0/cc1plus -quiet -I Aspose.Cells.Foss.Cpp/include -imultiarch x86_64-linux-gnu -D_GNU_SOURCE .readme-agent/example.cpp -quiet -dumpdir a- -dumpbase example.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -std=c++17 -fsyntax-only -o /dev/null"
+            ],
+            "return_code": 0,
+            "stdout": "g++ (GCC) 14.3.0\n",
+            "stderr": "",
+            "timed_out": false,
+            "oom_killed": false,
+            "started_at": "2026-07-28T07:06:29.720214+00:00",
+            "finished_at": "2026-07-28T07:06:36.339668+00:00",
+            "cleanup": {
+              "execution_container_removed": true,
+              "seed_container_removed": true,
+              "workspace_volume_removed": true
+            }
+          },
+          "accepted": true
+        }
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://example.minimal",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": "2026-07-28T07:04:44.588216+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/cells/cpp/",
+          "family_url": "https://products.aspose.org/cells/",
+          "label": "Aspose.Cells FOSS for Cpp",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/cells/cpp/",
+          "family_url": "https://products.aspose.com/cells",
+          "label": "Aspose.Cells for Cpp",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": "Aspose.Cells.Foss.Cpp",
+          "manifest_path": "Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+          "version": "unknown",
+          "active": true,
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": [],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://verified-empty",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": "2026-07-28T07:04:44.588216+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:manifest",
+      "field": "product.compatibility",
+      "value": [
+        {
+          "ecosystem": "cpp",
+          "runtime_label": "CMake",
+          "minimum_runtime": "3.16",
+          "compatibility_kind": "minimum_runtime",
+          "manifest_path": "Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://License/LICENSE.txt",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:agent-drafted-grounded",
+    "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:registry-nuget",
+    "example.minimal": "example.minimal:agent-drafted-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:manifest",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  },
+  "package_root_roles": {
+    "schema_version": 1,
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+    "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+    "selection_state": "selected",
+    "selected_product_manifest_path": "Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+    "selection_rationale": [
+      "the sole non-secondary root matching the registry ecosystem was selected",
+      "manifest declares a distributable package identity"
+    ],
+    "roots": [
+      {
+        "path": "Aspose.Cells.Foss.Cpp.Tests",
+        "ecosystem": "cpp",
+        "manifest_path": "Aspose.Cells.Foss.Cpp.Tests/CMakeLists.txt",
+        "role": "test",
+        "confidence": 1.0,
+        "parsed_identity": {
+          "name": "Aspose.Cells.Foss.Cpp.Tests"
+        },
+        "referenced_manifest_paths": [],
+        "rationale": [
+          "path token(s) identify test: tests"
+        ]
+      },
+      {
+        "path": "Aspose.Cells.Foss.Cpp",
+        "ecosystem": "cpp",
+        "manifest_path": "Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+        "role": "product",
+        "confidence": 1.0,
+        "parsed_identity": {
+          "name": "aspose_cells_foss_cpp"
+        },
+        "referenced_manifest_paths": [],
+        "rationale": [
+          "selected as the distributed product root",
+          "the sole non-secondary root matching the registry ecosystem was selected",
+          "manifest declares a distributable package identity"
+        ]
+      },
+      {
+        "path": "Aspose.Cells.Foss.Cpp/tests",
+        "ecosystem": "cpp",
+        "manifest_path": "Aspose.Cells.Foss.Cpp/tests/CMakeLists.txt",
+        "role": "test",
+        "confidence": 1.0,
+        "parsed_identity": {},
+        "referenced_manifest_paths": [],
+        "rationale": [
+          "path token(s) identify test: tests"
+        ]
+      },
+      {
+        "path": "samples",
+        "ecosystem": "cpp",
+        "manifest_path": "samples/CMakeLists.txt",
+        "role": "sample",
+        "confidence": 1.0,
+        "parsed_identity": {
+          "name": "Aspose.Cells.Foss.Cpp.Samples"
+        },
+        "referenced_manifest_paths": [],
+        "rationale": [
+          "path token(s) identify sample: samples"
+        ]
+      }
+    ]
+  }
+}

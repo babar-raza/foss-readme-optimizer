@@ -185,7 +185,9 @@ def independently_verify_readme_candidate(
             "requirement_map": {},
         }
 
-    presentation_candidate = find_presentation_span(final_text) is not None
+    presentation_candidate = (
+        agentic_composition_plan is not None or find_presentation_span(final_text) is not None
+    )
     if not needs_write:
         if status not in _NO_WRITE_ELIGIBLE_STATUSES:
             return {

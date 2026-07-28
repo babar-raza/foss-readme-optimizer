@@ -3307,7 +3307,8 @@ taskcards:
     facts.
   - No false package, build, status, download, documentation, or cross-product badge survives.
   verification:
-  - Java, .NET, Python, TypeScript, C++, Go, and Rust representative rendering.
+  - Python, .NET, Java, C++, TypeScript, Rust, and Go representative rendering in the configured
+    platform priority.
   - Mermaid parse, unsafe-label, prompt-injection, and diagram-specificity controls.
   - Header/badge, document-plan, native-patch, protected-content, and independent-verifier regressions.
   negative_controls:

@@ -22,6 +22,13 @@ def build_limitation_operations(
     if not verified_limitations:
         return []
     limitation = accepted_fact(context.facts, "product.limitations")
+    verified_heading = context.h2("repository-verified constraints")
+    if verified_heading is not None:
+        verified_section = context.inner_text[
+            verified_heading.heading_end : verified_heading.section_end
+        ]
+        if not missing_limitation_constraints_text(context.facts, verified_section):
+            return []
     if heading is None:
         byte_offset = len(context.source)
         separator = (

@@ -7,6 +7,8 @@
 - **Runtime:** {minimum_runtime}
 - **Current verified limitation:** {limitations}
 
+{mermaid}
+
 ## In this README
 
 {navigation}

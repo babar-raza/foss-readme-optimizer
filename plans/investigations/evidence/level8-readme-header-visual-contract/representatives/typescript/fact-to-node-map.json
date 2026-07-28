@@ -1,0 +1,62 @@
+[
+  {
+    "node_id": "product",
+    "role": "product",
+    "label": "Aspose.3D FOSS for TypeScript",
+    "fact_ids": [
+      "product.identity:manifest-and-registry"
+    ]
+  },
+  {
+    "node_id": "audience_1",
+    "role": "audience",
+    "label": "Developers using TypeScript.",
+    "fact_ids": [
+      "product.audience:agent-drafted-grounded",
+      "product.identity:manifest-and-registry",
+      "product.platforms:manifest",
+      "installation.coordinates:manifest"
+    ]
+  },
+  {
+    "node_id": "problem_1",
+    "role": "problem",
+    "label": "Scene graph management",
+    "fact_ids": [
+      "product.problems_solved:agent-drafted-grounded",
+      "product.capabilities:repository-evidence"
+    ]
+  },
+  {
+    "node_id": "capability_1",
+    "role": "capability",
+    "label": "Scene graph management",
+    "fact_ids": [
+      "product.capabilities:repository-evidence"
+    ]
+  },
+  {
+    "node_id": "capability_2",
+    "role": "capability",
+    "label": "Mesh creation and manipulation",
+    "fact_ids": [
+      "product.capabilities:repository-evidence"
+    ]
+  },
+  {
+    "node_id": "format_1",
+    "role": "format",
+    "label": "OBJ - Import/export with materials, textures, and grouping",
+    "fact_ids": [
+      "product.formats:repository-evidence"
+    ]
+  },
+  {
+    "node_id": "format_2",
+    "role": "format",
+    "label": "GLTF - GL Transmission Format with full PBR material support",
+    "fact_ids": [
+      "product.formats:repository-evidence"
+    ]
+  }
+]
