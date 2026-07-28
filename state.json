@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T19:27:51.990287+00:00",
+    "last_evaluated_at": "2026-07-28T19:28:07.137908+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -112,7 +112,7 @@
       "L8-QUAL-04B-COST-BASELINE": "TODO",
       "L8-QUAL-05-FREEZE": "TODO",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
-      "L8-REVIEW-00-CONTEXT-CORPUS": "VERIFIED",
+      "L8-REVIEW-00-CONTEXT-CORPUS": "SCORED",
       "L8-REVIEW-01-FREEZE-ROLES": "TODO",
       "L8-REVIEW-01A-FINDING-CONTROLS": "TODO",
       "L8-REVIEW-02-FINDING-GROUNDING": "TODO",
@@ -4221,6 +4221,17 @@
         "reason": "Focused, context-negative, prompt-governance, dispatcher, lifecycle, reviewer-client, and specialist regressions pass.",
         "task_id": "L8-REVIEW-00-CONTEXT-CORPUS",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-review-context-corpus"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T19:28:07.137891+00:00",
+        "reason": "Evidence proves both reviewers can veto, author overlap fails closed, and producer acceptance context is excluded.",
+        "task_id": "L8-REVIEW-00-CONTEXT-CORPUS",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -4229,7 +4240,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 482,
+  "state_version": 483,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
