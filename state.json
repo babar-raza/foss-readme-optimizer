@@ -1001,8 +1001,18 @@
     "assessment_hash": null,
     "candidate_hash": null,
     "details": {},
-    "fact_acceptance_component_hashes": {},
-    "fact_acceptance_contract_hash": null,
+    "fact_acceptance_component_hashes": {
+      "acquisition_truth": "978850719a44158eba0ada29e96a3746f9950cdb23e4b61d67accfad5cee96e0",
+      "classification_semantics": "567d8451150421d145b3ba27c90f1447c37e41f2809930faeae1455d1a39ae8a",
+      "conflict_semantics": "9a38f79f9733299ed41c0cef1a354e3a95b95e1d1ab5e83cf2cb3798eff3e2f7",
+      "drafting_and_example_selection": "1809d262948a770608b9162f3130988b69dc7d46e7c22606f8bc1e5df6c02de9",
+      "evidence_polarity": "d0d818517c08cedc99b4a495ca03ee7bc6a6dbfdd14fd430ccbd0d6732ed50e6",
+      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+      "fact_schema": "9c7c7aab629f977cf3c24b7ff89efacf0c50f5f6e6b394bdfe5ac2836509059a",
+      "root_role_selection": "5de12db8f0f55d15beb2065a415b7459bdc6346bb10ec99b45c5ea72afb66fc1",
+      "visitor_render_eligibility": "dd99a2a20e5c1a4799df7a288091c1317035c4f322905e20bcbd7f547d779697"
+    },
+    "fact_acceptance_contract_hash": "2a5ab46fa66a9beb16b06dbfb38371d62fbba8702cc75bc2f53ad2cd050b05bd",
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -1086,9 +1096,30 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "schema_version": 1,
         "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "978850719a44158eba0ada29e96a3746f9950cdb23e4b61d67accfad5cee96e0",
+          "classification_semantics": "567d8451150421d145b3ba27c90f1447c37e41f2809930faeae1455d1a39ae8a",
+          "conflict_semantics": "9a38f79f9733299ed41c0cef1a354e3a95b95e1d1ab5e83cf2cb3798eff3e2f7",
+          "drafting_and_example_selection": "1809d262948a770608b9162f3130988b69dc7d46e7c22606f8bc1e5df6c02de9",
+          "evidence_polarity": "d0d818517c08cedc99b4a495ca03ee7bc6a6dbfdd14fd430ccbd0d6732ed50e6",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "9c7c7aab629f977cf3c24b7ff89efacf0c50f5f6e6b394bdfe5ac2836509059a",
+          "root_role_selection": "5de12db8f0f55d15beb2065a415b7459bdc6346bb10ec99b45c5ea72afb66fc1",
+          "visitor_render_eligibility": "dd99a2a20e5c1a4799df7a288091c1317035c4f322905e20bcbd7f547d779697"
+        },
+        "contract_hash": "2a5ab46fa66a9beb16b06dbfb38371d62fbba8702cc75bc2f53ad2cd050b05bd",
+        "facts_hash": "afc098ac188f3827d10d1e1c357d99cf2cedf43337fb1978d80d15fd088d5b16",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-28T18:14:07.238491+00:00",
+        "outcome": "FACTS_READY",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "schema_version": 1,
+        "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314"
       }
     ],
-    "facts_hash": null,
+    "facts_hash": "afc098ac188f3827d10d1e1c357d99cf2cedf43337fb1978d80d15fd088d5b16",
     "history": [
       {
         "evidence_refs": [
@@ -1296,20 +1327,33 @@
         "reason": "collecting and reconciling repository product truth",
         "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Go\\0fd5a52fc89b8fc745b98c9adc2547bfaed16314\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Go\\0fd5a52fc89b8fc745b98c9adc2547bfaed16314\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Go\\0fd5a52fc89b8fc745b98c9adc2547bfaed16314\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-28T18:14:05.343978+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
+        "to_status": "FACTS_READY"
       }
     ],
     "presentation_plan_hash": null,
-    "prompt_hash": null,
+    "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-28T18:13:56.488878+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-07-28T18:14:05.343978+00:00"
   },
   "schema_version": 2,
-  "state_version": 128,
+  "state_version": 129,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
