@@ -93,6 +93,50 @@ INDEPENDENT_README_REVIEW_TOOL_SCHEMA = {
 }
 
 
+def _role_review_tool_schema(name: str, verdicts: list[str]) -> dict:
+    return {
+        "type": "function",
+        "function": {
+            "name": name,
+            "description": "Return one evidence-bound README review-role verdict.",
+            "parameters": {
+                "type": "object",
+                "additionalProperties": False,
+                "properties": {
+                    "verdict": {"type": "string", "enum": verdicts},
+                    "reasoning": {"type": "string"},
+                    "failed_criteria": {"type": "array", "items": {"type": "string"}},
+                    "sections_affected": {"type": "array", "items": {"type": "string"}},
+                    "required_repair": {"type": "string"},
+                },
+                "required": [
+                    "verdict",
+                    "reasoning",
+                    "failed_criteria",
+                    "sections_affected",
+                    "required_repair",
+                ],
+            },
+        },
+    }
+
+
+BLIND_QUALITY_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
+    "report_blind_readme_quality_review",
+    ["ACCEPT", "REJECT_REPAIRABLE", "SYSTEM_FAILURE"],
+)
+FACTUAL_PLAN_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
+    "report_factual_readme_plan_review",
+    [
+        "ACCEPT",
+        "REJECT_REPAIRABLE",
+        "BLOCKED_FACT_CONFLICT",
+        "BLOCKED_MISSING_EVIDENCE",
+        "SYSTEM_FAILURE",
+    ],
+)
+
+
 def build_prose_quality_messages(paragraph_text: str) -> list[dict]:
     manifest = prompt_registry.get("prose_quality_check")
     assert manifest is not None, "prompts/verification/prose_quality_check.yaml missing"
@@ -151,3 +195,55 @@ def build_independent_readme_review_retry_message(accepted_fact_refs_json: str) 
         .strip()
     )
     return {"role": "user", "content": content}
+
+
+def build_blind_quality_review_messages(
+    org_repo: str,
+    original_readme_text: str,
+    candidate_readme_text: str,
+) -> list[dict]:
+    """Build the visitor-quality context without producer or factual-plan conclusions."""
+
+    manifest = prompt_registry.get("blind_readme_quality_review")
+    assert manifest is not None, "blind_readme_quality_review prompt missing"
+    assert manifest.user_template is not None
+    user_content = (
+        Template(manifest.user_template)
+        .substitute(
+            org_repo=org_repo,
+            original_readme_text=original_readme_text,
+            candidate_readme_text=candidate_readme_text,
+        )
+        .strip()
+    )
+    return [
+        {"role": "system", "content": manifest.system.strip()},
+        {"role": "user", "content": user_content},
+    ]
+
+
+def build_factual_plan_review_messages(
+    org_repo: str,
+    candidate_readme_text: str,
+    product_facts_json: str,
+    presentation_plan_json: str,
+) -> list[dict]:
+    """Build fact-and-plan context without producer or deterministic acceptance wording."""
+
+    manifest = prompt_registry.get("factual_readme_plan_review")
+    assert manifest is not None, "factual_readme_plan_review prompt missing"
+    assert manifest.user_template is not None
+    user_content = (
+        Template(manifest.user_template)
+        .substitute(
+            org_repo=org_repo,
+            candidate_readme_text=candidate_readme_text,
+            product_facts_json=product_facts_json,
+            presentation_plan_json=presentation_plan_json,
+        )
+        .strip()
+    )
+    return [
+        {"role": "system", "content": manifest.system.strip()},
+        {"role": "user", "content": user_content},
+    ]

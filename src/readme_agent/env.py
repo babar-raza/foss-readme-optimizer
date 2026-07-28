@@ -67,6 +67,11 @@ JOB_MODEL_ROUTING: dict[str, str] = {
     # plans/investigations/evidence/independent-readme-reviewer-route-
     # characterization-2026-07-25/characterization-and-recommendation.md.
     "independent_readme_review": "qwen3-next",
+    # Level-8 reviewer separation: the two roles retain the characterized
+    # forced-tool transport but have disjoint prompts, inputs, call ledgers,
+    # and cache identities. Live qualification remains a later governed gate.
+    "blind_readme_quality_review": "qwen3-next",
+    "factual_readme_plan_review": "qwen3-next",
     # RPOC-030-033 (`executive-verdict-the-swirling-adleman.md` Part B.2
     # Phase 2 Lane F, design Part C.5): agentic product_truth drafting --
     # multiple structured output fields per response (audience/

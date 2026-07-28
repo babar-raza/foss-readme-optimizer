@@ -51,7 +51,7 @@ found in — checked at build time, fails loud on mismatch.
 
 ## Current state
 
-Ten active manifests are registered. This table is part of the blocking inventory and must match
+Twelve active manifests are registered. This table is part of the blocking inventory and must match
 the manifest metadata exactly.
 
 | Prompt ID | Category | Model route | Owner | Runtime consumer | Output contract | Invalidation scope |
@@ -63,6 +63,8 @@ the manifest metadata exactly.
 | `repair_capability_selection` | `planning` | `repair_capability_selection` | `readme_agent.supervisor.repair` | `readme_agent.llm.planning_prompts` | `PlannerTurn-repair-capability-selection` | `REPAIRING` |
 | `specialist_selection_turn` | `planning` | `specialist_selection` | `readme_agent.supervisor.specialist_selection` | `readme_agent.llm.planning_prompts` | `PlannerTurn-select-specialists-to-skip` | `SPECIALIST_SELECTION` |
 | `supervisor_turn` | `planning` | `supervisor_planning` | `readme_agent.supervisor.planner_loop` | `readme_agent.llm.planning_prompts` | `PlannerTurn-capability-or-stop` | `SUPERVISOR_PLANNING` |
+| `blind_readme_quality_review` | `verification` | `blind_readme_quality_review` | `readme_agent.specialists.readme_review_roles` | `readme_agent.llm.verification_prompts` | `BlindQualityReviewResultV1` | `AGENT_REVIEWING` |
+| `factual_readme_plan_review` | `verification` | `factual_readme_plan_review` | `readme_agent.specialists.readme_review_roles` | `readme_agent.llm.verification_prompts` | `FactualPlanReviewResultV1` | `AGENT_REVIEWING` |
 | `independent_readme_review` | `verification` | `independent_readme_review` | `readme_agent.specialists.independent_readme_review` | `readme_agent.llm.verification_prompts` | `IndependentReadmeReviewResultV1` | `AGENT_REVIEWING` |
 | `prose_quality_check` | `verification` | `prose_quality_check` | `readme_agent.capabilities.verify_prose_quality` | `readme_agent.llm.verification_prompts` | `prose-quality-finding-v1` | `DETERMINISTIC_VALIDATED` |
 | `visual_asset_accuracy` | `verification` | `visual_asset_accuracy` | `readme_agent.capabilities.review_visual_asset_accuracy` | `readme_agent.llm.analysis_prompts` | `visual-asset-accuracy-v1` | `AGENT_REVIEWING` |
