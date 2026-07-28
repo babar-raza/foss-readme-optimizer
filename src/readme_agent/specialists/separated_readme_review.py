@@ -217,7 +217,7 @@ def run_separated_readme_review(
         _FACTUAL_PROMPT_ID,
     )
     author = author_identity or _role_identity(
-        "llm-route:readme-composition",
+        "producer:readme-composition",
         "author",
         _AUTHOR_PROMPT_ID,
     )
