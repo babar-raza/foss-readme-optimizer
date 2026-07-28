@@ -1,0 +1,991 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+  "immutable_base_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+  "facts_hash": "189629624f3649158fb75da4e60e03a2ddb9e84617f81b0f5432e344358fd43f",
+  "template_sha256": "6debd1cf49ee2b0f864145483a4a857e8f7175c9d958e907bf721a83e316f003",
+  "source_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+  "adoption": {
+    "marker_schema_version": null,
+    "metadata_location": "durable_evidence",
+    "already_adopted": false,
+    "source_document_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+    "source_inner_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+    "source_inner_bytes": 3900,
+    "preservation_check": "byte_identical"
+  },
+  "header_visuals": {
+    "schema_version": 1,
+    "title": "Aspose.3D FOSS for .NET",
+    "title_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ],
+    "badges": [
+      {
+        "badge_id": "package",
+        "kind": "package",
+        "alt_text": "NuGet: Aspose.3d.FOSS",
+        "image_url": "https://img.shields.io/nuget/v/Aspose.3d.FOSS.svg?label=NuGet",
+        "target_url": "https://www.nuget.org/packages/Aspose.3d.FOSS",
+        "fact_ids": [
+          "installation.verified_acquisition:registry-nuget"
+        ]
+      },
+      {
+        "badge_id": "version",
+        "kind": "version",
+        "alt_text": "Version: 26.1.0",
+        "image_url": "https://img.shields.io/badge/Version-26.1.0-blue",
+        "target_url": "https://www.nuget.org/packages/Aspose.3d.FOSS",
+        "fact_ids": [
+          "installation.verified_acquisition:registry-nuget",
+          "installation.coordinates:manifest",
+          "release.state:manifest-and-registry"
+        ]
+      },
+      {
+        "badge_id": "license",
+        "kind": "license",
+        "alt_text": "License: MIT",
+        "image_url": "https://img.shields.io/badge/License-MIT-blue",
+        "target_url": "LICENSE",
+        "fact_ids": [
+          "product.license:license-file"
+        ]
+      }
+    ],
+    "badge_markdown": "[![NuGet: Aspose.3d.FOSS](https://img.shields.io/nuget/v/Aspose.3d.FOSS.svg?label=NuGet)](https://www.nuget.org/packages/Aspose.3d.FOSS) [![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://www.nuget.org/packages/Aspose.3d.FOSS) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+    "diagram_nodes": [
+      {
+        "node_id": "product",
+        "role": "product",
+        "label": "Aspose.3D FOSS for .NET",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "audience_1",
+        "role": "audience",
+        "label": "Developers using .NET.",
+        "fact_ids": [
+          "product.audience:agent-drafted-grounded",
+          "product.identity:manifest-and-registry",
+          "product.platforms:manifest",
+          "installation.coordinates:manifest"
+        ]
+      },
+      {
+        "node_id": "problem_1",
+        "role": "problem",
+        "label": "Scene graph management",
+        "fact_ids": [
+          "product.problems_solved:agent-drafted-grounded",
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_1",
+        "role": "capability",
+        "label": "Scene graph management",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_2",
+        "role": "capability",
+        "label": "FileFormat-based format detection",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_1",
+        "role": "format",
+        "label": "FBX",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      }
+    ],
+    "mermaid_source": "flowchart LR\n  product[\"Aspose.3D FOSS for .NET\"]\n  audience_1[\"Developers using .NET.\"]\n  problem_1[\"Scene graph management\"]\n  capability_1[\"Scene graph management\"]\n  capability_2[\"FileFormat-based format detection\"]\n  format_1[\"FBX\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1",
+    "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.3D FOSS for .NET\"]\n  audience_1[\"Developers using .NET.\"]\n  problem_1[\"Scene graph management\"]\n  capability_1[\"Scene graph management\"]\n  capability_2[\"FileFormat-based format detection\"]\n  format_1[\"FBX\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```"
+  },
+  "contextual_links": {
+    "schema_version": 1,
+    "family": "3d",
+    "platform": "net",
+    "enterprise_product_name": "Aspose.3D for .NET",
+    "aspose_org_catalog_hash": "sha256:1889a44093bd29273fa37039bb85acb77213c5fd5ddec8ecf3d039926ddc9f80",
+    "aspose_com_catalog_hash": "sha256:3560e9f9358401a30b95fc06d978ea3a21bfbc84d44008b13d06462d4a3bb5d7",
+    "budget": {
+      "schema_version": 1,
+      "mode": "configured",
+      "measurement": {
+        "schema_version": 1,
+        "visible_prose_words": 503,
+        "verified_code_blocks": 1,
+        "verified_code_units": 100,
+        "total_content_units": 603
+      },
+      "max_total": 3,
+      "domain_maxima": {
+        "aspose.org": 2,
+        "aspose.com": 2
+      },
+      "surface_maxima": {
+        "products": 2,
+        "docs": 2,
+        "kb": 2,
+        "blog": 1,
+        "reference": 2
+      }
+    },
+    "pre_link_occurrences": {
+      "total": 2,
+      "by_parent_domain": {
+        "aspose.org": 1,
+        "aspose.com": 1
+      },
+      "by_surface": {
+        "products": 2,
+        "docs": 0,
+        "kb": 0,
+        "blog": 0,
+        "reference": 0,
+        "other": 0
+      },
+      "repeated_targets": {}
+    },
+    "pre_link_url_counts": {
+      "https://products.aspose.com/3d/net/": 1,
+      "https://products.aspose.org/3d/net/": 1
+    },
+    "considered_record_ids": [
+      "org:docs:3d:net:5f68ac362afebcaa"
+    ],
+    "bindings": [
+      {
+        "schema_version": 1,
+        "binding_id": "readme.example:org:docs:3d:net:5f68ac362afebcaa",
+        "context_kind": "code_example",
+        "section_heading": "Quick Start",
+        "context_id": "example.minimal:agent-drafted-example",
+        "target_record_id": "org:docs:3d:net:5f68ac362afebcaa",
+        "target_url": "https://docs.aspose.org/3d/net/getting-started/quickstart/",
+        "target_title": "Quick Start",
+        "parent_domain": "aspose.org",
+        "surface": "docs",
+        "support_rationale": "Verified docs article matches accepted example terms: save, scene, scene.save",
+        "placement": "after_verified_example",
+        "accepted_fact_ids": [
+          "product.identity:manifest-and-registry",
+          "example.minimal:agent-drafted-example"
+        ],
+        "matched_subject_terms": [
+          "save",
+          "scene",
+          "scene.save"
+        ]
+      }
+    ],
+    "omission_reason": "none"
+  },
+  "enterprise_terminology_corrections": [
+    {
+      "original": "full commercial edition",
+      "replacement": "Aspose.3D for .NET Enterprise Edition",
+      "character_start": 444,
+      "character_end": 467
+    },
+    {
+      "original": "[Aspose.3D for .NET](https://products.aspose.com/3d/net/)",
+      "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+      "character_start": 469,
+      "character_end": 526
+    },
+    {
+      "original": "[aspose.com](https://products.aspose.com/3d)",
+      "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d)",
+      "character_start": 544,
+      "character_end": 588
+    },
+    {
+      "original": "the commercial Aspose.3D On-Premise library",
+      "replacement": "the Aspose.3D for .NET Enterprise Edition",
+      "character_start": 718,
+      "character_end": 761
+    },
+    {
+      "original": "commercial edition",
+      "replacement": "Aspose.3D for .NET Enterprise Edition",
+      "character_start": 960,
+      "character_end": 978
+    },
+    {
+      "original": "[commercial On-Premise edition](https://products.aspose.com/3d/net/)",
+      "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+      "character_start": 1128,
+      "character_end": 1196
+    },
+    {
+      "original": "commercial package",
+      "replacement": "Aspose.3D for .NET Enterprise Edition",
+      "character_start": 1217,
+      "character_end": 1235
+    },
+    {
+      "original": "commercial edition",
+      "replacement": "Aspose.3D for .NET Enterprise Edition",
+      "character_start": 1334,
+      "character_end": 1352
+    },
+    {
+      "original": "[commercial Aspose.3D for .NET On-Premise API](https://products.aspose.com/3d/net/)",
+      "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+      "character_start": 2011,
+      "character_end": 2094
+    },
+    {
+      "original": "commercial On-Premise edition",
+      "replacement": "Aspose.3D for .NET Enterprise Edition",
+      "character_start": 3075,
+      "character_end": 3104
+    },
+    {
+      "original": "[Aspose.3D for .NET](https://products.aspose.com/3d/net/)",
+      "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+      "character_start": 3120,
+      "character_end": 3177
+    },
+    {
+      "original": "full-featured commercial edition",
+      "replacement": "Aspose.3D for .NET Enterprise Edition",
+      "character_start": 3180,
+      "character_end": 3212
+    },
+    {
+      "original": "[Aspose.3D product family](https://products.aspose.com/3d)",
+      "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d)",
+      "character_start": 3215,
+      "character_end": 3273
+    },
+    {
+      "original": "commercial package",
+      "replacement": "Aspose.3D for .NET Enterprise Edition",
+      "character_start": 3517,
+      "character_end": 3535
+    }
+  ],
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 596,
+      "source_byte_end": 596,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** Developers using .NET.\n- **Problem solved:** Scene graph management. FileFormat-based format detection. Scene save to file. Open file format loader.\n- **Verified capabilities:** Scene graph management. FileFormat-based format detection. Scene save to file. Open file format loader. Node hierarchy management. Entity rendering support.\n- **Verified formats:** FBX.\n- **Runtime:** netcoreapp3.1\n- **Current verified limitation:** License management APIs not available.\n\n```mermaid\nflowchart LR\n  product[\"Aspose.3D FOSS for .NET\"]\n  audience_1[\"Developers using .NET.\"]\n  problem_1[\"Scene graph management\"]\n  capability_1[\"Scene graph management\"]\n  capability_2[\"FileFormat-based format detection\"]\n  format_1[\"FBX\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```\n\n## In this README\n\n- [About Aspose.3D FOSS](#about-aspose3d-foss)\n- [Status](#status)\n- [Limitations](#limitations)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Documentation & Resources](#documentation-resources)\n- [Contributing](#contributing)\n- [License](#license)\n- [Resources](#resources)\n- [Acknowledgments](#acknowledgments)\n\n",
+      "replacement_sha256": "ecfbda7927c9656d3bb9ad8ab18d1d5fcce0c973b34dd46a2b45cbb66483b71c",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-evidence",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.limitations.complete-verified",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2106,
+      "source_byte_end": 2106,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## Repository-verified constraints\n\n- License management APIs not available\n\n",
+      "replacement_sha256": "701f580b1393c7883a4d234b7ca1af59e94b015e3f89c75946ed3bec9e87bbf7",
+      "fact_ids": [
+        "product.limitations:repository-evidence"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Complete the existing limitations section with exact repository-verified constraints while preserving its maintainer-authored content.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.example.replace-unverified-minimal",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2186,
+      "source_byte_end": 2318,
+      "expected_sha256": "8f9dfd1337f88268f20a42882e73723bb05321013148e7b6a802511b947f2c84",
+      "replacement_text": "### Minimal verified example\n\n```dotnet\nusing Aspose.ThreeD; var scene = new Scene(); scene.Save(System.IO.Path.GetTempFileName());\n```\n\nThis exact example was compiled against the source build at revision `6a209e8fc3dfc305df39a417037e32a4d4c7b2be`.\n\nFor a focused walkthrough of the APIs used in this example, see [Quick Start](https://docs.aspose.org/3d/net/getting-started/quickstart/).\n",
+      "replacement_sha256": "ed3daad4d76d99a10448b677fc98a492579348f3e870041a2b76ec7da2c889b1",
+      "fact_ids": [
+        "example.minimal:agent-drafted-example",
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Replace the one existing usage example with the exact minimal example compiled against the verified source build. Add its verified contextual article.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.opening.remove-promotional-callout",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 297,
+      "source_byte_end": 596,
+      "expected_sha256": "81bdc155f1ab6526a591ebb0675ccf9adc77de002dd627b43106a0db77582241",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Keep the first screen product-first; the existing relationship section continues to carry restrained commercial context.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 26,
+      "source_byte_end": 26,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n[![NuGet: Aspose.3d.FOSS](https://img.shields.io/nuget/v/Aspose.3d.FOSS.svg?label=NuGet)](https://www.nuget.org/packages/Aspose.3d.FOSS) [![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://www.nuget.org/packages/Aspose.3d.FOSS) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+      "replacement_sha256": "e4f305bdf57ce8d2dbe39db5e630f9cb3ad197e99cdee57d74628135b5297de2",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-nuget",
+        "product.license:license-file",
+        "release.state:manifest-and-registry"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Add only applicable package, version, download, and license badges.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:5",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2020,
+      "source_byte_end": 2103,
+      "expected_sha256": "c6bd8c46efd0a301622a0aa89dd05786b0b1d0e2735616f16a6084e4114be70f",
+      "replacement_text": "commercial Aspose.3D for .NET On-Premise API",
+      "replacement_sha256": "04ff7d510a9166c50055c3a9b2b8bbe0297622db4a3cfd5efbda9278a7a999d6",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:7",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2795,
+      "source_byte_end": 2851,
+      "expected_sha256": "8295c028678f8f11dc71ad9628a4e26b0296b737c181fbb91bbe38f3baf47649",
+      "replacement_text": "Aspose.3D FOSS family",
+      "replacement_sha256": "2a554e2fa400d339d698eea1f9103c2bd44b60824dfaf1fba1844392448fae70",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:8",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2905,
+      "source_byte_end": 2958,
+      "expected_sha256": "19bc32a71e46caf43a47ed42dd9645b67192aa15924ada5227fcaa78d2a2f750",
+      "replacement_text": "Aspose FOSS documentation",
+      "replacement_sha256": "f72411152c417061a50fbe4a4753896c92641bd2cbaf3f456f98d2c7f04e5e42",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:9",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3002,
+      "source_byte_end": 3046,
+      "expected_sha256": "43e58a7a111f9d08392ff8005365f9dd1a1a8f9b2bf4c8afdc0fde46ec6684c9",
+      "replacement_text": "Aspose FOSS blog",
+      "replacement_sha256": "af52e97dd7da9d555a1fd17e7a8ed8550490dc03833edb175d9c573c531f82da",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:10",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3143,
+      "source_byte_end": 3200,
+      "expected_sha256": "eed154dd9f13153d812522568105c8af7dd7f98d57ab438d1b93c1572249a8e0",
+      "replacement_text": "Aspose.3D for .NET",
+      "replacement_sha256": "89608d4960bcf5289e8e1855c871f338d9e9a76ce6c8d5caf701a7234a2244e2",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:11",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3240,
+      "source_byte_end": 3298,
+      "expected_sha256": "edf48592da9d5b7c90df1791abdb7821c1d30b03cf95fd9342d8a6af117a0b3f",
+      "replacement_text": "Aspose.3D product family",
+      "replacement_sha256": "b348b81b925531487e858cea5824abb03453156aa44245be36cd5ccb9614edd8",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:12",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3314,
+      "source_byte_end": 3372,
+      "expected_sha256": "0ff5516cd2dcb502a2ce778f65975fddef77c719d0c030fa59659e130f213b99",
+      "replacement_text": "Developer documentation",
+      "replacement_sha256": "b985db6433c8e9669caebab194ee62b3b3af7505decd93ea111f546d714e1907",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:13",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3390,
+      "source_byte_end": 3443,
+      "expected_sha256": "2dcf6a1f7c275a4bc54034cc505a31d1cd0ae608c61236f82b4c824bcff52486",
+      "replacement_text": "API reference",
+      "replacement_sha256": "484ee9bb6e51e328b73f0db584c797bccfccf6c93a3b1157ec160f5d5950ff0d",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:14",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3477,
+      "source_byte_end": 3537,
+      "expected_sha256": "e57f36f8a95a5494cc9b729323b358d4237d52e851300d60c0d0f59e36511297",
+      "replacement_text": "Download / free trial",
+      "replacement_sha256": "17123d4c3bad7f3f1613fbfdddaac2d3525d6ce68fbadf68a24a6e523ca629cb",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:15",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3596,
+      "source_byte_end": 3655,
+      "expected_sha256": "0a2ca9f2bc8c6d821b14614e23c4f2b54559ba118ac12e0d518ce5e04f003909",
+      "replacement_text": "Aspose.3D support forum",
+      "replacement_sha256": "97aea7a7c5a02c0b5c5903234abeccd894636a68e019f71d14a3e6a13d002472",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-4",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 723,
+      "source_byte_end": 766,
+      "expected_sha256": "a0e7ed08a540a8d9a73633e74426bce6d18dea6a918b0a4274e3c88075eb3056",
+      "replacement_text": "the Aspose.3D for .NET Enterprise Edition",
+      "replacement_sha256": "64d03116a1d4f24cae1d519f51df98095936f640ca1a0267ac928812946790d9",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-5",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 967,
+      "source_byte_end": 985,
+      "expected_sha256": "6a9654ca7f615d7366400eca3b84eaff676617f8045537ee9ac7f7ce423bc799",
+      "replacement_text": "Aspose.3D for .NET Enterprise Edition",
+      "replacement_sha256": "9effd592a9dfd8515a7f8bb9eb2013a95d7d65a49374dd040507325f0cf516cf",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-6",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 1137,
+      "source_byte_end": 1205,
+      "expected_sha256": "ec2a435715436087d21363b34cc5fe9d822b3cc0c429d6c09d3b9ed3cbc276e4",
+      "replacement_text": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+      "replacement_sha256": "26eb713a0e80f0feaf50979986ae2b35c1a1019d490c127541495f8afd982866",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-7",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 1226,
+      "source_byte_end": 1244,
+      "expected_sha256": "a9a99ac2732ea7f99ea18fa7c86e9eb3162aa5cc62864aae160ead2db03319f5",
+      "replacement_text": "Aspose.3D for .NET Enterprise Edition",
+      "replacement_sha256": "9effd592a9dfd8515a7f8bb9eb2013a95d7d65a49374dd040507325f0cf516cf",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-8",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 1343,
+      "source_byte_end": 1361,
+      "expected_sha256": "6a9654ca7f615d7366400eca3b84eaff676617f8045537ee9ac7f7ce423bc799",
+      "replacement_text": "Aspose.3D for .NET Enterprise Edition",
+      "replacement_sha256": "9effd592a9dfd8515a7f8bb9eb2013a95d7d65a49374dd040507325f0cf516cf",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-10",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3098,
+      "source_byte_end": 3127,
+      "expected_sha256": "436735e6c68ebf1e2f5e13aed5347550eb3cd65a9e8048e5cac47a147dae304c",
+      "replacement_text": "Aspose.3D for .NET Enterprise Edition",
+      "replacement_sha256": "9effd592a9dfd8515a7f8bb9eb2013a95d7d65a49374dd040507325f0cf516cf",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-12",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3205,
+      "source_byte_end": 3237,
+      "expected_sha256": "fd13791ed61e47a0180076411eba5e897a36f5613c643b8e0953208707222622",
+      "replacement_text": "Aspose.3D for .NET Enterprise Edition",
+      "replacement_sha256": "9effd592a9dfd8515a7f8bb9eb2013a95d7d65a49374dd040507325f0cf516cf",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.terminology.enterprise-14",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3550,
+      "source_byte_end": 3568,
+      "expected_sha256": "a9a99ac2732ea7f99ea18fa7c86e9eb3162aa5cc62864aae160ead2db03319f5",
+      "replacement_text": "Aspose.3D for .NET Enterprise Edition",
+      "replacement_sha256": "9effd592a9dfd8515a7f8bb9eb2013a95d7d65a49374dd040507325f0cf516cf",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Replace a legacy Aspose edition label with the exact accepted product name and Enterprise Edition descriptor.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "584cda37757c3c313ce4fe573883560aa56a47b803760ff04a9a441b9ecc0754"
+}

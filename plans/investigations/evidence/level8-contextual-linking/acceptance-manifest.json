@@ -1,0 +1,1371 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-01C-CONTEXTUAL-LINKING",
+  "scope": "contextual-links-and-enterprise-terminology-only",
+  "portfolio_acceptance": "NOT_GATE_A",
+  "configured_order": [
+    "python",
+    "net",
+    "java",
+    "cpp",
+    "typescript",
+    "rust",
+    "go"
+  ],
+  "source_branch": "main",
+  "source_head": "add5145a12ef98846aba1409a221ecea6a96d5b6",
+  "control_tree_status_at_start": "",
+  "representatives": [
+    {
+      "ecosystem": "python",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+      "facts_hash": "5a93562591720caffc43713bd6dea51abfbb070b6af018c850220392eb997d7d",
+      "auto": {
+        "mode": "auto",
+        "candidate_sha256": "46d223ad030d9e5c82967f6f1d9eaad1c033da18a50959301ad4f98c66c5e331",
+        "plan_sha256": "7665e6e759039abdd22d0c5ed82dff70e59b4a305c943670415302aaf01cbcaa",
+        "patch_sha256": "fab490464405252228a8180b7fcd17e6117a83942e5c432ca8d3ca2b36137464",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "auto",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 821,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 921
+          },
+          "max_total": 3,
+          "domain_maxima": {
+            "aspose.org": 2,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:kb:3d:python:27ffb8db9800265e"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:kb:3d:python:27ffb8db9800265e",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:kb:3d:python:27ffb8db9800265e",
+            "target_url": "https://kb.aspose.org/3d/python/how-to-get-started-3d-python/",
+            "target_title": "How to Get Started with 3D in Python",
+            "parent_domain": "aspose.org",
+            "surface": "kb",
+            "support_rationale": "Verified kb article matches accepted example terms: scene",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "scene"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [
+          {
+            "original": "full commercial edition",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 499,
+            "character_end": 522
+          },
+          {
+            "original": "[Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/)",
+            "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+            "character_start": 524,
+            "character_end": 599
+          },
+          {
+            "original": "[aspose.com](https://products.aspose.com/3d)",
+            "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d)",
+            "character_start": 617,
+            "character_end": 661
+          },
+          {
+            "original": "the commercial Aspose.3D On-Premise library",
+            "replacement": "the Aspose.3D for Python Enterprise Edition",
+            "character_start": 791,
+            "character_end": 834
+          },
+          {
+            "original": "commercial edition",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 1033,
+            "character_end": 1051
+          },
+          {
+            "original": "[commercial On-Premise edition](https://products.aspose.com/3d/python-net/)",
+            "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+            "character_start": 1190,
+            "character_end": 1265
+          },
+          {
+            "original": "commercial package",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 1286,
+            "character_end": 1304
+          },
+          {
+            "original": "commercial edition",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 1403,
+            "character_end": 1421
+          },
+          {
+            "original": "commercial On-Premise edition",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 6006,
+            "character_end": 6035
+          },
+          {
+            "original": "[Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/)",
+            "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+            "character_start": 6051,
+            "character_end": 6126
+          },
+          {
+            "original": "full-featured commercial edition",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 6129,
+            "character_end": 6161
+          },
+          {
+            "original": "[Aspose.3D product family](https://products.aspose.com/3d)",
+            "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d)",
+            "character_start": 6164,
+            "character_end": 6222
+          },
+          {
+            "original": "commercial package",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 6476,
+            "character_end": 6494
+          }
+        ],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "46d223ad030d9e5c82967f6f1d9eaad1c033da18a50959301ad4f98c66c5e331",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      },
+      "configured": {
+        "mode": "configured",
+        "candidate_sha256": "46d223ad030d9e5c82967f6f1d9eaad1c033da18a50959301ad4f98c66c5e331",
+        "plan_sha256": "de7b9e5477037c92e7ecbe7101bfbf51eb4c141984ccfbb65791f05efbcbb60d",
+        "patch_sha256": "fab490464405252228a8180b7fcd17e6117a83942e5c432ca8d3ca2b36137464",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "configured",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 821,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 921
+          },
+          "max_total": 3,
+          "domain_maxima": {
+            "aspose.org": 2,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:kb:3d:python:27ffb8db9800265e"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:kb:3d:python:27ffb8db9800265e",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:kb:3d:python:27ffb8db9800265e",
+            "target_url": "https://kb.aspose.org/3d/python/how-to-get-started-3d-python/",
+            "target_title": "How to Get Started with 3D in Python",
+            "parent_domain": "aspose.org",
+            "surface": "kb",
+            "support_rationale": "Verified kb article matches accepted example terms: scene",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "scene"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [
+          {
+            "original": "full commercial edition",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 499,
+            "character_end": 522
+          },
+          {
+            "original": "[Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/)",
+            "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+            "character_start": 524,
+            "character_end": 599
+          },
+          {
+            "original": "[aspose.com](https://products.aspose.com/3d)",
+            "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d)",
+            "character_start": 617,
+            "character_end": 661
+          },
+          {
+            "original": "the commercial Aspose.3D On-Premise library",
+            "replacement": "the Aspose.3D for Python Enterprise Edition",
+            "character_start": 791,
+            "character_end": 834
+          },
+          {
+            "original": "commercial edition",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 1033,
+            "character_end": 1051
+          },
+          {
+            "original": "[commercial On-Premise edition](https://products.aspose.com/3d/python-net/)",
+            "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+            "character_start": 1190,
+            "character_end": 1265
+          },
+          {
+            "original": "commercial package",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 1286,
+            "character_end": 1304
+          },
+          {
+            "original": "commercial edition",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 1403,
+            "character_end": 1421
+          },
+          {
+            "original": "commercial On-Premise edition",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 6006,
+            "character_end": 6035
+          },
+          {
+            "original": "[Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/)",
+            "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)",
+            "character_start": 6051,
+            "character_end": 6126
+          },
+          {
+            "original": "full-featured commercial edition",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 6129,
+            "character_end": 6161
+          },
+          {
+            "original": "[Aspose.3D product family](https://products.aspose.com/3d)",
+            "replacement": "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d)",
+            "character_start": 6164,
+            "character_end": 6222
+          },
+          {
+            "original": "commercial package",
+            "replacement": "Aspose.3D for Python Enterprise Edition",
+            "character_start": 6476,
+            "character_end": 6494
+          }
+        ],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "46d223ad030d9e5c82967f6f1d9eaad1c033da18a50959301ad4f98c66c5e331",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      }
+    },
+    {
+      "ecosystem": "net",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "source_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+      "facts_hash": "189629624f3649158fb75da4e60e03a2ddb9e84617f81b0f5432e344358fd43f",
+      "auto": {
+        "mode": "auto",
+        "candidate_sha256": "9b32f7d5059a63dd46e30a2fbb36b8b10ef65be75f3647549c17f68c69fea920",
+        "plan_sha256": "ebd20acb49ed11c88c1425258040d3c6c4c0699fcf1c98b585e0354eda76c233",
+        "patch_sha256": "d16f3ecf0772d061da5c83a134bce1dbe07712e504b1e8cd82390701c9c5f5c8",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "auto",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 503,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 603
+          },
+          "max_total": 3,
+          "domain_maxima": {
+            "aspose.org": 2,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:docs:3d:net:5f68ac362afebcaa"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:docs:3d:net:5f68ac362afebcaa",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:docs:3d:net:5f68ac362afebcaa",
+            "target_url": "https://docs.aspose.org/3d/net/getting-started/quickstart/",
+            "target_title": "Quick Start",
+            "parent_domain": "aspose.org",
+            "surface": "docs",
+            "support_rationale": "Verified docs article matches accepted example terms: save, scene, scene.save",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "save",
+              "scene",
+              "scene.save"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [
+          {
+            "original": "full commercial edition",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 444,
+            "character_end": 467
+          },
+          {
+            "original": "[Aspose.3D for .NET](https://products.aspose.com/3d/net/)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+            "character_start": 469,
+            "character_end": 526
+          },
+          {
+            "original": "[aspose.com](https://products.aspose.com/3d)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d)",
+            "character_start": 544,
+            "character_end": 588
+          },
+          {
+            "original": "the commercial Aspose.3D On-Premise library",
+            "replacement": "the Aspose.3D for .NET Enterprise Edition",
+            "character_start": 718,
+            "character_end": 761
+          },
+          {
+            "original": "commercial edition",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 960,
+            "character_end": 978
+          },
+          {
+            "original": "[commercial On-Premise edition](https://products.aspose.com/3d/net/)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+            "character_start": 1128,
+            "character_end": 1196
+          },
+          {
+            "original": "commercial package",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 1217,
+            "character_end": 1235
+          },
+          {
+            "original": "commercial edition",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 1334,
+            "character_end": 1352
+          },
+          {
+            "original": "[commercial Aspose.3D for .NET On-Premise API](https://products.aspose.com/3d/net/)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+            "character_start": 2011,
+            "character_end": 2094
+          },
+          {
+            "original": "commercial On-Premise edition",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 3075,
+            "character_end": 3104
+          },
+          {
+            "original": "[Aspose.3D for .NET](https://products.aspose.com/3d/net/)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+            "character_start": 3120,
+            "character_end": 3177
+          },
+          {
+            "original": "full-featured commercial edition",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 3180,
+            "character_end": 3212
+          },
+          {
+            "original": "[Aspose.3D product family](https://products.aspose.com/3d)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d)",
+            "character_start": 3215,
+            "character_end": 3273
+          },
+          {
+            "original": "commercial package",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 3517,
+            "character_end": 3535
+          }
+        ],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "9b32f7d5059a63dd46e30a2fbb36b8b10ef65be75f3647549c17f68c69fea920",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      },
+      "configured": {
+        "mode": "configured",
+        "candidate_sha256": "584cda37757c3c313ce4fe573883560aa56a47b803760ff04a9a441b9ecc0754",
+        "plan_sha256": "32a5263dd68f8f1c7f41b42246cd6ae6580c0d1950a19a28b6f23fb5e097a8e1",
+        "patch_sha256": "abe94844d5cf07c7942fd8a53dda0fa2a18798fcb3baea7beb6c294a15666f75",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "configured",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 503,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 603
+          },
+          "max_total": 3,
+          "domain_maxima": {
+            "aspose.org": 2,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:docs:3d:net:5f68ac362afebcaa"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:docs:3d:net:5f68ac362afebcaa",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:docs:3d:net:5f68ac362afebcaa",
+            "target_url": "https://docs.aspose.org/3d/net/getting-started/quickstart/",
+            "target_title": "Quick Start",
+            "parent_domain": "aspose.org",
+            "surface": "docs",
+            "support_rationale": "Verified docs article matches accepted example terms: save, scene, scene.save",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "save",
+              "scene",
+              "scene.save"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [
+          {
+            "original": "full commercial edition",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 444,
+            "character_end": 467
+          },
+          {
+            "original": "[Aspose.3D for .NET](https://products.aspose.com/3d/net/)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+            "character_start": 469,
+            "character_end": 526
+          },
+          {
+            "original": "[aspose.com](https://products.aspose.com/3d)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d)",
+            "character_start": 544,
+            "character_end": 588
+          },
+          {
+            "original": "the commercial Aspose.3D On-Premise library",
+            "replacement": "the Aspose.3D for .NET Enterprise Edition",
+            "character_start": 718,
+            "character_end": 761
+          },
+          {
+            "original": "commercial edition",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 960,
+            "character_end": 978
+          },
+          {
+            "original": "[commercial On-Premise edition](https://products.aspose.com/3d/net/)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+            "character_start": 1128,
+            "character_end": 1196
+          },
+          {
+            "original": "commercial package",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 1217,
+            "character_end": 1235
+          },
+          {
+            "original": "commercial edition",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 1334,
+            "character_end": 1352
+          },
+          {
+            "original": "[commercial Aspose.3D for .NET On-Premise API](https://products.aspose.com/3d/net/)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+            "character_start": 2011,
+            "character_end": 2094
+          },
+          {
+            "original": "commercial On-Premise edition",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 3075,
+            "character_end": 3104
+          },
+          {
+            "original": "[Aspose.3D for .NET](https://products.aspose.com/3d/net/)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d/net/)",
+            "character_start": 3120,
+            "character_end": 3177
+          },
+          {
+            "original": "full-featured commercial edition",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 3180,
+            "character_end": 3212
+          },
+          {
+            "original": "[Aspose.3D product family](https://products.aspose.com/3d)",
+            "replacement": "[Aspose.3D for .NET Enterprise Edition](https://products.aspose.com/3d)",
+            "character_start": 3215,
+            "character_end": 3273
+          },
+          {
+            "original": "commercial package",
+            "replacement": "Aspose.3D for .NET Enterprise Edition",
+            "character_start": 3517,
+            "character_end": 3535
+          }
+        ],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "584cda37757c3c313ce4fe573883560aa56a47b803760ff04a9a441b9ecc0754",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      }
+    },
+    {
+      "ecosystem": "java",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+      "facts_hash": "8eca54c77cf369724d7705ba23a0593d9e5539e2ce6963097aa2a65f53a12525",
+      "auto": {
+        "mode": "auto",
+        "candidate_sha256": "5daac57674a8b7efa4326d0f5d0e8bcdc563c8997e0b5bc6aa3d9352d3931895",
+        "plan_sha256": "6b87bc4cba59068f0941fd0a6d76ca4468a003d78421d990c91ba79ba7b69213",
+        "patch_sha256": "176ad2740bd4e04161d3fb30347ff030c02916ff4f01e28511b991eb71eff741",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "auto",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 760,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 860
+          },
+          "max_total": 3,
+          "domain_maxima": {
+            "aspose.org": 2,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:kb:cells:java:01eb2e6ed6a85618"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:kb:cells:java:01eb2e6ed6a85618",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:kb:cells:java:01eb2e6ed6a85618",
+            "target_url": "https://kb.aspose.org/cells/java/how-to-create-cells-foss-java/",
+            "target_title": "How to Create Workbooks with Aspose.Cells FOSS for Java",
+            "parent_domain": "aspose.org",
+            "surface": "kb",
+            "support_rationale": "Verified kb article matches accepted example terms: style.getfont, style.setcustom, workbook, workbook.getworksheets, workbook.save, xlsx",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "style.getfont",
+              "style.setcustom",
+              "workbook",
+              "workbook.getworksheets",
+              "workbook.save",
+              "xlsx"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "5daac57674a8b7efa4326d0f5d0e8bcdc563c8997e0b5bc6aa3d9352d3931895",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      },
+      "configured": {
+        "mode": "configured",
+        "candidate_sha256": "5daac57674a8b7efa4326d0f5d0e8bcdc563c8997e0b5bc6aa3d9352d3931895",
+        "plan_sha256": "d759eb99412d140eee06ba563876dc6cdbfdb470139edeb415f422cc6fd87ba1",
+        "patch_sha256": "176ad2740bd4e04161d3fb30347ff030c02916ff4f01e28511b991eb71eff741",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "configured",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 760,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 860
+          },
+          "max_total": 3,
+          "domain_maxima": {
+            "aspose.org": 2,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:kb:cells:java:01eb2e6ed6a85618"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:kb:cells:java:01eb2e6ed6a85618",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:kb:cells:java:01eb2e6ed6a85618",
+            "target_url": "https://kb.aspose.org/cells/java/how-to-create-cells-foss-java/",
+            "target_title": "How to Create Workbooks with Aspose.Cells FOSS for Java",
+            "parent_domain": "aspose.org",
+            "surface": "kb",
+            "support_rationale": "Verified kb article matches accepted example terms: style.getfont, style.setcustom, workbook, workbook.getworksheets, workbook.save, xlsx",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "style.getfont",
+              "style.setcustom",
+              "workbook",
+              "workbook.getworksheets",
+              "workbook.save",
+              "xlsx"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "5daac57674a8b7efa4326d0f5d0e8bcdc563c8997e0b5bc6aa3d9352d3931895",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      }
+    },
+    {
+      "ecosystem": "cpp",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+      "facts_hash": "645a852f41606d8d8b0bf478c76146729395d393d282f7570ea22f9af317b13f",
+      "auto": {
+        "mode": "auto",
+        "candidate_sha256": "5471124fe16f04282ddf392bde84092f07e9021120a40259fafd4e337a06ded5",
+        "plan_sha256": "36d98d772dfedf45b6407d0d26aa7cf509d5799674250e00dbfde73d6ea5b88f",
+        "patch_sha256": "8af3c222da8a002cff26897ece12959e74f8bb56506f964e5a86470f6dae32e5",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "auto",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 202,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 302
+          },
+          "max_total": 2,
+          "domain_maxima": {
+            "aspose.org": 1,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:reference:cells:cpp:1a959646ede05c62"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:reference:cells:cpp:1a959646ede05c62",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:reference:cells:cpp:1a959646ede05c62",
+            "target_url": "https://reference.aspose.org/cells/cpp/workbook/",
+            "target_title": "Workbook",
+            "parent_domain": "aspose.org",
+            "surface": "reference",
+            "support_rationale": "Verified reference article matches accepted example terms: workbook, workbook.getworksheets, workbook.save, xlsx",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "workbook",
+              "workbook.getworksheets",
+              "workbook.save",
+              "xlsx"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "5471124fe16f04282ddf392bde84092f07e9021120a40259fafd4e337a06ded5",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      },
+      "configured": {
+        "mode": "configured",
+        "candidate_sha256": "5471124fe16f04282ddf392bde84092f07e9021120a40259fafd4e337a06ded5",
+        "plan_sha256": "177d9289b0bca04d39e92da400a54e292021e72df3219757adce5415536448c3",
+        "patch_sha256": "8af3c222da8a002cff26897ece12959e74f8bb56506f964e5a86470f6dae32e5",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "configured",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 202,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 302
+          },
+          "max_total": 2,
+          "domain_maxima": {
+            "aspose.org": 1,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:reference:cells:cpp:1a959646ede05c62"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:reference:cells:cpp:1a959646ede05c62",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:reference:cells:cpp:1a959646ede05c62",
+            "target_url": "https://reference.aspose.org/cells/cpp/workbook/",
+            "target_title": "Workbook",
+            "parent_domain": "aspose.org",
+            "surface": "reference",
+            "support_rationale": "Verified reference article matches accepted example terms: workbook, workbook.getworksheets, workbook.save, xlsx",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "workbook",
+              "workbook.getworksheets",
+              "workbook.save",
+              "xlsx"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "5471124fe16f04282ddf392bde84092f07e9021120a40259fafd4e337a06ded5",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      }
+    },
+    {
+      "ecosystem": "typescript",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+      "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+      "source_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+      "facts_hash": "4746acd760411aee7c93e83f2acc03693b1740227e28a3c1f3a00997d0376a33",
+      "auto": {
+        "mode": "auto",
+        "candidate_sha256": "487442d8502754aeb50ee253619fbcb63c2fca491a8cc240bcbe098958f25ac4",
+        "plan_sha256": "5726b8154b54592468770161d419e4fa24e44cd69b1a8d36f439db760e5fbc37",
+        "patch_sha256": "d2b0fa74db58d5aba35a1c7bb96fbaaa367f44a7ad44c7c29751f7422ed9f83f",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "auto",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 827,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 927
+          },
+          "max_total": 3,
+          "domain_maxima": {
+            "aspose.org": 2,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:kb:3d:typescript:9d8a504c64c06260"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:kb:3d:typescript:9d8a504c64c06260",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:kb:3d:typescript:9d8a504c64c06260",
+            "target_url": "https://kb.aspose.org/3d/typescript/how-to-get-started-3d-typescript/",
+            "target_title": "How to Get Started with Aspose.3D FOSS for TypeScript",
+            "parent_domain": "aspose.org",
+            "surface": "kb",
+            "support_rationale": "Verified kb article matches accepted example terms: aspose, scene",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "aspose",
+              "scene"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "487442d8502754aeb50ee253619fbcb63c2fca491a8cc240bcbe098958f25ac4",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      },
+      "configured": {
+        "mode": "configured",
+        "candidate_sha256": "487442d8502754aeb50ee253619fbcb63c2fca491a8cc240bcbe098958f25ac4",
+        "plan_sha256": "18b249c0d45182ba4ff6a738749fdeb1e1e46bf58bf34fd546529803c900413e",
+        "patch_sha256": "d2b0fa74db58d5aba35a1c7bb96fbaaa367f44a7ad44c7c29751f7422ed9f83f",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "configured",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 827,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 927
+          },
+          "max_total": 3,
+          "domain_maxima": {
+            "aspose.org": 2,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:kb:3d:typescript:9d8a504c64c06260"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:kb:3d:typescript:9d8a504c64c06260",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:kb:3d:typescript:9d8a504c64c06260",
+            "target_url": "https://kb.aspose.org/3d/typescript/how-to-get-started-3d-typescript/",
+            "target_title": "How to Get Started with Aspose.3D FOSS for TypeScript",
+            "parent_domain": "aspose.org",
+            "surface": "kb",
+            "support_rationale": "Verified kb article matches accepted example terms: aspose, scene",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "aspose",
+              "scene"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "487442d8502754aeb50ee253619fbcb63c2fca491a8cc240bcbe098958f25ac4",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      }
+    },
+    {
+      "ecosystem": "rust",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+      "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+      "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+      "facts_hash": "28f97310a17773f5bb6be45b136339ec7d3e31bef7c8819dbc0647095860f761",
+      "auto": {
+        "mode": "auto",
+        "candidate_sha256": "bffaa9adf497eab0376b90a3bfaa346c959fe9148db450950ca4bc1e8be57d12",
+        "plan_sha256": "a7a80e370bbd256a2dae4bddb797e93d55cce51f0001db13e4f0052ce62729fc",
+        "patch_sha256": "408ad94a89c03e87d23225ef53202cfb05399da20f304b5fc61616f54810d5c9",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "auto",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 638,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 738
+          },
+          "max_total": 3,
+          "domain_maxima": {
+            "aspose.org": 2,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:docs:cells:rust:ebc533fd21c07b16"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:docs:cells:rust:ebc533fd21c07b16",
+            "context_kind": "code_example",
+            "section_heading": "Quick start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:docs:cells:rust:ebc533fd21c07b16",
+            "target_url": "https://docs.aspose.org/cells/rust/getting-started/quickstart/",
+            "target_title": "Quickstart",
+            "parent_domain": "aspose.org",
+            "surface": "docs",
+            "support_rationale": "Verified docs article matches accepted example terms: workbook",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "workbook"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [
+          {
+            "original": "[Aspose.Cells](https://products.aspose.com/cells/)",
+            "replacement": "[Aspose.Cells for Rust Enterprise Edition](https://products.aspose.com/cells/)",
+            "character_start": 198,
+            "character_end": 248
+          }
+        ],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "bffaa9adf497eab0376b90a3bfaa346c959fe9148db450950ca4bc1e8be57d12",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      },
+      "configured": {
+        "mode": "configured",
+        "candidate_sha256": "bffaa9adf497eab0376b90a3bfaa346c959fe9148db450950ca4bc1e8be57d12",
+        "plan_sha256": "bc021b1f3572e15aeb1e42551def558c6ee49dce19bd3da2ae53d3618d5599af",
+        "patch_sha256": "408ad94a89c03e87d23225ef53202cfb05399da20f304b5fc61616f54810d5c9",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "configured",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 638,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 738
+          },
+          "max_total": 3,
+          "domain_maxima": {
+            "aspose.org": 2,
+            "aspose.com": 2
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:docs:cells:rust:ebc533fd21c07b16"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:docs:cells:rust:ebc533fd21c07b16",
+            "context_kind": "code_example",
+            "section_heading": "Quick start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:docs:cells:rust:ebc533fd21c07b16",
+            "target_url": "https://docs.aspose.org/cells/rust/getting-started/quickstart/",
+            "target_title": "Quickstart",
+            "parent_domain": "aspose.org",
+            "surface": "docs",
+            "support_rationale": "Verified docs article matches accepted example terms: workbook",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "workbook"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [
+          {
+            "original": "[Aspose.Cells](https://products.aspose.com/cells/)",
+            "replacement": "[Aspose.Cells for Rust Enterprise Edition](https://products.aspose.com/cells/)",
+            "character_start": 198,
+            "character_end": 248
+          }
+        ],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "bffaa9adf497eab0376b90a3bfaa346c959fe9148db450950ca4bc1e8be57d12",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      }
+    },
+    {
+      "ecosystem": "go",
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "source_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+      "facts_hash": "f68f579d744784ed3db2c8b3429be4513e841d1d4d5d6bea2021619f36bb48ea",
+      "auto": {
+        "mode": "auto",
+        "candidate_sha256": "d7bfe7d0dcd6e74971012575f4c2dda93123053c40d98c9102c496834a253caa",
+        "plan_sha256": "06d23368965d23571ab22d3e9f234baa32f997d593e78471045c6ce6afcbb3a8",
+        "patch_sha256": "8b1ac147010d9f20dc8c3f3b4e257af652940b0abce9b5358d234c01d45a7e67",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "auto",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 6692,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 6792
+          },
+          "max_total": 6,
+          "domain_maxima": {
+            "aspose.org": 3,
+            "aspose.com": 4
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:docs:pdf:go:5f89b7cf682c308c"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:docs:pdf:go:5f89b7cf682c308c",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:docs:pdf:go:5f89b7cf682c308c",
+            "target_url": "https://docs.aspose.org/pdf/go/developer-guide/document-management/",
+            "target_title": "Document Management",
+            "parent_domain": "aspose.org",
+            "surface": "docs",
+            "support_rationale": "Verified docs article matches accepted example terms: open",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "open"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [
+          {
+            "original": "[Aspose.PDF FOSS for Go](https://products.aspose.com/pdf/)",
+            "replacement": "[Aspose.PDF for Go Enterprise Edition](https://products.aspose.com/pdf/)",
+            "character_start": 101564,
+            "character_end": 101622
+          }
+        ],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "d7bfe7d0dcd6e74971012575f4c2dda93123053c40d98c9102c496834a253caa",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      },
+      "configured": {
+        "mode": "configured",
+        "candidate_sha256": "d7bfe7d0dcd6e74971012575f4c2dda93123053c40d98c9102c496834a253caa",
+        "plan_sha256": "c5be6f2093e163cafa79c6a60e7ed12adcb4daa14fd765b58f79cf7c825f2309",
+        "patch_sha256": "8b1ac147010d9f20dc8c3f3b4e257af652940b0abce9b5358d234c01d45a7e67",
+        "git_apply_check_passed": true,
+        "validation_valid": true,
+        "validation_errors": [],
+        "budget": {
+          "schema_version": 1,
+          "mode": "configured",
+          "measurement": {
+            "schema_version": 1,
+            "visible_prose_words": 6692,
+            "verified_code_blocks": 1,
+            "verified_code_units": 100,
+            "total_content_units": 6792
+          },
+          "max_total": 6,
+          "domain_maxima": {
+            "aspose.org": 3,
+            "aspose.com": 4
+          },
+          "surface_maxima": {
+            "products": 2,
+            "docs": 2,
+            "kb": 2,
+            "blog": 1,
+            "reference": 2
+          }
+        },
+        "considered_record_ids": [
+          "org:docs:pdf:go:5f89b7cf682c308c"
+        ],
+        "bindings": [
+          {
+            "schema_version": 1,
+            "binding_id": "readme.example:org:docs:pdf:go:5f89b7cf682c308c",
+            "context_kind": "code_example",
+            "section_heading": "Quick Start",
+            "context_id": "example.minimal:agent-drafted-example",
+            "target_record_id": "org:docs:pdf:go:5f89b7cf682c308c",
+            "target_url": "https://docs.aspose.org/pdf/go/developer-guide/document-management/",
+            "target_title": "Document Management",
+            "parent_domain": "aspose.org",
+            "surface": "docs",
+            "support_rationale": "Verified docs article matches accepted example terms: open",
+            "placement": "after_verified_example",
+            "accepted_fact_ids": [
+              "product.identity:manifest-and-registry",
+              "example.minimal:agent-drafted-example"
+            ],
+            "matched_subject_terms": [
+              "open"
+            ]
+          }
+        ],
+        "omission_reason": "none",
+        "useful_link_or_evidenced_zero": true,
+        "terminology_corrections": [
+          {
+            "original": "[Aspose.PDF FOSS for Go](https://products.aspose.com/pdf/)",
+            "replacement": "[Aspose.PDF for Go Enterprise Edition](https://products.aspose.com/pdf/)",
+            "character_start": 101564,
+            "character_end": 101622
+          }
+        ],
+        "no_op_proven": true,
+        "rerun_candidate_sha256": "d7bfe7d0dcd6e74971012575f4c2dda93123053c40d98c9102c496834a253caa",
+        "rerun_operation_ids": [],
+        "rerun_omission_reason": "none"
+      }
+    }
+  ],
+  "checks": {
+    "configured_order_exact": true,
+    "seven_representatives": true,
+    "auto_and_configured_valid": true,
+    "useful_link_or_evidenced_zero": true,
+    "native_patches_apply": true,
+    "no_op_proven": true,
+    "zero_remote_writes": true,
+    "zero_llm_calls": true,
+    "control_tree_clean_at_start": true,
+    "source_head_stable": true,
+    "focused_regressions_pass": true
+  },
+  "reproduction_command": ".venv/Scripts/python plans/investigations/tools/build_contextual_linking_evidence.py"
+}

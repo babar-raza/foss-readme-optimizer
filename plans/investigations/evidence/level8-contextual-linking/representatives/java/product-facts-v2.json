@@ -1,0 +1,726 @@
+{
+  "schema_version": 2,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "cells",
+        "platform": "java",
+        "ecosystem": "java",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "manifest_names": [
+          "Aspose.Cells FOSS for Java"
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:agent-drafted-grounded",
+      "field": "product.audience",
+      "value": [
+        "Developers using java."
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.audience",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": "2026-07-28T07:00:18.763776+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:agent-drafted-grounded",
+      "field": "product.problems_solved",
+      "value": [
+        "Cell values for strings, numbers, booleans, date/time values, and formulas",
+        "Defined names"
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.problems_solved",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": "2026-07-28T07:00:18.763776+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": [
+        "Cell values for strings, numbers, booleans, date/time values, and formulas",
+        "Defined names",
+        "Embedded charts with 21 standard chart types"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/main/java/org/aspose/cells_foss/Cell.java,src/main/java/org/aspose/cells_foss/ChartCollection.java,src/main/java/org/aspose/cells_foss/DefinedName.java,src/main/java/org/aspose/cells_foss/DefinedNameCollection.java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": "2026-07-28T07:00:18.763776+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": [
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Cell values for strings, numbers, booleans, date/time values, and formulas",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/main/java/org/aspose/cells_foss/Cell.java",
+          "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "observed_at": "2026-07-28T07:00:18.763776+00:00",
+          "line_number": 129,
+          "anchor": "putValue(String value)",
+          "exact_excerpt": "public void putValue(String value) {",
+          "context_excerpt": "/**\n     * Stores the value.\n     * @param value value to apply\n     */\n    public void putValue(String value) {\n        java.util.Objects.requireNonNull(value, \"value\");\n        setScalar(value, CellValueKind.STRING);\n    }",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Defined names",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/main/java/org/aspose/cells_foss/DefinedName.java",
+          "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "observed_at": "2026-07-28T07:00:18.763776+00:00",
+          "line_number": 26,
+          "anchor": "getName()",
+          "exact_excerpt": "public String getName() {",
+          "context_excerpt": "/**\n     * Returns the name.\n     * @return the requested result\n     */\n    public String getName() {\n        return model.getName();\n    }\n\n    /**",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Embedded charts with 21 standard chart types",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/main/java/org/aspose/cells_foss/ChartCollection.java",
+          "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "observed_at": "2026-07-28T07:00:18.763776+00:00",
+          "line_number": 35,
+          "anchor": "add(ChartType type, String dataRange",
+          "exact_excerpt": "public int add(ChartType type, String dataRange,",
+          "context_excerpt": "* @param lowerRightRow  zero-based lower-right row anchor\n     * @param lowerRightColumn zero-based lower-right column anchor\n     * @return zero-based index of the added chart\n     */\n    public int add(ChartType type, String dataRange,\n                   int upperLeftRow, int upperLeftColumn,\n                   int lowerRightRow, int lowerRightColumn) {\n        switch (type) {\n            case WATERFALL, TREEMAP, SUNBURST, HISTOGRAM, BOX_AND_WHISKER, FUNNEL, MAP ->",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        }
+      ],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": [
+        "Load formats: AUTO, XLSX",
+        "Save format: XLSX"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,src/main/java/org/aspose/cells_foss/LoadFormat.java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": "2026-07-28T07:00:18.763776+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "java"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "java",
+          "manifest_path": "pom.xml",
+          "group_id": "org.aspose",
+          "artifact_id": "aspose-cells-foss",
+          "name": "Aspose.Cells FOSS for Java",
+          "version": "26.7.0",
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:registry-maven_central",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "schema_version": 1,
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "ecosystem": "java",
+        "method": "maven_central",
+        "outcome": "REGISTRY_VERIFIED",
+        "detail": "Maven Central: org.aspose:aspose-cells-foss found",
+        "coordinate": {
+          "group_id": "org.aspose",
+          "artifact_id": "aspose-cells-foss"
+        },
+        "registry_receipt": {
+          "schema_version": 1,
+          "resolver_ecosystem": "java",
+          "registry_label": "Maven Central",
+          "coordinate": {
+            "group_id": "org.aspose",
+            "artifact_id": "aspose-cells-foss"
+          },
+          "request_url": "https://repo1.maven.org/maven2/org/aspose/aspose-cells-foss/maven-metadata.xml",
+          "status_code": 200,
+          "response_sha256": "89f9b86060dca4385659ce86ef58db9a4049e0d480f5d2ba7a82a6b208a4523d",
+          "retrieved_at": "2026-07-28T07:00:18.761434Z",
+          "found": true,
+          "detail": "Maven Central: org.aspose:aspose-cells-foss found"
+        },
+        "source_build_receipt": null,
+        "truth_eligible": true
+      },
+      "source": {
+        "source_type": "external_registry",
+        "location": "https://repo1.maven.org/maven2/org/aspose/aspose-cells-foss/maven-metadata.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:agent-drafted-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "java",
+        "class_name": "Main",
+        "code": "import org.aspose.cells_foss.Cell;\nimport org.aspose.cells_foss.Style;\nimport org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class Main {\n    public static void main(String[] args) {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n            sheet.setName(\"Report\");\n\n            sheet.getCells().get(\"A1\").putValue(\"Revenue\");\n            sheet.getCells().get(\"B1\").putValue(12500.75);\n\n            Cell total = sheet.getCells().get(\"B1\");\n            Style style = total.getStyle();\n            style.getFont().setBold(true);\n            style.setCustom(\"#,##0.00\");\n            total.setStyle(style);\n\n            sheet.getCells().getRows().get(0).setHeight(22.0);\n            sheet.getCells().getColumns().get(1).setWidth(14.5);\n\n            workbook.save(\"report.xlsx\");\n        }\n    }\n}\n",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED",
+        "verification_detail": "exact Java consumer compiled against immutable repository source",
+        "verified_public_symbols": [
+          "org.aspose.cells_foss.Cell",
+          "org.aspose.cells_foss.Style",
+          "org.aspose.cells_foss.Workbook",
+          "org.aspose.cells_foss.Worksheet"
+        ],
+        "public_api_sha256": "cd0c455bfebea9948739b88271804c82634341b9edefc13a4f8248136cef42ad",
+        "python_package": null,
+        "typescript_package": null,
+        "rust_package": null,
+        "rust_formats": [],
+        "rust_source_dependency": null,
+        "acquisition_dependency_pins": [
+          "container_image=eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+          "example_sha256=620bfee6045fd9404fa7bcbbecef83ff58e9286e3c93007245757d068ea51ec8",
+          "input_sha256=b90fb2c91b33ad6aef3cefc153d34b4e47a1b8592f9c843c81bb3f00addd4f44",
+          "source_revision=2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "source_surface_sha256=cd0c455bfebea9948739b88271804c82634341b9edefc13a4f8248136cef42ad",
+          "java_release=17"
+        ],
+        "compiled_consumer": {
+          "schema_version": 1,
+          "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+          "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "ecosystem": "java",
+          "source_paths": [
+            "pom.xml",
+            "src/main/java/org/aspose/cells_foss/Cell.java",
+            "src/main/java/org/aspose/cells_foss/Style.java",
+            "src/main/java/org/aspose/cells_foss/Workbook.java",
+            "src/main/java/org/aspose/cells_foss/Worksheet.java"
+          ],
+          "selected_symbols": [
+            "org.aspose.cells_foss.Cell",
+            "org.aspose.cells_foss.Style",
+            "org.aspose.cells_foss.Workbook",
+            "org.aspose.cells_foss.Worksheet"
+          ],
+          "source_sha256": "cd0c455bfebea9948739b88271804c82634341b9edefc13a4f8248136cef42ad",
+          "example_sha256": "620bfee6045fd9404fa7bcbbecef83ff58e9286e3c93007245757d068ea51ec8",
+          "isolated_execution": {
+            "schema_version": 1,
+            "isolation_kind": "docker_container",
+            "truth_eligible": true,
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+            "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+            "argv": [
+              "/bin/sh",
+              "-euc",
+              "javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java"
+            ],
+            "environment_names": [
+              "HOME",
+              "TMPDIR"
+            ],
+            "input_sha256": "b90fb2c91b33ad6aef3cefc153d34b4e47a1b8592f9c843c81bb3f00addd4f44",
+            "input_file_count": 393,
+            "policy_sha256": "ab3ebd3591bbf323e50cdaa5f1e90052a7143101a87400fdc76d5f9cb2766c7c",
+            "policy": {
+              "schema_version": 1,
+              "immutable_image": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+              "cpu_limit": 1.0,
+              "memory_mebibytes": 1024,
+              "pids_limit": 96,
+              "timeout_seconds": 300.0,
+              "tmpfs_mebibytes": 64,
+              "network_mode": "none",
+              "read_only_rootfs": true,
+              "cap_drop_all": true,
+              "no_new_privileges": true,
+              "seccomp_profile": "runtime-default",
+              "user": "65534:65534",
+              "workspace_path": "/workspace"
+            },
+            "image": {
+              "requested_reference": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+              "repo_digest": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+              "image_id": "sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+              "operating_system": "linux",
+              "architecture": "amd64",
+              "engine_version": "28.4.0"
+            },
+            "container_id": "1204a9dcab43ed8bd39d2b944879cbbfdfff0ffd35bb4f13e96ded0e09d8f338",
+            "process_inventory": [
+              "PID                 PPID                USER                COMMAND",
+              "144229              144206              nobody              /bin/sh -euc javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java",
+              "144242              144229              nobody              javac -version"
+            ],
+            "return_code": 0,
+            "stdout": "javac 21.0.11\n",
+            "stderr": "",
+            "timed_out": false,
+            "oom_killed": false,
+            "started_at": "2026-07-28T07:03:07.094861+00:00",
+            "finished_at": "2026-07-28T07:03:18.223776+00:00",
+            "cleanup": {
+              "execution_container_removed": true,
+              "seed_container_removed": true,
+              "workspace_volume_removed": true
+            }
+          },
+          "accepted": true
+        }
+      },
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://example.minimal",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": "2026-07-28T07:00:18.763776+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/cells/java/",
+          "family_url": "https://products.aspose.org/cells/",
+          "label": "Aspose.Cells FOSS for Java",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/cells/java/",
+          "family_url": "https://products.aspose.com/cells",
+          "label": "Aspose.Cells for Java",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "manifest_path": "pom.xml",
+          "version": "26.7.0",
+          "active": true,
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": [
+        "ChartEx types (Waterfall, Treemap, Sunburst, Histogram, BoxAndWhisker, Funnel, Map) cannot be created programmatically; they are preserved verbatim across load/save"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/main/java/org/aspose/cells_foss/ChartCollection.java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": "2026-07-28T07:00:18.763776+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": [
+        {
+          "schema_version": 1,
+          "fact_id": "product.limitations:repository-evidence",
+          "claim_text": "ChartEx types (Waterfall, Treemap, Sunburst, Histogram, BoxAndWhisker, Funnel, Map) cannot be created programmatically; they are preserved verbatim across load/save",
+          "expected_polarity": "explicit_constraint",
+          "observed_polarity": "explicit_constraint",
+          "source_path": "src/main/java/org/aspose/cells_foss/ChartCollection.java",
+          "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "observed_at": "2026-07-28T07:00:18.763776+00:00",
+          "line_number": 41,
+          "anchor": "ChartEx type",
+          "exact_excerpt": "\"ChartEx type \" + type + \" is not supported for programmatic chart creation.\");",
+          "context_excerpt": "int lowerRightRow, int lowerRightColumn) {\n        switch (type) {\n            case WATERFALL, TREEMAP, SUNBURST, HISTOGRAM, BOX_AND_WHISKER, FUNNEL, MAP ->\n                throw new UnsupportedFeatureException(\n                    \"ChartEx type \" + type + \" is not supported for programmatic chart creation.\");\n            default -> {}\n        }\n        if (dataRange == null || dataRange.isBlank())\n            throw new CellsException(\"dataRange must not be blank.\");",
+          "accepted": true,
+          "reason": "observed explicit_constraint matches expected explicit_constraint"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.limitations:repository-evidence",
+          "claim_text": "ChartEx types (Waterfall, Treemap, Sunburst, Histogram, BoxAndWhisker, Funnel, Map) cannot be created programmatically; they are preserved verbatim across load/save",
+          "expected_polarity": "explicit_constraint",
+          "observed_polarity": "explicit_constraint",
+          "source_path": "src/main/java/org/aspose/cells_foss/ChartCollection.java",
+          "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "observed_at": "2026-07-28T07:00:18.763776+00:00",
+          "line_number": 41,
+          "anchor": "is not supported for programmatic chart creation",
+          "exact_excerpt": "\"ChartEx type \" + type + \" is not supported for programmatic chart creation.\");",
+          "context_excerpt": "int lowerRightRow, int lowerRightColumn) {\n        switch (type) {\n            case WATERFALL, TREEMAP, SUNBURST, HISTOGRAM, BOX_AND_WHISKER, FUNNEL, MAP ->\n                throw new UnsupportedFeatureException(\n                    \"ChartEx type \" + type + \" is not supported for programmatic chart creation.\");\n            default -> {}\n        }\n        if (dataRange == null || dataRange.isBlank())\n            throw new CellsException(\"dataRange must not be blank.\");",
+          "accepted": true,
+          "reason": "observed explicit_constraint matches expected explicit_constraint"
+        }
+      ],
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:manifest",
+      "field": "product.compatibility",
+      "value": [
+        {
+          "ecosystem": "java",
+          "runtime_label": "Java",
+          "minimum_runtime": "17",
+          "compatibility_kind": "minimum_runtime",
+          "manifest_path": "pom.xml",
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://License/LICENSE.txt",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "product.license:manifest",
+      "field": "product.license",
+      "value": "MIT License",
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pom.xml",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:agent-drafted-grounded",
+    "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:registry-maven_central",
+    "example.minimal": "example.minimal:agent-drafted-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:manifest",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary"
+  },
+  "package_root_roles": {
+    "schema_version": 1,
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+    "selection_state": "selected",
+    "selected_product_manifest_path": "pom.xml",
+    "selection_rationale": [
+      "the sole non-secondary root matching the registry ecosystem was selected",
+      "manifest identity matches registry product family",
+      "manifest identity declares the FOSS package",
+      "manifest declares a distributable package identity",
+      "repository-root manifest"
+    ],
+    "roots": [
+      {
+        "path": ".",
+        "ecosystem": "java",
+        "manifest_path": "pom.xml",
+        "role": "product",
+        "confidence": 1.0,
+        "parsed_identity": {
+          "artifact_id": "aspose-cells-foss",
+          "group_id": "org.aspose",
+          "name": "Aspose.Cells FOSS for Java",
+          "version": "26.7.0"
+        },
+        "referenced_manifest_paths": [],
+        "rationale": [
+          "selected as the distributed product root",
+          "the sole non-secondary root matching the registry ecosystem was selected",
+          "manifest identity matches registry product family",
+          "manifest identity declares the FOSS package",
+          "manifest declares a distributable package identity",
+          "repository-root manifest"
+        ]
+      }
+    ]
+  }
+}

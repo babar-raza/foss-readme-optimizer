@@ -1,0 +1,103 @@
+diff --git a/README.md b/README.md
+index ffb4e3f..8f56f5b 100644
+--- a/README.md
++++ b/README.md
+@@ -1,7 +1,50 @@
+ # Aspose.3D FOSS for TypeScript
+ 
++[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
++
+ A powerful and open-source 3D file format library for TypeScript/JavaScript. Aspose.3D for TypeScript enables developers to create, manipulate, and convert 3D scenes and models programmatically in Node.js and browser environments. Supports popular 3D file formats including OBJ, STL, FBX, GLTF, and more.
+ 
++## At a glance
++
++- **For:** Developers using TypeScript.
++- **Problem solved:** Scene graph management. Mesh creation and manipulation. Vector math primitives. Material system with Lambert, Phong, and PBR materials.
++- **Verified capabilities:** Scene graph management. Mesh creation and manipulation. Vector math primitives. Material system with Lambert, Phong, and PBR materials. Keyframe animation support. File format detection. Polygon triangulation. Camera and light entities.
++- **Verified formats:** OBJ - Import/export with materials, textures, and grouping. GLTF - GL Transmission Format with full PBR material support. STL - Stereo Lithography format for 3D printing. 3MF - 3D Manufacturing Format for modern 3D printing workflows. FBX - Autodesk FBX format support. Collada - COLLADA (DAE) format support.
++- **Runtime:** ES2020
++
++```mermaid
++flowchart LR
++  product["Aspose.3D FOSS for TypeScript"]
++  audience_1["Developers using TypeScript."]
++  problem_1["Scene graph management"]
++  capability_1["Scene graph management"]
++  capability_2["Mesh creation and manipulation"]
++  format_1["OBJ - Import/export with materials, textures, and grouping"]
++  format_2["GLTF - GL Transmission Format with full PBR material support"]
++  product --> audience_1
++  product --> problem_1
++  product --> capability_1
++  product --> capability_2
++  product --> format_1
++  product --> format_2
++```
++
++## In this README
++
++- [Features](#features)
++- [Installation](#installation)
++- [Quick Start](#quick-start)
++- [Supported Formats](#supported-formats)
++- [Documentation](#documentation)
++- [TypeScript Version Support](#typescript-version-support)
++- [Build & Test](#build-test)
++- [Format-Specific Features](#format-specific-features)
++- [Architecture](#architecture)
++- [Examples](#examples)
++- [Contributing](#contributing)
++- [License](#license)
++- [Acknowledgments](#acknowledgments)
++
+ ## Features
+ 
+ - **Format Support**
+@@ -52,30 +95,19 @@ Or add to your `package.json`:
+ 
+ ## Quick Start
+ 
++### Minimal verified example
++
+ ```typescript
+-import { Scene } from '@aspose/3d';
+-import { ObjLoadOptions, ObjImporter } from '@aspose/3d/formats/obj';
++import { Scene } from '@aspose/3d/dist/aspose/threed';
+ 
+-// Create a new scene
+ const scene = new Scene();
+-
+-// Import an OBJ file
+-const options = new ObjLoadOptions();
+-options.enableMaterials = true;
+-options.flipCoordinateSystem = false;
+-scene.open("model.obj", options);
+-
+-// Access imported data
+-for (const node of scene.rootNode.childNodes) {
+-    if (node.entity) {
+-        const mesh = node.entity;
+-        console.log(`Mesh: ${node.name}`);
+-        console.log(`  Vertices: ${mesh.controlPoints.length}`);
+-        console.log(`  Polygons: ${mesh.polygonCount}`);
+-    }
+-}
++console.log(scene);
+ ```
+ 
++This exact example was compiled against the source build at revision `227894a1120c22b9b6522564e23dc1d14c8fc39a`.
++
++For a focused walkthrough of the APIs used in this example, see [How to Get Started with Aspose.3D FOSS for TypeScript](https://kb.aspose.org/3d/typescript/how-to-get-started-3d-typescript/).
++
+ ## Supported Formats
+ 
+ ### Import (Implemented)
+@@ -98,7 +130,7 @@ for (const node of scene.rootNode.childNodes) {
+ 
+ ## Documentation
+ 
+-- [API Reference](https://reference.aspose.com/3d/python-net/) - Complete API documentation (Python API, same structure as TypeScript)
++- API Reference - Complete API documentation (Python API, same structure as TypeScript)
+ 
+ ## TypeScript Version Support
+ 

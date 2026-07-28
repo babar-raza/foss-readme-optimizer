@@ -1,0 +1,337 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+  "immutable_base_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+  "facts_hash": "28f97310a17773f5bb6be45b136339ec7d3e31bef7c8819dbc0647095860f761",
+  "template_sha256": "6debd1cf49ee2b0f864145483a4a857e8f7175c9d958e907bf721a83e316f003",
+  "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+  "adoption": {
+    "marker_schema_version": null,
+    "metadata_location": "durable_evidence",
+    "already_adopted": false,
+    "source_document_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+    "source_inner_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+    "source_inner_bytes": 6359,
+    "preservation_check": "byte_identical"
+  },
+  "header_visuals": {
+    "schema_version": 1,
+    "title": "Aspose.Cells FOSS for Rust",
+    "title_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ],
+    "badges": [
+      {
+        "badge_id": "license",
+        "kind": "license",
+        "alt_text": "License: MIT",
+        "image_url": "https://img.shields.io/badge/License-MIT-blue",
+        "target_url": "LICENSE",
+        "fact_ids": [
+          "product.license:license-file"
+        ]
+      }
+    ],
+    "badge_markdown": "[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+    "diagram_nodes": [
+      {
+        "node_id": "product",
+        "role": "product",
+        "label": "Aspose.Cells FOSS for Rust",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "audience_1",
+        "role": "audience",
+        "label": "Developers using Rust.",
+        "fact_ids": [
+          "product.audience:agent-drafted-grounded",
+          "product.identity:manifest-and-registry",
+          "product.platforms:manifest",
+          "installation.coordinates:manifest"
+        ]
+      },
+      {
+        "node_id": "problem_1",
+        "role": "problem",
+        "label": "Workbook creation and persistence",
+        "fact_ids": [
+          "product.problems_solved:agent-drafted-grounded",
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_1",
+        "role": "capability",
+        "label": "Workbook creation and persistence",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_2",
+        "role": "capability",
+        "label": "Formula evaluation with cached result",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_1",
+        "role": "format",
+        "label": "Excel .xlsx (Office Open XML / SpreadsheetML)",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      }
+    ],
+    "mermaid_source": "flowchart LR\n  product[\"Aspose.Cells FOSS for Rust\"]\n  audience_1[\"Developers using Rust.\"]\n  problem_1[\"Workbook creation and persistence\"]\n  capability_1[\"Workbook creation and persistence\"]\n  capability_2[\"Formula evaluation with cached result\"]\n  format_1[\"Excel .xlsx (Office Open XML / SpreadsheetML)\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1",
+    "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.Cells FOSS for Rust\"]\n  audience_1[\"Developers using Rust.\"]\n  problem_1[\"Workbook creation and persistence\"]\n  capability_1[\"Workbook creation and persistence\"]\n  capability_2[\"Formula evaluation with cached result\"]\n  format_1[\"Excel .xlsx (Office Open XML / SpreadsheetML)\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```"
+  },
+  "contextual_links": {
+    "schema_version": 1,
+    "family": "cells",
+    "platform": "rust",
+    "enterprise_product_name": "Aspose.Cells for Rust",
+    "aspose_org_catalog_hash": "sha256:1889a44093bd29273fa37039bb85acb77213c5fd5ddec8ecf3d039926ddc9f80",
+    "aspose_com_catalog_hash": "sha256:3560e9f9358401a30b95fc06d978ea3a21bfbc84d44008b13d06462d4a3bb5d7",
+    "budget": {
+      "schema_version": 1,
+      "mode": "auto",
+      "measurement": {
+        "schema_version": 1,
+        "visible_prose_words": 638,
+        "verified_code_blocks": 1,
+        "verified_code_units": 100,
+        "total_content_units": 738
+      },
+      "max_total": 3,
+      "domain_maxima": {
+        "aspose.org": 2,
+        "aspose.com": 2
+      },
+      "surface_maxima": {
+        "products": 2,
+        "docs": 2,
+        "kb": 2,
+        "blog": 1,
+        "reference": 2
+      }
+    },
+    "pre_link_occurrences": {
+      "total": 0,
+      "by_parent_domain": {
+        "aspose.org": 0,
+        "aspose.com": 0
+      },
+      "by_surface": {
+        "products": 0,
+        "docs": 0,
+        "kb": 0,
+        "blog": 0,
+        "reference": 0,
+        "other": 0
+      },
+      "repeated_targets": {}
+    },
+    "pre_link_url_counts": {},
+    "considered_record_ids": [
+      "org:docs:cells:rust:ebc533fd21c07b16"
+    ],
+    "bindings": [
+      {
+        "schema_version": 1,
+        "binding_id": "readme.example:org:docs:cells:rust:ebc533fd21c07b16",
+        "context_kind": "code_example",
+        "section_heading": "Quick start",
+        "context_id": "example.minimal:agent-drafted-example",
+        "target_record_id": "org:docs:cells:rust:ebc533fd21c07b16",
+        "target_url": "https://docs.aspose.org/cells/rust/getting-started/quickstart/",
+        "target_title": "Quickstart",
+        "parent_domain": "aspose.org",
+        "surface": "docs",
+        "support_rationale": "Verified docs article matches accepted example terms: workbook",
+        "placement": "after_verified_example",
+        "accepted_fact_ids": [
+          "product.identity:manifest-and-registry",
+          "example.minimal:agent-drafted-example"
+        ],
+        "matched_subject_terms": [
+          "workbook"
+        ]
+      }
+    ],
+    "omission_reason": "none"
+  },
+  "enterprise_terminology_corrections": [
+    {
+      "original": "[Aspose.Cells](https://products.aspose.com/cells/)",
+      "replacement": "[Aspose.Cells for Rust Enterprise Edition](https://products.aspose.com/cells/)",
+      "character_start": 198,
+      "character_end": 248
+    }
+  ],
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 988,
+      "source_byte_end": 988,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** Developers using Rust.\n- **Problem solved:** Workbook creation and persistence. Formula evaluation with cached result. XLSX file loading. List objects (Excel tables) with styles and totals.\n- **Verified capabilities:** Workbook creation and persistence. Formula evaluation with cached result. XLSX file loading. List objects (Excel tables) with styles and totals.\n- **Verified formats:** Excel .xlsx (Office Open XML / SpreadsheetML).\n- **Current verified limitation:** Early-stage and evolving. The public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial. Treat it as a work in progress.\n\n```mermaid\nflowchart LR\n  product[\"Aspose.Cells FOSS for Rust\"]\n  audience_1[\"Developers using Rust.\"]\n  problem_1[\"Workbook creation and persistence\"]\n  capability_1[\"Workbook creation and persistence\"]\n  capability_2[\"Formula evaluation with cached result\"]\n  format_1[\"Excel .xlsx (Office Open XML / SpreadsheetML)\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```\n\n## In this README\n\n- [Status](#status)\n- [Features](#features)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Documentation](#documentation)\n- [Samples](#samples)\n- [Project layout](#project-layout)\n- [License](#license)\n\n",
+      "replacement_sha256": "4cfc7d81a5b0d8768a75f30b62952d740bd2df20c54cb8a21052be7aa39874dc",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-evidence",
+        "product.platforms:manifest",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.limitations.add-verified",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 6359,
+      "source_byte_end": 6359,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n## Known limitations\n\n- Early-stage and evolving. The public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial. Treat it as a work in progress.\n",
+      "replacement_sha256": "f0168a935434b5c3a1951bbd777ec588f18fca5a048cb78df210c79720a89d73",
+      "fact_ids": [
+        "product.limitations:repository-evidence"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Expose repository-verified limitations instead of silently presenting incomplete capability coverage.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.example.replace-unverified-minimal",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 3026,
+      "source_byte_end": 4035,
+      "expected_sha256": "86474bd5f507af915126ce6a770cc9b86b70abcbef40dd6ccddffa328ae4feef",
+      "replacement_text": "### Minimal verified example\n\n```rust\nuse aspose_cells_foss_rust::Workbook;\n\nfn main() {\n    let _workbook = Workbook::default();\n}\n```\n\nThis exact example was compiled against the source build at revision `0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e`.\n\nFor a focused walkthrough of the APIs used in this example, see [Quickstart](https://docs.aspose.org/cells/rust/getting-started/quickstart/).\n",
+      "replacement_sha256": "acd911f9d2a642f98b203f4c8f82c89db499dba63f4c86b397a0e9b54d52cb9d",
+      "fact_ids": [
+        "example.minimal:agent-drafted-example",
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Replace the one existing usage example with the exact minimal example compiled against the verified source build. Add its verified contextual article.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 29,
+      "source_byte_end": 29,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+      "replacement_sha256": "1c6695b4496b1508d5f11e2e91d78c7143f40313f6f4943e6e32915a1080b0a0",
+      "fact_ids": [
+        "product.license:license-file"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Add only applicable package, version, download, and license badges.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:1",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 198,
+      "source_byte_end": 248,
+      "expected_sha256": "551aa67d4c68d27a4ed1ef9947fad1cf77efe7a516cc2ae4b502c8550624b402",
+      "replacement_text": "Aspose.Cells",
+      "replacement_sha256": "c2a94c3cbb20aabb8f1822466ad02f616bd3e6cc101d16a095deac4dee8992af",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "bffaa9adf497eab0376b90a3bfaa346c959fe9148db450950ca4bc1e8be57d12"
+}

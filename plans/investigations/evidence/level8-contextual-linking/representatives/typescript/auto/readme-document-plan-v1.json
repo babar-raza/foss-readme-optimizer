@@ -1,0 +1,308 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+  "immutable_base_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+  "facts_hash": "4746acd760411aee7c93e83f2acc03693b1740227e28a3c1f3a00997d0376a33",
+  "template_sha256": "6debd1cf49ee2b0f864145483a4a857e8f7175c9d958e907bf721a83e316f003",
+  "source_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+  "adoption": {
+    "marker_schema_version": null,
+    "metadata_location": "durable_evidence",
+    "already_adopted": false,
+    "source_document_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+    "source_inner_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+    "source_inner_bytes": 6582,
+    "preservation_check": "byte_identical"
+  },
+  "header_visuals": {
+    "schema_version": 1,
+    "title": "Aspose.3D FOSS for TypeScript",
+    "title_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ],
+    "badges": [
+      {
+        "badge_id": "license",
+        "kind": "license",
+        "alt_text": "License: MIT",
+        "image_url": "https://img.shields.io/badge/License-MIT-blue",
+        "target_url": "LICENSE",
+        "fact_ids": [
+          "product.license:manifest"
+        ]
+      }
+    ],
+    "badge_markdown": "[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+    "diagram_nodes": [
+      {
+        "node_id": "product",
+        "role": "product",
+        "label": "Aspose.3D FOSS for TypeScript",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "audience_1",
+        "role": "audience",
+        "label": "Developers using TypeScript.",
+        "fact_ids": [
+          "product.audience:agent-drafted-grounded",
+          "product.identity:manifest-and-registry",
+          "product.platforms:manifest",
+          "installation.coordinates:manifest"
+        ]
+      },
+      {
+        "node_id": "problem_1",
+        "role": "problem",
+        "label": "Scene graph management",
+        "fact_ids": [
+          "product.problems_solved:agent-drafted-grounded",
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_1",
+        "role": "capability",
+        "label": "Scene graph management",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_2",
+        "role": "capability",
+        "label": "Mesh creation and manipulation",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_1",
+        "role": "format",
+        "label": "OBJ - Import/export with materials, textures, and grouping",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_2",
+        "role": "format",
+        "label": "GLTF - GL Transmission Format with full PBR material support",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      }
+    ],
+    "mermaid_source": "flowchart LR\n  product[\"Aspose.3D FOSS for TypeScript\"]\n  audience_1[\"Developers using TypeScript.\"]\n  problem_1[\"Scene graph management\"]\n  capability_1[\"Scene graph management\"]\n  capability_2[\"Mesh creation and manipulation\"]\n  format_1[\"OBJ - Import/export with materials, textures, and grouping\"]\n  format_2[\"GLTF - GL Transmission Format with full PBR material support\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2",
+    "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.3D FOSS for TypeScript\"]\n  audience_1[\"Developers using TypeScript.\"]\n  problem_1[\"Scene graph management\"]\n  capability_1[\"Scene graph management\"]\n  capability_2[\"Mesh creation and manipulation\"]\n  format_1[\"OBJ - Import/export with materials, textures, and grouping\"]\n  format_2[\"GLTF - GL Transmission Format with full PBR material support\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2\n```"
+  },
+  "contextual_links": {
+    "schema_version": 1,
+    "family": "3d",
+    "platform": "typescript",
+    "enterprise_product_name": "Aspose.3D for TypeScript",
+    "aspose_org_catalog_hash": "sha256:1889a44093bd29273fa37039bb85acb77213c5fd5ddec8ecf3d039926ddc9f80",
+    "aspose_com_catalog_hash": "sha256:3560e9f9358401a30b95fc06d978ea3a21bfbc84d44008b13d06462d4a3bb5d7",
+    "budget": {
+      "schema_version": 1,
+      "mode": "auto",
+      "measurement": {
+        "schema_version": 1,
+        "visible_prose_words": 827,
+        "verified_code_blocks": 1,
+        "verified_code_units": 100,
+        "total_content_units": 927
+      },
+      "max_total": 3,
+      "domain_maxima": {
+        "aspose.org": 2,
+        "aspose.com": 2
+      },
+      "surface_maxima": {
+        "products": 2,
+        "docs": 2,
+        "kb": 2,
+        "blog": 1,
+        "reference": 2
+      }
+    },
+    "pre_link_occurrences": {
+      "total": 0,
+      "by_parent_domain": {
+        "aspose.org": 0,
+        "aspose.com": 0
+      },
+      "by_surface": {
+        "products": 0,
+        "docs": 0,
+        "kb": 0,
+        "blog": 0,
+        "reference": 0,
+        "other": 0
+      },
+      "repeated_targets": {}
+    },
+    "pre_link_url_counts": {},
+    "considered_record_ids": [
+      "org:kb:3d:typescript:9d8a504c64c06260"
+    ],
+    "bindings": [
+      {
+        "schema_version": 1,
+        "binding_id": "readme.example:org:kb:3d:typescript:9d8a504c64c06260",
+        "context_kind": "code_example",
+        "section_heading": "Quick Start",
+        "context_id": "example.minimal:agent-drafted-example",
+        "target_record_id": "org:kb:3d:typescript:9d8a504c64c06260",
+        "target_url": "https://kb.aspose.org/3d/typescript/how-to-get-started-3d-typescript/",
+        "target_title": "How to Get Started with Aspose.3D FOSS for TypeScript",
+        "parent_domain": "aspose.org",
+        "surface": "kb",
+        "support_rationale": "Verified kb article matches accepted example terms: aspose, scene",
+        "placement": "after_verified_example",
+        "accepted_fact_ids": [
+          "product.identity:manifest-and-registry",
+          "example.minimal:agent-drafted-example"
+        ],
+        "matched_subject_terms": [
+          "aspose",
+          "scene"
+        ]
+      }
+    ],
+    "omission_reason": "none"
+  },
+  "enterprise_terminology_corrections": [],
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 339,
+      "source_byte_end": 339,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** Developers using TypeScript.\n- **Problem solved:** Scene graph management. Mesh creation and manipulation. Vector math primitives. Material system with Lambert, Phong, and PBR materials.\n- **Verified capabilities:** Scene graph management. Mesh creation and manipulation. Vector math primitives. Material system with Lambert, Phong, and PBR materials. Keyframe animation support. File format detection. Polygon triangulation. Camera and light entities.\n- **Verified formats:** OBJ - Import/export with materials, textures, and grouping. GLTF - GL Transmission Format with full PBR material support. STL - Stereo Lithography format for 3D printing. 3MF - 3D Manufacturing Format for modern 3D printing workflows. FBX - Autodesk FBX format support. Collada - COLLADA (DAE) format support.\n- **Runtime:** ES2020\n\n```mermaid\nflowchart LR\n  product[\"Aspose.3D FOSS for TypeScript\"]\n  audience_1[\"Developers using TypeScript.\"]\n  problem_1[\"Scene graph management\"]\n  capability_1[\"Scene graph management\"]\n  capability_2[\"Mesh creation and manipulation\"]\n  format_1[\"OBJ - Import/export with materials, textures, and grouping\"]\n  format_2[\"GLTF - GL Transmission Format with full PBR material support\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n  product --> format_2\n```\n\n## In this README\n\n- [Features](#features)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Supported Formats](#supported-formats)\n- [Documentation](#documentation)\n- [TypeScript Version Support](#typescript-version-support)\n- [Build & Test](#build-test)\n- [Format-Specific Features](#format-specific-features)\n- [Architecture](#architecture)\n- [Examples](#examples)\n- [Contributing](#contributing)\n- [License](#license)\n- [Acknowledgments](#acknowledgments)\n\n",
+      "replacement_sha256": "21580e9b8fc62caeb396885bb1ab3536c93fa7bc55be9a966cdaf1997824437a",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.platforms:manifest",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.example.replace-unverified-minimal",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 1515,
+      "source_byte_end": 2157,
+      "expected_sha256": "0545e77b12153c563f7ebc4b152f4614e37ec56979ebd010ca5aa20ce11813fd",
+      "replacement_text": "### Minimal verified example\n\n```typescript\nimport { Scene } from '@aspose/3d/dist/aspose/threed';\n\nconst scene = new Scene();\nconsole.log(scene);\n```\n\nThis exact example was compiled against the source build at revision `227894a1120c22b9b6522564e23dc1d14c8fc39a`.\n\nFor a focused walkthrough of the APIs used in this example, see [How to Get Started with Aspose.3D FOSS for TypeScript](https://kb.aspose.org/3d/typescript/how-to-get-started-3d-typescript/).\n",
+      "replacement_sha256": "df7f69b97cf03fd37f46f61ff940d9cec2d41a8e9b0734d088e62a275dfd10cb",
+      "fact_ids": [
+        "example.minimal:agent-drafted-example",
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "authoritative_fact_correction",
+      "rationale": "Replace the one existing usage example with the exact minimal example compiled against the verified source build. Add its verified contextual article.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 32,
+      "source_byte_end": 32,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+      "replacement_sha256": "1c6695b4496b1508d5f11e2e91d78c7143f40313f6f4943e6e32915a1080b0a0",
+      "fact_ids": [
+        "product.license:manifest"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Add only applicable package, version, download, and license badges.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.links.unwrap-unbound:1",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 2789,
+      "source_byte_end": 2849,
+      "expected_sha256": "e32ad34ca0c7b350b2c9392b199371719a86106e3c9ad1db91a56787057dfd21",
+      "replacement_text": "API Reference",
+      "replacement_sha256": "0b40234a6136f15dedcace3b83580ce8c12f511d2344edcc03075f2dc1852e3d",
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "487442d8502754aeb50ee253619fbcb63c2fca491a8cc240bcbe098958f25ac4"
+}

@@ -1,0 +1,43 @@
+{
+  "aspose_org": {
+    "generated_at": "2026-07-28T09:33:54.983929+00:00",
+    "generator": "scripts/data-refresh/build_aspose_link_catalogs.py",
+    "generator_version": "2.0.0",
+    "sources": [
+      {
+        "source_type": "source_tree",
+        "location": "aspose.org/content",
+        "revision_or_hash": "05f119d802b6bd4a607cee9ba2ae2c19dbfc191e",
+        "retrieved_at": "2026-07-27T23:31:44+05:00",
+        "http_status": null
+      },
+      {
+        "source_type": "live_probe",
+        "location": "selected HTTPS targets",
+        "revision_or_hash": "sha256:5a10457428778790b3154feddd7b6bbb6f1f1a47b1966dd58faa9469639cd232",
+        "retrieved_at": "2026-07-28T09:33:54.983929+00:00",
+        "http_status": 200
+      }
+    ],
+    "total_records": 7111,
+    "verified_records": 44,
+    "output_hash": "sha256:1889a44093bd29273fa37039bb85acb77213c5fd5ddec8ecf3d039926ddc9f80"
+  },
+  "aspose_com": {
+    "generated_at": "2026-06-19T18:15:04.205521+00:00",
+    "generator": "scripts/data-refresh/build_aspose_link_catalogs.py",
+    "generator_version": "2.0.0",
+    "sources": [
+      {
+        "source_type": "source_db",
+        "location": "aspose.org/data/aspose_com_targets.json",
+        "revision_or_hash": "sha256:96e4cedf1a6d8fcc871421238e2e873386d16c39b753218b1a54227e988f515b",
+        "retrieved_at": "2026-06-19T18:15:04.205521+00:00",
+        "http_status": null
+      }
+    ],
+    "total_records": 481,
+    "verified_records": 481,
+    "output_hash": "sha256:3560e9f9358401a30b95fc06d978ea3a21bfbc84d44008b13d06462d4a3bb5d7"
+  }
+}

@@ -1,0 +1,65 @@
+diff --git a/README.md b/README.md
+index 75aa443..5f5766d 100644
+--- a/README.md
++++ b/README.md
+@@ -1,7 +1,51 @@
+ # Aspose.Cells FOSS for C++
+ 
++[![NuGet: Aspose.cells.Cpp.FOSS](https://img.shields.io/nuget/v/Aspose.cells.Cpp.FOSS.svg?label=NuGet)](https://www.nuget.org/packages/Aspose.cells.Cpp.FOSS) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
++
+ Aspose.Cells FOSS is an open-source C++ library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.
+ 
++## At a glance
++
++- **For:** Developers using C++.
++- **Problem solved:** Workbook and worksheet management. Style model (font, fill, borders, alignment, number formats).
++- **Verified capabilities:** Workbook and worksheet management. Style model (font, fill, borders, alignment, number formats). .xlsx load/save from file paths and streams. Cell values, formulas, merges, and number formats. Conditional formatting, data validation, hyperlinks, names, comments.
++- **Verified formats:** .xlsx.
++- **Runtime:** 3.16
++
++```mermaid
++flowchart LR
++  product["Aspose.Cells FOSS for C++"]
++  audience_1["Developers using C++."]
++  problem_1["Workbook and worksheet management"]
++  capability_1["Workbook and worksheet management"]
++  capability_2["Style model (font, fill, borders, alignment, number formats)"]
++  format_1[".xlsx"]
++  product --> audience_1
++  product --> problem_1
++  product --> capability_1
++  product --> capability_2
++  product --> format_1
++```
++
++## In this README
++
++- [Highlights](#highlights)
++- [How to build](#how-to-build)
++- [Quick Start](#quick-start)
++- [Supported Areas](#supported-areas)
++- [License](#license)
++- [Support](#support)
++
++## Installation
++
++Install the package published for this repository:
++
++```bash
++nuget install Aspose.cells.Cpp.FOSS
++```
++
++The package was verified against NuGet.
++
+ ## Highlights
+ 
+ - Aspose.Cells-compatible API surface for common XLSX scenarios
+@@ -63,6 +107,8 @@ int main() {
+ 
+ ```
+ 
++For a focused walkthrough of the APIs used in this example, see [Workbook](https://reference.aspose.org/cells/cpp/workbook/).
++
+ ## Supported Areas
+ 
+ - Workbook and worksheet management

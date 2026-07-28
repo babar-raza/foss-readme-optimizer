@@ -1,0 +1,114 @@
+diff --git a/README.md b/README.md
+index 636584d..c92b73f 100644
+--- a/README.md
++++ b/README.md
+@@ -1,8 +1,10 @@
+ # Aspose.Cells FOSS for Rust
+ 
++[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
++
+ A free, open-source, **pure-Rust** spreadsheet library that reads and writes Excel
+ `.xlsx` (Office Open XML / SpreadsheetML) workbooks. It exposes an API modeled after
+-[Aspose.Cells](https://products.aspose.com/cells/), so the familiar
++Aspose.Cells, so the familiar
+ `Workbook` / `Worksheet` / `Cells` object model is available to Rust programs with no
+ proprietary runtime and no external Aspose dependency.
+ 
+@@ -15,6 +17,40 @@ charts, etc.) is implemented from scratch on top of a small set of general-purpo
+ [`getrandom`](https://crates.io/crates/getrandom) (protection hashing), and
+ [`serde_json`](https://crates.io/crates/serde_json).
+ 
++## At a glance
++
++- **For:** Developers using Rust.
++- **Problem solved:** Workbook creation and persistence. Formula evaluation with cached result. XLSX file loading. List objects (Excel tables) with styles and totals.
++- **Verified capabilities:** Workbook creation and persistence. Formula evaluation with cached result. XLSX file loading. List objects (Excel tables) with styles and totals.
++- **Verified formats:** Excel .xlsx (Office Open XML / SpreadsheetML).
++- **Current verified limitation:** Early-stage and evolving. The public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial. Treat it as a work in progress.
++
++```mermaid
++flowchart LR
++  product["Aspose.Cells FOSS for Rust"]
++  audience_1["Developers using Rust."]
++  problem_1["Workbook creation and persistence"]
++  capability_1["Workbook creation and persistence"]
++  capability_2["Formula evaluation with cached result"]
++  format_1["Excel .xlsx (Office Open XML / SpreadsheetML)"]
++  product --> audience_1
++  product --> problem_1
++  product --> capability_1
++  product --> capability_2
++  product --> format_1
++```
++
++## In this README
++
++- [Status](#status)
++- [Features](#features)
++- [Installation](#installation)
++- [Quick start](#quick-start)
++- [Documentation](#documentation)
++- [Samples](#samples)
++- [Project layout](#project-layout)
++- [License](#license)
++
+ ## Status
+ 
+ Early-stage and evolving. The public API surface is broad but not everything Aspose.Cells
+@@ -72,38 +108,20 @@ Requires a recent stable Rust toolchain (2021 edition).
+ 
+ The library is imported as `aspose_cells_foss_rust`:
+ 
++### Minimal verified example
++
+ ```rust
+-use aspose_cells_foss_rust::{CellValue, Workbook};
+-use std::error::Error;
+-
+-fn main() -> Result<(), Box<dyn Error>> {
+-    // Create a new workbook (starts with one sheet, "Sheet1").
+-    let mut workbook = Workbook::new();
+-    {
+-        let mut worksheets = workbook.get_worksheets_mut();
+-        let sheet = worksheets.get(0)?;
+-        let mut cells = sheet.get_cells_mut();
+-
+-        cells.get("A1")?.put_value_string("Hello")?;
+-        cells.get("B1")?.put_value_i32(123)?;
+-        cells.get("C1")?.put_value_bool(true)?;
+-        cells.get("D1")?.put_value_decimal(12.5)?;
+-        cells.get("F1")?.put_value_i32(10)?;
+-        cells.get("G1")?
+-            .put_formula_with_cached_value("=F1*2", CellValue::Number(20.0))?;
+-    }
+-    workbook.save("hello.xlsx")?;
+-
+-    // Load it back.
+-    let loaded = Workbook::load_xlsx("hello.xlsx")?;
+-    let sheet = loaded.worksheet("Sheet1")?;
+-    let cells = sheet.get_cells();
+-    println!("A1 = {}", cells.get("A1")?.display_string_value());
+-
+-    Ok(())
++use aspose_cells_foss_rust::Workbook;
++
++fn main() {
++    let _workbook = Workbook::default();
+ }
+ ```
+ 
++This exact example was compiled against the source build at revision `0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e`.
++
++For a focused walkthrough of the APIs used in this example, see [Quickstart](https://docs.aspose.org/cells/rust/getting-started/quickstart/).
++
+ ## Documentation
+ 
+ - **Samples** - see [samples/README.md](samples/README.md) for runnable examples
+@@ -161,3 +179,7 @@ samples/                     # Runnable feature examples
+ ## License
+ 
+ Licensed under the [MIT License](LICENSE.txt).
++
++## Known limitations
++
++- Early-stage and evolving. The public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial. Treat it as a work in progress.
