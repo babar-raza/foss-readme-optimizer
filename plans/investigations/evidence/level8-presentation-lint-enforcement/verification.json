@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+  "control_repository": {
+    "branch": "main",
+    "head": "cd004c76ab73babc3e791009857495febe8035c6",
+    "working_tree_clean_at_start": true
+  },
+  "checks": {
+    "control_tree_clean_at_start": true,
+    "source_head_stable": true,
+    "all_corpus_verdicts_match": true,
+    "all_expected_defect_spans_present": true,
+    "rule_inventory_complete": true,
+    "seven_representatives_validate": true,
+    "seven_representatives_have_no_presentation_findings": true,
+    "seven_representatives_noop": true,
+    "focused_regressions_pass": true,
+    "zero_product_remote_writes": true
+  },
+  "verdict": "VERIFIED",
+  "reproduction_command": ".venv/Scripts/python plans/investigations/tools/build_presentation_lint_enforcement_evidence.py"
+}

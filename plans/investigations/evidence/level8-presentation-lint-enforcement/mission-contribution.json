@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Deterministically reject internal tokens, semantic duplicates, competing examples, cross-product leakage, malformed navigation, and promotional imbalance."
+  },
+  "acceptance_checks_passed": [
+    "Known Java and Python visitor-facing defects fail before independent review"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-presentation-lint-enforcement/verification.json",
+    "plans/investigations/evidence/level8-presentation-lint-enforcement/corpus-results.json",
+    "plans/investigations/evidence/level8-presentation-lint-enforcement/representative-results.json"
+  ],
+  "scoreboard_before_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "scoreboard_after_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
