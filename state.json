@@ -6025,7 +6025,7 @@
     "updated_at": "2026-07-28T06:46:16.254465+00:00"
   },
   "schema_version": 2,
-  "state_version": 407,
+  "state_version": 408,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -6482,13 +6482,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: IsolatedExecutionError: docker image inspect failed: Error response from daemon: No such image: python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
       "last_checkpoint_id": "dc3dddb57e656f490586b6f65ad7f7db7982c5afba549fb825c84a1eba6e9cbe",
-      "lease_expires_at": "2026-07-28T17:12:50.080928+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-28T16:58:32.102931+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-28T16:59:52.626016+00:00"
     }
   },
   "trigger_records": {},
