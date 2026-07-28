@@ -74,40 +74,41 @@ could skip bundle verification; reviewer repair missed `caller_domain`; review u
 backend; dynamic planning was opt-in; coverage/status tooling was stale; and the tree was not
 green. These are entry findings, not closure claims.
 
-## Current execution checkpoint and route correction (2026-07-26)
+## Current execution checkpoint and route correction (2026-07-28)
 
-The current review checkpoint is control-repository `main` at
-`769874f99f7924fbc7069c61976e8213b366f868` with an intentionally preserved dirty tree containing
-the uncommitted presentation-contract plan, the domain-pure Aspose link-catalog split and tests,
-and the earlier fact-acceptance evidence directory. This supersedes the stale clean-HEAD and
-single-goal snapshot previously written here. Requirement coverage now maps 424 rows, the graph
-loads with 91 taskcards at hash
-`cc06a302611adac69bab94d52341750f4061ab9a96a9ad0a5e6cbca69e5e5095`, and the focused coverage
-check passes. The latest read-only mission status reports durable state version 158, recorded
-active task `L8-TRUTH-01A-FACT-CONTRACT`, 73 unresolved tasks, one external block, and expected
-graph drift because this reviewed graph has not yet been migrated into durable state.
+The verified pre-edit checkpoint is control-repository `main` at
+`25a2820507febaf0f74860c6e363864105c22465`, clean and aligned with `origin/main`. Mission status
+loaded graph `a7e4486a4ddb35a36efb44092893f06d870d003295b665d9d21e0e26dd25c7c5` without drift and reported
+durable state version 320, active task `L8-TRUTH-07-SEVEN-ECOSYSTEMS`, 59 unresolved tasks, and one
+external block. This document is supporting explanation; after these edits, live `status` and
+`evaluate` remain the only authority for graph migration and claim recovery.
 
-After the user finalizes this plan, the first execution action is mission `evaluate`, which must
-reconcile the graph addition and the recorded claim lease without stealing live work or deleting
-transition history. Evaluation—not this narrative—decides whether to resume/reclaim
-`L8-TRUTH-01A-FACT-CONTRACT` or select `L8-MISSION-GOAL-GUARD`. The goal guard must close before
-ordinary work can claim mission completion; after the fact contract closes, paid work stays
-blocked behind `L8-TRUTH-01B-LLM-CALL-LEDGER` and `L8-TRUTH-01C-PROMPT-HYGIENE`. No narrative
-“current goal” overrides the immutable core goal or durable state.
+The corrected graph was reconciled without stealing the active claim or deleting transition
+history. Durable state version 321 now binds graph
+`519f4347fa75f1922baa35d0a86f3f89c0576562ac470051804e44891a801ccb`, retains
+`L8-TRUTH-07-SEVEN-ECOSYSTEMS` as the exact next task, and reports no graph drift.
 
-The runtime denominator observed at this checkpoint is 31 and remains dynamically loaded. Ten
-repository revision directories contain manifests and four are labeled `NO_OP_PROVEN`, but direct
-re-evaluation of those four persisted fact graphs through the current
-`supervisor.product_truth.classify_product_truth()` classifies only Java `FACTS_READY`; Python, TypeScript,
-and BarCode Python are `BLOCKED_MISSING_EVIDENCE`. Their terminal lifecycle/cache state therefore
-survived a changed fact-acceptance contract. Java's candidate is not accepted proof either: its
-claim map covers generated operations but not preserved parity, performance, proprietary-format,
-or no-rewrite assertions from the inherited README. One operator accidentally launched two
-overlapping `local_poc` process trees; they were stopped at 13:49 local time after both wrote the
-same state/evidence tree. This was an operator-side serialization failure, not evidence of multiple
-workers or concurrent repository editors. All current terminal labels are diagnostic until
-fact-contract revalidation and complete candidate-claim coverage land. No current Gate-A repository
-is independently trustworthy under the corrected standard.
+The runtime denominator is 31. Durable lifecycle state reports 7 repositories at `FACTS_READY` or
+later, one candidate through `NO_OP_PROVEN`, and zero `HUMAN_ACCEPTED`. The single no-op-proven
+3D Java candidate is not current-contract finalized output: it still contains visible marker
+metadata and lacks the current factual badge header and Mermaid overview, and its inherited-claim,
+link-allocation, and Enterprise Edition treatment predate `L8-020` through `L8-026`. The truthful
+latest-contract README result is therefore 0/31. Python, TypeScript, and Rust public-consumer truth,
+claim polarity, acquisition, public examples, and interpretive render views have current
+checksum-complete proof. The active seven-ecosystem facts task still needs a real Go
+representative under the same acceptance contract.
+
+The recovery is convergence, not rollback: preserve the proven supervisor, safety, isolation,
+lifecycle, facts, evidence, reviewer, and LLM-accounting foundations; stop extending unrelated
+production machinery; use official/native toolchain outputs behind thin isolated adapters; finish
+the representative fact boundary; then make seven latest-contract READMEs visible before any
+full-registry preflight or fan-out. The three governing outcomes are:
+
+1. seven current-contract `NO_OP_PROVEN` representatives, one per supported ecosystem;
+2. current-contract Gate A for every runtime-loaded registry entry;
+3. ordered Gate B, `act`, staging, Gate C/D, Level 5, Level 7, and Level 8 proof.
+
+A representative seven-repository result is a qualification milestone, never the full POC.
 
 ### 2026-07-26 execution audit: why the previous route was too long
 
@@ -151,6 +152,46 @@ The corrected rule is: **never run beyond the active mission task's acceptance b
 typed stage limit to the same `supervise` runtime, qualify each boundary independently, freeze one
 campaign contract, and only then fan out Gate A. A full `local_poc` portfolio run before the
 qualification-freeze task closes is a process violation and its output is diagnostic only.
+
+### 2026-07-28 outcome-first convergence protocol
+
+The current visitor contract (`L8-020`, `L8-021`, `L8-023`, `L8-024`, and `L8-026`) is frozen
+until one Java, .NET, Python, TypeScript, C++, Go, and Rust README is independently approved and
+unchanged-no-op-proven. A factual or safety defect reopens its first owner; a non-safety
+presentation preference is logged to backlog instead of changing the campaign.
+
+The existing 3D Java candidate is the first negative control. The deterministic contract must
+reject its visible marker/comment, absent factual badge header, absent fact-backed Mermaid
+overview, incomplete inherited-claim accountability, outdated link treatment, and obsolete
+edition terminology before regeneration. Passing that negative control is followed by one
+corrected 3D Java output, then the remaining six representatives, then full-registry truth and
+candidate fan-out.
+
+Ecosystem evidence comes first from official consumer/build tools inside the isolated executor:
+
+| Ecosystem | Primary authority | Project-owned residual |
+| --- | --- | --- |
+| Java | Maven effective POM, dependency output, compile/test | normalize facts and apply policy |
+| .NET | evaluated MSBuild properties/items, `dotnet` consumer build/pack | select the distributed product root and normalize facts |
+| Python | built/installed distribution, `importlib.metadata`, runtime inspection | map distribution-to-import names and bounded public API facts |
+| TypeScript | `npm pack`, package exports, pinned `tsc` consumer compile | select canonical import and normalize exports |
+| Rust | Cargo metadata/check/doc and locked consumer build | source-pinned acquisition and bounded residual API facts |
+| Go | `go list`, `go doc`, `go test` | normalize module/package/API facts |
+| C++ | CMake File API, compilation database, Clang or real consumer compile | handle non-CMake residuals and public-header policy |
+
+A custom parser cannot overrule contradictory evaluated consumer behavior. It is added only for a
+required residual fact the native tool cannot expose and carries the build-vs-adopt justification
+required by decision #30.
+
+The normal paid path is bounded to one composition call, one independent-review call, and one
+targeted repair call per repository/revision/campaign. Deterministic failures make zero new prose
+calls. Content-addressed cache keys bind the repository revision, selected product root,
+manifest/lock inputs, toolchain digest, adapter, fact contract, prompts, renderer, and acceptance
+contract. Verification runs at the smallest sufficient scope: focused tests per edit, one real
+representative per adapter, all seven representatives per presentation-contract change, the full
+official suite at coherent commit/gate boundaries, and the full registry only after campaign
+freeze. Runtime bundles are updated in place under `runs/`; one checksum evidence package is
+promoted at task closure rather than after every diagnosis.
 
 ### Disposition of the external testing/performance plan
 
@@ -524,8 +565,7 @@ they are dependency-interleaved children of the same aggregate tasks listed belo
 | `L8-TRUTH-04-ACQUISITION` | Verify registry coordinates or an exact source-build path without converting unpublished packages into global blocks. | known-false Cells Maven, NuGet, Go, Rust, C++, and isolated source-build controls. | TRUTH-03 |
 | `L8-TRUTH-05-PUBLIC-EXAMPLES` | Prove imports/namespaces/public symbols and compile or execute comment-free visitor examples in the same isolated executor in every supported ecosystem. Evidence anchors remain source-grounding inputs; each consumer verifier derives the actual imported package symbols from the code instead of conflating those roles. | one real Java, .NET, Python, TypeScript, C++, Go, and Rust example; source/documentation-comment and comment-like-string controls; filesystem/network/process escape negatives. | TRUTH-04 |
 | `L8-TRUTH-06-INTERPRETIVE-VIEWS` | Ground audience/problem facts and expose only typed visitor-facing render views; reject slugs, enum tokens, manifest keys, and fragments. | Java raw-token, TypeScript sentence, and product-identity controls. | TRUTH-05 |
-| `L8-TRUTH-07-SEVEN-ECOSYSTEMS` | Run the same stage-limited runtime to `FACTS_READY` for one real representative per supported ecosystem. | seven checksum-valid fact bundles with reproduction commands. | TRUTH-06 |
-| `L8-TRUTH-08-FULL-REGISTRY` | Run all dynamically loaded registry entries to `FACTS_READY`, isolating narrow essential-fact blocks. | `facts_ready + narrow_external_blocks == len(products)`; zero agent-fixable failures. | TRUTH-07 |
+| `L8-TRUTH-07-SEVEN-ECOSYSTEMS` | Run the same stage-limited runtime to `FACTS_READY` for one real representative per supported ecosystem, completing Go and reusing unchanged valid stages. Native-tool commands and raw-output hashes are part of every bundle. | seven checksum-valid fact bundles with reproduction commands; zero later-stage or unnecessary LLM calls. | TRUTH-06 |
 
 #### Assessment/composition boundary (`L8-LOCAL-README-ASSESSMENT-COMPOSITION`)
 
@@ -565,7 +605,8 @@ they are dependency-interleaved children of the same aggregate tasks listed belo
 
 | ID | Complete behavior | Focused proof | Depends on |
 | --- | --- | --- | --- |
-| `L8-GATEA-01-COHORTS` | Execute the frozen denominator in bounded, resumable ecosystem/family cohorts with one portfolio-wide writer lease and incremental summary. | interruption between every cohort resumes without duplicate work. | qualification aggregate closure |
+| `L8-TRUTH-08-FULL-REGISTRY` | Run all dynamically loaded registry entries to `FACTS_READY`, isolating narrow essential-fact blocks only after the seven latest-contract lifecycles qualify. | `facts_ready + narrow_external_blocks == len(products)`; zero agent-fixable failures. | qualification aggregate closure |
+| `L8-GATEA-01-COHORTS` | Execute the frozen denominator in bounded, resumable ecosystem/family cohorts with one portfolio-wide writer lease and incremental summary. | interruption between every cohort resumes without duplicate work. | TRUTH-08 |
 | `L8-GATEA-02-HEAL-FAILURES` | Repair every agent-fixable failure at its upstream task, requalify the affected representative, and rerun only invalidated repositories. | no agent-fixable terminal remains; external blocks are exact and narrow. | GATEA-01 |
 | `L8-GATEA-03-NO-OP` | Obtain independent approval and unchanged no-op proof for every eligible current registry entry under the identical frozen campaign. | complete per-repository bundles and zero unnecessary second-run calls/effects. | GATEA-02 |
 | `L8-GATEA-04-REPRODUCE` | Independently reconstruct the portfolio result and checksum inventory from registry plus bundles. | approved equals dynamic denominator; failures, unprocessed, and manifest failures equal zero. | GATEA-03 |
@@ -838,29 +879,29 @@ Execution resumes in this order; it does not start an official 31-repository cam
    `L8-MISSION-GOAL-GUARD` before resuming ordinary machinery work so every remaining task has a
    validated subordinate-goal and core-contribution binding and status exposes the live lifecycle
    scoreboard.
-3. Resume the exact highest-priority task selected by durable evaluation. When that task is within
-   `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`, close the stage/acceptance-contract boundary, then
-   `L8-TRUTH-01B-LLM-CALL-LEDGER` and `L8-TRUTH-01C-PROMPT-HYGIENE` before making another paid
-   repository call. Classify roots, freeze `L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION`, build the isolated
-   executor, and close the Python, TypeScript, and Rust public-consumer-surface tasks. Then qualify
-   evidence polarity, acquisition, visitor-facing facts, and executable examples on real Java,
-   .NET, Python, TypeScript, C++, Go, and Rust representatives. Close work only with stable
-   real-output evidence; otherwise repair its first failing boundary.
-4. Execute `L8-LOCAL-README-ASSESSMENT-COMPOSITION`. Decompose first, then complete the
-   marker-free header/visual contract and `L8-COMPOSE-01C-CONTEXTUAL-LINKING`: domain-pure
-   article catalogs, exact example-to-article context bindings, and configured-over-automatic
-   total/domain/surface allocation. Then make every material non-preserve decision compile to a
-   candidate-changing operation and add deterministic presentation lint. Prove the previously
-   defective Java and .NET artifacts are rejected or corrected.
+3. Resume `L8-TRUTH-07-SEVEN-ECOSYSTEMS` after durable evaluation. Complete the missing Go
+   representative through `go list`, `go doc`, and `go test` inside the existing isolated executor;
+   reuse unchanged valid facts for the other six ecosystems. Every representative records the
+   official/native command, pinned toolchain identity, raw-result hash, normalized facts, and
+   reproduction command. Do not start the full-registry facts preflight.
+4. Execute `L8-LOCAL-README-ASSESSMENT-COMPOSITION`. First make the historical 3D Java candidate
+   fail the frozen current-contract validator. Then split only touched responsibilities and
+   implement marker/comment-free output, factual badges, fact-backed Mermaid, contextual
+   catalog-backed link allocation, exact Enterprise Edition terminology, and complete
+   inherited/generated claim dispositions. Regenerate and approve 3D Java before composing the
+   remaining six representatives.
 5. Execute `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`. Add span/fact-grounded reviewer findings,
    contradicted-review rejection, repair routing, candidate-delta checks, and finding-resolution
    checks before another paid review call.
 6. Execute `L8-LOCAL-HETEROGENEOUS-QUALIFICATION` through the complete public supervisor path.
-   Require seven real representatives to reach `AGENT_APPROVED` and unchanged `NO_OP_PROVEN`,
-   with recovery, idempotency, safety, and measured cost/latency evidence.
+   Require seven real representatives to reach current-contract `AGENT_APPROVED` and unchanged
+   `NO_OP_PROVEN`, with recovery, idempotency, safety, cache provenance, and measured cost/latency
+   evidence. The normal provider budget is one composition, one independent review, and one
+   targeted repair call; deterministic failures make zero new prose calls.
 7. Freeze the registry, repository revisions, control HEAD, prompt/fact/renderer/validator/reviewer
    hashes, dependency lock, and cost envelope as one named campaign.
-8. Resume Gate A in bounded cohorts and publish the dynamic portfolio summary after every
+8. Run `L8-TRUTH-08-FULL-REGISTRY` to the facts-only ceiling under the qualified contract, then
+   resume Gate A in bounded cohorts and publish the dynamic portfolio summary after every
    repository. A new live defect reopens the first responsible task, requalifies the affected
    representative, and resumes only invalidated repositories.
 9. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with

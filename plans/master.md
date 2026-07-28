@@ -84,47 +84,39 @@ without improving one of those states or removing its evidenced blocker is a dri
 ## Status
 
 The repository has a substantial capability, safety, authorization, state, specialist, evidence,
-and proposal foundation, but it is **not Level 8**. The only active sequence is the
-Waves 0–8 Build Checklist below; see `plans/status.md` (generated) for per-requirement counts,
-`logs/` for history; evidence bundles live under `plans/investigations/evidence/`.
+and proposal foundation, but it is **not Level 8**. The only active sequence is the Waves 0–8
+Build Checklist; generated status, history, and evidence live in `plans/status.md`, `logs/`, and
+`plans/investigations/evidence/`.
 
-The active phase is the user-directed local-first pre-production sequence (requirement `L8-014`),
-which **precedes** Wave 2. Execution proceeds **direct local proof → complete current workflow
-under `act` → isolated staging → production**. At the latest 2026-07-27 checkpoint, durable state
-version 237 closed `L8-TRUTH-03-CLAIM-POLARITY`; version 238 claimed
-`L8-TRUTH-04-ACQUISITION`.
-The 31-repository scoreboard has 2 `FACTS_READY`, 1 candidate through `NO_OP_PROVEN`, and 0
-`HUMAN_ACCEPTED`; its first failing boundary is `FACTS_READY`. Python, TypeScript, and Rust
-public-consumer truth are closed with clean real-repository, negative-control, isolation, and
-checksum proof. Directional evidence preserves curated README information as valuable input while
-requiring revision-bound implementation/constraint proof; exact results are in
-`logs/2026-07-27.md`.
-Host diagnostics cannot become verified truth. `L8-019` stays partial until all seven ecosystems
-use the isolated boundary. LLM accounting and prompt-drift gates remain active.
+The active local-first pre-production sequence (`L8-014`) precedes Wave 2: **direct local proof →
+complete current workflow under `act` → isolated staging → production**. The last clean
+pre-correction snapshot was `25a2820507febaf0f74860c6e363864105c22465`; post-correction durable
+state 321 has `L8-TRUTH-07-SEVEN-ECOSYSTEMS` active under graph
+`519f4347fa75f1922baa35d0a86f3f89c0576562ac470051804e44891a801ccb` with no drift.
+The denominator is 31: 7 `FACTS_READY` or later, 1 `CANDIDATE_GENERATED`,
+1 `DETERMINISTIC_VALIDATED`, 1 `AGENT_APPROVED`, 1 `NO_OP_PROVEN`, and 0 `HUMAN_ACCEPTED`;
+the first failing boundary is `FACTS_READY`. The sole no-op-proven 3D Java bundle predates the
+current marker-free badge/Mermaid/link/preservation/Enterprise Edition contract and is diagnostic,
+so latest-contract finalized READMEs remain zero. Python, TypeScript, and Rust consumer truth and
+the shared isolated executor have real proof; Go still prevents the seven-ecosystem facts gate
+from closing. Host diagnostics cannot become verified truth; `L8-019` remains partial.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 
-**Corrected near-term target (decision #78).** Gate A is system proof across every runtime-loaded
-`data/products.json` entry: a default-branch-based, agent-approved, no-op-proven local README
-candidate. Gate B is separate human acceptance for that full portfolio. Gate C is the controlled
-Java PR proof and cannot begin before A/B; Gate D is broad GitHub App integration and cannot begin
-before accepted Gate C. Earlier PR/App-shaped machinery stays inert. See `plans/idea.md`'s "README
-POC Readiness and Ordered Delivery Gates" and the Wave 5/6 entries below.
+**Corrected near-term target (decision #78).** Gate A is a default-branch-based, agent-approved,
+no-op-proven local README for every runtime-loaded `data/products.json` entry. Gate B records
+separate human acceptance; Gate C is the later Java PR proof; Gate D is later GitHub App
+integration. Earlier PR/App-shaped machinery stays inert.
 
-The 2026-07-26 route audit found the local command too coarse: product truth also invoked
-composition, live review, repair, and no-op, so fixes restarted expensive downstream work. The
-governed correction is stage-bounded `supervise`, atomic child tasks, seven-ecosystem
-qualification, a frozen campaign, and only then full-registry fan-out. Requirements `L8-015`
-through `L8-017` and the `L8-TRUTH-*` through `L8-GATEA-*` task groups define those boundaries.
-Decision #80 adds the immediate prerequisites before further paid fan-out: exact per-README LLM
-accounting, prompt-registry hygiene, and pinned committed Python/TypeScript/Rust public-consumer
-truth adapted from `aspose.org`.
+The outcome-first critical path is: finish seven-ecosystem facts with native tools; freeze the
+current README contract; regenerate 3D Java; qualify one current-contract `NO_OP_PROVEN` README
+for all seven ecosystems; then run full-registry facts and candidate fan-out. `L8-015`–`L8-017`,
+`L8-020`–`L8-026`, and decision #82 govern. Deterministic failures consume no prose calls,
+content-addressed stages are reused, and verification expands only at coherent boundaries.
 
-`plans/requirements.md` is the normative obligation register; `logs/` is history;
-`plans/investigations/control/level8-autonomous-mission-task-graph.yaml` is the execution overlay
-that drives the single `supervise` controller. `docs/architecture.md`, `docs/safety-model.md`,
-`docs/policy-authoring.md`, `docs/presentation-standard.md`, and `docs/github-surface-control.md`
-describe implementation contracts. No untracked plan candidate is execution authority.
+`plans/requirements.md` is normative; the Level-8 task graph drives `supervise`; current
+implementation contracts live in `docs/`; `logs/` is history. No untracked plan candidate is
+execution authority.
 
 ## Decision Ledger
 
@@ -1797,6 +1789,46 @@ that is the only permanence they carry; text is always the decision as it stands
     prohibitions, secret handling, destructive-history restrictions, or protection of
     non-disposable user data. See `GOV-030` and Governance rule 19.
 
+82. **Recover through output-first convergence, native ecosystem tools, and a frozen
+    representative contract—not a rewrite or another control plane.** The project keeps the
+    proven supervisor, safety, isolation, lifecycle, facts, evidence, independent-review, and LLM
+    accounting foundations. It does not extend production, proposal, scheduling, or generic
+    abstraction work unless that work removes a demonstrated blocker on the current local
+    deliverable. Three nested outcomes govern execution: first, one latest-contract independently
+    approved and unchanged-no-op-proven README for each of Java, .NET, Python, TypeScript, C++,
+    Go, and Rust; second, the same result for every runtime-loaded registry entry (Gate A); third,
+    the ordered Gate B through Level-8 operating proof. A seven-repository result is a
+    representative qualification milestone, never the full POC.
+
+    The current presentation contract is `L8-020`, `L8-021`, `L8-023`, `L8-024`, and `L8-026`.
+    It remains frozen until all seven representatives pass. A newly discovered factual or safety
+    defect reopens its first responsible boundary; a non-safety presentation preference enters
+    backlog instead of invalidating the campaign. The historical 3D Java candidate is an explicit
+    negative control and must fail the current validator before it is regenerated. The corrected
+    dependency order is: close `L8-TRUTH-07-SEVEN-ECOSYSTEMS` (including Go), implement and verify
+    the frozen composition/review contract, qualify seven complete real lifecycles, then run the
+    full-registry `FACTS_READY` preflight and Gate-A candidate fan-out.
+
+    Ecosystem adapters use official consumer/build semantics as their primary authority inside
+    the `L8-019` isolation boundary: Maven effective-POM/dependency output; evaluated MSBuild
+    properties/items and `dotnet` consumer builds; built/installed Python distributions with
+    `importlib.metadata` and runtime inspection; `npm pack` plus the TypeScript compiler; Cargo
+    metadata/check/doc; `go list`/`go doc`/`go test`; and the CMake File API plus Clang or a real
+    consumer compile. Project code normalizes those outputs, binds provenance, and applies policy.
+    A custom semantic parser covers only a required residual fact the native tool cannot expose
+    and requires decision #30's build-vs-adopt justification.
+
+    Cost and verification are bounded without weakening truth. The normal per-repository/revision
+    path permits one composition call, one independent-review call, and at most one targeted repair
+    call; deterministic failures make no additional prose call, and any exceptional provider call
+    carries a manifest rationale. Content-addressed stages reuse unchanged repository, toolchain,
+    dependency, fact, prompt, renderer, and acceptance-contract inputs. Focused checks run after a
+    local change; one real representative proves an adapter; all seven prove a presentation
+    contract; the complete official suite runs at coherent commit/gate boundaries; the full
+    registry runs only under the frozen qualified campaign. Runtime bundles remain mutable,
+    revision-addressed `runs/` state; checksum evidence is promoted once at task closure rather
+    than duplicated after every diagnosis. See `GOV-015`, `NFR-012`, and `L8-016`.
+
 ## Architecture
 
 ### Canonical production flow
@@ -1840,6 +1872,24 @@ operators.
 Safe, plan-bound command execution uses the user's standing authority and proceeds without a
 separate approval exchange. External effect authority remains a distinct boundary and is never
 inferred from shell access.
+
+### Ecosystem evidence adapters and verification economy
+
+Each ecosystem adapter is a thin typed boundary around the ecosystem's official package/build
+tools, executed through the disposable isolated executor whenever repository or dependency code
+can run. The adapter retains raw output by hash, normalizes it into `ProductFactsV2`, and records
+any conflict between evaluated consumer behavior and source/manifest prose. Project-specific code
+does not reimplement package resolution, inheritance, exports, visibility, or build evaluation
+that the native tool already supplies. Residual source analysis is bounded to facts the tool
+cannot expose and remains subordinate to real consumer compilation or execution.
+
+Local verification follows dependency scope. Unit/schema checks prove the changed seam; one real
+representative proves an ecosystem adapter; the seven-repository qualification set proves a
+presentation-contract change; the complete official suite proves a coherent commit or gate; and
+the full registry runs only against the frozen campaign. Cache reuse is accepted only when the
+repository revision, selected package root, manifest/lock inputs, toolchain digest, adapter,
+fact contract, prompts, renderer, and acceptance contract match. Faster stale or lower-confidence
+output never counts as an optimization.
 
 ### Trust and token boundaries
 
@@ -2339,21 +2389,26 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         symbols, typed fields, and decorator stacks, then install the pinned package and exercise
         selected APIs inside the disposable executor (`L8-TRUTH-02B`, `L8-030`, evidence commit
         `c514fa7`).
-  - [ ] Remaining product truth: implement the three platform adapters, claim polarity,
-        OS-isolated acquisition/public examples, render views, seven-ecosystem proof, and
-        facts-only full-registry preflight (`L8-TRUTH-*` task group).
-  - [ ] Composition: split active monoliths, reconcile existing sections, require complete
-        operation and inherited-claim coverage, enforce presentation lint, and produce seven
-        deterministic candidates (`L8-COMPOSE-*` task group).
+  - [ ] Representative product truth: close the active seven-ecosystem facts campaign, using
+        official/native tool output behind thin isolated adapters and completing the missing Go
+        representative. Do not run the full-registry facts preflight yet
+        (`L8-TRUTH-07-SEVEN-ECOSYSTEMS`, decision #82).
+  - [ ] Frozen presentation contract: make the historical 3D Java candidate fail for its known
+        current-contract defects, then implement `L8-020`, `L8-021`, `L8-023`, `L8-024`, and
+        `L8-026`; split only the responsibilities touched, reconcile existing sections, require
+        complete inherited/generated claim coverage, enforce presentation lint, and produce seven
+        deterministic latest-contract candidates (`L8-COMPOSE-*` task group).
   - [ ] Review: separate blind quality from factual/plan review, ground findings, require
         candidate-changing repair, prove no-op caching, and pass the real heterogeneous campaign
         (`L8-REVIEW-*` task group).
-  - [ ] Qualification: bind and freeze one campaign, pass seven real end-to-end lifecycles,
-        single-writer/recovery controls, and the governed three-session golden set
-        (`L8-QUAL-*` task group).
-  - [ ] Gate A: execute bounded cohorts, heal every agent-fixable failure, obtain current-contract
-        no-op proof for the dynamic registry denominator, and independently reproduce the
-        portfolio (`L8-GATEA-*` task group).
+  - [ ] Seven-output qualification: bind and freeze one campaign, pass one latest-contract
+        `NO_OP_PROVEN` lifecycle for Java, .NET, Python, TypeScript, C++, Go, and Rust, then pass
+        single-writer/recovery controls and the governed three-session golden set. This is a
+        representative qualification milestone, not the POC (`L8-QUAL-*` task group).
+  - [ ] Gate A: only after seven-output qualification, run the facts-only full-registry preflight,
+        then execute bounded candidate cohorts, heal every agent-fixable failure, obtain
+        current-contract no-op proof for the dynamic registry denominator, and independently
+        reproduce the portfolio (`L8-TRUTH-08-FULL-REGISTRY`, `L8-GATEA-*` task group).
   - **Exit:** every current registry entry has a checksum-valid, independently agent-approved,
     no-op-proven local bundle under one frozen campaign; no remote write occurred. Gate B human
     review begins only after this exit.
@@ -2489,9 +2544,19 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 - [ ] **Local complete-claim gate:** every material generated or preserved README claim has an
       accepted fact, authoritative owner, or explicit uncertainty/correction disposition; a
       partial operation-only claim map cannot support factual approval.
+- [ ] **Native-toolchain truth gate:** Java, .NET, Python, TypeScript, C++, Go, and Rust facts
+      record the isolated official/native command, pinned toolchain identity, raw result hash, and
+      normalized output; custom parsing is limited to documented residual facts and cannot
+      override contradictory evaluated consumer behavior.
+- [ ] **Current-contract negative gate:** the historical 3D Java candidate fails deterministically
+      for its visible marker/comment, missing factual badge header, missing fact-backed Mermaid
+      overview, link-allocation/placement, protected-content-accountability, or Enterprise Edition
+      defects before regenerated output can be accepted.
 - [ ] **Local real-output gate:** Java, .NET, Python, TypeScript, C++, Go, and Rust representatives
-      pass fact, candidate, deterministic validation, independent review/repair, and unchanged
-      no-op boundaries under one campaign with zero critical false accepts.
+      pass fact, latest-contract candidate, deterministic validation, independent review/repair,
+      and unchanged no-op boundaries under one campaign with zero critical false accepts. The
+      normal path stays within one composition, one independent-review, and one targeted-repair
+      provider call per repository/revision; deterministic defects make zero additional calls.
 - [ ] **Local recovery gate:** one portfolio writer, renewable mission claim, cancellation/resume,
       duplicate-trigger, descendant cleanup, and current-state aggregation controls pass.
 - [ ] **Full-registry Gate A:** current-contract approved/no-op-proven equals the runtime registry

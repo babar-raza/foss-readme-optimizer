@@ -2716,8 +2716,9 @@ taskcards:
   owner: readme-agent-supervisor
   status: TODO
   objective: Run the facts-only canonical supervisor for one real Java, .NET, Python, TypeScript, C++,
-    Go, and Rust repository.
-  why_it_matters: Fixture success cannot establish real repository truth.
+    Go, and Rust repository, completing the missing Go boundary without re-running valid unchanged stages.
+  why_it_matters: Fixture success cannot establish real repository truth, and composition must not begin
+    until every supported ecosystem has one native-tool-backed representative fact bundle.
   allowed_paths:
   - runs/
   - plans/investigations/evidence/
@@ -2731,6 +2732,8 @@ taskcards:
   - Seven revision-addressed FACTS_READY bundles and representative summary
   acceptance_checks:
   - Zero agent-fixable fact failures and no later lifecycle stage invoked
+  - Every ecosystem records its isolated official/native tool command, pinned toolchain identity, raw
+    output hash, and normalized facts; custom parsing cannot override contradictory consumer behavior
   verification:
   - Independent schema
   - citation
@@ -2742,6 +2745,7 @@ taskcards:
   - A candidate or review verdict cannot substitute for fact proof
   regression_checks:
   - Focused official fact and safety checks against the committed HEAD
+  - Reuse unchanged content-addressed fact stages and make zero unnecessary LLM calls
   evidence_requirements:
   - One command per representative
   - environment versions
@@ -2760,7 +2764,7 @@ taskcards:
   requirement_ids: []
 - task_id: L8-TRUTH-08-FULL-REGISTRY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
   title: Complete the full-registry product-truth preflight
   source_audit_finding: Only ten repository manifest directories exist for a dynamic denominator of 31
     and later-stage failures obscure fact coverage.
@@ -2771,7 +2775,8 @@ taskcards:
   status: TODO
   objective: Run every current registry entry only through FACTS_READY and classify any essential external
     fact blocks exactly.
-  why_it_matters: Composition should begin only after the portfolio truth surface is known.
+  why_it_matters: Full-registry fact coverage is required for Gate A, but running it before the seven
+    latest-contract representatives qualify would multiply invalidation and paid-call churn.
   allowed_paths:
   - runs/
   - plans/investigations/evidence/
@@ -2780,7 +2785,7 @@ taskcards:
   - production target repository remotes
   - src/readme_agent/
   dependencies:
-  - L8-TRUTH-07-SEVEN-ECOSYSTEMS
+  - L8-LOCAL-HETEROGENEOUS-QUALIFICATION
   expected_outputs:
   - Dynamic full-registry fact summary
   - per-repository fact manifests
@@ -2815,7 +2820,7 @@ taskcards:
 - task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
-  title: Produce provenance-complete local product truth for every repository
+  title: Produce representative provenance-complete local product truth for composition
   source_audit_finding: 'Live Gate-A execution proved that provenance-valid facts can still be presentation-invalid:
     internal enum/classification values leaked into the Java overview, .NET example evidence omitted a
     required type/namespace, and Python example evidence admitted a private API.'
@@ -2825,7 +2830,7 @@ taskcards:
   owner: readme-agent-supervisor
   status: TODO
   objective: Produce provenance-complete ProductFactsV2 graphs plus typed visitor-facing render views
-    and public-API-verified examples for every supported ecosystem.
+    and public-API-verified examples for one real representative of every supported ecosystem.
   why_it_matters: README claims must originate from verified repository evidence, not policy YAML, legacy
     README prose, or unverified product-agent content.
   allowed_paths:
@@ -2840,7 +2845,7 @@ taskcards:
   - plans/master.md
   - production target repository remotes
   dependencies:
-  - L8-TRUTH-08-FULL-REGISTRY
+  - L8-TRUTH-07-SEVEN-ECOSYSTEMS
   expected_outputs:
   - Snapshot-to-facts typed data flow and isolated package/example verification.
   - Provenance, conflicts, confidence, ownership, and product-agent reconciliation records.
@@ -2862,13 +2867,15 @@ taskcards:
   regression_checks:
   - Facts schema, resolution, acquisition, example, and redaction tests.
   evidence_requirements:
-  - Representative fact graphs with source revision, citations, and reproduction commands.
+  - Seven representative fact graphs with source revision, citations, native tool commands, and reproduction
+    commands.
   rollback_or_recovery: Invalidate only facts dependent on changed source or prompt inputs.
   failure_reroute: Refresh evidence or create a precise external fact handoff for an essential gap.
   closeout_rules:
   - The renderer receives the verified merged fact graph rather than re-reading policy truth.
   - Every representative has useful verified render views and a public-API usage path or a narrowly-scoped
     visible essential-fact block.
+  - Full-registry fact preflight remains deferred until the seven latest-contract README lifecycles qualify
   - Real Java, .NET, and Python regression bundles pass, not only synthetic fact fixtures.
   goal_ids:
   - GOAL-TRUTH
@@ -4559,8 +4566,8 @@ taskcards:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
   title: Prove single-writer, heartbeat, recovery, and cleanup
-  source_audit_finding: Two concurrent local_poc processes wrote the same state and evidence tree while
-    the mission claim was expired.
+  source_audit_finding: The sole operator previously started two overlapping local_poc command trees that
+    wrote the same state and evidence tree while the mission claim was expired.
   audit_classification: not_attempted
   priority: P0
   lane: local-qualification
@@ -4847,8 +4854,8 @@ taskcards:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
   title: Prove single-writer recovery and bounded process cleanup
-  source_audit_finding: Duplicate portfolio runs wrote the same evidence tree and mission claims expired
-    during long operations.
+  source_audit_finding: The sole operator previously started overlapping portfolio command trees that
+    wrote the same evidence tree, and mission claims expired during long operations.
   audit_classification: not_attempted
   priority: P0
   lane: local-qualification
@@ -4995,11 +5002,15 @@ taskcards:
   - call counts
   - cache provenance
   - explicit optimization triggers
+  - Per-repository budget report for composition, independent review, targeted repair, and deterministic
+    zero-call failures
   acceptance_checks:
   - Measurements bind the campaign identity and distinguish cold
   - warm
   - blocked
   - and no-op outcomes
+  - The normal path uses at most one composition, one independent-review, and one targeted-repair provider
+    call per repository/revision; every exception has a manifest rationale
   verification:
   - Repeated official-check and seven-representative stage measurements with variance and failure labels
   negative_controls:
@@ -5165,7 +5176,7 @@ taskcards:
   - production target repository remotes
   - src/readme_agent/
   dependencies:
-  - L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  - L8-TRUTH-08-FULL-REGISTRY
   expected_outputs:
   - Incremental campaign summary and revision-addressed bundles after every repository
   acceptance_checks:
@@ -6278,7 +6289,7 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 5b54b651a4ae9c6e182f75b3b77fc23e74e4e03a4c03d5fc1f926ba5b60103a3
+  source_sha256: 1784f6a41855f1836c8570eee512f227da9d9da9e25e7c84eb70e05fddafe336
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 426
   mandatory_requirement_rows: 400
@@ -7799,8 +7810,8 @@ requirement_coverage:
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: NFR-012
-    priority: P2
-    requirement_status: PLANNED
+    priority: P1
+    requirement_status: PARTIAL
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
     disposition: open_mandatory
     semantic_findings: []
