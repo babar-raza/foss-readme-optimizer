@@ -74,28 +74,43 @@ could skip bundle verification; reviewer repair missed `caller_domain`; review u
 backend; dynamic planning was opt-in; coverage/status tooling was stale; and the tree was not
 green. These are entry findings, not closure claims.
 
-## Current execution checkpoint and route correction (2026-07-28)
+## Current execution checkpoint and route correction (2026-07-29)
 
 The verified pre-amendment checkpoint for this production-concurrency reassessment is
-control-repository `main` at `1b9af4bc5d572fb8058f1588c8a270572a7f5a08`. The tree contains the
-preserved, focused presentation-policy repair in eleven tracked source/test files; no repository
-process tree was active, and this plan amendment does not overwrite or reinterpret that work.
-Mission status loaded graph
-`717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f`
-without drift and reported durable state version 433, active task
-`L8-COMPOSE-04-PRESENTATION-LINT`, 48 unresolved tasks, one external block, and no eligible
-competing task. This is a historical reconciliation snapshot, not a substitute for live state;
-`status` and `evaluate` remain the only authority for graph migration and claim recovery.
+control-repository `main` at `fb56102082918d81ec1c186b0421b9c37fc6870e`. The tree contains the
+preserved in-flight implementation for `L8-REVIEW-02A-REPAIR-CONTROLS`: nine modified tracked files
+and five untracked source/test files that bind repair to changed source operations and finding
+resolution. No repository-owned test, proof, supervisor, Ruff, or mypy process was active when this
+checkpoint was captured. This plan amendment is documentation-only and must not overwrite,
+reinterpret, or absorb that task's implementation.
 
-The runtime denominator is 31. Durable lifecycle state reports 8 repositories at `FACTS_READY` or
-later, one at `CANDIDATE_GENERATED`, one at `DETERMINISTIC_VALIDATED`, one at `AGENT_APPROVED`, one
-through `NO_OP_PROVEN`, and zero `HUMAN_ACCEPTED`. Those counts are mechanically true lifecycle
-counts, not current-contract acceptance. The no-op-proven 3D Java candidate remains a negative
-control under the newer presentation contract: the current deterministic lint reports
-`promotional_imbalance` and `semantic_duplicate`, and the artifact still contains visitor-visible
-comments while lacking the required factual badge header and Mermaid overview. The truthful
-latest-contract README result is therefore 0/31 until the active lint task, candidate regeneration,
-deterministic validation, independent review, and no-op proof all close under one campaign.
+Mission `status` loaded graph
+`471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39`
+without drift and reported durable state version 502, active task
+`L8-REVIEW-02A-REPAIR-CONTROLS`, 40 unresolved tasks, one external block, and no eligible
+competing task. The runtime denominator is 31. Durable lifecycle state reports 8 repositories at
+`FACTS_READY`, 8 at `CANDIDATE_GENERATED`, 8 at `DETERMINISTIC_VALIDATED`, and zero at
+`AGENT_APPROVED`, `NO_OP_PROVEN`, or `HUMAN_ACCEPTED`. The first failing portfolio boundary remains
+`FACTS_READY`. These are the current durable counts; the 28 revision-root manifests on disk and the
+one-repository `portfolio-summary.json` are historical/compatibility artifacts, not a portfolio
+acceptance result.
+
+The current implementation boundary is more advanced than the earlier concurrency draft but still
+not parallel-ready:
+
+- commit `db506257` and closed task `L8-COMPOSE-04B-STAGE-TRANSACTIONS` added typed private attempts,
+  seals, receipts, and reducer-owned promotion for `CANDIDATE_GENERATED` and
+  `DETERMINISTIC_VALIDATED`;
+- the registry command still executes one ordered `for` loop and calls the complete
+  single-repository `cmd_supervise()` path;
+- the stage transaction currently packages candidate and validation results after those results
+  were computed in the parent process; it is not yet a process-isolated stage executor;
+- there is no campaign scheduler, renewable campaign lease, resource admission controller,
+  subprocess lane runner, recovery planner, or deterministic portfolio reducer;
+- the currently claimed repair-control task must close before review work can be safely fanned out.
+
+This is a historical reconciliation snapshot, not a substitute for live state. Every continuation
+must rerun mission `status`; graph migration and claim recovery remain governed by `evaluate`.
 
 The recovery is convergence, not rollback: preserve the proven supervisor, safety, isolation,
 lifecycle, facts, evidence, reviewer, and LLM-accounting foundations; stop extending unrelated
@@ -386,11 +401,11 @@ The production diagnosis is:
 | Class | Current evidence | Actual cause | Consequence |
 | --- | --- | --- | --- |
 | Symptom | `commands_supervision.py::_cmd_supervise_registry()` iterates one ordered `for` loop and stops after a wall-clock slice. | The portfolio adapter is a serial prefix runner, not a durable work scheduler. | Independent repositories and stages cannot use otherwise idle CPU, network, Docker, or LLM capacity. |
-| Symptom | Candidate files can exist while the durable lifecycle remains `FACTS_READY`, and an older `NO_OP_PROVEN` candidate now fails the current lint. | Artifact existence, lifecycle promotion, and current-contract validity are separate facts but are not represented by one campaign-scoped reduction. | Reruns and reports can disagree without either file being corrupt. |
-| Root cause | `stage_limit.py` types only `FACTS_READY`; the portfolio summary types only `FACTS_READY` and `NO_OP_PROVEN`. | The runtime cannot stop, resume, and schedule every lifecycle boundary independently. | Work is either under-scoped or allowed to run too far, increasing invalidation and paid-call waste. |
+| Symptom | Candidate files can exist while the durable lifecycle remains earlier, and historical manifests can claim stages invalid under the current contract. | Artifact existence, durable promotion, and current-campaign validity are separate facts without one portfolio reduction. | Reruns and reports can disagree without a corrupt individual file. |
+| Root cause | `stage_limit.py` types three boundaries, but assessment, plan, review, repair, approval, and no-op are not separately schedulable. | Most lifecycle work still runs inside the complete repository command. | Work is under-scoped or allowed to run too far, increasing invalidation and paid-call waste. |
 | Root cause | `GitStateBackend` has per-repository write and run locks, but no renewable campaign lease, fencing epoch, or aggregate-writer contract. | Repository mutual exclusion is being asked to provide campaign ownership, which it cannot do. | A late or recovered invocation can publish a stale aggregate or continue after authority has moved. |
 | Root cause | `llm/call_ledger.py`, facts context, lifecycle recording, and execution flags use `ContextVar` or process-local state. | A naïve thread pool would not automatically carry the correct repository context and would share mutable module state. | Call accounting, facts, evidence, or lifecycle events could be attributed to the wrong repository. |
-| Root cause | Individual evidence files are atomic, but a complete bundle/campaign is not a transaction. | Atomic rename protects one file, not cross-file completeness or aggregate promotion. | A crash can leave valid-looking partial files that must not count as a completed stage. |
+| Root cause | Two stages now have private attempts and seals, but their computation is not isolated and the complete bundle/campaign is not transactional. | Atomic rename and stage receipts protect selected outputs, not the whole lifecycle or aggregate. | A crash can leave valid-looking compatibility files that must not count as completed campaign work. |
 | Root cause | The coarse control-plane fingerprint hashes broad capability/prompt/ruleset inputs, while lifecycle records also keep selected stage hashes. | Invalidation ownership is split and not compiled from one declared dependency graph. | Some edits reopen more work than necessary; other contract changes can leave stale terminal state until a later check notices. |
 | Root cause | LLM output is nondeterministic and retry/provider behavior is external, while exact cache eligibility is still being completed. | “Same repository” is not the same request unless source, facts, prompt, schema, model route, generation settings, and reviewer standard are identical. | Unchanged reruns can differ or spend again unless every job is hash-addressed and replayed from an accepted receipt. |
 | Root cause | Reviewer prose and structured findings previously shared one authority boundary. | A blind quality reviewer could make a technical assertion without facts and have its prose drive lifecycle or repair even when the fact-aware reviewer disagreed. | Independence alone did not prevent a confidently wrong reviewer premise from blocking or rewriting a valid candidate. |
@@ -400,6 +415,33 @@ The production diagnosis is:
 | Structural weakness | Recovery is repository-oriented; the latest prefix summary overwrites the previous one. | There is no durable campaign reducer with monotonic work-item receipts. | Restart safety exists in pieces but not as one reproducible portfolio result. |
 | Structural weakness | Broad supervisor/specialist/security regressions provide little progress output and one campaign took 1,056 seconds for 184 tests. | Test selection and timing are not yet treated as scheduled resources with historical duration budgets. | Starting overlapping broad suites would multiply opacity and wall-clock cost instead of shortening the critical path. |
 
+The first version of this diagnosis predates commit `db506257`. The following current-state
+corrections are binding and prevent partial transaction machinery from being mistaken for a
+production scheduler:
+
+| Current boundary | Verified implementation state | Production consequence |
+| --- | --- | --- |
+| Stage ceilings | `FACTS_READY`, `CANDIDATE_GENERATED`, and `DETERMINISTIC_VALIDATED` are now typed. Assessment, plan, review, repair, approval, and no-op are not separately schedulable. | Extend the same stage contract through the lifecycle before portfolio pipelining. Do not wrap the complete repository command in workers. |
+| Stage transactions | Candidate and deterministic validation have private attempt roots, checksummed seals, receipts, and reducer promotion. Candidate rendering and validation computation still occur before the private attempt is prepared. | This is a serial publication transaction, not yet isolated stage execution. Move computation behind `prepare_stage()` rather than merely copying its result. |
+| Campaign identity | Current `campaign_id` is derived from one repository, revision, and its dependency map. It does not bind the registry revision set or full campaign contract. | Version it as a legacy serial-stage namespace; add a true `CampaignContractV1` rather than silently broadening the old hash. |
+| Fencing | `StageFenceV1.generation` is hashed, but no durable lease generation is stored or compared by the reducer. | It cannot reject a late worker after lease reclaim. Promotion needs a backend-issued fencing epoch checked immediately before CAS. |
+| Reduction | Reducer functions exist, but there is no single campaign reducer process or monotonic portfolio aggregate. Compatibility files are still materialized one by one and consulted by current readers. | Receipts must become the sole acceptance authority; the revision-root tree becomes a rebuildable compatibility view. |
+| Scheduling | No planner, priority, admission, lease-renewal, recovery, subprocess-runner, or metrics module exists. The registry adapter still calls `cmd_supervise()` serially. | Concurrency is not a configuration toggle. P1 must build and fault-test the control plane before two live repository lanes are allowed. |
+| Review/repair | Grounded reviewer authority exists; material repair-delta controls are in the currently dirty claimed task. The real route has not qualified an approval. | Keep independent review at one admitted call and finish the repair/no-op/real-corpus chain before paid fan-out. |
+
+### Verified implementation inventory: preserve, complete, or redesign
+
+| Component | Evidence-backed state | Disposition |
+| --- | --- | --- |
+| `supervise`, capability registry, allow-list, push blocking, durable per-repository lifecycle, trigger deduplication, redaction, checksums, independent review roles, and exact LLM accounting | Implemented and exercised through the canonical public seam. | Preserve. Parallel execution must call these seams rather than copy their logic. |
+| `portfolio_scheduler/contracts.py`, `lane.py`, `reducer.py`, and `stages.py` | Real serial prepare/seal/promote support exists for two stages, with focused transaction tests. | Extend in place. Treat it as P0 transaction groundwork, not P1 isolation or P2 concurrency proof. |
+| `_cmd_supervise_registry()` | One deterministic, platform-ordered prefix loop with failure isolation and a time slice. | Replace only its iteration policy after P1; retain its CLI/profile/allow-list wiring. |
+| Revision-root compatibility bundle | Useful to humans and older readers; not campaign-addressed and updated file by file. | Retain as reducer-generated output only. Prohibit it as acceptance/cache authority after migration. |
+| `StageFenceV1.generation` | Metadata without a renewable backend lease generation. | Redesign as a durable campaign/repository fencing epoch. |
+| Current `campaign_id` | Stable per-repository stage namespace, not a portfolio campaign identity. | Version rather than reinterpret. Migrate current receipts as legacy serial-stage evidence. |
+| Multiple top-level commands or thread-pool fan-out | Unsafe with process-local accounting/context and mutable compatibility views. | Reject. Use one top-level scheduler with spawned, process-isolated, one-stage lanes. |
+| LLM author/reviewer concurrency | Provider behavior is external and the reviewer route is not qualified. | Keep review at one initially; composition may rise to two only after exact accounting and circuit-breaker proof. |
+
 There was and is one operator. Child Python, Git, Docker, compiler, and test processes are not
 additional workers. The production risk is overlapping invocations and future scheduled
 deliveries, not a historical team of concurrent repository editors.
@@ -407,7 +449,7 @@ deliveries, not a historical team of concurrent repository editors.
 ### Fresh production findings from the real Cells C++ review
 
 The live proof at
-`plans/investigations/evidence/level8-review-finding-grounding/` materially changed the design:
+`plans/investigations/evidence/level8-review-finding-grounding-v2/` materially changed the design:
 
 1. The blind quality route asserted that `Aspose.cells.Cpp.FOSS` was not a NuGet package while the
    accepted fact graph contains the verified NuGet acquisition fact and the factual reviewer
@@ -418,10 +460,11 @@ The live proof at
    Free-form reviewer prose is retained as diagnostic evidence but cannot control lifecycle or
    repair; the reducer uses validated finding IDs, exact spans, criteria, fact citations, and
    polarity only.
-3. The reviewer-standard identity now includes both prompts and both tool schemas. The live
-   contract used a standard-addressed run ID, made exactly two provider calls (7,225 tokens), and
-   failed closed after both responses missed exact-span grounding. The candidate was retained,
-   no factual reviewer or repair ran, and no remote write occurred.
+3. The reviewer-standard identity now includes both prompts and both tool schemas. The accepted
+   evidence records one reproducible run contract and an exact seven-call physical-attempt ledger.
+   The live route still ended in `SYSTEM_FAILURE` after failing the grounding contract. The
+   candidate was retained, no repair ran, and no remote write occurred. This is truthful cost and
+   retry evidence, not a claim of exactly-once provider billing.
 4. This result is a valid negative-control proof, not reviewer qualification. The current model
    route remains unqualified for portfolio approval until it produces grounded correct verdicts
    across the governed real corpus. Parallel execution must therefore keep independent review at
@@ -738,7 +781,7 @@ Concurrency is a promoted capability, not a command-line preference:
 
 | Level | Eligibility | Allowed execution | Promotion proof |
 | --- | --- | --- | --- |
-| P0 -- contract repair | Current state through `L8-COMPOSE-04-PRESENTATION-LINT` and its fixture task. | One repository lane. No portfolio fan-out while the visitor contract is changing. | Current Java negative control fails for the expected reasons; focused lint/safety tests pass. |
+| P0 -- contract repair | Current state through the complete `L8-REVIEW-*` repair, cache, real-corpus, and live-campaign chain. | One repository lane. No portfolio fan-out while reviewer/repair acceptance is changing. | A grounded rejection causes a material relevant repair or an agent-fixable reroute before rereview; real-corpus qualification and no-op cache pass. |
 | P1 -- isolation proof | Scheduler contracts, campaign lease/fencing, process cleanup, stage receipts, and serialized reducer exist. | Two fixture lanes using different repositories and stages; no live paid fan-out. | Duplicate, stale-fence, crash, cancellation, lease expiry, cache-contamination, and aggregate-order tests produce the same result as serial reference execution. |
 | P2 -- representative pipeline | One current-contract Python canary reaches `DETERMINISTIC_VALIDATED`; P1 is green; shared contract is frozen. | At most two real repository lanes. One lane is reserved for the highest-priority critical-path item; a second may use a different idle resource class. | Seven representatives reach the required stage with no cross-repository leakage, no quality delta from serial reference, bounded resources, and exact accounting. |
 | P3 -- Gate A | Seven representatives are `NO_OP_PROVEN`; golden thresholds, recovery, cost baseline, and campaign freeze pass. | Adaptive two-to-four repository lanes inside one supervisor. | Full fault/rate/starvation matrix, measured speedup, no duplicate work/calls, and independent aggregate reproduction. |
@@ -840,45 +883,48 @@ must pass the identical CAS, fencing, recovery, history, redaction, and reproduc
 No new mission or competing task tree is needed. Reconcile the design into these existing task
 owners:
 
-1. Finish `L8-COMPOSE-04-PRESENTATION-LINT` and `L8-COMPOSE-04A-CANDIDATE-FIXTURES` serially. They
-   freeze the shared visitor contract; concurrency before this boundary would amplify invalid
-   output.
-2. Correct the candidate-stage task contract during graph migration:
-   - narrow `L8-COMPOSE-04A-CANDIDATE-FIXTURES` to immutable source/fact/expected-obligation inputs;
-     its current expected-output list incorrectly includes candidates while its objective and
-     source-write prohibition define an input-freeze task;
-   - add `L8-COMPOSE-04B-STAGE-TRANSACTIONS` as an implementation child with explicit
-     `src/readme_agent/supervisor/`, `src/readme_agent/state/`, `src/readme_agent/evidence/`,
-     `src/readme_agent/commands_supervision.py`, `tests/`, and `docs/` scope;
-   - make that child extend stage ceilings through `CANDIDATE_GENERATED` and
-     `DETERMINISTIC_VALIDATED`, introduce the serial prepare/seal/promote receipt path, and preserve
-     the current public `supervise` entry;
-   - make `L8-COMPOSE-05-SEVEN-CANDIDATES` depend on the implementation child and remain an
-     execution/evidence-only task.
-3. Correct the current duplicate/reversed qualification sequence during the governed graph
-   migration:
-   - repurpose `L8-QUAL-01A-REPRESENTATIVE-INPUTS` as the one current-contract Python canary and
-     immutable seven-representative input freeze, not a second seven-repository E2E run;
-   - move `L8-QUAL-02A-FAILURE-MATRIX` after that canary but before
-     `L8-QUAL-02-SEVEN-E2E`;
-   - make `L8-QUAL-02A-FAILURE-MATRIX` own P1 campaign lease renewal, fencing, stage attempts,
-     process cleanup, deterministic scheduling, serialized reduction, and serial/two-fixture-lane
-     equivalence;
-   - leave `L8-QUAL-02-SEVEN-E2E` as the only real seven-repository qualification run.
-4. Let `L8-QUAL-02-SEVEN-E2E` use P2 only after the Python canary, P1 proof, and fresh governance
-   synchronization. Preserve configured admission and acceptance-promotion order.
-5. Keep complete crash/recovery and long-duration heartbeat proof in
+1. Close the currently claimed `L8-REVIEW-02A-REPAIR-CONTROLS` task and its dependent review chain
+   serially. `L8-REVIEW-03-EFFECTIVE-REPAIR`, cache measurement/no-op, real-corpus review, and the
+   real review campaign must prove the shared reviewer/repair contract before any paid portfolio
+   fan-out. A defect in this contract multiplies across every repository.
+2. Treat closed `L8-COMPOSE-04B-STAGE-TRANSACTIONS` as P0 groundwork, not concurrency closure. Its
+   receipts remain valid serial evidence, while qualification tasks extend the identical seam to
+   every lifecycle stage and to a real portfolio campaign identity.
+3. In `L8-QUAL-00-CAMPAIGN-SCHEMA` and `L8-QUAL-01-CAMPAIGN-IDENTITY`, implement and prove:
+   - canonical `CampaignContractV1`, complete dependency graph, stage input/output contracts,
+     logical-call identities, and invalidation compiler;
+   - renewable campaign/repository lease generations and promotion fences in the existing backend;
+   - receipt-only acceptance and a reducer-materialized compatibility view;
+   - migration that labels the current receipt schema as legacy serial-stage evidence rather than
+     silently changing its meaning.
+4. Correct the current reversed qualification sequence in the sole graph:
+   - repurpose `L8-QUAL-01A-REPRESENTATIVE-INPUTS` as the one current-contract Python canary plus
+     immutable seven-representative input freeze, not a seven-repository E2E campaign;
+   - make `L8-QUAL-02A-FAILURE-MATRIX` depend on that canary and own P1 scheduler planning,
+     deterministic priority, resource admission, spawned process isolation, lease renewal/fencing,
+     private attempts, serialized reduction, cancellation/descendant cleanup, recovery, and
+     serial/two-fixture-lane equivalence;
+   - make `L8-QUAL-02-SEVEN-E2E` depend on the P1 failure matrix and remain the only real
+     seven-repository qualification campaign.
+5. Under current decision #83, run the seven real representatives serially. A future fresh
+   section-specific governance approval may promote P2 to two real lanes after the Python canary
+   and P1 fixture proof; until then, fixture concurrency may be proven but paid/live
+   representative fan-out remains disabled.
+6. Keep complete crash/recovery and long-duration heartbeat proof in
    `L8-QUAL-03-RECOVERY`; P1 fixture proof is not a substitute for this real boundary.
-6. Measure queue wait, service time, provider pressure, cache reuse, call count, critical-path
+7. Measure queue wait, service time, provider pressure, cache reuse, call count, critical-path
    utilization, and serial-versus-parallel equivalence in `L8-QUAL-04B-COST-BASELINE`.
-7. Freeze lane caps and all campaign dependencies in `L8-QUAL-05-FREEZE`.
-8. Implement adaptive P3 admission and cohort execution in
+8. Freeze lane caps and all campaign dependencies in `L8-QUAL-05-FREEZE`.
+9. Implement adaptive P3 admission and cohort execution in
    `L8-GATEA-00-COHORT-CONTROLS` and `L8-GATEA-01-COHORTS`; retain upstream repair and targeted
    invalidation in the existing Gate-A healing tasks.
 
 The executable graph migration must preserve transition history, update the graph hash through the
 existing migration/evaluate path, and never steal the live
-`L8-COMPOSE-04-PRESENTATION-LINT` claim.
+`L8-REVIEW-02A-REPAIR-CONTROLS` claim. The graph currently has
+`L8-QUAL-02A-FAILURE-MATRIX` after `L8-QUAL-02-SEVEN-E2E`; this is a verified planning defect, not an
+implementation detail. Correct both dependency edges together after the current task reaches a
+clean committed transition so the durable migration cannot expose a transient cycle.
 
 ### Verification and regression controls
 
@@ -1652,36 +1698,32 @@ Execution resumes in this order; it does not start an official 31-repository cam
    dependencies moved as diagnostic only.
 2. Run mission `status`; if graph drift is reported, run `evaluate` and reconcile through the same
    mission state without stealing the live claim. The verified starting task for this plan revision
-   is `L8-COMPOSE-04-PRESENTATION-LINT`; live durable state supersedes that snapshot on restart.
-3. Finish `L8-COMPOSE-04-PRESENTATION-LINT` serially. Prove the historical 3D Java candidate fails
-   for the exact current defects, complete the registered rules and focused validation/Markdown/
-   protected-content/specificity regressions, independently verify the evidence, and transition
-   only from checksum-complete proof.
-4. Execute the corrected `L8-COMPOSE-04A-CANDIDATE-FIXTURES` input freeze, migrate and implement
-   `L8-COMPOSE-04B-STAGE-TRANSACTIONS`, then use `L8-COMPOSE-05-SEVEN-CANDIDATES` to produce the
-   first current-contract Python candidate through deterministic validation. Do not start paid or
-   native multi-repository fan-out before that canary is accepted. Continue composition with
-   marker/comment-free output, factual badges, fact-backed Mermaid, contextual catalog-backed link
-   allocation, exact Enterprise Edition terminology, and complete inherited/generated claim
-   dispositions.
-5. Before activating P2, obtain the required fresh section-specific governance approval and
-   synchronize `master.md` decision #83 and its Status, Decision Ledger, Architecture, Build
-   Checklist, and Verification Checklist sections, `SCL-002`, `L8-017`, the mission graph, and
-   `AGENTS.md`. Migrate the lane-isolation prerequisite ahead of live
-   `L8-QUAL-02-SEVEN-E2E` without deleting state history or changing the current claim.
-6. Implement and prove P1 inside the existing supervisor: campaign contract, renewable fenced
-   lease, derived work items, process-isolated lanes, stage receipts, serialized reducer, resource
-   bulkheads, and crash/cancellation cleanup. Two fixture lanes must be serial-equivalent before a
-   second real lane is admitted.
-7. Execute `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`. Add span/fact-grounded reviewer findings,
-   contradicted-review rejection, repair routing, candidate-delta checks, and finding-resolution
-   checks before another paid review call.
-8. Execute `L8-LOCAL-HETEROGENEOUS-QUALIFICATION` through the complete public supervisor path.
-   After the Python canary and P1 proof, admit at most two real process lanes under the governed
-   priority/admission policy. Require all seven real representatives to reach current-contract
-   `AGENT_APPROVED` and unchanged `NO_OP_PROVEN`, with serial equivalence, recovery, idempotency,
-   safety, cache provenance, exact call accounting, and measured cost/latency evidence. Run the
-   complete official suite once at this campaign boundary.
+   is `L8-REVIEW-02A-REPAIR-CONTROLS`; live durable state supersedes that snapshot on restart.
+3. Finish `L8-REVIEW-02A-REPAIR-CONTROLS` without broadening its dirty implementation. Prove that a
+   byte-identical or irrelevant repair reroutes agent-fixably before another reviewer call, while a
+   relevant changed operation records before/after hashes, changed spans, responsible finding IDs,
+   and resolution after acceptance. Run focused, supervisor, safety, and no-remote-write
+   regressions; commit and close only from checksum-complete evidence.
+4. Continue the remaining `L8-REVIEW-*` tasks serially through effective repair, exact cache/no-op
+   measurement, real-corpus qualification, and a real campaign. The reviewer/repair contract is a
+   shared acceptance dependency and must freeze before any paid portfolio fan-out.
+5. In `L8-QUAL-00-CAMPAIGN-SCHEMA` and `L8-QUAL-01-CAMPAIGN-IDENTITY`, version the existing
+   serial-stage receipts, implement the complete campaign/dependency/call identity, and make
+   receipts—not compatibility files—the acceptance authority.
+6. Use `L8-QUAL-01A-REPRESENTATIVE-INPUTS` for one current-contract Python canary and the immutable
+   seven-representative input freeze. Do not mislabel it as seven-repository proof.
+7. Correct both qualification dependency edges at one clean committed transition, then implement
+   P1 in `L8-QUAL-02A-FAILURE-MATRIX`: renewable fenced leases, deterministic planning and priority,
+   resource bulkheads, process-isolated one-stage lanes, sealed results, serialized reduction,
+   recovery, and descendant cleanup. Two fixture lanes must be serial-equivalent before any
+   second real lane is considered.
+8. Execute `L8-QUAL-02-SEVEN-E2E` through the complete public supervisor path. Under current
+   decision #83 this real campaign remains serial. If fresh section-specific approval later
+   synchronizes `master.md`, requirements, graph, and `AGENTS.md` for P2, admit at most two real
+   process lanes after the Python canary and P1 proof. In either mode, require all seven
+   representatives to reach current-contract `AGENT_APPROVED` and unchanged `NO_OP_PROVEN`, with
+   serial equivalence, recovery, idempotency, safety, cache provenance, exact call accounting, and
+   measured cost/latency evidence. Run the complete official suite once at this campaign boundary.
 9. Freeze the registry, repository revisions, control HEAD, prompt/fact/renderer/validator/reviewer
    hashes, dependency lock, invalidation graph, lane caps, and cost envelope as one named campaign.
 10. Run `L8-TRUTH-08-FULL-REGISTRY` to the facts-only ceiling under the qualified contract, then
