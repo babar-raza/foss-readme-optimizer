@@ -1112,7 +1112,7 @@
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": null,
+    "assessment_hash": "737cc7550aec348da04e6201e37043120e95b5702777966823a269cc3d32397c",
     "candidate_hash": null,
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -1476,20 +1476,32 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
         "to_status": "FACTS_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\e18035f59fd31841ff72\\r\\bd75037f060697e9\\s\\0fd5a52fc89b\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Go\\0fd5a52fc89b8fc745b98c9adc2547bfaed16314\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "FACTS_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-28T18:36:24.879976+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
+        "to_status": "README_ASSESSED"
       }
     ],
     "presentation_plan_hash": null,
     "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "reviewer_standard_hash": null,
+    "reviewer_standard_hash": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
     "schema_version": 2,
     "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
-    "status": "FACTS_READY",
-    "updated_at": "2026-07-28T18:34:47.956672+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-28T18:36:24.879976+00:00"
   },
   "schema_version": 2,
-  "state_version": 143,
+  "state_version": 144,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
