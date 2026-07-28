@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "6dbee8a21931e0f82b41af3d98783795011444d0488f3d78ba198168a1c58cb0",
-    "last_evaluated_at": "2026-07-28T16:53:52.425849+00:00",
+    "last_evaluated_at": "2026-07-28T16:54:21.640092+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -60,7 +60,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Run the stage-limited canonical supervisor through deterministic validation for one real representative per supported ecosystem."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
@@ -75,7 +84,7 @@
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "CLOSED",
       "L8-COMPOSE-04-PRESENTATION-LINT": "CLOSED",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "CLOSED",
-      "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "SCORED",
+      "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "CLOSED",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "TODO",
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
       "L8-GATEA-00-COHORT-CONTROLS": "TODO",
@@ -3886,6 +3895,20 @@
         "reason": "Mission contribution records unchanged portfolio score and indispensable scheduler safety",
         "task_id": "L8-COMPOSE-04B-STAGE-TRANSACTIONS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-stage-transactions/contracts.json",
+          "plans/investigations/evidence/level8-stage-transactions/verification.json",
+          "plans/investigations/evidence/level8-stage-transactions/mission-contribution.json",
+          "plans/investigations/evidence/level8-stage-transactions/sha256sums.txt"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T16:54:21.640073+00:00",
+        "reason": "All task acceptance checks are receipt-bound and reproducible; aggregate full suite remains at the declared campaign boundary",
+        "task_id": "L8-COMPOSE-04B-STAGE-TRANSACTIONS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -3894,7 +3917,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 450,
+  "state_version": 451,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
