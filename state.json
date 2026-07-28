@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T08:12:25.105409+00:00",
+    "last_evaluated_at": "2026-07-28T08:12:52.906798+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -63,7 +63,7 @@
     "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
-      "L8-COMPOSE-00-CHARACTERIZE": "IMPLEMENTED",
+      "L8-COMPOSE-00-CHARACTERIZE": "VERIFIED",
       "L8-COMPOSE-01-DECOMPOSE": "TODO",
       "L8-COMPOSE-01A-SECTION-REGRESSIONS": "TODO",
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "TODO",
@@ -3184,6 +3184,17 @@
         "reason": "Public README composition inputs, outputs, candidate bytes, plan hashes, and known defect families are frozen; oversized seams are responsibility-sized behind unchanged imports.",
         "task_id": "L8-COMPOSE-00-CHARACTERIZE",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-readme-composition-characterization/mission-contribution.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T08:12:52.906792+00:00",
+        "reason": "Frozen three-pilot candidate/document-plan hashes, agentic-plan hash, prompt hygiene, document reconstruction, and public integration regressions pass without remote writes.",
+        "task_id": "L8-COMPOSE-00-CHARACTERIZE",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -3192,7 +3203,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 370,
+  "state_version": 371,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
