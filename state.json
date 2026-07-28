@@ -981,7 +981,7 @@
     "updated_at": "2026-07-28T06:02:27.281113+00:00"
   },
   "schema_version": 2,
-  "state_version": 99,
+  "state_version": 100,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
@@ -1160,13 +1160,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "portfolio_member_failure:StateBackendError:push of refs/readme-agent-state/aspose-pdf-foss__Aspose-PDF-FOSS-for-Go failed: To https://github.com/babar-raza/foss-readme-optimizer.git\n ! [remote rejected]   7e1205393f0c6fdff38bc50a31de22e26f502a97 -> refs/readme-agent-state/aspose-pdf-foss__Aspose-PDF-FOSS-for-Go (cannot lock ref 'refs/readme-agent-state/aspose-pdf-foss__Aspose-PDF-FOSS-for-Go': is at 11f343b42ea16d7ca2c93e2bfc9046ee12524a52 but expected 1990afee38d129595a2ae44d691f6f37475297fd)\nerror: failed to push some refs to 'https://github.com/babar-raza/foss-readme-optimizer.git'\n",
+      "failure_classification": "validation_failed",
+      "failure_detail": "stage_limit_not_reached:FACTS_READY:BLOCKED_MISSING_EVIDENCE",
       "last_checkpoint_id": "fe2d605e99697e1c18ad6a054bdec2e997c6f86d45537a46e1f14b39d95ba7f0",
       "lease_expires_at": null,
       "recovery_count": 1,
-      "status": "retryable",
-      "updated_at": "2026-07-28T06:02:38.704523+00:00"
+      "status": "blocked",
+      "updated_at": "2026-07-28T06:02:45.522701+00:00"
     }
   },
   "trigger_records": {},
