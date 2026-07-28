@@ -330,9 +330,9 @@
       "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
       "fact_schema": "9c7c7aab629f977cf3c24b7ff89efacf0c50f5f6e6b394bdfe5ac2836509059a",
       "root_role_selection": "5de12db8f0f55d15beb2065a415b7459bdc6346bb10ec99b45c5ea72afb66fc1",
-      "visitor_render_eligibility": "16519190bedee967b3b7e1f01a09aef8f3377f31c2f0a18fd0e8bb83dbe63e9f"
+      "visitor_render_eligibility": "dd99a2a20e5c1a4799df7a288091c1317035c4f322905e20bcbd7f547d779697"
     },
-    "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+    "fact_acceptance_contract_hash": "2a5ab46fa66a9beb16b06dbfb38371d62fbba8702cc75bc2f53ad2cd050b05bd",
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -394,9 +394,30 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "schema_version": 1,
         "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "978850719a44158eba0ada29e96a3746f9950cdb23e4b61d67accfad5cee96e0",
+          "classification_semantics": "567d8451150421d145b3ba27c90f1447c37e41f2809930faeae1455d1a39ae8a",
+          "conflict_semantics": "9a38f79f9733299ed41c0cef1a354e3a95b95e1d1ab5e83cf2cb3798eff3e2f7",
+          "drafting_and_example_selection": "1809d262948a770608b9162f3130988b69dc7d46e7c22606f8bc1e5df6c02de9",
+          "evidence_polarity": "d0d818517c08cedc99b4a495ca03ee7bc6a6dbfdd14fd430ccbd0d6732ed50e6",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "9c7c7aab629f977cf3c24b7ff89efacf0c50f5f6e6b394bdfe5ac2836509059a",
+          "root_role_selection": "5de12db8f0f55d15beb2065a415b7459bdc6346bb10ec99b45c5ea72afb66fc1",
+          "visitor_render_eligibility": "dd99a2a20e5c1a4799df7a288091c1317035c4f322905e20bcbd7f547d779697"
+        },
+        "contract_hash": "2a5ab46fa66a9beb16b06dbfb38371d62fbba8702cc75bc2f53ad2cd050b05bd",
+        "facts_hash": "807045d742a7ee36c1f9e200fb1273b4c88a10c13e4b842403ee67babfa1bfa3",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-28T17:43:00.517204+00:00",
+        "outcome": "FACTS_READY",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "schema_version": 1,
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e"
       }
     ],
-    "facts_hash": "28f97310a17773f5bb6be45b136339ec7d3e31bef7c8819dbc0647095860f761",
+    "facts_hash": "807045d742a7ee36c1f9e200fb1273b4c88a10c13e4b842403ee67babfa1bfa3",
     "history": [
       {
         "evidence_refs": [
@@ -494,6 +515,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-28T17:42:58.855958+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "to_status": "FACTS_READY"
       }
     ],
     "presentation_plan_hash": null,
@@ -503,11 +537,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-28T17:42:51.850431+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-07-28T17:42:58.855958+00:00"
   },
   "schema_version": 2,
-  "state_version": 38,
+  "state_version": 39,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260728-005346-aecd:aspose-cells-foss/Aspose.Cells-FOSS-for-Rust": {
