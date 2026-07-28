@@ -670,6 +670,9 @@
     "assessment_hash": "7d96bf837020b584136dee5d0bbd4a23bb82a7e6d328b7c8994935f8dd83eaf0",
     "candidate_hash": "d3e89bd86eef8000514c4f367cd2647b13961f9185603e8cafabcb38445872d1",
     "details": {},
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
+    "fact_acceptance_history": [],
     "facts_hash": "e01b60f9adea5d6b1db88f04f1d4a6659e40f96e7513c7f38c7bae0dd8b27d92",
     "history": [
       {
@@ -902,7 +905,7 @@
     "updated_at": "2026-07-26T08:10:25.755892+00:00"
   },
   "schema_version": 2,
-  "state_version": 125,
+  "state_version": 126,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "892fd614e5a03a8d301271ee4fc0318d6261aaaeac9e94432b9d23a6c5ec7268",
@@ -992,6 +995,28 @@
       "recovery_count": 0,
       "status": "blocked",
       "updated_at": "2026-07-26T08:12:13.454289+00:00"
+    },
+    "operator:20260728-000620-d2fe:aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp": {
+      "accepted_at": "2026-07-28T00:06:24.814764+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260728-000620-d2fe:aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-07-28T00:06:20.324218+00:00",
+        "provider_event_id": "20260728-000620-d2fe",
+        "repository_scope": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-07-28T00:06:24.814805+00:00"
     }
   },
   "trigger_records": {},
