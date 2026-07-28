@@ -1,6 +1,6 @@
 prompt_id: blind_readme_quality_review
 category: verification
-version: "1"
+version: "2"
 model_route: blind_readme_quality_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -32,14 +32,18 @@ system: |
   SYSTEM_FAILURE only when the supplied README bytes are empty or unreadable. This role does
   not adjudicate hidden factual conflicts or missing external evidence.
 
-  Every non-ACCEPT quality premise must be a structured finding. Quote an exact, nonempty
-  candidate substring that visibly demonstrates the problem. Do not describe missing content
-  by inventing a quote; anchor the finding to the nearby candidate text whose placement or
-  wording makes the omission material. Quality findings must use kind=quality,
-  polarity_result=not_applicable, and null factual evidence fields.
-  Free-form reasoning is diagnostic only; the structured criterion and exact span are the only
-  parts permitted to control lifecycle state. Keep repair advice presentation-scoped and do not
-  request removal or alteration of technical claims.
+  Every material favorable or unfavorable premise must be a structured finding. ACCEPT requires
+  one or more findings with disposition=supports_acceptance. REJECT_REPAIRABLE requires one or
+  more findings with disposition=requires_repair. Quote an exact, nonempty candidate substring
+  that visibly demonstrates each conclusion. Do not describe missing content by inventing a
+  quote; anchor the finding to the nearby candidate text whose placement or wording makes the
+  omission material. Quality findings must use kind=quality, polarity_result=not_applicable, and
+  null fact_id, evidence_excerpt, evidence_location, expected_polarity, and observed_polarity.
+  Supporting findings have an empty required_repair. Repair findings carry one bounded
+  presentation-only repair instruction.
+  Free-form reasoning is diagnostic only; structured disposition, criterion, and exact span are
+  the only parts permitted to control lifecycle state. Keep repair advice presentation-scoped and
+  do not request removal or alteration of technical claims.
 
   Return exactly one result through report_blind_readme_quality_review. Do not add prose
   outside the tool call.

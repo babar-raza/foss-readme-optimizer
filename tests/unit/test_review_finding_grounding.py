@@ -5,7 +5,9 @@ from readme_agent.specialists.review_finding_grounding import (
     validate_review_findings,
 )
 
-CANDIDATE = "# Example\n\nInstall with `dotnet add package Example`.\n"
+CANDIDATE = (
+    "# Example\n\nInstall with `dotnet add package Example`.\nProcesses 10,000 files per second.\n"
+)
 FACTS = {
     "selected_fact_ids": {"installation.coordinates": "fact.install"},
     "facts": [
@@ -38,12 +40,14 @@ def _finding(**updates):
         "section": "Installation",
         "claim": "The install command is contradicted.",
         "quoted_candidate_span": "dotnet add package Example",
+        "disposition": "blocks",
         "fact_id": "fact.install",
         "evidence_excerpt": "throw new NotSupportedException()",
+        "evidence_location": "src/Example.cs",
         "expected_polarity": "positive_implementation",
         "observed_polarity": "explicit_constraint",
         "polarity_result": "contradicts",
-        "required_repair": "Remove the unsupported command.",
+        "required_repair": "",
     }
     value.update(updates)
     return GroundedReviewFindingV1.model_validate(value)
@@ -63,7 +67,12 @@ def test_exact_span_fact_evidence_and_wrong_direction_are_checked():
     wrong_polarity = validate_review_findings(
         candidate_text=CANDIDATE,
         product_facts=FACTS,
-        findings=[_finding(polarity_result="supports")],
+        findings=[
+            _finding(
+                disposition="supports_acceptance",
+                polarity_result="supports",
+            )
+        ],
     )
 
     assert valid.valid
@@ -89,13 +98,15 @@ def test_genuinely_unsupported_claim_remains_valid_missing_evidence():
         criterion="factuality",
         section="Performance",
         claim="The candidate claims unsupported throughput.",
-        quoted_candidate_span="dotnet add package Example",
+        quoted_candidate_span="Processes 10,000 files per second.",
+        disposition="blocks",
         fact_id=None,
         evidence_excerpt=None,
+        evidence_location=None,
         expected_polarity=None,
         observed_polarity=None,
         polarity_result="missing",
-        required_repair="Remove the unsupported claim.",
+        required_repair="",
     )
 
     result = validate_review_findings(
@@ -115,8 +126,10 @@ def test_blind_factual_accuracy_criterion_cannot_control_review():
         section="Installation",
         claim="The package is not published.",
         quoted_candidate_span="dotnet add package Example",
+        disposition="requires_repair",
         fact_id=None,
         evidence_excerpt=None,
+        evidence_location=None,
         expected_polarity=None,
         observed_polarity=None,
         polarity_result="not_applicable",
@@ -131,3 +144,51 @@ def test_blind_factual_accuracy_criterion_cannot_control_review():
 
     assert not result.valid
     assert "outside blind visible-quality authority" in result.errors[0]
+
+
+def test_missing_evidence_cannot_deny_literal_selected_fact():
+    finding = GroundedReviewFindingV1(
+        finding_id="factual.false-missing",
+        kind="factual",
+        criterion="factuality",
+        section="Installation",
+        claim="The Example package lacks accepted evidence.",
+        quoted_candidate_span="dotnet add package Example",
+        disposition="blocks",
+        fact_id=None,
+        evidence_excerpt=None,
+        evidence_location=None,
+        expected_polarity=None,
+        observed_polarity=None,
+        polarity_result="missing",
+        required_repair="",
+    )
+
+    result = validate_review_findings(
+        candidate_text=CANDIDATE,
+        product_facts=FACTS,
+        findings=[finding],
+    )
+
+    assert not result.valid
+    assert "missing-evidence premise contradicts accepted facts" in result.errors[0]
+
+
+def test_supported_finding_requires_exact_fact_location():
+    supported = _finding(
+        disposition="supports_acceptance",
+        polarity_result="supports",
+        expected_polarity="positive_implementation",
+        observed_polarity="positive_implementation",
+        evidence_location="wrong/location",
+        required_repair="",
+    )
+
+    result = validate_review_findings(
+        candidate_text=CANDIDATE,
+        product_facts=FACTS,
+        findings=[supported],
+    )
+
+    assert not result.valid
+    assert any("evidence location disagrees" in error for error in result.errors)

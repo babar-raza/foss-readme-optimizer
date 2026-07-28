@@ -7,8 +7,11 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from readme_agent.readme.fact_grounding import fact_strings
+
 FindingKind = Literal["quality", "factual"]
 FindingPolarityResult = Literal["not_applicable", "supports", "contradicts", "missing"]
+FindingDisposition = Literal["supports_acceptance", "requires_repair", "blocks"]
 EvidencePolarity = Literal[
     "positive_implementation",
     "explicit_constraint",
@@ -41,8 +44,10 @@ class GroundedReviewFindingV1(BaseModel):
     section: str = Field(min_length=1)
     claim: str = Field(min_length=1)
     quoted_candidate_span: str = Field(min_length=1)
+    disposition: FindingDisposition
     fact_id: str | None = None
     evidence_excerpt: str | None = None
+    evidence_location: str | None = None
     expected_polarity: EvidencePolarity | None = None
     observed_polarity: EvidencePolarity | None = None
     polarity_result: FindingPolarityResult
@@ -56,6 +61,7 @@ class GroundedReviewFindingV1(BaseModel):
                 for value in (
                     self.fact_id,
                     self.evidence_excerpt,
+                    self.evidence_location,
                     self.expected_polarity,
                     self.observed_polarity,
                 )
@@ -63,11 +69,29 @@ class GroundedReviewFindingV1(BaseModel):
                 raise ValueError("quality finding cannot carry factual evidence fields")
             if self.polarity_result != "not_applicable":
                 raise ValueError("quality finding polarity must be not_applicable")
+            if self.disposition == "blocks":
+                raise ValueError("quality finding cannot block on factual evidence")
         elif self.polarity_result == "missing":
-            if self.fact_id is not None or self.evidence_excerpt is not None:
+            if (
+                self.fact_id is not None
+                or self.evidence_excerpt is not None
+                or self.evidence_location is not None
+            ):
                 raise ValueError("missing-evidence finding cannot cite a fact or evidence excerpt")
-        elif self.fact_id is None or not self.evidence_excerpt:
-            raise ValueError("supported/contradicted factual finding requires fact and evidence")
+            if self.disposition != "blocks":
+                raise ValueError("missing-evidence finding must block")
+        elif self.fact_id is None or not self.evidence_excerpt or not self.evidence_location:
+            raise ValueError(
+                "supported/contradicted factual finding requires fact, evidence, and location"
+            )
+        elif self.polarity_result == "supports" and self.disposition == "blocks":
+            raise ValueError("supported factual finding cannot block")
+        elif self.polarity_result == "contradicts" and self.disposition != "blocks":
+            raise ValueError("contradicted factual finding must block")
+        if self.disposition == "requires_repair" and not self.required_repair.strip():
+            raise ValueError("repair finding requires a bounded repair instruction")
+        if self.disposition != "requires_repair" and self.required_repair.strip():
+            raise ValueError("only repair findings may carry repair instructions")
         return self
 
 
@@ -97,6 +121,30 @@ def _fact_evidence_strings(fact: dict) -> set[str]:
     return {value for value in values if value}
 
 
+def _accepted_literal_fact_ids(finding: GroundedReviewFindingV1, product_facts: dict) -> list[str]:
+    text = f"{finding.claim}\n{finding.quoted_candidate_span}".casefold()
+    by_fact_id = {
+        str(fact.get("fact_id")): fact
+        for fact in product_facts.get("facts", [])
+        if isinstance(fact, dict) and fact.get("fact_id")
+    }
+    matches: list[str] = []
+    for fact_id in set(product_facts.get("selected_fact_ids", {}).values()):
+        fact = by_fact_id.get(fact_id)
+        if fact is None:
+            continue
+        if fact.get("verification_state") not in {"verified", "policy_approved"}:
+            continue
+        if any(conflict.get("status") == "unresolved" for conflict in fact.get("conflicts", [])):
+            continue
+        if any(
+            len(phrase.strip()) >= 4 and phrase.strip().casefold() in text
+            for phrase in fact_strings(fact.get("value"))
+        ):
+            matches.append(fact_id)
+    return sorted(matches)
+
+
 def validate_review_findings(
     *,
     candidate_text: str,
@@ -119,10 +167,18 @@ def validate_review_findings(
         seen.add(finding.finding_id)
         if finding.quoted_candidate_span not in candidate_text:
             errors.append(f"{finding.finding_id}:quoted candidate span is absent")
-        if finding.kind != "factual" or finding.polarity_result == "missing":
+        if finding.kind != "factual":
             if finding.kind == "quality" and finding.criterion not in BLIND_QUALITY_CRITERIA:
                 errors.append(
                     f"{finding.finding_id}:criterion is outside blind visible-quality authority"
+                )
+            continue
+        if finding.polarity_result == "missing":
+            contradicted_by = _accepted_literal_fact_ids(finding, product_facts or {})
+            if contradicted_by:
+                errors.append(
+                    f"{finding.finding_id}:missing-evidence premise contradicts accepted facts "
+                    f"{contradicted_by}"
                 )
             continue
         assert finding.fact_id is not None
@@ -136,6 +192,9 @@ def validate_review_findings(
             errors.append(f"{finding.finding_id}:fact is not accepted")
         if any(conflict.get("status") == "unresolved" for conflict in fact.get("conflicts", [])):
             errors.append(f"{finding.finding_id}:fact has unresolved conflict")
+        source_location = str((fact.get("source") or {}).get("location", ""))
+        if finding.evidence_location != source_location:
+            errors.append(f"{finding.finding_id}:evidence location disagrees with cited fact")
         evidence_excerpt = finding.evidence_excerpt
         assert evidence_excerpt is not None
         evidence = _fact_evidence_strings(fact)
@@ -161,6 +220,14 @@ def validate_review_findings(
             derived = "supports" if assessment.get("accepted") else "contradicts"
             if finding.polarity_result != derived:
                 errors.append(f"{finding.finding_id}:polarity result has wrong direction")
+        elif (
+            finding.expected_polarity != "positive_implementation"
+            or finding.observed_polarity != "positive_implementation"
+            or finding.polarity_result != "supports"
+        ):
+            errors.append(
+                f"{finding.finding_id}:accepted evidence without an assessment must support"
+            )
     return FindingGroundingResultV1(
         valid=not errors,
         errors=errors,
@@ -184,7 +251,9 @@ def grounding_retry_context(
             {
                 "fact_id": fact.get("fact_id"),
                 "verification_state": fact.get("verification_state"),
+                "evidence_location": (fact.get("source") or {}).get("location"),
                 "evidence": sorted(_fact_evidence_strings(fact)),
+                "evidence_assessments": fact.get("evidence_assessments") or [],
             }
             for fact in (product_facts or {}).get("facts", [])
             if isinstance(fact, dict)

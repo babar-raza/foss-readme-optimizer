@@ -20,6 +20,7 @@ from readme_agent.readme import candidate_pipeline
 from readme_agent.specialists import readme_reconciliation, registry, separated_readme_review
 from readme_agent.state.backend import SaveResult
 from readme_agent.state.schema import DomainStateV1, RunStateV1
+from tests.review_role_fixture_support import GroundedAcceptingRoleReviewClient
 
 ORG_REPO = "example-foss/Example-Widget"
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -131,17 +132,7 @@ class _FakeAcceptingRoleReviewClient:
         pass
 
     def analyze(self, messages):
-        return AnalysisResult(
-            parsed={
-                "verdict": "ACCEPT",
-                "reasoning": "fixture: not reviewed",
-                "failed_criteria": [],
-                "sections_affected": [],
-                "required_repair": "",
-                "findings": [],
-            },
-            meta=LLMResponseMeta(),
-        )
+        return GroundedAcceptingRoleReviewClient().analyze(messages)
 
 
 def _fake_accepting_role_clients(*args, **kwargs):

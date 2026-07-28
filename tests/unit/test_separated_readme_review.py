@@ -1,5 +1,8 @@
 """Runtime wiring for context-isolated README reviewer roles."""
 
+import pytest
+
+from readme_agent.errors import LLMError
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
@@ -19,6 +22,16 @@ FACTS = {
             "verification_state": "verified",
             "source": {"location": "README.md"},
             "conflicts": [],
+            "evidence_assessments": [
+                {
+                    "expected_polarity": "positive_implementation",
+                    "observed_polarity": "explicit_constraint",
+                    "exact_excerpt": "Example is not supported",
+                    "context_excerpt": "Example is not supported",
+                    "anchor": "not supported",
+                    "accepted": False,
+                }
+            ],
         }
     ],
 }
@@ -48,20 +61,65 @@ class SequenceClient(CapturingClient):
         )
 
 
-def _accept(reason):
+def _blind_accept(reason):
     return {
         "verdict": "ACCEPT",
         "reasoning": reason,
         "failed_criteria": [],
         "sections_affected": [],
         "required_repair": "",
-        "findings": [],
+        "findings": [
+            {
+                "finding_id": "quality.clear-opening",
+                "kind": "quality",
+                "criterion": "clarity",
+                "section": "overview",
+                "claim": "The opening is clear.",
+                "quoted_candidate_span": "Specific, useful candidate.",
+                "disposition": "supports_acceptance",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "evidence_location": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "not_applicable",
+                "required_repair": "",
+            }
+        ],
+    }
+
+
+def _factual_accept(reason):
+    return {
+        "verdict": "ACCEPT",
+        "reasoning": reason,
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+            {
+                "finding_id": "factual.identity-supported",
+                "kind": "factual",
+                "criterion": "factuality",
+                "section": "title",
+                "claim": "The candidate identity is supported.",
+                "quoted_candidate_span": "Example",
+                "disposition": "supports_acceptance",
+                "fact_id": "fact-1",
+                "evidence_excerpt": "Example",
+                "evidence_location": "README.md",
+                "expected_polarity": "positive_implementation",
+                "observed_polarity": "positive_implementation",
+                "polarity_result": "supports",
+                "required_repair": "",
+            }
+        ],
     }
 
 
 def test_two_accepts_produce_hash_bound_separate_records():
-    blind = CapturingClient(_accept("visitor-ready"))
-    factual = CapturingClient(_accept("facts and plan agree"))
+    blind = CapturingClient(_blind_accept("visitor-ready"))
+    factual = CapturingClient(_factual_accept("facts and plan agree"))
 
     result = run_separated_readme_review(
         ORG_REPO,
@@ -78,8 +136,10 @@ def test_two_accepts_produce_hash_bound_separate_records():
     assert result.blind_quality_review.input_sha256 != result.factual_plan_review.input_sha256
     assert result.blind_quality_review.identity.prompt_id == "blind_readme_quality_review"
     assert result.factual_plan_review.identity.prompt_id == "factual_readme_plan_review"
-    assert result.blind_quality_review.findings == []
-    assert result.factual_plan_review.findings == []
+    assert result.blind_quality_review.grounding_validation.valid
+    assert result.factual_plan_review.grounding_validation.valid
+    assert result.blind_quality_review.findings[0].disposition == "supports_acceptance"
+    assert result.factual_plan_review.findings[0].evidence_location == "README.md"
 
     blind_context = "\n".join(message["content"] for message in blind.messages)
     factual_context = "\n".join(message["content"] for message in factual.messages)
@@ -113,8 +173,10 @@ def test_blind_rejection_vetoes_factual_acceptance():
                         "section": "overview",
                         "claim": "The opening is generic.",
                         "quoted_candidate_span": "Specific, useful candidate.",
+                        "disposition": "requires_repair",
                         "fact_id": None,
                         "evidence_excerpt": None,
+                        "evidence_location": None,
                         "expected_polarity": None,
                         "observed_polarity": None,
                         "polarity_result": "not_applicable",
@@ -123,7 +185,7 @@ def test_blind_rejection_vetoes_factual_acceptance():
                 ],
             }
         ),
-        factual_client=CapturingClient(_accept("facts and plan agree")),
+        factual_client=CapturingClient(_factual_accept("facts and plan agree")),
     )
 
     assert result.verdict == "REJECT_REPAIRABLE"
@@ -143,7 +205,7 @@ def test_factual_conflict_vetoes_blind_acceptance():
         CANDIDATE,
         PLAN,
         FACTS,
-        blind_client=CapturingClient(_accept("visitor-ready")),
+        blind_client=CapturingClient(_blind_accept("visitor-ready")),
         factual_client=CapturingClient(
             {
                 "verdict": "BLOCKED_FACT_CONFLICT",
@@ -159,10 +221,12 @@ def test_factual_conflict_vetoes_blind_acceptance():
                         "section": "installation",
                         "claim": "The candidate makes an unsupported acquisition claim.",
                         "quoted_candidate_span": "Specific, useful candidate.",
+                        "disposition": "blocks",
                         "fact_id": "fact-1",
-                        "evidence_excerpt": "Example",
-                        "expected_polarity": None,
-                        "observed_polarity": None,
+                        "evidence_excerpt": "Example is not supported",
+                        "evidence_location": "README.md",
+                        "expected_polarity": "positive_implementation",
+                        "observed_polarity": "explicit_constraint",
                         "polarity_result": "contradicts",
                         "required_repair": "",
                     }
@@ -199,8 +263,10 @@ def test_ungrounded_quality_premise_gets_one_bounded_correction_turn():
                 "section": "overview",
                 "claim": "The opening is generic.",
                 "quoted_candidate_span": "text that is not in the candidate",
+                "disposition": "requires_repair",
                 "fact_id": None,
                 "evidence_excerpt": None,
+                "evidence_location": None,
                 "expected_polarity": None,
                 "observed_polarity": None,
                 "polarity_result": "not_applicable",
@@ -226,7 +292,7 @@ def test_ungrounded_quality_premise_gets_one_bounded_correction_turn():
         PLAN,
         FACTS,
         blind_client=blind,
-        factual_client=CapturingClient(_accept("facts and plan agree")),
+        factual_client=CapturingClient(_factual_accept("facts and plan agree")),
     )
 
     assert result.verdict == "REJECT_REPAIRABLE"
@@ -234,3 +300,73 @@ def test_ungrounded_quality_premise_gets_one_bounded_correction_turn():
     assert result.grounding_retry_history[0]["valid"] is False
     assert result.grounding_retry_history[1]["valid"] is True
     assert "validation_errors" in blind.messages_seen[1][-1]["content"]
+
+
+def test_free_form_acceptance_without_grounded_spans_fails_closed():
+    ungrounded_accept = {
+        "verdict": "ACCEPT",
+        "reasoning": "Everything looks good.",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [],
+    }
+
+    with pytest.raises(LLMError, match="repeatedly returned ungrounded findings"):
+        run_separated_readme_review(
+            ORG_REPO,
+            ORIGINAL,
+            CANDIDATE,
+            PLAN,
+            FACTS,
+            blind_client=SequenceClient([ungrounded_accept, ungrounded_accept]),
+            factual_client=CapturingClient(_factual_accept("facts and plan agree")),
+        )
+
+
+def test_literal_accepted_fact_false_block_gets_bounded_correction():
+    false_missing = {
+        "verdict": "BLOCKED_MISSING_EVIDENCE",
+        "reasoning": "The Example identity lacks evidence.",
+        "failed_criteria": ["factuality"],
+        "sections_affected": ["title"],
+        "required_repair": "",
+        "findings": [
+            {
+                "finding_id": "factual.false-missing",
+                "kind": "factual",
+                "criterion": "factuality",
+                "section": "title",
+                "claim": "The Example identity lacks evidence.",
+                "quoted_candidate_span": "Example",
+                "disposition": "blocks",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "evidence_location": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "missing",
+                "required_repair": "",
+            }
+        ],
+    }
+    factual = SequenceClient([false_missing, _factual_accept("accepted fact is present")])
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        blind_client=CapturingClient(_blind_accept("visitor-ready")),
+        factual_client=factual,
+    )
+
+    assert result.verdict == "ACCEPT"
+    factual_history = [
+        item for item in result.grounding_retry_history if item["role"] == "factual_plan"
+    ]
+    assert factual_history[0]["valid"] is False
+    assert "contradicts accepted facts" in factual_history[0]["errors"][0]
+    assert factual_history[1]["validation_result"]["valid"] is True
+    assert '"evidence_location": "README.md"' in factual.messages_seen[1][-1]["content"]

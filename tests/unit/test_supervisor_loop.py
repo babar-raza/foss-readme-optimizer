@@ -40,6 +40,7 @@ from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import DomainStateV1, ModelRouteStatusV1, RunStateV1, RunStateV2
 from readme_agent.supervisor.loop import _readme_poc_noop_gate_holds, supervise_repo
 from readme_agent.verification import readme_proposal_bundle
+from tests.review_role_fixture_support import GroundedAcceptingRoleReviewClient
 
 # Proven-valid against the real word-count/prohibited-terms/talking-points
 # rules (identical policy to test_orchestrator.py's own FIXTURE_RESPONSE,
@@ -208,17 +209,7 @@ class _FakeAcceptingRoleReviewClient:
         pass
 
     def analyze(self, messages):
-        return AnalysisResult(
-            parsed={
-                "verdict": "ACCEPT",
-                "reasoning": "fixture: not reviewed",
-                "failed_criteria": [],
-                "sections_affected": [],
-                "required_repair": "",
-                "findings": [],
-            },
-            meta=LLMResponseMeta(),
-        )
+        return GroundedAcceptingRoleReviewClient().analyze(messages)
 
 
 def _fake_accepting_role_clients(*args, **kwargs):
@@ -272,8 +263,10 @@ class _RejectThenAcceptBlindReviewClient:
                         "section": "Overview",
                         "claim": "The overview ordering is generic.",
                         "quoted_candidate_span": "Example FOSS",
+                        "disposition": "requires_repair",
                         "fact_id": None,
                         "evidence_excerpt": None,
+                        "evidence_location": None,
                         "expected_polarity": None,
                         "observed_polarity": None,
                         "polarity_result": "not_applicable",
@@ -284,16 +277,7 @@ class _RejectThenAcceptBlindReviewClient:
                 ],
             }
         else:
-            parsed = {
-                "verdict": "ACCEPT",
-                "reasoning": (
-                    "The repaired overview is product-specific and preserves existing guidance."
-                ),
-                "failed_criteria": [],
-                "sections_affected": [],
-                "required_repair": "",
-                "findings": [],
-            }
+            return GroundedAcceptingRoleReviewClient().analyze(messages)
         return AnalysisResult(parsed=parsed, meta=LLMResponseMeta(model="fixture-reviewer"))
 
 

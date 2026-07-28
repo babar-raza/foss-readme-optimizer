@@ -115,8 +115,13 @@ def _role_review_tool_schema(
             "section": {"type": "string"},
             "claim": {"type": "string"},
             "quoted_candidate_span": {"type": "string"},
+            "disposition": {
+                "type": "string",
+                "enum": ["supports_acceptance", "requires_repair", "blocks"],
+            },
             "fact_id": {"type": ["string", "null"]},
             "evidence_excerpt": {"type": ["string", "null"]},
+            "evidence_location": {"type": ["string", "null"]},
             "expected_polarity": {
                 "type": ["string", "null"],
                 "enum": [
@@ -148,8 +153,10 @@ def _role_review_tool_schema(
             "section",
             "claim",
             "quoted_candidate_span",
+            "disposition",
             "fact_id",
             "evidence_excerpt",
+            "evidence_location",
             "expected_polarity",
             "observed_polarity",
             "polarity_result",

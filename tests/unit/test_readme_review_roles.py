@@ -11,12 +11,12 @@ from readme_agent.llm.verification_prompts import (
     build_factual_plan_review_messages,
 )
 from readme_agent.readme.document_hashing import sha256_hex
+from readme_agent.specialists.readme_review_reducer import combine_review_verdicts
 from readme_agent.specialists.readme_review_roles import (
     BlindQualityReviewInputV1,
     FactualPlanReviewInputV1,
     ReviewActorIdentityV1,
     RoleReviewRecordV1,
-    combine_review_verdicts,
     input_hash,
     json_hash,
 )
@@ -45,11 +45,22 @@ def _record(
 ) -> RoleReviewRecordV1:
     failed = verdict not in {"ACCEPT", "SYSTEM_FAILURE"}
     finding_kind = "quality" if role == "blind_quality_reviewer" else "factual"
-    polarity_result = (
-        "not_applicable"
-        if finding_kind == "quality"
-        else ("missing" if verdict != "BLOCKED_FACT_CONFLICT" else "contradicts")
+    if finding_kind == "quality":
+        polarity_result = "not_applicable"
+    elif verdict == "BLOCKED_FACT_CONFLICT":
+        polarity_result = "contradicts"
+    elif verdict == "BLOCKED_MISSING_EVIDENCE":
+        polarity_result = "missing"
+    else:
+        polarity_result = "supports"
+    disposition = (
+        "supports_acceptance"
+        if verdict == "ACCEPT"
+        else ("requires_repair" if verdict == "REJECT_REPAIRABLE" else "blocks")
     )
+    carries_fact = finding_kind == "factual" and polarity_result != "missing"
+    has_finding = verdict != "SYSTEM_FAILURE"
+    finding_id = f"{finding_kind}.finding"
     return RoleReviewRecordV1(
         identity=_identity(actor, role, prompt),
         candidate_sha256=candidate_hash,
@@ -60,31 +71,45 @@ def _record(
         if failed
         else [],
         sections_affected=["Overview"] if failed else [],
+        required_repair="Repair it." if disposition == "requires_repair" else "",
         findings=(
             [
                 {
-                    "finding_id": f"{finding_kind}.finding",
+                    "finding_id": finding_id,
                     "kind": finding_kind,
                     "criterion": "clarity" if finding_kind == "quality" else "factuality",
                     "section": "Overview",
                     "claim": "A grounded finding.",
                     "quoted_candidate_span": "Specific, useful candidate.",
-                    "fact_id": "fact-1" if polarity_result == "contradicts" else None,
-                    "evidence_excerpt": (
-                        "contradicting evidence" if polarity_result == "contradicts" else None
-                    ),
-                    "expected_polarity": (
-                        "positive_implementation" if polarity_result == "contradicts" else None
-                    ),
+                    "disposition": disposition,
+                    "fact_id": "fact-1" if carries_fact else None,
+                    "evidence_excerpt": "fact evidence" if carries_fact else None,
+                    "evidence_location": "README.md" if carries_fact else None,
+                    "expected_polarity": ("positive_implementation" if carries_fact else None),
                     "observed_polarity": (
-                        "explicit_constraint" if polarity_result == "contradicts" else None
+                        (
+                            "explicit_constraint"
+                            if polarity_result == "contradicts"
+                            else "positive_implementation"
+                        )
+                        if carries_fact
+                        else None
                     ),
                     "polarity_result": polarity_result,
-                    "required_repair": "Repair it.",
+                    "required_repair": ("Repair it." if disposition == "requires_repair" else ""),
                 }
             ]
-            if failed
+            if has_finding
             else []
+        ),
+        grounding_validation=(
+            {
+                "valid": True,
+                "errors": [],
+                "checked_finding_ids": [finding_id],
+            }
+            if has_finding
+            else None
         ),
     )
 

@@ -9,6 +9,8 @@ from readme_agent.llm.reviewer_client import (
     LiveIndependentReviewClient,
 )
 from readme_agent.llm.verification_prompts import (
+    BLIND_QUALITY_REVIEW_TOOL_SCHEMA,
+    FACTUAL_PLAN_REVIEW_TOOL_SCHEMA,
     INDEPENDENT_README_REVIEW_TOOL_SCHEMA,
 )
 
@@ -124,3 +126,19 @@ def test_separated_role_clients_force_distinct_governed_tools(monkeypatch):
         "report_blind_readme_quality_review",
         "report_factual_readme_plan_review",
     ]
+
+
+def test_role_tool_schemas_require_grounded_acceptance_fields():
+    blind_finding = BLIND_QUALITY_REVIEW_TOOL_SCHEMA["function"]["parameters"]["properties"][
+        "findings"
+    ]["items"]
+    factual_finding = FACTUAL_PLAN_REVIEW_TOOL_SCHEMA["function"]["parameters"]["properties"][
+        "findings"
+    ]["items"]
+
+    assert {"disposition", "quoted_candidate_span", "evidence_location"} <= set(
+        blind_finding["required"]
+    )
+    assert blind_finding["properties"]["kind"]["enum"] == ["quality"]
+    assert factual_finding["properties"]["kind"]["enum"] == ["factual"]
+    assert "supports_acceptance" in factual_finding["properties"]["disposition"]["enum"]

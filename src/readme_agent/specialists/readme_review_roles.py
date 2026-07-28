@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.specialists.review_finding_grounding import (
     BLIND_QUALITY_CRITERIA,
+    FindingGroundingResultV1,
     GroundedReviewFindingV1,
 )
 
@@ -94,17 +95,23 @@ class BlindQualityReviewResultV1(BaseModel):
 
     @model_validator(mode="after")
     def _verdict_payload(self) -> BlindQualityReviewResultV1:
-        if self.verdict == "ACCEPT" and (
-            self.failed_criteria or self.sections_affected or self.required_repair or self.findings
-        ):
-            raise ValueError("blind-quality ACCEPT cannot carry failure details")
+        if self.verdict == "ACCEPT":
+            if self.failed_criteria or self.sections_affected or self.required_repair:
+                raise ValueError("blind-quality ACCEPT cannot carry failure details")
+            if not self.findings or any(
+                finding.disposition != "supports_acceptance" for finding in self.findings
+            ):
+                raise ValueError("blind-quality ACCEPT requires grounded supporting findings")
         if self.verdict == "REJECT_REPAIRABLE" and (
             not self.failed_criteria
             or not self.sections_affected
             or not self.required_repair.strip()
             or not self.findings
+            or any(finding.disposition != "requires_repair" for finding in self.findings)
         ):
             raise ValueError("blind-quality rejection requires criteria, sections, and repair")
+        if self.verdict == "SYSTEM_FAILURE" and self.findings:
+            raise ValueError("blind-quality SYSTEM_FAILURE cannot carry findings")
         if any(finding.kind != "quality" for finding in self.findings):
             raise ValueError("blind-quality result may contain only quality findings")
         if any(finding.criterion not in BLIND_QUALITY_CRITERIA for finding in self.findings):
@@ -126,16 +133,29 @@ class FactualPlanReviewResultV1(BaseModel):
 
     @model_validator(mode="after")
     def _verdict_payload(self) -> FactualPlanReviewResultV1:
-        if self.verdict == "ACCEPT" and (
-            self.failed_criteria or self.sections_affected or self.required_repair or self.findings
-        ):
-            raise ValueError("factual-plan ACCEPT cannot carry failure details")
+        if self.verdict == "ACCEPT":
+            if self.failed_criteria or self.sections_affected or self.required_repair:
+                raise ValueError("factual-plan ACCEPT cannot carry failure details")
+            if not self.findings or any(
+                finding.disposition != "supports_acceptance" for finding in self.findings
+            ):
+                raise ValueError("factual-plan ACCEPT requires grounded supporting findings")
         if (
             self.verdict != "ACCEPT"
             and self.verdict != "SYSTEM_FAILURE"
             and (not self.failed_criteria or not self.sections_affected or not self.findings)
         ):
             raise ValueError("factual-plan failure requires criteria and sections")
+        if self.verdict == "REJECT_REPAIRABLE" and any(
+            finding.disposition != "requires_repair" for finding in self.findings
+        ):
+            raise ValueError("factual-plan repair verdict requires repair findings")
+        if self.verdict in {"BLOCKED_FACT_CONFLICT", "BLOCKED_MISSING_EVIDENCE"} and any(
+            finding.disposition != "blocks" for finding in self.findings
+        ):
+            raise ValueError("factual-plan blocked verdict requires blocking findings")
+        if self.verdict == "SYSTEM_FAILURE" and self.findings:
+            raise ValueError("factual-plan SYSTEM_FAILURE cannot carry findings")
         if any(finding.kind != "factual" for finding in self.findings):
             raise ValueError("factual-plan result may contain only factual findings")
         if self.verdict == "BLOCKED_FACT_CONFLICT" and not any(
@@ -163,6 +183,7 @@ class RoleReviewRecordV1(BaseModel):
     sections_affected: list[str] = Field(default_factory=list)
     required_repair: str = ""
     findings: list[GroundedReviewFindingV1] = Field(default_factory=list)
+    grounding_validation: FindingGroundingResultV1 | None = None
 
     @model_validator(mode="after")
     def _persisted_evidence_matches_verdict(self) -> RoleReviewRecordV1:
@@ -172,12 +193,27 @@ class RoleReviewRecordV1(BaseModel):
             self.required_repair.strip(),
             self.findings,
         )
-        if self.verdict == "ACCEPT" and any(failure_details):
-            raise ValueError("accepted role record cannot carry failure evidence")
+        if self.verdict == "ACCEPT":
+            if any(failure_details[:3]):
+                raise ValueError("accepted role record cannot carry failure details")
+            if not self.findings or any(
+                finding.disposition != "supports_acceptance" for finding in self.findings
+            ):
+                raise ValueError("accepted role record requires grounded supporting findings")
         if self.verdict not in {"ACCEPT", "SYSTEM_FAILURE"} and (
             not self.failed_criteria or not self.sections_affected or not self.findings
         ):
             raise ValueError("non-accept role record requires persisted grounded findings")
+        if self.verdict == "REJECT_REPAIRABLE" and any(
+            finding.disposition != "requires_repair" for finding in self.findings
+        ):
+            raise ValueError("repair role record requires repair findings")
+        if self.verdict in {"BLOCKED_FACT_CONFLICT", "BLOCKED_MISSING_EVIDENCE"} and any(
+            finding.disposition != "blocks" for finding in self.findings
+        ):
+            raise ValueError("blocked role record requires blocking findings")
+        if self.verdict == "SYSTEM_FAILURE" and self.findings:
+            raise ValueError("system-failure role record cannot carry findings")
         expected_kind = "quality" if self.identity.role == "blind_quality_reviewer" else "factual"
         if self.identity.role != "author" and any(
             finding.kind != expected_kind for finding in self.findings
@@ -187,6 +223,13 @@ class RoleReviewRecordV1(BaseModel):
             finding.criterion not in BLIND_QUALITY_CRITERIA for finding in self.findings
         ):
             raise ValueError("role record contains an unauthorized blind-quality criterion")
+        if self.verdict != "SYSTEM_FAILURE":
+            if self.grounding_validation is None or not self.grounding_validation.valid:
+                raise ValueError("role record requires successful grounding validation")
+            if set(self.grounding_validation.checked_finding_ids) != {
+                finding.finding_id for finding in self.findings
+            }:
+                raise ValueError("role record grounding result does not cover every finding")
         return self
 
 
@@ -214,75 +257,7 @@ def input_hash(value: BaseModel) -> str:
     return _json_hash(value.model_dump(mode="json"))
 
 
-def combine_review_verdicts(
-    *,
-    author: ReviewActorIdentityV1,
-    blind_quality: RoleReviewRecordV1,
-    factual_plan: RoleReviewRecordV1,
-) -> CombinedReadmeReviewV1:
-    """Combine two role verdicts without allowing producer or role identity overlap."""
-
-    identities_valid = (
-        author.role == "author"
-        and blind_quality.identity.role == "blind_quality_reviewer"
-        and factual_plan.identity.role == "factual_plan_reviewer"
-        and len(
-            {
-                author.actor_id,
-                blind_quality.identity.actor_id,
-                factual_plan.identity.actor_id,
-            }
-        )
-        == 3
-        and blind_quality.identity.prompt_id != factual_plan.identity.prompt_id
-        and blind_quality.identity.prompt_sha256 != factual_plan.identity.prompt_sha256
-        and blind_quality.candidate_sha256 == factual_plan.candidate_sha256
-    )
-    reasons = [
-        _authoritative_role_reason("blind_quality", blind_quality),
-        _authoritative_role_reason("factual_plan", factual_plan),
-    ]
-    if not identities_valid:
-        return CombinedReadmeReviewV1(
-            verdict="SYSTEM_FAILURE",
-            candidate_sha256=blind_quality.candidate_sha256,
-            blind_quality=blind_quality,
-            factual_plan=factual_plan,
-            identity_separation_valid=False,
-            reasons=["review identity or candidate separation failed", *reasons],
-        )
-
-    verdicts = {blind_quality.verdict, factual_plan.verdict}
-    precedence: tuple[CombinedReviewVerdict, ...] = (
-        "SYSTEM_FAILURE",
-        "BLOCKED_FACT_CONFLICT",
-        "BLOCKED_MISSING_EVIDENCE",
-        "REJECT_REPAIRABLE",
-        "ACCEPT",
-    )
-    verdict = next(item for item in precedence if item in verdicts)
-    return CombinedReadmeReviewV1(
-        verdict=verdict,
-        candidate_sha256=blind_quality.candidate_sha256,
-        blind_quality=blind_quality,
-        factual_plan=factual_plan,
-        identity_separation_valid=True,
-        reasons=reasons,
-    )
-
-
 def json_hash(value: dict) -> str:
     """Public canonical hash seam for constructing factual-plan inputs."""
 
     return _json_hash(value)
-
-
-def _authoritative_role_reason(role: str, record: RoleReviewRecordV1) -> str:
-    """Describe lifecycle authority from validated findings, not free-form model prose."""
-
-    if record.verdict in {"ACCEPT", "SYSTEM_FAILURE"}:
-        return f"{role}:{record.verdict}"
-    anchors = ",".join(
-        f"{finding.finding_id}@{finding.section}:{finding.criterion}" for finding in record.findings
-    )
-    return f"{role}:{record.verdict}:{anchors}"
