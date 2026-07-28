@@ -7000,6 +7000,18 @@
         "reason": "revision-addressed README candidate and native patch materialized",
         "source_revision": "71c9cc8a581786bfd0af7b4aa553407eba3ddea3",
         "to_status": "CANDIDATE_GENERATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\16ef6d7cd0f3093cf4a5\\r\\a53535b7dad3450a\\s\\71c9cc8a5817\\receipts\\DETERMINISTIC_VALIDATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\71c9cc8a581786bfd0af7b4aa553407eba3ddea3\\receipts\\DETERMINISTIC_VALIDATED.json"
+        ],
+        "from_status": "CANDIDATE_GENERATED",
+        "observed_by": "portfolio-stage-reducer",
+        "occurred_at": "2026-07-28T19:02:09.035473+00:00",
+        "reason": "sealed deterministic README validation receipt promoted",
+        "source_revision": "71c9cc8a581786bfd0af7b4aa553407eba3ddea3",
+        "to_status": "DETERMINISTIC_VALIDATED"
       }
     ],
     "presentation_plan_hash": "67f23a2ce37434a96b2713017abb0c145aba185da50b6276cb2a8b723ccc8784",
@@ -7009,11 +7021,11 @@
     "reviewer_standard_hash": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
     "schema_version": 2,
     "source_revision": "71c9cc8a581786bfd0af7b4aa553407eba3ddea3",
-    "status": "CANDIDATE_GENERATED",
-    "updated_at": "2026-07-28T19:01:24.806064+00:00"
+    "status": "DETERMINISTIC_VALIDATED",
+    "updated_at": "2026-07-28T19:02:09.035473+00:00"
   },
   "schema_version": 2,
-  "state_version": 715,
+  "state_version": 716,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ab98c6daf5199c8227b6f4209180d0e318786a76daa8d9896870d222671501b2",
