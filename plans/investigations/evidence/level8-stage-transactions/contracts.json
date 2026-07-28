@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-04B-STAGE-TRANSACTIONS",
+  "control_head": "db506257d9d618173271697012718d3114457409",
+  "stages": [
+    "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATED"
+  ],
+  "contracts": [
+    "StageFenceV1",
+    "PortfolioStageWorkItemV1",
+    "StageArtifactV1",
+    "LaneResultV1",
+    "StageSealV1",
+    "StageReceiptV1"
+  ],
+  "authority": {
+    "private_attempt_writer": "src/readme_agent/supervisor/portfolio_scheduler/lane.py",
+    "serialized_promoter": "src/readme_agent/supervisor/portfolio_scheduler/reducer.py",
+    "serial_stage_adapter": "src/readme_agent/supervisor/portfolio_scheduler/stages.py",
+    "compatibility_view": "runs/readme-poc/<org>__<repo>/<source-revision>/",
+    "private_attempt_view": "runs/readme-poc/c/<campaign-alias>/r/<repository-alias>/s/<revision-alias>/w/<work-alias>/<attempt>/"
+  },
+  "invariants": [
+    "A lane writes only its private attempt root.",
+    "SEALED is written last and binds request, result, and inventory checksums.",
+    "The reducer reloads and validates sealed bytes instead of trusting the lane object.",
+    "The reducer rechecks lifecycle source, facts, prompt, candidate, and fence identity.",
+    "Only a reducer receipt can advance the durable lifecycle or compatibility manifest.",
+    "Reducer-owned manifest state cannot be overwritten by an unchanged lane retry.",
+    "Incomplete and corrupt attempts remain diagnostic input and cannot be promoted.",
+    "Full identities remain in request and receipt documents; compact aliases avoid Windows path overflow and are collision-checked."
+  ]
+}

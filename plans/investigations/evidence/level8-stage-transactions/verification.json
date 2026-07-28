@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-04B-STAGE-TRANSACTIONS",
+  "verified_at": "2026-07-28",
+  "control_head": "db506257d9d618173271697012718d3114457409",
+  "branch": "main",
+  "results": [
+    {
+      "scope": "transaction fault injection",
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_portfolio_stage_transactions.py",
+      "exit_code": 0,
+      "result": "4 passed in 0.95s",
+      "proves": [
+        "crash before seal cannot publish",
+        "corrupt sealed attempt cannot publish",
+        "sealed result remains invisible until reducer promotion",
+        "stale fence fails closed",
+        "promotion retry is idempotent",
+        "compatibility receipt and lifecycle agree"
+      ]
+    },
+    {
+      "scope": "state cache, public CLI, safety, and evidence regression",
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_portfolio_stage_transactions.py tests/unit/test_stage_limit.py tests/unit/test_portfolio_stage_cache.py tests/unit/test_portfolio.py tests/unit/test_cli.py tests/unit/test_local_poc_evidence.py tests/unit/test_readme_poc_lifecycle.py tests/unit/test_gitsafety.py tests/unit/test_registry_loader.py tests/security/test_no_secrets_in_evidence.py",
+      "exit_code": 0,
+      "result": "183 passed in 90.90s"
+    },
+    {
+      "scope": "public supervisor stage ceilings and unchanged retry",
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_portfolio_stage_transactions.py tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_records_snapshot_and_profile_before_later_stages tests/unit/test_supervisor_loop.py::TestBasicLoop::test_candidate_stage_limits_stop_before_agent_review",
+      "exit_code": 0,
+      "result": "7 passed in 60.57s",
+      "proves": [
+        "candidate ceiling stops before independent review and effects",
+        "deterministic ceiling stops before independent review and effects",
+        "unchanged full run preserves advanced manifest state",
+        "unchanged rerun reaches NO_OP_PROVEN without another composition call"
+      ]
+    },
+    {
+      "scope": "proposal review integration",
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_supervise_readme_proposal_review_integration.py",
+      "exit_code": 0,
+      "result": "1 passed in 25.72s"
+    },
+    {
+      "scope": "lifecycle, trigger, evidence, and redaction regression",
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_lifecycle_state.py tests/unit/test_evidence_writer.py tests/unit/test_evidence_redaction.py tests/unit/test_evidence_polarity.py",
+      "exit_code": 0,
+      "result": "69 passed in 7.63s"
+    },
+    {
+      "scope": "static official checks",
+      "command": ".venv/Scripts/python -m ruff check . && .venv/Scripts/python -m ruff format --check . && .venv/Scripts/python -m mypy src && git diff --check",
+      "exit_code": 0,
+      "result": "Ruff clean; 692 files formatted; mypy clean across 385 source files; diff check clean"
+    }
+  ],
+  "negative_controls": {
+    "unsealed_attempt_counted": false,
+    "corrupt_attempt_counted": false,
+    "stale_fence_counted": false,
+    "partial_candidate_directory_counted": false,
+    "independent_review_called_at_candidate_ceiling": false,
+    "remote_write_attempted": false
+  },
+  "known_limit": {
+    "claim": "The complete test_supervisor_loop.py file passed.",
+    "status": "UNKNOWN",
+    "reason": "Two aggregate invocations exceeded their 10-minute command wrappers without returning a terminal pytest summary. Impacted public-path cases were rerun separately and passed. The complete official suite remains assigned to the next declared campaign boundary."
+  }
+}

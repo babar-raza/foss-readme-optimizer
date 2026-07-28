@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-04B-STAGE-TRANSACTIONS",
+  "goal_ids": [
+    "GOAL-AUTONOMY",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "indispensable_safety",
+    "summary": "Establish the transactional stage boundary required for isolated candidate qualification and safe later repository lanes."
+  },
+  "acceptance_checks_passed": [
+    "A candidate-stage run cannot invoke independent review or repair",
+    "An unsealed or stale-fence attempt cannot advance lifecycle or portfolio state",
+    "A sealed result promotes exactly once and an identical promotion is a no-op"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-stage-transactions/contracts.json",
+    "plans/investigations/evidence/level8-stage-transactions/verification.json",
+    "plans/investigations/evidence/level8-stage-transactions/sha256sums.txt"
+  ],
+  "scoreboard_before_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "scoreboard_after_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

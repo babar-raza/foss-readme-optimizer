@@ -1,0 +1,20 @@
+Task: L8-COMPOSE-04B-STAGE-TRANSACTIONS
+Control commit: db506257d9d618173271697012718d3114457409
+Branch: main
+
+Run from the repository root with the repository virtualenv:
+
+.venv/Scripts/python -m pytest -q tests/unit/test_portfolio_stage_transactions.py
+.venv/Scripts/python -m pytest -q tests/unit/test_portfolio_stage_transactions.py tests/unit/test_stage_limit.py tests/unit/test_portfolio_stage_cache.py tests/unit/test_portfolio.py tests/unit/test_cli.py tests/unit/test_local_poc_evidence.py tests/unit/test_readme_poc_lifecycle.py tests/unit/test_gitsafety.py tests/unit/test_registry_loader.py tests/security/test_no_secrets_in_evidence.py
+.venv/Scripts/python -m pytest -q tests/unit/test_portfolio_stage_transactions.py tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_records_snapshot_and_profile_before_later_stages tests/unit/test_supervisor_loop.py::TestBasicLoop::test_candidate_stage_limits_stop_before_agent_review
+.venv/Scripts/python -m pytest -q tests/unit/test_supervise_readme_proposal_review_integration.py
+.venv/Scripts/python -m pytest -q tests/unit/test_lifecycle_state.py tests/unit/test_evidence_writer.py tests/unit/test_evidence_redaction.py tests/unit/test_evidence_polarity.py
+.venv/Scripts/python -m ruff check .
+.venv/Scripts/python -m ruff format --check .
+.venv/Scripts/python -m mypy src
+git diff --check
+
+The aggregate test_supervisor_loop.py invocation is intentionally not listed as
+passing evidence: its two observed attempts exceeded the command wrapper before
+pytest returned a terminal summary. Run the complete official suite at the next
+campaign boundary, as required by the accelerated execution plan.
