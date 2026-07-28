@@ -8,9 +8,13 @@ from typing import Any
 
 from readme_agent.facts.example_quality import strip_source_comments
 from readme_agent.facts.local_verification import verify_local_product_example
-from readme_agent.facts.repository_examples import repository_readme_example_candidates
+from readme_agent.facts.repository_examples import (
+    repository_readme_example_candidates,
+    repository_source_example_candidates,
+)
 from readme_agent.registry.loader import require_listed
 from readme_agent.registry.models import MinimalExamplePolicy
+from readme_agent.registry.priority import load_platform_priority
 from readme_agent.repository_snapshot import capture_repository_snapshot
 
 REPRESENTATIVES = {
@@ -22,6 +26,7 @@ REPRESENTATIVES = {
     "rust": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
     "typescript": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
 }
+_PRIORITY_TO_REPRESENTATIVE = {"net": "dotnet"}
 
 _PYTHON_EXAMPLE = MinimalExamplePolicy(
     language="python",
@@ -72,6 +77,17 @@ def representative_roots(repo_root: Path) -> dict[str, Path]:
     }
 
 
+def ordered_representative_ecosystems() -> list[str]:
+    """Return the governed platform order restricted to this seven-repository proof."""
+
+    return [
+        representative
+        for ecosystem in load_platform_priority().execution_order
+        if (representative := _PRIORITY_TO_REPRESENTATIVE.get(ecosystem, ecosystem))
+        in REPRESENTATIVES
+    ]
+
+
 def _readme_example(root: Path, ecosystem: str) -> MinimalExamplePolicy:
     candidates = repository_readme_example_candidates(root, ecosystem)
     if not candidates:
@@ -99,16 +115,11 @@ def _selected_example(root: Path, ecosystem: str) -> tuple[MinimalExamplePolicy,
             ),
         )
     if ecosystem == "go":
-        source_path = "_examples/text_extraction/main.go"
-        code = strip_source_comments("go", (root / source_path).read_text(encoding="utf-8"))
+        candidates = repository_source_example_candidates(root, "go")
+        if not candidates:
+            raise RuntimeError("Go representative has no complete repository source example")
         return (
-            MinimalExamplePolicy(
-                language="go",
-                class_name="readme_example",
-                code=code,
-                evidence_paths=[source_path],
-                required_symbols=['pdf.Open("testdata/binder1.pdf")'],
-            ),
+            candidates[0],
             "repository-owned example source",
             (
                 "curated README fragments are not complete programs; reuse the repository-owned "
@@ -135,7 +146,7 @@ def verify_representatives(repo_root: Path) -> tuple[dict[str, Any], dict[str, A
     results: dict[str, Any] = {}
     controls: dict[str, Any] = {}
     roots = representative_roots(repo_root)
-    for ecosystem in sorted(REPRESENTATIVES):
+    for ecosystem in ordered_representative_ecosystems():
         org_repo = REPRESENTATIVES[ecosystem]
         root = roots[ecosystem]
         snapshot = capture_repository_snapshot(require_listed(org_repo), root)
@@ -169,7 +180,8 @@ def example_summary(results: dict[str, Any]) -> dict[str, Any]:
     """Project large typed records into an inspectable portfolio index."""
 
     summary: dict[str, Any] = {}
-    for ecosystem, item in sorted(results.items()):
+    for ecosystem in ordered_representative_ecosystems():
+        item = results[ecosystem]
         verification = item["verification"]
         execution = verification["isolated_execution"]
         summary[ecosystem] = {

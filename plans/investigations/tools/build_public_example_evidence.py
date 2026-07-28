@@ -15,6 +15,7 @@ from public_example_evidence_checks import evaluate_public_example_checks
 from public_example_evidence_support import (
     REPRESENTATIVES,
     example_summary,
+    ordered_representative_ecosystems,
     remove_obsolete_combined_evidence,
     representative_roots,
     verify_representatives,
@@ -42,6 +43,7 @@ TASK_ID = "L8-TRUTH-05-PUBLIC-EXAMPLES"
 GRAPH_PATH = REPO_ROOT / "plans/investigations/control/level8-autonomous-mission-task-graph.yaml"
 PYTHON = sys.executable
 IMPLEMENTATION_PATHS = (
+    "src/readme_agent/capabilities/draft_product_truth.py",
     "src/readme_agent/facts/acceptance_contract.py",
     "src/readme_agent/facts/compiled_consumer.py",
     "src/readme_agent/facts/compiled_consumer_schema.py",
@@ -171,8 +173,8 @@ def _build(run_official: bool) -> list[str]:
     results, curated_controls = verify_representatives(REPO_ROOT)
     roots = representative_roots(REPO_ROOT)
     remote_revisions = {
-        ecosystem: remote_head_sha(require_listed(org_repo).clone_url)
-        for ecosystem, org_repo in REPRESENTATIVES.items()
+        ecosystem: remote_head_sha(require_listed(REPRESENTATIVES[ecosystem]).clone_url)
+        for ecosystem in ordered_representative_ecosystems()
     }
     hostile_controls = verify_hostile_executor_controls(ISOLATED_EXECUTOR_PROOF)
     focused = _run(FOCUSED_COMMAND)
