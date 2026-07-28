@@ -7,18 +7,18 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
-    "claim_expires_at": "2026-07-28T07:45:24.426215+00:00",
-    "claim_id": "a75b5d3f78db4e35aafe048b608ae579",
-    "claimed_at": "2026-07-28T07:15:24.426215+00:00",
-    "claimed_by": "codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T07:15:24.426215+00:00",
+    "last_evaluated_at": "2026-07-28T07:22:19.347510+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
       "denominator": 31,
-      "derived_at": "2026-07-28T07:06:43.065546+00:00",
+      "derived_at": "2026-07-28T07:19:15.801575+00:00",
       "deterministic_validated": 1,
       "facts_ready": 7,
       "first_failing_boundary": "FACTS_READY",
@@ -61,16 +61,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "visible_deliverable",
-        "summary": "Run the facts-only canonical supervisor for one real Python, .NET, Java, C++, TypeScript, Rust, and Go repository in the user-governed order."
-      },
-      "goal_ids": [
-        "GOAL-TRUTH"
-      ],
-      "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -146,7 +137,7 @@
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
-      "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "IN_PROGRESS",
+      "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "IMPLEMENTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
@@ -3051,6 +3042,21 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "runs/readme-poc/portfolio-summary.json#sha256=8b45730dc7946c6bae65190c9ec293be563482e4b895b022f7c008b9e0c23251",
+          "plans/investigations/evidence/level8-public-examples/verification.json",
+          "plans/investigations/evidence/level8-public-examples/sha256sums.txt",
+          "commit:5ee9450cea959e51f9b0c118ab1f9aa0925c52b7",
+          "commit:eb0433fa7aa15dca1888d0f8ecfd552516060c87"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T07:22:19.347503+00:00",
+        "reason": "Canonical stage-bounded supervisor reached FACTS_READY for Python, .NET, Java, C++, TypeScript, Rust, and Go in configured priority order; final aggregate was 7/7, zero system failures, seven cache reuses, and zero provider calls.",
+        "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -3059,7 +3065,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 349,
+  "state_version": 350,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
