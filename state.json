@@ -7,18 +7,18 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
-    "claim_expires_at": "2026-07-28T07:12:36.090632+00:00",
-    "claim_id": "bb2747e7eda14216b135c63283a25a70",
-    "claimed_at": "2026-07-28T06:42:36.090632+00:00",
-    "claimed_by": "codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T06:42:36.090632+00:00",
+    "last_evaluated_at": "2026-07-28T07:14:18.722909+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
       "denominator": 31,
-      "derived_at": "2026-07-28T01:27:59.477242+00:00",
+      "derived_at": "2026-07-28T07:06:43.065546+00:00",
       "deterministic_validated": 1,
       "facts_ready": 7,
       "first_failing_boundary": "FACTS_READY",
@@ -61,16 +61,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "visible_deliverable",
-        "summary": "Ground audience and problem statements with citations and make typed render views the only prose-eligible fact interface."
-      },
-      "goal_ids": [
-        "GOAL-TRUTH"
-      ],
-      "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -145,7 +136,7 @@
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
-      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "IN_PROGRESS",
+      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "IMPLEMENTED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -2986,6 +2977,17 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-interpretive-render-views/verification.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T07:14:18.722903+00:00",
+        "reason": "Current problem grounding and live Python/Go interpretive controls are implemented",
+        "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -2994,7 +2996,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 343,
+  "state_version": 344,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
