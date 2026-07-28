@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Capture advisory-decision, competing-example, stale-span, and reconstruction failures before tightening operation coverage."
+  },
+  "acceptance_checks_passed": [
+    "Every non-preserve disposition changes an authorized span or fails closed"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-readme-operation-regressions/verification.json",
+    "plans/investigations/evidence/level8-readme-operation-regressions/operation-negative-controls.json",
+    "plans/investigations/evidence/level8-readme-operation-regressions/operation-coverage-record.json"
+  ],
+  "scoreboard_before_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "scoreboard_after_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

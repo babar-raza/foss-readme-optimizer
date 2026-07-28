@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
+  "control_repository": {
+    "branch": "main",
+    "head": "23e7dcbb33ee022d85cecbf804db8751806a15f5",
+    "working_tree_clean_at_start": true
+  },
+  "checks": {
+    "control_tree_clean_at_start": true,
+    "source_head_stable": true,
+    "real_java_source_revision_bound": true,
+    "real_java_native_patch_applies": true,
+    "real_java_claim_map_present": true,
+    "real_java_candidate_is_deterministically_valid": true,
+    "real_java_operation_coverage_passes": true,
+    "competing_examples_fail_closed_at_operation_coverage": true,
+    "advisory_insert_rejected": true,
+    "noop_move_rejected": true,
+    "replace_and_remove_covered": true,
+    "stale_span_hash_rejected": true,
+    "byte_identical_reconstruction": true,
+    "outside_owned_span_regression_passed": true,
+    "focused_regressions_pass": true,
+    "zero_product_remote_writes": true
+  },
+  "verdict": "VERIFIED",
+  "reproduction_command": ".venv/Scripts/python plans/investigations/tools/build_operation_regression_evidence.py"
+}
