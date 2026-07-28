@@ -28,6 +28,8 @@ from readme_agent.readme.document_renderer import (
 from readme_agent.readme.document_terminology import enterprise_product_name
 from readme_agent.readme.header_visual_validation import validate_readme_header_visual
 from readme_agent.readme.markers import find_presentation_span
+from readme_agent.readme.presentation_lint import lint_readme_presentation
+from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
@@ -40,6 +42,7 @@ class DocumentCandidateValidationV1(BaseModel):
     checks: dict[str, bool]
     errors: list[str] = Field(default_factory=list)
     authorized_protected_corrections: list[str] = Field(default_factory=list)
+    presentation_findings: list[PresentationLintFindingV1] = Field(default_factory=list)
 
 
 def _sha256(data: bytes | str) -> str:
@@ -266,9 +269,16 @@ def validate_readme_document_candidate(
         )
         errors.extend(accountability.errors)
 
+    presentation_lint = lint_readme_presentation(candidate_inner, facts)
+    checks["presentation_lint"] = presentation_lint.valid
+    errors.extend(
+        f"{finding.finding_id}: {finding.message}" for finding in presentation_lint.findings
+    )
+
     return DocumentCandidateValidationV1(
         valid=not errors,
         checks=checks,
         errors=errors,
         authorized_protected_corrections=sorted(authorized_fragment_ids),
+        presentation_findings=presentation_lint.findings,
     )
