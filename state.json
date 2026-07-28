@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T08:17:25.339312+00:00",
+    "last_evaluated_at": "2026-07-28T08:17:40.345269+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -64,7 +64,7 @@
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
-      "L8-COMPOSE-01-DECOMPOSE": "VERIFIED",
+      "L8-COMPOSE-01-DECOMPOSE": "SCORED",
       "L8-COMPOSE-01A-SECTION-REGRESSIONS": "TODO",
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "TODO",
       "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "TODO",
@@ -3248,6 +3248,17 @@
         "reason": "Static boundary tests, frozen candidate and plan hashes, renderer/composition regressions, prompt hygiene, and candidate-pipeline integrations pass without remote writes.",
         "task_id": "L8-COMPOSE-01-DECOMPOSE",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-readme-composition-decomposition/mission-contribution.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T08:17:40.345263+00:00",
+        "reason": "The GOAL-README structural contribution meets its exact behavior-preservation and responsibility-boundary acceptance check.",
+        "task_id": "L8-COMPOSE-01-DECOMPOSE",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -3256,7 +3267,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 380,
+  "state_version": 381,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
