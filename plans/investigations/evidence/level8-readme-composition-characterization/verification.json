@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-00-CHARACTERIZE",
+  "verdict": "VERIFIED",
+  "control_repository": {
+    "branch": "main",
+    "head": "f634d3d4e472c055bc49fd6baea3ca10eb78bca9",
+    "working_tree_clean": true
+  },
+  "before_after": {
+    "agentic_composition_lines_before": 527,
+    "agentic_composition_lines_after": 179,
+    "document_renderer_lines_before": 513,
+    "document_renderer_lines_after": 107,
+    "largest_extracted_document_module_lines": 151,
+    "public_imports_preserved": [
+      "readme_agent.readme.agentic_composition.plan_readme_composition",
+      "readme_agent.readme.agentic_composition.validate_readme_composition_plan",
+      "readme_agent.readme.agentic_composition.ReadmeAgenticCompositionPlanV1",
+      "readme_agent.readme.document_renderer.build_readme_document_candidate",
+      "readme_agent.readme.document_renderer.apply_document_operations",
+      "readme_agent.readme.document_renderer.document_template_hash"
+    ]
+  },
+  "frozen_outputs": {
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": {
+      "candidate_sha256": "1b21177472d3901ac1f2eb0224b07e1d23664b3879b787be4ced229b445b3ea8",
+      "document_plan_sha256": "d79eef4f395b20941a7c384a8f28740af1f4d4cf79f93af5984122f8d6ecb4d6"
+    },
+    "aspose-3d-foss/Aspose.3D-FOSS-for-Java": {
+      "candidate_sha256": "4757d48bae3427cbfc46600d10f0440484c87e6ff6cd277633d8acb2ad28da0e",
+      "document_plan_sha256": "6cc975b770526f10399f5da61a0950874ef276cdcb78da232194d03e490dcf6d"
+    },
+    "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java": {
+      "candidate_sha256": "9d4877df42eef470ac7a0f6ff1cb162c4b27c48f76e479ecdd2e296452cf3b43",
+      "document_plan_sha256": "5f95e7c627f1b207e75fd32775a25c4e67099a443ef0eaf9e92cc02b47cd7ba9"
+    },
+    "agentic_composition_plan_sha256": "60c1314fbbcda45a526af321e9ab225610aa41e069d8f1bbfb32f5c0f4b8f0f7"
+  },
+  "commands": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_agentic_readme_composition.py tests/unit/test_readme_composition_characterization.py tests/unit/test_readme_document_plan.py tests/unit/test_readme_document_operations.py tests/unit/test_readme_document_structure.py",
+      "result": "49 passed",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_prompt_hygiene.py tests/unit/test_supervise_readme_proposal_review_integration.py::TestSuperviseLocalDryRunProducesBothVerifierVerdicts::test_cli_local_dry_run_produces_bundle_and_independent_review_verdicts",
+      "result": "8 passed",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_build_presentation_plan_capability.py tests/unit/test_capabilities.py tests/unit/test_readme_proposal_bundle_verifier.py tests/unit/test_supervise_readme_proposal_review_integration.py tests/unit/test_local_poc_review_evidence.py tests/unit/test_supervisor_loop.py -k \"readme or local_poc or composition or presentation or proposal\"",
+      "result": "65 passed, 174 deselected",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check src/readme_agent/readme tests/unit/test_agentic_readme_composition.py tests/unit/test_readme_composition_characterization.py && .venv/Scripts/python -m ruff format --check src/readme_agent/readme tests/unit/test_agentic_readme_composition.py tests/unit/test_readme_composition_characterization.py && .venv/Scripts/python -m mypy src/readme_agent/readme",
+      "result": "all passed",
+      "exit_code": 0
+    }
+  ],
+  "checks": {
+    "candidate_bytes_unchanged": true,
+    "document_plan_hashes_unchanged": true,
+    "agentic_plan_hash_unchanged": true,
+    "public_api_unchanged": true,
+    "no_repository_specific_branch": true,
+    "no_second_orchestration_path": true,
+    "prompt_route_audit_passed": true,
+    "independent_document_reconstruction_passed": true,
+    "product_remote_writes": 0
+  },
+  "official_suite_disposition": "Deferred to Decision 83's first latest-contract README campaign boundary; no completion claim depends on a full-suite result at this characterization gate."
+}
