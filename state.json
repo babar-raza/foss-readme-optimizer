@@ -12,8 +12,8 @@
     "claim_id": null,
     "claimed_at": null,
     "claimed_by": null,
-    "graph_sha256": "717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f",
-    "last_evaluated_at": "2026-07-28T15:34:44.483471+00:00",
+    "graph_sha256": "6dbee8a21931e0f82b41af3d98783795011444d0488f3d78ba198168a1c58cb0",
+    "last_evaluated_at": "2026-07-28T15:38:49.947429+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -63,7 +63,7 @@
     "next_task": {
       "core_contribution": {
         "kind": "visible_deliverable",
-        "summary": "Freeze immutable source revisions, fact bundles, and expected composition obligations for seven real representatives."
+        "summary": "Freeze immutable source revisions, accepted fact bundles, and expected composition obligations for seven real representatives without claiming candidate output."
       },
       "goal_ids": [
         "GOAL-README"
@@ -84,6 +84,7 @@
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "CLOSED",
       "L8-COMPOSE-04-PRESENTATION-LINT": "CLOSED",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "TODO",
+      "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "TODO",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "TODO",
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
       "L8-GATEA-00-COHORT-CONTROLS": "TODO",
@@ -3805,7 +3806,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 437,
+  "state_version": 438,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
