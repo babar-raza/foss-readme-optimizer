@@ -321,6 +321,50 @@ class TestOneFieldBlockedThenRepaired:
         assert result.gated_facts["product.capabilities"].verification_state == "verified"
 
 
+class TestDeterministicProblemFallback:
+    def test_ungrounded_problem_draft_reuses_verified_capabilities_without_repair_call(
+        self, tmp_path
+    ):
+        root = _make_repo(tmp_path)
+        calls = 0
+        draft = _good_draft().model_copy(
+            update={
+                "problems_solved": [
+                    InterpretiveClaimV1(
+                        claim_id="unsupported-paraphrase",
+                        text="Solve an unrelated problem",
+                        supporting_fact_ids=[],
+                    )
+                ]
+            }
+        )
+
+        def draft_fn(hints, current_facts):
+            nonlocal calls
+            calls += 1
+            return draft
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=draft_fn,
+            verify_example_fn=_always_verified_example,
+        )
+
+        assert calls == 1
+        assert result.repair_attempts == 0
+        assert result.findings == []
+        problem = result.gated_facts["product.problems_solved"]
+        capability_fact = result.gated_facts["product.capabilities"]
+        assert problem.verification_state == "verified"
+        assert problem.value == capability_fact.value
+        assert problem.supporting_fact_ids == [capability_fact.fact_id]
+        assert [claim.text for claim in result.draft.problems_solved] == capability_fact.value
+
+
 class TestRepairExhaustionEscalates:
     """`RPOC-033` item 5: a field still blocked after
     `MAX_PRODUCT_TRUTH_DRAFT_REPAIR_ATTEMPTS` real repair attempts must

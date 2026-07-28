@@ -66,6 +66,7 @@ from readme_agent.facts.policy_evidence import (
     evidence_failures,
     limitation_fact_candidate,
 )
+from readme_agent.facts.problem_grounding import derive_grounded_problem_fallback
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.python_example_normalization import (
     normalize_python_import_inventory,
@@ -467,6 +468,17 @@ def orchestrate_product_truth_draft(
         }
         if passed_evidence_facts:
             current_facts = _replace_facts(current_facts, passed_evidence_facts)
+        problem_fact = gated.get("product.problems_solved")
+        if problem_fact is not None and problem_fact.verification_state == "blocked":
+            fallback = derive_grounded_problem_fallback(
+                current_facts,
+                source_revision,
+                observed_at,
+            )
+            if fallback is not None:
+                fallback_claims, fallback_fact = fallback
+                draft = draft.model_copy(update={"problems_solved": fallback_claims})
+                gated["product.problems_solved"] = fallback_fact
         blocked = {
             field_name: fact
             for field_name, fact in gated.items()
