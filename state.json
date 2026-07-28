@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T18:19:25.872948+00:00",
+    "last_evaluated_at": "2026-07-28T18:19:46.757966+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 7,
@@ -78,7 +78,7 @@
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "CLOSED",
       "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "CLOSED",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "REROUTED",
-      "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR": "VERIFIED",
+      "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR": "SCORED",
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
       "L8-GATEA-00-COHORT-CONTROLS": "TODO",
       "L8-GATEA-01-COHORTS": "TODO",
@@ -3954,6 +3954,17 @@
         "reason": "Focused exception, redaction, bounded terminal, and live Rust receipt proof passed",
         "task_id": "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-rust-execution-repair/mission-contribution.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T18:19:46.757960+00:00",
+        "reason": "Rust advanced the deterministic portfolio scoreboard from six to seven",
+        "task_id": "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -3962,7 +3973,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 457,
+  "state_version": 458,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
