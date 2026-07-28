@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+    "claim_expires_at": "2026-07-28T07:12:22.017057+00:00",
+    "claim_id": "fea06d8adec441c0ab02140be86ced76",
+    "claimed_at": "2026-07-28T06:42:22.017057+00:00",
+    "claimed_by": "codex",
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T06:42:11.218338+00:00",
+    "last_evaluated_at": "2026-07-28T06:42:22.017057+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -145,7 +145,7 @@
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
-      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "REOPENED",
+      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "IN_PROGRESS",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -2977,6 +2977,15 @@
         "reason": "Real Go canonical run exposed blocked problems_solved grounding; the committed permanent repair must be reproduced against the live FACTS_READY boundary",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "REOPENED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REOPENED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T06:42:22.017119+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -2985,7 +2994,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 341,
+  "state_version": 342,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
