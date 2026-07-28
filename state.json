@@ -4674,7 +4674,7 @@
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
       }
     ],
-    "facts_hash": "518a941b37c4ee6f55161e5f4677f8650173c6cc75f7f52795a0a15129a33376",
+    "facts_hash": "bcc1cd9c22e2f4df12288044e3a65f297a35c5e7c745af03e94da6e9e4da8712",
     "history": [
       {
         "evidence_refs": [
@@ -5742,6 +5742,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-28T00:29:42.572079+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "FACTS_READY"
       }
     ],
     "presentation_plan_hash": null,
@@ -5751,11 +5764,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-28T00:29:36.683665+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-07-28T00:29:42.572079+00:00"
   },
   "schema_version": 2,
-  "state_version": 531,
+  "state_version": 532,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ccdd9e2fc364cf6cc8eac891a2e6b23ff41561957c5c635a74a1842928f2656",
