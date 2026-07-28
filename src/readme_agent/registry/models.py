@@ -1,9 +1,11 @@
 """Pydantic schemas for data/products.json and config/policies/*.yml."""
 
+from __future__ import annotations
+
 from typing import Literal
 from urllib.parse import urlparse
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator, model_validator
 
 from readme_agent.registry.surface_ownership import (
     SurfaceOwnershipMapV1,
@@ -109,12 +111,73 @@ class ProductTruthPolicy(BaseModel):
     minimal_example: MinimalExamplePolicy
 
 
+class LinkDomainMaximaV1(BaseModel):
+    """Configured Aspose parent-domain ceilings."""
+
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    aspose_org: StrictInt = Field(alias="aspose.org", ge=0)
+    aspose_com: StrictInt = Field(alias="aspose.com", ge=0)
+
+
+class LinkSurfaceMaximaV1(BaseModel):
+    """Configured ceilings for every governed Aspose content surface."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    products: StrictInt = Field(ge=0)
+    docs: StrictInt = Field(ge=0)
+    kb: StrictInt = Field(ge=0)
+    blog: StrictInt = Field(ge=0)
+    reference: StrictInt = Field(ge=0)
+
+
+class LinkAllocationPolicyV1(BaseModel):
+    """Configured-or-automatic README Aspose-link allocation contract."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: int = 1
+    mode: Literal["auto", "configured"] = "auto"
+    max_total: StrictInt | None = Field(default=None, ge=0)
+    domain_maxima: LinkDomainMaximaV1 | None = None
+    surface_maxima: LinkSurfaceMaximaV1 | None = None
+
+    @model_validator(mode="after")
+    def _mode_is_complete_and_consistent(self) -> LinkAllocationPolicyV1:
+        configured_values = (self.max_total, self.domain_maxima, self.surface_maxima)
+        if self.mode == "auto":
+            if any(value is not None for value in configured_values):
+                raise ValueError("auto link allocation cannot include configured maxima")
+            return self
+        if any(value is None for value in configured_values):
+            raise ValueError(
+                "configured link allocation requires max_total, domain_maxima, and surface_maxima"
+            )
+        assert self.max_total is not None
+        assert self.domain_maxima is not None
+        assert self.surface_maxima is not None
+        maxima = [
+            self.domain_maxima.aspose_org,
+            self.domain_maxima.aspose_com,
+            self.surface_maxima.products,
+            self.surface_maxima.docs,
+            self.surface_maxima.kb,
+            self.surface_maxima.blog,
+            self.surface_maxima.reference,
+        ]
+        if any(value > self.max_total for value in maxima):
+            raise ValueError("configured domain and surface maxima cannot exceed max_total")
+        return self
+
+
 class PolicyProfile(BaseModel):
     schema_version: int
     policy_profile: str
     required_elements: RequiredElements
     secondary_links: list[str] = Field(default_factory=list)
     block: BlockPolicy
+    link_allocation: LinkAllocationPolicyV1 = Field(default_factory=LinkAllocationPolicyV1)
     surface_ownership: SurfaceOwnershipMapV1 = Field(default_factory=default_surface_ownership_map)
     product_truth: ProductTruthPolicy | None = None
 
