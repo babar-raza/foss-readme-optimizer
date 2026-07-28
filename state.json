@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T20:53:24.038917+00:00",
+    "last_evaluated_at": "2026-07-28T20:53:39.410837+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -114,7 +114,7 @@
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-REVIEW-00-CONTEXT-CORPUS": "CLOSED",
       "L8-REVIEW-01-FREEZE-ROLES": "CLOSED",
-      "L8-REVIEW-01A-FINDING-CONTROLS": "IMPLEMENTED",
+      "L8-REVIEW-01A-FINDING-CONTROLS": "VERIFIED",
       "L8-REVIEW-02-FINDING-GROUNDING": "TODO",
       "L8-REVIEW-02A-REPAIR-CONTROLS": "TODO",
       "L8-REVIEW-03-EFFECTIVE-REPAIR": "TODO",
@@ -4318,6 +4318,19 @@
         "reason": "Grounded reviewer premises are span/fact/polarity validated; invalid real Cells C++ findings fail closed and retain the candidate.",
         "task_id": "L8-REVIEW-01A-FINDING-CONTROLS",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-review-finding-grounding/verification.json",
+          "plans/investigations/evidence/level8-review-finding-grounding/mission-contribution.json",
+          "plans/investigations/evidence/level8-review-finding-grounding/sha256sums.txt"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T20:53:39.410826+00:00",
+        "reason": "Grounded reviewer premises are span/fact/polarity validated; invalid real Cells C++ findings fail closed and retain the candidate.",
+        "task_id": "L8-REVIEW-01A-FINDING-CONTROLS",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -4326,7 +4339,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 493,
+  "state_version": 494,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
