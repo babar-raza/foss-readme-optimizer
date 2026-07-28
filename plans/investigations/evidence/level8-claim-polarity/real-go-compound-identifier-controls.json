@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+  "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+  "implementation_revision": "4997c23c7200105dae9396a16c08eafa1de948d2",
+  "repository_worktree_clean": true,
+  "cases": {
+    "acroform_text_fields": {
+      "schema_version": 1,
+      "fact_id": "product.capabilities:repository-evidence",
+      "claim_text": "AcroForm field creation and manipulation",
+      "expected_polarity": "positive_implementation",
+      "observed_polarity": "positive_implementation",
+      "source_path": "_examples/acroform_build/main.go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "observed_at": null,
+      "line_number": 57,
+      "anchor": "form.AddTextField",
+      "exact_excerpt": "name, err := form.AddTextField(1,",
+      "context_excerpt": "// Text input: full name.\n\tpage.AddText(\"Full name *\", labelStyle,\n\t\tpdf.Rectangle{LLX: 50, LLY: 655, URX: 200, URY: 670})\n\tname, err := form.AddTextField(1,\n\t\tpdf.Rectangle{LLX: 200, LLY: 650, URX: 545, URY: 675}, \"name\")\n\tif err != nil {\n\t\tlog.Fatalf(\"name field: %v\", err)\n\t}",
+      "accepted": true,
+      "reason": "observed positive_implementation matches expected positive_implementation"
+    },
+    "png_rendering": {
+      "schema_version": 1,
+      "fact_id": "product.capabilities:repository-evidence",
+      "claim_text": "Image rendering to PNG",
+      "expected_polarity": "positive_implementation",
+      "observed_polarity": "positive_implementation",
+      "source_path": "_examples/render/main.go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "observed_at": null,
+      "line_number": 87,
+      "anchor": "RenderPNG",
+      "exact_excerpt": "if err := p.RenderPNG(f, pdf.RenderOptions{DPI: dpi}); err != nil {",
+      "context_excerpt": "log.Printf(\"page %d: %v\", n, err)\n\t\treturn\n\t}\n\tdefer f.Close()\n\tif err := p.RenderPNG(f, pdf.RenderOptions{DPI: dpi}); err != nil {\n\t\tlog.Printf(\"page %d: render: %v\", n, err)\n\t}\n}",
+      "accepted": true,
+      "reason": "observed positive_implementation matches expected positive_implementation"
+    },
+    "summary_copilot": {
+      "schema_version": 1,
+      "fact_id": "product.capabilities:repository-evidence",
+      "claim_text": "AI summary copilots",
+      "expected_polarity": "positive_implementation",
+      "observed_polarity": "positive_implementation",
+      "source_path": "_examples/ai_summary/main.go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "observed_at": null,
+      "line_number": 52,
+      "anchor": "NewSummaryCopilot",
+      "exact_excerpt": "copilot := ai.NewSummaryCopilot(client, ai.SummaryOptions{",
+      "context_excerpt": "BaseURL: os.Getenv(\"AI_BASE_URL\"),\n\t\tAPIKey:  os.Getenv(\"AI_API_KEY\"),\n\t\tModel:   model,\n\t})\n\tcopilot := ai.NewSummaryCopilot(client, ai.SummaryOptions{\n\t\tDocument: doc,\n\t\tMaxWords: 200,\n\t})",
+      "accepted": true,
+      "reason": "observed positive_implementation matches expected positive_implementation"
+    },
+    "unrelated_spreadsheet_claim": {
+      "schema_version": 1,
+      "fact_id": "product.capabilities:repository-evidence",
+      "claim_text": "Create spreadsheet charts",
+      "expected_polarity": "positive_implementation",
+      "observed_polarity": "positive_implementation",
+      "source_path": "_examples/render/main.go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "observed_at": null,
+      "line_number": 87,
+      "anchor": "RenderPNG",
+      "exact_excerpt": "if err := p.RenderPNG(f, pdf.RenderOptions{DPI: dpi}); err != nil {",
+      "context_excerpt": "log.Printf(\"page %d: %v\", n, err)\n\t\treturn\n\t}\n\tdefer f.Close()\n\tif err := p.RenderPNG(f, pdf.RenderOptions{DPI: dpi}); err != nil {\n\t\tlog.Printf(\"page %d: render: %v\", n, err)\n\t}\n}",
+      "accepted": false,
+      "reason": "directional evidence anchor does not identify the claimed subject"
+    }
+  },
+  "expected_acceptance": {
+    "acroform_text_fields": true,
+    "png_rendering": true,
+    "summary_copilot": true,
+    "unrelated_spreadsheet_claim": false
+  },
+  "failures": [],
+  "verdict": "VERIFIED"
+}
