@@ -521,7 +521,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": {
     "assessment_hash": "cb3a7f986f677855a0ec7a4211daba6407c15ce9e4e98e9a85c4c68216beaac2",
-    "candidate_hash": null,
+    "candidate_hash": "f91a30f8a0dc604a2b386809ba6f66548877c90082880ea7d4f80e75043af5f9",
     "details": {},
     "fact_acceptance_component_hashes": {
       "acquisition_truth": "978850719a44158eba0ada29e96a3746f9950cdb23e4b61d67accfad5cee96e0",
@@ -798,6 +798,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\9c867230eabc2273c71f\\r\\82ad381cebc6bf74\\s\\0339b7e7dcb6\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-28T18:07:04.432989+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "presentation_plan_hash": "69f87f407dab8ad61dae7fdf5c856c9170d0975473196093073556a6d1df8d1b",
@@ -807,11 +819,11 @@
     "reviewer_standard_hash": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
     "schema_version": 2,
     "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
-    "status": "PLAN_READY",
-    "updated_at": "2026-07-28T18:06:51.244571+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-07-28T18:07:04.432989+00:00"
   },
   "schema_version": 2,
-  "state_version": 69,
+  "state_version": 70,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
