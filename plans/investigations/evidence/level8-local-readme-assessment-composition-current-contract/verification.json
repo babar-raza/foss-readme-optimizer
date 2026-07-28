@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+  "control_repository": {
+    "branch": "main",
+    "head": "a046d862d19676c609681a614361995af7667ec2",
+    "working_tree_clean_before_current-contract_reproduction": true
+  },
+  "authority_reconciliation": {
+    "historical_evidence": "plans/investigations/evidence/level8-local-readme-assessment-composition-81a2d48/acceptance-manifest.json",
+    "historical_evidence_role": "supporting regression proof only",
+    "current_seven_bundle_evidence": "plans/investigations/evidence/level8-seven-candidate-composition/verification.json",
+    "stale_success_detected": true,
+    "stale_bundle_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
+    "stale_bundle_claimed_status": "NO_OP_PROVEN",
+    "stale_bundle_contradictions": [
+      "semantic duplicate problem and capability summaries",
+      "promotional imbalance",
+      "visible HTML ownership comments",
+      "missing Mermaid at-a-glance visual",
+      "obsolete commercial On-Premise terminology"
+    ],
+    "stale_approval_invalidated": true
+  },
+  "heterogeneous_current_contract": {
+    "representative_count": 7,
+    "all_document_plans_nonempty": true,
+    "all_claim_maps_nonempty": true,
+    "all_candidates_have_mermaid": true,
+    "all_candidates_comment_free": true,
+    "all_bundles_independently_reconstructed": true,
+    "all_candidates_distinct": true,
+    "all_candidates_have_own_identity": true,
+    "no_cross_product_identity_leakage": true,
+    "zero_deterministic_failures": true,
+    "operation_counts_by_platform": {
+      "python": 24,
+      "net": 17,
+      "java": 15,
+      "cpp": 3,
+      "typescript": 6,
+      "rust": 5,
+      "go": 8
+    },
+    "claim_counts_by_platform": {
+      "python": 14,
+      "net": 18,
+      "java": 12,
+      "cpp": 12,
+      "typescript": 10,
+      "rust": 9,
+      "go": 18
+    }
+  },
+  "current_3d_java_regression": {
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+    "source_revision": "71c9cc8a581786bfd0af7b4aa553407eba3ddea3",
+    "lifecycle_status": "DETERMINISTIC_VALIDATED",
+    "candidate_sha256": "477a7bfe3c1fdce1e0dae38f74eae92def32dbfd8e983b25a25eb752fa8119fa",
+    "document_plan_sha256": "610e24862fbc01dd752e373031d4679d16145f92de535b4e22dc863ff954c3e5",
+    "deterministic_validation_sha256": "41be8d748be9b0b48b79cffbc7d3f699fc21a1d89dffcae23876f795b07da141",
+    "manifest_sha256": "463f26eb8118a6604cd130e86595bcdb79c40bd68e1ad2339d4d3e917ed03fee",
+    "operation_count": 18,
+    "candidate_verdict": "accept",
+    "bundle_verified": true,
+    "runtime_inventory_valid": true,
+    "presentation_lint_valid": true,
+    "presentation_findings": [],
+    "candidate_has_comments": false,
+    "candidate_has_mermaid": true,
+    "uses_enterprise_edition": true,
+    "uses_on_premise_terminology": false,
+    "identical_replay_provider_calls": 0,
+    "identical_replay_stdout_sha256": "fb52283452a0bc7a9b22b65e376a11da27b9397095fb565d8e6fb43f96d85129",
+    "first_rebuild_stdout_sha256": "cdcaa9a912c9441e20cfa11c559848a9c84a186d2e8bf537df8370832e7371e0"
+  },
+  "usage_closeout_reconciliation": {
+    "historical_requirement": "A required Usage repair must be represented by executable operations.",
+    "current_default_branch_assessment": "investigate",
+    "current_default_branch_repair_decisions": 0,
+    "unrepresented_repair_decisions": 0,
+    "disposition": "The historical repair precondition is superseded by a newer upstream README revision. The current Usage section is preserved as valuable input and remains explicitly unverified rather than being silently rewritten."
+  },
+  "acceptance": {
+    "existing_valuable_content_preserved_or_authoritatively_corrected": true,
+    "repository_specific_structure_terminology_examples_installation_and_emphasis": true,
+    "independent_reconstruction_byte_identical": true,
+    "plan_intent_and_candidate_effect_agree": true,
+    "deterministic_header_badges_mermaid_navigation_links_and_terminology": true,
+    "repository_bound_accepted_facts_only": true,
+    "no_universal_template_or_free_form_external_edit": true,
+    "no_raw_tokens_duplicates_competing_examples_or_promotional_imbalance": true,
+    "zero_product_remote_writes": true
+  },
+  "verdict": "VERIFIED"
+}

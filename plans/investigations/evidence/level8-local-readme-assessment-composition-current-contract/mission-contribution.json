@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Compile every actionable assessment into bounded ReadmeDocumentPlanV1 operations and generate the candidate solely by applying those operations to the immutable source."
+  },
+  "acceptance_checks_passed": [
+    "Existing valuable content is preserved or corrected only from authoritative evidence.",
+    "Candidate structure, terminology, examples, installation, and emphasis vary by repository.",
+    "Independent reconstruction from immutable source plus operations is byte-identical to the candidate.",
+    "Plan intent and candidate effect agree for every non-preserve decision.",
+    "Headers, applicable badges, Mermaid structure, navigation, link allocation, and canonical terminology are deterministic; the LLM composes only from accepted repository-bound facts.",
+    "One provenance-reviewed family illustration may be reused across platform repositories, while Mermaid, examples, badges, and platform prose remain repository-specific."
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-local-readme-assessment-composition-current-contract/verification.json",
+    "plans/investigations/evidence/level8-seven-candidate-composition/verification.json",
+    "plans/investigations/evidence/level8-presentation-lint-enforcement/verification.json"
+  ],
+  "scoreboard_before_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "scoreboard_after_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
