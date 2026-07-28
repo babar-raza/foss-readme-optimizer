@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T07:52:02.960243+00:00",
+    "last_evaluated_at": "2026-07-28T07:52:17.272724+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -91,7 +91,7 @@
       "L8-LOCAL-HUMAN-REVIEW-GATE-B": "TODO",
       "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "CLOSED",
       "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "REGRESSED",
-      "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "VERIFIED",
+      "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "SCORED",
       "L8-LOCAL-PORTFOLIO-RUNTIME": "CLOSED",
       "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "REGRESSED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
@@ -3142,6 +3142,17 @@
         "reason": "Independent aggregate verification confirms every child proof reference, exact current scoreboard, seven native-tool fact bundles, Java/.NET/Python negative controls, and full official checks on a clean tree.",
         "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-product-truth-aggregate/verification.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T07:52:17.272717+00:00",
+        "reason": "All four acceptance checks and all four closeout rules pass; the broader full-registry fact preflight remains deferred as governed.",
+        "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -3150,7 +3161,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 363,
+  "state_version": 364,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
