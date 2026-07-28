@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T07:52:17.272724+00:00",
+    "last_evaluated_at": "2026-07-28T07:52:43.559495+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -60,7 +60,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Freeze public inputs, outputs, candidate bytes, plan hashes, and known failure fixtures before structural extraction."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "task_id": "L8-COMPOSE-00-CHARACTERIZE"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -91,7 +100,7 @@
       "L8-LOCAL-HUMAN-REVIEW-GATE-B": "TODO",
       "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "CLOSED",
       "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "REGRESSED",
-      "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "SCORED",
+      "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "CLOSED",
       "L8-LOCAL-PORTFOLIO-RUNTIME": "CLOSED",
       "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "REGRESSED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
@@ -3153,6 +3162,17 @@
         "reason": "All four acceptance checks and all four closeout rules pass; the broader full-registry fact preflight remains deferred as governed.",
         "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-product-truth-aggregate/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T07:52:43.559481+00:00",
+        "reason": "Representative product truth is closed with checksum-complete, graph-matched mission contribution evidence and no product remote writes.",
+        "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -3161,7 +3181,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 364,
+  "state_version": 365,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
