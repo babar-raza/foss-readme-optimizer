@@ -39,7 +39,6 @@ def build_opening_operations(
         "product.capabilities",
         "product.formats",
         "product.compatibility",
-        "product.limitations",
     )
     overview_fact_candidates = [
         selected.fact_id
@@ -64,6 +63,7 @@ def build_opening_operations(
                 else None
             ),
             visual_plan.mermaid_markdown,
+            omitted_fields=frozenset({"product.limitations"}),
         )
         overview_insert = rendered_overview + "\n\n"
         if agentic_plan is not None:

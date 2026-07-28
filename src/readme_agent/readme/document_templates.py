@@ -240,6 +240,7 @@ def overview_text(
     headings: list[Heading],
     agentic_overview_sentences: list[dict] | None = None,
     mermaid_markdown: str | None = None,
+    omitted_fields: frozenset[str] = frozenset(),
 ) -> str:
     compatibility = accepted_fact(facts, "product.compatibility")
     compatibility_value = mapping_value(compatibility.value) if compatibility else {}
@@ -257,6 +258,8 @@ def overview_text(
                 try:
                     field = facts.fact_by_id(str(fact_id)).field
                 except KeyError:
+                    continue
+                if field in omitted_fields:
                     continue
                 selected.setdefault(field, text)
         rendered = (
@@ -289,7 +292,11 @@ def overview_text(
                 if compatibility_value.get("minimum_runtime")
                 else _OMIT_LINE
             ),
-            limitations=visitor_text(facts, "product.limitations") or _OMIT_LINE,
+            limitations=(
+                _OMIT_LINE
+                if "product.limitations" in omitted_fields
+                else visitor_text(facts, "product.limitations") or _OMIT_LINE
+            ),
             mermaid=mermaid_markdown or _OMIT_LINE,
             navigation=navigation or "- Continue with the repository guidance below.",
         )
