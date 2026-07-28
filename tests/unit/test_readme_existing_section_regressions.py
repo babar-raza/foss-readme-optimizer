@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
 
@@ -24,6 +25,18 @@ NET_REVISION = "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
 def _net_facts() -> ProductFactsV2:
     return ProductFactsV2.model_validate_json(
         (NET_EVIDENCE / "product-facts-v2.json").read_text(encoding="utf-8")
+    )
+
+
+def _block_fields(facts: ProductFactsV2, fields: set[str]) -> ProductFactsV2:
+    replacements = {
+        facts.selected_fact(field).fact_id: facts.selected_fact(field).model_copy(
+            update={"verification_state": "blocked", "confidence": 0.0}
+        )
+        for field in fields
+    }
+    return facts.model_copy(
+        update={"facts": [replacements.get(fact.fact_id, fact) for fact in facts.facts]}
     )
 
 
@@ -98,4 +111,74 @@ dotnet add package Aspose.3D.FOSS
     assert all(
         not operation.operation_id.startswith(("readme.limitations.", "readme.example."))
         for operation in plan.operations
+    )
+
+
+def test_unresolved_installation_and_example_are_withheld_with_exact_source_traceability():
+    facts = _block_fields(
+        _net_facts(),
+        {"installation.verified_acquisition", "example.minimal"},
+    )
+    source = """# Aspose.3D FOSS for .NET
+
+Maintainer-authored product explanation.
+
+## Installation
+
+```bash
+dotnet add package Unverified.Package
+```
+
+## Quick Start
+
+```csharp
+var unverified = Product.Create();
+```
+
+## Support
+
+Open an issue with a reproducible case.
+"""
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=NET_REVISION,
+    )
+
+    candidate, plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=NET_REVISION,
+    )
+    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert decision.valid, decision.errors
+    assert "Unverified.Package" not in candidate
+    assert "Product.Create()" not in candidate
+    assert "Open an issue with a reproducible case." in candidate
+    investigated = {
+        section.heading: section
+        for section in assessment.sections
+        if section.disposition == "investigate"
+    }
+    assert set(investigated) >= {"Installation", "Quick Start"}
+    withheld = [
+        operation
+        for operation in plan.operations
+        if operation.operation_id.startswith("readme.unresolved.withhold:")
+    ]
+    assert len(withheld) == 2
+    source_bytes = source.encode("utf-8")
+    withheld_bytes = {
+        source_bytes[operation.source_byte_start : operation.source_byte_end].decode("utf-8")
+        for operation in withheld
+    }
+    assert any(text.startswith("## Installation") for text in withheld_bytes)
+    assert any(text.startswith("## Quick Start") for text in withheld_bytes)
+    assert all(
+        operation.protected_content_treatment == "presentation_policy_correction"
+        and not operation.fact_ids
+        for operation in withheld
     )

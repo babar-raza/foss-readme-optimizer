@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 
 from readme_agent.facts.render_views import visitor_fact_render_view
@@ -33,11 +34,20 @@ def find_literal_fact_match(text: str, value: object) -> LiteralFactMatch | None
     """Find the earliest literal fact phrase and its containing line."""
 
     folded = text.casefold()
-    matches = [
-        (folded.find(phrase.casefold()), phrase)
-        for phrase in fact_strings(value)
-        if len(phrase) >= 4 and phrase.casefold() in folded
-    ]
+    matches: list[tuple[int, str]] = []
+    for phrase in fact_strings(value):
+        if len(phrase) >= 4 and phrase.casefold() in folded:
+            matches.append((folded.find(phrase.casefold()), phrase))
+            continue
+        if len(phrase) < 2:
+            continue
+        match = re.search(
+            rf"(?<![A-Za-z0-9]){re.escape(phrase)}(?![A-Za-z0-9])",
+            text,
+            flags=re.IGNORECASE,
+        )
+        if match is not None:
+            matches.append((match.start(), phrase))
     if not matches:
         return None
     start, phrase = min(matches, key=lambda item: (item[0], -len(item[1])))

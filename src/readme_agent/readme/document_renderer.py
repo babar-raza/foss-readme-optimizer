@@ -41,6 +41,10 @@ from readme_agent.readme.document_plan import (
     ReadmeDocumentOperationV1,
     ReadmeDocumentPlanV1,
 )
+from readme_agent.readme.document_reconciliation import (
+    build_unresolved_section_operations,
+    remove_operations_overlapping_withheld_sections,
+)
 from readme_agent.readme.document_release import build_release_operations
 from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.readme.document_structure import parse_headings
@@ -118,6 +122,9 @@ def build_readme_document_candidate(
     # Equal-offset insertions appear in reverse plan order in the candidate.
     # Append the header operation last so badges remain immediately below H1.
     operations.extend(build_badge_header_operations(context, header_visuals))
+    withheld = build_unresolved_section_operations(context, assessment)
+    operations = remove_operations_overlapping_withheld_sections(operations, withheld)
+    operations.extend(withheld)
     for comment_operation in build_comment_removal_operations(context):
         if not any(
             operation.source_byte_start < comment_operation.source_byte_end

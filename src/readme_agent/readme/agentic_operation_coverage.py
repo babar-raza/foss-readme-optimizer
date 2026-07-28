@@ -9,7 +9,7 @@ from readme_agent.errors import LLMError
 from readme_agent.readme.assessment import AssessmentDisposition, ReadmeAssessmentV1
 from readme_agent.readme.document_plan import ReadmeDocumentOperationV1
 
-_ACTIONABLE = {"add", "repair", "remove_update", "replace_generic", "rewrite"}
+_ACTIONABLE = {"add", "investigate", "repair", "remove_update", "replace_generic", "rewrite"}
 
 
 class SectionDecision(Protocol):
@@ -54,6 +54,7 @@ def _operation_covers_decision(
     disposition: AssessmentDisposition,
 ) -> bool:
     if disposition in {
+        "investigate",
         "remove_update",
         "replace_generic",
         "rewrite",
