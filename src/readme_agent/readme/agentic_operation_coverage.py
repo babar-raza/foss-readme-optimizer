@@ -36,6 +36,7 @@ def validate_agentic_operation_coverage(
                 section.source_byte_start,
                 section.source_byte_end,
                 decision.disposition,
+                section.protected_fragment_ids,
             )
             for operation in operations
         ):
@@ -52,6 +53,7 @@ def _operation_covers_decision(
     section_start: int,
     section_end: int,
     disposition: AssessmentDisposition,
+    protected_fragment_ids: list[str],
 ) -> bool:
     if disposition in {
         "investigate",
@@ -62,6 +64,12 @@ def _operation_covers_decision(
         "remove",
         "replace",
     }:
+        return False
+    if (
+        disposition == "repair"
+        and operation.operation in {"insert_before", "insert_after"}
+        and sum(fragment_id.startswith("example:") for fragment_id in protected_fragment_ids) > 1
+    ):
         return False
     if operation.source_byte_start == operation.source_byte_end:
         return section_start <= operation.source_byte_start <= section_end

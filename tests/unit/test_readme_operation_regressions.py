@@ -20,7 +20,6 @@ from readme_agent.readme.document_operations import (
     prune_noop_operations,
 )
 from readme_agent.readme.document_renderer import build_readme_document_candidate
-from readme_agent.readme.document_validation import validate_readme_document_candidate
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROOF_PATH = (
@@ -46,7 +45,7 @@ def _facts() -> tuple[ProductFactsV2, str]:
     )
 
 
-def test_multiple_unverified_usage_examples_fail_closed_instead_of_competing():
+def test_multiple_curated_usage_examples_fail_closed_instead_of_competing():
     facts, revision = _facts()
     source = """# Aspose.Cells FOSS for Java
 
@@ -67,12 +66,21 @@ Workbook second = Workbook.load("two.xlsx");
         facts,
         base_revision=revision,
     )
-    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
 
-    assert decision.valid is False
-    assert decision.checks["verified_example_present"] is True
-    assert decision.checks["no_competing_examples"] is False
-    assert any("competing code examples" in error for error in decision.errors)
+    assert plan.operations
+    assert facts.selected_fact("example.minimal").value["code"] in candidate
+    with pytest.raises(LLMError, match="actionable decisions without bounded operations"):
+        validate_agentic_operation_coverage(
+            assessment,
+            assessment.sections,
+            plan.operations,
+        )
 
 
 def _actionable_usage(source: str, disposition: str):
