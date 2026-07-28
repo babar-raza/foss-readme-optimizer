@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "parent_task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES",
+  "reopened_task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+  "recorded_at": "2026-07-28",
+  "control_head": "5cb97593c405305d1342e0762620b29a097ee747",
+  "portfolio_summary_sha256": "a03e1b08e16dafd7799ebbf97eed7e34d39c63bdcaf32220ddf2009d4735b1ff",
+  "representative": {
+    "ecosystem": "go",
+    "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+    "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
+    "durable_lifecycle_status": "FACTS_READY"
+  },
+  "verified_prefix": {
+    "deterministic_validated": 6,
+    "required": 7,
+    "repositories": [
+      "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+      "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust"
+    ]
+  },
+  "failure": {
+    "first_failing_boundary": "presentation_plan.document_validation.presentation_lint",
+    "finding_id": "presentation.raw_internal_token.d48c6fa83779",
+    "message": "An internal snake-case token is exposed as visitor prose.",
+    "blocked_reason": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['presentation.raw_internal_token.d48c6fa83779: An internal snake-case token is exposed as visitor prose.']",
+    "blocked_category": "agent_fixable",
+    "provider_calls": 5
+  },
+  "decision": "Preserve the six sealed representative receipts, reopen the owning deterministic presentation-lint task, expose the offending source span, and repair the general rule or composition boundary before rerunning only Go."
+}
