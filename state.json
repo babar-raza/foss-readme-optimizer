@@ -6299,6 +6299,18 @@
         "reason": "revision-addressed README candidate and native patch materialized",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "CANDIDATE_GENERATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\25eb2dabdfa286bc6d7b\\r\\779de6c1a8811ac4\\s\\6a209e8fc3df\\receipts\\DETERMINISTIC_VALIDATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\receipts\\DETERMINISTIC_VALIDATED.json"
+        ],
+        "from_status": "CANDIDATE_GENERATED",
+        "observed_by": "portfolio-stage-reducer",
+        "occurred_at": "2026-07-28T17:11:08.739806+00:00",
+        "reason": "sealed deterministic README validation receipt promoted",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "DETERMINISTIC_VALIDATED"
       }
     ],
     "presentation_plan_hash": "20a0bf8b74d19151ba95301785c1771a2c646dd08b82bda2e93d02bdd5ce4b0d",
@@ -6308,11 +6320,11 @@
     "reviewer_standard_hash": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "CANDIDATE_GENERATED",
-    "updated_at": "2026-07-28T17:10:33.417799+00:00"
+    "status": "DETERMINISTIC_VALIDATED",
+    "updated_at": "2026-07-28T17:11:08.739806+00:00"
   },
   "schema_version": 2,
-  "state_version": 580,
+  "state_version": 581,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ccdd9e2fc364cf6cc8eac891a2e6b23ff41561957c5c635a74a1842928f2656",
