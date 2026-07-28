@@ -139,6 +139,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260728-180931-2081:aspose-pdf-foss/Aspose-PDF-FOSS-for-Go"
     },
+    "27d32b2a0b7bf871e458455410de120d71c1914c6269179dcfa9d119f5ada985": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "27d32b2a0b7bf871e458455410de120d71c1914c6269179dcfa9d119f5ada985",
+      "completed_at": "2026-07-28T18:34:56.136327+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "cafbe6e5e98f8d349160fcc52f929f006aa1a213595d6032efe0a0fdeadd62d5",
+      "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "run_id": "20260728-183021-6765",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-07-28T18:34:56.136312+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260728-183021-6765:aspose-pdf-foss/Aspose-PDF-FOSS-for-Go"
+    },
     "2e7845fe5b481765514f15b6e25195e4bca675b74d790e9ae52cd6b4d5d51af0": {
       "action": null,
       "attempt": 1,
@@ -1472,7 +1489,7 @@
     "updated_at": "2026-07-28T18:34:47.956672+00:00"
   },
   "schema_version": 2,
-  "state_version": 141,
+  "state_version": 142,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
@@ -1743,11 +1760,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "e2e79b7263b8e6f7cd14e8fab7cd29e6243f08eacca524bd2bbd57c44a5f8a0d",
+      "last_checkpoint_id": "27d32b2a0b7bf871e458455410de120d71c1914c6269179dcfa9d119f5ada985",
       "lease_expires_at": "2026-07-28T18:45:43.087616+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-28T18:31:34.509961+00:00"
+      "updated_at": "2026-07-28T18:34:56.136327+00:00"
     }
   },
   "trigger_records": {},
