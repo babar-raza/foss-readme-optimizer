@@ -89,6 +89,38 @@ def test_compatibility_uses_runtime_label_and_preserves_upper_bound():
     assert view.phrases == ["Requires Node.js >=18,<22."]
 
 
+def test_typescript_compiler_target_is_not_presented_as_a_runtime_minimum():
+    facts = _facts("net")
+    compatibility = facts.selected_fact("product.compatibility")
+    compatibility = compatibility.model_copy(
+        update={
+            "verification_state": "verified",
+            "value": [
+                {
+                    "ecosystem": "typescript",
+                    "runtime_label": "ECMAScript",
+                    "minimum_runtime": "ES2020",
+                    "compatibility_kind": "compiler_target",
+                    "manifest_path": "package.json",
+                }
+            ],
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                compatibility if fact.fact_id == compatibility.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    view = visitor_fact_render_view(facts, "product.compatibility")
+
+    assert view is not None
+    assert view.phrases == ["Targets ECMAScript ES2020."]
+
+
 def test_dotnet_target_framework_has_a_visitor_facing_runtime_name():
     facts = _facts("net")
     compatibility = facts.selected_fact("product.compatibility")

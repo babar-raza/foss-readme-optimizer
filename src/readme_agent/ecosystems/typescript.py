@@ -19,6 +19,16 @@ def parse_package_json(package_json_path: Path) -> dict[str, str]:
     engines_node = (data.get("engines") or {}).get("node")
     if engines_node:
         info["engines_node"] = engines_node
+    tsconfig_path = package_json_path.parent / "tsconfig.json"
+    if tsconfig_path.is_file():
+        try:
+            tsconfig = json.loads(tsconfig_path.read_text(encoding="utf-8", errors="strict"))
+        except (json.JSONDecodeError, OSError, UnicodeError):
+            tsconfig = {}
+        compiler_options = tsconfig.get("compilerOptions", {}) if isinstance(tsconfig, dict) else {}
+        target = compiler_options.get("target") if isinstance(compiler_options, dict) else None
+        if isinstance(target, str) and target:
+            info["typescript_target"] = target
     return info
 
 

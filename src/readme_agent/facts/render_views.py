@@ -28,6 +28,7 @@ _FAMILY_LABELS = {
 _RUNTIME_LABELS = {
     ".net": ".NET",
     "cmake": "CMake",
+    "ecmascript": "ECMAScript",
     "go": "Go",
     "java": "Java",
     "node": "Node.js",
@@ -134,10 +135,14 @@ def _compatibility_phrases(value: object) -> list[str]:
         ecosystem = str(row.get("ecosystem") or row.get("platform") or "").strip().lower()
         runtime = str(row.get("minimum_runtime") or "").strip()
         runtime_label = str(row.get("runtime_label") or "").strip().lower()
+        compatibility_kind = str(row.get("compatibility_kind") or "minimum_runtime")
         label = _RUNTIME_LABELS.get(runtime_label) or _ECOSYSTEM_LABELS.get(ecosystem)
         if label and runtime:
             normalized_runtime = _normalized_runtime(label, runtime)
             if normalized_runtime:
+                if compatibility_kind == "compiler_target":
+                    phrases.append(f"Targets {label} {normalized_runtime}.")
+                    continue
                 has_upper_bound = bool(re.search(r"[,<|^~*]", runtime.removeprefix(">=")))
                 suffix = "." if has_upper_bound else " or later."
                 phrases.append(f"Requires {label} {normalized_runtime}{suffix}")

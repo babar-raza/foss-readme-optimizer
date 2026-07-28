@@ -254,6 +254,21 @@ class TestTypescriptParser:
 
         assert typescript.parse(tmp_path) == {}
 
+    def test_typescript_target_is_read_when_node_engine_is_absent(self, tmp_path):
+        (tmp_path / "package.json").write_text(
+            '{"name":"@aspose/3d","license":"MIT"}',
+            encoding="utf-8",
+        )
+        (tmp_path / "tsconfig.json").write_text(
+            '{"compilerOptions":{"target":"ES2020"}}',
+            encoding="utf-8",
+        )
+
+        info = typescript.parse(tmp_path)
+
+        assert info["license"] == "MIT"
+        assert info["typescript_target"] == "ES2020"
+
     def test_no_package_json_returns_empty(self, tmp_path):
         assert typescript.parse(tmp_path) == {}
 

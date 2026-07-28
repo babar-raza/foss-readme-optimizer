@@ -164,6 +164,54 @@ def test_java_and_python_single_roots_are_selected(tmp_path):
         assert inventory.roots[0].role == "product"
 
 
+def test_typescript_manifest_supplies_license_and_compiler_target(tmp_path):
+    (tmp_path / "package.json").write_text(
+        '{"name":"@aspose/3d","version":"24.12.0","license":"MIT"}',
+        encoding="utf-8",
+    )
+    (tmp_path / "tsconfig.json").write_text(
+        '{"compilerOptions":{"target":"ES2020"}}',
+        encoding="utf-8",
+    )
+    profile = RepositoryProfile(
+        org_repo="aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        package_roots=[
+            PackageRoot(
+                path=".",
+                ecosystem="typescript",
+                manifest_path="package.json",
+                confidence=1.0,
+                evidence="found package.json",
+            )
+        ],
+    )
+    entry = _entry("3d", "typescript")
+    inventory = classify_package_root_roles(entry, profile, tmp_path, SOURCE_REVISION)
+
+    candidates = ingest_repository_product_facts(
+        entry,
+        _empty_policy(),
+        profile,
+        tmp_path,
+        SOURCE_REVISION,
+        root_roles=inventory,
+    )
+    by_field = {fact.field: fact for fact in candidates}
+
+    assert by_field["product.license"].value == "MIT"
+    assert by_field["product.license"].verification_state == "verified"
+    assert by_field["product.compatibility"].value == [
+        {
+            "ecosystem": "typescript",
+            "runtime_label": "ECMAScript",
+            "minimum_runtime": "ES2020",
+            "compatibility_kind": "compiler_target",
+            "manifest_path": "package.json",
+            "root_role": "product",
+        }
+    ]
+
+
 def test_all_secondary_roles_are_typed_without_repository_specific_rules(tmp_path):
     role_paths = {
         "test": "tests",
@@ -257,6 +305,11 @@ def test_ambiguous_product_roots_block_only_dependent_manifest_facts(tmp_path):
     by_field = {fact.field: fact for fact in candidates}
     assert by_field["product.identity"].verification_state == "verified"
     assert by_field["product.platforms"].verification_state == "verified"
-    for field in ("installation.coordinates", "product.compatibility", "release.state"):
+    for field in (
+        "installation.coordinates",
+        "product.compatibility",
+        "product.license",
+        "release.state",
+    ):
         assert by_field[field].verification_state == "blocked"
         assert by_field[field].value["selection_state"] == "ambiguous"
