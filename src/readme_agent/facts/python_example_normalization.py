@@ -52,7 +52,19 @@ def normalize_python_import_inventory(
         tree = ast.parse(example.code)
     except SyntaxError:
         return example
-    if any(not isinstance(node, (ast.Import, ast.ImportFrom)) for node in tree.body):
+    import_statements = [
+        node for node in tree.body if isinstance(node, (ast.Import, ast.ImportFrom))
+    ]
+    if not import_statements:
+        return example
+    imported_modules = {
+        node.module if isinstance(node, ast.ImportFrom) else alias.name
+        for node in import_statements
+        for alias in (node.names if isinstance(node, ast.Import) else [node.names[0]])
+        if (isinstance(node, ast.Import) or node.module is not None)
+    }
+    has_executable_statement = len(import_statements) != len(tree.body)
+    if has_executable_statement and len(imported_modules) == 1:
         return example
 
     try:
@@ -64,7 +76,7 @@ def normalize_python_import_inventory(
     except (OSError, SyntaxError, ValueError):
         return example
     symbols = {symbol.qualified_name: symbol for symbol in surface.symbols}
-    for statement in tree.body:
+    for statement in import_statements:
         if not isinstance(statement, ast.ImportFrom) or statement.module is None:
             continue
         for alias in statement.names:

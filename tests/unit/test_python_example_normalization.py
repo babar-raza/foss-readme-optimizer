@@ -57,3 +57,21 @@ def test_working_example_is_never_rewritten(tmp_path: Path) -> None:
     original = _example("from aspose.threed import Scene\n\nscene = Scene()\n")
 
     assert normalize_python_import_inventory(tmp_path, original) == original
+
+
+def test_multi_module_working_draft_becomes_one_source_proven_construction(
+    tmp_path: Path,
+) -> None:
+    _python_repo(tmp_path)
+    original = _example(
+        "from aspose.threed import Scene\n"
+        "from aspose.threed.formats import ObjLoadOptions\n"
+        "scene = Scene()\n"
+        "options = ObjLoadOptions()\n"
+    )
+
+    normalized = normalize_python_import_inventory(tmp_path, original)
+
+    assert normalized.code == "from aspose.threed import Scene\n\nscene = Scene()\n"
+    assert normalized.evidence_paths == ["aspose/threed/Scene.py"]
+    assert normalized.required_symbols == ["Scene"]
