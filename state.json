@@ -4833,7 +4833,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": {
     "assessment_hash": "207f7bc2f65d51b42bac0bb3af8890c999e6303c9851b48e33f077e487440e28",
-    "candidate_hash": null,
+    "candidate_hash": "3e2ca1653457f95c8355316fd182b75de4a590edb245be053f7831dbff443034",
     "details": {},
     "fact_acceptance_component_hashes": {
       "acquisition_truth": "978850719a44158eba0ada29e96a3746f9950cdb23e4b61d67accfad5cee96e0",
@@ -5892,6 +5892,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\05862bf8ba16e5f5d20f\\r\\8acd8f1f36fd2046\\s\\227894a1120c\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-28T17:36:27.062356+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "presentation_plan_hash": "d4edbcf7eba22d06585621a2a56b48674e4284423766d6aac62dd730c8a49a54",
@@ -5901,11 +5913,11 @@
     "reviewer_standard_hash": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "PLAN_READY",
-    "updated_at": "2026-07-28T17:36:17.859353+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-07-28T17:36:27.062356+00:00"
   },
   "schema_version": 2,
-  "state_version": 380,
+  "state_version": 381,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9e63ff6e9f22fa71b2e4dc0f398db4a51f35047cca6453241e1567ed5ff36c6d",
