@@ -35,7 +35,10 @@ from readme_agent.validation.registry import VALIDATION_RULESET_VERSION
 # llm/prompt_registry.py -- same string.Template substitution semantics,
 # same generated content, but the file-hash tripwire this version guards
 # can't see "same semantics," only "file changed."
-GENERATION_SCHEMA_VERSION = "5"
+# Bumped to "6" after verified contextual-link rendering changed the legacy
+# owned-span renderer contract; the stale version-5 snapshot was exposed by
+# the next complete official regression campaign.
+GENERATION_SCHEMA_VERSION = "6"
 
 
 def sha256_text(text: str) -> str:

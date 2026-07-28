@@ -15,8 +15,8 @@ from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.readme.document_templates import accepted_fact
 
 
-def enterprise_product_name(facts: ProductFactsV2) -> str:
-    """Return the accepted product/platform name without the FOSS edition token."""
+def enterprise_product_name(facts: ProductFactsV2) -> str | None:
+    """Return the accepted Aspose product name, or none outside the Aspose profile."""
 
     return enterprise_product_name_from_facts(facts)
 

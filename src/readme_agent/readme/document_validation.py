@@ -228,9 +228,13 @@ def validate_readme_document_candidate(
         errors.append("fact-backed README header and Mermaid plan is absent")
 
     product_name = enterprise_product_name(facts)
-    terminology_findings = find_enterprise_terminology_findings(
-        candidate_inner,
-        enterprise_product_name=product_name,
+    terminology_findings = (
+        find_enterprise_terminology_findings(
+            candidate_inner,
+            enterprise_product_name=product_name,
+        )
+        if product_name is not None
+        else []
     )
     checks["enterprise_edition_terminology"] = not terminology_findings
     errors.extend(

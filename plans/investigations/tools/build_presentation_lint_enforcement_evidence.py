@@ -63,6 +63,8 @@ FOCUSED_TESTS = (
     "tests/unit/test_build_presentation_plan_capability.py",
     "tests/unit/test_supervise_readme_proposal_review_integration.py",
     "tests/unit/test_fact_render_views.py",
+    "tests/unit/test_generation_schema_version.py",
+    "tests/unit/test_enterprise_terminology.py",
     "tests/unit/test_readme_presentation_lint.py",
     "tests/unit/test_presentation_defect_corpus.py",
     "tests/unit/test_readme_document_plan.py",
@@ -71,6 +73,30 @@ FOCUSED_TESTS = (
     "tests/unit/test_readme_header_visual.py",
     "tests/unit/test_readme_contextual_links.py",
     "tests/unit/test_readme_assessment.py",
+    (
+        "tests/unit/test_supervisor_loop.py::TestBasicLoop::"
+        "test_local_poc_records_snapshot_and_profile_before_later_stages"
+    ),
+    (
+        "tests/unit/test_supervisor_loop.py::TestBasicLoop::"
+        "test_local_poc_repairs_revalidates_and_rereviews_before_accepting"
+    ),
+    (
+        "tests/unit/test_supervisor_loop.py::TestBasicLoop::"
+        "test_heterogeneous_local_poc_members_share_the_real_supervisor_path"
+    ),
+    (
+        "tests/unit/test_supervisor_loop.py::TestSpecialistDrivenConvergence::"
+        "test_tracked_content_change_is_reprocessed_without_false_convergence"
+    ),
+    (
+        "tests/unit/test_supervisor_loop.py::TestSpecialistFailureIsolation::"
+        "test_a_raising_specialist_does_not_abort_the_run"
+    ),
+    (
+        "tests/unit/test_supervisor_loop.py::TestSpecialistFailureIsolation::"
+        "test_a_raising_specialists_error_stops_before_general_planning"
+    ),
 )
 
 

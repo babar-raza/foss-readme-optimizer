@@ -148,7 +148,10 @@ def _audience_phrases(value: object) -> list[str]:
 def _identity_phrases(value: object) -> list[str]:
     if not isinstance(value, dict):
         return []
-    family = _FAMILY_LABELS.get(str(value.get("family") or "").strip().lower())
+    family_key = str(value.get("family") or "").strip().lower()
+    family = _FAMILY_LABELS.get(family_key)
+    if family is None and family_key:
+        family = family_key.replace("-", " ").replace("_", " ").title()
     ecosystem = str(value.get("ecosystem") or value.get("platform") or "").strip().lower()
     platform = _ECOSYSTEM_LABELS.get(ecosystem)
     return [f"{family} FOSS for {platform}"] if family and platform else []

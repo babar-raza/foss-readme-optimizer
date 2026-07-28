@@ -107,6 +107,8 @@ def select_contextual_links(
 
     family, platform, identity = _identity_scope(facts)
     enterprise_product_name = enterprise_product_name_from_facts(facts)
+    if enterprise_product_name is None:
+        raise ValueError("Aspose contextual-link selection requires an Aspose product identity")
     budget = resolve_link_budget(
         policy,
         pre_link_markdown,

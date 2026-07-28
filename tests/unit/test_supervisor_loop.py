@@ -1319,7 +1319,7 @@ class TestSpecialistDrivenConvergence:
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
         assert second.task_graph.tasks == {}  # no tasks even attempted
 
-    def test_tracked_content_change_with_specialist_failure_stops_before_planning(self, project):
+    def test_tracked_content_change_is_reprocessed_without_false_convergence(self, project):
         backend = FakeStateBackend()
         first = supervise_repo(
             ORG_REPO,
@@ -1346,13 +1346,17 @@ class TestSpecialistDrivenConvergence:
             state_backend=backend,
             write_evidence_bundle=True,
         )
-        assert second.status == "BLOCKED"
+        assert second.status == "CONVERGED_PROPOSAL_READY"
         assert second.blocked_reason is not None
-        assert second.blocked_reason.startswith("specialist_failed:")
-        assert second.blocked_category == "agent_fixable"
-        # A required specialist failed before planning. The run must fail closed
-        # without manufacturing a planner task graph or convergence claim.
-        assert second.task_graph.tasks == {}
+        assert second.blocked_reason.startswith("proposals:")
+        assert all(decision.kind != "specialist_failure_stop" for decision in second.decisions)
+        assert backend.load(ORG_REPO).supervisor_state is not None
+        source_head = run_git(["rev-parse", "HEAD"], cwd=source)
+        assert source_head.returncode == 0
+        assert (
+            backend.load(ORG_REPO).supervisor_state.last_observed_upstream_revision
+            == source_head.stdout.strip()
+        )
 
 
 class TestSpecialistSkipIntegration:

@@ -55,8 +55,8 @@ class EnterpriseTerminologyFindingV1(BaseModel):
     character_end: int = Field(ge=0)
 
 
-def enterprise_product_name_from_facts(facts: ProductFactsV2) -> str:
-    """Derive the verified family product name from accepted visitor identity."""
+def enterprise_product_name_from_facts(facts: ProductFactsV2) -> str | None:
+    """Derive an Aspose Enterprise product name, or return none for another profile."""
 
     identity = visitor_fact_render_view(facts, "product.identity")
     if identity is None or not identity.phrases:
@@ -67,7 +67,7 @@ def enterprise_product_name_from_facts(facts: ProductFactsV2) -> str:
         or len(product_name) <= len("Aspose.")
         or "FOSS" in product_name
     ):
-        raise ValueError("accepted product identity has no Aspose family name")
+        return None
     return product_name
 
 

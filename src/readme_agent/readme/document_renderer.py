@@ -10,7 +10,10 @@ from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.links.contextual_selection import select_contextual_links
 from readme_agent.links.contextual_validation import validate_contextual_link_candidate
-from readme_agent.links.terminology import find_enterprise_terminology_findings
+from readme_agent.links.terminology import (
+    EnterpriseTerminologyCorrectionV1,
+    find_enterprise_terminology_findings,
+)
 from readme_agent.readme.agentic_composition_validation import validate_readme_composition_plan
 from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
@@ -178,17 +181,19 @@ def build_readme_document_candidate(
                 link_allocation_policy,
             )
         )
-    operations = canonicalize_operation_terminology(
-        operations,
-        product_name=product_name,
-        identity_fact_id=facts.selected_fact("product.identity").fact_id,
-    )
-    terminology_operations, terminology_corrections = build_enterprise_terminology_operations(
-        context,
-        operations,
-        product_name=product_name,
-    )
-    operations.extend(terminology_operations)
+    terminology_corrections: list[EnterpriseTerminologyCorrectionV1] = []
+    if product_name is not None:
+        operations = canonicalize_operation_terminology(
+            operations,
+            product_name=product_name,
+            identity_fact_id=facts.selected_fact("product.identity").fact_id,
+        )
+        terminology_operations, terminology_corrections = build_enterprise_terminology_operations(
+            context,
+            operations,
+            product_name=product_name,
+        )
+        operations.extend(terminology_operations)
     contextual_links: ContextualLinkPlanV1 | None = None
     if link_catalogs is not None and link_allocation_policy is not None:
         pre_link_candidate = apply_document_operations(source, operations).decode("utf-8")
@@ -210,9 +215,13 @@ def build_readme_document_candidate(
         operations,
     )
     rendered_inner = apply_document_operations(source, operations).decode("utf-8")
-    terminology_findings = find_enterprise_terminology_findings(
-        rendered_inner,
-        enterprise_product_name=product_name,
+    terminology_findings = (
+        find_enterprise_terminology_findings(
+            rendered_inner,
+            enterprise_product_name=product_name,
+        )
+        if product_name is not None
+        else []
     )
     if terminology_findings:
         raise ValueError("README candidate retains prohibited Enterprise Edition terminology")

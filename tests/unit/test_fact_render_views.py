@@ -51,6 +51,26 @@ def test_identity_is_derived_from_product_fields_not_internal_manifest_names():
     assert "Converter" not in view.phrases[0]
 
 
+def test_unknown_product_family_has_a_generic_visitor_identity():
+    facts = _facts()
+    identity = facts.selected_fact("product.identity")
+    value = dict(identity.value)
+    value["family"] = "mesh-toolkit"
+    identity = identity.model_copy(update={"value": value})
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                identity if fact.fact_id == identity.fact_id else fact for fact in facts.facts
+            ]
+        }
+    )
+
+    view = visitor_fact_render_view(facts, "product.identity")
+
+    assert view is not None
+    assert view.phrases == ["Mesh Toolkit FOSS for Java"]
+
+
 def test_compatibility_normalizes_repeated_language_and_plus_suffix():
     view = visitor_fact_render_view(_facts("go"), "product.compatibility")
 
