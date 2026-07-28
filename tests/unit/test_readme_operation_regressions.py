@@ -45,7 +45,7 @@ def _facts() -> tuple[ProductFactsV2, str]:
     )
 
 
-def test_multiple_curated_usage_examples_fail_closed_instead_of_competing():
+def test_multiple_curated_usage_examples_are_preserved_below_one_verified_workflow():
     facts, revision = _facts()
     source = """# Aspose.Cells FOSS for Java
 
@@ -60,13 +60,24 @@ Workbook second = Workbook.load("two.xlsx");
 ```
 """
 
-    with pytest.raises(LLMError, match="actionable decisions without bounded operations"):
-        build_readme_document_candidate(
-            facts.org_repo,
-            source,
-            facts,
-            base_revision=revision,
-        )
+    candidate, plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+
+    assert candidate.count("## Usage") == 1
+    assert candidate.count("## Additional examples") == 1
+    assert 'Workbook.load("one.xlsx")' in candidate
+    assert 'Workbook.load("two.xlsx")' in candidate
+    operation = next(
+        operation
+        for operation in plan.operations
+        if operation.operation_id == "readme.example.separate-primary-workflow"
+    )
+    assert operation.operation == "replace"
+    assert operation.protected_content_treatment == "presentation_policy_correction"
 
 
 def _actionable_usage(source: str, disposition: str):

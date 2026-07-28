@@ -6,13 +6,13 @@ import re
 
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.document_operations import build_operation
+from readme_agent.readme.document_overview import overview_text
 from readme_agent.readme.document_plan import ReadmeDocumentOperationV1
 from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.readme.document_templates import (
     accepted_fact,
     example_text,
     installation_text,
-    overview_text,
 )
 from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
@@ -27,6 +27,8 @@ def build_opening_operations(
     context: DocumentRenderContext,
     agentic_plan: ReadmeAgenticCompositionPlanV1 | None,
     visual_plan: ReadmeHeaderVisualV1,
+    *,
+    insertion_byte_offset: int | None = None,
 ) -> list[ReadmeDocumentOperationV1]:
     """Add missing overview, acquisition, and minimal-example sections as one operation."""
 
@@ -99,7 +101,11 @@ def build_opening_operations(
     if not overview_insert:
         return []
     char_offset = first_h2.start if first_h2 is not None else len(context.inner_text)
-    byte_offset = context.byte_offset(char_offset)
+    byte_offset = (
+        insertion_byte_offset
+        if insertion_byte_offset is not None
+        else context.byte_offset(char_offset)
+    )
     return [
         build_operation(
             operation_id="readme.overview-navigation-and-acquisition",

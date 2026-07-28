@@ -20,6 +20,18 @@ def _context_paragraph(title: str, url: str) -> str:
     )
 
 
+def _insert_after_example(replacement: str, exact_code: str, paragraph: str) -> str:
+    blocks = [
+        block
+        for block in code_blocks_in_span(replacement, 0, len(replacement))
+        if block.content.strip() == exact_code
+    ]
+    if len(blocks) != 1:
+        raise ValueError("contextual example binding cannot locate one replacement code block")
+    offset = blocks[0].end
+    return replacement[:offset].rstrip() + "\n\n" + paragraph + "\n" + replacement[offset:]
+
+
 def apply_contextual_link_bindings(
     context: DocumentRenderContext,
     operations: list[ReadmeDocumentOperationV1],
@@ -90,7 +102,11 @@ def apply_contextual_link_bindings(
         )
         if operation_index is not None:
             operation = updated[operation_index]
-            replacement = operation.replacement_text.rstrip() + "\n\n" + paragraph + "\n"
+            replacement = _insert_after_example(
+                operation.replacement_text,
+                exact_code,
+                paragraph,
+            )
             updated[operation_index] = operation.model_copy(
                 update={
                     "replacement_text": replacement,

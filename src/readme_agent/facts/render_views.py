@@ -85,6 +85,51 @@ def _sentence_phrases(value: object) -> list[str]:
     ]
 
 
+def _natural_join(values: list[str]) -> str:
+    if len(values) < 2:
+        return "".join(values)
+    if len(values) == 2:
+        return " and ".join(values)
+    return ", ".join(values[:-1]) + f", and {values[-1]}"
+
+
+def _format_phrases(value: object) -> list[str]:
+    """Turn manifest-style format inventories into concise visitor prose."""
+
+    phrases = _text_phrases(value)
+    rendered: list[str] = []
+    for phrase in phrases:
+        match = re.fullmatch(
+            r"(?i)(load|read|import|save|write|export|supported|support|input|output)"
+            r"\s+formats?\s*:\s*(.+)",
+            phrase.rstrip("."),
+        )
+        if match is None:
+            rendered.append(phrase)
+            continue
+        formats = [
+            item.strip()
+            for item in match.group(2).split(",")
+            if item.strip() and item.strip().casefold() != "auto"
+        ]
+        if not formats:
+            continue
+        verb = {
+            "load": "Reads",
+            "read": "Reads",
+            "import": "Imports",
+            "save": "Writes",
+            "write": "Writes",
+            "export": "Exports",
+            "supported": "Supports",
+            "support": "Supports",
+            "input": "Reads",
+            "output": "Writes",
+        }[match.group(1).casefold()]
+        rendered.append(f"{verb} {_natural_join(formats)} files")
+    return rendered
+
+
 def _audience_phrases(value: object) -> list[str]:
     phrases = _sentence_phrases(value)
     normalized: list[str] = []
@@ -205,7 +250,7 @@ _FIELD_RENDERERS: dict[str, Callable[[object], list[str]]] = {
     "product.audience": _audience_phrases,
     "product.problems_solved": _sentence_phrases,
     "product.capabilities": _text_phrases,
-    "product.formats": _text_phrases,
+    "product.formats": _format_phrases,
     "product.limitations": _text_phrases,
     "product.identity": _identity_phrases,
     "product.compatibility": _compatibility_phrases,

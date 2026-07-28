@@ -58,6 +58,35 @@ def test_compatibility_normalizes_repeated_language_and_plus_suffix():
     assert view.phrases == ["Requires Go 1.24 or later."]
 
 
+def test_manifest_format_enums_are_rendered_as_visitor_prose():
+    facts = _facts()
+    formats = facts.selected_fact("product.formats")
+    formats = formats.model_copy(
+        update={
+            "verification_state": "verified",
+            "value": [
+                "Load formats: AUTO, XLSX",
+                "Save format: XLSX",
+                "Supported formats: XLSX, XLSB",
+            ],
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [formats if fact.fact_id == formats.fact_id else fact for fact in facts.facts]
+        }
+    )
+
+    view = visitor_fact_render_view(facts, "product.formats")
+
+    assert view is not None
+    assert view.phrases == [
+        "Reads XLSX files",
+        "Writes XLSX files",
+        "Supports XLSX and XLSB files",
+    ]
+
+
 def test_compatibility_uses_runtime_label_and_preserves_upper_bound():
     facts = _facts("net")
     compatibility = facts.selected_fact("product.compatibility")

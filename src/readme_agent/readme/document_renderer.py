@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
+
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.allocation import code_sha256
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
@@ -44,6 +46,9 @@ from readme_agent.readme.document_plan import (
     PresentationSpanAdoptionV1,
     ReadmeDocumentOperationV1,
     ReadmeDocumentPlanV1,
+)
+from readme_agent.readme.document_presentation_repairs import (
+    build_presentation_policy_operations,
 )
 from readme_agent.readme.document_reconciliation import (
     build_unresolved_section_operations,
@@ -98,7 +103,7 @@ def build_readme_document_candidate(
     )
     assessment = assess_readme_document(
         org_repo,
-        source_text,
+        inner_text,
         facts,
         base_revision=base_revision,
     )
@@ -106,7 +111,7 @@ def build_readme_document_candidate(
         validate_readme_composition_plan(
             agentic_composition_plan,
             org_repo=org_repo,
-            source_text=source_text,
+            source_text=inner_text,
             facts=facts,
             assessment=assessment,
         )
@@ -114,8 +119,33 @@ def build_readme_document_candidate(
         else None
     )
     header_visuals = render_readme_header_visual(facts)
+    withheld = build_unresolved_section_operations(context, assessment)
+    withheld_spans = [
+        (operation.source_byte_start, operation.source_byte_end) for operation in withheld
+    ]
+    opening_context = replace(
+        context,
+        headings=[
+            heading
+            for heading in context.headings
+            if not any(
+                start <= context.byte_offset(heading.start) < end for start, end in withheld_spans
+            )
+        ],
+    )
+    first_h2 = next((heading for heading in context.headings if heading.level == 2), None)
+    opening_insertion = (
+        context.byte_offset(first_h2.start) if first_h2 is not None else len(context.source)
+    )
     operations: list[ReadmeDocumentOperationV1] = []
-    operations.extend(build_opening_operations(context, validated_agentic_plan, header_visuals))
+    operations.extend(
+        build_opening_operations(
+            opening_context,
+            validated_agentic_plan,
+            header_visuals,
+            insertion_byte_offset=opening_insertion,
+        )
+    )
     operations.extend(build_existing_overview_diagram_operations(context, header_visuals))
     operations.extend(build_limitation_operations(context))
     operations.extend(build_acquisition_correction_operations(context))
@@ -126,7 +156,6 @@ def build_readme_document_candidate(
     # Equal-offset insertions appear in reverse plan order in the candidate.
     # Append the header operation last so badges remain immediately below H1.
     operations.extend(build_badge_header_operations(context, header_visuals))
-    withheld = build_unresolved_section_operations(context, assessment)
     operations = remove_operations_overlapping_withheld_sections(operations, withheld)
     operations.extend(withheld)
     for comment_operation in build_comment_removal_operations(context):
@@ -136,6 +165,7 @@ def build_readme_document_candidate(
             for operation in operations
         ):
             operations.append(comment_operation)
+    operations.extend(build_presentation_policy_operations(context, operations))
     product_name = enterprise_product_name(facts)
     if (link_catalogs is None) != (link_allocation_policy is None):
         raise ValueError("README link catalogs and allocation policy must be supplied together")

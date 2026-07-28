@@ -197,7 +197,6 @@ def build_source_link_hygiene_operations(
 ) -> list[ReadmeDocumentOperationV1]:
     """Unwrap unsupported links while retaining bounded verified product targets."""
 
-    identity = context.facts.selected_fact("product.identity")
     _, rewrites = remove_unbound_aspose_links(context.inner_text)
     retained = _retained_product_spans(
         context,
@@ -222,7 +221,7 @@ def build_source_link_hygiene_operations(
                 start=start,
                 end=end,
                 replacement=rewrite.replacement,
-                fact_ids=[identity.fact_id],
+                fact_ids=[],
                 treatment="presentation_policy_correction",
                 rationale=(
                     "Preserve maintainer-authored visitor text while removing an Aspose target "

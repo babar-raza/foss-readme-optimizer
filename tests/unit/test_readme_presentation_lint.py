@@ -91,6 +91,45 @@ MIT
     assert not result.findings
 
 
+def test_explained_option_tokens_and_same_bullet_in_distinct_sections_are_allowed() -> None:
+    candidate = """# Mesh Toolkit
+
+## Capabilities
+
+- Hyperlinks
+- **Flip coordinate system** (`flip_coordinate_system`) — swap Y and Z coordinates
+
+## Test coverage
+
+- hyperlinks
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert result.valid
+    assert not result.findings
+
+
+def test_duplicate_bullets_inside_one_reader_section_remain_a_failure() -> None:
+    candidate = """# Mesh Toolkit
+
+## Supported formats
+
+### Import
+
+- More formats coming soon...
+
+### Export
+
+- More formats coming soon...
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert [finding.rule_id for finding in result.findings] == ["semantic_duplicate"]
+
+
 def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
     candidate = PROJECT_ROOT / "tests/fixtures/presentation_defects/strong-existing-content.md"
     result = lint_readme_presentation(candidate.read_text(encoding="utf-8"), None)

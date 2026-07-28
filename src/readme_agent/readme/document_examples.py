@@ -18,14 +18,49 @@ def build_example_operations(
     value = example.value if example is not None and isinstance(example.value, dict) else {}
     exact_code = str(value.get("code", "")).rstrip()
     target = context.h2("quick start", "usage")
-    if not exact_code or exact_code in context.inner_text or target is None:
+    if not exact_code or target is None:
         return []
     existing_examples = code_blocks_in_span(
         context.inner_text,
         target.heading_end,
         target.section_end,
     )
+    if exact_code in context.inner_text and len(existing_examples) <= 1:
+        return []
     rendered = example_text(context.facts, context.base_revision)
+    if len(existing_examples) > 1:
+        section_body = context.inner_text[target.heading_end : target.section_end]
+        verified_existing = next(
+            (block for block in existing_examples if exact_code in block.content),
+            None,
+        )
+        if verified_existing is None:
+            primary = rendered
+            additional = section_body
+        else:
+            primary = context.inner_text[verified_existing.start : verified_existing.end].strip()
+            relative_start = verified_existing.start - target.heading_end
+            relative_end = verified_existing.end - target.heading_end
+            additional = section_body[:relative_start] + section_body[relative_end:]
+        replacement = "\n\n" + primary.strip() + "\n\n"
+        if additional.strip():
+            replacement += "## Additional examples\n\n" + additional.strip() + "\n\n"
+        return [
+            build_operation(
+                operation_id="readme.example.separate-primary-workflow",
+                operation="replace",
+                source=context.source,
+                start=context.byte_offset(target.heading_end),
+                end=context.byte_offset(target.section_end),
+                replacement=replacement,
+                fact_ids=[example.fact_id] if example is not None else [],
+                treatment="presentation_policy_correction",
+                rationale=(
+                    "Keep one mechanically verified primary workflow while retaining the "
+                    "maintainer-authored examples in a separate section."
+                ),
+            )
+        ]
     if len(existing_examples) == 1:
         existing = existing_examples[0]
         return [

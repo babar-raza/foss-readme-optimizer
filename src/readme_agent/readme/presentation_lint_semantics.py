@@ -5,8 +5,10 @@ from __future__ import annotations
 import re
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
 from readme_agent.readme.presentation_lint_text import line_span, make_finding, visible_lines
+from readme_agent.readme.presentation_similarity import summaries_overlap
 
 RULE_IDS = (
     "cross_product_leakage",
@@ -17,6 +19,7 @@ RULE_IDS = (
 )
 
 _SNAKE_TOKEN = re.compile(r"`[a-z][a-z0-9]*_[a-z0-9_]+`")
+_EXPLAINED_SNAKE_TOKEN = re.compile(r"^\s*[-*+]\s+\*\*[^*]+\*\*\s+\(`[a-z][a-z0-9]*_[a-z0-9_]+`\)")
 _ENUM_LIST = re.compile(r"\b[A-Z][A-Z0-9_]{1,}(?:\s*,\s*[A-Z][A-Z0-9_]{1,})+\b")
 _PROMPT_INJECTION = re.compile(
     r"(?i)(?:ignore|disregard|override)\s+(?:all\s+)?(?:previous|prior|system|developer)"
@@ -33,10 +36,6 @@ def _normalized_bullet(line: str) -> str:
     value = _BULLET_PREFIX.sub("", line)
     value = _MARKUP.sub(" ", value).casefold()
     return " ".join(value.split())
-
-
-def _word_set(value: str) -> set[str]:
-    return {token for token in re.findall(r"[a-z0-9]+", value.casefold()) if len(token) > 2}
 
 
 def _own_aspose_family(facts: ProductFactsV2 | None) -> str | None:
@@ -82,7 +81,11 @@ def lint_semantics(
                     ],
                 )
             )
-        if _SNAKE_TOKEN.search(line.text) and _BULLET_PREFIX.match(line.text):
+        if (
+            _SNAKE_TOKEN.search(line.text)
+            and _BULLET_PREFIX.match(line.text)
+            and not _EXPLAINED_SNAKE_TOKEN.match(line.text)
+        ):
             findings.append(
                 make_finding(
                     "raw_internal_token",
@@ -99,12 +102,21 @@ def lint_semantics(
                 )
             )
 
-    bullets: dict[str, list] = {}
+    h2_sections = [heading for heading in parse_headings(text) if heading.level == 2]
+    bullets: dict[tuple[int, str], list] = {}
     for line in lines:
         if _BULLET_PREFIX.match(line.text):
             normalized = _normalized_bullet(line.text)
             if normalized:
-                bullets.setdefault(normalized, []).append(line)
+                section_start = next(
+                    (
+                        heading.start
+                        for heading in h2_sections
+                        if heading.heading_end <= line.start < heading.section_end
+                    ),
+                    -1,
+                )
+                bullets.setdefault((section_start, normalized), []).append(line)
     for repeated in bullets.values():
         if len(repeated) > 1:
             findings.append(
@@ -124,9 +136,7 @@ def lint_semantics(
     capabilities = [item for item in labeled if item[0] == "verified capabilities"]
     for _, problem, problem_line in problems:
         for _, capability, capability_line in capabilities:
-            left = _word_set(problem)
-            right = _word_set(capability)
-            if left and len(left & right) / min(len(left), len(right)) >= 0.8:
+            if summaries_overlap(problem, capability):
                 findings.append(
                     make_finding(
                         "semantic_duplicate",

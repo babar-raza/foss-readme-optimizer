@@ -1,8 +1,7 @@
 """Template loading, hashing, and fact-to-section prose synthesis.
 
 Owns the fill-and-match README templates (loading + a stable hash of every
-template input) and the deterministic rendering of the overview/navigation,
-verified installation, and verified example sections from ``ProductFactsV2``.
+template input) and deterministic verified installation/example prose.
 Extracted verbatim from the former single-file ``document_renderer``
 (`GOVERNANCE.md` "no monoliths").
 """
@@ -15,7 +14,6 @@ from pathlib import Path
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.acquisition_contracts import matching_coordinate_row
-from readme_agent.readme.document_structure import Heading, github_anchor
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[3]
 TEMPLATE_ROOT = _PROJECT_ROOT / "templates" / "readme"
@@ -33,7 +31,6 @@ DOCUMENT_TEMPLATE_NAMES = (
     "verified-source-acquisition.md",
 )
 _ACCEPTED_FACT_STATES = {"verified", "policy_approved"}
-_OMIT_LINE = "__README_AGENT_OMIT_LINE__"
 
 
 def load_template(name: str) -> str:
@@ -233,74 +230,3 @@ def missing_limitation_constraints_text(facts: ProductFactsV2, existing_text: st
     if not items:
         return ""
     return load_template("verified-repository-constraints.md").format(items=items).strip()
-
-
-def overview_text(
-    facts: ProductFactsV2,
-    headings: list[Heading],
-    agentic_overview_sentences: list[dict] | None = None,
-    mermaid_markdown: str | None = None,
-    omitted_fields: frozenset[str] = frozenset(),
-) -> str:
-    compatibility = accepted_fact(facts, "product.compatibility")
-    compatibility_value = mapping_value(compatibility.value) if compatibility else {}
-    navigation = "\n".join(
-        f"- [{heading.title}](#{github_anchor(heading.title)})"
-        for heading in headings
-        if heading.level == 2
-        and heading.title.strip().lower() not in {"at a glance", "in this readme"}
-    )
-    if agentic_overview_sentences:
-        selected: dict[str, str] = {}
-        for sentence in agentic_overview_sentences:
-            text = str(sentence["text"]).strip()
-            for fact_id in sentence.get("supporting_fact_ids", []):
-                try:
-                    field = facts.fact_by_id(str(fact_id)).field
-                except KeyError:
-                    continue
-                if field in omitted_fields:
-                    continue
-                selected.setdefault(field, text)
-        rendered = (
-            load_template("product-overview-and-navigation.md")
-            .format(
-                audience=selected.get("product.audience", _OMIT_LINE),
-                problem=selected.get("product.problems_solved", _OMIT_LINE),
-                capabilities=selected.get("product.capabilities", _OMIT_LINE),
-                formats=selected.get("product.formats", _OMIT_LINE),
-                minimum_runtime=selected.get("product.compatibility", _OMIT_LINE),
-                limitations=selected.get("product.limitations", _OMIT_LINE),
-                mermaid=mermaid_markdown or _OMIT_LINE,
-                navigation=navigation or "- Continue with the repository guidance below.",
-            )
-            .strip()
-        )
-        rendered = "\n".join(
-            line for line in rendered.splitlines() if _OMIT_LINE not in line
-        ).strip()
-        return rendered
-    rendered = (
-        load_template("product-overview-and-navigation.md")
-        .format(
-            audience=visitor_text(facts, "product.audience") or _OMIT_LINE,
-            problem=visitor_text(facts, "product.problems_solved") or _OMIT_LINE,
-            capabilities=visitor_text(facts, "product.capabilities") or _OMIT_LINE,
-            formats=visitor_text(facts, "product.formats") or _OMIT_LINE,
-            minimum_runtime=(
-                compatibility_value["minimum_runtime"]
-                if compatibility_value.get("minimum_runtime")
-                else _OMIT_LINE
-            ),
-            limitations=(
-                _OMIT_LINE
-                if "product.limitations" in omitted_fields
-                else visitor_text(facts, "product.limitations") or _OMIT_LINE
-            ),
-            mermaid=mermaid_markdown or _OMIT_LINE,
-            navigation=navigation or "- Continue with the repository guidance below.",
-        )
-        .strip()
-    )
-    rendered = "\n".join(line for line in rendered.splitlines() if _OMIT_LINE not in line).strip()
-    return rendered
