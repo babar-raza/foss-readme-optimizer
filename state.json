@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f",
-    "last_evaluated_at": "2026-07-28T10:42:09.267709+00:00",
+    "last_evaluated_at": "2026-07-28T10:42:35.226292+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -65,7 +65,7 @@
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
       "L8-COMPOSE-01-DECOMPOSE": "CLOSED",
-      "L8-COMPOSE-01A-SECTION-REGRESSIONS": "VERIFIED",
+      "L8-COMPOSE-01A-SECTION-REGRESSIONS": "SCORED",
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "CLOSED",
       "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "CLOSED",
       "L8-COMPOSE-02-EXISTING-SECTIONS": "TODO",
@@ -3417,6 +3417,18 @@
         "reason": "Real immutable .NET evidence, synthetic exact-content control, 100 focused regressions, document reconstruction, native patch application, and checksum inventory all pass.",
         "task_id": "L8-COMPOSE-01A-SECTION-REGRESSIONS",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-existing-section-regressions/verification.json",
+          "plans/investigations/evidence/level8-existing-section-regressions/first-failing-boundary.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T10:42:35.226286+00:00",
+        "reason": "Acceptance scoring proves verified facts are present once and maintainer-authored content remains unless an exact fact-backed correction applies.",
+        "task_id": "L8-COMPOSE-01A-SECTION-REGRESSIONS",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -3425,7 +3437,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 403,
+  "state_version": 404,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
