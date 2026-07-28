@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f",
-    "last_evaluated_at": "2026-07-28T10:42:35.226292+00:00",
+    "last_evaluated_at": "2026-07-28T10:43:10.419507+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -60,12 +60,21 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Inventory every material source content unit, preferentially reuse it after evidence or authoritative-owner validation, improve it only with verified clarity, correct contradictions, and withhold unresolved factual material without losing its traceability."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "task_id": "L8-COMPOSE-02-EXISTING-SECTIONS"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
       "L8-COMPOSE-01-DECOMPOSE": "CLOSED",
-      "L8-COMPOSE-01A-SECTION-REGRESSIONS": "SCORED",
+      "L8-COMPOSE-01A-SECTION-REGRESSIONS": "CLOSED",
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "CLOSED",
       "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "CLOSED",
       "L8-COMPOSE-02-EXISTING-SECTIONS": "TODO",
@@ -3429,6 +3438,18 @@
         "reason": "Acceptance scoring proves verified facts are present once and maintainer-authored content remains unless an exact fact-backed correction applies.",
         "task_id": "L8-COMPOSE-01A-SECTION-REGRESSIONS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-existing-section-regressions/mission-contribution.json",
+          "plans/investigations/evidence/level8-existing-section-regressions/verification.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T10:43:10.419495+00:00",
+        "reason": "Closed with valid contribution evidence and independently reconstructable original, operations, candidate, validation, patch, tests, and checksums.",
+        "task_id": "L8-COMPOSE-01A-SECTION-REGRESSIONS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -3437,7 +3458,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 404,
+  "state_version": 405,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
