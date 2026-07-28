@@ -499,18 +499,3135 @@
   },
   "domain_states": {
     "readme_presentation": {
-      "accepted_facts_hash": null,
-      "accepted_status": null,
-      "consecutive_failure_count": 4,
+      "accepted_facts_hash": "95e85575c44f857eb57b4c772d1fd6dd296391241881eddf40542540a46c94ce",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "bundle_verification": {
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\20260728-180629-12e0",
+          "checks": {
+            "acquisition_matches_live_registry": true,
+            "agentic_plan_assessment_hash_matches": true,
+            "agentic_plan_facts_hash_matches": true,
+            "agentic_plan_repository_matches": true,
+            "agentic_plan_source_hash_matches": true,
+            "all_artifacts_present": true,
+            "artifact_checksums_match": true,
+            "assessment_reconstructed": true,
+            "candidate_hash_matches_plan": true,
+            "cited_facts_accepted": true,
+            "claim_map_reconstructed": true,
+            "facts_hash_matches_plan": true,
+            "independent_reconstruction_byte_identical": true,
+            "independent_validation_valid": true,
+            "native_git_apply_produces_candidate": true,
+            "operations_cite_selected_facts": true,
+            "recomputed_validation_consistent_with_stored": true,
+            "reconstructed_plan_matches": true,
+            "schemas_valid": true,
+            "source_hash_matches_plan": true
+          },
+          "failures": [],
+          "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+          "status": "checked",
+          "verified": true
+        },
+        "deterministic_validation": {
+          "checks": {
+            "adoption_preserved_source": true,
+            "candidate_has_no_comments": true,
+            "candidate_hash_matches": true,
+            "candidate_is_marker_free": true,
+            "candidate_matches_independent_render": true,
+            "claim_accountability_complete": true,
+            "claim_accountability_gaps_visible": true,
+            "contextual_links": true,
+            "document_reconstruction": true,
+            "enterprise_edition_terminology": true,
+            "fact_citations": true,
+            "facts_hash_matches": true,
+            "header_visuals": true,
+            "needs_write_matches": true,
+            "presentation_lint": true,
+            "protected_content": true,
+            "source_document_hash": true,
+            "source_span_hashes": true,
+            "template_hash_matches": true,
+            "verified_example_present": true,
+            "verified_limitations_present": true,
+            "verified_overview_present": true
+          },
+          "nonce": "20260728-180629-12e0",
+          "reason": null,
+          "requirement_map": {
+            "fact_backed_document_plan": true,
+            "immutable_snapshot": true,
+            "protected_content": true,
+            "verified_example": true
+          },
+          "token": "0d0c6ca57af0c08d8d970aa53ce5b1647991d518424df0cc3a2600c51068d44a",
+          "verdict": "accept"
+        },
+        "factuality": {
+          "claim_conflicts": [],
+          "error": null,
+          "product_facts_v2_hash": "95e85575c44f857eb57b4c772d1fd6dd296391241881eddf40542540a46c94ce",
+          "protected_content_losses": [],
+          "valid": true
+        },
+        "local_bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "presentation_plan": {
+          "agentic_composition_plan": {
+            "assessment_hash": "cb3a7f986f677855a0ec7a4211daba6407c15ce9e4e98e9a85c4c68216beaac2",
+            "attempt_count": 1,
+            "facts_hash": "95e85575c44f857eb57b4c772d1fd6dd296391241881eddf40542540a46c94ce",
+            "input_sha256": "ad3b12be37f2848326769b356652d2bd717b1548b4a697876f71cbd7a34a4c26",
+            "model": "qwen3-next",
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+            "overview_sentences": [
+              {
+                "supporting_fact_ids": [
+                  "product.audience:agent-drafted-grounded"
+                ],
+                "text": "Developers using Rust."
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.capabilities:repository-evidence"
+                ],
+                "text": "Workbook creation and round-trip XLSX save/load"
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.formats:repository-evidence"
+                ],
+                "text": "Excel .xlsx (Office Open XML / SpreadsheetML)"
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.limitations:repository-evidence"
+                ],
+                "text": "Early-stage and evolving. The public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial. Treat it as a work in progress."
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.identity:manifest-and-registry"
+                ],
+                "text": "Aspose.Cells FOSS for Rust"
+              }
+            ],
+            "prompt_sha256": "a901ec4d6deb6c18df150cec82e7e46f9f08b91d758dc3ee35d3d9c5803ec7d8",
+            "repository_summary": "Aspose.Cells FOSS for Rust is a pure-Rust library for reading and writing Excel .xlsx files, implementing a subset of Aspose.Cells functionality with verified capabilities including workbook round-tripping, type-specific cell value assignment, formula evaluation, comment management, and data validation. It is early-stage, MIT-licensed, and installed via Git or local path dependencies.",
+            "schema_version": 1,
+            "section_decisions": [
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The opening paragraph accurately describes the product as a free, open-source, pure-Rust spreadsheet library that reads and writes Excel .xlsx files, aligns with the verified product identity and commercial FOSS relationship, and is retained per deterministic assessment.",
+                "section_id": "opening",
+                "supporting_fact_ids": [
+                  "product.identity:manifest-and-registry",
+                  "relationship.commercial_foss:primary"
+                ]
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The main heading 'Aspose.Cells FOSS for Rust' is preserved as maintainer-authored content per deterministic assessment.",
+                "section_id": "heading:0",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The 'Status' section is preserved as it contains maintainer-authored content describing the early-stage nature of the project.",
+                "section_id": "heading:988",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The 'Features' section is preserved as it contains maintainer-authored content listing supported capabilities.",
+                "section_id": "heading:1178",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The 'Installation' section is preserved as it accurately reflects the verified installation coordinates and source-build verification, and is retained per deterministic assessment.",
+                "section_id": "heading:2229",
+                "supporting_fact_ids": [
+                  "installation.coordinates:manifest",
+                  "installation.verified_acquisition:blocked-source-build"
+                ]
+              },
+              {
+                "disposition": "repair",
+                "priority": 0,
+                "rationale": "The 'Quick start' section is assessed against the exact locally verified minimal example and requires repair to match the verified minimal example code.",
+                "section_id": "heading:2956",
+                "supporting_fact_ids": [
+                  "example.minimal:agent-drafted-example"
+                ]
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The 'Documentation' section is preserved as it contains maintainer-authored content describing documentation resources.",
+                "section_id": "heading:4036",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The 'Samples' section is preserved as it contains maintainer-authored content listing runnable examples.",
+                "section_id": "heading:4536",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The 'Project layout' section is preserved as it contains maintainer-authored content describing the repository structure.",
+                "section_id": "heading:5744",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The 'License' section is preserved as it contains maintainer-authored content describing the MIT license.",
+                "section_id": "heading:6300",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "add",
+                "priority": 0,
+                "rationale": "Add a fact-backed overview section to highlight the target audience (Developers using Rust) and verified capabilities (Workbook creation and round-trip XLSX save/load, Cell value assignment with type-specific methods, Formula evaluation with cached result support, Comment management with author, note, visibility, and sizing, Data validation with list, decimal, and custom rules).",
+                "section_id": "missing:at-a-glance",
+                "supporting_fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence"
+                ]
+              },
+              {
+                "disposition": "add",
+                "priority": 0,
+                "rationale": "Add a limitations section to explicitly state the verified limitation: 'Early-stage and evolving. The public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial. Treat it as a work in progress.'",
+                "section_id": "missing:limitations",
+                "supporting_fact_ids": [
+                  "product.limitations:repository-evidence"
+                ]
+              }
+            ],
+            "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+            "tool_schema_sha256": "2f50181cf1ccf3c0d00defcfa383eeeb45b2879dd4daa8d3c68bcab03917da9f"
+          },
+          "claim_map": {
+            "candidate_sha256": "f91a30f8a0dc604a2b386809ba6f66548877c90082880ea7d4f80e75043af5f9",
+            "claims": [
+              {
+                "byte_end": 1074,
+                "byte_start": 1041,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.audience",
+                "claim_text_sha256": "bb6225e1075268e3464ae210527e7e0fe625e50fb4561c73c39c9dc2fd2983a9",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.audience:agent-drafted-grounded",
+                "fact_value_sha256": "07b92065bed20a96fd4c50d353faf119cf5778d40e3c650156a50c373b6bd292",
+                "field": "product.audience",
+                "introduced_text_sha256": "088936f7fad3d82f4a59d8f250d971a43c52eb1bbb83243cf8c12d2808af0250",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 1151,
+                "byte_start": 1075,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.capabilities",
+                "claim_text_sha256": "a8736b6f43ec054d6e9dce7702a1703e92b40da3e39fde9c4f2bea0f814d37d6",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.capabilities:repository-evidence",
+                "fact_value_sha256": "848a8b564908371b02b77b4df148b098a9e2832a479bfb2a61cda6ab60d295e7",
+                "field": "product.capabilities",
+                "introduced_text_sha256": "088936f7fad3d82f4a59d8f250d971a43c52eb1bbb83243cf8c12d2808af0250",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 1221,
+                "byte_start": 1152,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.formats",
+                "claim_text_sha256": "eeac5adc96a914b57abefd6171a325c4762f049008174cb070ebcf22be6d1e7c",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.formats:repository-evidence",
+                "fact_value_sha256": "f1fc606b5a0812c394bf498df9862bbcac48608eaa8db3a05efe0aee9fc110c8",
+                "field": "product.formats",
+                "introduced_text_sha256": "088936f7fad3d82f4a59d8f250d971a43c52eb1bbb83243cf8c12d2808af0250",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 1074,
+                "byte_start": 1041,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.identity",
+                "claim_text_sha256": "bb6225e1075268e3464ae210527e7e0fe625e50fb4561c73c39c9dc2fd2983a9",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.identity:manifest-and-registry",
+                "fact_value_sha256": "9802da697e6785f9e5cc68be6677061fc5a1260cc2654428ec3459773c46f12e",
+                "field": "product.identity",
+                "introduced_text_sha256": "088936f7fad3d82f4a59d8f250d971a43c52eb1bbb83243cf8c12d2808af0250",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 1074,
+                "byte_start": 1041,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.platforms",
+                "claim_text_sha256": "bb6225e1075268e3464ae210527e7e0fe625e50fb4561c73c39c9dc2fd2983a9",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.platforms:manifest",
+                "fact_value_sha256": "e0f67a4e4245b067c77cf01fcd575e1ea26901160812af0c3eab6f7efa9cfe22",
+                "field": "product.platforms",
+                "introduced_text_sha256": "088936f7fad3d82f4a59d8f250d971a43c52eb1bbb83243cf8c12d2808af0250",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 6823,
+                "byte_start": 6644,
+                "claim_id": "readme.limitations.add-verified:product.limitations",
+                "claim_text_sha256": "866eff6005780d34b6bbecaa17e435c8f23a38c558625fcec23ec9d91a47aef6",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.limitations:repository-evidence",
+                "fact_value_sha256": "ab2b938743628a1a303a6dd4313ec940fd2d0c9b110798d04924c0124e7d8a51",
+                "field": "product.limitations",
+                "introduced_text_sha256": "f0168a935434b5c3a1951bbd777ec588f18fca5a048cb78df210c79720a89d73",
+                "operation_id": "readme.limitations.add-verified",
+                "rationale": "Expose repository-verified limitations instead of silently presenting incomplete capability coverage.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 3941,
+                "byte_start": 3934,
+                "claim_id": "readme.example.replace-unverified-minimal:example.minimal",
+                "claim_text_sha256": "704a963b30cbc716405e7b16f5814284acc07ca8ba697d22c2d8da5d5b712369",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "example.minimal:agent-drafted-example",
+                "fact_value_sha256": "1e3ff308c8f40f98dea6b15b6634efd01765e685e1ecf54faaee06d5d6f6b992",
+                "field": "example.minimal",
+                "introduced_text_sha256": "005f35b44c82fc0480db7c7c8a6641d6c6944e16e5f58f273e592f2238a13b8e",
+                "operation_id": "readme.example.replace-unverified-minimal",
+                "rationale": "Replace the one existing usage example with the exact minimal example compiled against the verified source build. Add its verified contextual article.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 3941,
+                "byte_start": 3934,
+                "claim_id": "readme.example.replace-unverified-minimal:product.identity",
+                "claim_text_sha256": "704a963b30cbc716405e7b16f5814284acc07ca8ba697d22c2d8da5d5b712369",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.identity:manifest-and-registry",
+                "fact_value_sha256": "9802da697e6785f9e5cc68be6677061fc5a1260cc2654428ec3459773c46f12e",
+                "field": "product.identity",
+                "introduced_text_sha256": "005f35b44c82fc0480db7c7c8a6641d6c6944e16e5f58f273e592f2238a13b8e",
+                "operation_id": "readme.example.replace-unverified-minimal",
+                "rationale": "Replace the one existing usage example with the exact minimal example compiled against the verified source build. Add its verified contextual article.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 103,
+                "byte_start": 30,
+                "claim_id": "readme.header.badges:product.license",
+                "claim_text_sha256": "a51234ea0d41bfc980aa342e2498767a1ee24fab73b24f414f3e0225a002fd45",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.license:license-file",
+                "fact_value_sha256": "529fc91e3f97d3b2c3fe5102bea89059d6aa65c9e44d6bbb86591bb31aa783e1",
+                "field": "product.license",
+                "introduced_text_sha256": "1c6695b4496b1508d5f11e2e91d78c7143f40313f6f4943e6e32915a1080b0a0",
+                "operation_id": "readme.header.badges",
+                "rationale": "Add only applicable package, version, download, and license badges.",
+                "verification_state": "verified"
+              }
+            ],
+            "facts_hash": "95e85575c44f857eb57b4c772d1fd6dd296391241881eddf40542540a46c94ce",
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+            "schema_version": 1
+          },
+          "document_validation": {
+            "authorized_protected_corrections": [
+              "example:8d8e810607249bce",
+              "technical_terminology:26b91175df9d2ec0",
+              "technical_terminology:5f33b0ac178573bb",
+              "technical_terminology:6e0aea0573b97d40",
+              "technical_terminology:7c7a56025933ac99"
+            ],
+            "checks": {
+              "adoption_preserved_source": true,
+              "candidate_has_no_comments": true,
+              "candidate_hash_matches": true,
+              "candidate_is_marker_free": true,
+              "claim_accountability_complete": true,
+              "claim_accountability_gaps_visible": true,
+              "contextual_links": true,
+              "document_reconstruction": true,
+              "enterprise_edition_terminology": true,
+              "fact_citations": true,
+              "facts_hash_matches": true,
+              "header_visuals": true,
+              "presentation_lint": true,
+              "protected_content": true,
+              "source_document_hash": true,
+              "source_span_hashes": true,
+              "template_hash_matches": true,
+              "verified_example_present": true,
+              "verified_limitations_present": true,
+              "verified_overview_present": true
+            },
+            "citation_errors": [],
+            "errors": [],
+            "presentation_findings": [],
+            "valid": true
+          },
+          "executable": true,
+          "git_patch_proof": {
+            "candidate_sha256": "f91a30f8a0dc604a2b386809ba6f66548877c90082880ea7d4f80e75043af5f9",
+            "git_apply_check_passed": true,
+            "outside_spans_preserved": true,
+            "patch_sha256": "4795e2288cf3baf82017dd6469006418868935b7a21722288018ae5c929f94bf",
+            "path": "README.md",
+            "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f"
+          },
+          "presentation_plan": {
+            "actions": [
+              {
+                "action_id": "readme.presentation.document-plan",
+                "claims": [
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.audience",
+                    "fact_ids": [
+                      "product.audience:agent-drafted-grounded"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.audience]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.capabilities",
+                    "fact_ids": [
+                      "product.capabilities:repository-evidence"
+                    ],
+                    "surface_id": "readme.capabilities",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.capabilities]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.formats",
+                    "fact_ids": [
+                      "product.formats:repository-evidence"
+                    ],
+                    "surface_id": "readme.capabilities",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.formats]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.identity",
+                    "fact_ids": [
+                      "product.identity:manifest-and-registry"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.identity]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.platforms",
+                    "fact_ids": [
+                      "product.platforms:manifest"
+                    ],
+                    "surface_id": "readme.capabilities",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.platforms]"
+                  },
+                  {
+                    "claim_id": "readme.limitations.add-verified.product.limitations",
+                    "fact_ids": [
+                      "product.limitations:repository-evidence"
+                    ],
+                    "surface_id": "readme.limitations",
+                    "text": "Expose repository-verified limitations instead of silently presenting incomplete capability coverage. [product.limitations]"
+                  },
+                  {
+                    "claim_id": "readme.example.replace-unverified-minimal.example.minimal",
+                    "fact_ids": [
+                      "example.minimal:agent-drafted-example"
+                    ],
+                    "surface_id": "readme.example",
+                    "text": "Replace the one existing usage example with the exact minimal example compiled against the verified source build. Add its verified contextual article. [example.minimal]"
+                  },
+                  {
+                    "claim_id": "readme.example.replace-unverified-minimal.product.identity",
+                    "fact_ids": [
+                      "product.identity:manifest-and-registry"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Replace the one existing usage example with the exact minimal example compiled against the verified source build. Add its verified contextual article. [product.identity]"
+                  },
+                  {
+                    "claim_id": "readme.header.badges.product.license",
+                    "fact_ids": [
+                      "product.license:license-file"
+                    ],
+                    "surface_id": "readme.license",
+                    "text": "Add only applicable package, version, download, and license badges. [product.license]"
+                  }
+                ],
+                "depends_on": [],
+                "disposition": "eligible",
+                "fact_ids": [
+                  "example.minimal:agent-drafted-example",
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence",
+                  "product.formats:repository-evidence",
+                  "product.identity:manifest-and-registry",
+                  "product.license:license-file",
+                  "product.limitations:repository-evidence",
+                  "product.platforms:manifest"
+                ],
+                "ownership_class": "repository_file",
+                "patch_sha256": "4795e2288cf3baf82017dd6469006418868935b7a21722288018ae5c929f94bf",
+                "proposed_operation": "local_patch",
+                "region_id": "readme.presentation",
+                "rollback": "revert the bounded file patch",
+                "source_spans": [
+                  {
+                    "byte_end": 6359,
+                    "byte_start": 0,
+                    "expected_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+                    "path": "README.md",
+                    "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations",
+                    "replacement_sha256": "f91a30f8a0dc604a2b386809ba6f66548877c90082880ea7d4f80e75043af5f9"
+                  }
+                ],
+                "stop_conditions": [
+                  "immutable base revision changed",
+                  "source or work-tree README hash changed",
+                  "document reconstruction differs",
+                  "a fact citation becomes unselected, unresolved, or unverified",
+                  "protected content outside a cited authoritative correction is lost",
+                  "Git apply or independent verification fails"
+                ],
+                "surface_id": "readme",
+                "validators": [
+                  "claim_citations",
+                  "surface_ownership",
+                  "source_span_hash",
+                  "git_apply_check",
+                  "protected_content",
+                  "independent_verifier"
+                ]
+              }
+            ],
+            "archetype": "rust-library",
+            "candidate_sha256": "f91a30f8a0dc604a2b386809ba6f66548877c90082880ea7d4f80e75043af5f9",
+            "facts_hash": "95e85575c44f857eb57b4c772d1fd6dd296391241881eddf40542540a46c94ce",
+            "findings": [
+              {
+                "dimension": "product_clarity",
+                "disposition": "satisfied",
+                "evidence": [
+                  "A free, open-source, **pure-Rust** spreadsheet library that reads and writes Excel `.xlsx` (Office Open XML / SpreadsheetML) workbooks. It exposes an API modeled after Aspose.Cells, so the familiar"
+                ],
+                "finding_id": "readme.product_clarity",
+                "summary": "product clarity is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "audience_fit",
+                "disposition": "gap",
+                "evidence": [
+                  "None"
+                ],
+                "finding_id": "readme.audience_fit",
+                "summary": "audience fit needs review",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "trust_signals",
+                "disposition": "satisfied",
+                "evidence": [
+                  "product.license:license-file:verified"
+                ],
+                "finding_id": "readme.trust_signals",
+                "summary": "trust signals is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "installation_path",
+                "disposition": "satisfied",
+                "evidence": [
+                  "installation.verified_acquisition:blocked-source-build:outcomes=['accepted']"
+                ],
+                "finding_id": "readme.installation_path",
+                "summary": "installation path is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "verified_examples",
+                "disposition": "satisfied",
+                "evidence": [
+                  "7 fenced code blocks found"
+                ],
+                "finding_id": "readme.verified_examples",
+                "summary": "verified examples is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "navigation",
+                "disposition": "satisfied",
+                "evidence": [
+                  "None"
+                ],
+                "finding_id": "readme.navigation",
+                "summary": "navigation is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "visual_usefulness",
+                "disposition": "observation",
+                "evidence": [
+                  "markdown images=1; factual review is separate"
+                ],
+                "finding_id": "readme.visual_usefulness",
+                "summary": "visual usefulness is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "contribution_readiness",
+                "disposition": "observation",
+                "evidence": [
+                  "repository-file recognition belongs to the community-files specialist"
+                ],
+                "finding_id": "readme.contribution_readiness",
+                "summary": "contribution readiness is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "maintenance_signals",
+                "disposition": "observation",
+                "evidence": [
+                  "GitHub-generated activity remains audit-only"
+                ],
+                "finding_id": "readme.maintenance_signals",
+                "summary": "maintenance signals is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "commercial_context",
+                "disposition": "satisfied",
+                "evidence": [
+                  "commercial_links=0; explanation_offset=105"
+                ],
+                "finding_id": "readme.commercial_context",
+                "summary": "commercial context is satisfied",
+                "surface_id": "readme"
+              }
+            ],
+            "immutable_base_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+            "schema_version": 1,
+            "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f"
+          },
+          "readme_assessment": {
+            "facts_hash": "95e85575c44f857eb57b4c772d1fd6dd296391241881eddf40542540a46c94ce",
+            "immutable_base_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+            "material_claims": [
+              {
+                "claim_id": "claim:30:8760f361379e1693",
+                "content_sha256": "8760f361379e16935883bba37bb81608f5348453506ab482480b83791467b4d1",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:30:407"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 407,
+                "source_byte_start": 30
+              },
+              {
+                "claim_id": "claim:408:ec168d341f47a143",
+                "content_sha256": "ec168d341f47a143de92366a1548c9f6cde168ced676d981d0cd8a2df946ba3c",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:408:987"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 987,
+                "source_byte_start": 408
+              },
+              {
+                "claim_id": "claim:999:9f4ecda7cabf0904",
+                "content_sha256": "9f4ecda7cabf09045fc77239440af217b83ac5949d9d4e84837c31ae8ccd2374",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:999:1177"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1177,
+                "source_byte_start": 999
+              },
+              {
+                "claim_id": "claim:1191:bc0746dacbdd5c5a",
+                "content_sha256": "bc0746dacbdd5c5a846575bfd6dd0c511c537566d7e6b47a49558735f2908f48",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1191:1355"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1355,
+                "source_byte_start": 1191
+              },
+              {
+                "claim_id": "claim:1355:934b2a6b95851a88",
+                "content_sha256": "934b2a6b95851a8812b765a3acb2b724407cea0cd4e97a98c9ec7e029eb1082e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1355:1498"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1498,
+                "source_byte_start": 1355
+              },
+              {
+                "claim_id": "claim:1498:2ae6457be2dd3bb6",
+                "content_sha256": "2ae6457be2dd3bb656e21fb542026b417cc0f741d5b4eb7ed8acbefb15ef39a4",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1498:1587"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1587,
+                "source_byte_start": 1498
+              },
+              {
+                "claim_id": "claim:1587:163d20b3694feb84",
+                "content_sha256": "163d20b3694feb842741b527a625346b6fa149acd78ab86d760ee6aa8de590b8",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1587:1652"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1652,
+                "source_byte_start": 1587
+              },
+              {
+                "claim_id": "claim:1652:8d037d640d984afd",
+                "content_sha256": "8d037d640d984afd12b471eaf211e6afd44c5f93aeb35ac09be48b4a0c942d95",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1652:1708"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1708,
+                "source_byte_start": 1652
+              },
+              {
+                "claim_id": "claim:1708:0447cca00a412a25",
+                "content_sha256": "0447cca00a412a25f03e34c13e48ef8cb7a602c19d0c4775efc6b751f222f3f4",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1708:1776"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1776,
+                "source_byte_start": 1708
+              },
+              {
+                "claim_id": "claim:1776:2528beeaf9ac6cd0",
+                "content_sha256": "2528beeaf9ac6cd0a95d7a117db131f238f85ffad53c1a11972f1b976faf592a",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1776:1809"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1809,
+                "source_byte_start": 1776
+              },
+              {
+                "claim_id": "claim:1809:f163362a5933b9be",
+                "content_sha256": "f163362a5933b9be550c4e3ea48fc915b041d5ded46df5faff4644816c96422f",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1809:1865"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1865,
+                "source_byte_start": 1809
+              },
+              {
+                "claim_id": "claim:1865:38cc80f4ef38cfc7",
+                "content_sha256": "38cc80f4ef38cfc7ba312e6800687cd2929fd24b7a1d629e3323f7a9a381886c",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1865:1903"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1903,
+                "source_byte_start": 1865
+              },
+              {
+                "claim_id": "claim:1903:6e455738500099ef",
+                "content_sha256": "6e455738500099ef976a9a8251719764eeb7d47f8d88cfad9fdce2243f1d34a3",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1903:1963"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1963,
+                "source_byte_start": 1903
+              },
+              {
+                "claim_id": "claim:1963:0989b3e9c4937386",
+                "content_sha256": "0989b3e9c493738614ea725c159314d95030cfcd8d5bed59523491e8e6dc3595",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1963:2055"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2055,
+                "source_byte_start": 1963
+              },
+              {
+                "claim_id": "claim:2055:65966e99b4127c54",
+                "content_sha256": "65966e99b4127c54ce5fd06310a7d92fac8b7027d32ab857772fb2664fbec401",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2055:2087"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2087,
+                "source_byte_start": 2055
+              },
+              {
+                "claim_id": "claim:2087:2c931c958409f22e",
+                "content_sha256": "2c931c958409f22e0eff454108f91edeaeba92f492bd83b0dee07a568f5b48de",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2087:2151"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2151,
+                "source_byte_start": 2087
+              },
+              {
+                "claim_id": "claim:2151:d11446b900aef3df",
+                "content_sha256": "d11446b900aef3dfd8d9cfd1ee3f6a41e7fab81fa1e44f069ff4a76436a9c454",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2151:2228"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2228,
+                "source_byte_start": 2151
+              },
+              {
+                "claim_id": "claim:2246:d05d47632944406f",
+                "content_sha256": "d05d47632944406f3aca70de5ad20f61cb512c29962b20fe744e136a8828966a",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2246:2289"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2289,
+                "source_byte_start": 2246
+              },
+              {
+                "claim_id": "claim:2290:bf8347222bf29482",
+                "content_sha256": "bf8347222bf29482d1c4484a50759f65f7051d24fcc50c53a9bd78250b427def",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2290:2433"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2433,
+                "source_byte_start": 2290
+              },
+              {
+                "claim_id": "claim:2434:db9d0a2ce45d86bc",
+                "content_sha256": "db9d0a2ce45d86bcabb53b5f64ebebd0ddefc5b83cc8f57e2e7724e148a17819",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2434:2506"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2506,
+                "source_byte_start": 2434
+              },
+              {
+                "claim_id": "claim:2507:4fcb10116291f24b",
+                "content_sha256": "4fcb10116291f24b190102e0b7563124491142a4a8c57d09aeb61a294dd11cd9",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2507:2611"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2611,
+                "source_byte_start": 2507
+              },
+              {
+                "claim_id": "claim:2612:2d61c53e385347fd",
+                "content_sha256": "2d61c53e385347fd986a7e4f2e454110aa2994121dd0f241ff4d1a5f9fa14562",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2612:2662"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2662,
+                "source_byte_start": 2612
+              },
+              {
+                "claim_id": "claim:2663:3df423842a6a32df",
+                "content_sha256": "3df423842a6a32dfea814ceab521401aa48a3276859767931015258324e4e25c",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2663:2795"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2795,
+                "source_byte_start": 2663
+              },
+              {
+                "claim_id": "claim:2796:9f3c9a76c002ea72",
+                "content_sha256": "9f3c9a76c002ea7238487ba824d752d6bf25e5672625c7be96a42a1d289f22aa",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2796:2898"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2898,
+                "source_byte_start": 2796
+              },
+              {
+                "claim_id": "claim:2899:d3375f9fd329869e",
+                "content_sha256": "d3375f9fd329869ed55feeb62cda6e7e3fa451b5d015b23b2cffc224413ea32b",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2899:2955"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2955,
+                "source_byte_start": 2899
+              },
+              {
+                "claim_id": "claim:2972:226225bf133dab43",
+                "content_sha256": "226225bf133dab43da7540f0368f9a58ae50da2decb3706ba62d150646c7ed71",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2972:3025"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 3025,
+                "source_byte_start": 2972
+              },
+              {
+                "claim_id": "claim:3026:86474bd5f507af91",
+                "content_sha256": "86474bd5f507af915126ce6a770cc9b86b70abcbef40dd6ccddffa328ae4feef",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:3026:4035"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4035,
+                "source_byte_start": 3026
+              },
+              {
+                "claim_id": "claim:4054:2d360e57a304ca56",
+                "content_sha256": "2d360e57a304ca565a0b65fd6c7f2fb3e5641d056b360aef3c2d1cdffe344ecb",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4054:4135"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4135,
+                "source_byte_start": 4054
+              },
+              {
+                "claim_id": "claim:4135:6ac40c10d359fcd2",
+                "content_sha256": "6ac40c10d359fcd280251e9670106107a76a6ea96e104da54768a62abbdbb3ee",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4135:4221"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4221,
+                "source_byte_start": 4135
+              },
+              {
+                "claim_id": "claim:4222:409644a9ff472b20",
+                "content_sha256": "409644a9ff472b20c77aa6ded54f061b60df36e9bb36b4973f30a357b2dbd7f6",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4222:4281"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4281,
+                "source_byte_start": 4222
+              },
+              {
+                "claim_id": "claim:4282:757276fd330f105c",
+                "content_sha256": "757276fd330f105c80e306c7ed5414100a2213a4edac8cc171553db12c243ab8",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4282:4535"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4535,
+                "source_byte_start": 4282
+              },
+              {
+                "claim_id": "claim:4548:8f79401839234b8b",
+                "content_sha256": "8f79401839234b8b1ec1a0f28a3851678e51a85b56ad35921f0f4069e9dcb76f",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4548:4762"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4762,
+                "source_byte_start": 4548
+              },
+              {
+                "claim_id": "claim:4763:5a15df19746cd6cc",
+                "content_sha256": "5a15df19746cd6cc6957a42845eafb0d68674196c1761a44e264754fec969d83",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4763:4804"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4804,
+                "source_byte_start": 4763
+              },
+              {
+                "claim_id": "claim:4805:b7696da4a3fc31dd",
+                "content_sha256": "b7696da4a3fc31dd267eaf1b9ada594dda3f6d247de372649eddbe36faf731f4",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4805:4880"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 4880,
+                "source_byte_start": 4805
+              },
+              {
+                "claim_id": "claim:4881:4ca0bfef063e0b4b",
+                "content_sha256": "4ca0bfef063e0b4ba143252a97aa858ab666187d4d9ec7077369c4294f5e9e1a",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4881:5743"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 5743,
+                "source_byte_start": 4881
+              },
+              {
+                "claim_id": "claim:5763:2fa70c243f16207f",
+                "content_sha256": "2fa70c243f16207fe0eea65959e23908d4e152073690ab1ef501a86110831117",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5763:6299"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6299,
+                "source_byte_start": 5763
+              },
+              {
+                "claim_id": "claim:6312:61d63a9b77d0dd9f",
+                "content_sha256": "61d63a9b77d0dd9f3a361d3f77a275039ea1418dce4231d2762f6da7f0795f53",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6312:6359"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 6359,
+                "source_byte_start": 6312
+              }
+            ],
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+            "schema_version": 1,
+            "sections": [
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:0:988"
+                ],
+                "fact_ids": [
+                  "product.identity:manifest-and-registry",
+                  "relationship.commercial_foss:primary"
+                ],
+                "heading": "Opening",
+                "level": 0,
+                "protected_fragment_ids": [
+                  "technical_terminology:26b91175df9d2ec0",
+                  "technical_terminology:371a286d5872a373",
+                  "technical_terminology:4a70fe9aa6436e02",
+                  "technical_terminology:54445c661ba1c59f",
+                  "technical_terminology:587a4f56e495ff85",
+                  "technical_terminology:5f33b0ac178573bb",
+                  "technical_terminology:6e0aea0573b97d40",
+                  "technical_terminology:7c7a56025933ac99",
+                  "technical_terminology:968d067df7b11249",
+                  "technical_terminology:be3b6f4cbef174ae",
+                  "technical_terminology:d007f64ef0dfe34b"
+                ],
+                "rationale": "Remove only a detected promotional callout; otherwise preserve the opening.",
+                "section_id": "opening",
+                "source_byte_end": 988,
+                "source_byte_start": 0
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:0:6359"
+                ],
+                "fact_ids": [],
+                "heading": "Aspose.Cells FOSS for Rust",
+                "level": 1,
+                "protected_fragment_ids": [
+                  "command:63ebb6266662bc0c",
+                  "command:af2da4a846babcdf",
+                  "command:f4c8ed8c7b7ebe36",
+                  "command:fa33a0b7558e6ee3",
+                  "example:101ce73a59cbed4d",
+                  "example:16ced05fb9d4306b",
+                  "example:54d9e0628d4e21c8",
+                  "example:8d8e810607249bce",
+                  "example:96d78fecb48b96f0",
+                  "example:af2da4a846babcdf",
+                  "technical_terminology:0d6e4079e36703eb",
+                  "technical_terminology:26b91175df9d2ec0",
+                  "technical_terminology:286efcb9d863e5ed",
+                  "technical_terminology:369c6819ec441a0e",
+                  "technical_terminology:371a286d5872a373",
+                  "technical_terminology:3c90ff445ef9a476",
+                  "technical_terminology:491ab7f48c788177",
+                  "technical_terminology:4a70fe9aa6436e02",
+                  "technical_terminology:4a7c0ff555042060",
+                  "technical_terminology:4acfd7dd7c5396fe",
+                  "technical_terminology:54445c661ba1c59f",
+                  "technical_terminology:587a4f56e495ff85",
+                  "technical_terminology:5f33b0ac178573bb",
+                  "technical_terminology:6c601682b4f3e6c5",
+                  "technical_terminology:6e0aea0573b97d40",
+                  "technical_terminology:730c6841e8c14a3e",
+                  "technical_terminology:7c7a56025933ac99",
+                  "technical_terminology:8c12763b1fff17d6",
+                  "technical_terminology:92ec479f1e7e827d",
+                  "technical_terminology:968d067df7b11249",
+                  "technical_terminology:9910d659dd1ecffb",
+                  "technical_terminology:99163a2d75c497d6",
+                  "technical_terminology:a0ad2f66ae94aead",
+                  "technical_terminology:abfd33950080065a",
+                  "technical_terminology:be3b6f4cbef174ae",
+                  "technical_terminology:d007f64ef0dfe34b",
+                  "technical_terminology:d05c6dcc0265072e",
+                  "technical_terminology:d36716b2aae0bd12",
+                  "technical_terminology:d554ff22b2f91652",
+                  "technical_terminology:d678e7d513c3c2ea",
+                  "technical_terminology:e00fd37767296b83",
+                  "technical_terminology:fa33a0b7558e6ee3",
+                  "technical_terminology:fc613b4dfd6736a7"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:0",
+                "source_byte_end": 6359,
+                "source_byte_start": 0
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:988:1178"
+                ],
+                "fact_ids": [],
+                "heading": "Status",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:988",
+                "source_byte_end": 1178,
+                "source_byte_start": 988
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1178:2229"
+                ],
+                "fact_ids": [],
+                "heading": "Features",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "technical_terminology:7c7a56025933ac99"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:1178",
+                "source_byte_end": 2229,
+                "source_byte_start": 1178
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2229:2956"
+                ],
+                "fact_ids": [
+                  "installation.coordinates:manifest",
+                  "installation.verified_acquisition:blocked-source-build"
+                ],
+                "heading": "Installation",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "command:63ebb6266662bc0c",
+                  "command:f4c8ed8c7b7ebe36",
+                  "example:16ced05fb9d4306b",
+                  "example:54d9e0628d4e21c8",
+                  "example:96d78fecb48b96f0",
+                  "technical_terminology:4acfd7dd7c5396fe",
+                  "technical_terminology:d05c6dcc0265072e"
+                ],
+                "rationale": "The existing section is retained unless a verified gap exists.",
+                "section_id": "heading:2229",
+                "source_byte_end": 2956,
+                "source_byte_start": 2229
+              },
+              {
+                "disposition": "repair",
+                "evidence": [
+                  "README.md:2956:4036"
+                ],
+                "fact_ids": [
+                  "example.minimal:agent-drafted-example"
+                ],
+                "heading": "Quick start",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "example:8d8e810607249bce",
+                  "technical_terminology:4acfd7dd7c5396fe"
+                ],
+                "rationale": "The section is assessed against the exact locally verified minimal example.",
+                "section_id": "heading:2956",
+                "source_byte_end": 4036,
+                "source_byte_start": 2956
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4036:4536"
+                ],
+                "fact_ids": [],
+                "heading": "Documentation",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "command:fa33a0b7558e6ee3",
+                  "technical_terminology:0d6e4079e36703eb",
+                  "technical_terminology:92ec479f1e7e827d",
+                  "technical_terminology:d678e7d513c3c2ea",
+                  "technical_terminology:fa33a0b7558e6ee3",
+                  "technical_terminology:fc613b4dfd6736a7"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:4036",
+                "source_byte_end": 4536,
+                "source_byte_start": 4036
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:4536:5744"
+                ],
+                "fact_ids": [],
+                "heading": "Samples",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "command:af2da4a846babcdf",
+                  "example:af2da4a846babcdf",
+                  "technical_terminology:286efcb9d863e5ed",
+                  "technical_terminology:369c6819ec441a0e",
+                  "technical_terminology:3c90ff445ef9a476",
+                  "technical_terminology:491ab7f48c788177",
+                  "technical_terminology:4a7c0ff555042060",
+                  "technical_terminology:6c601682b4f3e6c5",
+                  "technical_terminology:730c6841e8c14a3e",
+                  "technical_terminology:8c12763b1fff17d6",
+                  "technical_terminology:9910d659dd1ecffb",
+                  "technical_terminology:99163a2d75c497d6",
+                  "technical_terminology:a0ad2f66ae94aead",
+                  "technical_terminology:abfd33950080065a",
+                  "technical_terminology:d36716b2aae0bd12",
+                  "technical_terminology:d554ff22b2f91652",
+                  "technical_terminology:e00fd37767296b83"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:4536",
+                "source_byte_end": 5744,
+                "source_byte_start": 4536
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:5744:6300"
+                ],
+                "fact_ids": [],
+                "heading": "Project layout",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "example:101ce73a59cbed4d"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:5744",
+                "source_byte_end": 6300,
+                "source_byte_start": 5744
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:6300:6359"
+                ],
+                "fact_ids": [],
+                "heading": "License",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:6300",
+                "source_byte_end": 6359,
+                "source_byte_start": 6300
+              },
+              {
+                "disposition": "add",
+                "evidence": [
+                  "verified ProductFactsV2 and Markdown section inventory"
+                ],
+                "fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence"
+                ],
+                "heading": "At a glance",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Add a fact-backed overview when verified descriptive facts are available.",
+                "section_id": "missing:at-a-glance",
+                "source_byte_end": 988,
+                "source_byte_start": 988
+              },
+              {
+                "disposition": "add",
+                "evidence": [
+                  "verified ProductFactsV2 and Markdown section inventory"
+                ],
+                "fact_ids": [
+                  "product.limitations:repository-evidence"
+                ],
+                "heading": "Known limitations",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Add limitations that are explicitly supported by verified repository evidence.",
+                "section_id": "missing:limitations",
+                "source_byte_end": 6359,
+                "source_byte_start": 6359
+              }
+            ],
+            "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+            "untrusted_repository_instructions": []
+          },
+          "readme_document_plan": {
+            "adoption": {
+              "already_adopted": false,
+              "marker_schema_version": null,
+              "metadata_location": "durable_evidence",
+              "preservation_check": "byte_identical",
+              "source_document_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+              "source_inner_bytes": 6359,
+              "source_inner_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f"
+            },
+            "candidate_sha256": "f91a30f8a0dc604a2b386809ba6f66548877c90082880ea7d4f80e75043af5f9",
+            "claim_accountability": {
+              "candidate_sha256": "f91a30f8a0dc604a2b386809ba6f66548877c90082880ea7d4f80e75043af5f9",
+              "claims": [
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:30:8760f361379e1693",
+                  "content_sha256": "8760f361379e16935883bba37bb81608f5348453506ab482480b83791467b4d1",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unjustified_loss",
+                  "origin": "inherited",
+                  "rationale": "Preserved source knowledge disappeared without a correction or omission authority.",
+                  "source_byte_end": 407,
+                  "source_byte_start": 30,
+                  "stage": "source",
+                  "survives_in_candidate": false
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:408:ec168d341f47a143",
+                  "content_sha256": "ec168d341f47a143de92366a1548c9f6cde168ced676d981d0cd8a2df946ba3c",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 987,
+                  "source_byte_start": 408,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.limitations:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "source:claim:999:9f4ecda7cabf0904",
+                  "content_sha256": "9f4ecda7cabf09045fc77239440af217b83ac5949d9d4e84837c31ae8ccd2374",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 1177,
+                  "source_byte_start": 999,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1191:bc0746dacbdd5c5a",
+                  "content_sha256": "bc0746dacbdd5c5a846575bfd6dd0c511c537566d7e6b47a49558735f2908f48",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1355,
+                  "source_byte_start": 1191,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1355:934b2a6b95851a88",
+                  "content_sha256": "934b2a6b95851a8812b765a3acb2b724407cea0cd4e97a98c9ec7e029eb1082e",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1498,
+                  "source_byte_start": 1355,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1498:2ae6457be2dd3bb6",
+                  "content_sha256": "2ae6457be2dd3bb656e21fb542026b417cc0f741d5b4eb7ed8acbefb15ef39a4",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1587,
+                  "source_byte_start": 1498,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1587:163d20b3694feb84",
+                  "content_sha256": "163d20b3694feb842741b527a625346b6fa149acd78ab86d760ee6aa8de590b8",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1652,
+                  "source_byte_start": 1587,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1652:8d037d640d984afd",
+                  "content_sha256": "8d037d640d984afd12b471eaf211e6afd44c5f93aeb35ac09be48b4a0c942d95",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1708,
+                  "source_byte_start": 1652,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1708:0447cca00a412a25",
+                  "content_sha256": "0447cca00a412a25f03e34c13e48ef8cb7a602c19d0c4775efc6b751f222f3f4",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1776,
+                  "source_byte_start": 1708,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1776:2528beeaf9ac6cd0",
+                  "content_sha256": "2528beeaf9ac6cd0a95d7a117db131f238f85ffad53c1a11972f1b976faf592a",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1809,
+                  "source_byte_start": 1776,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1809:f163362a5933b9be",
+                  "content_sha256": "f163362a5933b9be550c4e3ea48fc915b041d5ded46df5faff4644816c96422f",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1865,
+                  "source_byte_start": 1809,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1865:38cc80f4ef38cfc7",
+                  "content_sha256": "38cc80f4ef38cfc7ba312e6800687cd2929fd24b7a1d629e3323f7a9a381886c",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1903,
+                  "source_byte_start": 1865,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1903:6e455738500099ef",
+                  "content_sha256": "6e455738500099ef976a9a8251719764eeb7d47f8d88cfad9fdce2243f1d34a3",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1963,
+                  "source_byte_start": 1903,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1963:0989b3e9c4937386",
+                  "content_sha256": "0989b3e9c493738614ea725c159314d95030cfcd8d5bed59523491e8e6dc3595",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2055,
+                  "source_byte_start": 1963,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2055:65966e99b4127c54",
+                  "content_sha256": "65966e99b4127c54ce5fd06310a7d92fac8b7027d32ab857772fb2664fbec401",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2087,
+                  "source_byte_start": 2055,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2087:2c931c958409f22e",
+                  "content_sha256": "2c931c958409f22e0eff454108f91edeaeba92f492bd83b0dee07a568f5b48de",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2151,
+                  "source_byte_start": 2087,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2151:d11446b900aef3df",
+                  "content_sha256": "d11446b900aef3dfd8d9cfd1ee3f6a41e7fab81fa1e44f069ff4a76436a9c454",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2228,
+                  "source_byte_start": 2151,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2246:d05d47632944406f",
+                  "content_sha256": "d05d47632944406f3aca70de5ad20f61cb512c29962b20fe744e136a8828966a",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2289,
+                  "source_byte_start": 2246,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2290:bf8347222bf29482",
+                  "content_sha256": "bf8347222bf29482d1c4484a50759f65f7051d24fcc50c53a9bd78250b427def",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2433,
+                  "source_byte_start": 2290,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2434:db9d0a2ce45d86bc",
+                  "content_sha256": "db9d0a2ce45d86bcabb53b5f64ebebd0ddefc5b83cc8f57e2e7724e148a17819",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2506,
+                  "source_byte_start": 2434,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2507:4fcb10116291f24b",
+                  "content_sha256": "4fcb10116291f24b190102e0b7563124491142a4a8c57d09aeb61a294dd11cd9",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2611,
+                  "source_byte_start": 2507,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2612:2d61c53e385347fd",
+                  "content_sha256": "2d61c53e385347fd986a7e4f2e454110aa2994121dd0f241ff4d1a5f9fa14562",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2662,
+                  "source_byte_start": 2612,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2663:3df423842a6a32df",
+                  "content_sha256": "3df423842a6a32dfea814ceab521401aa48a3276859767931015258324e4e25c",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2795,
+                  "source_byte_start": 2663,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2796:9f3c9a76c002ea72",
+                  "content_sha256": "9f3c9a76c002ea7238487ba824d752d6bf25e5672625c7be96a42a1d289f22aa",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2898,
+                  "source_byte_start": 2796,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2899:d3375f9fd329869e",
+                  "content_sha256": "d3375f9fd329869ed55feeb62cda6e7e3fa451b5d015b23b2cffc224413ea32b",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2955,
+                  "source_byte_start": 2899,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2972:226225bf133dab43",
+                  "content_sha256": "226225bf133dab43da7540f0368f9a58ae50da2decb3706ba62d150646c7ed71",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3025,
+                  "source_byte_start": 2972,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:3026:86474bd5f507af91",
+                  "content_sha256": "86474bd5f507af915126ce6a770cc9b86b70abcbef40dd6ccddffa328ae4feef",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unjustified_loss",
+                  "origin": "inherited",
+                  "rationale": "Preserved source knowledge disappeared without a correction or omission authority.",
+                  "source_byte_end": 4035,
+                  "source_byte_start": 3026,
+                  "stage": "source",
+                  "survives_in_candidate": false
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:4054:2d360e57a304ca56",
+                  "content_sha256": "2d360e57a304ca565a0b65fd6c7f2fb3e5641d056b360aef3c2d1cdffe344ecb",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4135,
+                  "source_byte_start": 4054,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:4135:6ac40c10d359fcd2",
+                  "content_sha256": "6ac40c10d359fcd280251e9670106107a76a6ea96e104da54768a62abbdbb3ee",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4221,
+                  "source_byte_start": 4135,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:4222:409644a9ff472b20",
+                  "content_sha256": "409644a9ff472b20c77aa6ded54f061b60df36e9bb36b4973f30a357b2dbd7f6",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4281,
+                  "source_byte_start": 4222,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:4282:757276fd330f105c",
+                  "content_sha256": "757276fd330f105c80e306c7ed5414100a2213a4edac8cc171553db12c243ab8",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4535,
+                  "source_byte_start": 4282,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:4548:8f79401839234b8b",
+                  "content_sha256": "8f79401839234b8b1ec1a0f28a3851678e51a85b56ad35921f0f4069e9dcb76f",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4762,
+                  "source_byte_start": 4548,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:4763:5a15df19746cd6cc",
+                  "content_sha256": "5a15df19746cd6cc6957a42845eafb0d68674196c1761a44e264754fec969d83",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4804,
+                  "source_byte_start": 4763,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:4805:b7696da4a3fc31dd",
+                  "content_sha256": "b7696da4a3fc31dd267eaf1b9ada594dda3f6d247de372649eddbe36faf731f4",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4880,
+                  "source_byte_start": 4805,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:4881:4ca0bfef063e0b4b",
+                  "content_sha256": "4ca0bfef063e0b4ba143252a97aa858ab666187d4d9ec7077369c4294f5e9e1a",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 5743,
+                  "source_byte_start": 4881,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:5763:2fa70c243f16207f",
+                  "content_sha256": "2fa70c243f16207fe0eea65959e23908d4e152073690ab1ef501a86110831117",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 6299,
+                  "source_byte_start": 5763,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:6312:61d63a9b77d0dd9f",
+                  "content_sha256": "61d63a9b77d0dd9f3a361d3f77a275039ea1418dce4231d2762f6da7f0795f53",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 6359,
+                  "source_byte_start": 6312,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.license:license-file"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:30:92a7868d5ec17545",
+                  "content_sha256": "92a7868d5ec17545efcb1edfe8abd7f44f73294019b902ac6b98011e7921b2a3",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 104,
+                  "source_byte_start": 30,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:105:7efcf43aeebb7727",
+                  "content_sha256": "7efcf43aeebb772744ed8120dfc2cba4062d0628111592b050b4034559c1bfa2",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 444,
+                  "source_byte_start": 105,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:445:ec168d341f47a143",
+                  "content_sha256": "ec168d341f47a143de92366a1548c9f6cde168ced676d981d0cd8a2df946ba3c",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1024,
+                  "source_byte_start": 445,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.audience:agent-drafted-grounded",
+                    "product.identity:manifest-and-registry",
+                    "product.platforms:manifest"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:1041:1855af73558ead8a",
+                  "content_sha256": "1855af73558ead8ac4a8a8d4724575ef375c633b55952438a3123083f8a715d3",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 1075,
+                  "source_byte_start": 1041,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:1075:e032e2addeaac0dd",
+                  "content_sha256": "e032e2addeaac0dd9e49185528050ac8c2a47fbb2dd44ff239e999da296ccba1",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 1152,
+                  "source_byte_start": 1075,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.formats:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:1152:9d4ab572d190257d",
+                  "content_sha256": "9d4ab572d190257d1fe9e7aa3f4170122c5da3d3986b5409b2b80d48904ecfdf",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 1222,
+                  "source_byte_start": 1152,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1223:b85bacef5cd758df",
+                  "content_sha256": "b85bacef5cd758df8feb30a04cf9da8021f72d759a884b7f480296c74a763d06",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1625,
+                  "source_byte_start": 1223,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1645:c7165b9d76050bd8",
+                  "content_sha256": "c7165b9d76050bd8d25ef915c5b2959f3e507134723f6483ed42074e8477fe41",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1665,
+                  "source_byte_start": 1645,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1665:134204220fe03efd",
+                  "content_sha256": "134204220fe03efd205ffd72cd9d4bc9616c821e1c3585e81c71a2c879ecc781",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1689,
+                  "source_byte_start": 1665,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1689:a5749d911ef234ea",
+                  "content_sha256": "a5749d911ef234ea71282719b10f1d7c8f58e49fc94aaa6e4f99f489067df397",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1721,
+                  "source_byte_start": 1689,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1721:abc523764801600a",
+                  "content_sha256": "abc523764801600a931df48fb4fe1e4cb7310e1eff0567eedfb80368c3d66ac9",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1751,
+                  "source_byte_start": 1721,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1751:e11306294cbdbc59",
+                  "content_sha256": "e11306294cbdbc592639bf89728964000a9126bb338dae4120b00dc6fa4a9d58",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1785,
+                  "source_byte_start": 1751,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1785:8b7adb69715190d2",
+                  "content_sha256": "8b7adb69715190d27f5821df6f07edc8de57f91d9000285598402a15fb957bdf",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1807,
+                  "source_byte_start": 1785,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1807:fcef9d04ff471b9c",
+                  "content_sha256": "fcef9d04ff471b9c403fca4972187838824f9c0b80632ed927cd21fe5530b800",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1843,
+                  "source_byte_start": 1807,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1843:a18c82ae4032da43",
+                  "content_sha256": "a18c82ae4032da4332032f769b84e364433dd5ffacc4c4181807a7c58a0950e6",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1865,
+                  "source_byte_start": 1843,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.limitations:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:1877:9f4ecda7cabf0904",
+                  "content_sha256": "9f4ecda7cabf09045fc77239440af217b83ac5949d9d4e84837c31ae8ccd2374",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 2055,
+                  "source_byte_start": 1877,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2069:bc0746dacbdd5c5a",
+                  "content_sha256": "bc0746dacbdd5c5a846575bfd6dd0c511c537566d7e6b47a49558735f2908f48",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2233,
+                  "source_byte_start": 2069,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2233:934b2a6b95851a88",
+                  "content_sha256": "934b2a6b95851a8812b765a3acb2b724407cea0cd4e97a98c9ec7e029eb1082e",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2376,
+                  "source_byte_start": 2233,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2376:2ae6457be2dd3bb6",
+                  "content_sha256": "2ae6457be2dd3bb656e21fb542026b417cc0f741d5b4eb7ed8acbefb15ef39a4",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2465,
+                  "source_byte_start": 2376,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2465:163d20b3694feb84",
+                  "content_sha256": "163d20b3694feb842741b527a625346b6fa149acd78ab86d760ee6aa8de590b8",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2530,
+                  "source_byte_start": 2465,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2530:8d037d640d984afd",
+                  "content_sha256": "8d037d640d984afd12b471eaf211e6afd44c5f93aeb35ac09be48b4a0c942d95",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2586,
+                  "source_byte_start": 2530,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2586:0447cca00a412a25",
+                  "content_sha256": "0447cca00a412a25f03e34c13e48ef8cb7a602c19d0c4775efc6b751f222f3f4",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2654,
+                  "source_byte_start": 2586,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2654:2528beeaf9ac6cd0",
+                  "content_sha256": "2528beeaf9ac6cd0a95d7a117db131f238f85ffad53c1a11972f1b976faf592a",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2687,
+                  "source_byte_start": 2654,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2687:f163362a5933b9be",
+                  "content_sha256": "f163362a5933b9be550c4e3ea48fc915b041d5ded46df5faff4644816c96422f",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2743,
+                  "source_byte_start": 2687,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2743:38cc80f4ef38cfc7",
+                  "content_sha256": "38cc80f4ef38cfc7ba312e6800687cd2929fd24b7a1d629e3323f7a9a381886c",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2781,
+                  "source_byte_start": 2743,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2781:6e455738500099ef",
+                  "content_sha256": "6e455738500099ef976a9a8251719764eeb7d47f8d88cfad9fdce2243f1d34a3",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2841,
+                  "source_byte_start": 2781,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2841:0989b3e9c4937386",
+                  "content_sha256": "0989b3e9c493738614ea725c159314d95030cfcd8d5bed59523491e8e6dc3595",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2933,
+                  "source_byte_start": 2841,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2933:65966e99b4127c54",
+                  "content_sha256": "65966e99b4127c54ce5fd06310a7d92fac8b7027d32ab857772fb2664fbec401",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2965,
+                  "source_byte_start": 2933,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:2965:2c931c958409f22e",
+                  "content_sha256": "2c931c958409f22e0eff454108f91edeaeba92f492bd83b0dee07a568f5b48de",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3029,
+                  "source_byte_start": 2965,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3029:d11446b900aef3df",
+                  "content_sha256": "d11446b900aef3dfd8d9cfd1ee3f6a41e7fab81fa1e44f069ff4a76436a9c454",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3106,
+                  "source_byte_start": 3029,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3124:d05d47632944406f",
+                  "content_sha256": "d05d47632944406f3aca70de5ad20f61cb512c29962b20fe744e136a8828966a",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3167,
+                  "source_byte_start": 3124,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3168:bf8347222bf29482",
+                  "content_sha256": "bf8347222bf29482d1c4484a50759f65f7051d24fcc50c53a9bd78250b427def",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3311,
+                  "source_byte_start": 3168,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3312:db9d0a2ce45d86bc",
+                  "content_sha256": "db9d0a2ce45d86bcabb53b5f64ebebd0ddefc5b83cc8f57e2e7724e148a17819",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3384,
+                  "source_byte_start": 3312,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3385:4fcb10116291f24b",
+                  "content_sha256": "4fcb10116291f24b190102e0b7563124491142a4a8c57d09aeb61a294dd11cd9",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3489,
+                  "source_byte_start": 3385,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3490:2d61c53e385347fd",
+                  "content_sha256": "2d61c53e385347fd986a7e4f2e454110aa2994121dd0f241ff4d1a5f9fa14562",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3540,
+                  "source_byte_start": 3490,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3541:3df423842a6a32df",
+                  "content_sha256": "3df423842a6a32dfea814ceab521401aa48a3276859767931015258324e4e25c",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3673,
+                  "source_byte_start": 3541,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3674:9f3c9a76c002ea72",
+                  "content_sha256": "9f3c9a76c002ea7238487ba824d752d6bf25e5672625c7be96a42a1d289f22aa",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3776,
+                  "source_byte_start": 3674,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3777:d3375f9fd329869e",
+                  "content_sha256": "d3375f9fd329869ed55feeb62cda6e7e3fa451b5d015b23b2cffc224413ea32b",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3833,
+                  "source_byte_start": 3777,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3850:226225bf133dab43",
+                  "content_sha256": "226225bf133dab43da7540f0368f9a58ae50da2decb3706ba62d150646c7ed71",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3903,
+                  "source_byte_start": 3850,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "example.minimal:agent-drafted-example"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:3934:850f2587e1f3f46d",
+                  "content_sha256": "850f2587e1f3f46df03d8945e9900d6ab786c90ec73fdd685c9dd8cb4c88357a",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 4040,
+                  "source_byte_start": 3934,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:4041:9f55c4c7738d1a7f",
+                  "content_sha256": "9f55c4c7738d1a7f7cff284168a4e4f623b8a92daa36a9b845c49c26c779d1a3",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 4183,
+                  "source_byte_start": 4041,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:4184:1b7361f13e1e665d",
+                  "content_sha256": "1b7361f13e1e665ddf2b4bd0ec5ecb0c72943c5596a46fa13dc941ab84a9d3a3",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 4297,
+                  "source_byte_start": 4184,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:4316:2d360e57a304ca56",
+                  "content_sha256": "2d360e57a304ca565a0b65fd6c7f2fb3e5641d056b360aef3c2d1cdffe344ecb",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4397,
+                  "source_byte_start": 4316,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:4397:6ac40c10d359fcd2",
+                  "content_sha256": "6ac40c10d359fcd280251e9670106107a76a6ea96e104da54768a62abbdbb3ee",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4483,
+                  "source_byte_start": 4397,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:4484:409644a9ff472b20",
+                  "content_sha256": "409644a9ff472b20c77aa6ded54f061b60df36e9bb36b4973f30a357b2dbd7f6",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4543,
+                  "source_byte_start": 4484,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:4544:757276fd330f105c",
+                  "content_sha256": "757276fd330f105c80e306c7ed5414100a2213a4edac8cc171553db12c243ab8",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 4797,
+                  "source_byte_start": 4544,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:4810:8f79401839234b8b",
+                  "content_sha256": "8f79401839234b8b1ec1a0f28a3851678e51a85b56ad35921f0f4069e9dcb76f",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 5024,
+                  "source_byte_start": 4810,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:5025:5a15df19746cd6cc",
+                  "content_sha256": "5a15df19746cd6cc6957a42845eafb0d68674196c1761a44e264754fec969d83",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 5066,
+                  "source_byte_start": 5025,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:5067:b7696da4a3fc31dd",
+                  "content_sha256": "b7696da4a3fc31dd267eaf1b9ada594dda3f6d247de372649eddbe36faf731f4",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 5142,
+                  "source_byte_start": 5067,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:5143:4ca0bfef063e0b4b",
+                  "content_sha256": "4ca0bfef063e0b4ba143252a97aa858ab666187d4d9ec7077369c4294f5e9e1a",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 6005,
+                  "source_byte_start": 5143,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:6025:2fa70c243f16207f",
+                  "content_sha256": "2fa70c243f16207fe0eea65959e23908d4e152073690ab1ef501a86110831117",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 6561,
+                  "source_byte_start": 6025,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:6574:61d63a9b77d0dd9f",
+                  "content_sha256": "61d63a9b77d0dd9f3a361d3f77a275039ea1418dce4231d2762f6da7f0795f53",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 6621,
+                  "source_byte_start": 6574,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.limitations:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:6644:edc608853b829643",
+                  "content_sha256": "edc608853b829643f4b03445da067f662290d2619c613edaf34e0661af325122",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 6824,
+                  "source_byte_start": 6644,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                }
+              ],
+              "facts_hash": "95e85575c44f857eb57b4c772d1fd6dd296391241881eddf40542540a46c94ce",
+              "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+              "schema_version": 1,
+              "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f"
+            },
+            "contextual_links": {
+              "aspose_com_catalog_hash": "sha256:3560e9f9358401a30b95fc06d978ea3a21bfbc84d44008b13d06462d4a3bb5d7",
+              "aspose_org_catalog_hash": "sha256:1889a44093bd29273fa37039bb85acb77213c5fd5ddec8ecf3d039926ddc9f80",
+              "bindings": [
+                {
+                  "accepted_fact_ids": [
+                    "product.identity:manifest-and-registry",
+                    "example.minimal:agent-drafted-example"
+                  ],
+                  "binding_id": "readme.example:org:docs:cells:rust:ebc533fd21c07b16",
+                  "context_id": "example.minimal:agent-drafted-example",
+                  "context_kind": "code_example",
+                  "matched_subject_terms": [
+                    "workbook"
+                  ],
+                  "parent_domain": "aspose.org",
+                  "placement": "after_verified_example",
+                  "schema_version": 1,
+                  "section_heading": "Quick start",
+                  "support_rationale": "Verified docs article matches accepted example terms: workbook",
+                  "surface": "docs",
+                  "target_record_id": "org:docs:cells:rust:ebc533fd21c07b16",
+                  "target_title": "Quickstart",
+                  "target_url": "https://docs.aspose.org/cells/rust/getting-started/quickstart/"
+                }
+              ],
+              "budget": {
+                "domain_maxima": {
+                  "aspose.com": 2,
+                  "aspose.org": 2
+                },
+                "max_total": 3,
+                "measurement": {
+                  "schema_version": 1,
+                  "total_content_units": 672,
+                  "verified_code_blocks": 1,
+                  "verified_code_units": 100,
+                  "visible_prose_words": 572
+                },
+                "mode": "auto",
+                "schema_version": 1,
+                "surface_maxima": {
+                  "blog": 1,
+                  "docs": 2,
+                  "kb": 2,
+                  "products": 2,
+                  "reference": 2
+                }
+              },
+              "considered_record_ids": [
+                "org:docs:cells:rust:ebc533fd21c07b16"
+              ],
+              "enterprise_product_name": "Aspose.Cells for Rust",
+              "family": "cells",
+              "omission_reason": "none",
+              "platform": "rust",
+              "pre_link_occurrences": {
+                "by_parent_domain": {
+                  "aspose.com": 0,
+                  "aspose.org": 0
+                },
+                "by_surface": {
+                  "blog": 0,
+                  "docs": 0,
+                  "kb": 0,
+                  "other": 0,
+                  "products": 0,
+                  "reference": 0
+                },
+                "repeated_targets": {},
+                "total": 0
+              },
+              "pre_link_url_counts": {},
+              "schema_version": 1
+            },
+            "enterprise_terminology_corrections": [
+              {
+                "character_end": 248,
+                "character_start": 198,
+                "original": "[Aspose.Cells](https://products.aspose.com/cells/)",
+                "replacement": "[Aspose.Cells for Rust Enterprise Edition](https://products.aspose.com/cells/)"
+              }
+            ],
+            "facts_hash": "95e85575c44f857eb57b4c772d1fd6dd296391241881eddf40542540a46c94ce",
+            "header_visuals": {
+              "badge_markdown": "[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+              "badges": [
+                {
+                  "alt_text": "License: MIT",
+                  "badge_id": "license",
+                  "fact_ids": [
+                    "product.license:license-file"
+                  ],
+                  "image_url": "https://img.shields.io/badge/License-MIT-blue",
+                  "kind": "license",
+                  "target_url": "LICENSE"
+                }
+              ],
+              "diagram_nodes": [
+                {
+                  "fact_ids": [
+                    "product.identity:manifest-and-registry"
+                  ],
+                  "label": "Aspose.Cells FOSS for Rust",
+                  "node_id": "product",
+                  "role": "product"
+                },
+                {
+                  "fact_ids": [
+                    "product.audience:agent-drafted-grounded",
+                    "product.platforms:manifest"
+                  ],
+                  "label": "Developers using Rust.",
+                  "node_id": "audience_1",
+                  "role": "audience"
+                },
+                {
+                  "fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "label": "Workbook creation and round-trip XLSX save/load",
+                  "node_id": "capability_1",
+                  "role": "capability"
+                },
+                {
+                  "fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "label": "Cell value assignment with type-specific methods",
+                  "node_id": "capability_2",
+                  "role": "capability"
+                },
+                {
+                  "fact_ids": [
+                    "product.formats:repository-evidence"
+                  ],
+                  "label": "Excel .xlsx (Office Open XML / SpreadsheetML)",
+                  "node_id": "format_1",
+                  "role": "format"
+                }
+              ],
+              "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.Cells FOSS for Rust\"]\n  audience_1[\"Developers using Rust.\"]\n  capability_1[\"Workbook creation and round-trip XLSX save/load\"]\n  capability_2[\"Cell value assignment with type-specific methods\"]\n  format_1[\"Excel .xlsx (Office Open XML / SpreadsheetML)\"]\n  product --> audience_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```",
+              "mermaid_source": "flowchart LR\n  product[\"Aspose.Cells FOSS for Rust\"]\n  audience_1[\"Developers using Rust.\"]\n  capability_1[\"Workbook creation and round-trip XLSX save/load\"]\n  capability_2[\"Cell value assignment with type-specific methods\"]\n  format_1[\"Excel .xlsx (Office Open XML / SpreadsheetML)\"]\n  product --> audience_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1",
+              "schema_version": 1,
+              "title": "Aspose.Cells FOSS for Rust",
+              "title_fact_ids": [
+                "product.identity:manifest-and-registry"
+              ]
+            },
+            "immutable_base_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+            "operations": [
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence",
+                  "product.formats:repository-evidence",
+                  "product.identity:manifest-and-registry",
+                  "product.platforms:manifest"
+                ],
+                "operation": "insert_before",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "path": "README.md",
+                "protected_content_treatment": "additive",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "replacement_sha256": "088936f7fad3d82f4a59d8f250d971a43c52eb1bbb83243cf8c12d2808af0250",
+                "replacement_text": "## At a glance\n\n- **For:** Developers using Rust.\n- **Verified capabilities:** Workbook creation and round-trip XLSX save/load\n- **Verified formats:** Excel .xlsx (Office Open XML / SpreadsheetML)\n\n```mermaid\nflowchart LR\n  product[\"Aspose.Cells FOSS for Rust\"]\n  audience_1[\"Developers using Rust.\"]\n  capability_1[\"Workbook creation and round-trip XLSX save/load\"]\n  capability_2[\"Cell value assignment with type-specific methods\"]\n  format_1[\"Excel .xlsx (Office Open XML / SpreadsheetML)\"]\n  product --> audience_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```\n\n## In this README\n\n- [Status](#status)\n- [Features](#features)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Documentation](#documentation)\n- [Samples](#samples)\n- [Project layout](#project-layout)\n- [License](#license)\n\n",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 988,
+                "source_byte_start": 988,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              },
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "fact_ids": [
+                  "product.limitations:repository-evidence"
+                ],
+                "operation": "insert_after",
+                "operation_id": "readme.limitations.add-verified",
+                "path": "README.md",
+                "protected_content_treatment": "additive",
+                "rationale": "Expose repository-verified limitations instead of silently presenting incomplete capability coverage.",
+                "replacement_sha256": "f0168a935434b5c3a1951bbd777ec588f18fca5a048cb78df210c79720a89d73",
+                "replacement_text": "\n## Known limitations\n\n- Early-stage and evolving. The public API surface is broad but not everything Aspose.Cells supports is implemented, and some features are partial. Treat it as a work in progress.\n",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 6359,
+                "source_byte_start": 6359,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              },
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "86474bd5f507af915126ce6a770cc9b86b70abcbef40dd6ccddffa328ae4feef",
+                "fact_ids": [
+                  "example.minimal:agent-drafted-example",
+                  "product.identity:manifest-and-registry"
+                ],
+                "operation": "replace",
+                "operation_id": "readme.example.replace-unverified-minimal",
+                "path": "README.md",
+                "protected_content_treatment": "authoritative_fact_correction",
+                "rationale": "Replace the one existing usage example with the exact minimal example compiled against the verified source build. Add its verified contextual article.",
+                "replacement_sha256": "005f35b44c82fc0480db7c7c8a6641d6c6944e16e5f58f273e592f2238a13b8e",
+                "replacement_text": "### Minimal verified example\n\n```rust\nuse aspose_cells_foss_rust::Workbook;\n\nfn main() {\n    let _workbook = Workbook::default();\n}\n```\n\nFor a focused walkthrough of the APIs used in this example, see [Quickstart](https://docs.aspose.org/cells/rust/getting-started/quickstart/).\n\nThis exact example was compiled against the source build at revision `0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e`.\n",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 4035,
+                "source_byte_start": 3026,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              },
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "fact_ids": [
+                  "product.license:license-file"
+                ],
+                "operation": "insert_after",
+                "operation_id": "readme.header.badges",
+                "path": "README.md",
+                "protected_content_treatment": "additive",
+                "rationale": "Add only applicable package, version, download, and license badges.",
+                "replacement_sha256": "1c6695b4496b1508d5f11e2e91d78c7143f40313f6f4943e6e32915a1080b0a0",
+                "replacement_text": "\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 29,
+                "source_byte_start": 29,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              },
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "551aa67d4c68d27a4ed1ef9947fad1cf77efe7a516cc2ae4b502c8550624b402",
+                "fact_ids": [],
+                "operation": "replace",
+                "operation_id": "readme.links.unwrap-unbound:1",
+                "path": "README.md",
+                "protected_content_treatment": "presentation_policy_correction",
+                "rationale": "Preserve maintainer-authored visitor text while removing an Aspose target that has no current catalog-backed context binding.",
+                "replacement_sha256": "c2a94c3cbb20aabb8f1822466ad02f616bd3e6cc101d16a095deac4dee8992af",
+                "replacement_text": "Aspose.Cells",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 248,
+                "source_byte_start": 198,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              }
+            ],
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+            "schema_version": 1,
+            "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+            "template_sha256": "6debd1cf49ee2b0f864145483a4a857e8f7175c9d958e907bf721a83e316f003"
+          }
+        },
+        "stage_boundary_pending": "DETERMINISTIC_VALIDATED",
+        "stage_boundary_stop": "DETERMINISTIC_VALIDATED",
+        "verification": {
+          "checks": {
+            "adoption_preserved_source": true,
+            "candidate_has_no_comments": true,
+            "candidate_hash_matches": true,
+            "candidate_is_marker_free": true,
+            "candidate_matches_independent_render": true,
+            "claim_accountability_complete": true,
+            "claim_accountability_gaps_visible": true,
+            "contextual_links": true,
+            "document_reconstruction": true,
+            "enterprise_edition_terminology": true,
+            "fact_citations": true,
+            "facts_hash_matches": true,
+            "header_visuals": true,
+            "needs_write_matches": true,
+            "presentation_lint": true,
+            "protected_content": true,
+            "source_document_hash": true,
+            "source_span_hashes": true,
+            "template_hash_matches": true,
+            "verified_example_present": true,
+            "verified_limitations_present": true,
+            "verified_overview_present": true
+          },
+          "nonce": "20260728-180629-12e0",
+          "reason": null,
+          "requirement_map": {
+            "fact_backed_document_plan": true,
+            "immutable_snapshot": true,
+            "protected_content": true,
+            "verified_example": true
+          },
+          "token": "0d0c6ca57af0c08d8d970aa53ce5b1647991d518424df0cc3a2600c51068d44a",
+          "verdict": "accept"
+        }
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "execution_error",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-28T17:51:37.891108+00:00",
+      "last_run_timestamp": "2026-07-28T18:07:52.316290+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e"
     }
   },
   "last_run_id": null,
@@ -835,7 +3952,7 @@
     "updated_at": "2026-07-28T18:07:41.434473+00:00"
   },
   "schema_version": 2,
-  "state_version": 72,
+  "state_version": 73,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
