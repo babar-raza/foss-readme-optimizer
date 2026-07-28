@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T07:14:40.038867+00:00",
+    "last_evaluated_at": "2026-07-28T07:14:54.719769+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -136,7 +136,7 @@
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
-      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "SCORED",
+      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -3010,6 +3010,17 @@
         "reason": "All governed interpretive acceptance checks and live regression controls pass",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-interpretive-render-views/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T07:14:54.719755+00:00",
+        "reason": "Interpretive truth gate closed with checksum-complete graph-matched contribution evidence",
+        "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -3018,7 +3029,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 346,
+  "state_version": 347,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
