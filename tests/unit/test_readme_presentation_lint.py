@@ -130,6 +130,34 @@ def test_duplicate_bullets_inside_one_reader_section_remain_a_failure() -> None:
     assert [finding.rule_id for finding in result.findings] == ["semantic_duplicate"]
 
 
+def test_snake_case_api_name_inside_explanatory_bullet_is_not_an_internal_label() -> None:
+    candidate = """# PDF Toolkit
+
+## Capabilities
+
+- **Linearization:** qpdf validates the result with its strict `check_linearization` check.
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert result.valid
+    assert not [finding for finding in result.findings if finding.rule_id == "raw_internal_token"]
+
+
+def test_snake_case_token_used_as_bullet_label_remains_a_failure() -> None:
+    candidate = """# Mesh Toolkit
+
+## Options
+
+- `flip_coordinate_system` - Swap Y and Z coordinates
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert [finding.rule_id for finding in result.findings] == ["raw_internal_token"]
+
+
 def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
     candidate = PROJECT_ROOT / "tests/fixtures/presentation_defects/strong-existing-content.md"
     result = lint_readme_presentation(candidate.read_text(encoding="utf-8"), None)

@@ -18,8 +18,7 @@ RULE_IDS = (
     "visitor_fragment",
 )
 
-_SNAKE_TOKEN = re.compile(r"`[a-z][a-z0-9]*_[a-z0-9_]+`")
-_EXPLAINED_SNAKE_TOKEN = re.compile(r"^\s*[-*+]\s+\*\*[^*]+\*\*\s+\(`[a-z][a-z0-9]*_[a-z0-9_]+`\)")
+_RAW_SNAKE_BULLET = re.compile(r"^\s*[-*+]\s+`[a-z][a-z0-9]*_[a-z0-9_]+`")
 _ENUM_LIST = re.compile(r"\b[A-Z][A-Z0-9_]{1,}(?:\s*,\s*[A-Z][A-Z0-9_]{1,})+\b")
 _PROMPT_INJECTION = re.compile(
     r"(?i)(?:ignore|disregard|override)\s+(?:all\s+)?(?:previous|prior|system|developer)"
@@ -81,11 +80,7 @@ def lint_semantics(
                     ],
                 )
             )
-        if (
-            _SNAKE_TOKEN.search(line.text)
-            and _BULLET_PREFIX.match(line.text)
-            and not _EXPLAINED_SNAKE_TOKEN.match(line.text)
-        ):
+        if _RAW_SNAKE_BULLET.match(line.text):
             findings.append(
                 make_finding(
                     "raw_internal_token",
