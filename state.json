@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T08:13:07.540744+00:00",
+    "last_evaluated_at": "2026-07-28T08:13:27.389625+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -60,10 +60,19 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Split renderer and agentic-composition responsibilities behind unchanged public seams before adding editorial behavior."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "task_id": "L8-COMPOSE-01-DECOMPOSE"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
-      "L8-COMPOSE-00-CHARACTERIZE": "SCORED",
+      "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
       "L8-COMPOSE-01-DECOMPOSE": "TODO",
       "L8-COMPOSE-01A-SECTION-REGRESSIONS": "TODO",
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "TODO",
@@ -3206,6 +3215,17 @@
         "reason": "The GOAL-README characterization contribution passes its exact acceptance check with the lifecycle scoreboard unchanged.",
         "task_id": "L8-COMPOSE-00-CHARACTERIZE",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-readme-composition-characterization/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T08:13:27.389611+00:00",
+        "reason": "README composition characterization is checksum-complete and independently reproducible; later editorial behavior remains governed by its own tasks.",
+        "task_id": "L8-COMPOSE-00-CHARACTERIZE",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -3214,7 +3234,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 372,
+  "state_version": 373,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
