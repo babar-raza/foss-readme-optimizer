@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f",
-    "last_evaluated_at": "2026-07-28T12:00:51.729570+00:00",
+    "last_evaluated_at": "2026-07-28T12:01:41.177916+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -60,7 +60,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Deterministically reject internal tokens, semantic duplicates, competing examples, cross-product leakage, malformed navigation, and promotional imbalance."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "task_id": "L8-COMPOSE-04-PRESENTATION-LINT"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
@@ -72,7 +81,7 @@
       "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "CLOSED",
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "CLOSED",
       "L8-COMPOSE-03-OPERATION-COVERAGE": "CLOSED",
-      "L8-COMPOSE-03A-PRESENTATION-CORPUS": "SCORED",
+      "L8-COMPOSE-03A-PRESENTATION-CORPUS": "CLOSED",
       "L8-COMPOSE-04-PRESENTATION-LINT": "TODO",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "TODO",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "TODO",
@@ -3714,6 +3723,19 @@
         "reason": "All frozen rejected cases have critical exact-span findings and the strong existing-content case has no expected finding.",
         "task_id": "L8-COMPOSE-03A-PRESENTATION-CORPUS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-presentation-defect-corpus/verification.json",
+          "plans/investigations/evidence/level8-presentation-defect-corpus/sha256sums.txt",
+          "plans/investigations/evidence/level8-presentation-defect-corpus/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T12:01:41.177903+00:00",
+        "reason": "The visitor-defect corpus closes with checksum-complete evidence; production rejection remains explicitly assigned to successor L8-COMPOSE-04-PRESENTATION-LINT.",
+        "task_id": "L8-COMPOSE-03A-PRESENTATION-CORPUS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -3722,7 +3744,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 431,
+  "state_version": 432,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
