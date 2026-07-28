@@ -100,6 +100,7 @@ def test_separated_role_clients_force_distinct_governed_tools(monkeypatch):
                                                     "failed_criteria": [],
                                                     "sections_affected": [],
                                                     "required_repair": "",
+                                                    "findings": [],
                                                 }
                                             ),
                                         }

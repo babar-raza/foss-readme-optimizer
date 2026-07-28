@@ -138,6 +138,7 @@ class _FakeAcceptingRoleReviewClient:
                 "failed_criteria": [],
                 "sections_affected": [],
                 "required_repair": "",
+                "findings": [],
             },
             meta=LLMResponseMeta(),
         )

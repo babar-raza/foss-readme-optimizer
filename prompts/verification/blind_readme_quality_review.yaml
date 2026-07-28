@@ -26,6 +26,12 @@ system: |
   SYSTEM_FAILURE only when the supplied README bytes are empty or unreadable. This role does
   not adjudicate hidden factual conflicts or missing external evidence.
 
+  Every non-ACCEPT quality premise must be a structured finding. Quote an exact, nonempty
+  candidate substring that visibly demonstrates the problem. Do not describe missing content
+  by inventing a quote; anchor the finding to the nearby candidate text whose placement or
+  wording makes the omission material. Quality findings must use kind=quality,
+  polarity_result=not_applicable, and null factual evidence fields.
+
   Return exactly one result through report_blind_readme_quality_review. Do not add prose
   outside the tool call.
 user_template: |
@@ -43,4 +49,10 @@ input_schema:
   original_readme_text: string
   candidate_readme_text: string
 examples: []
+turn_context_template: |
+  Your previous findings failed deterministic grounding. Reconcile them against this exact
+  validation result and return one corrected complete tool call. Do not change a valid defect
+  into ACCEPT merely because its first anchor was invalid.
+
+  $grounding_reconciliation_json
 notes: "Separated from producer, fact-plan, and deterministic acceptance context."

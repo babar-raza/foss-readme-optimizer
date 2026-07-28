@@ -11,7 +11,16 @@ CANDIDATE = "# Example\n\nSpecific, useful candidate.\n"
 FACTS = {
     "schema_version": 2,
     "selected_fact_ids": {"product.identity": "fact-1"},
-    "facts": [{"fact_id": "fact-1", "field": "product.identity", "value": "Example"}],
+    "facts": [
+        {
+            "fact_id": "fact-1",
+            "field": "product.identity",
+            "value": "Example",
+            "verification_state": "verified",
+            "source": {"location": "README.md"},
+            "conflicts": [],
+        }
+    ],
 }
 PLAN = {"operations": [{"operation_id": "readme.overview", "operation": "replace"}]}
 
@@ -26,6 +35,19 @@ class CapturingClient:
         return AnalysisResult(parsed=self.parsed, meta=LLMResponseMeta())
 
 
+class SequenceClient(CapturingClient):
+    def __init__(self, parsed_items):
+        self.parsed_items = parsed_items
+        self.messages_seen = []
+
+    def analyze(self, messages):
+        self.messages_seen.append(messages)
+        return AnalysisResult(
+            parsed=self.parsed_items[len(self.messages_seen) - 1],
+            meta=LLMResponseMeta(),
+        )
+
+
 def _accept(reason):
     return {
         "verdict": "ACCEPT",
@@ -33,6 +55,7 @@ def _accept(reason):
         "failed_criteria": [],
         "sections_affected": [],
         "required_repair": "",
+        "findings": [],
     }
 
 
@@ -80,6 +103,22 @@ def test_blind_rejection_vetoes_factual_acceptance():
                 "failed_criteria": ["product_specificity"],
                 "sections_affected": ["overview"],
                 "required_repair": "Name the concrete purpose.",
+                "findings": [
+                    {
+                        "finding_id": "quality.generic-opening",
+                        "kind": "quality",
+                        "criterion": "product_specificity",
+                        "section": "overview",
+                        "claim": "The opening is generic.",
+                        "quoted_candidate_span": "Specific, useful candidate.",
+                        "fact_id": None,
+                        "evidence_excerpt": None,
+                        "expected_polarity": None,
+                        "observed_polarity": None,
+                        "polarity_result": "not_applicable",
+                        "required_repair": "Name the concrete purpose.",
+                    }
+                ],
             }
         ),
         factual_client=CapturingClient(_accept("facts and plan agree")),
@@ -105,6 +144,22 @@ def test_factual_conflict_vetoes_blind_acceptance():
                 "failed_criteria": ["factuality"],
                 "sections_affected": ["installation"],
                 "required_repair": "",
+                "findings": [
+                    {
+                        "finding_id": "factual.unsupported-installation",
+                        "kind": "factual",
+                        "criterion": "factuality",
+                        "section": "installation",
+                        "claim": "The candidate makes an unsupported acquisition claim.",
+                        "quoted_candidate_span": "Specific, useful candidate.",
+                        "fact_id": "fact-1",
+                        "evidence_excerpt": "Example",
+                        "expected_polarity": None,
+                        "observed_polarity": None,
+                        "polarity_result": "contradicts",
+                        "required_repair": "",
+                    }
+                ],
             }
         ),
     )
@@ -120,3 +175,55 @@ def test_reviewer_standard_binds_both_role_prompts_not_legacy_prompt():
 
     assert len(standard) == 64
     assert standard != prompt_registry.prompt_hash("independent_readme_review")
+
+
+def test_ungrounded_quality_premise_gets_one_bounded_correction_turn():
+    invalid = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The opening is generic.",
+        "failed_criteria": ["product_specificity"],
+        "sections_affected": ["overview"],
+        "required_repair": "Name the purpose.",
+        "findings": [
+            {
+                "finding_id": "quality.generic-opening",
+                "kind": "quality",
+                "criterion": "product_specificity",
+                "section": "overview",
+                "claim": "The opening is generic.",
+                "quoted_candidate_span": "text that is not in the candidate",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "not_applicable",
+                "required_repair": "Name the purpose.",
+            }
+        ],
+    }
+    corrected = {
+        **invalid,
+        "findings": [
+            {
+                **invalid["findings"][0],
+                "quoted_candidate_span": "Specific, useful candidate.",
+            }
+        ],
+    }
+    blind = SequenceClient([invalid, corrected])
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        blind_client=blind,
+        factual_client=CapturingClient(_accept("facts and plan agree")),
+    )
+
+    assert result.verdict == "REJECT_REPAIRABLE"
+    assert len(blind.messages_seen) == 2
+    assert result.grounding_retry_history[0]["valid"] is False
+    assert result.grounding_retry_history[1]["valid"] is True
+    assert "validation_errors" in blind.messages_seen[1][-1]["content"]

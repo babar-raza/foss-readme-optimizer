@@ -95,6 +95,57 @@ INDEPENDENT_README_REVIEW_TOOL_SCHEMA = {
 
 
 def _role_review_tool_schema(name: str, verdicts: list[str]) -> dict:
+    finding_schema = {
+        "type": "object",
+        "additionalProperties": False,
+        "properties": {
+            "finding_id": {"type": "string"},
+            "kind": {"type": "string", "enum": ["quality", "factual"]},
+            "criterion": {"type": "string"},
+            "section": {"type": "string"},
+            "claim": {"type": "string"},
+            "quoted_candidate_span": {"type": "string"},
+            "fact_id": {"type": ["string", "null"]},
+            "evidence_excerpt": {"type": ["string", "null"]},
+            "expected_polarity": {
+                "type": ["string", "null"],
+                "enum": [
+                    "positive_implementation",
+                    "explicit_constraint",
+                    "ambiguous_occurrence",
+                    None,
+                ],
+            },
+            "observed_polarity": {
+                "type": ["string", "null"],
+                "enum": [
+                    "positive_implementation",
+                    "explicit_constraint",
+                    "ambiguous_occurrence",
+                    None,
+                ],
+            },
+            "polarity_result": {
+                "type": "string",
+                "enum": ["not_applicable", "supports", "contradicts", "missing"],
+            },
+            "required_repair": {"type": "string"},
+        },
+        "required": [
+            "finding_id",
+            "kind",
+            "criterion",
+            "section",
+            "claim",
+            "quoted_candidate_span",
+            "fact_id",
+            "evidence_excerpt",
+            "expected_polarity",
+            "observed_polarity",
+            "polarity_result",
+            "required_repair",
+        ],
+    }
     return {
         "type": "function",
         "function": {
@@ -109,6 +160,7 @@ def _role_review_tool_schema(name: str, verdicts: list[str]) -> dict:
                     "failed_criteria": {"type": "array", "items": {"type": "string"}},
                     "sections_affected": {"type": "array", "items": {"type": "string"}},
                     "required_repair": {"type": "string"},
+                    "findings": {"type": "array", "items": finding_schema},
                 },
                 "required": [
                     "verdict",
@@ -116,6 +168,7 @@ def _role_review_tool_schema(name: str, verdicts: list[str]) -> dict:
                     "failed_criteria",
                     "sections_affected",
                     "required_repair",
+                    "findings",
                 ],
             },
         },
@@ -260,3 +313,17 @@ def build_factual_plan_review_messages(
         {"role": "system", "content": manifest.system.strip()},
         {"role": "user", "content": user_content},
     ]
+
+
+def build_role_grounding_retry_message(prompt_id: str, reconciliation_json: str) -> dict:
+    """Build one bounded semantic correction turn from governed prompt content."""
+
+    manifest = prompt_registry.get(prompt_id)
+    assert manifest is not None, f"{prompt_id} prompt missing"
+    assert manifest.turn_context_template is not None
+    content = (
+        Template(manifest.turn_context_template)
+        .substitute(grounding_reconciliation_json=reconciliation_json)
+        .strip()
+    )
+    return {"role": "user", "content": content}

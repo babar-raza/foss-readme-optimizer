@@ -32,7 +32,7 @@ from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta, Usage
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
 from readme_agent.readme import agentic_composition, candidate_pipeline
-from readme_agent.specialists import independent_readme_review, readme_presentation
+from readme_agent.specialists import readme_presentation, separated_readme_review
 from readme_agent.specialists import registry as specialists_registry
 from readme_agent.state.backend import Lock, SaveResult
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
@@ -190,7 +190,7 @@ class _FakeVisualAccuracyAnalysisClient:
         )
 
 
-class _FakeAcceptingIndependentReviewClient:
+class _FakeAcceptingRoleReviewClient:
     """RPOC-050/051: `readme_presentation`'s new `review` node calls
     `independent_readme_review.run_independent_review_with_repair_loop()`
     unconditionally on every real accept-path write -- faked here (always
@@ -214,10 +214,14 @@ class _FakeAcceptingIndependentReviewClient:
                 "failed_criteria": [],
                 "sections_affected": [],
                 "required_repair": "",
-                "preserve": [],
+                "findings": [],
             },
             meta=LLMResponseMeta(),
         )
+
+
+def _fake_accepting_role_clients(*args, **kwargs):
+    return _FakeAcceptingRoleReviewClient(), _FakeAcceptingRoleReviewClient()
 
 
 class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
@@ -240,7 +244,7 @@ class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
         return ForcedToolResult(arguments=arguments, meta=result.meta)
 
 
-class _RejectThenAcceptIndependentReviewClient:
+class _RejectThenAcceptBlindReviewClient:
     """Controlled quality defect: one bounded rejection followed by acceptance."""
 
     calls = 0
@@ -259,7 +263,24 @@ class _RejectThenAcceptIndependentReviewClient:
                 "failed_criteria": ["product_specificity"],
                 "sections_affected": ["Overview"],
                 "required_repair": "Re-plan the overview to lead with product-specific facts.",
-                "preserve": ["Existing local guidance."],
+                "findings": [
+                    {
+                        "finding_id": "quality.generic-overview",
+                        "kind": "quality",
+                        "criterion": "product_specificity",
+                        "section": "Overview",
+                        "claim": "The overview ordering is generic.",
+                        "quoted_candidate_span": "Example FOSS",
+                        "fact_id": None,
+                        "evidence_excerpt": None,
+                        "expected_polarity": None,
+                        "observed_polarity": None,
+                        "polarity_result": "not_applicable",
+                        "required_repair": (
+                            "Re-plan the overview to lead with product-specific facts."
+                        ),
+                    }
+                ],
             }
         else:
             parsed = {
@@ -270,9 +291,13 @@ class _RejectThenAcceptIndependentReviewClient:
                 "failed_criteria": [],
                 "sections_affected": [],
                 "required_repair": "",
-                "preserve": [],
+                "findings": [],
             }
         return AnalysisResult(parsed=parsed, meta=LLMResponseMeta(model="fixture-reviewer"))
+
+
+def _fake_repair_role_clients(*args, **kwargs):
+    return _RejectThenAcceptBlindReviewClient(), _FakeAcceptingRoleReviewClient()
 
 
 ORG_REPO = "example-foss/Example-FOSS-for-Java"
@@ -631,7 +656,9 @@ def project(tmp_path, monkeypatch):
     # write -- faked for the same "no network" reason as every specialist
     # mock above.
     monkeypatch.setattr(
-        independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+        separated_readme_review,
+        "build_live_role_review_clients",
+        _fake_accepting_role_clients,
     )
     # The bundle verifier deliberately performs a fresh public-registry check
     # in production. This file's contract is an entirely offline synthetic
@@ -733,9 +760,9 @@ class TestBasicLoop:
                 raise AssertionError("bounded candidate stages must stop before planner execution")
 
         monkeypatch.setattr(
-            independent_readme_review,
-            "LiveAnalysisClient",
-            _ReviewerMustNotRun,
+            separated_readme_review,
+            "build_live_role_review_clients",
+            lambda *args, **kwargs: (_ReviewerMustNotRun(), _ReviewerMustNotRun()),
         )
         monkeypatch.setattr(
             readme_presentation,
@@ -957,16 +984,16 @@ class TestBasicLoop:
         backend = FakeStateBackend()
         _RepairAwareCompositionForcedToolClient.calls = 0
         _RepairAwareCompositionForcedToolClient.saw_repair_hint = False
-        _RejectThenAcceptIndependentReviewClient.calls = 0
+        _RejectThenAcceptBlindReviewClient.calls = 0
         monkeypatch.setattr(
             agentic_composition,
             "LiveForcedToolClient",
             _RepairAwareCompositionForcedToolClient,
         )
         monkeypatch.setattr(
-            independent_readme_review,
-            "LiveAnalysisClient",
-            _RejectThenAcceptIndependentReviewClient,
+            separated_readme_review,
+            "build_live_role_review_clients",
+            _fake_repair_role_clients,
         )
         monkeypatch.setattr(
             readme_presentation,
@@ -996,7 +1023,7 @@ class TestBasicLoop:
         assert statuses[-1] == "AGENT_APPROVED"
         assert _RepairAwareCompositionForcedToolClient.calls == 2
         assert _RepairAwareCompositionForcedToolClient.saw_repair_hint is True
-        assert _RejectThenAcceptIndependentReviewClient.calls == 2
+        assert _RejectThenAcceptBlindReviewClient.calls == 2
 
         details = state.domain_states["readme_presentation"].details
         review = details["independent_review"]
@@ -1036,7 +1063,7 @@ class TestBasicLoop:
         )
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
         assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "NO_OP_PROVEN"
-        assert _RejectThenAcceptIndependentReviewClient.calls == 2
+        assert _RejectThenAcceptBlindReviewClient.calls == 2
         assert _RepairAwareCompositionForcedToolClient.calls == 2
 
     def test_heterogeneous_local_poc_members_share_the_real_supervisor_path(self, project):

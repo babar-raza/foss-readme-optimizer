@@ -62,7 +62,7 @@ from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
 from readme_agent.readme import candidate_pipeline
-from readme_agent.specialists import independent_readme_review
+from readme_agent.specialists import separated_readme_review
 from readme_agent.supervisor import planner_loop
 
 ORG_REPO = "example-foss/Example-Widget"
@@ -124,7 +124,7 @@ class _FakeNonFlaggingAnalysisClient:
         )
 
 
-class _FakeAcceptingIndependentReviewClient:
+class _FakeAcceptingRoleReviewClient:
     """RPOC-050/051: `readme_presentation`'s new `review` node calls
     `independent_readme_review.run_independent_review_with_repair_loop()`
     unconditionally on every real accept-path write -- faked here (always
@@ -145,10 +145,14 @@ class _FakeAcceptingIndependentReviewClient:
                 "failed_criteria": [],
                 "sections_affected": [],
                 "required_repair": "",
-                "preserve": [],
+                "findings": [],
             },
             meta=LLMResponseMeta(),
         )
+
+
+def _fake_accepting_role_clients(*args, **kwargs):
+    return _FakeAcceptingRoleReviewClient(), _FakeAcceptingRoleReviewClient()
 
 
 class _FakeDonePlannerClient:
@@ -357,7 +361,9 @@ def project(tmp_path, monkeypatch):
     # since `planner_client=None` resolves to a real `LivePlannerClient`
     # inside `supervisor/planner_loop.py::_default_planner_client()`).
     monkeypatch.setattr(
-        independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+        separated_readme_review,
+        "build_live_role_review_clients",
+        _fake_accepting_role_clients,
     )
     monkeypatch.setattr(planner_loop, "LivePlannerClient", _FakeDonePlannerClient)
     return tmp_path

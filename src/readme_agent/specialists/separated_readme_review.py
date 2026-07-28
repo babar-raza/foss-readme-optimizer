@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from typing import Protocol
+from typing import Protocol, cast
 
 from pydantic import Field, ValidationError
 
@@ -18,6 +18,7 @@ from readme_agent.llm.reviewer_client import build_live_role_review_clients
 from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
     build_factual_plan_review_messages,
+    build_role_grounding_retry_message,
 )
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.specialists.independent_readme_review import (
@@ -38,6 +39,10 @@ from readme_agent.specialists.readme_review_roles import (
     input_hash,
     json_hash,
 )
+from readme_agent.specialists.review_finding_grounding import (
+    grounding_retry_context,
+    validate_review_findings,
+)
 from readme_agent.state.backend import StateBackend
 
 _OBSERVED_BY = "separated_readme_review"
@@ -45,6 +50,7 @@ _AUTHOR_PROMPT_ID = "plan_readme_composition"
 _BLIND_PROMPT_ID = "blind_readme_quality_review"
 _FACTUAL_PROMPT_ID = "factual_readme_plan_review"
 _READ_ONLY_PERMISSIONS: set[PermissionClass] = {"read_only_local", "read_only_network"}
+_MAX_GROUNDING_ATTEMPTS = 2
 
 
 class _AnalysisClientLike(Protocol):
@@ -57,6 +63,7 @@ class SeparatedReadmeReviewResultV1(IndependentReadmeReviewResultV1):
     blind_quality_review: RoleReviewRecordV1
     factual_plan_review: RoleReviewRecordV1
     combined_review: CombinedReadmeReviewV1
+    grounding_retry_history: list[dict]
     review_contract_version: str = Field(default="1", frozen=True)
 
 
@@ -106,6 +113,7 @@ def _compatibility_result(
     blind_record: RoleReviewRecordV1,
     factual_record: RoleReviewRecordV1,
     combined: CombinedReadmeReviewV1,
+    grounding_retry_history: list[dict],
 ) -> SeparatedReadmeReviewResultV1:
     failed_criteria = sorted({*blind.failed_criteria, *factual.failed_criteria})
     sections_affected = sorted({*blind.sections_affected, *factual.sections_affected})
@@ -124,7 +132,62 @@ def _compatibility_result(
         blind_quality_review=blind_record,
         factual_plan_review=factual_record,
         combined_review=combined,
+        grounding_retry_history=grounding_retry_history,
     )
+
+
+def _run_grounded_role(
+    *,
+    role: str,
+    prompt_id: str,
+    client: _AnalysisClientLike,
+    messages: list[dict],
+    candidate_text: str,
+    product_facts: dict | None,
+) -> tuple[BlindQualityReviewResultV1 | FactualPlanReviewResultV1, list[dict]]:
+    history: list[dict] = []
+    current_messages = list(messages)
+    for attempt in range(1, _MAX_GROUNDING_ATTEMPTS + 1):
+        analysis = client.analyze(current_messages)
+        try:
+            parsed = (
+                _parse_blind_result(analysis)
+                if role == "blind_quality"
+                else _parse_factual_result(analysis)
+            )
+            grounding = validate_review_findings(
+                candidate_text=candidate_text,
+                product_facts=product_facts,
+                findings=parsed.findings,
+            )
+            errors = grounding.errors
+        except LLMError as exc:
+            parsed = None
+            errors = [str(exc)]
+        history.append(
+            {
+                "role": role,
+                "attempt": attempt,
+                "valid": not errors,
+                "errors": errors,
+            }
+        )
+        if parsed is not None and not errors:
+            return parsed, history
+        if attempt == _MAX_GROUNDING_ATTEMPTS:
+            raise LLMError(f"{role} reviewer repeatedly returned ungrounded findings: {errors}")
+        current_messages = [
+            *current_messages,
+            build_role_grounding_retry_message(
+                prompt_id,
+                grounding_retry_context(
+                    errors=errors,
+                    candidate_text=candidate_text,
+                    product_facts=product_facts,
+                ),
+            ),
+        ]
+    raise AssertionError("grounding retry loop must return or raise")
 
 
 def run_separated_readme_review(
@@ -187,25 +250,33 @@ def run_separated_readme_review(
         rubric_version="1",
     )
 
-    blind_result = _parse_blind_result(
-        blind_client.analyze(
-            build_blind_quality_review_messages(
-                blind_input.org_repo,
-                blind_input.original_readme_text,
-                blind_input.candidate_readme_text,
-            )
-        )
+    blind_result, blind_retry_history = _run_grounded_role(
+        role="blind_quality",
+        prompt_id=_BLIND_PROMPT_ID,
+        client=blind_client,
+        messages=build_blind_quality_review_messages(
+            blind_input.org_repo,
+            blind_input.original_readme_text,
+            blind_input.candidate_readme_text,
+        ),
+        candidate_text=candidate_readme_text,
+        product_facts=None,
     )
-    factual_result = _parse_factual_result(
-        factual_client.analyze(
-            build_factual_plan_review_messages(
-                factual_input.org_repo,
-                factual_input.candidate_readme_text,
-                _canonical_json(product_facts_v2),
-                _canonical_json(presentation_plan),
-            )
-        )
+    factual_result, factual_retry_history = _run_grounded_role(
+        role="factual_plan",
+        prompt_id=_FACTUAL_PROMPT_ID,
+        client=factual_client,
+        messages=build_factual_plan_review_messages(
+            factual_input.org_repo,
+            factual_input.candidate_readme_text,
+            _canonical_json(product_facts_v2),
+            _canonical_json(presentation_plan),
+        ),
+        candidate_text=candidate_readme_text,
+        product_facts=product_facts_v2,
     )
+    blind_result = cast(BlindQualityReviewResultV1, blind_result)
+    factual_result = cast(FactualPlanReviewResultV1, factual_result)
     blind_identity = _role_identity(
         "llm-route:blind-readme-quality",
         "blind_quality_reviewer",
@@ -246,6 +317,7 @@ def run_separated_readme_review(
         blind_record,
         factual_record,
         combined,
+        [*blind_retry_history, *factual_retry_history],
     )
     if backend is not None:
         record_review_verdict(

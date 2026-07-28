@@ -9,6 +9,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.readme.document_hashing import sha256_hex
+from readme_agent.specialists.review_finding_grounding import GroundedReviewFindingV1
 
 ReviewRole = Literal["author", "blind_quality_reviewer", "factual_plan_reviewer"]
 BlindQualityVerdict = Literal["ACCEPT", "REJECT_REPAIRABLE", "SYSTEM_FAILURE"]
@@ -86,19 +87,23 @@ class BlindQualityReviewResultV1(BaseModel):
     failed_criteria: list[str] = Field(default_factory=list)
     sections_affected: list[str] = Field(default_factory=list)
     required_repair: str = ""
+    findings: list[GroundedReviewFindingV1]
 
     @model_validator(mode="after")
     def _verdict_payload(self) -> BlindQualityReviewResultV1:
         if self.verdict == "ACCEPT" and (
-            self.failed_criteria or self.sections_affected or self.required_repair
+            self.failed_criteria or self.sections_affected or self.required_repair or self.findings
         ):
             raise ValueError("blind-quality ACCEPT cannot carry failure details")
         if self.verdict == "REJECT_REPAIRABLE" and (
             not self.failed_criteria
             or not self.sections_affected
             or not self.required_repair.strip()
+            or not self.findings
         ):
             raise ValueError("blind-quality rejection requires criteria, sections, and repair")
+        if any(finding.kind != "quality" for finding in self.findings):
+            raise ValueError("blind-quality result may contain only quality findings")
         return self
 
 
@@ -112,19 +117,30 @@ class FactualPlanReviewResultV1(BaseModel):
     failed_criteria: list[str] = Field(default_factory=list)
     sections_affected: list[str] = Field(default_factory=list)
     required_repair: str = ""
+    findings: list[GroundedReviewFindingV1]
 
     @model_validator(mode="after")
     def _verdict_payload(self) -> FactualPlanReviewResultV1:
         if self.verdict == "ACCEPT" and (
-            self.failed_criteria or self.sections_affected or self.required_repair
+            self.failed_criteria or self.sections_affected or self.required_repair or self.findings
         ):
             raise ValueError("factual-plan ACCEPT cannot carry failure details")
         if (
             self.verdict != "ACCEPT"
             and self.verdict != "SYSTEM_FAILURE"
-            and (not self.failed_criteria or not self.sections_affected)
+            and (not self.failed_criteria or not self.sections_affected or not self.findings)
         ):
             raise ValueError("factual-plan failure requires criteria and sections")
+        if any(finding.kind != "factual" for finding in self.findings):
+            raise ValueError("factual-plan result may contain only factual findings")
+        if self.verdict == "BLOCKED_FACT_CONFLICT" and not any(
+            finding.polarity_result == "contradicts" for finding in self.findings
+        ):
+            raise ValueError("fact-conflict verdict requires a contradicted factual finding")
+        if self.verdict == "BLOCKED_MISSING_EVIDENCE" and not any(
+            finding.polarity_result == "missing" for finding in self.findings
+        ):
+            raise ValueError("missing-evidence verdict requires a missing factual finding")
         return self
 
 

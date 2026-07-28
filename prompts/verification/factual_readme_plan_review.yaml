@@ -26,6 +26,13 @@ system: |
   concrete checkable claim lacking accepted evidence. Return SYSTEM_FAILURE only when the
   supplied facts, plan, or candidate are unusable.
 
+  Every non-ACCEPT premise must be a structured factual finding with an exact candidate
+  substring. A supported or contradicted premise must cite the selected fact ID and an exact
+  excerpt from that fact's supplied evidence, then report the evidence's expected and observed
+  polarity. An actually unsupported candidate claim uses polarity_result=missing with null
+  fact/evidence fields; do not manufacture a fact citation. Never call literal selected fact
+  text missing evidence.
+
   Return exactly one result through report_factual_readme_plan_review. Do not add prose
   outside the tool call.
 user_template: |
@@ -47,4 +54,11 @@ input_schema:
   product_facts_json: string
   presentation_plan_json: string
 examples: []
+turn_context_template: |
+  Your previous findings failed deterministic grounding. Reconcile them against the exact
+  selected fact/evidence inventory and validation errors below, then return one corrected
+  complete tool call. A genuinely unsupported candidate claim must remain
+  BLOCKED_MISSING_EVIDENCE.
+
+  $grounding_reconciliation_json
 notes: "Separated from blind quality and deterministic acceptance context."
