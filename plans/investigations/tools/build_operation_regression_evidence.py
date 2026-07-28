@@ -155,10 +155,10 @@ def _checks(
         "real_java_native_patch_applies": case["patch"].git_apply_check_passed,
         "real_java_claim_map_present": bool(case["claim_map"].claims),
         "real_java_candidate_is_deterministically_valid": validation.valid,
-        "competing_examples_fail_closed_at_operation_coverage": (
-            bool(case["operation_coverage_error"])
-            and f"{case['usage_section_id']}:repair" in case["operation_coverage_error"]
-        ),
+        "real_java_operation_coverage_passes": not case["operation_coverage_error"],
+        "competing_examples_fail_closed_at_operation_coverage": controls[
+            "competing_examples_rejected"
+        ],
         "advisory_insert_rejected": controls["advisory_insert_rejected"],
         "noop_move_rejected": (controls["noop_move_pruned"] and controls["noop_move_rejected"]),
         "replace_and_remove_covered": (controls["replace_covered"] and controls["remove_covered"]),

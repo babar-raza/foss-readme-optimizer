@@ -25,6 +25,7 @@ from readme_agent.readme.document_operations import (
     build_operation,
     prune_noop_operations,
 )
+from readme_agent.readme.document_renderer import build_readme_document_candidate
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 TASK_ID = "L8-COMPOSE-02A-OPERATION-REGRESSIONS"
@@ -123,6 +124,42 @@ def _usage_assessment(source_text: str, facts: ProductFactsV2, disposition: str)
 
 
 def build_operation_controls(facts: ProductFactsV2) -> dict:
+    competing_source_text = """# Product
+
+## Usage
+
+```java
+Workbook first = Workbook.load("one.xlsx");
+```
+
+```java
+Workbook second = Workbook.load("two.xlsx");
+```
+"""
+    competing_assessment = assess_readme_document(
+        facts.org_repo,
+        competing_source_text,
+        facts,
+        base_revision=SOURCE_REVISION,
+    )
+    _competing_candidate, competing_plan = build_readme_document_candidate(
+        facts.org_repo,
+        competing_source_text,
+        facts,
+        base_revision=SOURCE_REVISION,
+    )
+    competing_examples_rejected = False
+    competing_examples_error = ""
+    try:
+        validate_agentic_operation_coverage(
+            competing_assessment,
+            competing_assessment.sections,
+            competing_plan.operations,
+        )
+    except LLMError as exc:
+        competing_examples_rejected = True
+        competing_examples_error = str(exc)
+
     source_text = "# Product\n\n## Usage\n\nStale guidance.\n"
     source = source_text.encode("utf-8")
     assessment, usage, rewrite = _usage_assessment(source_text, facts, "rewrite")
@@ -210,6 +247,8 @@ def build_operation_controls(facts: ProductFactsV2) -> dict:
 
     return {
         "source_sha256": hashlib.sha256(source).hexdigest(),
+        "competing_examples_rejected": competing_examples_rejected,
+        "competing_examples_error": competing_examples_error,
         "advisory_insert_rejected": advisory_rejected,
         "advisory_error": advisory_error,
         "noop_move_pruned": pruned_moves == [],
