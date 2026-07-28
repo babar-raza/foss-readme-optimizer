@@ -87,3 +87,31 @@ def test_deterministic_repair_failure_is_not_recorded_as_agent_rejection(tmp_pat
     assert manifest["lifecycle_status"] == "DETERMINISTIC_VALIDATION_FAILED"
     assert manifest["reviewer_standard_hash"] == "review-v1"
     assert "DETERMINISTIC_VALIDATION_FAILED" in manifest["completed_stages"]
+
+
+def test_separated_role_records_are_materialized_individually(tmp_path):
+    bundle_dir = tmp_path / "bundle"
+    _seed_manifest(bundle_dir)
+
+    write_local_poc_review_evidence(
+        bundle_dir,
+        deterministic_validation={"verdict": "accept"},
+        independent_review={"verdict": "ACCEPT"},
+        blind_quality_review={"verdict": "ACCEPT", "input_sha256": "a" * 64},
+        factual_plan_review={"verdict": "ACCEPT", "input_sha256": "b" * 64},
+        combined_review={"verdict": "ACCEPT", "identity_separation_valid": True},
+        repair_history=[],
+        lifecycle_status="AGENT_APPROVED",
+        deterministic_validation_passed=True,
+        reviewer_standard_hash="separated-review-v1",
+    )
+
+    review_dir = bundle_dir / "review"
+    assert json.loads((review_dir / "blind-quality-review.json").read_text())["verdict"] == "ACCEPT"
+    assert (
+        json.loads((review_dir / "factual-plan-review.json").read_text())["input_sha256"]
+        == "b" * 64
+    )
+    assert json.loads((review_dir / "combined-review.json").read_text())[
+        "identity_separation_valid"
+    ]

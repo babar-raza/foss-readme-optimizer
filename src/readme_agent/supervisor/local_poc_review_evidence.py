@@ -35,6 +35,9 @@ def write_local_poc_review_evidence(
     *,
     deterministic_validation: dict,
     independent_review: dict,
+    blind_quality_review: dict | None = None,
+    factual_plan_review: dict | None = None,
+    combined_review: dict | None = None,
     repair_history: list[dict],
     lifecycle_status: str,
     deterministic_validation_passed: bool,
@@ -62,6 +65,12 @@ def write_local_poc_review_evidence(
         review_dir / "independent-agent-review.json",
         independent_review,
     )
+    if blind_quality_review is not None:
+        write_redacted_json(review_dir / "blind-quality-review.json", blind_quality_review)
+    if factual_plan_review is not None:
+        write_redacted_json(review_dir / "factual-plan-review.json", factual_plan_review)
+    if combined_review is not None:
+        write_redacted_json(review_dir / "combined-review.json", combined_review)
     write_redacted_json(review_dir / "repair-history.json", repair_history)
     write_redacted_json(
         review_dir / "final-verdict.json",

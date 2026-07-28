@@ -12,6 +12,7 @@ mirrors `capabilities/schema.py::CapabilityManifest.to_tool_schema()`'s own
 code-not-content treatment, so it stays here as a plain dict rather than
 becoming YAML content."""
 
+import hashlib
 from string import Template
 
 from readme_agent.llm import prompt_registry
@@ -135,6 +136,18 @@ FACTUAL_PLAN_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
         "SYSTEM_FAILURE",
     ],
 )
+
+
+def separated_reviewer_standard_hash() -> str:
+    """Bind lifecycle reuse to both role prompts and the V1 reducer contract."""
+
+    components = [
+        "separated-readme-review-v1",
+        prompt_registry.prompt_hash("blind_readme_quality_review"),
+        prompt_registry.prompt_hash("factual_readme_plan_review"),
+        "SYSTEM_FAILURE>BLOCKED_FACT_CONFLICT>BLOCKED_MISSING_EVIDENCE>REJECT_REPAIRABLE>ACCEPT",
+    ]
+    return hashlib.sha256("\x00".join(components).encode("utf-8")).hexdigest()
 
 
 def build_prose_quality_messages(paragraph_text: str) -> list[dict]:

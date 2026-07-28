@@ -17,7 +17,7 @@ from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
 from readme_agent.readme import candidate_pipeline
-from readme_agent.specialists import independent_readme_review, readme_reconciliation, registry
+from readme_agent.specialists import readme_reconciliation, registry, separated_readme_review
 from readme_agent.state.backend import SaveResult
 from readme_agent.state.schema import DomainStateV1, RunStateV1
 
@@ -114,7 +114,7 @@ class _FakeNonFlaggingAnalysisClient:
         )
 
 
-class _FakeAcceptingIndependentReviewClient:
+class _FakeAcceptingRoleReviewClient:
     """RPOC-050/051: `readme_presentation`'s new `review` node calls
     `independent_readme_review.run_independent_review_with_repair_loop()`
     unconditionally on every real accept-path write -- faked here (always
@@ -138,10 +138,13 @@ class _FakeAcceptingIndependentReviewClient:
                 "failed_criteria": [],
                 "sections_affected": [],
                 "required_repair": "",
-                "preserve": [],
             },
             meta=LLMResponseMeta(),
         )
+
+
+def _fake_accepting_role_clients(*args, **kwargs):
+    return _FakeAcceptingRoleReviewClient(), _FakeAcceptingRoleReviewClient()
 
 
 def _init_source_repo(path, readme_text: str, *, include_license: bool = False):
@@ -890,7 +893,9 @@ class TestReadmePresentationSpecialist:
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
         monkeypatch.setattr(
-            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+            separated_readme_review,
+            "build_live_role_review_clients",
+            _fake_accepting_role_clients,
         )
         backend = _FakeStateBackend()
         before_log = run_git(["log", "--oneline"], cwd=source).stdout
@@ -942,7 +947,9 @@ class TestReadmePresentationSpecialist:
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
         monkeypatch.setattr(
-            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+            separated_readme_review,
+            "build_live_role_review_clients",
+            _fake_accepting_role_clients,
         )
         backend = _FakeStateBackend()
 
@@ -972,7 +979,9 @@ class TestReadmePresentationSpecialist:
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
         monkeypatch.setattr(
-            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+            separated_readme_review,
+            "build_live_role_review_clients",
+            _fake_accepting_role_clients,
         )
         backend = _FakeStateBackend()
 
@@ -1011,7 +1020,9 @@ class TestReadmePresentationSpecialist:
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
         monkeypatch.setattr(
-            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+            separated_readme_review,
+            "build_live_role_review_clients",
+            _fake_accepting_role_clients,
         )
         backend = _FakeStateBackend()
 
@@ -1033,6 +1044,13 @@ class TestReadmePresentationSpecialist:
         assert result.details["bundle_verification"]["status"] == "not_applicable"
         assert result.details["independent_review"]["outcome_kind"] == "accepted"
         assert result.details["independent_review"]["final_review"]["verdict"] == "ACCEPT"
+        assert (
+            result.details["independent_review"]["final_review"]["combined_review"]["verdict"]
+            == "ACCEPT"
+        )
+        assert result.details["independent_review"]["final_review"]["combined_review"][
+            "identity_separation_valid"
+        ]
         # RPOC-050: the raw patch text never survives past `review`'s own node
         # boundary -- neither the reject-shaped nor the accept-shaped return.
         assert "presentation_plan_patch" not in result.details
@@ -1080,7 +1098,9 @@ class TestReadmePresentationSpecialist:
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
         monkeypatch.setattr(
-            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+            separated_readme_review,
+            "build_live_role_review_clients",
+            _fake_accepting_role_clients,
         )
         backend = _FakeStateBackend()
 
@@ -1131,7 +1151,9 @@ class TestReadmePresentationSpecialist:
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
         monkeypatch.setattr(
-            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+            separated_readme_review,
+            "build_live_role_review_clients",
+            _fake_accepting_role_clients,
         )
         backend = _FakeStateBackend()
 
@@ -1159,7 +1181,9 @@ class TestReadmePresentationSpecialist:
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
         monkeypatch.setattr(
-            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+            separated_readme_review,
+            "build_live_role_review_clients",
+            _fake_accepting_role_clients,
         )
 
         result = readme_presentation.run(ORG_REPO, None)
@@ -1183,7 +1207,9 @@ class TestReadmePresentationSpecialist:
             verify_prose_quality, "LiveForcedToolClient", _FakeNonFlaggingForcedToolClient
         )
         monkeypatch.setattr(
-            independent_readme_review, "LiveAnalysisClient", _FakeAcceptingIndependentReviewClient
+            separated_readme_review,
+            "build_live_role_review_clients",
+            _fake_accepting_role_clients,
         )
         backend = _FakeStateBackend()
 

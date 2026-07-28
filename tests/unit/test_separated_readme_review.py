@@ -1,0 +1,122 @@
+"""Runtime wiring for context-isolated README reviewer roles."""
+
+from readme_agent.llm.analysis_client import AnalysisResult
+from readme_agent.llm.schema import LLMResponseMeta
+from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
+from readme_agent.specialists.separated_readme_review import run_separated_readme_review
+
+ORG_REPO = "example/example-foss"
+ORIGINAL = "# Example\n\nOriginal material.\n"
+CANDIDATE = "# Example\n\nSpecific, useful candidate.\n"
+FACTS = {
+    "schema_version": 2,
+    "selected_fact_ids": {"product.identity": "fact-1"},
+    "facts": [{"fact_id": "fact-1", "field": "product.identity", "value": "Example"}],
+}
+PLAN = {"operations": [{"operation_id": "readme.overview", "operation": "replace"}]}
+
+
+class CapturingClient:
+    def __init__(self, parsed):
+        self.parsed = parsed
+        self.messages = None
+
+    def analyze(self, messages):
+        self.messages = messages
+        return AnalysisResult(parsed=self.parsed, meta=LLMResponseMeta())
+
+
+def _accept(reason):
+    return {
+        "verdict": "ACCEPT",
+        "reasoning": reason,
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+    }
+
+
+def test_two_accepts_produce_hash_bound_separate_records():
+    blind = CapturingClient(_accept("visitor-ready"))
+    factual = CapturingClient(_accept("facts and plan agree"))
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        blind_client=blind,
+        factual_client=factual,
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert result.combined_review.identity_separation_valid
+    assert result.blind_quality_review.input_sha256 != result.factual_plan_review.input_sha256
+    assert result.blind_quality_review.identity.prompt_id == "blind_readme_quality_review"
+    assert result.factual_plan_review.identity.prompt_id == "factual_readme_plan_review"
+
+    blind_context = "\n".join(message["content"] for message in blind.messages)
+    factual_context = "\n".join(message["content"] for message in factual.messages)
+    assert ORIGINAL in blind_context
+    assert "fact-1" not in blind_context
+    assert "readme.overview" not in blind_context
+    assert ORIGINAL not in factual_context
+    assert "fact-1" in factual_context
+    assert "readme.overview" in factual_context
+
+
+def test_blind_rejection_vetoes_factual_acceptance():
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        blind_client=CapturingClient(
+            {
+                "verdict": "REJECT_REPAIRABLE",
+                "reasoning": "The opening is generic.",
+                "failed_criteria": ["product_specificity"],
+                "sections_affected": ["overview"],
+                "required_repair": "Name the concrete purpose.",
+            }
+        ),
+        factual_client=CapturingClient(_accept("facts and plan agree")),
+    )
+
+    assert result.verdict == "REJECT_REPAIRABLE"
+    assert result.failed_criteria == ["product_specificity"]
+    assert result.required_repair == "Name the concrete purpose."
+
+
+def test_factual_conflict_vetoes_blind_acceptance():
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        blind_client=CapturingClient(_accept("visitor-ready")),
+        factual_client=CapturingClient(
+            {
+                "verdict": "BLOCKED_FACT_CONFLICT",
+                "reasoning": "The acquisition claim contradicts fact-1.",
+                "failed_criteria": ["factuality"],
+                "sections_affected": ["installation"],
+                "required_repair": "",
+            }
+        ),
+    )
+
+    assert result.verdict == "BLOCKED_FACT_CONFLICT"
+    assert result.combined_review.verdict == "BLOCKED_FACT_CONFLICT"
+
+
+def test_reviewer_standard_binds_both_role_prompts_not_legacy_prompt():
+    from readme_agent.llm import prompt_registry
+
+    standard = separated_reviewer_standard_hash()
+
+    assert len(standard) == 64
+    assert standard != prompt_registry.prompt_hash("independent_readme_review")

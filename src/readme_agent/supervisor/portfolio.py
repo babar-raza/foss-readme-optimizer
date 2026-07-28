@@ -213,6 +213,7 @@ def completed_local_poc_status(
         return None
 
     from readme_agent.llm import prompt_registry
+    from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
     from readme_agent.readme.document_templates import document_template_hash
 
     if document_plan.get("template_sha256") != document_template_hash():
@@ -221,9 +222,7 @@ def completed_local_poc_status(
         "plan_readme_composition"
     ):
         return None
-    if manifest.get("reviewer_standard_hash") != prompt_registry.prompt_hash(
-        "independent_readme_review"
-    ):
+    if manifest.get("reviewer_standard_hash") != separated_reviewer_standard_hash():
         return None
 
     actual = {

@@ -70,6 +70,12 @@ against `state/readme_poc_lifecycle.py::_README_POC_TRANSITIONS` while still
 making the distinction real and durable, not just documented in a comment.
 """
 
+# The single-review function in this module is retained for compatibility,
+# governed diagnostics, and the historical golden set. The production
+# presentation gate injects `separated_readme_review.run_separated_readme_review`
+# into the bounded repair loop; this single route is no longer acceptance
+# authority for a candidate.
+
 from __future__ import annotations
 
 import hashlib
@@ -78,7 +84,7 @@ import re
 from collections.abc import Callable
 from typing import Literal, Protocol
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+from pydantic import BaseModel, ConfigDict, Field, SerializeAsAny, ValidationError, model_validator
 
 from readme_agent import env
 from readme_agent.capabilities.dispatcher import DispatchResult, dispatch_tool_call
@@ -365,6 +371,7 @@ def record_review_verdict(
     review: IndependentReadmeReviewResultV1,
     *,
     repair_attempt: int = 0,
+    observed_by: str = _OBSERVED_BY,
 ) -> ReadmePocLifecycleStateV2:
     """Records one review outcome as a real `RPOC-070` lifecycle transition.
 
@@ -381,7 +388,7 @@ def record_review_verdict(
             backend,
             org_repo,
             "AGENT_APPROVED",
-            observed_by=_OBSERVED_BY,
+            observed_by=observed_by,
             reason=review.reasoning or "independent review accepted the candidate",
         )
 
@@ -401,7 +408,7 @@ def record_review_verdict(
         backend,
         org_repo,
         status,
-        observed_by=_OBSERVED_BY,
+        observed_by=observed_by,
         reason=reason,
         evidence_refs=list(review.failed_criteria),
     )
@@ -423,7 +430,7 @@ class RepairLoopOutcomeV1(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     outcome_kind: RepairLoopOutcomeKindV1
-    final_review: IndependentReadmeReviewResultV1
+    final_review: SerializeAsAny[IndependentReadmeReviewResultV1]
     attempts: int
     escalation: dict | None = None
     repair_history: list[dict] = Field(default_factory=list)
@@ -584,6 +591,9 @@ def run_independent_review_with_repair_loop(
     *,
     client: _AnalysisClientLike | None = None,
     regenerate_context: Callable[[IndependentReadmeReviewResultV1, int], dict] | None = None,
+    review_runner: (Callable[[str, dict, int], IndependentReadmeReviewResultV1] | None) = None,
+    reviewer_standard_hash: str | None = None,
+    review_observed_by: str = _OBSERVED_BY,
 ) -> RepairLoopOutcomeV1:
     """`RPOC-023`: the bounded regenerate-and-re-review cycle on top of the
     single check `run_independent_readme_review()` performs.
@@ -623,18 +633,24 @@ def run_independent_review_with_repair_loop(
     ctx = initial_context
     attempts = 0
     repair_history: list[dict] = []
+    standard_hash = reviewer_standard_hash or prompt_registry.prompt_hash(
+        "independent_readme_review"
+    )
     while True:
-        review = run_independent_readme_review(
-            org_repo,
-            ctx["original_text"],
-            ctx["final_text"],
-            ctx["presentation_plan"],
-            ctx["deterministic_validation_result"],
-            client=client,
-            backend=backend,
-            repair_attempt=attempts,
-            product_facts_v2=ctx.get("product_facts_v2"),
-        )
+        if review_runner is None:
+            review = run_independent_readme_review(
+                org_repo,
+                ctx["original_text"],
+                ctx["final_text"],
+                ctx["presentation_plan"],
+                ctx["deterministic_validation_result"],
+                client=client,
+                backend=backend,
+                repair_attempt=attempts,
+                product_facts_v2=ctx.get("product_facts_v2"),
+            )
+        else:
+            review = review_runner(org_repo, ctx, attempts)
         review_record = {
             "review_pass": len(repair_history) + 1,
             "repair_attempt": attempts,
@@ -683,7 +699,7 @@ def run_independent_review_with_repair_loop(
                     backend,
                     org_repo,
                     "REPAIRING",
-                    observed_by=_OBSERVED_BY,
+                    observed_by=review_observed_by,
                     reason=(
                         f"entering repair attempt {next_attempt}/"
                         f"{MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS}: {review.required_repair}"
@@ -707,7 +723,7 @@ def run_independent_review_with_repair_loop(
                         backend,
                         org_repo,
                         "CANDIDATE_GENERATED",
-                        observed_by=_OBSERVED_BY,
+                        observed_by=review_observed_by,
                         reason=(
                             f"candidate regenerated for repair attempt {attempts}/"
                             f"{MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS}"
@@ -718,7 +734,7 @@ def run_independent_review_with_repair_loop(
                     record_deterministic_validation_failure(
                         backend,
                         org_repo,
-                        observed_by=_OBSERVED_BY,
+                        observed_by=review_observed_by,
                         reason="repaired candidate failed deterministic validation",
                         evidence_refs=list(ctx.get("evidence_refs", [])),
                     )
@@ -727,7 +743,7 @@ def run_independent_review_with_repair_loop(
                         backend,
                         org_repo,
                         "DETERMINISTIC_VALIDATED",
-                        observed_by=_OBSERVED_BY,
+                        observed_by=review_observed_by,
                         reason="repaired candidate passed all deterministic validation gates",
                         evidence_refs=list(ctx.get("evidence_refs", [])),
                     )
@@ -735,12 +751,10 @@ def run_independent_review_with_repair_loop(
                         backend,
                         org_repo,
                         "AGENT_REVIEWING",
-                        observed_by=_OBSERVED_BY,
+                        observed_by=review_observed_by,
                         reason="independent review restarted after deterministic validation",
                         evidence_refs=list(ctx.get("evidence_refs", [])),
-                        reviewer_standard_hash=prompt_registry.prompt_hash(
-                            "independent_readme_review"
-                        ),
+                        reviewer_standard_hash=standard_hash,
                     )
             if deterministic_passed:
                 break

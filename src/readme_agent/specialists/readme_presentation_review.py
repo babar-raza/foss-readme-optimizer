@@ -11,7 +11,7 @@ from readme_agent import paths
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.errors import StateBackendError
 from readme_agent.evidence.writer import generate_run_id
-from readme_agent.llm import prompt_registry
+from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import current_repository_snapshot
 from readme_agent.specialists.independent_readme_review import (
@@ -21,6 +21,7 @@ from readme_agent.specialists.readme_review_repair import build_repaired_review_
 from readme_agent.specialists.readme_review_validation import (
     materialize_and_verify_bundle,
 )
+from readme_agent.specialists.separated_readme_review import run_separated_readme_review
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.domain_state import merge_details
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
@@ -199,7 +200,7 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         }
 
     if lifecycle_backend is not None:
-        reviewer_standard_hash = prompt_registry.prompt_hash("independent_readme_review")
+        reviewer_standard_hash = separated_reviewer_standard_hash()
         current = lifecycle_backend.load(org_repo)
         lifecycle = current.readme_poc_lifecycle if current is not None else None
         if lifecycle is None:
@@ -274,12 +275,29 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         "local_bundle_dir": str(local_bundle_dir) if local_bundle_dir is not None else None,
         "evidence_refs": [str(proposal_bundle_dir)] if proposal_bundle_dir is not None else [],
     }
+
+    def separated_review_runner(repo: str, context: dict, attempt: int):
+        product_facts = context.get("product_facts_v2")
+        if product_facts is not None and not isinstance(product_facts, dict):
+            raise StateBackendError("separated review received malformed ProductFactsV2")
+        return run_separated_readme_review(
+            repo,
+            context["original_text"],
+            context["final_text"],
+            context["presentation_plan"],
+            product_facts,
+            blind_client=config["configurable"].get("blind_quality_review_client"),
+            factual_client=config["configurable"].get("factual_plan_review_client"),
+            backend=lifecycle_backend,
+            repair_attempt=attempt,
+        )
+
+    reviewer_standard_hash = separated_reviewer_standard_hash()
     try:
         review_outcome = run_independent_review_with_repair_loop(
             org_repo,
             lifecycle_backend,
             initial_context,
-            client=config["configurable"].get("independent_review_client"),
             regenerate_context=lambda review, attempt: build_repaired_review_context(
                 org_repo,
                 lifecycle_backend,
@@ -288,6 +306,9 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 attempt,
                 composition_client=config["configurable"].get("composition_client"),
             ),
+            review_runner=separated_review_runner,
+            reviewer_standard_hash=reviewer_standard_hash,
+            review_observed_by="separated_readme_review",
         )
     except Exception as exc:  # noqa: BLE001 -- fail closed and preserve the first boundary
         if lifecycle_backend is not None:
@@ -354,14 +375,18 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             if final_deterministic_passed
             else "DETERMINISTIC_VALIDATION_FAILED"
         )
+        final_review_record = review_outcome.final_review.model_dump(mode="json")
         write_local_poc_review_evidence(
             Path(final_local_bundle),
             deterministic_validation=final_validation,
-            independent_review=review_outcome.final_review.model_dump(mode="json"),
+            independent_review=final_review_record,
+            blind_quality_review=final_review_record.get("blind_quality_review"),
+            factual_plan_review=final_review_record.get("factual_plan_review"),
+            combined_review=final_review_record.get("combined_review"),
             repair_history=review_outcome.repair_history,
             lifecycle_status=final_lifecycle_status,
             deterministic_validation_passed=final_deterministic_passed,
-            reviewer_standard_hash=prompt_registry.prompt_hash("independent_readme_review"),
+            reviewer_standard_hash=reviewer_standard_hash,
         )
     if review_outcome.outcome_kind != "accepted":
         return {

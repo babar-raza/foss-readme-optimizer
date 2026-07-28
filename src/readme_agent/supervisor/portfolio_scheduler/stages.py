@@ -8,7 +8,7 @@ from pathlib import Path
 
 from readme_agent import paths
 from readme_agent.evidence.writer import refresh_sha256sums, write_redacted_json
-from readme_agent.llm import prompt_registry
+from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.backend import StateBackend
@@ -113,7 +113,7 @@ def prepare_and_promote_candidate_stage(
     assessment = ReadmeAssessmentV1.model_validate(presentation_plan["readme_assessment"])
     assessment_hash = assessment.canonical_hash()
     presentation_plan_hash = canonical_sha256(presentation_plan.get("presentation_plan") or {})
-    reviewer_standard_hash = prompt_registry.prompt_hash("independent_readme_review")
+    reviewer_standard_hash = separated_reviewer_standard_hash()
     dependency_hashes = {
         "assessment": assessment_hash,
         "candidate": candidate_hash,
