@@ -95,19 +95,19 @@
         "architecture": "amd64",
         "engine_version": "28.4.0"
       },
-      "container_id": "149cc294fe1d4a41927a5c6c95259fee28d6ac311b7416080ae35b86bc3fcd80",
+      "container_id": "7a09f49a64e33d970d008df1cdf03ae119f911315c3d18a5285ceb343371a216",
       "process_inventory": [
         "PID                 PPID                USER                COMMAND",
-        "53635               53613               nobody              /bin/sh -euc javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java",
-        "53649               53635               nobody              javac -version"
+        "99650               99629               nobody              /bin/sh -euc javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java",
+        "99666               99650               nobody              javac -version"
       ],
       "return_code": 0,
       "stdout": "javac 21.0.11\n",
       "stderr": "",
       "timed_out": false,
       "oom_killed": false,
-      "started_at": "2026-07-27T21:48:26.877874+00:00",
-      "finished_at": "2026-07-27T21:48:38.937547+00:00",
+      "started_at": "2026-07-28T06:23:27.586517+00:00",
+      "finished_at": "2026-07-28T06:23:39.373432+00:00",
       "cleanup": {
         "execution_container_removed": true,
         "seed_container_removed": true,
@@ -197,19 +197,19 @@
           "architecture": "amd64",
           "engine_version": "28.4.0"
         },
-        "container_id": "149cc294fe1d4a41927a5c6c95259fee28d6ac311b7416080ae35b86bc3fcd80",
+        "container_id": "7a09f49a64e33d970d008df1cdf03ae119f911315c3d18a5285ceb343371a216",
         "process_inventory": [
           "PID                 PPID                USER                COMMAND",
-          "53635               53613               nobody              /bin/sh -euc javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java",
-          "53649               53635               nobody              javac -version"
+          "99650               99629               nobody              /bin/sh -euc javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java",
+          "99666               99650               nobody              javac -version"
         ],
         "return_code": 0,
         "stdout": "javac 21.0.11\n",
         "stderr": "",
         "timed_out": false,
         "oom_killed": false,
-        "started_at": "2026-07-27T21:48:26.877874+00:00",
-        "finished_at": "2026-07-27T21:48:38.937547+00:00",
+        "started_at": "2026-07-28T06:23:27.586517+00:00",
+        "finished_at": "2026-07-28T06:23:39.373432+00:00",
         "cleanup": {
           "execution_container_removed": true,
           "seed_container_removed": true,

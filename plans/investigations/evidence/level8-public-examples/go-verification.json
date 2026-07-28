@@ -4,12 +4,13 @@
   "example": {
     "language": "go",
     "class_name": "readme_example",
-    "code": "package main\n\nimport (\n\t\"fmt\"\n\t\"log\"\n\t\"strings\"\n\n\tpdf \"github.com/aspose-pdf-foss/aspose-pdf-foss-for-go\"\n)\n\nfunc main() {\n\tdoc, err := pdf.Open(\"testdata/binder1.pdf\")\n\tif err != nil {\n\t\tlog.Fatalf(\"open: %v\", err)\n\t}\n\n\n\tfmt.Println(\"=== Per-page text extraction ===\")\n\tfor i := 1; i <= doc.PageCount(); i++ {\n\t\tpage, err := doc.Page(i)\n\t\tif err != nil {\n\t\t\tlog.Fatalf(\"page %d: %v\", i, err)\n\t\t}\n\t\ttext, err := page.ExtractText()\n\t\tif err != nil {\n\t\t\tlog.Fatalf(\"extract page %d: %v\", i, err)\n\t\t}\n\t\tfmt.Printf(\"--- Page %d ---\\n\", i)\n\t\tif strings.TrimSpace(text) == \"\" {\n\t\t\tfmt.Println(\"(empty)\")\n\t\t} else {\n\t\t\tfmt.Println(text)\n\t\t}\n\t\tfmt.Println()\n\t}\n\n\n\tfmt.Println(\"=== Full document text extraction ===\")\n\ttexts, err := doc.ExtractText()\n\tif err != nil {\n\t\tlog.Fatalf(\"extract all: %v\", err)\n\t}\n\tfor i, text := range texts {\n\t\tfmt.Printf(\"--- Page %d ---\\n\", i+1)\n\t\tif strings.TrimSpace(text) == \"\" {\n\t\t\tfmt.Println(\"(empty)\")\n\t\t} else {\n\t\t\tfmt.Println(text)\n\t\t}\n\t\tfmt.Println()\n\t}\n}\n",
+    "code": "package main\n\nimport (\n\t\"flag\"\n\t\"fmt\"\n\t\"os\"\n\t\"path/filepath\"\n\t\"strings\"\n\n\tpdf \"github.com/aspose-pdf-foss/aspose-pdf-foss-for-go\"\n)\n\nfunc main() {\n\tembed := flag.Bool(\"embed\", false, \"embed images as data: URLs\")\n\tnoImages := flag.Bool(\"no-images\", false, \"skip images\")\n\tflag.Parse()\n\tif flag.NArg() != 1 {\n\t\tfmt.Fprintln(os.Stderr, \"usage: pdf_to_markdown [-embed|-no-images] <input.pdf>\")\n\t\tos.Exit(2)\n\t}\n\tdoc, err := pdf.Open(flag.Arg(0))\n\tif err != nil {\n\t\tfmt.Fprintln(os.Stderr, \"open:\", err)\n\t\tos.Exit(1)\n\t}\n\tstem := strings.TrimSuffix(filepath.Base(flag.Arg(0)), filepath.Ext(flag.Arg(0)))\n\toutDir := filepath.Join(\"result_files\", \"markdown\")\n\t_ = os.MkdirAll(outDir, 0o755)\n\tout := filepath.Join(outDir, stem+\".md\")\n\tif err := doc.SaveMarkdown(out, pdf.MarkdownSaveOptions{EmbedImages: *embed, NoImages: *noImages}); err != nil {\n\t\tfmt.Fprintln(os.Stderr, \"convert:\", err)\n\t\tos.Exit(1)\n\t}\n\tfmt.Printf(\"%s: %d page(s)\\n\", out, doc.PageCount())\n}\n",
     "evidence_paths": [
-      "_examples/text_extraction/main.go"
+      "_examples/pdf_to_markdown/main.go"
     ],
     "required_symbols": [
-      "pdf.Open(\"testdata/binder1.pdf\")"
+      "pdf.MarkdownSaveOptions",
+      "pdf.Open"
     ]
   },
   "verification": {
@@ -77,7 +78,7 @@
         "HOME",
         "TMPDIR"
       ],
-      "input_sha256": "5a650038d6fdfecfcd06ece66035428d213f715026074929e6abdd981c91bee6",
+      "input_sha256": "8a63734a89b35645ffda69bf58dfa2061434de665cf31c204d93d292e34dbfc7",
       "input_file_count": 747,
       "policy_sha256": "b7566bad8544220657ed2befa6c6c3c6f5672f1808113b5784b7af03daab9a6c",
       "policy": {
@@ -104,19 +105,19 @@
         "architecture": "amd64",
         "engine_version": "28.4.0"
       },
-      "container_id": "3851aeb3ad58be85397d3d7a831179337a06a0bf2a879b5a29d0700b25e20ff3",
+      "container_id": "6a7bac5f859b4a418b2dcbbb8fcc5b73648513b150b6a27d3fdd0f266cbb9036",
       "process_inventory": [
         "PID                 PPID                USER                COMMAND",
-        "49334               49312               nobody              /bin/sh -euc go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent",
-        "49355               49334               nobody              go build -p=1 ./..."
+        "102555              102532              nobody              /bin/sh -euc go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent",
+        "102575              102555              nobody              go build -p=1 ./..."
       ],
       "return_code": 0,
       "stdout": "go version go1.24.13 linux/amd64\n",
       "stderr": "",
       "timed_out": false,
       "oom_killed": false,
-      "started_at": "2026-07-27T21:47:37.711235+00:00",
-      "finished_at": "2026-07-27T21:48:24.120749+00:00",
+      "started_at": "2026-07-28T06:25:01.381537+00:00",
+      "finished_at": "2026-07-28T06:25:43.129089+00:00",
       "cleanup": {
         "execution_container_removed": true,
         "seed_container_removed": true,
@@ -125,9 +126,10 @@
     },
     "truth_eligible": true,
     "verified_public_symbols": [
+      "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.MarkdownSaveOptions",
       "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.Open"
     ],
-    "public_api_sha256": "1584abbeda87a2a7f7d155e04bfa63343abc0fd87566c1e106b0cffc0de83f3a",
+    "public_api_sha256": "bb9542b9a81630a0a20b80d025db6625781a683595a661ed54b667bc1fc8eeab",
     "python_package": null,
     "typescript_package": null,
     "rust_package": null,
@@ -135,10 +137,10 @@
     "rust_source_dependency": null,
     "acquisition_dependency_pins": [
       "container_image=golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
-      "example_sha256=e18752eaa8ffcc00802078fa28004930635cb7e768649f7d88fdd334729d99da",
-      "input_sha256=5a650038d6fdfecfcd06ece66035428d213f715026074929e6abdd981c91bee6",
+      "example_sha256=93c19cfa69086438890e3cad73cf4c8235b65e239a9253de3e7b74b80988cb4b",
+      "input_sha256=8a63734a89b35645ffda69bf58dfa2061434de665cf31c204d93d292e34dbfc7",
       "source_revision=f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
-      "source_surface_sha256=1584abbeda87a2a7f7d155e04bfa63343abc0fd87566c1e106b0cffc0de83f3a",
+      "source_surface_sha256=bb9542b9a81630a0a20b80d025db6625781a683595a661ed54b667bc1fc8eeab",
       "go_module_dependencies=none"
     ],
     "compiled_consumer": {
@@ -149,13 +151,15 @@
       "source_paths": [
         "annotation_text.go",
         "document.go",
-        "go.mod"
+        "go.mod",
+        "markdown_export.go"
       ],
       "selected_symbols": [
+        "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.MarkdownSaveOptions",
         "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.Open"
       ],
-      "source_sha256": "1584abbeda87a2a7f7d155e04bfa63343abc0fd87566c1e106b0cffc0de83f3a",
-      "example_sha256": "e18752eaa8ffcc00802078fa28004930635cb7e768649f7d88fdd334729d99da",
+      "source_sha256": "bb9542b9a81630a0a20b80d025db6625781a683595a661ed54b667bc1fc8eeab",
+      "example_sha256": "93c19cfa69086438890e3cad73cf4c8235b65e239a9253de3e7b74b80988cb4b",
       "isolated_execution": {
         "schema_version": 1,
         "isolation_kind": "docker_container",
@@ -174,7 +178,7 @@
           "HOME",
           "TMPDIR"
         ],
-        "input_sha256": "5a650038d6fdfecfcd06ece66035428d213f715026074929e6abdd981c91bee6",
+        "input_sha256": "8a63734a89b35645ffda69bf58dfa2061434de665cf31c204d93d292e34dbfc7",
         "input_file_count": 747,
         "policy_sha256": "b7566bad8544220657ed2befa6c6c3c6f5672f1808113b5784b7af03daab9a6c",
         "policy": {
@@ -201,19 +205,19 @@
           "architecture": "amd64",
           "engine_version": "28.4.0"
         },
-        "container_id": "3851aeb3ad58be85397d3d7a831179337a06a0bf2a879b5a29d0700b25e20ff3",
+        "container_id": "6a7bac5f859b4a418b2dcbbb8fcc5b73648513b150b6a27d3fdd0f266cbb9036",
         "process_inventory": [
           "PID                 PPID                USER                COMMAND",
-          "49334               49312               nobody              /bin/sh -euc go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent",
-          "49355               49334               nobody              go build -p=1 ./..."
+          "102555              102532              nobody              /bin/sh -euc go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent",
+          "102575              102555              nobody              go build -p=1 ./..."
         ],
         "return_code": 0,
         "stdout": "go version go1.24.13 linux/amd64\n",
         "stderr": "",
         "timed_out": false,
         "oom_killed": false,
-        "started_at": "2026-07-27T21:47:37.711235+00:00",
-        "finished_at": "2026-07-27T21:48:24.120749+00:00",
+        "started_at": "2026-07-28T06:25:01.381537+00:00",
+        "finished_at": "2026-07-28T06:25:43.129089+00:00",
         "cleanup": {
           "execution_container_removed": true,
           "seed_container_removed": true,
