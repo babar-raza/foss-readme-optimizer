@@ -4546,7 +4546,7 @@
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
       }
     ],
-    "facts_hash": "047c97ee354591343310bfdbb36cc60081944a7fb6599fa846ecf48405f28475",
+    "facts_hash": "d3cc49673f6be80771e39983ce8b3587ffea80dd09c512272bc4e33f683697b5",
     "history": [
       {
         "evidence_refs": [
@@ -5327,6 +5327,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\227894a1120c22b9b6522564e23dc1d14c8fc39a\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-28T00:35:47.305185+00:00",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "to_status": "BLOCKED_MISSING_EVIDENCE"
       }
     ],
     "presentation_plan_hash": null,
@@ -5336,11 +5349,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-28T00:35:42.514217+00:00"
+    "status": "BLOCKED_MISSING_EVIDENCE",
+    "updated_at": "2026-07-28T00:35:47.305185+00:00"
   },
   "schema_version": 2,
-  "state_version": 335,
+  "state_version": 336,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9e63ff6e9f22fa71b2e4dc0f398db4a51f35047cca6453241e1567ed5ff36c6d",
