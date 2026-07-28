@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T18:51:03.283398+00:00",
+    "last_evaluated_at": "2026-07-28T18:51:33.130539+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 8,
@@ -60,7 +60,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Compile every actionable assessment into bounded ReadmeDocumentPlanV1 operations and generate the candidate solely by applying those operations to the immutable source."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
@@ -76,7 +85,7 @@
       "L8-COMPOSE-04-PRESENTATION-LINT": "CLOSED",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "CLOSED",
       "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "CLOSED",
-      "L8-COMPOSE-05-SEVEN-CANDIDATES": "SCORED",
+      "L8-COMPOSE-05-SEVEN-CANDIDATES": "CLOSED",
       "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR": "CLOSED",
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
       "L8-GATEA-00-COHORT-CONTROLS": "TODO",
@@ -4113,6 +4122,19 @@
         "reason": "The representative gate is 7/7 with zero deterministic failures and zero remote writes.",
         "task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-seven-candidate-composition/verification.json",
+          "plans/investigations/evidence/level8-seven-candidate-composition/mission-contribution.json",
+          "plans/investigations/evidence/level8-seven-candidate-composition/sha256sums.txt"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T18:51:33.130526+00:00",
+        "reason": "The seven-ecosystem deterministic composition contract is closed with checksum-complete evidence.",
+        "task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -4121,7 +4143,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 473,
+  "state_version": 474,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
