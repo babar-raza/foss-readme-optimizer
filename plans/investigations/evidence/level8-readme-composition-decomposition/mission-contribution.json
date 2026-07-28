@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-01-DECOMPOSE",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Split renderer and agentic-composition responsibilities behind unchanged public seams before adding editorial behavior."
+  },
+  "acceptance_checks_passed": [
+    "No behavior change and no new non-wiring module exceeds the governed responsibility boundary"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-readme-composition-decomposition/verification.json",
+    "plans/investigations/evidence/level8-readme-composition-characterization/verification.json",
+    "tests/unit/test_readme_composition_module_boundaries.py"
+  ],
+  "scoreboard_before_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "scoreboard_after_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

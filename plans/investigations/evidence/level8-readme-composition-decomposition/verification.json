@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-01-DECOMPOSE",
+  "verdict": "VERIFIED",
+  "control_repository": {
+    "branch": "main",
+    "head": "509222e4f7821bddaad052abeb0d49d285dbe964",
+    "implementation_commit": "e3df3980c9ac8e5df3543e673f23e18590d3d932",
+    "working_tree_clean": true
+  },
+  "module_map": {
+    "agentic_composition.py": 179,
+    "agentic_composition_models.py": 61,
+    "agentic_composition_grounding.py": 112,
+    "agentic_composition_validation.py": 181,
+    "document_renderer.py": 107,
+    "document_render_context.py": 29,
+    "document_opening.py": 134,
+    "document_limitations.py": 68,
+    "document_acquisition.py": 151,
+    "document_examples.py": 59,
+    "document_release.py": 35
+  },
+  "checks": {
+    "all_new_non_wiring_modules_at_or_below_300_lines": true,
+    "private_cross_module_imports_absent": true,
+    "agentic_client_call_has_one_orchestration_facade": true,
+    "document_operation_application_has_one_orchestration_facade": true,
+    "public_imports_preserved": true,
+    "characterization_candidate_hashes_unchanged": true,
+    "characterization_plan_hashes_unchanged": true,
+    "prompt_hygiene_passed": true,
+    "candidate_pipeline_integrations_passed": true,
+    "product_remote_writes": 0
+  },
+  "commands": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_readme_composition_module_boundaries.py tests/unit/test_readme_composition_characterization.py tests/unit/test_agentic_readme_composition.py tests/unit/test_readme_document_plan.py tests/unit/test_readme_document_operations.py tests/unit/test_readme_document_structure.py tests/unit/test_readme_renderer.py tests/unit/test_readme_markers.py",
+      "result": "69 passed",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_build_presentation_plan_capability.py tests/unit/test_capabilities.py tests/unit/test_readme_proposal_bundle_verifier.py tests/unit/test_supervise_readme_proposal_review_integration.py tests/unit/test_local_poc_review_evidence.py tests/unit/test_supervisor_loop.py -k \"readme or local_poc or composition or presentation or proposal\"",
+      "result": "65 passed, 174 deselected",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_prompt_hygiene.py tests/unit/test_supervise_readme_proposal_review_integration.py::TestSuperviseLocalDryRunProducesBothVerifierVerdicts::test_cli_local_dry_run_produces_bundle_and_independent_review_verdicts",
+      "result": "8 passed",
+      "exit_code": 0
+    }
+  ],
+  "characterization_proof": "plans/investigations/evidence/level8-readme-composition-characterization/verification.json",
+  "official_suite_disposition": "Deferred to Decision 83's first latest-contract README campaign boundary; focused and public-seam regressions are the task-specific acceptance proof."
+}
