@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "d04a940d4a1d9ca42b1b27fd8468500a69a11cab31ac0f7b9abc6418aa925aea",
-    "last_evaluated_at": "2026-07-28T05:43:46.115011+00:00",
+    "last_evaluated_at": "2026-07-28T05:44:02.140007+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -141,7 +141,7 @@
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "CLOSED",
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
-      "L8-TRUTH-03-CLAIM-POLARITY": "SCORED",
+      "L8-TRUTH-03-CLAIM-POLARITY": "CLOSED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "REOPENED",
@@ -2900,6 +2900,19 @@
         "reason": "Independent evidence records a VERIFIED verdict and the governed mission contribution for GOAL-TRUTH.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-claim-polarity/verification.json",
+          "plans/investigations/evidence/level8-claim-polarity/sha256sums.txt",
+          "plans/investigations/evidence/level8-claim-polarity/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T05:44:02.139993+00:00",
+        "reason": "Acceptance is satisfied with checksum-complete evidence, full official checks, and real heterogeneous polarity controls.",
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -2908,7 +2921,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 331,
+  "state_version": 332,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
