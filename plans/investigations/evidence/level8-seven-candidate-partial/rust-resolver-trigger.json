@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "parent_task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES",
+  "resolver_task_id": "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR",
+  "recorded_at": "2026-07-28",
+  "control_head_before_resolver_graph": "0e374940b6600e32f32e712f513ecc508ed36024",
+  "representative": {
+    "ecosystem": "rust",
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+    "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+    "durable_lifecycle_status": "FACTS_READY",
+    "durable_facts_hash": "477e741d1921aa47302d79721b0ba614706d709529eb0ba4f7faef3ad06e7cfd",
+    "domain_last_failure_reason": "execution_error",
+    "domain_consecutive_failure_count": 4
+  },
+  "attempts": [
+    {
+      "command": ".venv/Scripts/readme-agent supervise --registry runs/level8-seven-candidate-registry.json --execution-profile local_poc --max-readme-poc-stage DETERMINISTIC_VALIDATED",
+      "portfolio_complete": "5/7",
+      "member_status": "BLOCKED",
+      "blocked_reason": "stage_limit_not_reached:DETERMINISTIC_VALIDATED:FACTS_READY",
+      "blocked_category": "agent_fixable",
+      "provider_calls": 3
+    },
+    {
+      "command": ".venv/Scripts/readme-agent supervise --registry runs/level8-seven-candidate-registry.json --execution-profile local_poc --max-readme-poc-stage DETERMINISTIC_VALIDATED",
+      "portfolio_complete": "5/7",
+      "member_status": "BLOCKED",
+      "blocked_reason": "stage_limit_not_reached:DETERMINISTIC_VALIDATED:FACTS_READY",
+      "blocked_category": "agent_fixable",
+      "provider_calls": 3
+    }
+  ],
+  "verified_prefix": [
+    "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+    "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript"
+  ],
+  "diagnostic_gap": "The portfolio terminal and durable domain state retained only execution_error, not the exception type, message, stage, attempt, or evidence reference needed to identify the first failing boundary.",
+  "decision": "Stop blind paid retries, preserve the five valid stage receipts, and reroute to the governed Rust observability and execution repair child before Go."
+}
