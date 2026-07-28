@@ -22,6 +22,7 @@ from readme_agent.readme.document_renderer import (
     apply_document_operations,
     document_template_hash,
 )
+from readme_agent.readme.document_structure import code_blocks_in_span, parse_headings
 from readme_agent.readme.document_terminology import enterprise_product_name
 from readme_agent.readme.header_visual_validation import validate_readme_header_visual
 from readme_agent.readme.markers import find_presentation_span
@@ -67,6 +68,29 @@ def _accepted(facts: ProductFactsV2, field_name: str):
 
 def _comment_failures(candidate_text: str) -> list[str]:
     return ["README contains an HTML comment"] if _HTML_COMMENT.search(candidate_text) else []
+
+
+def _competing_example_failures(candidate_text: str, exact_example: str) -> list[str]:
+    if not exact_example:
+        return []
+    headings = parse_headings(candidate_text)
+    usage = next(
+        (
+            heading
+            for heading in headings
+            if heading.level == 2
+            and heading.title.strip().casefold() in {"quick start", "usage", "getting started"}
+        ),
+        None,
+    )
+    if usage is None:
+        return []
+    examples = code_blocks_in_span(candidate_text, usage.heading_end, usage.section_end)
+    if len(examples) <= 1:
+        return []
+    return [
+        "README usage section contains competing code examples without independently verified roles"
+    ]
 
 
 def validate_readme_document_candidate(
@@ -181,6 +205,11 @@ def validate_readme_document_candidate(
             if example is not None
             else "selected unverified minimal example is present"
         )
+    competing_example_failures = (
+        _competing_example_failures(candidate_inner, exact_example) if example is not None else []
+    )
+    checks["no_competing_examples"] = not competing_example_failures
+    errors.extend(competing_example_failures)
 
     overview_views = [
         view
