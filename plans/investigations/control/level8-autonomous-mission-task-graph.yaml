@@ -46,6 +46,9 @@ mission_authority:
     in a 3-5-week target, overlapping only independent no-effect work.'
   - 'LONG-TERM HORIZON: Level-8-grade controls from hosted day 1, Level 7 at clean day 30, and Level 8
     from the same uninterrupted series at day 90.'
+  - 'CAMPAIGN DELIVERY: unresolved taskcards remain distinct dependency and acceptance boundaries,
+    but adjacent ready work executes in seven outcome campaigns rather than as one full-test,
+    evidence, and commit cycle per task.'
   - One canonical production supervisor and no alternate mutation path.
   - Restartable GitHub Actions runtime with durable lifecycle recovery.
   - Provenance-complete product facts and surface ownership.
@@ -65,6 +68,21 @@ mission_authority:
   - Every selected task remains inside its functional goal's short, medium, long, or cross-cutting horizon;
     a timebox breach records the first failing boundary and smallest permanent repair and never authorizes
     another plan, unrelated abstraction, reduced acceptance, or report-only closure.
+  - Campaign batching changes scheduling cost only; every task keeps separately inspectable focused proof,
+    result mapping, and transition evidence, and only CLOSED satisfies a dependency.
+  - Verification uses continuous touched-seam Ruff and focused tests, impact-mapped integration/safety/no-op
+    proof at coherent slices, and the complete official suite only at the four local campaign boundaries
+    plus later delivery or maturity gates that claim its scope.
+  - All-code-then-test-later execution is prohibited; expensive aggregate verification is deferred to the
+    declared campaign boundary, never omitted, while the first focused or safety failure is repaired before
+    dependent implementation continues.
+  - Failed attempts remain redacted runtime diagnostics and one checksum-complete closure package may prove
+    several adjacent tasks only when it contains per-task and per-requirement acceptance mappings.
+  - Deterministic gates run before paid composition or review; unchanged work is reused only under a complete
+    dependency fingerprint, and shared failures are repaired once at their earliest common owner.
+  - Execution remains serial until seven-representative qualification; only then may the sole supervisor use
+    a measured two-to-four isolated repository lanes with serialized aggregation and no concurrent
+    control-repository editing.
   - Platform-scoped selection and cohort manifests preserve Python, .NET, Java, C++, TypeScript, Rust,
     Go order after dependency, live-claim, safety, and isolation constraints; a narrow external block
     may be bypassed temporarily but remains visible and regains priority immediately when cleared.
@@ -3426,6 +3444,9 @@ taskcards:
   - document rendering and native patching
   - independent verification
   - no-op rerender
+  - Run touched-seam and affected safety checks during this task; defer the complete official suite to the
+    first current-contract README campaign boundary rather than rerunning it after each catalog, policy,
+    selector, renderer, or validator edit.
   evidence_requirements:
   - Catalog source/sitemap/live-probe provenance and checksums
   - Link allocation policy and pre-link content-unit calculation

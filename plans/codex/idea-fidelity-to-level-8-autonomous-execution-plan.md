@@ -275,6 +275,86 @@ series. Its first 30 clean days establish Level 7; the same uninterrupted series
 at day 90. A weaker earlier period cannot be backfilled, and an acceptance-breaking day restarts
 or extends the applicable consecutive window.
 
+### Campaign-level delivery and verification
+
+The unresolved task count is a durable dependency/state count, not a prescription to run that many
+separate implementation sprints, full test suites, evidence promotions, or commits. Adjacent
+dependency-ready tasks execute inside the following outcome campaigns while retaining their own
+task IDs, acceptance criteria, transitions, and evidence mappings:
+
+| Campaign | Included outcome | Shared verification boundary |
+| --- | --- | --- |
+| C1 -- first current-contract README | Finish contextual linking, existing-content reconciliation, complete claim accountability, operation coverage, presentation lint, composition, review, and effective repair for the highest-priority Python representative. | Focused/impact checks during implementation; one complete official suite, real Python lifecycle, independent review, repair control, and unchanged no-op at the accepted README boundary. |
+| C2 -- seven representatives | Extend the identical accepted contract through .NET, Java, C++, TypeScript, Rust, and Go; close reviewer grounding/cache behavior, recovery, golden-set qualification, campaign identity, and contract freeze. | Adapter/public-seam checks per ecosystem; one seven-repository end-to-end, recovery/idempotency campaign; one complete official suite and independent aggregate at qualification closure. |
+| C3 -- full-registry Gate A | Process every current registry entry in platform/family cohorts, heal only invalidated boundaries, prove no-op, and reproduce the portfolio aggregate. | Per-repository deterministic gates and manifest checks; one complete official suite and independent denominator/checksum reconstruction at Gate-A closure. |
+| C4 -- local profile and workflow | Complete the remaining locally testable presentation surfaces and reproduce the same canonical supervisor under `act`. | Surface-specific integration/safety checks followed by one complete local multi-surface proof and one actual-workflow recovery/idempotency proof. |
+| C5 -- staging and controlled delivery | Prove proposal state in disposable staging, obtain Gate-C per-push approvals, prove the Java draft-PR lifecycle, then provision the hosted runtime. | Scenario matrix for create/no-op/update/drift/dedup/lost response/crash/authorization, default-branch byte identity, and token isolation. |
+| C6 -- Level 5 and heterogeneous rollout | Complete every `idea.md` surface, run the controlled three-Java pilot, then operate and prove the supported portfolio. | Independent Level-5 audit, one authorized lifecycle per ecosystem, portfolio health/recovery proof, and the uninterrupted day-1-to-day-30 evidence series. |
+| C7 -- Level 8 | Continue the same Level-8-grade hosted system through day 90. | Weekly reproducible manifests and reports, continuous safety/recovery metrics, and the final independent Level-8 audit. |
+
+Campaign batching changes execution granularity only. It never changes the end goal, dependency
+order, platform priority, requirement status, proof standard, Gate A/B/C/D order, or the rule that
+only `CLOSED` satisfies a dependency. A shared campaign result may close several tasks only when it
+contains separately inspectable acceptance and evidence mappings for every task. Code existence or
+a green downstream smoke run cannot bulk-close unfinished taskcards.
+
+Within C1-C3, the operator uses this verification pyramid:
+
+1. **Edit loop:** run Ruff on touched Python and the smallest affected unit/contract tests. A failure
+   is repaired immediately at the first failing boundary.
+2. **Integrated slice:** after a public seam or coherent group of adjacent tasks is runnable, run
+   its integration, safety, regression, invalidation, and no-op checks. This is the earliest point
+   a task may close.
+3. **Campaign boundary:** run the real representative/portfolio proof, independent verifier,
+   evidence-corruption controls, SHA-256 inventory, and the complete official suite at the four
+   local boundaries already fixed above.
+4. **Delivery/production boundary:** run the staging, recovery, idempotency, authorization, and
+   elapsed-operation proof required by that gate.
+
+Implementing all remaining development first and testing only at the end is prohibited. It would
+allow an early fact, document-plan, renderer, or reviewer defect to multiply across every consumer.
+The accelerated rule is instead **continuous cheap verification plus deferred expensive aggregate
+verification**.
+
+### Additional material accelerators
+
+The following controls are part of the existing mission rather than a separate performance plan:
+
+- **One stable campaign tree.** Keep one operator and one top-level command tree. Avoid repeated
+  branch/worktree setup and do not create per-task implementation environments.
+- **Fewer coherent commits.** Commit runnable, reviewable campaign slices rather than mechanically
+  creating one commit per taskcard. A normal C1/C2 implementation campaign should need only the
+  fewest coherent commits its rollback boundaries require; every commit remains green for the
+  impact-mapped checks and carries the required trailer.
+- **One closure package.** Keep failed attempts as redacted runtime diagnostics and promote one
+  checksum-complete evidence package per coherent closure campaign, with per-task result mappings.
+- **Deterministic before paid.** Run catalog, facts, source-span, package/example, policy, protected
+  content, link, and claim-map gates before any composition/review call. A deterministic failure
+  makes zero paid calls.
+- **Hash-addressed reuse.** Skip unchanged facts, toolchain outputs, LLM jobs, render stages,
+  validation, and no-op work only when the complete dependency fingerprint matches. Invalidate from
+  the earliest changed boundary and retain unaffected repository/family/ecosystem evidence.
+- **Portfolio evidence reuse.** Compute applicable family and ecosystem evidence once, then add and
+  verify each repository delta. Shared evidence never substitutes for repository-specific
+  coordinates, APIs, examples, limitations, licenses, workflows, or inherited claims.
+- **Bounded call budget.** The normal maximum remains one composition, one independent review, and
+  one targeted repair call per repository/revision/campaign. Retry/provider exceptions require an
+  explicit ledger rationale.
+- **Repair upstream once.** When several repositories fail for the same reason, repair the shared
+  adapter/contract once, requalify the affected representative, and resume only invalidated
+  repositories. Do not patch candidates individually.
+- **Resume, do not replay.** Persist stage outputs and transition receipts after each repository so
+  cancellation, machine restart, or a narrow failure resumes from the last checksum-valid boundary.
+- **Bounded post-qualification lanes.** Remain serial through seven-representative qualification.
+  Afterwards the sole supervisor may use the measured safe count of two to four isolated repository
+  lanes, with serialized aggregation and no concurrent control-repository editing.
+- **Measure before test parallelism.** Enable pytest-xdist, persistent clone optimization, CI cache
+  changes, or physical multi-item LLM batching only after the cost-baseline task proves the change
+  safe, faster, deterministic, and isolated. Otherwise keep them off the critical path.
+- **Impact map, not ritual reruns.** Record which modules/contracts each focused test proves.
+  Rerun unaffected expensive suites only at their campaign boundary, while safety-critical touched
+  seams always run immediately.
+
 ### Disposition of the external testing/performance plan
 
 `C:\Users\prora\.claude\plans\how-to-make-testing-shiny-lamport.md` is a useful supporting
@@ -621,14 +701,20 @@ duplicate LLM calls or bundles; no local POC run can issue a remote write.
 ### Atomic execution queue from the current checkpoint
 
 The phase descriptions below remain the acceptance model. Execution uses these smallest
-independently closable work items, in this exact order. Each item is one coherent commit plus
-focused proof; no item earns the next item merely because code exists.
+independently closable work items, in this exact dependency order. A taskcard is a durable
+acceptance/transition boundary, not necessarily a separate implementation sprint, evidence
+package, full-suite invocation, or commit. Adjacent ready items should be implemented as one
+coherent campaign slice when they touch the same public seam, while focused proof and a
+separately inspectable result mapping remain mandatory for every item. No item earns the next item
+merely because code exists.
 
 The executable mission graph decomposes each composition, review, qualification, and Gate-A
 implementation item once more into an immediately preceding characterization or negative-control
 task (`*-00-*` or `*-0xA-*`). The control task must reproduce the defect and freeze expected
 behavior before its paired implementation task can become ready. These are not parallel ledgers:
-they are dependency-interleaved children of the same aggregate tasks listed below.
+they are dependency-interleaved children of the same aggregate tasks listed below. Characterize,
+implement, and run focused proof without an intervening full-suite/evidence ceremony; promote the
+shared campaign evidence only at the next declared output boundary.
 
 #### Product-truth boundary (`L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH`)
 
@@ -1013,9 +1099,15 @@ Every task needs focused tests, integration tests through public seams, safety/r
 live-like proof appropriate to the claim, failure/recovery/idempotency/evidence-corruption controls,
 an independent verifier, a SHA-256 inventory, and reproduction instructions.
 
+Those proofs may be produced by a shared campaign run, provided its manifest maps each result to the
+owning task and requirement. Focused and affected safety checks run as soon as their seam changes.
+The expensive aggregate is intentionally deferred to the next campaign boundary; it is not omitted.
+
 The official control-repository gate runs Ruff, format check, mypy, non-live pytest, plan validation,
 blocking coverage, blocking semantic traceability, blocking verifier enforcement, actionlint, and
-`git diff --check` against a recorded stable tree.
+`git diff --check` against a recorded stable tree at the four local campaign boundaries and every
+later gate that claims the same scope. Re-running it after every micro-fix is churn; skipping it at
+a declared boundary is incomplete proof.
 
 Human involvement is limited to Gate-B review of already agent-approved candidates, Docker or
 staging access if unavailable locally, staging credentials, exact per-product-push approval,
