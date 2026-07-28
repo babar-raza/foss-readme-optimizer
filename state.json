@@ -13,20 +13,20 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T07:23:26.172969+00:00",
+    "last_evaluated_at": "2026-07-28T07:45:55.234904+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
       "denominator": 31,
       "derived_at": "2026-07-28T07:19:15.801575+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 7,
+      "facts_ready": 8,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 1,
-        "DISCOVERED": 23,
-        "FACTS_READY": 6,
+        "DISCOVERED": 22,
+        "FACTS_READY": 7,
         "NO_OP_PROVEN": 1
       },
       "missing_lifecycle_repositories": [
@@ -41,7 +41,6 @@
         "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
         "aspose-note-foss/Aspose.Note-FOSS-for-Python",
         "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
         "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp",
@@ -137,7 +136,7 @@
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
-      "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "SCORED",
+      "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "CLOSED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
@@ -3088,6 +3087,17 @@
         "reason": "Acceptance score: 7/7 FACTS_READY, 0 system failures, 0 provider calls on unchanged aggregate replay, 7/7 valid SHA-256 bundle inventories, 154/154 focused tests, and 1,954/1,954 official non-live tests.",
         "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-seven-ecosystem-facts/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T07:45:55.234882+00:00",
+        "reason": "Seven prioritized ecosystem representatives are FACTS_READY with current-contract native-tool proof, checksum-complete independent evidence, a clean official suite, and a zero-provider-call unchanged replay.",
+        "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -3096,7 +3106,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 352,
+  "state_version": 353,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
