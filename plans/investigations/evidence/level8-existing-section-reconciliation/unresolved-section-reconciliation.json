@@ -1,0 +1,196 @@
+[
+  {
+    "section_id": "opening",
+    "heading": "Opening",
+    "source_byte_start": 0,
+    "source_byte_end": 69,
+    "source_sha256": "f5ae06a1a4986ec677cddc032108c671b0b2343cb2697c8ec52eb1b677e0d037",
+    "assessment_disposition": "preserve",
+    "assessment_fact_ids": [
+      "product.identity:manifest-and-registry",
+      "relationship.commercial_foss:primary"
+    ],
+    "operation_ids": [
+      "readme.overview-navigation-and-acquisition",
+      "readme.header.badges"
+    ],
+    "operation_fact_ids": [
+      "installation.coordinates:manifest",
+      "product.audience:agent-drafted-grounded",
+      "product.capabilities:repository-evidence",
+      "product.formats:repository-evidence",
+      "product.identity:manifest-and-registry",
+      "product.license:license-file",
+      "product.platforms:manifest",
+      "product.problems_solved:agent-drafted-grounded"
+    ],
+    "authoritative_owners": [
+      "repository-owner"
+    ],
+    "uncertainty": null,
+    "protected_fragment_ids": [],
+    "rationale": "Remove only a detected promotional callout; otherwise preserve the opening."
+  },
+  {
+    "section_id": "heading:0",
+    "heading": "Aspose.3D FOSS for .NET",
+    "source_byte_start": 0,
+    "source_byte_end": 255,
+    "source_sha256": "a016986893cdf31fcea2091b8376bbc6f9711de2de11edcb619a3f1d4c4ac8b3",
+    "assessment_disposition": "preserve",
+    "assessment_fact_ids": [],
+    "operation_ids": [
+      "readme.overview-navigation-and-acquisition",
+      "readme.limitations.add-verified",
+      "readme.header.badges",
+      "readme.unresolved.withhold:1",
+      "readme.unresolved.withhold:2"
+    ],
+    "operation_fact_ids": [
+      "installation.coordinates:manifest",
+      "product.audience:agent-drafted-grounded",
+      "product.capabilities:repository-evidence",
+      "product.formats:repository-evidence",
+      "product.identity:manifest-and-registry",
+      "product.license:license-file",
+      "product.limitations:repository-evidence",
+      "product.platforms:manifest",
+      "product.problems_solved:agent-drafted-grounded"
+    ],
+    "authoritative_owners": [
+      "repository-owner"
+    ],
+    "uncertainty": null,
+    "protected_fragment_ids": [
+      "command:a78db089c9a8efb0",
+      "example:a0333d8a3cf2635c",
+      "example:a78db089c9a8efb0"
+    ],
+    "rationale": "Maintainer-authored content is preserved by default."
+  },
+  {
+    "section_id": "heading:69",
+    "heading": "Installation",
+    "source_byte_start": 69,
+    "source_byte_end": 137,
+    "source_sha256": "703abdf7f7232a13f35af19ed67cc3c7f39dcb2ce8137c335bff7d1438956c15",
+    "assessment_disposition": "investigate",
+    "assessment_fact_ids": [],
+    "operation_ids": [
+      "readme.overview-navigation-and-acquisition",
+      "readme.unresolved.withhold:1"
+    ],
+    "operation_fact_ids": [
+      "installation.coordinates:manifest",
+      "product.audience:agent-drafted-grounded",
+      "product.capabilities:repository-evidence",
+      "product.formats:repository-evidence",
+      "product.identity:manifest-and-registry",
+      "product.platforms:manifest",
+      "product.problems_solved:agent-drafted-grounded"
+    ],
+    "authoritative_owners": [
+      "repository-owner"
+    ],
+    "uncertainty": "Installation prose cannot be changed while acquisition truth is unresolved.",
+    "protected_fragment_ids": [
+      "command:a78db089c9a8efb0",
+      "example:a78db089c9a8efb0"
+    ],
+    "rationale": "Installation prose cannot be changed while acquisition truth is unresolved."
+  },
+  {
+    "section_id": "heading:137",
+    "heading": "Quick Start",
+    "source_byte_start": 137,
+    "source_byte_end": 203,
+    "source_sha256": "fbca1f4df5cb34c24ad567a134eb34e6f0c7c49ba2f5014aaaa9db2019077d91",
+    "assessment_disposition": "investigate",
+    "assessment_fact_ids": [],
+    "operation_ids": [
+      "readme.unresolved.withhold:2"
+    ],
+    "operation_fact_ids": [],
+    "authoritative_owners": [],
+    "uncertainty": "Example prose is preserved while executable example evidence is unresolved.",
+    "protected_fragment_ids": [
+      "example:a0333d8a3cf2635c"
+    ],
+    "rationale": "Example prose is preserved while executable example evidence is unresolved."
+  },
+  {
+    "section_id": "heading:203",
+    "heading": "Support",
+    "source_byte_start": 203,
+    "source_byte_end": 255,
+    "source_sha256": "f65cf6e48e202e964d19cde58bb37f031e07101fb462b5a120cbc8e2bb1ca824",
+    "assessment_disposition": "preserve",
+    "assessment_fact_ids": [],
+    "operation_ids": [
+      "readme.limitations.add-verified"
+    ],
+    "operation_fact_ids": [
+      "product.limitations:repository-evidence"
+    ],
+    "authoritative_owners": [
+      "repository-owner"
+    ],
+    "uncertainty": null,
+    "protected_fragment_ids": [],
+    "rationale": "Maintainer-authored content is preserved by default."
+  },
+  {
+    "section_id": "missing:at-a-glance",
+    "heading": "At a glance",
+    "source_byte_start": 69,
+    "source_byte_end": 69,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "assessment_disposition": "add",
+    "assessment_fact_ids": [
+      "product.audience:agent-drafted-grounded",
+      "product.problems_solved:agent-drafted-grounded",
+      "product.capabilities:repository-evidence"
+    ],
+    "operation_ids": [
+      "readme.overview-navigation-and-acquisition"
+    ],
+    "operation_fact_ids": [
+      "installation.coordinates:manifest",
+      "product.audience:agent-drafted-grounded",
+      "product.capabilities:repository-evidence",
+      "product.formats:repository-evidence",
+      "product.identity:manifest-and-registry",
+      "product.platforms:manifest",
+      "product.problems_solved:agent-drafted-grounded"
+    ],
+    "authoritative_owners": [
+      "repository-owner"
+    ],
+    "uncertainty": null,
+    "protected_fragment_ids": [],
+    "rationale": "Add a fact-backed overview when verified descriptive facts are available."
+  },
+  {
+    "section_id": "missing:limitations",
+    "heading": "Known limitations",
+    "source_byte_start": 255,
+    "source_byte_end": 255,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "assessment_disposition": "add",
+    "assessment_fact_ids": [
+      "product.limitations:repository-evidence"
+    ],
+    "operation_ids": [
+      "readme.limitations.add-verified"
+    ],
+    "operation_fact_ids": [
+      "product.limitations:repository-evidence"
+    ],
+    "authoritative_owners": [
+      "repository-owner"
+    ],
+    "uncertainty": null,
+    "protected_fragment_ids": [],
+    "rationale": "Add limitations that are explicitly supported by verified repository evidence."
+  }
+]

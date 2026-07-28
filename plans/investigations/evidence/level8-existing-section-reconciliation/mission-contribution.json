@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-02-EXISTING-SECTIONS",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Inventory every material source content unit, preferentially reuse it after evidence or authoritative-owner validation, improve it only with verified clarity, correct contradictions, and withhold unresolved factual material without losing its traceability."
+  },
+  "acceptance_checks_passed": [
+    "Validated product-agent content remains or has an exact evidence-backed improvement",
+    "Contradicted content is corrected and unresolved content cannot render as fact",
+    "No content is lost merely because wholesale regeneration is easier"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-existing-section-reconciliation/verification.json",
+    "plans/investigations/evidence/level8-existing-section-reconciliation/real-net-section-reconciliation.json",
+    "plans/investigations/evidence/level8-existing-section-reconciliation/unresolved-section-reconciliation.json"
+  ],
+  "scoreboard_before_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "scoreboard_after_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

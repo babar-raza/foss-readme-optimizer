@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-02-EXISTING-SECTIONS",
+  "control_repository": {
+    "branch": "main",
+    "head": "d4707398865382de3f453afec8e5d1c7262d6d92",
+    "working_tree_clean_at_start": true
+  },
+  "checks": {
+    "control_tree_clean_at_start": true,
+    "source_head_stable": true,
+    "real_net_validation_valid": true,
+    "real_net_native_patch_applies": true,
+    "validated_maintainer_content_preserved": true,
+    "contradicted_content_has_fact_cited_corrections": true,
+    "unresolved_validation_valid": true,
+    "unresolved_sections_withheld": true,
+    "unrelated_maintainer_content_preserved": true,
+    "withheld_source_is_traceable": true,
+    "focused_regressions_pass": true,
+    "zero_product_remote_writes": true
+  },
+  "verdict": "VERIFIED",
+  "reproduction_command": ".venv/Scripts/python plans/investigations/tools/build_existing_section_reconciliation_evidence.py"
+}

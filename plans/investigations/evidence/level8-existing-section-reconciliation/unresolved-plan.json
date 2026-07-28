@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+  "immutable_base_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+  "facts_hash": "f7d8a3a58729de837eaae26a82e7fd1ba6bfa0a140e8ec618b5bff958d52b195",
+  "template_sha256": "6debd1cf49ee2b0f864145483a4a857e8f7175c9d958e907bf721a83e316f003",
+  "source_sha256": "a016986893cdf31fcea2091b8376bbc6f9711de2de11edcb619a3f1d4c4ac8b3",
+  "adoption": {
+    "marker_schema_version": null,
+    "metadata_location": "durable_evidence",
+    "already_adopted": false,
+    "source_document_sha256": "a016986893cdf31fcea2091b8376bbc6f9711de2de11edcb619a3f1d4c4ac8b3",
+    "source_inner_sha256": "a016986893cdf31fcea2091b8376bbc6f9711de2de11edcb619a3f1d4c4ac8b3",
+    "source_inner_bytes": 255,
+    "preservation_check": "byte_identical"
+  },
+  "header_visuals": {
+    "schema_version": 1,
+    "title": "Aspose.3D FOSS for .NET",
+    "title_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ],
+    "badges": [
+      {
+        "badge_id": "license",
+        "kind": "license",
+        "alt_text": "License: MIT",
+        "image_url": "https://img.shields.io/badge/License-MIT-blue",
+        "target_url": "LICENSE",
+        "fact_ids": [
+          "product.license:license-file"
+        ]
+      }
+    ],
+    "badge_markdown": "[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+    "diagram_nodes": [
+      {
+        "node_id": "product",
+        "role": "product",
+        "label": "Aspose.3D FOSS for .NET",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "audience_1",
+        "role": "audience",
+        "label": "Developers using .NET.",
+        "fact_ids": [
+          "product.audience:agent-drafted-grounded",
+          "product.identity:manifest-and-registry",
+          "product.platforms:manifest",
+          "installation.coordinates:manifest"
+        ]
+      },
+      {
+        "node_id": "problem_1",
+        "role": "problem",
+        "label": "Scene graph management",
+        "fact_ids": [
+          "product.problems_solved:agent-drafted-grounded",
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_1",
+        "role": "capability",
+        "label": "Scene graph management",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_2",
+        "role": "capability",
+        "label": "FileFormat-based format detection",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "format_1",
+        "role": "format",
+        "label": "FBX",
+        "fact_ids": [
+          "product.formats:repository-evidence"
+        ]
+      }
+    ],
+    "mermaid_source": "flowchart LR\n  product[\"Aspose.3D FOSS for .NET\"]\n  audience_1[\"Developers using .NET.\"]\n  problem_1[\"Scene graph management\"]\n  capability_1[\"Scene graph management\"]\n  capability_2[\"FileFormat-based format detection\"]\n  format_1[\"FBX\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1",
+    "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.3D FOSS for .NET\"]\n  audience_1[\"Developers using .NET.\"]\n  problem_1[\"Scene graph management\"]\n  capability_1[\"Scene graph management\"]\n  capability_2[\"FileFormat-based format detection\"]\n  format_1[\"FBX\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```"
+  },
+  "contextual_links": null,
+  "enterprise_terminology_corrections": [],
+  "operations": [
+    {
+      "operation_id": "readme.overview-navigation-and-acquisition",
+      "operation": "insert_before",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 69,
+      "source_byte_end": 69,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "## At a glance\n\n- **For:** Developers using .NET.\n- **Problem solved:** Scene graph management. FileFormat-based format detection. Scene save to file. Open file format loader.\n- **Verified capabilities:** Scene graph management. FileFormat-based format detection. Scene save to file. Open file format loader. Node hierarchy management. Entity rendering support.\n- **Verified formats:** FBX.\n- **Runtime:** netcoreapp3.1\n\n```mermaid\nflowchart LR\n  product[\"Aspose.3D FOSS for .NET\"]\n  audience_1[\"Developers using .NET.\"]\n  problem_1[\"Scene graph management\"]\n  capability_1[\"Scene graph management\"]\n  capability_2[\"FileFormat-based format detection\"]\n  format_1[\"FBX\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```\n\n## In this README\n\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Support](#support)\n\n",
+      "replacement_sha256": "115af55240785b8ee45ba6b670b70559d14f459aa494f9a5ab9635c0fcd0ba3a",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "product.audience:agent-drafted-grounded",
+        "product.capabilities:repository-evidence",
+        "product.formats:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.platforms:manifest",
+        "product.problems_solved:agent-drafted-grounded"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.limitations.add-verified",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 255,
+      "source_byte_end": 255,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n## Known limitations\n\n- License management APIs not available\n",
+      "replacement_sha256": "441211c92557fb4ffea45374e485df24033e90d958e96cc89fea688010119d8f",
+      "fact_ids": [
+        "product.limitations:repository-evidence"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Expose repository-verified limitations instead of silently presenting incomplete capability coverage.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.header.badges",
+      "operation": "insert_after",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 26,
+      "source_byte_end": 26,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "replacement_text": "\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+      "replacement_sha256": "1c6695b4496b1508d5f11e2e91d78c7143f40313f6f4943e6e32915a1080b0a0",
+      "fact_ids": [
+        "product.license:license-file"
+      ],
+      "protected_content_treatment": "additive",
+      "rationale": "Add only applicable package, version, download, and license badges.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.unresolved.withhold:1",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 69,
+      "source_byte_end": 137,
+      "expected_sha256": "703abdf7f7232a13f35af19ed67cc3c7f39dcb2ce8137c335bff7d1438956c15",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Withhold the source-bound 'Installation' section because its assessment requires unresolved evidence. Preserve its exact bytes and uncertainty in the assessment and evidence bundle instead of presenting it as verified fact.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    },
+    {
+      "operation_id": "readme.unresolved.withhold:2",
+      "operation": "remove",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 137,
+      "source_byte_end": 203,
+      "expected_sha256": "fbca1f4df5cb34c24ad567a134eb34e6f0c7c49ba2f5014aaaa9db2019077d91",
+      "replacement_text": "",
+      "replacement_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fact_ids": [],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Withhold the source-bound 'Quick Start' section because its assessment requires unresolved evidence. Preserve its exact bytes and uncertainty in the assessment and evidence bundle instead of presenting it as verified fact.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "4fd06eefb6fbd6881fb9d0cf20150e7c0086f32248ad4fe8613645f0fac09f7b"
+}

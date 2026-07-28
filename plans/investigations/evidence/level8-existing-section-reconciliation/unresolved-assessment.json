@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+  "immutable_base_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+  "source_sha256": "a016986893cdf31fcea2091b8376bbc6f9711de2de11edcb619a3f1d4c4ac8b3",
+  "facts_hash": "f7d8a3a58729de837eaae26a82e7fd1ba6bfa0a140e8ec618b5bff958d52b195",
+  "sections": [
+    {
+      "section_id": "opening",
+      "heading": "Opening",
+      "level": 0,
+      "source_byte_start": 0,
+      "source_byte_end": 69,
+      "disposition": "preserve",
+      "fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:0:69"
+      ],
+      "rationale": "Remove only a detected promotional callout; otherwise preserve the opening."
+    },
+    {
+      "section_id": "heading:0",
+      "heading": "Aspose.3D FOSS for .NET",
+      "level": 1,
+      "source_byte_start": 0,
+      "source_byte_end": 255,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "command:a78db089c9a8efb0",
+        "example:a0333d8a3cf2635c",
+        "example:a78db089c9a8efb0"
+      ],
+      "evidence": [
+        "README.md:0:255"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "heading:69",
+      "heading": "Installation",
+      "level": 2,
+      "source_byte_start": 69,
+      "source_byte_end": 137,
+      "disposition": "investigate",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "command:a78db089c9a8efb0",
+        "example:a78db089c9a8efb0"
+      ],
+      "evidence": [
+        "README.md:69:137"
+      ],
+      "rationale": "Installation prose cannot be changed while acquisition truth is unresolved."
+    },
+    {
+      "section_id": "heading:137",
+      "heading": "Quick Start",
+      "level": 2,
+      "source_byte_start": 137,
+      "source_byte_end": 203,
+      "disposition": "investigate",
+      "fact_ids": [],
+      "protected_fragment_ids": [
+        "example:a0333d8a3cf2635c"
+      ],
+      "evidence": [
+        "README.md:137:203"
+      ],
+      "rationale": "Example prose is preserved while executable example evidence is unresolved."
+    },
+    {
+      "section_id": "heading:203",
+      "heading": "Support",
+      "level": 2,
+      "source_byte_start": 203,
+      "source_byte_end": 255,
+      "disposition": "preserve",
+      "fact_ids": [],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "README.md:203:255"
+      ],
+      "rationale": "Maintainer-authored content is preserved by default."
+    },
+    {
+      "section_id": "missing:at-a-glance",
+      "heading": "At a glance",
+      "level": 2,
+      "source_byte_start": 69,
+      "source_byte_end": 69,
+      "disposition": "add",
+      "fact_ids": [
+        "product.audience:agent-drafted-grounded",
+        "product.problems_solved:agent-drafted-grounded",
+        "product.capabilities:repository-evidence"
+      ],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "verified ProductFactsV2 and Markdown section inventory"
+      ],
+      "rationale": "Add a fact-backed overview when verified descriptive facts are available."
+    },
+    {
+      "section_id": "missing:limitations",
+      "heading": "Known limitations",
+      "level": 2,
+      "source_byte_start": 255,
+      "source_byte_end": 255,
+      "disposition": "add",
+      "fact_ids": [
+        "product.limitations:repository-evidence"
+      ],
+      "protected_fragment_ids": [],
+      "evidence": [
+        "verified ProductFactsV2 and Markdown section inventory"
+      ],
+      "rationale": "Add limitations that are explicitly supported by verified repository evidence."
+    }
+  ],
+  "material_claims": [
+    {
+      "claim_id": "claim:27:787ed31cad9cb0e8",
+      "source_byte_start": 27,
+      "source_byte_end": 68,
+      "content_sha256": "787ed31cad9cb0e82bb5a50b0b159b9141a992d867627cf60f06c44b5ce52b91",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:27:68"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:86:2df0883d87ce8a07",
+      "source_byte_start": 86,
+      "source_byte_end": 136,
+      "content_sha256": "2df0883d87ce8a071c23727900602325b2e4aa0b7235d419cfc802f91824d8f0",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:86:136"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:153:cbfe31249b33a7a1",
+      "source_byte_start": 153,
+      "source_byte_end": 202,
+      "content_sha256": "cbfe31249b33a7a1a4e4e64579870f6beadaa15a95620f93691971fc59349b13",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:153:202"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    },
+    {
+      "claim_id": "claim:215:1148943c43f07040",
+      "source_byte_start": 215,
+      "source_byte_end": 255,
+      "content_sha256": "1148943c43f07040ea8b63891715b035c988832951776d4563cea77b7e9422ef",
+      "disposition": "preserve",
+      "fact_ids": [],
+      "evidence": [
+        "README.md:215:255"
+      ],
+      "rationale": "Existing material is preserved, but is not promoted to verified product truth."
+    }
+  ],
+  "untrusted_repository_instructions": []
+}
