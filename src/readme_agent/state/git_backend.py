@@ -258,22 +258,44 @@ class GitStateBackend:
         return load_run_state_json(_read_blob(sha, "state.json"))
 
     def load_many(self, org_repos: list[str]) -> dict[str, RunStateV2 | None]:
-        """Fetch the state namespace once, then resolve requested records locally.
+        """Resolve requested records with two network calls and isolated local refs.
 
         Portfolio status previously called ``load()`` once per registry entry,
-        turning one read-only scoreboard into dozens of sequential network
-        fetches. A unique wildcard tracking namespace preserves the same
-        concurrent-reader isolation while reducing the remote operation to one.
+        turning one read-only scoreboard into dozens of sequential network fetches.
+        Listing first lets this method fetch only existing exact ref names into
+        numeric local refs. The numeric mapping is required on case-insensitive
+        filesystems: historical refs that differ only by case must not collapse
+        and make a current registry entry appear missing or load the wrong state.
         """
 
         if not org_repos:
             return {}
+        remote = run_git(["ls-remote", "origin", f"{STATE_REF_PREFIX}/*"])
+        if remote.returncode != 0:
+            raise StateBackendError(f"listing {STATE_REF_PREFIX} failed: {remote.stderr}")
+        available_refs = {
+            ref_name
+            for line in remote.stdout.splitlines()
+            if len(parts := line.split(maxsplit=1)) == 2
+            and (ref_name := parts[1]).startswith(f"{STATE_REF_PREFIX}/")
+        }
+
         local_prefix = f"refs/readme-agent-fetch/{os.getpid()}-{uuid4().hex}"
-        refspec = f"+{STATE_REF_PREFIX}/*:{local_prefix}/*"
-        fetched = run_git(["fetch", "--no-write-fetch-head", "origin", refspec])
+        requested_local_refs: dict[str, str | None] = {}
+        refspecs: list[str] = []
+        for index, org_repo in enumerate(org_repos):
+            remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
+            if remote_ref not in available_refs:
+                requested_local_refs[org_repo] = None
+                continue
+            local_ref = f"{local_prefix}/{index}"
+            requested_local_refs[org_repo] = local_ref
+            refspecs.append(f"+{remote_ref}:{local_ref}")
+        if not refspecs:
+            return dict.fromkeys(org_repos)
+
+        fetched = run_git(["fetch", "--no-write-fetch-head", "origin", *refspecs])
         if fetched.returncode != 0:
-            if "couldn't find remote ref" in fetched.stderr.lower():
-                return dict.fromkeys(org_repos)
             raise StateBackendError(f"bulk fetch of {STATE_REF_PREFIX} failed: {fetched.stderr}")
 
         listed = run_git(["for-each-ref", "--format=%(refname) %(objectname)", local_prefix])
@@ -286,11 +308,12 @@ class GitStateBackend:
         for line in listed.stdout.splitlines():
             ref_name, sha = line.split(" ", maxsplit=1)
             local_refs.append(ref_name)
-            refs[ref_name.removeprefix(f"{local_prefix}/")] = sha
+            refs[ref_name] = sha
         try:
             result: dict[str, RunStateV2 | None] = {}
             for org_repo in org_repos:
-                sha = refs.get(_ref_key(org_repo))
+                selected_local_ref = requested_local_refs[org_repo]
+                sha = refs.get(selected_local_ref) if selected_local_ref is not None else None
                 result[org_repo] = (
                     load_run_state_json(_read_blob(sha, "state.json")) if sha is not None else None
                 )
