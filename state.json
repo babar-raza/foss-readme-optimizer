@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f",
-    "last_evaluated_at": "2026-07-28T11:09:35.427751+00:00",
+    "last_evaluated_at": "2026-07-28T11:10:06.289594+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -69,7 +69,7 @@
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "CLOSED",
       "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "CLOSED",
       "L8-COMPOSE-02-EXISTING-SECTIONS": "CLOSED",
-      "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "VERIFIED",
+      "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "SCORED",
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "TODO",
       "L8-COMPOSE-03-OPERATION-COVERAGE": "TODO",
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "TODO",
@@ -3534,6 +3534,17 @@
         "reason": "Clean-tree real Java and synthetic negative-control proof passed with checksum-valid evidence.",
         "task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-readme-operation-regressions/verification.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T11:10:06.289588+00:00",
+        "reason": "Independent checks cover every task acceptance and regression control.",
+        "task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -3542,7 +3553,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 415,
+  "state_version": 416,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
