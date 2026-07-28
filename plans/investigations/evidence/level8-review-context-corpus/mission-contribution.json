@@ -1,12 +1,23 @@
 {
   "schema_version": 1,
-  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "task_id": "L8-REVIEW-00-CONTEXT-CORPUS",
   "goal_ids": [
     "GOAL-README"
   ],
-  "contribution_kind": "acceptance_proof",
-  "contribution_summary": "Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches, and verdict combination.",
-  "evidence_path": "plans/investigations/evidence/level8-review-context-corpus",
-  "verdict": "VERIFIED"
+  "core_contribution": {
+    "kind": "acceptance_proof",
+    "summary": "Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches, and verdict combination."
+  },
+  "acceptance_checks_passed": [
+    "Either reviewer can fail the candidate and the author cannot accept its own output"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-review-context-corpus/verification.json",
+    "plans/investigations/evidence/level8-review-context-corpus/context-corpus.json"
+  ],
+  "scoreboard_before_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "scoreboard_after_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
 }
