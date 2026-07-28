@@ -54,6 +54,7 @@ _VERIFICATION_CONTRACT_FILES = (
     "typescript_consumer.py",
     "typescript_consumer_driver.js",
     "typescript_consumer_schema.py",
+    "typescript_example_normalization.py",
     "typescript_example_verifier.py",
     "typescript_toolchain.py",
     "rust_consumer.py",

@@ -79,6 +79,9 @@ from readme_agent.facts.schema_v2 import (
     ProductFactsV2,
     descriptive_fact_id,
 )
+from readme_agent.facts.typescript_example_normalization import (
+    normalize_typescript_package_consumer,
+)
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.registry.loader import require_listed
 from readme_agent.registry.models import MinimalExamplePolicy, ProductEntry, ProductTruthPolicy
@@ -323,6 +326,8 @@ def _normalize_draft_example(draft: DraftProductTruthV1, root: Path) -> DraftPro
     normalized_example = example.model_copy(update={"code": normalized})
     if example.language == "python":
         normalized_example = normalize_python_import_inventory(root, normalized_example)
+    if example.language == "typescript":
+        normalized_example = normalize_typescript_package_consumer(root, normalized_example)
     if normalized_example == example:
         return draft
     return draft.model_copy(update={"minimal_example": normalized_example})
