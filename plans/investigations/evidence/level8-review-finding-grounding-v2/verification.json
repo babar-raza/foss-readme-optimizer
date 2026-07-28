@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-02-FINDING-GROUNDING",
+  "verdict": "VERIFIED_FAIL_CLOSED_WITH_POSITIVE_CONTROLS",
+  "implementation_commits": [
+    "3da42ed8e250cf937733750c63dd1d0e693f5614",
+    "132c0fd3f5c0d9130300b03f7f4f3c4eebecb101"
+  ],
+  "real_repository_proof": {
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+    "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+    "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+    "reviewer_standard_sha256": "121ada0824b56cc6ecfac76adf042fc506c264314c07f7fa9fc30b0e7e127aee",
+    "control_head": "132c0fd3f5c0d9130300b03f7f4f3c4eebecb101",
+    "control_tree_clean": true,
+    "result": "SYSTEM_FAILURE",
+    "candidate_retained": true,
+    "repair_authorized": false,
+    "remote_write_attempted": false,
+    "first_failing_boundary": "factual reviewer structured response exhausted bounded transport retries",
+    "provider_call_count": 7,
+    "calls_by_job": {
+      "blind_readme_quality_review": 2,
+      "factual_readme_plan_review": 5
+    }
+  },
+  "acceptance_controls": {
+    "every_acceptance_premise_requires_a_grounded_finding": true,
+    "every_repair_premise_requires_a_grounded_finding": true,
+    "quality_findings_require_exact_candidate_spans": true,
+    "factual_findings_require_selected_fact_ids": true,
+    "factual_findings_require_exact_evidence_locations_and_excerpts": true,
+    "factual_evidence_polarity_is_checked": true,
+    "literal_selected_facts_cannot_be_reclassified_as_missing": true,
+    "free_form_reasoning_is_diagnostic_only": true,
+    "grounding_validation_receipt_is_persisted_with_each_role": true,
+    "invalid_or_unavailable_reviewer_output_fails_closed_without_candidate_change": true
+  },
+  "taskcard_controls": {
+    "accepted_literal_false_block": "passed",
+    "absent_content": "passed",
+    "wrong_polarity": "passed",
+    "valid_finding": "passed",
+    "free_form_favorable_without_span": "rejected",
+    "free_form_unfavorable_without_span": "rejected"
+  },
+  "commands": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_review_finding_grounding.py tests/unit/test_readme_review_roles.py tests/unit/test_separated_readme_review.py tests/unit/test_reviewer_client.py tests/unit/test_prompt_registry.py tests/unit/test_prompt_hygiene.py tests/unit/test_local_poc_review_evidence.py tests/unit/test_readme_poc_lifecycle.py tests/unit/test_lifecycle_state.py",
+      "result": "118 passed in 21.97s"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_specialists.py::TestReadmePresentationSpecialist::test_mode_full_writes_and_commits_for_real tests/unit/test_supervise_readme_proposal_review_integration.py::TestSuperviseLocalDryRunProducesBothVerifierVerdicts::test_cli_local_dry_run_produces_bundle_and_independent_review_verdicts tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_repairs_revalidates_and_rereviews_before_accepting tests/unit/test_registry_loader.py tests/unit/test_gitsafety.py tests/security/test_no_secrets_in_evidence.py",
+      "result": "56 passed in 141.45s"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check .; .venv/Scripts/python -m ruff format --check .; .venv/Scripts/python -m mypy src; git diff --check",
+      "result": "Ruff passed; 702 files formatted; mypy passed for 390 source files; diff integrity passed"
+    },
+    {
+      "command": ".venv/Scripts/python plans/investigations/tools/prove_grounded_review_real.py --bundle runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/3e1edeacd4c1600507009c3fd3bf122d54f5d3a9 --output plans/investigations/evidence/level8-review-finding-grounding-v2",
+      "result": "exit 0 in 441s; SYSTEM_FAILURE; exact seven-call ledger; candidate retained; no repair or remote write"
+    }
+  ],
+  "independent_evidence": [
+    "The production gateway independently exercised the governed reviewer prompts and schemas.",
+    "The deterministic validator, role record, reducer, supervisor, allow-list, push-blocking, and redaction seams were exercised through public paths.",
+    "The live factual role could not produce valid structured output; the system denied both acceptance and repair authority."
+  ],
+  "limits": [
+    "The real gateway proof is a negative fail-closed proof, not a live AGENT_APPROVED candidate.",
+    "Positive valid-finding, correction, acceptance, and repair controls are deterministic fixture-backed tests; live route qualification remains in the heterogeneous accuracy task.",
+    "The factual prompt supplied about 25k to 33k tokens and the route repeatedly timed out or exhausted its 2400-token completion cap. Context compaction and route qualification remain separate downstream work.",
+    "An initial proof invocation used a 300-second outer harness timeout and was terminated after its exact process tree outlived the shell. Its superseded task ledger was not mixed into this evidence; the accepted run used a fresh L8-REVIEW-02 ledger."
+  ]
+}

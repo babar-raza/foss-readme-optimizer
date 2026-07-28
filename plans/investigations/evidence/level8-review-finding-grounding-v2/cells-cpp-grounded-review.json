@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+  "source_bundle": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+  "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+  "reviewer_standard_sha256": "121ada0824b56cc6ecfac76adf042fc506c264314c07f7fa9fc30b0e7e127aee",
+  "control_branch": "main",
+  "control_head": "132c0fd3f5c0d9130300b03f7f4f3c4eebecb101",
+  "control_tree_clean": true,
+  "review": null,
+  "review_error": {
+    "error_class": "LLMError",
+    "message": "forced tool call returned an invalid structured response after 2 attempts: forced tool call arguments were not valid JSON: Unterminated string starting at: line 135 column 27 (char 7855); finish_reason='length'; completion_tokens=2400",
+    "classified_verdict": "SYSTEM_FAILURE",
+    "candidate_retained": true
+  },
+  "llm_accounting": {
+    "status": "EXACT",
+    "provider_call_count": 7,
+    "fixture_call_count": 0,
+    "cache_reuse_count": 0,
+    "call_ids": [
+      "049f5be5-6926-42ad-9f97-d5be77033912",
+      "0d21f28a-6b81-43f9-a76c-de030590ae1c",
+      "2acb9963-fbb2-409b-99f1-aeab7edf6b02",
+      "4df510fd-61ee-43c0-81a1-7ce27f60b3ee",
+      "563b8b09-2bfc-4fd0-9dee-5f1b53f02735",
+      "80ddcf65-c5fd-445b-b9be-764736defb47",
+      "9e1a4940-26a0-4841-881e-26b9e3ea98ea"
+    ],
+    "calls_by_job": {
+      "blind_readme_quality_review": 2,
+      "factual_readme_plan_review": 5
+    },
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null,
+    "ledger_path": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\llm-calls\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\L8-REVIEW-02-CELLS-CPP-121ada0824b5.jsonl",
+    "ledger_sha256": "8c5856ccae6b325c61906970946a8a3f64d9a9e1701b7b69d7909b84fc24b3ac"
+  },
+  "remote_write_attempted": false
+}

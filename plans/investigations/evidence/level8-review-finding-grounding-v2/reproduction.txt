@@ -1,0 +1,16 @@
+Task: L8-REVIEW-02-FINDING-GROUNDING
+Control HEAD: 132c0fd3f5c0d9130300b03f7f4f3c4eebecb101
+Source revision: 3e1edeacd4c1600507009c3fd3bf122d54f5d3a9
+
+Focused controls:
+.venv/Scripts/python -m pytest -q tests/unit/test_review_finding_grounding.py tests/unit/test_readme_review_roles.py tests/unit/test_separated_readme_review.py tests/unit/test_reviewer_client.py tests/unit/test_prompt_registry.py tests/unit/test_prompt_hygiene.py tests/unit/test_local_poc_review_evidence.py tests/unit/test_readme_poc_lifecycle.py tests/unit/test_lifecycle_state.py
+
+Production seams and safety:
+.venv/Scripts/python -m pytest -q tests/unit/test_specialists.py::TestReadmePresentationSpecialist::test_mode_full_writes_and_commits_for_real tests/unit/test_supervise_readme_proposal_review_integration.py::TestSuperviseLocalDryRunProducesBothVerifierVerdicts::test_cli_local_dry_run_produces_bundle_and_independent_review_verdicts tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_repairs_revalidates_and_rereviews_before_accepting tests/unit/test_registry_loader.py tests/unit/test_gitsafety.py tests/security/test_no_secrets_in_evidence.py
+
+Real gateway proof:
+.venv/Scripts/python plans/investigations/tools/prove_grounded_review_real.py --bundle runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/3e1edeacd4c1600507009c3fd3bf122d54f5d3a9 --output plans/investigations/evidence/level8-review-finding-grounding-v2
+
+The accepted live run must report SYSTEM_FAILURE or a fully grounded role verdict,
+must retain the candidate on invalid reviewer output, and must not perform a remote write.
+Validate every checksum in sha256sums.txt before using the bundle.

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-02-FINDING-GROUNDING",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "acceptance_proof",
+    "summary": "Require candidate spans for quality findings and exact fact or evidence references with checked polarity for factual findings."
+  },
+  "acceptance_checks_passed": [
+    "Unsupported or contradicted reviewer reasoning cannot control lifecycle or repair"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-review-finding-grounding-v2/cells-cpp-grounded-review.json",
+    "plans/investigations/evidence/level8-review-finding-grounding-v2/llm-call-ledger.jsonl",
+    "plans/investigations/evidence/level8-review-finding-grounding-v2/verification.json"
+  ],
+  "scoreboard_before_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "scoreboard_after_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
