@@ -1,0 +1,49 @@
+{
+  "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+  "lifecycle_status": "FACTS_READY",
+  "facts_sha256": "e833a7200be98d041cfb5e167a30408be6add3b84feb8c0126158e805705a61d",
+  "bundle_manifest_sha256": "a5b2430632c509f529169394ebc79b3ede079e2fae48be7eb7d46fa4e2c3c316",
+  "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+  "problem": {
+    "fact_id": "product.problems_solved:agent-drafted-grounded",
+    "verification_state": "verified",
+    "supporting_fact_ids": [
+      "product.capabilities:repository-evidence"
+    ],
+    "render_view": {
+      "fact_id": "product.problems_solved:agent-drafted-grounded",
+      "field": "product.problems_solved",
+      "phrases": [
+        "AcroForm field creation and editing",
+        "Annotation creation and manipulation (16 types)",
+        "Text rendering and extraction",
+        "Markdown to PDF conversion"
+      ],
+      "citation_fact_ids": [
+        "product.problems_solved:agent-drafted-grounded",
+        "product.capabilities:repository-evidence"
+      ]
+    }
+  },
+  "example": {
+    "fact_id": "example.minimal:agent-drafted-example",
+    "verification_state": "verified",
+    "verification_outcome": "SOURCE_BUILD_VERIFIED",
+    "source_paths": [
+      "annotation_text.go",
+      "document.go",
+      "go.mod",
+      "markdown_export.go"
+    ]
+  },
+  "checks": {
+    "product_facts_v2_valid": true,
+    "bundle_reaches_facts_ready": true,
+    "current_fact_acceptance_contract": true,
+    "problem_verified_with_eligible_support": true,
+    "problem_view_nonempty": true,
+    "repository_example_verified": true,
+    "repository_example_comment_free": true
+  }
+}

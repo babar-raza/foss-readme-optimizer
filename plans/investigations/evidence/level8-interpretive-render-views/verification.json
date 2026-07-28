@@ -2,29 +2,30 @@
   "schema_version": 1,
   "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
   "control_repository": {
-    "head": "e35a7a208d7fee6ca8b1fb985571d2a7a5ba218a",
+    "head": "73594cf3377d033544d02c126b133ca559cd0518",
     "branch": "main",
     "tree_clean_at_start": true,
-    "builder_sha256": "a2598bf153a814b57e40aed589b821083b9679b373adb2aebbf6bfe30e5c40ae",
+    "builder_sha256": "b3fbdfff7e0c335fe7754943b987b953ade2a475078f61a95cba95df1ca8ca45",
     "prompt_path": "prompts/generation/draft_product_truth.yaml",
-    "prompt_sha256": "a4cb174740a9db6ea9a3a38595476fca4cd6d47e23c49b0b2743e9fd32904d1e",
+    "prompt_sha256": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "implementation": {
-      "src/readme_agent/facts/acceptance_contract.py": "4ad2678bcca612fac1c65fddd4ba7684e737297865a8312ad42b5925c3ab918e",
-      "src/readme_agent/facts/agentic_drafting.py": "816dd103cde228893df115ef31ddf3049ffce56018eeb34c5fbb639d9d116150",
+      "src/readme_agent/facts/acceptance_contract.py": "2aadeb5687733880a5c9e5c2dec011a3463142044fb586852ec90462e8c212ff",
+      "src/readme_agent/facts/agentic_drafting.py": "177a628b75e9197a1a5045b3c3ae08ec86290fa5b0b6323dfa67e0a4d46d196a",
       "src/readme_agent/facts/interpretive_evidence.py": "b68bb0b4f726fea078492fdf234ab166d15b9160d11bf906da69b55298566826",
       "src/readme_agent/facts/interpretive_resolution.py": "ef7462defad7c99e82f9a6860f724f6bc11cef2ae5f31285cebe323b9c5f41eb",
-      "src/readme_agent/facts/render_views.py": "6537b60a10bf035cdc4c778c94dac84520815a50f976a52476b402fbfd0d0a75",
+      "src/readme_agent/facts/problem_grounding.py": "e67a5abd373cb949e4782a7d6613d3c36676331d65d9d7142f38fc6e72be15d8",
+      "src/readme_agent/facts/render_views.py": "edee4ec705aa445e2e1d70aa9a87c064391b2b4b58fc73afc99ad43d3b2555ba",
       "src/readme_agent/facts/schema_v2.py": "bbc979f3ea7d034589e0bd49ad0b2724787519a0a74f648187c1fad9d6e88723",
-      "src/readme_agent/capabilities/draft_product_truth.py": "0259694dab4d8d98f047bbd186b1b35d107f0d4dec836cf6a014ad267bcb75d7"
+      "src/readme_agent/capabilities/draft_product_truth.py": "51198b8acfce5a74ce65e4f0d0b42cee58e212f4dfd482c7ffdb6d3d9ebab359"
     },
     "evidence_machinery": {
-      "plans/investigations/tools/build_interpretive_render_view_evidence.py": "a2598bf153a814b57e40aed589b821083b9679b373adb2aebbf6bfe30e5c40ae",
-      "plans/investigations/tools/interpretive_render_view_evidence_support.py": "c91baeddd2a293a900cdb7b526c08b5d85e0c2832d0588e04e708c251bc3e068"
+      "plans/investigations/tools/build_interpretive_render_view_evidence.py": "b3fbdfff7e0c335fe7754943b987b953ade2a475078f61a95cba95df1ca8ca45",
+      "plans/investigations/tools/interpretive_render_view_evidence_support.py": "53374a5893f0b88f8dd361b912d78e5171f8b6947331ad4adff9832e002dbefe"
     }
   },
   "commands": {
     "focused": {
-      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_agentic_drafting.py tests/unit/test_interpretive_evidence.py tests/unit/test_interpretive_resolution.py tests/unit/test_fact_render_views.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_draft_product_truth_capability.py tests/unit/test_agentic_readme_composition.py tests/security/test_no_secrets_in_evidence.py",
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_agentic_drafting.py tests/unit/test_interpretive_evidence.py tests/unit/test_interpretive_resolution.py tests/unit/test_problem_grounding.py tests/unit/test_fact_render_views.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_draft_product_truth_capability.py tests/unit/test_agentic_readme_composition.py tests/security/test_no_secrets_in_evidence.py",
       "exit_code": 0
     },
     "official": {
@@ -40,6 +41,7 @@
     "visitor_views_nonempty": true,
     "negative_controls_pass": true,
     "live_python_facts_ready_with_grounded_views": true,
+    "live_go_facts_ready_with_grounded_views": true,
     "focused_tests_pass": true,
     "official_checks_pass": true,
     "tree_stable": true
