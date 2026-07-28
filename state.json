@@ -546,7 +546,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 102,
+  "state_version": 103,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "16ac72e7decf4be9eb7d2864488cc7f7f0679704c94925e3f008c3e2914ebbc2",
@@ -616,13 +616,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "recovery_sweep_stale_or_expired",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "9ef1ac102fa7a49b58cf1fae91a6e727fdc4e3977e00f2fd4848f728fd70a41c",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-28T01:04:47.976041+00:00",
       "recovery_count": 3,
-      "status": "retryable",
-      "updated_at": "2026-07-28T00:49:43.188067+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-28T00:49:47.976041+00:00"
     }
   },
   "trigger_records": {},
