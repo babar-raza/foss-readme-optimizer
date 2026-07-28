@@ -520,7 +520,7 @@
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": null,
+    "assessment_hash": "cb3a7f986f677855a0ec7a4211daba6407c15ce9e4e98e9a85c4c68216beaac2",
     "candidate_hash": null,
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -774,20 +774,32 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\9c867230eabc2273c71f\\r\\82ad381cebc6bf74\\s\\0339b7e7dcb6\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-28T18:06:39.625186+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "to_status": "README_ASSESSED"
       }
     ],
     "presentation_plan_hash": null,
     "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "reviewer_standard_hash": null,
+    "reviewer_standard_hash": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
     "schema_version": 2,
     "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-07-28T18:05:23.872327+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-28T18:06:39.625186+00:00"
   },
   "schema_version": 2,
-  "state_version": 67,
+  "state_version": 68,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
