@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-COMPOSE-00-CHARACTERIZE",
+    "claim_expires_at": "2026-07-28T08:23:24.136508+00:00",
+    "claim_id": "4a8a2ad1b5dc49b1a4f88cf80d44835e",
+    "claimed_at": "2026-07-28T07:53:24.136508+00:00",
+    "claimed_by": "Codex",
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T07:53:10.939306+00:00",
+    "last_evaluated_at": "2026-07-28T07:53:24.136508+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -72,7 +72,7 @@
     },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
-      "L8-COMPOSE-00-CHARACTERIZE": "TODO",
+      "L8-COMPOSE-00-CHARACTERIZE": "IN_PROGRESS",
       "L8-COMPOSE-01-DECOMPOSE": "TODO",
       "L8-COMPOSE-01A-SECTION-REGRESSIONS": "TODO",
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "TODO",
@@ -3173,6 +3173,15 @@
         "reason": "Representative product truth is closed with checksum-complete, graph-matched mission contribution evidence and no product remote writes.",
         "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T07:53:24.136623+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-COMPOSE-00-CHARACTERIZE",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -3181,7 +3190,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 367,
+  "state_version": 368,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
