@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-03A-PRESENTATION-CORPUS",
+  "control_repository": {
+    "branch": "main",
+    "head": "44a29e2bfe54c02e536c770e7c951a23f5532d28",
+    "working_tree_clean_at_start": true
+  },
+  "checks": {
+    "control_tree_clean_at_start": true,
+    "source_head_stable": true,
+    "real_java_and_python_negatives_present": true,
+    "prompt_injection_control_present": true,
+    "strong_content_control_present": true,
+    "cross_product_control_present": true,
+    "every_source_hash_matches": true,
+    "every_expected_span_is_exact": true,
+    "every_reject_has_critical_findings": true,
+    "positive_control_has_no_findings": true,
+    "focused_regressions_pass": true,
+    "zero_product_remote_writes": true
+  },
+  "verdict": "VERIFIED",
+  "scope_note": "This task freezes expected deterministic rejections. Runtime lint enforcement is owned by dependency-successor L8-COMPOSE-04-PRESENTATION-LINT.",
+  "reproduction_command": ".venv/Scripts/python plans/investigations/tools/build_presentation_defect_corpus_evidence.py"
+}

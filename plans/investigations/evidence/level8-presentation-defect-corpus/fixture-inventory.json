@@ -1,0 +1,110 @@
+[
+  {
+    "case_id": "real.cells-java.visitor-defects",
+    "origin": "real_candidate",
+    "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "platform": "java",
+    "source_path": "plans/investigations/evidence/level8-operation-accountability/java/candidate-readme.md",
+    "expected_sha256": "548205281ba5fd0f500f88e522c4905205e45e8b0647ac87ed35d9af5fe21448",
+    "actual_sha256": "548205281ba5fd0f500f88e522c4905205e45e8b0647ac87ed35d9af5fe21448",
+    "expected_verdict": "REJECT",
+    "finding_ids": [
+      "presentation.raw-token.cells-java.load-format",
+      "presentation.duplicate.cells-java.overview",
+      "presentation.competing-example.cells-java.quick-start",
+      "presentation.fragment.cells-java.encoding"
+    ],
+    "source_hash_matches": true,
+    "all_expected_spans_exact": true
+  },
+  {
+    "case_id": "real.3d-python.visitor-defects",
+    "origin": "real_candidate",
+    "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "platform": "python",
+    "source_path": "plans/investigations/evidence/level8-operation-accountability/python/candidate-readme.md",
+    "expected_sha256": "b6f0e40820ba72abc885e7eb9347b32e3a45f0bfabf15fdc158bb00eddfa82c6",
+    "actual_sha256": "b6f0e40820ba72abc885e7eb9347b32e3a45f0bfabf15fdc158bb00eddfa82c6",
+    "expected_verdict": "REJECT",
+    "finding_ids": [
+      "presentation.duplicate.3d-python.placeholder",
+      "presentation.raw-token.3d-python.options",
+      "presentation.promotion.3d-python.resource-block"
+    ],
+    "source_hash_matches": true,
+    "all_expected_spans_exact": true
+  },
+  {
+    "case_id": "synthetic.cross-product-leakage",
+    "origin": "synthetic_negative",
+    "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "platform": "python",
+    "source_path": "tests/fixtures/presentation_defects/cross-product-leakage.md",
+    "expected_sha256": "1bc26bbe00a397ffb7d757ac04301fbc56363c8c38c385b4ded254dd71a9fb63",
+    "actual_sha256": "1bc26bbe00a397ffb7d757ac04301fbc56363c8c38c385b4ded254dd71a9fb63",
+    "expected_verdict": "REJECT",
+    "finding_ids": [
+      "presentation.cross-product.3d-python.cells"
+    ],
+    "source_hash_matches": true,
+    "all_expected_spans_exact": true
+  },
+  {
+    "case_id": "synthetic.malformed-navigation",
+    "origin": "synthetic_negative",
+    "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+    "platform": "java",
+    "source_path": "tests/fixtures/presentation_defects/malformed-navigation.md",
+    "expected_sha256": "7124f8ed6993c809231144f5a17aaaa1a69024bcdc140d9d93eb68942e66ccf8",
+    "actual_sha256": "7124f8ed6993c809231144f5a17aaaa1a69024bcdc140d9d93eb68942e66ccf8",
+    "expected_verdict": "REJECT",
+    "finding_ids": [
+      "presentation.navigation.3d-java.missing-targets"
+    ],
+    "source_hash_matches": true,
+    "all_expected_spans_exact": true
+  },
+  {
+    "case_id": "synthetic.prompt-injection",
+    "origin": "synthetic_negative",
+    "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+    "platform": "typescript",
+    "source_path": "tests/fixtures/presentation_defects/prompt-injection.md",
+    "expected_sha256": "7729848ae30a6be7bea07a5c7c37d6dc15987074fd9487e92bc9610c92d7ea95",
+    "actual_sha256": "7729848ae30a6be7bea07a5c7c37d6dc15987074fd9487e92bc9610c92d7ea95",
+    "expected_verdict": "REJECT",
+    "finding_ids": [
+      "presentation.prompt-injection.3d-typescript"
+    ],
+    "source_hash_matches": true,
+    "all_expected_spans_exact": true
+  },
+  {
+    "case_id": "synthetic.promotional-imbalance",
+    "origin": "synthetic_negative",
+    "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "platform": "python",
+    "source_path": "tests/fixtures/presentation_defects/promotional-imbalance.md",
+    "expected_sha256": "aee4bcbe8814a412ffbd43703fdb55fc219e3f22947feafbec316e7d6e536c3e",
+    "actual_sha256": "aee4bcbe8814a412ffbd43703fdb55fc219e3f22947feafbec316e7d6e536c3e",
+    "expected_verdict": "REJECT",
+    "finding_ids": [
+      "presentation.promotion.3d-python.before-explanation"
+    ],
+    "source_hash_matches": true,
+    "all_expected_spans_exact": true
+  },
+  {
+    "case_id": "synthetic.strong-existing-content",
+    "origin": "synthetic_positive",
+    "repository": "acme/mesh-toolkit",
+    "platform": "rust",
+    "source_path": "tests/fixtures/presentation_defects/strong-existing-content.md",
+    "expected_sha256": "6af318eb40ce4747f5ff14055acd0863aa71d4f635fc96bc8c9e189904af3b09",
+    "actual_sha256": "6af318eb40ce4747f5ff14055acd0863aa71d4f635fc96bc8c9e189904af3b09",
+    "expected_verdict": "ACCEPT",
+    "finding_ids": [],
+    "source_hash_matches": true,
+    "all_expected_spans_exact": true
+  }
+]
