@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-01-FREEZE-ROLES",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "acceptance_proof",
+    "summary": "Define separate blind visitor-quality and fact-and-plan reviewer contracts with independent prompts, contexts, identities, and caches."
+  },
+  "acceptance_checks_passed": [
+    "Blind quality review receives candidate bytes and rubric but no producer verdict or plan conclusion"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-separated-review-runtime/verification.json",
+    "plans/investigations/evidence/level8-review-context-corpus/context-corpus.json"
+  ],
+  "scoreboard_before_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "scoreboard_after_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

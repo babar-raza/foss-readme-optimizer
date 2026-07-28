@@ -1,0 +1,21 @@
+Control commit:
+6352ab72e981dfe2426fd9cd2fb698f83b29b676
+
+From the repository root:
+
+.venv/Scripts/python -m pytest -q tests/unit/test_capability_dispatcher.py tests/unit/test_reviewer_client.py tests/unit/test_prompt_registry.py tests/unit/test_prompt_hygiene.py tests/unit/test_readme_review_roles.py tests/unit/test_separated_readme_review.py tests/unit/test_local_poc_review_evidence.py tests/unit/test_readme_poc_lifecycle.py tests/unit/test_lifecycle_state.py tests/unit/test_portfolio.py tests/unit/test_portfolio_stage_transactions.py
+.venv/Scripts/python -m pytest -q tests/unit/test_specialists.py
+.venv/Scripts/python -m ruff check .
+.venv/Scripts/python -m ruff format --check .
+.venv/Scripts/python -m mypy src
+
+Inspect the acceptance-node wiring:
+
+rg -n "run_separated_readme_review|review_runner=|combined-review.json" src/readme_agent
+
+Inspect the frozen context and identity corpus:
+
+Get-Content plans/investigations/evidence/level8-review-context-corpus/context-corpus.json
+
+This proof does not qualify either live model route. Live route accuracy and seven-real-output
+review remain governed by downstream mission tasks.

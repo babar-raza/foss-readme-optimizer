@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-01-FREEZE-ROLES",
+  "control_commit": "6352ab72e981dfe2426fd9cd2fb698f83b29b676",
+  "verdict": "VERIFIED",
+  "runtime_authority": {
+    "entry_node": "readme_agent.specialists.readme_presentation_review.review_candidate_node",
+    "review_runner": "readme_agent.specialists.separated_readme_review.run_separated_readme_review",
+    "blind_role": "blind_quality_reviewer",
+    "factual_role": "factual_plan_reviewer",
+    "combined_reducer": "readme_agent.specialists.readme_review_roles.combine_review_verdicts",
+    "legacy_single_reviewer_role": "diagnostic_and_compatibility_only",
+    "legacy_single_reviewer_invoked_by_entry_node": false
+  },
+  "context_separation": {
+    "blind_allowed": [
+      "repository identity",
+      "original README bytes",
+      "candidate README bytes",
+      "visitor-quality rubric"
+    ],
+    "blind_forbidden": [
+      "producer verdict",
+      "presentation plan",
+      "deterministic acceptance wording",
+      "factual-plan verdict"
+    ],
+    "factual_allowed": [
+      "repository identity",
+      "candidate README bytes",
+      "accepted ProductFactsV2",
+      "bounded presentation plan"
+    ],
+    "factual_forbidden": [
+      "producer verdict",
+      "deterministic acceptance wording",
+      "blind-quality verdict"
+    ]
+  },
+  "identities": {
+    "candidate_binding": "SHA-256 of exact candidate bytes",
+    "input_binding": "canonical SHA-256 per typed role input",
+    "author_actor_id": "producer:readme-composition",
+    "blind_actor_id": "llm-route:blind-readme-quality",
+    "factual_actor_id": "llm-route:factual-readme-plan",
+    "distinct_prompt_and_actor_required": true
+  },
+  "hashes": {
+    "blind_prompt_sha256": "fb02e55d384567509f45937e6f81edeefccadf6f48a7c5846af135798cf573f3",
+    "factual_prompt_sha256": "731c55765433d684b0dfaa550cd6c110460a5bbc72814426d7330544f8999cce",
+    "combined_reviewer_standard_sha256": "a1576de3d568d7fdd8ac8217d3565f5980b883f9df74944ac34007fd5fee6ef0",
+    "legacy_single_reviewer_sha256": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc"
+  },
+  "evidence_materialization": [
+    "review/blind-quality-review.json",
+    "review/factual-plan-review.json",
+    "review/combined-review.json",
+    "review/independent-agent-review.json",
+    "review/final-verdict.json"
+  ],
+  "commands": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_capability_dispatcher.py tests/unit/test_reviewer_client.py tests/unit/test_prompt_registry.py tests/unit/test_prompt_hygiene.py tests/unit/test_readme_review_roles.py tests/unit/test_separated_readme_review.py tests/unit/test_local_poc_review_evidence.py tests/unit/test_readme_poc_lifecycle.py tests/unit/test_lifecycle_state.py tests/unit/test_portfolio.py tests/unit/test_portfolio_stage_transactions.py",
+      "result": "143 passed in 33.02s"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_specialists.py",
+      "result": "46 passed in 144.92s"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_specialists.py::TestReadmePresentationSpecialist::test_mode_full_writes_and_commits_for_real tests/unit/test_independent_readme_review.py",
+      "result": "17 passed in 16.22s"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check .",
+      "result": "passed"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff format --check .",
+      "result": "696 files already formatted"
+    },
+    {
+      "command": ".venv/Scripts/python -m mypy src",
+      "result": "Success: no issues found in 387 source files"
+    }
+  ],
+  "regression_controls": {
+    "reviewer_transport_and_schema": true,
+    "prompt_governance": true,
+    "dispatcher_domain": true,
+    "readme_lifecycle": true,
+    "portfolio_cache_invalidation": true,
+    "specialist_accept_and_failure_paths": true,
+    "separate_role_evidence": true
+  },
+  "limits": [
+    "This proves offline runtime wiring and fail-closed structural independence; it does not claim live-model route accuracy.",
+    "Both live roles currently route to the same characterized model family. Independence comes from disjoint prompts, contexts, call identities, and verdict authority, not from different foundation-model vendors.",
+    "Live seven-repository verdict qualification, finding grounding, repair quality, and no-op proof remain downstream tasks."
+  ]
+}
