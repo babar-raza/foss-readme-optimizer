@@ -944,13 +944,25 @@
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
-      "consecutive_failure_count": 7,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "blocked",
+          "failure_reason": "presentation_plan",
+          "message": "['presentation.raw_internal_token.d48c6fa83779: An internal snake-case token is exposed as visitor prose.']",
+          "occurred_at": "2026-07-28T18:15:38.189378+00:00",
+          "schema_version": 1,
+          "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
+          "stage": null
+        }
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "verification_rejected",
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-23T07:18:14.746429+00:00",
+      "last_run_timestamp": "2026-07-28T18:15:38.189378+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": null
@@ -1370,7 +1382,7 @@
     "updated_at": "2026-07-28T18:14:05.343978+00:00"
   },
   "schema_version": 2,
-  "state_version": 131,
+  "state_version": 132,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
