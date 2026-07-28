@@ -29,6 +29,15 @@ _SOURCE_PRECEDENCE = {
     "readme_claim": 4,
 }
 
+_VERIFICATION_PRECEDENCE = {
+    "verified": 0,
+    "policy_approved": 0,
+    "conflicting": 1,
+    "unverified": 2,
+    "blocked": 3,
+    "missing": 4,
+}
+
 
 def source_precedence(source: FactSourceV2) -> int:
     return _SOURCE_PRECEDENCE[source.source_type]
@@ -95,13 +104,23 @@ def resolve_product_facts(
 
         ranked = sorted(
             field_candidates,
-            key=lambda fact: (source_precedence(fact.source), fact.fact_id),
+            key=lambda fact: (
+                source_precedence(fact.source),
+                _VERIFICATION_PRECEDENCE[fact.verification_state],
+                fact.fact_id,
+            ),
         )
         winner = ranked[0]
         winner_rank = source_precedence(winner.source)
         conflicts = list(winner.conflicts)
         unresolved = False
         for competitor in ranked[1:]:
+            # A blocked/missing observation describes an unavailable evidence
+            # path, not a competing factual assertion. Preserve it for
+            # provenance without turning it into a false value conflict when
+            # another source at the same precedence proves the field.
+            if competitor.verification_state in {"blocked", "missing"}:
+                continue
             if _canonical_fact_value(field_name, competitor.value) == _canonical_fact_value(
                 field_name, winner.value
             ):
@@ -126,10 +145,11 @@ def resolve_product_facts(
                     ),
                 )
             )
-        winner = winner.model_copy(
-            update={
+        winner = FactRecordV2.model_validate(
+            {
+                **winner.model_dump(mode="python"),
                 "conflicts": conflicts,
-                "verification_state": "conflicting" if unresolved else winner.verification_state,
+                "verification_state": ("conflicting" if unresolved else winner.verification_state),
             }
         )
         output.extend([winner, *ranked[1:]])
@@ -140,7 +160,11 @@ def resolve_product_facts(
     for field_name, field_candidates in sorted(grouped.items()):
         ranked = sorted(
             field_candidates,
-            key=lambda fact: (source_precedence(fact.source), fact.fact_id),
+            key=lambda fact: (
+                source_precedence(fact.source),
+                _VERIFICATION_PRECEDENCE[fact.verification_state],
+                fact.fact_id,
+            ),
         )
         output.extend(ranked)
         selected[field_name] = ranked[0].fact_id

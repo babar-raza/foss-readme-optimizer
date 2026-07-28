@@ -7,7 +7,7 @@ from readme_agent.facts.gating import (
     validate_claim_citations,
 )
 from readme_agent.facts.resolution import resolve_product_facts
-from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2
+from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
 
 
 def _source(source_type, location):
@@ -130,6 +130,7 @@ def test_same_precedence_disagreement_blocks_only_affected_surface():
     assert decisions[0].eligible is False
     assert facts.selected_fact("product.license").verification_state == "conflicting"
     assert decisions[1].blocking_fact_ids == ["product.limitations:missing"]
+    assert ProductFactsV2.model_validate(facts.model_dump(mode="json")) == facts
 
 
 def test_equivalent_spdx_and_license_title_do_not_create_a_conflict():
@@ -155,6 +156,35 @@ def test_equivalent_spdx_and_license_title_do_not_create_a_conflict():
 
     assert selected.verification_state == "verified"
     assert selected.conflicts == []
+
+
+def test_blocked_evidence_path_does_not_conflict_with_verified_fact():
+    blocked = FactRecordV2(
+        fact_id="product.license:blocked-root-selection",
+        field="product.license",
+        value={"selection_state": "ambiguous"},
+        source=_source("mechanical_manifest", "repository://"),
+        verification_state="blocked",
+        authoritative_owner="repository-owner",
+        confidence=0.0,
+        affected_surfaces=["readme.license"],
+    )
+    verified = _candidate(
+        "product.license:license-file",
+        "product.license",
+        "MIT",
+        "mechanical_repository",
+        "repository://acme/widget/LICENSE",
+        ["readme.license"],
+    )
+
+    facts = _resolve([blocked, verified])
+    selected = facts.selected_fact("product.license")
+
+    assert selected.fact_id == verified.fact_id
+    assert selected.verification_state == "verified"
+    assert selected.conflicts == []
+    assert ProductFactsV2.model_validate(facts.model_dump(mode="json")) == facts
 
 
 def test_missing_fact_does_not_block_unrelated_surface():
