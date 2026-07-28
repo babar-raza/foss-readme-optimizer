@@ -5414,7 +5414,7 @@
     "updated_at": "2026-07-27T23:21:55.898594+00:00"
   },
   "schema_version": 2,
-  "state_version": 354,
+  "state_version": 355,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -5761,13 +5761,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: SyntaxError: trailing comma not allowed without surrounding parentheses (.readme-agent-consumer.py, line 1)",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "48b26b4a453375570f9c91f9787bd7d54c40e450d6d15746755bc2f283e5bc0a",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-28T00:15:54.457862+00:00",
       "recovery_count": 0,
-      "status": "retryable",
-      "updated_at": "2026-07-28T00:00:49.517962+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-28T00:00:54.457862+00:00"
     }
   },
   "trigger_records": {},
