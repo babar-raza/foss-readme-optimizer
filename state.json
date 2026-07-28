@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T19:07:30.451617+00:00",
+    "last_evaluated_at": "2026-07-28T19:07:50.317198+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -94,7 +94,7 @@
       "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "REGRESSED",
       "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "CLOSED",
       "L8-LOCAL-PORTFOLIO-RUNTIME": "CLOSED",
-      "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "IMPLEMENTED",
+      "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "VERIFIED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-MISSION-GOAL-GUARD": "CLOSED",
@@ -4148,6 +4148,20 @@
         "reason": "Current-contract assessment and operation plans now produce eight deterministic repository bundles, including seven ecosystems and repaired current 3D Java.",
         "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-local-readme-assessment-composition-current-contract/verification.json",
+          "plans/investigations/evidence/level8-local-readme-assessment-composition-current-contract/mission-contribution.json",
+          "plans/investigations/evidence/level8-local-readme-assessment-composition-current-contract/sha256sums.txt",
+          "plans/investigations/evidence/level8-seven-candidate-composition/verification.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T19:07:50.317185+00:00",
+        "reason": "Independent reconstruction, specificity, presentation lint, current 3D Java regression, and zero-provider-call replay all pass.",
+        "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -4156,7 +4170,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 476,
+  "state_version": 477,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
