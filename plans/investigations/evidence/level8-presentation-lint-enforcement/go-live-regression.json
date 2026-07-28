@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+  "control_head": "7316bda3f242269cbf9e8b751222fb84cf499b54",
+  "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
+  "reproduction_command": ".venv/Scripts/readme-agent supervise --registry runs/level8-seven-candidate-registry.json --execution-profile local_poc --max-readme-poc-stage DETERMINISTIC_VALIDATED",
+  "failure_before": {
+    "finding_id": "presentation.raw_internal_token.d48c6fa83779",
+    "message": "An internal snake-case token is exposed as visitor prose.",
+    "first_failing_boundary": "presentation_plan.document_validation.presentation_lint"
+  },
+  "root_cause": "The rule matched a backticked snake_case identifier anywhere in a bullet, conflating legitimate API or tool identifiers in explanatory prose with a raw internal token used as the bullet label.",
+  "permanent_repair": "Anchor raw snake-case detection to the bullet label while retaining the separate verified-format enum guard and the existing negative corpus.",
+  "result_after": {
+    "go_lifecycle_status": "DETERMINISTIC_VALIDATED",
+    "portfolio_complete": "7/7",
+    "system_failed": 0,
+    "provider_calls": 5,
+    "reused_sealed_receipts": 6,
+    "candidate_sha256": "074db4a563c6f8059311425e26e180abc9b96ae726e94419a121b64177114249",
+    "deterministic_validation_sha256": "11efa7650510c261ef8014d3e132b2be1584e32ed6e342ffb9facaeb75ecadba",
+    "portfolio_summary_sha256": "f658bde9bf06cb53d00dcd041f405d742d275541400c557cd97d246c81bda861",
+    "stdout_sha256": "f9592a3d6e9e91a1cf00286c3c8eb931f31dd0c8eaa6768844d0579522d64a96",
+    "product_remote_writes": 0
+  },
+  "verdict": "VERIFIED"
+}
