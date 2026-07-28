@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "6dbee8a21931e0f82b41af3d98783795011444d0488f3d78ba198168a1c58cb0",
-    "last_evaluated_at": "2026-07-28T16:53:25.205767+00:00",
+    "last_evaluated_at": "2026-07-28T16:53:52.425849+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -75,7 +75,7 @@
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "CLOSED",
       "L8-COMPOSE-04-PRESENTATION-LINT": "CLOSED",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "CLOSED",
-      "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "VERIFIED",
+      "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "SCORED",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "TODO",
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
       "L8-GATEA-00-COHORT-CONTROLS": "TODO",
@@ -3875,6 +3875,17 @@
         "reason": "Sealed-byte reducer, public stage ceilings, idempotency, safety, and cache proofs passed",
         "task_id": "L8-COMPOSE-04B-STAGE-TRANSACTIONS",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-stage-transactions/mission-contribution.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T16:53:52.425843+00:00",
+        "reason": "Mission contribution records unchanged portfolio score and indispensable scheduler safety",
+        "task_id": "L8-COMPOSE-04B-STAGE-TRANSACTIONS",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -3883,7 +3894,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 449,
+  "state_version": 450,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
