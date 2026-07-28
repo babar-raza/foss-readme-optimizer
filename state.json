@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T07:14:29.194204+00:00",
+    "last_evaluated_at": "2026-07-28T07:14:40.038867+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -136,7 +136,7 @@
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
-      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "VERIFIED",
+      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "SCORED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -2999,6 +2999,17 @@
         "reason": "Clean-HEAD focused and official checks verify grounded visitor views under the current acceptance contract",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-interpretive-render-views/verification.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T07:14:40.038862+00:00",
+        "reason": "All governed interpretive acceptance checks and live regression controls pass",
+        "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -3007,7 +3018,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 345,
+  "state_version": 346,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
