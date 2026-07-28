@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "6dbee8a21931e0f82b41af3d98783795011444d0488f3d78ba198168a1c58cb0",
-    "last_evaluated_at": "2026-07-28T15:49:08.300222+00:00",
+    "last_evaluated_at": "2026-07-28T15:49:23.612278+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -74,7 +74,7 @@
       "L8-COMPOSE-03-OPERATION-COVERAGE": "CLOSED",
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "CLOSED",
       "L8-COMPOSE-04-PRESENTATION-LINT": "CLOSED",
-      "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "VERIFIED",
+      "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "SCORED",
       "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "TODO",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "TODO",
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
@@ -3820,6 +3820,17 @@
         "reason": "Independent byte, Git-object, ProductFactsV2 identity, obligation, order, redaction, and no-write reconstruction passed.",
         "task_id": "L8-COMPOSE-04A-CANDIDATE-FIXTURES",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-candidate-input-fixtures/verification.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T15:49:23.612271+00:00",
+        "reason": "All task acceptance and negative controls pass across the seven governed representatives.",
+        "task_id": "L8-COMPOSE-04A-CANDIDATE-FIXTURES",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -3828,7 +3839,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 441,
+  "state_version": 442,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
