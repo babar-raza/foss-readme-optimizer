@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-REVIEW-01A-FINDING-CONTROLS",
-    "claim_expires_at": "2026-07-28T20:24:15.158228+00:00",
-    "claim_id": "5f54ca0e89364ca0bd88020731503d55",
-    "claimed_at": "2026-07-28T19:54:15.158228+00:00",
-    "claimed_by": "Codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T19:54:15.158228+00:00",
+    "last_evaluated_at": "2026-07-28T20:53:24.038917+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -59,16 +59,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "acceptance_proof",
-        "summary": "Require candidate spans for content findings and exact fact/evidence references with valid polarity for factual findings."
-      },
-      "goal_ids": [
-        "GOAL-README"
-      ],
-      "task_id": "L8-REVIEW-01A-FINDING-CONTROLS"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
@@ -123,7 +114,7 @@
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-REVIEW-00-CONTEXT-CORPUS": "CLOSED",
       "L8-REVIEW-01-FREEZE-ROLES": "CLOSED",
-      "L8-REVIEW-01A-FINDING-CONTROLS": "IN_PROGRESS",
+      "L8-REVIEW-01A-FINDING-CONTROLS": "IMPLEMENTED",
       "L8-REVIEW-02-FINDING-GROUNDING": "TODO",
       "L8-REVIEW-02A-REPAIR-CONTROLS": "TODO",
       "L8-REVIEW-03-EFFECTIVE-REPAIR": "TODO",
@@ -4314,6 +4305,19 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-REVIEW-01A-FINDING-CONTROLS",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-review-finding-grounding/verification.json",
+          "plans/investigations/evidence/level8-review-finding-grounding/mission-contribution.json",
+          "plans/investigations/evidence/level8-review-finding-grounding/sha256sums.txt"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T20:53:24.038903+00:00",
+        "reason": "Grounded reviewer premises are span/fact/polarity validated; invalid real Cells C++ findings fail closed and retain the candidate.",
+        "task_id": "L8-REVIEW-01A-FINDING-CONTROLS",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -4322,7 +4326,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 492,
+  "state_version": 493,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
