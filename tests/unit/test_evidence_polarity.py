@@ -227,6 +227,65 @@ def test_later_implementation_can_supersede_ambiguous_occurrence(tmp_path: Path)
     assert assessment.observed_polarity == "positive_implementation"
 
 
+@pytest.mark.parametrize(
+    ("declaration", "anchor", "claim"),
+    [
+        ("public void AddTextField() {}", "AddTextField", "Create text fields."),
+        ("func (p *Page) RenderPNG() {}", "RenderPNG", "Render PNG images."),
+        (
+            "func NewSummaryCopilot() *SummaryCopilot { return nil }",
+            "NewSummaryCopilot",
+            "Create summary copilots.",
+        ),
+    ],
+)
+def test_compound_public_identifiers_bind_to_plain_language_subjects(
+    tmp_path: Path,
+    declaration: str,
+    anchor: str,
+    claim: str,
+):
+    source = tmp_path / "src" / "api.go"
+    source.parent.mkdir()
+    source.write_text(declaration + "\n", encoding="utf-8")
+
+    assessment = assess_evidence_polarity(
+        root=tmp_path,
+        evidence_paths=["src/api.go"],
+        anchor=anchor,
+        fact_id="product.capabilities:repository-evidence",
+        claim_text=claim,
+        expected_polarity="positive_implementation",
+        source_revision="abc123",
+        observed_at=None,
+    )
+
+    assert assessment is not None
+    assert assessment.accepted is True
+    assert assessment.observed_polarity == "positive_implementation"
+
+
+def test_compound_identifier_does_not_bind_an_unrelated_claim(tmp_path: Path):
+    source = tmp_path / "src" / "api.go"
+    source.parent.mkdir()
+    source.write_text("func (p *Page) RenderPNG() {}\n", encoding="utf-8")
+
+    assessment = assess_evidence_polarity(
+        root=tmp_path,
+        evidence_paths=["src/api.go"],
+        anchor="RenderPNG",
+        fact_id="product.capabilities:repository-evidence",
+        claim_text="Create spreadsheet charts.",
+        expected_polarity="positive_implementation",
+        source_revision="abc123",
+        observed_at=None,
+    )
+
+    assert assessment is not None
+    assert assessment.accepted is False
+    assert assessment.reason == "directional evidence anchor does not identify the claimed subject"
+
+
 def test_agentic_partial_selection_keeps_only_fully_proved_capabilities(tmp_path: Path):
     source = tmp_path / "src" / "Scene.cs"
     source.parent.mkdir()

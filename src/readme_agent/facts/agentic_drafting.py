@@ -61,11 +61,11 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from readme_agent import env, paths
 from readme_agent.errors import LLMError
+from readme_agent.facts.drafting_context import select_bounded_repo_context
 from readme_agent.facts.interpretive_evidence import InterpretiveClaimV1
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety.clone import clone_baseline
-from readme_agent.inspection import file_inventory
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.generation_prompts import build_draft_product_truth_messages
 from readme_agent.llm.verifier_client import LiveForcedToolClient
@@ -125,20 +125,6 @@ _REQUEST_TIMEOUT_SECONDS = 180
 MAX_CONTEXT_CHARS = 180_000
 MAX_FILE_EXCERPT_CHARS = 6_000
 
-# Per-ecosystem source-file glob, keyed by `ProductEntry.ecosystem` (the same
-# ecosystems `registry/models.py::MinimalExamplePolicy.language` and
-# `facts/local_verification.py::_VERIFIERS` already support, RPOC-034/035).
-_ECOSYSTEM_SOURCE_GLOBS: dict[str, tuple[str, ...]] = {
-    "java": ("*.java",),
-    "net": ("*.cs",),
-    "dotnet": ("*.cs",),
-    "python": ("*.py",),
-    "typescript": ("*.ts",),
-    "go": ("*.go",),
-    "cpp": ("*.h", "*.hpp", "*.cc", "*.cpp"),
-    "rust": ("*.rs",),
-}
-_DOC_GLOBS = ("*.md", "*.rst")
 _CONTEXT_PATH_HEADER = re.compile(r"(?m)^--- (?P<path>.+) ---$")
 
 # Always excluded from what this module shows the model as "already-
@@ -376,96 +362,15 @@ def _format_repair_hints(repair_hints: dict[str, list[str]] | None) -> str:
     return "\n".join(lines) + "\n"
 
 
-def _is_noise_path(root: Path, path: Path) -> bool:
-    return any(part in file_inventory.NOISE_DIRS for part in path.relative_to(root).parts)
-
-
 def _select_bounded_repo_context(root: Path, ecosystem: str | None) -> str:
-    """Simple, deterministic "most relevant files" selector (RPOC-033's own
-    scope: "keep this simple, e.g. prioritize files already cited as
-    evidence_paths-worthy candidates by file type/location heuristics,
-    don't over-engineer"). Prioritizes, in order: the README, the detected
-    manifest(s), then real source/doc files matching this repository's
-    ecosystem, shallowest-path-first (a top-level public API surface is
-    more likely evidence-worthy than a deeply nested internal one) --
-    bounded by `MAX_CONTEXT_CHARS` total and `MAX_FILE_EXCERPT_CHARS` per
-    file, so one huge file cannot consume the whole budget."""
-    inventory = file_inventory.scan(root)
-    sections: list[str] = []
-    budget = MAX_CONTEXT_CHARS
+    """Compatibility seam around the responsibility-sized context selector."""
 
-    def _add(rel_path: str, text: str) -> bool:
-        nonlocal budget
-        excerpt = text[:MAX_FILE_EXCERPT_CHARS]
-        block = f"--- {rel_path} ---\n{excerpt}\n"
-        if len(block) > budget:
-            return False
-        sections.append(block)
-        budget -= len(block)
-        return True
-
-    def _read(path: Path) -> str | None:
-        try:
-            return path.read_text(encoding="utf-8-sig", errors="replace")
-        except OSError:
-            return None
-
-    if inventory.readme_path is not None:
-        text = _read(inventory.readme_path)
-        if text is not None:
-            _add(inventory.readme_path.relative_to(root).as_posix(), text)
-
-    for _ecosystem_name, manifest_path in sorted(inventory.manifest_paths.items()):
-        text = _read(manifest_path)
-        if text is not None:
-            _add(manifest_path.relative_to(root).as_posix(), text)
-
-    source_candidates: set[Path] = set()
-    for pattern in _ECOSYSTEM_SOURCE_GLOBS.get(ecosystem or "", ()):
-        source_candidates.update(root.rglob(pattern))
-    doc_candidates: set[Path] = set()
-    for pattern in _DOC_GLOBS:
-        doc_candidates.update(root.rglob(pattern))
-
-    already_shown = {inventory.readme_path, *inventory.manifest_paths.values()}
-    eligible_sources = {
-        path
-        for path in source_candidates
-        if path.is_file() and path not in already_shown and not _is_noise_path(root, path)
-    }
-    production_sources = sorted(
-        (
-            path
-            for path in eligible_sources
-            if not {"test", "tests"} & {part.lower() for part in path.relative_to(root).parts}
-        ),
-        key=lambda path: (len(path.relative_to(root).parts), str(path)),
+    return select_bounded_repo_context(
+        root,
+        ecosystem,
+        max_context_chars=MAX_CONTEXT_CHARS,
+        max_file_excerpt_chars=MAX_FILE_EXCERPT_CHARS,
     )
-    test_sources = sorted(
-        (path for path in eligible_sources if path not in production_sources),
-        key=lambda path: (len(path.relative_to(root).parts), str(path)),
-    )
-    documentation = sorted(
-        (
-            path
-            for path in doc_candidates
-            if path.is_file()
-            and path not in already_shown
-            and path not in eligible_sources
-            and not _is_noise_path(root, path)
-        ),
-        key=lambda path: (len(path.relative_to(root).parts), str(path)),
-    )
-    ordered = [*production_sources, *test_sources, *documentation]
-    for path in ordered:
-        if budget <= 0:
-            break
-        text = _read(path)
-        if text is None:
-            continue
-        _add(path.relative_to(root).as_posix(), text)
-
-    return "".join(sections) if sections else "(no repository context could be read)"
 
 
 def draft_product_truth(

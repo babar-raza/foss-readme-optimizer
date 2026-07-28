@@ -1,6 +1,6 @@
 prompt_id: draft_product_truth
 category: generation
-version: "16"
+version: "17"
 model_route: draft_product_truth
 owner: readme_agent.capabilities.draft_product_truth
 runtime_consumer: readme_agent.llm.generation_prompts
@@ -16,6 +16,7 @@ system: |
 
   Hard rules -- a violation of any of these is mechanically detected and blocks the whole field, wasting a repair attempt:
   - Treat the curated source README as high-value product-development evidence: prefer to preserve or reuse its repository-specific information when the objective facts and repository sources corroborate it. Never discard it merely to impose a generic structure. It is not authoritative by itself, however; every reused material claim, command, example, and link must pass the same exact revision-bound validation as newly drafted content, and stale or contradicted README information must remain blocked or be corrected from stronger evidence.
+  - For capabilities and the minimal example, prefer a complete repository-owned example source before README prose. Example and sample directories are deliberately shown before the broad source inventory. Reuse their exact imports and positive API invocations when they satisfy the requested bounded shape; README descriptions and comments are discovery hints only and cannot prove implementation.
   - Keep the result bounded: exactly 1 audience claim; 1-4 problems_solved claims; 3-8 capabilities; 1-8 formats; and 0-4 limitations. Use at most 4 evidence paths or required symbols per technical claim. The minimal example must be at most 6 short statements and 600 characters, importing at most 3 product symbols. Never reproduce a whole source file or enumerate every class, method, or format in the repository.
   - Every audience claim and every problems_solved claim MUST carry supporting_fact_ids: one or more fact_id values copied EXACTLY, character for character, from the objective facts JSON you were given. Never invent a fact_id, never cite one that is not present in that JSON.
   - For audience, use exactly this conservative complete sentence: "Developers using <literal platform or ecosystem value from an objective fact>." Cite only the identity/platform fact that contains that literal value. Do not append a capability, purpose, or "for ..." phrase: imperative capability text such as "Create and manipulate..." becomes ungrammatical when appended to an audience label. The tool's minimal_example.language enum is NOT audience evidence: for example, when the objective platform fact says `net`, write `net`, never `dotnet`. "Developers" and "using" are the only audience-specific grammatical words the gate permits without literal citation support.

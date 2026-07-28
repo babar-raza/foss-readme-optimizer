@@ -132,9 +132,10 @@ def test_product_truth_prompt_requires_subject_bound_capability_anchors():
     prompt = prompt_registry.get("draft_product_truth")
 
     assert prompt is not None
-    assert prompt.version == "16"
+    assert prompt.version == "17"
     assert "claim itself MUST name the exact subject" in prompt.system
     assert "one ambiguous, constraint-bearing, or subject-unbound" in prompt.system
+    assert "repository-owned example source before README prose" in prompt.system
     assert '"<verified product name> Enterprise Edition"' in prompt.system
     assert "must contain no source comments" in prompt.system
     assert "add no unrelated or decorative anchors" in prompt.system
@@ -221,6 +222,18 @@ class TestSelectBoundedRepoContext:
         assert "class Widget" in context
         assert "test detail" not in context
         assert "documentation detail" not in context
+
+    def test_repository_owned_example_precedes_unrelated_production_source(self, tmp_path):
+        (tmp_path / "README.md").write_text("# Widget", encoding="utf-8")
+        example = tmp_path / "_examples" / "quickstart" / "main.go"
+        example.parent.mkdir(parents=True)
+        example.write_text("package main\nfunc main() { widget.Open() }\n", encoding="utf-8")
+        unrelated = tmp_path / "aaa.go"
+        unrelated.write_text("package widget\nfunc InternalDetail() {}\n", encoding="utf-8")
+
+        context = agentic_drafting._select_bounded_repo_context(tmp_path, "go")
+
+        assert context.index("_examples/quickstart/main.go") < context.index("aaa.go")
 
 
 def _draft_payload(**overrides) -> dict:

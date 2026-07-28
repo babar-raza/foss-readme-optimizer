@@ -26,6 +26,7 @@ _CODE_CONTEXT_CONSTRAINT_CUE = re.compile(
     re.IGNORECASE,
 )
 _WORD = re.compile(r"[A-Za-z][A-Za-z0-9_+-]*")
+_IDENTIFIER_PART = re.compile(r"[A-Z]+(?=[A-Z][a-z]|\d|\b)|[A-Z]?[a-z]+|[A-Z]+|\d+")
 _DEICTIC_CONSTRAINT = re.compile(
     r"\bthis\s+(?:feature|operation|method|format|path|mode|option)\b",
     re.IGNORECASE,
@@ -133,14 +134,16 @@ class EvidencePolarityAssessmentV1(_StrictModel):
 def _subject_tokens(value: str) -> set[str]:
     tokens: set[str] = set()
     for word in _WORD.findall(value):
-        normalized = word.casefold()
-        if len(normalized) < 3 or normalized in _NON_SUBJECT_WORDS:
-            continue
-        tokens.add(normalized)
-        if len(normalized) > 4 and normalized.endswith("s") and not normalized.endswith("ss"):
-            tokens.add(normalized[:-1])
-        if len(normalized) > 6 and normalized.endswith("ing"):
-            tokens.add(normalized[:-3])
+        identifier_parts = _IDENTIFIER_PART.findall(word.replace("_", " "))
+        for candidate in [word, *identifier_parts]:
+            normalized = candidate.casefold()
+            if len(normalized) < 3 or normalized in _NON_SUBJECT_WORDS:
+                continue
+            tokens.add(normalized)
+            if len(normalized) > 4 and normalized.endswith("s") and not normalized.endswith("ss"):
+                tokens.add(normalized[:-1])
+            if len(normalized) > 6 and normalized.endswith("ing"):
+                tokens.add(normalized[:-3])
     return tokens
 
 
