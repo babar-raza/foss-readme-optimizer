@@ -9,6 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.links.terminology import EnterpriseTerminologyCorrectionV1
+from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityMapV1
 from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
 
 DocumentOperation = Literal[
@@ -118,6 +119,7 @@ class ReadmeDocumentPlanV1(_StrictModel):
     enterprise_terminology_corrections: list[EnterpriseTerminologyCorrectionV1] = Field(
         default_factory=list
     )
+    claim_accountability: ReadmeClaimAccountabilityMapV1 | None = None
     operations: list[ReadmeDocumentOperationV1]
     candidate_sha256: str
 

@@ -14,6 +14,10 @@ from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
 )
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.claim_accountability import (
+    build_readme_claim_accountability_map,
+)
+from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_acquisition import (
     build_acquisition_correction_operations,
     build_registry_badge_operations,
@@ -170,12 +174,11 @@ def build_readme_document_candidate(
         )
         operations = apply_contextual_link_bindings(context, operations, contextual_links)
         operations = prune_noop_operations(source, operations)
-    if validated_agentic_plan is not None:
-        validate_agentic_operation_coverage(
-            assessment,
-            validated_agentic_plan.section_decisions,
-            operations,
-        )
+    validate_agentic_operation_coverage(
+        assessment,
+        assessment.sections,
+        operations,
+    )
     rendered_inner = apply_document_operations(source, operations).decode("utf-8")
     terminology_findings = find_enterprise_terminology_findings(
         rendered_inner,
@@ -218,4 +221,18 @@ def build_readme_document_candidate(
         operations=operations,
         candidate_sha256=sha256_hex(candidate),
     )
+    generated_claim_map = build_readme_claim_map(
+        plan,
+        facts,
+        source_text=source_text,
+        candidate_text=candidate,
+    )
+    claim_accountability = build_readme_claim_accountability_map(
+        org_repo=org_repo,
+        source_text=inner_text,
+        candidate_text=rendered_inner,
+        facts=facts,
+        generated_claim_map=generated_claim_map,
+    )
+    plan = plan.model_copy(update={"claim_accountability": claim_accountability})
     return candidate, plan

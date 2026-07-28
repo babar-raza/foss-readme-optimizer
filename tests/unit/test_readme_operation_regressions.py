@@ -60,26 +60,12 @@ Workbook second = Workbook.load("two.xlsx");
 ```
 """
 
-    candidate, plan = build_readme_document_candidate(
-        facts.org_repo,
-        source,
-        facts,
-        base_revision=revision,
-    )
-    assessment = assess_readme_document(
-        facts.org_repo,
-        source,
-        facts,
-        base_revision=revision,
-    )
-
-    assert plan.operations
-    assert facts.selected_fact("example.minimal").value["code"] in candidate
     with pytest.raises(LLMError, match="actionable decisions without bounded operations"):
-        validate_agentic_operation_coverage(
-            assessment,
-            assessment.sections,
-            plan.operations,
+        build_readme_document_candidate(
+            facts.org_repo,
+            source,
+            facts,
+            base_revision=revision,
         )
 
 

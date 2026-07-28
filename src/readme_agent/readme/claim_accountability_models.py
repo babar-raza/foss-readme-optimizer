@@ -57,3 +57,13 @@ class ReadmeClaimAccountabilityMapV1(_StrictModel):
     def canonical_hash(self) -> str:
         payload = json.dumps(self.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+class ClaimAccountabilityValidationV1(_StrictModel):
+    """Structural completeness and approval eligibility for one claim map."""
+
+    valid: bool
+    approval_eligible: bool
+    checks: dict[str, bool]
+    errors: list[str] = Field(default_factory=list)
+    blocking_claim_ids: list[str] = Field(default_factory=list)

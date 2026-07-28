@@ -77,7 +77,8 @@ def _refresh_artifact_checksums(bundle: Path) -> None:
 def bundle(tmp_path) -> Path:
     dst = tmp_path / "cells-java"
     shutil.copytree(EVIDENCE / "cells-java", dst)
-    original = (dst / "original-readme.md").read_text(encoding="utf-8")
+    original = "# Aspose.Cells FOSS for Java\n\nOpen-source spreadsheet processing for Java.\n"
+    (dst / "original-readme.md").write_text(original, encoding="utf-8", newline="\n")
     facts = ProductFactsV2.model_validate(
         json.loads((dst / "product-facts-v2.json").read_text(encoding="utf-8"))
     )

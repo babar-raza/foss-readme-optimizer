@@ -17,6 +17,9 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
 from readme_agent.links.contextual_validation import validate_contextual_link_candidate
 from readme_agent.links.terminology import find_enterprise_terminology_findings
+from readme_agent.readme.claim_accountability_validation import (
+    validate_claim_accountability_map,
+)
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import (
     apply_document_operations,
@@ -245,6 +248,23 @@ def validate_readme_document_candidate(
             errors.extend(contextual.errors)
     else:
         checks["contextual_links"] = True
+
+    if plan.claim_accountability is None:
+        checks["claim_accountability_complete"] = False
+        errors.append("complete inherited/generated claim-accountability map is absent")
+    else:
+        accountability = validate_claim_accountability_map(
+            plan.claim_accountability,
+            source_text=source_inner,
+            candidate_text=candidate_inner,
+            facts=facts,
+            operations=plan.operations,
+        )
+        checks["claim_accountability_complete"] = accountability.valid
+        checks["claim_accountability_gaps_visible"] = accountability.approval_eligible or bool(
+            accountability.blocking_claim_ids
+        )
+        errors.extend(accountability.errors)
 
     return DocumentCandidateValidationV1(
         valid=not errors,
