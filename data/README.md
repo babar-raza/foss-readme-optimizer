@@ -132,87 +132,72 @@ is consulted, instead of waiting for the cron. Properties:
 The heal can never enable a repo: it shares `merge()`'s invariants, so its write surface is
 exactly the weekly cron's.
 
-## `data/aspose_com_links.json` — the verified aspose.com link database
+## `data/aspose_com_links.json` — the verified aspose.com link catalog
 
-A database of **known-valid** `aspose.com` URLs, at exactly the two depths this
-project ever links to — family (`products.aspose.com/words/`) and platform
-(`products.aspose.com/words/python-net/`) — for the content surfaces `products.aspose.com`,
-`docs`, `reference`, and `kb.aspose.com`, plus
-`blog.aspose.com` category-root URLs (the blog has no family/platform landing pages, so its
-canonical page per category is derived separately, see below). This exists so the renderer (and
-policy-profile authoring) never has to *guess* or construct an `aspose.com` link — it looks one
-up here and checks `http_status`. Aspose.org records belong exclusively in
-`data/aspose_org_links.json`.
+The Aspose Enterprise Edition target catalog is domain-pure, registry-scoped, and generated from
+aspose.org's verified `data/aspose_com_targets.json`. It includes product landing pages plus a
+bounded set of exact docs, KB, blog, and reference targets relevant to current source-backed terms.
+Deep source-database slugs remain non-linkable until content evidence exists; a resolving URL alone
+does not prove contextual relevance.
+
+## `data/aspose_org_links.json` — the verified aspose.org link catalog
+
+The FOSS target catalog is built from the sibling aspose.org source tree at an immutable revision.
+It records current product, docs, KB, blog, and reference pages for every active family/platform in
+`products.json`. Source existence never becomes an HTTP-200 claim: only retained prior verification
+or an explicit live probe can make a record linkable.
+
+Both files use the same strict schema:
 
 ```json
 {
-  "schema_version": "1.0",
-  "provenance": { "generated_at": "...", "generator": "fetch_aspose_com_links.py", "mode": "live|from-source", "sources": [...], "total_links": 293, "output_hash": "sha256:..." },
-  "surfaces": {
-    "products.aspose.com": {
-      "families": { "words": { "url": "https://products.aspose.com/words/", "http_status": 200 } },
-      "platforms": { "words/python-net": { "url": "https://products.aspose.com/words/python-net/", "http_status": 200 } }
-    },
-    "docs.aspose.com": { "...": "..." },
-    "reference.aspose.com": { "...": "..." },
-    "kb.aspose.com": { "...": "..." }
+  "schema_version": "2.0",
+  "parent_domain": "aspose.org",
+  "provenance": {
+    "generated_at": "...",
+    "generator": "scripts/data-refresh/build_aspose_link_catalogs.py",
+    "generator_version": "2.0.0",
+    "sources": ["..."],
+    "total_records": 1,
+    "verified_records": 1,
+    "output_hash": "sha256:..."
   },
-  "blog": {
-    "subdomain": "blog.aspose.com",
-    "categories": { "words": { "url": "https://blog.aspose.com/categories/aspose.words-product-family/", "http_status": 200, "post_count": 42 } }
+  "records": {
+    "stable-record-id": {
+      "url": "https://docs.aspose.org/...",
+      "http_status": 200,
+      "verified_at": "...",
+      "http_verification_source": "live_probe",
+      "content_evidence": "source_body"
+    }
   }
 }
 ```
 
-**Governance guard**: `http_status` is either the real, live-verified HTTP status, or exactly
-`-1` when verification was skipped (`--skip-http-verify`) — never a guessed `200`. Consumers
-**must** treat only `http_status == 200` as linkable; `-1` or any non-200 value means "don't use
-this URL yet."
+The runtime loads both catalogs through `readme_agent.links.catalog`, validates their SHA-256
+inventories and domain boundaries, and selects only exact records whose HTTP and content evidence
+make them linkable. It never constructs a URL from a family or platform string.
 
-### How it's produced
+### How both catalogs are produced
 
-[`scripts/fetch_aspose_com_links.py`](../scripts/fetch_aspose_com_links.py) — adapted from
-aspose.org's `scripts/pipeline/commands/ops/fetch_aspose_com_targets.py` (see
-`plans/master.md`'s "Patterns adapted from aspose.org" table), trimmed to only the two URL depths
-and four+blog surfaces this project actually links to. Two modes:
+Run the sole paired generator from the repository root:
 
-```bash
-# Offline: trim an aspose.org checkout's full 20 MB target map down to what this project needs
-python scripts/fetch_aspose_com_links.py --from-source <aspose.org checkout>/data/aspose_com_targets.json
+```powershell
+.venv/Scripts/python scripts/data-refresh/build_aspose_link_catalogs.py
 
-# Live: fetch products/reference/kb/blog sitemaps + a synthesized family x platform candidate
-# grid (docs.aspose.com has no usable sitemap), then HEAD->GET-verify every candidate URL
-python scripts/fetch_aspose_com_links.py
+# Re-probe selected discovered targets before committing their HTTP status.
+.venv/Scripts/python scripts/data-refresh/build_aspose_link_catalogs.py `
+  --verify-org-pattern "docs.aspose.org/html/python/getting-started/quickstart/"
 ```
 
-Both modes write atomically (temp file + rename) and refuse to write an empty result (exit 1 if
-zero links were collected — never silently overwrite a good file with an empty one).
+The generator derives scope from `data/products.json`, writes both catalogs atomically, rejects
+empty or wholly unverified output, preserves explicit verification provenance, and is byte-stable
+when source and proof inputs are unchanged. `scripts/fetch_aspose_com_links.py` is retained only as
+a compatibility façade and forwards supported arguments to this paired generator.
 
-**Unlike `products.json`, this file has no scheduled workflow** — same as its aspose.org source,
-it's refreshed on demand by an operator when aspose.com content is known to have changed. If this
-project starts consuming it for rendered links, revisit whether it needs the same weekly-PR
-treatment as `products.json` (see `data/families.json` subsection above for that pattern).
-
-## `data/aspose_org_links.json` — the verified aspose.org link database
-
-A domain-pure catalog of verified `aspose.org` URLs. Its initial `products.aspose.org` surface
-contains the 11 family and 25 platform records live-probed during the 2026-07-22 policy-profile
-verification pass. On 2026-07-26,
-[`scripts/retrofits/split_aspose_link_catalogs.py`](../scripts/retrofits/split_aspose_link_catalogs.py)
-migrated those records losslessly from the misleading combined `.com` catalog, retained their
-original verification provenance, added a checksum-valid catalog envelope, and recalculated the
-`.com` inventory and hash.
-
-The split migration is idempotent and fails on missing, conflicting, cross-domain, non-200, or
-checksum-invalid state. The retained
-[`patch_aspose_com_links_org_surface.py`](../scripts/retrofits/patch_aspose_com_links_org_surface.py)
-historical retrofit becomes a no-op after the split and cannot reinsert `.org` records.
-
-The current `.org` coverage is concrete but registry-scoped, not comprehensive. Requirement
-`L8-022` governs the remaining generator work: both domain catalogs must use one shared
-deterministic generator core with equivalent discovery, source/sitemap provenance, live HTTP
-verification, output hashing, and atomic-write behavior. Until that requirement closes, add no
-guessed URL and treat only existing `http_status == 200` records as linkable.
+The catalogs are refreshed on demand. A newly discovered source page remains non-linkable
+(`http_status == -1`) until explicitly verified. Configured runtime allocation ceilings determine
+whether any eligible target is used; catalog presence is never a quota or permission to add a link.
 
 ## `data/template_clone_findings.json` — periodic embedding-similarity findings (Wave 8.6)
 
@@ -251,5 +236,4 @@ python scripts/data-refresh/detect_template_clones.py
 | A new Aspose FOSS family/org launches. | Add it to `data/families.json` by hand (one line) — that's the only manual step; `products.json` then fills in automatically. |
 | Does `families.json` need to match `products.json`'s orgs exactly? | Every org referenced by `products.json` must exist in `families.json` — enforced by `test_real_families_json_covers_every_org_referenced_by_products_json` in `tests/unit/test_registry_discovery.py`. |
 | I need a `products.aspose.com`/`products.aspose.org` (or docs/reference/kb/blog) link for a family or platform. | Look up `.com` targets in `data/aspose_com_links.json` and `.org` targets in `data/aspose_org_links.json`; use only `http_status == 200`. Never construct the URL by string-formatting a family/platform name — the domain-appropriate database is what confirms it actually resolves. (2026-07-22 incident: a session did exactly that for 22 policy profiles; 9 guessed `.com` platform URLs 404'd and had to be corrected by live re-verification.) |
-| `aspose_com_links.json` looks stale. | Re-run `scripts/fetch_aspose_com_links.py` (live mode) yourself — there's no scheduled workflow for it yet, unlike `products.json`. |
-| `aspose_org_links.json` looks stale or lacks a registry entry. | Do not guess or reinsert it into the `.com` catalog. Until the shared generator required by `L8-022` lands, run the governed live policy-fact verification and record the missing coverage as incomplete. |
+| Either Aspose link catalog looks stale. | Re-run `scripts/data-refresh/build_aspose_link_catalogs.py`; add a narrow `--verify-org-pattern` or `--verify-com-pattern` only for discovered targets that require fresh HTTP proof. Never guess or move records across domain catalogs. |

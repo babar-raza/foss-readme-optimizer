@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 AsposeParentDomain = Literal["aspose.org", "aspose.com"]
 AsposeLinkSurface = Literal["products", "docs", "kb", "blog", "reference"]
 LinkContentEvidence = Literal["landing", "source_body", "live_body", "slug_only"]
+HttpVerificationSource = Literal["source_db", "live_probe", "prior_catalog"]
 
 
 class _StrictFrozenModel(BaseModel):
@@ -19,7 +20,13 @@ class _StrictFrozenModel(BaseModel):
 class LinkCatalogSourceV2(_StrictFrozenModel):
     """One reproducible input used to discover or verify catalog records."""
 
-    source_type: Literal["sitemap", "source_db", "source_tree", "live_probe"]
+    source_type: Literal[
+        "sitemap",
+        "source_db",
+        "source_tree",
+        "live_probe",
+        "prior_catalog",
+    ]
     location: str = Field(min_length=1)
     revision_or_hash: str = Field(min_length=1)
     retrieved_at: str = Field(min_length=1)
@@ -44,6 +51,8 @@ class AsposeLinkRecordV2(_StrictFrozenModel):
     retrieved_at: str = Field(min_length=1)
     http_status: int
     verified_at: str | None = None
+    http_verification_source: HttpVerificationSource | None = None
+    http_verification_evidence: str | None = None
 
     @field_validator("url")
     @classmethod
@@ -70,6 +79,14 @@ class AsposeLinkRecordV2(_StrictFrozenModel):
             raise ValueError("HTTP-200 catalog records require verified_at")
         if self.http_status != 200 and self.verified_at is not None:
             raise ValueError("only HTTP-200 catalog records may carry verified_at")
+        verification_fields = (
+            self.http_verification_source,
+            self.http_verification_evidence,
+        )
+        if self.http_status == 200 and any(value is None for value in verification_fields):
+            raise ValueError("HTTP-200 catalog records require verification provenance")
+        if self.http_status != 200 and any(value is not None for value in verification_fields):
+            raise ValueError("unverified catalog records cannot carry verification provenance")
         return self
 
     @property

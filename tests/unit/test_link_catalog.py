@@ -57,6 +57,8 @@ def _payload(parent: str, *, status: int = 200, evidence: str = "source_body") -
                 "retrieved_at": "2026-07-28T00:00:00+00:00",
                 "http_status": status,
                 "verified_at": "2026-07-28T00:00:00+00:00" if status == 200 else None,
+                "http_verification_source": "live_probe" if status == 200 else None,
+                "http_verification_evidence": "fixture:HEAD_OR_GET" if status == 200 else None,
             }
         },
     }
