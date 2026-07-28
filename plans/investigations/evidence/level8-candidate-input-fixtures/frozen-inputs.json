@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-04A-CANDIDATE-FIXTURES",
+  "scope": "seven_representative_candidate_inputs_only",
+  "portfolio_acceptance": "NOT_GATE_A",
+  "source_branch": "main",
+  "control_head_at_freeze_start": "6a1927e155c1b9253d31eb56e6f7932a989f1cae",
+  "mission_state_version_at_freeze_start": 439,
+  "mission_graph_sha256": "6dbee8a21931e0f82b41af3d98783795011444d0488f3d78ba198168a1c58cb0",
+  "platform_priority_path": "data/platform_priorities.json",
+  "configured_order": [
+    "python",
+    "net",
+    "java",
+    "cpp",
+    "typescript",
+    "rust",
+    "go"
+  ],
+  "accepted_fact_index": {
+    "path": "plans/investigations/evidence/level8-seven-ecosystem-facts/representative-facts.json",
+    "commit": "dfd573be6aa2bf15381c47d9e6d823a9fb5f0eca"
+  },
+  "durable_input_commit": "f478bd43e1f3813dd55db29efa8dab7c57cf52ed",
+  "obligations_path": "plans/investigations/evidence/level8-candidate-input-fixtures/composition-obligations.json",
+  "obligations_sha256": "11ce61c64d6d3e71773aa5f0aa80abc2d527ade34b864f3075abf4d42584d0d4",
+  "inputs": [
+    {
+      "ecosystem": "python",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "source_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/original-readme.md",
+      "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+      "facts_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/product-facts-v2.json",
+      "product_facts_sha256": "a3ad730c5f49eceb1f806807051c773e3f83c0542b0553156fb43994f62e7e6c",
+      "facts_canonical_hash": "5a93562591720caffc43713bd6dea51abfbb070b6af018c850220392eb997d7d",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "input_set_sha256": "fba01d06a63586599d3f42e525e42f43d08f313727f1f464d78bd928ae07f700"
+    },
+    {
+      "ecosystem": "net",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "source_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/original-readme.md",
+      "source_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+      "facts_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/net/product-facts-v2.json",
+      "product_facts_sha256": "faef2bdb1a1625cfac4a83c0818c47e3a51b57f646f85bba2923f5d969c19a02",
+      "facts_canonical_hash": "189629624f3649158fb75da4e60e03a2ddb9e84617f81b0f5432e344358fd43f",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "input_set_sha256": "d5360854f08f3f2c6b94f2823bbe1344f10f2fc57795c31572f1157ed88b1947"
+    },
+    {
+      "ecosystem": "java",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "source_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/original-readme.md",
+      "source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+      "facts_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/java/product-facts-v2.json",
+      "product_facts_sha256": "5b665e0709d8e6db8be95f33ac36666cd2dacd39b8bac10f2b3aee0423a13ecc",
+      "facts_canonical_hash": "8eca54c77cf369724d7705ba23a0593d9e5539e2ce6963097aa2a65f53a12525",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "input_set_sha256": "e878151462c608115b730e59d21da33850a05ea1bb0f79acfa9ac03c3b210d70"
+    },
+    {
+      "ecosystem": "cpp",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "source_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/original-readme.md",
+      "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+      "facts_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/cpp/product-facts-v2.json",
+      "product_facts_sha256": "23e314fb0bea98c38537a23969ae09cafb342fc3499fca97a1c890205ac998de",
+      "facts_canonical_hash": "645a852f41606d8d8b0bf478c76146729395d393d282f7570ea22f9af317b13f",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "input_set_sha256": "76fdaa0900edd42bf7b13b25fa9c1d9292a4f9ee1a302c882dca37474fd545c0"
+    },
+    {
+      "ecosystem": "typescript",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+      "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+      "source_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/original-readme.md",
+      "source_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+      "facts_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/typescript/product-facts-v2.json",
+      "product_facts_sha256": "ce83f0eae749bfefa6a0f0e1a5e462d9388b2a70ab98a7524a060cd5b01a53cc",
+      "facts_canonical_hash": "4746acd760411aee7c93e83f2acc03693b1740227e28a3c1f3a00997d0376a33",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "input_set_sha256": "9f3f9e71c08149d35d4f2729b18fb9004aa167cdaf256284040fe7a37d85ce6c"
+    },
+    {
+      "ecosystem": "rust",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+      "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+      "source_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/original-readme.md",
+      "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+      "facts_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/rust/product-facts-v2.json",
+      "product_facts_sha256": "f7620ad82ce9ae0592cd85fc610d56a5f30edb1c3f5905d3a53db264819c6009",
+      "facts_canonical_hash": "28f97310a17773f5bb6be45b136339ec7d3e31bef7c8819dbc0647095860f761",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "input_set_sha256": "6c8c785b37d9e457223cb2b2c50be664cf0f5deb8e79dbe6fafaf0f02f6dcab7"
+    },
+    {
+      "ecosystem": "go",
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "source_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/original-readme.md",
+      "source_sha256": "71f0b6a6e93bf5c71f51ea6b3ce0de4a730954a06d6d2ebc3ba8f1b5405a2b7b",
+      "facts_path": "plans/investigations/evidence/level8-readme-header-visual-contract/representatives/go/product-facts-v2.json",
+      "product_facts_sha256": "e833a7200be98d041cfb5e167a30408be6add3b84feb8c0126158e805705a61d",
+      "facts_canonical_hash": "f68f579d744784ed3db2c8b3429be4513e841d1d4d5d6bea2021619f36bb48ea",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "input_set_sha256": "0a85623c543536b3377d4a8e66fd166c36c3588e9af198c1f9b3849c07eeebef"
+    }
+  ],
+  "excluded_as_substitutes": [
+    "candidate README files",
+    "proposal patches",
+    "document plans",
+    "deterministic validation verdicts",
+    "independent reviewer verdicts",
+    "no-op verdicts"
+  ],
+  "candidate_output_required": false,
+  "reviewer_output_required": false,
+  "remote_writes": 0,
+  "llm_provider_calls": 0
+}

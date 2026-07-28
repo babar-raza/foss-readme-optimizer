@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-04A-CANDIDATE-FIXTURES",
+  "verified_at": "2026-07-28",
+  "environment": {
+    "operating_system": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.2",
+    "repository_branch": "main",
+    "control_head": "6a1927e155c1b9253d31eb56e6f7932a989f1cae"
+  },
+  "focused_verification": {
+    "command": ".venv/Scripts/python -m pytest -q tests/unit/test_facts_schema_v2.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_registry_priority.py tests/unit/test_evidence_writer.py tests/security/test_no_secrets_in_evidence.py",
+    "exit_code": 0,
+    "result": "38 passed in 3.79s"
+  },
+  "checks": {
+    "json_valid": true,
+    "seven_representatives": true,
+    "configured_order_exact": true,
+    "obligation_order_exact": true,
+    "obligation_hash_matches": true,
+    "source_and_fact_files_exist": true,
+    "source_and_fact_hashes_match": true,
+    "git_commit_reconstruction_matches": true,
+    "fact_identity_and_canonical_hash_match": true,
+    "acquisition_and_example_obligations_match": true,
+    "candidate_or_reviewer_not_used": true,
+    "zero_remote_writes": true,
+    "zero_llm_provider_calls": true
+  },
+  "representatives": [
+    {
+      "ecosystem": "python",
+      "source_and_fact_hashes_match": true,
+      "git_reconstructed": true,
+      "fact_identity_matches": true,
+      "accepted_acquisition": "source_build",
+      "required_example_language": "python",
+      "obligations_match": true
+    },
+    {
+      "ecosystem": "net",
+      "source_and_fact_hashes_match": true,
+      "git_reconstructed": true,
+      "fact_identity_matches": true,
+      "accepted_acquisition": "nuget",
+      "required_example_language": "dotnet",
+      "obligations_match": true
+    },
+    {
+      "ecosystem": "java",
+      "source_and_fact_hashes_match": true,
+      "git_reconstructed": true,
+      "fact_identity_matches": true,
+      "accepted_acquisition": "maven_central",
+      "required_example_language": "java",
+      "obligations_match": true
+    },
+    {
+      "ecosystem": "cpp",
+      "source_and_fact_hashes_match": true,
+      "git_reconstructed": true,
+      "fact_identity_matches": true,
+      "accepted_acquisition": "nuget",
+      "required_example_language": "cpp",
+      "obligations_match": true
+    },
+    {
+      "ecosystem": "typescript",
+      "source_and_fact_hashes_match": true,
+      "git_reconstructed": true,
+      "fact_identity_matches": true,
+      "accepted_acquisition": "source_build",
+      "required_example_language": "typescript",
+      "obligations_match": true
+    },
+    {
+      "ecosystem": "rust",
+      "source_and_fact_hashes_match": true,
+      "git_reconstructed": true,
+      "fact_identity_matches": true,
+      "accepted_acquisition": "source_build",
+      "required_example_language": "rust",
+      "obligations_match": true
+    },
+    {
+      "ecosystem": "go",
+      "source_and_fact_hashes_match": true,
+      "git_reconstructed": true,
+      "fact_identity_matches": true,
+      "accepted_acquisition": "go_proxy",
+      "required_example_language": "go",
+      "obligations_match": true
+    }
+  ],
+  "negative_control": {
+    "candidate_artifact_considered": false,
+    "reviewer_artifact_considered": false,
+    "reason": "This task qualifies only immutable source, accepted facts, and expected composition obligations."
+  },
+  "result": "PASS"
+}

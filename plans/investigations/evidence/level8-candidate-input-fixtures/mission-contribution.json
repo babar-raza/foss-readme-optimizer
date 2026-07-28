@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "task_id": "L8-COMPOSE-04A-CANDIDATE-FIXTURES",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "contribution_kind": "visible_deliverable",
+  "contribution": "Seven platform-priority representatives now have independently reconstructable immutable source revisions, accepted ProductFactsV2 bundles, repository-specific composition obligations, and checksum-bound input identities without claiming candidate or reviewer output.",
+  "acceptance": {
+    "representative_count": 7,
+    "input_contract_current": true,
+    "candidate_output_required": false,
+    "reviewer_output_required": false,
+    "remote_writes": 0,
+    "llm_provider_calls": 0
+  },
+  "next_boundary": "L8-COMPOSE-04B-STAGE-TRANSACTIONS must implement sealed and idempotently promoted CANDIDATE_GENERATED and DETERMINISTIC_VALIDATED stage boundaries before the frozen inputs are executed."
+}

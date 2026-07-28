@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-04A-CANDIDATE-FIXTURES",
+  "scope": "candidate_input_only",
+  "authority": [
+    "plans/idea.md#README POC Readiness and Ordered Delivery Gates",
+    "plans/requirements.md#L8-020",
+    "plans/requirements.md#L8-021",
+    "plans/requirements.md#L8-023",
+    "plans/requirements.md#L8-024",
+    "plans/requirements.md#L8-026",
+    "plans/requirements.md#RDM-004",
+    "plans/requirements.md#RDM-018"
+  ],
+  "universal_obligations": [
+    {
+      "id": "OBL-SOURCE-DISPOSITION",
+      "rule": "Inventory every material source README unit and bind it to preserve, evidence-backed correction, explicit uncertainty, or omission; source bytes are valuable input but not factual approval."
+    },
+    {
+      "id": "OBL-FACT-COVERAGE",
+      "rule": "Every material inherited or generated claim, command, example, limitation, and link must cite an accepted fact or authoritative disposition."
+    },
+    {
+      "id": "OBL-MARKER-FREE",
+      "rule": "The visitor-facing README and generated code examples contain no HTML comments, ownership markers, agent annotations, code comments, or docstrings."
+    },
+    {
+      "id": "OBL-FACTUAL-HEADER",
+      "rule": "Start with one factual H1 and only fact-eligible package, version, download, and license badges; omit unsupported badges."
+    },
+    {
+      "id": "OBL-PRODUCT-FIRST",
+      "rule": "Explain the product and reader value before any aspose.org, aspose.com, or Enterprise Edition reference."
+    },
+    {
+      "id": "OBL-AT-A-GLANCE",
+      "rule": "Render one parseable product-specific Mermaid flowchart whose bounded labels cite accepted identity, audience, problems, capabilities, formats, platforms, or acquisition facts."
+    },
+    {
+      "id": "OBL-INSTALLATION",
+      "rule": "Present only the accepted acquisition path and coordinates; source-build-only products must not acquire a registry-install claim or package badge."
+    },
+    {
+      "id": "OBL-PRIMARY-EXAMPLE",
+      "rule": "Present one primary ecosystem-native minimal example backed by the accepted example fact and avoid competing primary examples."
+    },
+    {
+      "id": "OBL-NAVIGATION",
+      "rule": "Provide useful navigation to applicable usage, capabilities or formats, installation, contribution, license, security, support, and limitations content without inventing missing repository surfaces."
+    },
+    {
+      "id": "OBL-CONTEXTUAL-LINKS",
+      "rule": "Select only live catalog links that directly help the adjacent claim or example, record a context binding, apply configured-or-automatic ceilings, prefer exact articles over generic product pages, and allow zero links."
+    },
+    {
+      "id": "OBL-ENTERPRISE-TERMINOLOGY",
+      "rule": "Every visitor-facing aspose.com product reference uses the verified product name and exact descriptor Enterprise Edition; prohibited commercial, On-Premise, paid, full, proprietary, or premium edition names are correction inputs."
+    },
+    {
+      "id": "OBL-ANTI-PROMOTION",
+      "rule": "Do not create an opening promotion, standalone promotional block, repetitive calls to action, keyword stuffing, or link insertion merely to fill capacity."
+    },
+    {
+      "id": "OBL-REPOSITORY-SPECIFIC",
+      "rule": "Structure, terminology, installation, example, capabilities, formats, limitations, and relationship prose must be derived from this repository's accepted inputs rather than a universal product template."
+    },
+    {
+      "id": "OBL-NATIVE-PATCH",
+      "rule": "Produce a source-hash-bound native Git patch; all content outside authorized operations remains byte-identical."
+    },
+    {
+      "id": "OBL-IDEMPOTENT",
+      "rule": "An identical accepted source, fact, policy, and prompt input must reproduce the same logical result without an unnecessary provider call or duplicate candidate effect."
+    }
+  ],
+  "representatives": [
+    {
+      "ecosystem": "python",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "required_example_language": "python",
+      "accepted_acquisition": "source_build",
+      "required_badges": [
+        "license"
+      ],
+      "compatibility_disposition": "omit_or_explicit_uncertainty",
+      "priority": 1
+    },
+    {
+      "ecosystem": "net",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "required_example_language": "dotnet",
+      "accepted_acquisition": "nuget",
+      "required_badges": [
+        "package",
+        "version",
+        "license"
+      ],
+      "compatibility_disposition": "render_from_accepted_fact",
+      "priority": 2
+    },
+    {
+      "ecosystem": "java",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "required_example_language": "java",
+      "accepted_acquisition": "maven_central",
+      "required_badges": [
+        "package",
+        "version",
+        "license"
+      ],
+      "compatibility_disposition": "render_from_accepted_fact",
+      "priority": 3
+    },
+    {
+      "ecosystem": "cpp",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "required_example_language": "cpp",
+      "accepted_acquisition": "nuget",
+      "required_badges": [
+        "package",
+        "license"
+      ],
+      "compatibility_disposition": "render_from_accepted_fact",
+      "priority": 4
+    },
+    {
+      "ecosystem": "typescript",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+      "required_example_language": "typescript",
+      "accepted_acquisition": "source_build",
+      "required_badges": [
+        "license"
+      ],
+      "compatibility_disposition": "render_from_accepted_fact",
+      "priority": 5
+    },
+    {
+      "ecosystem": "rust",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+      "required_example_language": "rust",
+      "accepted_acquisition": "source_build",
+      "required_badges": [
+        "license"
+      ],
+      "compatibility_disposition": "omit_or_explicit_uncertainty",
+      "priority": 6
+    },
+    {
+      "ecosystem": "go",
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "required_example_language": "go",
+      "accepted_acquisition": "go_proxy",
+      "required_badges": [
+        "package",
+        "license"
+      ],
+      "compatibility_disposition": "render_from_accepted_fact",
+      "priority": 7
+    }
+  ],
+  "candidate_output_required": false,
+  "reviewer_output_required": false
+}

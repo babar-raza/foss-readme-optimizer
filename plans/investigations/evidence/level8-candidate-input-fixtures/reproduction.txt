@@ -1,0 +1,7 @@
+.venv/Scripts/python -c "import hashlib,json,pathlib; root=pathlib.Path('.'); manifest=json.loads((root/'plans/investigations/evidence/level8-candidate-input-fixtures/frozen-inputs.json').read_text(encoding='utf-8')); obligations=root/manifest['obligations_path']; assert hashlib.sha256(obligations.read_bytes()).hexdigest()==manifest['obligations_sha256']; assert [row['ecosystem'] for row in manifest['inputs']]==json.loads((root/'data/platform_priorities.json').read_text(encoding='utf-8'))['execution_order']; [(lambda source,facts,row: (hashlib.sha256(source.read_bytes()).hexdigest()==row['source_sha256'] or (_ for _ in ()).throw(AssertionError(source)), hashlib.sha256(facts.read_bytes()).hexdigest()==row['product_facts_sha256'] or (_ for _ in ()).throw(AssertionError(facts))))(root/row['source_path'],root/row['facts_path'],row) for row in manifest['inputs']]; print('seven immutable input sets verified')"
+
+git show f478bd43e1f3813dd55db29efa8dab7c57cf52ed:plans/investigations/evidence/level8-readme-header-visual-contract/representatives/python/original-readme.md
+
+The same git-show reconstruction applies to each source and fact path in frozen-inputs.json.
+Candidate, patch, plan, validation, reviewer, and no-op files are intentionally outside this task's
+acceptance inputs.
