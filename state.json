@@ -852,7 +852,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": {
     "assessment_hash": "24b3a043af2adc3d997d001a795145f498d170384fa3f7def8f967eaa8fdafba",
-    "candidate_hash": null,
+    "candidate_hash": "f57c812ee297af74bb973a46f72e3afcc8dd5d2674b5fef6e5f79e819e6548e4",
     "details": {},
     "fact_acceptance_component_hashes": {
       "acquisition_truth": "978850719a44158eba0ada29e96a3746f9950cdb23e4b61d67accfad5cee96e0",
@@ -1085,6 +1085,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\3f5d0902e6ad33deebf1\\r\\a03538c5c152fdb1\\s\\2be25d979d1f\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-28T17:23:24.159888+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "presentation_plan_hash": "43cd268142e13fac6aedc631681b581cc2a5a2971677d6f881da9fb971e97650",
@@ -1094,11 +1106,11 @@
     "reviewer_standard_hash": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "PLAN_READY",
-    "updated_at": "2026-07-28T17:23:18.644055+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-07-28T17:23:24.159888+00:00"
   },
   "schema_version": 2,
-  "state_version": 143,
+  "state_version": 144,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "16ac72e7decf4be9eb7d2864488cc7f7f0679704c94925e3f008c3e2914ebbc2",
