@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-01A-FINDING-CONTROLS",
+  "verdict": "VERIFIED_NEGATIVE_CONTROL",
+  "implementation_commits": [
+    "0d2559fdd06698f84207c86e768395b718609970",
+    "14a2a0604893d02ed4ceddff12d72d7ef146f84c",
+    "ffd519f8aad870c8fff751328a5202060a0523df",
+    "1f14a8b01767d97f428af630369ffdbf6a718ad6",
+    "6587b2750cb20a4cd5deb897c2e8c5b07f6d6621"
+  ],
+  "real_repository_proof": {
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+    "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+    "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+    "reviewer_standard_sha256": "343cec0c6046a433628781217009ff8c5ce12f889cdd6556ecbba87c979892b4",
+    "result": "SYSTEM_FAILURE",
+    "first_failing_boundary": "blind_quality exact-span grounding",
+    "candidate_retained": true,
+    "factual_reviewer_invoked": false,
+    "repair_invoked": false,
+    "remote_write_attempted": false
+  },
+  "authority_controls": {
+    "blind_quality_criteria_closed": true,
+    "technical_factuality_owned_by_fact_aware_role": true,
+    "free_form_reasoning_is_diagnostic_only": true,
+    "authoritative_lifecycle_reason_derived_from_validated_findings": true,
+    "authoritative_repair_derived_from_validated_findings": true,
+    "reviewer_standard_binds_prompts_and_tool_schemas": true,
+    "invalid_findings_fail_closed_after_two_attempts": true
+  },
+  "llm_accounting": {
+    "status": "EXACT",
+    "provider_call_count": 2,
+    "fixture_call_count": 0,
+    "cache_reuse_count": 0,
+    "prompt_tokens": 6021,
+    "completion_tokens": 1204,
+    "total_tokens": 7225,
+    "calls_by_job": {
+      "blind_readme_quality_review": 2
+    },
+    "standard_addressed_run_id": "L8-REVIEW-01A-CELLS-CPP-343cec0c6046"
+  },
+  "commands": [
+    {
+      "command": ".venv/Scripts/python plans/investigations/tools/prove_grounded_review_real.py --bundle runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/3e1edeacd4c1600507009c3fd3bf122d54f5d3a9 --output plans/investigations/evidence/level8-review-finding-grounding",
+      "result": "exit 0; verdict SYSTEM_FAILURE; exact two-call ledger; candidate retained"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_readme_review_roles.py tests/unit/test_separated_readme_review.py tests/unit/test_review_finding_grounding.py tests/unit/test_local_poc_review_evidence.py tests/unit/test_prompt_registry.py tests/unit/test_independent_readme_review.py",
+      "result": "59 passed in 1.85s"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_specialists.py tests/unit/test_supervise_readme_proposal_review_integration.py tests/unit/test_supervisor_loop.py tests/unit/test_repair.py tests/unit/test_registry_loader.py tests/unit/test_gitsafety.py tests/security/test_no_secrets_in_evidence.py",
+      "result": "183 passed and 1 stale prompt-count assertion failed in 1056.01s"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_supervisor_loop.py::TestRunManifestV2Evidence::test_manifest_json_carries_the_new_run_manifest_v2_fields tests/unit/test_readme_review_roles.py tests/unit/test_separated_readme_review.py tests/unit/test_review_finding_grounding.py tests/unit/test_registry_loader.py tests/unit/test_gitsafety.py tests/security/test_no_secrets_in_evidence.py",
+      "result": "74 passed in 50.71s after replacing the stale magic count with the authoritative prompt inventory"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check . && .venv/Scripts/python -m ruff format --check . && .venv/Scripts/python -m mypy src",
+      "result": "ruff passed; 699 files formatted; mypy passed for 388 source files"
+    }
+  ],
+  "negative_controls": {
+    "absent_candidate_span_rejected": true,
+    "unknown_or_unselected_fact_rejected": true,
+    "wrong_evidence_polarity_rejected": true,
+    "blind_technical_accuracy_criterion_rejected": true,
+    "genuinely_unsupported_claim_remains_blocked_missing_evidence": true,
+    "literal_accepted_fact_not_reclassified_as_missing": true
+  },
+  "limits": [
+    "This proves that invalid or contradicted reviewer premises cannot control lifecycle or repair; it does not qualify the live reviewer route for approval.",
+    "The real route exhausted its bounded exact-span correction and therefore correctly produced SYSTEM_FAILURE.",
+    "The broad regression was not rerun in full after repairing its stale prompt-count assertion; the failing boundary plus reviewer and safety controls were rerun and passed.",
+    "Portfolio reviewer accuracy, effective repair, cache reuse, and seven-ecosystem qualification remain downstream tasks."
+  ]
+}

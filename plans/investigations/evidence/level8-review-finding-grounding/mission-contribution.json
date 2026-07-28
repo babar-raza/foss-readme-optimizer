@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-01A-FINDING-CONTROLS",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "acceptance_proof",
+    "summary": "Require exact candidate spans and accepted fact evidence with checked polarity before a reviewer finding can control lifecycle or repair."
+  },
+  "acceptance_checks_passed": [
+    "Ungrounded or contradicted review premises cannot control lifecycle or repair",
+    "Invalid reviewer output fails closed and retains the candidate",
+    "Valid unsupported claims still produce BLOCKED_MISSING_EVIDENCE"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-review-finding-grounding/cells-cpp-grounded-review.json",
+    "plans/investigations/evidence/level8-review-finding-grounding/llm-call-ledger.jsonl",
+    "plans/investigations/evidence/level8-review-finding-grounding/verification.json"
+  ],
+  "scoreboard_before_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "scoreboard_after_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

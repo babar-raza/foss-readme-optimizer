@@ -376,10 +376,10 @@ The following controls are part of the existing mission rather than a separate p
 
 ### Diagnosis: symptoms, root causes, and structural weaknesses
 
-The visible symptom is low throughput: the durable scoreboard is 8/31 at `FACTS_READY` and 1/31
-at candidate/no-op stages, while the only candidate fails the current presentation contract. The
-solution is not to fan the present command out over 31 repositories. That would multiply
-contract defects and produce results faster than they can be trusted.
+The visible symptom is low throughput: the durable scoreboard is 8/31 at `FACTS_READY`,
+`CANDIDATE_GENERATED`, and `DETERMINISTIC_VALIDATED`, but 0/31 at `AGENT_APPROVED` and
+`NO_OP_PROVEN`. The solution is not to fan the present command out over 31 repositories. That
+would multiply contract defects and produce results faster than they can be trusted.
 
 The production diagnosis is:
 
@@ -393,13 +393,41 @@ The production diagnosis is:
 | Root cause | Individual evidence files are atomic, but a complete bundle/campaign is not a transaction. | Atomic rename protects one file, not cross-file completeness or aggregate promotion. | A crash can leave valid-looking partial files that must not count as a completed stage. |
 | Root cause | The coarse control-plane fingerprint hashes broad capability/prompt/ruleset inputs, while lifecycle records also keep selected stage hashes. | Invalidation ownership is split and not compiled from one declared dependency graph. | Some edits reopen more work than necessary; other contract changes can leave stale terminal state until a later check notices. |
 | Root cause | LLM output is nondeterministic and retry/provider behavior is external, while exact cache eligibility is still being completed. | “Same repository” is not the same request unless source, facts, prompt, schema, model route, generation settings, and reviewer standard are identical. | Unchanged reruns can differ or spend again unless every job is hash-addressed and replayed from an accepted receipt. |
+| Root cause | Reviewer prose and structured findings previously shared one authority boundary. | A blind quality reviewer could make a technical assertion without facts and have its prose drive lifecycle or repair even when the fact-aware reviewer disagreed. | Independence alone did not prevent a confidently wrong reviewer premise from blocking or rewriting a valid candidate. |
+| Root cause | Human-readable proof run IDs were reusable across reviewer-contract revisions. | The call ledger appended physical attempts from different prompt/schema standards under one identity. | Per-README call count, cost, retry, and latency evidence became cumulative and could not describe one reproducible contract. |
 | Structural weakness | Clone/API reads, Docker builds, CPU validators, author calls, reviewer calls, and Git-ref writes have different capacity and failure behavior but no separate admission budgets. | A single global lane count cannot protect the bottleneck resource. | Four lanes can mean four simultaneous native builds or reviewer calls, causing rate pressure, memory contention, and cascading retries. |
 | Structural weakness | Current platform priority is phrased as complete serial exhaustion. | Dispatch order, resource utilization, and acceptance-promotion order are conflated. | A slow Python build can idle independent deterministic or network capacity even when later-platform inputs are ready. |
 | Structural weakness | Recovery is repository-oriented; the latest prefix summary overwrites the previous one. | There is no durable campaign reducer with monotonic work-item receipts. | Restart safety exists in pieces but not as one reproducible portfolio result. |
+| Structural weakness | Broad supervisor/specialist/security regressions provide little progress output and one campaign took 1,056 seconds for 184 tests. | Test selection and timing are not yet treated as scheduled resources with historical duration budgets. | Starting overlapping broad suites would multiply opacity and wall-clock cost instead of shortening the critical path. |
 
 There was and is one operator. Child Python, Git, Docker, compiler, and test processes are not
 additional workers. The production risk is overlapping invocations and future scheduled
 deliveries, not a historical team of concurrent repository editors.
+
+### Fresh production findings from the real Cells C++ review
+
+The live proof at
+`plans/investigations/evidence/level8-review-finding-grounding/` materially changed the design:
+
+1. The blind quality route asserted that `Aspose.cells.Cpp.FOSS` was not a NuGet package while the
+   accepted fact graph contains the verified NuGet acquisition fact and the factual reviewer
+   accepted it. The symptom was a bad review; the structural cause was authority leakage between
+   visible-document quality and technical factuality.
+2. Blind review now has a closed visible-quality criterion vocabulary. Technical availability,
+   compatibility, command, API, and evidence decisions belong only to the fact-aware role.
+   Free-form reviewer prose is retained as diagnostic evidence but cannot control lifecycle or
+   repair; the reducer uses validated finding IDs, exact spans, criteria, fact citations, and
+   polarity only.
+3. The reviewer-standard identity now includes both prompts and both tool schemas. The live
+   contract used a standard-addressed run ID, made exactly two provider calls (7,225 tokens), and
+   failed closed after both responses missed exact-span grounding. The candidate was retained,
+   no factual reviewer or repair ran, and no remote write occurred.
+4. This result is a valid negative-control proof, not reviewer qualification. The current model
+   route remains unqualified for portfolio approval until it produces grounded correct verdicts
+   across the governed real corpus. Parallel execution must therefore keep independent review at
+   one admitted call initially and open its circuit on repeated contract failure.
+5. Logical-call identity, physical attempts, contract revision, and repository run must remain
+   separate fields. A display label is never a cache or accounting key.
 
 ### Reassessment verdict: parallelize a stage machine, not the current loop
 

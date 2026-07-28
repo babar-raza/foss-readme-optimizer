@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+  "source_bundle": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+  "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+  "reviewer_standard_sha256": "343cec0c6046a433628781217009ff8c5ce12f889cdd6556ecbba87c979892b4",
+  "control_branch": "main",
+  "control_head": "6587b2750cb20a4cd5deb897c2e8c5b07f6d6621",
+  "control_tree_clean": true,
+  "review": null,
+  "review_error": {
+    "error_class": "LLMError",
+    "message": "blind_quality reviewer repeatedly returned ungrounded findings: ['nav-001:quoted candidate span is absent']",
+    "classified_verdict": "SYSTEM_FAILURE",
+    "candidate_retained": true
+  },
+  "llm_accounting": {
+    "status": "EXACT",
+    "provider_call_count": 2,
+    "fixture_call_count": 0,
+    "cache_reuse_count": 0,
+    "call_ids": [
+      "6b13bc4a-2d5c-47d2-a524-3afb3db17b91",
+      "83f94cca-7276-41e9-bcb6-fb524a3d6331"
+    ],
+    "calls_by_job": {
+      "blind_readme_quality_review": 2
+    },
+    "prompt_tokens": 6021,
+    "completion_tokens": 1204,
+    "total_tokens": 7225,
+    "ledger_path": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\llm-calls\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\L8-REVIEW-01A-CELLS-CPP-343cec0c6046.jsonl",
+    "ledger_sha256": "2b8f7b30c30e74f8f9e4d5597c5c714847f7b23cc7a231380b9a0a903058e1a0"
+  },
+  "remote_write_attempted": false
+}

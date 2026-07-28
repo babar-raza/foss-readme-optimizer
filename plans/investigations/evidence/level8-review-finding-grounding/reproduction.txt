@@ -1,0 +1,12 @@
+From the repository root on the committed control revision:
+
+.venv/Scripts/python plans/investigations/tools/prove_grounded_review_real.py --bundle runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/3e1edeacd4c1600507009c3fd3bf122d54f5d3a9 --output plans/investigations/evidence/level8-review-finding-grounding
+
+The sealed real bundle must retain source revision
+3e1edeacd4c1600507009c3fd3bf122d54f5d3a9 and candidate SHA-256
+73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4.
+
+The live route is expected to return either a fully grounded role result or SYSTEM_FAILURE after
+the bounded correction turn. An ungrounded result must never advance lifecycle state or invoke
+repair. The provider-call count can vary by transient transport retry, but every physical attempt
+must be present in the standard-addressed ledger.

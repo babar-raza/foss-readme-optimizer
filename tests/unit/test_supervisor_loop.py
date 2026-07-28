@@ -25,6 +25,7 @@ from readme_agent.errors import LLMError
 from readme_agent.facts import acquisition as facts_acquisition
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.gitsafety._git import run_git
+from readme_agent.llm import prompt_registry
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.client import GeneratedResult
 from readme_agent.llm.planner_client import FixturePlannerClient, PlannerTurn
@@ -2034,7 +2035,11 @@ class TestRunManifestV2Evidence:
         assert manifest["control_plane_fingerprint"]  # a real, non-empty hash
         assert manifest["upstream_revision"]  # a real commit SHA
         assert manifest["prompt_registry_content_hash"]
-        assert len(manifest["prompt_hashes_by_id"]) == 10
+        assert manifest["prompt_hashes_by_id"] == prompt_registry.prompt_hashes()
+        assert {
+            "blind_readme_quality_review",
+            "factual_readme_plan_review",
+        } <= manifest["prompt_hashes_by_id"].keys()
         assert manifest["prompt_dependency_hashes"]["FACTS_COLLECTING"]
         assert isinstance(manifest["surface_freshness"], dict)
         snapshot = manifest["facts"]["repository_snapshot_v1"]
