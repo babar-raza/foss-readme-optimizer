@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-01A-SECTION-REGRESSIONS",
+  "control_repository": {
+    "branch": "main",
+    "head": "3796455031aca1ffe0be633aa411bdd282508d8b",
+    "working_tree_clean_at_start": true
+  },
+  "checks": {
+    "control_tree_clean_at_start": true,
+    "source_head_stable": true,
+    "document_validation_valid": true,
+    "native_patch_applies": true,
+    "verified_limitation_present_once": true,
+    "verified_example_present_once": true,
+    "verified_installation_present_once": true,
+    "overview_present_once": true,
+    "maintainer_content_preserved": true,
+    "limitation_operation_bounded_and_cited": true,
+    "focused_regressions_pass": true,
+    "zero_product_remote_writes": true
+  },
+  "verdict": "VERIFIED",
+  "reproduction_command": ".venv/Scripts/python plans/investigations/tools/build_existing_section_regression_evidence.py"
+}
