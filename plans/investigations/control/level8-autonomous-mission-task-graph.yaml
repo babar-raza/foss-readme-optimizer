@@ -19,7 +19,8 @@ mission_authority:
   mission_summary: Keep GOAL-CORE-PRESENTABLE-PORTFOLIO active until every current registry repository
     has a professional, product-specific, independently approved and no-op-proven README and GitHub-profile
     bundle, then carry those same deliverables through the ordered delivery and Level-8 gates using the
-    sole production supervisor.
+    sole production supervisor. Execute against the governed short-term visible-output, medium-term portfolio/Level-5,
+    and long-term day-90 maturity horizons without substituting machinery for outcomes.
   governing_plan_path: plans/master.md
   current_phase: Wave 0 - truth consolidation and shippable baseline
   in_scope_outcomes:
@@ -34,6 +35,12 @@ mission_authority:
   - 'GOAL-AUTONOMY: safe, resumable, isolated, idempotent, evidence-complete execution through supervise.'
   - 'GOAL-DELIVERY: Gate B, act, staging, Gate C, and hosted GitHub App proof in order.'
   - 'GOAL-MATURITY: Level 5, heterogeneous Level 7, and independently audited Level 8.'
+  - 'SHORT-TERM HORIZON: finish Go truth, one current-contract 3D Java README in a 1-2-working-day target,
+    and seven NO_OP_PROVEN ecosystems in a 3-5-working-day target.'
+  - 'MEDIUM-TERM HORIZON: full-registry Gate A in a 7-12-working-day target and Gate B through Level 5
+    in a 3-5-week target, overlapping only independent no-effect work.'
+  - 'LONG-TERM HORIZON: Level-8-grade controls from hosted day 1, Level 7 at clean day 30, and Level 8
+    from the same uninterrupted series at day 90.'
   - One canonical production supervisor and no alternate mutation path.
   - Restartable GitHub Actions runtime with durable lifecycle recovery.
   - Provenance-complete product facts and surface ownership.
@@ -50,6 +57,12 @@ mission_authority:
   mandatory_acceptance_criteria:
   - Every task transition recomputes the dynamic-denominator lifecycle scoreboard, first failing boundary,
     exact next task, subordinate goal, and concrete core contribution.
+  - Every selected task remains inside its functional goal's short, medium, long, or cross-cutting horizon;
+    a timebox breach records the first failing boundary and smallest permanent repair and never authorizes
+    another plan, unrelated abstraction, reduced acceptance, or report-only closure.
+  - Shared family/ecosystem evidence is content-addressed and repository-bound before use; every repository
+    still verifies its own coordinates, APIs, examples, limitations, license, workflows, and inherited
+    README claims.
   - No machinery task closes unless it produces a visible deliverable, removes its evidenced first failing
     boundary, establishes an indispensable safety condition, or completes required acceptance proof.
   - Every accepted trigger is terminal or visibly retryable or blocked.
@@ -80,36 +93,38 @@ mission_authority:
       awarded.
   - goal_id: GOAL-TRUTH
     role: subordinate
-    summary: Establish provenance-complete product truth that safely governs every visitor-facing claim.
+    summary: Establish short-term provenance-complete product truth that safely governs every selected
+      visitor-facing claim without waiting for optional exhaustive research.
     acceptance_boundary: Every required fact is accepted, narrowly blocked, or explicitly omitted with
       traceable evidence.
   - goal_id: GOAL-README
     role: subordinate
-    summary: Produce product-specific README candidates that preserve validated source knowledge and pass
-      deterministic and independent review.
+    summary: Produce the short-term product-specific README outputs that preserve validated source knowledge
+      and pass deterministic and independent review.
     acceptance_boundary: Every current registry repository is agent-approved and no-op-proven before human
       review.
   - goal_id: GOAL-PROFILE
     role: subordinate
-    summary: Produce professional repository-profile proposals and visual assets across every governed
-      presentation surface.
+    summary: Produce medium-term professional repository-profile proposals and family-level visual assets
+      across every governed presentation surface.
     acceptance_boundary: Every applicable profile surface has a truthful proposal, observation, or manual
       handoff.
   - goal_id: GOAL-AUTONOMY
     role: subordinate
-    summary: Keep execution safe, restartable, isolated, idempotent, observable, and evidence-complete.
+    summary: Keep all horizons safe, restartable, isolated, idempotent, observable, and evidence-complete
+      while entering the critical path only for a proven blocker or indispensable safety.
     acceptance_boundary: Every accepted task and trigger resumes or reaches a truthful terminal state
       without unauthorized effects.
   - goal_id: GOAL-DELIVERY
     role: subordinate
-    summary: Carry accepted local deliverables through human review, workflow, staging, proposal, and
-      hosted runtime gates in order.
+    summary: Carry medium-term accepted local deliverables through human review, workflow, staging, proposal,
+      hosted runtime, and Level-5 gates in order.
     acceptance_boundary: Gate B, act, staging, Gate C, and GitHub App proof close without premature access
       requests or writes.
   - goal_id: GOAL-MATURITY
     role: subordinate
-    summary: Demonstrate heterogeneous production operation and the independently reproducible Level-8
-      evidence window.
+    summary: Demonstrate long-term heterogeneous operation and one independently reproducible day-1-to-day-90
+      Level-8-grade evidence window.
     acceptance_boundary: Level 5, Level 7, and Level 8 gates are independently awarded from current evidence.
   mission_locked: true
 verified_baseline:
@@ -2730,10 +2745,14 @@ taskcards:
   - L8-TRUTH-06-INTERPRETIVE-VIEWS
   expected_outputs:
   - Seven revision-addressed FACTS_READY bundles and representative summary
+  - A short-horizon result that closes the missing Go boundary first and records elapsed time against
+    the one-working-day target
   acceptance_checks:
   - Zero agent-fixable fact failures and no later lifecycle stage invoked
   - Every ecosystem records its isolated official/native tool command, pinned toolchain identity, raw
     output hash, and normalized facts; custom parsing cannot override contradictory consumer behavior
+  - FACTS_READY requires support or explicit omission for every material claim selected for the README,
+    not optional exhaustive research unrelated to the candidate
   verification:
   - Independent schema
   - citation
@@ -2752,7 +2771,8 @@ taskcards:
   - manifests
   - SHA-256 inventory
   rollback_or_recovery: Resume only the failed representative from its last valid fact checkpoint.
-  failure_reroute: Reopen the first responsible truth task.
+  failure_reroute: Reopen the first responsible truth task; if the one-working-day target is breached,
+    record the exact boundary and smallest repair without expanding scope or creating another plan.
   closeout_rules:
   - All seven representatives are FACTS_READY under one fact contract
   goal_ids:
@@ -2790,13 +2810,28 @@ taskcards:
   - Dynamic full-registry fact summary
   - per-repository fact manifests
   - narrow block inventory
+  - Content-addressed family and ecosystem evidence reuse inventory with a repository-specific applicability
+    binding for every reused fragment
   acceptance_checks:
   - FACTS_READY plus exact external blocks equals the runtime denominator
   - agent-fixable failures equal zero
+  - Optional unselected facts remain visible but do not block a README whose complete selected claim set
+    is accepted
+  - Every repository independently verifies coordinates
+  - APIs
+  - examples
+  - limitations
+  - license
+  - workflows
+  - and inherited README claims
   verification:
   - Independent registry/manifest reconciliation and checksum reproduction
   negative_controls:
   - Missing optional facts cannot block unrelated truth or be converted to prose
+  - Cross-family
+  - cross-ecosystem
+  - stale
+  - or applicability-unbound shared evidence cannot enter ProductFactsV2
   regression_checks:
   - Cancellation/resume
   - per-repository isolation
@@ -2806,7 +2841,8 @@ taskcards:
   - Frozen registry hash
   - result per repository
   - complete SHA-256 inventory
-  rollback_or_recovery: Re-run only entries invalidated by source or fact-contract change.
+  rollback_or_recovery: Re-run only entries and shared evidence fragments invalidated by their exact source,
+    toolchain, contract, or freshness key.
   failure_reroute: Reopen the exact upstream truth child and continue unaffected entries.
   closeout_rules:
   - The product-truth aggregate can close from complete portfolio evidence
@@ -3754,23 +3790,34 @@ taskcards:
     is executable.
   - Visitor-facing authored prose with sentence/paragraph fact citations rather than arbitrary nested-value
     flattening.
+  - One latest-contract 3D Java candidate against the 1-2-working-day target, followed by seven representatives
+    against the 3-5-working-day target.
+  - Candidate inputs explicitly factored as validated source README, applicable family evidence, applicable
+    ecosystem evidence, and repository-specific delta.
   acceptance_checks:
   - Existing valuable content is preserved or corrected only from authoritative evidence.
   - Candidate structure, terminology, examples, installation, and emphasis vary by repository.
   - Independent reconstruction from immutable source plus operations is byte-identical to the candidate.
   - Plan intent and candidate effect agree for every non-preserve decision.
+  - Headers, applicable badges, Mermaid structure, navigation, link allocation, and canonical terminology
+    are deterministic; the LLM composes only from accepted repository-bound facts.
+  - One provenance-reviewed family illustration may be reused across platform repositories, while Mermaid,
+    examples, badges, and platform prose remain repository-specific.
   verification:
   - Source-span, patch-apply, protected-content, specificity, and prompt-injection tests.
   negative_controls:
   - No universal template, cross-product leakage, or free-form edit outside the owned span.
   - Raw enum/taxonomy leakage, semantic duplicate bullets, competing examples, and decorative plan decisions
     are rejected deterministically.
+  - Family or ecosystem content without an explicit repository applicability/provenance binding is rejected.
   regression_checks:
   - Marker, document-plan, candidate-pipeline, and idempotency tests.
   evidence_requirements:
   - Original/candidate/patch/assessment/plan/fact bundles for a heterogeneous representative set.
   rollback_or_recovery: Restore source bytes and reopen the affected document-plan operation.
-  failure_reroute: Route factuality defects to product truth and composition defects to plan repair.
+  failure_reroute: Route factuality defects to product truth and composition defects to plan repair. A
+    target breach records the first failing boundary and smallest permanent repair; it cannot authorize
+    unrelated refactoring or a new controller.
   closeout_rules:
   - Every candidate has a nonempty document plan and fact-to-claim map.
   - No bundle can claim verification was skipped because a plan is absent.
@@ -5004,6 +5051,9 @@ taskcards:
   - explicit optimization triggers
   - Per-repository budget report for composition, independent review, targeted repair, and deterministic
     zero-call failures
+  - Impact-mapped verification matrix and proof that the complete local official suite is reserved for
+    the four campaign boundaries in decision 83
+  - Measured safe lane count between two and four for post-qualification portfolio execution
   acceptance_checks:
   - Measurements bind the campaign identity and distinguish cold
   - warm
@@ -5011,8 +5061,15 @@ taskcards:
   - and no-op outcomes
   - The normal path uses at most one composition, one independent-review, and one targeted-repair provider
     call per repository/revision; every exception has a manifest rationale
+  - Any physical batching preserves typed per-repository inputs, outputs, accounting, cache keys, verdicts,
+    and failure isolation
   verification:
   - Repeated official-check and seven-representative stage measurements with variance and failure labels
+  - Seeded malformed and cross-product batch item
+  - two-to-four-lane rate pressure
+  - starvation
+  - cancellation
+  - and cache-contamination controls
   negative_controls:
   - A faster stale or lower-confidence answer cannot count as an equivalent result
   regression_checks:
@@ -5032,6 +5089,7 @@ taskcards:
   failure_reroute: Repair measurement instrumentation without changing runtime behavior.
   closeout_rules:
   - Every proposed optimization has a measured trigger and correctness-preserving acceptance condition
+  - No optimization lowers factual, deterministic, independent-review, isolation, or no-op acceptance
   goal_ids:
   - GOAL-README
   core_contribution:
@@ -5124,12 +5182,16 @@ taskcards:
     reviewer standard, and lifecycle hashes.
   - Real-output acceptance corpus, hidden real holdouts, route-quality score, route-disablement behavior,
     and seven-ecosystem end-to-end local proof.
+  - One qualified family/evidence applicability contract and one ecosystem evidence contract demonstrated
+    without cross-repository leakage.
   acceptance_checks:
   - Deterministic validation is 100 percent and agentic routing/review is at least 95 percent over 100
     evaluations across three sessions.
   - Zero critical false accepts across raw-token, duplication, competing-example, private-API, unresolved-symbol,
     plan/candidate-disagreement, and ineffective-repair cases.
   - Every real representative reaches AGENT_APPROVED and then NO_OP_PROVEN under one frozen contract.
+  - The seven-output campaign completes against the 3-5-working-day target; a breach names the first boundary
+    and smallest repair without lowering any score or verdict threshold.
   verification:
   - Complete canonical runs for real Java, .NET, Python, TypeScript, C++, Go, and Rust representatives
     plus fixture controls for malformed/multi-root/prompt-injected, source-build-only, strong-content,
@@ -5139,6 +5201,8 @@ taskcards:
     anchoring, absent-content reasoning, raw internal values, semantic duplication, and unchanged repairs.
   regression_checks:
   - Existing golden-set, model-route, and ecosystem adapter tests.
+  - Complete official suite at this coherent seven-representative boundary, not after every diagnostic
+    repair.
   evidence_requirements:
   - Versioned golden-set results, session inventory, and automatic route-disablement evidence.
   rollback_or_recovery: Disable only the regressed route and retain the last accepted route evidence.
@@ -5166,7 +5230,8 @@ taskcards:
   owner: readme-agent-supervisor
   status: TODO
   objective: Process the runtime denominator in deterministic ecosystem/family cohorts under one campaign
-    and portfolio writer lease.
+    and portfolio writer lease, using two to four isolated repository lanes inside the sole supervisor
+    after qualification.
   why_it_matters: Portfolio scale must preserve progress without restarting valid earlier work.
   allowed_paths:
   - runs/
@@ -5179,14 +5244,27 @@ taskcards:
   - L8-TRUTH-08-FULL-REGISTRY
   expected_outputs:
   - Incremental campaign summary and revision-addressed bundles after every repository
+  - Lane schedule, per-repository lease ownership, serialized aggregate updates, backpressure decisions,
+    and shared-cache provenance
   acceptance_checks:
   - Every current entry is selected once and interruption resumes at the next invalid member
+  - One slow
+  - failed
+  - cancelled
+  - rate-limited
+  - or contaminated lane cannot alter another repository's state or verdict
   verification:
   - Stop/resume between cohorts
   - registry denominator reconciliation
   - single-writer observation
+  - two-to-four-lane isolation
+  - starvation
+  - backpressure
+  - cache-contamination
+  - serialized aggregation
   negative_controls:
   - Mode cannot omit local work and timestamped retries cannot become parallel ledgers
+  - Bounded internal lanes cannot become multiple operators or top-level supervisor trees
   regression_checks:
   - No-write
   - trigger deduplication
@@ -5194,9 +5272,11 @@ taskcards:
   - and checksum controls
   evidence_requirements:
   - Campaign hash
-  - cohort membership
+  - cohort and lane membership
   - start/end state
   - result per repository
+  - one promoted checksum package at coherent Gate-A closure; failed attempts remain redacted runtime
+    diagnostics
   rollback_or_recovery: Resume only incomplete or invalidated members.
   failure_reroute: Continue unaffected cohorts and reopen the responsible upstream child.
   closeout_rules:
@@ -5393,8 +5473,8 @@ taskcards:
   lane: local-portfolio-proof
   owner: readme-agent-supervisor
   status: TODO
-  objective: Execute the frozen denominator in ecosystem or family cohorts with one writer lease and an
-    incremental current-state summary.
+  objective: Execute the frozen denominator in ecosystem or family cohorts with one writer lease, two
+    to four isolated internal lanes, and an incremental serialized current-state summary.
   why_it_matters: Bounded cohorts make failures, restarts, and portfolio progress inspectable without
     weakening one campaign.
   allowed_paths:
@@ -5411,13 +5491,18 @@ taskcards:
   - Deterministic cohort matrix
   - writer lease
   - campaign-wide aggregate summary
+  - Family/ecosystem/repository-delta reuse map and exact cache keys
   acceptance_checks:
   - Every registry entry appears exactly once and interruption between cohorts resumes without duplicate
     work
+  - Full Gate A closes against the 7-12-working-day target or records the exact breached boundary and
+    smallest permanent repair without widening scope
   verification:
   - Registry partition
   - restart
   - current-state aggregation
+  - bounded-lane isolation and backpressure
+  - shared-cache applicability and contamination
   - and no-write tests
   negative_controls:
   - A bounded prefix is always labeled partial and cannot overwrite the campaign aggregate
@@ -5655,8 +5740,12 @@ taskcards:
   - One complete runtime bundle per registry entry and a dynamic portfolio summary.
   - Independent portfolio-manifest reproduction and SHA-256 inventory.
   - Frozen campaign identity and incremental summary updates after every repository.
+  - A family × ecosystem × repository-delta reuse report, lane/isolation report, and elapsed result against
+    the 7-12-working-day target.
   acceptance_checks:
   - approved equals len(data/products.json); system_failed, unprocessed, and manifest_failures equal zero.
+  - Every shared fact has a repository applicability/provenance binding and every repository-specific
+    coordinate, API, example, limitation, license, workflow, and inherited claim is independently validated.
   verification:
   - Cohort reruns, targeted upstream changes, recovery, and independent manifest reconstruction.
   negative_controls:
@@ -5666,7 +5755,8 @@ taskcards:
   regression_checks:
   - Full local lifecycle, artifact, portfolio summary, state, and safety suites.
   evidence_requirements:
-  - Complete redacted portfolio evidence package and reproduction command.
+  - One complete redacted portfolio closure package and reproduction command; intermediate failures remain
+    revision-addressed redacted runtime diagnostics rather than duplicate promoted packages.
   rollback_or_recovery: Reopen only repositories invalidated by changed source, facts, prompts, or review
     rules.
   failure_reroute: Continue unaffected cohorts and create exact external fact handoffs only when essential.
@@ -5721,7 +5811,9 @@ taskcards:
   evidence_requirements:
   - Human identity, timestamp, exact candidate checksum, verdict, and rationale per repository.
   rollback_or_recovery: Invalidate only the affected acceptance when its source or candidate changes.
-  failure_reroute: Return a rejected candidate to the bounded repair and independent-review path.
+  failure_reroute: Return a rejected candidate to the bounded repair and independent-review path. While
+    human acceptance is genuinely pending, classify this task BLOCKED_EXTERNAL and continue eligible no-effect
+    local resilience and act work against the frozen Gate-A campaign.
   closeout_rules:
   - Every runtime-loaded registry entry has a valid HUMAN_ACCEPTED record.
   - No Gate-C task becomes eligible before this task closes.
@@ -5795,7 +5887,8 @@ taskcards:
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
   title: Reproduce the complete canonical workflow under act
   source_audit_finding: Existing act evidence executed only matrix planning and therefore did not prove
-    supervise, recovery, evidence, or health behavior.
+    supervise, recovery, evidence, or health behavior; waiting idly for independent Gate-B review would
+    add elapsed time without strengthening this no-effect workflow proof.
   audit_classification: partially_done
   priority: P0
   lane: actions-runtime
@@ -5803,7 +5896,8 @@ taskcards:
   status: TODO
   objective: Run the same reusable workflow through every applicable job and trigger path with isolated
     local state and no production authentication fallback.
-  why_it_matters: Local CLI success does not prove GitHub Actions-compatible orchestration.
+  why_it_matters: Local CLI success does not prove GitHub Actions-compatible orchestration, and this no-effect
+    proof can safely proceed against frozen Gate-A bundles while human review is pending.
   allowed_paths:
   - src/readme_agent/
   - tests/
@@ -5837,6 +5931,8 @@ taskcards:
   failure_reroute: Repair act parity before staging.
   closeout_rules:
   - Every applicable current-workflow job reaches an honest terminal result.
+  - Gate-B rejection invalidates only content-dependent act evidence; runtime-only proof remains reusable
+    when its exact inputs are unchanged.
   goal_ids:
   - GOAL-AUTONOMY
   core_contribution:
@@ -6158,7 +6254,8 @@ taskcards:
   owner: readme-agent-supervisor
   status: TODO
   objective: Prove observe/proposal mode for the full registry, then one authorized representative per
-    Java, .NET, Python, TypeScript, C++, Go, and Rust, followed by 30 clean production days.
+    Java, .NET, Python, TypeScript, C++, Go, and Rust, while operating the complete Level-8 control set
+    from hosted day 1 and awarding Level 7 after the first 30 clean days of the common 90-day series.
   why_it_matters: Level 7 is a portfolio property, not a three-Java-repository test count.
   allowed_paths:
   - runs/
@@ -6175,11 +6272,14 @@ taskcards:
   - Full-registry observe/proposal evidence.
   - Seven-ecosystem full proposal lifecycle evidence.
   - Operational health, backlog, alert, and recovery proof.
-  - Thirty-day Level-7 evidence series.
+  - Days 1-30 of the common Level-8-grade evidence series, including the complete day-1 control and campaign
+    hash.
   acceptance_checks:
   - Every active registry repository has terminal heterogeneous evidence.
   - At least one full lifecycle passes per ecosystem.
   - Thirty days have zero unauthorized writes, duplicate effects, or false convergence.
+  - Every Level-8 monitoring, recovery, freshness, dependency, authorization, dead-man, quality, and traffic
+    control required for day-90 acceptance was active from day 1.
   verification:
   - Scheduled and event-triggered production runs.
   - Daily manifest and health reconciliation.
@@ -6191,7 +6291,7 @@ taskcards:
   - Weekly full official checks and golden set.
   - Per-ecosystem no-op reruns.
   evidence_requirements:
-  - Thirty-day immutable manifest series.
+  - First 30 days of one immutable day-1-to-day-90 manifest series.
   - Cohort and ecosystem acceptance reports.
   rollback_or_recovery: Demote a failing cohort or route to observe-only without disabling audits.
   failure_reroute: Continue safe ecosystems and cohorts while isolating the failing lane.
@@ -6220,9 +6320,10 @@ taskcards:
   lane: level8-operations
   owner: readme-agent-supervisor
   status: TODO
-  objective: Operate the complete system for 90 consecutive days with weekly portfolio audits, automatic
-    regression disablement, dependency and authorization monitoring, recovery, proposal freshness, dead-man
-    monitoring, quality/traffic reporting, and independent audit.
+  objective: Continue the already-active Level-8-grade evidence series from hosted day 1 until it reaches
+    90 consecutive days, with weekly portfolio audits, automatic regression disablement, dependency and
+    authorization monitoring, recovery, proposal freshness, dead-man monitoring, quality/traffic reporting,
+    and independent audit.
   why_it_matters: Level 8 is earned by sustained operation, not architecture or test volume.
   allowed_paths:
   - runs/
@@ -6236,12 +6337,15 @@ taskcards:
   dependencies:
   - L8-WAVE7-HETEROGENEOUS-PORTFOLIO
   expected_outputs:
-  - Ninety-day checksum-complete manifest and health series.
+  - One day-1-to-day-90 checksum-complete manifest and health series whose first 30 days established Level
+    7.
   - Weekly portfolio, quality, dependency, vulnerability, and traffic reports.
   - Crash/outage recovery evidence.
   - Independent Level-8 audit.
   acceptance_checks:
   - All quantitative Level-8 acceptance thresholds pass.
+  - The day-1 control/campaign hash proves every Level-8 control was active throughout the same series;
+    evidence collected under a weaker earlier control set cannot be backfilled.
   - At least 99 percent of eligible runs complete without human intervention.
   - Every injected outage recovers within 24 hours.
   - Independent audit awards Level 8.
@@ -6256,9 +6360,10 @@ taskcards:
   - Deterministic validation remains 100 percent.
   - Agentic golden accuracy remains at least 95 percent.
   evidence_requirements:
-  - Ninety-day evidence root and checksum index.
+  - Day-1-to-day-90 evidence root, control-continuity record, and checksum index.
   - Independent audit report and award.
-  rollback_or_recovery: Demote affected route/repository to observe-only and preserve visible backlog.
+  rollback_or_recovery: Demote affected route/repository to observe-only, preserve visible backlog, and
+    restart or extend the affected consecutive window rather than hiding an acceptance-breaking day.
   failure_reroute: Extend the proof window after any acceptance-breaking day; do not hide the break.
   closeout_rules:
   - Every Level-8 acceptance criterion passes.
@@ -6289,7 +6394,7 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 1784f6a41855f1836c8570eee512f227da9d9da9e25e7c84eb70e05fddafe336
+  source_sha256: d5cd6af400d33df277f9b79b3b0b97718076a51e66b9b811d3071243ce29ffed
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 426
   mandatory_requirement_rows: 400
@@ -7798,7 +7903,7 @@ requirement_coverage:
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: NFR-010
-    priority: P2
+    priority: P1
     requirement_status: PLANNED
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
     disposition: open_mandatory
@@ -8536,7 +8641,7 @@ requirement_coverage:
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: SCL-002
-    priority: P2
+    priority: P1
     requirement_status: PLANNED
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
     disposition: open_mandatory

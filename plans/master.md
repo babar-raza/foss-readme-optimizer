@@ -72,6 +72,27 @@ Six subordinate goals organize necessary work without becoming alternate destina
 6. `GOAL-MATURITY` proves the complete presentation portfolio over the Level-5 pilot and the
    independently audited 30-day and 90-day operating windows.
 
+The same governed goals also define three execution horizons. This is a mapping over the existing
+goal guard, not another plan or task system:
+
+- **Short term — visible local proof:** `GOAL-TRUTH` and `GOAL-README`. Close the missing Go
+  representative, produce one latest-contract 3D Java README within a target of 1–2 working days,
+  and reach seven current-contract `NO_OP_PROVEN` representatives within a target of 3–5 working
+  days.
+- **Medium term — portfolio and Level 5:** `GOAL-PROFILE` and `GOAL-DELIVERY`. Reach full-registry
+  Gate A within a target of 7–12 working days, then overlap independent preparation so Gate B,
+  `act`, staging, Gate C, hosted operation, and Level 5 complete within a target of 3–5 weeks.
+- **Long term — sustained maturity:** `GOAL-MATURITY`. Begin Level-8-grade evidence collection on
+  the first qualifying hosted-production day, award Level 7 after the first 30 clean days, and
+  continue the same uninterrupted series to the Level-8 decision at day 90.
+
+`GOAL-AUTONOMY` is cross-cutting and may consume critical-path time only when it removes a proven
+blocker or establishes a safety/reliability condition required by the active horizon. These
+timeboxes are control limits, not permission to weaken acceptance or claim success early. A
+timebox breach must name the first failing boundary, stop unrelated abstraction/refactor work,
+choose the smallest permanent repair, and continue. It must not create a new plan, controller,
+generic framework, or evidence campaign.
+
 Every executable task must state which subordinate goal it serves and identify one concrete core
 contribution: a visible deliverable produced, a first failing boundary removed, a safety condition
 without which the deliverable cannot run, or required acceptance proof completed. Work that does
@@ -90,9 +111,9 @@ Build Checklist; generated status, history, and evidence live in `plans/status.m
 
 The active local-first pre-production sequence (`L8-014`) precedes Wave 2: **direct local proof →
 complete current workflow under `act` → isolated staging → production**. The last clean
-pre-correction snapshot was `25a2820507febaf0f74860c6e363864105c22465`; post-correction durable
-state 321 has `L8-TRUTH-07-SEVEN-ECOSYSTEMS` active under graph
-`519f4347fa75f1922baa35d0a86f3f89c0576562ac470051804e44891a801ccb` with no drift.
+pre-correction snapshot was `25a2820507febaf0f74860c6e363864105c22465`; post-acceleration durable
+state 323 has `L8-TRUTH-07-SEVEN-ECOSYSTEMS` active under graph
+`d04a940d4a1d9ca42b1b27fd8468500a69a11cab31ac0f7b9abc6418aa925aea` with no drift.
 The denominator is 31: 7 `FACTS_READY` or later, 1 `CANDIDATE_GENERATED`,
 1 `DETERMINISTIC_VALIDATED`, 1 `AGENT_APPROVED`, 1 `NO_OP_PROVEN`, and 0 `HUMAN_ACCEPTED`;
 the first failing boundary is `FACTS_READY`. The sole no-op-proven 3D Java bundle predates the
@@ -111,8 +132,12 @@ integration. Earlier PR/App-shaped machinery stays inert.
 The outcome-first critical path is: finish seven-ecosystem facts with native tools; freeze the
 current README contract; regenerate 3D Java; qualify one current-contract `NO_OP_PROVEN` README
 for all seven ecosystems; then run full-registry facts and candidate fan-out. `L8-015`–`L8-017`,
-`L8-020`–`L8-026`, and decision #82 govern. Deterministic failures consume no prose calls,
-content-addressed stages are reused, and verification expands only at coherent boundaries.
+`L8-020`–`L8-026`, and decisions #82–#83 govern. The governed targets are one current-contract
+README in 1–2 working days, seven in 3–5 working days, full-registry Gate A in 7–12 working days,
+and Level 5 in 3–5 weeks. These are breach-detection controls, not completion evidence.
+Deterministic failures consume no prose calls, family/ecosystem evidence and content-addressed
+stages are reused, bounded internal fan-out begins only after seven-representative qualification,
+and verification expands only at coherent boundaries.
 
 `plans/requirements.md` is normative; the Level-8 task graph drives `supervise`; current
 implementation contracts live in `docs/`; `logs/` is history. No untracked plan candidate is
@@ -1829,6 +1854,49 @@ that is the only permanence they carry; text is always the decision as it stands
     revision-addressed `runs/` state; checksum evidence is promoted once at task closure rather
     than duplicated after every diagnosis. See `GOV-015`, `NFR-012`, and `L8-016`.
 
+83. **Accelerate through portfolio factorization, bounded internal concurrency, and overlapping
+    independent proof—not reduced scope or weaker gates.** The 31-repository portfolio is treated
+    as 12 product families, 7 ecosystems, and 31 repository deltas. Shared family evidence covers
+    identity, audience, stable positioning, verified catalog links, and one provenance-reviewed
+    product illustration; shared ecosystem evidence covers package/build semantics, badge inputs,
+    example conventions, and compatibility representation. Every shared fact remains
+    content-addressed and is admitted to a repository's `ProductFactsV2` only after that
+    repository confirms applicability. Repository source, manifests, APIs, examples, limitations,
+    license, workflow names, and inherited README claims always receive repository-specific
+    validation. Shared prose is never copied across products as an unverified template.
+
+    `FACTS_READY` for README composition means all material claims selected for the current README
+    are accepted or explicitly omitted; it does not wait for optional exhaustive product research.
+    Missing optional facts remain visible and cannot render, but do not block an otherwise useful
+    candidate. Headers, applicable badges, Mermaid structure, navigation, link allocation,
+    terminology, and other rule-derived content render deterministically. LLM judgment is reserved
+    for repository-specific composition and independent review. Related repository requests may
+    be physically batched only after typed per-repository inputs, outputs, accounting, cache keys,
+    verdicts, and failure isolation prove that one item cannot contaminate another.
+
+    After seven real representatives pass the frozen contract, one supervisor may execute two to
+    four isolated repository lanes. Per-repository leases and revision roots remain separate;
+    shared caches are read-only/content-addressed; portfolio aggregation is serialized; API/model
+    backpressure may reduce the lane count. Before that gate, local execution remains serial.
+    One source/toolchain build result supplies every dependent fact, API, example, and validation
+    stage until its exact dependency hash changes. URL, package-registry, workflow, license, and
+    other external evidence is fetched once per normalized key and governed freshness interval.
+
+    The complete official suite is required at four local campaign boundaries: before resumed
+    execution, after the first latest-contract README, after seven-representative qualification,
+    and at full-registry Gate-A closure. Focused and impact-mapped integration/safety checks remain
+    mandatory between those boundaries. Failed attempts stay as redacted diagnostics under
+    `runs/`; one checksum-complete evidence package is promoted per coherent closure campaign.
+    Gate-B human review and non-mutating `act` proof may overlap after Gate A; staging preparation,
+    hosted manifests, and remaining local presentation surfaces may proceed when their own
+    dependencies are satisfied, without exercising a gated effect early.
+
+    Level-8 controls start on the first qualifying hosted day. The same uninterrupted,
+    checksum-complete series establishes Level 7 at day 30 and may count toward Level 8 at day 90
+    only when every Level-8 control was active from day 1 and no acceptance-breaking day occurred.
+    This removes an idle additional 30-day wait without shortening the required 90-day proof.
+    See `NFR-010`, `NFR-012`, `SCL-001`–`SCL-003`, `L8-010`, `L8-011`, `L8-016`, and `L8-025`.
+
 ## Architecture
 
 ### Canonical production flow
@@ -1890,6 +1958,40 @@ the full registry runs only against the frozen campaign. Cache reuse is accepted
 repository revision, selected package root, manifest/lock inputs, toolchain digest, adapter,
 fact contract, prompts, renderer, and acceptance contract match. Faster stale or lower-confidence
 output never counts as an optimization.
+
+### Portfolio fact reuse and bounded fan-out
+
+Portfolio work is factored along two reusable axes plus a mandatory repository delta:
+
+```text
+candidate inputs
+  = validated source README
+  + applicable product-family evidence
+  + applicable ecosystem evidence
+  + repository-specific source/manifests/API/examples/limitations/license/workflows
+```
+
+The implementation reuses existing `ProductFactsV2` and evidence contracts rather than creating a
+second product-truth authority. A shared evidence fragment is immutable, content-addressed, and
+names its family/ecosystem scope; each repository records the applicability decision and its own
+provenance binding before the fragment may influence rendering. Family evidence can supply stable
+identity, audience, terminology, catalog links, and one illustration across platform repositories.
+Ecosystem evidence can supply package/build conventions, badge inputs, and example-validation
+semantics. Repository-specific evidence always owns coordinates, public APIs, examples,
+limitations, license, workflow names, compatibility, and inherited claims.
+
+The README fact gate is claim-driven: all material claims selected for the candidate must be
+accepted, conflicted claims must be omitted or corrected, and optional unselected facts may remain
+open without blocking the document. One isolated build/tool result is reused by all dependent fact
+and example checks while its complete dependency key remains unchanged. External URLs, registry
+queries, workflow metadata, and license classification use normalized freshness-bounded caches.
+
+After the seven-representative qualification freezes the campaign, a single supervisor may run two
+to four per-repository lanes. Lanes never share mutable repository state, claims, outputs, or
+verdicts. Portfolio aggregation remains serialized, and rate-limit/backpressure controls reduce
+concurrency automatically. Physical LLM batching is an optional transport optimization only after
+per-repository schemas, attribution, independent verdicts, caches, and failure isolation pass
+negative controls.
 
 ### Trust and token boundaries
 
@@ -2391,13 +2493,19 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         `c514fa7`).
   - [ ] Representative product truth: close the active seven-ecosystem facts campaign, using
         official/native tool output behind thin isolated adapters and completing the missing Go
-        representative. Do not run the full-registry facts preflight yet
-        (`L8-TRUTH-07-SEVEN-ECOSYSTEMS`, decision #82).
+        representative. Reuse unchanged results, accept `FACTS_READY` when every selected material
+        README claim is supported or omitted, and do not wait for optional exhaustive research.
+        Do not run the full-registry facts preflight yet. Target: close this boundary within one
+        working day; a breach reroutes to the smallest failing truth owner
+        (`L8-TRUTH-07-SEVEN-ECOSYSTEMS`, decisions #82–#83).
   - [ ] Frozen presentation contract: make the historical 3D Java candidate fail for its known
         current-contract defects, then implement `L8-020`, `L8-021`, `L8-023`, `L8-024`, and
         `L8-026`; split only the responsibilities touched, reconcile existing sections, require
-        complete inherited/generated claim coverage, enforce presentation lint, and produce seven
-        deterministic latest-contract candidates (`L8-COMPOSE-*` task group).
+        complete inherited/generated claim coverage, enforce presentation lint, and produce the
+        corrected 3D Java result within 1–2 working days and seven deterministic latest-contract
+        candidates within 3–5 working days. Factor inputs as validated source README plus
+        family evidence, ecosystem evidence, and a repository-specific delta; share one
+        provenance-reviewed illustration per product family (`L8-COMPOSE-*` task group).
   - [ ] Review: separate blind quality from factual/plan review, ground findings, require
         candidate-changing repair, prove no-op caching, and pass the real heterogeneous campaign
         (`L8-REVIEW-*` task group).
@@ -2406,9 +2514,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         single-writer/recovery controls and the governed three-session golden set. This is a
         representative qualification milestone, not the POC (`L8-QUAL-*` task group).
   - [ ] Gate A: only after seven-output qualification, run the facts-only full-registry preflight,
-        then execute bounded candidate cohorts, heal every agent-fixable failure, obtain
-        current-contract no-op proof for the dynamic registry denominator, and independently
-        reproduce the portfolio (`L8-TRUTH-08-FULL-REGISTRY`, `L8-GATEA-*` task group).
+        then execute two-to-four-lane candidate cohorts inside one supervisor, heal every
+        agent-fixable failure, obtain current-contract no-op proof for the dynamic registry
+        denominator, and independently reproduce the portfolio. Reuse one build/tool result and
+        normalized external-evidence result until its exact dependency/freshness key changes.
+        Target: close Gate A within 7–12 working days (`L8-TRUTH-08-FULL-REGISTRY`,
+        `L8-GATEA-*` task group).
   - **Exit:** every current registry entry has a checksum-valid, independently agent-approved,
     no-op-proven local bundle under one frozen campaign; no remote write occurred. Gate B human
     review begins only after this exit.
@@ -2473,17 +2584,22 @@ only as historical implementation evidence in decisions and `logs/`; they are no
     human initiation; humans only review proposals, authorization, blocked facts, and manual UI.
   - **Level 7 exit:** every active repository has terminal evidence, each ecosystem has a full
     lifecycle, health/recovery is operational, and 30 consecutive production days have zero
-    unauthorized writes, duplicate effects, or false convergence.
+    unauthorized writes, duplicate effects, or false convergence. Level-8-grade controls and the
+    common 90-day evidence series must already be active so these first 30 days can remain part of
+    the Level-8 window.
 
 - [ ] **Wave 8 — Proven self-maintenance (Level 8)**
   - Run weekly full-portfolio and incremental reevaluation, observe-only discovery proposals,
     golden-set route disablement, dependency/SBOM/vulnerability monitoring, authorization expiry,
     schema migrations, stale-proposal reconciliation, freshness, dead-man monitoring, and weekly
     quality/traffic reporting.
-  - **Exit after 90 consecutive production days:** zero prohibited writes/duplicate effects/false
+  - **Exit after 90 consecutive production days from the first qualifying hosted day:** zero
+    prohibited writes/duplicate effects/false
     success; all accepted triggers terminal or visible; all terminal manifests checksum-complete;
     ≥99% eligible runs autonomous; crash/outage recovery ≤24h; proposal age/drift visible ≤24h;
     deterministic validation 100%; agentic accuracy ≥95%; independent audit awards Level 8.
+    The first 30 days may also establish Level 7 only when the complete Level-8 control set,
+    campaign identity, and uninterrupted evidence series were active from day 1.
 
 ## Verification Checklist
 
@@ -2557,8 +2673,21 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       and unchanged no-op boundaries under one campaign with zero critical false accepts. The
       normal path stays within one composition, one independent-review, and one targeted-repair
       provider call per repository/revision; deterministic defects make zero additional calls.
+- [ ] **Goal-horizon anti-drift gate:** every selected task retains its governed functional goal
+      and advances the active short-, medium-, or long-term outcome. A breached target records the
+      first failing boundary and smallest permanent repair; it cannot authorize unrelated
+      abstraction, another plan/controller, reduced acceptance, or a report-only close.
+- [ ] **Portfolio-reuse gate:** shared family/ecosystem evidence is content-addressed and admitted
+      only through a repository-specific applicability/provenance binding; coordinates, APIs,
+      examples, limitations, license, workflows, and inherited claims remain independently
+      validated for every repository. Cross-family leakage and stale shared evidence fail.
+- [ ] **Verification-economy gate:** focused/impact-mapped checks run after edits; the complete
+      official suite passes before resume, after the first latest-contract README, after
+      seven-representative qualification, and at Gate-A closure; failed diagnostics remain under
+      `runs/` and exactly one checksum evidence package is promoted per coherent closure.
 - [ ] **Local recovery gate:** one portfolio writer, renewable mission claim, cancellation/resume,
-      duplicate-trigger, descendant cleanup, and current-state aggregation controls pass.
+      duplicate-trigger, descendant cleanup, current-state aggregation, and post-qualification
+      two-to-four-lane isolation/backpressure controls pass.
 - [ ] **Full-registry Gate A:** current-contract approved/no-op-proven equals the runtime registry
       denominator; system failures, unprocessed entries, manifest failures, and remote writes are
       zero; an independent verifier reproduces the manifest and checksums.
@@ -2579,9 +2708,9 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       without routine human initiation and keeps every block visible.
 - [ ] **Wave 7 Level-7 gate:** all active registry repositories have terminal evidence, at least
       one lifecycle per supported ecosystem is proven, operations/alerts/recovery are live, and
-      the 30-day clean-production window completes.
-- [ ] **Wave 8 Level-8 gate:** the 90-day window satisfies every decision #76 metric and an
-      independent auditor reproduces the evidence and awards Level 8.
+      the first 30 days of one Level-8-grade clean-production series complete.
+- [ ] **Wave 8 Level-8 gate:** the same uninterrupted series reaches 90 days, satisfies every
+      decision #76 metric, and an independent auditor reproduces the evidence and awards Level 8.
 - [ ] **Business measurement gate:** weekly github.com referral reporting is operational and
       reported beside quality/factuality measures; traffic never overrides trust gates.
 

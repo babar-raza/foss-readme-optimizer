@@ -296,6 +296,26 @@ decision #78 (2026-07-25):
   respective roles. Taskcard ledgers, roadmaps, handovers, and status reports are derived views:
   correct them when they conflict, and never let their numbering authorize Gate-C/D work early.
 
+## Goal horizons and accelerated execution
+
+Decision #83 in `plans/master.md` and the existing Level-8 mission graph bind all agents to three
+outcome horizons without creating another controller: `GOAL-TRUTH`/`GOAL-README` are the short-term
+visible-output horizon, `GOAL-PROFILE`/`GOAL-DELIVERY` are the medium-term portfolio/Level-5
+horizon, `GOAL-MATURITY` is the long-term day-90 horizon, and `GOAL-AUTONOMY` may enter the
+critical path only for a proven blocker or indispensable safety. Always execute the durable
+graph-selected task and its declared contribution. A target breach means record the first failing
+boundary and make the smallest permanent repair; it never authorizes a new plan/controller,
+unrelated abstraction, reduced acceptance, or report-only closure.
+
+Portfolio reuse follows `validated source README + applicable family evidence + applicable
+ecosystem evidence + repository-specific delta`. Shared evidence must be content-addressed and
+repository-bound before rendering; coordinates, APIs, examples, limitations, license, workflows,
+and inherited claims remain per-repository proof. Before seven-representative qualification,
+execution stays serial. Afterwards, only the sole supervisor may use two to four isolated
+repository lanes with separate leases/state/evidence and serialized aggregation. Follow the four
+local full-suite campaign boundaries and one closure evidence package per campaign specified by
+Decision #83; do not revive micro-fix evidence churn or pre-qualification portfolio fan-out.
+
 ## Each wave reconciles the previous wave first
 
 Before starting a new wave's work, check the immediately preceding wave's actual delivered state —

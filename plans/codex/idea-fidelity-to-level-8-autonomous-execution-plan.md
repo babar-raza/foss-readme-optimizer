@@ -83,9 +83,9 @@ durable state version 320, active task `L8-TRUTH-07-SEVEN-ECOSYSTEMS`, 59 unreso
 external block. This document is supporting explanation; after these edits, live `status` and
 `evaluate` remain the only authority for graph migration and claim recovery.
 
-The corrected graph was reconciled without stealing the active claim or deleting transition
-history. Durable state version 321 now binds graph
-`519f4347fa75f1922baa35d0a86f3f89c0576562ac470051804e44891a801ccb`, retains
+The accelerated graph was reconciled without stealing the active claim or deleting transition
+history. Durable state version 323 now binds graph
+`d04a940d4a1d9ca42b1b27fd8468500a69a11cab31ac0f7b9abc6418aa925aea`, retains
 `L8-TRUTH-07-SEVEN-ECOSYSTEMS` as the exact next task, and reports no graph drift.
 
 The runtime denominator is 31. Durable lifecycle state reports 7 repositories at `FACTS_READY` or
@@ -193,6 +193,68 @@ official suite at coherent commit/gate boundaries, and the full registry only af
 freeze. Runtime bundles are updated in place under `runs/`; one checksum evidence package is
 promoted at task closure rather than after every diagnosis.
 
+### 2026-07-28 accepted accelerated goal and execution contract
+
+The functional goal guard remains the sole machine-enforced goal system. Execution agents map it
+to three horizons and may not substitute one horizon's machinery for another horizon's output:
+
+| Horizon | Governed goals | Required outcome | Target control |
+| --- | --- | --- | --- |
+| Short | `GOAL-TRUTH`, `GOAL-README` | Missing Go facts; one latest-contract 3D Java README; seven ecosystem representatives at `NO_OP_PROVEN` | 1–2 working days for the first README; 3–5 for seven |
+| Medium | `GOAL-PROFILE`, `GOAL-DELIVERY` | Full-registry Gate A; Gate B; `act`; staging; Gate C; hosted runtime; Level 5 | 7–12 working days for Gate A; 3–5 weeks for Level 5 |
+| Long | `GOAL-MATURITY` | Level-8-grade hosted operation, Level 7 at day 30, Level 8 at day 90 | one uninterrupted day-1-to-day-90 series |
+
+`GOAL-AUTONOMY` is cross-cutting. It enters the critical path only for an evidenced blocker or an
+indispensable safety/reliability condition. A time target is never a waiver. When a target is
+breached, the agent records the first failing boundary, stops unrelated abstraction and evidence
+churn, selects the smallest permanent repair, verifies it, and continues through the same graph.
+It does not create another plan/controller or close from a report.
+
+The portfolio is executed as 12 family evidence sets, 7 ecosystem evidence sets, and 31 mandatory
+repository deltas:
+
+```text
+candidate facts
+  = applicable content-addressed family evidence
+  + applicable content-addressed ecosystem evidence
+  + repository-specific source/manifests/API/examples/limitations/license/workflows
+  + validated dispositions for the existing README
+```
+
+This is reuse inside `ProductFactsV2`, not another truth store. A family/ecosystem fragment renders
+only after the repository records applicability and provenance. Product-family identity,
+audience, stable terminology, catalog links, and one illustration may be reused; coordinates,
+public APIs, examples, limitations, license, workflows, compatibility, and inherited claims are
+always verified per repository. `FACTS_READY` is claim-driven: every selected material README
+claim is supported or omitted, while optional unselected research remains visible but does not
+block composition.
+
+Headers, applicable badges, Mermaid structure, navigation, link allocation, and terminology are
+deterministic. The normal LLM budget remains one composition, one independent review, and one
+targeted repair per repository/revision/campaign. Related repositories may share a physical
+request only after typed per-repository accounting, outputs, verdicts, cache keys, and failure
+isolation pass cross-product and malformed-item controls.
+
+After seven-representative qualification, one supervisor may run two to four isolated repository
+lanes. Each lane owns its lease, revision root, lifecycle, evidence, and verdict; shared caches are
+read-only/content-addressed; aggregate updates are serialized; backpressure reduces concurrency.
+Before qualification, execution remains serial. One source/toolchain build feeds all dependent
+checks until its exact key changes. URL, registry, workflow, and license evidence is fetched once
+per normalized freshness key.
+
+The complete local official suite runs at four campaign boundaries: before resumed execution,
+after the first latest-contract README, after seven-representative qualification, and at Gate-A
+closure. Focused and impact-mapped integration/safety tests remain mandatory between them. Failed
+attempts remain redacted runtime diagnostics; one checksum package is promoted per coherent
+closure.
+
+After Gate A, Gate-B review and no-effect `act` work may overlap. Staging preparation and remaining
+local surfaces proceed when their own dependencies are satisfied, but no gated effect moves early.
+On the first qualifying hosted day, the complete Level-8 control set starts one immutable evidence
+series. Its first 30 clean days establish Level 7; the same uninterrupted series reaches Level 8
+at day 90. A weaker earlier period cannot be backfilled, and an acceptance-breaking day restarts
+or extends the applicable consecutive window.
+
 ### Disposition of the external testing/performance plan
 
 `C:\Users\prora\.claude\plans\how-to-make-testing-shiny-lamport.md` is a useful supporting
@@ -208,13 +270,14 @@ The following parts are adopted into the existing mission:
 - measurement precedes optimization;
 - unchanged review/no-op caching belongs to `L8-REVIEW-04-NO-OP-CACHE`;
 - suite and per-stage cost measurement occurs immediately before qualification freeze;
-- clone persistence and specialist/portfolio concurrency are considered only after single-writer
-  recovery and representative correctness pass.
+- clone persistence and two-to-four-lane portfolio concurrency activate only after single-writer
+  recovery and seven-representative correctness pass.
 
 Pytest-xdist tiering, CI pip caching, cross-run clone persistence, specialist concurrency, and
-portfolio parallelism remain off the current critical path. They may be promoted only when measured
-wall-clock or instability blocks the active atomic task. Executing them now would delay the first
-trustworthy README while caching potentially invalid outputs. The external plan's separate
+portfolio parallelism remain off the pre-qualification critical path. Post-qualification bounded
+portfolio lanes are accepted because repository state/evidence isolation is a Gate-A contract;
+other performance changes still require a measured trigger. Executing them early would delay the
+first trustworthy README while caching potentially invalid outputs. The external plan's separate
 `REQ-FAST-*` state machine and evidence authority are rejected; accepted work is represented only
 in the sole Level-8 graph.
 
@@ -854,16 +917,19 @@ independent Level-5 award.
 
 Operate every registry repository in observe/proposal mode, prove one complete authorized lifecycle
 per supported ecosystem, roll out remaining families, and maintain recovery, health, drift, proposal
-age, authorization-expiry, dependency, SBOM, vulnerability, and quality reporting. Accumulate 30
-clean production days for Level 7.
+age, authorization-expiry, dependency, SBOM, vulnerability, and quality reporting. Activate the
+complete Level-8 control set and immutable evidence series on hosted day 1; the first 30 clean days
+of that same series establish Level 7.
 
 ### Phase 16 -- Level 8
 
-Operate for 90 consecutive production days with weekly full-registry audits, incremental
+Continue the same hosted-day-1 series until it reaches 90 consecutive production days with weekly
+full-registry audits, incremental
 reevaluation, onboarding proposals, automatic route regression disablement, state migration and
 outage recovery proof, stale-proposal reconciliation, external dead-man monitoring, and weekly
 quality/referral reporting. Require every Level-8 metric in the authoritative plan and an independent
-reproducibility audit.
+reproducibility audit. A period with weaker controls cannot be backfilled; an acceptance-breaking
+day restarts or extends the affected consecutive window.
 
 ## Exact autonomous resume sequence
 
@@ -883,13 +949,18 @@ Execution resumes in this order; it does not start an official 31-repository cam
    representative through `go list`, `go doc`, and `go test` inside the existing isolated executor;
    reuse unchanged valid facts for the other six ecosystems. Every representative records the
    official/native command, pinned toolchain identity, raw-result hash, normalized facts, and
-   reproduction command. Do not start the full-registry facts preflight.
+   reproduction command. `FACTS_READY` requires support or explicit omission for every material
+   claim selected for the README, not optional exhaustive research. Target this boundary within one
+   working day; on breach, record and repair the exact first boundary. Do not start the full-registry
+   facts preflight.
 4. Execute `L8-LOCAL-README-ASSESSMENT-COMPOSITION`. First make the historical 3D Java candidate
    fail the frozen current-contract validator. Then split only touched responsibilities and
    implement marker/comment-free output, factual badges, fact-backed Mermaid, contextual
    catalog-backed link allocation, exact Enterprise Edition terminology, and complete
-   inherited/generated claim dispositions. Regenerate and approve 3D Java before composing the
-   remaining six representatives.
+   inherited/generated claim dispositions. Factor inputs as validated source README plus
+   repository-bound family evidence, ecosystem evidence, and repository delta. Regenerate and
+   approve 3D Java against the 1–2-working-day target, then compose the remaining six against the
+   3–5-working-day target. A breach cannot authorize a new abstraction or reduced gate.
 5. Execute `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`. Add span/fact-grounded reviewer findings,
    contradicted-review rejection, repair routing, candidate-delta checks, and finding-resolution
    checks before another paid review call.
@@ -897,16 +968,23 @@ Execution resumes in this order; it does not start an official 31-repository cam
    Require seven real representatives to reach current-contract `AGENT_APPROVED` and unchanged
    `NO_OP_PROVEN`, with recovery, idempotency, safety, cache provenance, and measured cost/latency
    evidence. The normal provider budget is one composition, one independent review, and one
-   targeted repair call; deterministic failures make zero new prose calls.
+   targeted repair call; deterministic failures make zero new prose calls. Physical batching is
+   allowed only after per-repository schema, attribution, cache, verdict, and contamination controls
+   pass. Run the complete official suite once at this campaign boundary.
 7. Freeze the registry, repository revisions, control HEAD, prompt/fact/renderer/validator/reviewer
    hashes, dependency lock, and cost envelope as one named campaign.
 8. Run `L8-TRUTH-08-FULL-REGISTRY` to the facts-only ceiling under the qualified contract, then
-   resume Gate A in bounded cohorts and publish the dynamic portfolio summary after every
-   repository. A new live defect reopens the first responsible task, requalifies the affected
-   representative, and resumes only invalidated repositories.
+   resume Gate A in two-to-four-lane family/ecosystem cohorts owned by one supervisor and publish
+   the serialized dynamic portfolio summary after every repository. Reuse exact build/tool and
+   freshness-bounded external-evidence results. A new live defect reopens the first responsible
+   task, requalifies the affected representative, and resumes only invalidated repositories.
+   Target Gate A within 7–12 working days and promote one closure evidence package after the final
+   official suite, not one package per failed attempt.
 9. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with
-   `act`, staging, Gate C, Gate D, Level 5, Level 7's 30-day proof, and Level 8's 90-day proof in
-   the dependency order above.
+   no-effect `act` work while Gate-B review is pending, then staging, Gate C, Gate D, and Level 5
+   as their own dependencies permit. Start the complete Level-8 control/evidence series on hosted
+   day 1, award Level 7 from days 1–30, and continue the same uninterrupted series to Level 8 at
+   day 90.
 
 ## Verification, evidence, and human boundaries
 
