@@ -56,14 +56,16 @@ def _record(
         input_sha256=hashlib.sha256(f"{actor}:{candidate_hash}".encode()).hexdigest(),
         verdict=verdict,
         reasoning=f"{role} returned {verdict}",
-        failed_criteria=["criterion"] if failed else [],
+        failed_criteria=["clarity" if finding_kind == "quality" else "factuality"]
+        if failed
+        else [],
         sections_affected=["Overview"] if failed else [],
         findings=(
             [
                 {
                     "finding_id": f"{finding_kind}.finding",
                     "kind": finding_kind,
-                    "criterion": "criterion",
+                    "criterion": "clarity" if finding_kind == "quality" else "factuality",
                     "section": "Overview",
                     "claim": "A grounded finding.",
                     "quoted_candidate_span": "Specific, useful candidate.",

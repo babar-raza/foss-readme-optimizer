@@ -128,8 +128,12 @@ def test_blind_rejection_vetoes_factual_acceptance():
 
     assert result.verdict == "REJECT_REPAIRABLE"
     assert result.failed_criteria == ["product_specificity"]
-    assert result.required_repair == "Name the concrete purpose."
+    assert result.required_repair == (
+        "Revise overview for product_specificity around exact span: Specific, useful candidate."
+    )
     assert result.blind_quality_review.findings[0].finding_id == "quality.generic-opening"
+    assert "Name the concrete purpose." not in result.required_repair
+    assert "product_specificity" in result.required_repair
 
 
 def test_factual_conflict_vetoes_blind_acceptance():

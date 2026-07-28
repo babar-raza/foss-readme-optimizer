@@ -127,9 +127,14 @@ def _compatibility_result(
     failed_criteria = sorted({*blind.failed_criteria, *factual.failed_criteria})
     sections_affected = sorted({*blind.sections_affected, *factual.sections_affected})
     repairs = [
-        repair.strip()
-        for repair in (blind.required_repair, factual.required_repair)
-        if repair.strip()
+        (
+            f"Revise {finding.section} for {finding.criterion} around exact span: "
+            f"{finding.quoted_candidate_span}"
+            if finding.kind == "quality"
+            else finding.required_repair.strip()
+        )
+        for finding in [*blind.findings, *factual.findings]
+        if finding.kind == "quality" or finding.required_repair.strip()
     ]
     return SeparatedReadmeReviewResultV1(
         verdict=combined.verdict,

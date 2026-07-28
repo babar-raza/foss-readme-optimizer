@@ -13,9 +13,11 @@ code-not-content treatment, so it stays here as a plain dict rather than
 becoming YAML content."""
 
 import hashlib
+import json
 from string import Template
 
 from readme_agent.llm import prompt_registry
+from readme_agent.specialists.review_finding_grounding import BLIND_QUALITY_CRITERIA
 
 PROSE_QUALITY_TOOL_SCHEMA = {
     "type": "function",
@@ -94,14 +96,22 @@ INDEPENDENT_README_REVIEW_TOOL_SCHEMA = {
 }
 
 
-def _role_review_tool_schema(name: str, verdicts: list[str]) -> dict:
+def _role_review_tool_schema(
+    name: str,
+    verdicts: list[str],
+    *,
+    finding_kind: str,
+    criteria: list[str] | None = None,
+) -> dict:
     finding_schema = {
         "type": "object",
         "additionalProperties": False,
         "properties": {
             "finding_id": {"type": "string"},
-            "kind": {"type": "string", "enum": ["quality", "factual"]},
-            "criterion": {"type": "string"},
+            "kind": {"type": "string", "enum": [finding_kind]},
+            "criterion": (
+                {"type": "string", "enum": criteria} if criteria is not None else {"type": "string"}
+            ),
             "section": {"type": "string"},
             "claim": {"type": "string"},
             "quoted_candidate_span": {"type": "string"},
@@ -178,6 +188,8 @@ def _role_review_tool_schema(name: str, verdicts: list[str]) -> dict:
 BLIND_QUALITY_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
     "report_blind_readme_quality_review",
     ["ACCEPT", "REJECT_REPAIRABLE", "SYSTEM_FAILURE"],
+    finding_kind="quality",
+    criteria=list(BLIND_QUALITY_CRITERIA),
 )
 FACTUAL_PLAN_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
     "report_factual_readme_plan_review",
@@ -188,6 +200,7 @@ FACTUAL_PLAN_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
         "BLOCKED_MISSING_EVIDENCE",
         "SYSTEM_FAILURE",
     ],
+    finding_kind="factual",
 )
 
 
@@ -195,9 +208,19 @@ def separated_reviewer_standard_hash() -> str:
     """Bind lifecycle reuse to both role prompts and the V1 reducer contract."""
 
     components = [
-        "separated-readme-review-v1",
+        "separated-readme-review-v2",
         prompt_registry.prompt_hash("blind_readme_quality_review"),
         prompt_registry.prompt_hash("factual_readme_plan_review"),
+        hashlib.sha256(
+            json.dumps(
+                {
+                    "blind": BLIND_QUALITY_REVIEW_TOOL_SCHEMA,
+                    "factual": FACTUAL_PLAN_REVIEW_TOOL_SCHEMA,
+                },
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest(),
         "SYSTEM_FAILURE>BLOCKED_FACT_CONFLICT>BLOCKED_MISSING_EVIDENCE>REJECT_REPAIRABLE>ACCEPT",
     ]
     return hashlib.sha256("\x00".join(components).encode("utf-8")).hexdigest()

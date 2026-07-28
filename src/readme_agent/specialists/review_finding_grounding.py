@@ -14,6 +14,20 @@ EvidencePolarity = Literal[
     "explicit_constraint",
     "ambiguous_occurrence",
 ]
+BLIND_QUALITY_CRITERIA = (
+    "clarity",
+    "product_specificity",
+    "hierarchy",
+    "navigation",
+    "installation_presentation",
+    "example_presentation",
+    "preservation",
+    "visible_duplication",
+    "internal_terminology",
+    "promotional_balance",
+    "markdown_integrity",
+    "template_genericity",
+)
 
 
 class GroundedReviewFindingV1(BaseModel):
@@ -106,6 +120,10 @@ def validate_review_findings(
         if finding.quoted_candidate_span not in candidate_text:
             errors.append(f"{finding.finding_id}:quoted candidate span is absent")
         if finding.kind != "factual" or finding.polarity_result == "missing":
+            if finding.kind == "quality" and finding.criterion not in BLIND_QUALITY_CRITERIA:
+                errors.append(
+                    f"{finding.finding_id}:criterion is outside blind visible-quality authority"
+                )
             continue
         assert finding.fact_id is not None
         fact = by_fact_id.get(finding.fact_id)

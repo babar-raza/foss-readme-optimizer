@@ -105,3 +105,29 @@ def test_genuinely_unsupported_claim_remains_valid_missing_evidence():
     )
 
     assert result.valid
+
+
+def test_blind_factual_accuracy_criterion_cannot_control_review():
+    finding = GroundedReviewFindingV1(
+        finding_id="quality.package-availability",
+        kind="quality",
+        criterion="installation_instruction_accuracy",
+        section="Installation",
+        claim="The package is not published.",
+        quoted_candidate_span="dotnet add package Example",
+        fact_id=None,
+        evidence_excerpt=None,
+        expected_polarity=None,
+        observed_polarity=None,
+        polarity_result="not_applicable",
+        required_repair="Remove the package command.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=CANDIDATE,
+        product_facts=None,
+        findings=[finding],
+    )
+
+    assert not result.valid
+    assert "outside blind visible-quality authority" in result.errors[0]

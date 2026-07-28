@@ -9,7 +9,10 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.readme.document_hashing import sha256_hex
-from readme_agent.specialists.review_finding_grounding import GroundedReviewFindingV1
+from readme_agent.specialists.review_finding_grounding import (
+    BLIND_QUALITY_CRITERIA,
+    GroundedReviewFindingV1,
+)
 
 ReviewRole = Literal["author", "blind_quality_reviewer", "factual_plan_reviewer"]
 BlindQualityVerdict = Literal["ACCEPT", "REJECT_REPAIRABLE", "SYSTEM_FAILURE"]
@@ -104,6 +107,8 @@ class BlindQualityReviewResultV1(BaseModel):
             raise ValueError("blind-quality rejection requires criteria, sections, and repair")
         if any(finding.kind != "quality" for finding in self.findings):
             raise ValueError("blind-quality result may contain only quality findings")
+        if any(finding.criterion not in BLIND_QUALITY_CRITERIA for finding in self.findings):
+            raise ValueError("blind-quality criterion is outside visible-document authority")
         return self
 
 
@@ -178,6 +183,10 @@ class RoleReviewRecordV1(BaseModel):
             finding.kind != expected_kind for finding in self.findings
         ):
             raise ValueError("role record finding kind does not match reviewer role")
+        if self.identity.role == "blind_quality_reviewer" and any(
+            finding.criterion not in BLIND_QUALITY_CRITERIA for finding in self.findings
+        ):
+            raise ValueError("role record contains an unauthorized blind-quality criterion")
         return self
 
 
@@ -230,8 +239,8 @@ def combine_review_verdicts(
         and blind_quality.candidate_sha256 == factual_plan.candidate_sha256
     )
     reasons = [
-        f"blind_quality:{blind_quality.verdict}:{blind_quality.reasoning}",
-        f"factual_plan:{factual_plan.verdict}:{factual_plan.reasoning}",
+        _authoritative_role_reason("blind_quality", blind_quality),
+        _authoritative_role_reason("factual_plan", factual_plan),
     ]
     if not identities_valid:
         return CombinedReadmeReviewV1(
@@ -266,3 +275,14 @@ def json_hash(value: dict) -> str:
     """Public canonical hash seam for constructing factual-plan inputs."""
 
     return _json_hash(value)
+
+
+def _authoritative_role_reason(role: str, record: RoleReviewRecordV1) -> str:
+    """Describe lifecycle authority from validated findings, not free-form model prose."""
+
+    if record.verdict in {"ACCEPT", "SYSTEM_FAILURE"}:
+        return f"{role}:{record.verdict}"
+    anchors = ",".join(
+        f"{finding.finding_id}@{finding.section}:{finding.criterion}" for finding in record.findings
+    )
+    return f"{role}:{record.verdict}:{anchors}"
