@@ -29,9 +29,13 @@ from readme_agent.state.readme_poc_lifecycle import (
     transition_readme_poc_status,
 )
 from readme_agent.state.schema import DomainStateV1
+from readme_agent.supervisor.execution_context import readme_poc_stage_limit_active
 from readme_agent.supervisor.local_poc_review_evidence import (
     write_local_poc_no_op_evidence,
     write_local_poc_review_evidence,
+)
+from readme_agent.supervisor.portfolio_scheduler.stages import (
+    prepare_and_promote_deterministic_validation_stage,
 )
 
 
@@ -201,14 +205,50 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         if lifecycle is None:
             raise StateBackendError("durable README-POC lifecycle disappeared before review")
         if lifecycle.status == "CANDIDATE_GENERATED":
-            lifecycle = transition_readme_poc_status(
+            if snapshot is None or local_bundle_dir is None:
+                raise StateBackendError(
+                    "deterministic validation stage lacks its immutable local bundle"
+                )
+            prepare_and_promote_deterministic_validation_stage(
+                snapshot,
+                {
+                    "candidate_verification": verification,
+                    "bundle_verification": bundle_verification_record,
+                    "proposal_bundle_dir": (
+                        str(proposal_bundle_dir) if proposal_bundle_dir is not None else None
+                    ),
+                },
                 lifecycle_backend,
-                org_repo,
-                "DETERMINISTIC_VALIDATED",
-                observed_by=INDEPENDENT_VERIFICATION,
-                reason="deterministic README proposal bundle verification passed",
-                evidence_refs=[str(proposal_bundle_dir)],
             )
+            current = lifecycle_backend.load(org_repo)
+            lifecycle = current.readme_poc_lifecycle if current is not None else None
+            if lifecycle is None:
+                raise StateBackendError(
+                    "durable README-POC lifecycle disappeared after validation promotion"
+                )
+        if (
+            readme_poc_stage_limit_active() == "DETERMINISTIC_VALIDATED"
+            and lifecycle is not None
+            and lifecycle.status == "DETERMINISTIC_VALIDATED"
+        ):
+            state_without_candidate = state.model_copy(
+                update={
+                    "details": {
+                        key: value
+                        for key, value in state.details.items()
+                        if key not in {"render_result", "presentation_plan_patch"}
+                    }
+                }
+            )
+            return {
+                "details": merge_details(
+                    state_without_candidate,
+                    bundle_verification=bundle_verification_record,
+                    deterministic_validation=verification,
+                    stage_boundary_stop="DETERMINISTIC_VALIDATED",
+                    local_bundle_dir=str(local_bundle_dir),
+                )
+            }
         if lifecycle.status == "DETERMINISTIC_VALIDATED":
             transition_readme_poc_status(
                 lifecycle_backend,

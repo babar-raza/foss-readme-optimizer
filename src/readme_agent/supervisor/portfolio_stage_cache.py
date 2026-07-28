@@ -8,6 +8,7 @@ from pathlib import Path
 from readme_agent.evidence.writer import sha256_file
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+from readme_agent.supervisor.portfolio_scheduler.contracts import StageReceiptV1
 from readme_agent.supervisor.product_truth import load_prepared_product_truth
 from readme_agent.supervisor.stage_limit import (
     ReadmePocStageLimitV1,
@@ -92,4 +93,25 @@ def completed_bounded_product_truth_status(
         or requested_stage not in manifest.get("completed_stages", [])
     ):
         return None
+    if requested_stage in {"CANDIDATE_GENERATED", "DETERMINISTIC_VALIDATED"}:
+        receipt_record = (manifest.get("stage_receipts") or {}).get(requested_stage)
+        if not isinstance(receipt_record, dict):
+            return None
+        receipt_relative = receipt_record.get("receipt_path")
+        if not isinstance(receipt_relative, str):
+            return None
+        receipt_path = bundle_dir / receipt_relative
+        try:
+            receipt = StageReceiptV1.model_validate_json(receipt_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, ValueError):
+            return None
+        if (
+            receipt.target_stage != requested_stage
+            or receipt.org_repo != org_repo
+            or receipt.source_revision != refreshed_lifecycle.source_revision
+            or receipt.campaign_id != manifest.get("campaign_id")
+            or receipt.work_id != receipt_record.get("work_id")
+            or receipt.output_hash != receipt_record.get("output_hash")
+        ):
+            return None
     return prepared.lifecycle_status

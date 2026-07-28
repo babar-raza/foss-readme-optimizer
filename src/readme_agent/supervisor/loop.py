@@ -464,7 +464,7 @@ def supervise_repo(
                     "repository_snapshot_v1": repository_snapshot.model_dump(mode="json"),
                 },
             )
-        if readme_poc_stage_limit is not None:
+        if readme_poc_stage_limit == "FACTS_READY":
             current_fact_status = classify_product_truth(prepared_product_truth.facts)
             boundary = evaluate_stage_boundary(
                 readme_poc_stage_limit,
@@ -601,7 +601,10 @@ def supervise_repo(
         # unless the caller explicitly opts in -- see `enable_specialist_
         # skip`'s own docstring above.
         from readme_agent.facts.context import product_facts_scope
-        from readme_agent.supervisor.execution_context import proposal_only_scope
+        from readme_agent.supervisor.execution_context import (
+            proposal_only_scope,
+            readme_poc_stage_limit_scope,
+        )
 
         facts_context = (
             product_facts_scope(prepared_product_truth.facts)
@@ -615,6 +618,7 @@ def supervise_repo(
             ),
             facts_context,
             proposal_only_scope(track_readme_poc_lifecycle),
+            readme_poc_stage_limit_scope(readme_poc_stage_limit),
         ):
             tier = run_specialist_tier(
                 org_repo=org_repo,
@@ -625,6 +629,7 @@ def supervise_repo(
                 specialist_selection_client=specialist_selection_client,
                 escalation_alert_threshold=ESCALATION_ALERT_THRESHOLD,
                 fail_closed_on_state_failure=fail_closed_on_state_failure,
+                readme_poc_stage_limit=readme_poc_stage_limit,
             )
         specialist_domains = tier.domains
         specialist_results = tier.results
@@ -645,6 +650,60 @@ def supervise_repo(
                     if (verifier_result.accepted_status or "").startswith("ERROR:")
                     else None
                 ),
+            )
+        if readme_poc_stage_limit in {
+            "CANDIDATE_GENERATED",
+            "DETERMINISTIC_VALIDATED",
+        }:
+            loaded = state_backend.load(org_repo) if state_backend is not None else None
+            lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
+            from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+
+            observed_stage = (
+                lifecycle.status
+                if isinstance(lifecycle, ReadmePocLifecycleStateV2)
+                else "SYSTEM_FAILURE"
+            )
+            boundary = evaluate_stage_boundary(readme_poc_stage_limit, observed_stage)
+            if not boundary.reached:
+                return SuperviseResult(
+                    status="BLOCKED",
+                    org_repo=org_repo,
+                    task_graph=TaskGraph(),
+                    blocked_reason=(
+                        f"stage_limit_not_reached:{boundary.requested_stage}:"
+                        f"{boundary.observed_stage}"
+                    ),
+                    blocked_category="agent_fixable",
+                    decisions=[
+                        DecisionSummary(
+                            turn=0,
+                            kind="readme_poc_stage_blocked",
+                            detail=(
+                                f"requested {boundary.requested_stage}; observed "
+                                f"{boundary.observed_stage}; no later capability executed"
+                            ),
+                        )
+                    ],
+                    requested_readme_stage=boundary.requested_stage,
+                    readme_lifecycle_status=boundary.observed_stage,
+                )
+            return SuperviseResult(
+                status="STAGE_COMPLETE",
+                org_repo=org_repo,
+                task_graph=TaskGraph(),
+                decisions=[
+                    DecisionSummary(
+                        turn=0,
+                        kind="readme_poc_stage_complete",
+                        detail=(
+                            f"requested {boundary.requested_stage}; observed "
+                            f"{boundary.observed_stage}; no later capability executed"
+                        ),
+                    )
+                ],
+                requested_readme_stage=boundary.requested_stage,
+                readme_lifecycle_status=boundary.observed_stage,
             )
         if require_independent_verification and verifier_result is None:
             missing_verifier = DomainStateV1(
@@ -812,6 +871,7 @@ def supervise_repo(
                     ),
                     facts_context,
                     proposal_only_scope(track_readme_poc_lifecycle),
+                    readme_poc_stage_limit_scope(readme_poc_stage_limit),
                 ):
                     planner = run_planner_loop(
                         org_repo=org_repo,

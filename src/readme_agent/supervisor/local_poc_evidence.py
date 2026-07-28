@@ -282,8 +282,10 @@ def write_local_poc_readme_candidate(
     snapshot: RepositorySnapshotV1,
     render_result: dict,
     presentation_plan: dict,
+    *,
+    bundle_dir_override: Path | None = None,
 ) -> tuple[Path, str, str, str]:
-    """Materialize the assessment, plan, candidate, patch, and claim map."""
+    """Materialize candidate artifacts in a compatibility or private attempt root."""
 
     if render_result.get("source_revision") != snapshot.source_revision:
         raise ValueError("README candidate revision does not match the immutable snapshot")
@@ -312,7 +314,11 @@ def write_local_poc_readme_candidate(
         )
 
     org, repo = snapshot.org_repo.split("/", maxsplit=1)
-    bundle_dir = paths.readme_poc_repository_dir(org, repo, snapshot.source_revision)
+    bundle_dir = bundle_dir_override or paths.readme_poc_repository_dir(
+        org,
+        repo,
+        snapshot.source_revision,
+    )
     assessment_dir = bundle_dir / "assessment"
     planning_dir = bundle_dir / "planning"
     candidate_dir = bundle_dir / "candidate"

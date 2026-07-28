@@ -5,6 +5,7 @@ repo root) and a GitHub Actions runner (checkout puts cwd at repo root)
 resolve identically with zero path-detection magic.
 """
 
+import hashlib
 import os
 from pathlib import Path
 
@@ -62,6 +63,53 @@ def readme_poc_repository_dir(org: str, repo: str, source_revision: str) -> Path
     if not source_revision or any(char not in "0123456789abcdef" for char in source_revision):
         raise ValueError("source_revision must be a lowercase hexadecimal Git revision")
     return readme_poc_root() / f"{org}__{repo}" / source_revision
+
+
+def readme_poc_campaign_repository_dir(
+    campaign_id: str,
+    org: str,
+    repo: str,
+    source_revision: str,
+) -> Path:
+    """Compact immutable receipt root for one repository campaign identity.
+
+    Full identities remain in validated request/receipt documents.  The path uses
+    compact aliases whose combined identity is collision-checked from request bytes,
+    so Windows workspaces and pytest temp roots stay below the legacy path boundary.
+    """
+
+    if not campaign_id or any(char not in "0123456789abcdef" for char in campaign_id):
+        raise ValueError("campaign_id must be lowercase hexadecimal")
+    if not source_revision or any(char not in "0123456789abcdef" for char in source_revision):
+        raise ValueError("source_revision must be lowercase hexadecimal")
+    repository_alias = hashlib.sha256(f"{org}/{repo}".encode()).hexdigest()[:16]
+    return (
+        readme_poc_root()
+        / "c"
+        / campaign_id[:20]
+        / "r"
+        / repository_alias
+        / "s"
+        / source_revision[:12]
+    )
+
+
+def readme_poc_campaign_work_dir(
+    campaign_id: str,
+    org: str,
+    repo: str,
+    source_revision: str,
+    work_id: str,
+) -> Path:
+    """Private attempt parent; lanes never write the compatibility view."""
+
+    if not work_id or any(char not in "0123456789abcdef" for char in work_id):
+        raise ValueError("work_id must be lowercase hexadecimal")
+    return (
+        readme_poc_campaign_repository_dir(campaign_id, org, repo, source_revision)
+        / "w"
+        / work_id[:20]
+    )
 
 
 def readme_poc_portfolio_summary_path() -> Path:

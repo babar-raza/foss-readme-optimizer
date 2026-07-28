@@ -442,7 +442,7 @@ class TestExecutionProfileFlag:
         )
         assert args.execution_profile == "github_observe"
 
-    def test_facts_stage_limit_is_typed_by_argparse(self):
+    def test_local_stage_limits_are_typed_by_argparse(self):
         args = _build_parser().parse_args(
             [
                 "supervise",
@@ -455,6 +455,20 @@ class TestExecutionProfileFlag:
             ]
         )
         assert args.max_readme_poc_stage == "FACTS_READY"
+
+        for stage in ("CANDIDATE_GENERATED", "DETERMINISTIC_VALIDATED"):
+            parsed = _build_parser().parse_args(
+                [
+                    "supervise",
+                    "--registry",
+                    "data/products.json",
+                    "--execution-profile",
+                    "local_poc",
+                    "--max-readme-poc-stage",
+                    stage,
+                ]
+            )
+            assert parsed.max_readme_poc_stage == stage
 
         with pytest.raises(SystemExit):
             _build_parser().parse_args(

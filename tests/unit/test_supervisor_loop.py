@@ -682,6 +682,102 @@ class TestBasicLoop:
                 readme_poc_stage_limit="FACTS_READY",
             )
 
+    @pytest.mark.parametrize(
+        ("requested_stage", "expected_history"),
+        [
+            (
+                "CANDIDATE_GENERATED",
+                [
+                    "SNAPSHOTTED",
+                    "PROFILED",
+                    "FACTS_COLLECTING",
+                    "FACTS_READY",
+                    "README_ASSESSED",
+                    "PLAN_READY",
+                    "CANDIDATE_GENERATED",
+                ],
+            ),
+            (
+                "DETERMINISTIC_VALIDATED",
+                [
+                    "SNAPSHOTTED",
+                    "PROFILED",
+                    "FACTS_COLLECTING",
+                    "FACTS_READY",
+                    "README_ASSESSED",
+                    "PLAN_READY",
+                    "CANDIDATE_GENERATED",
+                    "DETERMINISTIC_VALIDATED",
+                ],
+            ),
+        ],
+    )
+    def test_candidate_stage_limits_stop_before_agent_review(
+        self,
+        project,
+        monkeypatch,
+        requested_stage,
+        expected_history,
+    ):
+        backend = FakeStateBackend()
+
+        class _ReviewerMustNotRun:
+            def __init__(self, *args, **kwargs):
+                pass
+
+            def analyze(self, messages):
+                raise AssertionError("bounded candidate stages must not invoke agent review")
+
+        class _PlannerMustNotRun:
+            def plan(self, messages, tools):
+                raise AssertionError("bounded candidate stages must stop before planner execution")
+
+        monkeypatch.setattr(
+            independent_readme_review,
+            "LiveAnalysisClient",
+            _ReviewerMustNotRun,
+        )
+        monkeypatch.setattr(
+            readme_presentation,
+            "dispatch_gated_effect",
+            lambda *args, **kwargs: pytest.fail("bounded local POC must not run an effect"),
+        )
+
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=_PlannerMustNotRun(),
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+            readme_poc_stage_limit=requested_stage,
+        )
+
+        lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+        assert lifecycle is not None
+        assert result.status == "STAGE_COMPLETE", (
+            result.blocked_reason,
+            backend.load(ORG_REPO).domain_states["readme_presentation"].accepted_status,
+            backend.load(ORG_REPO).domain_states["readme_presentation"].last_failure_reason,
+        )
+        assert result.requested_readme_stage == requested_stage
+        assert result.readme_lifecycle_status == requested_stage
+        assert lifecycle.status == requested_stage
+        assert [transition.to_status for transition in lifecycle.history] == expected_history
+        bundle = (
+            project
+            / "runs"
+            / "readme-poc"
+            / "example-foss__Example-FOSS-for-Java"
+            / lifecycle.source_revision
+        )
+        receipt = bundle / "receipts" / f"{requested_stage}.json"
+        assert receipt.is_file()
+        manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
+        assert manifest["stage_receipts"][requested_stage]["receipt_path"] == (
+            f"receipts/{requested_stage}.json"
+        )
+        assert not (bundle / "review" / "independent-agent-review.json").exists()
+
     def test_local_poc_records_snapshot_and_profile_before_later_stages(self, project, monkeypatch):
         backend = FakeStateBackend()
 
@@ -724,7 +820,12 @@ class TestBasicLoop:
         lifecycle = state.readme_poc_lifecycle
         assert lifecycle is not None
         assert lifecycle.status == "NO_OP_PROVEN", (
+            first.status,
             first.blocked_reason,
+            second.status,
+            second.blocked_reason,
+            state.domain_states["readme_presentation"].accepted_status,
+            state.domain_states["readme_presentation"].last_failure_reason,
             first_domain_details,
         )
         assert [item.to_status for item in lifecycle.history] == [

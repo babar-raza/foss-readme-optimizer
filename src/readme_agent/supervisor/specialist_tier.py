@@ -14,6 +14,7 @@ from readme_agent.state.domain_state import mark_domain_skipped, mark_specialist
 from readme_agent.state.schema import DomainStateV1
 from readme_agent.supervisor import specialist_selection
 from readme_agent.supervisor.models import DecisionSummary
+from readme_agent.supervisor.stage_limit import ReadmePocStageLimitV1
 
 
 @dataclass
@@ -41,6 +42,7 @@ def run_specialist_tier(
     specialist_selection_client: PlannerClient | None,
     escalation_alert_threshold: int,
     fail_closed_on_state_failure: bool = False,
+    readme_poc_stage_limit: ReadmePocStageLimitV1 | None = None,
 ) -> SpecialistTierResult:
     """Run every registered domain while one domain's failure remains isolated."""
 
@@ -62,7 +64,11 @@ def run_specialist_tier(
             specialist_selection_client=specialist_selection_client,
         )
 
-    domains = specialists_registry.all_domains()
+    domains = (
+        [README_PRESENTATION]
+        if readme_poc_stage_limit in {"CANDIDATE_GENERATED", "DETERMINISTIC_VALIDATED"}
+        else specialists_registry.all_domains()
+    )
     results: dict[str, DomainStateV1] = {}
     if state_backend is not None:
         mark_specialist_tier_started(

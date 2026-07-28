@@ -93,7 +93,6 @@ from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import LLMError, StateBackendError
 from readme_agent.evidence.writer import generate_run_id
-from readme_agent.llm import prompt_registry
 from readme_agent.orchestrator import record_accepted_readme_state
 from readme_agent.readme.agentic_composition import validate_readme_composition_plan
 from readme_agent.readme.assessment import assess_readme_document
@@ -107,12 +106,14 @@ from readme_agent.specialists.readme_review_validation import (
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.change_detection import classify_surface
 from readme_agent.state.domain_state import merge_details, save_domain_with_failure_tracking
-from readme_agent.state.readme_poc_lifecycle import (
-    record_readme_candidate_artifacts,
-)
 from readme_agent.state.schema import DomainStateV1
-from readme_agent.supervisor.execution_context import proposal_only_active
-from readme_agent.supervisor.local_poc_evidence import write_local_poc_readme_candidate
+from readme_agent.supervisor.execution_context import (
+    proposal_only_active,
+    readme_poc_stage_limit_active,
+)
+from readme_agent.supervisor.portfolio_scheduler.stages import (
+    prepare_and_promote_candidate_stage,
+)
 from readme_agent.supervisor.product_truth import load_prepared_product_truth
 from readme_agent.verification.checks import compute_verification_token
 
@@ -367,32 +368,43 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                     assessment_hash,
                     presentation_plan_hash,
                     candidate_hash,
-                ) = write_local_poc_readme_candidate(
+                ) = prepare_and_promote_candidate_stage(
                     snapshot,
                     current_render_result,
                     presentation_plan,
-                )
-                record_readme_candidate_artifacts(
                     backend,
-                    org_repo,
-                    source_revision=snapshot.source_revision,
-                    assessment_hash=assessment_hash,
-                    presentation_plan_hash=presentation_plan_hash,
-                    candidate_hash=candidate_hash,
-                    reviewer_standard_hash=prompt_registry.prompt_hash("independent_readme_review"),
-                    evidence_refs=[
-                        str(local_bundle_dir / "assessment" / "current-readme-assessment.json"),
-                        str(local_bundle_dir / "planning" / "readme-document-plan.json"),
-                        str(local_bundle_dir / "candidate" / "README.md"),
-                        str(local_bundle_dir / "candidate" / "README.patch"),
-                        str(local_bundle_dir / "candidate" / "claim-map.json"),
-                    ],
                 )
             except Exception as exc:  # noqa: BLE001 -- fail closed before review/effect
                 return {
                     "accepted_status": (
                         f"ERROR:local_poc_candidate_persistence:{type(exc).__name__}:{exc}"
                     )
+                }
+            if readme_poc_stage_limit_active() == "CANDIDATE_GENERATED":
+                classification = classify_surface(
+                    current_fingerprint=current_render_result["facts_hash"],
+                    prior_fingerprint=state.accepted_facts_hash,
+                )
+                state_without_candidate = state.model_copy(
+                    update={
+                        "details": {
+                            key: value
+                            for key, value in state.details.items()
+                            if key not in {"render_result", "presentation_plan_patch"}
+                        }
+                    }
+                )
+                return {
+                    "accepted_facts_hash": current_render_result["facts_hash"],
+                    "accepted_status": classification.classification,
+                    "details": merge_details(
+                        state_without_candidate,
+                        stage_boundary_stop="CANDIDATE_GENERATED",
+                        candidate_hash=candidate_hash,
+                        assessment_hash=assessment_hash,
+                        presentation_plan_hash=presentation_plan_hash,
+                        local_bundle_dir=str(local_bundle_dir),
+                    ),
                 }
 
         factuality = evaluate_candidate_factuality(
@@ -452,6 +464,25 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 run_nonce,
             ),
         }
+
+        if readme_poc_stage_limit_active() == "DETERMINISTIC_VALIDATED":
+            classification = classify_surface(
+                current_fingerprint=current_render_result["facts_hash"],
+                prior_fingerprint=state.accepted_facts_hash,
+            )
+            return {
+                "accepted_facts_hash": current_render_result["facts_hash"],
+                "accepted_status": classification.classification,
+                "details": merge_details(
+                    state,
+                    render_result=current_render_result,
+                    presentation_plan=presentation_plan_record,
+                    presentation_plan_patch=patch_text,
+                    verification=verification,
+                    factuality=factuality.model_dump(mode="json"),
+                    stage_boundary_pending="DETERMINISTIC_VALIDATED",
+                ),
+            }
 
         prose_dispatch = _dispatch_prose_quality_check(
             org_repo, current_render_result["final_text"], state_backend=backend
@@ -702,8 +733,24 @@ def _build_graph():
     graph.add_node("record", _record_node)
     graph.add_edge(START, "render")
     graph.add_edge("render", "verify")
-    graph.add_edge("verify", "review")
-    graph.add_edge("review", "commit")
+    graph.add_conditional_edges(
+        "verify",
+        lambda state: (
+            "record"
+            if state.details.get("stage_boundary_stop") == "CANDIDATE_GENERATED"
+            else "review"
+        ),
+        {"record": "record", "review": "review"},
+    )
+    graph.add_conditional_edges(
+        "review",
+        lambda state: (
+            "record"
+            if state.details.get("stage_boundary_stop") == "DETERMINISTIC_VALIDATED"
+            else "commit"
+        ),
+        {"record": "record", "commit": "commit"},
+    )
     graph.add_edge("commit", "record")
     graph.add_edge("record", END)
     return graph.compile()

@@ -8,8 +8,16 @@ from pydantic import BaseModel, ConfigDict
 
 from readme_agent.state.lifecycle_schema import ReadmePocStatusV2
 
-ReadmePocStageLimitV1 = Literal["FACTS_READY"]
-README_POC_STAGE_LIMITS: tuple[ReadmePocStageLimitV1, ...] = ("FACTS_READY",)
+ReadmePocStageLimitV1 = Literal[
+    "FACTS_READY",
+    "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATED",
+]
+README_POC_STAGE_LIMITS: tuple[ReadmePocStageLimitV1, ...] = (
+    "FACTS_READY",
+    "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATED",
+)
 
 _FACTS_READY_OR_LATER = frozenset(
     {
@@ -30,6 +38,39 @@ _FACTS_READY_OR_LATER = frozenset(
         "REPAIRING",
     }
 )
+_CANDIDATE_GENERATED_OR_LATER = frozenset(
+    {
+        "CANDIDATE_GENERATED",
+        "DETERMINISTIC_VALIDATION_FAILED",
+        "DETERMINISTIC_VALIDATED",
+        "AGENT_REVIEWING",
+        "AGENT_APPROVED",
+        "NO_OP_PROVEN",
+        "HUMAN_REVIEW_READY",
+        "HUMAN_ACCEPTED",
+        "PR_ELIGIBLE",
+        "PR_PROOF_COMPLETE",
+        "AGENT_REVIEW_REJECTED",
+        "REPAIRING",
+    }
+)
+_DETERMINISTIC_VALIDATED_OR_LATER = frozenset(
+    {
+        "DETERMINISTIC_VALIDATED",
+        "AGENT_REVIEWING",
+        "AGENT_APPROVED",
+        "NO_OP_PROVEN",
+        "HUMAN_REVIEW_READY",
+        "HUMAN_ACCEPTED",
+        "PR_ELIGIBLE",
+        "PR_PROOF_COMPLETE",
+    }
+)
+_REACHED_BY_LIMIT = {
+    "FACTS_READY": _FACTS_READY_OR_LATER,
+    "CANDIDATE_GENERATED": _CANDIDATE_GENERATED_OR_LATER,
+    "DETERMINISTIC_VALIDATED": _DETERMINISTIC_VALIDATED_OR_LATER,
+}
 
 
 class ReadmePocStageBoundaryV1(BaseModel):
@@ -48,9 +89,10 @@ def lifecycle_stage_reaches_limit(
 ) -> bool:
     """Return false for incomplete, blocked, or non-lifecycle portfolio results."""
 
-    if requested_stage != "FACTS_READY":  # pragma: no cover - Literal exhaustiveness guard
+    reached_statuses = _REACHED_BY_LIMIT.get(requested_stage)
+    if reached_statuses is None:  # pragma: no cover - Literal exhaustiveness guard
         raise ValueError(f"unsupported README POC stage limit: {requested_stage!r}")
-    return observed_stage in _FACTS_READY_OR_LATER
+    return observed_stage in reached_statuses
 
 
 def evaluate_stage_boundary(

@@ -22,7 +22,12 @@ _COMPLETE_LOCAL_POC_STATUSES = {
     "PR_ELIGIBLE",
     "PR_PROOF_COMPLETE",
 }
-PortfolioTargetStageV1 = Literal["FACTS_READY", "NO_OP_PROVEN"]
+PortfolioTargetStageV1 = Literal[
+    "FACTS_READY",
+    "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATED",
+    "NO_OP_PROVEN",
+]
 
 
 class PortfolioRepositoryResultV1(BaseModel):
@@ -121,10 +126,14 @@ class PortfolioPocSummaryV1(BaseModel):
     def target_complete_count(self) -> int:
         """Count repositories that honestly reached this bounded campaign target."""
 
-        if self.target_lifecycle_stage == "FACTS_READY":
+        if self.target_lifecycle_stage in {
+            "FACTS_READY",
+            "CANDIDATE_GENERATED",
+            "DETERMINISTIC_VALIDATED",
+        }:
             return sum(
                 result.exit_code == 0
-                and lifecycle_stage_reaches_limit("FACTS_READY", result.status)
+                and lifecycle_stage_reaches_limit(self.target_lifecycle_stage, result.status)
                 for result in self.results
             )
         return self.complete_agent_approved_count
