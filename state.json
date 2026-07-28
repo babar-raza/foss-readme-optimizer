@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "64e88dcfc0206d254c7cb9c5d7b4f1a1f6d1fc8c154af9b7bd15c0fd76afe199",
-    "last_evaluated_at": "2026-07-28T08:59:13.725178+00:00",
+    "last_evaluated_at": "2026-07-28T09:05:21.458281+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -60,13 +60,22 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Produce domain-pure verified article catalogs, select only reader-useful contextual links through configured-or-deterministic automatic slot allocation, and enforce Enterprise Edition as the sole visitor-facing aspose.com product edition name."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "task_id": "L8-COMPOSE-01C-CONTEXTUAL-LINKING"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
       "L8-COMPOSE-01-DECOMPOSE": "CLOSED",
       "L8-COMPOSE-01A-SECTION-REGRESSIONS": "TODO",
-      "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "SCORED",
+      "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "CLOSED",
       "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "TODO",
       "L8-COMPOSE-02-EXISTING-SECTIONS": "TODO",
       "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "TODO",
@@ -3315,6 +3324,17 @@
         "reason": "All task acceptance checks score pass: 7/7 valid, 7/7 marker-free, 7/7 native patches, 7/7 no-op, and zero remote writes.",
         "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-readme-header-visual-contract/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T09:05:21.458270+00:00",
+        "reason": "Factual marker-free headers, applicable badges, sanitized Mermaid diagrams, migration safety, seven configured representatives, native patches, no-op reruns, and independent focused/security verification are checksum-complete.",
+        "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -3323,7 +3343,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 390,
+  "state_version": 391,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
