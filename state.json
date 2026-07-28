@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T18:19:05.206749+00:00",
+    "last_evaluated_at": "2026-07-28T18:19:25.872948+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 7,
@@ -78,7 +78,7 @@
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "CLOSED",
       "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "CLOSED",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "REROUTED",
-      "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR": "IMPLEMENTED",
+      "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR": "VERIFIED",
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
       "L8-GATEA-00-COHORT-CONTROLS": "TODO",
       "L8-GATEA-01-COHORTS": "TODO",
@@ -3942,6 +3942,18 @@
         "reason": "Failure envelopes implemented at 229393ae",
         "task_id": "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-rust-execution-repair/verification.json",
+          "plans/investigations/evidence/level8-rust-execution-repair/sha256sums.txt"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T18:19:25.872943+00:00",
+        "reason": "Focused exception, redaction, bounded terminal, and live Rust receipt proof passed",
+        "task_id": "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -3950,7 +3962,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 456,
+  "state_version": 457,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
