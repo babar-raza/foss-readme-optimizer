@@ -15,6 +15,7 @@ from readme_agent.facts.schema_v2 import (
     ProductFactsV2,
     descriptive_fact_id,
 )
+from readme_agent.license.auditor import classify_license_text
 
 _SOURCE_PRECEDENCE = {
     "mechanical_repository": 1,
@@ -35,6 +36,12 @@ def source_precedence(source: FactSourceV2) -> int:
 
 def _canonical_value(value) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
+
+
+def _canonical_fact_value(field_name: str, value) -> str:
+    if field_name == "product.license" and isinstance(value, str):
+        value = classify_license_text(value) or value.strip()
+    return _canonical_value(value)
 
 
 def _missing_fact(field_name: str, source: FactSourceV2, surfaces: list[str]) -> FactRecordV2:
@@ -95,7 +102,9 @@ def resolve_product_facts(
         conflicts = list(winner.conflicts)
         unresolved = False
         for competitor in ranked[1:]:
-            if _canonical_value(competitor.value) == _canonical_value(winner.value):
+            if _canonical_fact_value(field_name, competitor.value) == _canonical_fact_value(
+                field_name, winner.value
+            ):
                 continue
             same_rank = source_precedence(competitor.source) == winner_rank
             status: ConflictStatus = "unresolved" if same_rank else "resolved_by_precedence"

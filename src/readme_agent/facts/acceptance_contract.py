@@ -65,7 +65,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "../ecosystems/resolver.py",
     ),
     "classification_semantics": ("acceptance_contract.py",),
-    "conflict_semantics": ("acceptance_contract.py", "schema_v2.py"),
+    "conflict_semantics": ("acceptance_contract.py", "resolution.py", "schema_v2.py"),
     "fact_schema": ("schema_v2.py",),
     "fact_eligibility": ("gating.py",),
     "evidence_polarity": (

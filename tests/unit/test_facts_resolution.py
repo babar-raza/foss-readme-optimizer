@@ -132,6 +132,31 @@ def test_same_precedence_disagreement_blocks_only_affected_surface():
     assert decisions[1].blocking_fact_ids == ["product.limitations:missing"]
 
 
+def test_equivalent_spdx_and_license_title_do_not_create_a_conflict():
+    spdx = _candidate(
+        "product.license:license-file",
+        "product.license",
+        "MIT",
+        "mechanical_repository",
+        "repository://acme/widget/LICENSE",
+        ["readme.license"],
+    )
+    title = _candidate(
+        "product.license:manifest",
+        "product.license",
+        "MIT License",
+        "mechanical_manifest",
+        "repository://acme/widget/package.json",
+        ["readme.license"],
+    )
+
+    facts = _resolve([spdx, title])
+    selected = facts.selected_fact("product.license")
+
+    assert selected.verification_state == "verified"
+    assert selected.conflicts == []
+
+
 def test_missing_fact_does_not_block_unrelated_surface():
     identity = _candidate(
         "product.identity:repository",
