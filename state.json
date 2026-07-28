@@ -1086,18 +1086,2292 @@
       "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
     },
     "readme_presentation": {
-      "accepted_facts_hash": null,
-      "accepted_status": null,
-      "consecutive_failure_count": 2,
+      "accepted_facts_hash": "465a8e4d79242c298ee8e8e456bd2144ccf23f0db9c713b0f87784057d56225e",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "bundle_verification": {
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\20260728-172928-8049",
+          "checks": {
+            "acquisition_matches_live_registry": true,
+            "agentic_plan_assessment_hash_matches": true,
+            "agentic_plan_facts_hash_matches": true,
+            "agentic_plan_repository_matches": true,
+            "agentic_plan_source_hash_matches": true,
+            "all_artifacts_present": true,
+            "artifact_checksums_match": true,
+            "assessment_reconstructed": true,
+            "candidate_hash_matches_plan": true,
+            "cited_facts_accepted": true,
+            "claim_map_reconstructed": true,
+            "facts_hash_matches_plan": true,
+            "independent_reconstruction_byte_identical": true,
+            "independent_validation_valid": true,
+            "native_git_apply_produces_candidate": true,
+            "operations_cite_selected_facts": true,
+            "recomputed_validation_consistent_with_stored": true,
+            "reconstructed_plan_matches": true,
+            "schemas_valid": true,
+            "source_hash_matches_plan": true
+          },
+          "failures": [],
+          "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+          "status": "checked",
+          "verified": true
+        },
+        "deterministic_validation": {
+          "checks": {
+            "adoption_preserved_source": true,
+            "candidate_has_no_comments": true,
+            "candidate_hash_matches": true,
+            "candidate_is_marker_free": true,
+            "candidate_matches_independent_render": true,
+            "claim_accountability_complete": true,
+            "claim_accountability_gaps_visible": true,
+            "contextual_links": true,
+            "document_reconstruction": true,
+            "enterprise_edition_terminology": true,
+            "fact_citations": true,
+            "facts_hash_matches": true,
+            "header_visuals": true,
+            "needs_write_matches": true,
+            "presentation_lint": true,
+            "protected_content": true,
+            "source_document_hash": true,
+            "source_span_hashes": true,
+            "template_hash_matches": true,
+            "verified_example_present": true,
+            "verified_limitations_present": true,
+            "verified_overview_present": true
+          },
+          "nonce": "20260728-172928-8049",
+          "reason": null,
+          "requirement_map": {
+            "fact_backed_document_plan": true,
+            "immutable_snapshot": true,
+            "protected_content": true,
+            "verified_example": true
+          },
+          "token": "e704ca9889026c6d8487b05e82ecc4900e551e15b62a07a3a4047ea6fb498fde",
+          "verdict": "accept"
+        },
+        "factuality": {
+          "claim_conflicts": [],
+          "error": null,
+          "product_facts_v2_hash": "465a8e4d79242c298ee8e8e456bd2144ccf23f0db9c713b0f87784057d56225e",
+          "protected_content_losses": [],
+          "valid": true
+        },
+        "local_bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp\\3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "presentation_plan": {
+          "agentic_composition_plan": {
+            "assessment_hash": "39d6d10d2b81376d88ab6d279c4b428b722b92e420187a5981db20b3517e407a",
+            "attempt_count": 1,
+            "facts_hash": "465a8e4d79242c298ee8e8e456bd2144ccf23f0db9c713b0f87784057d56225e",
+            "input_sha256": "1a2c76c7522ab80914bcbed5304c33ddd6d41f8fcf4a9d8e01a938f45236b650",
+            "model": "qwen3-next",
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+            "overview_sentences": [
+              {
+                "supporting_fact_ids": [
+                  "product.audience:agent-drafted-grounded"
+                ],
+                "text": "Developers using C++."
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.problems_solved:agent-drafted-grounded"
+                ],
+                "text": "Workbook and worksheet management"
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.capabilities:repository-evidence"
+                ],
+                "text": "Style model (font, fill, borders, alignment, number formats)"
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.formats:repository-evidence"
+                ],
+                "text": ".xlsx"
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.compatibility:manifest"
+                ],
+                "text": "Requires CMake 3.16 or later."
+              },
+              {
+                "supporting_fact_ids": [
+                  "product.identity:manifest-and-registry"
+                ],
+                "text": "Aspose.Cells FOSS for C++"
+              }
+            ],
+            "prompt_sha256": "a901ec4d6deb6c18df150cec82e7e46f9f08b91d758dc3ee35d3d9c5803ec7d8",
+            "repository_summary": "Aspose.Cells FOSS for C++ is an open-source C++ library for working with Excel .xlsx files. It provides a C++ API for workbook/worksheet management, cell operations, styling, formulas, validation, hyperlinks, and print settings. Verified facts confirm it targets C++ developers, supports .xlsx, requires CMake 3.16+, and is available via NuGet.",
+            "schema_version": 1,
+            "section_decisions": [
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The existing opening paragraph accurately describes the product as an open-source C++ library for Excel workbooks and is consistent with verified facts about product identity and commercial FOSS relationship.",
+                "section_id": "opening",
+                "supporting_fact_ids": [
+                  "product.identity:manifest-and-registry",
+                  "relationship.commercial_foss:primary"
+                ]
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored main heading 'Aspose.Cells FOSS for C++' is preserved by default per deterministic assessment.",
+                "section_id": "heading:0",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored 'Highlights' section is preserved by default per deterministic assessment.",
+                "section_id": "heading:180",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored 'How to build' section is preserved by default per deterministic assessment.",
+                "section_id": "heading:439",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "The 'Quick Start' section contains the exact locally verified minimal example and is preserved per deterministic assessment.",
+                "section_id": "heading:526",
+                "supporting_fact_ids": [
+                  "example.minimal:agent-drafted-example"
+                ]
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored 'Supported Areas' section is preserved by default per deterministic assessment.",
+                "section_id": "heading:1817",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored 'License' section is preserved by default per deterministic assessment.",
+                "section_id": "heading:2164",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "preserve",
+                "priority": 0,
+                "rationale": "Maintainer-authored 'Support' section is preserved by default per deterministic assessment.",
+                "section_id": "heading:2303",
+                "supporting_fact_ids": []
+              },
+              {
+                "disposition": "add",
+                "priority": 1,
+                "rationale": "A fact-backed overview section is needed to highlight the product's audience (C++ developers), problems solved (workbook management, style model, cell operations), and verified capabilities (7 capabilities from repository evidence).",
+                "section_id": "missing:at-a-glance",
+                "supporting_fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.problems_solved:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence"
+                ]
+              },
+              {
+                "disposition": "add",
+                "priority": 1,
+                "rationale": "The ecosystem-specific acquisition path (NuGet: Aspose.cells.Cpp.FOSS) was mechanically verified and should be added as a dedicated installation section.",
+                "section_id": "missing:installation",
+                "supporting_fact_ids": [
+                  "installation.coordinates:manifest",
+                  "installation.verified_acquisition:registry-nuget"
+                ]
+              }
+            ],
+            "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+            "tool_schema_sha256": "285af6f1994683fc4cb43a00a242cda5dc601334852bd92a12a470c7beed4ff8"
+          },
+          "claim_map": {
+            "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+            "claims": [
+              {
+                "byte_end": 746,
+                "byte_start": 708,
+                "claim_id": "readme.overview-navigation-and-acquisition:installation.coordinates",
+                "claim_text_sha256": "ab4b1bcf8212872cb785da073e4cbdc2fb2a63085be8b4bfbfdc4060dd0e26a3",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "installation.coordinates:manifest",
+                "fact_value_sha256": "3d90c2790569dc486fdfaaa98d8c9fd99246a68d34abfc156b3d1b2aa4fe7288",
+                "field": "installation.coordinates",
+                "introduced_text_sha256": "a61ec1bef8e76bd1a2ee6ecc24fe3859585380f3f46023a6944e54f65dadd505",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 1420,
+                "byte_start": 1385,
+                "claim_id": "readme.overview-navigation-and-acquisition:installation.verified_acquisition",
+                "claim_text_sha256": "5482eaef3c96d3ffae39973f647ac11a694650d3da2e829cb01102d7317fef3a",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "installation.verified_acquisition:registry-nuget",
+                "fact_value_sha256": "1d56d003a792f1f2c961d90d10b388ea76a31185ba471a1c141646d3f1a15c5f",
+                "field": "installation.verified_acquisition",
+                "introduced_text_sha256": "a61ec1bef8e76bd1a2ee6ecc24fe3859585380f3f46023a6944e54f65dadd505",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 517,
+                "byte_start": 462,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.capabilities",
+                "claim_text_sha256": "1246c8097e4337f0ed1b9ecbb5821220b3ee2832012d6d18cd206361269b6f9a",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.capabilities:repository-evidence",
+                "fact_value_sha256": "9619409aace1f49266431213087f9e812d2e19ffea39387925fae774022234d9",
+                "field": "product.capabilities",
+                "introduced_text_sha256": "a61ec1bef8e76bd1a2ee6ecc24fe3859585380f3f46023a6944e54f65dadd505",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 682,
+                "byte_start": 638,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.compatibility",
+                "claim_text_sha256": "9b164673e0719a3edbdb160eff9996ed63ee3d85c3f403c8e2604ab99161dbef",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.compatibility:manifest",
+                "fact_value_sha256": "bec50e7bc72bd1662bd9e680ee7c0bb693c6b395f7945baf0aae525f0a973b95",
+                "field": "product.compatibility",
+                "introduced_text_sha256": "a61ec1bef8e76bd1a2ee6ecc24fe3859585380f3f46023a6944e54f65dadd505",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 637,
+                "byte_start": 608,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.formats",
+                "claim_text_sha256": "e6bdeb6d98a47d0e824c24e6677c64fc153260a34ca4644eaa91c307e658925f",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.formats:repository-evidence",
+                "fact_value_sha256": "ecaeb7f78eba98a84a54837bd43d42ba30305f9c41438ff091c184f5801191b5",
+                "field": "product.formats",
+                "introduced_text_sha256": "a61ec1bef8e76bd1a2ee6ecc24fe3859585380f3f46023a6944e54f65dadd505",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 746,
+                "byte_start": 708,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.identity",
+                "claim_text_sha256": "ab4b1bcf8212872cb785da073e4cbdc2fb2a63085be8b4bfbfdc4060dd0e26a3",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.identity:manifest-and-registry",
+                "fact_value_sha256": "5e33e238d8f8af81f86f43b2599e0087daef1e5958a7621db2b3efa856689f78",
+                "field": "product.identity",
+                "introduced_text_sha256": "a61ec1bef8e76bd1a2ee6ecc24fe3859585380f3f46023a6944e54f65dadd505",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 1420,
+                "byte_start": 1385,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.platforms",
+                "claim_text_sha256": "5482eaef3c96d3ffae39973f647ac11a694650d3da2e829cb01102d7317fef3a",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.platforms:manifest",
+                "fact_value_sha256": "712164956683c62fa6ec9de5e423c274b44057b5a47d91986539d83b3fecb621",
+                "field": "product.platforms",
+                "introduced_text_sha256": "a61ec1bef8e76bd1a2ee6ecc24fe3859585380f3f46023a6944e54f65dadd505",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 517,
+                "byte_start": 462,
+                "claim_id": "readme.overview-navigation-and-acquisition:product.problems_solved",
+                "claim_text_sha256": "1246c8097e4337f0ed1b9ecbb5821220b3ee2832012d6d18cd206361269b6f9a",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.problems_solved:agent-drafted-grounded",
+                "fact_value_sha256": "be5f31ab07d2f92b44aefb8509229d8dd112911073de56397423840790b707e7",
+                "field": "product.problems_solved",
+                "introduced_text_sha256": "a61ec1bef8e76bd1a2ee6ecc24fe3859585380f3f46023a6944e54f65dadd505",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 260,
+                "byte_start": 29,
+                "claim_id": "readme.header.badges:installation.verified_acquisition",
+                "claim_text_sha256": "9a218cf1cfb5dac372c848e44425655f17efbd03104071f6cf43ae82cea5810c",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "installation.verified_acquisition:registry-nuget",
+                "fact_value_sha256": "1d56d003a792f1f2c961d90d10b388ea76a31185ba471a1c141646d3f1a15c5f",
+                "field": "installation.verified_acquisition",
+                "introduced_text_sha256": "2a0a3e91c22e6d68874a7ac7932266598c7fd05798a999e231a9ead0c4f18f71",
+                "operation_id": "readme.header.badges",
+                "rationale": "Add only applicable package, version, download, and license badges.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 260,
+                "byte_start": 29,
+                "claim_id": "readme.header.badges:product.license",
+                "claim_text_sha256": "9a218cf1cfb5dac372c848e44425655f17efbd03104071f6cf43ae82cea5810c",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.license:license-file",
+                "fact_value_sha256": "529fc91e3f97d3b2c3fe5102bea89059d6aa65c9e44d6bbb86591bb31aa783e1",
+                "field": "product.license",
+                "introduced_text_sha256": "2a0a3e91c22e6d68874a7ac7932266598c7fd05798a999e231a9ead0c4f18f71",
+                "operation_id": "readme.header.badges",
+                "rationale": "Add only applicable package, version, download, and license badges.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 3229,
+                "byte_start": 3104,
+                "claim_id": "readme.links.insert-example-context:1:product.identity",
+                "claim_text_sha256": "379260018b2e761b5ebcaa8175d77a3e5f4b8fc4118682095ce1b60126119b18",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "product.identity:manifest-and-registry",
+                "fact_value_sha256": "5e33e238d8f8af81f86f43b2599e0087daef1e5958a7621db2b3efa856689f78",
+                "field": "product.identity",
+                "introduced_text_sha256": "3cb1ee13943019a1bc95f5f413d9aca7ea2beaa5a9a06371c1f0a278c7fd0919",
+                "operation_id": "readme.links.insert-example-context:1",
+                "rationale": "Place one verified article immediately after the accepted example whose API terms it directly explains.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 3229,
+                "byte_start": 3104,
+                "claim_id": "readme.links.insert-example-context:1:example.minimal",
+                "claim_text_sha256": "379260018b2e761b5ebcaa8175d77a3e5f4b8fc4118682095ce1b60126119b18",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "example.minimal:agent-drafted-example",
+                "fact_value_sha256": "fc372f371c9376b2c37e95fc7e95f462850de7b76145761e9d65e1f3619c37db",
+                "field": "example.minimal",
+                "introduced_text_sha256": "3cb1ee13943019a1bc95f5f413d9aca7ea2beaa5a9a06371c1f0a278c7fd0919",
+                "operation_id": "readme.links.insert-example-context:1",
+                "rationale": "Place one verified article immediately after the accepted example whose API terms it directly explains.",
+                "verification_state": "verified"
+              }
+            ],
+            "facts_hash": "465a8e4d79242c298ee8e8e456bd2144ccf23f0db9c713b0f87784057d56225e",
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+            "schema_version": 1
+          },
+          "document_validation": {
+            "authorized_protected_corrections": [],
+            "checks": {
+              "adoption_preserved_source": true,
+              "candidate_has_no_comments": true,
+              "candidate_hash_matches": true,
+              "candidate_is_marker_free": true,
+              "claim_accountability_complete": true,
+              "claim_accountability_gaps_visible": true,
+              "contextual_links": true,
+              "document_reconstruction": true,
+              "enterprise_edition_terminology": true,
+              "fact_citations": true,
+              "facts_hash_matches": true,
+              "header_visuals": true,
+              "presentation_lint": true,
+              "protected_content": true,
+              "source_document_hash": true,
+              "source_span_hashes": true,
+              "template_hash_matches": true,
+              "verified_example_present": true,
+              "verified_limitations_present": true,
+              "verified_overview_present": true
+            },
+            "citation_errors": [],
+            "errors": [],
+            "presentation_findings": [],
+            "valid": true
+          },
+          "executable": true,
+          "git_patch_proof": {
+            "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+            "git_apply_check_passed": true,
+            "outside_spans_preserved": true,
+            "patch_sha256": "3ba7fbc79c81568758ac3bf89e0053bf1504c1e646209067453b7aee12f46af4",
+            "path": "README.md",
+            "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1"
+          },
+          "presentation_plan": {
+            "actions": [
+              {
+                "action_id": "readme.presentation.document-plan",
+                "claims": [
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.installation.coordinates",
+                    "fact_ids": [
+                      "installation.coordinates:manifest"
+                    ],
+                    "surface_id": "readme.installation",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [installation.coordinates]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.installation.verified_acquisition",
+                    "fact_ids": [
+                      "installation.verified_acquisition:registry-nuget"
+                    ],
+                    "surface_id": "readme.installation",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [installation.verified_acquisition]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.audience",
+                    "fact_ids": [
+                      "product.audience:agent-drafted-grounded"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.audience]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.capabilities",
+                    "fact_ids": [
+                      "product.capabilities:repository-evidence"
+                    ],
+                    "surface_id": "readme.capabilities",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.capabilities]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.compatibility",
+                    "fact_ids": [
+                      "product.compatibility:manifest"
+                    ],
+                    "surface_id": "readme.capabilities",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.compatibility]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.formats",
+                    "fact_ids": [
+                      "product.formats:repository-evidence"
+                    ],
+                    "surface_id": "readme.capabilities",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.formats]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.identity",
+                    "fact_ids": [
+                      "product.identity:manifest-and-registry"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.identity]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.platforms",
+                    "fact_ids": [
+                      "product.platforms:manifest"
+                    ],
+                    "surface_id": "readme.capabilities",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.platforms]"
+                  },
+                  {
+                    "claim_id": "readme.overview-navigation-and-acquisition.product.problems_solved",
+                    "fact_ids": [
+                      "product.problems_solved:agent-drafted-grounded"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail. [product.problems_solved]"
+                  },
+                  {
+                    "claim_id": "readme.header.badges.installation.verified_acquisition",
+                    "fact_ids": [
+                      "installation.verified_acquisition:registry-nuget"
+                    ],
+                    "surface_id": "readme.installation",
+                    "text": "Add only applicable package, version, download, and license badges. [installation.verified_acquisition]"
+                  },
+                  {
+                    "claim_id": "readme.header.badges.product.license",
+                    "fact_ids": [
+                      "product.license:license-file"
+                    ],
+                    "surface_id": "readme.license",
+                    "text": "Add only applicable package, version, download, and license badges. [product.license]"
+                  },
+                  {
+                    "claim_id": "readme.links.insert-example-context:1.product.identity",
+                    "fact_ids": [
+                      "product.identity:manifest-and-registry"
+                    ],
+                    "surface_id": "readme.opening",
+                    "text": "Place one verified article immediately after the accepted example whose API terms it directly explains. [product.identity]"
+                  },
+                  {
+                    "claim_id": "readme.links.insert-example-context:1.example.minimal",
+                    "fact_ids": [
+                      "example.minimal:agent-drafted-example"
+                    ],
+                    "surface_id": "readme.example",
+                    "text": "Place one verified article immediately after the accepted example whose API terms it directly explains. [example.minimal]"
+                  }
+                ],
+                "depends_on": [],
+                "disposition": "eligible",
+                "fact_ids": [
+                  "example.minimal:agent-drafted-example",
+                  "installation.coordinates:manifest",
+                  "installation.verified_acquisition:registry-nuget",
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence",
+                  "product.compatibility:manifest",
+                  "product.formats:repository-evidence",
+                  "product.identity:manifest-and-registry",
+                  "product.license:license-file",
+                  "product.platforms:manifest",
+                  "product.problems_solved:agent-drafted-grounded"
+                ],
+                "ownership_class": "repository_file",
+                "patch_sha256": "3ba7fbc79c81568758ac3bf89e0053bf1504c1e646209067453b7aee12f46af4",
+                "proposed_operation": "local_patch",
+                "region_id": "readme.presentation",
+                "rollback": "revert the bounded file patch",
+                "source_spans": [
+                  {
+                    "byte_end": 2396,
+                    "byte_start": 0,
+                    "expected_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+                    "path": "README.md",
+                    "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations",
+                    "replacement_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4"
+                  }
+                ],
+                "stop_conditions": [
+                  "immutable base revision changed",
+                  "source or work-tree README hash changed",
+                  "document reconstruction differs",
+                  "a fact citation becomes unselected, unresolved, or unverified",
+                  "protected content outside a cited authoritative correction is lost",
+                  "Git apply or independent verification fails"
+                ],
+                "surface_id": "readme",
+                "validators": [
+                  "claim_citations",
+                  "surface_ownership",
+                  "source_span_hash",
+                  "git_apply_check",
+                  "protected_content",
+                  "independent_verifier"
+                ]
+              }
+            ],
+            "archetype": "cpp-library",
+            "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+            "facts_hash": "465a8e4d79242c298ee8e8e456bd2144ccf23f0db9c713b0f87784057d56225e",
+            "findings": [
+              {
+                "dimension": "product_clarity",
+                "disposition": "satisfied",
+                "evidence": [
+                  "Aspose.Cells FOSS is an open-source C++ library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel. - **For:** Developers using C++. - **Problem solved:** Workbook and worksheet management"
+                ],
+                "finding_id": "readme.product_clarity",
+                "summary": "product clarity is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "audience_fit",
+                "disposition": "satisfied",
+                "evidence": [
+                  "Aspose.Cells FOSS is an open-source C++ library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel. - **For:** Developers using C++. - **Problem solved:** Workbook and worksheet management"
+                ],
+                "finding_id": "readme.audience_fit",
+                "summary": "audience fit is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "trust_signals",
+                "disposition": "satisfied",
+                "evidence": [
+                  "product.license:license-file:verified"
+                ],
+                "finding_id": "readme.trust_signals",
+                "summary": "trust signals is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "installation_path",
+                "disposition": "satisfied",
+                "evidence": [
+                  "installation.verified_acquisition:registry-nuget:outcomes=['accepted']"
+                ],
+                "finding_id": "readme.installation_path",
+                "summary": "installation path is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "verified_examples",
+                "disposition": "satisfied",
+                "evidence": [
+                  "4 fenced code blocks found"
+                ],
+                "finding_id": "readme.verified_examples",
+                "summary": "verified examples is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "navigation",
+                "disposition": "satisfied",
+                "evidence": [
+                  "None"
+                ],
+                "finding_id": "readme.navigation",
+                "summary": "navigation is satisfied",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "visual_usefulness",
+                "disposition": "observation",
+                "evidence": [
+                  "markdown images=2; factual review is separate"
+                ],
+                "finding_id": "readme.visual_usefulness",
+                "summary": "visual usefulness is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "contribution_readiness",
+                "disposition": "observation",
+                "evidence": [
+                  "repository-file recognition belongs to the community-files specialist"
+                ],
+                "finding_id": "readme.contribution_readiness",
+                "summary": "contribution readiness is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "maintenance_signals",
+                "disposition": "observation",
+                "evidence": [
+                  "GitHub-generated activity remains audit-only"
+                ],
+                "finding_id": "readme.maintenance_signals",
+                "summary": "maintenance signals is observation-only here",
+                "surface_id": "readme"
+              },
+              {
+                "dimension": "commercial_context",
+                "disposition": "satisfied",
+                "evidence": [
+                  "commercial_links=0; explanation_offset=262"
+                ],
+                "finding_id": "readme.commercial_context",
+                "summary": "commercial context is satisfied",
+                "surface_id": "readme"
+              }
+            ],
+            "immutable_base_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+            "schema_version": 1,
+            "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1"
+          },
+          "readme_assessment": {
+            "facts_hash": "465a8e4d79242c298ee8e8e456bd2144ccf23f0db9c713b0f87784057d56225e",
+            "immutable_base_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+            "material_claims": [
+              {
+                "claim_id": "claim:29:90d049d24ae97032",
+                "content_sha256": "90d049d24ae97032ed50ffa66078a1b267644c13cc7422fdcc0f37b6ffc08da8",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:29:179"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 179,
+                "source_byte_start": 29
+              },
+              {
+                "claim_id": "claim:195:105a5774e6055d25",
+                "content_sha256": "105a5774e6055d252150c69f7a341347bc91220ecd110264013a5fc9977eac4a",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:195:259"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 259,
+                "source_byte_start": 195
+              },
+              {
+                "claim_id": "claim:259:65b94b48cb643b53",
+                "content_sha256": "65b94b48cb643b53ba839ccdbe8e06ae4cdac00e638f496d702ab4584250877d",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:259:307"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 307,
+                "source_byte_start": 259
+              },
+              {
+                "claim_id": "claim:307:adb9c92555fe4059",
+                "content_sha256": "adb9c92555fe4059cf67c53b1cea25b6bcefd5230c7a6c67f91ff8982d98825d",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:307:367"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 367,
+                "source_byte_start": 307
+              },
+              {
+                "claim_id": "claim:367:7666565345da9da9",
+                "content_sha256": "7666565345da9da9551ed8abd158dda5f4513a3007fce71a180df983a3b01beb",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:367:438"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 438,
+                "source_byte_start": 367
+              },
+              {
+                "claim_id": "claim:456:510441e0eedab5f8",
+                "content_sha256": "510441e0eedab5f8361e5c21f95417cd47698dd2158a612d0702084563502030",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:456:525"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 525,
+                "source_byte_start": 456
+              },
+              {
+                "claim_id": "claim:582:cba668f5595c6745",
+                "content_sha256": "cba668f5595c6745b1014f062f30fe749d560f82302bd2d3792b0a452077f248",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:582:1816"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1816,
+                "source_byte_start": 582
+              },
+              {
+                "claim_id": "claim:1837:0a48dfc1ae15fa9d",
+                "content_sha256": "0a48dfc1ae15fa9d5742bd26ee9284a93ed203f61b0131a431987e3727301a17",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1837:1873"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1873,
+                "source_byte_start": 1837
+              },
+              {
+                "claim_id": "claim:1873:64a24eb4d14447ee",
+                "content_sha256": "64a24eb4d14447ee5ddb47a26e52c1d5917a4e3581c5cd7b6f56fbf936b048e0",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1873:1894"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1894,
+                "source_byte_start": 1873
+              },
+              {
+                "claim_id": "claim:1894:03eb91b41a37e69d",
+                "content_sha256": "03eb91b41a37e69d994a5ffc19b132754b42ef965dd6295c3ab8b6d90a956849",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1894:1957"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 1957,
+                "source_byte_start": 1894
+              },
+              {
+                "claim_id": "claim:1957:8ef65c3f995d2b24",
+                "content_sha256": "8ef65c3f995d2b2402581fa570c2664ca41e0215b4e5dfb4ca7f5ea7916a0dc1",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1957:2025"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2025,
+                "source_byte_start": 1957
+              },
+              {
+                "claim_id": "claim:2025:e374e43d5160c055",
+                "content_sha256": "e374e43d5160c0555ce4c398996d4d8f0e61b13ee5eb5e82040459cc19eb2d6e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2025:2056"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2056,
+                "source_byte_start": 2025
+              },
+              {
+                "claim_id": "claim:2056:747456566601695d",
+                "content_sha256": "747456566601695d29017507ad46da51ff3966699a6454b52c44da9bb756865e",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2056:2101"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2101,
+                "source_byte_start": 2056
+              },
+              {
+                "claim_id": "claim:2101:394c33a2459ed041",
+                "content_sha256": "394c33a2459ed041c4b3587fdef26ac351e2d7eb4ff0c0f210a6e5b9ea8ccbcc",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2101:2141"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2141,
+                "source_byte_start": 2101
+              },
+              {
+                "claim_id": "claim:2141:56d8c28e65bacaec",
+                "content_sha256": "56d8c28e65bacaece0374141c9848174cdf624ed8fe5c86ef75075911162b8f3",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2141:2163"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2163,
+                "source_byte_start": 2141
+              },
+              {
+                "claim_id": "claim:2176:715ded6d5858532f",
+                "content_sha256": "715ded6d5858532f9506450f3f9d42db59935b6cd96700653b75748e05141781",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2176:2302"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2302,
+                "source_byte_start": 2176
+              },
+              {
+                "claim_id": "claim:2315:371754e2ea954926",
+                "content_sha256": "371754e2ea95492609215ff763e5e6d3535b1ce24705c92902db060de998a08b",
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2315:2396"
+                ],
+                "fact_ids": [],
+                "rationale": "Existing material is preserved, but is not promoted to verified product truth.",
+                "source_byte_end": 2396,
+                "source_byte_start": 2315
+              }
+            ],
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+            "schema_version": 1,
+            "sections": [
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:0:180"
+                ],
+                "fact_ids": [
+                  "product.identity:manifest-and-registry",
+                  "relationship.commercial_foss:primary"
+                ],
+                "heading": "Opening",
+                "level": 0,
+                "protected_fragment_ids": [
+                  "technical_terminology:7c7a56025933ac99"
+                ],
+                "rationale": "Remove only a detected promotional callout; otherwise preserve the opening.",
+                "section_id": "opening",
+                "source_byte_end": 180,
+                "source_byte_start": 0
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:0:2396"
+                ],
+                "fact_ids": [],
+                "heading": "Aspose.Cells FOSS for C++",
+                "level": 1,
+                "protected_fragment_ids": [
+                  "command:03ed40a31750ed87",
+                  "command:5749ad91ae650ac4",
+                  "example:669d2bc424e6b72a",
+                  "example:c58ef32c25d85ed8",
+                  "technical_terminology:7c7a56025933ac99"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:0",
+                "source_byte_end": 2396,
+                "source_byte_start": 0
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:180:439"
+                ],
+                "fact_ids": [],
+                "heading": "Highlights",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "technical_terminology:7c7a56025933ac99"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:180",
+                "source_byte_end": 439,
+                "source_byte_start": 180
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:439:526"
+                ],
+                "fact_ids": [],
+                "heading": "How to build",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "command:03ed40a31750ed87",
+                  "command:5749ad91ae650ac4",
+                  "example:669d2bc424e6b72a"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:439",
+                "source_byte_end": 526,
+                "source_byte_start": 439
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:526:1817"
+                ],
+                "fact_ids": [
+                  "example.minimal:agent-drafted-example"
+                ],
+                "heading": "Quick Start",
+                "level": 2,
+                "protected_fragment_ids": [
+                  "example:c58ef32c25d85ed8"
+                ],
+                "rationale": "The section is assessed against the exact locally verified minimal example.",
+                "section_id": "heading:526",
+                "source_byte_end": 1817,
+                "source_byte_start": 526
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:542:1817"
+                ],
+                "fact_ids": [],
+                "heading": "Create, style, and save a workbook",
+                "level": 3,
+                "protected_fragment_ids": [
+                  "example:c58ef32c25d85ed8"
+                ],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:542",
+                "source_byte_end": 1817,
+                "source_byte_start": 542
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:1817:2164"
+                ],
+                "fact_ids": [],
+                "heading": "Supported Areas",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:1817",
+                "source_byte_end": 2164,
+                "source_byte_start": 1817
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2164:2303"
+                ],
+                "fact_ids": [],
+                "heading": "License",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:2164",
+                "source_byte_end": 2303,
+                "source_byte_start": 2164
+              },
+              {
+                "disposition": "preserve",
+                "evidence": [
+                  "README.md:2303:2396"
+                ],
+                "fact_ids": [],
+                "heading": "Support",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Maintainer-authored content is preserved by default.",
+                "section_id": "heading:2303",
+                "source_byte_end": 2396,
+                "source_byte_start": 2303
+              },
+              {
+                "disposition": "add",
+                "evidence": [
+                  "verified ProductFactsV2 and Markdown section inventory"
+                ],
+                "fact_ids": [
+                  "product.audience:agent-drafted-grounded",
+                  "product.problems_solved:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence"
+                ],
+                "heading": "At a glance",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Add a fact-backed overview when verified descriptive facts are available.",
+                "section_id": "missing:at-a-glance",
+                "source_byte_end": 180,
+                "source_byte_start": 180
+              },
+              {
+                "disposition": "add",
+                "evidence": [
+                  "verified ProductFactsV2 and Markdown section inventory"
+                ],
+                "fact_ids": [
+                  "installation.coordinates:manifest",
+                  "installation.verified_acquisition:registry-nuget"
+                ],
+                "heading": "Installation",
+                "level": 2,
+                "protected_fragment_ids": [],
+                "rationale": "Add the ecosystem-specific acquisition path that was mechanically verified.",
+                "section_id": "missing:installation",
+                "source_byte_end": 180,
+                "source_byte_start": 180
+              }
+            ],
+            "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+            "untrusted_repository_instructions": []
+          },
+          "readme_document_plan": {
+            "adoption": {
+              "already_adopted": false,
+              "marker_schema_version": null,
+              "metadata_location": "durable_evidence",
+              "preservation_check": "byte_identical",
+              "source_document_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+              "source_inner_bytes": 2396,
+              "source_inner_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1"
+            },
+            "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+            "claim_accountability": {
+              "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+              "claims": [
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:29:90d049d24ae97032",
+                  "content_sha256": "90d049d24ae97032ed50ffa66078a1b267644c13cc7422fdcc0f37b6ffc08da8",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 179,
+                  "source_byte_start": 29,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:195:105a5774e6055d25",
+                  "content_sha256": "105a5774e6055d252150c69f7a341347bc91220ecd110264013a5fc9977eac4a",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 259,
+                  "source_byte_start": 195,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:259:65b94b48cb643b53",
+                  "content_sha256": "65b94b48cb643b53ba839ccdbe8e06ae4cdac00e638f496d702ab4584250877d",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 307,
+                  "source_byte_start": 259,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:307:adb9c92555fe4059",
+                  "content_sha256": "adb9c92555fe4059cf67c53b1cea25b6bcefd5230c7a6c67f91ff8982d98825d",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 367,
+                  "source_byte_start": 307,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:367:7666565345da9da9",
+                  "content_sha256": "7666565345da9da9551ed8abd158dda5f4513a3007fce71a180df983a3b01beb",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 438,
+                  "source_byte_start": 367,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:456:510441e0eedab5f8",
+                  "content_sha256": "510441e0eedab5f8361e5c21f95417cd47698dd2158a612d0702084563502030",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 525,
+                  "source_byte_start": 456,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [
+                    "example.minimal:agent-drafted-example"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "source:claim:582:cba668f5595c6745",
+                  "content_sha256": "cba668f5595c6745b1014f062f30fe749d560f82302bd2d3792b0a452077f248",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 1816,
+                  "source_byte_start": 582,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence",
+                    "product.problems_solved:agent-drafted-grounded"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "source:claim:1837:0a48dfc1ae15fa9d",
+                  "content_sha256": "0a48dfc1ae15fa9d5742bd26ee9284a93ed203f61b0131a431987e3727301a17",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 1873,
+                  "source_byte_start": 1837,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1873:64a24eb4d14447ee",
+                  "content_sha256": "64a24eb4d14447ee5ddb47a26e52c1d5917a4e3581c5cd7b6f56fbf936b048e0",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1894,
+                  "source_byte_start": 1873,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence",
+                    "product.problems_solved:agent-drafted-grounded"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "source:claim:1894:03eb91b41a37e69d",
+                  "content_sha256": "03eb91b41a37e69d994a5ffc19b132754b42ef965dd6295c3ab8b6d90a956849",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 1957,
+                  "source_byte_start": 1894,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:1957:8ef65c3f995d2b24",
+                  "content_sha256": "8ef65c3f995d2b2402581fa570c2664ca41e0215b4e5dfb4ca7f5ea7916a0dc1",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2025,
+                  "source_byte_start": 1957,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "source:claim:2025:e374e43d5160c055",
+                  "content_sha256": "e374e43d5160c0555ce4c398996d4d8f0e61b13ee5eb5e82040459cc19eb2d6e",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 2056,
+                  "source_byte_start": 2025,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "source:claim:2056:747456566601695d",
+                  "content_sha256": "747456566601695d29017507ad46da51ff3966699a6454b52c44da9bb756865e",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 2101,
+                  "source_byte_start": 2056,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "source:claim:2101:394c33a2459ed041",
+                  "content_sha256": "394c33a2459ed041c4b3587fdef26ac351e2d7eb4ff0c0f210a6e5b9ea8ccbcc",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 2141,
+                  "source_byte_start": 2101,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "source:claim:2141:56d8c28e65bacaec",
+                  "content_sha256": "56d8c28e65bacaece0374141c9848174cdf624ed8fe5c86ef75075911162b8f3",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 2163,
+                  "source_byte_start": 2141,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2176:715ded6d5858532f",
+                  "content_sha256": "715ded6d5858532f9506450f3f9d42db59935b6cd96700653b75748e05141781",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2302,
+                  "source_byte_start": 2176,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "source:claim:2315:371754e2ea954926",
+                  "content_sha256": "371754e2ea95492609215ff763e5e6d3535b1ce24705c92902db060de998a08b",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 2396,
+                  "source_byte_start": 2315,
+                  "stage": "source",
+                  "survives_in_candidate": true
+                },
+                {
+                  "accepted_fact_ids": [
+                    "installation.verified_acquisition:registry-nuget",
+                    "product.license:license-file"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:29:cc9723853725b551",
+                  "content_sha256": "cc9723853725b5517f85a7750a0d07bf39d1e81a2da3360502994bf6ed96403d",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 261,
+                  "source_byte_start": 29,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:262:90d049d24ae97032",
+                  "content_sha256": "90d049d24ae97032ed50ffa66078a1b267644c13cc7422fdcc0f37b6ffc08da8",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 412,
+                  "source_byte_start": 262,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:429:a3ebeaf0be4950f4",
+                  "content_sha256": "a3ebeaf0be4950f4a0978d8612fc6605499c5a2b556121a0d72d57d7ca4cf5f2",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 462,
+                  "source_byte_start": 429,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence",
+                    "product.problems_solved:agent-drafted-grounded"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:462:813b6ded61233d35",
+                  "content_sha256": "813b6ded61233d3519ea3fe86d9ca803ba85cf18baa8eaffd906908a21e45bd7",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 518,
+                  "source_byte_start": 462,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:518:4c0f32082005675e",
+                  "content_sha256": "4c0f32082005675eefcd4f226d507afa5e38806f708e60f4c0c603bd00ff4d6b",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 608,
+                  "source_byte_start": 518,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.formats:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:608:aeeeccf5a4091930",
+                  "content_sha256": "aeeeccf5a409193000dbefed4fe165088625525ad0af7ba3c38d17333a038fee",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 638,
+                  "source_byte_start": 608,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.compatibility:manifest"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:638:9cbd13bcb2110f3d",
+                  "content_sha256": "9cbd13bcb2110f3df710aed6fd722c0de9fe5c27a4666d5733ea216807a7235f",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 683,
+                  "source_byte_start": 638,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:684:5241c9126dacbb14",
+                  "content_sha256": "5241c9126dacbb144f0f01097fe46768987464286074add9a3cb9d2ac65a4006",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1115,
+                  "source_byte_start": 684,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1135:58f252da2a2c1651",
+                  "content_sha256": "58f252da2a2c165126ce7e5c4d2d592490c97fe8bcb442db5790598f0936ccb0",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1163,
+                  "source_byte_start": 1135,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1163:f2027a0f81e3d4aa",
+                  "content_sha256": "f2027a0f81e3d4aa04afce9ceafa069ea83597bfd6ff1050a71e963867c99d9c",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1195,
+                  "source_byte_start": 1163,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1195:122a3d7d674e8f0b",
+                  "content_sha256": "122a3d7d674e8f0b7539acdac8b975f37c9c81b2ed5edf8028fd821b9dd773a9",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1225,
+                  "source_byte_start": 1195,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1225:28c955f2488642d0",
+                  "content_sha256": "28c955f2488642d0374067709affa04075ae36c5bf82fb4ebd9a2111de2d5d96",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1263,
+                  "source_byte_start": 1225,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1263:a18c82ae4032da43",
+                  "content_sha256": "a18c82ae4032da4332032f769b84e364433dd5ffacc4c4181807a7c58a0950e6",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1285,
+                  "source_byte_start": 1263,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1285:cfbb8b822ab32644",
+                  "content_sha256": "cfbb8b822ab32644b58b3f4a18dd17fd0601305a87b48a7938ab3ceeae47162c",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1307,
+                  "source_byte_start": 1285,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1325:7056e94f013f058a",
+                  "content_sha256": "7056e94f013f058a3f1d67d53997c9e34fe1e957d45a601fd6da710817960d7f",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1376,
+                  "source_byte_start": 1325,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1377:0d0cdf25ead21af5",
+                  "content_sha256": "0d0cdf25ead21af5f831b7620fa29d1a529ae094ea98e2fc2c2abfc767377228",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1425,
+                  "source_byte_start": 1377,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1426:1596ce8701d6f1c5",
+                  "content_sha256": "1596ce8701d6f1c549ae6218a9bcc36c4f4d401ca34f8de788a86a620863f6a9",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "unbound_generated",
+                  "origin": "generated",
+                  "rationale": "Generated material has no accepted fact binding and requires correction or omission.",
+                  "source_byte_end": 1466,
+                  "source_byte_start": 1426,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1482:105a5774e6055d25",
+                  "content_sha256": "105a5774e6055d252150c69f7a341347bc91220ecd110264013a5fc9977eac4a",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1546,
+                  "source_byte_start": 1482,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1546:65b94b48cb643b53",
+                  "content_sha256": "65b94b48cb643b53ba839ccdbe8e06ae4cdac00e638f496d702ab4584250877d",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1594,
+                  "source_byte_start": 1546,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1594:adb9c92555fe4059",
+                  "content_sha256": "adb9c92555fe4059cf67c53b1cea25b6bcefd5230c7a6c67f91ff8982d98825d",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1654,
+                  "source_byte_start": 1594,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1654:7666565345da9da9",
+                  "content_sha256": "7666565345da9da9551ed8abd158dda5f4513a3007fce71a180df983a3b01beb",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1725,
+                  "source_byte_start": 1654,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:1743:510441e0eedab5f8",
+                  "content_sha256": "510441e0eedab5f8361e5c21f95417cd47698dd2158a612d0702084563502030",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 1812,
+                  "source_byte_start": 1743,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "example.minimal:agent-drafted-example"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:1869:cba668f5595c6745",
+                  "content_sha256": "cba668f5595c6745b1014f062f30fe749d560f82302bd2d3792b0a452077f248",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 3103,
+                  "source_byte_start": 1869,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "example.minimal:agent-drafted-example",
+                    "product.identity:manifest-and-registry"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:3104:cb3a1f4141430f6f",
+                  "content_sha256": "cb3a1f4141430f6fcfd37f147d710893ac55091ce5571c4d853e59ad1bee0c01",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "generated",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 3230,
+                  "source_byte_start": 3104,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence",
+                    "product.problems_solved:agent-drafted-grounded"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:3251:0a48dfc1ae15fa9d",
+                  "content_sha256": "0a48dfc1ae15fa9d5742bd26ee9284a93ed203f61b0131a431987e3727301a17",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 3287,
+                  "source_byte_start": 3251,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3287:64a24eb4d14447ee",
+                  "content_sha256": "64a24eb4d14447ee5ddb47a26e52c1d5917a4e3581c5cd7b6f56fbf936b048e0",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3308,
+                  "source_byte_start": 3287,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence",
+                    "product.problems_solved:agent-drafted-grounded"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:3308:03eb91b41a37e69d",
+                  "content_sha256": "03eb91b41a37e69d994a5ffc19b132754b42ef965dd6295c3ab8b6d90a956849",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 3371,
+                  "source_byte_start": 3308,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3371:8ef65c3f995d2b24",
+                  "content_sha256": "8ef65c3f995d2b2402581fa570c2664ca41e0215b4e5dfb4ca7f5ea7916a0dc1",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3439,
+                  "source_byte_start": 3371,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:3439:e374e43d5160c055",
+                  "content_sha256": "e374e43d5160c0555ce4c398996d4d8f0e61b13ee5eb5e82040459cc19eb2d6e",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 3470,
+                  "source_byte_start": 3439,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:3470:747456566601695d",
+                  "content_sha256": "747456566601695d29017507ad46da51ff3966699a6454b52c44da9bb756865e",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 3515,
+                  "source_byte_start": 3470,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:3515:394c33a2459ed041",
+                  "content_sha256": "394c33a2459ed041c4b3587fdef26ac351e2d7eb4ff0c0f210a6e5b9ea8ccbcc",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 3555,
+                  "source_byte_start": 3515,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "authoritative_owners": [
+                    "repository-owner"
+                  ],
+                  "claim_id": "candidate:claim:3555:56d8c28e65bacaec",
+                  "content_sha256": "56d8c28e65bacaece0374141c9848174cdf624ed8fe5c86ef75075911162b8f3",
+                  "current_disposition": "preserve",
+                  "currently_accountable": true,
+                  "expected_disposition": "accepted_fact",
+                  "origin": "inherited",
+                  "rationale": "Exact content is bound to at least one selected accepted fact.",
+                  "source_byte_end": 3577,
+                  "source_byte_start": 3555,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3590:715ded6d5858532f",
+                  "content_sha256": "715ded6d5858532f9506450f3f9d42db59935b6cd96700653b75748e05141781",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3716,
+                  "source_byte_start": 3590,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                },
+                {
+                  "accepted_fact_ids": [],
+                  "authoritative_owners": [],
+                  "claim_id": "candidate:claim:3729:371754e2ea954926",
+                  "content_sha256": "371754e2ea95492609215ff763e5e6d3535b1ce24705c92902db060de998a08b",
+                  "current_disposition": "preserve",
+                  "currently_accountable": false,
+                  "expected_disposition": "authoritative_owner_validation",
+                  "origin": "inherited",
+                  "rationale": "Byte preservation is not factual approval; an authoritative owner or fact is still required.",
+                  "source_byte_end": 3810,
+                  "source_byte_start": 3729,
+                  "stage": "candidate",
+                  "survives_in_candidate": null
+                }
+              ],
+              "facts_hash": "465a8e4d79242c298ee8e8e456bd2144ccf23f0db9c713b0f87784057d56225e",
+              "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+              "schema_version": 1,
+              "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1"
+            },
+            "contextual_links": {
+              "aspose_com_catalog_hash": "sha256:3560e9f9358401a30b95fc06d978ea3a21bfbc84d44008b13d06462d4a3bb5d7",
+              "aspose_org_catalog_hash": "sha256:1889a44093bd29273fa37039bb85acb77213c5fd5ddec8ecf3d039926ddc9f80",
+              "bindings": [
+                {
+                  "accepted_fact_ids": [
+                    "product.identity:manifest-and-registry",
+                    "example.minimal:agent-drafted-example"
+                  ],
+                  "binding_id": "readme.example:org:reference:cells:cpp:1a959646ede05c62",
+                  "context_id": "example.minimal:agent-drafted-example",
+                  "context_kind": "code_example",
+                  "matched_subject_terms": [
+                    "workbook",
+                    "workbook.getworksheets",
+                    "workbook.save",
+                    "xlsx"
+                  ],
+                  "parent_domain": "aspose.org",
+                  "placement": "after_verified_example",
+                  "schema_version": 1,
+                  "section_heading": "Quick Start",
+                  "support_rationale": "Verified reference article matches accepted example terms: workbook, workbook.getworksheets, workbook.save, xlsx",
+                  "surface": "reference",
+                  "target_record_id": "org:reference:cells:cpp:1a959646ede05c62",
+                  "target_title": "Workbook",
+                  "target_url": "https://reference.aspose.org/cells/cpp/workbook/"
+                }
+              ],
+              "budget": {
+                "domain_maxima": {
+                  "aspose.com": 2,
+                  "aspose.org": 1
+                },
+                "max_total": 2,
+                "measurement": {
+                  "schema_version": 1,
+                  "total_content_units": 272,
+                  "verified_code_blocks": 1,
+                  "verified_code_units": 100,
+                  "visible_prose_words": 172
+                },
+                "mode": "auto",
+                "schema_version": 1,
+                "surface_maxima": {
+                  "blog": 1,
+                  "docs": 2,
+                  "kb": 2,
+                  "products": 2,
+                  "reference": 2
+                }
+              },
+              "considered_record_ids": [
+                "org:reference:cells:cpp:1a959646ede05c62"
+              ],
+              "enterprise_product_name": "Aspose.Cells for C++",
+              "family": "cells",
+              "omission_reason": "none",
+              "platform": "cpp",
+              "pre_link_occurrences": {
+                "by_parent_domain": {
+                  "aspose.com": 0,
+                  "aspose.org": 0
+                },
+                "by_surface": {
+                  "blog": 0,
+                  "docs": 0,
+                  "kb": 0,
+                  "other": 0,
+                  "products": 0,
+                  "reference": 0
+                },
+                "repeated_targets": {},
+                "total": 0
+              },
+              "pre_link_url_counts": {},
+              "schema_version": 1
+            },
+            "enterprise_terminology_corrections": [],
+            "facts_hash": "465a8e4d79242c298ee8e8e456bd2144ccf23f0db9c713b0f87784057d56225e",
+            "header_visuals": {
+              "badge_markdown": "[![NuGet: Aspose.cells.Cpp.FOSS](https://img.shields.io/nuget/v/Aspose.cells.Cpp.FOSS.svg?label=NuGet)](https://www.nuget.org/packages/Aspose.cells.Cpp.FOSS) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+              "badges": [
+                {
+                  "alt_text": "NuGet: Aspose.cells.Cpp.FOSS",
+                  "badge_id": "package",
+                  "fact_ids": [
+                    "installation.verified_acquisition:registry-nuget"
+                  ],
+                  "image_url": "https://img.shields.io/nuget/v/Aspose.cells.Cpp.FOSS.svg?label=NuGet",
+                  "kind": "package",
+                  "target_url": "https://www.nuget.org/packages/Aspose.cells.Cpp.FOSS"
+                },
+                {
+                  "alt_text": "License: MIT",
+                  "badge_id": "license",
+                  "fact_ids": [
+                    "product.license:license-file"
+                  ],
+                  "image_url": "https://img.shields.io/badge/License-MIT-blue",
+                  "kind": "license",
+                  "target_url": "LICENSE"
+                }
+              ],
+              "diagram_nodes": [
+                {
+                  "fact_ids": [
+                    "product.identity:manifest-and-registry"
+                  ],
+                  "label": "Aspose.Cells FOSS for C++",
+                  "node_id": "product",
+                  "role": "product"
+                },
+                {
+                  "fact_ids": [
+                    "product.audience:agent-drafted-grounded",
+                    "product.identity:manifest-and-registry",
+                    "product.platforms:manifest",
+                    "installation.coordinates:manifest"
+                  ],
+                  "label": "Developers using C++.",
+                  "node_id": "audience_1",
+                  "role": "audience"
+                },
+                {
+                  "fact_ids": [
+                    "product.problems_solved:agent-drafted-grounded",
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "label": "Workbook and worksheet management",
+                  "node_id": "problem_1",
+                  "role": "problem"
+                },
+                {
+                  "fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "label": "Workbook and worksheet management",
+                  "node_id": "capability_1",
+                  "role": "capability"
+                },
+                {
+                  "fact_ids": [
+                    "product.capabilities:repository-evidence"
+                  ],
+                  "label": "Style model (font, fill, borders, alignment, number formats)",
+                  "node_id": "capability_2",
+                  "role": "capability"
+                },
+                {
+                  "fact_ids": [
+                    "product.formats:repository-evidence"
+                  ],
+                  "label": ".xlsx",
+                  "node_id": "format_1",
+                  "role": "format"
+                }
+              ],
+              "mermaid_markdown": "```mermaid\nflowchart LR\n  product[\"Aspose.Cells FOSS for C++\"]\n  audience_1[\"Developers using C++.\"]\n  problem_1[\"Workbook and worksheet management\"]\n  capability_1[\"Workbook and worksheet management\"]\n  capability_2[\"Style model (font, fill, borders, alignment, number formats)\"]\n  format_1[\".xlsx\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```",
+              "mermaid_source": "flowchart LR\n  product[\"Aspose.Cells FOSS for C++\"]\n  audience_1[\"Developers using C++.\"]\n  problem_1[\"Workbook and worksheet management\"]\n  capability_1[\"Workbook and worksheet management\"]\n  capability_2[\"Style model (font, fill, borders, alignment, number formats)\"]\n  format_1[\".xlsx\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1",
+              "schema_version": 1,
+              "title": "Aspose.Cells FOSS for C++",
+              "title_fact_ids": [
+                "product.identity:manifest-and-registry"
+              ]
+            },
+            "immutable_base_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+            "operations": [
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "fact_ids": [
+                  "installation.coordinates:manifest",
+                  "installation.verified_acquisition:registry-nuget",
+                  "product.audience:agent-drafted-grounded",
+                  "product.capabilities:repository-evidence",
+                  "product.compatibility:manifest",
+                  "product.formats:repository-evidence",
+                  "product.identity:manifest-and-registry",
+                  "product.platforms:manifest",
+                  "product.problems_solved:agent-drafted-grounded"
+                ],
+                "operation": "insert_before",
+                "operation_id": "readme.overview-navigation-and-acquisition",
+                "path": "README.md",
+                "protected_content_treatment": "additive",
+                "rationale": "Put verified audience, purpose, scope, navigation, and any missing source acquisition path before secondary repository detail.",
+                "replacement_sha256": "a61ec1bef8e76bd1a2ee6ecc24fe3859585380f3f46023a6944e54f65dadd505",
+                "replacement_text": "## At a glance\n\n- **For:** Developers using C++.\n- **Problem solved:** Workbook and worksheet management\n- **Verified capabilities:** Style model (font, fill, borders, alignment, number formats)\n- **Verified formats:** .xlsx\n- **Runtime:** Requires CMake 3.16 or later.\n\n```mermaid\nflowchart LR\n  product[\"Aspose.Cells FOSS for C++\"]\n  audience_1[\"Developers using C++.\"]\n  problem_1[\"Workbook and worksheet management\"]\n  capability_1[\"Workbook and worksheet management\"]\n  capability_2[\"Style model (font, fill, borders, alignment, number formats)\"]\n  format_1[\".xlsx\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```\n\n## In this README\n\n- [Highlights](#highlights)\n- [How to build](#how-to-build)\n- [Quick Start](#quick-start)\n- [Supported Areas](#supported-areas)\n- [License](#license)\n- [Support](#support)\n\n## Installation\n\nInstall the package published for this repository:\n\n```bash\nnuget install Aspose.cells.Cpp.FOSS\n```\n\nThe package was verified against NuGet.\n\n",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 180,
+                "source_byte_start": 180,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              },
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "fact_ids": [
+                  "installation.verified_acquisition:registry-nuget",
+                  "product.license:license-file"
+                ],
+                "operation": "insert_after",
+                "operation_id": "readme.header.badges",
+                "path": "README.md",
+                "protected_content_treatment": "additive",
+                "rationale": "Add only applicable package, version, download, and license badges.",
+                "replacement_sha256": "2a0a3e91c22e6d68874a7ac7932266598c7fd05798a999e231a9ead0c4f18f71",
+                "replacement_text": "\n[![NuGet: Aspose.cells.Cpp.FOSS](https://img.shields.io/nuget/v/Aspose.cells.Cpp.FOSS.svg?label=NuGet)](https://www.nuget.org/packages/Aspose.cells.Cpp.FOSS) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)\n",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 28,
+                "source_byte_start": 28,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              },
+              {
+                "coordinate_space": "presentation_inner_utf8",
+                "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "fact_ids": [
+                  "product.identity:manifest-and-registry",
+                  "example.minimal:agent-drafted-example"
+                ],
+                "operation": "insert_after",
+                "operation_id": "readme.links.insert-example-context:1",
+                "path": "README.md",
+                "protected_content_treatment": "additive",
+                "rationale": "Place one verified article immediately after the accepted example whose API terms it directly explains.",
+                "replacement_sha256": "3cb1ee13943019a1bc95f5f413d9aca7ea2beaa5a9a06371c1f0a278c7fd0919",
+                "replacement_text": "\nFor a focused walkthrough of the APIs used in this example, see [Workbook](https://reference.aspose.org/cells/cpp/workbook/).\n",
+                "rollback": "Restore the exact immutable source bytes for this operation.",
+                "source_byte_end": 1816,
+                "source_byte_start": 1816,
+                "stop_conditions": [
+                  "immutable source revision changed",
+                  "source span checksum changed",
+                  "a cited fact is no longer selected and accepted",
+                  "protected content outside an authoritative correction would be lost"
+                ],
+                "validators": [
+                  "source_span_hash",
+                  "fact_citations",
+                  "protected_content",
+                  "document_reconstruction",
+                  "independent_verifier"
+                ]
+              }
+            ],
+            "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+            "schema_version": 1,
+            "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+            "template_sha256": "6debd1cf49ee2b0f864145483a4a857e8f7175c9d958e907bf721a83e316f003"
+          }
+        },
+        "stage_boundary_pending": "DETERMINISTIC_VALIDATED",
+        "stage_boundary_stop": "DETERMINISTIC_VALIDATED",
+        "verification": {
+          "checks": {
+            "adoption_preserved_source": true,
+            "candidate_has_no_comments": true,
+            "candidate_hash_matches": true,
+            "candidate_is_marker_free": true,
+            "candidate_matches_independent_render": true,
+            "claim_accountability_complete": true,
+            "claim_accountability_gaps_visible": true,
+            "contextual_links": true,
+            "document_reconstruction": true,
+            "enterprise_edition_terminology": true,
+            "fact_citations": true,
+            "facts_hash_matches": true,
+            "header_visuals": true,
+            "needs_write_matches": true,
+            "presentation_lint": true,
+            "protected_content": true,
+            "source_document_hash": true,
+            "source_span_hashes": true,
+            "template_hash_matches": true,
+            "verified_example_present": true,
+            "verified_limitations_present": true,
+            "verified_overview_present": true
+          },
+          "nonce": "20260728-172928-8049",
+          "reason": null,
+          "requirement_map": {
+            "fact_backed_document_plan": true,
+            "immutable_snapshot": true,
+            "protected_content": true,
+            "verified_example": true
+          },
+          "token": "e704ca9889026c6d8487b05e82ecc4900e551e15b62a07a3a4047ea6fb498fde",
+          "verdict": "accept"
+        }
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "independent_review_exception",
+      "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T08:10:31.014530+00:00",
+      "last_run_timestamp": "2026-07-28T17:30:47.606171+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9"
     },
     "readme_reconciliation": {
       "accepted_facts_hash": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
@@ -1691,7 +3965,7 @@
     "updated_at": "2026-07-28T17:30:35.512634+00:00"
   },
   "schema_version": 2,
-  "state_version": 189,
+  "state_version": 190,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "892fd614e5a03a8d301271ee4fc0318d6261aaaeac9e94432b9d23a6c5ec7268",
