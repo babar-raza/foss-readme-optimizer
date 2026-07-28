@@ -231,7 +231,8 @@ class TestMergeUnrecordedFailures:
         stored = updated.domain_states["package_release_audit"]
         assert stored.accepted_facts_hash == "good-hash"
         assert stored.accepted_status == "NO_CHANGE"
-        assert stored.details == {"releases_count": 3}
+        assert stored.details["releases_count"] == 3
+        assert stored.details["last_failure_envelope"]["message"] == "boom"
         assert stored.consecutive_failure_count == 1
         assert stored.last_failure_reason == "execution_error"
 
@@ -356,9 +357,55 @@ class TestSaveDomainWithFailureTracking:
         stored = backend.load("acme/widget").domain_states["readme_presentation"]
         assert stored.accepted_facts_hash == "good-hash"  # last-good baseline preserved
         assert stored.accepted_status == "NO_CHANGE"
-        assert stored.details == {"written": True}
+        assert stored.details["written"] is True
+        assert stored.details["last_failure_envelope"] == {
+            "schema_version": 1,
+            "domain": "readme_presentation",
+            "failure_reason": "execution_error",
+            "error_type": "boom",
+            "message": "boom",
+            "stage": None,
+            "attempt": 1,
+            "source_revision": None,
+            "occurred_at": stored.details["last_failure_envelope"]["occurred_at"],
+        }
         assert stored.consecutive_failure_count == 1
         assert stored.last_failure_reason == "execution_error"
+
+    def test_failure_envelope_is_redacted_and_keeps_structured_context(self):
+        backend = _FakeBackendWithLock()
+        save_domain_with_failure_tracking(
+            backend,
+            "acme/widget",
+            "readme_presentation",
+            DomainStateV1(
+                domain="readme_presentation",
+                accepted_status="ERROR:execution_error:RuntimeError:token=abcdefghijk",
+                details={
+                    "failure_envelope": {
+                        "schema_version": 1,
+                        "domain": "readme_presentation",
+                        "failure_reason": "execution_error",
+                        "error_type": "RuntimeError",
+                        "message": "token=[REDACTED]",
+                        "stage": "DETERMINISTIC_VALIDATED",
+                        "attempt": 2,
+                        "source_revision": "a" * 40,
+                        "occurred_at": "2026-07-28T00:00:00+00:00",
+                    }
+                },
+            ),
+            current_revision="a" * 40,
+        )
+
+        envelope = (
+            backend.load("acme/widget")
+            .domain_states["readme_presentation"]
+            .details["last_failure_envelope"]
+        )
+        assert envelope["message"] == "token=[REDACTED]"
+        assert envelope["stage"] == "DETERMINISTIC_VALIDATED"
+        assert envelope["attempt"] == 2
 
     def test_repeated_identical_failure_increments(self):
         backend = _FakeBackendWithLock()

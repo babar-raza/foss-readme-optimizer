@@ -655,6 +655,34 @@ def supervise_repo(
             "CANDIDATE_GENERATED",
             "DETERMINISTIC_VALIDATED",
         }:
+            specialist_errors = sorted(
+                (
+                    domain,
+                    result.accepted_status,
+                )
+                for domain, result in specialist_results.items()
+                if (result.accepted_status or "").startswith("ERROR:")
+            )
+            if specialist_errors:
+                domain, error_status = specialist_errors[0]
+                return SuperviseResult(
+                    status="BLOCKED",
+                    org_repo=org_repo,
+                    task_graph=TaskGraph(),
+                    blocked_reason=f"specialist_failed:{domain}:{error_status}",
+                    blocked_category="agent_fixable",
+                    decisions=[
+                        DecisionSummary(
+                            turn=0,
+                            kind="readme_poc_stage_execution_failed",
+                            detail=(
+                                f"{domain} failed before {readme_poc_stage_limit}: {error_status}"
+                            ),
+                        )
+                    ],
+                    requested_readme_stage=readme_poc_stage_limit,
+                    readme_lifecycle_status=None,
+                )
             loaded = state_backend.load(org_repo) if state_backend is not None else None
             lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
             from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2

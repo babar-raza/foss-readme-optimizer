@@ -25,6 +25,7 @@ import sys
 from datetime import UTC, datetime
 
 from readme_agent.errors import StateBackendError
+from readme_agent.evidence.redaction import redact
 from readme_agent.retry import RetryableOperationError, run_with_retry
 from readme_agent.state.backend import SaveResult, StateBackend, safe_release_lock
 from readme_agent.state.schema import DomainStateV1, RunStateV1, SupervisorStateV1
@@ -230,10 +231,30 @@ def _next_domain_state_with_failure_tracking(
     }
 
     if is_error:
+        prior_details = dict(prior_domain_state.details) if prior_domain_state else {}
+        supplied_envelope = domain_state.details.get("failure_envelope")
+        message = accepted_status.split(":", 2)[2] if accepted_status.count(":") >= 2 else ""
+        error_type, _, error_message = message.partition(":")
+        if isinstance(supplied_envelope, dict):
+            failure_envelope = dict(supplied_envelope)
+            failure_envelope["message"] = redact(str(failure_envelope.get("message", "")))
+        else:
+            failure_envelope = {
+                "schema_version": 1,
+                "domain": domain,
+                "failure_reason": current_reason,
+                "error_type": error_type or "UnknownError",
+                "message": redact(error_message or message),
+                "stage": None,
+                "attempt": new_count,
+                "source_revision": current_revision,
+                "occurred_at": domain_state.last_run_timestamp or datetime.now(UTC).isoformat(),
+            }
         return (prior_domain_state or DomainStateV1(domain=domain)).model_copy(
             update={
                 **escalation_update,
                 "last_run_timestamp": domain_state.last_run_timestamp,
+                "details": {**prior_details, "last_failure_envelope": failure_envelope},
                 "skipped_this_run": False,
                 "consecutive_skip_count": 0,
             }

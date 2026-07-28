@@ -2,15 +2,21 @@
 
 import sys
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from pathlib import Path
 
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_PRESENTATION
 from readme_agent.errors import StateBackendError
+from readme_agent.evidence.redaction import redact
 from readme_agent.evidence.writer import generate_run_id
 from readme_agent.llm.planner_client import PlannerClient
 from readme_agent.specialists import registry as specialists_registry
 from readme_agent.state.backend import StateBackend
-from readme_agent.state.domain_state import mark_domain_skipped, mark_specialist_tier_started
+from readme_agent.state.domain_state import (
+    mark_domain_skipped,
+    mark_specialist_tier_started,
+    save_domain_with_failure_tracking,
+)
 from readme_agent.state.schema import DomainStateV1
 from readme_agent.supervisor import specialist_selection
 from readme_agent.supervisor.models import DecisionSummary
@@ -106,8 +112,29 @@ def run_specialist_tier(
             result = DomainStateV1(
                 domain=domain,
                 accepted_status=f"ERROR:execution_error:{exc}",
-                details={"error": str(exc)},
+                details={
+                    "error": redact(str(exc)),
+                    "failure_envelope": {
+                        "schema_version": 1,
+                        "domain": domain,
+                        "failure_reason": "execution_error",
+                        "error_type": type(exc).__name__,
+                        "message": redact(str(exc)),
+                        "stage": readme_poc_stage_limit,
+                        "attempt": 1,
+                        "source_revision": current_revision,
+                        "occurred_at": datetime.now(UTC).isoformat(),
+                    },
+                },
             )
+            if state_backend is not None and domain == README_PRESENTATION:
+                save_domain_with_failure_tracking(
+                    state_backend,
+                    org_repo,
+                    domain,
+                    result,
+                    current_revision=current_revision,
+                )
         if result is not None:
             results[domain] = result
 
@@ -127,6 +154,32 @@ def run_specialist_tier(
                 f"keeping the original error: {exc}",
                 file=sys.stderr,
             )
+            if state_backend is not None and domain == README_PRESENTATION:
+                retry_failure = DomainStateV1(
+                    domain=domain,
+                    accepted_status=f"ERROR:execution_error:{exc}",
+                    details={
+                        "error": redact(str(exc)),
+                        "failure_envelope": {
+                            "schema_version": 1,
+                            "domain": domain,
+                            "failure_reason": "execution_error",
+                            "error_type": type(exc).__name__,
+                            "message": redact(str(exc)),
+                            "stage": readme_poc_stage_limit,
+                            "attempt": 2,
+                            "source_revision": current_revision,
+                            "occurred_at": datetime.now(UTC).isoformat(),
+                        },
+                    },
+                )
+                save_domain_with_failure_tracking(
+                    state_backend,
+                    org_repo,
+                    domain,
+                    retry_failure,
+                    current_revision=current_revision,
+                )
             continue
         if retry_result is None:
             continue

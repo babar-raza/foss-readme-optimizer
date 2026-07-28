@@ -778,6 +778,40 @@ class TestBasicLoop:
         )
         assert not (bundle / "review" / "independent-agent-review.json").exists()
 
+    def test_bounded_stage_preserves_specialist_exception_before_generic_stage_block(
+        self,
+        project,
+        monkeypatch,
+    ):
+        backend = FakeStateBackend()
+
+        def _raise_readme(domain, org_repo, state_backend, current_revision=None):
+            if domain == "readme_presentation":
+                raise RuntimeError("rust composition exploded")
+            raise AssertionError(f"bounded stage unexpectedly invoked {domain}")
+
+        monkeypatch.setattr(specialists_registry, "run_domain", _raise_readme)
+
+        result = supervise_repo(
+            ORG_REPO,
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+            readme_poc_stage_limit="CANDIDATE_GENERATED",
+        )
+
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason == (
+            "specialist_failed:readme_presentation:ERROR:execution_error:rust composition exploded"
+        )
+        stored = backend.load(ORG_REPO).domain_states["readme_presentation"]
+        envelope = stored.details["last_failure_envelope"]
+        assert stored.consecutive_failure_count == 2
+        assert envelope["error_type"] == "RuntimeError"
+        assert envelope["message"] == "rust composition exploded"
+        assert envelope["stage"] == "CANDIDATE_GENERATED"
+        assert envelope["attempt"] == 2
+
     def test_local_poc_records_snapshot_and_profile_before_later_stages(self, project, monkeypatch):
         backend = FakeStateBackend()
 
