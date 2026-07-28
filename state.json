@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T06:40:51.235811+00:00",
+    "last_evaluated_at": "2026-07-28T06:42:00.723468+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -61,7 +61,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Ground audience and problem statements with citations and make typed render views the only prose-eligible fact interface."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -136,7 +145,7 @@
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
-      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
+      "L8-TRUTH-06-INTERPRETIVE-VIEWS": "REOPENED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -2957,6 +2966,17 @@
         "reason": "Public-example truth gate is closed with independent evidence and no unresolved ecosystem capability gap.",
         "task_id": "L8-TRUTH-05-PUBLIC-EXAMPLES",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [
+          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Go/f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69/facts/findings.json"
+        ],
+        "from_status": "CLOSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T06:42:00.723461+00:00",
+        "reason": "Real Go canonical run exposed blocked problems_solved grounding; the committed permanent repair must be reproduced against the live FACTS_READY boundary",
+        "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
+        "to_status": "REOPENED"
       }
     ]
   },
@@ -2965,7 +2985,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 339,
+  "state_version": 340,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
