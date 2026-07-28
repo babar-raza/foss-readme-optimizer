@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-REVIEW-01A-FINDING-CONTROLS",
+    "claim_expires_at": "2026-07-28T20:24:15.158228+00:00",
+    "claim_id": "5f54ca0e89364ca0bd88020731503d55",
+    "claimed_at": "2026-07-28T19:54:15.158228+00:00",
+    "claimed_by": "Codex",
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T19:53:59.684521+00:00",
+    "last_evaluated_at": "2026-07-28T19:54:15.158228+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -123,7 +123,7 @@
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-REVIEW-00-CONTEXT-CORPUS": "CLOSED",
       "L8-REVIEW-01-FREEZE-ROLES": "CLOSED",
-      "L8-REVIEW-01A-FINDING-CONTROLS": "TODO",
+      "L8-REVIEW-01A-FINDING-CONTROLS": "IN_PROGRESS",
       "L8-REVIEW-02-FINDING-GROUNDING": "TODO",
       "L8-REVIEW-02A-REPAIR-CONTROLS": "TODO",
       "L8-REVIEW-03-EFFECTIVE-REPAIR": "TODO",
@@ -4305,6 +4305,15 @@
         "reason": "Governed contribution evidence matches the task, acceptance check, current scoreboard, and reproducible runtime proof.",
         "task_id": "L8-REVIEW-01-FREEZE-ROLES",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T19:54:15.158338+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-REVIEW-01A-FINDING-CONTROLS",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -4313,7 +4322,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 491,
+  "state_version": 492,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
