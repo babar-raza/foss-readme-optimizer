@@ -5681,18 +5681,11 @@
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": "943b7b8a3dda01eecc7eba332921cb2da4818f84c8ed332023837b3c931f84c0",
-    "candidate_hash": "227f1468215d349ce4345589dc3df6729e19e2bc9138c5fabcd3d612dfe626be",
+    "assessment_hash": null,
+    "candidate_hash": null,
     "details": {},
-    "fact_acceptance_component_hashes": {
-      "classification_semantics": "f35f7e197c8861491ad33247632e783b7d65ae7581867c10ab64bc7d4f7fcd90",
-      "conflict_semantics": "a27bac54aac9881e5be4dfaf5121e27fffd3fbd4eb8a36ab167a5709fd9c8403",
-      "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
-      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
-      "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
-      "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
-    },
-    "fact_acceptance_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -5730,7 +5723,7 @@
         "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8"
       }
     ],
-    "facts_hash": "a2030120a0d0a9ca575c75572da210189ab2b375eaa08f23d0e02497ebf425d2",
+    "facts_hash": null,
     "history": [
       {
         "evidence_refs": [
@@ -6862,20 +6855,31 @@
         "reason": "unchanged approved candidate reused without another bundle or agentic review",
         "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\71c9cc8a581786bfd0af7b4aa553407eba3ddea3\\source\\revision.json"
+        ],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-07-28T18:56:15.124481+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "71c9cc8a581786bfd0af7b4aa553407eba3ddea3",
+        "to_status": "SNAPSHOTTED"
       }
     ],
-    "presentation_plan_hash": "4a4b9c1ac529adcb24e07536e0c7f49b6b05f3bbbb59ad31986394754bec2208",
+    "presentation_plan_hash": null,
     "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "reviewer_standard_hash": "128c0fa2fb510ce79c9af78b9e2c2580eaef42ba0373fefbf227f9fabfdf9abc",
+    "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": "8de5f467e93138b3605acdc46ca40e93f0364ee8",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-07-26T10:22:54.146258+00:00"
+    "source_revision": "71c9cc8a581786bfd0af7b4aa553407eba3ddea3",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-07-28T18:56:15.124481+00:00"
   },
   "schema_version": 2,
-  "state_version": 704,
+  "state_version": 705,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ab98c6daf5199c8227b6f4209180d0e318786a76daa8d9896870d222671501b2",
