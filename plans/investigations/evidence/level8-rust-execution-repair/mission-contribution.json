@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR",
+  "goal_ids": [
+    "GOAL-README",
+    "GOAL-AUTONOMY"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Make the repeated Rust candidate failure observable and close its deterministic candidate boundary without weakening validation."
+  },
+  "acceptance_checks_passed": [
+    "A controlled specialist exception retains type, message, domain, stage, attempt, and evidence reference",
+    "Identical Rust input reaches DETERMINISTIC_VALIDATED without another blind paid retry",
+    "Python, .NET, Java, C++, and TypeScript accepted receipts remain reusable and unchanged"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-rust-execution-repair/verification.json",
+    "plans/investigations/evidence/level8-rust-execution-repair/sha256sums.txt"
+  ],
+  "scoreboard_before_sha256": "648ddf32de9ae3ee0a04fc8a28a9b0cd1a045f4bcec7ab4260c8963a11a147bd",
+  "scoreboard_after_sha256": "4897589e94413cd2a1e9bfdf727c4e7889065d36a779b1896d6db3daa59b43b2",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

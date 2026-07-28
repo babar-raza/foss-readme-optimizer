@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR",
+  "control_head": "229393aeba29cfc3bfdd73e8158cb68fa14ae26f",
+  "branch": "main",
+  "root_cause": "Repeated specialist errors were reduced to execution_error in durable state and then replaced by a generic stage-not-reached terminal, making transient provider or composition failures unactionable.",
+  "repair": [
+    "Persist a redacted structured failure envelope while retaining the last good accepted baseline.",
+    "Persist caught README specialist invocation failures immediately at bounded-stage exits.",
+    "Give specialist failure status precedence over generic stage-not-reached classification."
+  ],
+  "focused_proof": {
+    "command": ".venv/Scripts/python -m pytest -q tests/unit/test_domain_state.py tests/unit/test_supervisor_loop.py::TestBasicLoop::test_bounded_stage_preserves_specialist_exception_before_generic_stage_block tests/unit/test_supervisor_loop.py::TestBasicLoop::test_candidate_stage_limits_stop_before_agent_review tests/security/test_no_secrets_in_evidence.py",
+    "result": "45 passed in 27.36s",
+    "exit_code": 0
+  },
+  "live_rust_proof": {
+    "command": ".venv/Scripts/readme-agent supervise --registry runs/level8-seven-candidate-registry.json --execution-profile local_poc --max-readme-poc-stage DETERMINISTIC_VALIDATED",
+    "member_status": "STAGE_COMPLETE",
+    "portfolio_prefix": "6/7",
+    "provider_calls": 3,
+    "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+    "candidate_receipt_work_id": "53cce7ba36994575b1f2aaed94f83c9f080d05db66b62fc833aa872120688940",
+    "deterministic_receipt_work_id": "9200551695cdb8547af4c5d73783437d352ecfa9769daaa5a5ddaab62a744899",
+    "deterministic_output_hash": "0beb694d77bae435f98459ae757239d5384cf9e96ff51440e73df870588a7e75"
+  },
+  "remote_writes": 0
+}
