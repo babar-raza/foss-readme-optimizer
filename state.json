@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
-    "claim_expires_at": "2026-07-28T11:26:33.255216+00:00",
-    "claim_id": "fd3bbe38555640e0b0901aae50333bdc",
-    "claimed_at": "2026-07-28T10:56:33.255216+00:00",
-    "claimed_by": "Codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f",
-    "last_evaluated_at": "2026-07-28T10:56:33.255216+00:00",
+    "last_evaluated_at": "2026-07-28T11:08:58.439565+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -60,16 +60,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "visible_deliverable",
-        "summary": "Capture advisory-decision, competing-example, stale-span, and reconstruction failures before tightening operation coverage."
-      },
-      "goal_ids": [
-        "GOAL-README"
-      ],
-      "task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
@@ -78,7 +69,7 @@
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "CLOSED",
       "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "CLOSED",
       "L8-COMPOSE-02-EXISTING-SECTIONS": "CLOSED",
-      "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "IN_PROGRESS",
+      "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "IMPLEMENTED",
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "TODO",
       "L8-COMPOSE-03-OPERATION-COVERAGE": "TODO",
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "TODO",
@@ -3519,6 +3510,18 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-readme-operation-regressions/verification.json",
+          "plans/investigations/evidence/level8-readme-operation-regressions/operation-negative-controls.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T11:08:58.439560+00:00",
+        "reason": "Operation negative controls and fail-closed coverage are implemented and committed.",
+        "task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -3527,7 +3530,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 413,
+  "state_version": 414,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
