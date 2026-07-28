@@ -156,16 +156,16 @@ qualification-freeze task closes is a process violation and its output is diagno
 ### 2026-07-28 outcome-first convergence protocol
 
 The current visitor contract (`L8-020`, `L8-021`, `L8-023`, `L8-024`, and `L8-026`) is frozen
-until one Java, .NET, Python, TypeScript, C++, Go, and Rust README is independently approved and
+until one Python, .NET, Java, C++, TypeScript, Rust, and Go README is independently approved and
 unchanged-no-op-proven. A factual or safety defect reopens its first owner; a non-safety
 presentation preference is logged to backlog instead of changing the campaign.
 
 The existing 3D Java candidate is the first negative control. The deterministic contract must
 reject its visible marker/comment, absent factual badge header, absent fact-backed Mermaid
 overview, incomplete inherited-claim accountability, outdated link treatment, and obsolete
-edition terminology before regeneration. Passing that negative control is followed by one
-corrected 3D Java output, then the remaining six representatives, then full-registry truth and
-candidate fan-out.
+edition terminology before regeneration. Passing that negative control is followed by corrected
+representative outputs in the binding platform order—Python, .NET, Java, C++, TypeScript, Rust,
+Go—then full-registry truth and candidate fan-out.
 
 Ecosystem evidence comes first from official consumer/build tools inside the isolated executor:
 
@@ -200,7 +200,7 @@ to three horizons and may not substitute one horizon's machinery for another hor
 
 | Horizon | Governed goals | Required outcome | Target control |
 | --- | --- | --- | --- |
-| Short | `GOAL-TRUTH`, `GOAL-README` | Missing Go facts; one latest-contract 3D Java README; seven ecosystem representatives at `NO_OP_PROVEN` | 1–2 working days for the first README; 3–5 for seven |
+| Short | `GOAL-TRUTH`, `GOAL-README` | Close the already-claimed cross-platform truth gate; one latest-contract Python README; seven ecosystem representatives at `NO_OP_PROVEN` in binding platform order | 1–2 working days for the first README; 3–5 for seven |
 | Medium | `GOAL-PROFILE`, `GOAL-DELIVERY` | Full-registry Gate A; Gate B; `act`; staging; Gate C; hosted runtime; Level 5 | 7–12 working days for Gate A; 3–5 weeks for Level 5 |
 | Long | `GOAL-MATURITY` | Level-8-grade hosted operation, Level 7 at day 30, Level 8 at day 90 | one uninterrupted day-1-to-day-90 series |
 
@@ -209,6 +209,26 @@ indispensable safety/reliability condition. A time target is never a waiver. Whe
 breached, the agent records the first failing boundary, stops unrelated abstraction and evidence
 churn, selects the smallest permanent repair, verifies it, and continues through the same graph.
 It does not create another plan/controller or close from a report.
+
+The binding platform priority is:
+
+1. Python
+2. .NET
+3. Java
+4. C++
+5. TypeScript
+6. Rust
+7. Go
+
+This is the tie-break and cohort order whenever more than one platform-scoped task or repository
+is dependency-ready. `data/platform_priorities.json` is the fail-closed machine-readable source
+used by canonical portfolio execution. It does not override a prerequisite, abandon an already valid claim, weaken
+a safety gate, or serialize independent work behind a narrow external block. The current
+cross-platform facts task therefore closes its remaining Go dependency; the first new
+platform-scoped README output after that is Python. If a higher-priority platform is externally
+blocked, retain its visible blocked state, advance temporarily, and return to it as soon as the
+block clears. Ecosystem enumerations elsewhere are coverage sets unless explicitly labeled an
+order.
 
 The portfolio is executed as 12 family evidence sets, 7 ecosystem evidence sets, and 31 mandatory
 repository deltas:
@@ -626,9 +646,9 @@ they are dependency-interleaved children of the same aggregate tasks listed belo
 | `L8-TRUTH-02D-RUST-API-TRUTH` | Adapt Cargo identity, visibility, modules/re-exports, impls, fields/variants, snippets, and formats from the three committed Rust slices. | real Cells Rust plus restricted-visibility/path/re-export/trait/format/acquisition/example controls. | TRUTH-03A |
 | `L8-TRUTH-03-CLAIM-POLARITY` | Require positive evidence for capabilities and explicit directional evidence for limitations; shared vocabulary is insufficient. | false limitation controls and real .NET limitation evidence. | TRUTH-02B + TRUTH-02C + TRUTH-02D |
 | `L8-TRUTH-04-ACQUISITION` | Verify registry coordinates or an exact source-build path without converting unpublished packages into global blocks. | known-false Cells Maven, NuGet, Go, Rust, C++, and isolated source-build controls. | TRUTH-03 |
-| `L8-TRUTH-05-PUBLIC-EXAMPLES` | Prove imports/namespaces/public symbols and compile or execute comment-free visitor examples in the same isolated executor in every supported ecosystem. Evidence anchors remain source-grounding inputs; each consumer verifier derives the actual imported package symbols from the code instead of conflating those roles. | one real Java, .NET, Python, TypeScript, C++, Go, and Rust example; source/documentation-comment and comment-like-string controls; filesystem/network/process escape negatives. | TRUTH-04 |
+| `L8-TRUTH-05-PUBLIC-EXAMPLES` | Prove imports/namespaces/public symbols and compile or execute comment-free visitor examples in the same isolated executor in every supported ecosystem. Evidence anchors remain source-grounding inputs; each consumer verifier derives the actual imported package symbols from the code instead of conflating those roles. | one real Python, .NET, Java, C++, TypeScript, Rust, and Go example in configured priority; source/documentation-comment and comment-like-string controls; filesystem/network/process escape negatives. | TRUTH-04 |
 | `L8-TRUTH-06-INTERPRETIVE-VIEWS` | Ground audience/problem facts and expose only typed visitor-facing render views; reject slugs, enum tokens, manifest keys, and fragments. | Java raw-token, TypeScript sentence, and product-identity controls. | TRUTH-05 |
-| `L8-TRUTH-07-SEVEN-ECOSYSTEMS` | Run the same stage-limited runtime to `FACTS_READY` for one real representative per supported ecosystem, completing Go and reusing unchanged valid stages. Native-tool commands and raw-output hashes are part of every bundle. | seven checksum-valid fact bundles with reproduction commands; zero later-stage or unnecessary LLM calls. | TRUTH-06 |
+| `L8-TRUTH-07-SEVEN-ECOSYSTEMS` | Run the same stage-limited runtime to `FACTS_READY` for one real representative per supported ecosystem in Python, .NET, Java, C++, TypeScript, Rust, Go priority, completing the sole remaining Go boundary without repeating valid stages. Native-tool commands and raw-output hashes are part of every bundle. | seven checksum-valid fact bundles with reproduction commands and recorded configured order; zero later-stage or unnecessary LLM calls. | TRUTH-06 |
 
 #### Assessment/composition boundary (`L8-LOCAL-README-ASSESSMENT-COMPOSITION`)
 
@@ -658,7 +678,7 @@ they are dependency-interleaved children of the same aggregate tasks listed belo
 | ID | Complete behavior | Focused proof | Depends on |
 | --- | --- | --- | --- |
 | `L8-QUAL-01-CAMPAIGN-IDENTITY` | Bind HEAD, registry, revisions, dependencies, prompts, templates, facts, renderer, validators, reviewer, and lifecycle hashes into one immutable campaign. | mutation of each dependency invalidates only its dependent stage. | review aggregate closure |
-| `L8-QUAL-02-SEVEN-E2E` | Run first proposal and unchanged no-op for one real representative per ecosystem under that campaign. | seven `NO_OP_PROVEN` manifests; zero prohibited writes. | QUAL-01 |
+| `L8-QUAL-02-SEVEN-E2E` | Run first proposal and unchanged no-op for one real representative per ecosystem under that campaign in Python, .NET, Java, C++, TypeScript, Rust, Go priority. | seven `NO_OP_PROVEN` manifests with the governed order; zero prohibited writes. | QUAL-01 |
 | `L8-QUAL-03-RECOVERY` | Prove single-writer lease, mission heartbeat, cancellation/resume, duplicate trigger, controlled failure, and descendant cleanup. | fault injection at every local lifecycle boundary. | QUAL-02 |
 | `L8-QUAL-04-GOLDEN-SET` | Run at least 100 governed evaluations in three sessions with 100% deterministic and at least 95% agentic accuracy, zero critical false accepts, and auto-disable regression. | three-session result inventory and route-disable proof. | QUAL-03 |
 | `L8-QUAL-04B-COST-BASELINE` | Measure official-check, per-stage, clone, registry, LLM, and warm/no-op latency and call counts under the accepted representative contract. | reproducible cold/warm distributions and explicit optimization triggers. | QUAL-04A |
@@ -669,7 +689,7 @@ they are dependency-interleaved children of the same aggregate tasks listed belo
 | ID | Complete behavior | Focused proof | Depends on |
 | --- | --- | --- | --- |
 | `L8-TRUTH-08-FULL-REGISTRY` | Run all dynamically loaded registry entries to `FACTS_READY`, isolating narrow essential-fact blocks only after the seven latest-contract lifecycles qualify. | `facts_ready + narrow_external_blocks == len(products)`; zero agent-fixable failures. | qualification aggregate closure |
-| `L8-GATEA-01-COHORTS` | Execute the frozen denominator in bounded, resumable ecosystem/family cohorts with one portfolio-wide writer lease and incremental summary. | interruption between every cohort resumes without duplicate work. | TRUTH-08 |
+| `L8-GATEA-01-COHORTS` | Execute the frozen denominator in bounded, resumable ecosystem/family cohorts with one portfolio-wide writer lease and incremental summary, assigning ready cohorts in Python, .NET, Java, C++, TypeScript, Rust, Go priority. | interruption between every cohort resumes without duplicate work or order drift. | TRUTH-08 |
 | `L8-GATEA-02-HEAL-FAILURES` | Repair every agent-fixable failure at its upstream task, requalify the affected representative, and rerun only invalidated repositories. | no agent-fixable terminal remains; external blocks are exact and narrow. | GATEA-01 |
 | `L8-GATEA-03-NO-OP` | Obtain independent approval and unchanged no-op proof for every eligible current registry entry under the identical frozen campaign. | complete per-repository bundles and zero unnecessary second-run calls/effects. | GATEA-02 |
 | `L8-GATEA-04-REPRODUCE` | Independently reconstruct the portfolio result and checksum inventory from registry plus bundles. | approved equals dynamic denominator; failures, unprocessed, and manifest failures equal zero. | GATEA-03 |
@@ -959,7 +979,8 @@ Execution resumes in this order; it does not start an official 31-repository cam
    catalog-backed link allocation, exact Enterprise Edition terminology, and complete
    inherited/generated claim dispositions. Factor inputs as validated source README plus
    repository-bound family evidence, ecosystem evidence, and repository delta. Regenerate and
-   approve 3D Java against the 1–2-working-day target, then compose the remaining six against the
+   approve representatives in the binding order Python, .NET, Java, C++, TypeScript, Rust, Go,
+   with Python against the 1–2-working-day first-output target and all seven against the
    3–5-working-day target. A breach cannot authorize a new abstraction or reduced gate.
 5. Execute `L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`. Add span/fact-grounded reviewer findings,
    contradicted-review rejection, repair routing, candidate-delta checks, and finding-resolution

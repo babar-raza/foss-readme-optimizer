@@ -76,15 +76,24 @@ The same governed goals also define three execution horizons. This is a mapping 
 goal guard, not another plan or task system:
 
 - **Short term — visible local proof:** `GOAL-TRUTH` and `GOAL-README`. Close the missing Go
-  representative, produce one latest-contract 3D Java README within a target of 1–2 working days,
-  and reach seven current-contract `NO_OP_PROVEN` representatives within a target of 3–5 working
-  days.
+  representative to close the already-claimed cross-platform truth gate, then produce one
+  latest-contract Python README within a target of 1–2 working days and reach seven
+  current-contract `NO_OP_PROVEN` representatives within a target of 3–5 working days.
 - **Medium term — portfolio and Level 5:** `GOAL-PROFILE` and `GOAL-DELIVERY`. Reach full-registry
   Gate A within a target of 7–12 working days, then overlap independent preparation so Gate B,
   `act`, staging, Gate C, hosted operation, and Level 5 complete within a target of 3–5 weeks.
 - **Long term — sustained maturity:** `GOAL-MATURITY`. Begin Level-8-grade evidence collection on
   the first qualifying hosted-production day, award Level 7 after the first 30 clean days, and
   continue the same uninterrupted series to the Level-8 decision at day 90.
+
+Within every horizon, the binding platform priority is **Python → .NET → Java → C++ →
+TypeScript → Rust → Go**. It governs representative work, agent-fixable remediation,
+full-registry cohorts, and rollout whenever two or more platform items are dependency-ready.
+Higher-priority ready platform work is exhausted before lower-priority work. A genuine external
+block is recorded and permits progress to the next platform; an agent-fixable failure does not.
+This ordering never bypasses task dependencies, safety gates, or per-repository proof, and it does
+not invalidate already verified content-addressed stages merely because they were completed in a
+different historical order.
 
 `GOAL-AUTONOMY` is cross-cutting and may consume critical-path time only when it removes a proven
 blocker or establishes a safety/reliability condition required by the active horizon. These
@@ -1897,6 +1906,21 @@ that is the only permanence they carry; text is always the decision as it stands
     This removes an idle additional 30-day wait without shortening the required 90-day proof.
     See `NFR-010`, `NFR-012`, `SCL-001`–`SCL-003`, `L8-010`, `L8-011`, `L8-016`, and `L8-025`.
 
+    The binding platform execution priority is **Python, .NET, Java, C++, TypeScript, Rust, Go**;
+    `data/platform_priorities.json` is its fail-closed machine-readable source. It applies whenever
+    the supervisor or an execution agent chooses among otherwise
+    dependency-ready platform representatives, repairs, qualification cases, Gate-A cohorts, or
+    hosted rollout work. Dependencies, an existing valid claim, safety gates, and failure
+    isolation remain stronger constraints: the current cross-platform task is completed rather
+    than abandoned because its last missing input is lower in the platform order. After that
+    boundary, the next platform-scoped output is Python. A higher-priority platform with a narrow
+    external block remains visibly first but does not idle unrelated eligible work; execution
+    temporarily advances to the next platform and returns immediately when the block clears.
+    Within one platform, family and repository order is deterministic from the frozen campaign;
+    unknown future ecosystems follow the configured set until explicitly prioritized. The order
+    never changes the dynamic denominator or per-repository acceptance. Other ecosystem lists in
+    this plan express coverage sets, not an alternate priority.
+
 ## Architecture
 
 ### Canonical production flow
@@ -2492,11 +2516,13 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         selected APIs inside the disposable executor (`L8-TRUTH-02B`, `L8-030`, evidence commit
         `c514fa7`).
   - [ ] Representative product truth: close the active seven-ecosystem facts campaign, using
-        official/native tool output behind thin isolated adapters and completing the missing Go
+        official/native tool output behind thin isolated adapters and completing the remaining Go
         representative. Reuse unchanged results, accept `FACTS_READY` when every selected material
         README claim is supported or omitted, and do not wait for optional exhaustive research.
-        Do not run the full-registry facts preflight yet. Target: close this boundary within one
-        working day; a breach reroutes to the smallest failing truth owner
+        Do not run the full-registry facts preflight yet. For equally ready work use Python, .NET,
+        Java, C++, TypeScript, Rust, then Go; do not repeat the first six merely because only Go
+        remains in this already-active campaign. Target: close this boundary within one working
+        day; a breach reroutes to the smallest failing truth owner
         (`L8-TRUTH-07-SEVEN-ECOSYSTEMS`, decisions #82–#83).
   - [ ] Frozen presentation contract: make the historical 3D Java candidate fail for its known
         current-contract defects, then implement `L8-020`, `L8-021`, `L8-023`, `L8-024`, and
@@ -2510,7 +2536,8 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         candidate-changing repair, prove no-op caching, and pass the real heterogeneous campaign
         (`L8-REVIEW-*` task group).
   - [ ] Seven-output qualification: bind and freeze one campaign, pass one latest-contract
-        `NO_OP_PROVEN` lifecycle for Java, .NET, Python, TypeScript, C++, Go, and Rust, then pass
+        `NO_OP_PROVEN` lifecycle in platform priority order: Python, .NET, Java, C++, TypeScript,
+        Rust, and Go, then pass
         single-writer/recovery controls and the governed three-session golden set. This is a
         representative qualification milestone, not the POC (`L8-QUAL-*` task group).
   - [ ] Gate A: only after seven-output qualification, run the facts-only full-registry preflight,
@@ -2660,7 +2687,7 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 - [ ] **Local complete-claim gate:** every material generated or preserved README claim has an
       accepted fact, authoritative owner, or explicit uncertainty/correction disposition; a
       partial operation-only claim map cannot support factual approval.
-- [ ] **Native-toolchain truth gate:** Java, .NET, Python, TypeScript, C++, Go, and Rust facts
+- [ ] **Native-toolchain truth gate:** Python, .NET, Java, C++, TypeScript, Rust, and Go facts
       record the isolated official/native command, pinned toolchain identity, raw result hash, and
       normalized output; custom parsing is limited to documented residual facts and cannot
       override contradictory evaluated consumer behavior.
@@ -2668,7 +2695,7 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       for its visible marker/comment, missing factual badge header, missing fact-backed Mermaid
       overview, link-allocation/placement, protected-content-accountability, or Enterprise Edition
       defects before regenerated output can be accepted.
-- [ ] **Local real-output gate:** Java, .NET, Python, TypeScript, C++, Go, and Rust representatives
+- [ ] **Local real-output gate:** Python, .NET, Java, C++, TypeScript, Rust, and Go representatives
       pass fact, latest-contract candidate, deterministic validation, independent review/repair,
       and unchanged no-op boundaries under one campaign with zero critical false accepts. The
       normal path stays within one composition, one independent-review, and one targeted-repair

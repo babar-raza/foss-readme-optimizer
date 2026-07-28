@@ -451,6 +451,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
 
     from readme_agent import paths
     from readme_agent.registry.loader import load_products
+    from readme_agent.registry.priority import order_entries_by_platform_priority
     from readme_agent.state.recovery import recovery_sweep
     from readme_agent.supervisor.portfolio import (
         PortfolioPocSummaryV1,
@@ -494,7 +495,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         }
 
     registry_path = Path(args.registry)
-    entries = load_products(registry_path)
+    entries = order_entries_by_platform_priority(load_products(registry_path))
     # Resolve the one durable backend before the fan-out.  It is deliberately
     # shared by every member so the final summary can be derived from the
     # lifecycle state the canonical runs actually persisted, not their

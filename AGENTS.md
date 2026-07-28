@@ -307,6 +307,18 @@ graph-selected task and its declared contribution. A target breach means record 
 boundary and make the smallest permanent repair; it never authorizes a new plan/controller,
 unrelated abstraction, reduced acceptance, or report-only closure.
 
+Within those goals, the binding platform priority is **Python, .NET, Java, C++, TypeScript, Rust,
+Go**. `data/platform_priorities.json` is the fail-closed machine-readable source, and the canonical
+portfolio runtime must load it rather than inherit registry file order. When multiple
+representative, repair, cohort, review, publication, or rollout items are dependency-ready,
+exhaust the earlier platform before the later one. Preserve valid cached work; do not redo
+completed stages to manufacture historical ordering. If an earlier platform is genuinely blocked
+by unavailable external authority or infrastructure, record that block and continue to the next
+platform. Never skip an earlier platform because its defect is merely difficult or agent-fixable.
+This priority never overrides graph dependencies, an unexpired claim, safety, the dynamic
+denominator, or per-repository proof. Unknown future ecosystems follow the configured platforms
+in stable registry order until the user assigns them a priority.
+
 Portfolio reuse follows `validated source README + applicable family evidence + applicable
 ecosystem evidence + repository-specific delta`. Shared evidence must be content-addressed and
 repository-bound before rendering; coordinates, APIs, examples, limitations, license, workflows,

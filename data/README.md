@@ -43,6 +43,19 @@ side effect of a registry refresh, a bug fix, or "cleaning up" the file. That de
 policy-authoring steps (policy profile file, `ecosystem`, manual review) — see
 [`docs/policy-authoring.md`](../docs/policy-authoring.md).
 
+## `data/platform_priorities.json` — portfolio execution order
+
+This user-owned configuration sets the deterministic order for otherwise ready ecosystem work:
+Python, .NET, Java, C++, TypeScript, Rust, then Go. The stored identifiers are the registry values
+`python`, `net`, `java`, `cpp`, `typescript`, `rust`, and `go`. The loader requires each supported
+ecosystem exactly once and fails closed on missing, duplicate, unknown, or malformed entries.
+
+The canonical `local_poc` portfolio runtime sorts its immutable registry snapshot by this policy
+while preserving `data/products.json` order within one ecosystem. Unknown future ecosystems follow
+the configured set in stable registry order. This is an execution priority, not a scope or safety
+priority: every allow-listed repository remains mandatory, and a valid cached stage is reused
+instead of being repeated merely to restate the order.
+
 ## `data/families.json` — the discovery seed list
 
 Lists every Aspose FOSS family and the GitHub organization that hosts its per-platform repos —
@@ -232,7 +245,7 @@ python scripts/data-refresh/detect_template_clones.py
 | Question | Answer |
 |---|---|
 | Can I operate on this repo? | Only if it's in `data/products.json` with `mode != "disabled"` — check via `registry.loader.is_permitted()`, never by reading the file yourself. |
-| Does `mode: "disabled"` mean I can ignore this entry for research/development? | **No.** `mode` gates write/execution access only. Every entry — all 25, active or `disabled` — has equal precedence for portfolio surveys, fact-gathering, and policy/validator design; a `disabled` entry is not a lower-priority one. Only end-to-end execution is scoped to the three enabled Java pilots (`3d`, `cells`, `pdf`), and only because they're the sole non-`disabled` entries today. See `AGENTS.md`, `plans/master.md` decision #24, and `PIL-011` in `plans/requirements.md`. |
+| Does `mode: "disabled"` mean I can ignore this entry for research/development? | **No.** `mode` gates write access only. Every registry entry remains mandatory. Among otherwise ready work, `data/platform_priorities.json` sets Python -> .NET -> Java -> C++ -> TypeScript -> Rust -> Go execution order; it never changes allow-list scope or acceptance. See `AGENTS.md`, `plans/master.md` decisions #24/#40/#83, and `PIL-011`/`L8-034` in `plans/requirements.md`. |
 | I found a new FOSS repo GitHub added — how does it get tracked? | It doesn't need manual entry: the next `readme-agent supervise` run self-heals it into the registry in-process (added as `disabled`), and the weekly scheduled (or manual) run of `scripts/data-refresh/update_products_registry.py` is the out-of-band safety net. |
 | I want to enable a repo the scan discovered. | Follow [`docs/policy-authoring.md`](../docs/policy-authoring.md) — author a policy profile, then flip `mode` by hand. Never scripted. |
 | A new Aspose FOSS family/org launches. | Add it to `data/families.json` by hand (one line) — that's the only manual step; `products.json` then fills in automatically. |

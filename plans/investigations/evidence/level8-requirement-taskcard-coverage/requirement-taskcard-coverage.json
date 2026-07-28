@@ -4,17 +4,17 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "d5cd6af400d33df277f9b79b3b0b97718076a51e66b9b811d3071243ce29ffed",
+  "source_sha256": "f003bf11b5c2a7255e8f8f08d8acb3a4de362799292b8d44a5b1748465418cb7",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 426,
-  "mandatory_requirement_rows": 400,
+  "total_requirement_rows": 427,
+  "mandatory_requirement_rows": 401,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 26,
-    "open_mandatory": 208,
+    "open_mandatory": 209,
     "preserved_verified": 157
   },
   "taskcard_counts": {
@@ -35,6 +35,7 @@
     "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": 1,
     "L8-TRUTH-02D-RUST-API-TRUTH": 1,
     "L8-TRUTH-03A-ISOLATED-EXECUTOR": 1,
+    "L8-TRUTH-07-SEVEN-ECOSYSTEMS": 1,
     "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": 1,
     "L8-COMPOSE-01C-CONTEXTUAL-LINKING": 4,
     "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": 1,
@@ -3455,6 +3456,14 @@
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-TRUTH-02-ROOT-ROLES",
       "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-034",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     }
   ]

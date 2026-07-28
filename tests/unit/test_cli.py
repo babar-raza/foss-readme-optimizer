@@ -589,7 +589,7 @@ class TestLocalPocPortfolioCommand:
         )
 
         assert supervision_module._cmd_supervise_registry(args) == 0
-        assert calls == ["org/java", "org/python"]
+        assert calls == ["org/python", "org/java"]
         rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
         assert '"status": "FACTS_READY"' in rendered
         assert '"target_lifecycle_stage": "FACTS_READY"' in rendered
