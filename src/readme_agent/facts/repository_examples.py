@@ -9,6 +9,7 @@ from typing import Literal
 
 from markdown_it import MarkdownIt
 
+from readme_agent.facts.example_quality import strip_source_comments
 from readme_agent.inspection.file_inventory import scan
 from readme_agent.registry.models import MinimalExamplePolicy
 
@@ -26,6 +27,12 @@ _LANGUAGE_ALIASES = {
     "rust": {"rs", "rust"},
     "typescript": {"ts", "typescript"},
 }
+_EXAMPLE_DIRECTORY_NAMES = frozenset(
+    {"_examples", "demo", "demos", "example", "examples", "sample", "samples"}
+)
+_UNSUITABLE_VISITOR_EXAMPLE_PARTS = frozenset(
+    {"ai", "auth", "credential", "password", "secret", "token"}
+)
 
 
 def _class_name(source: str, fallback: str) -> str:
@@ -135,3 +142,81 @@ def repository_readme_example_candidates(
             )
         )
     return candidates
+
+
+def _is_repository_example_source(root: Path, path: Path) -> bool:
+    parts = {part.casefold() for part in path.relative_to(root).parts[:-1]}
+    return bool(parts & _EXAMPLE_DIRECTORY_NAMES)
+
+
+def _go_source_example(root: Path, path: Path) -> MinimalExamplePolicy | None:
+    try:
+        module_text = (root / "go.mod").read_text(encoding="utf-8-sig")
+        source = path.read_text(encoding="utf-8-sig", errors="replace")
+    except OSError:
+        return None
+    module_match = re.search(r"(?m)^module\s+(\S+)", module_text)
+    if module_match is None:
+        return None
+    module = module_match.group(1)
+    import_match = re.search(
+        rf'(?m)^\s*(?:import\s+)?(?:(\w+)\s+)?"{re.escape(module)}"\s*$',
+        source,
+    )
+    if import_match is None:
+        return None
+    alias = import_match.group(1) or Path(module).name.replace("-", "_")
+    exported_symbols = sorted(set(re.findall(rf"\b{re.escape(alias)}\.([A-Z]\w*)", source)))
+    code = strip_source_comments("go", source).strip()
+    if (
+        not exported_symbols
+        or not re.search(r"(?m)^\s*package\s+main\s*$", code)
+        or not re.search(r"\bfunc\s+main\s*\(\s*\)", code)
+        or len(code) > _MAX_EXAMPLE_CHARS
+    ):
+        return None
+    relative_path = path.relative_to(root).as_posix()
+    return MinimalExamplePolicy(
+        language="go",
+        class_name="readme_example",
+        code=code + "\n",
+        evidence_paths=[relative_path],
+        required_symbols=[f"{alias}.{name}" for name in exported_symbols],
+    )
+
+
+def repository_source_example_candidates(
+    root: Path,
+    language: ExampleLanguage,
+) -> list[MinimalExamplePolicy]:
+    """Return complete repository-owned source examples as untrusted candidates.
+
+    Source selection is deliberately narrower than README extraction. Only
+    ecosystems with a deterministic complete-program recognizer participate;
+    every returned candidate must still pass evidence anchoring, public-symbol
+    resolution, and the disposable OS-isolated compiler before it is trusted.
+    """
+
+    if language != "go" or not (root / "go.mod").is_file():
+        return []
+    candidates: list[MinimalExamplePolicy] = []
+    for path in root.rglob("*.go"):
+        relative_tokens = {
+            token
+            for part in path.relative_to(root).parts
+            for token in re.split(r"[^a-z0-9]+", part.casefold())
+            if token
+        }
+        if (
+            not path.is_file()
+            or not _is_repository_example_source(root, path)
+            or relative_tokens & _UNSUITABLE_VISITOR_EXAMPLE_PARTS
+        ):
+            continue
+        candidate = _go_source_example(root, path)
+        if candidate is not None:
+            candidates.append(candidate)
+    return sorted(
+        candidates,
+        key=lambda candidate: (len(candidate.code), candidate.evidence_paths[0]),
+    )

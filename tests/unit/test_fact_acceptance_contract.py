@@ -59,6 +59,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "acquisition_truth",
         "classification_semantics",
         "conflict_semantics",
+        "drafting_and_example_selection",
         "fact_schema",
         "fact_eligibility",
         "evidence_polarity",
@@ -69,6 +70,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "fact_schema",
         "fact_eligibility",
         "acquisition_truth",
+        "drafting_and_example_selection",
         "evidence_polarity",
         "root_role_selection",
     )

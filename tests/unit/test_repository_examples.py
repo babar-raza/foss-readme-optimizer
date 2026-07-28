@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import pytest
 
-from readme_agent.facts.repository_examples import repository_readme_example_candidates
+from readme_agent.facts.repository_examples import (
+    repository_readme_example_candidates,
+    repository_source_example_candidates,
+)
 from readme_agent.facts.rust_example_verifier import _resolve_declared_symbols
 
 
@@ -106,3 +109,58 @@ def test_rust_readme_local_names_resolve_only_to_unique_public_symbols():
             ["Workbook"],
             {"one::Workbook", "two::Workbook"},
         )
+
+
+def test_go_source_example_is_complete_comment_free_and_module_bound(tmp_path):
+    (tmp_path / "go.mod").write_text(
+        "module github.com/acme/widget\n\ngo 1.24\n",
+        encoding="utf-8",
+    )
+    examples = tmp_path / "_examples"
+    (examples / "text").mkdir(parents=True)
+    (examples / "text" / "main.go").write_text(
+        """package main
+
+import (
+    "fmt"
+    widget "github.com/acme/widget"
+)
+
+func main() {
+    // Keep source commentary out of visitor-facing examples.
+    item := widget.Open("input.bin")
+    fmt.Println("https://example.test//literal", item)
+}
+""",
+        encoding="utf-8",
+    )
+
+    candidates = repository_source_example_candidates(tmp_path, "go")
+
+    assert len(candidates) == 1
+    assert candidates[0].evidence_paths == ["_examples/text/main.go"]
+    assert candidates[0].required_symbols == ["widget.Open"]
+    assert "source commentary" not in candidates[0].code
+    assert '"https://example.test//literal"' in candidates[0].code
+
+
+def test_go_source_examples_reject_sensitive_and_non_module_consumers(tmp_path):
+    (tmp_path / "go.mod").write_text(
+        "module github.com/acme/widget\n\ngo 1.24\n",
+        encoding="utf-8",
+    )
+    password = tmp_path / "_examples" / "password"
+    unrelated = tmp_path / "_examples" / "unrelated"
+    password.mkdir(parents=True)
+    unrelated.mkdir(parents=True)
+    (password / "main.go").write_text(
+        'package main\nimport widget "github.com/acme/widget"\n'
+        'func main() { widget.Open("secret.bin") }\n',
+        encoding="utf-8",
+    )
+    (unrelated / "main.go").write_text(
+        'package main\nimport "fmt"\nfunc main() { fmt.Println("hello") }\n',
+        encoding="utf-8",
+    )
+
+    assert repository_source_example_candidates(tmp_path, "go") == []

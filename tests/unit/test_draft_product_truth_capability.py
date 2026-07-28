@@ -876,6 +876,63 @@ public class ReadmeExample {}
         assert result.gated_facts["example.minimal"].verification_state == "verified"
         assert all(finding["field"] != "example.minimal" for finding in result.findings)
 
+    def test_repeated_bad_go_draft_uses_verified_repository_source_example(self, tmp_path):
+        root = _make_repo(tmp_path)
+        (root / "go.mod").write_text(
+            "module github.com/acme/widget\n\ngo 1.24\n",
+            encoding="utf-8",
+        )
+        example_dir = root / "_examples" / "quickstart"
+        example_dir.mkdir(parents=True)
+        (example_dir / "main.go").write_text(
+            """package main
+
+import widget "github.com/acme/widget"
+
+func main() {
+    // Repository-maintained explanation is not emitted in README code.
+    widget.Open("input.bin")
+}
+""",
+            encoding="utf-8",
+        )
+        bad = _good_draft().model_copy(
+            update={
+                "minimal_example": MinimalExamplePolicy(
+                    language="go",
+                    class_name="readme_example",
+                    code="package main\nfunc main() { Missing() }\n",
+                    evidence_paths=["missing.go"],
+                    required_symbols=["Missing"],
+                )
+            }
+        )
+
+        def verify(example):
+            if "widget.Open" in example.code and "explanation" not in example.code:
+                return _always_verified_example(example)
+            return LocalProductVerificationV1(
+                org_repo=ORG_REPO,
+                source_revision="abc1234",
+                ecosystem="go",
+                outcome="BUILD_FAILED",
+                detail="example compilation failed",
+            )
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=lambda hints, facts: bad,
+            verify_example_fn=verify,
+        )
+
+        assert result.draft.minimal_example.evidence_paths == ["_examples/quickstart/main.go"]
+        assert "explanation" not in result.draft.minimal_example.code
+        assert result.gated_facts["example.minimal"].verification_state == "verified"
+
 
 class TestGatedFieldsExhaustive:
     def test_all_six_gated_fields_always_present_in_result(self, tmp_path):

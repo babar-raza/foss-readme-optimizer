@@ -562,7 +562,12 @@ def test_changed_fact_input_contract_invalidates_only_the_cached_agent_draft(tmp
 
 @pytest.mark.parametrize(
     "changed_component",
-    ["fact_schema", "fact_eligibility", "evidence_polarity"],
+    [
+        "fact_schema",
+        "fact_eligibility",
+        "drafting_and_example_selection",
+        "evidence_polarity",
+    ],
 )
 def test_changed_fact_graph_contract_recollects_before_reaccepting(
     tmp_path, monkeypatch, changed_component

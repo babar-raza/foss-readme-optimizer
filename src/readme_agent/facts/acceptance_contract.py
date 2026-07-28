@@ -35,6 +35,7 @@ RECOLLECT_ON_COMPONENT_CHANGE = (
     "fact_schema",
     "fact_eligibility",
     "acquisition_truth",
+    "drafting_and_example_selection",
     "evidence_polarity",
     "root_role_selection",
 )
@@ -66,6 +67,12 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
     ),
     "classification_semantics": ("acceptance_contract.py",),
     "conflict_semantics": ("acceptance_contract.py", "resolution.py", "schema_v2.py"),
+    "drafting_and_example_selection": (
+        "../capabilities/draft_product_truth.py",
+        "agentic_drafting.py",
+        "example_quality.py",
+        "repository_examples.py",
+    ),
     "fact_schema": ("schema_v2.py",),
     "fact_eligibility": ("gating.py",),
     "evidence_polarity": (

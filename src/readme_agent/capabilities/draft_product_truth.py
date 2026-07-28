@@ -70,7 +70,10 @@ from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.python_example_normalization import (
     normalize_python_import_inventory,
 )
-from readme_agent.facts.repository_examples import repository_readme_example_candidates
+from readme_agent.facts.repository_examples import (
+    repository_readme_example_candidates,
+    repository_source_example_candidates,
+)
 from readme_agent.facts.resolution import resolve_product_facts
 from readme_agent.facts.rust_example_normalization import normalize_rust_public_consumer
 from readme_agent.facts.schema_v2 import (
@@ -485,11 +488,16 @@ def orchestrate_product_truth_draft(
 
     example_fact = gated.get("example.minimal")
     if example_fact is not None and example_fact.verification_state == "blocked":
-        for repository_example in repository_readme_example_candidates(
+        readme_examples = repository_readme_example_candidates(
             root,
             draft.minimal_example.language,
             supporting_paths=draft.minimal_example.evidence_paths,
-        ):
+        )
+        source_examples = repository_source_example_candidates(
+            root,
+            draft.minimal_example.language,
+        )
+        for repository_example in [*readme_examples, *source_examples]:
             fallback_fact = _gate_minimal_example(
                 repository_example,
                 root,
