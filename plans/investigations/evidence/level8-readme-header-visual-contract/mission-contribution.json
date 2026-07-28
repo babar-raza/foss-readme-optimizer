@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Keep ownership and idempotency metadata in durable evidence while producing marker-free factual README headers, verified badges, and sanitized repository-specific Mermaid overview graphs."
+  },
+  "acceptance_checks_passed": [
+    "No generated README contains HTML comments or agent metadata.",
+    "Every badge has accepted-fact provenance and every diagram node has accepted-fact provenance.",
+    "Legacy marker-wrapped input regenerates to equivalent marker-free content without losing protected facts.",
+    "No false package, build, status, download, documentation, or cross-product badge survives."
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-readme-header-visual-contract/acceptance-manifest.json",
+    "plans/investigations/evidence/level8-readme-header-visual-contract/evidence-verification.json",
+    "plans/investigations/evidence/level8-readme-header-visual-contract/focused-tests.txt",
+    "tests/unit/test_readme_header_visual.py"
+  ],
+  "scoreboard_before_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "scoreboard_after_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
