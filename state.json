@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T19:53:09.723847+00:00",
+    "last_evaluated_at": "2026-07-28T19:53:25.127915+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -113,7 +113,7 @@
       "L8-QUAL-05-FREEZE": "TODO",
       "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
       "L8-REVIEW-00-CONTEXT-CORPUS": "CLOSED",
-      "L8-REVIEW-01-FREEZE-ROLES": "VERIFIED",
+      "L8-REVIEW-01-FREEZE-ROLES": "SCORED",
       "L8-REVIEW-01A-FINDING-CONTROLS": "TODO",
       "L8-REVIEW-02-FINDING-GROUNDING": "TODO",
       "L8-REVIEW-02A-REPAIR-CONTROLS": "TODO",
@@ -4274,6 +4274,17 @@
         "reason": "Prompt, context, identity, transport, dispatcher, lifecycle, portfolio, evidence, and specialist regressions pass.",
         "task_id": "L8-REVIEW-01-FREEZE-ROLES",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-separated-review-runtime"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T19:53:25.127909+00:00",
+        "reason": "The blind role cannot observe producer plan conclusions and either role vetoes acceptance under the deterministic reducer.",
+        "task_id": "L8-REVIEW-01-FREEZE-ROLES",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -4282,7 +4293,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 488,
+  "state_version": 489,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
