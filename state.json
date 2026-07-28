@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T18:44:55.067063+00:00",
+    "last_evaluated_at": "2026-07-28T18:45:16.925461+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 8,
@@ -73,7 +73,7 @@
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "CLOSED",
       "L8-COMPOSE-03-OPERATION-COVERAGE": "CLOSED",
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "CLOSED",
-      "L8-COMPOSE-04-PRESENTATION-LINT": "SCORED",
+      "L8-COMPOSE-04-PRESENTATION-LINT": "CLOSED",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "CLOSED",
       "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "CLOSED",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "REROUTED",
@@ -4039,6 +4039,20 @@
         "reason": "The repair preserves all critical lint detections while eliminating the verified Go false positive.",
         "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/verification.json",
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/mission-contribution.json",
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/sha256sums.txt",
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/go-live-regression.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T18:45:16.925441+00:00",
+        "reason": "All task acceptance checks pass and the seven-ecosystem composition gate is unblocked.",
+        "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -4047,7 +4061,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 466,
+  "state_version": 467,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
