@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
-    "claim_expires_at": "2026-07-28T08:48:45.563732+00:00",
-    "claim_id": "35a8ef715dbf4bb99ee5b53f0fe635ec",
-    "claimed_at": "2026-07-28T08:18:45.563732+00:00",
-    "claimed_by": "Codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "64e88dcfc0206d254c7cb9c5d7b4f1a1f6d1fc8c154af9b7bd15c0fd76afe199",
-    "last_evaluated_at": "2026-07-28T08:57:54.979731+00:00",
+    "last_evaluated_at": "2026-07-28T08:58:29.472558+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -60,22 +60,13 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "visible_deliverable",
-        "summary": "Keep ownership and idempotency metadata in durable evidence while producing marker-free factual README headers, verified badges, and sanitized repository-specific Mermaid overview graphs."
-      },
-      "goal_ids": [
-        "GOAL-README"
-      ],
-      "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
       "L8-COMPOSE-01-DECOMPOSE": "CLOSED",
       "L8-COMPOSE-01A-SECTION-REGRESSIONS": "TODO",
-      "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "IN_PROGRESS",
+      "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "IMPLEMENTED",
       "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "TODO",
       "L8-COMPOSE-02-EXISTING-SECTIONS": "TODO",
       "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "TODO",
@@ -3288,6 +3279,18 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-readme-header-visual-contract/acceptance-manifest.json",
+          "plans/investigations/evidence/level8-readme-header-visual-contract/sha256sums.txt"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T08:58:29.472553+00:00",
+        "reason": "Marker-free factual title, badge, Mermaid, migration, validation, and no-op contracts are implemented on main at f478bd43.",
+        "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -3296,7 +3299,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 387,
+  "state_version": 388,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
