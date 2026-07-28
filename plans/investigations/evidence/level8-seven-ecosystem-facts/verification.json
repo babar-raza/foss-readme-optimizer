@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+  "control_repository": {
+    "head": "465305a1fd6d3026448f7a3cf0e3124670aa7c6d",
+    "branch": "main",
+    "tree_clean_at_start": true,
+    "evidence_machinery": {
+      "plans/investigations/tools/build_seven_ecosystem_fact_evidence.py": "8b4fbcfc31079ffcedb6a6ee23a13af7c79f7da279432aaa851661c1f9da0174",
+      "plans/investigations/tools/seven_ecosystem_fact_evidence_support.py": "46fe643eb314345a6c3f8d2314d2723e66f0f8aa80a0eeec61b82d6ac47237b9"
+    }
+  },
+  "commands": {
+    "canonical_runtime": ".venv/Scripts/readme-agent supervise --registry runs/level8-truth-seven-ecosystems/seven-ecosystem-representatives.json --execution-profile local_poc --max-readme-poc-stage FACTS_READY",
+    "focused": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_registry_priority.py tests/unit/test_fact_acceptance_contract.py tests/unit/test_supervisor_product_truth.py tests/unit/test_portfolio.py tests/unit/test_portfolio_stage_cache.py tests/unit/test_local_poc_evidence.py tests/security/test_example_execution_boundary.py tests/security/test_no_secrets_in_evidence.py",
+      "exit_code": 0
+    },
+    "official": {
+      "command": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe scripts/governance/run_official_checks.py",
+      "exit_code": 0
+    }
+  },
+  "checks": {
+    "configured_order_exact": true,
+    "portfolio_denominator_seven": true,
+    "portfolio_order_exact": true,
+    "execution_slice_complete": true,
+    "all_facts_ready": true,
+    "unchanged_pass_zero_provider_calls": true,
+    "unchanged_pass_seven_cache_reuses": true,
+    "all_representatives_valid": true,
+    "control_tree_clean": true,
+    "focused_tests_pass": true,
+    "official_checks_pass": true,
+    "tree_stable": true
+  },
+  "failures": [],
+  "verdict": "VERIFIED"
+}

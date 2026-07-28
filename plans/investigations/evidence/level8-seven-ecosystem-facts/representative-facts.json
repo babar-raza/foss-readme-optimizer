@@ -1,0 +1,576 @@
+{
+  "schema_version": 1,
+  "configured_order": [
+    "python",
+    "net",
+    "java",
+    "cpp",
+    "typescript",
+    "rust",
+    "go"
+  ],
+  "expected_repositories": [
+    "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+    "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go"
+  ],
+  "portfolio_summary_path": "runs/readme-poc/portfolio-summary.json",
+  "portfolio_summary_sha256": "8b45730dc7946c6bae65190c9ec293be563482e4b895b022f7c008b9e0c23251",
+  "portfolio_generated_at": "2026-07-28T07:21:26.530394+00:00",
+  "llm_provider_call_count": 0,
+  "llm_cache_reuse_count": 7,
+  "representatives": [
+    {
+      "ecosystem": "python",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "bundle_root": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "bundle_manifest_sha256": "3f6147af0b0be0a82005a3ceed2dae4f8afbb89415693ea48c97e22ad72a7451",
+      "product_facts_sha256": "a3ad730c5f49eceb1f806807051c773e3f83c0542b0553156fb43994f62e7e6c",
+      "facts_hash": "5a93562591720caffc43713bd6dea51abfbb070b6af018c850220392eb997d7d",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "selected_fact_ids": {
+        "product.identity": "product.identity:manifest-and-registry",
+        "product.audience": "product.audience:agent-drafted-grounded",
+        "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+        "product.capabilities": "product.capabilities:repository-evidence",
+        "product.formats": "product.formats:repository-evidence",
+        "product.platforms": "product.platforms:manifest",
+        "installation.coordinates": "installation.coordinates:manifest",
+        "installation.verified_acquisition": "installation.verified_acquisition:blocked-source-build",
+        "example.minimal": "example.minimal:agent-drafted-example",
+        "documentation.links": "documentation.links:primary",
+        "release.state": "release.state:manifest-and-registry",
+        "product.limitations": "product.limitations:repository-evidence",
+        "product.compatibility": "product.compatibility:missing",
+        "product.license": "product.license:license-file",
+        "support.routes": "support.routes:primary",
+        "relationship.commercial_foss": "relationship.commercial_foss:primary"
+      },
+      "acquisition": {
+        "fact_id": "installation.verified_acquisition:blocked-source-build",
+        "method": "source_build",
+        "outcome": "SOURCE_BUILD_VERIFIED"
+      },
+      "example": {
+        "fact_id": "example.minimal:agent-drafted-example",
+        "language": "python",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED"
+      },
+      "native_tool": {
+        "evidence_path": "plans/investigations/evidence/level8-public-examples/python-verification.json",
+        "evidence_sha256": "64550bcdad96e27cb481c36cf9a7dd583490bcc54dab8c99e2e7172e6029a754",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "source_revision_matches": true,
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "truth_eligible": true,
+        "command": [
+          "python",
+          "-I",
+          ".readme-agent-consumer-driver.py"
+        ],
+        "immutable_image": "python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
+        "network_mode": "none",
+        "input_sha256": "0979e69ff909b25a81f0bd6c911e4f4182d9cefc3bb346a7ca1b80e0c7a1f2fc",
+        "stdout_sha256": "d27bcfa114782107c0c8a0d9f8fecdcfe18011746b4f632cbf1741dc3f859d64",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "dependency_pins": [
+          "python_package_source_sha256=224ee6634ed03f7cd55c8d53f7b89e787e6be3c90a61f8f91cec8e2eb58bdbcb"
+        ],
+        "cleanup_complete": true
+      },
+      "checks": {
+        "repository_identity_matches": true,
+        "source_revision_addressed": true,
+        "manifest_facts_hash_matches": true,
+        "current_acceptance_contract": true,
+        "current_classification_facts_ready": true,
+        "stage_boundary_exact": true,
+        "acquisition_verified": true,
+        "example_verified": true,
+        "native_tool_truth_eligible": true,
+        "network_denied": true
+      }
+    },
+    {
+      "ecosystem": "net",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "bundle_root": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "bundle_manifest_sha256": "4796dca36cce274b98b505fa644c30aa8053fa0a186c682682ab5fdb2ed16107",
+      "product_facts_sha256": "faef2bdb1a1625cfac4a83c0818c47e3a51b57f646f85bba2923f5d969c19a02",
+      "facts_hash": "189629624f3649158fb75da4e60e03a2ddb9e84617f81b0f5432e344358fd43f",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "selected_fact_ids": {
+        "product.identity": "product.identity:manifest-and-registry",
+        "product.audience": "product.audience:agent-drafted-grounded",
+        "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+        "product.capabilities": "product.capabilities:repository-evidence",
+        "product.formats": "product.formats:repository-evidence",
+        "product.platforms": "product.platforms:manifest",
+        "installation.coordinates": "installation.coordinates:manifest",
+        "installation.verified_acquisition": "installation.verified_acquisition:registry-nuget",
+        "example.minimal": "example.minimal:agent-drafted-example",
+        "documentation.links": "documentation.links:primary",
+        "release.state": "release.state:manifest-and-registry",
+        "product.limitations": "product.limitations:repository-evidence",
+        "product.compatibility": "product.compatibility:manifest",
+        "product.license": "product.license:license-file",
+        "support.routes": "support.routes:primary",
+        "relationship.commercial_foss": "relationship.commercial_foss:primary"
+      },
+      "acquisition": {
+        "fact_id": "installation.verified_acquisition:registry-nuget",
+        "method": "nuget",
+        "outcome": "REGISTRY_VERIFIED"
+      },
+      "example": {
+        "fact_id": "example.minimal:agent-drafted-example",
+        "language": "dotnet",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED"
+      },
+      "native_tool": {
+        "evidence_path": "plans/investigations/evidence/level8-public-examples/dotnet-verification.json",
+        "evidence_sha256": "620d6fbaaa756241efbebae8a56b72ba1502fd8d0b573dd266cf5c39a9bab5cb",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "source_revision_matches": true,
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "truth_eligible": true,
+        "command": [
+          "/bin/sh",
+          "-euc",
+          "dotnet --version; dotnet build .readme-agent/ReadmeAgentExample.csproj --nologo --configuration Release -p:TargetFramework=net8.0 -p:TargetFrameworks=net8.0 -p:RestoreConfigFile=/workspace/.readme-agent/NuGet.Config"
+        ],
+        "immutable_image": "mcr.microsoft.com/dotnet/sdk@sha256:3c0edbfe1549dd93fb789dc96299a40df865ad7bffefcaf38e8c05940686d641",
+        "network_mode": "none",
+        "input_sha256": "831f89848996fda8e22d90f67ce2418047b6236f13fdb21678c62d36bbd1d07c",
+        "stdout_sha256": "488a0cd53eb495208b324fdda90569d075980aa743549e841306aca623c21f7e",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "dependency_pins": [
+          "container_image=mcr.microsoft.com/dotnet/sdk@sha256:3c0edbfe1549dd93fb789dc96299a40df865ad7bffefcaf38e8c05940686d641",
+          "example_sha256=9e66db07ed53c3853b0d50ca1e7b3296e8d24a8e03f2ec8adb48f7c7ee2dadf8",
+          "input_sha256=831f89848996fda8e22d90f67ce2418047b6236f13fdb21678c62d36bbd1d07c",
+          "source_revision=6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+          "source_surface_sha256=5096fe61e36c83f3269e7dce320ca4c4fd1c4ba5aefc6b459a146cb0a20d4f5d",
+          "dotnet_sdk=8.0.423",
+          "dotnet_target_framework=net8.0"
+        ],
+        "cleanup_complete": true
+      },
+      "checks": {
+        "repository_identity_matches": true,
+        "source_revision_addressed": true,
+        "manifest_facts_hash_matches": true,
+        "current_acceptance_contract": true,
+        "current_classification_facts_ready": true,
+        "stage_boundary_exact": true,
+        "acquisition_verified": true,
+        "example_verified": true,
+        "native_tool_truth_eligible": true,
+        "network_denied": true
+      }
+    },
+    {
+      "ecosystem": "java",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "bundle_root": "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "bundle_manifest_sha256": "96a52ab175d05a776ac6b0e120c6994c8cc73e1f6aa737a5ab5e6574619e1308",
+      "product_facts_sha256": "5b665e0709d8e6db8be95f33ac36666cd2dacd39b8bac10f2b3aee0423a13ecc",
+      "facts_hash": "8eca54c77cf369724d7705ba23a0593d9e5539e2ce6963097aa2a65f53a12525",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "selected_fact_ids": {
+        "product.identity": "product.identity:manifest-and-registry",
+        "product.audience": "product.audience:agent-drafted-grounded",
+        "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+        "product.capabilities": "product.capabilities:repository-evidence",
+        "product.formats": "product.formats:repository-evidence",
+        "product.platforms": "product.platforms:manifest",
+        "installation.coordinates": "installation.coordinates:manifest",
+        "installation.verified_acquisition": "installation.verified_acquisition:registry-maven_central",
+        "example.minimal": "example.minimal:agent-drafted-example",
+        "documentation.links": "documentation.links:primary",
+        "release.state": "release.state:manifest-and-registry",
+        "product.limitations": "product.limitations:repository-evidence",
+        "product.compatibility": "product.compatibility:manifest",
+        "product.license": "product.license:license-file",
+        "support.routes": "support.routes:primary",
+        "relationship.commercial_foss": "relationship.commercial_foss:primary"
+      },
+      "acquisition": {
+        "fact_id": "installation.verified_acquisition:registry-maven_central",
+        "method": "maven_central",
+        "outcome": "REGISTRY_VERIFIED"
+      },
+      "example": {
+        "fact_id": "example.minimal:agent-drafted-example",
+        "language": "java",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED"
+      },
+      "native_tool": {
+        "evidence_path": "plans/investigations/evidence/level8-public-examples/java-verification.json",
+        "evidence_sha256": "c435a413cc64fd4e5beaa45ea9a0b07ef6a425196d67e23ea41f18277961450a",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "source_revision_matches": true,
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "truth_eligible": true,
+        "command": [
+          "/bin/sh",
+          "-euc",
+          "javac -version; find src/main/java -type f -name '*.java' -print | sort > /tmp/java-sources.txt; test -s /tmp/java-sources.txt; javac --release 17 -d /tmp/classes @/tmp/java-sources.txt; javac --release 17 -cp /tmp/classes -d /tmp/example .readme-agent/Main.java"
+        ],
+        "immutable_image": "eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+        "network_mode": "none",
+        "input_sha256": "b90fb2c91b33ad6aef3cefc153d34b4e47a1b8592f9c843c81bb3f00addd4f44",
+        "stdout_sha256": "3c36679af9bdd7b84cab0e6b33f833b83ab3dd3f8a67252813ba3924c1c27dea",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "dependency_pins": [
+          "container_image=eclipse-temurin@sha256:da9d3a4f7650db39b918fc5a2c3da76556fb8cc8e5f3767cdea0bb409286951a",
+          "example_sha256=620bfee6045fd9404fa7bcbbecef83ff58e9286e3c93007245757d068ea51ec8",
+          "input_sha256=b90fb2c91b33ad6aef3cefc153d34b4e47a1b8592f9c843c81bb3f00addd4f44",
+          "source_revision=2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "source_surface_sha256=cd0c455bfebea9948739b88271804c82634341b9edefc13a4f8248136cef42ad",
+          "java_release=17"
+        ],
+        "cleanup_complete": true
+      },
+      "checks": {
+        "repository_identity_matches": true,
+        "source_revision_addressed": true,
+        "manifest_facts_hash_matches": true,
+        "current_acceptance_contract": true,
+        "current_classification_facts_ready": true,
+        "stage_boundary_exact": true,
+        "acquisition_verified": true,
+        "example_verified": true,
+        "native_tool_truth_eligible": true,
+        "network_denied": true
+      }
+    },
+    {
+      "ecosystem": "cpp",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "bundle_root": "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "bundle_manifest_sha256": "8b2f67222effbea198a986e97d82d641aa4ca63db0892ebcd470d131923dca8a",
+      "product_facts_sha256": "23e314fb0bea98c38537a23969ae09cafb342fc3499fca97a1c890205ac998de",
+      "facts_hash": "645a852f41606d8d8b0bf478c76146729395d393d282f7570ea22f9af317b13f",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "selected_fact_ids": {
+        "product.identity": "product.identity:manifest-and-registry",
+        "product.audience": "product.audience:agent-drafted-grounded",
+        "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+        "product.capabilities": "product.capabilities:repository-evidence",
+        "product.formats": "product.formats:repository-evidence",
+        "product.platforms": "product.platforms:manifest",
+        "installation.coordinates": "installation.coordinates:manifest",
+        "installation.verified_acquisition": "installation.verified_acquisition:registry-nuget",
+        "example.minimal": "example.minimal:agent-drafted-example",
+        "documentation.links": "documentation.links:primary",
+        "release.state": "release.state:manifest-and-registry",
+        "product.limitations": "product.limitations:repository-evidence",
+        "product.compatibility": "product.compatibility:manifest",
+        "product.license": "product.license:license-file",
+        "support.routes": "support.routes:primary",
+        "relationship.commercial_foss": "relationship.commercial_foss:primary"
+      },
+      "acquisition": {
+        "fact_id": "installation.verified_acquisition:registry-nuget",
+        "method": "nuget",
+        "outcome": "REGISTRY_VERIFIED"
+      },
+      "example": {
+        "fact_id": "example.minimal:agent-drafted-example",
+        "language": "cpp",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED"
+      },
+      "native_tool": {
+        "evidence_path": "plans/investigations/evidence/level8-public-examples/cpp-verification.json",
+        "evidence_sha256": "782c65bbc1b490dbea473266b081b90f506e35422dfcc61f0b1b312fb68fda60",
+        "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+        "source_revision_matches": true,
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "truth_eligible": true,
+        "command": [
+          "/bin/sh",
+          "-euc",
+          "g++ --version | head -n 1; g++ -std=c++17 -fsyntax-only -I Aspose.Cells.Foss.Cpp/include .readme-agent/example.cpp"
+        ],
+        "immutable_image": "gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+        "network_mode": "none",
+        "input_sha256": "eeb4dc2527a755acdc45fa48a389d489905fd48de9283d56bad85a19eefa409e",
+        "stdout_sha256": "b8bf8816fab8901b482d718d31d752f67912515a964d0fcda8142828ff3977cf",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "dependency_pins": [
+          "container_image=gcc@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15",
+          "example_sha256=7cf86708acb74a94667ac8505a1702f1da818cf17400f406fdbff673449c5d9e",
+          "input_sha256=eeb4dc2527a755acdc45fa48a389d489905fd48de9283d56bad85a19eefa409e",
+          "source_revision=3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+          "source_surface_sha256=770a9c3d040abe6931e75701165a9e2e047254fb84a829a2cadee174981e8040",
+          "cpp_language_standard=17"
+        ],
+        "cleanup_complete": true
+      },
+      "checks": {
+        "repository_identity_matches": true,
+        "source_revision_addressed": true,
+        "manifest_facts_hash_matches": true,
+        "current_acceptance_contract": true,
+        "current_classification_facts_ready": true,
+        "stage_boundary_exact": true,
+        "acquisition_verified": true,
+        "example_verified": true,
+        "native_tool_truth_eligible": true,
+        "network_denied": true
+      }
+    },
+    {
+      "ecosystem": "typescript",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+      "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+      "bundle_root": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript/227894a1120c22b9b6522564e23dc1d14c8fc39a",
+      "bundle_manifest_sha256": "cc99185b94879ede9719a31dd0ec7b238c34df1f3a1ee7daa6792a8da322e9de",
+      "product_facts_sha256": "ce83f0eae749bfefa6a0f0e1a5e462d9388b2a70ab98a7524a060cd5b01a53cc",
+      "facts_hash": "4746acd760411aee7c93e83f2acc03693b1740227e28a3c1f3a00997d0376a33",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "selected_fact_ids": {
+        "product.identity": "product.identity:manifest-and-registry",
+        "product.audience": "product.audience:agent-drafted-grounded",
+        "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+        "product.capabilities": "product.capabilities:repository-evidence",
+        "product.formats": "product.formats:repository-evidence",
+        "product.platforms": "product.platforms:manifest",
+        "installation.coordinates": "installation.coordinates:manifest",
+        "installation.verified_acquisition": "installation.verified_acquisition:blocked-source-build",
+        "example.minimal": "example.minimal:agent-drafted-example",
+        "documentation.links": "documentation.links:primary",
+        "release.state": "release.state:manifest-and-registry",
+        "product.limitations": "product.limitations:repository-evidence",
+        "product.compatibility": "product.compatibility:manifest",
+        "product.license": "product.license:manifest",
+        "support.routes": "support.routes:primary",
+        "relationship.commercial_foss": "relationship.commercial_foss:primary"
+      },
+      "acquisition": {
+        "fact_id": "installation.verified_acquisition:blocked-source-build",
+        "method": "source_build",
+        "outcome": "SOURCE_BUILD_VERIFIED"
+      },
+      "example": {
+        "fact_id": "example.minimal:agent-drafted-example",
+        "language": "typescript",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED"
+      },
+      "native_tool": {
+        "evidence_path": "plans/investigations/evidence/level8-public-examples/typescript-verification.json",
+        "evidence_sha256": "a2568c45b3a781fd1deee8feeab39cffd41df6acc4306b19f1b585605d2e7607",
+        "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+        "source_revision_matches": true,
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "truth_eligible": true,
+        "command": [
+          "node",
+          ".readme-agent-typescript-driver.js"
+        ],
+        "immutable_image": "node@sha256:6c74791e557ce11fc957704f6d4fe134a7bc8d6f5ca4403205b2966bd488f6b3",
+        "network_mode": "none",
+        "input_sha256": "cb4bcd969c84197c186cc7629bf82bccda8ccc14c98f141369a80ff95dd71e98",
+        "stdout_sha256": "7d53d9b2ba131b5f020cdfb23d406afc1e777b9e2f370b23c2256952e26f6ab6",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "dependency_pins": [
+          "typescript_package_source_sha256=531d615defbc876a19816ef6a79f8cb15d6c25f555c1d5490255b1fdab0d0d7b",
+          "typescript_built_artifact_sha256=03d8292362b5ffc2524994476189d37b665e6358d3099fd980b5f5500e5a3744",
+          "typescript_compiler_version=5.8.3",
+          "typescript_toolchain_typescript@5.8.3_sha256=72e75dbeb92c2e6eb9a34cb59d74fab5c2ee6f32a0324a89405f6165d5a08374",
+          "typescript_toolchain_@types/node@22.15.17_sha256=d4f15ddec10551421843fb307521d074614f70d00759e185488aec49e0b6e8f0",
+          "typescript_toolchain_undici-types@6.21.0_sha256=cfa1a9a5e18988850e548f4f6b629c58da32dc32bebb116e58ea301e516fd16d"
+        ],
+        "cleanup_complete": true
+      },
+      "checks": {
+        "repository_identity_matches": true,
+        "source_revision_addressed": true,
+        "manifest_facts_hash_matches": true,
+        "current_acceptance_contract": true,
+        "current_classification_facts_ready": true,
+        "stage_boundary_exact": true,
+        "acquisition_verified": true,
+        "example_verified": true,
+        "native_tool_truth_eligible": true,
+        "network_denied": true
+      }
+    },
+    {
+      "ecosystem": "rust",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+      "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+      "bundle_root": "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Rust/0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+      "bundle_manifest_sha256": "492b5583155c83d769b403e1071d35efa006b11d9c5ee0b3196fda5be9721701",
+      "product_facts_sha256": "f7620ad82ce9ae0592cd85fc610d56a5f30edb1c3f5905d3a53db264819c6009",
+      "facts_hash": "28f97310a17773f5bb6be45b136339ec7d3e31bef7c8819dbc0647095860f761",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "selected_fact_ids": {
+        "product.identity": "product.identity:manifest-and-registry",
+        "product.audience": "product.audience:agent-drafted-grounded",
+        "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+        "product.capabilities": "product.capabilities:repository-evidence",
+        "product.formats": "product.formats:repository-evidence",
+        "product.platforms": "product.platforms:manifest",
+        "installation.coordinates": "installation.coordinates:manifest",
+        "installation.verified_acquisition": "installation.verified_acquisition:blocked-source-build",
+        "example.minimal": "example.minimal:agent-drafted-example",
+        "documentation.links": "documentation.links:primary",
+        "release.state": "release.state:manifest-and-registry",
+        "product.limitations": "product.limitations:repository-evidence",
+        "product.compatibility": "product.compatibility:missing",
+        "product.license": "product.license:license-file",
+        "support.routes": "support.routes:primary",
+        "relationship.commercial_foss": "relationship.commercial_foss:primary"
+      },
+      "acquisition": {
+        "fact_id": "installation.verified_acquisition:blocked-source-build",
+        "method": "source_build",
+        "outcome": "SOURCE_BUILD_VERIFIED"
+      },
+      "example": {
+        "fact_id": "example.minimal:agent-drafted-example",
+        "language": "rust",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED"
+      },
+      "native_tool": {
+        "evidence_path": "plans/investigations/evidence/level8-public-examples/rust-verification.json",
+        "evidence_sha256": "a7b342f2c313e548d519300ba948d5b46ffd2e188bd908585be5245c1fdd4a04",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "source_revision_matches": true,
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "truth_eligible": true,
+        "command": [
+          "cargo",
+          "check",
+          "--locked",
+          "--offline",
+          "--manifest-path",
+          "consumer/Cargo.toml"
+        ],
+        "immutable_image": "rust@sha256:af306cfa71d987911a781c37b59d7d67d934f49684058f96cf72079c3626bfe0",
+        "network_mode": "none",
+        "input_sha256": "9744fe3478d049a899241d2c52313636c5f8cdb903381eff7a093d8c6d8b158a",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "3e4c7e57bf9311540739a9748ab87c61f6801f87052ca8c7df15678e7bc0538a",
+        "dependency_pins": [
+          "rust_package_source_sha256=44839dbe8d71e757fcbace715882bc7f78506cad09631f3dc8ff9daf80816aae",
+          "rust_manifest_sha256=5d70ce838a50c619f4059fe32940579be8829f49bdb394495ed93997a9b0a537",
+          "rust_dependency_snapshot_inventory_sha256=775e8d96f393a828312ca0520039293194792a566176a444de3e87c825119741",
+          "rust_dependency_lockfile_sha256=546e829d38c2b174455c948fa69ba2ba6868cdf3216576d7459ebc2b10a9e444",
+          "rust_dependency_vendor_sha256=afebcf290b2f81d57370f893b41a8c51d740b46af60cadadb609b9ec3f8759da",
+          "rust_dependency_config_sha256=77e9219c27274120197571fd165cbe4121963b5ad3bc0b20b383c86ef0ce6c2b",
+          "rust_dependency_package_count=93"
+        ],
+        "cleanup_complete": true
+      },
+      "checks": {
+        "repository_identity_matches": true,
+        "source_revision_addressed": true,
+        "manifest_facts_hash_matches": true,
+        "current_acceptance_contract": true,
+        "current_classification_facts_ready": true,
+        "stage_boundary_exact": true,
+        "acquisition_verified": true,
+        "example_verified": true,
+        "native_tool_truth_eligible": true,
+        "network_denied": true
+      }
+    },
+    {
+      "ecosystem": "go",
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "bundle_root": "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Go/f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+      "bundle_manifest_sha256": "a5b2430632c509f529169394ebc79b3ede079e2fae48be7eb7d46fa4e2c3c316",
+      "product_facts_sha256": "e833a7200be98d041cfb5e167a30408be6add3b84feb8c0126158e805705a61d",
+      "facts_hash": "f68f579d744784ed3db2c8b3429be4513e841d1d4d5d6bea2021619f36bb48ea",
+      "fact_acceptance_contract_hash": "c1811195a4ed61bb71870cdc80f2bab7a49bec8e3a887fa3c2f2b950c0644cdb",
+      "selected_fact_ids": {
+        "product.identity": "product.identity:manifest-and-registry",
+        "product.audience": "product.audience:agent-drafted-grounded",
+        "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+        "product.capabilities": "product.capabilities:repository-evidence",
+        "product.formats": "product.formats:repository-evidence",
+        "product.platforms": "product.platforms:manifest",
+        "installation.coordinates": "installation.coordinates:manifest",
+        "installation.verified_acquisition": "installation.verified_acquisition:registry-go_proxy",
+        "example.minimal": "example.minimal:agent-drafted-example",
+        "documentation.links": "documentation.links:primary",
+        "release.state": "release.state:manifest-and-registry",
+        "product.limitations": "product.limitations:repository-evidence",
+        "product.compatibility": "product.compatibility:manifest",
+        "product.license": "product.license:license-file",
+        "support.routes": "support.routes:primary",
+        "relationship.commercial_foss": "relationship.commercial_foss:primary"
+      },
+      "acquisition": {
+        "fact_id": "installation.verified_acquisition:registry-go_proxy",
+        "method": "go_proxy",
+        "outcome": "REGISTRY_VERIFIED"
+      },
+      "example": {
+        "fact_id": "example.minimal:agent-drafted-example",
+        "language": "go",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED"
+      },
+      "native_tool": {
+        "evidence_path": "plans/investigations/evidence/level8-public-examples/go-verification.json",
+        "evidence_sha256": "7ed6a2d7fc61644ec07ade47c739afe538a17d288a50989d1cfcb9bef4e138ea",
+        "source_revision": "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+        "source_revision_matches": true,
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "truth_eligible": true,
+        "command": [
+          "/bin/sh",
+          "-euc",
+          "go version; go build -p=1 ./...; go build -p=1 -o /tmp/readme-example ./.readme-agent"
+        ],
+        "immutable_image": "golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+        "network_mode": "none",
+        "input_sha256": "8a63734a89b35645ffda69bf58dfa2061434de665cf31c204d93d292e34dbfc7",
+        "stdout_sha256": "07b0d66d21bcdfdc8456adcb17203f3af8656dc11549da62e6940f99b8d45444",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "dependency_pins": [
+          "container_image=golang@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac",
+          "example_sha256=93c19cfa69086438890e3cad73cf4c8235b65e239a9253de3e7b74b80988cb4b",
+          "input_sha256=8a63734a89b35645ffda69bf58dfa2061434de665cf31c204d93d292e34dbfc7",
+          "source_revision=f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69",
+          "source_surface_sha256=bb9542b9a81630a0a20b80d025db6625781a683595a661ed54b667bc1fc8eeab",
+          "go_module_dependencies=none"
+        ],
+        "cleanup_complete": true
+      },
+      "checks": {
+        "repository_identity_matches": true,
+        "source_revision_addressed": true,
+        "manifest_facts_hash_matches": true,
+        "current_acceptance_contract": true,
+        "current_classification_facts_ready": true,
+        "stage_boundary_exact": true,
+        "acquisition_verified": true,
+        "example_verified": true,
+        "native_tool_truth_eligible": true,
+        "network_denied": true
+      }
+    }
+  ],
+  "checks": {
+    "configured_order_exact": true,
+    "portfolio_denominator_seven": true,
+    "portfolio_order_exact": true,
+    "execution_slice_complete": true,
+    "all_facts_ready": true,
+    "unchanged_pass_zero_provider_calls": true,
+    "unchanged_pass_seven_cache_reuses": true,
+    "all_representatives_valid": true
+  }
+}

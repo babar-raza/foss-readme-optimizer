@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+  "goal_ids": [
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Run the facts-only canonical supervisor for one real Python, .NET, Java, C++, TypeScript, Rust, and Go repository in the user-governed order."
+  },
+  "acceptance_checks_passed": [
+    "Zero agent-fixable fact failures and no later lifecycle stage invoked",
+    "The campaign records Python, .NET, Java, C++, TypeScript, Rust, Go as its configured order while reusing already-valid stages and preserving the full seven-repository denominator",
+    "Every ecosystem records its isolated official/native tool command, pinned toolchain identity, raw output hash, and normalized facts; custom parsing cannot override contradictory consumer behavior",
+    "FACTS_READY requires support or explicit omission for every material claim selected for the README, not optional exhaustive research unrelated to the candidate"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-seven-ecosystem-facts/representative-facts.json",
+    "plans/investigations/evidence/level8-seven-ecosystem-facts/verification.json"
+  ],
+  "scoreboard_before_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "scoreboard_after_sha256": "014d3ee4a063340633ec21dd6be888a068c51e74da2e19576db21ae99de21bb9",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
