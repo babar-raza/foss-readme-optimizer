@@ -86,10 +86,18 @@ def _ref_key(org_repo: str) -> str:
 
 def _is_non_fast_forward(stderr: str) -> bool:
     lowered = stderr.lower()
-    return any(
+    known_marker = any(
         marker in lowered
         for marker in ("non-fast-forward", "fetch first", "stale info", "already exists")
     )
+    # GitHub can reject a stale ref update with the receive-pack wording
+    # ``cannot lock ref ... is at <new> but expected <old>`` instead of the
+    # usual non-fast-forward markers. It is the same CAS outcome: another
+    # state commit won after our read, so the caller must reload and retry.
+    stale_expected_value = (
+        "cannot lock ref" in lowered and " is at " in lowered and " but expected " in lowered
+    )
+    return known_marker or stale_expected_value
 
 
 def _fetch_remote_sha(remote_ref: str) -> str | None:

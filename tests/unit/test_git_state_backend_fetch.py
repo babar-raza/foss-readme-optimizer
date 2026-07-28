@@ -72,6 +72,16 @@ def test_fetch_remote_sha_cleans_ref_when_resolution_fails(monkeypatch):
     assert calls[-1][0:2] == ["update-ref", "-d"]
 
 
+def test_github_cannot_lock_ref_expected_value_is_a_stale_cas():
+    stderr = (
+        "remote: error: cannot lock ref "
+        "'refs/readme-agent-state/org__repo': is at "
+        f"{'a' * 40} but expected {'b' * 40}"
+    )
+
+    assert git_backend._is_non_fast_forward(stderr)
+
+
 def test_load_many_uses_one_bulk_fetch_and_cleans_all_isolated_refs(monkeypatch):
     calls: list[tuple[list[str], str | None]] = []
     first_sha = "a" * 40
