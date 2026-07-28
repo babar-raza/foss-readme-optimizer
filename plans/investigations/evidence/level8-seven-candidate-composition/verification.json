@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES",
+  "control_repository": {
+    "branch": "main",
+    "head": "862910b45dd68a90788978aad5924554567aa45d",
+    "working_tree_clean_before_aggregation": true
+  },
+  "canonical_command": ".venv/Scripts/readme-agent supervise --registry runs/level8-seven-candidate-registry.json --execution-profile local_poc --max-readme-poc-stage DETERMINISTIC_VALIDATED",
+  "canonical_result": {
+    "complete": "7/7",
+    "processed": 7,
+    "system_failed": 0,
+    "agent_approved": "0/7",
+    "provider_calls_on_final_go_repair_run": 5,
+    "sealed_receipts_reused": 6,
+    "portfolio_summary_sha256": "f658bde9bf06cb53d00dcd041f405d742d275541400c557cd97d246c81bda861"
+  },
+  "representatives": [
+    {
+      "platform": "python",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac",
+      "candidate_sha256": "897f60df622fe54040bea42b5bb049c9732abe0ffc5e6f12ce0c7a39fd1543be",
+      "patch_sha256": "f9533dec37bfbfad971688e32d7e22126a3ac4a1fae76bfd5296140474c1753c",
+      "bundle_verified": true
+    },
+    {
+      "platform": "net",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "source_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+      "candidate_sha256": "aa6930c71e86e2f1a69473a77a8a9616bd756249d748ec4559c0e9185ed5b2bd",
+      "patch_sha256": "1d923498fd49b52c48815f12b27b6cf07ba6b71722622981926bc3fdcfd561be",
+      "bundle_verified": true
+    },
+    {
+      "platform": "java",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+      "candidate_sha256": "f57c812ee297af74bb973a46f72e3afcc8dd5d2674b5fef6e5f79e819e6548e4",
+      "patch_sha256": "e46b32fc313188e9e2b3891bee06d72655496cbabda207175debeb6b35d595fb",
+      "bundle_verified": true
+    },
+    {
+      "platform": "cpp",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+      "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+      "source_sha256": "f9a12b0faf6c40980401b89277b3e433d5f5bd2c799b7d04a9354138760051c1",
+      "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+      "patch_sha256": "3ba7fbc79c81568758ac3bf89e0053bf1504c1e646209067453b7aee12f46af4",
+      "bundle_verified": true
+    },
+    {
+      "platform": "typescript",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+      "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a",
+      "source_sha256": "4d1c6ecc2138a7b4398f337fd9f2db650e3bf1f8fc695adf477fab1f79a3c034",
+      "candidate_sha256": "3e2ca1653457f95c8355316fd182b75de4a590edb245be053f7831dbff443034",
+      "patch_sha256": "50681df77d2a07b438f7aef58c83b23fea0d552f19e2946c4ac35ea3c8096e4d",
+      "bundle_verified": true
+    },
+    {
+      "platform": "rust",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+      "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+      "source_sha256": "fd128ea6841db54553b436bfead342ee1f2c6d2855678b6f3d7753986587853f",
+      "candidate_sha256": "f91a30f8a0dc604a2b386809ba6f66548877c90082880ea7d4f80e75043af5f9",
+      "patch_sha256": "4795e2288cf3baf82017dd6469006418868935b7a21722288018ae5c929f94bf",
+      "bundle_verified": true
+    },
+    {
+      "platform": "go",
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
+      "source_sha256": "0ea764d2db72ec88c9c440ee262b033d3d50cf9d7af4b25ee0567acdfba5c358",
+      "candidate_sha256": "074db4a563c6f8059311425e26e180abc9b96ae726e94419a121b64177114249",
+      "patch_sha256": "14750d1dbbf06ca18523ea01dbd2c3b75abbf3ed65d8935151e92d2f1c2f0f8c",
+      "bundle_verified": true
+    }
+  ],
+  "independent_verification": {
+    "all_runtime_inventories_valid": true,
+    "all_proposal_bundles_reconstructed": true,
+    "unique_candidate_hashes": 7,
+    "candidates_distinct": true,
+    "each_candidate_has_own_identity": true,
+    "no_cross_pilot_identity_leak": true,
+    "zero_deterministic_failures": true,
+    "zero_product_remote_writes": true
+  },
+  "verdict": "VERIFIED"
+}

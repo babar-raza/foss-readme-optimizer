@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Run the stage-limited canonical supervisor through deterministic validation for one real representative per supported ecosystem."
+  },
+  "acceptance_checks_passed": [
+    "Every candidate is repository-specific and byte-reconstructable with zero deterministic failures"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-seven-candidate-composition/verification.json",
+    "plans/investigations/evidence/level8-presentation-lint-enforcement/go-live-regression.json",
+    "plans/investigations/evidence/level8-rust-execution-repair/verification.json"
+  ],
+  "scoreboard_before_sha256": "cf6166d203f1dccfe523f268ca833f571f57e808688baf938d5fd406e0b91dbd",
+  "scoreboard_after_sha256": "cf6166d203f1dccfe523f268ca833f571f57e808688baf938d5fd406e0b91dbd",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

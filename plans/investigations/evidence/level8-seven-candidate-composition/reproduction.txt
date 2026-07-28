@@ -1,0 +1,3 @@
+.venv/Scripts/readme-agent supervise --registry runs/level8-seven-candidate-registry.json --execution-profile local_poc --max-readme-poc-stage DETERMINISTIC_VALIDATED
+.venv/Scripts/python -m pytest -q tests/unit/test_readme_presentation_lint.py tests/unit/test_presentation_defect_corpus.py tests/unit/test_build_presentation_plan_capability.py
+.venv/Scripts/python plans/investigations/tools/build_presentation_lint_enforcement_evidence.py
