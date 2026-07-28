@@ -447,7 +447,7 @@
     "updated_at": "2026-07-28T07:19:15.801575+00:00"
   },
   "schema_version": 2,
-  "state_version": 31,
+  "state_version": 32,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260728-005346-aecd:aspose-cells-foss/Aspose.Cells-FOSS-for-Rust": {
@@ -509,12 +509,12 @@
         "workflow_run_id": null
       },
       "failure_classification": null,
-      "failure_detail": null,
+      "failure_detail": "STAGE_COMPLETE",
       "last_checkpoint_id": "f65f29821a257de671def49c790f53295fa98a6e5f478e2e2447fe56c3e1ecb6",
-      "lease_expires_at": "2026-07-28T07:32:12.611569+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-28T07:19:27.622255+00:00"
+      "status": "completed",
+      "updated_at": "2026-07-28T07:19:34.113781+00:00"
     }
   },
   "trigger_records": {},
