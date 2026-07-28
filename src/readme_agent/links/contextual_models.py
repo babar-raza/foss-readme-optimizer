@@ -54,6 +54,7 @@ class ContextualLinkPlanV1(_StrictFrozenModel):
     aspose_com_catalog_hash: str = Field(pattern=r"^sha256:[0-9a-f]{64}$")
     budget: ResolvedLinkBudgetV1
     pre_link_occurrences: AsposeLinkOccurrenceCountsV1
+    pre_link_url_counts: dict[str, int]
     considered_record_ids: list[str]
     bindings: list[ContextualLinkBindingV1]
     omission_reason: ContextualLinkOmissionReason

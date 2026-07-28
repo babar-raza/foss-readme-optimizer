@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-import re
+from collections import Counter
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.links.allocation import ResolvedLinkBudgetV1, resolve_link_budget
 from readme_agent.links.catalog import normalize_target_url, query_linkable_targets
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1, AsposeLinkRecordV2
+from readme_agent.links.contextual_matching import rank_contextual_articles
 from readme_agent.links.contextual_models import (
     ContextualLinkBindingV1,
     ContextualLinkOmissionReason,
@@ -21,35 +22,6 @@ from readme_agent.links.occurrences import (
 from readme_agent.links.terminology import enterprise_product_name_from_facts
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.registry.models import LinkAllocationPolicyV1
-
-_CODE_TERM = re.compile(r"[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*")
-_STOP_TERMS = {
-    "auto",
-    "class",
-    "const",
-    "false",
-    "from",
-    "import",
-    "int",
-    "let",
-    "main",
-    "new",
-    "none",
-    "null",
-    "package",
-    "print",
-    "println",
-    "public",
-    "return",
-    "static",
-    "str",
-    "string",
-    "true",
-    "use",
-    "using",
-    "var",
-    "void",
-}
 
 
 def _accepted(facts: ProductFactsV2, field: str) -> FactRecordV2 | None:
@@ -67,34 +39,6 @@ def _identity_scope(facts: ProductFactsV2) -> tuple[str, str, FactRecordV2]:
     if not family or not platform or identity is None:
         raise ValueError("contextual link selection requires accepted family/platform identity")
     return family, platform, identity
-
-
-def _example_terms(code: str) -> tuple[set[str], set[str]]:
-    all_terms: set[str] = set()
-    strong_terms: set[str] = set()
-    for raw in _CODE_TERM.findall(code):
-        folded = raw.casefold().rstrip(".")
-        parts = [part for part in folded.split(".") if len(part) >= 3]
-        all_terms.update(parts)
-        all_terms.add(folded)
-        if "." in raw or raw[:1].isupper() or "_" in raw:
-            strong_terms.add(folded)
-            strong_terms.update(parts)
-    all_terms.difference_update(_STOP_TERMS)
-    strong_terms.difference_update(_STOP_TERMS)
-    return all_terms, strong_terms
-
-
-def _matched_terms(
-    record: AsposeLinkRecordV2,
-    *,
-    all_terms: set[str],
-    strong_terms: set[str],
-) -> tuple[list[str], list[str]]:
-    subjects = {term.casefold().rstrip(".") for term in record.subject_terms}
-    matched = sorted(subjects & all_terms)
-    strong = sorted(subjects & strong_terms)
-    return matched, strong
 
 
 def _example_section(markdown: str, code: str) -> str | None:
@@ -131,6 +75,7 @@ def _decision(
     catalogs: AsposeLinkCatalogSetV1,
     budget: ResolvedLinkBudgetV1,
     counts: AsposeLinkOccurrenceCountsV1,
+    pre_link_url_counts: dict[str, int],
     considered_record_ids: list[str],
     bindings: list[ContextualLinkBindingV1],
     omission_reason: ContextualLinkOmissionReason,
@@ -143,6 +88,7 @@ def _decision(
         aspose_com_catalog_hash=catalogs.aspose_com.provenance.output_hash,
         budget=budget,
         pre_link_occurrences=counts,
+        pre_link_url_counts=pre_link_url_counts,
         considered_record_ids=considered_record_ids,
         bindings=bindings,
         omission_reason=omission_reason,
@@ -167,6 +113,14 @@ def select_contextual_links(
         verified_code_sha256s=verified_code_sha256s,
     )
     counts = count_aspose_link_occurrences(pre_link_markdown)
+    pre_link_url_counts = dict(
+        sorted(
+            Counter(
+                occurrence.normalized_url
+                for occurrence in find_aspose_link_occurrences(pre_link_markdown)
+            ).items()
+        )
+    )
     example = _accepted(facts, "example.minimal")
     value = example.value if example is not None and isinstance(example.value, dict) else {}
     code = str(value.get("code") or "").strip()
@@ -178,6 +132,7 @@ def select_contextual_links(
             catalogs=catalogs,
             budget=budget,
             counts=counts,
+            pre_link_url_counts=pre_link_url_counts,
             considered_record_ids=[],
             bindings=[],
             omission_reason="no_accepted_example",
@@ -191,6 +146,7 @@ def select_contextual_links(
             catalogs=catalogs,
             budget=budget,
             counts=counts,
+            pre_link_url_counts=pre_link_url_counts,
             considered_record_ids=[],
             bindings=[],
             omission_reason="no_example_section",
@@ -202,33 +158,12 @@ def select_contextual_links(
         surfaces={"docs", "kb", "reference"},
     )
     exact_platform = [record for record in candidates if platform in record.platforms]
-    all_terms, strong_terms = _example_terms(code)
-    ranked: list[tuple[tuple, AsposeLinkRecordV2, list[str]]] = []
-    for record in exact_platform:
-        matched, strong = _matched_terms(
-            record,
-            all_terms=all_terms,
-            strong_terms=strong_terms,
-        )
-        dotted = [term for term in matched if "." in term]
-        if not strong and len(matched) < 2:
-            continue
-        surface_rank = {"docs": 0, "kb": 1, "reference": 2}
-        ranked.append(
-            (
-                (
-                    -len(dotted),
-                    -len(strong),
-                    -len(matched),
-                    surface_rank[record.surface],
-                    len(record.url),
-                    record.record_id,
-                ),
-                record,
-                matched,
-            )
-        )
-    considered = [record.record_id for _, record, _ in sorted(ranked)]
+    ranked = rank_contextual_articles(
+        exact_platform,
+        code=code,
+        example_value=value,
+    )
+    considered = [match.record.record_id for match in ranked]
     if not ranked:
         return _decision(
             family=family,
@@ -237,6 +172,7 @@ def select_contextual_links(
             catalogs=catalogs,
             budget=budget,
             counts=counts,
+            pre_link_url_counts=pre_link_url_counts,
             considered_record_ids=[],
             bindings=[],
             omission_reason="no_strong_context_match",
@@ -244,7 +180,9 @@ def select_contextual_links(
     existing = {
         occurrence.normalized_url for occurrence in find_aspose_link_occurrences(pre_link_markdown)
     }
-    for _, record, matched in sorted(ranked):
+    for match in ranked:
+        record = match.record
+        matched = match.matched_terms
         if normalize_target_url(record.url) in existing:
             continue
         if not _within_budget(record, plan_budget=budget, counts=counts):
@@ -256,6 +194,7 @@ def select_contextual_links(
             catalogs=catalogs,
             budget=budget,
             counts=counts,
+            pre_link_url_counts=pre_link_url_counts,
             considered_record_ids=considered,
             bindings=[
                 ContextualLinkBindingV1(
@@ -281,7 +220,7 @@ def select_contextual_links(
         )
     omission: ContextualLinkOmissionReason = (
         "target_already_present"
-        if all(normalize_target_url(record.url) in existing for _, record, _ in ranked)
+        if all(normalize_target_url(match.record.url) in existing for match in ranked)
         else "budget_exhausted"
     )
     return _decision(
@@ -291,6 +230,7 @@ def select_contextual_links(
         catalogs=catalogs,
         budget=budget,
         counts=counts,
+        pre_link_url_counts=pre_link_url_counts,
         considered_record_ids=considered,
         bindings=[],
         omission_reason=omission,

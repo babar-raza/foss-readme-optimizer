@@ -74,3 +74,17 @@ def apply_document_operations(source: bytes, operations: list[ReadmeDocumentOper
             + rendered[operation.source_byte_end :]
         )
     return rendered
+
+
+def prune_noop_operations(
+    source: bytes,
+    operations: list[ReadmeDocumentOperationV1],
+) -> list[ReadmeDocumentOperationV1]:
+    """Discard operations whose replacement is already the exact immutable source span."""
+
+    return [
+        operation
+        for operation in operations
+        if source[operation.source_byte_start : operation.source_byte_end]
+        != operation.replacement_text.encode("utf-8")
+    ]

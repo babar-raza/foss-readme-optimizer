@@ -26,12 +26,16 @@ from readme_agent.readme.document_header_visual import (
     build_existing_overview_diagram_operations,
 )
 from readme_agent.readme.document_limitations import build_limitation_operations
+from readme_agent.readme.document_link_hygiene import build_source_link_hygiene_operations
 from readme_agent.readme.document_links import apply_contextual_link_bindings
 from readme_agent.readme.document_opening import (
     build_opening_operations,
     build_promotional_callout_operations,
 )
-from readme_agent.readme.document_operations import apply_document_operations
+from readme_agent.readme.document_operations import (
+    apply_document_operations,
+    prune_noop_operations,
+)
 from readme_agent.readme.document_plan import (
     PresentationSpanAdoptionV1,
     ReadmeDocumentOperationV1,
@@ -122,6 +126,17 @@ def build_readme_document_candidate(
         ):
             operations.append(comment_operation)
     product_name = enterprise_product_name(facts)
+    if (link_catalogs is None) != (link_allocation_policy is None):
+        raise ValueError("README link catalogs and allocation policy must be supplied together")
+    if link_catalogs is not None and link_allocation_policy is not None:
+        operations.extend(
+            build_source_link_hygiene_operations(
+                context,
+                operations,
+                link_catalogs,
+                link_allocation_policy,
+            )
+        )
     operations = canonicalize_operation_terminology(
         operations,
         product_name=product_name,
@@ -133,8 +148,6 @@ def build_readme_document_candidate(
         product_name=product_name,
     )
     operations.extend(terminology_operations)
-    if (link_catalogs is None) != (link_allocation_policy is None):
-        raise ValueError("README link catalogs and allocation policy must be supplied together")
     contextual_links: ContextualLinkPlanV1 | None = None
     if link_catalogs is not None and link_allocation_policy is not None:
         pre_link_candidate = apply_document_operations(source, operations).decode("utf-8")
@@ -149,6 +162,7 @@ def build_readme_document_candidate(
             verified_code_sha256s={code_sha256(example_code)} if example_code else set(),
         )
         operations = apply_contextual_link_bindings(context, operations, contextual_links)
+        operations = prune_noop_operations(source, operations)
     if validated_agentic_plan is not None:
         validate_agentic_operation_coverage(
             assessment,

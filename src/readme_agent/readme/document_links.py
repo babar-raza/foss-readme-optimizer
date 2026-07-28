@@ -37,6 +37,48 @@ def apply_contextual_link_bindings(
     updated = list(operations)
     for binding_index, binding in enumerate(plan.bindings, start=1):
         paragraph = _context_paragraph(binding.target_title, binding.target_url)
+        safe_title = " ".join(binding.target_title.split()).replace("[", r"\[").replace("]", r"\]")
+        code_start = context.inner_text.find(exact_code)
+        code_end_byte = len(context.inner_text[: code_start + len(exact_code)].encode("utf-8"))
+        reusable_index = next(
+            (
+                index
+                for index, operation in enumerate(updated)
+                if operation.operation_id.startswith("readme.links.unwrap-unbound:")
+                and operation.replacement_text == safe_title
+                and context.source[operation.source_byte_start : operation.source_byte_end].decode(
+                    "utf-8"
+                )
+                == f"[{safe_title}]({binding.target_url})"
+                and operation.source_byte_start > code_end_byte
+                and any(
+                    heading.level == 2
+                    and heading.title == binding.section_heading
+                    and heading.heading_end <= code_start
+                    and operation.source_byte_start
+                    < len(context.inner_text[: heading.section_end].encode("utf-8"))
+                    for heading in context.headings
+                )
+            ),
+            None,
+        )
+        if reusable_index is not None:
+            operation = updated[reusable_index]
+            replacement = f"[{safe_title}]({binding.target_url})"
+            updated[reusable_index] = operation.model_copy(
+                update={
+                    "replacement_text": replacement,
+                    "replacement_sha256": sha256_hex(replacement),
+                    "fact_ids": list(
+                        dict.fromkeys([*operation.fact_ids, *binding.accepted_fact_ids])
+                    ),
+                    "rationale": (
+                        operation.rationale + " Reapply the verified target because its exact "
+                        "fact-bound context remains."
+                    ),
+                }
+            )
+            continue
         operation_index = next(
             (
                 index

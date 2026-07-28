@@ -267,4 +267,48 @@ def test_opening_link_and_repeated_target_fail_final_validation() -> None:
 
     assert not verdict.valid
     assert any("opening" in error for error in verdict.errors)
-    assert any("repeats" in error for error in verdict.errors)
+    assert any("occurrence delta" in error for error in verdict.errors)
+
+
+def test_link_outside_bound_example_section_fails_final_validation() -> None:
+    code = "scene = Scene()"
+    facts = _facts("python", code=code)
+    catalogs = _catalogs("python", ["scene"])
+    target = next(iter(catalogs.aspose_org.records.values()))
+    plan = select_contextual_links(
+        facts,
+        _markdown(code),
+        catalogs,
+        LinkAllocationPolicyV1(),
+    )
+    misplaced = (
+        _markdown(code) + "\n## Unrelated resources\n\n" + f"[Verified workflow]({target.url})\n"
+    )
+
+    verdict = validate_contextual_link_candidate(plan, catalogs, misplaced, facts)
+
+    assert not verdict.valid
+    assert any("not adjacent after its accepted example" in error for error in verdict.errors)
+
+
+def test_unbound_new_aspose_link_fails_final_validation() -> None:
+    code = "scene = Scene()"
+    facts = _facts("python", code=code)
+    catalogs = _catalogs("python", ["scene"])
+    target = next(iter(catalogs.aspose_org.records.values()))
+    plan = select_contextual_links(
+        facts,
+        _markdown(code),
+        catalogs,
+        LinkAllocationPolicyV1(),
+    )
+    candidate = (
+        _markdown(code)
+        + f"\n[Verified workflow]({target.url})\n"
+        + "\n[Unbound copy](https://docs.aspose.org/cells/python/another/)\n"
+    )
+
+    verdict = validate_contextual_link_candidate(plan, catalogs, candidate, facts)
+
+    assert not verdict.valid
+    assert any("occurrence delta" in error for error in verdict.errors)

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from collections import Counter
+
 from pydantic import BaseModel, ConfigDict
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
@@ -41,6 +43,18 @@ def validate_contextual_link_candidate(
     occurrences = find_aspose_link_occurrences(candidate)
     counts = count_aspose_link_occurrences(candidate)
     first_h2 = candidate.find("\n## ")
+    candidate_url_counts = Counter(occurrence.normalized_url for occurrence in occurrences)
+    binding_url_counts = Counter(
+        normalize_target_url(binding.target_url) for binding in plan.bindings
+    )
+    expected_url_counts = Counter(plan.pre_link_url_counts)
+    expected_url_counts.update(binding_url_counts)
+    for normalized_url in sorted(set(candidate_url_counts) | set(expected_url_counts)):
+        if candidate_url_counts[normalized_url] != expected_url_counts[normalized_url]:
+            errors.append(
+                "candidate Aspose-link occurrence delta is not owned by its contextual plan: "
+                f"{normalized_url}"
+            )
     for occurrence in occurrences:
         record = lookup_verified_target(catalogs, occurrence.url)
         if record is None or not record.linkable:
@@ -70,6 +84,8 @@ def validate_contextual_link_candidate(
             for occurrence in occurrences
             if occurrence.normalized_url == normalized_binding
         ]
+        if any(first_h2 < 0 or occurrence.character_start < first_h2 for occurrence in matching):
+            errors.append(f"contextual target appears in the opening: {binding.target_url}")
         if len(matching) != 1:
             errors.append(f"binding target must occur exactly once: {binding.target_record_id}")
             continue
