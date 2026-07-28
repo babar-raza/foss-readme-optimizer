@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T21:38:18.427311+00:00",
+    "last_evaluated_at": "2026-07-28T21:39:07.946879+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -115,7 +115,7 @@
       "L8-REVIEW-00-CONTEXT-CORPUS": "CLOSED",
       "L8-REVIEW-01-FREEZE-ROLES": "CLOSED",
       "L8-REVIEW-01A-FINDING-CONTROLS": "CLOSED",
-      "L8-REVIEW-02-FINDING-GROUNDING": "VERIFIED",
+      "L8-REVIEW-02-FINDING-GROUNDING": "SCORED",
       "L8-REVIEW-02A-REPAIR-CONTROLS": "TODO",
       "L8-REVIEW-03-EFFECTIVE-REPAIR": "TODO",
       "L8-REVIEW-03A-CACHE-MEASUREMENT": "TODO",
@@ -4390,6 +4390,18 @@
         "reason": "Focused, production-seam, safety, and real gateway fail-closed controls passed with exact evidence.",
         "task_id": "L8-REVIEW-02-FINDING-GROUNDING",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-review-finding-grounding-v2/verification.json",
+          "plans/investigations/evidence/level8-review-finding-grounding-v2/mission-contribution.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T21:39:07.946874+00:00",
+        "reason": "Contribution receipt preserves the portfolio scoreboard and proves the exact GOAL-README acceptance boundary.",
+        "task_id": "L8-REVIEW-02-FINDING-GROUNDING",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -4398,7 +4410,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 499,
+  "state_version": 500,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
