@@ -1437,6 +1437,15 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
         "to_status": "FACTS_READY"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "FACTS_READY",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-28T18:34:39.078074+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "presentation_plan_hash": null,
@@ -1446,11 +1455,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
-    "status": "FACTS_READY",
-    "updated_at": "2026-07-28T18:14:05.343978+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-28T18:34:39.078074+00:00"
   },
   "schema_version": 2,
-  "state_version": 139,
+  "state_version": 140,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
