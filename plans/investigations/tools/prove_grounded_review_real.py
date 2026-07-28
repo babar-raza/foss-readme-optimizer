@@ -68,7 +68,8 @@ def main() -> int:
         "head": _git("rev-parse", "HEAD"),
         "tree_clean": not bool(_git("status", "--porcelain=v1")),
     }
-    run_id = "L8-REVIEW-01A-CELLS-CPP"
+    reviewer_standard_sha256 = separated_reviewer_standard_hash()
+    run_id = f"L8-REVIEW-01A-CELLS-CPP-{reviewer_standard_sha256[:12]}"
     start_llm_call_accounting(
         ORG_REPO,
         run_id,
@@ -109,7 +110,7 @@ def main() -> int:
             "source_revision": source_revision,
             "source_bundle": str(bundle),
             "candidate_sha256": hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
-            "reviewer_standard_sha256": separated_reviewer_standard_hash(),
+            "reviewer_standard_sha256": reviewer_standard_sha256,
             "control_branch": control_snapshot["branch"],
             "control_head": control_snapshot["head"],
             "control_tree_clean": control_snapshot["tree_clean"],
