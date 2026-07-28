@@ -76,13 +76,16 @@ green. These are entry findings, not closure claims.
 
 ## Current execution checkpoint and route correction (2026-07-28)
 
-The verified pre-edit checkpoint is control-repository `main` at
-`bbcc9434cd2a6580fe9d3f89159424998be1848a`, clean and 43 commits ahead of `origin/main`. Mission
-status loaded graph `717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f`
+The verified pre-amendment checkpoint for this production-concurrency reassessment is
+control-repository `main` at `1b9af4bc5d572fb8058f1588c8a270572a7f5a08`. The tree contains the
+preserved, focused presentation-policy repair in eleven tracked source/test files; no repository
+process tree was active, and this plan amendment does not overwrite or reinterpret that work.
+Mission status loaded graph
+`717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f`
 without drift and reported durable state version 433, active task
 `L8-COMPOSE-04-PRESENTATION-LINT`, 48 unresolved tasks, one external block, and no eligible
-competing task. This document is supporting explanation; after these edits, live `status` and
-`evaluate` remain the only authority for graph migration and claim recovery.
+competing task. This is a historical reconciliation snapshot, not a substitute for live state;
+`status` and `evaluate` remain the only authority for graph migration and claim recovery.
 
 The runtime denominator is 31. Durable lifecycle state reports 8 repositories at `FACTS_READY` or
 later, one at `CANDIDATE_GENERATED`, one at `DETERMINISTIC_VALIDATED`, one at `AGENT_APPROVED`, one
@@ -398,6 +401,97 @@ There was and is one operator. Child Python, Git, Docker, compiler, and test pro
 additional workers. The production risk is overlapping invocations and future scheduled
 deliveries, not a historical team of concurrent repository editors.
 
+### Reassessment verdict: parallelize a stage machine, not the current loop
+
+The current implementation is not ready for a thread pool or a larger `max_workers` value. Its
+portfolio adapter calls the complete single-repository command inside one ordered loop, and that
+command owns trigger acceptance, mutable evidence, lifecycle transitions, LLM context, and final
+classification. Running several copies concurrently would make the following existing weaknesses
+more frequent rather than solve them:
+
+1. `paths.readme_poc_repository_dir()` keys a complete bundle by repository and source revision
+   only. A changed prompt, renderer, validator, fact contract, reviewer standard, model route, or
+   toolchain can therefore rewrite the same directory even though it represents a different
+   acceptance contract.
+2. `write_local_poc_*()` updates several files and repeatedly refreshes `sha256sums.txt`; a whole
+   stage is not prepared privately and committed atomically. A crash or second writer can leave a
+   mixture that is individually parseable but not one accepted stage.
+3. `PortfolioPocSummaryV1` is a timestamped summary of the latest processed prefix. It is neither a
+   monotonic campaign ledger nor a deterministic reduction of sealed repository receipts.
+4. `_cmd_supervise_registry()` reloads Git-ref state several times per member and derives progress
+   from a mix of command-local results, process-local LLM context, durable lifecycle state, and
+   mutable files. Those views can be correct individually and still describe different moments.
+5. run locks have a fixed lease and no renewal/fencing operation in the backend contract. Holder
+   identity protects release, but it does not stop an expired, reclaimed worker from finishing
+   computation and writing ordinary bundle files.
+6. the stage ceiling exposes only `FACTS_READY`, so the scheduler cannot independently queue,
+   retry, cache, or pipeline assessment, composition, validation, review, repair, and no-op.
+7. identical source revisions do not imply identical work. External fact freshness, dependency
+   resolution, environment/toolchain versions, prompts, schemas, generation parameters, and model
+   routes can all change without changing the repository SHA.
+8. exact-once promotion is locally achievable; exact-once provider billing is not guaranteed when
+   an LLM response is lost and the provider offers no idempotency key. The system must record
+   logical calls and physical attempts separately instead of claiming a guarantee it cannot make.
+
+The durable solution is a two-phase, stage-scoped scheduler inside `supervise`:
+
+```text
+derive one ready stage from durable state
+  -> execute it in a private, fenced attempt
+  -> seal its typed result and checksum inventory
+  -> validate it outside the worker
+  -> promote artifacts and lifecycle exactly once through the reducer
+  -> derive the next ready stage
+```
+
+This permits different repositories to occupy different stages concurrently without allowing
+them to share mutable state or bypass an acceptance boundary. It also reduces replay cost because
+a failed review no longer reruns snapshot capture, package verification, or composition whose
+complete dependency key is unchanged.
+
+### Production consistency contract across reruns
+
+“Consistent” has two precise modes; the system must not blur them:
+
+- **Same-campaign replay.** The complete campaign contract and repository revision are identical.
+  The scheduler reuses sealed accepted receipts, makes zero new provider calls for those stages,
+  reproduces identical candidate bytes and deterministic verdicts, and derives the same aggregate
+  checksum root. Observation timestamps and scheduling telemetry are stored outside the canonical
+  digest.
+- **New-campaign reevaluation.** At least one declared dependency changed. Only affected stages
+  reopen. New LLM prose may differ, but the changed dependency and invalidation edge are explicit,
+  the factual/deterministic/reviewer standards are still enforced, and the new result cannot be
+  presented as a byte-identical replay.
+
+Define the identities once and use them for caching, invalidation, receipts, and reporting:
+
+```text
+campaign_id =
+  sha256(canonical CampaignContractV1)
+
+work_id =
+  sha256(campaign_id + repository + source_revision + target_stage
+         + canonical stage_dependency_hashes)
+
+logical_llm_call_id =
+  sha256(work_id + job + prompt_hash + schema_hash + model_route
+         + canonical generation_parameters)
+```
+
+`CampaignContractV1` must bind at least control HEAD/build hash, dependency lock, registry and
+platform-priority hashes, the immutable repository revision set, policies and link catalogs,
+fact/schema/eligibility/render-view contracts, prompt inventory and job hashes, renderer and
+document-template hashes, deterministic rules, reviewer contracts, model routes and generation
+parameters, isolated-executor/toolchain image digests, and external-evidence snapshot or freshness
+policy. A field may be deliberately excluded only with a test proving it cannot change an accepted
+output or verdict.
+
+External evidence is frozen by normalized key, retrieval result hash, and freshness window for a
+campaign. A refresh that changes an acceptance input issues a new campaign or invalidates the
+declared dependent stage; it never silently mixes old facts with new review output. Cache entries
+are immutable, content-addressed, schema/checksum-validated on read, and disposable on corruption.
+Corrupt cache data can cause recomputation, never lifecycle advancement.
+
 ### What remains intact
 
 The following are valuable and must not be weakened or replaced:
@@ -405,8 +499,10 @@ The following are valuable and must not be weakened or replaced:
 - `supervise` remains the sole production runtime and capability-registry authority;
 - immutable repository snapshots, the allow-list, push-blocking, local no-write policy, and
   isolated example/build execution remain hard gates;
-- per-repository CAS state, trigger deduplication, run locks, revision-addressed bundles,
-  redaction, checksums, and independent review remain the repository-level safety spine;
+- per-repository CAS state, trigger deduplication, run locks, immutable source revisions,
+  redaction, checksums, and independent review remain the repository-level safety spine; existing
+  revision-addressed bundles remain historical/compatibility inputs while campaign receipts
+  become acceptance authority;
 - `ProductFactsV2`, protected-content/claim accountability, deterministic presentation lint,
   bounded LLM use, and no-op proof remain acceptance requirements;
 - `data/platform_priorities.json` remains the configured priority source;
@@ -482,6 +578,54 @@ The campaign aggregate is a derived view of repository state plus sealed receipt
 allowed to overwrite history with a bounded prefix. The human-readable summary may be replaced on
 each reduction, while the durable aggregate version and receipt history remain monotonic.
 
+### Transactional artifacts and compatibility view
+
+Do not let concurrent lanes write the existing revision root directly. Introduce an immutable
+campaign/attempt layout:
+
+```text
+runs/readme-poc/campaigns/<campaign-id>/
+  campaign.json
+  aggregate/{current.json,history/*.json,sha256sums.txt}
+  repositories/<org>__<repo>/<source-revision>/
+    attempts/<work-id>/<attempt>/
+      request.json
+      artifacts/...
+      result.json
+      sha256sums.txt
+      SEALED
+    receipts/<stage>.json
+    current.json
+```
+
+A lane writes only its private attempt root. It writes `SEALED` last, after schema validation,
+redaction, and checksum generation. The reducer revalidates the seal, campaign ID, work ID,
+repository revision, dependency hashes, and fencing generation before it creates or replaces a
+stage receipt and advances durable state. Promotion is idempotent: the same work/result hash is a
+no-op; a different result for an already promoted work ID is a fail-closed conflict.
+
+Keep the current
+`runs/readme-poc/<org>__<repo>/<source-revision>/` path as a human-facing compatibility view so
+existing review links do not break. Only the reducer materializes it, atomically, from the current
+sealed campaign receipt. Its manifest must name the campaign, stage receipts, and aggregate
+version. It is never the evidence authority and a lane never mutates it. Existing schema-1 bundles
+remain readable historical inputs but are `UNKNOWN_LEGACY` for campaign identity and cannot count
+toward a new acceptance campaign without regeneration or a proof-preserving migration.
+
+The worker/reducer split is deliberate:
+
+- the worker computes one stage and emits proposed lifecycle/checkpoint transitions;
+- the worker never publishes campaign state or the compatibility view;
+- the reducer is the only campaign writer and applies state plus receipt promotion in a recoverable
+  order;
+- after a crash before sealing, the attempt is ignored/quarantined;
+- after sealing but before promotion, restart discovers and promotes the same result once;
+- after state promotion but before summary refresh, restart rebuilds the derived summary from
+  receipts rather than rerunning the stage.
+
+This is the minimum transaction boundary needed for reliable parallelism. Atomic writes of
+individual JSON files alone are insufficient.
+
 ### Stage model and invalidation
 
 Extend the typed lifecycle ceiling through at least:
@@ -516,6 +660,49 @@ hashes, prompt and schema hashes, model route/provider parameters, and reviewer 
 applicable. An accepted identical receipt is replayed with zero provider calls. Retries have one
 logical call ID and separate attempt records. Different valid model output is permitted only under
 a new key/campaign and must pass the same deterministic and independent gates.
+
+### Stage-pipelined scheduling and priority
+
+Different products may progress concurrently at different lifecycle stages only after their own
+dependencies and the applicable promotion level are satisfied. One work item advances one
+repository through one target boundary. The scheduler cycle is:
+
+1. renew the campaign and mission leases; stop admission immediately on renewal uncertainty;
+2. bulk-load repository state, validate current stage receipts, and derive—not append—the ready
+   work set;
+3. order ready items by recovery/safety, core-goal critical path, configured platform priority,
+   stage criticality, age, then stable repository/work ID;
+4. reserve resource capacity and launch only items whose complete dependency keys are frozen;
+5. collect sealed results, reject stale/foreign fences, and reduce results one at a time;
+6. recompute readiness after every promotion rather than waiting for a whole cohort;
+7. persist queue, service, retry, cache, cost, and pressure observations separately from the
+   acceptance digest.
+
+Platform priority governs admission and acceptance promotion, not artificial hardware idleness.
+The highest-priority ready item receives the first compatible slot and one of the two P2 lanes is
+reserved for the highest-priority critical path. A later platform may consume a different idle
+resource class only when doing so cannot delay the earlier item. It may not bypass an
+agent-fixable earlier-platform defect. Aging prevents starvation among items of otherwise equal
+priority.
+
+The stage/resource pipeline starts conservatively:
+
+| Stage family | P2 initial admission | P3 maximum before measurement raises it | Parallelism rule |
+| --- | ---: | ---: | --- |
+| Campaign admission, invalidation, durable reduction, compatibility-view publication | 1 | 1 | Always serialized. |
+| Snapshot/API/package-registry read | 2 | 4 | Read-only credentials; provider-specific limiter and circuit breaker. |
+| Fact normalization and deterministic planning/validation | 2 | 4 | Separate attempt roots; measured CPU/RAM cap. |
+| Disposable native/package/example build | 1 | 2 | OS-isolated, pinned, resource-bounded, deny-by-default network. |
+| LLM composition | 1 | 2 | Exact logical-call identity and token/request budget. |
+| Independent LLM review | 1 | 1 | Separate route/context/cache; quality bottleneck remains intentionally serialized. |
+| Targeted repair | 1 | 1 | Only after a grounded finding and changed-operation precondition. |
+| No-op receipt replay and checksum verification | 2 | 4 | Zero provider calls; immutable receipt validation only. |
+| Remote effect per repository | 0 locally | 1 | Inert until its later authorized gate; never shares analysis credentials. |
+
+At P2 the total number of live repository lanes is still two even if individual resource caps are
+higher; those caps become useful at P3. The scheduler applies the minimum of total-lane,
+resource-class, provider, memory, disk, and campaign limits. Additive increase/multiplicative
+decrease adjusts one resource class at a time and can only reduce throughput—not acceptance.
 
 ### Progressive concurrency ladder
 
@@ -554,25 +741,71 @@ defect.
 
 ### Resource bulkheads and backpressure
 
-Do not use one global `max_workers` as the safety control. Start with conservative independent
-caps, then let `L8-QUAL-04B-COST-BASELINE` raise them only from measured evidence:
-
-| Resource class | Initial cap | Production rule |
-| --- | ---: | --- |
-| Campaign reducer / Git-ref aggregate writer | 1 | Never parallel. |
-| Per-repository mutating lifecycle writer | 1 per repository | Protected by renewable run lease and fence. |
-| GitHub/registry read I/O | 4 | Provider-specific rate limiter, `Retry-After`, jitter, and circuit breaker. |
-| Deterministic CPU validation | 2 | May rise to the smaller of 4 or measured safe CPU/RAM capacity. |
-| Docker/native consumer build | 1 | May rise to 2 only after memory, disk, network, cleanup, and hostile-script controls pass. |
-| LLM composition | 1 initially, maximum 2 | Separate token/request budget; no retry storm; deterministic prechecks already green. |
-| Independent LLM review | 1 | Kept separate from author capacity and context; quality is the bottleneck by design. |
-| Remote effect per repository | 1 | Inert locally; authorization, fresh token, refetch, and effect ledger required in staging/production. |
+Do not use one global `max_workers` as the safety control. The stage-pipeline table above is the
+binding initial configuration: at P2 the total live-repository cap is two, and P3 begins with the
+listed per-resource ceilings of four read/CPU lanes, two build/author lanes, and one
+review/reducer lane. A per-repository lifecycle/effect writer always remains one and is protected
+by the renewable run lease and fence. Remote-effect capacity is zero locally and one per
+authorized repository in staging/production.
 
 Use conservative additive-increase/multiplicative-decrease admission: increase one slot only after a
 stable success window; halve the affected bulkhead on rate pressure, repeated retryable failure,
 cleanup lag, or resource saturation; reduce to one on uncertainty. Concurrency control may delay or
 retry work, never alter facts, prompts, validators, verdict thresholds, or terminal classification.
 Persist every admission/backpressure decision in the campaign evidence.
+
+### Production implementation shape
+
+Do not extend the 692-line command adapter or the existing supervisor loop with another nested
+orchestration concern. Keep `commands_supervision.py` as argument/profile wiring and introduce one
+cohesive package under `src/readme_agent/supervisor/portfolio_scheduler/`:
+
+```text
+contracts.py     CampaignContractV1, work/result/receipt/aggregate schemas
+dependencies.py declared stage dependency graph, cache keys, invalidation compiler
+planner.py       durable-state/receipt reconciliation and ready-work derivation
+priority.py      platform, critical-path, aging, and deterministic tie-breaking
+admission.py     total-lane and resource-specific bulkheads/backpressure
+lease.py         campaign/repository renewal, fencing, loss handling
+lane.py          private attempt execution and seal protocol
+reducer.py       sole receipt/state/aggregate/compatibility-view promotion
+recovery.py      incomplete/sealed attempt reconciliation and retry classification
+metrics.py       queue/service/resource/call observations outside acceptance hashes
+```
+
+Use an explicit spawned subprocess per live work item rather than threads or a
+`ProcessPoolExecutor`. On Windows, the lane starts with `spawn` semantics, an explicit environment
+allow-list, its own attempt/runs root, and an attributable process group. Extend the proven bounded
+process-tree primitive so cancellation terminates the lane and all Git/compiler/package-manager
+descendants. Do not pickle live Git backends, clients, locks, `ContextVar` state, or mutable caches
+into a child. The child receives a validated JSON work contract, constructs its own read-only
+clients/context, and returns a validated JSON result.
+
+The first implementation refactor separates **prepare** from **promote** at the existing public
+supervisor seam:
+
+```text
+prepare_stage(work_item, attempt_root) -> sealed LaneResultV1
+promote_stage(lane_result, current_fence) -> StageReceiptV1 + lifecycle transition
+```
+
+Serial execution uses the same two functions inline. Concurrent execution changes only admission
+and transport, so serial and parallel paths cannot drift into separate product logic. Registered
+capabilities, validators, independent review, allow-list checks, push-blocking, and terminal
+classification remain downstream dependencies of the stage executor rather than being copied into
+the scheduler.
+
+Extend the existing state backend protocol instead of creating a new database or queue:
+
+- renewable campaign and per-repository leases with compare-and-swap generation changes;
+- `renew_*`, `cancel_*`, and `fence_still_current` operations;
+- one campaign-state ref and the existing independent per-repository refs;
+- bulk read for scheduling, followed by a fresh CAS read at promotion;
+- no force update except the existing exact-lease compare-and-swap release behavior.
+
+If Git-ref measurements later show that renewal/reduction latency dominates, evaluate a backend
+migration under the existing `StateBackend` seam. Do not preemptively add a service. Any replacement
+must pass the identical CAS, fencing, recovery, history, redaction, and reproduction contract.
 
 ### Implementation mapping to the existing mission
 
@@ -582,14 +815,30 @@ owners:
 1. Finish `L8-COMPOSE-04-PRESENTATION-LINT` and `L8-COMPOSE-04A-CANDIDATE-FIXTURES` serially. They
    freeze the shared visitor contract; concurrency before this boundary would amplify invalid
    output.
-2. Extend the stage ceiling and sealed receipt behavior under
-   `L8-COMPOSE-05-SEVEN-CANDIDATES` so repositories can stop at deterministic candidate and
-   validation boundaries.
-3. Move the lane-isolation subset of `L8-QUAL-02A-FAILURE-MATRIX` before the live
-   seven-representative fan-out. Implement campaign lease renewal, fencing, process cleanup,
-   deterministic scheduling, and the serialized reducer there.
-4. Let `L8-QUAL-02-SEVEN-E2E` use P2 only after the Python canary and P1 proof. Preserve the
-   configured platform promotion order.
+2. Correct the candidate-stage task contract during graph migration:
+   - narrow `L8-COMPOSE-04A-CANDIDATE-FIXTURES` to immutable source/fact/expected-obligation inputs;
+     its current expected-output list incorrectly includes candidates while its objective and
+     source-write prohibition define an input-freeze task;
+   - add `L8-COMPOSE-04B-STAGE-TRANSACTIONS` as an implementation child with explicit
+     `src/readme_agent/supervisor/`, `src/readme_agent/state/`, `src/readme_agent/evidence/`,
+     `src/readme_agent/commands_supervision.py`, `tests/`, and `docs/` scope;
+   - make that child extend stage ceilings through `CANDIDATE_GENERATED` and
+     `DETERMINISTIC_VALIDATED`, introduce the serial prepare/seal/promote receipt path, and preserve
+     the current public `supervise` entry;
+   - make `L8-COMPOSE-05-SEVEN-CANDIDATES` depend on the implementation child and remain an
+     execution/evidence-only task.
+3. Correct the current duplicate/reversed qualification sequence during the governed graph
+   migration:
+   - repurpose `L8-QUAL-01A-REPRESENTATIVE-INPUTS` as the one current-contract Python canary and
+     immutable seven-representative input freeze, not a second seven-repository E2E run;
+   - move `L8-QUAL-02A-FAILURE-MATRIX` after that canary but before
+     `L8-QUAL-02-SEVEN-E2E`;
+   - make `L8-QUAL-02A-FAILURE-MATRIX` own P1 campaign lease renewal, fencing, stage attempts,
+     process cleanup, deterministic scheduling, serialized reduction, and serial/two-fixture-lane
+     equivalence;
+   - leave `L8-QUAL-02-SEVEN-E2E` as the only real seven-repository qualification run.
+4. Let `L8-QUAL-02-SEVEN-E2E` use P2 only after the Python canary, P1 proof, and fresh governance
+   synchronization. Preserve configured admission and acceptance-promotion order.
 5. Keep complete crash/recovery and long-duration heartbeat proof in
    `L8-QUAL-03-RECOVERY`; P1 fixture proof is not a substitute for this real boundary.
 6. Measure queue wait, service time, provider pressure, cache reuse, call count, critical-path
@@ -610,6 +859,10 @@ except for timing and recorded scheduling metadata:
 
 - deterministic scheduler tests: stable work IDs, configured priority, no duplicates, no
   starvation, deterministic resume, and exact denominator;
+- model-based state-machine tests: compare the production reducer with a small serial reference
+  model over reordered completions, duplicate delivery, lease loss, retry, cancellation, and crash
+  cut points. Evaluate the maintained Hypothesis rule-based state-machine library before
+  hand-writing a large permutation harness, per decision #30;
 - lease/fencing tests: renewal, expiry, reclaim, stale worker completion, late result rejection,
   reducer crash, and CAS conflict;
 - process-isolation tests: distinct ContextVars/accounting, environment, attempt roots, work clones,
@@ -640,6 +893,9 @@ remains within the recorded budget.
 
 ### Tradeoffs, risks, and limits
 
+- Splitting prepare from promote is a non-trivial refactor of the canonical supervisor. It adds
+  short-term implementation work, but avoids maintaining separate serial and concurrent product
+  paths and is therefore cheaper than debugging race-dependent evidence later.
 - Process lanes have startup and memory cost. At 31 repositories, two-to-four lanes are more likely
   to be stable than unbounded fan-out; measurement may prove that two is the permanent local cap.
 - A single reducer is an intentional serialization point. It limits aggregate write throughput but
@@ -655,6 +911,12 @@ remains within the recorded budget.
   new LLM execution can vary; production consistency is therefore defined by identical inputs
   reusing the accepted receipt and changed inputs passing unchanged quality gates, not by claiming
   that nondeterministic generation itself is byte-stable.
+- A provider call whose response is lost may be attempted again when the provider has no
+  idempotency facility. The system guarantees one logical job and one promoted result, records
+  every physical attempt and cost, and bounds retries; it must not claim exactly-once billing.
+- The compatibility view creates a second physical copy of current artifacts, but not a second
+  authority. Its manifest-to-receipt binding and independent reconstruction test are mandatory so
+  reviewer convenience cannot become state divergence.
 - Git-ref state remains viable at this scale, but campaign and lane measurements may show excessive
   ref latency/contention. A backend migration is justified only from those measurements and must
   preserve CAS, leases, fencing, transition history, and reproduction semantics.
@@ -945,22 +1207,24 @@ and local-write permissions only; required evidence and independent verification
 fact verification; mandatory dynamic planning; and no domain bypass. Every registry mode runs
 locally; mode affects remote effects only.
 
-Runtime bundles are revision-addressed under:
+Acceptance-authoritative runtime bundles are campaign-, repository-, revision-, work-, and
+attempt-addressed under:
 
 ```text
-runs/readme-poc/<org>__<repo>/<source-revision>/
-  source/{README.md,revision.json,repository-profile.json}
-  facts/{product-facts.json,provenance.json,conflicts.json,acquisition.json}
-  assessment/{current-readme-assessment.json,evidence-map.json}
-  planning/{presentation-plan.json,selected-capabilities.json,decision-summary.json}
-  candidate/{README.md,README.patch,claim-map.json,candidate-hash.txt}
-  review/{deterministic-validation.json,independent-agent-review.json,
-          repair-history.json,no-op-proof.json,final-verdict.json}
-  manifest.json
+runs/readme-poc/campaigns/<campaign-id>/
+  campaign.json
+  aggregate/{current.json,history/,sha256sums.txt}
+  repositories/<org>__<repo>/<source-revision>/
+    attempts/<work-id>/<attempt>/{request.json,artifacts/,result.json,sha256sums.txt,SEALED}
+    receipts/<stage>.json
+    current.json
 ```
 
-Portfolio summaries are `runs/readme-poc/portfolio-summary.{json,md}`. Accepted redacted proof is
-promoted to one named evidence directory under `plans/investigations/evidence/`.
+The current revision-addressed layout remains an atomically generated human-facing compatibility
+view whose manifest points back to the authoritative campaign receipts. Portfolio summaries at
+`runs/readme-poc/portfolio-summary.{json,md}` are likewise derived views of the monotonic campaign
+aggregate. Accepted redacted proof is promoted to one named evidence directory under
+`plans/investigations/evidence/`.
 
 ## Execution phases and task dependencies
 
@@ -972,9 +1236,11 @@ promoted to one named evidence directory under `plans/investigations/evidence/`.
 3. Repair current Ruff/format failures and establish one stable official-check result.
 4. Correct stale current-count and encoding defects in touched supporting documents.
 5. Update this document in place; mark RPOC and PRODSYS records supporting-only.
-6. Edit `master.md` freely under current repository governance when delivery evidence changes its
-   Mission, Status, Decision Ledger, Architecture, Build Checklist, or Verification Checklist.
-   Revise decision #78 in place instead of adding a competing decision.
+6. Before changing `master.md`, obtain fresh section-specific approval for every affected section.
+   For the proposed pre-qualification P2 change, the expected sections are Status, Decision
+   Ledger, Architecture, Build Checklist, and Verification Checklist; include Mission only if the
+   product outcome itself changes. Revise decisions #78/#83 in place instead of adding a
+   competing decision.
 7. Synchronize idea, requirements, governance, roadmap, status generator, root README, AGENTS,
    logs, and master under current governance.
 8. Commit coherent verified slices directly to `main`.
@@ -1000,7 +1266,8 @@ Exit: one graph, one durable state, one active claim, and a visible full-registr
    other profiles.
 3. Load every target from `data/products.json`; isolate failures per repository; resume from the
    last valid lifecycle state.
-4. Write idempotent revision-addressed artifacts and derive portfolio results from state/manifests.
+4. Write idempotent campaign/attempt artifacts, expose the revision-addressed compatibility view,
+   and derive portfolio results from sealed receipts plus durable state.
 
 Exit: a heterogeneous fixture registry runs through `supervise`; cancellation resumes without
 duplicate LLM calls or bundles; no local POC run can issue a remote write.
@@ -1054,7 +1321,9 @@ shared campaign evidence only at the next declared output boundary.
 | `L8-COMPOSE-02B-FINAL-CLAIM-CORPUS` | Inventory every material inherited and generated content unit, including claims, commands, examples, limitations, terminology, workflows, and maintainer explanations, and freeze its evidence/owner/correction/uncertainty/omission disposition. | real Python/TypeScript/Java inventories with expected ownership, fact bindings, reuse decisions, and stale/unresolved controls. | COMPOSE-02A |
 | `L8-COMPOSE-03-OPERATION-COVERAGE` | Compile every actionable assessment into a bounded operation and require every material final-candidate claim to have an accepted fact, authoritative owner, or uncertainty/correction action. | plan-to-operation coverage, full-candidate claim coverage, inherited unsupported-claim controls, and immutable reconstruction. | COMPOSE-02B |
 | `L8-COMPOSE-04-PRESENTATION-LINT` | Reject raw internal values, semantic duplicates, competing examples, cross-product leakage, malformed navigation, and promotional imbalance. | real Java/Python controls plus prompt-injection and strong-content fixtures. | COMPOSE-03 |
-| `L8-COMPOSE-05-SEVEN-CANDIDATES` | Produce product-specific candidate/patch/claim-map bundles for the seven representatives without invoking independent review. | stage-limited `CANDIDATE_GENERATED` bundles and byte-identical reconstruction. | COMPOSE-04 |
+| `L8-COMPOSE-04A-CANDIDATE-FIXTURES` | Freeze immutable source revisions, accepted fact receipts, and expected visitor obligations for the seven representatives; do not claim candidate output from this input-only task. | source/fact/obligation hashes and independent input reconstruction. | COMPOSE-04 |
+| `L8-COMPOSE-04B-STAGE-TRANSACTIONS` | Extend the canonical runtime through candidate and deterministic-validation ceilings and introduce the serial private-attempt/seal/reducer-promotion path used later by concurrent lanes. | crash-before-seal, seal-before-promotion, idempotent promotion, candidate-stage stop, and zero-review-call controls. | COMPOSE-04A |
+| `L8-COMPOSE-05-SEVEN-CANDIDATES` | Produce product-specific candidate/patch/claim-map bundles for the seven representatives without invoking independent review. | stage-limited `CANDIDATE_GENERATED` and `DETERMINISTIC_VALIDATED` receipts plus byte-identical reconstruction. | COMPOSE-04B |
 
 #### Independent review/repair boundary (`L8-LOCAL-INDEPENDENT-REVIEW-REPAIR`)
 
@@ -1360,7 +1629,8 @@ Execution resumes in this order; it does not start an official 31-repository cam
    for the exact current defects, complete the registered rules and focused validation/Markdown/
    protected-content/specificity regressions, independently verify the evidence, and transition
    only from checksum-complete proof.
-4. Execute `L8-COMPOSE-04A-CANDIDATE-FIXTURES`, extend typed stage ceilings/receipts, and produce the
+4. Execute the corrected `L8-COMPOSE-04A-CANDIDATE-FIXTURES` input freeze, migrate and implement
+   `L8-COMPOSE-04B-STAGE-TRANSACTIONS`, then use `L8-COMPOSE-05-SEVEN-CANDIDATES` to produce the
    first current-contract Python candidate through deterministic validation. Do not start paid or
    native multi-repository fan-out before that canary is accepted. Continue composition with
    marker/comment-free output, factual badges, fact-backed Mermaid, contextual catalog-backed link
