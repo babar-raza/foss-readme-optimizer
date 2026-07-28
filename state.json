@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f",
-    "last_evaluated_at": "2026-07-28T10:25:38.751183+00:00",
+    "last_evaluated_at": "2026-07-28T10:26:00.064598+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -67,7 +67,7 @@
       "L8-COMPOSE-01-DECOMPOSE": "CLOSED",
       "L8-COMPOSE-01A-SECTION-REGRESSIONS": "TODO",
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "CLOSED",
-      "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "IMPLEMENTED",
+      "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "VERIFIED",
       "L8-COMPOSE-02-EXISTING-SECTIONS": "TODO",
       "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "TODO",
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "TODO",
@@ -3347,6 +3347,18 @@
         "reason": "Implemented catalog-backed contextual-link selection, configurable size-aware budgets, exact Enterprise Edition terminology, preservation hygiene, and idempotent no-op behavior for all seven platform representatives.",
         "task_id": "L8-COMPOSE-01C-CONTEXTUAL-LINKING",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-contextual-linking/acceptance-manifest.json",
+          "plans/investigations/evidence/level8-contextual-linking/evidence-verification.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T10:26:00.064586+00:00",
+        "reason": "Focused unit, integration, regression, safety, factuality, patch-apply, seven-platform, and clean-tree reproduction checks passed with checksum-complete evidence.",
+        "task_id": "L8-COMPOSE-01C-CONTEXTUAL-LINKING",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -3355,7 +3367,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 396,
+  "state_version": 397,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
