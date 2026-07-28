@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-REVIEW-02-FINDING-GROUNDING",
-    "claim_expires_at": "2026-07-28T21:28:15.324025+00:00",
-    "claim_id": "f4484c085045473fbe3b412efcb13ef0",
-    "claimed_at": "2026-07-28T20:58:15.324025+00:00",
-    "claimed_by": "Codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T20:58:15.324025+00:00",
+    "last_evaluated_at": "2026-07-28T21:37:38.435158+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -59,16 +59,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "acceptance_proof",
-        "summary": "Require candidate spans for quality findings and exact fact or evidence references with checked polarity for factual findings."
-      },
-      "goal_ids": [
-        "GOAL-README"
-      ],
-      "task_id": "L8-REVIEW-02-FINDING-GROUNDING"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
@@ -124,7 +115,7 @@
       "L8-REVIEW-00-CONTEXT-CORPUS": "CLOSED",
       "L8-REVIEW-01-FREEZE-ROLES": "CLOSED",
       "L8-REVIEW-01A-FINDING-CONTROLS": "CLOSED",
-      "L8-REVIEW-02-FINDING-GROUNDING": "IN_PROGRESS",
+      "L8-REVIEW-02-FINDING-GROUNDING": "IMPLEMENTED",
       "L8-REVIEW-02A-REPAIR-CONTROLS": "TODO",
       "L8-REVIEW-03-EFFECTIVE-REPAIR": "TODO",
       "L8-REVIEW-03A-CACHE-MEASUREMENT": "TODO",
@@ -4375,6 +4366,18 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-REVIEW-02-FINDING-GROUNDING",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-review-finding-grounding-v2/verification.json",
+          "plans/investigations/evidence/level8-review-finding-grounding-v2/mission-contribution.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T21:37:38.435147+00:00",
+        "reason": "Grounded reviewer authority implemented and committed at 3da42ed8 with task-specific proof harness at 132c0fd3.",
+        "task_id": "L8-REVIEW-02-FINDING-GROUNDING",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -4383,7 +4386,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 497,
+  "state_version": 498,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
