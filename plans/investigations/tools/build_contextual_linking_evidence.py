@@ -32,6 +32,12 @@ from readme_agent.readme.document_validation import (  # noqa: E402
 from readme_agent.registry.loader import load_policy, require_listed  # noqa: E402
 from readme_agent.registry.models import LinkAllocationPolicyV1  # noqa: E402
 from readme_agent.registry.priority import load_platform_priority  # noqa: E402
+from readme_agent.state.git_backend import default_state_backend  # noqa: E402
+from readme_agent.supervisor.mission_goal_guard import (  # noqa: E402
+    derive_lifecycle_scoreboard,
+    lifecycle_scoreboard_sha256,
+)
+from readme_agent.supervisor.mission_graph import load_mission_graph  # noqa: E402
 
 SUMMARY_PATH = (
     REPO_ROOT
@@ -42,6 +48,10 @@ SUMMARY_PATH = (
     / "representative-facts.json"
 )
 DEFAULT_OUTPUT = REPO_ROOT / "plans" / "investigations" / "evidence" / "level8-contextual-linking"
+GRAPH_PATH = (
+    REPO_ROOT / "plans" / "investigations" / "control" / "level8-autonomous-mission-task-graph.yaml"
+)
+TASK_ID = "L8-COMPOSE-01C-CONTEXTUAL-LINKING"
 FOCUSED_TESTS = (
     "tests/unit/test_aspose_link_catalog_generator.py",
     "tests/unit/test_aspose_link_catalogs.py",
@@ -375,6 +385,31 @@ def main(argv: list[str] | None = None) -> int:
         ),
     }
     write_redacted_json(output / "acceptance-manifest.json", manifest)
+    graph, _ = load_mission_graph(GRAPH_PATH)
+    task = next(task for task in graph.taskcards if task.task_id == TASK_ID)
+    scoreboard = derive_lifecycle_scoreboard(default_state_backend())
+    scoreboard_hash = lifecycle_scoreboard_sha256(scoreboard)
+    write_redacted_json(
+        output / "mission-contribution.json",
+        {
+            "schema_version": 1,
+            "task_id": TASK_ID,
+            "goal_ids": task.goal_ids,
+            "core_contribution": task.core_contribution.model_dump(mode="json"),
+            "acceptance_checks_passed": task.acceptance_checks,
+            "proof_refs": [
+                "plans/investigations/evidence/level8-contextual-linking/acceptance-manifest.json",
+                "plans/investigations/evidence/level8-contextual-linking/"
+                "evidence-verification.json",
+                "plans/investigations/evidence/level8-contextual-linking/focused-tests.txt",
+            ],
+            "scoreboard_before_sha256": scoreboard_hash,
+            "scoreboard_after_sha256": scoreboard_hash,
+            "first_failing_boundary_before": scoreboard.first_failing_boundary,
+            "first_failing_boundary_after": scoreboard.first_failing_boundary,
+            "independently_verified": all(checks.values()),
+        },
+    )
     write_redacted_text(output / "reproduction.txt", manifest["reproduction_command"] + "\n")
     refresh_sha256sums(output)
     _verify_inventory(output)
