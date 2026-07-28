@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "d04a940d4a1d9ca42b1b27fd8468500a69a11cab31ac0f7b9abc6418aa925aea",
-    "last_evaluated_at": "2026-07-28T05:43:23.361479+00:00",
+    "last_evaluated_at": "2026-07-28T05:43:34.644914+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -141,7 +141,7 @@
       "L8-TRUTH-02B-PYTHON-API-TRUTH": "CLOSED",
       "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": "CLOSED",
       "L8-TRUTH-02D-RUST-API-TRUTH": "CLOSED",
-      "L8-TRUTH-03-CLAIM-POLARITY": "IMPLEMENTED",
+      "L8-TRUTH-03-CLAIM-POLARITY": "VERIFIED",
       "L8-TRUTH-03A-ISOLATED-EXECUTOR": "CLOSED",
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "REOPENED",
@@ -2876,6 +2876,18 @@
         "reason": "Directional evidence polarity and compound API subject matching are implemented; blocked provenance no longer creates false factual conflicts.",
         "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-claim-polarity/verification.json",
+          "plans/investigations/evidence/level8-claim-polarity/sha256sums.txt"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T05:43:34.644875+00:00",
+        "reason": "Focused controls and official checks pass on stable committed main, including real .NET and Go opposite-subject controls.",
+        "task_id": "L8-TRUTH-03-CLAIM-POLARITY",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -2884,7 +2896,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 329,
+  "state_version": 330,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
