@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T07:46:32.594460+00:00",
+    "last_evaluated_at": "2026-07-28T07:47:11.215656+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -60,7 +60,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Produce provenance-complete ProductFactsV2 graphs plus typed visitor-facing render views and public-API-verified examples for every supported ecosystem."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -91,7 +100,7 @@
       "L8-LOCAL-HUMAN-REVIEW-GATE-B": "TODO",
       "L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS": "CLOSED",
       "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR": "REGRESSED",
-      "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "REROUTED",
+      "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH": "READY",
       "L8-LOCAL-PORTFOLIO-RUNTIME": "CLOSED",
       "L8-LOCAL-README-ASSESSMENT-COMPOSITION": "REGRESSED",
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
@@ -3098,6 +3107,19 @@
         "reason": "Seven prioritized ecosystem representatives are FACTS_READY with current-contract native-tool proof, checksum-complete independent evidence, a clean official suite, and a zero-provider-call unchanged replay.",
         "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-seven-ecosystem-facts/verification.json",
+          "plans/investigations/evidence/level8-interpretive-render-views/verification.json",
+          "plans/investigations/evidence/level8-public-examples/verification.json"
+        ],
+        "from_status": "REROUTED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T07:47:11.215630+00:00",
+        "reason": "All fifteen governed product-truth child tasks are CLOSED, including the clean-HEAD seven-ecosystem campaign; aggregate acceptance and contribution reconciliation is now dependency-ready.",
+        "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+        "to_status": "READY"
       }
     ]
   },
@@ -3106,7 +3128,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 355,
+  "state_version": 356,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
