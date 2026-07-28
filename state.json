@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "717bd209ac62bbb8c63b762471ab5c2b55b007a3b2d94adbb1e9ca64d0157e2f",
-    "last_evaluated_at": "2026-07-28T10:55:36.212173+00:00",
+    "last_evaluated_at": "2026-07-28T10:55:55.516549+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -60,7 +60,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Capture advisory-decision, competing-example, stale-span, and reconstruction failures before tightening operation coverage."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "task_id": "L8-COMPOSE-02A-OPERATION-REGRESSIONS"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
@@ -68,7 +77,7 @@
       "L8-COMPOSE-01A-SECTION-REGRESSIONS": "CLOSED",
       "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": "CLOSED",
       "L8-COMPOSE-01C-CONTEXTUAL-LINKING": "CLOSED",
-      "L8-COMPOSE-02-EXISTING-SECTIONS": "SCORED",
+      "L8-COMPOSE-02-EXISTING-SECTIONS": "CLOSED",
       "L8-COMPOSE-02A-OPERATION-REGRESSIONS": "TODO",
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "TODO",
       "L8-COMPOSE-03-OPERATION-COVERAGE": "TODO",
@@ -3489,6 +3498,18 @@
         "reason": "All three acceptance checks pass: validated content survives or is exactly improved, contradictions are fact-corrected, unresolved material cannot render as fact, and unrelated maintainer content is retained.",
         "task_id": "L8-COMPOSE-02-EXISTING-SECTIONS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-existing-section-reconciliation/mission-contribution.json",
+          "plans/investigations/evidence/level8-existing-section-reconciliation/verification.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-28T10:55:55.516536+00:00",
+        "reason": "Closed with valid contribution evidence and source-span, fact-owner, uncertainty, operation, diff, validation, and checksum proof.",
+        "task_id": "L8-COMPOSE-02-EXISTING-SECTIONS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -3497,7 +3518,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 410,
+  "state_version": 411,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
