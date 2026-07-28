@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T18:44:23.962690+00:00",
+    "last_evaluated_at": "2026-07-28T18:44:39.075546+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 8,
@@ -73,7 +73,7 @@
       "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": "CLOSED",
       "L8-COMPOSE-03-OPERATION-COVERAGE": "CLOSED",
       "L8-COMPOSE-03A-PRESENTATION-CORPUS": "CLOSED",
-      "L8-COMPOSE-04-PRESENTATION-LINT": "IMPLEMENTED",
+      "L8-COMPOSE-04-PRESENTATION-LINT": "VERIFIED",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "CLOSED",
       "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "CLOSED",
       "L8-COMPOSE-05-SEVEN-CANDIDATES": "REROUTED",
@@ -4011,6 +4011,20 @@
         "reason": "The internal-token rule is narrowed at its semantic boundary and the Go representative now reaches deterministic validation.",
         "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/verification.json",
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/mission-contribution.json",
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/sha256sums.txt",
+          "plans/investigations/evidence/level8-presentation-lint-enforcement/go-live-regression.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T18:44:39.075540+00:00",
+        "reason": "The defect corpus, seven fixtures, focused regressions, and real Go reproduction pass with checksum-complete evidence.",
+        "task_id": "L8-COMPOSE-04-PRESENTATION-LINT",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -4019,7 +4033,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 464,
+  "state_version": 465,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
