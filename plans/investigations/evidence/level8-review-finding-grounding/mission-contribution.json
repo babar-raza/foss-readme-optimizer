@@ -9,9 +9,7 @@
     "summary": "Require candidate spans for content findings and exact fact/evidence references with valid polarity for factual findings."
   },
   "acceptance_checks_passed": [
-    "Ungrounded or contradicted review premises cannot control lifecycle or repair",
-    "Invalid reviewer output fails closed and retains the candidate",
-    "Valid unsupported claims still produce BLOCKED_MISSING_EVIDENCE"
+    "Ungrounded or contradicted review premises cannot control lifecycle or repair"
   ],
   "proof_refs": [
     "plans/investigations/evidence/level8-review-finding-grounding/cells-cpp-grounded-review.json",
