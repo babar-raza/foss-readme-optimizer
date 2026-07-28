@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "88a72ad00134257131bb4a84c880766c8b13c68b9e6d551e0c157e8c1d189459",
-    "last_evaluated_at": "2026-07-28T07:14:54.719769+00:00",
+    "last_evaluated_at": "2026-07-28T07:15:14.122013+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -61,7 +61,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Run the facts-only canonical supervisor for one real Python, .NET, Java, C++, TypeScript, Rust, and Go repository in the user-governed order."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "TODO",
@@ -137,7 +146,7 @@
       "L8-TRUTH-04-ACQUISITION": "CLOSED",
       "L8-TRUTH-05-PUBLIC-EXAMPLES": "CLOSED",
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
-      "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "REROUTED",
+      "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "READY",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
@@ -3021,6 +3030,18 @@
         "reason": "Interpretive truth gate closed with checksum-complete graph-matched contribution evidence",
         "task_id": "L8-TRUTH-06-INTERPRETIVE-VIEWS",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-public-examples/verification.json",
+          "plans/investigations/evidence/level8-interpretive-render-views/verification.json"
+        ],
+        "from_status": "REROUTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T07:15:14.122007+00:00",
+        "reason": "Both rerouted repair tasks are durably closed; Go and Python now reach FACTS_READY under the current acceptance contract",
+        "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+        "to_status": "READY"
       }
     ]
   },
@@ -3029,7 +3050,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 347,
+  "state_version": 348,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
