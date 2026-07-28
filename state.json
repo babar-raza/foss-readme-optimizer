@@ -517,7 +517,7 @@
         "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e"
       }
     ],
-    "facts_hash": "807045d742a7ee36c1f9e200fb1273b4c88a10c13e4b842403ee67babfa1bfa3",
+    "facts_hash": "477e741d1921aa47302d79721b0ba614706d709529eb0ba4f7faef3ad06e7cfd",
     "history": [
       {
         "evidence_refs": [
@@ -637,6 +637,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-28T17:49:53.409999+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "to_status": "FACTS_READY"
       }
     ],
     "presentation_plan_hash": null,
@@ -646,11 +659,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-28T17:49:45.902419+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-07-28T17:49:53.409999+00:00"
   },
   "schema_version": 2,
-  "state_version": 51,
+  "state_version": 52,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
