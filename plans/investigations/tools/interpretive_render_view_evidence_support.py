@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from readme_agent.facts.acceptance_contract import current_fact_acceptance_contract
+from readme_agent.facts.example_quality import generated_example_quality_failures
 from readme_agent.facts.interpretive_evidence import (
     InterpretiveClaimV1,
     groundedness_fact_candidate,
@@ -223,5 +225,81 @@ def build_live_python_regression_control(
             "render_view": problem_view.model_dump(mode="json") if problem_view else None,
         },
         "latest_checkpoint_stages": latest_stages,
+        "checks": checks,
+    }
+
+
+def build_live_go_regression_control(bundle_root: Path) -> dict[str, Any]:
+    """Prove the Go repair reaches FACTS_READY without weakening example truth."""
+
+    facts_path = bundle_root / "facts/product-facts.json"
+    bundle_manifest_path = bundle_root / "manifest.json"
+    facts = ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
+    bundle_manifest = json.loads(bundle_manifest_path.read_text(encoding="utf-8"))
+    problem = facts.selected_fact("product.problems_solved")
+    example = facts.selected_fact("example.minimal")
+    problem_support = [facts.fact_by_id(fact_id) for fact_id in problem.supporting_fact_ids]
+    problem_view = visitor_fact_render_view(facts, "product.problems_solved")
+    example_value = example.value if isinstance(example.value, dict) else {}
+    compiled_consumer = example_value.get("compiled_consumer")
+    isolated_execution = (
+        compiled_consumer.get("isolated_execution") if isinstance(compiled_consumer, dict) else None
+    )
+    current_contract = current_fact_acceptance_contract()
+    current_contract_hash = current_contract.canonical_hash()
+
+    checks = {
+        "product_facts_v2_valid": True,
+        "bundle_reaches_facts_ready": (
+            bundle_manifest.get("lifecycle_status") == "FACTS_READY"
+            and bundle_manifest.get("completed_stages")
+            == ["SNAPSHOTTED", "PROFILED", "FACTS_READY"]
+        ),
+        "current_fact_acceptance_contract": (
+            bundle_manifest.get("fact_acceptance_contract_hash") == current_contract_hash
+        ),
+        "problem_verified_with_eligible_support": (
+            problem.verification_state == "verified"
+            and bool(problem.supporting_fact_ids)
+            and all(
+                supporting is not None
+                and supporting.verification_state in {"verified", "policy_approved"}
+                for supporting in problem_support
+            )
+        ),
+        "problem_view_nonempty": problem_view is not None and bool(problem_view.phrases),
+        "repository_example_verified": (
+            example.verification_state == "verified"
+            and example_value.get("verification_outcome") == "SOURCE_BUILD_VERIFIED"
+            and isinstance(compiled_consumer, dict)
+            and compiled_consumer.get("accepted") is True
+            and isinstance(isolated_execution, dict)
+            and isolated_execution.get("truth_eligible") is True
+        ),
+        "repository_example_comment_free": (
+            not generated_example_quality_failures("go", str(example_value.get("code", "")))
+        ),
+    }
+    return {
+        "repository": facts.org_repo,
+        "source_revision": bundle_manifest.get("source_revision"),
+        "lifecycle_status": bundle_manifest.get("lifecycle_status"),
+        "facts_sha256": _sha256(facts_path),
+        "bundle_manifest_sha256": _sha256(bundle_manifest_path),
+        "fact_acceptance_contract_hash": current_contract_hash,
+        "problem": {
+            "fact_id": problem.fact_id,
+            "verification_state": problem.verification_state,
+            "supporting_fact_ids": problem.supporting_fact_ids,
+            "render_view": problem_view.model_dump(mode="json") if problem_view else None,
+        },
+        "example": {
+            "fact_id": example.fact_id,
+            "verification_state": example.verification_state,
+            "verification_outcome": example_value.get("verification_outcome"),
+            "source_paths": (
+                compiled_consumer.get("source_paths") if isinstance(compiled_consumer, dict) else []
+            ),
+        },
         "checks": checks,
     }

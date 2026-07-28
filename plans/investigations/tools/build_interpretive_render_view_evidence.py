@@ -12,6 +12,7 @@ from typing import Any
 from filelock import FileLock, Timeout
 from interpretive_render_view_evidence_support import (
     build_interpretive_controls,
+    build_live_go_regression_control,
     build_live_python_regression_control,
 )
 
@@ -45,6 +46,12 @@ LIVE_PYTHON_BUNDLE = (
     / "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
 )
 LIVE_PYTHON_SUPERVISOR_MANIFEST = REPO_ROOT / "runs/evidence/20260727-205319-1552/manifest.json"
+LIVE_GO_BUNDLE = (
+    REPO_ROOT
+    / "runs/readme-poc"
+    / "aspose-pdf-foss__Aspose-PDF-FOSS-for-Go"
+    / "f05d5628e85d3e8eb31e9191ea4ce8297b1d0f69"
+)
 LIVE_PYTHON_FIRST_FAILURE_LOG = (
     REPO_ROOT / "runs/level8-truth-seven-ecosystems/supervise.stderr.log"
 )
@@ -62,6 +69,7 @@ IMPLEMENTATION_PATHS = (
     "src/readme_agent/facts/agentic_drafting.py",
     "src/readme_agent/facts/interpretive_evidence.py",
     "src/readme_agent/facts/interpretive_resolution.py",
+    "src/readme_agent/facts/problem_grounding.py",
     "src/readme_agent/facts/render_views.py",
     "src/readme_agent/facts/schema_v2.py",
     "src/readme_agent/capabilities/draft_product_truth.py",
@@ -78,6 +86,7 @@ FOCUSED_COMMAND = (
     "tests/unit/test_agentic_drafting.py",
     "tests/unit/test_interpretive_evidence.py",
     "tests/unit/test_interpretive_resolution.py",
+    "tests/unit/test_problem_grounding.py",
     "tests/unit/test_fact_render_views.py",
     "tests/unit/test_fact_acceptance_contract.py",
     "tests/unit/test_draft_product_truth_capability.py",
@@ -127,6 +136,7 @@ def _build(run_official: bool) -> list[str]:
         LIVE_PYTHON_BUNDLE,
         LIVE_PYTHON_SUPERVISOR_MANIFEST,
     )
+    live_go = build_live_go_regression_control(LIVE_GO_BUNDLE)
     focused = _run(FOCUSED_COMMAND)
     official = _run(OFFICIAL_COMMAND) if run_official else None
     audience = controls["typescript_audience"]
@@ -150,6 +160,7 @@ def _build(run_official: bool) -> list[str]:
         ),
         "negative_controls_pass": all(controls["negative_controls"].values()),
         "live_python_facts_ready_with_grounded_views": all(live_python["checks"].values()),
+        "live_go_facts_ready_with_grounded_views": all(live_go["checks"].values()),
         "focused_tests_pass": focused["exit_code"] == 0,
         "official_checks_pass": official is not None and official["exit_code"] == 0,
         "tree_stable": (
@@ -162,6 +173,7 @@ def _build(run_official: bool) -> list[str]:
     output_dir.mkdir(parents=True, exist_ok=True)
     write_redacted_json(output_dir / "interpretive-render-controls.json", controls)
     write_redacted_json(output_dir / "live-python-regression-control.json", live_python)
+    write_redacted_json(output_dir / "live-go-regression-control.json", live_go)
     write_redacted_text(
         output_dir / "live-python-first-failure.stderr.log",
         LIVE_PYTHON_FIRST_FAILURE_LOG.read_text(encoding="utf-8", errors="replace"),
@@ -230,6 +242,8 @@ def _build(run_official: bool) -> list[str]:
                     "verification.json",
                     "plans/investigations/evidence/level8-interpretive-render-views/"
                     "live-python-regression-control.json",
+                    "plans/investigations/evidence/level8-interpretive-render-views/"
+                    "live-go-regression-control.json",
                 ],
                 "scoreboard_before_sha256": lifecycle_scoreboard_sha256(scoreboard),
                 "scoreboard_after_sha256": lifecycle_scoreboard_sha256(scoreboard),
