@@ -3867,6 +3867,82 @@ taskcards:
     summary: Run the stage-limited canonical supervisor through deterministic validation for one real
       representative per supported ecosystem.
   requirement_ids: []
+- task_id: L8-COMPOSE-05A-RUST-EXECUTION-REPAIR
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-COMPOSE-05-SEVEN-CANDIDATES
+  title: Preserve and repair the repeated Rust composition execution failure
+  source_audit_finding: Two bounded live retries left the Rust representative at FACTS_READY with
+    readme_presentation execution_error, while the portfolio result and durable domain state discarded
+    the exception detail needed to identify the first failing composition boundary.
+  audit_classification: newly_discovered
+  priority: P0
+  lane: local-readme-composition
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Preserve the complete specialist failure envelope through the portfolio result and durable
+    evidence, identify and permanently repair the first Rust-specific execution boundary, and resume the
+    same immutable representative through DETERMINISTIC_VALIDATED.
+  why_it_matters: Repeated paid retries without actionable diagnostics are neither autonomous nor
+    production-operable, and platform priority forbids skipping an agent-fixable Rust failure to reach Go.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/specialists/
+  - src/readme_agent/readme/
+  - src/readme_agent/state/
+  - tests/
+  - docs/
+  - plans/investigations/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-COMPOSE-04B-STAGE-TRANSACTIONS
+  expected_outputs:
+  - Lossless specialist failure envelope in durable state, portfolio results, and terminal evidence
+  - Root-cause repair at the first Rust composition boundary
+  - Sealed Rust candidate and deterministic-validation receipts
+  acceptance_checks:
+  - A controlled specialist exception retains type, message, domain, stage, attempt, and evidence reference
+  - Identical Rust input reaches DETERMINISTIC_VALIDATED without a third blind paid retry
+  - Python, .NET, Java, C++, and TypeScript accepted receipts remain reusable and unchanged
+  verification:
+  - Focused failure-envelope tests
+  - Rust public-supervisor reproduction
+  - receipt and lifecycle reconstruction
+  - affected state, terminal-classifier, redaction, no-write, and supervisor regressions
+  negative_controls:
+  - A repeated execution_error without actionable diagnostic evidence cannot be classified retryable
+  regression_checks:
+  - Python
+  - .NET
+  - Java
+  - C++
+  - TypeScript receipt reuse
+  - state
+  - evidence
+  - redaction
+  - push-blocking
+  evidence_requirements:
+  - Before and after failure envelopes
+  - root cause
+  - focused commands
+  - Rust stage receipts
+  - SHA-256 inventory
+  rollback_or_recovery: Preserve the last promoted receipt per representative and rerun only Rust from
+    its FACTS_READY boundary.
+  failure_reroute: Repair the first observable Rust specialist boundary; do not spend another provider
+    call until the failure detail is locally reproducible.
+  closeout_rules:
+  - Rust deterministic validation closes under the same composition and transaction contract as the
+    first five representatives
+  goal_ids:
+  - GOAL-README
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: visible_deliverable
+    summary: Make the repeated Rust candidate failure observable and close its deterministic candidate
+      boundary without weakening validation.
+  requirement_ids: []
 - task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
