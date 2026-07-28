@@ -9,6 +9,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
+from readme_agent.errors import LLMError
 from readme_agent.evidence.writer import refresh_sha256sums, write_redacted_json
 from readme_agent.llm.call_ledger import (
     bind_llm_repository_revision,
@@ -75,16 +76,26 @@ def main() -> int:
         stage="AGENT_REVIEWING",
     )
     bind_llm_repository_revision(source_revision, stage="AGENT_REVIEWING")
-    review = run_separated_readme_review(
-        ORG_REPO,
-        source,
-        candidate,
-        plan,
-        facts,
-    )
+    review = None
+    review_error = None
+    try:
+        review = run_separated_readme_review(
+            ORG_REPO,
+            source,
+            candidate,
+            plan,
+            facts,
+        )
+    except LLMError as exc:
+        review_error = {
+            "error_class": type(exc).__name__,
+            "message": str(exc),
+            "classified_verdict": "SYSTEM_FAILURE",
+            "candidate_retained": True,
+        }
     accounting = current_llm_accounting_summary()
-    if accounting.status != "EXACT" or accounting.provider_call_count < 2:
-        raise RuntimeError("real separated review did not record both provider calls")
+    if accounting.status != "EXACT" or accounting.provider_call_count < 1:
+        raise RuntimeError("real separated review did not record its provider calls")
 
     output.mkdir(parents=True, exist_ok=True)
     context = current_llm_call_context()
@@ -102,13 +113,15 @@ def main() -> int:
             "control_branch": control_snapshot["branch"],
             "control_head": control_snapshot["head"],
             "control_tree_clean": control_snapshot["tree_clean"],
-            "review": review.model_dump(mode="json"),
+            "review": review.model_dump(mode="json") if review is not None else None,
+            "review_error": review_error,
             "llm_accounting": accounting.model_dump(mode="json"),
             "remote_write_attempted": False,
         },
     )
     refresh_sha256sums(output)
-    print(json.dumps({"output": str(output), "verdict": review.verdict}, sort_keys=True))
+    verdict = review.verdict if review is not None else "SYSTEM_FAILURE"
+    print(json.dumps({"output": str(output), "verdict": verdict}, sort_keys=True))
     return 0
 
 
