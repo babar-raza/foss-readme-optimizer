@@ -81,6 +81,8 @@ FOCUSED_COMMAND = (
     "tests/unit/test_acquisition.py",
     "tests/unit/test_acquisition_pins.py",
     "tests/unit/test_rust_consumer.py",
+    "tests/unit/test_draft_product_truth_capability.py",
+    "tests/unit/test_supervisor_product_truth.py",
     "tests/security/test_example_execution_boundary.py",
     "tests/security/test_no_secrets_in_evidence.py",
 )
