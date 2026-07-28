@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES",
+    "claim_expires_at": "2026-07-28T19:16:26.019609+00:00",
+    "claim_id": "b7f936c519f045529de3deb263ff1cfe",
+    "claimed_at": "2026-07-28T18:46:26.019609+00:00",
+    "claimed_by": "codex",
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-28T18:46:06.389386+00:00",
+    "last_evaluated_at": "2026-07-28T18:46:26.019609+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 8,
@@ -85,7 +85,7 @@
       "L8-COMPOSE-04-PRESENTATION-LINT": "CLOSED",
       "L8-COMPOSE-04A-CANDIDATE-FIXTURES": "CLOSED",
       "L8-COMPOSE-04B-STAGE-TRANSACTIONS": "CLOSED",
-      "L8-COMPOSE-05-SEVEN-CANDIDATES": "READY",
+      "L8-COMPOSE-05-SEVEN-CANDIDATES": "IN_PROGRESS",
       "L8-COMPOSE-05A-RUST-EXECUTION-REPAIR": "CLOSED",
       "L8-GATE-D-GITHUB-APP-INTEGRATION": "TODO",
       "L8-GATEA-00-COHORT-CONTROLS": "TODO",
@@ -4074,6 +4074,15 @@
         "reason": "Both governed resolver paths are closed and all seven representatives now have deterministic candidate bundles ready for aggregate verification.",
         "task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES",
         "to_status": "READY"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "READY",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-28T18:46:26.019709+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-COMPOSE-05-SEVEN-CANDIDATES",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -4082,7 +4091,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 469,
+  "state_version": 470,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
