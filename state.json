@@ -527,7 +527,7 @@
     "updated_at": "2026-07-29T06:10:00.050151+00:00"
   },
   "schema_version": 2,
-  "state_version": 39,
+  "state_version": 40,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
@@ -662,13 +662,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: IsolatedExecutionError: docker image inspect failed: error during connect: Get \"http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.51/images/python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91/json\": open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.",
       "last_checkpoint_id": "f16dde6a4d34878eadbf5663010c9271b0048c726be747007251ece398cf77d8",
-      "lease_expires_at": "2026-07-29T06:24:02.642567+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-29T06:10:08.228849+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-29T06:10:47.372380+00:00"
     }
   },
   "trigger_records": {},
