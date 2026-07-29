@@ -429,9 +429,46 @@
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
   "profile_cache": null,
-  "readme_poc_lifecycle": null,
+  "readme_poc_lifecycle": {
+    "assessment_hash": null,
+    "candidate_hash": null,
+    "details": {},
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
+    "fact_acceptance_history": [],
+    "facts_hash": null,
+    "history": [
+      {
+        "evidence_refs": [],
+        "from_status": "DISCOVERED",
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-07-29T06:09:18.627763+00:00",
+        "reason": "claimed source-bound read-only intake preflight",
+        "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+        "to_status": "INTAKE_PREFLIGHTING"
+      }
+    ],
+    "intake_preflight_history": [],
+    "intake_preflight_pending": {
+      "attempt": 1,
+      "dedup_key": "a9074fc2794956059d7e3b608d35f9f669e179ade9d0c4519e628f9e7149a8a8",
+      "schema_version": 1,
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "source_revision_resolved": true,
+      "started_at": "2026-07-29T06:09:18.627757+00:00"
+    },
+    "presentation_plan_hash": null,
+    "prompt_hash": null,
+    "protected_content_fingerprint": null,
+    "repair_attempts_for_revision": 0,
+    "reviewer_standard_hash": null,
+    "schema_version": 2,
+    "source_revision": null,
+    "status": "INTAKE_PREFLIGHTING",
+    "updated_at": "2026-07-29T06:09:18.627763+00:00"
+  },
   "schema_version": 2,
-  "state_version": 34,
+  "state_version": 35,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
