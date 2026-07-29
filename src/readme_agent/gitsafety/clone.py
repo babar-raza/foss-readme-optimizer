@@ -85,6 +85,12 @@ def reset_clone_memo() -> None:
     _baseline_clone_memo.clear()
 
 
+def record_baseline_clone_revision(baseline_path: Path, revision: str) -> None:
+    """Record a baseline whose revision was independently verified by a trusted caller."""
+
+    _baseline_clone_memo[baseline_path] = revision
+
+
 def _is_transient_clone_failure(result) -> bool:
     """returncode 124 is run_git()'s own synthetic timeout marker (_git.py)
     -- always worth a fresh attempt, since SCL-004 measured wide clone-time

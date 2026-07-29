@@ -9,7 +9,6 @@ from typing import Literal, TypedDict
 from readme_agent import env
 from readme_agent.commands_compatibility import _durable_state_backend
 from readme_agent.evidence.redaction import redact
-from readme_agent.state.lifecycle_schema import FailureClassificationV1, TriggerStatusV2
 
 # Bound one invocation below common interactive/Actions cancellation windows;
 # durable per-repository state makes the next invocation resume the portfolio.
@@ -31,6 +30,29 @@ def _unhandled_runtime_failure_detail(exc: Exception) -> str:
     message = redact(str(exc), env.secret_values()).replace("\r", " ").replace("\n", " ")
     prefix = f"unhandled_runtime_failure:{type(exc).__name__}:"
     return prefix + message[: max(0, 1024 - len(prefix))]
+
+
+def _start_intake_llm_accounting(
+    args: argparse.Namespace,
+    lifecycle_recorder: object | None,
+) -> None:
+    """Open an explicit zero-provider-call ledger for an intake-terminal run."""
+
+    from readme_agent.evidence.writer import generate_run_id
+    from readme_agent.llm.call_ledger import start_llm_call_accounting
+
+    accounting_run_id = (
+        lifecycle_recorder.run_id
+        if lifecycle_recorder is not None and hasattr(lifecycle_recorder, "run_id")
+        else generate_run_id()
+    )
+    start_llm_call_accounting(
+        args.repo,
+        accounting_run_id,
+        campaign_id=env.github_run_id() or accounting_run_id,
+        stage="INTAKE_PREFLIGHT",
+    )
+    args._llm_accounting_run_id = accounting_run_id
 
 
 def cmd_supervise(args: argparse.Namespace) -> int:
@@ -101,7 +123,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
     # before repository-specific state, preflight, clone, or capability work.
     heal_result = heal_registry_drift(enabled=not getattr(args, "no_registry_heal", False))
     print(heal_result.summary_line())
-    require_listed(args.repo)
+    entry = require_listed(args.repo)
 
     # Resolve and prove durable state before preflight can make an LLM
     # connectivity call. A GitHub profile may never degrade to ephemeral
@@ -186,6 +208,118 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
         return 2
+
+    if profile is not None and profile.name == "local_poc":
+        from readme_agent.commands_supervision_result import complete_supervise_command
+        from readme_agent.supervisor.intake import run_readonly_intake_preflight
+        from readme_agent.supervisor.models import DecisionSummary, SuperviseResult
+        from readme_agent.supervisor.task import TaskGraph
+
+        assert state_backend is not None
+        intake = run_readonly_intake_preflight(
+            entry,
+            state_backend,
+            source_revision=getattr(args, "_portfolio_source_revision", None),
+        )
+        outcome = intake.binding.outcome
+        execution_label = (
+            "executed"
+            if intake.executed and not intake.resumed
+            else ("resumed" if intake.resumed else "deduplicated")
+        )
+        print(
+            f"{args.repo}: intake {outcome} at {intake.binding.source_revision} ({execution_label})"
+        )
+        if outcome == "NOT_APPLICABLE":
+            _start_intake_llm_accounting(args, lifecycle_recorder)
+            result = SuperviseResult(
+                status="STAGE_COMPLETE",
+                org_repo=args.repo,
+                task_graph=TaskGraph(),
+                decisions=[
+                    DecisionSummary(
+                        turn=0,
+                        kind="readonly_intake_not_applicable",
+                        detail=(
+                            f"NOT_APPLICABLE at {intake.binding.source_revision}; "
+                            "no later capability or target effect executed"
+                        ),
+                    )
+                ],
+                requested_readme_stage=(
+                    "INTAKE_READY" if readme_poc_stage_limit == "INTAKE_READY" else None
+                ),
+                readme_lifecycle_status="INTAKE_READY",
+            )
+            return complete_supervise_command(
+                args,
+                result,
+                profile=profile,
+                state_backend=state_backend,
+                lifecycle_recorder=lifecycle_recorder,
+            )
+        if outcome not in {"READY_FAST_PATH", "READY_FULL_PIPELINE"}:
+            agent_fixable = outcome in {
+                "BLOCKED_EVIDENCE",
+                "BLOCKED_CLASSIFICATION",
+                "BLOCKED_UNSUPPORTED",
+                "SYSTEM_FAILURE",
+            }
+            _start_intake_llm_accounting(args, lifecycle_recorder)
+            terminal_result = SuperviseResult(
+                status="BLOCKED",
+                org_repo=args.repo,
+                task_graph=TaskGraph(),
+                decisions=[
+                    DecisionSummary(
+                        turn=0,
+                        kind="readonly_intake",
+                        detail=(
+                            f"{outcome} at {intake.binding.source_revision}; "
+                            f"receipt={intake.binding.evidence_refs[0]}"
+                        ),
+                    )
+                ],
+                blocked_reason=f"readonly_intake:{outcome}",
+                blocked_category="agent_fixable" if agent_fixable else "infra_external",
+                readme_lifecycle_status=(
+                    "SYSTEM_FAILURE" if outcome == "SYSTEM_FAILURE" else "INTAKE_READY"
+                ),
+            )
+            return complete_supervise_command(
+                args,
+                terminal_result,
+                profile=profile,
+                state_backend=state_backend,
+                lifecycle_recorder=lifecycle_recorder,
+            )
+        if readme_poc_stage_limit == "INTAKE_READY":
+            _start_intake_llm_accounting(args, lifecycle_recorder)
+            result = SuperviseResult(
+                status="STAGE_COMPLETE",
+                org_repo=args.repo,
+                task_graph=TaskGraph(),
+                decisions=[
+                    DecisionSummary(
+                        turn=0,
+                        kind="readme_poc_stage_complete",
+                        detail=(
+                            f"requested INTAKE_READY; classified {outcome} at "
+                            f"{intake.binding.source_revision}; no LLM, specialist, "
+                            "composition, reviewer, or target effect executed"
+                        ),
+                    )
+                ],
+                requested_readme_stage="INTAKE_READY",
+                readme_lifecycle_status="INTAKE_READY",
+            )
+            return complete_supervise_command(
+                args,
+                result,
+                profile=profile,
+                state_backend=state_backend,
+                lifecycle_recorder=lifecycle_recorder,
+            )
 
     # Wave 8.5 (`ORC-006`/D2): a single-repo preflight, checked before either
     # branch below -- the single-domain branch needs this even more than the
@@ -300,126 +434,15 @@ def cmd_supervise(args: argparse.Namespace) -> int:
                 failure_detail=_unhandled_runtime_failure_detail(exc),
             )
         raise
-    if profile is not None and profile.require_evidence_bundle and result.evidence_dir is None:
-        from readme_agent import paths
-        from readme_agent.evidence.writer import generate_run_id
-        from readme_agent.supervisor.evidence import (
-            assert_evidence_complete,
-            write_supervise_evidence,
-        )
+    from readme_agent.commands_supervision_result import complete_supervise_command
 
-        fallback_run_id = (
-            lifecycle_recorder.run_id if lifecycle_recorder is not None else generate_run_id()
-        )
-        result.evidence_dir = paths.evidence_dir(fallback_run_id)
-        with activate_lifecycle(lifecycle_recorder):
-            write_supervise_evidence(
-                result.evidence_dir,
-                fallback_run_id,
-                args.repo,
-                result.status,
-                result.task_graph,
-                result.decisions,
-            )
-        assert_evidence_complete(result.evidence_dir)
-
-    lifecycle_status: TriggerStatusV2 | None = None
-    if lifecycle_recorder is not None:
-        assert state_backend is not None
-        failure_classification: FailureClassificationV1 | None = None
-        failure_detail: str | None = result.status
-        if result.status == "BLOCKED":
-            transient = bool(
-                result.blocked_reason
-                and (
-                    result.blocked_reason.startswith("baseline_clone_failed:")
-                    or result.blocked_reason.startswith("planner_llm_failure:")
-                    or result.blocked_reason in {"lock_held", "run_lock_held"}
-                )
-            )
-            failure_detail = result.blocked_reason
-            if transient:
-                lifecycle_status = "retryable"
-                failure_classification = "transient"
-            else:
-                failure_classification = (
-                    "unsupported"
-                    if result.blocked_reason
-                    and (
-                        result.blocked_reason.startswith("unsupported_ecosystem:")
-                        or result.blocked_reason == "not_onboarded"
-                    )
-                    else "validation_failed"
-                )
-                lifecycle_status = "blocked"
-        else:
-            lifecycle_status = "completed"
-
-        from readme_agent.supervisor.evidence import (
-            assert_evidence_complete,
-            finalize_run_manifest_v3,
-        )
-
-        assert lifecycle_status is not None
-        if lifecycle_status in {"blocked", "completed"}:
-            lifecycle_recorder.checkpoint_final_acceptance(
-                lifecycle_status,
-                detail=failure_detail,
-                failure_classification=failure_classification,
-            )
-        try:
-            if result.evidence_dir is None:
-                raise RuntimeError(
-                    "GitHub execution profile did not produce a terminal evidence bundle"
-                )
-            finalize_run_manifest_v3(
-                result.evidence_dir,
-                lifecycle_recorder,
-                lifecycle_status,
-            )
-            assert_evidence_complete(result.evidence_dir)
-        except Exception as exc:
-            transition_trigger(
-                state_backend,
-                args.repo,
-                lifecycle_recorder.envelope.dedup_key,
-                "retryable",
-                failure_classification="validation_failed",
-                failure_detail=f"terminal_evidence_failure:{type(exc).__name__}",
-            )
-            raise
-        lifecycle_recorder.transition(
-            lifecycle_status,
-            detail=failure_detail,
-            failure_classification=failure_classification,
-        )
-    from readme_agent.llm.call_ledger import current_llm_accounting_summary
-
-    llm_summary = current_llm_accounting_summary()
-    print(
-        f"{args.repo}: {result.status}"
-        + (
-            f" ({result.blocked_reason}; category={result.blocked_category})"
-            if result.blocked_reason
-            else ""
-        )
-        + (
-            f" [llm_accounting={llm_summary.status}; "
-            f"provider_calls={llm_summary.provider_call_count}; "
-            f"cache_reuse={llm_summary.cache_reuse_count}]"
-        )
+    return complete_supervise_command(
+        args,
+        result,
+        profile=profile,
+        state_backend=state_backend,
+        lifecycle_recorder=lifecycle_recorder,
     )
-    for d in result.decisions:
-        print(f"  [{d.turn}] {d.kind}: {d.detail}")
-    from readme_agent.supervisor.status import terminal_exit_code
-
-    exit_code = terminal_exit_code(result)
-    # Private command-local handoff used only by `_cmd_supervise_registry()`
-    # to derive an honest portfolio summary.  It is never persisted or used
-    # to control execution; durable state and manifests remain authoritative.
-    args._terminal_supervise_result = result
-    args._llm_accounting_summary = llm_summary
-    return exit_code
 
 
 def _cmd_supervise_registry(args: argparse.Namespace) -> int:
@@ -457,6 +480,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     from readme_agent.registry.priority import order_entries_by_platform_priority
     from readme_agent.state.recovery import recovery_sweep
     from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
+    from readme_agent.supervisor.intake_cache import completed_intake_binding
     from readme_agent.supervisor.portfolio import (
         PortfolioPocSummaryV1,
         PortfolioRepositoryResultV1,
@@ -524,6 +548,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         # The source registry has already been frozen above.  A discovery
         # sweep during the pass would invalidate its dynamic denominator.
         repository_args.no_registry_heal = True
+        repository_args._portfolio_source_revision = None
         try:
             persisted = state_backend.load(entry.org_repo)
             lifecycle = persisted.readme_poc_lifecycle if persisted is not None else None
@@ -535,6 +560,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     lifecycle.source_revision,
                 )
                 current_source_revision = remote_head_sha(entry.clone_url)
+                repository_args._portfolio_source_revision = current_source_revision
                 complete_cache_key: str | None = None
                 if readme_poc_stage_limit is None:
                     from readme_agent.supervisor.local_poc_cache import (
@@ -551,6 +577,13 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     )
                     complete_status = cache_decision.status if cache_decision.reusable else None
                     complete_cache_key = cache_decision.cache_key
+                elif readme_poc_stage_limit == "INTAKE_READY":
+                    intake_binding = completed_intake_binding(
+                        persisted,
+                        entry,
+                        current_source_revision=current_source_revision,
+                    )
+                    complete_status = "INTAKE_READY" if intake_binding is not None else None
                 else:
                     complete_status = completed_bounded_product_truth_status(
                         state_backend,

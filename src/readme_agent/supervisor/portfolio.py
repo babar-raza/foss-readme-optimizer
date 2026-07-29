@@ -22,6 +22,7 @@ _COMPLETE_LOCAL_POC_STATUSES = {
     "PR_PROOF_COMPLETE",
 }
 PortfolioTargetStageV1 = Literal[
+    "INTAKE_READY",
     "FACTS_READY",
     "CANDIDATE_GENERATED",
     "DETERMINISTIC_VALIDATED",
@@ -126,6 +127,7 @@ class PortfolioPocSummaryV1(BaseModel):
         """Count repositories that honestly reached this bounded campaign target."""
 
         if self.target_lifecycle_stage in {
+            "INTAKE_READY",
             "FACTS_READY",
             "CANDIDATE_GENERATED",
             "DETERMINISTIC_VALIDATED",

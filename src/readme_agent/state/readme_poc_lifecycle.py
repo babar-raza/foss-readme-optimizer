@@ -66,7 +66,9 @@ from readme_agent.state.schema import RunStateV2
 # actually drives transitions in production, not one this schema-only pass
 # should guess at.
 _README_POC_TRANSITIONS: dict[ReadmePocStatusV2, set[ReadmePocStatusV2]] = {
-    "DISCOVERED": {"SNAPSHOTTED", "SYSTEM_FAILURE"},
+    "DISCOVERED": {"INTAKE_PREFLIGHTING", "SNAPSHOTTED", "SYSTEM_FAILURE"},
+    "INTAKE_PREFLIGHTING": {"INTAKE_READY", "SYSTEM_FAILURE"},
+    "INTAKE_READY": {"INTAKE_PREFLIGHTING", "SNAPSHOTTED", "SYSTEM_FAILURE"},
     "SNAPSHOTTED": {"SNAPSHOTTED", "PROFILED", "SYSTEM_FAILURE"},
     "PROFILED": {"FACTS_COLLECTING", "SYSTEM_FAILURE"},
     "FACTS_COLLECTING": {
@@ -117,6 +119,7 @@ _README_POC_TRANSITIONS: dict[ReadmePocStatusV2, set[ReadmePocStatusV2]] = {
     # A new source snapshot may invalidate even a previously proven PR.
     "PR_PROOF_COMPLETE": {"SNAPSHOTTED", "FACTS_COLLECTING"},
     "SYSTEM_FAILURE": {
+        "INTAKE_PREFLIGHTING",
         "SNAPSHOTTED",
         "FACTS_COLLECTING",
         "README_ASSESSED",
@@ -197,7 +200,9 @@ def legal_next_readme_poc_statuses(status: ReadmePocStatusV2) -> frozenset[Readm
     return frozenset(_README_POC_TRANSITIONS[status])
 
 
-def _migrate_v1_lifecycle(prior: ReadmePocLifecycleStateV1) -> ReadmePocLifecycleStateV2:
+def migrate_readme_poc_lifecycle(
+    prior: ReadmePocLifecycleStateV1,
+) -> ReadmePocLifecycleStateV2:
     """Upgrade the existing lifecycle record without discarding its history."""
     return ReadmePocLifecycleStateV2(
         status=_V1_STATUS_MIGRATION[prior.status],
@@ -266,7 +271,7 @@ def transition_readme_poc_status(
     def patch(state: RunStateV2) -> RunStateV2:
         stored = state.readme_poc_lifecycle
         prior = (
-            _migrate_v1_lifecycle(stored)
+            migrate_readme_poc_lifecycle(stored)
             if isinstance(stored, ReadmePocLifecycleStateV1)
             else (stored or ReadmePocLifecycleStateV2())
         )
@@ -444,7 +449,7 @@ def bind_fact_acceptance_contract(
     def patch(state: RunStateV2) -> RunStateV2:
         stored = state.readme_poc_lifecycle
         lifecycle = (
-            _migrate_v1_lifecycle(stored)
+            migrate_readme_poc_lifecycle(stored)
             if isinstance(stored, ReadmePocLifecycleStateV1)
             else stored
         )
@@ -667,7 +672,7 @@ def record_repository_snapshot(
     loaded = backend.load(org_repo)
     lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
     if isinstance(lifecycle, ReadmePocLifecycleStateV1):
-        lifecycle = _migrate_v1_lifecycle(lifecycle)
+        lifecycle = migrate_readme_poc_lifecycle(lifecycle)
     if lifecycle is not None and lifecycle.source_revision == source_revision:
         return lifecycle
     return transition_readme_poc_status(
@@ -701,7 +706,7 @@ def record_repository_profile(
     loaded = backend.load(org_repo)
     lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
     if isinstance(lifecycle, ReadmePocLifecycleStateV1):
-        lifecycle = _migrate_v1_lifecycle(lifecycle)
+        lifecycle = migrate_readme_poc_lifecycle(lifecycle)
     if lifecycle is None:
         raise StateBackendError(
             f"cannot record repository profile for {org_repo!r} before its snapshot"
@@ -777,7 +782,7 @@ def record_product_facts_outcome(
     loaded = backend.load(org_repo)
     lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
     if isinstance(lifecycle, ReadmePocLifecycleStateV1):
-        lifecycle = _migrate_v1_lifecycle(lifecycle)
+        lifecycle = migrate_readme_poc_lifecycle(lifecycle)
     if lifecycle is None or lifecycle.source_revision != source_revision:
         raise StateBackendError(
             f"cannot record product facts for {org_repo!r} without a matching profile at "

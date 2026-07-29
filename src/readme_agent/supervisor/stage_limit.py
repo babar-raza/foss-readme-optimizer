@@ -9,16 +9,43 @@ from pydantic import BaseModel, ConfigDict
 from readme_agent.state.lifecycle_schema import ReadmePocStatusV2
 
 ReadmePocStageLimitV1 = Literal[
+    "INTAKE_READY",
     "FACTS_READY",
     "CANDIDATE_GENERATED",
     "DETERMINISTIC_VALIDATED",
 ]
 README_POC_STAGE_LIMITS: tuple[ReadmePocStageLimitV1, ...] = (
+    "INTAKE_READY",
     "FACTS_READY",
     "CANDIDATE_GENERATED",
     "DETERMINISTIC_VALIDATED",
 )
 
+_INTAKE_READY_OR_LATER = frozenset(
+    {
+        "INTAKE_READY",
+        "SNAPSHOTTED",
+        "PROFILED",
+        "FACTS_COLLECTING",
+        "BLOCKED_FACT_CONFLICT",
+        "BLOCKED_MISSING_EVIDENCE",
+        "FACTS_READY",
+        "README_ASSESSED",
+        "PLAN_READY",
+        "CANDIDATE_GENERATED",
+        "DETERMINISTIC_VALIDATION_FAILED",
+        "DETERMINISTIC_VALIDATED",
+        "AGENT_REVIEWING",
+        "AGENT_REVIEW_REJECTED",
+        "REPAIRING",
+        "AGENT_APPROVED",
+        "NO_OP_PROVEN",
+        "HUMAN_REVIEW_READY",
+        "HUMAN_ACCEPTED",
+        "PR_ELIGIBLE",
+        "PR_PROOF_COMPLETE",
+    }
+)
 _FACTS_READY_OR_LATER = frozenset(
     {
         "FACTS_READY",
@@ -67,6 +94,7 @@ _DETERMINISTIC_VALIDATED_OR_LATER = frozenset(
     }
 )
 _REACHED_BY_LIMIT = {
+    "INTAKE_READY": _INTAKE_READY_OR_LATER,
     "FACTS_READY": _FACTS_READY_OR_LATER,
     "CANDIDATE_GENERATED": _CANDIDATE_GENERATED_OR_LATER,
     "DETERMINISTIC_VALIDATED": _DETERMINISTIC_VALIDATED_OR_LATER,

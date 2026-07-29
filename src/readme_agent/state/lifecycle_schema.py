@@ -81,6 +81,8 @@ ReadmePocStatusV1 = Literal[
 # observable before a portfolio metric can claim local approval.
 ReadmePocStatusV2 = Literal[
     "DISCOVERED",
+    "INTAKE_PREFLIGHTING",
+    "INTAKE_READY",
     "SNAPSHOTTED",
     "PROFILED",
     "FACTS_COLLECTING",
@@ -102,6 +104,17 @@ ReadmePocStatusV2 = Literal[
     "DETERMINISTIC_VALIDATION_FAILED",
     "AGENT_REVIEW_REJECTED",
     "REPAIRING",
+]
+
+IntakePreflightOutcomeV1 = Literal[
+    "READY_FAST_PATH",
+    "READY_FULL_PIPELINE",
+    "BLOCKED_EVIDENCE",
+    "BLOCKED_CLASSIFICATION",
+    "BLOCKED_ACCESS",
+    "BLOCKED_UNSUPPORTED",
+    "NOT_APPLICABLE",
+    "SYSTEM_FAILURE",
 ]
 
 
@@ -265,6 +278,33 @@ class FactAcceptanceBindingV1(BaseModel):
     occurred_at: str = Field(default_factory=utc_now_iso)
 
 
+class IntakePreflightReservationV1(BaseModel):
+    """One durable logical intake claimed before repository inspection."""
+
+    schema_version: Literal[1] = 1
+    dedup_key: str = Field(pattern=r"^[0-9a-f]{64}$")
+    source_revision: str = Field(pattern=r"^[0-9a-f]+$")
+    source_revision_resolved: bool = True
+    attempt: int = Field(default=1, ge=1)
+    started_at: str = Field(default_factory=utc_now_iso)
+
+
+class IntakePreflightBindingV1(BaseModel):
+    """Source-bound terminal outcome of one read-only intake inspection."""
+
+    schema_version: Literal[1] = 1
+    dedup_key: str = Field(pattern=r"^[0-9a-f]{64}$")
+    source_revision: str = Field(pattern=r"^[0-9a-f]+$")
+    source_revision_resolved: bool = True
+    outcome: IntakePreflightOutcomeV1
+    result_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
+    reason: str = Field(min_length=1)
+    evidence_refs: list[str] = Field(default_factory=list)
+    observed_by: str = Field(min_length=1)
+    attempt: int = Field(default=1, ge=1)
+    occurred_at: str = Field(default_factory=utc_now_iso)
+
+
 class ReadmePocLifecycleStateV2(BaseModel):
     """Current per-repository local-POC lifecycle in the existing state slot."""
 
@@ -281,6 +321,8 @@ class ReadmePocLifecycleStateV2(BaseModel):
     fact_acceptance_contract_hash: str | None = None
     fact_acceptance_component_hashes: dict[str, str] = Field(default_factory=dict)
     fact_acceptance_history: list[FactAcceptanceBindingV1] = Field(default_factory=list)
+    intake_preflight_pending: IntakePreflightReservationV1 | None = None
+    intake_preflight_history: list[IntakePreflightBindingV1] = Field(default_factory=list)
     reviewer_standard_hash: str | None = None
     protected_content_fingerprint: str | None = None
     repair_attempts_for_revision: int = Field(default=0, ge=0, le=2)
