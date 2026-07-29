@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-04-NO-OP-CACHE",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "acceptance_proof",
+    "summary": "Reuse valid fact, authoring, validation, and review results on unchanged reruns without duplicate state or LLM work."
+  },
+  "acceptance_checks_passed": [
+    "Identical reruns create no patch",
+    "duplicate event",
+    "bundle",
+    "effect",
+    "author call",
+    "or reviewer call"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-review-no-op-cache-v1/no-op-cache-proof.json",
+    "plans/investigations/evidence/level8-review-no-op-cache-v1/verification.json"
+  ],
+  "scoreboard_before_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "scoreboard_after_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

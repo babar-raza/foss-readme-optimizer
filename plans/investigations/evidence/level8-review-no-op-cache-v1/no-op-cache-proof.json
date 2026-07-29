@@ -1,0 +1,57 @@
+{
+  "runtime_bundle": "<TEMP>/rnc621d40/.../runs/readme-poc/<repo>/<revision>",
+  "source_revision": "90d048648b335d9d7173d97cc07af80a244c3b11",
+  "facts_hash": "10311874ad97735a11b423c0bd36b52e42eb9e667306d0fc1379ca61e3a52020",
+  "assessment_hash": "3841a12f195cc64c2faaa3d52d1109b0cb29112af3332f1f21baaea3f0aae720",
+  "presentation_plan_hash": "cb9ddd012c516012871bb88c14e485e84934556914e7b863136075422115379d",
+  "candidate_hash": "547203f003c67fec954d24f7431fb20d4d061793c21e8085f8958d04b790e5d5",
+  "prompt_dependency_hashes": {
+    "AGENT_REVIEWING": "4a9eacb876595d6380ec662afdd6e5b1ffabd40c1fe483461918234036503d6c",
+    "CANDIDATE_GENERATED": "69b7712c86b151e8fcaa7545e4443934987bc2a028cfa74a820518b675c292f4",
+    "DETERMINISTIC_VALIDATED": "fcf388aea6222820812286a58be939bc490627738f0a8e9f7c2264b2b9f1ffc6",
+    "FACTS_COLLECTING": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
+    "PLAN_READY": "a901ec4d6deb6c18df150cec82e7e46f9f08b91d758dc3ee35d3d9c5803ec7d8",
+    "README_ASSESSED": "e5e204c87c552a86881d06ab4d5cf72710634a0185c5ac12a17747a428afe0da",
+    "REPAIRING": "eca5e50e1427e924800ea37f0db46d6c510bce1d873218910767fd2415e6e1e6",
+    "SPECIALIST_SELECTION": "f6907af0523d0b8ea8c1473d7cecaa4ae4cb85359e3a9e02a220157444cc71c9",
+    "SUPERVISOR_PLANNING": "f3f487bfe78872eb2ccc4462e4036701b163aea61d4c28ed631dfe1be3ba4f70"
+  },
+  "reviewer_standard_hash": "121ada0824b56cc6ecfac76adf042fc506c264314c07f7fa9fc30b0e7e127aee",
+  "bundle_inventory_sha256": "0932b9959ba70f669ed54a5ce165e4a02ce785fe5fe56eac8f68beeecb932436",
+  "transition_boundary": {
+    "terminal": "NO_OP_PROVEN",
+    "completed_stages": [
+      "SNAPSHOTTED",
+      "PROFILED",
+      "FACTS_COLLECTING",
+      "FACTS_READY",
+      "README_ASSESSED",
+      "PLAN_READY",
+      "CANDIDATE_GENERATED",
+      "DETERMINISTIC_VALIDATED",
+      "AGENT_REVIEWING",
+      "AGENT_APPROVED",
+      "NO_OP_PROVEN"
+    ],
+    "duplicate_event": false
+  },
+  "call_inventory": {
+    "accounting_status": "EXACT",
+    "new_provider_call_count": 0,
+    "agentic_review_reused": true,
+    "author_call": false,
+    "reviewer_call": false
+  },
+  "output_diff": {
+    "patch_created": false,
+    "duplicate_bundle_created": false,
+    "effect_created": false
+  },
+  "cancellation_resume": {
+    "boundary": "after AGENT_APPROVED and before unchanged no-op proof",
+    "recovery_input": "serialized durable state plus revision-addressed artifacts only",
+    "result": "NO_OP_PROVEN"
+  },
+  "product_remote_writes": 0,
+  "result": "PASS"
+}

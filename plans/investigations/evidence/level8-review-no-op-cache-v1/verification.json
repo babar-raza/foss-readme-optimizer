@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-04-NO-OP-CACHE",
+  "control_revision": "621d406f5abdae28168e73917223d03f450f52f2",
+  "implementation_revision": "e37ba9b8102ffc58de3bda146bd758463440483b",
+  "focused_proof": {
+    "command": ".venv/Scripts/python -m pytest -q --basetemp <TEMP>/rnc621d40 tests/unit/test_local_poc_cache.py tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_records_snapshot_and_profile_before_later_stages tests/unit/test_cli.py::TestLocalPocPortfolioCommand::test_duplicate_github_run_id_short_circuits_without_calling_supervise_repo tests/unit/test_cli.py::TestLocalPocPortfolioCommand::test_recovery_matrix_resumes_the_original_durable_trigger tests/unit/test_cli.py::TestLocalPocPortfolioCommand::test_local_poc_member_resumes_a_retryable_cli_trigger",
+    "exit_code": 0,
+    "stdout": "....................                                                     [100%]\n20 passed in 19.08s",
+    "stderr": "",
+    "result": "PASS"
+  },
+  "current_regression": {
+    "command": ".venv/Scripts/python -m pytest -q cache, supervisor, CLI lifecycle, README lifecycle, convergence, evidence, call-ledger, state, redaction suites",
+    "passed": 195,
+    "result": "PASS"
+  },
+  "prior_clean_full_regression": {
+    "source": "plans/investigations/evidence/level8-review-cache-measurement-v1/verification.json",
+    "passed": 2129,
+    "deselected": 41,
+    "result": "PASS"
+  },
+  "independent_verification": {
+    "method": "reproduced restart and duplicate-trigger controls, then independently validated terminal semantics and every runtime bundle checksum",
+    "result": "PASS"
+  },
+  "product_remote_writes": 0,
+  "result": "PASS"
+}
