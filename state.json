@@ -11431,7 +11431,7 @@
     "updated_at": "2026-07-29T16:45:34.472575+00:00"
   },
   "schema_version": 2,
-  "state_version": 536,
+  "state_version": 537,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -11956,13 +11956,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: forced tool call failed after retries: network error: HTTPSConnectionPool(host='llm.professionalize.com', port=443): Read timed out. (read timeout=90)",
       "last_checkpoint_id": "1a37d30d68fc90e1c0baec998c1d24e02fa6c869798a6f7756a9fce6c905b34d",
-      "lease_expires_at": "2026-07-29T18:40:07.272082+00:00",
+      "lease_expires_at": null,
       "recovery_count": 9,
-      "status": "processing",
-      "updated_at": "2026-07-29T18:25:12.582462+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-29T18:33:22.558755+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
