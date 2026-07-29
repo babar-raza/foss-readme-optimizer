@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-03-INDEPENDENT-FIDELITY-REVIEW",
+  "verdict": "VERIFIED",
+  "repository": "foss-readme-optimizer",
+  "branch": "main",
+  "implementation_commit": "3cdf5dc9ace89404d304c5d3c30554bac2f83cf5",
+  "content_assurance": "trusted_inherited",
+  "factual_truth_verified": false,
+  "implemented_contracts": [
+    "TrustedTransformReviewV1 with deterministic validation and separate blind-quality and inheritance-fidelity roles",
+    "Registered independent-verification capability with snapshot, allow-list, permission, and caller-domain enforcement",
+    "Grounded source-check inventory and unsupported-addition findings with one bounded schema/grounding retry",
+    "Two-attempt hash-bound section repair that preserves accepted batches and requires changed candidate bytes",
+    "Exact per-repository provider, fixture, token, failure, and cache ledger binding",
+    "Accepted-cache identity covering source, facts, configuration, candidate, contracts, all prompts, and all model routes",
+    "Idempotent durable trusted-review progression with no duplicate accepted lifecycle event"
+  ],
+  "acceptance_results": {
+    "both_roles_and_deterministic_validation_required": "PASS",
+    "content_loss_false_accepts": 0,
+    "unsupported_addition_false_accepts": 0,
+    "author_reviewer_identity_overlap_false_accepts": 0,
+    "effective_repair": "PASS",
+    "byte_identical_repair": "SYSTEM_FAILURE",
+    "repeated_malformed_fidelity_output": "SYSTEM_FAILURE",
+    "accepted_cache_provider_call_delta": 0,
+    "duplicate_lifecycle_event_delta": 0,
+    "missing_accounting_context": "FAIL_CLOSED",
+    "trusted_verdict_promoted_to_factual_truth": false
+  },
+  "artifacts": {
+    "accepted_review": "accepted-review.json",
+    "content_loss_rejection": "content-loss-rejection.json",
+    "repair_loop": "repair-loop.json",
+    "no_op_proof": "no-op-proof.json",
+    "call_ledger": "llm-call-ledger.jsonl",
+    "scenario_summary": "scenario-summary.json",
+    "official_checks": "official-checks-attempt-1.log"
+  },
+  "verification": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q --junitxml=runs/verification/trp03/focused-regression.xml <TRP-03 focused, reviewer, cache, lifecycle, capability, prompt, allow-list, push-blocking, redaction, and terminal-classifier controls>",
+      "result": "398 passed in 124.99s",
+      "raw_log": "runs/verification/trp03/focused-regression.xml",
+      "raw_log_sha256": "20de09eba0f6ccbe4963423a9e0e2044bc2594a798d92b1defa9cdc76ecf4a6b"
+    },
+    {
+      "command": ".venv/Scripts/python scripts/governance/run_official_checks.py",
+      "result": "All official checks passed against TREE CLEAN; 2,233 non-live tests passed and 41 live tests were deselected in 1058.23s; Ruff, formatting, mypy, plan structure, verifier wiring, prompt hygiene, requirement coverage, traceability, and actionlint passed.",
+      "raw_log": "official-checks-attempt-1.log",
+      "raw_log_sha256": "483200176c749b3daee750381f83930eaaf624cc4f2b7d0b1775ccca4bd7242b"
+    }
+  ],
+  "non_promoting_diagnostics": [
+    {
+      "command": "Earlier full non-live pytest run started before the final accounting and route-cache changes",
+      "result": "2,232 passed",
+      "disposition": "Not counted because the tree changed during that run."
+    },
+    {
+      "route": "qwen3-next",
+      "result": "The hosted backend remained unavailable during the preceding TRP-02 diagnostic.",
+      "disposition": "Live model and real-repository canary qualification remains TRP-04 work; no offline fixture is represented as live provider proof."
+    }
+  ],
+  "scope_boundary": {
+    "complete": [
+      "TRP-03 implementation and offline/live-like contract qualification",
+      "Independent trusted quality and inheritance-fidelity reduction",
+      "Grounded repair, failure classification, call ledger, cache invalidation, and lifecycle idempotency"
+    ],
+    "remaining": [
+      "TRP-003 remains PARTIAL until TRP-04 proves configured-standard additions in real canaries.",
+      "TRP-006 remains PARTIAL until the canonical supervisor runs both reviewers and repairs across the complete TRP-04 canary set.",
+      "TRP-007 remains PARTIAL until live provider calls and portfolio reconciliation are proven in TRP-04/TRP-05.",
+      "No trusted candidate, no-op, PR, hosted workflow, or maturity gate is claimed by this task."
+    ]
+  },
+  "independent_verification": {
+    "status": "accepted",
+    "basis": "The authoring route cannot accept itself; two separate prompt/role identities, deterministic validation, exact-span grounding, negative controls, state idempotency, and a clean full official suite independently reproduce the claimed implementation boundary."
+  }
+}

@@ -1,0 +1,158 @@
+command=D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\run_official_checks.py
+started_at=2026-07-29T15:54:01.771550+00:00
+finished_at=2026-07-29T16:11:47.612593+00:00
+return_code=0
+
+All checks passed!
+757 files already formatted
+Success: no issues found in 424 source files
+........................................................................ [  3%]
+........................................................................ [  6%]
+........................................................................ [  9%]
+........................................................................ [ 12%]
+........................................................................ [ 16%]
+........................................................................ [ 19%]
+........................................................................ [ 22%]
+........................................................................ [ 25%]
+........................................................................ [ 29%]
+........................................................................ [ 32%]
+........................................................................ [ 35%]
+........................................................................ [ 38%]
+........................................................................ [ 41%]
+........................................................................ [ 45%]
+........................................................................ [ 48%]
+........................................................................ [ 51%]
+........................................................................ [ 54%]
+........................................................................ [ 58%]
+........................................................................ [ 61%]
+........................................................................ [ 64%]
+........................................................................ [ 67%]
+........................................................................ [ 70%]
+........................................................................ [ 74%]
+........................................................................ [ 77%]
+........................................................................ [ 80%]
+........................................................................ [ 83%]
+........................................................................ [ 87%]
+........................................................................ [ 90%]
+........................................................................ [ 93%]
+........................................................................ [ 96%]
+........................................................................ [ 99%]
+.                                                                        [100%]
+2233 passed, 41 deselected in 1058.23s (0:17:38)
+Plan structure clean (60 warning(s)).
+check_verifiers_are_wired: every verify_* function has a call site in src/
+Prompt hygiene clean: 14 active prompt(s)
+Level-8 requirement coverage current: 448 rows
+Checked 159 IMPLEMENTED rows.
+  0 row(s) with a semantic closure finding.
+  91 row(s) with informational-only findings (no test path cited).
+  68 row(s) fully clean.
+
+=== Tree precondition (start) ===
+TREE CLEAN
+
+=== ruff check ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m ruff check .
+--- ruff check: OK
+
+=== ruff format --check ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m ruff format --check .
+--- ruff format --check: OK
+
+=== mypy src ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m mypy src
+--- mypy src: OK
+
+=== pytest -q (full non-live suite) ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe -m pytest -q
+--- pytest -q (full non-live suite): OK
+
+=== validate_plan_structure.py ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\validate_plan_structure.py
+--- validate_plan_structure.py: OK
+
+=== check_verifiers_are_wired.py --check (PRODSYS-P2-T1) ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\check_verifiers_are_wired.py --check
+--- check_verifiers_are_wired.py --check (PRODSYS-P2-T1): OK
+
+=== check_prompt_hygiene.py ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\check_prompt_hygiene.py
+--- check_prompt_hygiene.py: OK
+
+=== build_level8_requirement_taskcard_coverage.py --check (PRODSYS-P1-T3) ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\scripts\governance\build_level8_requirement_taskcard_coverage.py --check
+--- build_level8_requirement_taskcard_coverage.py --check (PRODSYS-P1-T3): OK
+
+=== traceability_matrix.py --check ===
+$ D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\plans\investigations\tools\traceability_matrix.py --check
+--- traceability_matrix.py --check: OK
+
+=== actionlint (workflow syntax) ===
+--- actionlint not found on PATH -- skipped (install it for a real syntax check)
+
+=== Tree precondition (end) ===
+TREE CLEAN
+
+============================================================
+Tree state: TREE CLEAN
+All official checks passed.
+WARNING: plans/requirements.md:79 `GOV-018` row is 2121 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:84 `GOV-023` row is 1678 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:87 `GOV-024` row is 1841 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:89 `GOV-028` row is 2852 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:142 `FACT-013` row is 1528 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:143 `FACT-015` row is 2690 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:144 `FACT-014` row is 2200 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:173 `RDM-024` row is 1834 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:245 `OPS-007` row is 1556 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:247 `OPS-009` row is 5097 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:249 `OPS-011` row is 2252 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:250 `OPS-012` row is 2411 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:258 `DEP-004` row is 1789 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:284 `LLM-019` row is 2103 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:285 `LLM-020` row is 2100 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:348 `AUTH-004` row is 1922 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:351 `AUTH-007` row is 1588 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:450 `AGT-002` row is 1678 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:453 `AGT-005` row is 2686 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:454 `AGT-006` row is 3018 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:455 `AGT-007` row is 1719 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:458 `AGT-008` row is 2255 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:469 `CAP-006` row is 3919 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:470 `CAP-007` row is 1701 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:472 `CAP-009` row is 1682 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:478 `RUN-001` row is 2569 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:496 `ECO-004` row is 3511 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:515 `ONB-004` row is 3073 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:522 `MEM-002` row is 2320 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:524 `MEM-004` row is 2958 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:525 `MEM-005` row is 1879 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:542 `EFF-001` row is 1953 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:543 `EFF-002` row is 1748 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:545 `EFF-004` row is 1770 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:546 `EFF-005` row is 1934 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:547 `EFF-006` row is 2641 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:566 `ORC-003` row is 5392 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:569 `ORC-006` row is 3580 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:579 `VER-002` row is 3385 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:580 `VER-003` row is 2249 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:581 `VER-004` row is 3403 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:582 `VER-005` row is 4430 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:583 `VER-006` row is 1733 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:585 `VER-008` row is 2570 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:586 `VER-010` row is 2037 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:605 `SCL-004` row is 2771 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:606 `SCL-005` row is 4020 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:607 `SCL-006` row is 2489 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:608 `SCL-007` row is 1664 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:611 `FACT-016` row is 1634 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:613 `SCL-009` row is 5039 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:672 `L8-021` row is 3572 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:673 `L8-022` row is 1547 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:674 `L8-023` row is 1699 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:675 `L8-024` row is 1684 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:676 `L8-025` row is 1614 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:678 `L8-027` row is 1686 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:679 `L8-028` row is 1827 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:681 `L8-030` row is 1570 chars (over the 1500-char retrofit-on-touch guidance)
+WARNING: plans/requirements.md:682 `L8-031` row is 1682 chars (over the 1500-char retrofit-on-touch guidance)

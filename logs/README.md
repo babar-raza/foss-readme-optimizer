@@ -51,7 +51,7 @@ was:**
 | 2026-07-26 | `logs/2026-07-26.md` | 13 |
 | 2026-07-27 | `logs/2026-07-27.md` | 6 |
 | 2026-07-28 | `logs/2026-07-28.md` | 8 |
-| 2026-07-29 | `logs/2026-07-29.md` | 10 |
+| 2026-07-29 | `logs/2026-07-29.md` | 12 |
 
 **How to find an entry**: know the date → open that file directly, the filename *is* the date.
 Know a decision number, requirement ID, or wave/phase → grep for it across `logs/*.md`, or check

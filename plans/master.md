@@ -163,10 +163,13 @@ discovery/intake → trusted portfolio → `act` → staging → hosted App qual
 is verified at `2b48ebed` with immutable `README_INHERITED` spans, disjoint configured standards,
 checksum-safe reuse, and Python/.NET/Java/102 KB Go evidence. `TRP-02` is verified at `6804e20e`
 with bounded LLM inventory/drafting, source-accountable assembly, presentation validation, and
-native patches—without a universal template. The hosted `qwen3-next` backend was unavailable
-during the non-promoting diagnostic, so live canary proof remains TRP-04 work.
+native patches—without a universal template. `TRP-03` is verified at `3cdf5dc9`: deterministic
+validation now precedes separate blind-quality and inheritance-fidelity roles, findings and
+section repair are grounded, unchanged repair fails visibly, and exact accepted inputs reuse the review without a provider call or duplicate lifecycle transition, while trusted approval never
+claims repository truth. The hosted `qwen3-next` backend was unavailable during the earlier
+non-promoting diagnostic, so live canary proof remains TRP-04 work.
 `L8-INTAKE-00/01` are closed, `L8-INTAKE-02` may run read-only, and
-`TRP-03-INDEPENDENT-FIDELITY-REVIEW` is next.
+`TRP-04-CANARY-QUALIFICATION` is next.
 The portfolio has 8 `FACTS_READY`,
 8 candidates/validations, and zero verified approvals/no-ops/human acceptances;
 discovery still has one unmatched PDF Go MCP observation and one unavailable imaging source.
@@ -2723,12 +2726,15 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         sources in trusted mode. Commit `2b48ebed`; 232 focused integration/safety tests and real
         heterogeneous source maps pass, with evidence under
         `plans/investigations/evidence/trp-01-readme-derived-facts-v1/`.
-  - [ ] `TRP-02`: implement LLM-first inventory, transformation planning, bounded section
+  - [x] `TRP-02`: implement LLM-first inventory, transformation planning, bounded section
         composition, and targeted section repair. Deterministic code owns only generic parsing,
-        assembly, schemas, provenance, safety, and validation.
-  - [ ] `TRP-03`: require independent blind-quality and inheritance-fidelity reviewers, grounded
+        assembly, schemas, provenance, safety, and validation. Commit `6804e20e`; evidence under
+        `plans/investigations/evidence/trp-02-llm-first-composition-v1/`.
+  - [x] `TRP-03`: require independent blind-quality and inheritance-fidelity reviewers, grounded
         findings, candidate-changing repair, exact per-README LLM accounting, and unchanged-input
-        cache/no-op reuse.
+        cache/no-op reuse. Commit `3cdf5dc9`; 398 focused regressions and a clean 2,233-test
+        commit-bound official run pass, with evidence under
+        `plans/investigations/evidence/trp-03-independent-fidelity-review-v1/`.
   - [ ] `TRP-04`: qualify short, ordinary, malformed/prompt-injected, and largest-current-README
         canaries across at least Python, .NET, Java, and the large-document outlier before fan-out.
   - [ ] `TRP-05`: after common Gate C0, execute the dynamic registry denominator in the configured
@@ -3030,7 +3036,9 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       and largest-current-README canaries prove typed source inventory, bounded section
       composition, deterministic assembly, zero unexplained source-content loss, no unsupported
       standard addition, grounded independent reviews, effective repair, and exact call
-      accounting.
+      accounting. The offline/live-like `TRP-01`–`TRP-03` extraction, composition, deterministic
+      validation, dual-review, repair, accounting, cache, and lifecycle foundation is verified;
+      this gate remains open for `TRP-04` real-provider canonical-supervisor canaries.
 - [ ] **Trusted full-registry gate:** transformation-approved and trusted-no-op-proven equals the
       freshness-valid runtime denominator; system failures, unprocessed entries, manifest
       failures, content-loss findings, and undisclosed assurance are zero.
