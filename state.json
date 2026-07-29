@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-29T02:23:31.266001+00:00",
+    "last_evaluated_at": "2026-07-29T02:23:49.241535+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -59,7 +59,16 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "acceptance_proof",
+        "summary": "Reuse valid fact, authoring, validation, and review results on unchanged reruns without duplicate state or LLM work."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "task_id": "L8-REVIEW-04-NO-OP-CACHE"
+    },
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
@@ -118,7 +127,7 @@
       "L8-REVIEW-02-FINDING-GROUNDING": "CLOSED",
       "L8-REVIEW-02A-REPAIR-CONTROLS": "CLOSED",
       "L8-REVIEW-03-EFFECTIVE-REPAIR": "CLOSED",
-      "L8-REVIEW-03A-CACHE-MEASUREMENT": "SCORED",
+      "L8-REVIEW-03A-CACHE-MEASUREMENT": "CLOSED",
       "L8-REVIEW-04-NO-OP-CACHE": "TODO",
       "L8-REVIEW-04A-REAL-CORPUS": "TODO",
       "L8-REVIEW-05-REAL-CAMPAIGN": "TODO",
@@ -4573,6 +4582,19 @@
         "reason": "Exact no-call/no-patch/no-event/no-bundle/no-effect acceptance recorded",
         "task_id": "L8-REVIEW-03A-CACHE-MEASUREMENT",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-review-cache-measurement-v1/cache-measurement-proof.json",
+          "plans/investigations/evidence/level8-review-cache-measurement-v1/verification.json",
+          "plans/investigations/evidence/level8-review-cache-measurement-v1/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-29T02:23:49.241523+00:00",
+        "reason": "Independent checksum-complete acceptance contribution verified",
+        "task_id": "L8-REVIEW-03A-CACHE-MEASUREMENT",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -4581,7 +4603,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 517,
+  "state_version": 518,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
