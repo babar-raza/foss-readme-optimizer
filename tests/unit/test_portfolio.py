@@ -160,6 +160,7 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
             "fact_acceptance_component_hashes": fact_contract.component_hashes,
             "local_verification_contract_hash": local_verification_contract_hash(),
             "prompt_registry_content_hash": prompt_registry.content_hash(),
+            "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
             "reviewer_standard_hash": reviewer_standard,
         },
     )

@@ -60,6 +60,7 @@ def _valid_cache(tmp_path):
             "fact_acceptance_component_hashes": fact_contract.component_hashes,
             "local_verification_contract_hash": local_verification_contract_hash(),
             "prompt_registry_content_hash": prompt_registry.content_hash(),
+            "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
             "reviewer_standard_hash": reviewer_standard,
         },
     )
@@ -113,25 +114,27 @@ def test_complete_current_bundle_is_reusable_with_an_inspectable_cache_key(tmp_p
     assert first.reusable is True
     assert first.status == "NO_OP_PROVEN"
     assert first.mismatch_reasons == []
+    assert first.earliest_affected_stage is None
     assert first.cache_key == second.cache_key
 
 
 @pytest.mark.parametrize(
-    ("change", "expected_reason"),
+    ("change", "expected_reason", "expected_stage"),
     [
-        ("source", "source_revision_changed"),
-        ("facts", "manifest_facts_hash_mismatch"),
-        ("prompt", "prompt_registry_content_hash_changed"),
-        ("template", "template_hash_changed"),
-        ("validator", "local_verification_contract_hash_changed"),
-        ("reviewer", "reviewer_standard_hash_changed"),
-        ("control_plane", "control_plane_fingerprint_changed"),
-        ("completed_stages", "manifest_no_op_stage_missing"),
+        ("source", "source_revision_changed", "SNAPSHOTTED"),
+        ("facts", "manifest_facts_hash_mismatch", "FACTS_COLLECTING"),
+        ("prompt", "prompt_registry_content_hash_changed", "FACTS_COLLECTING"),
+        ("template", "template_hash_changed", "PLAN_READY"),
+        ("validator", "local_verification_contract_hash_changed", "FACTS_COLLECTING"),
+        ("reviewer", "reviewer_standard_hash_changed", "AGENT_REVIEWING"),
+        ("control_plane", "control_plane_fingerprint_changed", "FACTS_COLLECTING"),
+        ("completed_stages", "manifest_no_op_stage_missing", "CANDIDATE_GENERATED"),
     ],
 )
 def test_any_dependent_input_change_denies_reuse(
     change,
     expected_reason,
+    expected_stage,
     monkeypatch,
     tmp_path,
 ):
@@ -178,6 +181,7 @@ def test_any_dependent_input_change_denies_reuse(
     assert decision.reusable is False
     assert decision.status is None
     assert expected_reason in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == expected_stage
 
 
 def test_fact_contract_change_and_artifact_corruption_both_deny_reuse(monkeypatch, tmp_path):
@@ -195,6 +199,7 @@ def test_fact_contract_change_and_artifact_corruption_both_deny_reuse(monkeypatc
     contract_change = _decision(state, bundle)
     assert contract_change.reusable is False
     assert "fact_acceptance_contract_hash_changed" in contract_change.mismatch_reasons
+    assert contract_change.earliest_affected_stage == "FACTS_COLLECTING"
 
     monkeypatch.setattr(
         local_poc_cache,
@@ -208,6 +213,7 @@ def test_fact_contract_change_and_artifact_corruption_both_deny_reuse(monkeypatc
     corruption = _decision(state, bundle)
     assert corruption.reusable is False
     assert "artifact_inventory_invalid" in corruption.mismatch_reasons
+    assert corruption.earliest_affected_stage == "CANDIDATE_GENERATED"
 
 
 def test_checksum_valid_but_semantically_invalid_acceptance_evidence_denies_reuse(tmp_path):
@@ -223,3 +229,30 @@ def test_checksum_valid_but_semantically_invalid_acceptance_evidence_denies_reus
     assert decision.reusable is False
     assert "artifact_inventory_invalid" not in decision.mismatch_reasons
     assert "no_op_proof_invalid" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "AGENT_REVIEWING"
+
+
+@pytest.mark.parametrize(
+    ("scope", "expected_stage"),
+    [
+        ("FACTS_COLLECTING", "FACTS_COLLECTING"),
+        ("README_ASSESSED", "README_ASSESSED"),
+        ("PLAN_READY", "PLAN_READY"),
+        ("DETERMINISTIC_VALIDATED", "CANDIDATE_GENERATED"),
+        ("AGENT_REVIEWING", "AGENT_REVIEWING"),
+    ],
+)
+def test_prompt_dependency_change_identifies_earliest_affected_stage(
+    scope, expected_stage, monkeypatch, tmp_path
+):
+    state, bundle = _valid_cache(tmp_path)
+    dependencies = prompt_registry.dependency_hashes()
+    changed = {**dependencies, scope: "9" * 64}
+    monkeypatch.setattr(prompt_registry, "dependency_hashes", lambda: changed)
+    monkeypatch.setattr(prompt_registry, "content_hash", lambda: "8" * 64)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert f"prompt_scope_{scope}_changed" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == expected_stage

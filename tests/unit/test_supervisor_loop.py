@@ -912,6 +912,20 @@ class TestBasicLoop:
         proposal_bundles_after_first = sorted(
             path.name for path in proposal_root.iterdir() if path.is_dir()
         )
+        # Model a process cancellation after the accepted first run: only the
+        # serialized durable state and revision-addressed artifacts survive.
+        # The resumed invocation must not depend on in-process cache objects.
+        resumed_backend = FakeStateBackend()
+        persisted_after_first = backend.load(ORG_REPO)
+        assert persisted_after_first is not None
+        resumed_backend._states[ORG_REPO] = persisted_after_first.model_copy(deep=True)
+        backend = resumed_backend
+        start_llm_call_accounting(
+            ORG_REPO,
+            "local-cache-resume",
+            campaign_id="local-cache-measurement",
+            stage="SUPERVISING",
+        )
         second = supervise_repo(
             ORG_REPO,
             planner_client=_PlannerMustNotRun(),

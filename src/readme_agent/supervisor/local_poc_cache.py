@@ -37,6 +37,7 @@ class LocalPocCacheDecisionV1(BaseModel):
     reusable: bool
     cache_key: str
     mismatch_reasons: list[str]
+    earliest_affected_stage: str | None = None
     stored_dependencies: dict[str, Any]
     current_dependencies: dict[str, Any]
 
@@ -120,6 +121,9 @@ def _stored_dependencies(
         "prompt_registry_content_hash": (
             manifest.get("prompt_registry_content_hash") if manifest else None
         ),
+        "prompt_dependency_hashes": (
+            manifest.get("prompt_dependency_hashes") if manifest else None
+        ),
         "template_hash": document_plan.get("template_sha256") if document_plan else None,
         "composition_prompt_hash": (agentic_plan.get("prompt_sha256") if agentic_plan else None),
         "reviewer_standard_hash": (manifest.get("reviewer_standard_hash") if manifest else None),
@@ -143,6 +147,7 @@ def _current_dependencies(
         "fact_acceptance_component_hashes": fact_contract.component_hashes,
         "local_verification_contract_hash": local_verification_contract_hash(),
         "prompt_registry_content_hash": prompt_registry.content_hash(),
+        "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
         "template_hash": document_template_hash(),
         "composition_prompt_hash": prompt_registry.prompt_hash("plan_readme_composition"),
         "reviewer_standard_hash": separated_reviewer_standard_hash(),
@@ -244,7 +249,6 @@ def evaluate_completed_local_poc_cache(
         "fact_acceptance_contract_hash",
         "fact_acceptance_component_hashes",
         "local_verification_contract_hash",
-        "prompt_registry_content_hash",
         "template_hash",
         "composition_prompt_hash",
         "reviewer_standard_hash",
@@ -252,8 +256,22 @@ def evaluate_completed_local_poc_cache(
     ):
         if stored.get(field) != current.get(field):
             reasons.append(f"{field}_changed")
+    stored_prompt_dependencies = stored.get("prompt_dependency_hashes")
+    current_prompt_dependencies = current.get("prompt_dependency_hashes")
+    if not isinstance(stored_prompt_dependencies, dict):
+        reasons.append("prompt_dependency_hashes_missing")
+    elif stored_prompt_dependencies != current_prompt_dependencies:
+        current_scopes = (
+            current_prompt_dependencies if isinstance(current_prompt_dependencies, dict) else {}
+        )
+        for scope in sorted(set(stored_prompt_dependencies) | set(current_scopes)):
+            if stored_prompt_dependencies.get(scope) != current_scopes.get(scope):
+                reasons.append(f"prompt_scope_{scope}_changed")
+    elif stored.get("prompt_registry_content_hash") != current.get("prompt_registry_content_hash"):
+        reasons.append("prompt_registry_content_hash_changed")
 
     reasons = sorted(set(reasons))
+    earliest_affected_stage = _earliest_affected_stage(reasons)
     key_material = {
         "org_repo": state.org_repo if state is not None else None,
         "stored": stored,
@@ -269,6 +287,64 @@ def evaluate_completed_local_poc_cache(
         reusable=reusable,
         cache_key=_canonical_sha256(key_material),
         mismatch_reasons=reasons,
+        earliest_affected_stage=earliest_affected_stage,
         stored_dependencies=stored,
         current_dependencies=current,
     )
+
+
+_STAGE_ORDER = {
+    "SNAPSHOTTED": 0,
+    "FACTS_COLLECTING": 1,
+    "README_ASSESSED": 2,
+    "PLAN_READY": 3,
+    "CANDIDATE_GENERATED": 4,
+    "AGENT_REVIEWING": 5,
+}
+
+
+def _earliest_affected_stage(reasons: list[str]) -> str | None:
+    """Map invalid inputs to the first stage that must be recomputed."""
+
+    affected: list[str] = []
+    for reason in reasons:
+        if reason in {"missing_v2_lifecycle", "source_revision_changed"}:
+            affected.append("SNAPSHOTTED")
+        elif reason.startswith("prompt_scope_"):
+            scope = reason.removeprefix("prompt_scope_").removesuffix("_changed")
+            if scope in {"DETERMINISTIC_VALIDATED", "REPAIRING"}:
+                affected.append("CANDIDATE_GENERATED")
+            else:
+                affected.append(scope if scope in _STAGE_ORDER else "FACTS_COLLECTING")
+        elif (
+            reason.startswith("fact_")
+            or reason.startswith("manifest_facts_")
+            or reason == "local_verification_contract_hash_changed"
+            or reason == "prompt_registry_content_hash_changed"
+            or reason == "prompt_dependency_hashes_missing"
+            or reason == "control_plane_fingerprint_changed"
+        ):
+            affected.append("FACTS_COLLECTING")
+        elif reason.startswith("manifest_assessment_"):
+            affected.append("README_ASSESSED")
+        elif reason.startswith("manifest_presentation_plan_") or reason in {
+            "template_hash_changed",
+            "composition_prompt_hash_changed",
+        }:
+            affected.append("PLAN_READY")
+        elif reason.startswith("manifest_candidate_") or reason in {
+            "artifact_inventory_invalid",
+            "manifest_no_op_stage_missing",
+        }:
+            affected.append("CANDIDATE_GENERATED")
+        elif reason in {
+            "reviewer_standard_hash_changed",
+            "final_verdict_missing_or_invalid",
+            "final_verdict_not_approved",
+            "no_op_proof_missing_or_invalid",
+            "no_op_proof_invalid",
+        }:
+            affected.append("AGENT_REVIEWING")
+        else:
+            affected.append("SNAPSHOTTED")
+    return min(affected, key=_STAGE_ORDER.__getitem__) if affected else None
