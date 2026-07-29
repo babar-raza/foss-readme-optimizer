@@ -114,27 +114,24 @@ without improving one of those states or removing its evidenced blocker is a dri
 ## Status
 
 The repository has a substantial capability, safety, authorization, state, specialist, evidence,
-and proposal foundation, but it is **not Level 8**. The only active sequence is the Waves 0–8
-Build Checklist; generated status, history, and evidence live in `plans/status.md`, `logs/`, and
-`plans/investigations/evidence/`.
+and proposal foundation, but it is **not Level 8**. The Waves 0–8 Build Checklist is the only
+active sequence; generated truth lives in `plans/status.md`, `logs/`, and investigation evidence.
 
 The active local-first pre-production sequence (`L8-014`) precedes Wave 2: **source-complete
-discovery and read-only intake → direct local proof → complete current workflow under `act` →
-isolated staging → production**. At the 2026-07-29 discovery audit checkpoint, `main` was
-`696dd5d542282a1f9909b9453964c87466257589`, durable state version 531 had no active claim, and
-graph `8486ade4cdfbee608dce30d0859eab4afa5d15efec58ef43848dc7cfb4aa2997` selected
-`L8-REVIEW-00-CONTEXT-CORPUS` next. Decision #84 places four source-discovery/intake prerequisites
-ahead of that reviewer task; live durable state and the current graph hash remain authoritative
-after migration.
+discovery and read-only intake → local proof → `act` → staging → production**. On 2026-07-29,
+`L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY` closed at state version 537 against graph
+`02e71ef95d30c059196a3f9c49553ed58eab22645f99af007b412a4ecc155f10`. Commits `faac9dc`,
+`1870db79`, and `d76e4dc6` prove typed observations, explicit incomplete-source behavior, and
+allow-list-before-preflight ordering. Next is
+`L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION`; live state and graph remain authoritative.
 
 The checked-in denominator is 31: 8 `FACTS_READY` or later, 8 `CANDIDATE_GENERATED`, 8
 `DETERMINISTIC_VALIDATED`, 0 `AGENT_APPROVED`, 0 `NO_OP_PROVEN`, and 0 `HUMAN_ACCEPTED`; the first
-failing boundary is `FACTS_READY`. This is not yet a source-complete portfolio denominator. A live
-scan of the configured organizations found the active
-`aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP` repository outside the naming-regex result set and an
-unavailable configured `aspose-imaging-foss` source. The latest successful registry workflow
-therefore proves mechanism execution, not complete inventory. Existing eight candidates remain
-reusable development artifacts but none has current independent approval/no-op proof.
+failing boundary is `FACTS_READY`. This is not yet a complete admitted portfolio revision. The
+current live inventory retains 32 observations from 26 sources: 31 matched and one unmatched
+(`aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP`). The unavailable `aspose-imaging-foss` source
+keeps it explicitly incomplete. Stable identity/admission is next; eight existing candidates
+remain reusable but none has current independent approval/no-op proof.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 
@@ -143,8 +140,9 @@ no-op-proven local README for every runtime-loaded `data/products.json` entry. G
 separate human acceptance; Gate C is the later Java PR proof; Gate D is later GitHub App
 integration. Earlier PR/App-shaped machinery stays inert.
 
-The outcome-first critical path is: establish source-complete discovery, stable-identity
-reconciliation, read-only intake/fast-path enrollment, and registry-revision campaign binding;
+The outcome-first critical path is: complete stable-identity reconciliation after the now-closed
+source-complete discovery task, then read-only intake/fast-path enrollment and registry-revision
+campaign binding;
 then repair the shared reviewer, qualify one current-contract `NO_OP_PROVEN` README for all seven
 ecosystems, and run full-registry facts/candidate fan-out. `L8-015`–`L8-039` and decisions
 #82–#84 govern. The governed targets remain one current-contract
@@ -2557,6 +2555,13 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         disabled entries through one deduplicated preflight, prove strong-README fast/full paths,
         and bind the campaign to a complete `RegistryRevisionV1`
         (`L8-INTAKE-00`–`L8-INTAKE-03`, `L8-035`–`L8-039`).
+    - [x] Source-complete observation and admission-ordering boundary (`L8-INTAKE-00`,
+          `L8-035`): 26 terminal source results, 32 retained observations, explicit imaging-source
+          incompleteness, unmatched PDF Go MCP disposition, and allow-list-before-preflight proof.
+    - [ ] Stable provider-identity reconciliation (`L8-INTAKE-01`, `L8-036`).
+    - [ ] Durable read-only intake and fast/full-path enrollment (`L8-INTAKE-02`, `L8-037`).
+    - [ ] Registry revision, queue, freshness, and health binding (`L8-INTAKE-03`,
+          `L8-038`–`L8-039`).
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
         immutable revision bundles, and mandatory dynamic planning foundation.
   - [x] Bind all executable mission work to the immutable core deliverable and subordinate goals;
@@ -2712,9 +2717,10 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       status derives the current denominator and lifecycle counts; restart preserves the same
       first boundary/next task; ordinary reports cannot close a task without matching,
       independently verified contribution evidence.
-- [ ] **Discovery completeness gate:** every repository visible from every authorized source is
+- [x] **Discovery completeness gate:** every repository visible from every authorized source is
       retained as a typed observation, including unmatched/ambiguous names; unavailable or stale
       sources prevent `NO_DRIFT` and completeness claims while unrelated admitted work continues.
+      Proof: `plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/`.
 - [ ] **Admission safety gate:** the public CLI checks the execution allow-list before any
       repository-specific preflight/network call; discovery uses only its dedicated source
       inventory client; a new repository enters as disabled/read-only with both effect classes
