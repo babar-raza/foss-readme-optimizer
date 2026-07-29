@@ -12,8 +12,8 @@
     "claim_id": null,
     "claimed_at": null,
     "claimed_by": null,
-    "graph_sha256": "8486ade4cdfbee608dce30d0859eab4afa5d15efec58ef43848dc7cfb4aa2997",
-    "last_evaluated_at": "2026-07-29T03:18:18.019837+00:00",
+    "graph_sha256": "02e71ef95d30c059196a3f9c49553ed58eab22645f99af007b412a4ecc155f10",
+    "last_evaluated_at": "2026-07-29T03:48:53.524744+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -62,12 +62,13 @@
     "next_task": {
       "core_contribution": {
         "kind": "acceptance_proof",
-        "summary": "Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches, and verdict combination."
+        "summary": "Make the portfolio denominator observable and enforce the hard safety boundary before repository-specific preflight."
       },
       "goal_ids": [
-        "GOAL-README"
+        "GOAL-TRUTH",
+        "GOAL-AUTONOMY"
       ],
-      "task_id": "L8-REVIEW-00-CONTEXT-CORPUS"
+      "task_id": "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY"
     },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
@@ -99,6 +100,10 @@
       "L8-GATEA-03-NO-OP": "TODO",
       "L8-GATEA-03A-REPRO-CONTROLS": "TODO",
       "L8-GATEA-04-REPRODUCE": "TODO",
+      "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "TODO",
+      "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "TODO",
+      "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "TODO",
+      "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
       "L8-LOCAL-FULL-REGISTRY-GATE-A": "REGRESSED",
       "L8-LOCAL-HETEROGENEOUS-QUALIFICATION": "REGRESSED",
@@ -4716,7 +4721,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 531,
+  "state_version": 532,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
