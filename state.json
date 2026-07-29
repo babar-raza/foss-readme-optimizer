@@ -9665,23 +9665,24 @@
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": "64e32d0e0bc3114ffd09a276d144bf4148394bfc971ea65e8eb539c504f9a131",
-    "assurance_history": [],
-    "candidate_hash": "897f60df622fe54040bea42b5bb049c9732abe0ffc5e6f12ce0c7a39fd1543be",
-    "content_assurance": "repository_verified",
+    "assessment_hash": null,
+    "assurance_history": [
+      {
+        "from_assurance": "repository_verified",
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-29T16:45:22.464709+00:00",
+        "reason": "begin README-derived trusted transformation",
+        "schema_version": 1,
+        "to_assurance": "trusted_inherited",
+        "to_status": "PROFILED"
+      }
+    ],
+    "candidate_hash": null,
+    "content_assurance": "trusted_inherited",
     "details": {},
-    "fact_acceptance_component_hashes": {
-      "acquisition_truth": "978850719a44158eba0ada29e96a3746f9950cdb23e4b61d67accfad5cee96e0",
-      "classification_semantics": "567d8451150421d145b3ba27c90f1447c37e41f2809930faeae1455d1a39ae8a",
-      "conflict_semantics": "9a38f79f9733299ed41c0cef1a354e3a95b95e1d1ab5e83cf2cb3798eff3e2f7",
-      "drafting_and_example_selection": "1809d262948a770608b9162f3130988b69dc7d46e7c22606f8bc1e5df6c02de9",
-      "evidence_polarity": "d0d818517c08cedc99b4a495ca03ee7bc6a6dbfdd14fd430ccbd0d6732ed50e6",
-      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
-      "fact_schema": "9c7c7aab629f977cf3c24b7ff89efacf0c50f5f6e6b394bdfe5ac2836509059a",
-      "root_role_selection": "5de12db8f0f55d15beb2065a415b7459bdc6346bb10ec99b45c5ea72afb66fc1",
-      "visitor_render_eligibility": "dd99a2a20e5c1a4799df7a288091c1317035c4f322905e20bcbd7f547d779697"
-    },
-    "fact_acceptance_contract_hash": "2a5ab46fa66a9beb16b06dbfb38371d62fbba8702cc75bc2f53ad2cd050b05bd",
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -9841,7 +9842,7 @@
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
       }
     ],
-    "facts_hash": "65604399d1567143ace3f1edf4d57f45ef34d0ed7ce07ea7915153136344955c",
+    "facts_hash": null,
     "history": [
       {
         "evidence_refs": [
@@ -10790,6 +10791,15 @@
         "reason": "sealed deterministic README validation receipt promoted",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-29T16:45:22.464709+00:00",
+        "reason": "content assurance changed: begin README-derived trusted transformation",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -10810,18 +10820,18 @@
       }
     ],
     "intake_preflight_pending": null,
-    "presentation_plan_hash": "8d27fb9405187f7cb0e25b117ba4baaa7c15c2245de6073be20f410ac392aff0",
-    "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
+    "presentation_plan_hash": null,
+    "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "reviewer_standard_hash": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
+    "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-07-29T06:21:15.264871+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-07-29T16:45:22.464709+00:00"
   },
   "schema_version": 2,
-  "state_version": 446,
+  "state_version": 447,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
