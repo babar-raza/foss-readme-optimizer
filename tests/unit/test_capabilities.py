@@ -177,6 +177,8 @@ class TestRegistry:
             "extract_trusted_readme_facts",
             # TRP-02: bounded LLM-first README-trusted composition.
             "compose_trusted_readme",
+            # TRP-03: blind-quality and README-inheritance-fidelity review.
+            "review_trusted_readme",
             # RPOC-033: agentic product_truth drafting for repos with no
             # policy-authored product_truth yet -- read-only, never writes
             # to config/policies/*.yml.
@@ -346,6 +348,7 @@ class TestRegistry:
             "draft_product_truth",
             "plan_readme_composition",
             "compose_trusted_readme",
+            "review_trusted_readme",
         }
 
     def test_filter_by_side_effect_class_local_write(self):
@@ -553,7 +556,7 @@ class TestRegistryEff001RegistrationGate:
 
     def test_real_registry_still_builds_cleanly(self):
         """Regression: the complete current registry still passes the mutating-only gate."""
-        assert len(registry.list_all()) == 30
+        assert len(registry.list_all()) == 31
 
 
 class TestInspectRepositoryCapability:

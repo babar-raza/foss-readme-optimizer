@@ -55,19 +55,23 @@ def _batch_payload(batch: TrustedCompositionBatch) -> dict:
     }
 
 
-def _compose_batch(
+def compose_trusted_batch(
     org_repo: str,
     batch: TrustedCompositionBatch,
     envelope: TrustedCompositionEnvelopeV1,
     client: ForcedToolClient,
+    *,
+    initial_repair_hint: str = "",
 ) -> tuple[TrustedReadmeSectionToolDraftV1, TrustedReadmeSectionDraftV1]:
+    """Compose or repair one bounded batch through the same typed contract."""
+
     payload = _batch_payload(batch)
     tool_schema = build_trusted_readme_section_tool_schema(
         fact_ids=[item.fact_id for item in batch.source_items],
         configured_standard_ids=[item.standard_id for item in batch.configured_standards],
     )
     schema_hash = _canonical_hash(tool_schema)
-    repair_hint = ""
+    repair_hint = initial_repair_hint
     last_error: Exception | None = None
     for attempt in range(1, _MAX_ATTEMPTS + 1):
         call_input = {
@@ -139,7 +143,7 @@ def compose_trusted_readme(
     tool_drafts: list[TrustedReadmeSectionToolDraftV1] = []
     section_drafts: list[TrustedReadmeSectionDraftV1] = []
     for batch in build_trusted_composition_batches(graph, resolved_envelope):
-        tool_draft, bound_draft = _compose_batch(
+        tool_draft, bound_draft = compose_trusted_batch(
             graph.org_repo,
             batch,
             resolved_envelope,
@@ -147,6 +151,27 @@ def compose_trusted_readme(
         )
         tool_drafts.append(tool_draft)
         section_drafts.append(bound_draft)
+    return finalize_trusted_composition(
+        graph,
+        source_text,
+        resolved_envelope,
+        tool_drafts,
+        section_drafts,
+    )
+
+
+def finalize_trusted_composition(
+    graph: TrustedReadmeFactGraphV1,
+    source_text: str,
+    envelope: TrustedCompositionEnvelopeV1,
+    tool_drafts: list[TrustedReadmeSectionToolDraftV1],
+    section_drafts: list[TrustedReadmeSectionDraftV1],
+) -> TrustedReadmeCompositionOutputV1:
+    """Bind assembled candidate bytes and plan hashes after initial work or repair."""
+
+    source_hash = hashlib.sha256(source_text.encode("utf-8")).hexdigest()
+    if source_hash != graph.readme_sha256:
+        raise LLMError("trusted composition source bytes do not match the inherited fact graph")
     candidate = assemble_trusted_candidate(graph, tool_drafts)
     validate_trusted_candidate_contract(source_text, candidate, graph)
     candidate_hash = hashlib.sha256(candidate.encode("utf-8")).hexdigest()
@@ -155,7 +180,7 @@ def compose_trusted_readme(
         source_revision=graph.source_revision,
         source_sha256=source_hash,
         fact_graph_hash=graph.canonical_hash(),
-        envelope=resolved_envelope,
+        envelope=envelope,
         section_drafts=tuple(section_drafts),
         inherited_fact_ids=tuple(fact.fact_id for fact in graph.inherited_facts),
         configured_standard_ids=tuple(

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-03-INDEPENDENT-FIDELITY-REVIEW",
+  "content_assurance": "trusted_inherited",
+  "factual_truth_verified": false,
+  "source_revision": "9b29701435fe5a2676a3ffe56064cddd07188007",
+  "accepted_verdict": "TRUSTED_TRANSFORM_APPROVED",
+  "content_loss_verdict": "REJECT_REPAIRABLE",
+  "repair_outcome": "accepted",
+  "repair_changed_candidate": true,
+  "cache_reused": true,
+  "cache_provider_call_delta": 0,
+  "accounting": {
+    "status": "EXACT",
+    "provider_call_count": 0,
+    "fixture_call_count": 11,
+    "cache_reuse_count": 1,
+    "call_ids": [],
+    "calls_by_job": {},
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "ledger_path": "llm-call-ledger.jsonl",
+    "ledger_sha256": "3e82154b6fd8ace9b1ce98405465ff4f7ea72393c86134bde3bd0d43180fe1d0"
+  },
+  "live_route_proof": "deferred_to_TRP-04_canary_qualification"
+}

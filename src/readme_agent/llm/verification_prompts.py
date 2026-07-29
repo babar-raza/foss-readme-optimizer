@@ -209,6 +209,85 @@ FACTUAL_PLAN_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
     ],
     finding_kind="factual",
 )
+TRUSTED_FIDELITY_REVIEW_TOOL_SCHEMA = {
+    "type": "function",
+    "function": {
+        "name": "report_trusted_readme_fidelity_review",
+        "description": (
+            "Return an inheritance-only README fidelity verdict without claiming repository truth."
+        ),
+        "parameters": {
+            "type": "object",
+            "additionalProperties": False,
+            "properties": {
+                "verdict": {
+                    "type": "string",
+                    "enum": ["ACCEPT", "REJECT_REPAIRABLE", "SYSTEM_FAILURE"],
+                },
+                "reasoning": {"type": "string"},
+                "source_checks": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "properties": {
+                            "fact_id": {"type": "string"},
+                            "outcome": {
+                                "type": "string",
+                                "enum": ["preserved_or_represented", "lost_or_distorted"],
+                            },
+                            "source_quote": {"type": "string"},
+                            "candidate_quote": {"type": "string"},
+                            "section": {"type": "string"},
+                            "required_repair": {"type": "string"},
+                        },
+                        "required": [
+                            "fact_id",
+                            "outcome",
+                            "source_quote",
+                            "candidate_quote",
+                            "section",
+                            "required_repair",
+                        ],
+                    },
+                },
+                "unsupported_additions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "properties": {
+                            "finding_id": {"type": "string"},
+                            "section": {"type": "string"},
+                            "quoted_candidate_span": {"type": "string"},
+                            "reason": {"type": "string"},
+                            "required_repair": {"type": "string"},
+                        },
+                        "required": [
+                            "finding_id",
+                            "section",
+                            "quoted_candidate_span",
+                            "reason",
+                            "required_repair",
+                        ],
+                    },
+                },
+                "failed_criteria": {"type": "array", "items": {"type": "string"}},
+                "sections_affected": {"type": "array", "items": {"type": "string"}},
+                "required_repair": {"type": "string"},
+            },
+            "required": [
+                "verdict",
+                "reasoning",
+                "source_checks",
+                "unsupported_additions",
+                "failed_criteria",
+                "sections_affected",
+                "required_repair",
+            ],
+        },
+    },
+}
 
 
 def separated_reviewer_standard_hash() -> str:
@@ -229,6 +308,29 @@ def separated_reviewer_standard_hash() -> str:
             ).encode("utf-8")
         ).hexdigest(),
         "SYSTEM_FAILURE>BLOCKED_FACT_CONFLICT>BLOCKED_MISSING_EVIDENCE>REJECT_REPAIRABLE>ACCEPT",
+    ]
+    return hashlib.sha256("\x00".join(components).encode("utf-8")).hexdigest()
+
+
+def trusted_reviewer_standard_hash() -> str:
+    """Bind trusted review reuse to both isolated prompts and reducer schema."""
+
+    components = [
+        "trusted-transform-review-v1",
+        prompt_registry.prompt_hash("trusted_readme_section_transform"),
+        prompt_registry.prompt_hash("blind_readme_quality_review"),
+        prompt_registry.prompt_hash("trusted_readme_fidelity_review"),
+        hashlib.sha256(
+            json.dumps(
+                {
+                    "blind": BLIND_QUALITY_REVIEW_TOOL_SCHEMA,
+                    "fidelity": TRUSTED_FIDELITY_REVIEW_TOOL_SCHEMA,
+                },
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest(),
+        "SYSTEM_FAILURE>REJECT_REPAIRABLE>TRUSTED_TRANSFORM_APPROVED",
     ]
     return hashlib.sha256("\x00".join(components).encode("utf-8")).hexdigest()
 
@@ -336,6 +438,33 @@ def build_factual_plan_review_messages(
             candidate_readme_text=candidate_readme_text,
             product_facts_json=product_facts_json,
             presentation_plan_json=presentation_plan_json,
+        )
+        .strip()
+    )
+    return [
+        {"role": "system", "content": manifest.system.strip()},
+        {"role": "user", "content": user_content},
+    ]
+
+
+def build_trusted_fidelity_review_messages(
+    org_repo: str,
+    fact_graph_json: str,
+    transform_plan_json: str,
+    candidate_readme_text: str,
+) -> list[dict]:
+    """Build inheritance-only context without factual-verification authority."""
+
+    manifest = prompt_registry.get("trusted_readme_fidelity_review")
+    assert manifest is not None, "trusted_readme_fidelity_review prompt missing"
+    assert manifest.user_template is not None
+    user_content = (
+        Template(manifest.user_template)
+        .substitute(
+            org_repo=org_repo,
+            fact_graph_json=fact_graph_json,
+            transform_plan_json=transform_plan_json,
+            candidate_readme_text=candidate_readme_text,
         )
         .strip()
     )

@@ -187,6 +187,7 @@ class TestRealRegistry:
             "repair_capability_selection",
             "specialist_selection_turn",
             "supervisor_turn",
+            "trusted_readme_fidelity_review",
             "visual_asset_accuracy",
         }
 

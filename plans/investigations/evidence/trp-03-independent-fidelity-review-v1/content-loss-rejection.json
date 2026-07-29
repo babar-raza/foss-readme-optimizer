@@ -1,0 +1,182 @@
+{
+  "review": {
+    "schema_version": 1,
+    "content_assurance": "trusted_inherited",
+    "factual_truth_verified": false,
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "candidate_sha256": "77bb9ed8c5e338ec7158067c139ea4bc91daf501a60b87cceb9bb7b75f3c1c94",
+    "validation": {
+      "schema_version": 1,
+      "content_assurance": "trusted_inherited",
+      "candidate_sha256": "77bb9ed8c5e338ec7158067c139ea4bc91daf501a60b87cceb9bb7b75f3c1c94",
+      "contract_sha256": "9f84d436a1d47f42b5f33c5f1f4f82a2fd57206c92e7b4d930067b125302df77",
+      "checks_passed": [
+        "candidate_hash_bound",
+        "markdown_and_fence_integrity",
+        "no_comments_or_cross_product_leakage",
+        "configured_header_badge_navigation_mermaid_links_and_terminology",
+        "complete_source_and_standard_accountability"
+      ],
+      "passed": true
+    },
+    "author": {
+      "actor_id": "llm-route:trusted-readme-author",
+      "role": "author",
+      "prompt_id": "trusted_readme_section_transform",
+      "prompt_sha256": "e64af0767d97e386d18b393f27bfdf48db9ad19621a417e1aeffa18d9b2d7798",
+      "model_route": "qwen3-next"
+    },
+    "blind_quality": {
+      "content_assurance": "trusted_inherited",
+      "identity": {
+        "actor_id": "llm-route:blind-readme-quality",
+        "role": "blind_quality_reviewer",
+        "prompt_id": "blind_readme_quality_review",
+        "prompt_sha256": "a51a9f127ff770bca0b409edc928ded191b3845486123cdebfcfbdebff0b383d",
+        "model_route": "qwen3-next"
+      },
+      "candidate_sha256": "77bb9ed8c5e338ec7158067c139ea4bc91daf501a60b87cceb9bb7b75f3c1c94",
+      "input_sha256": "4b83a54be4cafb819aa3181d5fddd44029afc144c2bdebbb2cf5acfa4d8d486a",
+      "verdict": "ACCEPT",
+      "result": {
+        "verdict": "ACCEPT",
+        "reasoning": "The candidate is concise, clear, and repository-specific.",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+          {
+            "finding_id": "quality.specific-opening",
+            "kind": "quality",
+            "criterion": "product_specificity",
+            "section": "overview",
+            "claim": "The opening is specific.",
+            "quoted_candidate_span": "A package.",
+            "disposition": "supports_acceptance",
+            "fact_id": null,
+            "evidence_excerpt": null,
+            "evidence_location": null,
+            "expected_polarity": null,
+            "observed_polarity": null,
+            "polarity_result": "not_applicable",
+            "required_repair": ""
+          }
+        ],
+        "grounding_validation": {
+          "valid": true,
+          "errors": [],
+          "checked_finding_ids": [
+            "quality.specific-opening"
+          ]
+        },
+        "retry_history": [
+          {
+            "role": "blind_quality",
+            "attempt": 1,
+            "valid": true,
+            "errors": [],
+            "validation_result": {
+              "valid": true,
+              "errors": [],
+              "checked_finding_ids": [
+                "quality.specific-opening"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "inheritance_fidelity": {
+      "content_assurance": "trusted_inherited",
+      "identity": {
+        "actor_id": "llm-route:trusted-readme-fidelity",
+        "role": "inheritance_fidelity_reviewer",
+        "prompt_id": "trusted_readme_fidelity_review",
+        "prompt_sha256": "584273d46cf0055a9dc6a0603f3df41933ae847d83964927cd0dfa192faeb1c6",
+        "model_route": "qwen3-next"
+      },
+      "candidate_sha256": "77bb9ed8c5e338ec7158067c139ea4bc91daf501a60b87cceb9bb7b75f3c1c94",
+      "input_sha256": "2935a9c3812898495bf3c5f5fade4fe35a33332631243693d9bfa229c3f34221",
+      "verdict": "REJECT_REPAIRABLE",
+      "result": {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "One inherited audience statement was materially weakened.",
+        "source_checks": [
+          {
+            "fact_id": "readme.inherited:672a4238d63cf2b114ce2984",
+            "outcome": "preserved_or_represented",
+            "source_quote": "# Widget",
+            "candidate_quote": "# Widget",
+            "section": "README",
+            "required_repair": ""
+          },
+          {
+            "fact_id": "readme.inherited:e80341b270b7b4e3f3425a79",
+            "outcome": "lost_or_distorted",
+            "source_quote": "A specific package for Python developers.",
+            "candidate_quote": "",
+            "section": "overview",
+            "required_repair": "Restore the inherited Python-developer audience."
+          }
+        ],
+        "unsupported_additions": [],
+        "failed_criteria": [
+          "inherited_content_fidelity"
+        ],
+        "sections_affected": [
+          "overview"
+        ],
+        "required_repair": "Restore the inherited Python-developer audience.",
+        "retry_history": [
+          {
+            "role": "inheritance_fidelity",
+            "attempt": 1,
+            "valid": true,
+            "errors": []
+          }
+        ]
+      }
+    },
+    "identity_separation_valid": true,
+    "verdict": "REJECT_REPAIRABLE",
+    "reasons": [
+      "blind_quality:ACCEPT",
+      "inheritance_fidelity:REJECT_REPAIRABLE"
+    ],
+    "cache_identity": {
+      "schema_version": 1,
+      "content_assurance": "trusted_inherited",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "9b29701435fe5a2676a3ffe56064cddd07188007",
+      "source_sha256": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+      "fact_graph_sha256": "78fb44556378629df9b861683a7221bd54dd558db0e9dbcef93c3d4acd60ca5f",
+      "transform_plan_sha256": "ec9c7400fb6e92e6383137ba94fd904123fd98e6a23e2711c68ac34fa5804284",
+      "candidate_sha256": "77bb9ed8c5e338ec7158067c139ea4bc91daf501a60b87cceb9bb7b75f3c1c94",
+      "configured_standards_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "deterministic_validation_sha256": "cb4390450caf9b7229cdee55db41745662f3a4870cb898e0fd6f47d2e48be2ce",
+      "author_prompt_sha256": "e64af0767d97e386d18b393f27bfdf48db9ad19621a417e1aeffa18d9b2d7798",
+      "blind_prompt_sha256": "a51a9f127ff770bca0b409edc928ded191b3845486123cdebfcfbdebff0b383d",
+      "fidelity_prompt_sha256": "584273d46cf0055a9dc6a0603f3df41933ae847d83964927cd0dfa192faeb1c6",
+      "author_model_route": "qwen3-next",
+      "blind_model_route": "qwen3-next",
+      "fidelity_model_route": "qwen3-next",
+      "review_contract_sha256": "e18a381a0b637cb94a2e60301d6c42b48ec8bac2fa0871227179e0cbad3d099e"
+    },
+    "cache_identity_sha256": "d10263d347fa5047f0a4dc5ad2d32463d4fe2684cd7401bb02d4ad8565a9b6cb"
+  },
+  "cache_reused": false,
+  "accounting_status": "EXACT",
+  "provider_calls_before": 0,
+  "provider_calls_after": 0,
+  "fixture_calls_before": 4,
+  "fixture_calls_after": 6,
+  "cache_reuses_before": 1,
+  "cache_reuses_after": 1,
+  "ledger_path": "llm-call-ledger.jsonl",
+  "ledger_sha256": "3e82154b6fd8ace9b1ce98405465ff4f7ea72393c86134bde3bd0d43180fe1d0",
+  "provider_call_ids": [],
+  "calls_by_job": {},
+  "prompt_tokens": 0,
+  "completion_tokens": 0,
+  "total_tokens": 0
+}

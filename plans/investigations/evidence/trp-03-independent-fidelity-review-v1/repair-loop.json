@@ -1,0 +1,273 @@
+{
+  "outcome": "accepted",
+  "final_composition": {
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "content_assurance": "trusted_inherited",
+    "plan": {
+      "schema_version": 1,
+      "content_assurance": "trusted_inherited",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "9b29701435fe5a2676a3ffe56064cddd07188007",
+      "source_sha256": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+      "fact_graph_hash": "78fb44556378629df9b861683a7221bd54dd558db0e9dbcef93c3d4acd60ca5f",
+      "envelope": {
+        "max_input_characters": 24000,
+        "max_output_characters": 16000,
+        "max_facts_per_batch": 24,
+        "oversize_fact_preview_characters": 2000
+      },
+      "section_drafts": [
+        {
+          "schema_version": 1,
+          "content_assurance": "trusted_inherited",
+          "batch_id": "batch-0001",
+          "editorial_summary": "Represent every inherited source unit.",
+          "source_inventory": [
+            {
+              "fact_id": "readme.inherited:672a4238d63cf2b114ce2984",
+              "action": "rewrite",
+              "rationale": "Represent the inherited source."
+            },
+            {
+              "fact_id": "readme.inherited:e80341b270b7b4e3f3425a79",
+              "action": "rewrite",
+              "rationale": "Represent the inherited source."
+            }
+          ],
+          "segments": [
+            {
+              "segment_id": "complete",
+              "kind": "authored",
+              "markdown": "# Widget\n\nA specific package for Python developers.\n",
+              "inherited_fact_ids": [
+                "readme.inherited:672a4238d63cf2b114ce2984",
+                "readme.inherited:e80341b270b7b4e3f3425a79"
+              ],
+              "configured_standard_ids": []
+            }
+          ],
+          "prompt_sha256": "e64af0767d97e386d18b393f27bfdf48db9ad19621a417e1aeffa18d9b2d7798",
+          "tool_schema_sha256": "fb4500aeb87432c2ccf0d9d693aefd9fcac48746cbfaf6c73cf959f78481f9a3",
+          "input_sha256": "67bbccdf6052006920ea72e13be55d278a07eb6cdb7dfbeaca50cde4aab8a925",
+          "model": "fixture-repair",
+          "attempt_count": 1
+        }
+      ],
+      "inherited_fact_ids": [
+        "readme.inherited:672a4238d63cf2b114ce2984",
+        "readme.inherited:e80341b270b7b4e3f3425a79"
+      ],
+      "configured_standard_ids": [],
+      "candidate_sha256": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+      "source_accountability_complete": true
+    },
+    "plan_hash": "ce77314e15ebaf8980246e92a411e2ba4555ee128a94e789992562249c9908be",
+    "candidate_markdown": "# Widget\n\nA specific package for Python developers.\n",
+    "candidate_patch": "",
+    "candidate_sha256": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+    "llm_call_count": 1
+  },
+  "final_execution": {
+    "review": {
+      "schema_version": 1,
+      "content_assurance": "trusted_inherited",
+      "factual_truth_verified": false,
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "candidate_sha256": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+      "validation": {
+        "schema_version": 1,
+        "content_assurance": "trusted_inherited",
+        "candidate_sha256": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+        "contract_sha256": "9f84d436a1d47f42b5f33c5f1f4f82a2fd57206c92e7b4d930067b125302df77",
+        "checks_passed": [
+          "candidate_hash_bound",
+          "markdown_and_fence_integrity",
+          "no_comments_or_cross_product_leakage",
+          "configured_header_badge_navigation_mermaid_links_and_terminology",
+          "complete_source_and_standard_accountability"
+        ],
+        "passed": true
+      },
+      "author": {
+        "actor_id": "llm-route:trusted-readme-author",
+        "role": "author",
+        "prompt_id": "trusted_readme_section_transform",
+        "prompt_sha256": "e64af0767d97e386d18b393f27bfdf48db9ad19621a417e1aeffa18d9b2d7798",
+        "model_route": "qwen3-next"
+      },
+      "blind_quality": {
+        "content_assurance": "trusted_inherited",
+        "identity": {
+          "actor_id": "llm-route:blind-readme-quality",
+          "role": "blind_quality_reviewer",
+          "prompt_id": "blind_readme_quality_review",
+          "prompt_sha256": "a51a9f127ff770bca0b409edc928ded191b3845486123cdebfcfbdebff0b383d",
+          "model_route": "qwen3-next"
+        },
+        "candidate_sha256": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+        "input_sha256": "3b2e8c55f5b524ca510aacf3167d0547e354ae5380934b5b2eca8d09f97d3e33",
+        "verdict": "ACCEPT",
+        "result": {
+          "verdict": "ACCEPT",
+          "reasoning": "The candidate is concise, clear, and repository-specific.",
+          "failed_criteria": [],
+          "sections_affected": [],
+          "required_repair": "",
+          "findings": [
+            {
+              "finding_id": "quality.specific-opening",
+              "kind": "quality",
+              "criterion": "product_specificity",
+              "section": "overview",
+              "claim": "The opening is specific.",
+              "quoted_candidate_span": "A specific package",
+              "disposition": "supports_acceptance",
+              "fact_id": null,
+              "evidence_excerpt": null,
+              "evidence_location": null,
+              "expected_polarity": null,
+              "observed_polarity": null,
+              "polarity_result": "not_applicable",
+              "required_repair": ""
+            }
+          ],
+          "grounding_validation": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "quality.specific-opening"
+            ]
+          },
+          "retry_history": [
+            {
+              "role": "blind_quality",
+              "attempt": 1,
+              "valid": true,
+              "errors": [],
+              "validation_result": {
+                "valid": true,
+                "errors": [],
+                "checked_finding_ids": [
+                  "quality.specific-opening"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "inheritance_fidelity": {
+        "content_assurance": "trusted_inherited",
+        "identity": {
+          "actor_id": "llm-route:trusted-readme-fidelity",
+          "role": "inheritance_fidelity_reviewer",
+          "prompt_id": "trusted_readme_fidelity_review",
+          "prompt_sha256": "584273d46cf0055a9dc6a0603f3df41933ae847d83964927cd0dfa192faeb1c6",
+          "model_route": "qwen3-next"
+        },
+        "candidate_sha256": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+        "input_sha256": "4f2a65466d921b597c6d6441a20b30f9f945b992ef9bdd96e2c4473f755d7415",
+        "verdict": "ACCEPT",
+        "result": {
+          "verdict": "ACCEPT",
+          "reasoning": "Every inherited source unit is represented.",
+          "source_checks": [
+            {
+              "fact_id": "readme.inherited:672a4238d63cf2b114ce2984",
+              "outcome": "preserved_or_represented",
+              "source_quote": "# Widget",
+              "candidate_quote": "# Widget",
+              "section": "README",
+              "required_repair": ""
+            },
+            {
+              "fact_id": "readme.inherited:e80341b270b7b4e3f3425a79",
+              "outcome": "preserved_or_represented",
+              "source_quote": "A specific package for Python developers.",
+              "candidate_quote": "A specific package for Python developers.",
+              "section": "README",
+              "required_repair": ""
+            }
+          ],
+          "unsupported_additions": [],
+          "failed_criteria": [],
+          "sections_affected": [],
+          "required_repair": "",
+          "retry_history": [
+            {
+              "role": "inheritance_fidelity",
+              "attempt": 1,
+              "valid": true,
+              "errors": []
+            }
+          ]
+        }
+      },
+      "identity_separation_valid": true,
+      "verdict": "TRUSTED_TRANSFORM_APPROVED",
+      "reasons": [
+        "blind_quality:ACCEPT",
+        "inheritance_fidelity:ACCEPT"
+      ],
+      "cache_identity": {
+        "schema_version": 1,
+        "content_assurance": "trusted_inherited",
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "9b29701435fe5a2676a3ffe56064cddd07188007",
+        "source_sha256": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+        "fact_graph_sha256": "78fb44556378629df9b861683a7221bd54dd558db0e9dbcef93c3d4acd60ca5f",
+        "transform_plan_sha256": "ce77314e15ebaf8980246e92a411e2ba4555ee128a94e789992562249c9908be",
+        "candidate_sha256": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+        "configured_standards_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "deterministic_validation_sha256": "779db1720bac7a56e6a4db10e3ebb26716a96bb58aa8da5402f6ffea4ded7aee",
+        "author_prompt_sha256": "e64af0767d97e386d18b393f27bfdf48db9ad19621a417e1aeffa18d9b2d7798",
+        "blind_prompt_sha256": "a51a9f127ff770bca0b409edc928ded191b3845486123cdebfcfbdebff0b383d",
+        "fidelity_prompt_sha256": "584273d46cf0055a9dc6a0603f3df41933ae847d83964927cd0dfa192faeb1c6",
+        "author_model_route": "qwen3-next",
+        "blind_model_route": "qwen3-next",
+        "fidelity_model_route": "qwen3-next",
+        "review_contract_sha256": "e18a381a0b637cb94a2e60301d6c42b48ec8bac2fa0871227179e0cbad3d099e"
+      },
+      "cache_identity_sha256": "ede251476f2a58cfd4420e9dc2b62e31497596dfb1b871506222ee6e93e06daa"
+    },
+    "cache_reused": false,
+    "accounting_status": "EXACT",
+    "provider_calls_before": 0,
+    "provider_calls_after": 0,
+    "fixture_calls_before": 9,
+    "fixture_calls_after": 11,
+    "cache_reuses_before": 1,
+    "cache_reuses_after": 1,
+    "ledger_path": "llm-call-ledger.jsonl",
+    "ledger_sha256": "3e82154b6fd8ace9b1ce98405465ff4f7ea72393c86134bde3bd0d43180fe1d0",
+    "provider_call_ids": [],
+    "calls_by_job": {},
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0
+  },
+  "repair_history": [
+    {
+      "attempt": 1,
+      "request": {
+        "schema_version": 1,
+        "content_assurance": "trusted_inherited",
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "9b29701435fe5a2676a3ffe56064cddd07188007",
+        "rejected_batch_id": "batch-0001",
+        "rejected_draft_sha256": "00f65c70136b95c03874c0bf5284457a5907b280029e04143fa403d7313d35b0",
+        "finding_ids": [
+          "fidelity.e80341b270b7b4e3f3425a79"
+        ],
+        "repair_instructions": [
+          "Restore the inherited Python-developer audience."
+        ],
+        "accepted_section_sha256s": []
+      },
+      "candidate_sha256_before": "77bb9ed8c5e338ec7158067c139ea4bc91daf501a60b87cceb9bb7b75f3c1c94",
+      "candidate_sha256_after": "38a3d15204360bade7260019afc77ed30c7e716bcaad55e76088e9daf79c5172",
+      "candidate_changed": true,
+      "rereview_verdict": "TRUSTED_TRANSFORM_APPROVED"
+    }
+  ],
+  "system_failure_reason": null
+}
