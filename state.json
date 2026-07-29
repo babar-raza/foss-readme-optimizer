@@ -8,16 +8,16 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-T0-TRUSTED-QUALIFICATION",
-    "active_task_id": null,
+    "active_task_id": "TRP-04-CANARY-QUALIFICATION",
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 0,
       "reserved_trusted_lanes": 1,
       "total_repository_lanes": 1
     },
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-07-29T16:53:07.937537+00:00",
+    "claim_id": "587304bcb7894a28ab570bbfc8f33de8",
+    "claimed_at": "2026-07-29T16:23:07.937537+00:00",
+    "claimed_by": "codex-goal-ui",
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "4ba5bccdccb88c31b0a0ed7149e72e5b209e1351f1e853379980d02f28eb8223",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
@@ -33,7 +33,7 @@
       }
     ],
     "graph_sha256": "4ba5bccdccb88c31b0a0ed7149e72e5b209e1351f1e853379980d02f28eb8223",
-    "last_evaluated_at": "2026-07-29T16:22:53.825654+00:00",
+    "last_evaluated_at": "2026-07-29T16:23:07.937537+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -200,7 +200,7 @@
       "TRP-01-README-DERIVED-FACTS": "CLOSED",
       "TRP-02-LLM-FIRST-COMPOSITION": "CLOSED",
       "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "CLOSED",
-      "TRP-04-CANARY-QUALIFICATION": "TODO",
+      "TRP-04-CANARY-QUALIFICATION": "IN_PROGRESS",
       "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
       "TRP-05A-ACT-WORKFLOW-PARITY": "TODO",
       "TRP-05B-STAGING-EFFECT-PROOF": "TODO",
@@ -5131,6 +5131,15 @@
         "reason": "TRP-03 acceptance checks are satisfied; TRP-04 live adversarial canary qualification is now the next governed boundary.",
         "task_id": "TRP-03-INDEPENDENT-FIDELITY-REVIEW",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "codex-goal-ui",
+        "occurred_at": "2026-07-29T16:23:07.937798+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "TRP-04-CANARY-QUALIFICATION",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -5139,7 +5148,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 589,
+  "state_version": 590,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
