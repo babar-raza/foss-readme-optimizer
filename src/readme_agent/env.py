@@ -91,6 +91,9 @@ JOB_MODEL_ROUTING: dict[str, str] = {
     # characterization-and-recommendation.md.
     "draft_product_truth": "qwen3-next",
     "plan_readme_composition": "qwen3-next",
+    # TRP-02: one forced-tool call per bounded README batch performs the
+    # temporary trusted lane's inventory, planning, and section authoring.
+    "trusted_readme_section_transform": "qwen3-next",
 }
 
 

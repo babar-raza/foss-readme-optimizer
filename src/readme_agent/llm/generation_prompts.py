@@ -153,3 +153,119 @@ def build_readme_composition_tool_schema(
             },
         },
     }
+
+
+def build_trusted_readme_section_messages(
+    *,
+    org_repo: str,
+    batch_json: str,
+    envelope_json: str,
+    repair_hint: str = "",
+) -> list[dict]:
+    """Build one bounded trusted transformation turn from its registered prompt."""
+
+    manifest = prompt_registry.get("trusted_readme_section_transform")
+    assert manifest is not None, "trusted README section transform prompt missing"
+    assert manifest.user_template is not None
+    user_content = (
+        Template(manifest.user_template)
+        .substitute(
+            org_repo=org_repo,
+            batch_json=batch_json,
+            envelope_json=envelope_json,
+            repair_hint=repair_hint,
+        )
+        .strip()
+    )
+    return [
+        {"role": "system", "content": manifest.system.strip()},
+        {"role": "user", "content": user_content},
+    ]
+
+
+def build_trusted_readme_section_tool_schema(
+    *,
+    fact_ids: list[str],
+    configured_standard_ids: list[str],
+) -> dict:
+    """Build a forced schema bounded to one source batch and remaining standards."""
+
+    standard_items: dict = {"type": "string", "enum": configured_standard_ids}
+    if not configured_standard_ids:
+        standard_items = {"type": "string", "enum": ["__none__"]}
+    return {
+        "type": "function",
+        "function": {
+            "name": "submit_trusted_readme_section",
+            "description": (
+                "Submit source inventory and ordered Markdown segments for exactly one bounded "
+                "trusted README batch."
+            ),
+            "parameters": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": [
+                    "editorial_summary",
+                    "complete",
+                    "source_inventory",
+                    "segments",
+                ],
+                "properties": {
+                    "editorial_summary": {"type": "string", "minLength": 1},
+                    "complete": {"type": "boolean", "const": True},
+                    "source_inventory": {
+                        "type": "array",
+                        "minItems": len(fact_ids),
+                        "maxItems": len(fact_ids),
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "required": ["fact_id", "action", "rationale"],
+                            "properties": {
+                                "fact_id": {"type": "string", "enum": fact_ids},
+                                "action": {
+                                    "type": "string",
+                                    "enum": ["preserve_exact", "rewrite"],
+                                },
+                                "rationale": {"type": "string", "minLength": 1},
+                            },
+                        },
+                    },
+                    "segments": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "required": [
+                                "segment_id",
+                                "kind",
+                                "markdown",
+                                "inherited_fact_ids",
+                                "configured_standard_ids",
+                            ],
+                            "properties": {
+                                "segment_id": {
+                                    "type": "string",
+                                    "pattern": "^[a-z][a-z0-9_.-]*$",
+                                },
+                                "kind": {
+                                    "type": "string",
+                                    "enum": ["preserve_exact", "authored"],
+                                },
+                                "markdown": {"type": "string"},
+                                "inherited_fact_ids": {
+                                    "type": "array",
+                                    "items": {"type": "string", "enum": fact_ids},
+                                },
+                                "configured_standard_ids": {
+                                    "type": "array",
+                                    "items": standard_items,
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    }

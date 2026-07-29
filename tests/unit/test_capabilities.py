@@ -175,6 +175,8 @@ class TestRegistry:
             "get_product_facts",
             # TRP-01: immutable README-only facts for the lower-assurance lane.
             "extract_trusted_readme_facts",
+            # TRP-02: bounded LLM-first README-trusted composition.
+            "compose_trusted_readme",
             # RPOC-033: agentic product_truth drafting for repos with no
             # policy-authored product_truth yet -- read-only, never writes
             # to config/policies/*.yml.
@@ -343,6 +345,7 @@ class TestRegistry:
             # capability in this set.
             "draft_product_truth",
             "plan_readme_composition",
+            "compose_trusted_readme",
         }
 
     def test_filter_by_side_effect_class_local_write(self):
@@ -550,7 +553,7 @@ class TestRegistryEff001RegistrationGate:
 
     def test_real_registry_still_builds_cleanly(self):
         """Regression: the complete current registry still passes the mutating-only gate."""
-        assert len(registry.list_all()) == 29
+        assert len(registry.list_all()) == 30
 
 
 class TestInspectRepositoryCapability:

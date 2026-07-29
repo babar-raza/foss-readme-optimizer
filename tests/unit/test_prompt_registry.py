@@ -180,6 +180,7 @@ class TestRealRegistry:
             "factual_readme_plan_review",
             "independent_readme_review",
             "plan_readme_composition",
+            "trusted_readme_section_transform",
             "presentation_standard_compliance",
             "prose_quality_check",
             "relationship_explained",
