@@ -11134,7 +11134,7 @@
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
       }
     ],
-    "facts_hash": "291b547cac34d9ce545ebf07dc620616c3aeeec096ba8c4469691455071e7d83",
+    "facts_hash": "b4de436225d7cc80a8a125c32470ec5806b996b45d7b79c8514d46d8d0d1e9f6",
     "history": [
       {
         "evidence_refs": [
@@ -13385,6 +13385,19 @@
         "reason": "inventory immutable README material as inherited facts",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "TRUSTED_FACTS_EXTRACTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\assurance\\trusted_inherited\\facts\\readme-inherited-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\assurance\\trusted_inherited\\facts\\source-to-fact-map.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\assurance\\trusted_inherited\\facts\\configured-standards.json"
+        ],
+        "from_status": "TRUSTED_FACTS_EXTRACTING",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-29T23:18:30.628574+00:00",
+        "reason": "README-derived trusted fact graph persisted with exact source accountability",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "TRUSTED_FACTS_EXTRACTED"
       }
     ],
     "intake_preflight_history": [
@@ -13412,11 +13425,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "TRUSTED_FACTS_EXTRACTING",
-    "updated_at": "2026-07-29T23:18:24.310093+00:00"
+    "status": "TRUSTED_FACTS_EXTRACTED",
+    "updated_at": "2026-07-29T23:18:30.628574+00:00"
   },
   "schema_version": 2,
-  "state_version": 751,
+  "state_version": 752,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
