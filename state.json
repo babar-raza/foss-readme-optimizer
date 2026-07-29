@@ -1482,6 +1482,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260729-063002-6e34:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
     },
+    "851ebd738a0238b8b3851e5ac61a014355b1fea49743a1973692a68ece049099": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "851ebd738a0238b8b3851e5ac61a014355b1fea49743a1973692a68ece049099",
+      "completed_at": "2026-07-29T17:15:56.744789+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "run_id": "20260729-171548-2ffc",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-29T17:15:56.744771+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260729-164422-5b3c:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+    },
     "852440dceb561f68281ab20f3ad129f6f8bc695828aa41c14b4a629dc348ef45": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -11023,7 +11040,7 @@
     "updated_at": "2026-07-29T16:45:34.472575+00:00"
   },
   "schema_version": 2,
-  "state_version": 474,
+  "state_version": 475,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -11550,11 +11567,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted composition batch batch-0003 failed after 3 attempts: 8 validation errors for TrustedReadmeSectionToolDraftV1 segments.0.configured_standard_ids.0   Input should be 'readme.header', 'readme.badges', 'readme.navigation', 'readme.at_a_glance_mermaid', 'readme.enterprise_edition_terminology' or 'readme.contextual_links' [type=literal_error, input_value='__none__', input_type=str]     For further information visit https://errors.pydantic.dev/2.13/v/literal_error segments.1.configured_standard_ids.0   Input should be 'readme.header', 'readme.badges', 'readme.navigation', 'readme.at_a_glance_mermaid', 'readme.enterprise_edition_terminology' or 'readme.contextual_links' [type=literal_error, input_value='__none__', input_type=str]     For further information visit https://errors.pydantic.dev/2.13/v/literal_error segments.2.configured_standard_ids.0   Input should be 'readme.header', 'readme.badges', 'read",
-      "last_checkpoint_id": "8594d7c339d2ff101f78976c4d5fb13dfcfae20dff3ce662d8fd336dfbc5ca6b",
+      "last_checkpoint_id": "851ebd738a0238b8b3851e5ac61a014355b1fea49743a1973692a68ece049099",
       "lease_expires_at": null,
       "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-07-29T17:13:56.057909+00:00"
+      "updated_at": "2026-07-29T17:15:56.744789+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
