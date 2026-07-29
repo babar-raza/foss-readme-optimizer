@@ -119,19 +119,19 @@ active sequence; generated truth lives in `plans/status.md`, `logs/`, and invest
 
 The active local-first pre-production sequence (`L8-014`) precedes Wave 2: **source-complete
 discovery and read-only intake → local proof → `act` → staging → production**. On 2026-07-29,
-`L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY` closed at state version 537 against graph
-`02e71ef95d30c059196a3f9c49553ed58eab22645f99af007b412a4ecc155f10`. Commits `faac9dc`,
-`1870db79`, and `d76e4dc6` prove typed observations, explicit incomplete-source behavior, and
-allow-list-before-preflight ordering. Next is
-`L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION`; live state and graph remain authoritative.
+`L8-INTAKE-00` and `L8-INTAKE-01` are closed; stable-identity proof commit `8f3855a4` advanced
+durable state to version 544 against graph
+`0cad8bab30214dce93dc70d39e537b5b4c67efd504a43101b9b2268f6e7e3f48`. Next is
+`L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT`; live state and graph remain authoritative.
 
 The checked-in denominator is 31: 8 `FACTS_READY` or later, 8 `CANDIDATE_GENERATED`, 8
 `DETERMINISTIC_VALIDATED`, 0 `AGENT_APPROVED`, 0 `NO_OP_PROVEN`, and 0 `HUMAN_ACCEPTED`; the first
 failing boundary is `FACTS_READY`. This is not yet a complete admitted portfolio revision. The
 current live inventory retains 32 observations from 26 sources: 31 matched and one unmatched
 (`aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP`). The unavailable `aspose-imaging-foss` source
-keeps it explicitly incomplete. Stable identity/admission is next; eight existing candidates
-remain reusable but none has current independent approval/no-op proof.
+keeps it explicitly incomplete. All 31 admitted entries now have unique provider identities;
+read-only intake enrollment is next. Eight candidates remain reusable but none has current
+independent approval/no-op proof.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 
@@ -140,9 +140,8 @@ no-op-proven local README for every runtime-loaded `data/products.json` entry. G
 separate human acceptance; Gate C is the later Java PR proof; Gate D is later GitHub App
 integration. Earlier PR/App-shaped machinery stays inert.
 
-The outcome-first critical path is: complete stable-identity reconciliation after the now-closed
-source-complete discovery task, then read-only intake/fast-path enrollment and registry-revision
-campaign binding;
+The outcome-first critical path is: complete read-only intake/fast-path enrollment after the
+now-closed discovery and stable-identity tasks, then registry-revision campaign binding;
 then repair the shared reviewer, qualify one current-contract `NO_OP_PROVEN` README for all seven
 ecosystems, and run full-registry facts/candidate fan-out. `L8-015`–`L8-039` and decisions
 #82–#84 govern. The governed targets remain one current-contract
@@ -2558,7 +2557,9 @@ only as historical implementation evidence in decisions and `logs/`; they are no
     - [x] Source-complete observation and admission-ordering boundary (`L8-INTAKE-00`,
           `L8-035`): 26 terminal source results, 32 retained observations, explicit imaging-source
           incompleteness, unmatched PDF Go MCP disposition, and allow-list-before-preflight proof.
-    - [ ] Stable provider-identity reconciliation (`L8-INTAKE-01`, `L8-036`).
+    - [x] Stable provider-identity reconciliation (`L8-INTAKE-01`, `L8-036`): 31 unique
+          schema-v2 identities, no-loss live migration/no-op proof, variants retained, owned
+          policy fields preserved.
     - [ ] Durable read-only intake and fast/full-path enrollment (`L8-INTAKE-02`, `L8-037`).
     - [ ] Registry revision, queue, freshness, and health binding (`L8-INTAKE-03`,
           `L8-038`–`L8-039`).
