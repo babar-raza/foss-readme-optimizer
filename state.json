@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "0cad8bab30214dce93dc70d39e537b5b4c67efd504a43101b9b2268f6e7e3f48",
-    "last_evaluated_at": "2026-07-29T05:22:54.189552+00:00",
+    "last_evaluated_at": "2026-07-29T05:23:06.430489+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -91,7 +91,7 @@
       "L8-GATEA-03A-REPRO-CONTROLS": "TODO",
       "L8-GATEA-04-REPRODUCE": "TODO",
       "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "CLOSED",
-      "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "VERIFIED",
+      "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "SCORED",
       "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "TODO",
       "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
@@ -4802,6 +4802,19 @@
         "reason": "Focused schema/reconciliation regressions, clean official checks, and live no-loss round trip passed.",
         "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "commit:d4d614019855ae85c1e117735016374ce603d7d2",
+          "commit:8f3855a4",
+          "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/verification.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-29T05:23:06.430482+00:00",
+        "reason": "All acceptance checks and negative controls pass with 31 unique repository IDs and node IDs.",
+        "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -4810,7 +4823,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 542,
+  "state_version": 543,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
