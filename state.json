@@ -33,7 +33,7 @@
       }
     ],
     "graph_sha256": "9748dff3603412aa092b57f75cd2b7a11195b351c0f9cc00fee038bc851f11e5",
-    "last_evaluated_at": "2026-07-29T14:52:01.171739+00:00",
+    "last_evaluated_at": "2026-07-29T14:52:14.604485+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -187,7 +187,7 @@
       "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": "TODO",
       "TRP-00-ASSURANCE-CONTRACT": "CLOSED",
       "TRP-01-README-DERIVED-FACTS": "CLOSED",
-      "TRP-02-LLM-FIRST-COMPOSITION": "IMPLEMENTED",
+      "TRP-02-LLM-FIRST-COMPOSITION": "VERIFIED",
       "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "TODO",
       "TRP-04-CANARY-QUALIFICATION": "TODO",
       "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
@@ -5031,6 +5031,17 @@
         "reason": "TRP-02 IMPLEMENTED at clean committed HEAD d73d69c8; bounded LLM composition and source-accountability proof accepted.",
         "task_id": "TRP-02-LLM-FIRST-COMPOSITION",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/trp-02-llm-first-composition-v1/verification-summary.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex-goal-ui",
+        "occurred_at": "2026-07-29T14:52:14.604477+00:00",
+        "reason": "TRP-02 VERIFIED at clean committed HEAD d73d69c8; bounded LLM composition and source-accountability proof accepted.",
+        "task_id": "TRP-02-LLM-FIRST-COMPOSITION",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -5039,7 +5050,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 578,
+  "state_version": 579,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
