@@ -4412,6 +4412,9 @@ taskcards:
   why_it_matters: New products must enter optimization automatically without receiving write authority
     or waiting for a human to select a template or command.
   allowed_paths:
+  - src/readme_agent/commands_supervision.py
+  - src/readme_agent/commands_supervision_result.py
+  - src/readme_agent/gitsafety/
   - src/readme_agent/readme_poc/
   - src/readme_agent/supervisor/
   - src/readme_agent/state/
