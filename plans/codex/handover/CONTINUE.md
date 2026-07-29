@@ -7,9 +7,9 @@ Resume in:
 Mission: `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`.
 
 The content snapshot immediately before the containing handover commit is `main` at
-`d3657907679824cb67ed55f5fd726a02064a73df`, with a clean tree, durable mission state version 531,
-graph hash `8486ade4cdfbee608dce30d0859eab4afa5d15efec58ef43848dc7cfb4aa2997`,
-no active claim, and `L8-REVIEW-00-CONTEXT-CORPUS` as the next eligible task. Re-read live state;
+`d258f0048e017ff49f7417a2304b9fc7730f10ea`, with a clean tree, durable mission state version 532,
+graph hash `02e71ef95d30c059196a3f9c49553ed58eab22645f99af007b412a4ecc155f10`,
+no active claim, and `L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY` as the next eligible task. Re-read live state;
 this narrative never overrides it.
 
 ## Authority and Goal
@@ -33,7 +33,8 @@ independent audit.
 The binding visible-output sequence is:
 
 ```text
-repair shared reviewer
+source-complete discovery and safe read-only intake
+-> repair shared reviewer
 -> seven serial NO_OP_PROVEN representatives, Python first
 -> zero-call Python readiness inventory
 -> eight total finalized READMEs
@@ -60,11 +61,24 @@ serial; fixture isolation may use two lanes.
    ```
 
 3. If graph drift exists, evaluate. Never steal a live unexpired claim.
-4. Read the complete `L8-REVIEW-00-CONTEXT-CORPUS` taskcard and
-   `plans/investigations/evidence/level8-review-real-corpus-route-failure-v1/`.
+4. Read decision #84, requirements `L8-035`–`L8-039`, and the complete four-task chain beginning
+   with `L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY`.
 5. Claim the task through the same supervisor.
 
 ## First Failing Boundary
+
+The checked-in registry contains 31 entries, but the latest source inventory also exposes the
+active `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP` repository outside the legacy naming matcher;
+the configured `aspose-imaging-foss` source is unavailable. Naming-based discovery and fail-open
+`NO_DRIFT` therefore cannot establish a truthful denominator. The public CLI also invokes
+repository preflight before the eventual supervisor allow-list gate.
+
+Complete `L8-INTAKE-00` through `L8-INTAKE-03`: typed source-complete observations,
+allow-list-before-preflight, provider-ID reconciliation, disabled/read-only admission, durable
+intake with fast/full paths, registry-revision/campaign binding, deduplicated recovery, and health.
+Do not weaken the allow-list or request the production GitHub App.
+
+The next known boundary after intake is the reviewer route:
 
 The blind role completed on the sealed real C++ candidate. The factual role used about 25,014
 prompt tokens and exhausted the fixed 2,400-token completion cap twice, returning truncated JSON
@@ -125,5 +139,6 @@ Do not stop for a completed subtask, failed test, report, checkpoint, token/sess
 convenience. Stop only for explicit user instruction, actual mission completion, or a genuine
 external dependency that blocks every eligible task.
 
-No product write occurs without fresh what/why/where approval. No `plans/master.md` edit occurs
-without fresh section-specific approval. No GitHub App request occurs before Gate C.
+No product write occurs without fresh what/why/where approval. Maintain `plans/master.md` freely
+under current GOV-023/rule 12 with evidence, history, traceability, and validation. No GitHub App
+request occurs before Gate C.
