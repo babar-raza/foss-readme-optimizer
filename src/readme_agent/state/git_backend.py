@@ -66,6 +66,18 @@ RUN_LOCK_LEASE_SECONDS = 900
 # status, not scoped to any single repo.
 MODEL_ROUTE_REF = "refs/readme-agent-state/model-routes"
 _MODEL_ROUTE_SAVE_MAX_RETRIES = 5
+_TRANSIENT_GIT_READ_ERRORS = (
+    "could not resolve host",
+    "connection reset",
+    "empty reply from server",
+    "failed to connect",
+    "http/2 stream",
+    "operation timed out",
+    "remote end hung up unexpectedly",
+    "rpc failed",
+    "ssl",
+    "tls",
+)
 
 # Pinned rather than relying on ambient git config, matching
 # `_git.py::DETERMINISM_FLAGS`'s reasoning -- a GitHub Actions runner has no
@@ -107,18 +119,31 @@ def _fetch_remote_sha(remote_ref: str) -> str | None:
     silently treated as "no prior state" (fail-closed, decision #15's
     pattern applied here)."""
     local_ref = f"refs/readme-agent-fetch/{os.getpid()}-{uuid4().hex}"
-    result = run_git(
-        [
-            "fetch",
-            "--no-write-fetch-head",
-            "origin",
-            f"+{remote_ref}:{local_ref}",
-        ]
-    )
-    if result.returncode != 0:
-        if "couldn't find remote ref" in result.stderr.lower():
-            return None
+
+    def fetch_once():
+        result = run_git(
+            [
+                "fetch",
+                "--no-write-fetch-head",
+                "origin",
+                f"+{remote_ref}:{local_ref}",
+            ]
+        )
+        if result.returncode == 0:
+            return result
+        lowered = result.stderr.lower()
+        if "couldn't find remote ref" in lowered:
+            return result
+        if any(marker in lowered for marker in _TRANSIENT_GIT_READ_ERRORS):
+            raise RetryableOperationError(f"fetch of {remote_ref} failed: {result.stderr}")
         raise StateBackendError(f"fetch of {remote_ref} failed: {result.stderr}")
+
+    try:
+        result = run_with_retry("github_read", fetch_once)
+    except RetryableOperationError as exc:
+        raise StateBackendError(str(exc)) from exc
+    if result.returncode != 0:
+        return None
     try:
         rev = run_git(["rev-parse", "--verify", local_ref])
         if rev.returncode != 0:

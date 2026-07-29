@@ -524,12 +524,18 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
 
     registry_path = Path(args.registry)
     entries = order_entries_by_platform_priority(load_products(registry_path))
+    readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
+    print(
+        "local_poc portfolio: START "
+        f"registry={registry_path} repositories={len(entries)} "
+        f"target={readme_poc_stage_limit or 'NO_OP_PROVEN'}",
+        flush=True,
+    )
     # Resolve the one durable backend before the fan-out.  It is deliberately
     # shared by every member so the final summary can be derived from the
     # lifecycle state the canonical runs actually persisted, not their
     # console exit codes.
     state_backend = _force_durable_state_backend()
-    readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
     results: list[PortfolioRepositoryResultV1] = []
     slice_started = time.monotonic()
     execution_slice_complete = True
@@ -541,6 +547,11 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         )
     )
     for entry_index, entry in enumerate(entries):
+        print(
+            f"{entry.org_repo}: START member={entry_index + 1}/{len(entries)} "
+            f"target={readme_poc_stage_limit or 'NO_OP_PROVEN'}",
+            flush=True,
+        )
         repository_args = argparse.Namespace(**vars(args))
         repository_args.repo = entry.org_repo
         repository_args.registry = None

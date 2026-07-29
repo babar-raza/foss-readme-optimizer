@@ -56,6 +56,56 @@ def test_fetch_remote_sha_preserves_missing_remote_semantics(monkeypatch):
     assert len(calls) == 1
 
 
+def test_fetch_remote_sha_retries_transient_transport_failure(monkeypatch):
+    calls: list[list[str]] = []
+    fetched_sha = "a" * 40
+    fetch_attempts = 0
+    real_run_with_retry = git_backend.run_with_retry
+
+    def fake_run_git(args: list[str]):
+        nonlocal fetch_attempts
+        calls.append(args)
+        if args[0] == "fetch":
+            fetch_attempts += 1
+            if fetch_attempts == 1:
+                return _completed(returncode=128, stderr="fatal: Empty reply from server")
+            return _completed()
+        if args[0] == "rev-parse":
+            return _completed(stdout=f"{fetched_sha}\n")
+        return _completed()
+
+    monkeypatch.setattr(git_backend, "run_git", fake_run_git)
+    monkeypatch.setattr(
+        git_backend,
+        "run_with_retry",
+        lambda operation_class, operation: real_run_with_retry(
+            operation_class,
+            operation,
+            sleep=lambda _seconds: None,
+        ),
+    )
+
+    assert git_backend._fetch_remote_sha("refs/readme-agent-state/example") == fetched_sha
+    assert [call[0] for call in calls].count("fetch") == 2
+
+
+def test_fetch_remote_sha_does_not_retry_permanent_auth_failure(monkeypatch):
+    calls: list[list[str]] = []
+
+    def fake_run_git(args: list[str]):
+        calls.append(args)
+        return _completed(
+            returncode=128,
+            stderr="remote: Permission to org/repo denied to actor.",
+        )
+
+    monkeypatch.setattr(git_backend, "run_git", fake_run_git)
+
+    with pytest.raises(StateBackendError, match="Permission"):
+        git_backend._fetch_remote_sha("refs/readme-agent-state/example")
+    assert len(calls) == 1
+
+
 def test_fetch_remote_sha_cleans_ref_when_resolution_fails(monkeypatch):
     calls: list[list[str]] = []
 

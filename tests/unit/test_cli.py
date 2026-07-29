@@ -892,7 +892,7 @@ class TestExecutionProfileFlag:
 
 class TestLocalPocPortfolioCommand:
     def test_facts_stage_runs_heterogeneous_registry_without_promoting_persisted_labels(
-        self, monkeypatch, tmp_path
+        self, monkeypatch, tmp_path, capsys
     ):
         import readme_agent.commands_supervision as supervision_module
         import readme_agent.paths as paths
@@ -940,6 +940,12 @@ class TestLocalPocPortfolioCommand:
 
         assert supervision_module._cmd_supervise_registry(args) == 0
         assert calls == ["org/python", "org/java"]
+        output = capsys.readouterr().out
+        assert (
+            "local_poc portfolio: START registry=data\\products.json "
+            "repositories=2 target=FACTS_READY"
+        ) in output.replace("/", "\\")
+        assert "org/python: START member=1/2 target=FACTS_READY" in output
         rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
         assert '"status": "FACTS_READY"' in rendered
         assert '"target_lifecycle_stage": "FACTS_READY"' in rendered
