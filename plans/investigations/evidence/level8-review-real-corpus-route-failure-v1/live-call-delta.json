@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "comparison_baseline": "plans/investigations/evidence/level8-review-finding-grounding-v2/llm-call-ledger.jsonl",
+  "current_runtime_ledger": "runs/llm-calls/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/L8-REVIEW-02-CELLS-CPP-121ada0824b5.jsonl",
+  "baseline_provider_call_count": 7,
+  "current_cumulative_provider_call_count": 10,
+  "this_invocation_provider_call_count": 3,
+  "calls": [
+    {
+      "call_id": "0ed6ee20-c046-4bce-b1b4-c31c6482e42b",
+      "job": "blind_readme_quality_review",
+      "attempt": 1,
+      "outcome": "success",
+      "prompt_tokens": 3011,
+      "completion_tokens": 594,
+      "finish_evidence": "valid structured response"
+    },
+    {
+      "call_id": "f820591e-f895-4f78-a15d-ad22c8843f1b",
+      "job": "factual_readme_plan_review",
+      "attempt": 1,
+      "outcome": "response_invalid",
+      "prompt_tokens": 25014,
+      "completion_tokens": 2400,
+      "finish_evidence": "finish_reason=length; unterminated JSON"
+    },
+    {
+      "call_id": "be18516b-b4e5-40b3-8abd-d02e67af830a",
+      "job": "factual_readme_plan_review",
+      "attempt": 2,
+      "outcome": "response_invalid",
+      "prompt_tokens": 25014,
+      "completion_tokens": 2400,
+      "finish_evidence": "finish_reason=length; unterminated JSON"
+    }
+  ]
+}

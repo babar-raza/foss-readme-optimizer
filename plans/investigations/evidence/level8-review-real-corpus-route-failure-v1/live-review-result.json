@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+  "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+  "reviewer_standard_sha256": "121ada0824b56cc6ecfac76adf042fc506c264314c07f7fa9fc30b0e7e127aee",
+  "control_branch": "main",
+  "control_head": "5fdf77deb3898db4994413d5f77b8470a9ee1290",
+  "control_tree_clean": true,
+  "review": null,
+  "review_error": {
+    "error_class": "LLMError",
+    "message": "forced tool call returned an invalid structured response after 2 attempts: forced tool call arguments were not valid JSON: Unterminated string starting at: line 142 column 32 (char 8634); finish_reason='length'; completion_tokens=2400",
+    "classified_verdict": "SYSTEM_FAILURE",
+    "candidate_retained": true
+  },
+  "llm_accounting": {
+    "status": "EXACT",
+    "this_invocation_provider_call_count": 3,
+    "this_invocation_calls_by_job": {
+      "blind_readme_quality_review": 1,
+      "factual_readme_plan_review": 2
+    },
+    "cumulative_provider_call_count": 10,
+    "cumulative_accounting_note": "The proof tool reused the stable campaign ledger from the earlier seven-call run. live-call-delta.json identifies the three calls made by this invocation."
+  },
+  "remote_write_attempted": false
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-04A-REAL-CORPUS",
+  "verdict": "ROUTE_REGRESSION_CONFIRMED",
+  "control_head": "5fdf77deb3898db4994413d5f77b8470a9ee1290",
+  "real_repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "source_revision": "3e1edeacd4c1600507009c3fd3bf122d54f5d3a9",
+  "candidate_sha256": "73ca6e529e838a0299f6275f6fe103655b23e68abbbdfe5d163a37ad6c81acd4",
+  "reviewer_standard_sha256": "121ada0824b56cc6ecfac76adf042fc506c264314c07f7fa9fc30b0e7e127aee",
+  "observations": {
+    "blind_role_completed": true,
+    "factual_role_completed": false,
+    "candidate_retained": true,
+    "remote_write_attempted": false,
+    "provider_calls_this_invocation": 3,
+    "factual_attempts_at_completion_cap": 2,
+    "completion_cap_tokens": 2400
+  },
+  "first_failing_boundary": "The production factual-review transport exhausts a fixed 2400-token completion budget and retries the unchanged oversized request, producing a second truncated JSON response.",
+  "root_cause_classification": {
+    "category": "agent_fixable",
+    "owner_task": "L8-REVIEW-00-CONTEXT-CORPUS",
+    "reason": "The frozen reviewer-role route owns prompts, schemas, client construction, context inventory, and fail-closed behavior. Its current contract is not completion-bounded for a real evidence-rich candidate."
+  },
+  "closure_effect": {
+    "current_task": "must be rerouted until the reviewer route is requalified",
+    "owner_task": "must be reopened as regressed",
+    "remaining_six_real_representatives": "not invoked because repeating the known structural failure would spend provider calls without adding acceptance evidence"
+  },
+  "required_permanent_repair": [
+    "Bound the factual-review response contract independently of repository size.",
+    "Compact reviewer context without removing fact, plan, claim, or evidence grounding.",
+    "Treat length termination as a distinct transport condition rather than repeating an identical request.",
+    "Use a bounded deterministic recovery strategy and retain fail-closed semantics.",
+    "Re-run focused contracts, review integration, safety regressions, the C++ canary, then all seven real representatives."
+  ],
+  "truth_status": "The route remains safely fail-closed, but it is not production-qualified and cannot satisfy the real-corpus task."
+}

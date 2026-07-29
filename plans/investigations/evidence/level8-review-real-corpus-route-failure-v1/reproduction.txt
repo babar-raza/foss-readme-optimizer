@@ -1,0 +1,30 @@
+Task: L8-REVIEW-04A-REAL-CORPUS
+Control HEAD: 5fdf77deb3898db4994413d5f77b8470a9ee1290
+Source bundle:
+runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/3e1edeacd4c1600507009c3fd3bf122d54f5d3a9
+
+Preflight:
+.venv/Scripts/readme-agent preflight
+
+Real production-route probe:
+.venv/Scripts/python plans/investigations/tools/prove_grounded_review_real.py --bundle runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/3e1edeacd4c1600507009c3fd3bf122d54f5d3a9 --output runs/level8-review-real-corpus-probe/cpp-current
+
+Observed result:
+- elapsed time: 117.6 seconds
+- provider calls made by this invocation: 3
+- blind role: one valid response
+- factual role: two invalid responses, both exactly 2400 completion tokens
+- transport evidence: finish_reason=length and unterminated JSON
+- terminal review classification: SYSTEM_FAILURE
+- candidate retained: yes
+- remote write attempted: no
+
+Call-delta method:
+Read the committed seven-record baseline ledger at
+plans/investigations/evidence/level8-review-finding-grounding-v2/llm-call-ledger.jsonl,
+read the current stable campaign ledger, and select call_id values absent from the baseline.
+
+Interpretation:
+This is a fail-closed safety success but a production-route qualification failure. It reopens the
+reviewer-role contract task. Do not spend calls on the remaining corpus until the route is repaired
+and the same C++ canary returns a complete governed verdict.
