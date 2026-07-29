@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": null,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "active_task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
+    "claim_expires_at": "2026-07-29T05:55:29.523167+00:00",
+    "claim_id": "7e851ac2b51a464faff586a20216e474",
+    "claimed_at": "2026-07-29T05:25:29.523167+00:00",
+    "claimed_by": "Codex",
     "graph_sha256": "3dc503d5651a7d9f3c4cca93d9b1d79c3d2de71e7fafee53189c53ab46223d44",
-    "last_evaluated_at": "2026-07-29T05:25:18.022577+00:00",
+    "last_evaluated_at": "2026-07-29T05:25:29.523167+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -102,7 +102,7 @@
       "L8-GATEA-04-REPRODUCE": "TODO",
       "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "CLOSED",
       "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "CLOSED",
-      "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "TODO",
+      "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "IN_PROGRESS",
       "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
       "L8-LOCAL-FULL-REGISTRY-GATE-A": "REGRESSED",
@@ -4839,6 +4839,15 @@
         "reason": "Every live observation has one stable-identity disposition; admitted entries preserve policy and variants without duplication.",
         "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-29T05:25:29.523220+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -4847,7 +4856,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 545,
+  "state_version": 546,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
