@@ -54,6 +54,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260727-185208-8eaf:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
     },
+    "064d2853a509b24b418cf4b04ba005a9040d7e101869a9df01cc8d03fd94d3e1": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "064d2853a509b24b418cf4b04ba005a9040d7e101869a9df01cc8d03fd94d3e1",
+      "completed_at": "2026-07-29T18:08:27.413062+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "run_id": "20260729-180819-e99f",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-29T18:08:27.413051+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260729-164422-5b3c:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+    },
     "07537924293e7075da34172548545a44969df86fc807f000ac7da12fa3b71486": {
       "action": null,
       "attempt": 1,
@@ -11329,7 +11346,7 @@
     "updated_at": "2026-07-29T16:45:34.472575+00:00"
   },
   "schema_version": 2,
-  "state_version": 520,
+  "state_version": 521,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -11856,11 +11873,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "36623ca44cdbd6f778f3f1b6dc40d54402ae587dfe0df895cb2dd97a293db384",
+      "last_checkpoint_id": "064d2853a509b24b418cf4b04ba005a9040d7e101869a9df01cc8d03fd94d3e1",
       "lease_expires_at": null,
       "recovery_count": 7,
       "status": "retryable",
-      "updated_at": "2026-07-29T18:08:21.291867+00:00"
+      "updated_at": "2026-07-29T18:08:27.413062+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
