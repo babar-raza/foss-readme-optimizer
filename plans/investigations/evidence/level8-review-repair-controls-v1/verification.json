@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-02A-REPAIR-CONTROLS",
+  "control_revision": "74a7252936f5c1d4385cc00b362f17be6f389a0b",
+  "official_checks": [
+    {
+      "command": ".venv/Scripts/python -m ruff check .",
+      "result": "PASS"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff format --check .",
+      "result": "PASS"
+    },
+    {
+      "command": ".venv/Scripts/python -m mypy src",
+      "result": "PASS"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -x -q",
+      "result": "PASS",
+      "passed": 2116,
+      "deselected": 41,
+      "duration_seconds": 802.04
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "focused_and_regression": [
+    {
+      "scope": "repair-control focused suite",
+      "passed": 129,
+      "result": "PASS"
+    },
+    {
+      "scope": "public seams and safety regressions",
+      "passed": 60,
+      "result": "PASS"
+    },
+    {
+      "scope": "accepted byte-identical and material-repair runtime controls",
+      "passed": 2,
+      "duration_seconds": 25.14,
+      "result": "PASS"
+    },
+    {
+      "scope": "fact/system blocks never enter generic repair",
+      "passed": 3,
+      "result": "PASS"
+    }
+  ],
+  "diagnostic_exclusions": [
+    {
+      "scope": "first acceptance-proof attempt",
+      "reason": "Windows path-length failure under a longer disposable basetemp",
+      "promoted": false
+    }
+  ],
+  "independent_verification": {
+    "method": "collector re-derived every acceptance predicate from runtime artifacts",
+    "result": "PASS"
+  },
+  "product_remote_writes": 0,
+  "result": "PASS"
+}

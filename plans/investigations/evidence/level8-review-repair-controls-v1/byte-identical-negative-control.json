@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "control": "byte_identical_repair_reroutes_before_rereview",
+  "org_repo": "example-foss/Example-FOSS-for-Java",
+  "source_revision": "998c35faacd90afb1068978644469b423457807b",
+  "candidate_sha256": "e63f1a58d657a8d369fec9d3afad72917aefe250eca8e5ba2e1fa34e3b383515",
+  "repair_receipt": {
+    "schema_version": 1,
+    "repair_attempt": 1,
+    "before_candidate_sha256": "e63f1a58d657a8d369fec9d3afad72917aefe250eca8e5ba2e1fa34e3b383515",
+    "after_candidate_sha256": "e63f1a58d657a8d369fec9d3afad72917aefe250eca8e5ba2e1fa34e3b383515",
+    "candidate_changed": false,
+    "changed_spans": [],
+    "changed_operation_ids": [],
+    "finding_resolutions": [
+      {
+        "finding_id": "quality.generic-overview",
+        "section": "Overview",
+        "prior_span_occurrences": 1,
+        "repaired_span_occurrences": 1,
+        "section_changed": false,
+        "bound_operation_ids": [
+          "readme.overview-navigation-and-acquisition"
+        ],
+        "changed_bound_operation_ids": [],
+        "status": "unresolved_unchanged"
+      }
+    ],
+    "addressed_finding_ids": [],
+    "resolved_finding_ids": [],
+    "unresolved_finding_ids": [
+      "quality.generic-overview"
+    ],
+    "reviewer_call_count_before_rereview": 1,
+    "reviewer_call_count_after_rereview": null,
+    "rereview_authorized": false
+  },
+  "final_verdict": {
+    "verdict": "README_ASSESSED",
+    "agent_approved": false,
+    "deterministic_validation_passed": true,
+    "repair_attempts": 1
+  },
+  "supervisor_statuses": [
+    "BLOCKED"
+  ],
+  "effect_count": 0,
+  "acceptance": "PASS"
+}

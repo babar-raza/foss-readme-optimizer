@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "control": "material_repair_revalidates_and_rereviews",
+  "org_repo": "example-foss/Example-FOSS-for-Java",
+  "source_revision": "4f257135c7df46e4155a184ea638c71fa4d710aa",
+  "initial_candidate_sha256": "006c877258f34e6f9a49a2456cd4e6beb8858436ddc652ff524b8b390a8fa79b",
+  "repaired_candidate_sha256": "640029e74389ca90b4abf8de2863a97225d6d31f83aedeeed20cedb95500b415",
+  "repair_receipt": {
+    "schema_version": 1,
+    "repair_attempt": 1,
+    "before_candidate_sha256": "006c877258f34e6f9a49a2456cd4e6beb8858436ddc652ff524b8b390a8fa79b",
+    "after_candidate_sha256": "640029e74389ca90b4abf8de2863a97225d6d31f83aedeeed20cedb95500b415",
+    "candidate_changed": true,
+    "changed_spans": [
+      {
+        "before_start": 305,
+        "before_end": 423,
+        "after_start": 305,
+        "after_end": 305,
+        "before_sha256": "fe1950d76fe40cd7b0c75a928a6baca446be375b71019365c6e20006b72a3795",
+        "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "before_excerpt": "- **Verified capabilities:** create documents\n- **Verified formats:** creating, reading, and modifying document files\n",
+        "after_excerpt": ""
+      }
+    ],
+    "changed_operation_ids": [
+      "readme.overview-navigation-and-acquisition"
+    ],
+    "finding_resolutions": [
+      {
+        "finding_id": "quality.generic-overview",
+        "section": "Overview",
+        "prior_span_occurrences": 1,
+        "repaired_span_occurrences": 1,
+        "section_changed": true,
+        "bound_operation_ids": [
+          "readme.overview-navigation-and-acquisition"
+        ],
+        "changed_bound_operation_ids": [
+          "readme.overview-navigation-and-acquisition"
+        ],
+        "status": "addressed_pending_rereview"
+      }
+    ],
+    "addressed_finding_ids": [
+      "quality.generic-overview"
+    ],
+    "resolved_finding_ids": [
+      "quality.generic-overview"
+    ],
+    "unresolved_finding_ids": [],
+    "reviewer_call_count_before_rereview": 1,
+    "reviewer_call_count_after_rereview": 2,
+    "rereview_authorized": true
+  },
+  "final_verdict": {
+    "verdict": "AGENT_APPROVED",
+    "agent_approved": true,
+    "deterministic_validation_passed": true,
+    "repair_attempts": 1
+  },
+  "no_op_proof": {
+    "verdict": "NO_OP_PROVEN",
+    "candidate_hash": "640029e74389ca90b4abf8de2863a97225d6d31f83aedeeed20cedb95500b415",
+    "patch_created": false,
+    "duplicate_bundle_created": false,
+    "agentic_review_reused": true,
+    "llm_accounting_status": "UNKNOWN_LEGACY",
+    "new_provider_call_count": null,
+    "new_cache_reuse_count": null
+  },
+  "supervisor_statuses": [
+    "CONVERGED_PROPOSAL_READY",
+    "CONVERGED_NO_TRACKED_CHANGE"
+  ],
+  "effect_count": 0,
+  "acceptance": "PASS"
+}
