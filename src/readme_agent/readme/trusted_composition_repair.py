@@ -5,11 +5,9 @@ from __future__ import annotations
 from readme_agent.errors import LLMError
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.llm.verifier_client import ForcedToolClient
-from readme_agent.readme.trusted_composition import (
-    compose_trusted_batch,
-    finalize_trusted_composition,
-)
+from readme_agent.readme.trusted_composition import finalize_trusted_composition
 from readme_agent.readme.trusted_composition_batching import build_trusted_composition_batches
+from readme_agent.readme.trusted_composition_execution import compose_trusted_batch
 from readme_agent.readme.trusted_composition_models import (
     TrustedReadmeCompositionOutputV1,
     TrustedReadmeSectionRepairRequestV1,
@@ -84,4 +82,5 @@ def repair_trusted_composition_section(
         prior.plan.envelope,
         tool_drafts,
         bound_drafts,
+        llm_call_count=prior.llm_call_count + repaired_bound.attempt_count,
     )

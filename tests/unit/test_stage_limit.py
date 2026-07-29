@@ -44,6 +44,38 @@ def test_candidate_and_deterministic_boundaries_are_strictly_ordered():
     )
 
 
+def test_trusted_approval_and_noop_boundaries_do_not_promote_verified_statuses():
+    assert (
+        evaluate_stage_boundary(
+            "TRUSTED_TRANSFORM_APPROVED",
+            "TRUSTED_TRANSFORM_APPROVED",
+        ).reached
+        is True
+    )
+    assert (
+        evaluate_stage_boundary(
+            "TRUSTED_TRANSFORM_APPROVED",
+            "TRUSTED_NO_OP_PROVEN",
+        ).reached
+        is True
+    )
+    assert (
+        evaluate_stage_boundary(
+            "TRUSTED_NO_OP_PROVEN",
+            "TRUSTED_TRANSFORM_APPROVED",
+        ).reached
+        is False
+    )
+    assert (
+        evaluate_stage_boundary(
+            "TRUSTED_NO_OP_PROVEN",
+            "TRUSTED_NO_OP_PROVEN",
+        ).reached
+        is True
+    )
+    assert evaluate_stage_boundary("TRUSTED_TRANSFORM_APPROVED", "AGENT_APPROVED").reached is False
+
+
 def test_stage_complete_is_a_truthful_successful_process_terminal():
     result = SuperviseResult(
         status="STAGE_COMPLETE",

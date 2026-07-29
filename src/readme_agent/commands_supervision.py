@@ -491,6 +491,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     )
     from readme_agent.supervisor.portfolio_stage_cache import (
         completed_bounded_product_truth_status,
+        completed_bounded_trusted_status,
     )
 
     zero_llm_accounting: _PortfolioLlmAccounting = {
@@ -584,6 +585,17 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                         current_source_revision=current_source_revision,
                     )
                     complete_status = "INTAKE_READY" if intake_binding is not None else None
+                elif readme_poc_stage_limit in {
+                    "TRUSTED_TRANSFORM_APPROVED",
+                    "TRUSTED_NO_OP_PROVEN",
+                }:
+                    complete_status = completed_bounded_trusted_status(
+                        state_backend,
+                        entry.org_repo,
+                        bundle_dir,
+                        readme_poc_stage_limit,
+                        current_source_revision=current_source_revision,
+                    )
                 else:
                     complete_status = completed_bounded_product_truth_status(
                         state_backend,
@@ -636,6 +648,11 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     results.append(
                         PortfolioRepositoryResultV1(
                             org_repo=entry.org_repo,
+                            content_assurance=(
+                                lifecycle.content_assurance
+                                if lifecycle is not None
+                                else "repository_verified"
+                            ),
                             status=complete_status,
                             exit_code=0,
                             **_current_llm_accounting(
@@ -673,6 +690,11 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             results.append(
                 PortfolioRepositoryResultV1(
                     org_repo=entry.org_repo,
+                    content_assurance=(
+                        lifecycle.content_assurance
+                        if lifecycle is not None
+                        else "repository_verified"
+                    ),
                     status=(
                         terminal_result.readme_lifecycle_status
                         if readme_poc_stage_limit is not None

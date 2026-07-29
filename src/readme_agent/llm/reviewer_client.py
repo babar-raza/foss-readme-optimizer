@@ -13,6 +13,7 @@ from readme_agent.llm.verification_prompts import (
 from readme_agent.llm.verifier_client import LiveForcedToolClient
 
 DEFAULT_MAX_TOKENS = 2400
+TRUSTED_REVIEW_MAX_TOKENS = 8_000
 
 
 class LiveIndependentReviewClient:
@@ -151,7 +152,7 @@ def build_live_trusted_review_clients(
     api_key: str | None,
     *,
     timeout: float = 90,
-    max_tokens: int = DEFAULT_MAX_TOKENS,
+    max_tokens: int = TRUSTED_REVIEW_MAX_TOKENS,
 ) -> tuple[LiveBlindQualityReviewClient, LiveTrustedFidelityReviewClient]:
     """Construct disjoint blind-quality and inheritance-fidelity clients."""
 

@@ -34,6 +34,10 @@ from readme_agent.state.readme_poc_lifecycle import (
     switch_content_assurance,
     transition_trusted_readme_poc_status,
 )
+from readme_agent.supervisor.trusted_readme_pipeline import run_trusted_readme_pipeline
+from readme_agent.supervisor.trusted_readme_stage_execution import (
+    live_trusted_review_clients,
+)
 from readme_agent.supervisor.trusted_review_state import record_trusted_review_execution
 from tests.unit.test_state_backend import FakeStateBackend
 
@@ -222,6 +226,113 @@ def _repair_result(graph, markdown: str) -> ForcedToolResult:
 def _start_accounting(graph, run_id: str) -> None:
     start_llm_call_accounting(ORG_REPO, run_id, stage="TRUSTED_REVIEWING")
     bind_llm_repository_revision(graph.source_revision, stage="TRUSTED_REVIEWING")
+
+
+def test_canonical_trusted_pipeline_persists_approval_then_exact_no_op(
+    tmp_path,
+    monkeypatch,
+):
+    graph, _, snapshot = _composition(tmp_path)
+    backend = FakeStateBackend()
+    record_repository_snapshot(
+        backend,
+        ORG_REPO,
+        source_revision=snapshot.source_revision,
+        evidence_refs=["snapshot"],
+    )
+    record_repository_profile(
+        backend,
+        ORG_REPO,
+        source_revision=snapshot.source_revision,
+        evidence_refs=["profile"],
+    )
+    monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
+    monkeypatch.setattr(
+        "readme_agent.supervisor.trusted_product_truth.bind_trusted_presentation_standards",
+        lambda org_repo, fact_graph, source_text: fact_graph,
+    )
+    monkeypatch.setattr(
+        "readme_agent.capabilities.compose_trusted_readme.bind_trusted_presentation_standards",
+        lambda org_repo, fact_graph, source_text: fact_graph,
+    )
+    fact_ids = [fact.fact_id for fact in graph.inherited_facts]
+    author = FixtureForcedToolClient(
+        [
+            ForcedToolResult(
+                arguments={
+                    "editorial_summary": "Retain the source while proving the trusted lane.",
+                    "complete": True,
+                    "source_inventory": [
+                        {
+                            "fact_id": fact_id,
+                            "action": "rewrite",
+                            "rationale": "Represent the inherited source in the candidate.",
+                        }
+                        for fact_id in fact_ids
+                    ],
+                    "segments": [
+                        {
+                            "segment_id": "complete",
+                            "kind": "authored",
+                            "markdown": SOURCE,
+                            "inherited_fact_ids": fact_ids,
+                            "configured_standard_ids": [],
+                        }
+                    ],
+                },
+                meta=LLMResponseMeta(model="fixture-author"),
+            )
+        ],
+        job="trusted_readme_section_transform",
+        prompt_id="trusted_readme_section_transform",
+    )
+    blind, fidelity = _review_clients(graph)
+    _start_accounting(graph, "trusted-pipeline-first")
+    with repository_snapshot_scope(snapshot):
+        first = run_trusted_readme_pipeline(
+            ORG_REPO,
+            snapshot,
+            backend,
+            target_stage="TRUSTED_TRANSFORM_APPROVED",
+            author_client=author,
+            blind_client=blind,
+            fidelity_client=fidelity,
+        )
+
+    assert first.status == "TRUSTED_TRANSFORM_APPROVED"
+    assert first.reached
+    assert not first.cache_reused
+    first_lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert first_lifecycle is not None
+    assert first_lifecycle.content_assurance == "trusted_inherited"
+    assert first_lifecycle.status == "TRUSTED_TRANSFORM_APPROVED"
+
+    _start_accounting(graph, "trusted-pipeline-no-op")
+    with repository_snapshot_scope(snapshot):
+        second = run_trusted_readme_pipeline(
+            ORG_REPO,
+            snapshot,
+            backend,
+            target_stage="TRUSTED_NO_OP_PROVEN",
+            author_client=FixtureForcedToolClient([]),
+            blind_client=FixtureAnalysisClient([]),
+            fidelity_client=FixtureAnalysisClient([]),
+        )
+
+    assert second.status == "TRUSTED_NO_OP_PROVEN"
+    assert second.reached
+    assert second.cache_reused
+    final_lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert final_lifecycle is not None
+    assert final_lifecycle.status == "TRUSTED_NO_OP_PROVEN"
+    assert [item.to_status for item in final_lifecycle.history][-6:] == [
+        "TRUSTED_PLAN_READY",
+        "TRUSTED_CANDIDATE_GENERATED",
+        "TRUSTED_DETERMINISTIC_VALIDATED",
+        "TRUSTED_REVIEWING",
+        "TRUSTED_TRANSFORM_APPROVED",
+        "TRUSTED_NO_OP_PROVEN",
+    ]
 
 
 def test_approval_requires_deterministic_validation_and_two_independent_roles(tmp_path):
@@ -658,6 +769,62 @@ def test_review_fails_closed_without_active_call_accounting(tmp_path, monkeypatc
             blind_client=blind,
             fidelity_client=fidelity,
         )
+
+
+def test_live_trusted_review_uses_real_fact_coverage_envelope(tmp_path, monkeypatch):
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-live-envelope")
+    blind, fidelity = _review_clients(graph)
+    captured: dict[str, object] = {}
+
+    def build_clients(base_url, api_key, **kwargs):
+        captured.update({"base_url": base_url, "api_key": api_key, **kwargs})
+        return blind, fidelity
+
+    monkeypatch.setattr(
+        "readme_agent.specialists.trusted_transform_review.build_live_trusted_review_clients",
+        build_clients,
+    )
+    monkeypatch.setattr(env, "llm_base_url", lambda: "https://gateway.example/v1")
+    monkeypatch.setattr(env, "llm_api_key", lambda: "test-key")
+    monkeypatch.setattr(env, "llm_timeout_seconds", lambda: 123.0)
+
+    execution = run_trusted_transform_review(graph, SOURCE, composition)
+
+    assert execution.review.verdict == "TRUSTED_TRANSFORM_APPROVED"
+    assert captured == {
+        "base_url": "https://gateway.example/v1",
+        "api_key": "test-key",
+        "timeout": 123.0,
+        "max_tokens": 8_000,
+    }
+
+
+def test_stage_review_builder_does_not_fall_back_to_short_output_limit(monkeypatch):
+    captured: dict[str, object] = {}
+    sentinels = (object(), object())
+
+    def build_clients(base_url, api_key, **kwargs):
+        captured.update({"base_url": base_url, "api_key": api_key, **kwargs})
+        return sentinels
+
+    monkeypatch.setattr(
+        "readme_agent.supervisor.trusted_readme_stage_execution.build_live_trusted_review_clients",
+        build_clients,
+    )
+    monkeypatch.setattr(env, "llm_base_url", lambda: "https://gateway.example/v1")
+    monkeypatch.setattr(env, "llm_api_key", lambda: "test-key")
+    monkeypatch.setattr(env, "llm_timeout_seconds", lambda: 123.0)
+
+    clients = live_trusted_review_clients()
+
+    assert clients == sentinels
+    assert captured == {
+        "base_url": "https://gateway.example/v1",
+        "api_key": "test-key",
+        "timeout": 123.0,
+        "max_tokens": 8_000,
+    }
 
 
 def test_identical_accepted_review_records_no_duplicate_lifecycle_event(tmp_path):

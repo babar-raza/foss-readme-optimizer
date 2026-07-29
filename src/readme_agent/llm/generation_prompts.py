@@ -191,8 +191,10 @@ def build_trusted_readme_section_tool_schema(
     """Build a forced schema bounded to one source batch and remaining standards."""
 
     standard_items: dict = {"type": "string", "enum": configured_standard_ids}
+    standard_array_limits = {}
     if not configured_standard_ids:
-        standard_items = {"type": "string", "enum": ["__none__"]}
+        standard_items = {"type": "string"}
+        standard_array_limits = {"maxItems": 0}
     return {
         "type": "function",
         "function": {
@@ -261,6 +263,7 @@ def build_trusted_readme_section_tool_schema(
                                 "configured_standard_ids": {
                                     "type": "array",
                                     "items": standard_items,
+                                    **standard_array_limits,
                                 },
                             },
                         },

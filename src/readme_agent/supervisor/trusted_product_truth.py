@@ -15,6 +15,9 @@ from readme_agent.facts.trusted_readme_schema import (
     TrustedReadmeFactGraphV1,
     TrustedReadmeFactsOutputV1,
 )
+from readme_agent.readme.trusted_presentation_standards import (
+    bind_trusted_presentation_standards,
+)
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import (
@@ -95,11 +98,16 @@ def load_prepared_trusted_readme_facts(
         return None
     fact_graph = TrustedReadmeFactGraphV1.model_validate_json(fact_path.read_text(encoding="utf-8"))
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if snapshot.readme_path is None:
+        return None
+    source_text = (snapshot.root_path / snapshot.readme_path).read_text(encoding="utf-8")
+    current_graph = bind_trusted_presentation_standards(org_repo, fact_graph, source_text)
     graph_hash = fact_graph.canonical_hash()
     if (
         fact_graph.org_repo != org_repo
         or fact_graph.source_revision != snapshot.source_revision
         or fact_graph.readme_sha256 != snapshot.readme_sha256
+        or current_graph.canonical_hash() != graph_hash
         or graph_hash != lifecycle.facts_hash
         or graph_hash != manifest.get("facts_hash")
         or manifest.get("content_assurance") != "trusted_inherited"
@@ -176,7 +184,20 @@ def prepare_trusted_readme_facts(
                 f"extract_trusted_readme_facts dispatch failed: "
                 f"{dispatch.outcome}: {dispatch.error or dispatch.gap}"
             )
-        output = TrustedReadmeFactsOutputV1.model_validate(dispatch.result)
+        extracted = TrustedReadmeFactsOutputV1.model_validate(dispatch.result)
+        if snapshot.readme_path is None:
+            raise RuntimeError("trusted fact extraction requires a README")
+        source_text = (snapshot.root_path / snapshot.readme_path).read_text(encoding="utf-8")
+        fact_graph = bind_trusted_presentation_standards(
+            org_repo,
+            extracted.fact_graph,
+            source_text,
+        )
+        output = TrustedReadmeFactsOutputV1(
+            org_repo=org_repo,
+            fact_graph=fact_graph,
+            fact_graph_hash=fact_graph.canonical_hash(),
+        )
         trusted_dir = write_local_poc_trusted_readme_facts(snapshot, output.fact_graph)
     except Exception as exc:
         transition_trusted_readme_poc_status(

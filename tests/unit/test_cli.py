@@ -559,7 +559,13 @@ class TestExecutionProfileFlag:
         )
         assert args.max_readme_poc_stage == "FACTS_READY"
 
-        for stage in ("INTAKE_READY", "CANDIDATE_GENERATED", "DETERMINISTIC_VALIDATED"):
+        for stage in (
+            "INTAKE_READY",
+            "CANDIDATE_GENERATED",
+            "DETERMINISTIC_VALIDATED",
+            "TRUSTED_TRANSFORM_APPROVED",
+            "TRUSTED_NO_OP_PROVEN",
+        ):
             parsed = _build_parser().parse_args(
                 [
                     "supervise",

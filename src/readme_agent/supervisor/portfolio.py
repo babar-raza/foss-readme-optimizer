@@ -27,6 +27,8 @@ PortfolioTargetStageV1 = Literal[
     "FACTS_READY",
     "CANDIDATE_GENERATED",
     "DETERMINISTIC_VALIDATED",
+    "TRUSTED_TRANSFORM_APPROVED",
+    "TRUSTED_NO_OP_PROVEN",
     "NO_OP_PROVEN",
 ]
 
@@ -202,6 +204,8 @@ class PortfolioPocSummaryV1(BaseModel):
             "FACTS_READY",
             "CANDIDATE_GENERATED",
             "DETERMINISTIC_VALIDATED",
+            "TRUSTED_TRANSFORM_APPROVED",
+            "TRUSTED_NO_OP_PROVEN",
         }:
             return sum(
                 result.exit_code == 0

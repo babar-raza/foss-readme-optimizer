@@ -202,6 +202,10 @@ def supervise_repo(
     verify_local_product_facts: bool = False,
     track_readme_poc_lifecycle: bool = False,
     product_truth_client: Any | None = None,
+    trusted_author_client: Any | None = None,
+    trusted_blind_review_client: Any | None = None,
+    trusted_fidelity_review_client: Any | None = None,
+    trusted_repair_client: Any | None = None,
     readme_poc_stage_limit: ReadmePocStageLimitV1 | None = None,
 ) -> SuperviseResult:
     # require_listed(), not require_permitted() (decision #40): most of a
@@ -462,6 +466,96 @@ def supervise_repo(
             evidence_refs=[str(poc_bundle_dir / "source" / "repository-profile.json")],
         )
         mark_local_poc_profiled(repository_snapshot, poc_bundle_dir)
+        if readme_poc_stage_limit in {
+            "TRUSTED_TRANSFORM_APPROVED",
+            "TRUSTED_NO_OP_PROVEN",
+        }:
+            from readme_agent.supervisor.trusted_readme_pipeline import (
+                run_trusted_readme_pipeline,
+            )
+
+            set_llm_stage("TRUSTED_README_PROCESSING")
+            trusted_run_lock = state_backend.acquire_run_lock(org_repo)
+            if trusted_run_lock is None:
+                return SuperviseResult(
+                    status="BLOCKED",
+                    org_repo=org_repo,
+                    task_graph=TaskGraph(),
+                    blocked_reason="run_lock_held",
+                    blocked_category="infra_external",
+                    requested_readme_stage=readme_poc_stage_limit,
+                    readme_lifecycle_status=None,
+                )
+            try:
+                with repository_snapshot_scope(
+                    repository_snapshot,
+                    allow_local_fact_verification=False,
+                ):
+                    trusted_result = run_trusted_readme_pipeline(
+                        org_repo,
+                        repository_snapshot,
+                        state_backend,
+                        target_stage=readme_poc_stage_limit,
+                        author_client=trusted_author_client,
+                        blind_client=trusted_blind_review_client,
+                        fidelity_client=trusted_fidelity_review_client,
+                        repair_client=trusted_repair_client,
+                    )
+            finally:
+                safe_release_lock(
+                    state_backend.release_run_lock,
+                    trusted_run_lock,
+                    label="trusted-run-lock",
+                )
+            boundary = evaluate_stage_boundary(
+                readme_poc_stage_limit,
+                trusted_result.status,
+            )
+            if not boundary.reached:
+                return SuperviseResult(
+                    status="BLOCKED",
+                    org_repo=org_repo,
+                    task_graph=TaskGraph(),
+                    blocked_reason=(
+                        trusted_result.blocked_reason
+                        or (
+                            f"stage_limit_not_reached:{boundary.requested_stage}:"
+                            f"{boundary.observed_stage}"
+                        )
+                    ),
+                    blocked_category="agent_fixable",
+                    decisions=[
+                        DecisionSummary(
+                            turn=0,
+                            kind="trusted_readme_stage_blocked",
+                            detail=(
+                                f"requested {boundary.requested_stage}; observed "
+                                f"{boundary.observed_stage}; repository-verified facts and "
+                                "general specialists were not invoked"
+                            ),
+                        )
+                    ],
+                    requested_readme_stage=boundary.requested_stage,
+                    readme_lifecycle_status=boundary.observed_stage,
+                )
+            return SuperviseResult(
+                status="STAGE_COMPLETE",
+                org_repo=org_repo,
+                task_graph=TaskGraph(),
+                decisions=[
+                    DecisionSummary(
+                        turn=0,
+                        kind="trusted_readme_stage_complete",
+                        detail=(
+                            f"requested {boundary.requested_stage}; observed "
+                            f"{boundary.observed_stage}; repository-verified facts, general "
+                            "specialists, and remote effects were not invoked"
+                        ),
+                    )
+                ],
+                requested_readme_stage=boundary.requested_stage,
+                readme_lifecycle_status=boundary.observed_stage,
+            )
         from readme_agent.supervisor.product_truth import (
             classify_product_truth,
             prepare_local_product_truth,

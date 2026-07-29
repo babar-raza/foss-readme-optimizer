@@ -20,6 +20,7 @@ class TrustedCompositionBatch:
     batch_id: str
     source_items: tuple[TrustedCompositionSourceItemV1, ...]
     configured_standards: tuple[ConfiguredStandardAdditionV1, ...]
+    global_structures_allowed: bool
 
 
 def _context_text(
@@ -91,6 +92,7 @@ def build_trusted_composition_batches(
             batch_id=f"batch-{index:04d}",
             source_items=tuple(items),
             configured_standards=graph.configured_standards if index == 1 else (),
+            global_structures_allowed=index == 1,
         )
         for index, items in enumerate(batches, start=1)
     )

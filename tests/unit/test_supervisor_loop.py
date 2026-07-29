@@ -703,6 +703,59 @@ def project(tmp_path, monkeypatch):
 
 
 class TestBasicLoop:
+    def test_trusted_stage_uses_canonical_lane_without_verified_truth_or_specialists(
+        self,
+        project,
+        monkeypatch,
+    ):
+        from readme_agent.supervisor import loop as loop_module
+        from readme_agent.supervisor import product_truth, trusted_readme_pipeline
+        from readme_agent.supervisor.trusted_readme_pipeline import (
+            TrustedReadmePipelineResultV1,
+        )
+
+        backend = FakeStateBackend()
+        captured = {}
+
+        def _trusted(org_repo, snapshot, state_backend, **kwargs):
+            captured["org_repo"] = org_repo
+            captured["revision"] = snapshot.source_revision
+            captured["backend"] = state_backend
+            captured["target"] = kwargs["target_stage"]
+            return TrustedReadmePipelineResultV1(
+                status="TRUSTED_TRANSFORM_APPROVED",
+                reached=True,
+                candidate_sha256="a" * 64,
+            )
+
+        monkeypatch.setattr(trusted_readme_pipeline, "run_trusted_readme_pipeline", _trusted)
+        monkeypatch.setattr(
+            product_truth,
+            "prepare_local_product_truth",
+            lambda *args, **kwargs: pytest.fail("trusted mode must not collect verified facts"),
+        )
+        monkeypatch.setattr(
+            loop_module,
+            "run_specialist_tier",
+            lambda *args, **kwargs: pytest.fail("trusted bounded mode must not run specialists"),
+        )
+
+        result = supervise_repo(
+            ORG_REPO,
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+            readme_poc_stage_limit="TRUSTED_TRANSFORM_APPROVED",
+        )
+
+        assert result.status == "STAGE_COMPLETE"
+        assert result.readme_lifecycle_status == "TRUSTED_TRANSFORM_APPROVED"
+        assert result.decisions[0].kind == "trusted_readme_stage_complete"
+        assert captured["org_repo"] == ORG_REPO
+        assert captured["revision"]
+        assert captured["backend"] is backend
+        assert captured["target"] == "TRUSTED_TRANSFORM_APPROVED"
+
     def test_facts_stage_limit_stops_before_every_specialist(self, project, monkeypatch):
         from readme_agent.supervisor import loop as loop_module
 

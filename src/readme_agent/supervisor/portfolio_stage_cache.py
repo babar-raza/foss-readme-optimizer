@@ -90,3 +90,76 @@ def completed_bounded_product_truth_status(
         ):
             return None
     return prepared.lifecycle_status
+
+
+def completed_bounded_trusted_status(
+    backend: StateBackend,
+    org_repo: str,
+    bundle_dir: Path,
+    requested_stage: ReadmePocStageLimitV1,
+    *,
+    current_source_revision: str | None,
+) -> str | None:
+    """Return an exact trusted approval/no-op cache without promoting its assurance."""
+
+    if requested_stage not in {"TRUSTED_TRANSFORM_APPROVED", "TRUSTED_NO_OP_PROVEN"}:
+        return None
+    state = backend.load(org_repo)
+    lifecycle = state.readme_poc_lifecycle if state is not None else None
+    if (
+        not isinstance(lifecycle, ReadmePocLifecycleStateV2)
+        or lifecycle.content_assurance != "trusted_inherited"
+        or lifecycle.source_revision != current_source_revision
+        or not lifecycle_stage_reaches_limit(requested_stage, lifecycle.status)
+    ):
+        return None
+    trusted_dir = bundle_dir / "assurance" / "trusted_inherited"
+    manifest_path = trusted_dir / "manifest.json"
+    facts_path = trusted_dir / "facts" / "readme-inherited-facts.json"
+    composition_path = trusted_dir / "planning" / "composition-output.json"
+    review_path = trusted_dir / "review" / "review-execution.json"
+    required = (manifest_path, facts_path, composition_path, review_path)
+    if not all(path.is_file() for path in required) or not verify_sha256sums(trusted_dir):
+        return None
+    try:
+        from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
+        from readme_agent.readme.trusted_composition_models import TrustedReadmeCompositionOutputV1
+        from readme_agent.specialists.trusted_transform_review_models import (
+            TrustedReviewExecutionV1,
+        )
+
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        graph = TrustedReadmeFactGraphV1.model_validate_json(facts_path.read_text(encoding="utf-8"))
+        composition = TrustedReadmeCompositionOutputV1.model_validate_json(
+            composition_path.read_text(encoding="utf-8")
+        )
+        review = TrustedReviewExecutionV1.model_validate_json(
+            review_path.read_text(encoding="utf-8")
+        )
+    except (OSError, UnicodeError, ValueError, json.JSONDecodeError):
+        return None
+    if (
+        manifest.get("content_assurance") != "trusted_inherited"
+        or manifest.get("org_repo") != org_repo
+        or manifest.get("source_revision") != current_source_revision
+        or manifest.get("lifecycle_status") != lifecycle.status
+        or requested_stage not in manifest.get("completed_stages", [])
+        or manifest.get("facts_hash") != graph.canonical_hash()
+        or manifest.get("candidate_hash") != composition.candidate_sha256
+        or lifecycle.facts_hash != graph.canonical_hash()
+        or lifecycle.candidate_hash != composition.candidate_sha256
+        or review.review.candidate_sha256 != composition.candidate_sha256
+        or review.review.verdict != "TRUSTED_TRANSFORM_APPROVED"
+    ):
+        return None
+    if requested_stage == "TRUSTED_NO_OP_PROVEN":
+        no_op_path = trusted_dir / "review" / "no-op-proof.json"
+        if not no_op_path.is_file():
+            return None
+        try:
+            no_op = json.loads(no_op_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            return None
+        if no_op.get("passed") is not True:
+            return None
+    return lifecycle.status

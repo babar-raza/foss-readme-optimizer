@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from collections import Counter
 
 from readme_agent.errors import LLMError
@@ -13,6 +14,61 @@ from readme_agent.readme.trusted_composition_models import (
 )
 
 _HTML_COMMENT = "<!--"
+
+
+def _render_batch_candidate(
+    draft: TrustedReadmeSectionToolDraftV1,
+    batch: TrustedCompositionBatch,
+) -> str:
+    """Render one batch exactly enough to validate its configured additions."""
+
+    source_by_id = {item.fact_id: item.text for item in batch.source_items}
+    rendered: list[str] = []
+    for segment in draft.segments:
+        if segment.kind == "preserve_exact":
+            rendered.append(source_by_id[segment.inherited_fact_ids[0]])
+        else:
+            rendered.append(segment.markdown)
+    return "\n".join(rendered)
+
+
+def _validate_batch_standard_content(
+    draft: TrustedReadmeSectionToolDraftV1,
+    batch: TrustedCompositionBatch,
+) -> None:
+    """Reject a declared standard that the same bounded batch did not materialize."""
+
+    if not batch.global_structures_allowed:
+        candidate = _render_batch_candidate(draft, batch)
+        if re.search(r"(?m)^# ", candidate) or "```mermaid" in candidate:
+            raise LLMError("source-only batch authored a README-global header or Mermaid structure")
+    if not batch.configured_standards:
+        return
+    candidate = _render_batch_candidate(draft, batch)
+    candidate_folded = candidate.casefold()
+    standards = {item.standard_id: item for item in batch.configured_standards}
+    if "readme.header" in standards:
+        headings = re.findall(r"(?m)^# (.+?)\s*$", candidate)
+        if len(headings) != 1:
+            raise LLMError("configured README header requires exactly one H1 in its owning batch")
+    if "readme.badges" in standards:
+        fragments = [
+            str(item)
+            for item in standards["readme.badges"].parameters.get("required_fragments", [])
+        ]
+        if not fragments or any(fragment not in candidate for fragment in fragments):
+            raise LLMError("configured badge fragments are absent from their owning batch")
+    if "readme.navigation" in standards:
+        labels = [
+            str(item).casefold()
+            for item in standards["readme.navigation"].parameters.get("required_labels", [])
+        ]
+        if not labels or any(label not in candidate_folded for label in labels):
+            raise LLMError("configured README navigation is incomplete in its owning batch")
+    if "readme.at_a_glance_mermaid" in standards and candidate.count("```mermaid") != 1:
+        raise LLMError(
+            "configured at-a-glance Mermaid diagram is absent or duplicated in its owning batch"
+        )
 
 
 def validate_trusted_section_tool_draft(
@@ -37,7 +93,14 @@ def validate_trusted_section_tool_draft(
         standard_id for segment in draft.segments for standard_id in segment.configured_standard_ids
     ]
     if Counter(segment_facts) != Counter(expected_facts):
-        raise LLMError("trusted composition segments omitted or duplicated source facts")
+        counts = Counter(segment_facts)
+        missing = [fact_id for fact_id in expected_facts if counts[fact_id] == 0]
+        duplicated = sorted(fact_id for fact_id, count in counts.items() if count > 1)
+        unknown = sorted(set(segment_facts) - set(expected_facts))
+        raise LLMError(
+            "trusted composition segment fact binding mismatch: "
+            f"missing={missing}; duplicated={duplicated}; unknown={unknown}"
+        )
     if Counter(segment_standards) != Counter(expected_standards):
         raise LLMError("trusted composition segments omitted or duplicated configured standards")
     inventory_by_id = {item.fact_id: item for item in draft.source_inventory}
@@ -57,6 +120,7 @@ def validate_trusted_section_tool_draft(
             raise LLMError("trusted composition section exceeded the qualified output envelope")
         if _HTML_COMMENT in segment.markdown:
             raise LLMError("trusted composition authored an HTML comment")
+    _validate_batch_standard_content(draft, batch)
 
 
 def assemble_trusted_candidate(

@@ -4,7 +4,7 @@ import os
 
 DEFAULT_LLM_BASE_URL = "https://llm.professionalize.com/v1"
 DEFAULT_LLM_MODEL = "qwen3-next"
-DEFAULT_LLM_TIMEOUT_SECONDS = 90
+DEFAULT_LLM_TIMEOUT_SECONDS = 120
 # Wave 8.6 (item I, `LLM-017`): the one embedding model this gateway hosts,
 # characterized live (plans/investigations/llm-gateway-characterization.md
 # L4) -- 4096-dim, showed real separation between a known same-template

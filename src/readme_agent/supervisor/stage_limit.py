@@ -6,19 +6,23 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
-from readme_agent.state.lifecycle_schema import ReadmePocStatusV2
+from readme_agent.state.lifecycle_schema import AssuranceReadmePocStatusV1
 
 ReadmePocStageLimitV1 = Literal[
     "INTAKE_READY",
     "FACTS_READY",
     "CANDIDATE_GENERATED",
     "DETERMINISTIC_VALIDATED",
+    "TRUSTED_TRANSFORM_APPROVED",
+    "TRUSTED_NO_OP_PROVEN",
 ]
 README_POC_STAGE_LIMITS: tuple[ReadmePocStageLimitV1, ...] = (
     "INTAKE_READY",
     "FACTS_READY",
     "CANDIDATE_GENERATED",
     "DETERMINISTIC_VALIDATED",
+    "TRUSTED_TRANSFORM_APPROVED",
+    "TRUSTED_NO_OP_PROVEN",
 )
 
 _INTAKE_READY_OR_LATER = frozenset(
@@ -93,11 +97,28 @@ _DETERMINISTIC_VALIDATED_OR_LATER = frozenset(
         "PR_PROOF_COMPLETE",
     }
 )
+_TRUSTED_TRANSFORM_APPROVED_OR_LATER = frozenset(
+    {
+        "TRUSTED_TRANSFORM_APPROVED",
+        "TRUSTED_NO_OP_PROVEN",
+        "TRUSTED_PR_ELIGIBLE",
+        "TRUSTED_PR_OPEN",
+    }
+)
+_TRUSTED_NO_OP_PROVEN_OR_LATER = frozenset(
+    {
+        "TRUSTED_NO_OP_PROVEN",
+        "TRUSTED_PR_ELIGIBLE",
+        "TRUSTED_PR_OPEN",
+    }
+)
 _REACHED_BY_LIMIT = {
     "INTAKE_READY": _INTAKE_READY_OR_LATER,
     "FACTS_READY": _FACTS_READY_OR_LATER,
     "CANDIDATE_GENERATED": _CANDIDATE_GENERATED_OR_LATER,
     "DETERMINISTIC_VALIDATED": _DETERMINISTIC_VALIDATED_OR_LATER,
+    "TRUSTED_TRANSFORM_APPROVED": _TRUSTED_TRANSFORM_APPROVED_OR_LATER,
+    "TRUSTED_NO_OP_PROVEN": _TRUSTED_NO_OP_PROVEN_OR_LATER,
 }
 
 
@@ -107,7 +128,7 @@ class ReadmePocStageBoundaryV1(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     requested_stage: ReadmePocStageLimitV1
-    observed_stage: ReadmePocStatusV2
+    observed_stage: AssuranceReadmePocStatusV1
     reached: bool
 
 
@@ -125,7 +146,7 @@ def lifecycle_stage_reaches_limit(
 
 def evaluate_stage_boundary(
     requested_stage: ReadmePocStageLimitV1,
-    observed_stage: ReadmePocStatusV2,
+    observed_stage: AssuranceReadmePocStatusV1,
 ) -> ReadmePocStageBoundaryV1:
     """Return whether the requested proof boundary has been reached."""
 

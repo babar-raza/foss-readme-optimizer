@@ -3,26 +3,33 @@
 from __future__ import annotations
 
 import hashlib
-import json
-
-from pydantic import ValidationError
+from pathlib import Path
 
 from readme_agent import env
 from readme_agent.errors import LLMError
 from readme_agent.evidence.writer import unified_diff
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
-from readme_agent.llm.generation_prompts import (
-    build_trusted_readme_section_messages,
-    build_trusted_readme_section_tool_schema,
-)
+from readme_agent.llm.call_ledger import record_non_provider_call
 from readme_agent.llm.prompt_registry import prompt_hash
 from readme_agent.llm.verifier_client import ForcedToolClient, LiveForcedToolClient
-from readme_agent.readme.trusted_composition_batching import (
-    TrustedCompositionBatch,
-    build_trusted_composition_batches,
+from readme_agent.readme.trusted_composition_batching import build_trusted_composition_batches
+from readme_agent.readme.trusted_composition_cache import (
+    default_trusted_batch_cache_dir,
+    load_trusted_batch_cache,
+    trusted_batch_cache_key,
+    write_trusted_batch_cache,
 )
 from readme_agent.readme.trusted_composition_candidate_validation import (
+    normalize_contextual_link_budget,
+    normalize_enterprise_edition_terminology,
+    normalize_inherited_code_blocks,
+    strip_readme_comments,
     validate_trusted_candidate_contract,
+)
+from readme_agent.readme.trusted_composition_execution import (
+    TRUSTED_COMPOSITION_JOB,
+    compose_trusted_batch,
+    trusted_batch_tool_schema_hash,
 )
 from readme_agent.readme.trusted_composition_models import (
     TrustedCompositionEnvelopeV1,
@@ -36,87 +43,6 @@ from readme_agent.readme.trusted_composition_validation import (
     validate_trusted_section_tool_draft,
 )
 
-_JOB = "trusted_readme_section_transform"
-_MAX_ATTEMPTS = 3
-
-
-def _canonical_hash(value: object) -> str:
-    payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
-
-
-def _batch_payload(batch: TrustedCompositionBatch) -> dict:
-    return {
-        "batch_id": batch.batch_id,
-        "source_items": [item.model_dump(mode="json") for item in batch.source_items],
-        "configured_standards": [
-            standard.model_dump(mode="json") for standard in batch.configured_standards
-        ],
-    }
-
-
-def compose_trusted_batch(
-    org_repo: str,
-    batch: TrustedCompositionBatch,
-    envelope: TrustedCompositionEnvelopeV1,
-    client: ForcedToolClient,
-    *,
-    initial_repair_hint: str = "",
-) -> tuple[TrustedReadmeSectionToolDraftV1, TrustedReadmeSectionDraftV1]:
-    """Compose or repair one bounded batch through the same typed contract."""
-
-    payload = _batch_payload(batch)
-    tool_schema = build_trusted_readme_section_tool_schema(
-        fact_ids=[item.fact_id for item in batch.source_items],
-        configured_standard_ids=[item.standard_id for item in batch.configured_standards],
-    )
-    schema_hash = _canonical_hash(tool_schema)
-    repair_hint = initial_repair_hint
-    last_error: Exception | None = None
-    for attempt in range(1, _MAX_ATTEMPTS + 1):
-        call_input = {
-            "org_repo": org_repo,
-            "batch": payload,
-            "envelope": envelope.model_dump(mode="json"),
-            "repair_hint": repair_hint,
-        }
-        messages = build_trusted_readme_section_messages(
-            org_repo=org_repo,
-            batch_json=json.dumps(payload, sort_keys=True, ensure_ascii=False),
-            envelope_json=json.dumps(envelope.model_dump(mode="json"), sort_keys=True),
-            repair_hint=repair_hint,
-        )
-        result = client.call(messages, tool_schema)
-        try:
-            draft = TrustedReadmeSectionToolDraftV1.model_validate(result.arguments)
-            validate_trusted_section_tool_draft(draft, batch, envelope)
-        except (LLMError, ValidationError) as exc:
-            last_error = exc
-            if attempt == _MAX_ATTEMPTS:
-                raise LLMError(
-                    f"trusted composition batch {batch.batch_id} failed after "
-                    f"{_MAX_ATTEMPTS} attempts: {exc}"
-                ) from exc
-            repair_hint = (
-                f"Your prior output was rejected: {exc}. Return all enumerated source facts and "
-                "configured standards exactly once. Preserve context-truncated facts exactly."
-            )
-            continue
-        bound = TrustedReadmeSectionDraftV1(
-            batch_id=batch.batch_id,
-            editorial_summary=draft.editorial_summary,
-            source_inventory=draft.source_inventory,
-            segments=draft.segments,
-            prompt_sha256=prompt_hash(_JOB),
-            tool_schema_sha256=schema_hash,
-            input_sha256=_canonical_hash(call_input),
-            model=result.meta.model or env.llm_model_for_job(_JOB),
-            attempt_count=attempt,
-        )
-        return draft, bound
-    assert last_error is not None
-    raise LLMError(str(last_error))
-
 
 def compose_trusted_readme(
     graph: TrustedReadmeFactGraphV1,
@@ -124,6 +50,7 @@ def compose_trusted_readme(
     *,
     client: ForcedToolClient | None = None,
     envelope: TrustedCompositionEnvelopeV1 | None = None,
+    batch_cache_dir: Path | None = None,
 ) -> TrustedReadmeCompositionOutputV1:
     """Compose one candidate through as many bounded LLM section calls as needed."""
 
@@ -131,33 +58,118 @@ def compose_trusted_readme(
     if source_hash != graph.readme_sha256:
         raise LLMError("trusted composition source bytes do not match the inherited fact graph")
     resolved_envelope = envelope or TrustedCompositionEnvelopeV1()
+    live_client = client is None
+    resolved_model = env.llm_model_for_job(TRUSTED_COMPOSITION_JOB)
     resolved_client = client or LiveForcedToolClient(
         base_url=env.llm_base_url(),
         api_key=env.llm_api_key(),
-        model=env.llm_model_for_job(_JOB),
+        model=resolved_model,
         timeout=env.llm_timeout_seconds(),
         max_tokens=8_000,
-        job=_JOB,
-        prompt_id=_JOB,
+        job=TRUSTED_COMPOSITION_JOB,
+        prompt_id=TRUSTED_COMPOSITION_JOB,
     )
+    resolved_cache_dir = (
+        default_trusted_batch_cache_dir(graph)
+        if live_client and batch_cache_dir is None
+        else batch_cache_dir
+    )
+    batches = build_trusted_composition_batches(graph, resolved_envelope)
     tool_drafts: list[TrustedReadmeSectionToolDraftV1] = []
     section_drafts: list[TrustedReadmeSectionDraftV1] = []
-    for batch in build_trusted_composition_batches(graph, resolved_envelope):
-        tool_draft, bound_draft = compose_trusted_batch(
-            graph.org_repo,
+    batch_cache_keys: list[str] = []
+    for batch in batches:
+        cache_key = trusted_batch_cache_key(
+            graph,
             batch,
             resolved_envelope,
-            resolved_client,
+            prompt_sha256=prompt_hash(TRUSTED_COMPOSITION_JOB),
+            tool_schema_sha256=trusted_batch_tool_schema_hash(batch),
+            model=resolved_model,
         )
+        batch_cache_keys.append(cache_key)
+        cached = (
+            load_trusted_batch_cache(resolved_cache_dir, batch.batch_id, cache_key)
+            if resolved_cache_dir is not None
+            else None
+        )
+        if cached is not None:
+            tool_draft, bound_draft = cached.tool_draft, cached.bound_draft
+            validate_trusted_section_tool_draft(
+                tool_draft,
+                batch,
+                resolved_envelope,
+            )
+            record_non_provider_call(
+                job=TRUSTED_COMPOSITION_JOB,
+                prompt_id=TRUSTED_COMPOSITION_JOB,
+                prompt_sha256=prompt_hash(TRUSTED_COMPOSITION_JOB),
+                model=cached.model,
+                disposition="cache_reuse",
+                request={"batch_id": batch.batch_id, "cache_key": cache_key},
+            )
+        else:
+            tool_draft, bound_draft = compose_trusted_batch(
+                graph.org_repo,
+                batch,
+                resolved_envelope,
+                resolved_client,
+            )
+            if resolved_cache_dir is not None:
+                write_trusted_batch_cache(
+                    resolved_cache_dir,
+                    cache_key=cache_key,
+                    org_repo=graph.org_repo,
+                    source_revision=graph.source_revision,
+                    model=resolved_model,
+                    tool_draft=tool_draft,
+                    bound_draft=bound_draft,
+                )
         tool_drafts.append(tool_draft)
         section_drafts.append(bound_draft)
-    return finalize_trusted_composition(
-        graph,
-        source_text,
-        resolved_envelope,
-        tool_drafts,
-        section_drafts,
+    call_count = sum(draft.attempt_count for draft in section_drafts)
+    standards_batch_index = next(
+        (index for index, batch in enumerate(batches) if batch.configured_standards),
+        None,
     )
+    for repair_round in range(3):
+        try:
+            return finalize_trusted_composition(
+                graph,
+                source_text,
+                resolved_envelope,
+                tool_drafts,
+                section_drafts,
+                llm_call_count=call_count,
+            )
+        except LLMError as exc:
+            if standards_batch_index is None or repair_round == 2:
+                raise
+            repaired_tool, repaired_bound = compose_trusted_batch(
+                graph.org_repo,
+                batches[standards_batch_index],
+                resolved_envelope,
+                resolved_client,
+                initial_repair_hint=(
+                    "The complete assembled README failed deterministic presentation "
+                    f"validation: {exc}. Repair this standards-bearing batch so the complete "
+                    "README satisfies every configured standard."
+                ),
+            )
+            tool_drafts[standards_batch_index] = repaired_tool
+            section_drafts[standards_batch_index] = repaired_bound
+            if resolved_cache_dir is not None:
+                write_trusted_batch_cache(
+                    resolved_cache_dir,
+                    cache_key=batch_cache_keys[standards_batch_index],
+                    org_repo=graph.org_repo,
+                    source_revision=graph.source_revision,
+                    model=resolved_model,
+                    tool_draft=repaired_tool,
+                    bound_draft=repaired_bound,
+                )
+            call_count += repaired_bound.attempt_count
+    raise AssertionError("trusted composition final repair loop did not return")
 
 
 def finalize_trusted_composition(
@@ -166,13 +178,23 @@ def finalize_trusted_composition(
     envelope: TrustedCompositionEnvelopeV1,
     tool_drafts: list[TrustedReadmeSectionToolDraftV1],
     section_drafts: list[TrustedReadmeSectionDraftV1],
+    *,
+    llm_call_count: int | None = None,
 ) -> TrustedReadmeCompositionOutputV1:
     """Bind assembled candidate bytes and plan hashes after initial work or repair."""
 
     source_hash = hashlib.sha256(source_text.encode("utf-8")).hexdigest()
     if source_hash != graph.readme_sha256:
         raise LLMError("trusted composition source bytes do not match the inherited fact graph")
-    candidate = assemble_trusted_candidate(graph, tool_drafts)
+    candidate = normalize_contextual_link_budget(
+        normalize_enterprise_edition_terminology(
+            normalize_inherited_code_blocks(
+                strip_readme_comments(assemble_trusted_candidate(graph, tool_drafts)),
+                graph,
+            )
+        ),
+        graph,
+    )
     validate_trusted_candidate_contract(source_text, candidate, graph)
     candidate_hash = hashlib.sha256(candidate.encode("utf-8")).hexdigest()
     plan = TrustedReadmeTransformPlanV1(
@@ -195,5 +217,9 @@ def finalize_trusted_composition(
         candidate_markdown=candidate,
         candidate_patch=unified_diff(source_text, candidate),
         candidate_sha256=candidate_hash,
-        llm_call_count=sum(draft.attempt_count for draft in section_drafts),
+        llm_call_count=(
+            llm_call_count
+            if llm_call_count is not None
+            else sum(draft.attempt_count for draft in section_drafts)
+        ),
     )

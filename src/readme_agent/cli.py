@@ -175,6 +175,15 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
     p_supervise.add_argument(
+        "--portfolio-time-budget-seconds",
+        type=float,
+        default=300.0,
+        help=(
+            "Bound one local_poc registry execution slice; durable repository state resumes the "
+            "next invocation. The budget is checked between repositories, never mid-stage."
+        ),
+    )
+    p_supervise.add_argument(
         "--domain",
         default=None,
         help=(

@@ -13,7 +13,10 @@ from readme_agent.llm.call_ledger import (
     current_llm_accounting_summary,
     record_non_provider_call,
 )
-from readme_agent.llm.reviewer_client import build_live_trusted_review_clients
+from readme_agent.llm.reviewer_client import (
+    TRUSTED_REVIEW_MAX_TOKENS,
+    build_live_trusted_review_clients,
+)
 from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
     build_trusted_fidelity_review_messages,
@@ -156,6 +159,8 @@ def run_trusted_transform_review(
         blind_client, fidelity_client = build_live_trusted_review_clients(
             env.llm_base_url(),
             env.llm_api_key(),
+            timeout=env.llm_timeout_seconds(),
+            max_tokens=TRUSTED_REVIEW_MAX_TOKENS,
         )
     if blind_client is fidelity_client:
         raise ValueError(

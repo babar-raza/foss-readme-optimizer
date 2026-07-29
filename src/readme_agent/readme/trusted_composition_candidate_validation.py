@@ -8,6 +8,7 @@ from urllib.parse import urlsplit
 from markdown_it import MarkdownIt
 
 from readme_agent.errors import LLMError
+from readme_agent.facts.example_quality import source_contains_comments, strip_source_comments
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.registry.loader import load_products
 
@@ -16,26 +17,184 @@ _URL = re.compile(r"https?://[^\s<>)\"']+")
 _PROHIBITED_ENTERPRISE_TERMS = re.compile(
     r"(?i)\b(?:commercial|on[- ]premise)\s+(?:product|edition)\b"
 )
+_LEGACY_ENTERPRISE_TERMS = re.compile(
+    r"(?i)\b(?:commercial\s+on[- ]premise\s+(?:product|edition)"
+    r"|on[- ]premise\s+(?:product|edition)"
+    r"|commercial\s+(?:product|edition))\b"
+)
 _FENCE = re.compile(r"(?m)^(?P<marker>`{3,}|~{3,})(?P<info>[^\r\n]*)$")
-_CODE_COMMENT_BY_LANGUAGE: dict[str, re.Pattern[str]] = {
-    "python": re.compile(r"(?m)^\s*#(?![!]).*$"),
-    "py": re.compile(r"(?m)^\s*#(?![!]).*$"),
-    "java": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "c": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "cpp": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "csharp": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "cs": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "javascript": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "js": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "typescript": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "ts": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "go": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "rust": re.compile(r"(?m)^\s*(?://|/\*|\*).*$"),
-    "bash": re.compile(r"(?m)^\s*#(?![!]).*$"),
-    "sh": re.compile(r"(?m)^\s*#(?![!]).*$"),
-    "shell": re.compile(r"(?m)^\s*#(?![!]).*$"),
-    "powershell": re.compile(r"(?m)^\s*#(?![!]).*$"),
-}
+_MARKDOWN_LINK = re.compile(
+    r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)(?:\s+\"[^\"]*\")?\)"
+)
+
+
+def strip_readme_comments(markdown: str) -> str:
+    """Remove visitor-visible HTML and source comments from fenced examples."""
+
+    cleaned = _HTML_COMMENT.sub("", markdown)
+    fences = list(_FENCE.finditer(cleaned))
+    if len(fences) % 2:
+        return cleaned
+    rendered: list[str] = []
+    cursor = 0
+    for opening, closing in zip(fences[::2], fences[1::2], strict=True):
+        language = opening.group("info").strip().split(maxsplit=1)[0].casefold()
+        body_start = opening.end()
+        body_end = closing.start()
+        rendered.append(cleaned[cursor:body_start])
+        source = cleaned[body_start:body_end]
+        stripped = strip_source_comments(language, source)
+        if source.startswith("\r\n") and not stripped.startswith("\r\n"):
+            stripped = "\r\n" + stripped.lstrip("\r\n")
+        elif source.startswith("\n") and not stripped.startswith("\n"):
+            stripped = "\n" + stripped.lstrip("\n")
+        rendered.append(stripped)
+        cursor = body_end
+    rendered.append(cleaned[cursor:])
+    return "".join(rendered)
+
+
+def normalize_enterprise_edition_terminology(markdown: str) -> str:
+    """Use the governed public name for every legacy aspose.com edition label."""
+
+    return _LEGACY_ENTERPRISE_TERMS.sub("Enterprise Edition", markdown)
+
+
+def normalize_contextual_link_budget(
+    markdown: str,
+    graph: TrustedReadmeFactGraphV1,
+) -> str:
+    """Retain prioritized Aspose links within configured total and domain limits."""
+
+    standard = next(
+        (
+            item
+            for item in graph.configured_standards
+            if item.standard_id == "readme.contextual_links"
+        ),
+        None,
+    )
+    if standard is None:
+        return markdown
+    parameters = standard.parameters
+    max_total = parameters.get("max_total")
+    if not isinstance(max_total, int):
+        return markdown
+    domain_maxima = {
+        str(domain).casefold(): int(limit)
+        for domain, limit in parameters.get("domain_maxima", {}).items()
+    }
+    priority_hosts = [str(host).casefold() for host in parameters.get("priority_hosts", [])]
+    surface_by_url = {
+        _clean_url(str(url)): str(surface).casefold()
+        for url, surface in parameters.get("surface_by_url", {}).items()
+    }
+    surface_maxima = {
+        str(surface).casefold(): int(limit)
+        for surface, limit in parameters.get("surface_maxima", {}).items()
+    }
+    matches = [
+        match
+        for match in _MARKDOWN_LINK.finditer(markdown)
+        if _belongs_to(match.group("url"), "aspose.org")
+        or _belongs_to(match.group("url"), "aspose.com")
+    ]
+    occurrences: dict[str, int] = {}
+    ranked: list[tuple[tuple[int, int, int, int], int, re.Match[str]]] = []
+    surface_order = {"products": 0, "docs": 1, "kb": 2, "reference": 3, "blog": 4}
+    for index, match in enumerate(matches):
+        url = _clean_url(match.group("url"))
+        host = urlsplit(url).netloc.casefold()
+        duplicate_order = occurrences.get(url, 0)
+        occurrences[url] = duplicate_order + 1
+        try:
+            host_rank = priority_hosts.index(host)
+        except ValueError:
+            host_rank = len(priority_hosts)
+        surface = surface_by_url.get(url) or host.split(".", maxsplit=1)[0]
+        ranked.append(
+            (
+                (
+                    1 if duplicate_order else 0,
+                    host_rank,
+                    surface_order.get(surface, len(surface_order)),
+                    index,
+                ),
+                index,
+                match,
+            )
+        )
+    retained: set[int] = set()
+    domain_counts: dict[str, int] = {}
+    surface_counts: dict[str, int] = {}
+    for _, index, match in sorted(ranked):
+        if len(retained) >= max_total:
+            break
+        url = match.group("url")
+        domain = next(
+            (candidate for candidate in domain_maxima if _belongs_to(url, candidate)),
+            "",
+        )
+        if domain and domain_counts.get(domain, 0) >= domain_maxima[domain]:
+            continue
+        clean_url = _clean_url(url)
+        surface = (
+            surface_by_url.get(clean_url)
+            or urlsplit(clean_url).netloc.casefold().split(".", maxsplit=1)[0]
+        )
+        if surface in surface_maxima and surface_counts.get(surface, 0) >= surface_maxima[surface]:
+            continue
+        retained.add(index)
+        if domain:
+            domain_counts[domain] = domain_counts.get(domain, 0) + 1
+        surface_counts[surface] = surface_counts.get(surface, 0) + 1
+    current = 0
+
+    def replace(match: re.Match[str]) -> str:
+        nonlocal current
+        url = match.group("url")
+        if not (_belongs_to(url, "aspose.org") or _belongs_to(url, "aspose.com")):
+            return match.group(0)
+        keep = current in retained
+        current += 1
+        return match.group(0) if keep else match.group("label")
+
+    return _MARKDOWN_LINK.sub(replace, markdown)
+
+
+def _non_mermaid_fenced_spans(markdown: str) -> list[tuple[int, int]]:
+    fences = list(_FENCE.finditer(markdown))
+    if len(fences) % 2:
+        return []
+    spans: list[tuple[int, int]] = []
+    for opening, closing in zip(fences[::2], fences[1::2], strict=True):
+        language = opening.group("info").strip().split(maxsplit=1)[0].casefold()
+        if language != "mermaid":
+            spans.append((opening.start(), closing.end()))
+    return spans
+
+
+def normalize_inherited_code_blocks(
+    markdown: str,
+    graph: TrustedReadmeFactGraphV1,
+) -> str:
+    """Restore curated source code blocks in order while removing their comments."""
+
+    source_blocks: list[str] = []
+    for fact in graph.inherited_facts:
+        if fact.material_kind != "code":
+            continue
+        spans = _non_mermaid_fenced_spans(fact.value)
+        source_blocks.extend(strip_readme_comments(fact.value[start:end]) for start, end in spans)
+    candidate_spans = _non_mermaid_fenced_spans(markdown)
+    if not source_blocks or len(candidate_spans) != len(source_blocks):
+        return markdown
+    normalized = markdown
+    for (start, end), source_block in reversed(
+        list(zip(candidate_spans, source_blocks, strict=True))
+    ):
+        normalized = normalized[:start] + source_block + normalized[end:]
+    return normalized
 
 
 def validate_trusted_candidate_contract(
@@ -183,9 +342,8 @@ def _validate_markdown(candidate: str) -> None:
         if opening.group("marker")[0] != closing.group("marker")[0]:
             raise LLMError("trusted composition candidate has mismatched Markdown fences")
         language = opening.group("info").strip().split(maxsplit=1)[0].casefold()
-        comment_pattern = _CODE_COMMENT_BY_LANGUAGE.get(language)
         body = candidate[opening.end() : closing.start()]
-        if comment_pattern is not None and comment_pattern.search(body):
+        if source_contains_comments(language, body):
             raise LLMError("trusted composition candidate contains a code comment")
     MarkdownIt("commonmark", {"html": True}).parse(candidate)
 

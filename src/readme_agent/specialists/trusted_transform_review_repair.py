@@ -30,12 +30,23 @@ def run_trusted_review_with_repair(
     blind_client: AnalysisClientLike,
     fidelity_client: AnalysisClientLike,
     repair_client: ForcedToolClient,
+    initial_execution: TrustedReviewExecutionV1 | None = None,
 ) -> TrustedReviewLoopResultV1:
-    """Review, repair one responsible batch at a time, and fail on unchanged bytes."""
+    """Review, repair one responsible batch at a time, and fail on unchanged bytes.
+
+    Canonical wiring may dispatch and persist the first independent review
+    before entering repair. Supplying that exact execution avoids paying for
+    and recording a duplicate pair of reviewer calls.
+    """
 
     current = composition
     history: list[TrustedRepairAttemptV1] = []
-    execution = run_trusted_transform_review(
+    if (
+        initial_execution is not None
+        and initial_execution.review.candidate_sha256 != composition.candidate_sha256
+    ):
+        raise ValueError("initial trusted review belongs to different candidate bytes")
+    execution = initial_execution or run_trusted_transform_review(
         graph,
         source_text,
         current,

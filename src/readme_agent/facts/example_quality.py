@@ -7,6 +7,7 @@ import ast
 from pygments import lex
 from pygments.lexers import get_lexer_by_name
 from pygments.token import Comment, String
+from pygments.util import ClassNotFound
 
 _MAX_PYTHON_TOP_LEVEL_STATEMENTS = 8
 _LEXER_BY_LANGUAGE = {
@@ -26,8 +27,20 @@ def _is_source_comment(token) -> bool:
     return token in Comment and token not in Comment.Preproc and token not in Comment.PreprocFile
 
 
-def _contains_comment(language: str, source: str) -> bool:
-    lexer_name = _LEXER_BY_LANGUAGE.get(language)
+def _lexer_name(language: str) -> str | None:
+    normalized = language.strip().casefold()
+    lexer_name = _LEXER_BY_LANGUAGE.get(normalized, normalized)
+    try:
+        get_lexer_by_name(lexer_name)
+    except ClassNotFound:
+        return None
+    return lexer_name
+
+
+def source_contains_comments(language: str, source: str) -> bool:
+    """Return whether a recognized source language contains visitor-facing comments."""
+
+    lexer_name = _lexer_name(language)
     if lexer_name is None:
         return False
     return any(
@@ -39,7 +52,7 @@ def _contains_comment(language: str, source: str) -> bool:
 def strip_source_comments(language: str, source: str) -> str:
     """Remove source comments while preserving code layout and string literals."""
 
-    lexer_name = _LEXER_BY_LANGUAGE.get(language)
+    lexer_name = _lexer_name(language)
     if lexer_name is None:
         return source
     rendered: list[str] = []
@@ -64,7 +77,7 @@ def generated_example_quality_failures(language: str, source: str) -> list[str]:
     """
 
     failures: list[str] = []
-    if _contains_comment(language, source):
+    if source_contains_comments(language, source):
         failures.append(
             "minimal README example contains a source comment or documentation comment; "
             "regenerate it as comment-free visitor-facing code"
