@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-01-README-DERIVED-FACTS",
+  "stage_goal_id": "GOAL-T0-TRUSTED-QUALIFICATION",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Supply reusable README-derived evidence for the first trusted transformations."
+  },
+  "acceptance_checks_passed": [
+    "Every inherited fact resolves to exact immutable README bytes",
+    "Trusted mode makes zero repository, package, documentation, or external fact-verification calls",
+    "Every approved standard addition is distinguishable from inherited content"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/trp-01-readme-derived-facts-v1/verification-summary.json",
+    "plans/investigations/evidence/trp-01-readme-derived-facts-v1/representative-source-maps.json",
+    "plans/investigations/evidence/trp-01-readme-derived-facts-v1/provider-call-inventory.json"
+  ],
+  "scoreboard_before_sha256": "3ee463cf63cbe20b2f21cbd49f62566d4be01f6717406563f419f330df3942e0",
+  "scoreboard_after_sha256": "3ee463cf63cbe20b2f21cbd49f62566d4be01f6717406563f419f330df3942e0",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

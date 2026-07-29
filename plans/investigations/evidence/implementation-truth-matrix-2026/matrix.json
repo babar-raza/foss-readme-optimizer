@@ -1,7 +1,7 @@
 {
   "generated_by": "plans/investigations/tools/traceability_matrix.py",
   "requirements_source": "plans/requirements.md",
-  "total_implemented_rows_checked": 155,
+  "total_implemented_rows_checked": 157,
   "rows_with_high_confidence_findings": [],
   "rows_with_informational_findings_only": [
     {
@@ -2302,7 +2302,7 @@
     },
     {
       "id": "L8-002",
-      "line": 649,
+      "line": 653,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/canonical-mutation-path-audit.json"
@@ -2331,7 +2331,7 @@
     },
     {
       "id": "L8-018",
-      "line": 665,
+      "line": 669,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/replay-results.json"
@@ -2360,7 +2360,7 @@
     },
     {
       "id": "L8-029",
-      "line": 676,
+      "line": 680,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/verification.json"
@@ -2389,7 +2389,7 @@
     },
     {
       "id": "L8-030",
-      "line": 677,
+      "line": 681,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-python-api-truth/verification.json"
@@ -2418,7 +2418,7 @@
     },
     {
       "id": "L8-031",
-      "line": 678,
+      "line": 682,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-typescript-export-truth/verification.json"
@@ -2447,7 +2447,7 @@
     },
     {
       "id": "L8-032",
-      "line": 679,
+      "line": 683,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-rust-api-truth/verification.json"
@@ -2476,7 +2476,7 @@
     },
     {
       "id": "L8-035",
-      "line": 682,
+      "line": 686,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/verification.json"
@@ -2505,7 +2505,7 @@
     },
     {
       "id": "L8-036",
-      "line": 683,
+      "line": 687,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/verification.json"
@@ -2597,6 +2597,8 @@
     "SCL-007",
     "SCL-009",
     "PRL-007",
+    "TRP-001",
+    "TRP-002",
     "L8-027",
     "L8-028",
     "L8-033"
@@ -5324,7 +5326,7 @@
         "tests/unit/test_capability_dispatcher.py"
       ],
       "concrete_test_nodes": [
-        "tests/unit/test_capabilities.py::TestRegistry::test_all_twenty_eight_capabilities_registered",
+        "tests/unit/test_capabilities.py::TestRegistry::test_all_registered_capabilities",
         "tests/unit/test_capabilities.py::TestRegistry::test_repository_profile_compatibility_filter_is_data_driven",
         "tests/unit/test_capability_dispatcher.py::TestDispatchPermissionDenied::test_rejects_when_side_effect_class_not_allowed"
       ],
@@ -6611,8 +6613,79 @@
       ]
     },
     {
+      "id": "TRP-001",
+      "line": 637,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_content_assurance.py",
+        "tests/unit/test_local_poc_cache.py",
+        "plans/investigations/evidence/trp-00-assurance-contract-v1/verification-summary.json"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_content_assurance.py",
+        "tests/unit/test_local_poc_cache.py",
+        "plans/investigations/evidence/trp-00-assurance-contract-v1/verification-summary.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_content_assurance.py",
+        "tests/unit/test_local_poc_cache.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_content_assurance.py::test_trusted_lifecycle_cannot_enter_verified_approval",
+        "tests/unit/test_content_assurance.py::test_assurance_switch_reopens_and_clears_only_derived_acceptance",
+        "tests/unit/test_local_poc_cache.py::test_assurance_change_cannot_collide_with_verified_cache"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/trp-00-assurance-contract-v1/verification-summary.json",
+          "bytes": 6091,
+          "sha256": "908e1135938fecaf228516a7f8241e73f5beb53de46c4adb598fc334d08539ff",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "TRP-002",
+      "line": 638,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/unit/test_trusted_readme_extraction.py",
+        "plans/investigations/evidence/trp-01-readme-derived-facts-v1/verification-summary.json"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_trusted_readme_extraction.py",
+        "plans/investigations/evidence/trp-01-readme-derived-facts-v1/verification-summary.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_trusted_readme_extraction.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_trusted_readme_extraction.py::test_extracts_exact_utf8_spans_and_treats_instructions_as_data"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/trp-01-readme-derived-facts-v1/verification-summary.json",
+          "bytes": 5389,
+          "sha256": "6f1b2b15b30f11d69c772e2cf86b74d11eb8dd5578aff5262fa60263140b5132",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
       "id": "L8-002",
-      "line": 649,
+      "line": 653,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/canonical-mutation-path-audit.json"
@@ -6641,7 +6714,7 @@
     },
     {
       "id": "L8-018",
-      "line": 665,
+      "line": 669,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/replay-results.json"
@@ -6670,7 +6743,7 @@
     },
     {
       "id": "L8-027",
-      "line": 674,
+      "line": 678,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_llm_call_ledger.py",
@@ -6703,7 +6776,7 @@
     },
     {
       "id": "L8-028",
-      "line": 675,
+      "line": 679,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_prompt_hygiene.py",
@@ -6744,7 +6817,7 @@
     },
     {
       "id": "L8-029",
-      "line": 676,
+      "line": 680,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/verification.json"
@@ -6773,7 +6846,7 @@
     },
     {
       "id": "L8-030",
-      "line": 677,
+      "line": 681,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-python-api-truth/verification.json"
@@ -6802,7 +6875,7 @@
     },
     {
       "id": "L8-031",
-      "line": 678,
+      "line": 682,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-typescript-export-truth/verification.json"
@@ -6831,7 +6904,7 @@
     },
     {
       "id": "L8-032",
-      "line": 679,
+      "line": 683,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-rust-api-truth/verification.json"
@@ -6860,7 +6933,7 @@
     },
     {
       "id": "L8-033",
-      "line": 680,
+      "line": 684,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_package_root_roles.py",
@@ -6893,7 +6966,7 @@
     },
     {
       "id": "L8-035",
-      "line": 682,
+      "line": 686,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/verification.json"
@@ -6922,7 +6995,7 @@
     },
     {
       "id": "L8-036",
-      "line": 683,
+      "line": 687,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/verification.json"

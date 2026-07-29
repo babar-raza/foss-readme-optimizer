@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-01-README-DERIVED-FACTS",
+  "extraction_capability": "extract_trusted_readme_facts",
+  "fact_authorities_consulted": [],
+  "repository_code_or_manifest_claim_reconciliation_calls": 0,
+  "package_registry_calls": 0,
+  "documentation_or_external_fact_calls": 0,
+  "local_inputs": [
+    "bound RepositorySnapshotV1 identity",
+    "immutable README.md bytes"
+  ],
+  "safety_operations": [
+    "allow-list check",
+    "snapshot identity/inventory drift check"
+  ],
+  "note": "Snapshot drift checks preserve immutability; they do not derive or reconcile inherited claim values."
+}

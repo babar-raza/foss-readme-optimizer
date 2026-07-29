@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-01-README-DERIVED-FACTS",
+  "verdict": "VERIFIED",
+  "repository": "foss-readme-optimizer",
+  "branch": "main",
+  "implementation_commit": "2b48ebedd3dc6036ccec52086056eaf50ec7d4bc",
+  "content_assurance": "trusted_inherited",
+  "implemented_contracts": [
+    "Strict README_INHERITED source-span fact graph bound to one immutable RepositorySnapshotV1",
+    "Separate CONFIGURED_STANDARD catalog records with requirement authority and configuration hashes",
+    "Registered read_only_local extraction capability with typed input and output contracts",
+    "Assurance-specific durable evidence root that does not replace repository-verified artifacts",
+    "Checksum-complete idempotent reuse and trusted-only corruption reopening"
+  ],
+  "representative_results": [
+    {
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "readme_bytes": 6908,
+      "inherited_facts": 53,
+      "fact_graph_sha256": "6e5e610243ecaf2d3733fbfe77e5ecaf7c9b0b2317373260168866eb0fd02ac9"
+    },
+    {
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "readme_bytes": 3900,
+      "inherited_facts": 34,
+      "fact_graph_sha256": "07b2589cefbcdfb1744bb45d0bb474ba3959bd2040f201608163508b94b886d8"
+    },
+    {
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "readme_bytes": 9450,
+      "inherited_facts": 36,
+      "fact_graph_sha256": "fb186f3a2291764ce8ba20c5a30fb1412f3241ecf267093d0f0600a9b7783ff0"
+    },
+    {
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+      "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
+      "readme_bytes": 102203,
+      "inherited_facts": 213,
+      "fact_graph_sha256": "6264763b4eae1b37b2a5f1b0f12ba20c4a779fd63da4da0801a4f483bdebd47f"
+    }
+  ],
+  "negative_controls": [
+    "Prompt-like and hidden README content is retained only as risk-labelled data",
+    "README_INHERITED facts cannot claim repository_verified assurance",
+    "Unknown configured-standard identifiers fail schema validation",
+    "External product-fact and network seams are forbidden during capability proof",
+    "Checksum corruption invalidates reuse and reopens only trusted extraction"
+  ],
+  "verification": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_trusted_readme_extraction.py tests/unit/test_capabilities.py tests/unit/test_capability_dispatcher.py tests/unit/test_evidence_writer.py tests/unit/test_repository_snapshot.py tests/unit/test_readme_poc_lifecycle.py tests/unit/test_content_assurance.py tests/unit/test_local_poc_evidence.py tests/unit/test_portfolio_stage_cache.py tests/security/test_no_secrets_in_evidence.py",
+      "result": "232 passed in 33.97s",
+      "raw_log": "runs/verification/trp01/focused-final.log",
+      "raw_log_sha256": "fcee39d9c560bf977acbe96618be010abfd7c88d85460911eb3d82f28a2017c2"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_trusted_readme_extraction.py tests/unit/test_capabilities.py",
+      "result": "144 passed in 19.41s after final formatting"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check .",
+      "result": "passed"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff format --check .",
+      "result": "739 files already formatted"
+    },
+    {
+      "command": ".venv/Scripts/python -m mypy src",
+      "result": "Success: no issues found in 410 source files"
+    },
+    {
+      "command": "validate_plan_structure.py; check_verifiers_are_wired.py --check; check_prompt_hygiene.py; build_level8_requirement_taskcard_coverage.py --check; traceability_matrix.py --check",
+      "result": "all blocking checks passed before final requirement-status regeneration; plan validation emitted 60 pre-existing row-length warnings"
+    }
+  ],
+  "interrupted_diagnostic": {
+    "command": ".venv/Scripts/python -m pytest -vv --maxfail=1",
+    "observed_result": "Externally terminated after passing tests through 91%; no assertion failure and no terminal pytest summary.",
+    "proof_disposition": "Not counted as a passing suite. Decision 83 reserves the next complete official suite for the first current-contract README campaign boundary.",
+    "raw_log": "runs/verification/trp01/pytest-verbose.stdout.log",
+    "raw_log_sha256": "9581dbe2dd820a1b2c4babc6c7af8479146da84ad8687bf4e57b0075d629667f"
+  },
+  "scope_boundary": {
+    "complete": [
+      "README-derived trusted fact and claim source accountability",
+      "zero external fact-reconciliation calls",
+      "configured-standard provenance contract",
+      "durable evidence and cache integrity"
+    ],
+    "remaining": [
+      "TRP-02 must implement LLM-first composition over this graph",
+      "TRP-03 must prove LLM-facing prompt isolation and independent review",
+      "Actual configured additions remain TRP-003 PARTIAL until downstream validation"
+    ]
+  },
+  "independent_verification": {
+    "status": "accepted",
+    "basis": "Separate exact-byte, assurance anti-promotion, provider zero-call, prompt/hidden-data, unknown-standard, redaction, corruption, lifecycle, and heterogeneous real-snapshot controls reproduced the claimed boundary."
+  }
+}

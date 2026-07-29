@@ -161,18 +161,17 @@ portfolio with concurrent verified read-only progress → `act` → disposable s
 GitHub App qualification → trusted portfolio PRs → complete repository-verified Gate A/B/C →
 Level 5 → Level 6 → day-30 Level 7 → day-90 Level 8**.
 
-`TRP-00-ASSURANCE-CONTRACT` is implemented and regression-proven at commit `181879c7`.
-The durable controller now derives `GOAL-T0-TRUSTED-QUALIFICATION` from the ordered stage catalog,
-persists stage/capacity/history state, and keeps trusted lifecycle, counters, caches, manifests,
-proposals, and effects mechanically disjoint from repository-verified acceptance. `L8-INTAKE-00/01`
-remain closed and `L8-INTAKE-02` becomes the permitted common read-only concurrent task while
-`TRP-01-README-DERIVED-FACTS` is the next primary task. The 31-entry checked-in portfolio
-has 8 `FACTS_READY`, 8 candidates, 8 deterministic validations, and zero verified approvals,
-no-ops, or human acceptances. The latest discovery evidence also retains one unmatched PDF Go MCP
-observation and one unavailable imaging source, so it is not source-complete Gate-A evidence.
+`TRP-00-ASSURANCE-CONTRACT` is regression-proven at `181879c7`; the durable controller derives
+`GOAL-T0-TRUSTED-QUALIFICATION` and keeps trusted lifecycle/effect identity disjoint from verified
+acceptance. `TRP-01-README-DERIVED-FACTS` is independently verified at `2b48ebed`: its registered
+capability inventories immutable README bytes with exact `README_INHERITED` spans, disjoint
+`CONFIGURED_STANDARD` records, checksum-safe reuse, and zero external fact reconciliation. Real
+Python, .NET, Java, and 102 KB Go maps are in `trp-01-readme-derived-facts-v1`; TRP-03 still owns
+LLM-facing prompt isolation/review. `L8-INTAKE-00/01` remain closed; `L8-INTAKE-02` is permitted read-only
+concurrency; `TRP-02-LLM-FIRST-COMPOSITION` is next. The portfolio has 8 `FACTS_READY`,
+8 candidates/validations, and zero verified approvals/no-ops/human acceptances;
+discovery still has one unmatched PDF Go MCP observation and one unavailable imaging source.
 
-The immediate primary goal remains `GOAL-T0-TRUSTED-QUALIFICATION`; `TRP-01` now owns the
-README-derived fact contract and `L8-INTAKE-02` may proceed concurrently without effect authority.
 The legacy universal goal is absent from the executable graph and pre-migration durable records
 are additively refreshed without deleting task or goal history. The short-term visible milestone
 remains one LLM-first, README-derived, independently
@@ -2719,10 +2718,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         `L8-INTAKE-02/03`, enumerate every authorized source with authenticated all-visibility
         pagination, disposition every visible repository, admit active products disabled/read-only,
         preflight each exactly once, and bind the dynamic denominator to `RegistryRevisionV1`.
-  - [ ] `TRP-01`: derive typed README facts/claims from the immutable source README with exact
+  - [x] `TRP-01`: derive typed README facts/claims from the immutable source README with exact
         `README_INHERITED` spans; admit only separately identified `CONFIGURED_STANDARD` additions.
         Do not query repository code, tests, package registries, documentation, or external fact
-        sources in trusted mode.
+        sources in trusted mode. Commit `2b48ebed`; 232 focused integration/safety tests and real
+        heterogeneous source maps pass, with evidence under
+        `plans/investigations/evidence/trp-01-readme-derived-facts-v1/`.
   - [ ] `TRP-02`: implement LLM-first inventory, transformation planning, bounded section
         composition, and targeted section repair. Deterministic code owns only generic parsing,
         assembly, schemas, provenance, safety, and validation.

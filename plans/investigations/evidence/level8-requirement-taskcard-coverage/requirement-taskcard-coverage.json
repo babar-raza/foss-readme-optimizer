@@ -4,7 +4,7 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "3c3267c7b8396c1f62646d1bc34a189f96ae960a84931acd79b4e8c4b37a2c2d",
+  "source_sha256": "55358fd24ffc45f2d1818c9e9eda7fda4d4ad9d07c05e47232b3d07020b20afd",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
   "total_requirement_rows": 448,
   "mandatory_requirement_rows": 422,
@@ -14,8 +14,8 @@
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 26,
-    "open_mandatory": 231,
-    "preserved_verified": 156
+    "open_mandatory": 230,
+    "preserved_verified": 157
   },
   "taskcard_counts": {
     "TRP-00-ASSURANCE-CONTRACT": 3,
@@ -3221,15 +3221,15 @@
     {
       "requirement_id": "TRP-002",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "IMPLEMENTED",
       "task_id": "TRP-01-README-DERIVED-FACTS",
-      "disposition": "open_mandatory",
+      "disposition": "preserved_verified",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-003",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "PARTIAL",
       "task_id": "TRP-01-README-DERIVED-FACTS",
       "disposition": "open_mandatory",
       "semantic_findings": []
