@@ -11091,7 +11091,7 @@
     "updated_at": "2026-07-29T16:45:34.472575+00:00"
   },
   "schema_version": 2,
-  "state_version": 481,
+  "state_version": 482,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -11617,12 +11617,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "run_lock_held",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted composition batch batch-0002 failed after 3 attempts: 1 validation error for TrustedReadmeSectionToolDraftV1 segments.0   Value error, every draft segment requires inherited or configured provenance [type=value_error, input_value={'segment_id': 'readme-he...gured_standard_ids': []}, input_type=dict]     For further information visit https://errors.pydantic.dev/2.13/v/value_error",
       "last_checkpoint_id": "899d8d8d7d8c264e08ce2a2964cc983e8d047f1105566514a17b62183a54c8a4",
       "lease_expires_at": null,
       "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-07-29T17:16:56.514185+00:00"
+      "updated_at": "2026-07-29T17:23:27.546540+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
