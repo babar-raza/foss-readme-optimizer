@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "0cad8bab30214dce93dc70d39e537b5b4c67efd504a43101b9b2268f6e7e3f48",
-    "last_evaluated_at": "2026-07-29T05:23:06.430489+00:00",
+    "last_evaluated_at": "2026-07-29T05:23:23.116831+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -59,7 +59,17 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Turn every newly discovered product into an automatically queued, safe README outcome."
+      },
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-AUTONOMY"
+      ],
+      "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT"
+    },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
@@ -91,7 +101,7 @@
       "L8-GATEA-03A-REPRO-CONTROLS": "TODO",
       "L8-GATEA-04-REPRODUCE": "TODO",
       "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "CLOSED",
-      "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "SCORED",
+      "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "CLOSED",
       "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "TODO",
       "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
@@ -4815,6 +4825,20 @@
         "reason": "All acceptance checks and negative controls pass with 31 unique repository IDs and node IDs.",
         "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "commit:d4d614019855ae85c1e117735016374ce603d7d2",
+          "commit:8f3855a4",
+          "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/verification.json",
+          "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-29T05:23:23.116819+00:00",
+        "reason": "Every live observation has one stable-identity disposition; admitted entries preserve policy and variants without duplication.",
+        "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -4823,7 +4847,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 543,
+  "state_version": 544,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
