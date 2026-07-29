@@ -163,19 +163,23 @@ to add a project fact here, it belongs in `master.md` instead.
     Ledger entry citing that comparison satisfies rule 8's own requirement; a hand-rolled addition
     with no such comparison anywhere is a governance violation the moment it ships, not a style
     preference. (Added 2026-07-25, user directive — see Decision #78; extends rule 8, Decision #30.)
-17. **A partial-registry result MUST NOT be claimed as a complete POC.** Any status claim, report,
-    or Decision Ledger/requirements update that describes README-candidate, review, or proof work
-    across `data/products.json` MUST state the actual count and runtime-derived denominator it
-    covers (for example, "12 of N repositories, where N was read from the registry") whenever it is
-    less than every entry currently in the registry. Language that
-    implies full-registry completion — "the POC is done," "portfolio proof complete," or
-    equivalent — is prohibited unless every registry entry has actually reached the claimed status.
+17. **A partial or source-incomplete registry result MUST NOT be claimed as a complete POC.** Any
+    status claim, report, or Decision Ledger/requirements update that describes README-candidate,
+    review, or proof work across `data/products.json` MUST state the actual count and
+    runtime-derived denominator it covers. Completion additionally requires a freshness-valid,
+    source-complete registry revision with zero unexplained observations, source failures, or
+    pending intake. Language that implies full-registry completion — "the POC is done,"
+    "portfolio proof complete," or equivalent — is prohibited unless every admitted entry has
+    reached the claimed status and discovery proves no authorized-source repository was silently
+    omitted.
     This is the same discipline `GOV-007`'s evidence bar and rule 10's "prove it in production"
     already require, made explicit for the specific, previously-seen failure mode of a
     three-repository or other partial result being described as if it were the whole POC. (Added
     2026-07-25, user directive — see Decision #78.)
-18. **Gate A has a source-to-candidate artifact contract and makes its own repository-specific
-    decisions.** Every Gate-A run starts from the README at the repository's observed default-branch
+18. **Gate A has a discovery-to-candidate artifact contract and makes its own
+    repository-specific decisions.** Every Gate-A campaign first binds a complete discovery-source
+    catalog, raw observation snapshot, registry revision, and intake disposition, then starts from
+    the README at each admitted repository's observed default-branch
     revision and records the original bytes/revision, verified facts and conflicts, selected
     product/platform capabilities, operation plan, local candidate, exact diff, deterministic
     validation, independent agentic verdict, repair history, and no-op rerun result. Product-agent
@@ -183,7 +187,9 @@ to add a project fact here, it belongs in `master.md` instead.
     evidence. Product/platform capability selection is automatic in the canonical path; a human
     does not choose the template, capability, skill, or command sequence. A repository is not
     human-review-ready merely because a candidate file exists: it must have an agent-approved,
-    no-op-proven result. (Added 2026-07-25, user directive — see Decision #78.)
+    no-op-proven result. A strong existing README may produce a byte-identical empty-patch
+    candidate, but it receives the same fact, inherited-claim, deterministic, independent-review,
+    and no-op proof. (Added 2026-07-25; amended 2026-07-29 — see Decisions #78 and #84.)
 19. **One local operator; safe commands execute under standing authority.** During the autonomous
     implementation sprint, Codex is the sole control-repository operator. Do not infer multiple
     workers from Python, Git, Docker, compiler, or test descendants of Codex's active command.

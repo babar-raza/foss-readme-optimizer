@@ -59,12 +59,16 @@ stopping point merely because its machinery, tests, or evidence exist.
 
 ## README POC Readiness and Ordered Delivery Gates
 
-The POC is the full registry, not a sample of it. Every entry currently listed in
-`data/products.json` is required for the system proof to be complete — the exact count is computed
-at runtime by reading that file (`len()` over its entries), and must never be hard-coded into a
-plan, a report, or a status claim, since the registry itself changes as repositories are
-onboarded. A result that covers only some of the registry is a development batch or partial result
-and must be labeled as one; it is never presented as "the POC" on its own.
+The POC is the full currently discoverable authorized portfolio, not a sample and not merely a
+stale checked-in list. `data/products.json` remains the hard execution allow-list and its exact
+admitted count is computed at runtime (`len()` over its entries), never hard-coded. Gate-A closure
+also requires a fresh, complete discovery reconciliation: every repository visible from each
+authorized source has an explicit observation and disposition; pending intake, unexplained
+observations, source failures, and stale scans are zero. A new repository is admitted
+automatically only as disabled/read-only and enters the same preflight and README lifecycle. A
+naming mismatch may require classification, but it may never make a repository invisible. A
+result covering only part of the admitted registry, or a registry whose source inventory is
+incomplete, is a development batch or partial result and is never presented as "the POC."
 
 Delivery proceeds through ordered gates, and a later gate never starts before the gate it depends
 on is actually accepted, not merely attempted:
@@ -80,8 +84,11 @@ on is actually accepted, not merely attempted:
 2. **Independent agentic approval completes the system portion of Gate A.** Every candidate is
    judged by an independent agentic reviewer — a separate LLM judgment role from whatever
    produced the candidate — and repaired until approved or honestly blocked. The system is ready
-   for POC human review only when every current registry entry has an agent-approved, no-op-proven
-   local candidate. A candidate file merely existing is not approval.
+   for POC human review only when every entry in the current complete registry revision has an
+   agent-approved, no-op-proven local candidate and intake is fully reconciled. A candidate file
+   merely existing is not approval. A strong existing README may take a fast path, but still needs
+   verified inherited claims, deterministic assessment, an empty-patch candidate, independent
+   approval, and no-op proof.
 3. **Gate B — human review follows agent approval.** Humans review only candidates that already
    passed independent agentic review. Human acceptance is recorded separately; it is not inferred
    from an agent verdict. Every registry candidate must be human-accepted before Gate C begins.
@@ -191,7 +198,8 @@ rewriting agent.
 
 This will be an autonomous system that:
 
-- continuously monitors the GitHub repositories listed in `data/products.json`;
+- continuously inventories explicitly authorized GitHub sources, reconciles `data/products.json`,
+  and monitors every admitted repository, including newly discovered read-only entries;
 - runs at regular intervals or in response to specific triggers;
 - performs the repository-presentation work described below without routine human intervention;
 - maintains the caches, persistent state, and idempotency controls required for reliable

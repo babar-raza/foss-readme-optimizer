@@ -118,18 +118,23 @@ and proposal foundation, but it is **not Level 8**. The only active sequence is 
 Build Checklist; generated status, history, and evidence live in `plans/status.md`, `logs/`, and
 `plans/investigations/evidence/`.
 
-The active local-first pre-production sequence (`L8-014`) precedes Wave 2: **direct local proof →
-complete current workflow under `act` → isolated staging → production**. The last clean
-pre-correction snapshot was `25a2820507febaf0f74860c6e363864105c22465`; post-acceleration durable
-state 323 has `L8-TRUTH-07-SEVEN-ECOSYSTEMS` active under graph
-`d04a940d4a1d9ca42b1b27fd8468500a69a11cab31ac0f7b9abc6418aa925aea` with no drift.
-The denominator is 31: 7 `FACTS_READY` or later, 1 `CANDIDATE_GENERATED`,
-1 `DETERMINISTIC_VALIDATED`, 1 `AGENT_APPROVED`, 1 `NO_OP_PROVEN`, and 0 `HUMAN_ACCEPTED`;
-the first failing boundary is `FACTS_READY`. The sole no-op-proven 3D Java bundle predates the
-current marker-free badge/Mermaid/link/preservation/Enterprise Edition contract and is diagnostic,
-so latest-contract finalized READMEs remain zero. Python, TypeScript, and Rust consumer truth and
-the shared isolated executor have real proof; Go still prevents the seven-ecosystem facts gate
-from closing. Host diagnostics cannot become verified truth; `L8-019` remains partial.
+The active local-first pre-production sequence (`L8-014`) precedes Wave 2: **source-complete
+discovery and read-only intake → direct local proof → complete current workflow under `act` →
+isolated staging → production**. At the 2026-07-29 discovery audit checkpoint, `main` was
+`696dd5d542282a1f9909b9453964c87466257589`, durable state version 531 had no active claim, and
+graph `8486ade4cdfbee608dce30d0859eab4afa5d15efec58ef43848dc7cfb4aa2997` selected
+`L8-REVIEW-00-CONTEXT-CORPUS` next. Decision #84 places four source-discovery/intake prerequisites
+ahead of that reviewer task; live durable state and the current graph hash remain authoritative
+after migration.
+
+The checked-in denominator is 31: 8 `FACTS_READY` or later, 8 `CANDIDATE_GENERATED`, 8
+`DETERMINISTIC_VALIDATED`, 0 `AGENT_APPROVED`, 0 `NO_OP_PROVEN`, and 0 `HUMAN_ACCEPTED`; the first
+failing boundary is `FACTS_READY`. This is not yet a source-complete portfolio denominator. A live
+scan of the configured organizations found the active
+`aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP` repository outside the naming-regex result set and an
+unavailable configured `aspose-imaging-foss` source. The latest successful registry workflow
+therefore proves mechanism execution, not complete inventory. Existing eight candidates remain
+reusable development artifacts but none has current independent approval/no-op proof.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 
@@ -138,10 +143,11 @@ no-op-proven local README for every runtime-loaded `data/products.json` entry. G
 separate human acceptance; Gate C is the later Java PR proof; Gate D is later GitHub App
 integration. Earlier PR/App-shaped machinery stays inert.
 
-The outcome-first critical path is: finish seven-ecosystem facts with native tools; freeze the
-current README contract; regenerate 3D Java; qualify one current-contract `NO_OP_PROVEN` README
-for all seven ecosystems; then run full-registry facts and candidate fan-out. `L8-015`–`L8-017`,
-`L8-020`–`L8-026`, and decisions #82–#83 govern. The governed targets are one current-contract
+The outcome-first critical path is: establish source-complete discovery, stable-identity
+reconciliation, read-only intake/fast-path enrollment, and registry-revision campaign binding;
+then repair the shared reviewer, qualify one current-contract `NO_OP_PROVEN` README for all seven
+ecosystems, and run full-registry facts/candidate fan-out. `L8-015`–`L8-039` and decisions
+#82–#84 govern. The governed targets remain one current-contract
 README in 1–2 working days, seven in 3–5 working days, full-registry Gate A in 7–12 working days,
 and Level 5 in 3–5 weeks. These are breach-detection controls, not completion evidence.
 Deterministic failures consume no prose calls, family/ecosystem evidence and content-addressed
@@ -1921,6 +1927,55 @@ that is the only permanence they carry; text is always the decision as it stands
     never changes the dynamic denominator or per-repository acceptance. Other ecosystem lists in
     this plan express coverage sets, not an alternate priority.
 
+84. **Portfolio completeness starts with source-complete discovery and durable read-only intake,
+    not a naming regex or a manually frozen allow-list.** A 2026-07-29 production-oriented audit
+    compared the current mechanism, its focused tests, the latest workflow logs, and a live
+    read-only scan of all configured organizations. The checked-in registry contained 31 entries
+    and the workflow reported 31 naming matches, yet the same live inventory contained the active
+    `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP` repository, which the exact
+    `Aspose.{Family}-FOSS-for-{Platform}` regex silently excluded. The configured
+    `aspose-imaging-foss` organization returned 404. A successful job or `NO_DRIFT` result is
+    therefore not proof of a complete portfolio.
+
+    Preserve `data/products.json` as the hard execution allow-list and preserve all existing
+    safety, lifecycle, evidence, and platform-priority machinery. Redesign only the discovery and
+    intake boundary. `DiscoverySourceV1` explicitly names authorized organization/App sources;
+    `DiscoveryObservationV1` records every visible repository with provider repository/node ID,
+    full name, source, visibility, default branch, timestamps, topics/language, classification,
+    disposition, and scan-completeness provenance. Naming is a classification hint, never an
+    inclusion gate. Reconciliation keys on stable provider repository ID so rename, transfer,
+    archive, variants, and multiple repositories per family/platform are representable without
+    overwriting policy, mode, or authorization fields.
+
+    Discovery authority, read-only admission, intake readiness, and write authorization are four
+    separate states. A repository observed in an approved source may be added automatically only
+    as `mode: disabled`; it then receives one deduplicated read-only preflight and joins the
+    existing lifecycle as `DISCOVERED → INTAKE_PREFLIGHTING → INTAKE_READY`. Intake classifies
+    `READY_FAST_PATH`, `READY_FULL_PIPELINE`, narrow fact/classification/access/unsupported blocks,
+    `NOT_APPLICABLE`, or `SYSTEM_FAILURE`. A strong existing README fast path is still real proof:
+    verified facts and inherited claims, deterministic assessment, byte-identical candidate and
+    empty patch, independent approval, and unchanged no-op are required. It is not an exemption.
+
+    `RegistryRevisionV1` binds the discovery-source catalog, observation snapshot, products hash,
+    additions, renames, archives, exclusions, failures, and freshness to the portfolio campaign.
+    Gate A requires zero pending intake, zero unexplained observations, zero source failures, a
+    current complete revision, and terminal proof for every admitted repository. Source outages
+    may not idle unrelated already-admitted work, but they do block `NO_DRIFT` and completeness
+    claims. Event notification where available, daily non-peak reconciliation, weekly full audit,
+    deduplicated recovery, health reporting, and a dead-man signal prevent the weekly scheduled job
+    from being the only discovery control. Before Gate D this uses the existing authorized
+    catalog/token boundary; GitHub App installation inventory/webhooks remain a post-Gate-C proof.
+
+    Four P0 taskcards are inserted ahead of reviewer qualification:
+    `L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY`,
+    `L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION`,
+    `L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT`, and
+    `L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH`. They repair the public CLI's current
+    preflight-before-allow-list ordering, then make the existing reviewer and Python-first route
+    operate over a truthful denominator. No prior task, gate, or quality standard is omitted.
+    `CORE-003`, `CORE-004`, `CORE-023`, `CORE-034`, `OPS-005`, and `OPS-007` are downgraded to
+    `PARTIAL`; `L8-035`–`L8-039` define the missing proof. (2026-07-29, user directive.)
+
 ## Architecture
 
 ### Canonical production flow
@@ -2090,10 +2145,11 @@ Detailed current module placement and the preserved shipped-engine seams live in
 
 ### `data/products.json` — the allow-list
 
-Base is the exact, verbatim 25 entries from Aspose's own registry (11 families, 6 platforms, 11
-GitHub orgs `aspose-{family}-foss`) — every `family`/`platform`/`repo_name`/`repo_url`/
-`clone_url`/`active`/`discovered_via`/`overrides` field copied as-is, so the file stays literally
-re-syncable from upstream. As of Phase 18 this re-sync is automated (see `data/families.json`
+The checked-in file is the hard execution allow-list and currently contains 31 admitted
+repositories. Its count is loaded dynamically; historical 25- and 31-repository observations are
+not permanent portfolio constants. Existing upstream-shaped and agent-owned fields remain
+preserved during reconciliation. As of Phase 18 the original naming-based re-sync is automated
+(see `data/families.json`
 subsection below) rather than a manual copy. Three additive fields layer this project's own
 operational meaning on top without touching the upstream-shaped fields:
 
@@ -2114,16 +2170,21 @@ add the entry itself (see below).
 
 ### `data/families.json` + `scripts/update_products_registry.py` — automated discovery (Phase 18)
 
-`data/families.json` lists all 26 Aspose FOSS families and their GitHub org
-(`aspose-{family}-foss`) — a discovery seed list, not an allow-list; being listed grants no
-permission. `scripts/update_products_registry.py` scans every org via the read-only GitHub REST
-API, classifies repos by the `Aspose.{Family}-FOSS-for-{Platform}` naming convention, and merges
-results into `data/products.json`: newly discovered `(family, platform)` pairs are always added
-with `mode: "disabled"`; existing entries only have upstream-shaped fields refreshed, never
-`mode`/`ecosystem`/`policy_profile`; nothing is ever deleted. `.github/workflows/
-update-products-registry.yml` runs this weekly plus on `workflow_dispatch`, opening a PR (never
-pushing to `main`) via `peter-evans/create-pull-request` if the registry changed. This supersedes
-the originally planned local-checkout-copy approach (`sync_products_registry.py` against a live
+`data/families.json` is the current discovery seed catalog, not an allow-list; being listed grants
+no repository execution or write permission. The shipped `registry/discovery.py` mechanism scans
+those organizations and merges naming-convention matches as disabled entries without touching
+agent-owned fields. Decision #84 records that this mechanism is partial: the seed catalog is
+manually closed, naming is an inclusion gate, `(family, platform)` is not stable identity, and a
+source failure can coexist with `NO_DRIFT`.
+
+The target source-complete boundary uses typed `DiscoverySourceV1`, `DiscoveryObservationV1`, and
+`RegistryRevisionV1` contracts. It inventories every visible repository, records unmatched and
+ambiguous observations, reconciles by provider repository ID, admits new repositories only as
+disabled/read-only, and queues one durable intake preflight. `.github/workflows/
+update-products-registry.yml` continues to surface registry changes as a PR or artifact, never a
+direct default-branch push; it must be connected to the same durable reconcile/intake path rather
+than leaving a later job/check-out to notice the change. This supersedes the originally planned
+local-checkout-copy approach (`sync_products_registry.py` against a live
 `D:\onedrive\Documents\GitHub\aspose.org` clone) with a self-contained live-API scan that works
 the same way in CI as it does locally, and layers automatic discovery on top of the allow-list
 decision (#4) instead of just a manual copy.
@@ -2490,6 +2551,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - **Exit:** no required failure exits zero or converges; no production mutation bypass exists.
 
 - [ ] **Local pre-production Gate A — atomic idea-fidelity proof**
+  - [ ] Establish source-complete discovery and durable read-only intake before reviewer
+        qualification: inventory every repository from explicit authorized sources, fix the
+        public CLI allow-list/preflight ordering, reconcile by provider repository ID, enroll new
+        disabled entries through one deduplicated preflight, prove strong-README fast/full paths,
+        and bind the campaign to a complete `RegistryRevisionV1`
+        (`L8-INTAKE-00`–`L8-INTAKE-03`, `L8-035`–`L8-039`).
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
         immutable revision bundles, and mandatory dynamic planning foundation.
   - [x] Bind all executable mission work to the immutable core deliverable and subordinate goals;
@@ -2547,9 +2614,10 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         normalized external-evidence result until its exact dependency/freshness key changes.
         Target: close Gate A within 7–12 working days (`L8-TRUTH-08-FULL-REGISTRY`,
         `L8-GATEA-*` task group).
-  - **Exit:** every current registry entry has a checksum-valid, independently agent-approved,
-    no-op-proven local bundle under one frozen campaign; no remote write occurred. Gate B human
-    review begins only after this exit.
+  - **Exit:** the frozen campaign uses the current complete registry revision; pending intake,
+    unexplained observations, and source failures are zero; every admitted registry entry has a
+    checksum-valid, independently agent-approved, no-op-proven local bundle; no remote write
+    occurred. Gate B human review begins only after this exit.
 
 - [ ] **Wave 2 — Restartable GitHub Actions runtime**
   - Ship `TriggerEnvelopeV2`, `CheckpointV1`, migrations, seven trigger states, and all lifecycle
@@ -2640,10 +2708,27 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       those master sections.
 - [x] **Wave 1 correctness gate:** every required specialist/task/validation/verifier/effect
       failure is terminally non-successful; no alternate production mutation path remains.
-- [x] **Mission goal guard:** all 91 taskcards have validated goal/contribution bindings; durable
+- [x] **Mission goal guard:** every taskcard has validated goal/contribution bindings; durable
       status derives the current denominator and lifecycle counts; restart preserves the same
       first boundary/next task; ordinary reports cannot close a task without matching,
       independently verified contribution evidence.
+- [ ] **Discovery completeness gate:** every repository visible from every authorized source is
+      retained as a typed observation, including unmatched/ambiguous names; unavailable or stale
+      sources prevent `NO_DRIFT` and completeness claims while unrelated admitted work continues.
+- [ ] **Admission safety gate:** the public CLI checks the execution allow-list before any
+      repository-specific preflight/network call; discovery uses only its dedicated source
+      inventory client; a new repository enters as disabled/read-only with both effect classes
+      still blocked.
+- [ ] **Stable reconciliation and intake gate:** provider repository identity survives rename,
+      transfer, archive, and variants; one discovery change produces one durable intake; strong
+      existing READMEs follow the same fact, deterministic, independent-review, and no-op standard
+      through a byte-identical fast path.
+- [ ] **Registry-revision campaign gate:** campaign and terminal manifests bind source-catalog,
+      observation, products, and registry-revision hashes; drift, pending intake, unexplained
+      observations, scan failures, or stale sources prevent Gate-A closure.
+- [ ] **Discovery operations gate:** event notification where available, daily reconciliation,
+      weekly full audit, recovery/deduplication, matrix isolation, health, and dead-man monitoring
+      are proven without requesting the production GitHub App before Gate C.
 - [ ] **Local stage-boundary gate:** a facts-only public supervisor run reaches `FACTS_READY`
       without composition/reviewer calls or later lifecycle claims; every later stage has the same
       fail-closed ceiling behavior; cached terminal states are re-evaluated against the current

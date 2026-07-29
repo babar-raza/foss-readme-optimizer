@@ -4,18 +4,18 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "f003bf11b5c2a7255e8f8f08d8acb3a4de362799292b8d44a5b1748465418cb7",
+  "source_sha256": "c72c73dc7350f643fbd3815b74273bff4c371a26f6293b8ea1bb3f7c4d9f4d6b",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 427,
-  "mandatory_requirement_rows": 401,
+  "total_requirement_rows": 432,
+  "mandatory_requirement_rows": 406,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 26,
-    "open_mandatory": 209,
-    "preserved_verified": 157
+    "open_mandatory": 220,
+    "preserved_verified": 151
   },
   "taskcard_counts": {
     "L8-MISSION-GOAL-GUARD": 1,
@@ -39,6 +39,10 @@
     "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": 1,
     "L8-COMPOSE-01C-CONTEXTUAL-LINKING": 4,
     "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": 1,
+    "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": 1,
+    "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": 1,
+    "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": 1,
+    "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": 2,
     "L8-QUAL-01-CAMPAIGN-IDENTITY": 1,
     "L8-QUAL-03-RECOVERY": 1,
     "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 53,
@@ -925,17 +929,17 @@
     {
       "requirement_id": "CORE-003",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
       "requirement_id": "CORE-004",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -1092,10 +1096,10 @@
     },
     {
       "requirement_id": "CORE-023",
-      "priority": "P2",
-      "requirement_status": "IMPLEMENTED",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -1173,9 +1177,9 @@
     {
       "requirement_id": "CORE-034",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
-      "disposition": "preserved_verified",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -1212,10 +1216,10 @@
     },
     {
       "requirement_id": "OPS-005",
-      "priority": "P2",
-      "requirement_status": "IMPLEMENTED",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "preserved_verified",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -1228,10 +1232,10 @@
     },
     {
       "requirement_id": "OPS-007",
-      "priority": "P1",
-      "requirement_status": "IMPLEMENTED",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "disposition": "preserved_verified",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -3463,6 +3467,46 @@
       "priority": "P0",
       "requirement_status": "PARTIAL",
       "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-035",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-036",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-037",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-038",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-039",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }

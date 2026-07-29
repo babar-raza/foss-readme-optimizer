@@ -557,7 +557,27 @@ def test_external_blocker_requires_three_distinct_attempts_and_resume_contract(
     tmp_path, mutation, message
 ):
     raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
-    task = next(item for item in raw["taskcards"] if item["status"] == "BLOCKED_EXTERNAL")
+    task = raw["taskcards"][0]
+    task.update(
+        status="BLOCKED_EXTERNAL",
+        blocker_attempts=[
+            {
+                "blocker_id": "SYNTHETIC-EXTERNAL",
+                "attempt_number": attempt,
+                "hypothesis": f"Distinct external-unblock hypothesis {attempt}",
+                "first_failing_boundary": f"External boundary {attempt}",
+                "evidence_considered": [f"Evidence {attempt}"],
+                "action_taken": f"Safe attempt {attempt}",
+                "verification_run": [f"Verification {attempt}"],
+                "result": f"External dependency remains after attempt {attempt}",
+                "new_information": f"New external fact {attempt}",
+                "reason_for_next_attempt": f"Try distinct path {attempt + 1}",
+            }
+            for attempt in range(1, 4)
+        ],
+        exact_external_action="External owner grants the missing authority.",
+        exact_resume_condition="The authority record is locally observable.",
+    )
     mutation(task)
     invalid = tmp_path / "invalid-external-blocker.yaml"
     invalid.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")

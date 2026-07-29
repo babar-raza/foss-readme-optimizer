@@ -164,7 +164,7 @@ Related non-negotiables:
 - **Every `data/products.json` entry has equal precedence for research and development.** The
   allow-list's `mode` field (`full`/`dry_run`/`disabled`) gates *write/push-capable* access, not
   relevance — a portfolio survey, fact-gathering task, or policy/validator design MUST cover the
-  whole registry (all 25 entries as of this writing), never just the enabled ones. As of decision
+  whole runtime-loaded registry, never just selected modes or a historical fixed count. As of decision
   #40, this is no longer just an offline-research-script carve-out: live read-only capability
   execution (`profile_repository`, `get_product_facts`, `inspect_repository`, etc., and
   `supervise_repo()` itself) runs against any registered repo regardless of mode too — `mode`
@@ -247,6 +247,17 @@ decision #78 (2026-07-25):
   hard-coded into a plan, a report, or a status claim. A result covering only some of the registry
   is a development batch or partial result and must be labeled as one, never presented as "the
   POC."
+- **The checked-in registry is not by itself proof of source completeness.** Before a Gate-A
+  campaign freezes its denominator, inventory every repository visible from each explicit
+  authorized discovery source, retain unmatched/ambiguous observations, reconcile by stable
+  provider repository identity, and bind the resulting complete `RegistryRevisionV1`. A source
+  failure, stale scan, unexplained observation, or pending intake blocks completeness while
+  unrelated admitted work may continue. New repositories are admitted only as disabled/read-only
+  and receive one durable preflight; discovery authority never implies write authority.
+- **A strong existing README uses the same acceptance standard through a fast path.** Validate its
+  inherited claims, facts, and protected content; deterministic assessment may then produce a
+  byte-identical candidate and empty patch, but independent agent approval and no-op proof remain
+  mandatory.
 - **Gate A starts from the real default-branch README.** For every registry entry, capture the
   current default-branch revision and exact README bytes, then preserve reviewable local artifacts
   for the original, verified facts, decision/operation plan, enhanced candidate, diff,

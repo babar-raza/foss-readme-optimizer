@@ -289,6 +289,40 @@ evidence is reused by the existing full-registry truth, cohort, healing, no-op, 
 reproduction tasks. The 3/5/7-working-day values are planning targets, never waivers: a breach
 records and repairs the first failing boundary while all proof standards remain intact.
 
+### 2026-07-29 source-complete discovery and intake amendment
+
+The runtime-loaded registry remains the execution allow-list, but it is not assumed to be a
+complete source inventory. A live read-only audit found one active PDF Go MCP repository outside
+the existing naming regex and one unavailable configured organization while the latest workflow
+still reported success/no additions. The visible-output route therefore starts with four bounded
+P0 prerequisites rather than allowing reviewer qualification to proceed against a potentially
+stale denominator:
+
+```text
+L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY
+-> L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION
+-> L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT
+-> L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH
+-> L8-REVIEW-00-CONTEXT-CORPUS
+-> the approved Python-first sequence unchanged
+```
+
+The first task inventories every visible repository from explicit authorized sources, retains
+unmatched/ambiguous names, makes source failures block completeness rather than unrelated work,
+and repairs the public CLI preflight-before-allow-list ordering. The second reconciles by provider
+repository ID and supports rename, transfer, archive, variants, and multiple repositories per
+family/platform without changing policy/authorization fields. The third admits new repositories
+only as disabled/read-only and runs exactly one durable intake preflight through the existing
+lifecycle; a strong existing README may take a byte-identical empty-patch fast path only after
+facts, inherited claims, deterministic assessment, independent approval, and no-op proof. The
+fourth binds discovery sources, observations, registry contents, changes, failures, and freshness
+into `RegistryRevisionV1`, connects reconciliation to the same durable intake queue, and adds
+event/daily/weekly/dead-man health controls.
+
+This is prerequisite repair, not added product scope or a second controller. It preserves all 97
+existing taskcards, their dependencies, the reviewer repair, Python-first priorities, Gate A/B/C/D
+ordering, and every later Level-8 requirement. The revised graph contains 101 taskcards.
+
 The portfolio is executed as 12 family evidence sets, 7 ecosystem evidence sets, and 31 mandatory
 repository deltas:
 
@@ -920,22 +954,26 @@ must pass the identical CAS, fencing, recovery, history, redaction, and reproduc
 No new mission or competing task tree is needed. Reconcile the design into these existing task
 owners:
 
-1. Claim the currently regressed `L8-REVIEW-00-CONTEXT-CORPUS` task and repair its bounded factual
+1. Complete `L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY` through
+   `L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH` serially. Preserve the execution allow-list,
+   make source inventory complete, enroll newly admitted read-only repositories in the existing
+   lifecycle, and bind the campaign to a current complete registry revision.
+2. Claim the then-ready regressed `L8-REVIEW-00-CONTEXT-CORPUS` task and repair its bounded factual
    reviewer output/transport contract serially. Requalify the sealed C++ canary, then return
    `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to `READY` and complete it plus
    `L8-REVIEW-05-REAL-CAMPAIGN`. The already closed repair and cache tasks remain reusable unless
    the repair invalidates them. A defect in this shared contract multiplies across every repository.
-2. Treat closed `L8-COMPOSE-04B-STAGE-TRANSACTIONS` as P0 groundwork, not concurrency closure. Its
+3. Treat closed `L8-COMPOSE-04B-STAGE-TRANSACTIONS` as P0 groundwork, not concurrency closure. Its
    receipts remain valid serial evidence, while qualification tasks extend the identical seam to
    every lifecycle stage and to a real portfolio campaign identity.
-3. In `L8-QUAL-00-CAMPAIGN-SCHEMA` and `L8-QUAL-01-CAMPAIGN-IDENTITY`, implement and prove:
+4. In `L8-QUAL-00-CAMPAIGN-SCHEMA` and `L8-QUAL-01-CAMPAIGN-IDENTITY`, implement and prove:
    - canonical `CampaignContractV1`, complete dependency graph, stage input/output contracts,
      logical-call identities, and invalidation compiler;
    - renewable campaign/repository lease generations and promotion fences in the existing backend;
    - receipt-only acceptance and a reducer-materialized compatibility view;
    - migration that labels the current receipt schema as legacy serial-stage evidence rather than
      silently changing its meaning.
-4. Preserve the corrected qualification sequence in the sole graph:
+5. Preserve the corrected qualification sequence in the sole graph:
    - `L8-QUAL-01A-REPRESENTATIVE-INPUTS` freezes the Python-first immutable
      seven-representative inputs;
    - `L8-QUAL-02A-FAILURE-MATRIX` depends on those inputs and owns P1 scheduler planning,
@@ -945,15 +983,15 @@ owners:
    - `L8-QUAL-02-SEVEN-E2E` depends on the P1 failure matrix and remains the only real
      seven-repository qualification campaign;
    - `L8-QUAL-03-RECOVERY` follows the real seven-repository campaign.
-5. Under current decision #83, run the seven real representatives serially in Python, .NET, Java,
+6. Under current decision #83, run the seven real representatives serially in Python, .NET, Java,
    C++, TypeScript, Rust, Go promotion order. Fixture concurrency may be proven, but paid/live
    representative fan-out remains disabled until all seven qualify and P3 is frozen.
-6. Keep complete crash/recovery and long-duration heartbeat proof in
+7. Keep complete crash/recovery and long-duration heartbeat proof in
    `L8-QUAL-03-RECOVERY`; P1 fixture proof is not a substitute for this real boundary.
-7. Measure queue wait, service time, provider pressure, cache reuse, call count, critical-path
+8. Measure queue wait, service time, provider pressure, cache reuse, call count, critical-path
    utilization, and serial-versus-parallel equivalence in `L8-QUAL-04B-COST-BASELINE`.
-8. Freeze lane caps and all campaign dependencies in `L8-QUAL-05-FREEZE`.
-9. Use adaptive P3 admission first in `L8-ACCEL-00-PYTHON-READINESS` through
+9. Freeze lane caps and all campaign dependencies in `L8-QUAL-05-FREEZE`.
+10. Use adaptive P3 admission first in `L8-ACCEL-00-PYTHON-READINESS` through
    `L8-ACCEL-03-ALL-PYTHON`, then consume those valid results in
    `L8-GATEA-00-COHORT-CONTROLS` and `L8-GATEA-01-COHORTS`; retain upstream repair and targeted
    invalidation in the existing Gate-A healing tasks.
@@ -1347,11 +1385,10 @@ aggregate. Accepted redacted proof is promoted to one named evidence directory u
 3. Repair current Ruff/format failures and establish one stable official-check result.
 4. Correct stale current-count and encoding defects in touched supporting documents.
 5. Update this document in place; mark RPOC and PRODSYS records supporting-only.
-6. Before changing `master.md`, obtain fresh section-specific approval for every affected section.
-   For the proposed pre-qualification P2 change, the expected sections are Status, Decision
-   Ledger, Architecture, Build Checklist, and Verification Checklist; include Mission only if the
-   product outcome itself changes. Revise decisions #78/#83 in place instead of adding a
-   competing decision.
+6. Maintain `master.md` freely under current `GOV-023` and `GOVERNANCE.md` rule 12 whenever
+   evidence, execution state, priorities, or architecture change. No fresh section-specific
+   approval is required; preserve material history, update requirements with it, validate
+   mechanically, and record significant changes in `logs/`.
 7. Synchronize idea, requirements, governance, roadmap, status generator, root README, AGENTS,
    logs, and master under current governance.
 8. Commit coherent verified slices directly to `main`.
@@ -1737,29 +1774,32 @@ Execution resumes in this order; it does not start an official 31-repository cam
    operator with exactly one active top-level command tree. Poll an existing tree instead of
    launching an overlapping test/proof/supervisor run. Treat any run whose HEAD or campaign
    dependencies moved as diagnostic only.
-2. Run mission `status`; the committed graph change intentionally causes drift against durable
-   state version 529. Run `evaluate` once to migrate the graph without deleting transition history,
-   then claim only the highest-priority eligible task. The expected task after migration is the
-   regressed `L8-REVIEW-00-CONTEXT-CORPUS`; live durable state supersedes this snapshot.
-3. Repair the bounded factual-review output and length-aware recovery contract. Preserve blind/factual
+2. Run mission `status`; if the graph hash differs from durable state, run `evaluate` once to
+   migrate without deleting transition history, then claim only the highest-priority eligible
+   task. The expected next task after this amendment is
+   `L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY`; live durable state supersedes this snapshot.
+3. Complete the four `L8-INTAKE-*` tasks: source-complete observation, allow-list-before-preflight
+   safety, provider-ID reconciliation, disabled/read-only enrollment, strong-README fast path,
+   registry-revision campaign binding, same-run queueing, recovery, and discovery health.
+4. Repair the bounded factual-review output and length-aware recovery contract. Preserve blind/factual
    role separation, evidence grounding, fail-closed behavior, exact calls, and candidate retention.
    Re-run focused, supervisor, safety, and no-remote-write regressions, then require the sealed C++
    canary to produce a complete governed verdict rather than transport truncation.
-4. Close the repaired owner task only from checksum-complete evidence, return
+5. Close the repaired owner task only from checksum-complete evidence, return
    `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to `READY`, and complete the real corpus and
    `L8-REVIEW-05-REAL-CAMPAIGN` serially in Python, .NET, Java, C++, TypeScript, Rust, Go order.
    The reviewer contract must freeze before any paid portfolio fan-out.
-5. In `L8-QUAL-00-CAMPAIGN-SCHEMA` and `L8-QUAL-01-CAMPAIGN-IDENTITY`, version the existing
+6. In `L8-QUAL-00-CAMPAIGN-SCHEMA` and `L8-QUAL-01-CAMPAIGN-IDENTITY`, version the existing
    serial-stage receipts, implement the complete campaign/dependency/call identity, and make
    receipts—not compatibility files—the acceptance authority.
-6. Use `L8-QUAL-01A-REPRESENTATIVE-INPUTS` for one current-contract Python canary and the immutable
+7. Use `L8-QUAL-01A-REPRESENTATIVE-INPUTS` for one current-contract Python canary and the immutable
    seven-representative input freeze. Do not mislabel it as seven-repository proof.
-7. Verify the migrated qualification edges, then implement P1 in
+8. Verify the migrated qualification edges, then implement P1 in
    `L8-QUAL-02A-FAILURE-MATRIX`: renewable fenced leases, deterministic planning and priority,
    resource bulkheads, process-isolated one-stage fixture lanes, sealed results, serialized
    reduction, recovery, and descendant cleanup. Two fixture lanes must be serial-equivalent; real
    representative execution remains one lane.
-8. Execute `L8-QUAL-02-SEVEN-E2E` serially through the complete public supervisor path in configured
+9. Execute `L8-QUAL-02-SEVEN-E2E` serially through the complete public supervisor path in configured
    order. Require all seven representatives to reach current-contract `AGENT_APPROVED` and unchanged
    `NO_OP_PROVEN`, with recovery, idempotency, safety, cache provenance, exact call accounting, and
    measured cost/latency evidence. Run the complete official suite once at this campaign boundary.
@@ -1797,9 +1837,9 @@ blocking coverage, blocking semantic traceability, blocking verifier enforcement
 later gate that claims the same scope. Re-running it after every micro-fix is churn; skipping it at
 a declared boundary is incomplete proof.
 
-Human involvement is limited to fresh section-specific `plans/master.md` approval when governance
-requires it, Gate-B review of already agent-approved candidates, Docker or staging access if
-unavailable locally, staging credentials, exact per-product-push approval, GitHub App registration
+Human involvement is limited to Gate-B review of already agent-approved candidates, Docker or
+staging access if unavailable locally, staging credentials, exact per-product-push approval,
+GitHub App registration
 and secrets after Gate C, genuinely manual UI actions, independent acceptance authority, and
 elapsed production time. All other implementation, testing, remediation, evidence, commits, setup,
 monitoring, command execution, and continuation is autonomous. The operator does not request
