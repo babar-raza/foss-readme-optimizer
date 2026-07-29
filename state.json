@@ -14,6 +14,23 @@
     }
   ],
   "checkpoints": {
+    "4ca2df9458a1a2d429398ad3ba7d4b7a534fc53ca64a5935e5f2e841607d2cbd": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "4ca2df9458a1a2d429398ad3ba7d4b7a534fc53ca64a5935e5f2e841607d2cbd",
+      "completed_at": "2026-07-29T06:23:45.074970+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "run_id": "20260729-062337-a406",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-29T06:23:45.074960+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260729-060845-7978:aspose-email-foss/Aspose.Email-FOSS-for-Python"
+    },
     "98b41b4eac7f067f5609e6e19b44d13db734296c241cdcc6f250103ca40cf8ea": {
       "action": null,
       "attempt": 1,
@@ -527,7 +544,7 @@
     "updated_at": "2026-07-29T06:10:00.050151+00:00"
   },
   "schema_version": 2,
-  "state_version": 40,
+  "state_version": 41,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
@@ -664,11 +681,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: IsolatedExecutionError: docker image inspect failed: error during connect: Get \"http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.51/images/python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91/json\": open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.",
-      "last_checkpoint_id": "f16dde6a4d34878eadbf5663010c9271b0048c726be747007251ece398cf77d8",
+      "last_checkpoint_id": "4ca2df9458a1a2d429398ad3ba7d4b7a534fc53ca64a5935e5f2e841607d2cbd",
       "lease_expires_at": null,
       "recovery_count": 0,
       "status": "retryable",
-      "updated_at": "2026-07-29T06:10:47.372380+00:00"
+      "updated_at": "2026-07-29T06:23:45.074970+00:00"
     }
   },
   "trigger_records": {},
