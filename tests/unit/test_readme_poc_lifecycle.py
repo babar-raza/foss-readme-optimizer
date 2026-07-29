@@ -559,7 +559,7 @@ class TestLegalNextIntrospection:
     def test_returns_a_frozenset_not_the_live_mutable_table(self):
         result = legal_next_readme_poc_statuses("DISCOVERED")
         assert isinstance(result, frozenset)
-        assert result == frozenset({"SNAPSHOTTED", "SYSTEM_FAILURE"})
+        assert result == frozenset({"INTAKE_PREFLIGHTING", "SNAPSHOTTED", "SYSTEM_FAILURE"})
 
 
 class TestProductFactsBoundary:

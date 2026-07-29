@@ -66,6 +66,27 @@ def test_facts_target_summary_counts_only_fact_ready_or_later_lifecycle_states()
     assert "target=FACTS_READY complete=2/5" in summary.summary_line()
 
 
+def test_intake_target_counts_ready_and_later_but_not_prefighting_or_blocked():
+    summary = PortfolioPocSummaryV1(
+        registry_path="data/products.json",
+        target_lifecycle_stage="INTAKE_READY",
+        registry_count=4,
+        results=[
+            PortfolioRepositoryResultV1(org_repo="org/intake", status="INTAKE_READY", exit_code=0),
+            PortfolioRepositoryResultV1(org_repo="org/later", status="FACTS_READY", exit_code=0),
+            PortfolioRepositoryResultV1(
+                org_repo="org/pending", status="INTAKE_PREFLIGHTING", exit_code=1
+            ),
+            PortfolioRepositoryResultV1(
+                org_repo="org/blocked", status="SYSTEM_FAILURE", exit_code=1
+            ),
+        ],
+    )
+
+    assert summary.target_complete_count == 2
+    assert "target=INTAKE_READY complete=2/4" in summary.summary_line()
+
+
 def test_trigger_selection_resumes_retryable_but_never_steals_active_work():
     from readme_agent.state.lifecycle_schema import TriggerEnvelopeV2, TriggerLifecycleV2
     from readme_agent.state.schema import RunStateV2

@@ -69,6 +69,31 @@ def _stub_supervise_allowlist(monkeypatch):
     )
 
 
+@pytest.fixture(autouse=True)
+def _stub_readonly_intake(monkeypatch):
+    """Local-POC command tests isolate the intake seam from git/network."""
+    import readme_agent.supervisor.intake as intake_module
+    from readme_agent.state.lifecycle_schema import IntakePreflightBindingV1
+
+    binding = IntakePreflightBindingV1(
+        dedup_key="d" * 64,
+        source_revision="a" * 40,
+        outcome="READY_FULL_PIPELINE",
+        result_hash="e" * 64,
+        reason="CLI fixture is intake-ready",
+        evidence_refs=["runs/readme-poc/fixture/intake/preflight.json"],
+        observed_by="test",
+    )
+    monkeypatch.setattr(
+        intake_module,
+        "run_readonly_intake_preflight",
+        lambda entry, backend, **kwargs: intake_module.ReadonlyIntakeExecution(
+            binding=binding,
+            executed=True,
+        ),
+    )
+
+
 def _stub_preflight_ok(monkeypatch) -> None:
     """Wave 8.5 (`ORC-006`/D2): `cmd_supervise` now checks
     `run_preflight_for_repo()` before anything else -- stubbed to a
@@ -534,7 +559,7 @@ class TestExecutionProfileFlag:
         )
         assert args.max_readme_poc_stage == "FACTS_READY"
 
-        for stage in ("CANDIDATE_GENERATED", "DETERMINISTIC_VALIDATED"):
+        for stage in ("INTAKE_READY", "CANDIDATE_GENERATED", "DETERMINISTIC_VALIDATED"):
             parsed = _build_parser().parse_args(
                 [
                     "supervise",
@@ -630,6 +655,233 @@ class TestExecutionProfileFlag:
         lifecycle = next(iter(backend._state.trigger_lifecycles.values()))
         assert lifecycle.envelope.event_type == "cli_manual"
         assert lifecycle.status == "completed"
+
+    def test_local_poc_intake_block_stops_before_llm_preflight_and_supervisor(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.env as env
+        import readme_agent.paths as paths
+        import readme_agent.preflight.runner as preflight_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.intake as intake_module
+        import readme_agent.supervisor.loop as loop_module
+        from readme_agent.state.lifecycle_schema import IntakePreflightBindingV1
+
+        backend = _LifecycleFakeBackend()
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(env, "github_run_id", lambda: None)
+        monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+        binding = IntakePreflightBindingV1(
+            dedup_key="d" * 64,
+            source_revision="a" * 40,
+            outcome="BLOCKED_CLASSIFICATION",
+            result_hash="e" * 64,
+            reason="missing governed classification",
+            evidence_refs=["runs/readme-poc/fixture/intake/preflight.json"],
+            observed_by="test",
+        )
+        monkeypatch.setattr(
+            intake_module,
+            "run_readonly_intake_preflight",
+            lambda entry, state_backend, **kwargs: intake_module.ReadonlyIntakeExecution(
+                binding=binding,
+                executed=True,
+            ),
+        )
+        monkeypatch.setattr(
+            preflight_module,
+            "run_preflight_for_repo",
+            lambda org_repo: pytest.fail("LLM/GitHub preflight must not run after intake block"),
+        )
+        monkeypatch.setattr(
+            loop_module,
+            "supervise_repo",
+            lambda *args, **kwargs: pytest.fail("supervisor must not run after intake block"),
+        )
+        args = argparse.Namespace(
+            repo="org/repo",
+            registry=None,
+            _portfolio_member=True,
+            durable_state=False,
+            domain=None,
+            execution_profile="local_poc",
+            enable_dynamic_planning=False,
+        )
+
+        assert cmd_supervise(args) == 1
+        assert args._terminal_supervise_result.blocked_reason == (
+            "readonly_intake:BLOCKED_CLASSIFICATION"
+        )
+        trigger = next(iter(backend._state.trigger_lifecycles.values()))
+        assert trigger.status == "retryable"
+        assert args._llm_accounting_summary.status == "EXACT"
+        assert args._llm_accounting_summary.provider_call_count == 0
+        manifest = args._terminal_supervise_result.evidence_dir / "manifest.json"
+        assert '"trigger_status": "retryable"' in manifest.read_text(encoding="utf-8")
+
+    def test_intake_stage_limit_writes_complete_zero_call_terminal_evidence(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.env as env
+        import readme_agent.paths as paths
+        import readme_agent.preflight.runner as preflight_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.loop as loop_module
+
+        backend = _LifecycleFakeBackend()
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(env, "github_run_id", lambda: None)
+        monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+        monkeypatch.setattr(
+            preflight_module,
+            "run_preflight_for_repo",
+            lambda org_repo: pytest.fail("LLM/GitHub preflight must not run at intake ceiling"),
+        )
+        monkeypatch.setattr(
+            loop_module,
+            "supervise_repo",
+            lambda *args, **kwargs: pytest.fail("supervisor must not run at intake ceiling"),
+        )
+        args = argparse.Namespace(
+            repo="org/repo",
+            registry=None,
+            _portfolio_member=True,
+            durable_state=False,
+            domain=None,
+            execution_profile="local_poc",
+            enable_dynamic_planning=False,
+            max_readme_poc_stage="INTAKE_READY",
+        )
+
+        assert cmd_supervise(args) == 0
+        result = args._terminal_supervise_result
+        assert result.status == "STAGE_COMPLETE"
+        assert result.readme_lifecycle_status == "INTAKE_READY"
+        assert args._llm_accounting_summary.status == "EXACT"
+        assert args._llm_accounting_summary.provider_call_count == 0
+        assert result.evidence_dir is not None
+        manifest = (result.evidence_dir / "manifest.json").read_text(encoding="utf-8")
+        assert '"trigger_status": "completed"' in manifest
+        assert '"llm_call_count": 0' in manifest
+        trigger = next(iter(backend._state.trigger_lifecycles.values()))
+        assert trigger.status == "completed"
+
+    def test_not_applicable_intake_is_a_truthful_zero_call_terminal(self, monkeypatch, tmp_path):
+        import readme_agent.env as env
+        import readme_agent.paths as paths
+        import readme_agent.preflight.runner as preflight_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.intake as intake_module
+        import readme_agent.supervisor.loop as loop_module
+        from readme_agent.state.lifecycle_schema import IntakePreflightBindingV1
+
+        backend = _LifecycleFakeBackend()
+        binding = IntakePreflightBindingV1(
+            dedup_key="d" * 64,
+            source_revision="a" * 40,
+            outcome="NOT_APPLICABLE",
+            result_hash="e" * 64,
+            reason="repository is inactive",
+            evidence_refs=["runs/readme-poc/fixture/intake/preflight.json"],
+            observed_by="test",
+        )
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(env, "github_run_id", lambda: None)
+        monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+        monkeypatch.setattr(
+            intake_module,
+            "run_readonly_intake_preflight",
+            lambda entry, state_backend, **kwargs: intake_module.ReadonlyIntakeExecution(
+                binding=binding,
+                executed=True,
+            ),
+        )
+        monkeypatch.setattr(
+            preflight_module,
+            "run_preflight_for_repo",
+            lambda org_repo: pytest.fail("not-applicable intake must not run later preflight"),
+        )
+        monkeypatch.setattr(
+            loop_module,
+            "supervise_repo",
+            lambda *args, **kwargs: pytest.fail("not-applicable intake must not supervise"),
+        )
+        args = argparse.Namespace(
+            repo="org/repo",
+            registry=None,
+            _portfolio_member=True,
+            durable_state=False,
+            domain=None,
+            execution_profile="local_poc",
+            enable_dynamic_planning=False,
+            max_readme_poc_stage=None,
+        )
+
+        assert cmd_supervise(args) == 0
+        assert args._terminal_supervise_result.status == "STAGE_COMPLETE"
+        assert args._terminal_supervise_result.readme_lifecycle_status == "INTAKE_READY"
+        assert args._llm_accounting_summary.provider_call_count == 0
+        trigger = next(iter(backend._state.trigger_lifecycles.values()))
+        assert trigger.status == "completed"
+
+    def test_access_block_is_external_and_retryable_without_later_execution(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.env as env
+        import readme_agent.paths as paths
+        import readme_agent.preflight.runner as preflight_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.intake as intake_module
+        from readme_agent.state.lifecycle_schema import IntakePreflightBindingV1
+
+        backend = _LifecycleFakeBackend()
+        binding = IntakePreflightBindingV1(
+            dedup_key="d" * 64,
+            source_revision="a" * 64,
+            source_revision_resolved=False,
+            outcome="BLOCKED_ACCESS",
+            result_hash="e" * 64,
+            reason="source unavailable",
+            evidence_refs=["runs/readme-poc/fixture/intake/preflight.json"],
+            observed_by="test",
+        )
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(env, "github_run_id", lambda: None)
+        monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+        monkeypatch.setattr(
+            intake_module,
+            "run_readonly_intake_preflight",
+            lambda entry, state_backend, **kwargs: intake_module.ReadonlyIntakeExecution(
+                binding=binding,
+                executed=True,
+            ),
+        )
+        monkeypatch.setattr(
+            preflight_module,
+            "run_preflight_for_repo",
+            lambda org_repo: pytest.fail("source-access block must stop later preflight"),
+        )
+        args = argparse.Namespace(
+            repo="org/repo",
+            registry=None,
+            _portfolio_member=True,
+            durable_state=False,
+            domain=None,
+            execution_profile="local_poc",
+            enable_dynamic_planning=False,
+            max_readme_poc_stage="INTAKE_READY",
+        )
+
+        assert cmd_supervise(args) == 1
+        result = args._terminal_supervise_result
+        assert result.blocked_category == "infra_external"
+        trigger = next(iter(backend._state.trigger_lifecycles.values()))
+        assert trigger.status == "retryable"
+        assert trigger.failure_classification == "transient"
 
 
 class TestLocalPocPortfolioCommand:
