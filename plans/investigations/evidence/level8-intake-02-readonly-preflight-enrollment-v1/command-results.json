@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "focused": {
+    "command": [
+      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/integration/test_readonly_intake_portfolio.py",
+      "tests/unit/test_registry_intake.py",
+      "tests/unit/test_readme_poc_intake.py",
+      "tests/unit/test_supervisor_intake.py",
+      "tests/unit/test_baseline_reuse.py",
+      "tests/unit/test_stage_limit.py",
+      "tests/unit/test_portfolio.py",
+      "tests/unit/test_cli.py::TestExecutionProfileFlag"
+    ],
+    "exit_code": 0
+  },
+  "official_clean_gate": {
+    "command": [
+      ".venv/Scripts/python",
+      "scripts/governance/run_official_checks.py"
+    ],
+    "commit": "d215b3b10551bda3d15e21f4ca7ac0ee4c0342d8",
+    "exit_code": 0,
+    "pytest": "2183 passed, 41 deselected",
+    "tree": "CLEAN_AT_START_AND_END",
+    "actionlint": "skipped_unavailable"
+  },
+  "live_intake": {
+    "command": [
+      ".venv/Scripts/readme-agent",
+      "supervise",
+      "--registry",
+      "data/products.json",
+      "--execution-profile",
+      "local_poc",
+      "--max-readme-poc-stage",
+      "INTAKE_READY"
+    ],
+    "latest_slice_exit_code": 1,
+    "exit_meaning": "bounded slice incomplete, not a repository failure",
+    "processed": 8
+  }
+}

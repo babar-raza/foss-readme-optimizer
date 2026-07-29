@@ -119,10 +119,10 @@ active sequence; generated truth lives in `plans/status.md`, `logs/`, and invest
 
 The active local-first pre-production sequence (`L8-014`) precedes Wave 2: **source-complete
 discovery and read-only intake → local proof → `act` → staging → production**. On 2026-07-29,
-`L8-INTAKE-00` and `L8-INTAKE-01` are closed; stable-identity proof commit `8f3855a4` advanced
-durable state to version 544 against graph
-`0cad8bab30214dce93dc70d39e537b5b4c67efd504a43101b9b2268f6e7e3f48`. Next is
-`L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT`; live state and graph remain authoritative.
+`L8-INTAKE-00` and `L8-INTAKE-01` are closed. `L8-INTAKE-02` is `IMPLEMENTED` but not verified or
+closed: durable state version 550 and graph
+`cbeda937ee0d7a6d45d6fc58507fc68e60d8ccc7fbb98a869983d40d5c719f52` retain the task at its
+single missing public-path proof. Live state and graph remain authoritative.
 
 The checked-in denominator is 31: 8 `FACTS_READY` or later, 8 `CANDIDATE_GENERATED`, 8
 `DETERMINISTIC_VALIDATED`, 0 `AGENT_APPROVED`, 0 `NO_OP_PROVEN`, and 0 `HUMAN_ACCEPTED`; the first
@@ -130,8 +130,13 @@ failing boundary is `FACTS_READY`. This is not yet a complete admitted portfolio
 current live inventory retains 32 observations from 26 sources: 31 matched and one unmatched
 (`aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP`). The unavailable `aspose-imaging-foss` source
 keeps it explicitly incomplete. All 31 admitted entries now have unique provider identities;
-read-only intake enrollment is next. Eight candidates remain reusable but none has current
-independent approval/no-op proof.
+read-only intake implementation exists. A bounded live run processed the eight highest-priority
+Python repositories through `INTAKE_READY`, exercised both fast and full routes, made exactly zero
+provider LLM calls, and recorded zero target effects. That 8/31 intake slice is not Gate A and does
+not increase `AGENT_APPROVED` or `NO_OP_PROVEN`. The remaining `L8-INTAKE-02` proof must begin with
+an unseen discovery observation and demonstrate disabled admission plus exactly one intake in the
+same public-supervisor run. Eight candidates remain reusable but none has current independent
+approval/no-op proof.
 **Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
 acceptance; it is not the active implementation wave.**
 
@@ -2560,7 +2565,11 @@ only as historical implementation evidence in decisions and `logs/`; they are no
     - [x] Stable provider-identity reconciliation (`L8-INTAKE-01`, `L8-036`): 31 unique
           schema-v2 identities, no-loss live migration/no-op proof, variants retained, owned
           policy fields preserved.
-    - [ ] Durable read-only intake and fast/full-path enrollment (`L8-INTAKE-02`, `L8-037`).
+    - [ ] Durable read-only intake and fast/full-path enrollment (`L8-INTAKE-02`, `L8-037`):
+          implementation, 257 focused tests, the 2,183-test official gate, and an 8/31 Python
+          zero-call/no-effect live slice pass. Closure is withheld until one public-supervisor
+          test performs unseen discovery → disabled admission → exactly one intake in one logical
+          run.
     - [ ] Registry revision, queue, freshness, and health binding (`L8-INTAKE-03`,
           `L8-038`–`L8-039`).
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
@@ -2725,11 +2734,14 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 - [ ] **Admission safety gate:** the public CLI checks the execution allow-list before any
       repository-specific preflight/network call; discovery uses only its dedicated source
       inventory client; a new repository enters as disabled/read-only with both effect classes
-      still blocked.
+      still blocked. The first two clauses and the separate disabled/intake effect gates pass;
+      the combined unseen-observation-to-disabled-intake public proof remains open.
 - [ ] **Stable reconciliation and intake gate:** provider repository identity survives rename,
       transfer, archive, and variants; one discovery change produces one durable intake; strong
       existing READMEs follow the same fact, deterministic, independent-review, and no-op standard
-      through a byte-identical fast path.
+      through a byte-identical fast path. Stable reconciliation and intake mechanics pass
+      separately; the same-run discovery/admission/intake proof and downstream fast-path
+      qualification remain open.
 - [ ] **Registry-revision campaign gate:** campaign and terminal manifests bind source-catalog,
       observation, products, and registry-revision hashes; drift, pending intake, unexplained
       observations, scan failures, or stale sources prevent Gate-A closure.

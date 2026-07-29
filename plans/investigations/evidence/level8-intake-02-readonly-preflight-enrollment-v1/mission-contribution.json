@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
+  "goal_ids": [
+    "GOAL-README",
+    "GOAL-AUTONOMY"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Turn every newly discovered product into an automatically queued, safe README outcome."
+  },
+  "acceptance_checks_assessed": [
+    "A newly discovered repository is admitted as disabled and receives one preflight",
+    "Cancellation/resume and duplicate observations do not duplicate work",
+    "Fast-path approval still verifies facts, inherited claims, deterministic assessment, independent review, empty patch, and no-op",
+    "Local and remote effects remain blocked"
+  ],
+  "missing_proof": [
+    "One public-supervisor integration must start from an unseen discovery observation, admit the repository as disabled, and execute exactly one intake in the same logical run. Discovery admission and intake are currently proven separately."
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/verification.json",
+    "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/live-intake-records.json",
+    "tests/integration/test_readonly_intake_portfolio.py"
+  ],
+  "scoreboard_before_sha256": "3880e8050d9070bbc810aef7d7df355a6c6e05eac08eec8a0db0a4765c40af3f",
+  "scoreboard_after_sha256": "3880e8050d9070bbc810aef7d7df355a6c6e05eac08eec8a0db0a4765c40af3f",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": false
+}

@@ -1,0 +1,82 @@
+{
+  "org_repo": "evidence/newly-admitted",
+  "dedup_key": "85973521203af8255ec4981f802248a90c8555be29a9081c87cf9c667343cda9",
+  "save_count": 2,
+  "transitions": [
+    "DISCOVERED->INTAKE_PREFLIGHTING",
+    "INTAKE_PREFLIGHTING->INTAKE_READY"
+  ],
+  "binding": {
+    "schema_version": 1,
+    "dedup_key": "85973521203af8255ec4981f802248a90c8555be29a9081c87cf9c667343cda9",
+    "source_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_revision_resolved": true,
+    "outcome": "READY_FULL_PIPELINE",
+    "result_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "reason": "controlled lifecycle proof",
+    "evidence_refs": [
+      "controlled/read-only-intake.json"
+    ],
+    "observed_by": "evidence_builder",
+    "attempt": 1,
+    "occurred_at": "2026-07-29T07:24:16.949303+00:00"
+  },
+  "final_lifecycle": {
+    "schema_version": 2,
+    "status": "INTAKE_READY",
+    "updated_at": "2026-07-29T07:24:16.949307+00:00",
+    "history": [
+      {
+        "from_status": "DISCOVERED",
+        "to_status": "INTAKE_PREFLIGHTING",
+        "reason": "claimed source-bound read-only intake preflight",
+        "evidence_refs": [],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-07-29T07:24:16.949141+00:00",
+        "source_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      {
+        "from_status": "INTAKE_PREFLIGHTING",
+        "to_status": "INTAKE_READY",
+        "reason": "read-only intake classified READY_FULL_PIPELINE",
+        "evidence_refs": [
+          "controlled/read-only-intake.json"
+        ],
+        "observed_by": "evidence_builder",
+        "occurred_at": "2026-07-29T07:24:16.949307+00:00",
+        "source_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    ],
+    "source_revision": null,
+    "facts_hash": null,
+    "assessment_hash": null,
+    "presentation_plan_hash": null,
+    "candidate_hash": null,
+    "prompt_hash": null,
+    "fact_acceptance_contract_hash": null,
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_history": [],
+    "intake_preflight_pending": null,
+    "intake_preflight_history": [
+      {
+        "schema_version": 1,
+        "dedup_key": "85973521203af8255ec4981f802248a90c8555be29a9081c87cf9c667343cda9",
+        "source_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "source_revision_resolved": true,
+        "outcome": "READY_FULL_PIPELINE",
+        "result_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "reason": "controlled lifecycle proof",
+        "evidence_refs": [
+          "controlled/read-only-intake.json"
+        ],
+        "observed_by": "evidence_builder",
+        "attempt": 1,
+        "occurred_at": "2026-07-29T07:24:16.949303+00:00"
+      }
+    ],
+    "reviewer_standard_hash": null,
+    "protected_content_fingerprint": null,
+    "repair_attempts_for_revision": 0,
+    "details": {}
+  }
+}

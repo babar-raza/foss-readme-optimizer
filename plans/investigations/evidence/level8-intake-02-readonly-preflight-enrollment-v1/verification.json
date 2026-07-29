@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
+  "requirement_ids": [
+    "L8-037",
+    "ONB-002"
+  ],
+  "checks": {
+    "focused_tests_passed": true,
+    "implementation_is_committed": true,
+    "live_slice_uses_current_denominator": true,
+    "live_slice_truthfully_partial": true,
+    "live_slice_reached_intake_ceiling": true,
+    "live_slice_exact_zero_provider_calls": true,
+    "live_fast_and_full_routes_exist": true,
+    "live_receipts_bind_no_target_effects": true,
+    "live_receipts_bind_source_revision": true,
+    "first_observation_claimed": true,
+    "interrupted_observation_resumed": true,
+    "duplicate_observation_reused": true,
+    "exactly_one_terminal_intake": true,
+    "no_duplicate_state_write": true,
+    "lifecycle_transitioned_through_intake": true
+  },
+  "failures": [],
+  "missing_proof": [
+    "One public-supervisor integration must start from an unseen discovery observation, admit the repository as disabled, and execute exactly one intake in the same logical run. Discovery admission and intake are currently proven separately."
+  ],
+  "live_scope": {
+    "processed": 8,
+    "denominator": 31,
+    "platforms": [
+      "python"
+    ],
+    "is_gate_a": false,
+    "reason": "This is an intake-only Python-priority live slice. Seven-ecosystem routing is proven by the real-local-Git integration test; Gate A remains downstream."
+  },
+  "verdict": "PARTIAL"
+}
