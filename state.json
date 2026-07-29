@@ -13,7 +13,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "graph_sha256": "02e71ef95d30c059196a3f9c49553ed58eab22645f99af007b412a4ecc155f10",
-    "last_evaluated_at": "2026-07-29T04:39:19.003638+00:00",
+    "last_evaluated_at": "2026-07-29T04:43:01.845209+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -59,7 +59,17 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "first_boundary_removal",
+        "summary": "Give every discovered repository durable identity without weakening policy ownership."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH",
+        "GOAL-AUTONOMY"
+      ],
+      "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION"
+    },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
@@ -90,7 +100,7 @@
       "L8-GATEA-03-NO-OP": "TODO",
       "L8-GATEA-03A-REPRO-CONTROLS": "TODO",
       "L8-GATEA-04-REPRODUCE": "TODO",
-      "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "SCORED",
+      "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "CLOSED",
       "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "TODO",
       "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "TODO",
       "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": "TODO",
@@ -4754,6 +4764,19 @@
         "reason": "All task acceptance checks and negative controls passed; inventory is explicitly incomplete only for the unavailable imaging source.",
         "task_id": "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/mission-contribution.json",
+          "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/verification.json",
+          "commit:d76e4dc6effe3ea7c57a167198a2d81522623e79"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-29T04:43:01.845191+00:00",
+        "reason": "Closeout rules satisfied: all 26 sources have terminal results, all 32 visible repositories have dispositions, the known unmatched MCP repository is retained, the unavailable imaging source prevents completeness, and execution remains allow-listed.",
+        "task_id": "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -4762,7 +4785,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 536,
+  "state_version": 537,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
