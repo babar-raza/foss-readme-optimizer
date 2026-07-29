@@ -11040,7 +11040,7 @@
     "updated_at": "2026-07-29T16:45:34.472575+00:00"
   },
   "schema_version": 2,
-  "state_version": 475,
+  "state_version": 476,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -11565,13 +11565,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted composition batch batch-0003 failed after 3 attempts: 8 validation errors for TrustedReadmeSectionToolDraftV1 segments.0.configured_standard_ids.0   Input should be 'readme.header', 'readme.badges', 'readme.navigation', 'readme.at_a_glance_mermaid', 'readme.enterprise_edition_terminology' or 'readme.contextual_links' [type=literal_error, input_value='__none__', input_type=str]     For further information visit https://errors.pydantic.dev/2.13/v/literal_error segments.1.configured_standard_ids.0   Input should be 'readme.header', 'readme.badges', 'readme.navigation', 'readme.at_a_glance_mermaid', 'readme.enterprise_edition_terminology' or 'readme.contextual_links' [type=literal_error, input_value='__none__', input_type=str]     For further information visit https://errors.pydantic.dev/2.13/v/literal_error segments.2.configured_standard_ids.0   Input should be 'readme.header', 'readme.badges', 'read",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "851ebd738a0238b8b3851e5ac61a014355b1fea49743a1973692a68ece049099",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-29T17:31:01.776474+00:00",
       "recovery_count": 1,
-      "status": "retryable",
-      "updated_at": "2026-07-29T17:15:56.744789+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-29T17:16:01.776474+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
