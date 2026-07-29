@@ -2247,6 +2247,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-054420-2099:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
     },
+    "bbeb2327e791773859480fc8311ae781327499a67f4f3b3f82c29dc9db0b9ed9": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "bbeb2327e791773859480fc8311ae781327499a67f4f3b3f82c29dc9db0b9ed9",
+      "completed_at": "2026-07-29T18:02:17.264424+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "run_id": "20260729-180209-c205",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-29T18:02:17.264413+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260729-164422-5b3c:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+    },
     "bc6956311e9e705e5426c348a8b56fa80b44e7aadfab35d4a46123e2ff91d3c5": {
       "action": null,
       "attempt": 1,
@@ -11295,7 +11312,7 @@
     "updated_at": "2026-07-29T16:45:34.472575+00:00"
   },
   "schema_version": 2,
-  "state_version": 515,
+  "state_version": 516,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -11822,11 +11839,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: NameError: name 'Counter' is not defined",
-      "last_checkpoint_id": "44620d2b710643718ef9e030234159aeb9da365febc3aa71d423bba870d9ce23",
+      "last_checkpoint_id": "bbeb2327e791773859480fc8311ae781327499a67f4f3b3f82c29dc9db0b9ed9",
       "lease_expires_at": null,
       "recovery_count": 6,
       "status": "retryable",
-      "updated_at": "2026-07-29T18:01:43.151221+00:00"
+      "updated_at": "2026-07-29T18:02:17.264424+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
