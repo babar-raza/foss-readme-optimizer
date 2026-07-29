@@ -5,22 +5,23 @@
   "goal_ids": [
     "GOAL-README"
   ],
-  "contribution": {
+  "core_contribution": {
     "kind": "visible_deliverable",
     "summary": "Produce the first genuinely LLM-authored trusted README candidates."
   },
-  "delivered": [
-    "One registered LLM-first composition capability",
-    "One forced-tool prompt and strict typed source-inventory/section-draft contract",
-    "Context-bounded batching and deterministic source-accountable assembly",
-    "One fixture-live-like candidate, native patch, transform plan, and section call map",
-    "Heterogeneous real-README fixture proof across Python, Java, TypeScript, and Go"
+  "acceptance_checks_passed": [
+    "Short READMEs may compose in one call and large READMEs complete through bounded section groups",
+    "Generated README has no comments and obeys header, badge, Mermaid, link, and terminology contracts",
+    "No repository-specific code branch or universal fixed template is introduced"
   ],
-  "not_claimed": [
-    "No live model candidate is claimed while the hosted provider backend is unavailable",
-    "No independent trusted approval or no-op proof is claimed before TRP-03",
-    "No Gate A, product effect, production readiness, or maturity-level advancement is claimed"
+  "proof_refs": [
+    "plans/investigations/evidence/trp-02-llm-first-composition-v1/verification-summary.json",
+    "plans/investigations/evidence/trp-02-llm-first-composition-v1/fixture-transform-plan.json",
+    "plans/investigations/evidence/trp-02-llm-first-composition-v1/source-accountability.json"
   ],
-  "implementation_commit": "6804e20e8b0560acb1a6c229cc841dfbcd15efe5",
-  "primary_evidence": "plans/investigations/evidence/trp-02-llm-first-composition-v1/verification-summary.json"
+  "scoreboard_before_sha256": "3ee463cf63cbe20b2f21cbd49f62566d4be01f6717406563f419f330df3942e0",
+  "scoreboard_after_sha256": "3ee463cf63cbe20b2f21cbd49f62566d4be01f6717406563f419f330df3942e0",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
 }
