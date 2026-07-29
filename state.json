@@ -13037,7 +13037,7 @@
     "updated_at": "2026-07-29T22:23:29.108252+00:00"
   },
   "schema_version": 2,
-  "state_version": 711,
+  "state_version": 712,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -13562,13 +13562,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "portfolio_member_failure:StateBackendError:fetch of refs/readme-agent-state/aspose-3d-foss__Aspose.3D-FOSS-for-Python failed: fatal: unable to access 'https://github.com/babar-raza/foss-readme-optimizer.git/': Empty reply from server\n",
       "last_checkpoint_id": "258de7a01e9f785e87d80862f5b8fb89a13ebf5cba78ae9a92bc1f0db9495d93",
-      "lease_expires_at": "2026-07-29T22:47:40.089014+00:00",
+      "lease_expires_at": null,
       "recovery_count": 15,
-      "status": "processing",
-      "updated_at": "2026-07-29T22:32:40.089014+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-29T22:32:48.893020+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
