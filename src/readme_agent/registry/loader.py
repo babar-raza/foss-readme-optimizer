@@ -19,6 +19,7 @@ from pydantic import ValidationError
 
 from readme_agent.errors import ConfigError, NotAllowlistedError
 from readme_agent.registry.models import PolicyProfile, ProductEntry
+from readme_agent.registry.reconciliation import validate_stable_identities
 
 PRODUCTS_PATH = Path("data/products.json")
 POLICIES_DIR = Path("config/policies")
@@ -39,6 +40,7 @@ def load_products(products_path: Path = PRODUCTS_PATH) -> tuple[ProductEntry, ..
             entries.append(ProductEntry.model_validate(item))
         except ValidationError as exc:
             raise ConfigError(f"{products_path}[{i}] is malformed: {exc}") from exc
+    validate_stable_identities(entries)
     return tuple(entries)
 
 

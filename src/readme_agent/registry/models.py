@@ -15,14 +15,27 @@ from readme_agent.registry.surface_ownership import (
 Mode = Literal["full", "dry_run", "disabled"]
 
 
+class ProviderRepositoryIdentityV1(BaseModel):
+    """Stable provider identity for one admitted repository."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal[1] = 1
+    provider: Literal["github"] = "github"
+    repository_id: StrictInt = Field(gt=0)
+    node_id: str = Field(min_length=1)
+
+
 class ProductEntry(BaseModel):
     """One entry in data/products.json — the allow-list.
 
-    The upstream-shaped fields (family, platform, repo_name, repo_url,
-    clone_url, active, discovered_via, overrides) are copied verbatim from
-    aspose.org's own data/products.json so the file stays re-syncable. mode/
-    ecosystem/policy_profile are additive fields this project owns.
+    Schema-v2 entries bind a stable provider repository identity. The upstream-
+    shaped fields remain refreshable; mode/ecosystem/policy_profile/overrides
+    are agent-owned and stable-identity reconciliation preserves them.
     """
+
+    registry_schema_version: Literal[1, 2] = 1
+    provider_identity: ProviderRepositoryIdentityV1 | None = None
 
     family: str
     platform: str
@@ -36,6 +49,12 @@ class ProductEntry(BaseModel):
     mode: Mode
     ecosystem: str | None = None
     policy_profile: str | None = None
+
+    @model_validator(mode="after")
+    def version_two_requires_stable_provider_identity(self) -> ProductEntry:
+        if self.registry_schema_version == 2 and self.provider_identity is None:
+            raise ValueError("registry schema v2 entries require provider_identity")
+        return self
 
     @property
     def org(self) -> str:

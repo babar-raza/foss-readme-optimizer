@@ -21,8 +21,9 @@ Safety contract (do not weaken without a plans/master.md decision edit):
 
 Writes here are NOT capability effects: data/products.json is this project's own
 config-as-data, not a target repo surface, so nothing in this module goes through
-capability dispatch or the effect ledger. The safety envelope is the merge()
-invariants above plus write_atomic().
+capability dispatch or the effect ledger. Stable-identity production reconciliation
+lives in registry/reconciliation.py. The merge() function below remains only as a
+backward-compatible view for older callers and fixtures.
 """
 
 from __future__ import annotations
@@ -235,6 +236,10 @@ _OWNED_FIELDS = ("mode", "ecosystem", "policy_profile")
 
 
 def merge(existing: list[dict], discovered: list[dict]) -> list[dict]:
+    """Compatibility merge for pre-stable-identity callers.
+
+    Canonical discovery/self-heal uses reconciliation.reconcile_registry().
+    """
     registry = {(e["family"], e["platform"]): dict(e) for e in existing}
 
     for entry in discovered:

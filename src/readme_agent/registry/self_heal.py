@@ -10,9 +10,9 @@ Posture, deliberately different from every capability:
     - NOT a capability and NOT effect-ledger-gated: `data/products.json` is this
       project's own config-as-data, not a target-repo surface; the write is the
       same one scripts/data-refresh/update_products_registry.py performs. The
-      safety envelope is `discovery.merge()`'s invariants (new entries land
-      disabled, owned fields never written, additive-only) + `write_atomic()` +
-      the evidence artifact written here.
+      safety envelope is `reconciliation.reconcile_registry()` (stable provider
+      identity, new entries disabled, owned fields preserved, no deletion) +
+      `write_atomic()` + the evidence artifact written here.
     - Failure-isolated: supervision of already-admitted repositories continues,
       but a source failure produces `INCOMPLETE`/`HEALED_INCOMPLETE`, never
       `NO_DRIFT`. Unexpected outer failures degrade to `SKIPPED_ERROR`. The one
@@ -43,6 +43,7 @@ from readme_agent.evidence.writer import generate_run_id
 from readme_agent.registry import discovery
 from readme_agent.registry.discovery_inventory import inventory_sources
 from readme_agent.registry.models import ProductEntry
+from readme_agent.registry.reconciliation import reconcile_registry
 
 HEAL_MIN_INTERVAL_SECONDS = 6 * 3600
 _MAX_RATE_LIMIT_WAIT_SECONDS = 60.0
@@ -58,6 +59,7 @@ class RegistryHealResult:
     org_failures: list[dict] = field(default_factory=list)
     sources: list[dict] = field(default_factory=list)
     observations: list[dict] = field(default_factory=list)
+    reconciliation: list[dict] = field(default_factory=list)
     inventory_complete: bool | None = None
     run_id: str | None = None
 
@@ -142,18 +144,31 @@ def _heal(
         token=token,
         max_rate_limit_wait_seconds=_MAX_RATE_LIMIT_WAIT_SECONDS,
     )
-    discovered = [observation.to_registry_entry() for observation in inventory.matched_observations]
     org_failures = [
         {"org": failure.source.organization, "error": failure.error}
         for failure in inventory.failures
     ]
     sources = [source.model_dump(mode="json") for source in inventory.sources]
     observations = [observation.model_dump(mode="json") for observation in inventory.observations]
-    merged = discovery.merge(existing, discovered)
-
-    existing_keys = {(e["family"], e["platform"]) for e in existing}
-    new_entries = [e for e in merged if (e["family"], e["platform"]) not in existing_keys]
-    refreshed_count = len(discovered) - len(new_entries)
+    reconciliation_result = reconcile_registry(existing, inventory)
+    merged = reconciliation_result.entries
+    reconciliation = [record.model_dump(mode="json") for record in reconciliation_result.records]
+    admitted_full_names = {
+        record.resulting_full_name
+        for record in reconciliation_result.records
+        if record.action == "admitted_disabled"
+    }
+    new_entries = [
+        entry
+        for entry in merged
+        if (
+            f"{entry['repo_url'].rstrip('/').split('/')[-2]}/{entry['repo_name']}"
+            in admitted_full_names
+        )
+    ]
+    refreshed_count = sum(
+        record.action in {"migrated", "refreshed"} for record in reconciliation_result.records
+    )
 
     if merged == existing:
         result = RegistryHealResult(
@@ -162,6 +177,7 @@ def _heal(
             org_failures=org_failures,
             sources=sources,
             observations=observations,
+            reconciliation=reconciliation,
             inventory_complete=inventory.complete,
         )
     else:
@@ -178,6 +194,7 @@ def _heal(
             org_failures=org_failures,
             sources=sources,
             observations=observations,
+            reconciliation=reconciliation,
             inventory_complete=inventory.complete,
         )
 
@@ -252,6 +269,7 @@ def _try_write_evidence(result: RegistryHealResult, orgs_scanned: list[str] | No
                 "org_failures": result.org_failures,
                 "sources": result.sources,
                 "observations": result.observations,
+                "reconciliation": result.reconciliation,
                 "inventory_complete": result.inventory_complete,
                 "new_entries": result.new_entries,
                 "refreshed_count": result.refreshed_count,

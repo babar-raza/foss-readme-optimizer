@@ -14,6 +14,13 @@ import pytest
 from readme_agent.registry import discovery, self_heal
 
 _CELLS_JAVA_ENABLED = {
+    "registry_schema_version": 2,
+    "provider_identity": {
+        "schema_version": 1,
+        "provider": "github",
+        "repository_id": 101,
+        "node_id": "R_cells_java",
+    },
     "family": "cells",
     "platform": "java",
     "repo_name": "Aspose.Cells-FOSS-for-Java",
@@ -197,6 +204,10 @@ def test_heal_writes_registry_heal_evidence(monkeypatch, registry_files, _isolat
     assert [item["full_name"] for item in payload["observations"]] == [
         "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    ]
+    assert [item["action"] for item in payload["reconciliation"]] == [
+        "refreshed",
+        "admitted_disabled",
     ]
     assert [e["repo_name"] for e in payload["new_entries"]] == ["Aspose.Cells-FOSS-for-.NET"]
     manifest = _evidence_files(_isolated_runs_dir, "manifest.json")

@@ -19,6 +19,16 @@ def test_real_products_json_loads_and_has_at_least_the_known_entries():
     assert len(entries) >= 25
 
 
+def test_real_products_json_has_unique_stable_provider_identities():
+    entries = loader.load_products(REPO_ROOT / "data" / "products.json")
+    identities = [entry.provider_identity for entry in entries]
+    assert all(identity is not None for identity in identities)
+    repository_ids = [identity.repository_id for identity in identities if identity is not None]
+    node_ids = [identity.node_id for identity in identities if identity is not None]
+    assert len(repository_ids) == len(set(repository_ids)) == len(entries)
+    assert len(node_ids) == len(set(node_ids)) == len(entries)
+
+
 def test_enabled_entries_match_non_disabled_entries_in_the_file():
     """Registry broadened 2026-07-22 (decisions #24/PIL-011: research/dev
     scope is the full registry, not just the 3-repo write/rollout pilot) --
@@ -77,6 +87,38 @@ def test_malformed_entry_fails_closed(tmp_path):
     bad.write_text(json.dumps([{"family": "x"}]), encoding="utf-8")
     with pytest.raises(ConfigError):
         loader.load_products(bad)
+
+
+def test_duplicate_provider_repository_identity_fails_closed(tmp_path):
+    first = {
+        "registry_schema_version": 2,
+        "provider_identity": {
+            "schema_version": 1,
+            "provider": "github",
+            "repository_id": 10,
+            "node_id": "R_10",
+        },
+        "family": "widget",
+        "platform": "java",
+        "repo_name": "one",
+        "repo_url": "https://github.com/example/one",
+        "clone_url": "https://github.com/example/one.git",
+        "active": True,
+        "discovered_via": "github",
+        "mode": "disabled",
+    }
+    second = {
+        **first,
+        "repo_name": "two",
+        "repo_url": "https://github.com/example/two",
+        "clone_url": "https://github.com/example/two.git",
+        "provider_identity": {**first["provider_identity"], "node_id": "R_OTHER"},
+    }
+    path = tmp_path / "products.json"
+    path.write_text(json.dumps([first, second]), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match="duplicate provider repository IDs"):
+        loader.load_products(path)
 
 
 def test_is_permitted_allows_enabled_repo(monkeypatch):

@@ -4,10 +4,10 @@ Usage:
     python scripts/data-refresh/update_products_registry.py [--dry-run] [--token TOKEN]
     python scripts/data-refresh/update_products_registry.py --org aspose-3d-foss,aspose-pdf-foss
 
-Thin CLI wrapper: all discovery/merge logic and the safety contract live in
-src/readme_agent/registry/discovery.py (shared with the supervise-time runtime
-self-heal, registry/self_heal.py). This wrapper only parses arguments, prints,
-and decides dry-run vs write.
+Thin CLI wrapper: source inventory lives in registry/discovery_inventory.py and
+stable-identity reconciliation in registry/reconciliation.py, shared with the
+supervise-time self-heal. This wrapper only parses arguments, prints, and decides
+dry-run vs write.
 """
 
 from __future__ import annotations
@@ -55,18 +55,40 @@ def main(argv: list[str] | None = None) -> int:
 
     org_names = [f["github_org"] for f in families]
     print(f"Scanning {len(families)} org(s): {org_names}", file=sys.stderr)
-    discovered, org_failures = discovery.discover(families, token=token)
-    for failure in org_failures:
-        print(f"WARN: could not scan {failure['org']}: {failure['error']}", file=sys.stderr)
-    matched_msg = f"  matched {len(discovered)} repo(s) against the FOSS naming convention"
+    from readme_agent.registry.discovery_inventory import inventory_sources
+    from readme_agent.registry.reconciliation import reconcile_registry
+
+    inventory = inventory_sources(
+        families,
+        scan_organization=discovery.scan_org,
+        classify_repository=discovery.classify_repo_name,
+        token=token,
+    )
+    for failure in inventory.failures:
+        print(
+            f"WARN: could not scan {failure.source.organization}: {failure.error}",
+            file=sys.stderr,
+        )
+    matched_msg = (
+        f"  observed {len(inventory.observations)} repo(s); "
+        f"matched {len(inventory.matched_observations)}"
+    )
     print(matched_msg, file=sys.stderr)
 
     existing: list[dict] = []
     if args.products.is_file():
         existing = json.loads(args.products.read_text(encoding="utf-8"))
 
-    merged = discovery.merge(existing, discovered)
+    reconciliation = reconcile_registry(existing, inventory)
+    merged = reconciliation.entries
     new_count = len(merged) - len(existing)
+    action_counts: dict[str, int] = {}
+    for record in reconciliation.records:
+        action_counts[record.action] = action_counts.get(record.action, 0) + 1
+    print(
+        f"  inventory_complete={inventory.complete} reconciliation={action_counts}",
+        file=sys.stderr,
+    )
 
     if args.dry_run:
         print(f"{'family':<12} {'platform':<12} {'repo_name':<40} {'mode':<10} {'active'}")
