@@ -222,7 +222,9 @@ def main(argv: list[str] | None = None) -> int:
     if changed != [BUILDER_PATH]:
         raise ValueError("only the evidence builder may follow the implementation revision")
 
-    work_root = REPO_ROOT / "runs" / "review-no-op-cache-proof" / head[:12]
+    # Keep the Windows pytest/bundle path below MAX_PATH: the repository
+    # identifier, revision, and evidence filenames already consume most of it.
+    work_root = REPO_ROOT / "runs" / f"n{head[:6]}"
     focused = _run_focused_tests(work_root)
     proof = _runtime_proof(work_root)
     output.mkdir(parents=True)
