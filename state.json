@@ -496,6 +496,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260729-164422-5b3c:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
     },
+    "258de7a01e9f785e87d80862f5b8fb89a13ebf5cba78ae9a92bc1f0db9495d93": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "258de7a01e9f785e87d80862f5b8fb89a13ebf5cba78ae9a92bc1f0db9495d93",
+      "completed_at": "2026-07-29T22:32:35.065942+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "run_id": "20260729-223227-c332",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-29T22:32:35.065931+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260729-164422-5b3c:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+    },
     "2629ef2e633253ba82d2b339a3cee16b845d9d22b871aaf6115903926ca6cffa": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -13020,7 +13037,7 @@
     "updated_at": "2026-07-29T22:23:29.108252+00:00"
   },
   "schema_version": 2,
-  "state_version": 709,
+  "state_version": 710,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -13547,11 +13564,11 @@
       },
       "failure_classification": "validation_failed",
       "failure_detail": "trusted independent review system failure",
-      "last_checkpoint_id": "2ffccfbe1b80e02f5ce0a42a029ac6c27af9fd8670e6afba6cd1f8d068163157",
+      "last_checkpoint_id": "258de7a01e9f785e87d80862f5b8fb89a13ebf5cba78ae9a92bc1f0db9495d93",
       "lease_expires_at": null,
       "recovery_count": 15,
       "status": "retryable",
-      "updated_at": "2026-07-29T22:23:39.315830+00:00"
+      "updated_at": "2026-07-29T22:32:35.065942+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
