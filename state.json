@@ -12556,6 +12556,15 @@
         "reason": "independent trusted review reduced to SYSTEM_FAILURE",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-29T21:30:40.682771+00:00",
+        "reason": "inventory immutable README material as inherited facts",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "TRUSTED_FACTS_EXTRACTING"
       }
     ],
     "intake_preflight_history": [
@@ -12583,11 +12592,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-29T21:24:16.712228+00:00"
+    "status": "TRUSTED_FACTS_EXTRACTING",
+    "updated_at": "2026-07-29T21:30:40.682771+00:00"
   },
   "schema_version": 2,
-  "state_version": 664,
+  "state_version": 665,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
