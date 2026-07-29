@@ -10290,7 +10290,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": null,
+    "candidate_hash": "b145b5323d481531cc4dd5f81b6f63877c288ed90621d70025daa1d4001133be",
     "content_assurance": "trusted_inherited",
     "details": {},
     "fact_acceptance_component_hashes": {},
@@ -11467,6 +11467,18 @@
         "reason": "complete source-accountable trusted transform plan persisted",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "TRUSTED_PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\assurance\\trusted_inherited/candidate/README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\assurance\\trusted_inherited/candidate/README.patch"
+        ],
+        "from_status": "TRUSTED_PLAN_READY",
+        "observed_by": "trusted_readme_pipeline",
+        "occurred_at": "2026-07-29T18:41:32.169118+00:00",
+        "reason": "trusted README candidate and native patch persisted",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "TRUSTED_CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -11494,11 +11506,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "TRUSTED_PLAN_READY",
-    "updated_at": "2026-07-29T18:41:26.740335+00:00"
+    "status": "TRUSTED_CANDIDATE_GENERATED",
+    "updated_at": "2026-07-29T18:41:32.169118+00:00"
   },
   "schema_version": 2,
-  "state_version": 545,
+  "state_version": 546,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
