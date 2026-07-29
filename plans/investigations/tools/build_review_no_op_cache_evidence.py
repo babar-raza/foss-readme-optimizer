@@ -9,6 +9,7 @@ import hashlib
 import json
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -124,7 +125,7 @@ def _run_focused_tests(work_root: Path) -> dict[str, Any]:
     return {
         "command": (
             ".venv/Scripts/python -m pytest -q --basetemp "
-            f"{work_root.relative_to(REPO_ROOT).as_posix()} " + " ".join(FOCUSED_TESTS)
+            f"<TEMP>/{work_root.name} " + " ".join(FOCUSED_TESTS)
         ),
         "exit_code": result.returncode,
         "stdout": result.stdout.strip(),
@@ -167,7 +168,7 @@ def _runtime_proof(work_root: Path) -> dict[str, Any]:
     ):
         raise ValueError("runtime no-op bundle does not satisfy the acceptance contract")
     return {
-        "runtime_bundle": bundle.relative_to(REPO_ROOT).as_posix(),
+        "runtime_bundle": f"<TEMP>/{work_root.name}/.../runs/readme-poc/<repo>/<revision>",
         "source_revision": manifest["source_revision"],
         "facts_hash": manifest["facts_hash"],
         "assessment_hash": manifest["assessment_hash"],
@@ -222,9 +223,10 @@ def main(argv: list[str] | None = None) -> int:
     if changed != [BUILDER_PATH]:
         raise ValueError("only the evidence builder may follow the implementation revision")
 
-    # Keep the Windows pytest/bundle path below MAX_PATH: the repository
-    # identifier, revision, and evidence filenames already consume most of it.
-    work_root = REPO_ROOT / "runs" / f"n{head[:6]}"
+    # The repository's OneDrive path plus the revision-addressed bundle can
+    # exceed legacy MAX_PATH. This is disposable pytest data; accepted,
+    # redacted proof is promoted to the governed output below.
+    work_root = Path(tempfile.gettempdir()) / f"rnc{head[:6]}"
     focused = _run_focused_tests(work_root)
     proof = _runtime_proof(work_root)
     output.mkdir(parents=True)
