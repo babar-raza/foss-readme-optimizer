@@ -4,21 +4,28 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "30e986bc95f415f8bb04cadee4c645d05327f1e8475e967349e0a6dbfcb5edc4",
+  "source_sha256": "721e403553f9a3f1ea229907f73f23c35a9a3f85f7b17e33725c60ba32d82345",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 432,
-  "mandatory_requirement_rows": 406,
+  "total_requirement_rows": 443,
+  "mandatory_requirement_rows": 417,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 26,
-    "open_mandatory": 215,
-    "preserved_verified": 156
+    "open_mandatory": 227,
+    "preserved_verified": 155
   },
   "taskcard_counts": {
-    "L8-MISSION-GOAL-GUARD": 1,
+    "TRP-00-ASSURANCE-CONTRACT": 2,
+    "TRP-01-README-DERIVED-FACTS": 2,
+    "TRP-02-LLM-FIRST-COMPOSITION": 2,
+    "TRP-03-INDEPENDENT-FIDELITY-REVIEW": 2,
+    "TRP-04-CANARY-QUALIFICATION": 1,
+    "TRP-05-FULL-REGISTRY-TRANSFORM": 1,
+    "TRP-06-AUTHORIZATION-ACCESS": 1,
+    "TRP-07-DRAFT-PR-PORTFOLIO": 1,
     "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 37,
     "L8-WAVE1-CANONICAL-SAFETY-SPINE": 78,
     "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 51,
@@ -3199,6 +3206,94 @@
       "semantic_findings": []
     },
     {
+      "requirement_id": "TRP-001",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-00-ASSURANCE-CONTRACT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-002",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-01-README-DERIVED-FACTS",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-003",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-01-README-DERIVED-FACTS",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-004",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-02-LLM-FIRST-COMPOSITION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-005",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-02-LLM-FIRST-COMPOSITION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-006",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-03-INDEPENDENT-FIDELITY-REVIEW",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-007",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-03-INDEPENDENT-FIDELITY-REVIEW",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-008",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-04-CANARY-QUALIFICATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-009",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-05-FULL-REGISTRY-TRANSFORM",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-010",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-06-AUTHORIZATION-ACCESS",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-011",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-07-DRAFT-PR-PORTFOLIO",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
       "requirement_id": "L8-001",
       "priority": "P0",
       "requirement_status": "PARTIAL",
@@ -3393,9 +3488,9 @@
     {
       "requirement_id": "L8-025",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
-      "task_id": "L8-MISSION-GOAL-GUARD",
-      "disposition": "preserved_verified",
+      "requirement_status": "PARTIAL",
+      "task_id": "TRP-00-ASSURANCE-CONTRACT",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {

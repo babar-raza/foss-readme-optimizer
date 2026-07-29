@@ -1,7 +1,7 @@
 {
   "generated_by": "plans/investigations/tools/traceability_matrix.py",
   "requirements_source": "plans/requirements.md",
-  "total_implemented_rows_checked": 156,
+  "total_implemented_rows_checked": 155,
   "rows_with_high_confidence_findings": [],
   "rows_with_informational_findings_only": [
     {
@@ -2302,7 +2302,7 @@
     },
     {
       "id": "L8-002",
-      "line": 638,
+      "line": 649,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/canonical-mutation-path-audit.json"
@@ -2331,7 +2331,7 @@
     },
     {
       "id": "L8-018",
-      "line": 654,
+      "line": 665,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/replay-results.json"
@@ -2359,37 +2359,8 @@
       ]
     },
     {
-      "id": "L8-025",
-      "line": 661,
-      "priority": "P0",
-      "cited_paths": [
-        "plans/investigations/evidence/level8-mission-goal-guard/verification.json"
-      ],
-      "cited_paths_existing": [
-        "plans/investigations/evidence/level8-mission-goal-guard/verification.json"
-      ],
-      "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [
-        {
-          "path": "plans/investigations/evidence/level8-mission-goal-guard/verification.json",
-          "bytes": 1585,
-          "sha256": "48e468cc375cefb4733929ffff684ee01d66fe39ba7c98f02064898c53f5ec09",
-          "json_valid": true
-        }
-      ],
-      "has_live_evidence_language": false,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [],
-      "informational_findings": [
-        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
-      ]
-    },
-    {
       "id": "L8-029",
-      "line": 665,
+      "line": 676,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/verification.json"
@@ -2418,7 +2389,7 @@
     },
     {
       "id": "L8-030",
-      "line": 666,
+      "line": 677,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-python-api-truth/verification.json"
@@ -2447,7 +2418,7 @@
     },
     {
       "id": "L8-031",
-      "line": 667,
+      "line": 678,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-typescript-export-truth/verification.json"
@@ -2476,7 +2447,7 @@
     },
     {
       "id": "L8-032",
-      "line": 668,
+      "line": 679,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-rust-api-truth/verification.json"
@@ -2505,7 +2476,7 @@
     },
     {
       "id": "L8-035",
-      "line": 671,
+      "line": 682,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/verification.json"
@@ -2534,7 +2505,7 @@
     },
     {
       "id": "L8-036",
-      "line": 672,
+      "line": 683,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/verification.json"
@@ -6641,7 +6612,7 @@
     },
     {
       "id": "L8-002",
-      "line": 638,
+      "line": 649,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/canonical-mutation-path-audit.json"
@@ -6670,7 +6641,7 @@
     },
     {
       "id": "L8-018",
-      "line": 654,
+      "line": 665,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/replay-results.json"
@@ -6698,37 +6669,8 @@
       ]
     },
     {
-      "id": "L8-025",
-      "line": 661,
-      "priority": "P0",
-      "cited_paths": [
-        "plans/investigations/evidence/level8-mission-goal-guard/verification.json"
-      ],
-      "cited_paths_existing": [
-        "plans/investigations/evidence/level8-mission-goal-guard/verification.json"
-      ],
-      "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [
-        {
-          "path": "plans/investigations/evidence/level8-mission-goal-guard/verification.json",
-          "bytes": 1585,
-          "sha256": "48e468cc375cefb4733929ffff684ee01d66fe39ba7c98f02064898c53f5ec09",
-          "json_valid": true
-        }
-      ],
-      "has_live_evidence_language": false,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [],
-      "informational_findings": [
-        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
-      ]
-    },
-    {
       "id": "L8-027",
-      "line": 663,
+      "line": 674,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_llm_call_ledger.py",
@@ -6761,7 +6703,7 @@
     },
     {
       "id": "L8-028",
-      "line": 664,
+      "line": 675,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_prompt_hygiene.py",
@@ -6802,7 +6744,7 @@
     },
     {
       "id": "L8-029",
-      "line": 665,
+      "line": 676,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/verification.json"
@@ -6831,7 +6773,7 @@
     },
     {
       "id": "L8-030",
-      "line": 666,
+      "line": 677,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-python-api-truth/verification.json"
@@ -6860,7 +6802,7 @@
     },
     {
       "id": "L8-031",
-      "line": 667,
+      "line": 678,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-typescript-export-truth/verification.json"
@@ -6889,7 +6831,7 @@
     },
     {
       "id": "L8-032",
-      "line": 668,
+      "line": 679,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-rust-api-truth/verification.json"
@@ -6918,7 +6860,7 @@
     },
     {
       "id": "L8-033",
-      "line": 669,
+      "line": 680,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_package_root_roles.py",
@@ -6951,7 +6893,7 @@
     },
     {
       "id": "L8-035",
-      "line": 671,
+      "line": 682,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/verification.json"
@@ -6980,7 +6922,7 @@
     },
     {
       "id": "L8-036",
-      "line": 672,
+      "line": 683,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/verification.json"

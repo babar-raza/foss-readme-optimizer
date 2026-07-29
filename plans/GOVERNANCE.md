@@ -139,16 +139,16 @@ to add a project fact here, it belongs in `master.md` instead.
     standing rule covering any file of this kind, present or future. (Added 2026-07-25, user
     directive — see Decision #78, `plans/idea.md`'s "README POC Readiness and Ordered Delivery
     Gates" section.)
-15. **No Java-PR-scope or GitHub-App-scope work starts before full-registry local proof and human
-    acceptance.** Gate C (Java PR proof) and Gate D (GitHub App integration) — including any work
-    that exercises or extends a real product-repository PR path, or provisions/uses real GitHub App
-    credentials — MUST NOT begin until every entry in `data/products.json` (count computed at
-    runtime, never hard-coded) has an agent-approved, no-op-proven local README candidate and then a
-    recorded human acceptance (Gates A and B). Read-only GitHub access needed to obtain the
-    default-branch README and repository evidence remains part of Gate A and is not prohibited.
-    Earlier Gate-C/D-shaped machinery remains historical implementation, not permission to use or
-    extend it. This applies regardless of a wave's numeric position in `master.md`'s Build
-    Checklist. See Decision #78.
+15. **Verified Gate C and GitHub App work remain behind verified Gates A/B; trusted POC draft PRs
+    are a narrow, explicit exception.** Verified Gate C and Gate D MUST NOT begin until every
+    runtime-loaded registry entry has a repository-verified, agent-approved, no-op-proven local
+    README and a recorded Gate-B human acceptance. Decision #85 separately authorizes
+    `trusted_readme_transform` T2 draft PRs before Gate A only when every proposal declares
+    `trusted_inherited`, uses README-derived rather than repository-verified evidence, passes
+    transformation-specific deterministic and independent review, and carries a reviewed,
+    unexpired effect authorization. Trusted PRs never satisfy Gate A, B, C, verified proposal, or
+    maturity requirements. GitHub App provisioning remains prohibited before verified Gate C.
+    This applies regardless of wave numbering. See Decisions #78/#85.
 16. **New custom infrastructure requires a documented build-vs-adopt comparison first.** This
     sharpens rule 8 (hand-rolling requires a reasoned Decision Ledger entry) into a specific,
     checkable artifact requirement: before adding new custom infrastructure of any real size (a new
@@ -177,7 +177,8 @@ to add a project fact here, it belongs in `master.md` instead.
     three-repository or other partial result being described as if it were the whole POC. (Added
     2026-07-25, user directive — see Decision #78.)
 18. **Gate A has a discovery-to-candidate artifact contract and makes its own
-    repository-specific decisions.** Every Gate-A campaign first binds a complete discovery-source
+    repository-specific decisions.** This rule governs verified Gate A after trusted Gate T2; no
+    trusted artifact satisfies it. Every Gate-A campaign first binds a complete discovery-source
     catalog, raw observation snapshot, registry revision, and intake disposition, then starts from
     the README at each admitted repository's observed default-branch
     revision and records the original bytes/revision, verified facts and conflicts, selected
@@ -208,6 +209,17 @@ to add a project fact here, it belongs in `master.md` instead.
     external effect. Shell access never implies product-write authority, destructive history,
     secret disclosure, or deletion of non-disposable user data. (Added 2026-07-27, user directive;
     see Decision #81 and `GOV-030`.)
+20. **Content assurance is explicit and cannot be promoted by implication.**
+    `trusted_readme_transform` and `verified_repository_presentation` use the same canonical
+    supervisor, registry, state, evidence, authorization, and effect systems, but their evidence
+    authority and acceptance states remain disjoint. Trusted mode may derive typed facts from the
+    immutable source README with `README_INHERITED` provenance and add only approved
+    `CONFIGURED_STANDARD` content; it does not inspect external fact authorities and cannot emit a
+    verified fact or proposal. Verified mode independently derives and reconciles facts from
+    repository/package/test evidence. Assurance is part of every dependency fingerprint and
+    effect identity. A mode change reopens dependent work, and no report, migration, PR, or human
+    interpretation may relabel trusted evidence as verified. (Added 2026-07-29, user directive;
+    see Decision #85 and `TRP-001`–`TRP-011`.)
 
 ## Applying a new requirement (the actual procedure)
 

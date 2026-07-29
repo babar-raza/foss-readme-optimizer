@@ -17,16 +17,19 @@ autonomous_execution_contract:
   mechanism_locked: true
 mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  mission_summary: Keep GOAL-CORE-PRESENTABLE-PORTFOLIO active until every current registry repository
-    has a professional, product-specific, independently approved and no-op-proven README and GitHub-profile
-    bundle, then carry those same deliverables through the ordered delivery and Level-8 gates using the
-    sole production supervisor. Execute against the governed short-term visible-output, medium-term portfolio/Level-5,
-    and long-term day-90 maturity horizons without substituting machinery for outcomes.
+  mission_summary: Keep GOAL-CORE-PRESENTABLE-PORTFOLIO active. First complete the temporary GOAL-TRUSTED-POC
+    by opening one independently transformation-approved trusted_readme_transform draft PR per current
+    registry repository from README_INHERITED evidence. Then resume verified_repository_presentation and
+    carry repository-verified README/profile deliverables through Gate A, delivery, production, and Level-8
+    using the sole supervisor. Never promote trusted evidence into verified acceptance.
   governing_plan_path: plans/master.md
-  current_phase: Wave 0 - truth consolidation and shippable baseline
+  current_phase: Trusted POC - LLM-first full-registry README transformation and draft PRs
   in_scope_outcomes:
   - 'GOAL-CORE-PRESENTABLE-PORTFOLIO: complete visitor-facing README and profile bundles for the dynamic
     registry denominator; machinery is supporting work rather than the deliverable.'
+  - 'GOAL-TRUSTED-POC: extract README_INHERITED facts, compose through the LLM-first trusted path, independently
+    approve transformation fidelity, prove no-op, and open one authorized disclosed draft PR per current
+    registry repository before resuming verified work.'
   - 'GOAL-TRUTH: verified facts, examples, acquisition, limitations, compatibility, and contextual-link
     evidence.'
   - 'GOAL-README: marker-free product-specific candidate, visual, patch, validation, approval, repair,
@@ -36,15 +39,14 @@ mission_authority:
   - 'GOAL-AUTONOMY: safe, resumable, isolated, idempotent, evidence-complete execution through supervise.'
   - 'GOAL-DELIVERY: Gate B, act, staging, Gate C, and hosted GitHub App proof in order.'
   - 'GOAL-MATURITY: Level 5, heterogeneous Level 7, and independently audited Level 8.'
-  - 'SHORT-TERM HORIZON: repair and requalify the common reviewer, reach seven NO_OP_PROVEN ecosystem
-    representatives in configured order, then reach eight total current-contract READMEs in a 3-working-day
-    planning target, eight Python READMEs in a 5-working-day target, and all runtime-loaded Python READMEs
-    in a 7-working-day target.'
+  - 'SHORT-TERM HORIZON: implement and qualify trusted_readme_transform, then execute one qualified single-day
+    campaign whose terminal outcome is TRUSTED_PR_OPEN for every runtime-loaded registry repository. Implementation,
+    canary repair, and unavailable external authority are not hidden inside the single-day campaign clock.'
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
-  - 'MEDIUM-TERM HORIZON: full-registry Gate A in a 7-12-working-day target and Gate B through Level 5
-    in a 3-5-week target, overlapping only independent no-effect work.'
+  - 'MEDIUM-TERM HORIZON: after trusted T2 closes, resume repository-verified facts and full-registry
+    Gate A, then Gate B through Level 5 without reusing trusted approval as verified proof.'
   - 'PYTHON-FIRST MILESTONES: after seven-representative qualification, run a zero-paid-call readiness
     inventory for every Python entry, use the same frozen campaign and two-to-four supervisor-owned lanes,
     close eight-total, eight-Python, and all-Python milestones in order, then continue .NET, Java, C++,
@@ -68,6 +70,15 @@ mission_authority:
   - Writes to GitHub-generated surfaces.
   - Unreviewed onboarding into write-enabled operation.
   mandatory_acceptance_criteria:
+  - Content assurance is explicit in facts, candidates, reviews, lifecycle, caches, manifests, proposals,
+    and effects; trusted_inherited never satisfies repository_verified acceptance.
+  - Trusted README facts cite immutable README spans and make zero repository/package/external fact-verification
+    calls; CONFIGURED_STANDARD additions remain separately attributable.
+  - Trusted transformation is LLM-first for inventory, planning, section composition, and repair, with
+    deterministic code limited to generic segmentation/assembly, contracts, provenance, safety, validation,
+    caching, and effects.
+  - Trusted T2 closes only when every current registry repository has exactly one authorized disclosed
+    draft PR; expected future write access does not count until a live permission check passes.
   - Every task transition recomputes the dynamic-denominator lifecycle scoreboard, first failing boundary,
     exact next task, subordinate goal, and concrete core contribution.
   - Every selected task remains inside its functional goal's short, medium, long, or cross-cutting horizon;
@@ -187,6 +198,490 @@ verified_baseline:
   - The dirty plan candidate has not been accepted as authoritative current truth.
   - GitHub App credentials and reviewed authorization records are not yet present.
 taskcards:
+- task_id: TRP-00-ASSURANCE-CONTRACT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Separate trusted README transformation from repository-verified presentation
+  source_audit_finding: The current execution profile, lifecycle, approval, and proposal contracts assume
+    repository-verified facts, so a temporary README-trusted POC would either bypass machinery or falsely
+    promote lower-assurance output.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-control
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Add ContentAssuranceV1 and disjoint trusted lifecycle, counter, cache, manifest, proposal,
+    and effect identities while retaining one supervisor, state backend, evidence system, and effect ledger.
+  why_it_matters: The short-term POC must move quickly without corrupting the meaning of verified evidence
+    or creating a disposable parallel runtime.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/state/
+  - src/readme_agent/readme_poc/
+  - src/readme_agent/capabilities/
+  - tests/
+  - docs/
+  - plans/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION
+  expected_outputs:
+  - ContentAssuranceV1 with trusted_inherited and repository_verified
+  - Additive trusted lifecycle states and portfolio counters
+  - Assurance-bound cache, manifest, proposal, and effect identity
+  - Durable mission migration selecting the trusted critical path while preserving verified history
+  acceptance_checks:
+  - Trusted artifacts cannot satisfy verified facts, approval, proposal, Gate-A, or maturity states
+  - Switching assurance reopens the earliest evidence-dependent boundary
+  - Existing verified records remain intact and resumable after trusted T2
+  verification:
+  - Schema, migration, lifecycle, scoreboard, cache-collision, and effect-identity tests
+  - Public mission status/evaluate proof after graph migration
+  negative_controls:
+  - A trusted candidate labeled AGENT_APPROVED or VerifiedProposalV1 is rejected
+  - Narrative metadata cannot override typed assurance
+  regression_checks:
+  - Existing mission, lifecycle V2, cache, manifest, verifier, authorization, and effect-ledger tests
+  evidence_requirements:
+  - Before/after schema and state
+  - Rejected promotion controls
+  - Focused and official-check results at the coherent boundary
+  rollback_or_recovery: Reopen the additive migration and preserve all preexisting verified records.
+  failure_reroute: Repair the first schema/state boundary; do not add a second controller or store.
+  closeout_rules:
+  - Trusted and verified states are mechanically disjoint
+  - TRP-01 becomes the sole next dependency-ready trusted task
+  goal_ids:
+  - GOAL-README
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: indispensable_safety
+    summary: Make accelerated trusted delivery possible without weakening or impersonating verified proof.
+  requirement_ids:
+  - TRP-001
+  - L8-025
+- task_id: TRP-01-README-DERIVED-FACTS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Extract typed inherited facts and claims from the immutable README
+  source_audit_finding: ProductFactsV2 currently expects repository evidence, while the temporary POC
+    intentionally trusts the existing README and needs the same downstream fact-oriented seams.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-facts
+  owner: product-facts-specialist
+  status: TODO
+  objective: Populate the existing typed fact/claim flow from README source spans using README_INHERITED
+    provenance and separately attribute CONFIGURED_STANDARD additions.
+  why_it_matters: Reusing the fact-oriented pipeline keeps trusted and verified execution structurally
+    aligned while making their evidence authority explicit.
+  allowed_paths:
+  - src/readme_agent/facts/
+  - src/readme_agent/readme/
+  - src/readme_agent/supervisor/
+  - src/readme_agent/capabilities/
+  - config/
+  - data/
+  - tests/
+  - docs/
+  - prompts/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - TRP-00-ASSURANCE-CONTRACT
+  expected_outputs:
+  - Typed README source inventory and inherited fact graph
+  - Exact source-span and revision citations
+  - Separate configured-standard fact/addition records
+  - Prompt-injection-safe input envelope
+  acceptance_checks:
+  - Every inherited fact resolves to exact immutable README bytes
+  - Trusted mode makes zero repository, package, documentation, or external fact-verification calls
+  - Every approved standard addition is distinguishable from inherited content
+  verification:
+  - Real heterogeneous README extraction and provenance tests
+  - External-fact-provider zero-call assertions
+  - Prompt-injection and hidden-directive controls
+  negative_controls:
+  - A README claim cannot become repository_verified
+  - An uncatalogued standard addition is rejected
+  regression_checks:
+  - ProductFactsV2 parsing, immutable snapshot, redaction, and source-span tests
+  evidence_requirements:
+  - Source-to-fact maps for representative READMEs
+  - Provider/capability call inventory
+  - SHA-256 inventory
+  rollback_or_recovery: Invalidate only trusted fact extraction; leave verified facts untouched.
+  failure_reroute: Repair generic Markdown/span extraction or the typed fact adapter at the first failure.
+  closeout_rules:
+  - Representative trusted fact graphs have complete source accountability
+  - TRP-02 becomes ready
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Supply reusable README-derived evidence for the first trusted transformations.
+  requirement_ids:
+  - TRP-002
+  - TRP-003
+- task_id: TRP-02-LLM-FIRST-COMPOSITION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Compose heterogeneous READMEs through bounded LLM-first section work
+  source_audit_finding: The current LLM selects a constrained deterministic operation plan rather than
+    authoring the README, and a single whole-document call cannot reliably reproduce the largest source.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-composition
+  owner: readme-presentation-specialist
+  status: TODO
+  objective: Implement typed LLM inventory, transformation plan, section draft, deterministic assembly,
+    and section-scoped repair contracts without a universal deterministic template engine.
+  why_it_matters: LLM-first bounded composition is the fastest reusable path across arbitrary README structures
+    while retaining inspectable source accountability.
+  allowed_paths:
+  - src/readme_agent/readme/
+  - src/readme_agent/llm/
+  - src/readme_agent/specialists/
+  - src/readme_agent/capabilities/
+  - prompts/
+  - tests/
+  - docs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - TRP-01-README-DERIVED-FACTS
+  expected_outputs:
+  - TrustedReadmeTransformPlanV1
+  - TrustedReadmeSectionDraftV1
+  - Context/output-aware section batching and deterministic assembly
+  - Source-span and claim accountability for every draft
+  acceptance_checks:
+  - Short READMEs may compose in one call and large READMEs complete through bounded section groups
+  - Generated README has no comments and obeys header, badge, Mermaid, link, and terminology contracts
+  - No repository-specific code branch or universal fixed template is introduced
+  verification:
+  - Fixture-client contract tests and live-like short/ordinary/large composition
+  - Markdown parse, fence, source coverage, and deterministic assembly tests
+  negative_controls:
+  - Truncated output, missing source span, cross-product prose, and unsupported addition fail closed
+  - README prompt injection cannot change the transformation contract
+  regression_checks:
+  - Prompt registry/hygiene, LLM ledger, presentation lint, link allocation, and renderer tests
+  evidence_requirements:
+  - Prompt/schema hashes, section call map, candidates, patches, and source-accountability report
+  rollback_or_recovery: Reopen only the affected section and preserve accepted independent sections by
+    hash.
+  failure_reroute: Split at the first context/output boundary; do not expand a universal deterministic
+    renderer.
+  closeout_rules:
+  - Representative candidates complete without unexplained content loss or truncation
+  - TRP-03 becomes ready
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Produce the first genuinely LLM-authored trusted README candidates.
+  requirement_ids:
+  - TRP-004
+  - TRP-005
+- task_id: TRP-03-INDEPENDENT-FIDELITY-REVIEW
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Independently approve presentation quality and inherited-content fidelity
+  source_audit_finding: The current factual reviewer requires repository facts, real-corpus output can
+    truncate, and repair has previously returned byte-identical candidates without resolving findings.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-review
+  owner: independent-verification-specialist
+  status: TODO
+  objective: Pair blind-quality review with a trusted inheritance-fidelity role, ground every finding,
+    require effective section repair, and preserve exact call/cache accounting.
+  why_it_matters: Trusted mode still needs independent proof that the transformation is professional and
+    faithful even though it intentionally does not prove product truth.
+  allowed_paths:
+  - src/readme_agent/specialists/
+  - src/readme_agent/llm/
+  - src/readme_agent/readme/
+  - src/readme_agent/supervisor/
+  - prompts/
+  - tests/
+  - docs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - TRP-02-LLM-FIRST-COMPOSITION
+  expected_outputs:
+  - TrustedTransformReviewV1 and disjoint trusted verdicts
+  - Independent blind-quality and inheritance-fidelity roles
+  - Grounded section-scoped repair with changed-candidate enforcement
+  - Complete per-README call and cache ledger
+  acceptance_checks:
+  - No trusted approval occurs without both independent roles and deterministic validation
+  - Repair changes candidate bytes and closes grounded findings or returns visible SYSTEM_FAILURE
+  - Identical accepted inputs produce zero new provider calls and no duplicate lifecycle event
+  verification:
+  - Real accept/reject/content-loss/unsupported-addition/repair controls
+  - Truncation, retry, unchanged-repair, cache, and no-op tests
+  negative_controls:
+  - The author cannot act as either reviewer
+  - Factual truth is never inferred from inheritance-fidelity approval
+  regression_checks:
+  - Existing blind reviewer, reviewer separation, provider ledger, cache, and terminal classifier tests
+  evidence_requirements:
+  - Role identities, prompts, grounded findings, repair history, call ledger, and no-op proof
+  rollback_or_recovery: Reopen only trusted review/repair and retain source/fact/composition artifacts
+    by hash.
+  failure_reroute: Classify truncation or unchanged repair as agent_fixable and repair the contract.
+  closeout_rules:
+  - Controlled critical defects have zero false accepts
+  - TRP-04 becomes ready
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: indispensable_safety
+    summary: Prevent low-quality or content-losing trusted transformations from reaching PRs.
+  requirement_ids:
+  - TRP-006
+  - TRP-007
+- task_id: TRP-04-CANARY-QUALIFICATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Qualify the trusted contract on adversarial real README canaries
+  source_audit_finding: Portfolio-wide one-day execution is unproved against heterogeneous and extreme
+    README sizes, including a current source larger than 100 KB.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Prove the complete trusted lifecycle serially on Python, .NET, ordinary Java, malformed or
+    prompt-injected content, and the largest current README before enabling portfolio fan-out.
+  why_it_matters: A long-tail failure discovered after fan-out would waste calls and produce inconsistent
+    PRs across the portfolio.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - TRP-03-INDEPENDENT-FIDELITY-REVIEW
+  expected_outputs:
+  - Serial real-canary bundles and acceptance matrix
+  - Measured context/output/call/latency envelope
+  - Recovery, cache, repair, and no-effect proof
+  - Qualified lane-promotion decision
+  acceptance_checks:
+  - Every canary is TRUSTED_TRANSFORM_APPROVED and TRUSTED_NO_OP_PROVEN
+  - No truncation, unexplained source loss, cross-product leakage, prompt compliance, or false approval
+  - Measured resource bounds support two-to-four isolated lanes
+  verification:
+  - Real read-only canary campaign plus focused/integration/safety regression
+  - Cancellation/resume, duplicate trigger, evidence corruption, and no-op controls
+  negative_controls:
+  - Fan-out remains disabled if the largest or injected canary fails
+  - A partial canary set cannot qualify the campaign
+  regression_checks:
+  - Allow-list, push-blocking, redaction, lease, cache, and portfolio scheduler tests
+  evidence_requirements:
+  - Complete canary manifests, call totals, timing, checksums, and independent qualification verdict
+  rollback_or_recovery: Repair the first common failing contract and rerun only invalidated canaries.
+  failure_reroute: Create/reopen an agent-fixable resolver within this task; do not fan out early.
+  closeout_rules:
+  - All declared canaries pass one frozen trusted campaign contract
+  - TRP-05 becomes ready
+  goal_ids:
+  - GOAL-README
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Prove the trusted contract can survive the real portfolio long tail before one-day fan-out.
+  requirement_ids:
+  - TRP-008
+- task_id: TRP-05-FULL-REGISTRY-TRANSFORM
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Transform and approve every current registry README
+  source_audit_finding: The portfolio has partial candidate artifacts but no full-registry trusted, independently
+    transformation-approved, no-op-proven campaign.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-portfolio
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Execute the frozen trusted contract for the dynamic denominator through two-to-four isolated
+    lanes in platform priority and heal every agent-fixable failure at its first boundary.
+  why_it_matters: The short-term deliverable is the full portfolio, not representative machinery or a
+    partial batch.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - TRP-04-CANARY-QUALIFICATION
+  expected_outputs:
+  - Complete revision-addressed trusted bundle per registry repository
+  - Serialized portfolio aggregate and dynamic-denominator summary
+  - Per-repository LLM and no-op accounting
+  - Exact external blocks with unaffected-lane continuation
+  acceptance_checks:
+  - TRUSTED_TRANSFORM_APPROVED and TRUSTED_NO_OP_PROVEN equal len(data/products.json)
+  - System failures, unprocessed entries, manifest failures, and remote effects are zero
+  - Platform order and isolated-lane equivalence are reproducible
+  verification:
+  - Full-registry public-supervisor run
+  - Per-repository deterministic/reviewer/no-op checks and independent aggregate reconstruction
+  negative_controls:
+  - A partial denominator, stale registry revision, or missing manifest cannot close the task
+  - One repository failure cannot erase or block unrelated completed repositories
+  regression_checks:
+  - Portfolio scheduling, state CAS/leases, redaction, evidence, cache, and terminal status
+  evidence_requirements:
+  - Portfolio summary, every manifest, SHA-256 inventory, reproduction command, and independent verdict
+  rollback_or_recovery: Resume from each repository's last valid trusted stage under the frozen contract.
+  failure_reroute: Repair agent-fixable failures by common owner; record narrow external blocks and continue.
+  closeout_rules:
+  - Every current registry entry has a complete trusted PR-ready bundle
+  - TRP-06 becomes ready
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Produce the complete independently approved trusted README portfolio.
+  requirement_ids:
+  - TRP-009
+- task_id: TRP-06-AUTHORIZATION-ACCESS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Verify write access and reviewed authorization for every trusted proposal
+  source_audit_finding: The owner intends to obtain remaining write access, but current access and authorization
+    records do not cover the full registry and expected access cannot authorize effects.
+  audit_classification: not_attempted
+  priority: P0
+  lane: trusted-poc-authorization
+  owner: authorization-specialist
+  status: TODO
+  objective: Produce the exact per-repository access/authorization matrix, validate live direct-write
+    permissions, and consume reviewed expiring trusted-PR authorization records.
+  why_it_matters: Candidate completion cannot safely or truthfully be reported as a draft PR without repository
+    permission and human authority.
+  allowed_paths:
+  - config/authorization/
+  - data/products.json
+  - src/readme_agent/authorization/
+  - src/readme_agent/github_api/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  forbidden_paths:
+  - target default branches
+  - package or release surfaces
+  dependencies:
+  - TRP-05-FULL-REGISTRY-TRANSFORM
+  expected_outputs:
+  - Live per-repository permission inventory
+  - Exact authorization request/record package for trusted draft PR effects
+  - Validated branch/effect scopes and expiries
+  - Repository-local unblock instructions for missing access
+  acceptance_checks:
+  - Every repository has live push permission and a reviewed unexpired authorization
+  - Authorization binds trusted assurance, candidate/effect scope, branch prefix, and repository
+  - Missing access never blocks unrelated authorized repositories
+  verification:
+  - Read-only GitHub permission checks and authorization schema/scope/expiry tests
+  - Negative missing/stale/wrong-repository/wrong-assurance controls
+  negative_controls:
+  - The agent cannot author or infer human approval
+  - Expected future access is not accepted as current permission
+  regression_checks:
+  - Registry mode, allow-list, authorization, token redaction, and effect precondition tests
+  evidence_requirements:
+  - Redacted access matrix, authorization IDs/hashes, timestamps, and exact remaining external actions
+  rollback_or_recovery: Revalidate expired or changed permissions without regenerating unchanged candidates.
+  failure_reroute: Mark only unavailable authority as infra_external and continue every authorized repository.
+  closeout_rules:
+  - The dynamic denominator is effect-ready under explicit current authority
+  - TRP-07 becomes ready
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: indispensable_safety
+    summary: Establish lawful, repository-specific authority for the trusted draft-PR portfolio.
+  requirement_ids:
+  - TRP-010
+- task_id: TRP-07-DRAFT-PR-PORTFOLIO
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Open exactly one disclosed trusted draft PR per current registry repository
+  source_audit_finding: Existing PR machinery is verified-facts-oriented, candidate update identity is
+    incomplete, and no trusted full-registry effect lifecycle exists.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-effects
+  owner: github-presentation-specialist
+  status: TODO
+  objective: Reuse the governed effect ledger and proposal reconciliation through an assurance-specific
+    TrustedTransformationProposalV1 to create or update one draft PR per repository.
+  why_it_matters: The user's short-term POC goal is actual reviewable pull requests across the registry,
+    not local candidate files.
+  allowed_paths:
+  - src/readme_agent/capabilities/
+  - src/readme_agent/github_api/
+  - src/readme_agent/authorization/
+  - src/readme_agent/effects/
+  - src/readme_agent/state/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - target proposal branches authorized by TRP-06
+  forbidden_paths:
+  - target default branches
+  - package or release surfaces
+  - GitHub-generated surfaces
+  dependencies:
+  - TRP-05-FULL-REGISTRY-TRANSFORM
+  - TRP-06-AUTHORIZATION-ACCESS
+  expected_outputs:
+  - TrustedTransformationProposalV1 and candidate-aware stable proposal identity
+  - One disclosed draft PR URL per current registry entry
+  - Durable create/update/drift/dedup/lost-response/crash reconciliation
+  - Full-registry effect and default-branch-identity manifest
+  acceptance_checks:
+  - TRUSTED_PR_OPEN equals len(data/products.json)
+  - Every PR discloses inherited-claim non-verification and links its evidence
+  - Duplicate PRs, force pushes, ready/merge actions, and default-branch changes are zero
+  verification:
+  - Local/staging scenario matrix followed by authorized real draft-PR effects
+  - Fresh-head, update, drift, duplicate delivery, lost response, expiry, and crash recovery
+  negative_controls:
+  - Trusted proposal cannot be consumed as VerifiedProposalV1 or verified Gate-C proof
+  - An unverified permission or authorization blocks before a pending effect record
+  regression_checks:
+  - Effect ledger, authorization, proposal identity, token isolation, and no-default-branch tests
+  evidence_requirements:
+  - PR URLs/IDs, before/after refs, proposal/effect records, authorization refs, and SHA-256 manifest
+  rollback_or_recovery: Reconcile the stable proposal branch/PR; never force-push, merge, or rewrite default.
+  failure_reroute: Repair agent-fixable effect defects; retain repository-local external blocks visibly.
+  closeout_rules:
+  - Every current registry repository has exactly one correct trusted draft PR
+  - The preserved L8-INTAKE-02 verified boundary becomes eligible to resume
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: visible_deliverable
+    summary: Deliver the complete trusted README POC as real reviewable draft pull requests.
+  requirement_ids:
+  - TRP-011
 - task_id: L8-MISSION-CONTROL-CONSUMER
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -335,8 +830,7 @@ taskcards:
     kind: indispensable_safety
     summary: Add validated task goal/contribution bindings and a durable lifecycle scoreboard so selection,
       transition, and closure remain tied to the presentable full-portfolio deliverable.
-  requirement_ids:
-  - L8-025
+  requirement_ids: []
 - task_id: L8-REQUIREMENT-TO-TASKCARD-COVERAGE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -4428,6 +4922,7 @@ taskcards:
   - production target repository remotes
   dependencies:
   - L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION
+  - TRP-07-DRAFT-PR-PORTFOLIO
   expected_outputs:
   - Additive lifecycle migration and intake outcome schema
   - Deduplicated read-only preflight enrollment
@@ -7118,10 +7613,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 30e986bc95f415f8bb04cadee4c645d05327f1e8475e967349e0a6dbfcb5edc4
+  source_sha256: 721e403553f9a3f1ea229907f73f23c35a9a3f85f7b17e33725c60ba32d82345
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 432
-  mandatory_requirement_rows: 406
+  total_requirement_rows: 443
+  mandatory_requirement_rows: 417
   excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -9484,6 +9979,72 @@ requirement_coverage:
     task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
     disposition: excluded_backlog
     semantic_findings: []
+  - requirement_id: TRP-001
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-00-ASSURANCE-CONTRACT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-002
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-01-README-DERIVED-FACTS
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-003
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-01-README-DERIVED-FACTS
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-004
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-02-LLM-FIRST-COMPOSITION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-005
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-02-LLM-FIRST-COMPOSITION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-006
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-03-INDEPENDENT-FIDELITY-REVIEW
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-007
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-03-INDEPENDENT-FIDELITY-REVIEW
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-008
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-04-CANARY-QUALIFICATION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-009
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-05-FULL-REGISTRY-TRANSFORM
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-010
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-06-AUTHORIZATION-ACCESS
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-011
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-07-DRAFT-PR-PORTFOLIO
+    disposition: open_mandatory
+    semantic_findings: []
   - requirement_id: L8-001
     priority: P0
     requirement_status: PARTIAL
@@ -9630,9 +10191,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-025
     priority: P0
-    requirement_status: IMPLEMENTED
-    task_id: L8-MISSION-GOAL-GUARD
-    disposition: preserved_verified
+    requirement_status: PARTIAL
+    task_id: TRP-00-ASSURANCE-CONTRACT
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: L8-026
     priority: P0

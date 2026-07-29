@@ -1,74 +1,89 @@
-# Continue the Level-8 Repository-Presentation Mission
+# Continue the Repository-Presentation Mission
 
 Resume `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer` as the sole operator on
-`main`. The content checkpoint is `1745abfc0168ee32e48c948aca893a60680b5b4c`; the containing
-handover commit follows it. The sole executable plan is
-`plans/investigations/control/level8-autonomous-mission-task-graph.yaml`, whose checkpoint SHA-256
-is `cbeda937ee0d7a6d45d6fc58507fc68e60d8ccc7fbb98a869983d40d5c719f52`. The durable checkpoint is
-state version 550 with no active claim or graph drift.
+`main`. Repository and supervisor state override this snapshot. The sole executable graph is
+`plans/investigations/control/level8-autonomous-mission-task-graph.yaml`; its reconciled snapshot
+hash is `d380edde56f18a7c2e9e4f98a7b753bc76292d300a7b899acafff42cf94b3310`, durable state version
+552, no active claim, and sole next task `TRP-00-ASSURANCE-CONTRACT`.
 
-Repository state and supervisor state are authoritative over this snapshot. Start by reading
-`AGENTS.md`, `plans/idea.md`, `plans/master.md` decisions #78/#83/#84,
-`plans/requirements.md` rows `L8-035`–`L8-039`, this file, `HANDOVER.md`, and the taskcard for
-`L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT`. Run mission `status`; if the graph drifted, run
-`evaluate`. Inspect the tree and repository-owned processes before starting any command.
+The two goals are binding:
 
-The current task is `L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT`, status `IMPLEMENTED` but not
-verified or closed. Do not claim task 03. The exact first action is:
+1. Short term: `trusted_readme_transform`. Treat the immutable source README as authoritative for
+   inherited POC facts, extract those facts with `README_INHERITED` provenance, use LLM-first
+   inventory/planning/section composition/repair, independently validate presentation quality and
+   inheritance fidelity, prove no-op, and open one disclosed authorized draft PR for every current
+   `data/products.json` repository.
+2. Ultimate: `verified_repository_presentation`. After every trusted PR exists, resume the
+   preserved repository-source/package/test fact path and complete verified Gate A, Gate B,
+   `act`, staging, verified Gate C, hosted GitHub App operation, Level 5, day-30 Level 7, and
+   day-90 Level 8. Never promote trusted evidence or PRs as verified proof.
 
-1. Add one public-supervisor integration beginning from an unseen authorized discovery
-   observation.
-2. Reconcile it into `data/products.json` semantics as disabled/read-only with stable identity,
-   without granting write authority.
-3. Execute exactly one durable intake in the same logical run.
-4. Prove cancellation/resume, duplicate replay, stable source/contract binding, correct lifecycle
-   continuation, and zero local/remote target effects.
-5. Run focused intake/admission tests, relevant supervisor/allow-list/push-blocking regressions,
-   and a real-local-Git live-like proof.
-6. Regenerate, in place,
-   `plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/`; require a
-   checksum-valid independent `PASS`.
-7. Update `L8-037`, `ONB-002`, `CORE-004`, `OPS-007`, master/status/log/handover, and transition
-   the same durable task through `VERIFIED`, `SCORED`, and `CLOSED`.
-8. Commit the coherent slice directly to `main` with
-   `Co-Authored-By: Codex <noreply@openai.com>`, run `evaluate`, then claim the next ready task.
+Startup:
 
-Preserve the ultimate objective: current-contract, independently agent-approved and no-op-proven
-local README bundles for the complete runtime registry; Gate B human acceptance; canonical `act`
-proof; disposable staging; Gate C governed Java draft PRs; GitHub App only after Gate C; complete
-presentation surfaces and Level 5; 30-day Level 7; 90-day Level 8; final independent audit.
-Platform priority is Python, .NET, Java, C++, TypeScript, Rust, Go.
+1. Read `AGENTS.md`, `plans/idea.md`, `plans/master.md` decisions #78/#83/#84/#85,
+   `plans/requirements.md` `TRP-001`–`TRP-011`, `plans/GOVERNANCE.md` rules 14–20, this file,
+   `HANDOVER.md`, and taskcard `TRP-00-ASSURANCE-CONTRACT`.
+2. Inspect `git status`, current HEAD/upstream, and repository-owned processes.
+3. Run mission `status`; if graph drift exists, run `evaluate`.
+4. Claim `TRP-00-ASSURANCE-CONTRACT` through the existing supervisor.
+5. Add `ContentAssuranceV1`, disjoint trusted lifecycle/counters/cache/manifest/proposal/effect
+   identities, and the additive `GOAL-TRUSTED-POC` goal-guard migration. Reuse the current
+   supervisor, registry, state backend, evidence, authorization, and effect ledger.
+6. Prove trusted artifacts cannot become verified facts, `AGENT_APPROVED`, `NO_OP_PROVEN`,
+   `VerifiedProposalV1`, Gate A, or maturity state; prove assurance changes reopen the earliest
+   dependency.
+7. Run focused schema/migration/lifecycle/cache/effect tests and relevant mission, verifier,
+   authorization, redaction, and effect-ledger regressions. Capture checksum-complete evidence.
+8. Transition truthfully, commit the coherent slice to `main` with the Codex trailer, evaluate,
+   and continue through `TRP-01`–`TRP-07` without another user prompt.
 
-Use this loop continuously:
+The fixed trusted sequence is:
 
 ```text
-verify authority and live state
-→ reconcile graph drift and claim/continue the exact governed task
-→ implement the smallest complete repair at the first failing boundary
-→ focused proof
-→ integration, regression, safety, recovery, idempotency, and live-like proof
-→ independent verification
-→ repair failures
-→ write checksum-complete redacted evidence
-→ update the same task, requirements, status, logs, and handover
-→ commit to main
-→ rebuild eligibility and continue
+TRP-00 assurance separation
+→ TRP-01 README-derived facts
+→ TRP-02 bounded LLM-first composition
+→ TRP-03 independent quality/fidelity review and effective repair
+→ TRP-04 real adversarial canaries
+→ TRP-05 two-to-four-lane full-registry transformation
+→ TRP-06 live access and reviewed authorization
+→ TRP-07 exactly one trusted draft PR per repository
+→ resume L8-INTAKE-02 and the complete verified mission
 ```
 
-Do not create another plan, controller, queue, or mission state. Do not stop for a completed
-subtask, a failed test, a report, a checkpoint, a token/session boundary, a dirty tree, or
-convenience. Documentation cannot keep an inactive chat alive; durable state makes restart safe,
-while hosted scheduling is a later Gate-D deliverable. Repair agent-fixable blocks. Stop only when
-the full mission is independently proved or a genuine unavailable external authority,
-credential, infrastructure, manual UI action, or irrecoverable external fact blocks all eligible
-work.
+Do not build another command, controller, queue, state store, execution profile, universal
+deterministic renderer, or repository-specific template. README text is trusted content but
+untrusted instruction data. `CONFIGURED_STANDARD` additions remain separate from inherited facts.
+The README output contains no comments. Preserve all header/badge, Mermaid, contextual-link,
+configurable link-budget, products-subdomain priority, and exact Enterprise Edition requirements.
 
-Work only on control-repository `main`; preserve user work; use `.venv`; run one top-level command
-tree at a time. Never reset, restore, clean, force-push, weaken safety, write a product repository,
-or request the production GitHub App early. A product write always requires fresh exact
-what/why/where authorization. `plans/master.md` may be truthfully synchronized without fresh
-section approval under `GOV-023` and governance rule 12.
+Execution is serial through TRP-04. After canary qualification, only the supervisor may use two to
+four isolated repository lanes in Python, .NET, Java, C++, TypeScript, Rust, Go order with
+serialized aggregation. Identical complete inputs reuse the accepted candidate with zero new LLM
+calls. The one-day target starts only for the qualified full-registry campaign.
 
-The present scoreboard is 31 admitted repositories; 8 facts/candidates/deterministic, 0
-agent-approved, 0 no-op-proven, 0 human-accepted. The live 8/31 Python intake slice made zero
-provider calls and zero target effects, but it is not Gate A and not eight finalized READMEs.
+The owner intends to obtain remaining direct write access, but do not infer it. TRP-06 must check
+each repository live and consume reviewed, unexpired authorization. Missing permission is
+repository-local `infra_external`; continue unaffected work. Trusted PRs are draft-only and
+disclosed; never merge, mark ready, force-push, or write a default branch. GitHub App Gate D
+remains behind verified Gate C.
+
+Continue autonomously:
+
+```text
+verify authority/live state
+→ claim the exact ready task
+→ implement its smallest complete boundary
+→ focused proof
+→ integration/regression/safety/recovery/idempotency/live-like proof
+→ independent verification
+→ repair the first failure
+→ redacted checksum evidence
+→ update same task/requirements/log/handover
+→ commit main
+→ evaluate and continue
+```
+
+Do not stop for a subtask, failed test, report, checkpoint, token/session boundary, dirty tree, or
+convenience. Stop only when the complete mission is independently proved or unavailable external
+authority blocks every remaining eligible task.

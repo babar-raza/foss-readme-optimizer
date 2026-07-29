@@ -21,7 +21,10 @@ approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
 - **Evidence-first product truth.** Repository source, manifests, tests, and verified package
   registries are authoritative for mechanically testable claims. Human-approved policy owns
   intent and positioning that code cannot prove. Existing README prose is a claim to verify,
-  never truth merely because it already exists.
+  never truth merely because it already exists in the ultimate
+  `verified_repository_presentation` system. The temporary `trusted_readme_transform` POC may
+  instead derive inherited facts from the immutable source README, but it must label that lower
+  assurance explicitly and can never promote it as repository-verified evidence.
 - **Credibility first, referral value second.** The system helps a developer understand,
   acquire, use, and trust each FOSS product before presenting relevant Enterprise Edition context.
   Referral reporting is an outcome metric; it may never override factuality, ownership, or trust.
@@ -30,9 +33,10 @@ approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
   authorized surfaces, and records findings for surfaces it cannot own.
 - **Autonomous operation with passive human review.** `supervise` is the only production runtime.
   The system, not a human, selects product/platform capabilities and prepares local candidates.
-  After the full-registry POC gates in decision #78 are satisfied, normal authorized operation may
-  create or update draft pull requests without synchronous capability selection. Humans review
-  agent-approved proposals, authorization changes, blocked facts, and manual UI work.
+  The short-term trusted POC creates clearly labelled, independently reviewed draft pull requests
+  under reviewed authorization records; after its portfolio closes, execution resumes the
+  verified gates in decisions #78/#85. Humans review proposals, authorization changes, blocked
+  facts, and manual UI work rather than operating the pipeline.
 - **GitHub App production identity is a post-POC target.** Gate D production write jobs will mint
   fresh, short-lived GitHub App tokens only after the accepted Java PR proof. Analysis, repository
   inspection, package/example execution, LLM work, and validation never receive a target-write
@@ -42,8 +46,8 @@ approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
   GitHub-generated surfaces. Repository settings require a distinct `github_apply`
   authorization after file-proposal review.
 - **Per-repository quality, shared safety.** Each result is tailored to the product, ecosystem,
-  audience, maturity, and verified facts. Shared standards define evidence and safety, not a
-  cloned README template.
+  audience, maturity, and the declared content-assurance mode. Shared standards define evidence
+  and safety, not a cloned README template.
 - **Measured maturity, not a feature-count claim.** The three Java repositories establish the
   controlled Level-5 pilot; heterogeneous production evidence and 30 clean days establish
   Levels 6–7; Level 8 requires an independently reproducible 90-day unattended proof.
@@ -57,31 +61,37 @@ locally, then pass the ordered human, publication, production, and maturity gate
 schema, report, evidence bundle, or maturity label is never a substitute for that visitor-facing
 deliverable.
 
-Six subordinate goals organize necessary work without becoming alternate destinations:
+Seven subordinate goals organize necessary work without becoming alternate destinations:
 
-1. `GOAL-TRUTH` supplies verified product, acquisition, example, compatibility, limitation, and
+1. `GOAL-TRUSTED-POC` uses LLM-first README-derived evidence to transform every current registry
+   README, independently approve transformation fidelity, prove no-op behavior, and open one
+   authorized draft PR per repository without claiming factual verification.
+2. `GOAL-TRUTH` supplies verified product, acquisition, example, compatibility, limitation, and
    link facts required by the deliverable.
-2. `GOAL-README` produces the actual visitor-facing README, patch, claim map, visual, validation,
+3. `GOAL-README` produces the actual visitor-facing README, patch, claim map, visual, validation,
    independent approval, repair, and no-op proof.
-3. `GOAL-PROFILE` produces the repository description, homepage, topics, community-file findings,
+4. `GOAL-PROFILE` produces the repository description, homepage, topics, community-file findings,
    generated-surface observations, and product illustration package.
-4. `GOAL-AUTONOMY` makes the same deliverable repeatable, restartable, isolated, idempotent,
+5. `GOAL-AUTONOMY` makes the same deliverable repeatable, restartable, isolated, idempotent,
    evidence-complete, and safe through `supervise`.
-5. `GOAL-DELIVERY` proves Gate B, `act`, staging, Gate C, and hosted GitHub App operation in the
+6. `GOAL-DELIVERY` proves Gate B, `act`, staging, Gate C, and hosted GitHub App operation in the
    required order.
-6. `GOAL-MATURITY` proves the complete presentation portfolio over the Level-5 pilot and the
+7. `GOAL-MATURITY` proves the complete presentation portfolio over the Level-5 pilot and the
    independently audited 30-day and 90-day operating windows.
 
 The same governed goals also define three execution horizons. This is a mapping over the existing
 goal guard, not another plan or task system:
 
-- **Short term — visible local proof:** `GOAL-TRUTH` and `GOAL-README`. Close the missing Go
-  representative to close the already-claimed cross-platform truth gate, then produce one
-  latest-contract Python README within a target of 1–2 working days and reach seven
-  current-contract `NO_OP_PROVEN` representatives within a target of 3–5 working days.
-- **Medium term — portfolio and Level 5:** `GOAL-PROFILE` and `GOAL-DELIVERY`. Reach full-registry
-  Gate A within a target of 7–12 working days, then overlap independent preparation so Gate B,
-  `act`, staging, Gate C, hosted operation, and Level 5 complete within a target of 3–5 weeks.
+- **Short term — trusted portfolio delivery:** `GOAL-TRUSTED-POC`. Qualify the LLM-first
+  README-derived transformation contract on short, ordinary, and very large real READMEs, then
+  execute a single-day full-registry campaign with two-to-four isolated lanes and open one
+  authorized draft PR per current registry repository. The single-day target starts only after
+  the contract canaries, effect authorization records, and write-access checks are ready; missing
+  external access remains visible and cannot be counted as a PR.
+- **Medium term — verified portfolio and Level 5:** `GOAL-TRUTH`, `GOAL-README`, `GOAL-PROFILE`,
+  and `GOAL-DELIVERY`. After every trusted POC PR exists, resume source-derived facts and reach
+  verified full-registry Gate A, then Gate B, `act`, staging, verified Gate C, hosted operation,
+  and Level 5 without promoting trusted evidence.
 - **Long term — sustained maturity:** `GOAL-MATURITY`. Begin Level-8-grade evidence collection on
   the first qualifying hosted-production day, award Level 7 after the first 30 clean days, and
   continue the same uninterrupted series to the Level-8 decision at day 90.
@@ -106,59 +116,43 @@ Every executable task must state which subordinate goal it serves and identify o
 contribution: a visible deliverable produced, a first failing boundary removed, a safety condition
 without which the deliverable cannot run, or required acceptance proof completed. Work that does
 none of these is backlog, not critical-path execution. After every task transition, the durable
-status view must recompute the dynamic registry denominator and counts for `FACTS_READY`,
+status view must recompute the dynamic registry denominator and counts for
+`TRUSTED_FACTS_EXTRACTED`, `TRUSTED_CANDIDATE_GENERATED`, `TRUSTED_TRANSFORM_APPROVED`,
+`TRUSTED_NO_OP_PROVEN`, and `TRUSTED_PR_OPEN`, as well as verified `FACTS_READY`,
 `CANDIDATE_GENERATED`, `DETERMINISTIC_VALIDATED`, `AGENT_APPROVED`, `NO_OP_PROVEN`, and
 `HUMAN_ACCEPTED`, plus the first failing boundary and exact next task. Closing a machinery task
 without improving one of those states or removing its evidenced blocker is a drift failure.
 
 ## Status
 
-The repository has a substantial capability, safety, authorization, state, specialist, evidence,
-and proposal foundation, but it is **not Level 8**. The Waves 0–8 Build Checklist is the only
-active sequence; generated truth lives in `plans/status.md`, `logs/`, and investigation evidence.
+The repository has substantial capability, safety, authorization, state, specialist, evidence,
+and proposal foundations, but it is **not Level 8**. The Waves 0–8 checklist remains the complete
+program; the immediate critical path is decision #85's trusted POC:
+**`trusted_readme_transform` portfolio PRs → `verified_repository_presentation` local proof →
+Gate B → `act` → staging → verified Gate C → hosted production**.
 
-The active local-first pre-production sequence (`L8-014`) precedes Wave 2: **source-complete
-discovery and read-only intake → local proof → `act` → staging → production**. On 2026-07-29,
-`L8-INTAKE-00` and `L8-INTAKE-01` are closed. `L8-INTAKE-02` is `IMPLEMENTED` but not verified or
-closed: durable state version 550 and graph
-`cbeda937ee0d7a6d45d6fc58507fc68e60d8ccc7fbb98a869983d40d5c719f52` retain the task at its
-single missing public-path proof. Live state and graph remain authoritative.
+At the resequencing snapshot, durable state version 550 has no active claim. `L8-INTAKE-00/01`
+are closed and `L8-INTAKE-02` is implemented but lacks its combined public-path proof. That
+verified task is preserved behind `TRP-07`, not falsely closed. The 31-entry checked-in portfolio
+has 8 `FACTS_READY`, 8 candidates, 8 deterministic validations, and zero verified approvals,
+no-ops, or human acceptances. The latest discovery evidence also retains one unmatched PDF Go MCP
+observation and one unavailable imaging source, so it is not source-complete Gate-A evidence.
 
-The checked-in denominator is 31: 8 `FACTS_READY` or later, 8 `CANDIDATE_GENERATED`, 8
-`DETERMINISTIC_VALIDATED`, 0 `AGENT_APPROVED`, 0 `NO_OP_PROVEN`, and 0 `HUMAN_ACCEPTED`; the first
-failing boundary is `FACTS_READY`. This is not yet a complete admitted portfolio revision. The
-current live inventory retains 32 observations from 26 sources: 31 matched and one unmatched
-(`aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP`). The unavailable `aspose-imaging-foss` source
-keeps it explicitly incomplete. All 31 admitted entries now have unique provider identities;
-read-only intake implementation exists. A bounded live run processed the eight highest-priority
-Python repositories through `INTAKE_READY`, exercised both fast and full routes, made exactly zero
-provider LLM calls, and recorded zero target effects. That 8/31 intake slice is not Gate A and does
-not increase `AGENT_APPROVED` or `NO_OP_PROVEN`. The remaining `L8-INTAKE-02` proof must begin with
-an unseen discovery observation and demonstrate disabled admission plus exactly one intake in the
-same public-supervisor run. Eight candidates remain reusable but none has current independent
-approval/no-op proof.
-**Wave 2 remains gated (`BLOCKED_EXTERNAL`) behind local, `act`, staging, and ordered Gate A/B/C
-acceptance; it is not the active implementation wave.**
+The immediate milestone is one LLM-first, README-derived, independently
+transformation-approved/no-op-proven draft PR per runtime-loaded registry entry. Trusted artifacts
+declare `trusted_inherited` and do not satisfy verified Gate A. The executable path is `TRP-00`
+through `TRP-07`: assurance separation, README-derived facts, bounded LLM composition,
+independent quality/fidelity review, adversarial canaries, full-registry fan-out,
+authorization/access, and exactly one draft PR per repository.
 
-**Corrected near-term target (decision #78).** Gate A is a default-branch-based, agent-approved,
-no-op-proven local README for every runtime-loaded `data/products.json` entry. Gate B records
-separate human acceptance; Gate C is the later Java PR proof; Gate D is later GitHub App
-integration. Earlier PR/App-shaped machinery stays inert.
+The owner intends to obtain remaining write access, but live permission checks and reviewed
+authorization records remain required. The one-day target applies only to the qualified
+full-registry campaign. After `TRP-07`, the preserved verified intake/facts/composition/review path
+resumes unchanged; verified Gate B/C, GitHub App Gate D, Level 5, day-30 Level 7, and day-90 Level
+8 remain mandatory. Wave 2 remains inactive until its ordered prerequisites.
 
-The outcome-first critical path is: complete read-only intake/fast-path enrollment after the
-now-closed discovery and stable-identity tasks, then registry-revision campaign binding;
-then repair the shared reviewer, qualify one current-contract `NO_OP_PROVEN` README for all seven
-ecosystems, and run full-registry facts/candidate fan-out. `L8-015`–`L8-039` and decisions
-#82–#84 govern. The governed targets remain one current-contract
-README in 1–2 working days, seven in 3–5 working days, full-registry Gate A in 7–12 working days,
-and Level 5 in 3–5 weeks. These are breach-detection controls, not completion evidence.
-Deterministic failures consume no prose calls, family/ecosystem evidence and content-addressed
-stages are reused, bounded internal fan-out begins only after seven-representative qualification,
-and verification expands only at coherent boundaries.
-
-`plans/requirements.md` is normative; the Level-8 task graph drives `supervise`; current
-implementation contracts live in `docs/`; `logs/` is history. No untracked plan candidate is
-execution authority.
+`plans/requirements.md` is normative; the task graph and live mission state drive execution;
+`plans/status.md`, `logs/`, and investigation evidence hold generated truth/history.
 
 ## Decision Ledger
 
@@ -1637,9 +1631,10 @@ that is the only permanence they carry; text is always the decision as it stands
     requirement (`AGT-010`) and deliberately **not** built in this decision — this decision is the
     taxonomy and its propagation only. See `GOVERNANCE.md` rule 13, `GOV-028`, `AGT-009`/`AGT-010`.
 
-78. **Full-registry local README proof is the project's near-term milestone; Wave 6's controlled
-    three-repository Java pilot no longer stands alone as the near-term target.** Prompted directly
-    by user direction (2026-07-25): the system portion of the POC is ready for human review only
+78. **Full-registry verified local README proof remains mandatory after the temporary trusted POC;
+    Wave 6's controlled three-repository Java pilot does not substitute for it.** Prompted directly
+    by user direction (2026-07-25) and resequenced by decision #85 (2026-07-29): the verified
+    system is ready for verified human review only
     once every entry in `data/products.json` (count computed at runtime, never hard-coded) has
     reached an independently agent-approved, no-op-proven local README candidate derived from the
     observed default-branch README, not a fixed three-repository sample. This does **not** delete,
@@ -1648,7 +1643,8 @@ that is the only permanence they carry; text is always the decision as it stands
     content (baseline, facts, every surface, verified draft PR, no-op, upstream change, maintainer
     overwrite, interruption, deduplication, controlled failure, evidence bundle, independent
     review, for the three Java repositories) — it corrects the **sequencing** those decisions were
-    previously read to imply relative to full-registry local proof. Concretely, four ordered gates:
+    previously read to imply relative to full-registry local proof. Decision #85's trusted T1/T2
+    gates run first; the verified track then retains four ordered gates:
     (a) **Gate A** — for every registry entry, capture the default-branch README and revision,
     verify facts, make product/platform-specific decisions, save the original/candidate/diff/plan/
     evidence locally, pass deterministic validation and independent agentic review, repair, and
@@ -1657,10 +1653,11 @@ that is the only permanence they carry; text is always the decision as it stands
     (Wave 6's pilot), attempted only after every current registry candidate is human-accepted,
     never concurrently with or ahead of Gates A/B; (d) **Gate D** — GitHub App production
     integration, sequenced after Gate C, never before it. Wave 5's already-built proposal/effect
-    and PR/App-shaped machinery is retained as historical foundation but is not permission to
-    extend or exercise those paths early. Remaining Wave 5 work is limited to Gate-C prerequisites
-    after A/B; GitHub App credentialing/integration is a separate Gate-D task dependent on the
-    accepted Wave 6 proof. Waves are **not renumbered** — renumbering would break existing
+    and PR/App-shaped machinery is retained as historical foundation. It may be exercised early
+    only by decision #85's explicitly trusted, independently reviewed, authorization-gated draft
+    PR capability; it cannot claim verified-proposal evidence. Remaining verified Wave 5 work is
+    limited to Gate-C prerequisites after A/B; GitHub App credentialing/integration is a separate
+    Gate-D task dependent on the accepted Wave 6 proof. Waves are **not renumbered** — renumbering would break existing
     external references to wave numbers — instead the Wave 5 and Wave 6 Build Checklist entries
     below carry this corrected precedence as explicit added language. Two related standing
     constraints, also charter-directed: the existing README is presumed valuable because it was
@@ -1978,7 +1975,84 @@ that is the only permanence they carry; text is always the decision as it stands
     `CORE-003`, `CORE-004`, `CORE-023`, `CORE-034`, `OPS-005`, and `OPS-007` are downgraded to
     `PARTIAL`; `L8-035`–`L8-039` define the missing proof. (2026-07-29, user directive.)
 
+85. **Use an LLM-first, README-derived assurance lane for the temporary full-registry POC, then
+    return to repository-verified presentation.** The ultimate goal remains
+    `verified_repository_presentation`. Its facts continue to come from repository source,
+    manifests, consumer tooling, tests, examples, releases, verified registries, and approved
+    policy—not from README self-assertion. The immediate goal is
+    `trusted_readme_transform`: open one draft PR for every runtime-loaded registry repository
+    after transforming its existing README under a deliberately lower, explicit assurance.
+
+    Trusted mode preserves the current pipeline shape rather than creating a shortcut controller.
+    It captures the immutable source README and extracts a typed fact/claim graph whose records
+    use `README_INHERITED` provenance, source spans, source revision, and an explicit
+    `trusted_inherited` assurance state. It does not check those inherited claims against code,
+    tests, package registries, documentation, or external sources. Approved badge, Mermaid,
+    navigation, terminology, and link-catalog additions use `CONFIGURED_STANDARD` provenance and
+    remain subject to the existing presentation contract. Repository README text is trusted
+    content but untrusted instruction data; prompt injection never changes runtime behavior.
+
+    LLM judgment is the primary implementation mechanism: one typed inventory/plan stage, one or
+    more Markdown-section composition stages sized to the source document, independent
+    blind-quality and inheritance-fidelity review, and section-scoped repair. Generic
+    deterministic code owns Markdown source spans and hashes, schema validation, source-to-output
+    accountability, comment/code-fence/link/header/Mermaid/terminology controls, assembly, cache
+    identity, no-op behavior, authorization, and effects. It must not grow a universal
+    deterministic template system merely to support this temporary mode. A repair must change the
+    affected candidate bytes and close grounded findings; repeating an unchanged oversized request
+    is a system failure, not a repair.
+
+    `ContentAssuranceV1` is orthogonal to execution profile and is hashed into facts, candidates,
+    reviews, manifests, caches, lifecycle state, proposals, and effect identity. Trusted lifecycle
+    states and verdicts are distinct from `FACTS_READY`, `AGENT_APPROVED`, `NO_OP_PROVEN`,
+    `VerifiedProposalV1`, and verified maturity counters. A trusted proposal body discloses that
+    inherited claims were not repository-verified. Switching to verified mode reopens the earliest
+    evidence-dependent boundary and independently reconciles every material claim; trusted
+    acceptance never promotes automatically.
+
+    Execution is serial through adversarial canaries spanning Python, .NET, ordinary Java, and the
+    largest current README. After those prove bounded context/output, content preservation,
+    prompt-injection resistance, independent review, effective repair, exact LLM accounting, and
+    no-op reuse, the sole supervisor may run two-to-four isolated repository lanes in the existing
+    platform priority. The qualified full-registry campaign has a one-day target; implementation,
+    canary repair, unavailable permissions, and human authorization are not hidden inside that
+    clock.
+
+    Trusted effects retain the allow-list, effect ledger, reviewed expiring authorization,
+    candidate-aware idempotency, fresh-head reconciliation, draft-only behavior, and prohibitions
+    on default-branch writes, force pushes, ready-for-review transitions, and merge. The owner
+    intends to obtain write access to the remaining repositories, but access is considered present
+    only after a live per-repository permission check. Missing access blocks only that repository.
+    Direct authorized branches are the intended POC route; fork publication is not added unless
+    direct access proves unavailable and a separate build-vs-adopt/effect-safety decision
+    authorizes the extra machinery. Trusted Gate T2 must close for the dynamic denominator before
+    the preserved `L8-INTAKE-02` verified boundary resumes. (2026-07-29, user directive.)
+
 ## Architecture
+
+### Content-assurance lanes
+
+```text
+immutable repository snapshot
+  ├─ trusted_readme_transform
+  │    → README_INHERITED fact/claim graph
+  │    → LLM inventory + section plan + section composition
+  │    → deterministic presentation/safety validation
+  │    → blind-quality + inheritance-fidelity review
+  │    → TrustedTransformationProposalV1
+  │    → authorized draft PR with explicit trusted disclosure
+  └─ verified_repository_presentation
+       → repository/source/package/test-derived ProductFactsV2
+       → claim reconciliation + ownership
+       → repository and surface presentation plans
+       → factuality + deterministic + independent verification
+       → VerifiedProposalV1
+       → authorized effects and maturity evidence
+```
+
+Both lanes use `supervise`, the same registry, snapshots, durable state, leases, redaction,
+manifests, authorization, effect ledger, and reconciliation. Assurance-specific facts, verdicts,
+proposals, and counters prevent a trusted result from impersonating verified evidence.
 
 ### Canonical production flow
 
@@ -1988,8 +2062,10 @@ schedule / repository_dispatch / workflow_call / operator request
   → persist and deduplicate trigger
   → acquire per-repository lease
   → capture immutable repository snapshot
-  → profile repository and every package root
-  → build provenance-complete ProductFactsV2
+  → select the mission-bound ContentAssuranceV1
+  → trusted lane: derive README_INHERITED facts and transformation plan
+    or verified lane: profile repository and every package root
+  → build provenance-complete, assurance-labelled ProductFactsV2
   → assess every applicable presentation surface
   → build RepositoryPresentationPlanV1
   → render bounded candidates/proposals
@@ -2552,7 +2628,40 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [x] Make offline cancellation credential-free and descendant-clean.
   - **Exit:** no required failure exits zero or converges; no production mutation bypass exists.
 
+- [ ] **Short-term POC — `trusted_readme_transform` full-registry draft PRs**
+  - [ ] `TRP-00`: add `ContentAssuranceV1`, separate trusted lifecycle/verdict/proposal states,
+        dependency fingerprints, and anti-promotion controls without adding another runtime,
+        controller, store, or execution profile.
+  - [ ] `TRP-01`: derive typed README facts/claims from the immutable source README with exact
+        `README_INHERITED` spans; admit only separately identified `CONFIGURED_STANDARD` additions.
+        Do not query repository code, tests, package registries, documentation, or external fact
+        sources in trusted mode.
+  - [ ] `TRP-02`: implement LLM-first inventory, transformation planning, bounded section
+        composition, and targeted section repair. Deterministic code owns only generic parsing,
+        assembly, schemas, provenance, safety, and validation.
+  - [ ] `TRP-03`: require independent blind-quality and inheritance-fidelity reviewers, grounded
+        findings, candidate-changing repair, exact per-README LLM accounting, and unchanged-input
+        cache/no-op reuse.
+  - [ ] `TRP-04`: qualify short, ordinary, malformed/prompt-injected, and largest-current-README
+        canaries across at least Python, .NET, Java, and the large-document outlier before fan-out.
+  - [ ] `TRP-05`: execute the dynamic registry denominator in the configured platform order using
+        two-to-four supervisor-owned isolated lanes; create checksum-valid source, fact, plan,
+        candidate, patch, review, repair, no-op, call-ledger, and manifest artifacts for every
+        repository.
+  - [ ] `TRP-06`: generate reviewed authorization records and verify direct write permission for
+        every repository. Expected future access is not evidence; missing access is an
+        `infra_external` repository-local block while unrelated repositories continue.
+  - [ ] `TRP-07`: create or update exactly one clearly labelled trusted draft PR per repository;
+        prove candidate update, target drift, duplicate trigger, lost response, authorization
+        expiry, recovery, and default-branch byte identity.
+  - **Exit:** `TRUSTED_PR_OPEN == len(data/products.json)` for a freshness-valid registry revision;
+    trusted system failures, unprocessed entries, duplicate PRs, manifest failures, default-branch
+    writes, and undisclosed assurance are zero. Only after this exit does the preserved verified
+    Gate-A path resume.
+
 - [ ] **Local pre-production Gate A — atomic idea-fidelity proof**
+  - **Precondition (decision #85):** the trusted POC exit above is complete. Trusted README facts,
+    reviews, and PRs are inputs to inspect, not verified evidence and not credit toward this gate.
   - [ ] Establish source-complete discovery and durable read-only intake before reviewer
         qualification: inventory every repository from explicit authorized sources, fix the
         public CLI allow-list/preflight ordering, reconcile by provider repository ID, enroll new
@@ -2661,10 +2770,11 @@ only as historical implementation evidence in decisions and `logs/`; they are no
     violation passes.
 
 - [ ] **Wave 5 — Verified proposal and effect lifecycle**
-  - **Corrected precedence (decision #78):** this wave supplies Gate-C proposal/PR-lifecycle
-    prerequisites only after full-registry Gate A/B acceptance. Machinery already delivered
-    remains in the tree but stays inert until then. GitHub App credentialing/integration is no
-    longer part of this wave's execution; it is Gate D after the accepted Wave 6 Java proof.
+  - **Corrected precedence (decisions #78/#85):** verified proposal work remains behind verified
+    Gate A/B. The same bounded effect foundation may be reused earlier only through
+    `TrustedTransformationProposalV1` for the T2 draft-PR portfolio; trusted evidence and effects
+    cannot satisfy this wave. GitHub App credentialing/integration remains Gate D after accepted
+    verified Java proof.
   - Ship `VerifiedProposalV1`, `OpenProposalV2`, automatic draft-PR terminal effects, stale-head
     rebuild/reverification, branch/commit/PR crash reconciliation, and proposal age/drift.
   - Separate file PR authorization from later settings authorization; prove the credential boundary
@@ -2673,13 +2783,13 @@ only as historical implementation evidence in decisions and `logs/`; they are no
     produce exactly one correct proposal state with zero write-token exposure before effect.
 
 - [ ] **Wave 6 — Controlled three-repository Java pilot (Level 5)**
-  - **Corrected precedence (decision #78):** this wave is Gate C (Java PR proof). It is attempted
+  - **Corrected precedence (decisions #78/#85):** this wave is verified Gate C. It is attempted
     only after Gate A (full-registry agent-approved/no-op-proven local README candidates) and Gate
     B (separately recorded human acceptance) are complete for every registry repository, not the
     three Java repositories alone — this wave's own three-repository pilot content is unchanged,
-    but it is no longer the project's near-term milestone on its own. The earlier isolated PR is
-    historical evidence, not Gate-C acceptance or permission to open another. Gate D (GitHub App
-    integration) is sequenced strictly after this wave, never before or alongside it.
+    but it is no longer the project's near-term milestone on its own. Earlier isolated or trusted
+    POC PRs are not Gate-C acceptance. Gate D (GitHub App integration) is sequenced strictly after
+    this wave, never before or alongside it.
   - Prove the governed 3D, Cells, and PDF Java cases across facts, every surface, verified draft
     PR, no-op, upstream change, maintainer overwrite, interruption, deduplication, controlled
     failure, evidence bundle, and independent review.
@@ -2788,6 +2898,22 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 - [ ] **Local untrusted-execution gate:** source builds and examples for every supported ecosystem
       run in a disposable OS-isolated, resource-bounded, network-governed environment; hostile
       repository/dependency code cannot access the operator host or leave descendants.
+- [ ] **Trusted assurance-separation gate:** every README-derived fact, candidate, review,
+      lifecycle event, cache entry, manifest, proposal, and effect declares
+      `trusted_inherited`; none increments verified facts, approval, proposal, Gate-A, or maturity
+      counters. Switching assurance reopens the earliest evidence-dependent stage.
+- [ ] **Trusted LLM-first transformation gate:** real short, ordinary, malformed/prompt-injected,
+      and largest-current-README canaries prove typed source inventory, bounded section
+      composition, deterministic assembly, zero unexplained source-content loss, no unsupported
+      standard addition, grounded independent reviews, effective repair, and exact call
+      accounting.
+- [ ] **Trusted full-registry gate:** transformation-approved and trusted-no-op-proven equals the
+      freshness-valid runtime denominator; system failures, unprocessed entries, manifest
+      failures, content-loss findings, and undisclosed assurance are zero.
+- [ ] **Trusted PR portfolio gate:** exactly one authorized draft PR exists per current registry
+      repository; direct permission and authorization are checked before each effect; candidate
+      update, drift, deduplication, lost response, expiry, recovery, and default-branch byte
+      identity pass. No PR is counted from expected future access.
 - [ ] **Local complete-claim gate:** every material generated or preserved README claim has an
       accepted fact, authoritative owner, or explicit uncertainty/correction disposition; a
       partial operation-only claim map cannot support factual approval.

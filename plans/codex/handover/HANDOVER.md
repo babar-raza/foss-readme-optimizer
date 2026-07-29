@@ -3,313 +3,227 @@
 ## 1. Handover Snapshot
 
 - Repository: `D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer`
-- Branch: `main`
-- Content checkpoint: `1745abfc0168ee32e48c948aca893a60680b5b4c`
-- Upstream at checkpoint: `origin/main` = `696dd5d542282a1f9909b9453964c87466257589`;
-  local `main` is 15 commits ahead.
+- Branch/base HEAD: `main` at `883fd30760b17855d5648d29c184ac97ec453336`; the plan commit
+  containing this handover follows that content checkpoint.
 - Executable authority:
   `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`
-- Graph/file SHA-256:
-  `cbeda937ee0d7a6d45d6fc58507fc68e60d8ccc7fbb98a869983d40d5c719f52`
-- Durable state: version 550, graph drift false, no active claim.
-- Current phase: source-complete discovery and durable read-only intake before local Gate A.
-- Current task: `L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT`, durable status
-  `IMPLEMENTED`, deliberately not verified or closed.
-- Exact next action: add one public-supervisor integration starting from an unseen discovery
-  observation, admit it as a disabled/read-only registry entry, and execute exactly one durable
-  intake in the same logical run. Prove effect denial, deduplication, cancellation/resume, and
-  correct lifecycle continuation; regenerate the existing task evidence and then transition the
-  same task through `VERIFIED`, `SCORED`, and `CLOSED`.
-- Overall status: safe, committed, resumable checkpoint; not Gate A, Level 5, Level 7, or Level 8.
+- Reconciled graph SHA-256:
+  `d380edde56f18a7c2e9e4f98a7b753bc76292d300a7b899acafff42cf94b3310`
+- Durable mission state: version 552, no active claim, no graph drift.
+- Current phase: trusted POC, LLM-first full-registry README transformation and draft PRs.
+- Current/next task: `TRP-00-ASSURANCE-CONTRACT`, status `TODO`.
+- Exact next action: claim TRP-00 and implement explicit trusted-versus-verified assurance,
+  disjoint lifecycle/counters/cache/manifest/proposal/effect identity, and the additive goal/state
+  migration without adding a second runtime.
+- Overall status: plan-ready and resumable; implementation of trusted mode has not started.
 
-The containing handover commit necessarily follows the content checkpoint above. On restart,
-repository state and supervisor state override this snapshot if they differ.
+Live repository and supervisor state override this historical snapshot.
 
 ## 2. Ultimate Goal
 
-Deliver the autonomous repository-presentation system in `plans/idea.md`: discover the complete
-authorized portfolio, establish repository-grounded product truth, produce professional,
-repository-specific README and GitHub-profile proposals, validate them deterministically and with
-an independent agent, repair failures, preserve valuable existing content after validation, and
-operate safely and idempotently through local proof, human acceptance, `act`, staging, governed
-draft PRs, hosted operation, Level 5, the 30-day Level-7 proof, and the 90-day Level-8 proof.
+The ultimate goal is `verified_repository_presentation`: an autonomous system that derives
+product truth from repository source, manifests, consumer tooling, tests, examples, releases,
+verified registries, and approved policy; reconciles existing README claims; manages every
+applicable repository-presentation surface; creates safe authorized proposals; and earns
+independently reproducible Level 5, 7, and 8 evidence.
 
-The immediate visible goal is a current-contract, `AGENT_APPROVED`, `NO_OP_PROVEN` local README
-bundle for every runtime-loaded `data/products.json` entry. Platform priority is Python, .NET,
-Java, C++, TypeScript, Rust, Go.
+The temporary short-term goal is `trusted_readme_transform`: for every current registry
+repository, transform the existing README through an LLM-first pipeline, treating its own claims
+as `README_INHERITED` evidence without repository/external fact verification, independently
+approve transformation quality and fidelity, prove no-op, and open one clearly disclosed draft
+PR. After all trusted PRs exist, resume the ultimate verified mission.
 
 ## 3. Current Mission and Scope
 
 Mission ID: `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`.
 
-Mandatory near-term outcomes are:
+Short-term mandatory outcomes:
 
-1. Source-complete discovery and safe disabled/read-only admission.
-2. One durable, deduplicated intake per admitted repository revision.
-3. A complete `RegistryRevisionV1` and truthful queue/freshness/health state.
-4. Current-contract truth, composition, deterministic validation, independent review/repair, and
-   no-op proof for every registry repository.
-5. Gate B human acceptance only after agent approval.
-6. `act`, disposable staging, and Gate C before any production GitHub App request.
-7. Complete presentation surfaces, production pilot, Level 7, and Level 8.
+1. Explicit `ContentAssuranceV1` and anti-promotion controls.
+2. README-derived typed facts/claims with exact source spans.
+3. LLM-first inventory, plan, bounded section composition, and repair.
+4. Deterministic presentation/safety validation.
+5. Independent blind-quality and inheritance-fidelity approval.
+6. Real adversarial canary qualification.
+7. Full-registry transformation/no-op proof.
+8. Live per-repository write access and reviewed authorization.
+9. Exactly one disclosed trusted draft PR per current registry repository.
 
-Non-goals at this checkpoint: product-repository writes, default-branch changes, GitHub App
-provisioning, staging effects, manual README copy-editing, another controller, another plan, or a
-claim that an 8/31 intake-only slice is eight finalized READMEs.
-
-Completion requires every mandatory graph task to be evidence-backed `CLOSED`, every normative
-requirement to be truthful, all local/workflow/staging/publication/production gates to pass, and
-the elapsed Level-7/8 evidence windows plus final independent audit to complete.
+Non-goals: repository-source fact reconciliation inside trusted mode, a second controller/store,
+a universal deterministic rewrite engine, fork PR support unless direct access fails and is
+separately authorized, GitHub App work, merge/ready/force-push/default-branch effects, or calling a
+trusted result verified.
 
 ## 4. Authority and Reference Map
 
-| Reference | Role | Authority/currentness |
+| Reference | Role | Authority |
 |---|---|---|
-| `AGENTS.md` | Repository operations, safety, one-operator rule, gate order | Binding and current |
-| `plans/idea.md` | Product outcome and README POC gates | Highest product-outcome authority |
-| `plans/master.md` | Architecture, decisions #78/#83/#84, active sequence and gates | Governed executable spec; current |
-| `plans/requirements.md` | Normative acceptance, especially `L8-035`–`L8-039` | Normative and current |
-| `plans/GOVERNANCE.md` | Plan/evidence/status rules | Binding and current |
-| `plans/investigations/control/level8-autonomous-mission-task-graph.yaml` | Sole task graph and dependencies | Sole executable plan |
-| Supervisor Git-ref state | Actual task/claim/transition state | Highest execution-state authority |
-| `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` | Supporting design | Supporting only |
-| `plans/status.md` and `logs/2026-07-29.md` | Generated status and history | Derived/supporting |
-| `plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/` | Current partial intake proof | Current, reproducible, verdict `PARTIAL` |
-
-`plans/master.md` may be maintained without fresh section approval under `GOV-023` and
-`plans/GOVERNANCE.md` rule 12. No narrative file may override live durable state.
+| `plans/idea.md` | Product outcome and trusted/verified gate order | Product authority |
+| `plans/master.md` decisions #78/#83/#84/#85 | Architecture, goals, sequence, gates | Executable plan |
+| `plans/requirements.md` `TRP-001`–`TRP-011` | Normative trusted acceptance | Normative |
+| `plans/GOVERNANCE.md` rules 14–20 | Governance and assurance separation | Binding |
+| Mission task graph | Sole task/dependency graph | Executable authority |
+| Supervisor Git-ref state | Claims and transitions | Live execution authority |
+| `AGENTS.md` | One-operator, safety, effect and gate instructions | Binding |
+| Codex idea-fidelity plan | Detailed supporting route | Supporting only |
 
 ## 5. Exact Plan
 
-### Phase A — Source completeness and intake
+### Phase T0 — Assurance separation
 
-- Entry: local Gate A cannot be truthful from a stale checked-in denominator alone.
-- Steps: source-complete observations (`L8-INTAKE-00`), stable provider identity and reconciliation
-  (`L8-INTAKE-01`), read-only intake (`L8-INTAKE-02`), then registry revision, queue, freshness,
-  and health (`L8-INTAKE-03`).
-- Validation: public CLI ordering, no-loss reconciliation, same-run admission/intake,
-  deduplication, recovery, zero target effects, complete hashes and live read-only evidence.
-- State: task 00 and 01 are verified closed; task 02 is implemented but missing one integration;
-  task 03 must not start before task 02 closes.
+Add the typed assurance axis, trusted lifecycle/verdict/proposal/counter identities, dependency
+fingerprints, and durable migration. Trusted and verified records must be mechanically disjoint.
 
-### Phase B — Local truth, README qualification, and full registry
+### Phase T1 — README-derived evidence
 
-- Resume regressed independent-review work after intake prerequisites.
-- Qualify one representative for Python, .NET, Java, C++, TypeScript, Rust, and Go serially.
-- Freeze a current-contract campaign, then execute Python-first milestones and remaining cohorts.
-- Each repository must reach immutable snapshot, verified facts, assessment/plan, candidate/patch,
-  deterministic validation, independent approval/repair, and unchanged no-op proof.
-- Gate A closes only when the dynamic denominator is completely approved/no-op-proven and the
-  source/registry revision is complete.
+Capture immutable README bytes and let the LLM extract a typed source inventory/fact graph. Every
+inherited fact cites exact README spans and `README_INHERITED`; approved standard additions use
+`CONFIGURED_STANDARD`. Make zero repository/package/external fact-verification calls.
 
-### Phase C — Review and workflow proof
+### Phase T2 — LLM-first composition
 
-- Gate B records human acceptance only after full agent approval.
-- Reproduce the canonical workflow under `act`, including dispatch, recovery, deduplication,
-  checkpoint resume, matrix isolation, evidence, and health.
-- Prove disposable GitHub staging and proposal reconciliation with no default-branch writes.
+The LLM performs transformation planning and authors one or more bounded section drafts.
+Deterministic code only parses/assembles Markdown and enforces contracts, provenance, safety,
+links, headers, Mermaid, terminology, caching, and effects.
 
-### Phase D — Publication, hosted operation, and maturity
+### Phase T3 — Independent review and repair
 
-- Gate C uses fresh what/why/where approval for each Java draft-PR effect.
-- Request GitHub App registration/install/secrets only after Gate C.
-- Prove hosted restartability and all presentation surfaces, then Level 5.
-- Operate heterogeneous portfolio for 30 days for Level 7 and 90 days for Level 8.
+Require deterministic validation, separate blind-quality and inheritance-fidelity reviewers,
+grounded findings, changed-candidate section repair, and exact LLM call/cache accounting.
 
-No phase may lower evidence, factuality, preservation, safety, or independent-review standards to
-meet a time target.
+### Phase T4 — Canary qualification
+
+Serially prove Python, .NET, ordinary Java, malformed/prompt-injected content, and the largest
+current README. Fan-out is prohibited until all pass recovery, no-op, and no-effect controls.
+
+### Phase T5 — Full-registry transformation
+
+Run two-to-four supervisor-owned isolated lanes in platform priority. Close only when every
+current registry entry is trusted-approved/no-op-proven with a checksum-valid PR-ready bundle.
+
+### Phase T6/T7 — Authority and draft PRs
+
+Check direct write access live, consume reviewed expiring authorizations, and create/update exactly
+one disclosed draft PR per repository. Prove update, drift, duplicate delivery, lost response,
+expiry, crash recovery, and default-branch byte identity.
+
+### Verified continuation
+
+After `TRP-07`, resume preserved `L8-INTAKE-02`, verified repository facts and reconciliation,
+verified Gate A/B/C, `act`, staging, hosted App operation, all surfaces, Level 5, Level 7, and
+Level 8. No verified requirement is omitted.
 
 ## 6. Work Completed
 
-### Verified complete
+Verified reusable foundations include source-complete observation (`L8-INTAKE-00`), provider-stable
+registry identity (`L8-INTAKE-01`), canonical `supervise`, immutable snapshots, durable lifecycle,
+leases/CAS, evidence redaction/checksums, LLM call ledger/cache, deterministic presentation
+contracts, blind-review machinery, allow-list, push blocking, authorization, and effect ledger.
 
-- `L8-INTAKE-00`: source-complete observation and allow-list ordering; state version 537; evidence
-  `plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/`.
-- `L8-INTAKE-01`: provider-stable identity, schema-v2 migration, no-loss reconciliation; state
-  version 544; evidence
-  `plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/`.
-- Earlier local foundations and reusable eight-repository facts/candidate/deterministic artifacts
-  remain represented in durable lifecycle state; they are not independent approvals.
+`L8-INTAKE-02` is implemented but unverified. Its missing combined
+discovery → disabled admission → one intake public-path proof is preserved behind TRP-07.
 
-### Implemented but unverified
-
-- `L8-INTAKE-02`:
-  - implementation commits `9906352411a8c2d1c426980c05df15fdaeeae394` and
-    `d0ff90dcaa528aa279184e949ced1ccbacc298e4`;
-  - durable intake state, CAS/lease reservation, revision/contract deduplication,
-    cancellation/resume, typed outcomes, receipt cache, verified baseline reuse, and canonical
-    `INTAKE_READY` ceiling;
-  - 257 focused tests pass;
-  - full official proof at `d215b3b10551bda3d15e21f4ca7ac0ee4c0342d8`: Ruff, format,
-    mypy, 2,183 non-live tests, and governance checks pass; actionlint unavailable;
-  - live Python-priority slice: 8/31 `INTAKE_READY`, both fast/full routes, exact zero provider
-    calls, zero target effects;
-  - limitation: admission and intake are proven separately, not in one public-supervisor run.
-
-### Partial, stale, or contradicted
-
-- `L8-037`, `ONB-002`, `CORE-004`, and `OPS-007` are correctly `PARTIAL`.
-- 8/31 intake-ready is not Gate A and not eight finalized READMEs.
-- Portfolio scoreboard remains 8 facts/candidates/deterministic, 0 agent-approved, 0 no-op-proven,
-  0 human-accepted; first failing boundary is `FACTS_READY`.
-- `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP` remains an unmatched observation and the configured
-  `aspose-imaging-foss` source remains unavailable, so source completeness is false.
+No TRP task is implemented. Existing 8/31 verified fact/candidate/deterministic artifacts are
+reusable where their hashes remain valid, but they provide zero trusted PRs and zero verified
+agent approvals/no-ops.
 
 ## 7. Current Working State
 
-The repository is committed at the content checkpoint. No repository-owned Python, test,
-supervisor, build, or Git process is intentionally left running. The durable task has been moved
-from `IN_PROGRESS` to `IMPLEMENTED`; there is no active claim and no successor has been claimed.
-
-Latest successful boundary: the code, focused tests, official suite, live eight-Python intake
-slice, and checksum inventory all pass.
-
-Latest unresolved boundary: the taskcard acceptance check “a newly discovered repository is
-admitted as disabled and receives one preflight” lacks one combined public-supervisor test. The
-root cause is proof composition, not missing intake mechanics: discovery/admission and intake were
-built and tested as separate paths.
+The plan amendment starts from clean `main` HEAD `883fd307...`. Durable state was evaluated to
+version 552 with `TRP-00` as the sole eligible task and no active claim. The graph uses existing
+`GOAL-README`/`GOAL-DELIVERY` bindings for bootstrap; TRP-00 must add the new
+`GOAL-TRUSTED-POC` goal to the typed goal guard and graph atomically.
 
 ## 8. Remaining Gaps
 
-### GAP-INTAKE-02-COMBINED-PUBLIC-PATH
-
-- Requirement: `L8-037`, `ONB-002`, `CORE-004`, `OPS-007`.
-- Severity: P0; blocks `L8-INTAKE-02` closure and all downstream intake/portfolio work.
-- Evidence:
-  `plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/verification.json`.
-- First failing boundary: unseen discovery observation → disabled admission → intake in one run.
-- Permanent solution: wire and test the existing discovery reconciliation and intake seams through
-  the public supervisor, preserving allow-list and effect denial.
-- Required proof: one admission, one terminal intake, no duplicate on replay/resume, no local or
-  remote target effect, correct stable identity/source revision/contract hashes, and public
-  lifecycle continuation.
-
-### GAP-INTAKE-03-REGISTRY-REVISION-OPERATIONS
-
-- Requirement: `L8-038`, `L8-039`, `PIL-015`.
-- Status: not ready until the prior gap closes.
-- Required outcome: campaign-bound `RegistryRevisionV1`, durable queue, source freshness, health,
-  schedules/events/recovery, and Gate-A fail-closed controls.
-
-All later README, review, Gate A/B, `act`, staging, publication, and maturity tasks remain mandatory
-and are dependency-ordered in the sole task graph.
+- `GAP-TRP-ASSURANCE`: no typed assurance separation; first boundary and current task.
+- `GAP-TRP-LLM-COMPOSITION`: current LLM chiefly selects deterministic operations rather than
+  authoring bounded sections.
+- `GAP-TRP-FIDELITY-REVIEW`: current factual reviewer cannot represent deliberate inherited
+  assurance; real output has truncated and repair has returned unchanged bytes.
+- `GAP-TRP-LONG-DOCUMENT`: largest current README exceeds reliable single-output generation.
+- `GAP-TRP-PORTFOLIO`: no full-registry trusted approval/no-op campaign.
+- `GAP-TRP-AUTHORITY`: owner intends to obtain remaining write access, but live access and reviewed
+  authorization are not yet complete.
+- `GAP-TRP-EFFECT`: no assurance-specific trusted proposal and full-registry PR reconciliation.
 
 ## 9. Ordered Execution Queue
 
-### 1. Close `L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT`
+1. `TRP-00-ASSURANCE-CONTRACT`
+2. `TRP-01-README-DERIVED-FACTS`
+3. `TRP-02-LLM-FIRST-COMPOSITION`
+4. `TRP-03-INDEPENDENT-FIDELITY-REVIEW`
+5. `TRP-04-CANARY-QUALIFICATION`
+6. `TRP-05-FULL-REGISTRY-TRANSFORM`
+7. `TRP-06-AUTHORIZATION-ACCESS`
+8. `TRP-07-DRAFT-PR-PORTFOLIO`
+9. Resume `L8-INTAKE-02` and the complete verified graph.
 
-- Allowed paths: those declared on taskcard lines 4414–4426, chiefly
-  `src/readme_agent/commands_supervision*.py`, `registry/`, `state/`, `supervisor/`,
-  `gitsafety/`, tests, docs, investigation evidence, and logs.
-- Implement: add the smallest integration/wiring needed for one public-supervisor run from an
-  unseen observation through disabled admission and exactly one intake.
-- Focused verification: the new integration plus intake, admission, loader, effect-gate,
-  cancellation/resume, cache, and lifecycle tests.
-- Regression: relevant supervisor/allow-list/push-blocking suites.
-- Live-like proof: local Git fixture, stable identity, no target writes, duplicate replay and
-  interruption resume.
-- Evidence: regenerate the same
-  `level8-intake-02-readonly-preflight-enrollment-v1/` bundle and checksum inventory.
-- Acceptance: independent evidence verdict `PASS`; transition the same task to `VERIFIED`,
-  `SCORED`, and `CLOSED`.
-
-### 2. Evaluate, then claim `L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH`
-
-Build registry-revision binding and eliminate the measured per-repository Git-ref state-write
-bottleneck without weakening CAS, leases, deduplication, isolation, or evidence.
-
-### 3. Resume README critical path
-
-Repair `L8-REVIEW-00-CONTEXT-CORPUS`, finish the independent-review tasks, qualify seven
-ecosystems serially in configured priority, freeze the campaign, complete eight total and eight/all
-Python outcomes, then the remaining full registry. Follow the task graph exactly.
-
-### 4. Later gates
-
-Gate B → `act` → disposable staging → Gate C with per-push approval → GitHub App/hosted runtime →
-Level 5 → 30-day Level 7 → 90-day Level 8.
+Every taskcard contains exact allowed paths, dependencies, implementation outputs, focused and
+regression verification, negative controls, evidence, recovery, and closure rules.
 
 ## 10. Decisions and Constraints
 
-- One operator; no overlapping top-level test/proof/supervisor command trees.
-- Work on control-repository `main`; no control branches.
-- Preserve user work; no reset, restore, clean, force-push, or broad destructive operation.
+- One operator and one top-level command tree.
+- Work directly on control-repository `main`; preserve user work.
+- No second plan, controller, queue, state backend, or execution profile.
+- LLM-first trusted composition; deterministic code remains the safety/contract envelope.
+- README content is trusted data but untrusted instruction.
+- No comments in candidate READMEs.
+- Preserve header/badges, Mermaid, natural contextual links, configurable link budgets,
+  product-subdomain priority, and exact Enterprise Edition terminology.
+- Platform priority: Python, .NET, Java, C++, TypeScript, Rust, Go.
+- Serial through canaries; two-to-four isolated lanes only after qualification.
+- Every LLM call/retry/cache reuse is attributed per README.
+- Expected write access is not current authority.
+- Draft PR only; no merge, ready transition, force-push, or default-branch write.
+- Trusted evidence never promotes into verified evidence.
+- GitHub App remains behind verified Gate C.
 - Every Codex commit includes `Co-Authored-By: Codex <noreply@openai.com>`.
-- `.venv/Scripts/python` and `.venv/Scripts/readme-agent` only.
-- `data/products.json` is the execution allow-list; discovery authority is not execution or write
-  authority.
-- Product repositories receive no write without fresh exact what/why/where approval.
-- No GitHub App request before Gate C.
-- `supervise` is the sole production runtime; local POC uses mandatory dynamic planning.
-- Existing README content is valuable evidence, preserved where possible, but every material claim
-  must be validated.
-- Aspose Enterprise Edition terminology, contextual-link rules, link budgets, header/badges,
-  comment prohibition, and visual requirements remain binding in the authoritative plans/data.
-- Fast path never waives fact, factuality, deterministic, independent-review, patch, or no-op proof.
-- Prefer proven libraries and sibling-system evidence over bespoke code.
-- Agent-fixable failures are repaired; only real unavailable authority/infrastructure/facts are
-  external blocks.
 
 ## 11. Tests, Proof, and Evidence
 
-Current code proof:
+Plan reconciliation currently proves:
 
-```text
-focused affected suite: 257 passed
-official non-live suite: 2,183 passed, 41 deselected
-ruff check: pass
-ruff format --check: pass
-mypy src: pass
-plan validation: pass
-verifier wiring: pass
-prompt hygiene: pass
-requirement/task coverage: 432 rows current
-semantic traceability: 156 IMPLEMENTED checked, 0 closure findings
-actionlint: unavailable, explicitly skipped
-```
+- graph loads with 109 taskcards;
+- 443 requirement rows map deterministically;
+- plan structure passes;
+- mission evaluate migrated state to version 551;
+- graph drift is false and `TRP-00` is sole eligible.
 
-Current task evidence:
-`plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/`.
-Its `sha256sums.txt` and all JSON files passed focused checkpoint validation. Its verdict is
-`PARTIAL`, not pass.
-
-No product remote write occurred. No Gate-A, human-review, `act`, staging, PR, production, or
-elapsed-maturity proof is claimed.
+Implementation, canary, full-registry, access, authorization, and PR proof remain unrun because
+this change is a plan amendment, not implementation closure.
 
 ## 12. Risks and Uncertainty
 
-- The combined public transition may reveal a real wiring defect even though its component seams
-  pass separately.
-- Per-repository Git-ref state/lease round trips dominate repeated intake runtime. Optimize only in
-  task 03 and retain CAS/recovery semantics.
-- Source inventory is incomplete while the imaging source is unavailable and the unmatched PDF Go
-  MCP observation lacks admission disposition.
-- Existing eight candidate artifacts predate current independent-review acceptance; do not present
-  or count them as finalized.
-- Live durable state can advance after this file; always verify it first.
+- The goal guard needs an additive bootstrap migration before `GOAL-TRUSTED-POC` can become a
+  native task goal.
+- LLM output envelopes are not yet qualified against the largest current README.
+- Existing README claims may be stale or wrong; trusted PRs must disclose this.
+- Direct write access is promised but not yet live-proven for every repository.
+- A one-day full-registry campaign is a target only after the implementation and canaries pass.
+- Human reviewers may reject transformed inherited content; later verified reconciliation may
+  correct claims even if a trusted PR was accepted.
 
 ## 13. Receiving Agent Startup Steps
 
-1. Start in `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer`.
-2. Read `AGENTS.md`, `plans/idea.md`, relevant `plans/master.md` decisions #78/#83/#84,
-   `plans/requirements.md` rows `L8-035`–`L8-039`, and the taskcard.
-3. Run mission `status`; compare branch, HEAD, graph hash, state version, and graph drift with this
-   snapshot. If drift exists, run `evaluate`.
-4. Inspect `git status`, repository-owned processes, recent commits, and the partial evidence.
-5. Do not claim task 03. Resume task 02 at
-   `GAP-INTAKE-02-COMBINED-PUBLIC-PATH`.
-6. Modify only taskcard-allowed paths and preserve current behavior.
-7. Run focused proof, relevant integration/regression/safety tests, then the necessary live-like
-   local Git proof.
-8. Regenerate the same evidence directory with redaction, SHA-256 inventory, and reproduction.
-9. Update the same requirement/task/log/status/handover records and transition truthfully.
-10. Commit the coherent slice to `main`, evaluate eligibility, claim the next ready task, and
-    continue without awaiting a prompt until a genuine external boundary or full mission closure.
+1. Read authority and run mission status.
+2. Verify main/HEAD/tree/processes and graph hash.
+3. Claim `TRP-00-ASSURANCE-CONTRACT`.
+4. Implement only its declared assurance/goal/state boundary.
+5. Run focused schema/migration/lifecycle/cache/effect tests.
+6. Run relevant integration, regression, safety, recovery, and idempotency checks.
+7. Capture redacted checksum-complete evidence and independent verification.
+8. Update the same requirements/task/log/handover and commit to main.
+9. Evaluate and claim TRP-01.
+10. Continue autonomously through TRP-07 and then the preserved verified mission.
 
 ## 14. Closure Standard
 
-The receiving agent may close task 02 only after the missing combined public-path acceptance proof
-passes independently. It may declare the mission complete only after every mandatory task and
-requirement is fully proved, Gates A–D and all presentation surfaces pass, Level 5 is independently
-awarded, the 30-day Level-7 and 90-day Level-8 windows complete, and the final independent audit
-reproduces the evidence with no ready, regressed, agent-fixable, or unexplained mandatory work.
+The short-term trusted POC closes only when `TRUSTED_PR_OPEN == len(data/products.json)` against a
+fresh complete registry revision, with zero undisclosed assurance, duplicate PRs, system failures,
+manifest failures, prohibited effects, or default-branch changes.
+
+The complete mission closes only after every mandatory graph task is evidence-backed `CLOSED`,
+verified repository presentation passes all local/workflow/staging/delivery/production gates, the
+30-day and 90-day windows complete, and an independent audit awards Level 8.

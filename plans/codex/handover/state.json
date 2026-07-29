@@ -1,32 +1,35 @@
 {
-  "schema_version": 4,
+  "schema_version": 5,
   "handover_status": "HANDOVER_READY",
   "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
   "branch": "main",
-  "content_checkpoint_head": "1745abfc0168ee32e48c948aca893a60680b5b4c",
-  "origin_main": "696dd5d542282a1f9909b9453964c87466257589",
-  "working_tree_at_content_checkpoint": "clean",
+  "content_checkpoint_head": "883fd30760b17855d5648d29c184ac97ec453336",
+  "origin_main_at_checkpoint": "883fd30760b17855d5648d29c184ac97ec453336",
+  "working_tree_at_snapshot": "trusted POC plan amendment pending coherent commit",
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "authoritative_plan": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-  "authoritative_plan_hash": "cbeda937ee0d7a6d45d6fc58507fc68e60d8ccc7fbb98a869983d40d5c719f52",
-  "durable_state_version": 550,
+  "authoritative_plan_hash": "d380edde56f18a7c2e9e4f98a7b753bc76292d300a7b899acafff42cf94b3310",
+  "durable_state_version": 552,
   "graph_drift": false,
-  "current_phase": "source-complete discovery and durable read-only intake before local Gate A",
-  "current_task": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
-  "current_task_status": "IMPLEMENTED",
+  "current_phase": "trusted POC - LLM-first full-registry README transformation and draft PRs",
+  "current_task": "TRP-00-ASSURANCE-CONTRACT",
+  "current_task_status": "TODO",
   "active_claim": null,
-  "next_task": null,
-  "next_action": "Add one public-supervisor integration from an unseen discovery observation through disabled admission and exactly one intake in the same logical run; prove effect denial, deduplication, cancellation/resume, and lifecycle continuation; regenerate the existing evidence and close L8-INTAKE-02 before evaluating L8-INTAKE-03.",
+  "next_task": "TRP-00-ASSURANCE-CONTRACT",
+  "next_action": "Claim TRP-00 and add ContentAssuranceV1 plus disjoint trusted lifecycle, counters, cache, manifest, proposal, and effect identity; migrate GOAL-TRUSTED-POC into the goal guard without creating another runtime or promoting trusted evidence.",
+  "short_term_goal": "trusted_readme_transform: one independently transformation-approved, no-op-proven, disclosed authorized draft PR for every current data/products.json repository",
+  "ultimate_goal": "verified_repository_presentation: repository-evidence-backed full presentation system through Level 8",
   "mandatory_outcomes": [
-    "complete current RegistryRevisionV1 with truthful source freshness and intake queue health",
-    "full-registry local Gate A with deterministic validation, independent agent approval, and no-op proof",
-    "Gate B human acceptance after complete agent approval",
-    "canonical workflow proof under act",
-    "disposable GitHub staging and Gate C authorized Java draft-PR proof",
-    "hosted GitHub App runtime only after Gate C",
-    "complete presentation surfaces and independent Level-5 proof",
-    "30-day Level-7 and 90-day Level-8 production proof",
-    "final reproducible independent audit"
+    "TRP-00 explicit trusted-versus-verified assurance and durable goal/state migration",
+    "TRP-01 README_INHERITED fact and claim extraction with exact source spans",
+    "TRP-02 LLM-first bounded section composition and targeted repair",
+    "TRP-03 deterministic validation plus blind-quality and inheritance-fidelity review",
+    "TRP-04 adversarial real canary qualification",
+    "TRP-05 full-registry trusted transformation and no-op proof",
+    "TRP-06 live write-access and reviewed authorization for every repository",
+    "TRP-07 exactly one disclosed trusted draft PR per current registry repository",
+    "resume preserved verified intake, facts, composition, review, and full-registry Gate A",
+    "Gate B, act, staging, verified Gate C, hosted GitHub App, Level 5, 30-day Level 7, and 90-day Level 8"
   ],
   "completed_verified": [
     "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY",
@@ -38,51 +41,49 @@
   "implemented_unverified": [
     {
       "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
-      "missing_proof": "One public-supervisor integration beginning with an unseen discovery observation must prove disabled admission and exactly one intake in the same logical run."
+      "disposition": "preserved behind TRP-07",
+      "missing_proof": "One public-supervisor run beginning with an unseen discovery observation must prove disabled admission and exactly one intake in the same logical run."
     }
   ],
   "remaining_tasks": [
+    "TRP-00-ASSURANCE-CONTRACT",
+    "TRP-01-README-DERIVED-FACTS",
+    "TRP-02-LLM-FIRST-COMPOSITION",
+    "TRP-03-INDEPENDENT-FIDELITY-REVIEW",
+    "TRP-04-CANARY-QUALIFICATION",
+    "TRP-05-FULL-REGISTRY-TRANSFORM",
+    "TRP-06-AUTHORIZATION-ACCESS",
+    "TRP-07-DRAFT-PR-PORTFOLIO",
     "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
-    "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
-    "L8-REVIEW-00-CONTEXT-CORPUS",
-    "L8-REVIEW-04A-REAL-CORPUS",
-    "L8-REVIEW-05-REAL-CAMPAIGN",
-    "serial heterogeneous qualification and campaign freeze",
-    "L8-ACCEL-00-PYTHON-READINESS",
-    "L8-ACCEL-01-EIGHT-TOTAL",
-    "L8-ACCEL-02-EIGHT-PYTHON",
-    "L8-ACCEL-03-ALL-PYTHON",
-    "remaining-platform Gate A",
-    "GATE-B-HUMAN-REVIEW",
-    "ACT-CANONICAL-WORKFLOW-PROOF",
-    "DISPOSABLE-GITHUB-STAGING",
-    "GATE-C-JAVA-DRAFT-PR-PROOF",
-    "GATE-D-GITHUB-APP-HOSTED-RUNTIME",
-    "LEVEL-5-PROOF",
-    "LEVEL-7-30-DAY-PROOF",
-    "LEVEL-8-90-DAY-PROOF"
+    "remaining verified mission graph through LEVEL-8-90-DAY-PROOF"
   ],
   "blockers": [
+    {
+      "task_id": "TRP-06-AUTHORIZATION-ACCESS",
+      "classification": "EXPECTED_EXTERNAL_AUTHORITY",
+      "blocks_current_task": false,
+      "unblock_condition": "Owner obtains remaining direct repository write access; Codex then proves each permission live and consumes reviewed unexpired repository-specific authorization."
+    },
     {
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
       "classification": "BLOCKED_EXTERNAL",
       "blocks_current_task": false,
-      "unblock_condition": "Request hosted GitHub authority and infrastructure only after Gates A, B, act, staging, and Gate C."
+      "unblock_condition": "Request hosted GitHub authority and infrastructure only after trusted T2 and the preserved verified preproduction gates reach their declared boundary."
     }
   ],
   "portfolio_scoreboard": {
     "checked_in_denominator": 31,
-    "source_complete": false,
-    "known_unmatched_repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP",
-    "known_unavailable_source": "aspose-imaging-foss",
-    "intake_ready_live_slice": 8,
-    "facts_ready": 8,
-    "candidate_generated": 8,
-    "deterministic_validated": 8,
-    "agent_approved": 0,
-    "no_op_proven": 0,
-    "human_accepted": 0,
-    "first_failing_boundary": "FACTS_READY"
+    "trusted_facts_extracted": 0,
+    "trusted_candidate_generated": 0,
+    "trusted_transform_approved": 0,
+    "trusted_no_op_proven": 0,
+    "trusted_pr_open": 0,
+    "verified_facts_ready": 8,
+    "verified_candidate_generated": 8,
+    "verified_deterministic_validated": 8,
+    "verified_agent_approved": 0,
+    "verified_no_op_proven": 0,
+    "verified_human_accepted": 0
   },
   "critical_references": [
     "AGENTS.md",
@@ -91,22 +92,22 @@
     "plans/master.md",
     "plans/requirements.md",
     "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-    "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/verification.json",
+    "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md",
     "plans/codex/handover/HANDOVER.md",
     "plans/codex/handover/CONTINUE.md"
   ],
   "evidence_paths": [
+    "plans/investigations/evidence/level8-requirement-taskcard-coverage",
     "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1",
     "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1",
-    "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1",
-    "plans/investigations/evidence/level8-requirement-taskcard-coverage"
+    "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1"
   ],
   "resume_protocol": [
-    "Read authority and verify live branch, HEAD, tree, repository-owned processes, graph hash, and durable mission status.",
-    "Trust live supervisor state over this historical snapshot.",
-    "Do not claim L8-INTAKE-03 before L8-INTAKE-02 is independently verified and closed.",
-    "Implement the combined public discovery-admission-intake proof at the first failing boundary.",
-    "Run focused, integration, regression, safety, recovery, idempotency, and live-like proof.",
-    "Regenerate the same redacted checksum-complete evidence, transition truthfully, commit to main, evaluate, and continue."
+    "Read AGENTS.md and the authoritative planning set, then verify live branch, HEAD, tree, processes, graph hash, and durable mission status.",
+    "Trust live supervisor state over this snapshot.",
+    "Claim TRP-00 through the existing supervisor; do not resume L8-INTAKE-02 before TRP-07 closes.",
+    "Implement the smallest complete task slice and run focused, integration, regression, safety, recovery, idempotency, and live-like proof.",
+    "Write redacted checksum-complete evidence, update the same requirements/task/log/handover, commit to main, evaluate, and continue.",
+    "Treat expected write access as unavailable until live permission and reviewed authorization checks pass."
   ]
 }

@@ -70,10 +70,55 @@ naming mismatch may require classification, but it may never make a repository i
 result covering only part of the admitted registry, or a registry whose source inventory is
 incomplete, is a development batch or partial result and is never presented as "the POC."
 
+Two content-assurance horizons deliberately share one supervisor, lifecycle store, evidence
+system, and proposal mechanism:
+
+1. **`trusted_readme_transform` is the temporary short-term POC.** The README at the immutable
+   default-branch revision is authoritative *for inherited POC content only*. The system extracts
+   a typed fact/claim graph from that README, with exact source spans and
+   `README_INHERITED` provenance, and uses it through the same assessment, planning, composition,
+   validation, review, caching, evidence, and effect boundaries used by the final system. It does
+   not verify those inherited claims against repository source, tests, package registries,
+   documentation, or other external authorities, and it never labels them repository-verified.
+   Approved presentation-contract additions such as badges, navigation, Mermaid, and catalog
+   links use separate `CONFIGURED_STANDARD` provenance. The LLM is the primary interpreter,
+   planner, section composer, and targeted repairer because the source READMEs are structurally
+   heterogeneous; deterministic code is limited to generic Markdown segmentation/assembly,
+   schemas, provenance, safety, link policy, validation, caching, and effects.
+2. **`verified_repository_presentation` remains the ultimate production goal.** It independently
+   derives mechanically testable facts from repository source, manifests, public consumer
+   surfaces, tests, examples, releases, and approved external authorities, reconciles inherited
+   README claims against that evidence, and governs every presentation surface. A trusted
+   transformation or trusted POC pull request is useful delivery evidence but can never satisfy a
+   verified fact, verified proposal, Gate A, maturity, or production-readiness requirement.
+
+The assurance mode is explicit and hashed into facts, candidates, reviews, manifests, lifecycle
+state, caches, proposals, and effects. Changing from `README_INHERITED` to repository-verified
+evidence invalidates the earliest dependent boundary; it does not silently promote or reuse the
+trusted verdict. Repository README text is authoritative content in the trusted lane but remains
+untrusted instruction data: prompt injection, hidden directives, and requests to bypass policy
+are never obeyed.
+
 Delivery proceeds through ordered gates, and a later gate never starts before the gate it depends
 on is actually accepted, not merely attempted:
 
-1. **Gate A — full-registry local README proof.** For every registry repository, the system reads
+1. **Trusted Gate T1 — full-registry LLM-first transformation proof.** For every current registry
+   repository, the system captures the immutable README bytes, extracts README-derived
+   facts/claims, produces a typed transformation plan and repository-specific candidate, and
+   passes deterministic presentation/safety validation plus independent blind-quality and
+   inheritance-fidelity review. It records source-span accountability, targeted repair, exact LLM
+   calls, cache reuse, and an unchanged no-op rerun. This gate may use section-bounded calls for
+   large READMEs; no universal template or whole-document token assumption is allowed.
+2. **Trusted Gate T2 — authorized draft-PR portfolio.** After T1 acceptance, the system creates or
+   updates exactly one clearly labelled `trusted_readme_transform` draft pull request for every
+   current registry repository. Each effect requires verified repository write access and a
+   reviewed, unexpired authorization record. Expected future access is not present access:
+   repositories without it remain visibly blocked while all independently eligible repositories
+   continue. These PRs never merge, become ready, force-push, or write a default branch, and their
+   bodies disclose that inherited product claims were not repository-verified.
+3. **Gate A — full-registry verified local README proof.** After every current registry repository
+   has its T2 draft PR, execution returns to `verified_repository_presentation`. For every
+   registry repository, the system reads
    the README from the repository's current default branch, records the source revision and exact
    original bytes, assesses that README against this document, verifies product facts against the
    repository and relevant package/platform evidence, and produces a repository-specific enhanced
@@ -81,7 +126,7 @@ on is actually accepted, not merely attempted:
    and review verdict remain reviewable local artifacts. Read-only GitHub access needed to obtain
    this evidence is part of Gate A; remote writes, pull requests, and GitHub App integration are
    not.
-2. **Independent agentic approval completes the system portion of Gate A.** Every candidate is
+4. **Independent agentic approval completes the system portion of Gate A.** Every candidate is
    judged by an independent agentic reviewer — a separate LLM judgment role from whatever
    produced the candidate — and repaired until approved or honestly blocked. The system is ready
    for POC human review only when every entry in the current complete registry revision has an
@@ -89,17 +134,18 @@ on is actually accepted, not merely attempted:
    merely existing is not approval. A strong existing README may take a fast path, but still needs
    verified inherited claims, deterministic assessment, an empty-patch candidate, independent
    approval, and no-op proof.
-3. **Gate B — human review follows agent approval.** Humans review only candidates that already
+5. **Gate B — verified human review follows agent approval.** Humans review only candidates that already
    passed independent agentic review. Human acceptance is recorded separately; it is not inferred
    from an agent verdict. Every registry candidate must be human-accepted before Gate C begins.
-4. **Gate C — Java PR proof follows full local and human acceptance.** Opening a real, verifiable
-   pull request against the designated Java repositories is attempted only after every current
-   registry repository has passed Gates A and B, not before.
-5. **Gate D — GitHub App integration follows Gate C.** Production GitHub App credentialing,
+6. **Gate C — verified Java proposal proof follows full local and human acceptance.** Trusted T2
+   PRs do not satisfy this gate. Creating or updating verified proposals against the designated
+   Java repositories is attempted only after every current registry repository has passed Gates A
+   and B, not before.
+7. **Gate D — GitHub App integration follows Gate C.** Production GitHub App credentialing,
    installation, and broad integration are deferred until Gate C's Java PR proof is complete and
    accepted; they are never pursued in parallel with, or ahead of, that proof.
 
-Two standing constraints apply across every gate:
+Standing constraints apply across every gate:
 
 - **The existing README is a high-value, product-agent-curated source to reuse wherever
   validation permits—not unquestioned truth and not disposable input.** The product-development
@@ -109,7 +155,10 @@ Two standing constraints apply across every gate:
   validated against accepted repository/package evidence or an authoritative owner. Verified
   content is reused; stale or contradicted content is corrected with evidence; unresolved content
   is omitted or carried as explicit uncertainty for owner resolution. Regeneration convenience is
-  never a reason to discard valuable curated information.
+  never a reason to discard valuable curated information. This is the
+  `verified_repository_presentation` rule. During the temporary `trusted_readme_transform` lane,
+  the same content is intentionally accepted as `README_INHERITED` evidence without external
+  reconciliation, and that reduced assurance is recorded in every downstream artifact and PR.
 - **LLM/agentic reasoning is required for repository interpretation and composition.** Understanding
   what a repository's product actually does, who it is for, and how to present it credibly is a
   judgment task no fixed rule set can fully express. Deterministic code supplies safety,

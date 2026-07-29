@@ -17,10 +17,54 @@ Authority is, in order:
 6. This document, `plans/codex/production-system-redesign.md`, the former RPOC ledger, roadmap,
    status, reports, and evidence -- supporting reference only.
 
-The immediate outcome is a complete, repository-specific, independently agent-approved, local
-README bundle for every current `data/products.json` entry. The denominator is loaded at runtime;
-no fixed repository count is authoritative. The final outcome is the complete central
-repository-presentation system and independently reproducible Level-8 award in `plans/idea.md`.
+The immediate outcome is one independently transformation-approved
+`trusted_readme_transform` draft PR for every current `data/products.json` entry. Its facts are
+extracted from the immutable source README with `README_INHERITED` provenance and are not
+repository-verified. The denominator is loaded at runtime; no fixed repository count is
+authoritative. After every trusted PR exists, execution resumes
+`verified_repository_presentation`: the complete repository-evidence-backed central
+presentation system and independently reproducible Level-8 award in `plans/idea.md`.
+
+### Binding trusted-POC amendment (2026-07-29)
+
+This amendment supersedes this document's earlier short-term sequencing wherever it conflicts; it
+does not delete or weaken the later verified work.
+
+```text
+TRP-00 explicit content assurance and lifecycle separation
+→ TRP-01 README_INHERITED fact/claim extraction
+→ TRP-02 LLM-first inventory, plan, section composition, and repair
+→ TRP-03 deterministic validation plus blind-quality and inheritance-fidelity review
+→ TRP-04 real adversarial canaries
+→ TRP-05 two-to-four-lane full-registry trusted transformation
+→ TRP-06 per-repository authorization and live write-access proof
+→ TRP-07 exactly one trusted draft PR per current registry repository
+→ resume the preserved L8-INTAKE-02 verified boundary
+→ verified full-registry Gate A and every later maturity gate
+```
+
+The trusted pipeline deliberately retains the existing fact-oriented shape. `ProductFactsV2`
+records may be populated from README claims in this mode, but every record carries the immutable
+README revision/span, `README_INHERITED` provenance, and `trusted_inherited` assurance. Approved
+contract additions use `CONFIGURED_STANDARD`. The system does not inspect code, tests, manifests,
+package registries, documentation, or other external sources to reconcile those claims.
+`repository_verified` mode later re-derives and reconciles them and invalidates dependent trusted
+acceptance rather than promoting it.
+
+The LLM is the primary interpreter and author for this temporary path. It produces a typed source
+inventory, transformation plan, bounded section drafts, and targeted repairs. Deterministic code
+only segments/assembles Markdown and enforces schemas, provenance, source accountability,
+comment/code-fence/header/Mermaid/link/terminology controls, caching, authorization, and effects.
+Short and ordinary READMEs may compose in one call; large READMEs use section groups. Independent
+blind-quality and inheritance-fidelity roles must approve the result, and an unchanged or
+truncated repair is a system failure.
+
+The owner intends to obtain direct write access for the remaining repositories. The plan records
+that intention but treats access as available only after live repository permission checks and
+reviewed, unexpired authorization records. Missing access blocks only the affected PR while all
+other transformation and effect work continues. The one-day target applies to the already
+qualified full-registry campaign, not to implementation, canary repair, or unavailable external
+authority.
 
 ### Immutable core goal and subordinate goal system
 
@@ -31,18 +75,20 @@ unchanged no-op, and then carry the same deliverable through the ordered human, 
 production, and maturity gates. The project is not successful because it has schemas, tests,
 controllers, reports, evidence directories, or maturity prose; those are supporting means.
 
-Six subordinate goals may own dependency-ready work, but none is an alternate stopping point:
+Seven subordinate goals may own dependency-ready work, but none is an alternate stopping point:
 
-1. `GOAL-TRUTH` -- verified product, acquisition, example, limitation, compatibility, and link
+1. `GOAL-TRUSTED-POC` -- README-derived LLM-first transformations, independent fidelity approval,
+   no-op proof, authorization, and one trusted draft PR per current registry repository.
+2. `GOAL-TRUTH` -- verified product, acquisition, example, limitation, compatibility, and link
    evidence needed by the core bundle.
-2. `GOAL-README` -- the actual marker-free product-specific README, badge header, visual overview,
+3. `GOAL-README` -- the actual marker-free product-specific README, badge header, visual overview,
    examples, contextual links, native patch, validation, repair, approval, and no-op proof.
-3. `GOAL-PROFILE` -- GitHub description, homepage, topics, community-file findings,
+4. `GOAL-PROFILE` -- GitHub description, homepage, topics, community-file findings,
    generated-surface observations, and product illustration.
-4. `GOAL-AUTONOMY` -- the same output through one safe, resumable, isolated, idempotent,
+5. `GOAL-AUTONOMY` -- the same output through one safe, resumable, isolated, idempotent,
    evidence-complete `supervise` runtime.
-5. `GOAL-DELIVERY` -- Gate B, `act`, staging, Gate C, and hosted GitHub App operation in order.
-6. `GOAL-MATURITY` -- complete surfaces, Level 5, heterogeneous Level 7, and the independently
+6. `GOAL-DELIVERY` -- Gate B, `act`, staging, Gate C, and hosted GitHub App operation in order.
+7. `GOAL-MATURITY` -- complete surfaces, Level 5, heterogeneous Level 7, and the independently
    audited 30-day and 90-day operating windows.
 
 Every task must name its subordinate goal and one measurable core contribution: a visible output,
@@ -52,6 +98,11 @@ recomputes a goal scoreboard from durable repository lifecycle state:
 
 ```text
 registry denominator
+→ TRUSTED_FACTS_EXTRACTED
+→ TRUSTED_CANDIDATE_GENERATED
+→ TRUSTED_TRANSFORM_APPROVED
+→ TRUSTED_NO_OP_PROVEN
+→ TRUSTED_PR_OPEN
 → FACTS_READY
 → CANDIDATE_GENERATED
 → DETERMINISTIC_VALIDATED
