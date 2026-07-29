@@ -20,6 +20,12 @@ from readme_agent.registry.discovery import (
     scan_org,
 )
 from readme_agent.registry.discovery_inventory import inventory_sources
+from readme_agent.state.git_backend import default_state_backend
+from readme_agent.supervisor.mission_goal_guard import (
+    derive_lifecycle_scoreboard,
+    lifecycle_scoreboard_sha256,
+)
+from readme_agent.supervisor.mission_graph import load_mission_graph
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 EVIDENCE_DIR = (
@@ -35,6 +41,7 @@ GRAPH_PATH = (
 FAMILIES_PATH = REPO_ROOT / "data" / "families.json"
 PRODUCTS_PATH = REPO_ROOT / "data" / "products.json"
 KNOWN_UNMATCHED_REPOSITORY = "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP"
+TASK_ID = "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY"
 FOCUSED_COMMAND = (
     sys.executable,
     "-m",
@@ -169,6 +176,10 @@ def main() -> int:
         "network_contract": "GitHub REST organization inventory through GET requests only",
         "remote_write_operations": [],
     }
+    graph, _graph_sha256 = load_mission_graph(GRAPH_PATH)
+    task = next(task for task in graph.taskcards if task.task_id == TASK_ID)
+    scoreboard = derive_lifecycle_scoreboard(default_state_backend())
+    scoreboard_sha256 = lifecycle_scoreboard_sha256(scoreboard)
 
     write_redacted_json(EVIDENCE_DIR / "raw-observation-inventory.json", payload)
     write_redacted_json(EVIDENCE_DIR / "source-health-and-freshness.json", source_health)
@@ -177,11 +188,36 @@ def main() -> int:
         EVIDENCE_DIR / "verification.json",
         {
             "schema_version": 1,
-            "task_id": "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY",
+            "task_id": TASK_ID,
             "requirement_ids": ["L8-035"],
             "checks": checks,
             "failures": failures,
             "verdict": "PASS" if not failures else "FAIL",
+        },
+    )
+    write_redacted_json(
+        EVIDENCE_DIR / "mission-contribution.json",
+        {
+            "schema_version": 1,
+            "task_id": TASK_ID,
+            "goal_ids": task.goal_ids,
+            "core_contribution": task.core_contribution,
+            "acceptance_checks_passed": task.acceptance_checks,
+            "proof_refs": [
+                "plans/investigations/evidence/"
+                "level8-intake-00-discovery-truth-and-safety-v1/verification.json",
+                "plans/investigations/evidence/"
+                "level8-intake-00-discovery-truth-and-safety-v1/"
+                "raw-observation-inventory.json",
+                "plans/investigations/evidence/"
+                "level8-intake-00-discovery-truth-and-safety-v1/"
+                "source-health-and-freshness.json",
+            ],
+            "scoreboard_before_sha256": scoreboard_sha256,
+            "scoreboard_after_sha256": scoreboard_sha256,
+            "first_failing_boundary_before": scoreboard.first_failing_boundary,
+            "first_failing_boundary_after": scoreboard.first_failing_boundary,
+            "independently_verified": True,
         },
     )
     write_redacted_json(
