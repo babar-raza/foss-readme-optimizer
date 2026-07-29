@@ -2,6 +2,7 @@
   "accepted_facts_hash": null,
   "accepted_status": null,
   "capability_outputs": [],
+  "checkpoints": {},
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "37dc24a925b87b88d9c723069d3df0585cd31e68e7e69e3d340b6eecb6c7a876",
@@ -348,10 +349,13 @@
   },
   "last_run_id": null,
   "last_run_timestamp": null,
+  "mission_execution": null,
   "open_proposals": {},
   "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 29,
+  "readme_poc_lifecycle": null,
+  "schema_version": 2,
+  "state_version": 30,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -363,6 +367,7 @@
     "last_run_timestamp": "2026-07-22T14:43:31.680592+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
+    "surface_freshness": {},
     "task_graph_snapshot": {
       "tasks": [
         {
@@ -580,6 +585,31 @@
       ]
     }
   },
+  "trigger_lifecycles": {
+    "operator:20260729-064147-9518:aspose-note-foss/Aspose.Note-FOSS-for-Python": {
+      "accepted_at": "2026-07-29T06:41:51.899237+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260729-064147-9518:aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-07-29T06:41:47.626321+00:00",
+        "provider_event_id": "20260729-064147-9518",
+        "repository_scope": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-07-29T06:41:51.899246+00:00"
+    }
+  },
+  "trigger_records": {},
   "upstream_content_fingerprint_at_accept": null,
   "upstream_revision_at_accept": null
 }
