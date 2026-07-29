@@ -7,8 +7,8 @@ Resume in:
 Mission: `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`.
 
 The content snapshot immediately before the containing handover commit is `main` at
-`bb994cf91d3b11e0a1774be092e221a721a0e6f9`, with a clean tree, durable mission state version 527,
-graph hash `471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39`,
+`d3657907679824cb67ed55f5fd726a02064a73df`, with a clean tree, durable mission state version 531,
+graph hash `8486ade4cdfbee608dce30d0859eab4afa5d15efec58ef43848dc7cfb4aa2997`,
 no active claim, and `L8-REVIEW-00-CONTEXT-CORPUS` as the next eligible task. Re-read live state;
 this narrative never overrides it.
 
@@ -29,6 +29,23 @@ queue, state store, or branch.
 The goal is not implementation-only closure. Continue through full-registry local Gate A, Gate B,
 `act`, staging, Gate C, hosted operation, Level 5, Level 7's 30 days, Level 8's 90 days, and final
 independent audit.
+
+The binding visible-output sequence is:
+
+```text
+repair shared reviewer
+-> seven serial NO_OP_PROVEN representatives, Python first
+-> zero-call Python readiness inventory
+-> eight total finalized READMEs
+-> eight finalized Python READMEs
+-> all current Python READMEs
+-> .NET, Java, C++, TypeScript, Rust, Go
+-> complete the dynamic-denominator Gate A and every later gate
+```
+
+Do not stop at either eight milestone. Two-to-four real repository lanes begin only after all seven
+representatives, recovery/golden/cost controls, and campaign freeze pass. Until then real work is
+serial; fixture isolation may use two lanes.
 
 ## Startup
 
@@ -81,8 +98,11 @@ truncation is not. Record exact per-invocation calls, checksums, candidate reten
 remote writes.
 
 After closing the repaired owner task, transition `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to
-`READY`, claim it, and run the seven real representatives. Acceptance requires zero critical false
-accepts and every repairable case to change and resolve its defect.
+`READY`, claim it, and run the seven real representatives in Python, .NET, Java, C++, TypeScript,
+Rust, Go order. Acceptance requires zero critical false accepts and every repairable case to change
+and resolve its defect. Complete serial qualification and campaign freeze, then execute
+`L8-ACCEL-00-PYTHON-READINESS`, `L8-ACCEL-01-EIGHT-TOTAL`,
+`L8-ACCEL-02-EIGHT-PYTHON`, and `L8-ACCEL-03-ALL-PYTHON` before any remaining-platform cohort.
 
 ## Continuous Loop
 

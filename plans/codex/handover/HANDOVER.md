@@ -6,11 +6,11 @@
 |---|---|
 | Verdict | `HANDOVER_READY` |
 | Repository | `D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer` |
-| Branch / content checkpoint | `main` / `bb994cf91d3b11e0a1774be092e221a721a0e6f9` |
+| Branch / content checkpoint | `main` / `d3657907679824cb67ed55f5fd726a02064a73df` |
 | Upstream | `origin/main` at `5fdf77deb3898db4994413d5f77b8470a9ee1290` |
 | Working tree | Clean at the content checkpoint; the containing handover commit is the next commit |
 | Mission | `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` |
-| Durable state | Version 527; graph `471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39`; no drift |
+| Durable state | Version 531; graph `8486ade4cdfbee608dce30d0859eab4afa5d15efec58ef43848dc7cfb4aa2997`; no drift |
 | Current phase | Independent-review production-route qualification |
 | Active task | None; checkpoint intentionally released the claim |
 | Next eligible task | `L8-REVIEW-00-CONTEXT-CORPUS` (`REGRESSED`) |
@@ -28,8 +28,10 @@ and independently review them, safely manage authorized draft effects, recover w
 effects, and ultimately earn Level 8 through independently reproducible 30-day and 90-day
 production evidence.
 
-The immediate visible goal remains full-registry local Gate A: every runtime-loaded registry entry
-must have a deterministic-valid, independently agent-approved, unchanged-rerun-proven bundle.
+The immediate visible sequence is seven qualified representatives, eight total finalized
+READMEs, eight finalized Python READMEs, every current Python README, then the remaining platforms
+and full-registry Gate A. Every counted repository must have a deterministic-valid, independently
+agent-approved, unchanged-rerun-proven bundle.
 
 ## 3. Current Mission and Scope
 
@@ -62,13 +64,17 @@ The current dependency route is:
 1. Requalify `L8-REVIEW-00-CONTEXT-CORPUS`.
 2. Return `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to `READY`.
 3. Prove good, defective, repairable, conflicting, and missing-evidence behavior across seven real
-   ecosystem representatives under the same frozen reviewer standard.
-4. Continue the graph-selected local heterogeneous qualification and full-registry Gate A tasks.
-5. Gate B human review only after every repository is agent-approved and no-op-proven.
-6. Prove the canonical workflow under `act`, then disposable staging.
-7. Gate C Java draft-PR proof with fresh per-push authorization.
-8. Request GitHub App authority only after Gate C, then hosted runtime and Level 5.
-9. Complete Level 7's 30-day and Level 8's 90-day windows and independent audit.
+   ecosystem representatives under the same frozen reviewer standard, promoting Python first.
+4. Complete serial heterogeneous qualification and freeze the P3 campaign.
+5. Execute `L8-ACCEL-00-PYTHON-READINESS`, `L8-ACCEL-01-EIGHT-TOTAL`,
+   `L8-ACCEL-02-EIGHT-PYTHON`, and `L8-ACCEL-03-ALL-PYTHON`.
+6. Preserve completed Python work and continue .NET, Java, C++, TypeScript, Rust, Go through full
+   Gate A without omitting any existing truth, cohort, healing, no-op, or reproduction task.
+7. Gate B human review only after every repository is agent-approved and no-op-proven.
+8. Prove the canonical workflow under `act`, then disposable staging.
+9. Gate C Java draft-PR proof with fresh per-push authorization.
+10. Request GitHub App authority only after Gate C, then hosted runtime and Level 5.
+11. Complete Level 7's 30-day and Level 8's 90-day windows and independent audit.
 
 Each task requires focused, integration, regression, safety, real/live-like, recovery,
 idempotency, redaction, checksum, and independent evidence appropriate to its claim.
@@ -81,6 +87,9 @@ Verified and durably closed immediately before this checkpoint:
   evidence; implementation `40e6e73b`, evidence `4d168c97`.
 - `L8-REVIEW-04-NO-OP-CACHE`: restart-safe exact reuse and stage-scoped invalidation; implementation
   `e37ba9b`, evidence `5fdf77de`.
+- Plan commit `d3657907` added four non-omitting Python-first milestone taskcards, corrected the
+  qualification dependency order, and migrated durable state to graph version 530 without losing
+  history or changing the current reviewer-repair boundary.
 
 The prior clean full suite at `40e6e73b` passed Ruff, format, mypy, and
 `2129 passed, 41 deselected`. Later focused review/cache regressions passed, but no newer complete
@@ -151,8 +160,11 @@ cost and output size.
 6. Write checksum-complete evidence and close the reopened task only if the real canary and
    regressions pass.
 7. Transition `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to `READY`, claim it, and execute the
-   seven-representative corpus.
-8. Continue only through the graph-selected successor.
+   seven-representative corpus in Python, .NET, Java, C++, TypeScript, Rust, Go order.
+8. Complete serial qualification and campaign freeze.
+9. Run the four `L8-ACCEL-*` milestones: Python readiness, eight total, eight Python, all Python.
+10. Continue the remaining platforms and all original Gate-A/later tasks through the graph-selected
+    successors.
 
 No other task currently needs a second editing operator. Later portfolio parallelism must be
 runtime-owned, lease-isolated, and introduced only after representative qualification.
