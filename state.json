@@ -10853,7 +10853,7 @@
     "updated_at": "2026-07-29T16:45:34.472575+00:00"
   },
   "schema_version": 2,
-  "state_version": 449,
+  "state_version": 450,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -11400,13 +11400,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:StateBackendError:invalid trusted README lifecycle transition 'TRUSTED_FACTS_EXTRACTED' -> 'TRUSTED_FACTS_EXTRACTED' for 'aspose-3d-foss/Aspose.3D-FOSS-for-Python'",
       "last_checkpoint_id": "5054a2dc6d41da53558e5eb8b976faa87dfe28ff228ee470552c2aef38eb5047",
-      "lease_expires_at": "2026-07-29T17:00:02.725865+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-29T16:45:08.134033+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-29T16:45:42.107660+00:00"
     }
   },
   "trigger_records": {},
