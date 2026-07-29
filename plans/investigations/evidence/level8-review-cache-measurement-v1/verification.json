@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-03A-CACHE-MEASUREMENT",
+  "control_revision": "668b31103af7f4f2b00b1cd319f8d27ab3893913",
+  "implementation_revision": "40e6e73be4d9ddf33c15f3341d3722a763c7125f",
+  "focused_proof": {
+    "command": ".venv/Scripts/python -m pytest -q tests/unit/test_local_poc_cache.py tests/unit/test_cli.py::TestLocalPocPortfolioCommand::test_complete_cache_uses_live_revision_and_records_inspectable_key tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_records_snapshot_and_profile_before_later_stages tests/unit/test_portfolio_stage_cache.py",
+    "exit_code": 0,
+    "stdout": "...............                                                          [100%]\n15 passed in 16.95s",
+    "stderr": "",
+    "result": "PASS"
+  },
+  "clean_implementation_full_regression": {
+    "command": ".venv/Scripts/python -m ruff check .; .venv/Scripts/python -m ruff format --check .; .venv/Scripts/python -m mypy src; .venv/Scripts/python -m pytest -q",
+    "ruff_check": "PASS",
+    "ruff_format_check": "PASS",
+    "mypy": "PASS (395 source files)",
+    "pytest": "PASS",
+    "passed": 2129,
+    "deselected": 41,
+    "elapsed_seconds": 724.6
+  },
+  "implementation_tree_delta_after_full_regression": [
+    "plans/investigations/tools/build_review_cache_measurement_evidence.py"
+  ],
+  "independent_verification": {
+    "method": "re-derived commit scope and required cache-contract terms, then reran negative controls and canonical no-op/portfolio paths",
+    "result": "PASS"
+  },
+  "product_remote_writes": 0,
+  "result": "PASS"
+}

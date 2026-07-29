@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-03A-CACHE-MEASUREMENT",
+  "implementation_revision": "40e6e73be4d9ddf33c15f3341d3722a763c7125f",
+  "implementation_paths": [
+    "docs/architecture.md",
+    "src/readme_agent/commands_supervision.py",
+    "src/readme_agent/supervisor/local_poc_cache.py",
+    "src/readme_agent/supervisor/loop.py",
+    "src/readme_agent/supervisor/portfolio.py",
+    "src/readme_agent/supervisor/portfolio_stage_cache.py",
+    "tests/unit/test_cli.py",
+    "tests/unit/test_local_poc_cache.py",
+    "tests/unit/test_portfolio.py",
+    "tests/unit/test_portfolio_stage_cache.py",
+    "tests/unit/test_supervisor_loop.py"
+  ],
+  "root_cause": "completed-bundle shortcuts were not bound to the live upstream revision or the complete fact, prompt, validation, review, control-plane, and evidence contracts",
+  "permanent_solution": "one typed fail-closed cache decision compares complete stored and current dependency fingerprints and validates both checksum integrity and acceptance semantics",
+  "preserved_behavior": [
+    "canonical supervise runtime",
+    "durable lifecycle authority",
+    "revision-addressed bundles",
+    "no product remote writes",
+    "unchanged reruns do not mutate accepted lifecycle or proposal bundles"
+  ],
+  "bound_dependencies": [
+    "live source revision",
+    "fact acceptance",
+    "local verification",
+    "prompt registry",
+    "document template",
+    "composition prompt",
+    "reviewer standard",
+    "control plane",
+    "semantic no-op proof",
+    "semantic final verdict",
+    "artifact inventory"
+  ],
+  "negative_controls": [
+    "source revision change",
+    "fact graph or fact contract change",
+    "prompt registry or composition prompt change",
+    "template change",
+    "local validator change",
+    "reviewer standard change",
+    "control-plane change",
+    "artifact corruption",
+    "checksum-valid semantic rejection",
+    "checksum-valid no-op provider call"
+  ],
+  "exact_no_op_contract": {
+    "new_provider_call_count": 0,
+    "patch_created": false,
+    "duplicate_bundle_created": false,
+    "lifecycle_history_changed": false,
+    "accepted_bundle_inventory_changed": false
+  },
+  "product_remote_writes": 0,
+  "result": "PASS"
+}
