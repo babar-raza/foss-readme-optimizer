@@ -12,8 +12,8 @@
     "claim_id": null,
     "claimed_at": null,
     "claimed_by": null,
-    "graph_sha256": "cbeda937ee0d7a6d45d6fc58507fc68e60d8ccc7fbb98a869983d40d5c719f52",
-    "last_evaluated_at": "2026-07-29T07:31:16.542922+00:00",
+    "graph_sha256": "d20f6e80bfeb41c8d76d62e0c0bad8a9ed7c0830e447c18efaa0b55d1808d979",
+    "last_evaluated_at": "2026-07-29T08:25:22.007883+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -55,7 +55,17 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Make accelerated trusted delivery possible without weakening or impersonating verified proof."
+      },
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-AUTONOMY"
+      ],
+      "task_id": "TRP-00-ASSURANCE-CONTRACT"
+    },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
@@ -157,7 +167,15 @@
       "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": "TODO",
       "L8-WAVE6-CONTROLLED-JAVA-PILOT": "TODO",
       "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": "TODO",
-      "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": "TODO"
+      "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": "TODO",
+      "TRP-00-ASSURANCE-CONTRACT": "TODO",
+      "TRP-01-README-DERIVED-FACTS": "TODO",
+      "TRP-02-LLM-FIRST-COMPOSITION": "TODO",
+      "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "TODO",
+      "TRP-04-CANARY-QUALIFICATION": "TODO",
+      "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
+      "TRP-06-AUTHORIZATION-ACCESS": "TODO",
+      "TRP-07-DRAFT-PR-PORTFOLIO": "TODO"
     },
     "transition_history": [
       {
@@ -4856,7 +4874,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 550,
+  "state_version": 551,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
