@@ -149,6 +149,124 @@ def test_candidate_change_without_source_operations_denies_rereview():
     assert receipt.unresolved_finding_ids == ["quality.generic-overview"]
 
 
+def test_every_cited_finding_must_have_a_responsible_delta_before_rereview():
+    before = (
+        "# Product\n\n## Overview\n\nGeneric overview.\n\n## Usage\n\nGeneric usage guidance.\n"
+    )
+    after_one = (
+        "# Product\n\n## Overview\n\nRepository-specific overview.\n\n"
+        "## Usage\n\nGeneric usage guidance.\n"
+    )
+    after_both = (
+        "# Product\n\n## Overview\n\nRepository-specific overview.\n\n"
+        "## Usage\n\nRun the verified repository example.\n"
+    )
+    findings = [
+        SimpleNamespace(
+            finding_id="quality.generic-overview",
+            section="Overview",
+            criterion="product_specificity",
+            quoted_candidate_span="Generic overview.",
+            required_repair="Replace the generic overview.",
+            disposition="requires_repair",
+        ),
+        SimpleNamespace(
+            finding_id="quality.generic-usage",
+            section="Usage",
+            criterion="actionability",
+            quoted_candidate_span="Generic usage guidance.",
+            required_repair="Replace the generic usage guidance.",
+            disposition="requires_repair",
+        ),
+    ]
+    review = SimpleNamespace(
+        blind_quality_review=SimpleNamespace(findings=findings),
+        factual_plan_review=SimpleNamespace(findings=[]),
+        failed_criteria=["product_specificity", "actionability"],
+        sections_affected=["Overview", "Usage"],
+        required_repair="Repair every cited section.",
+    )
+    before_context = {
+        "final_text": before,
+        "presentation_plan": {
+            "readme_document_plan": {
+                "operations": [
+                    {
+                        **_operation("Generic overview."),
+                        "operation_id": "replace-overview",
+                    },
+                    {
+                        **_operation("Generic usage guidance."),
+                        "operation_id": "replace-usage",
+                        "rationale": "Repair Usage actionability finding.",
+                    },
+                ]
+            }
+        },
+    }
+    after_one_context = {
+        "final_text": after_one,
+        "presentation_plan": {
+            "readme_document_plan": {
+                "operations": [
+                    _operation("Repository-specific overview."),
+                    {
+                        **_operation("Generic usage guidance."),
+                        "operation_id": "replace-usage",
+                        "rationale": "Repair Usage actionability finding.",
+                    },
+                ]
+            }
+        },
+    }
+    after_both_context = {
+        "final_text": after_both,
+        "presentation_plan": {
+            "readme_document_plan": {
+                "operations": [
+                    _operation("Repository-specific overview."),
+                    {
+                        **_operation("Run the verified repository example."),
+                        "operation_id": "replace-usage",
+                        "rationale": "Repair Usage actionability finding.",
+                    },
+                ]
+            }
+        },
+    }
+
+    partial = build_repair_attempt_receipt(
+        prior_context=before_context,
+        repaired_context=after_one_context,
+        review=review,
+        repair_attempt=1,
+        reviewer_call_count=1,
+    )
+    complete = build_repair_attempt_receipt(
+        prior_context=before_context,
+        repaired_context=after_both_context,
+        review=review,
+        repair_attempt=1,
+        reviewer_call_count=1,
+    )
+    resolved = finalize_repair_receipt(
+        complete,
+        rereview_verdict="ACCEPT",
+        reviewer_call_count=2,
+    )
+
+    assert partial.rereview_authorized is False
+    assert partial.addressed_finding_ids == ["quality.generic-overview"]
+    assert partial.unresolved_finding_ids == ["quality.generic-usage"]
+    assert complete.rereview_authorized is True
+    assert complete.changed_operation_ids == ["replace-overview", "replace-usage"]
+    assert resolved.resolved_finding_ids == [
+        "quality.generic-overview",
+        "quality.generic-usage",
+    ]
+    assert resolved.unresolved_finding_ids == []
+
+
 def test_repair_request_preserves_grounded_finding_identity():
     findings = repair_findings(_grounded_review())
 
