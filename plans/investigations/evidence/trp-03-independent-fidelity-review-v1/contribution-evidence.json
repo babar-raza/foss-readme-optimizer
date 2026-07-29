@@ -10,9 +10,9 @@
     "summary": "Prevent low-quality or content-losing trusted transformations from reaching PRs."
   },
   "acceptance_checks_passed": [
-    "No trusted approval occurs without deterministic validation and both independent role accepts.",
-    "Grounded section repair changes candidate bytes and reruns both roles; unchanged repair is a visible system failure.",
-    "Identical accepted inputs make zero new provider calls and record no duplicate lifecycle event."
+    "No trusted approval occurs without both independent roles and deterministic validation",
+    "Repair changes candidate bytes and closes grounded findings or returns visible SYSTEM_FAILURE",
+    "Identical accepted inputs produce zero new provider calls and no duplicate lifecycle event"
   ],
   "proof_refs": [
     "plans/investigations/evidence/trp-03-independent-fidelity-review-v1/verification-summary.json",
