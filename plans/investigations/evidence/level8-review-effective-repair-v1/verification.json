@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-03-EFFECTIVE-REPAIR",
+  "control_revision": "7c6d415b1c821de968b3ab8184d66624f98899de",
+  "focused_proof": {
+    "command": ".venv/Scripts/python -m pytest -q tests/unit/test_readme_repair_validation.py tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_repairs_revalidates_and_rereviews_before_accepting tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_byte_identical_repair_reroutes_before_rereview tests/unit/test_independent_readme_review.py::TestBlockedVerdictNeverEntersRepairLoop",
+    "exit_code": 0,
+    "stdout": "...........                                                              [100%]\n11 passed in 22.29s",
+    "stderr": "",
+    "result": "PASS"
+  },
+  "prior_full_regression": {
+    "source": "plans/investigations/evidence/level8-review-repair-controls-v1/verification.json",
+    "result": "PASS",
+    "passed": 2116,
+    "deselected": 41
+  },
+  "independent_verification": {
+    "method": "re-derived source bundle checksums and every repair-call predicate",
+    "result": "PASS"
+  },
+  "product_remote_writes": 0,
+  "result": "PASS"
+}

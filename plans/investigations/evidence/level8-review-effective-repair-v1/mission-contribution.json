@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-REVIEW-03-EFFECTIVE-REPAIR",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "acceptance_proof",
+    "summary": "Check candidate and operation deltas plus cited-finding resolution before spending another independent review call."
+  },
+  "acceptance_checks_passed": [
+    "A repairable rejection changes the responsible bytes and resolves or narrows every cited finding"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-review-effective-repair-v1/effective-repair-proof.json",
+    "plans/investigations/evidence/level8-review-effective-repair-v1/verification.json"
+  ],
+  "scoreboard_before_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "scoreboard_after_sha256": "d0809b054266a1f4a8da4491e8025d4e6c9c56d8dfe33dc229d870f7302d1d85",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
