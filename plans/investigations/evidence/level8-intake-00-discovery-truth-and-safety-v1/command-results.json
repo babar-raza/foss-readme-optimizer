@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "focused": {
+    "command": [
+      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/unit/test_registry_discovery.py",
+      "tests/unit/test_registry_self_heal.py",
+      "tests/unit/test_cli.py",
+      "tests/unit/test_registry_loader.py",
+      "tests/unit/test_gitsafety.py",
+      "tests/security/test_no_secrets_in_evidence.py"
+    ],
+    "exit_code": 0
+  },
+  "live_inventory": {
+    "command": [
+      ".venv/Scripts/python",
+      "plans/investigations/tools/build_discovery_truth_and_safety_evidence.py"
+    ],
+    "exit_code": 0
+  }
+}

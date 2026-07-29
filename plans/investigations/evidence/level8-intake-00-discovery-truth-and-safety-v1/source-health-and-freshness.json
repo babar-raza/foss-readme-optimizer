@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-07-29T04:36:41.153789+00:00",
+  "inventory_complete": false,
+  "requested_source_count": 26,
+  "complete_source_count": 25,
+  "failed_source_count": 1,
+  "failed_sources": [
+    {
+      "source": {
+        "schema_version": 1,
+        "source_id": "github-org:aspose-imaging-foss",
+        "provider": "github",
+        "organization": "aspose-imaging-foss",
+        "family_hint": "imaging",
+        "enabled": true
+      },
+      "status": "failed",
+      "observed_at": "2026-07-29T04:36:41.153789+00:00",
+      "observation_count": 0,
+      "error": "404 Client Error: Not Found for url: https://api.github.com/orgs/aspose-imaging-foss/repos?type=public&per_page=100&sort=pushed"
+    }
+  ],
+  "classification_counts": {
+    "matched": 31,
+    "ambiguous": 0,
+    "unmatched": 1
+  },
+  "observation_count": 32,
+  "authorization_present": true,
+  "freshness_disposition": "current_explicitly_incomplete_inventory_retry_failed_sources"
+}
