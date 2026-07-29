@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-00-ASSURANCE-CONTRACT",
+  "verdict": "VERIFIED",
+  "repository": "foss-readme-optimizer",
+  "branch": "main",
+  "implementation_commit": "181879c7",
+  "tested_base_head": "e437e1d39c3b6a109de86225f7edc1e0713a9fb6",
+  "tested_content_relation": "Commit 181879c7 contains the exact implementation and test bytes exercised by the final full-suite run; only governance and evidence files were edited afterwards.",
+  "mission_graph_sha256_at_public_status_proof": "9139dd976a0119521da3f9f01c62bc9e7f88c20d98568cc7d141b35dd2e33b60",
+  "durable_state_version_at_public_status_proof": 561,
+  "active_goal_at_public_status_proof": "GOAL-T0-TRUSTED-QUALIFICATION",
+  "active_task_at_public_status_proof": "TRP-00-ASSURANCE-CONTRACT",
+  "portfolio_scoreboard": {
+    "denominator": 31,
+    "trusted_facts_extracted": 0,
+    "trusted_candidate_generated": 0,
+    "trusted_transform_approved": 0,
+    "trusted_no_op_proven": 0,
+    "trusted_pr_open": 0,
+    "facts_ready": 8,
+    "candidate_generated": 8,
+    "deterministic_validated": 8,
+    "agent_approved": 0,
+    "no_op_proven": 0,
+    "human_accepted": 0,
+    "first_failing_boundary": "FACTS_READY",
+    "sha256": "3ee463cf63cbe20b2f21cbd49f62566d4be01f6717406563f419f330df3942e0"
+  },
+  "implemented_contracts": [
+    "ContentAssuranceV1 with trusted_inherited and repository_verified",
+    "assurance fields on facts, candidates, document/presentation plans, reviews, lifecycle, cache decisions, manifests, proposals, and effects",
+    "disjoint trusted lifecycle states and portfolio counters",
+    "assurance-sensitive cache, proposal-kind, and effect identity",
+    "assurance switch reopening with preserved source revision and cleared derived acceptance",
+    "ordered T0/C0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 stage-goal catalog",
+    "generator-owned stage and concurrency bindings for every mission task",
+    "persisted primary/concurrent goal identity, capacity, history, next task, and public status",
+    "deterministic forward activation and regression reactivation"
+  ],
+  "negative_controls": [
+    "trusted lifecycle cannot enter AGENT_APPROVED or NO_OP_PROVEN",
+    "trusted proposal identity cannot claim verified_repository_presentation",
+    "identical candidate/effect inputs at different assurance levels cannot collide",
+    "trusted approval counters do not increment verified Gate-A counters",
+    "stale manually persisted goal identity cannot override earliest incomplete stage"
+  ],
+  "verification": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_content_assurance.py tests/unit/test_mission_control.py tests/unit/test_local_poc_cache.py tests/unit/test_readme_poc_lifecycle.py tests/unit/test_effect_identity.py tests/unit/test_state_schema.py tests/unit/test_manifest_v2.py tests/unit/test_portfolio.py tests/unit/test_portfolio_stage_cache.py tests/unit/test_portfolio_stage_transactions.py",
+      "result": "120 passed"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_facts_schema_v2.py tests/unit/test_facts_migration.py tests/unit/test_readme_document_plan.py tests/unit/test_presentation_plan_schema.py tests/unit/test_presentation_planner.py tests/unit/test_build_presentation_plan_capability.py tests/unit/test_independent_readme_review.py tests/unit/test_readme_review_roles.py tests/unit/test_orchestrator.py",
+      "result": "102 passed"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -vv --maxfail=1",
+      "result": "2190 passed, 41 deselected in 1036.05 seconds",
+      "raw_log": "runs/verification/trp00/pytest-verbose.stdout.log",
+      "raw_log_sha256": "ab75e2a201dbe896430233aec8b8e173df5dfa94af657c9d17357a6bc1a1d173"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check .",
+      "result": "passed"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff format --check .",
+      "result": "734 files already formatted"
+    },
+    {
+      "command": ".venv/Scripts/python -m mypy src",
+      "result": "Success: no issues found in 406 source files"
+    },
+    {
+      "command": "validate_plan_structure.py; check_verifiers_are_wired.py --check; check_prompt_hygiene.py; build_level8_requirement_taskcard_coverage.py --check; traceability_matrix.py --check; git diff --check",
+      "result": "all blocking checks passed; plan validation emitted 59 pre-existing row-length warnings"
+    },
+    {
+      "command": "readme-agent supervise --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml --mission-action status",
+      "result": "public status displayed T0 as primary, no impermissible concurrent goal, capacity 1/0, exact next task, contribution, and zero graph drift after evaluate"
+    }
+  ],
+  "repaired_first_failure": {
+    "symptom": "The first quiet full-suite attempt exceeded 15 minutes without progress output.",
+    "diagnosis": "A verbose fail-fast run exposed stale assurance-dependent characterization hashes; the suite was progressing, and the existing supervisor-loop tail accounts for most elapsed time.",
+    "repair": "Updated only derived fact, assessment, agentic-plan, and document-plan hashes. Candidate README byte hashes remained unchanged.",
+    "final_result": "The complete suite passed."
+  },
+  "unavailable_optional_check": {
+    "tool": "actionlint and act",
+    "status": "not installed",
+    "effect_on_verdict": "The repository official-check runner treats this as an explicit skip; workflow execution remains owned by later T2."
+  },
+  "remaining_scope": [
+    "TRP-01 must implement README-derived trusted facts.",
+    "L8-INTAKE-02 may advance as the common read-only concurrent task.",
+    "TRP-015 remains partial for post-canary 3:1 scheduler borrowing, starvation, cancellation, and live-like equivalence proof."
+  ],
+  "independent_verification": {
+    "status": "accepted",
+    "basis": "Separate negative-control, public-status, full-regression, verifier-wiring, semantic-traceability, and governance checks reproduced the claimed boundaries after implementation."
+  }
+}

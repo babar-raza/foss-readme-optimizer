@@ -161,18 +161,21 @@ portfolio with concurrent verified read-only progress → `act` → disposable s
 GitHub App qualification → trusted portfolio PRs → complete repository-verified Gate A/B/C →
 Level 5 → Level 6 → day-30 Level 7 → day-90 Level 8**.
 
-At the resequencing snapshot, durable state version 550 has no active claim. `L8-INTAKE-00/01`
-are closed and `L8-INTAKE-02` is implemented but lacks its combined public-path proof. It becomes
-eligible with the common discovery lane after TRP-00 rather than waiting behind `TRP-07`. The
-31-entry checked-in portfolio
+`TRP-00-ASSURANCE-CONTRACT` is implemented and regression-proven at commit `181879c7`.
+The durable controller now derives `GOAL-T0-TRUSTED-QUALIFICATION` from the ordered stage catalog,
+persists stage/capacity/history state, and keeps trusted lifecycle, counters, caches, manifests,
+proposals, and effects mechanically disjoint from repository-verified acceptance. `L8-INTAKE-00/01`
+remain closed and `L8-INTAKE-02` becomes the permitted common read-only concurrent task while
+`TRP-01-README-DERIVED-FACTS` is the next primary task. The 31-entry checked-in portfolio
 has 8 `FACTS_READY`, 8 candidates, 8 deterministic validations, and zero verified approvals,
 no-ops, or human acceptances. The latest discovery evidence also retains one unmatched PDF Go MCP
 observation and one unavailable imaging source, so it is not source-complete Gate-A evidence.
 
-The immediate primary goal is `GOAL-T0-TRUSTED-QUALIFICATION`; the next task remains `TRP-00`.
-The legacy universal goal displayed by the current goal guard is a bootstrap defect that TRP-00
-must migrate atomically to the stage-goal catalog before any later trusted task closes. The
-short-term visible milestone remains one LLM-first, README-derived, independently
+The immediate primary goal remains `GOAL-T0-TRUSTED-QUALIFICATION`; `TRP-01` now owns the
+README-derived fact contract and `L8-INTAKE-02` may proceed concurrently without effect authority.
+The legacy universal goal is absent from the executable graph and pre-migration durable records
+are additively refreshed without deleting task or goal history. The short-term visible milestone
+remains one LLM-first, README-derived, independently
 transformation-approved/no-op-proven draft PR per runtime-loaded registry entry. Trusted artifacts
 declare `trusted_inherited` and do not satisfy verified Gate A. The executable path is `TRP-00`
 through `TRP-07`: assurance separation, README-derived facts, bounded LLM composition,
@@ -2706,10 +2709,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - **Exit:** no required failure exits zero or converges; no production mutation bypass exists.
 
 - [ ] **Short-term POC — `trusted_readme_transform` full-registry draft PRs**
-  - [ ] `TRP-00`: add `ContentAssuranceV1`, separate trusted lifecycle/verdict/proposal states,
+  - [x] `TRP-00`: add `ContentAssuranceV1`, separate trusted lifecycle/verdict/proposal states,
         dependency fingerprints, anti-promotion controls, and automatically derived
         `active_goal_id`/`concurrent_goal_ids` without adding another runtime, controller, store,
-        or execution profile.
+        or execution profile. Commit `181879c7`; 2,190 non-live tests and the complete governance
+        gate pass, with evidence under
+        `plans/investigations/evidence/trp-00-assurance-contract-v1/`.
   - [ ] Complete common Gate C0 after TRP-00 and before TRP-05: finish
         `L8-INTAKE-02/03`, enumerate every authorized source with authenticated all-visibility
         pagination, disposition every visible repository, admit active products disabled/read-only,
@@ -2785,10 +2790,13 @@ only as historical implementation evidence in decisions and `logs/`; they are no
           `L8-038`–`L8-039`).
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
         immutable revision bundles, and mandatory dynamic planning foundation.
-  - [x] Historical foundation: bind executable work to typed goals/contributions, derive the
-        durable lifecycle scoreboard/first boundary/next task, and reject contribution-free
-        closure (commit `44580f4`). Decision #85 supersedes its universal/subordinate goal model;
-        `L8-025` remains partial until TRP-00 completes the ordered stage-goal migration.
+  - [x] Goal-control foundation: bind executable work to typed contributions, derive the durable
+        lifecycle scoreboard/first boundary/next task, reject contribution-free closure, and
+        migrate the superseded universal goal to the exact ordered stage catalog with additive
+        state/history, primary/concurrent derivation, capacity display, and regression
+        reactivation (commits `44580f4`, `181879c7`). `L8-025` remains partial only for the
+        common/new-repository reopening and post-canary 3:1 scheduler controls owned by
+        `TRP-015`/`TRP-05`.
   - [x] Product-truth foundation: implement the typed stage ceiling and contract-based cache
         revalidation, including stale-lifecycle reopening (`L8-TRUTH-01A`).
   - [x] LLM accounting: record every provider attempt and fixture/cache reuse at one redacted
