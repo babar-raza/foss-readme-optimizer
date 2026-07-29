@@ -12908,7 +12908,7 @@
     "updated_at": "2026-07-29T22:04:07.498223+00:00"
   },
   "schema_version": 2,
-  "state_version": 696,
+  "state_version": 697,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -13433,13 +13433,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: configured README navigation requires an H2 Navigation section",
       "last_checkpoint_id": "b906e3141bc878eedd86a674bd6d8388a76ce6da0be43ec03444495ed8293f1b",
-      "lease_expires_at": "2026-07-29T22:18:20.415056+00:00",
+      "lease_expires_at": null,
       "recovery_count": 15,
-      "status": "processing",
-      "updated_at": "2026-07-29T22:03:25.680016+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-29T22:07:42.231495+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
