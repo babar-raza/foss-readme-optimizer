@@ -62,17 +62,37 @@
         "reason": "claimed source-bound read-only intake preflight",
         "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
         "to_status": "INTAKE_PREFLIGHTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-html-foss__Aspose.HTML-FOSS-for-Python\\c2356ec872fd7d64c14a0ae8cc043eea1a03847e\\intake\\receipts\\e527556a112ed398-a1.json"
+        ],
+        "from_status": "INTAKE_PREFLIGHTING",
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-07-29T06:35:18.245015+00:00",
+        "reason": "read-only intake classified READY_FULL_PIPELINE",
+        "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+        "to_status": "INTAKE_READY"
       }
     ],
-    "intake_preflight_history": [],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "e527556a112ed3983fc59902cf0d8fcee599ba94a7c06e1b58a2d062166d0576",
-      "schema_version": 1,
-      "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
-      "source_revision_resolved": true,
-      "started_at": "2026-07-29T06:35:05.214659+00:00"
-    },
+    "intake_preflight_history": [
+      {
+        "attempt": 1,
+        "dedup_key": "e527556a112ed3983fc59902cf0d8fcee599ba94a7c06e1b58a2d062166d0576",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-html-foss__Aspose.HTML-FOSS-for-Python\\c2356ec872fd7d64c14a0ae8cc043eea1a03847e\\intake\\receipts\\e527556a112ed398-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-07-29T06:35:18.245002+00:00",
+        "outcome": "READY_FULL_PIPELINE",
+        "reason": "the existing README needs the ordinary evidence-backed assessment pipeline",
+        "result_hash": "2cf3cde904b3b38a1e9058535033949d8cc894543ee094801629be74eb19c18f",
+        "schema_version": 1,
+        "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+        "source_revision_resolved": true
+      }
+    ],
+    "intake_preflight_pending": null,
     "presentation_plan_hash": null,
     "prompt_hash": null,
     "protected_content_fingerprint": null,
@@ -80,11 +100,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": null,
-    "status": "INTAKE_PREFLIGHTING",
-    "updated_at": "2026-07-29T06:35:05.214664+00:00"
+    "status": "INTAKE_READY",
+    "updated_at": "2026-07-29T06:35:18.245015+00:00"
   },
   "schema_version": 2,
-  "state_version": 5,
+  "state_version": 6,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260729-063434-cfef:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
