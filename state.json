@@ -33,7 +33,7 @@
       }
     ],
     "graph_sha256": "5b727beea67b82540fda79c49017b40af69b980841f25ce67574a6322ba17cae",
-    "last_evaluated_at": "2026-07-29T13:55:54.043408+00:00",
+    "last_evaluated_at": "2026-07-29T13:56:15.477112+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -186,7 +186,7 @@
       "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO": "TODO",
       "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": "TODO",
       "TRP-00-ASSURANCE-CONTRACT": "CLOSED",
-      "TRP-01-README-DERIVED-FACTS": "IMPLEMENTED",
+      "TRP-01-README-DERIVED-FACTS": "VERIFIED",
       "TRP-02-LLM-FIRST-COMPOSITION": "TODO",
       "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "TODO",
       "TRP-04-CANARY-QUALIFICATION": "TODO",
@@ -4977,6 +4977,17 @@
         "reason": "Implementation committed at 2b48ebed with typed source-span facts and durable assurance evidence",
         "task_id": "TRP-01-README-DERIVED-FACTS",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/trp-01-readme-derived-facts-v1/verification-summary.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex-goal-ui",
+        "occurred_at": "2026-07-29T13:56:15.477102+00:00",
+        "reason": "Focused integration, safety, real-snapshot, and negative-control evidence independently reproduced the task acceptance boundary",
+        "task_id": "TRP-01-README-DERIVED-FACTS",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -4985,7 +4996,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 572,
+  "state_version": 573,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
