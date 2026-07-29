@@ -13,6 +13,7 @@
       "status": "applied"
     }
   ],
+  "checkpoints": {},
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "1bb2fe1a9be0cf15ffc72f5474dc209837488aeb3149e210f800abecb3b949d6",
@@ -389,10 +390,13 @@
   },
   "last_run_id": null,
   "last_run_timestamp": "2026-07-22T14:33:03.896116+00:00",
+  "mission_execution": null,
   "open_proposals": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
   "profile_cache": null,
-  "state_version": 30,
+  "readme_poc_lifecycle": null,
+  "schema_version": 2,
+  "state_version": 31,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
@@ -404,6 +408,7 @@
     "last_run_timestamp": "2026-07-22T14:33:42.919473+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
+    "surface_freshness": {},
     "task_graph_snapshot": {
       "tasks": [
         {
@@ -511,6 +516,31 @@
       ]
     }
   },
+  "trigger_lifecycles": {
+    "operator:20260729-060845-7978:aspose-email-foss/Aspose.Email-FOSS-for-Python": {
+      "accepted_at": "2026-07-29T06:08:50.932518+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260729-060845-7978:aspose-email-foss/Aspose.Email-FOSS-for-Python",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-07-29T06:08:45.715034+00:00",
+        "provider_event_id": "20260729-060845-7978",
+        "repository_scope": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-07-29T06:08:50.932539+00:00"
+    }
+  },
+  "trigger_records": {},
   "upstream_content_fingerprint_at_accept": "896514fa2e67a02d0635896f330858892bae49ea0374f2e91fc655e88db4de25",
   "upstream_revision_at_accept": null
 }
