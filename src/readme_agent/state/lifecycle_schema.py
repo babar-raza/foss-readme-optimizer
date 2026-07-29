@@ -7,6 +7,13 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
+from readme_agent.state.assurance import (
+    TRUSTED_README_STATUSES,
+    VERIFIED_APPROVAL_STATUSES,
+    ContentAssuranceV1,
+    TrustedReadmePocStatusV1,
+)
+
 TriggerEventTypeV2 = Literal[
     "schedule",
     "workflow_dispatch",
@@ -105,6 +112,7 @@ ReadmePocStatusV2 = Literal[
     "AGENT_REVIEW_REJECTED",
     "REPAIRING",
 ]
+AssuranceReadmePocStatusV1 = ReadmePocStatusV2 | TrustedReadmePocStatusV1
 
 IntakePreflightOutcomeV1 = Literal[
     "READY_FAST_PATH",
@@ -251,13 +259,26 @@ class ReadmePocLifecycleStateV1(BaseModel):
 class ReadmePocTransitionV2(BaseModel):
     """Append-only V2 transition with a fact/source revision binding."""
 
-    from_status: ReadmePocStatusV2 | None = None
-    to_status: ReadmePocStatusV2
+    from_status: AssuranceReadmePocStatusV1 | None = None
+    to_status: AssuranceReadmePocStatusV1
     reason: str
     evidence_refs: list[str] = Field(default_factory=list)
     observed_by: str
     occurred_at: str = Field(default_factory=utc_now_iso)
     source_revision: str | None = None
+
+
+class ContentAssuranceTransitionV1(BaseModel):
+    """Append-only record of an assurance switch and its invalidation boundary."""
+
+    schema_version: Literal[1] = 1
+    from_assurance: ContentAssuranceV1
+    to_assurance: ContentAssuranceV1
+    from_status: AssuranceReadmePocStatusV1
+    to_status: AssuranceReadmePocStatusV1
+    reason: str = Field(min_length=1)
+    observed_by: str = Field(min_length=1)
+    occurred_at: str = Field(default_factory=utc_now_iso)
 
 
 class FactAcceptanceBindingV1(BaseModel):
@@ -309,9 +330,11 @@ class ReadmePocLifecycleStateV2(BaseModel):
     """Current per-repository local-POC lifecycle in the existing state slot."""
 
     schema_version: Literal[2] = 2
-    status: ReadmePocStatusV2 = "DISCOVERED"
+    status: AssuranceReadmePocStatusV1 = "DISCOVERED"
+    content_assurance: ContentAssuranceV1 = "repository_verified"
     updated_at: str = Field(default_factory=utc_now_iso)
     history: list[ReadmePocTransitionV2] = Field(default_factory=list)
+    assurance_history: list[ContentAssuranceTransitionV1] = Field(default_factory=list)
     source_revision: str | None = None
     facts_hash: str | None = None
     assessment_hash: str | None = None
@@ -327,6 +350,24 @@ class ReadmePocLifecycleStateV2(BaseModel):
     protected_content_fingerprint: str | None = None
     repair_attempts_for_revision: int = Field(default=0, ge=0, le=2)
     details: dict = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def _status_matches_assurance(self) -> ReadmePocLifecycleStateV2:
+        if (
+            self.content_assurance == "trusted_inherited"
+            and self.status in VERIFIED_APPROVAL_STATUSES
+        ):
+            raise ValueError(
+                f"trusted_inherited lifecycle cannot use verified status {self.status!r}"
+            )
+        if (
+            self.content_assurance == "repository_verified"
+            and self.status in TRUSTED_README_STATUSES
+        ):
+            raise ValueError(
+                f"repository_verified lifecycle cannot use trusted status {self.status!r}"
+            )
+        return self
 
 
 class HealthReportV1(BaseModel):

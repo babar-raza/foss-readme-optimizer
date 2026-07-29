@@ -27,8 +27,11 @@ import json
 
 from pydantic import BaseModel
 
+from readme_agent.state.assurance import ContentAssuranceV1
+
 
 class EffectIdentityV1(BaseModel):
+    content_assurance: ContentAssuranceV1 = "repository_verified"
     effect_type: str
     org_repo: str
     upstream_surface_hash: str
@@ -51,8 +54,10 @@ def build_effect_identity(
     facts_hash: str,
     fresh_fingerprint: str,
     final_text: str,
+    content_assurance: ContentAssuranceV1 = "repository_verified",
 ) -> EffectIdentityV1:
     return EffectIdentityV1(
+        content_assurance=content_assurance,
         effect_type=effect_type,
         org_repo=org_repo,
         upstream_surface_hash=fresh_fingerprint,

@@ -8,6 +8,7 @@ from readme_agent.llm.client import GeneratedResult
 from readme_agent.readme.facts import RepositoryFacts
 from readme_agent.readme.gap_detector import GapReport
 from readme_agent.registry.models import ProductEntry
+from readme_agent.state.assurance import ContentAssuranceV1
 
 
 @dataclass
@@ -37,3 +38,4 @@ class ReadmeCandidate:
     validation_results: list
     status: str
     proof: PushBlockProof
+    content_assurance: ContentAssuranceV1 = "repository_verified"

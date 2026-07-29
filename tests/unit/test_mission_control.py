@@ -74,6 +74,7 @@ def _write_contribution_evidence(
     scoreboard_hash = lifecycle_scoreboard_sha256(scoreboard)
     evidence = MissionContributionEvidenceV1(
         task_id=task.task_id,
+        stage_goal_id=task.stage_goal_id,
         goal_ids=task.goal_ids,
         core_contribution=task.core_contribution,
         acceptance_checks_passed=task.acceptance_checks,
@@ -138,6 +139,64 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert tasks["L8-WAVE7-HETEROGENEOUS-PORTFOLIO"].dependencies == [
         "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO"
     ]
+
+
+def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
+    statuses["TRP-01-README-DERIVED-FACTS"] = "TODO"
+    statuses["L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT"] = "TODO"
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
+        active_goal_id="GOAL-V2-VERIFIED-GATE-A",
+    )
+
+    qualification = evaluate_mission(graph, state)
+    assert qualification.active_goal_id == "GOAL-T0-TRUSTED-QUALIFICATION"
+    assert qualification.concurrent_goal_ids == ["GOAL-C0-AUTHORIZED-PORTFOLIO"]
+    assert [task.task_id for task in qualification.eligible_tasks[:2]] == [
+        "TRP-01-README-DERIVED-FACTS",
+        "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
+    ]
+
+    after_qualification = state.model_copy(
+        update={
+            "task_statuses": {
+                **statuses,
+                "TRP-01-README-DERIVED-FACTS": "CLOSED",
+            }
+        }
+    )
+    intake = evaluate_mission(graph, after_qualification)
+    assert intake.active_goal_id == "GOAL-C0-AUTHORIZED-PORTFOLIO"
+    assert intake.concurrent_goal_ids == []
+
+    trusted_statuses = {
+        **after_qualification.task_statuses,
+        "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "CLOSED",
+        "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
+    }
+    trusted = evaluate_mission(
+        graph,
+        after_qualification.model_copy(update={"task_statuses": trusted_statuses}),
+    )
+    assert trusted.active_goal_id == "GOAL-T1-TRUSTED-PORTFOLIO"
+
+    reopened = evaluate_mission(
+        graph,
+        after_qualification.model_copy(
+            update={
+                "task_statuses": {
+                    **trusted_statuses,
+                    "TRP-01-README-DERIVED-FACTS": "REGRESSED",
+                }
+            }
+        ),
+    )
+    assert reopened.active_goal_id == "GOAL-T0-TRUSTED-QUALIFICATION"
+    tasks = {task.task_id: task for task in graph.taskcards}
     local_wave3 = tasks["L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"]
     assert local_wave3.dependencies == ["L8-WAVE1-CANONICAL-SAFETY-SPINE"]
     assert (

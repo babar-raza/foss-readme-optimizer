@@ -86,6 +86,7 @@ def idempotency_key(capability_id: str, arguments: dict, idempotency_inputs: lis
             facts_hash=arguments.get("facts_hash", ""),
             fresh_fingerprint=arguments.get("fresh_fingerprint", ""),
             final_text=arguments.get("final_text", ""),
+            content_assurance=arguments.get("content_assurance", "repository_verified"),
         )
         return hashlib.sha256(identity.canonical_json().encode()).hexdigest()
     selected = {name: arguments.get(name) for name in sorted(idempotency_inputs)}

@@ -22,11 +22,15 @@ two existing state machines covers.
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from typing import cast
 
 from readme_agent.errors import StateBackendError
+from readme_agent.state.assurance import ContentAssuranceV1, TrustedReadmePocStatusV1
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.cas import save_state_patch
 from readme_agent.state.lifecycle_schema import (
+    AssuranceReadmePocStatusV1,
+    ContentAssuranceTransitionV1,
     FactAcceptanceBindingV1,
     ReadmePocLifecycleStateV1,
     ReadmePocLifecycleStateV2,
@@ -127,6 +131,52 @@ _README_POC_TRANSITIONS: dict[ReadmePocStatusV2, set[ReadmePocStatusV2]] = {
     },
 }
 
+_TRUSTED_README_POC_TRANSITIONS: dict[
+    AssuranceReadmePocStatusV1, set[AssuranceReadmePocStatusV1]
+] = {
+    "DISCOVERED": {"INTAKE_PREFLIGHTING", "SNAPSHOTTED", "SYSTEM_FAILURE"},
+    "INTAKE_PREFLIGHTING": {"INTAKE_READY", "SYSTEM_FAILURE"},
+    "INTAKE_READY": {"INTAKE_PREFLIGHTING", "SNAPSHOTTED", "SYSTEM_FAILURE"},
+    "SNAPSHOTTED": {"SNAPSHOTTED", "PROFILED", "SYSTEM_FAILURE"},
+    "PROFILED": {"TRUSTED_FACTS_EXTRACTING", "SYSTEM_FAILURE"},
+    "TRUSTED_FACTS_EXTRACTING": {"TRUSTED_FACTS_EXTRACTED", "SYSTEM_FAILURE"},
+    "TRUSTED_FACTS_EXTRACTED": {"TRUSTED_PLAN_READY", "SYSTEM_FAILURE"},
+    "TRUSTED_PLAN_READY": {"TRUSTED_CANDIDATE_GENERATED", "SYSTEM_FAILURE"},
+    "TRUSTED_CANDIDATE_GENERATED": {
+        "TRUSTED_DETERMINISTIC_VALIDATED",
+        "TRUSTED_REPAIRING",
+        "SYSTEM_FAILURE",
+    },
+    "TRUSTED_DETERMINISTIC_VALIDATED": {"TRUSTED_REVIEWING", "SYSTEM_FAILURE"},
+    "TRUSTED_REVIEWING": {
+        "TRUSTED_TRANSFORM_APPROVED",
+        "TRUSTED_REVIEW_REJECTED",
+        "SYSTEM_FAILURE",
+    },
+    "TRUSTED_REVIEW_REJECTED": {"TRUSTED_REPAIRING", "SYSTEM_FAILURE"},
+    "TRUSTED_REPAIRING": {"TRUSTED_CANDIDATE_GENERATED", "SYSTEM_FAILURE"},
+    "TRUSTED_TRANSFORM_APPROVED": {"TRUSTED_NO_OP_PROVEN", "SYSTEM_FAILURE"},
+    "TRUSTED_NO_OP_PROVEN": {
+        "TRUSTED_PR_ELIGIBLE",
+        "TRUSTED_FACTS_EXTRACTING",
+        "SNAPSHOTTED",
+        "SYSTEM_FAILURE",
+    },
+    "TRUSTED_PR_ELIGIBLE": {
+        "TRUSTED_PR_OPEN",
+        "TRUSTED_FACTS_EXTRACTING",
+        "SNAPSHOTTED",
+        "SYSTEM_FAILURE",
+    },
+    "TRUSTED_PR_OPEN": {"TRUSTED_FACTS_EXTRACTING", "SNAPSHOTTED", "SYSTEM_FAILURE"},
+    "SYSTEM_FAILURE": {
+        "INTAKE_PREFLIGHTING",
+        "SNAPSHOTTED",
+        "TRUSTED_FACTS_EXTRACTING",
+        "TRUSTED_REPAIRING",
+    },
+}
+
 # A new immutable source revision invalidates every derived stage. The same-
 # revision retry remains an idempotent no-op in ``record_repository_snapshot``;
 # only a genuinely different revision may use this reopening edge.
@@ -205,6 +255,7 @@ def migrate_readme_poc_lifecycle(
 ) -> ReadmePocLifecycleStateV2:
     """Upgrade the existing lifecycle record without discarding its history."""
     return ReadmePocLifecycleStateV2(
+        content_assurance="repository_verified",
         status=_V1_STATUS_MIGRATION[prior.status],
         updated_at=prior.updated_at,
         details=prior.details,
@@ -224,6 +275,142 @@ def migrate_readme_poc_lifecycle(
             for entry in prior.history
         ],
     )
+
+
+def switch_content_assurance(
+    backend: StateBackend,
+    org_repo: str,
+    to_assurance: ContentAssuranceV1,
+    *,
+    observed_by: str,
+    reason: str,
+    max_retries: int = 5,
+) -> ReadmePocLifecycleStateV2:
+    """Switch assurance only by reopening the earliest evidence-dependent boundary."""
+
+    now = datetime.now(UTC).isoformat()
+
+    def patch(state: RunStateV2) -> RunStateV2:
+        stored = state.readme_poc_lifecycle
+        prior = (
+            migrate_readme_poc_lifecycle(stored)
+            if isinstance(stored, ReadmePocLifecycleStateV1)
+            else (stored or ReadmePocLifecycleStateV2())
+        )
+        if prior.content_assurance == to_assurance:
+            return state
+        if prior.source_revision is None:
+            reopened_status: AssuranceReadmePocStatusV1 = "DISCOVERED"
+        elif prior.status in {"DISCOVERED", "INTAKE_PREFLIGHTING", "INTAKE_READY", "SNAPSHOTTED"}:
+            reopened_status = prior.status
+        else:
+            reopened_status = "PROFILED"
+        transition = ReadmePocTransitionV2(
+            from_status=prior.status,
+            to_status=reopened_status,
+            reason=f"content assurance changed: {reason}",
+            observed_by=observed_by,
+            occurred_at=now,
+            source_revision=prior.source_revision,
+        )
+        assurance_transition = ContentAssuranceTransitionV1(
+            from_assurance=prior.content_assurance,
+            to_assurance=to_assurance,
+            from_status=prior.status,
+            to_status=reopened_status,
+            reason=reason,
+            observed_by=observed_by,
+            occurred_at=now,
+        )
+        next_lifecycle = prior.model_copy(
+            update={
+                "status": reopened_status,
+                "content_assurance": to_assurance,
+                "updated_at": now,
+                "history": [*prior.history, transition],
+                "assurance_history": [*prior.assurance_history, assurance_transition],
+                "facts_hash": None,
+                "assessment_hash": None,
+                "presentation_plan_hash": None,
+                "candidate_hash": None,
+                "prompt_hash": None,
+                "fact_acceptance_contract_hash": None,
+                "fact_acceptance_component_hashes": {},
+                "reviewer_standard_hash": None,
+                "protected_content_fingerprint": None,
+                "repair_attempts_for_revision": 0,
+                "details": {},
+            }
+        )
+        return state.model_copy(update={"readme_poc_lifecycle": next_lifecycle})
+
+    saved = save_state_patch(backend, org_repo, patch, max_retries=max_retries)
+    assert isinstance(saved.readme_poc_lifecycle, ReadmePocLifecycleStateV2)
+    return saved.readme_poc_lifecycle
+
+
+def transition_trusted_readme_poc_status(
+    backend: StateBackend,
+    org_repo: str,
+    to_status: TrustedReadmePocStatusV1,
+    *,
+    observed_by: str,
+    reason: str,
+    evidence_refs: list[str] | None = None,
+    source_revision: str | None = None,
+    facts_hash: str | None = None,
+    candidate_hash: str | None = None,
+    prompt_hash: str | None = None,
+    max_retries: int = 5,
+) -> ReadmePocLifecycleStateV2:
+    """Advance only the trusted lifecycle after an explicit assurance switch."""
+
+    now = datetime.now(UTC).isoformat()
+
+    def patch(state: RunStateV2) -> RunStateV2:
+        stored = state.readme_poc_lifecycle
+        if not isinstance(stored, ReadmePocLifecycleStateV2):
+            raise StateBackendError(
+                f"{org_repo!r} requires a V2 lifecycle before trusted progression"
+            )
+        if stored.content_assurance != "trusted_inherited":
+            raise StateBackendError(
+                f"{org_repo!r} must switch to trusted_inherited before trusted progression"
+            )
+        allowed = _TRUSTED_README_POC_TRANSITIONS.get(stored.status, set())
+        if to_status not in allowed:
+            raise StateBackendError(
+                f"invalid trusted README lifecycle transition {stored.status!r} -> "
+                f"{to_status!r} for {org_repo!r}"
+            )
+        next_source_revision = source_revision or stored.source_revision
+        transition = ReadmePocTransitionV2(
+            from_status=stored.status,
+            to_status=to_status,
+            reason=reason,
+            evidence_refs=evidence_refs or [],
+            observed_by=observed_by,
+            occurred_at=now,
+            source_revision=next_source_revision,
+        )
+        next_lifecycle = stored.model_copy(
+            update={
+                "status": to_status,
+                "updated_at": now,
+                "history": [*stored.history, transition],
+                "source_revision": next_source_revision,
+                "facts_hash": facts_hash if facts_hash is not None else stored.facts_hash,
+                "candidate_hash": (
+                    candidate_hash if candidate_hash is not None else stored.candidate_hash
+                ),
+                "prompt_hash": prompt_hash if prompt_hash is not None else stored.prompt_hash,
+            }
+        )
+        return state.model_copy(update={"readme_poc_lifecycle": next_lifecycle})
+
+    saved = save_state_patch(backend, org_repo, patch, max_retries=max_retries)
+    assert isinstance(saved.readme_poc_lifecycle, ReadmePocLifecycleStateV2)
+    return saved.readme_poc_lifecycle
 
 
 def transition_readme_poc_status(
@@ -275,7 +462,12 @@ def transition_readme_poc_status(
             if isinstance(stored, ReadmePocLifecycleStateV1)
             else (stored or ReadmePocLifecycleStateV2())
         )
-        if to_status not in _README_POC_TRANSITIONS[prior.status]:
+        if prior.content_assurance != "repository_verified":
+            raise StateBackendError(
+                f"verified README lifecycle transition rejected for trusted repository {org_repo!r}"
+            )
+        verified_status = cast(ReadmePocStatusV2, prior.status)
+        if to_status not in _README_POC_TRANSITIONS[verified_status]:
             raise StateBackendError(
                 f"invalid README-POC lifecycle transition {prior.status!r} -> "
                 f"{to_status!r} for {org_repo!r}"

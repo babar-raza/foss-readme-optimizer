@@ -14,6 +14,7 @@ from readme_agent.specialists.review_finding_grounding import (
     FindingGroundingResultV1,
     GroundedReviewFindingV1,
 )
+from readme_agent.state.assurance import ContentAssuranceV1
 
 ReviewRole = Literal["author", "blind_quality_reviewer", "factual_plan_reviewer"]
 BlindQualityVerdict = Literal["ACCEPT", "REJECT_REPAIRABLE", "SYSTEM_FAILURE"]
@@ -174,6 +175,7 @@ class RoleReviewRecordV1(BaseModel):
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
+    content_assurance: ContentAssuranceV1 = "repository_verified"
     identity: ReviewActorIdentityV1
     candidate_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     input_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
@@ -238,12 +240,22 @@ class CombinedReadmeReviewV1(BaseModel):
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
+    content_assurance: ContentAssuranceV1 = "repository_verified"
     verdict: CombinedReviewVerdict
     candidate_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     blind_quality: RoleReviewRecordV1
     factual_plan: RoleReviewRecordV1
     identity_separation_valid: bool
     reasons: list[str]
+
+    @model_validator(mode="after")
+    def _review_assurance_is_consistent(self) -> CombinedReadmeReviewV1:
+        if {
+            self.blind_quality.content_assurance,
+            self.factual_plan.content_assurance,
+        } != {self.content_assurance}:
+            raise ValueError("combined review roles must use the same content assurance")
+        return self
 
 
 def _json_hash(value: dict) -> str:

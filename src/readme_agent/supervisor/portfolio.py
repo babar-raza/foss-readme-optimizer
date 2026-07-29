@@ -8,6 +8,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, computed_field, model_validator
 
+from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle import transition_trigger
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
@@ -34,6 +35,7 @@ class PortfolioRepositoryResultV1(BaseModel):
     """Terminal result for one registry entry within a local POC pass."""
 
     org_repo: str
+    content_assurance: ContentAssuranceV1 = "repository_verified"
     status: str
     exit_code: int
     blocked_reason: str | None = None
@@ -116,6 +118,75 @@ class PortfolioPocSummaryV1(BaseModel):
         )
 
     @property
+    def trusted_facts_extracted_count(self) -> int:
+        return sum(
+            result.content_assurance == "trusted_inherited"
+            and result.status
+            in {
+                "TRUSTED_FACTS_EXTRACTED",
+                "TRUSTED_PLAN_READY",
+                "TRUSTED_CANDIDATE_GENERATED",
+                "TRUSTED_DETERMINISTIC_VALIDATED",
+                "TRUSTED_REVIEWING",
+                "TRUSTED_REVIEW_REJECTED",
+                "TRUSTED_REPAIRING",
+                "TRUSTED_TRANSFORM_APPROVED",
+                "TRUSTED_NO_OP_PROVEN",
+                "TRUSTED_PR_ELIGIBLE",
+                "TRUSTED_PR_OPEN",
+            }
+            for result in self.results
+        )
+
+    @property
+    def trusted_candidate_generated_count(self) -> int:
+        return sum(
+            result.content_assurance == "trusted_inherited"
+            and result.status
+            in {
+                "TRUSTED_CANDIDATE_GENERATED",
+                "TRUSTED_DETERMINISTIC_VALIDATED",
+                "TRUSTED_REVIEWING",
+                "TRUSTED_REVIEW_REJECTED",
+                "TRUSTED_REPAIRING",
+                "TRUSTED_TRANSFORM_APPROVED",
+                "TRUSTED_NO_OP_PROVEN",
+                "TRUSTED_PR_ELIGIBLE",
+                "TRUSTED_PR_OPEN",
+            }
+            for result in self.results
+        )
+
+    @property
+    def trusted_transform_approved_count(self) -> int:
+        return sum(
+            result.content_assurance == "trusted_inherited"
+            and result.status
+            in {
+                "TRUSTED_TRANSFORM_APPROVED",
+                "TRUSTED_NO_OP_PROVEN",
+                "TRUSTED_PR_ELIGIBLE",
+                "TRUSTED_PR_OPEN",
+            }
+            for result in self.results
+        )
+
+    @property
+    def trusted_no_op_proven_count(self) -> int:
+        return sum(
+            result.content_assurance == "trusted_inherited"
+            and result.status in {"TRUSTED_NO_OP_PROVEN", "TRUSTED_PR_ELIGIBLE", "TRUSTED_PR_OPEN"}
+            for result in self.results
+        )
+
+    @property
+    def trusted_pr_open_count(self) -> int:
+        return sum(
+            result.content_assurance == "trusted_inherited" and result.status == "TRUSTED_PR_OPEN"
+            for result in self.results
+        )
+
+    @property
     def system_failure_count(self) -> int:
         return sum(
             result.status == "SYSTEM_FAILURE" or result.blocked_category == "agent_fixable"
@@ -145,6 +216,9 @@ class PortfolioPocSummaryV1(BaseModel):
             f"target={self.target_lifecycle_stage} "
             f"complete={self.target_complete_count}/{self.registry_count} "
             f"agent_approved={self.complete_agent_approved_count}/{self.registry_count} "
+            f"trusted_approved={self.trusted_transform_approved_count}/{self.registry_count} "
+            f"trusted_no_op={self.trusted_no_op_proven_count}/{self.registry_count} "
+            f"trusted_pr_open={self.trusted_pr_open_count}/{self.registry_count} "
             f"system_failed={self.system_failure_count} processed={len(self.results)} "
             f"slice_complete={self.execution_slice_complete} "
             f"llm_accounting={self.llm_accounting_status} "

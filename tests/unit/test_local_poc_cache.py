@@ -118,6 +118,25 @@ def test_complete_current_bundle_is_reusable_with_an_inspectable_cache_key(tmp_p
     assert first.cache_key == second.cache_key
 
 
+def test_assurance_change_cannot_collide_with_verified_cache(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+
+    verified = _decision(state, bundle)
+    trusted = local_poc_cache.evaluate_completed_local_poc_cache(
+        state,
+        bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+        content_assurance="trusted_inherited",
+    )
+
+    assert verified.reusable is True
+    assert trusted.reusable is False
+    assert "content_assurance_changed" in trusted.mismatch_reasons
+    assert trusted.earliest_affected_stage == "FACTS_COLLECTING"
+    assert trusted.cache_key != verified.cache_key
+
+
 @pytest.mark.parametrize(
     ("change", "expected_reason", "expected_stage"),
     [

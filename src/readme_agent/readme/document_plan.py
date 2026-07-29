@@ -11,6 +11,7 @@ from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.links.terminology import EnterpriseTerminologyCorrectionV1
 from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityMapV1
 from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
+from readme_agent.state.assurance import ContentAssuranceV1
 
 DocumentOperation = Literal[
     "preserve",
@@ -108,6 +109,7 @@ class ReadmeDocumentPlanV1(_StrictModel):
     """Complete, reproducible README plan below the repository-surface plan."""
 
     schema_version: Literal[1] = 1
+    content_assurance: ContentAssuranceV1 = "repository_verified"
     org_repo: str
     immutable_base_revision: str
     facts_hash: str

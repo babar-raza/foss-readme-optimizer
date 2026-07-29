@@ -9,8 +9,10 @@ from uuid import uuid4
 from readme_agent.errors import ConfigError, StateBackendError
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.mission_goal_schema import (
+    MissionGoalTransitionV1,
     MissionLifecycleScoreboardV1,
     MissionNextTaskV1,
+    StageGoalId,
 )
 from readme_agent.state.schema import (
     MissionExecutionStateV1,
@@ -64,6 +66,9 @@ class MissionEvaluation:
     blocked_external_task_ids: list[str]
     lifecycle_scoreboard: MissionLifecycleScoreboardV1 | None
     next_task: MissionNextTaskV1 | None
+    active_goal_id: StageGoalId | None
+    concurrent_goal_ids: list[StageGoalId]
+    capacity_allocation: dict[str, int]
     core_goal_active: bool
     mission_complete: bool
 
@@ -195,7 +200,9 @@ def _load_or_initialize(
     return record.model_copy(update={"mission_execution": reconciled}), record.state_version
 
 
-def _ready_tasks(graph: MissionTaskGraphV1, state: MissionExecutionStateV1) -> list[TaskCardV1]:
+def _dependency_ready_tasks(
+    graph: MissionTaskGraphV1, state: MissionExecutionStateV1
+) -> list[TaskCardV1]:
     by_id = {task.task_id: task for task in graph.taskcards}
 
     def status_for(task_id: str) -> MissionTaskStatus:
@@ -209,7 +216,71 @@ def _ready_tasks(graph: MissionTaskGraphV1, state: MissionExecutionStateV1) -> l
             continue
         if all(status_for(dependency) in _DEPENDENCY_SATISFIED for dependency in task.dependencies):
             ready.append(by_id[task.task_id])
-    return sorted(ready, key=lambda task: (_PRIORITY_ORDER[task.priority], task.task_id))
+    return ready
+
+
+def _derive_goal_selection(
+    graph: MissionTaskGraphV1,
+    state: MissionExecutionStateV1,
+) -> tuple[StageGoalId | None, list[StageGoalId], dict[str, int]]:
+    """Derive primary/concurrent goals from task truth, never narrative selection."""
+
+    goals = sorted(graph.mission_authority.stage_goal_catalog, key=lambda goal: goal.order)
+    tasks_by_goal = {
+        goal.goal_id: [task for task in graph.taskcards if task.stage_goal_id == goal.goal_id]
+        for goal in goals
+    }
+
+    def status_for(task: TaskCardV1) -> MissionTaskStatus:
+        return state.task_statuses.get(task.task_id, task.status)
+
+    incomplete = [
+        goal
+        for goal in goals
+        if any(status_for(task) != "CLOSED" for task in tasks_by_goal[goal.goal_id])
+    ]
+    primary = incomplete[0] if incomplete else None
+    if primary is None:
+        return None, [], {}
+    ready = _dependency_ready_tasks(graph, state)
+    concurrent = [
+        goal.goal_id
+        for goal in incomplete[1:]
+        if goal.concurrent_when_trusted_primary
+        and any(
+            task.stage_goal_id == goal.goal_id
+            and task.concurrency_class == "read_only_assurance_isolated"
+            for task in ready
+        )
+        and primary.goal_id
+        in {
+            "GOAL-T0-TRUSTED-QUALIFICATION",
+            "GOAL-T1-TRUSTED-PORTFOLIO",
+            "GOAL-T2-WORKFLOW-STAGING",
+            "GOAL-T3-HOSTED-TRUSTED-DELIVERY",
+        }
+    ]
+    capacity = {
+        "total_repository_lanes": (
+            primary.reserved_trusted_lanes + primary.max_concurrent_verified_lanes
+        ),
+        "reserved_trusted_lanes": primary.reserved_trusted_lanes,
+        "max_concurrent_verified_lanes": primary.max_concurrent_verified_lanes,
+    }
+    return primary.goal_id, concurrent, capacity
+
+
+def _ready_tasks(graph: MissionTaskGraphV1, state: MissionExecutionStateV1) -> list[TaskCardV1]:
+    ready = _dependency_ready_tasks(graph, state)
+    primary, concurrent, _capacity = _derive_goal_selection(graph, state)
+    permitted = {goal for goal in [primary, *concurrent] if goal is not None}
+    ready = [task for task in ready if task.stage_goal_id in permitted]
+
+    def sort_key(task: TaskCardV1) -> tuple[int, int, str]:
+        goal_rank = 0 if task.stage_goal_id == primary else 1
+        return goal_rank, _PRIORITY_ORDER[task.priority], task.task_id
+
+    return sorted(ready, key=sort_key)
 
 
 def evaluate_mission(
@@ -236,10 +307,12 @@ def evaluate_mission(
         and not blocked_external
         and all(status_for(task) == "CLOSED" for task in graph.taskcards)
     )
+    active_goal_id, concurrent_goal_ids, capacity_allocation = _derive_goal_selection(graph, state)
     selected = active or (eligible[0] if eligible else None)
     next_task = (
         MissionNextTaskV1(
             task_id=selected.task_id,
+            stage_goal_id=selected.stage_goal_id,
             goal_ids=selected.goal_ids,
             core_contribution=selected.core_contribution,
         )
@@ -254,6 +327,9 @@ def evaluate_mission(
         blocked_external_task_ids=blocked_external,
         lifecycle_scoreboard=state.lifecycle_scoreboard,
         next_task=next_task,
+        active_goal_id=active_goal_id,
+        concurrent_goal_ids=concurrent_goal_ids,
+        capacity_allocation=capacity_allocation,
         core_goal_active=not complete,
         mission_complete=complete,
     )
@@ -267,9 +343,35 @@ def _refresh_goal_state(
     scoreboard = derive_lifecycle_scoreboard(backend)
     with_scoreboard = state.model_copy(update={"lifecycle_scoreboard": scoreboard})
     evaluation = evaluate_mission(graph, with_scoreboard)
+    goal_changed = (
+        state.active_goal_id != evaluation.active_goal_id
+        or state.concurrent_goal_ids != evaluation.concurrent_goal_ids
+    )
+    history = state.goal_history
+    if goal_changed:
+        history = [
+            *history,
+            MissionGoalTransitionV1(
+                from_primary_goal_id=state.active_goal_id,
+                to_primary_goal_id=evaluation.active_goal_id,
+                from_concurrent_goal_ids=state.concurrent_goal_ids,
+                to_concurrent_goal_ids=evaluation.concurrent_goal_ids,
+                reason="derived from earliest incomplete stage and dependency-ready concurrency",
+                graph_sha256=state.graph_sha256,
+                occurred_at=datetime.now(UTC).isoformat(),
+            ),
+        ]
     return with_scoreboard.model_copy(
         update={
             "next_task": evaluation.next_task,
+            "active_goal_id": evaluation.active_goal_id,
+            "concurrent_goal_ids": evaluation.concurrent_goal_ids,
+            "goal_history": history,
+            "goal_activation_graph_sha256": state.graph_sha256,
+            "goal_activation_reason": (
+                "earliest incomplete governed stage with dependency-ready read-only look-ahead"
+            ),
+            "capacity_allocation": evaluation.capacity_allocation,
             "mission_complete": evaluation.mission_complete,
         }
     )

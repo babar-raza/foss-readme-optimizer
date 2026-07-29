@@ -32,6 +32,129 @@ REPORT_PATH = (
     / "requirement-taskcard-coverage.json"
 )
 
+STAGE_GOAL_ORDER = {
+    "GOAL-T0-TRUSTED-QUALIFICATION": 10,
+    "GOAL-C0-AUTHORIZED-PORTFOLIO": 15,
+    "GOAL-T1-TRUSTED-PORTFOLIO": 20,
+    "GOAL-T2-WORKFLOW-STAGING": 30,
+    "GOAL-T3-HOSTED-TRUSTED-DELIVERY": 40,
+    "GOAL-V1-VERIFIED-TRUTH": 50,
+    "GOAL-V2-VERIFIED-GATE-A": 60,
+    "GOAL-V3-HUMAN-AND-JAVA-PROOF": 70,
+    "GOAL-L5-PRESENTATION-PILOT": 80,
+    "GOAL-L6-AUTONOMOUS-PORTFOLIO": 90,
+    "GOAL-L7-HETEROGENEOUS-30D": 100,
+    "GOAL-L8-SELF-MAINTAINING-90D": 110,
+}
+
+
+def task_stage_goal(task_id: str) -> tuple[str, str]:
+    """Return the governed stage and concurrency class for every mission task."""
+
+    if task_id == "L8-TRUTH-08-FULL-REGISTRY":
+        return "GOAL-V2-VERIFIED-GATE-A", "read_only_assurance_isolated"
+    if task_id.startswith(("TRP-00", "TRP-01", "TRP-02", "TRP-03", "TRP-04")):
+        return "GOAL-T0-TRUSTED-QUALIFICATION", "primary_only"
+    if task_id.startswith("L8-INTAKE-"):
+        return "GOAL-C0-AUTHORIZED-PORTFOLIO", "read_only_assurance_isolated"
+    if task_id == "TRP-05-FULL-REGISTRY-TRANSFORM":
+        return "GOAL-T1-TRUSTED-PORTFOLIO", "primary_only"
+    if task_id.startswith(("TRP-05A-", "TRP-05B-")):
+        return "GOAL-T2-WORKFLOW-STAGING", "primary_only"
+    if task_id.startswith(("TRP-05C-", "TRP-06-", "TRP-07-")):
+        return "GOAL-T3-HOSTED-TRUSTED-DELIVERY", "primary_only"
+    if task_id.startswith(
+        (
+            "L8-MISSION-",
+            "L8-REQUIREMENT-",
+            "L8-WAVE0-",
+            "L8-WAVE1-",
+            "L8-WAVE2-",
+            "L8-PREPRODUCTION-",
+        )
+    ):
+        return "GOAL-T0-TRUSTED-QUALIFICATION", "primary_only"
+    if task_id.startswith(
+        (
+            "L8-WAVE3-",
+            "L8-LOCAL-IMMUTABLE-",
+            "L8-LOCAL-PORTFOLIO-RUNTIME",
+            "L8-TRUTH-",
+            "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
+        )
+    ):
+        return "GOAL-V1-VERIFIED-TRUTH", "read_only_assurance_isolated"
+    if task_id.startswith(
+        (
+            "L8-WAVE4-",
+            "L8-LOCAL-README-PROPOSAL-",
+            "L8-COMPOSE-",
+            "L8-REVIEW-",
+            "L8-QUAL-",
+            "L8-ACCEL-",
+            "L8-GATEA-",
+            "L8-LOCAL-README-ASSESSMENT-",
+            "L8-LOCAL-INDEPENDENT-",
+            "L8-LOCAL-HETEROGENEOUS-",
+            "L8-LOCAL-FULL-REGISTRY-",
+            "L8-LOCAL-CENTRAL-AGENT-",
+        )
+    ):
+        return "GOAL-V2-VERIFIED-GATE-A", "read_only_assurance_isolated"
+    if task_id.startswith(
+        (
+            "L8-LOCAL-HUMAN-",
+            "L8-ACT-",
+            "L8-STAGING-",
+            "L8-WAVE5-",
+            "L8-GATE-C-",
+            "L8-GATE-D-",
+        )
+    ):
+        return "GOAL-V3-HUMAN-AND-JAVA-PROOF", "primary_only"
+    if task_id.startswith("L8-WAVE6-"):
+        return "GOAL-L5-PRESENTATION-PILOT", "primary_only"
+    if task_id == "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO":
+        return "GOAL-L6-AUTONOMOUS-PORTFOLIO", "primary_only"
+    if task_id == "L8-WAVE7-HETEROGENEOUS-PORTFOLIO":
+        return "GOAL-L7-HETEROGENEOUS-30D", "primary_only"
+    if task_id == "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE":
+        return "GOAL-L8-SELF-MAINTAINING-90D", "primary_only"
+    raise ValueError(f"no stage-goal mapping declared for task {task_id!r}")
+
+
+def bind_stage_goals(graph: dict) -> None:
+    """Add deterministic stage ownership and reject backward goal dependencies."""
+
+    tasks = {task["task_id"]: task for task in graph.get("taskcards", [])}
+    for task in tasks.values():
+        stage_goal_id, concurrency_class = task_stage_goal(task["task_id"])
+        task["stage_goal_id"] = stage_goal_id
+        task["concurrency_class"] = concurrency_class
+    violations = []
+    for task in tasks.values():
+        task_order = STAGE_GOAL_ORDER[task["stage_goal_id"]]
+        for dependency_id in task.get("dependencies", []):
+            dependency = tasks[dependency_id]
+            dependency_order = STAGE_GOAL_ORDER[dependency["stage_goal_id"]]
+            if "GOAL-C0-AUTHORIZED-PORTFOLIO" in {
+                task["stage_goal_id"],
+                dependency["stage_goal_id"],
+            }:
+                continue
+            # These delivered umbrella tasks predate the stage catalog and retain
+            # dependency edges into rerouted descendants. Durable state governs
+            # their closure and any later regression.
+            if task["task_id"].startswith(("L8-WAVE", "L8-PREPRODUCTION-")):
+                continue
+            if dependency_order > task_order:
+                violations.append(
+                    f"{task['task_id']}({task_order}) depends on "
+                    f"{dependency_id}({dependency_order})"
+                )
+    if violations:
+        raise ValueError(f"stage-goal dependency order violations: {violations}")
+
 
 def canonical_text_sha256(path: Path) -> str:
     """Hash UTF-8 text after normalizing checkout-specific line endings."""
@@ -189,6 +312,7 @@ def _disposition(row: dict[str, str], findings: list[str]) -> str:
 
 def build_coverage() -> tuple[dict, dict]:
     graph = yaml.safe_load(GRAPH_PATH.read_text(encoding="utf-8"))
+    bind_stage_goals(graph)
     if graph["mission_authority"]["mission_id"] != "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION":
         raise ValueError("refusing to update a different mission graph")
     tasks = {task["task_id"]: task for task in graph["taskcards"]}
@@ -269,6 +393,17 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.check:
         current = yaml.safe_load(GRAPH_PATH.read_text(encoding="utf-8"))
+        current_task_goals = {
+            task["task_id"]: (task.get("stage_goal_id"), task.get("concurrency_class"))
+            for task in current.get("taskcards", [])
+        }
+        expected_task_goals = {
+            task["task_id"]: (task["stage_goal_id"], task["concurrency_class"])
+            for task in graph["taskcards"]
+        }
+        if current_task_goals != expected_task_goals:
+            print("Level-8 task stage-goal bindings are stale")
+            return 1
         if current.get("requirement_coverage") != graph["requirement_coverage"]:
             print("Level-8 requirement coverage is stale")
             return 1

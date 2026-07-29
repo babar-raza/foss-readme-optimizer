@@ -101,6 +101,48 @@ _ORDERED_BOUNDARIES: tuple[MissionLifecycleBoundary, ...] = (
     "NO_OP_PROVEN",
     "HUMAN_ACCEPTED",
 )
+_TRUSTED_REACHED_STATUSES: dict[str, frozenset[str]] = {
+    "trusted_facts_extracted": frozenset(
+        {
+            "TRUSTED_FACTS_EXTRACTED",
+            "TRUSTED_PLAN_READY",
+            "TRUSTED_CANDIDATE_GENERATED",
+            "TRUSTED_DETERMINISTIC_VALIDATED",
+            "TRUSTED_REVIEWING",
+            "TRUSTED_REVIEW_REJECTED",
+            "TRUSTED_REPAIRING",
+            "TRUSTED_TRANSFORM_APPROVED",
+            "TRUSTED_NO_OP_PROVEN",
+            "TRUSTED_PR_ELIGIBLE",
+            "TRUSTED_PR_OPEN",
+        }
+    ),
+    "trusted_candidate_generated": frozenset(
+        {
+            "TRUSTED_CANDIDATE_GENERATED",
+            "TRUSTED_DETERMINISTIC_VALIDATED",
+            "TRUSTED_REVIEWING",
+            "TRUSTED_REVIEW_REJECTED",
+            "TRUSTED_REPAIRING",
+            "TRUSTED_TRANSFORM_APPROVED",
+            "TRUSTED_NO_OP_PROVEN",
+            "TRUSTED_PR_ELIGIBLE",
+            "TRUSTED_PR_OPEN",
+        }
+    ),
+    "trusted_transform_approved": frozenset(
+        {
+            "TRUSTED_TRANSFORM_APPROVED",
+            "TRUSTED_NO_OP_PROVEN",
+            "TRUSTED_PR_ELIGIBLE",
+            "TRUSTED_PR_OPEN",
+        }
+    ),
+    "trusted_no_op_proven": frozenset(
+        {"TRUSTED_NO_OP_PROVEN", "TRUSTED_PR_ELIGIBLE", "TRUSTED_PR_OPEN"}
+    ),
+    "trusted_pr_open": frozenset({"TRUSTED_PR_OPEN"}),
+}
 
 
 def _canonical_text_sha256(path: Path) -> str:
@@ -119,6 +161,7 @@ def derive_lifecycle_scoreboard(
     entries = load_products(products_path)
     registry_sha256 = _canonical_text_sha256(products_path)
     counts = {boundary: 0 for boundary in _ORDERED_BOUNDARIES}
+    trusted_counts = {boundary: 0 for boundary in _TRUSTED_REACHED_STATUSES}
     status_counts: dict[str, int] = {}
     missing: list[str] = []
     watermarks: list[str] = []
@@ -140,6 +183,13 @@ def derive_lifecycle_scoreboard(
             status = lifecycle.status
             watermarks.append(lifecycle.updated_at)
         status_counts[status] = status_counts.get(status, 0) + 1
+        if (
+            isinstance(lifecycle, ReadmePocLifecycleStateV2)
+            and lifecycle.content_assurance == "trusted_inherited"
+        ):
+            for boundary, reached_statuses in _TRUSTED_REACHED_STATUSES.items():
+                if status in reached_statuses:
+                    trusted_counts[boundary] += 1
         for boundary in _ORDERED_BOUNDARIES:
             if status in _REACHED_STATUSES[boundary]:
                 counts[boundary] += 1
@@ -154,6 +204,11 @@ def derive_lifecycle_scoreboard(
         registry_path=products_path.as_posix(),
         registry_sha256=registry_sha256,
         denominator=denominator,
+        trusted_facts_extracted=trusted_counts["trusted_facts_extracted"],
+        trusted_candidate_generated=trusted_counts["trusted_candidate_generated"],
+        trusted_transform_approved=trusted_counts["trusted_transform_approved"],
+        trusted_no_op_proven=trusted_counts["trusted_no_op_proven"],
+        trusted_pr_open=trusted_counts["trusted_pr_open"],
         facts_ready=counts["FACTS_READY"],
         candidate_generated=counts["CANDIDATE_GENERATED"],
         deterministic_validated=counts["DETERMINISTIC_VALIDATED"],
@@ -201,7 +256,11 @@ def validate_task_contribution_evidence(
             f"closing task {task.task_id!r} requires exactly one valid contribution evidence JSON"
         )
     evidence = matching[0]
-    if evidence.goal_ids != task.goal_ids or evidence.core_contribution != task.core_contribution:
+    if (
+        evidence.stage_goal_id != task.stage_goal_id
+        or evidence.goal_ids != task.goal_ids
+        or evidence.core_contribution != task.core_contribution
+    ):
         raise ConfigError(f"task {task.task_id!r} contribution evidence disagrees with the graph")
     if set(evidence.acceptance_checks_passed) != set(task.acceptance_checks):
         raise ConfigError(

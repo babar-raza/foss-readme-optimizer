@@ -98,6 +98,7 @@ from readme_agent.llm.verification_prompts import (
     build_independent_readme_review_retry_message,
 )
 from readme_agent.readme.fact_grounding import fact_strings
+from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2, ReadmePocStatusV2
 from readme_agent.state.readme_poc_lifecycle import transition_readme_poc_status
@@ -153,6 +154,7 @@ class IndependentReadmeReviewResultV1(BaseModel):
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
+    content_assurance: ContentAssuranceV1 = "repository_verified"
     verdict: IndependentReviewVerdictV1
     reasoning: str
     failed_criteria: list[str] = Field(default_factory=list)

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from typing import Literal
+from typing import Literal, cast
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -179,7 +179,7 @@ def load_prepared_product_truth(
         and lifecycle.fact_acceptance_component_hashes == contract.component_hashes
     )
     outcome = classify_product_truth(facts, contract)
-    returned_lifecycle_status = lifecycle.status
+    returned_lifecycle_status = cast(ReadmePocStatusV2, lifecycle.status)
     if not (manifest_contract_current and lifecycle_contract_current):
         if _changed_evidence_gate_requires_recollection(
             lifecycle.fact_acceptance_component_hashes,

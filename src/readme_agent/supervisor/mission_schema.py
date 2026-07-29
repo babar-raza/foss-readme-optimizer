@@ -8,6 +8,8 @@ from readme_agent.state.mission_goal_schema import (
     CoreContributionV1,
     MissionGoalDefinitionV1,
     MissionGoalId,
+    StageGoalDefinitionV1,
+    StageGoalId,
     SubordinateGoalId,
 )
 from readme_agent.state.schema import MissionTaskStatus
@@ -41,8 +43,9 @@ class MissionAuthorityV1(_StrictModel):
     out_of_scope_items: list[str]
     mandatory_acceptance_criteria: list[str]
     conflicts_found: list[str]
-    core_goal_id: MissionGoalId
-    goal_catalog: list[MissionGoalDefinitionV1]
+    core_goal_id: MissionGoalId | None = None
+    goal_catalog: list[MissionGoalDefinitionV1] = Field(default_factory=list)
+    stage_goal_catalog: list[StageGoalDefinitionV1] = Field(default_factory=list)
     mission_locked: bool
 
 
@@ -93,6 +96,8 @@ class TaskCardV1(_StrictModel):
     rollback_or_recovery: str
     failure_reroute: str
     closeout_rules: list[str]
+    stage_goal_id: StageGoalId
+    concurrency_class: Literal["primary_only", "read_only_assurance_isolated"] = "primary_only"
     goal_ids: list[SubordinateGoalId] = Field(min_length=1)
     core_contribution: CoreContributionV1
     requirement_ids: list[str] = Field(default_factory=list)

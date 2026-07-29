@@ -91,12 +91,24 @@ def run_mission_command(args: argparse.Namespace) -> int:
         print(f"human_accepted: {scoreboard.human_accepted}/{scoreboard.denominator}")
         print(f"first_failing_boundary: {scoreboard.first_failing_boundary}")
     print(f"core_goal_active: {str(evaluation.core_goal_active).lower()}")
+    print(f"active_goal: {evaluation.active_goal_id or '-'}")
+    print("concurrent_goals: " + (", ".join(evaluation.concurrent_goal_ids) or "-"))
+    print(
+        "goal_capacity: "
+        + (
+            ", ".join(
+                f"{name}={value}" for name, value in sorted(evaluation.capacity_allocation.items())
+            )
+            or "-"
+        )
+    )
     if evaluation.next_task is None:
         print("next_task: -")
         print("next_task_goals: -")
         print("next_task_contribution: -")
     else:
         print(f"next_task: {evaluation.next_task.task_id}")
+        print(f"next_task_stage_goal: {evaluation.next_task.stage_goal_id}")
         print(f"next_task_goals: {', '.join(evaluation.next_task.goal_ids)}")
         print(
             "next_task_contribution: "

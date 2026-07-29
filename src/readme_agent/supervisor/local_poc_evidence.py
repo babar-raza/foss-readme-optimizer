@@ -20,6 +20,7 @@ from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
+from readme_agent.state.assurance import ContentAssuranceV1
 
 
 def _existing_manifest(bundle_dir: Path, source_revision: str) -> dict:
@@ -32,7 +33,12 @@ def _existing_manifest(bundle_dir: Path, source_revision: str) -> dict:
     return loaded
 
 
-def write_local_poc_manifest(bundle_dir: Path, manifest: dict) -> None:
+def write_local_poc_manifest(
+    bundle_dir: Path,
+    manifest: dict,
+    *,
+    content_assurance: ContentAssuranceV1 | None = None,
+) -> None:
     """Write one bundle manifest with cumulative, fail-closed LLM accounting."""
 
     path = bundle_dir / "manifest.json"
@@ -45,6 +51,12 @@ def write_local_poc_manifest(bundle_dir: Path, manifest: dict) -> None:
         path,
         {
             **manifest,
+            "content_assurance": (
+                content_assurance
+                or manifest.get("content_assurance")
+                or prior.get("content_assurance")
+                or "repository_verified"
+            ),
             "prompt_registry_content_hash": prompt_registry.content_hash(),
             "prompt_hashes_by_id": prompt_registry.prompt_hashes(),
             "prompt_dependency_hashes": prompt_registry.dependency_hashes(),

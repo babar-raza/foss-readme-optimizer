@@ -2,7 +2,7 @@
 
 from contextlib import nullcontext
 from datetime import UTC, datetime
-from typing import Any
+from typing import Any, cast
 
 from readme_agent import paths
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_PRESENTATION
@@ -715,10 +715,13 @@ def supervise_repo(
                 )
             loaded = state_backend.load(org_repo) if state_backend is not None else None
             lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
-            from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+            from readme_agent.state.lifecycle_schema import (
+                ReadmePocLifecycleStateV2,
+                ReadmePocStatusV2,
+            )
 
             observed_stage = (
-                lifecycle.status
+                cast(ReadmePocStatusV2, lifecycle.status)
                 if isinstance(lifecycle, ReadmePocLifecycleStateV2)
                 else "SYSTEM_FAILURE"
             )

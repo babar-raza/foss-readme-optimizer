@@ -34,7 +34,7 @@ DOCUMENT_CASES = (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
         "1e9af36611add3c18825fcd514e84dc9283bbe63ec450ed87868cf470268d18e",
-        "2f6c5a34c03e11c62b4fa1f566e9afea2cae4debe664ec241b0d2e2cf1d19d6f",
+        "4a0f7e8cb5187567a8d9a1ed4cddb34966408ab3e37f7877db16025f9d01ab42",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
@@ -50,7 +50,7 @@ DOCUMENT_CASES = (
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
         "694e3fe8a757e3ef1edcb8bd53873c655691aef9c3ad9716589d95b649624301",
-        "d89654de291a169d790627ca2d799be9b2d61eebfd772ddbe37bd4756e494111",
+        "3d16740dc1b408feea4f92fca0593e62a13720afd2ee0cada11a32641efcdb1e",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
@@ -67,7 +67,7 @@ DOCUMENT_CASES = (
             "## Installation\n\nExisting instructions.\n"
         ),
         "759f32ae015046803b628c95891cef1125711069fc1355fdf6d03d659ec1d089",
-        "17036d801393b44ce28ca6bbf4aa8f7210ee300763ee6fcbcb566fb8a4c26c3a",
+        "d6df266071f496f39e6def9a8410a8be0895f0a106907bec6a3f828774242e6a",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
@@ -210,6 +210,6 @@ def test_agentic_composition_plan_is_characterized() -> None:
     )
 
     assert plan.canonical_hash() == (
-        "74472d6a15681acab344d22c487c7bab9af0c9728344d38d2bbe2680b1b008eb"
+        "e6af2a1e04b2995fb3438cfcaef6641dd1efa4eb73d32524dcd61adf23ac890c"
     )
-    assert plan.input_sha256 == ("46790e5b90293194b05152f3e02912c92231687c6e9f54dc9e4c70b995f11d6e")
+    assert plan.input_sha256 == ("5c173f343ea5e2f35e35f4f4f150263a7e229a0634168b2dc49620ece61668af")

@@ -143,39 +143,83 @@ mission_authority:
     implementation taskcards.
   - Requirement closure prose and current repository evidence contain semantic contradictions, including
     VER-001 and the still-live alternate mutation path.
-  core_goal_id: GOAL-CORE-PRESENTABLE-PORTFOLIO
-  goal_catalog:
-  - goal_id: GOAL-CORE-PRESENTABLE-PORTFOLIO
-    role: core
-    summary: Legacy bootstrap identity retained only until TRP-00 atomically migrates durable state to
-      the ordered stage-goal catalog.
-    acceptance_boundary: Must not remain the active runtime goal after TRP-00 closes.
-  - goal_id: GOAL-TRUTH
-    role: subordinate
-    summary: Legacy bootstrap alias for the target GOAL-V1-VERIFIED-TRUTH stage until TRP-00 migration.
-    acceptance_boundary: Must be replaced by the explicit V1 goal without losing task history.
-  - goal_id: GOAL-README
-    role: subordinate
-    summary: Legacy bootstrap alias spanning target T0, T1, and V2 stages until TRP-00 migration.
-    acceptance_boundary: Must be split into explicit qualification, trusted portfolio, and verified Gate-A
-      goals.
-  - goal_id: GOAL-PROFILE
-    role: subordinate
-    summary: Legacy bootstrap alias for the target GOAL-L5-PRESENTATION-PILOT stage until migration.
-    acceptance_boundary: Must be replaced by the explicit Level-5 presentation goal.
-  - goal_id: GOAL-AUTONOMY
-    role: subordinate
-    summary: Legacy bootstrap alias for safety contributions; autonomy becomes an invariant and explicit
-      T2, T3, and L6 stage outcomes after migration.
-    acceptance_boundary: Must not remain a selectable cross-cutting goal after TRP-00.
-  - goal_id: GOAL-DELIVERY
-    role: subordinate
-    summary: Legacy bootstrap alias spanning target T2, T3, and V3 delivery stages until migration.
-    acceptance_boundary: Must be split into workflow-staging, hosted-trusted, and verified-Java goals.
-  - goal_id: GOAL-MATURITY
-    role: subordinate
-    summary: Legacy bootstrap alias spanning target Level 6, Level 7, and Level 8 stages until migration.
-    acceptance_boundary: Must be split so each maturity level has its own acceptance and active goal.
+  stage_goal_catalog:
+  - goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+    order: 10
+    summary: Separate trusted and verified assurance, then qualify trusted composition and review on real
+      canaries.
+    acceptance_boundary: Assurance isolation and trusted adversarial canaries are approved and no-op-proven.
+    reserved_trusted_lanes: 1
+  - goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
+    order: 15
+    summary: Discover and reconcile every repository visible from every explicitly authorized source.
+    acceptance_boundary: One complete current registry revision has zero unexplained observations or pending
+      intake.
+    concurrent_when_trusted_primary: true
+  - goal_id: GOAL-T1-TRUSTED-PORTFOLIO
+    order: 20
+    summary: Produce an independently approved trusted README transformation for the complete current
+      portfolio.
+    acceptance_boundary: Every registry entry has a trusted approved bundle and unchanged no-op proof.
+    reserved_trusted_lanes: 3
+    max_concurrent_verified_lanes: 1
+  - goal_id: GOAL-T2-WORKFLOW-STAGING
+    order: 30
+    summary: Prove the canonical trusted runtime under the reusable workflow and disposable GitHub staging.
+    acceptance_boundary: Act and staging recovery, deduplication, and effect matrices pass without default-branch
+      writes.
+    reserved_trusted_lanes: 3
+    max_concurrent_verified_lanes: 1
+  - goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
+    order: 40
+    summary: Qualify hosted GitHub App operation and deliver disclosed trusted draft pull requests.
+    acceptance_boundary: Hosted staging is proven and exactly one authorized trusted draft PR exists per
+      repository.
+    product_effects_allowed: true
+    reserved_trusted_lanes: 3
+    max_concurrent_verified_lanes: 1
+  - goal_id: GOAL-V1-VERIFIED-TRUTH
+    order: 50
+    summary: Establish every selected product claim from repository, package, test, or approved policy
+      evidence.
+    acceptance_boundary: Required verified facts are accepted or narrowly and visibly blocked for every
+      repository.
+    concurrent_when_trusted_primary: true
+    max_concurrent_verified_lanes: 4
+  - goal_id: GOAL-V2-VERIFIED-GATE-A
+    order: 60
+    summary: Produce independently approved repository-verified README bundles for the complete portfolio.
+    acceptance_boundary: Every registry entry is repository-verified, agent-approved, and no-op-proven.
+    concurrent_when_trusted_primary: true
+    max_concurrent_verified_lanes: 4
+  - goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+    order: 70
+    summary: Record Gate-B acceptance and prove verified Java proposals through qualified delivery machinery.
+    acceptance_boundary: Human acceptance is complete and the governed verified Java proposal set passes
+      Gate C.
+    product_effects_allowed: true
+  - goal_id: GOAL-L5-PRESENTATION-PILOT
+    order: 80
+    summary: Complete every governed presentation surface and the controlled three-Java production pilot.
+    acceptance_boundary: An independent audit reproduces the controlled pilot and awards Level 5.
+    product_effects_allowed: true
+  - goal_id: GOAL-L6-AUTONOMOUS-PORTFOLIO
+    order: 90
+    summary: Operate every active portfolio repository autonomously in observe or proposal mode.
+    acceptance_boundary: Humans are limited to governed review, authorization, facts, and manual UI boundaries.
+    product_effects_allowed: true
+  - goal_id: GOAL-L7-HETEROGENEOUS-30D
+    order: 100
+    summary: Prove a complete lifecycle per supported ecosystem and thirty clean production days.
+    acceptance_boundary: The heterogeneous portfolio and uninterrupted 30-day control series pass independent
+      audit.
+    product_effects_allowed: true
+  - goal_id: GOAL-L8-SELF-MAINTAINING-90D
+    order: 110
+    summary: Sustain self-maintaining portfolio operation through the complete ninety-day evidence window.
+    acceptance_boundary: The 90-day control series is reproducible and an independent audit awards Level
+      8.
+    product_effects_allowed: true
   mission_locked: true
 verified_baseline:
   repository_root: D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
@@ -281,6 +325,8 @@ taskcards:
   - TRP-001
   - TRP-015
   - L8-025
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: TRP-01-README-DERIVED-FACTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -345,6 +391,8 @@ taskcards:
   requirement_ids:
   - TRP-002
   - TRP-003
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: TRP-02-LLM-FIRST-COMPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -406,6 +454,8 @@ taskcards:
   requirement_ids:
   - TRP-004
   - TRP-005
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: TRP-03-INDEPENDENT-FIDELITY-REVIEW
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -466,6 +516,8 @@ taskcards:
   requirement_ids:
   - TRP-006
   - TRP-007
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: TRP-04-CANARY-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -523,6 +575,8 @@ taskcards:
     summary: Prove the trusted contract can survive the real portfolio long tail before one-day fan-out.
   requirement_ids:
   - TRP-008
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: TRP-05-FULL-REGISTRY-TRANSFORM
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -585,6 +639,8 @@ taskcards:
     summary: Produce the complete independently approved trusted README portfolio.
   requirement_ids:
   - TRP-009
+  stage_goal_id: GOAL-T1-TRUSTED-PORTFOLIO
+  concurrency_class: primary_only
 - task_id: TRP-05A-ACT-WORKFLOW-PARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -643,6 +699,8 @@ taskcards:
     summary: Prove the trusted README system operates through the actual reusable workflow under act.
   requirement_ids:
   - TRP-012
+  stage_goal_id: GOAL-T2-WORKFLOW-STAGING
+  concurrency_class: primary_only
 - task_id: TRP-05B-STAGING-EFFECT-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -706,6 +764,8 @@ taskcards:
     summary: Prove real remote proposal behavior safely before any trusted product repository effect.
   requirement_ids:
   - TRP-013
+  stage_goal_id: GOAL-T2-WORKFLOW-STAGING
+  concurrency_class: primary_only
 - task_id: TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -778,6 +838,8 @@ taskcards:
   requirement_ids:
   - AUTH-008
   - TRP-014
+  stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
+  concurrency_class: primary_only
 - task_id: TRP-06-AUTHORIZATION-ACCESS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -837,6 +899,8 @@ taskcards:
     summary: Establish lawful, repository-specific authority for the trusted draft-PR portfolio.
   requirement_ids:
   - TRP-010
+  stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
+  concurrency_class: primary_only
 - task_id: TRP-07-DRAFT-PR-PORTFOLIO
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -901,6 +965,8 @@ taskcards:
     summary: Deliver the complete trusted README POC as real reviewable draft pull requests.
   requirement_ids:
   - TRP-011
+  stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
+  concurrency_class: primary_only
 - task_id: L8-MISSION-CONTROL-CONSUMER
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -974,6 +1040,8 @@ taskcards:
     summary: Extend the existing supervisor, without creating another controller, so it loads this graph,
       validates it, reconciles durable state, claims the next eligible task, and evaluates mission completion.
   requirement_ids: []
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-MISSION-GOAL-GUARD
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1051,6 +1119,8 @@ taskcards:
     summary: Add validated task goal/contribution bindings and a durable lifecycle scoreboard so selection,
       transition, and closure remain tied to the presentable full-portfolio deliverable.
   requirement_ids: []
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-REQUIREMENT-TO-TASKCARD-COVERAGE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1113,6 +1183,8 @@ taskcards:
     summary: Add stable, deduplicated taskcards for every mandatory non-deprecated requirement and record
       verified completion without reopening valid evidence.
   requirement_ids: []
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1212,6 +1284,8 @@ taskcards:
   - BIZ-006
   - BIZ-007
   - BIZ-008
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
@@ -1317,6 +1391,8 @@ taskcards:
     new_information: No repository-local workaround may legitimately manufacture this authority.
     reason_for_next_attempt: No safe authority substitute remains; preserve the exact external action
       and continue independent work.
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
@@ -1375,6 +1451,8 @@ taskcards:
     summary: Investigate every finding, add exact existing evidence when genuine, downgrade unsupported
       claims when permitted, and drive the semantic matrix to zero high-confidence findings.
   requirement_ids: []
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
@@ -1427,6 +1505,8 @@ taskcards:
     summary: Inventory provenance and useful content, preserve it without legitimizing a conflicting plan,
       and record the exact gated migration/disposition.
   requirement_ids: []
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
@@ -1476,6 +1556,8 @@ taskcards:
     summary: Clone the current committed HEAD into runs, install only from the committed lock, and rerun
       all official checks without relying on the dirty source working tree.
   requirement_ids: []
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1616,6 +1698,8 @@ taskcards:
   - GAP-003
   - L8-002
   - L8-013
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1733,6 +1817,8 @@ taskcards:
   - L8-003
   - L8-004
   - L8-005
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1836,6 +1922,8 @@ taskcards:
   - FACT-016
   - FACT-017
   - L8-006
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
@@ -1911,6 +1999,8 @@ taskcards:
     summary: Complete the safe repository-local Wave 3 foundation while leaving hosted execution, production
       effects, and Wave 3 closure dependent on the blocked Wave 2 production proof.
   requirement_ids: []
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -2089,6 +2179,8 @@ taskcards:
   - DOC-010
   - L8-007
   - L8-012
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
@@ -2166,6 +2258,8 @@ taskcards:
     summary: Complete the safe repository-local Wave 4 planning and patch foundation while leaving production
       proposals, model-route scoring, and full Wave 4 closure dependent on the blocked production chain.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -2264,6 +2358,8 @@ taskcards:
       resumes.
   requirement_ids:
   - L8-014
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-PREPRODUCTION-TRUTHFUL-BASELINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -2326,6 +2422,8 @@ taskcards:
     summary: Finish deterministic finding, proposal, remaining-work, and stop classification and restore
       every official local check without weakening any safety boundary.
   requirement_ids: []
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
 - task_id: L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -2386,6 +2484,8 @@ taskcards:
     summary: Make every fact, plan, render, and verifier consume one revision and populate enough verified
       truth to author the three Java pilot READMEs.
   requirement_ids: []
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-LOCAL-README-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -2443,6 +2543,8 @@ taskcards:
     summary: Coordinate the governed local-portfolio child tasks and close only from their aggregate evidence
       after every registry entry reaches Gate-A acceptance.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-LOCAL-PORTFOLIO-RUNTIME
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -2495,6 +2597,8 @@ taskcards:
     summary: Add --registry and the fail-closed local_poc profile to supervise, loading every current
       products.json entry and persisting one durable per-repository lifecycle.
   requirement_ids: []
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-01-STAGE-LIMIT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -2556,6 +2660,8 @@ taskcards:
       at FACTS_READY without invoking later phases.
   requirement_ids:
   - L8-015
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-01A-FACT-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -2619,6 +2725,8 @@ taskcards:
       and render-view contract hashes.
   requirement_ids:
   - L8-018
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-01B-LLM-CALL-LEDGER
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -2702,6 +2810,8 @@ taskcards:
       and optional cost totals into run and portfolio manifests.
   requirement_ids:
   - L8-027
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-01C-PROMPT-HYGIENE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -2782,6 +2892,8 @@ taskcards:
       changes.
   requirement_ids:
   - L8-028
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-02-ROOT-ROLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -2840,6 +2952,8 @@ taskcards:
       roots and select the distributed product root deterministically.
   requirement_ids:
   - L8-033
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -2907,6 +3021,8 @@ taskcards:
       smallest compatible committed sibling behaviors before implementing the three platform adapters.
   requirement_ids:
   - L8-029
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-02B-PYTHON-API-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -2977,6 +3093,8 @@ taskcards:
       extraction and prove selected symbols through an installed pinned package in an isolated consumer.
   requirement_ids:
   - L8-030
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3044,6 +3162,8 @@ taskcards:
       behavior and compile an isolated consumer against the pinned packed or built artifact.
   requirement_ids:
   - L8-031
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-02D-RUST-API-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3115,6 +3235,8 @@ taskcards:
       rustdoc, snippet, and format extraction and verify a pinned isolated consumer example.
   requirement_ids:
   - L8-032
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-03-CLAIM-POLARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3176,6 +3298,8 @@ taskcards:
     summary: Require positive implementation evidence for capabilities and explicit constraint evidence
       for limitations.
   requirement_ids: []
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-03A-ISOLATED-EXECUTOR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3245,6 +3369,8 @@ taskcards:
       time, and deny-by-default network.
   requirement_ids:
   - L8-019
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-04-ACQUISITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3318,6 +3444,8 @@ taskcards:
       otherwise, while executing repository or dependency build code only inside a disposable OS-isolated
       executor with bounded resources and deny-by-default network.
   requirement_ids: []
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-05-PUBLIC-EXAMPLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3400,6 +3528,8 @@ taskcards:
     summary: Prove imports or namespaces, public symbols, compilation or execution, and secret-free inputs
       for selected examples in the same disposable OS-isolated executor used for acquisition proof.
   requirement_ids: []
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-06-INTERPRETIVE-VIEWS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3461,6 +3591,8 @@ taskcards:
     summary: Ground audience and problem statements with citations and make typed render views the only
       prose-eligible fact interface.
   requirement_ids: []
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-07-SEVEN-ECOSYSTEMS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3527,6 +3659,8 @@ taskcards:
       Rust, and Go repository in the user-governed order.
   requirement_ids:
   - L8-034
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-ACCEL-00-PYTHON-READINESS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -3591,6 +3725,8 @@ taskcards:
     kind: visible_deliverable
     summary: Freeze the complete Python denominator and fastest safe reuse-aware completion queue.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-ACCEL-01-EIGHT-TOTAL
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -3652,6 +3788,8 @@ taskcards:
     kind: visible_deliverable
     summary: Reach the first eight honest finalized local READMEs with Python consuming the eighth slot.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-ACCEL-02-EIGHT-PYTHON
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -3712,6 +3850,8 @@ taskcards:
     kind: visible_deliverable
     summary: Reach eight finalized Python READMEs without weakening per-repository proof.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-ACCEL-03-ALL-PYTHON
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -3770,6 +3910,8 @@ taskcards:
     kind: visible_deliverable
     summary: Complete the entire current Python README portfolio before lower-priority Gate-A cohorts.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-TRUTH-08-FULL-REGISTRY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -3843,6 +3985,8 @@ taskcards:
     summary: Preserve the completed Python cohort and bring every remaining registry entry through FACTS_READY
       in configured platform order.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -3910,6 +4054,8 @@ taskcards:
     summary: Produce provenance-complete ProductFactsV2 graphs plus typed visitor-facing render views
       and public-API-verified examples for every supported ecosystem.
   requirement_ids: []
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-00-CHARACTERIZE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -3963,6 +4109,8 @@ taskcards:
     summary: Freeze public inputs, outputs, candidate bytes, plan hashes, and known failure fixtures before
       structural extraction.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-01A-SECTION-REGRESSIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4019,6 +4167,8 @@ taskcards:
     summary: Capture failing real and synthetic cases for partial limitations, examples, installation,
       and overview sections before implementation.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-02A-OPERATION-REGRESSIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4079,6 +4229,8 @@ taskcards:
     summary: Capture advisory-decision, competing-example, stale-span, and reconstruction failures before
       tightening operation coverage.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-03A-PRESENTATION-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4135,6 +4287,8 @@ taskcards:
     summary: Freeze real and synthetic raw-token, duplication, competing-example, identity, navigation,
       and ordering defects with expected spans.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-04A-CANDIDATE-FIXTURES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4193,6 +4347,8 @@ taskcards:
     summary: Freeze immutable source revisions, accepted fact bundles, and expected composition obligations
       for seven real representatives without claiming candidate output.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-04B-STAGE-TRANSACTIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4268,6 +4424,8 @@ taskcards:
     summary: Establish the transactional stage boundary required for isolated candidate qualification
       and safe later repository lanes.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-01-DECOMPOSE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4324,6 +4482,8 @@ taskcards:
     summary: Split renderer and agentic-composition responsibilities behind unchanged public seams before
       adding editorial behavior.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4398,6 +4558,8 @@ taskcards:
       README headers, verified badges, and sanitized repository-specific Mermaid overview graphs.
   requirement_ids:
   - L8-021
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4511,6 +4673,8 @@ taskcards:
   - L8-023
   - L8-024
   - L8-026
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-02-EXISTING-SECTIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4582,6 +4746,8 @@ taskcards:
       validation, improve it only with verified clarity, correct contradictions, and withhold unresolved
       factual material without losing its traceability.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-02B-FINAL-CLAIM-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4651,6 +4817,8 @@ taskcards:
       owner validation, reuse, improvement, uncertainty, correction, or omission disposition.
   requirement_ids:
   - L8-020
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-03-OPERATION-COVERAGE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4717,6 +4885,8 @@ taskcards:
       for every material inherited and generated final-candidate claim through an accepted fact, authoritative
       owner, or explicit uncertainty/correction operation, and independently reconstruct the result.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-04-PRESENTATION-LINT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4773,6 +4943,8 @@ taskcards:
     summary: Deterministically reject internal tokens, semantic duplicates, competing examples, cross-product
       leakage, malformed navigation, and promotional imbalance.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-05-SEVEN-CANDIDATES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -4827,6 +4999,8 @@ taskcards:
     summary: Run the stage-limited canonical supervisor through deterministic validation for one real
       representative per supported ecosystem.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-05A-RUST-EXECUTION-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-COMPOSE-05-SEVEN-CANDIDATES
@@ -4903,6 +5077,8 @@ taskcards:
     summary: Make the repeated Rust candidate failure observable and close its deterministic candidate
       boundary without weakening validation.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -4978,6 +5154,8 @@ taskcards:
     summary: Compile every actionable assessment into bounded ReadmeDocumentPlanV1 operations and generate
       the candidate solely by applying those operations to the immutable source.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -5052,6 +5230,8 @@ taskcards:
       preflight.
   requirement_ids:
   - L8-035
+  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -5109,6 +5289,8 @@ taskcards:
     summary: Give every discovered repository durable identity without weakening policy ownership.
   requirement_ids:
   - L8-036
+  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -5183,6 +5365,8 @@ taskcards:
     summary: Turn every newly discovered product into an automatically queued, safe README outcome.
   requirement_ids:
   - L8-037
+  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -5262,6 +5446,8 @@ taskcards:
   requirement_ids:
   - L8-038
   - L8-039
+  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-REVIEW-00-CONTEXT-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -5321,6 +5507,8 @@ taskcards:
     summary: Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches,
       and verdict combination.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-REVIEW-01A-FINDING-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -5380,6 +5568,8 @@ taskcards:
     summary: Require candidate spans for content findings and exact fact/evidence references with valid
       polarity for factual findings.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-REVIEW-02A-REPAIR-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -5439,6 +5629,8 @@ taskcards:
     summary: Bind repair instructions to source operations and prove candidate delta plus finding resolution
       before rereview.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-REVIEW-03A-CACHE-MEASUREMENT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -5512,6 +5704,8 @@ taskcards:
     summary: Reuse valid facts, composition, and review artifacts by complete input fingerprints while
       still proving no change.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-REVIEW-04A-REAL-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -5573,6 +5767,8 @@ taskcards:
     summary: Run good, defective, repairable, conflicting, and missing-evidence outputs across seven real
       representatives in the user-governed platform order.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-REVIEW-01-FREEZE-ROLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -5630,6 +5826,8 @@ taskcards:
     summary: Define separate blind visitor-quality and fact-and-plan reviewer contracts with independent
       prompts, contexts, identities, and caches.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-REVIEW-02-FINDING-GROUNDING
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -5691,6 +5889,8 @@ taskcards:
     summary: Require candidate spans for quality findings and exact fact or evidence references with checked
       polarity for factual findings.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-REVIEW-03-EFFECTIVE-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -5748,6 +5948,8 @@ taskcards:
     summary: Check candidate and operation deltas plus cited-finding resolution before spending another
       independent review call.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-REVIEW-04-NO-OP-CACHE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -5819,6 +6021,8 @@ taskcards:
     summary: Reuse valid fact, authoring, validation, and review results on unchanged reruns without duplicate
       state or LLM work.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-REVIEW-05-REAL-CAMPAIGN
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -5880,6 +6084,8 @@ taskcards:
     summary: Accept strong and reject defective real candidate outputs across all seven supported ecosystems
       in configured platform order.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -5939,6 +6145,8 @@ taskcards:
     summary: Enforce blind visitor-quality review plus independent factual/plan review, combine both fail-closed,
       and require every repair to materially change and resolve the responsible candidate spans.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-00-CAMPAIGN-SCHEMA
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -5993,6 +6201,8 @@ taskcards:
     summary: Hash HEAD, registry, source revisions, dependencies, prompts, templates, facts, renderer,
       validators, reviewer, and lifecycle contracts.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-01A-REPRESENTATIVE-INPUTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -6048,6 +6258,8 @@ taskcards:
     summary: Run the complete canonical pipeline twice for one real representative per ecosystem under
       the immutable campaign.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-02A-FAILURE-MATRIX
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -6112,6 +6324,8 @@ taskcards:
     summary: Add portfolio-wide writer exclusion and renew the mission claim through long clone, build,
       LLM, test, and cohort operations.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-03A-EVALUATION-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -6173,6 +6387,8 @@ taskcards:
     summary: Run at least 100 evaluations in three independent sessions using synthetic and frozen real-output
       controls.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-04A-FREEZE-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -6226,6 +6442,8 @@ taskcards:
     summary: Mark the qualified campaign immutable and enforce representative requalification after any
       dependent contract change.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-01-CAMPAIGN-IDENTITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -6285,6 +6503,8 @@ taskcards:
       renderer, validators, reviewer, and lifecycle hashes.
   requirement_ids:
   - L8-016
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-02-SEVEN-E2E
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -6338,6 +6558,8 @@ taskcards:
     summary: Run first proposal and unchanged no-op for one real representative per supported ecosystem
       under one campaign in the user-governed platform order.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-03-RECOVERY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -6403,6 +6625,8 @@ taskcards:
       duplicate work or descendants.
   requirement_ids:
   - L8-017
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-04-GOLDEN-SET
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -6459,6 +6683,8 @@ taskcards:
     summary: Run at least 100 evaluations across three sessions with complete real-output controls and
       automatic route disablement.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-04B-COST-BASELINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -6538,6 +6764,8 @@ taskcards:
     summary: Measure official checks and cold, warm, per-stage, clone, registry, LLM, and no-op runtime
       cost under the accepted representative campaign.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-QUAL-05-FREEZE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -6591,6 +6819,8 @@ taskcards:
     summary: Make Gate-A preflight require the exact accepted campaign and reject execution after any
       dependent contract mutation.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -6659,6 +6889,8 @@ taskcards:
     summary: Qualify the complete canonical pipeline on a frozen real-output campaign across all supported
       ecosystems before full-registry fan-out.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-GATEA-00-COHORT-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -6729,6 +6961,8 @@ taskcards:
     summary: Process the runtime denominator in deterministic ecosystem/family cohorts under one campaign
       and portfolio writer lease.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-GATEA-01A-FAILURE-ROUTING
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -6789,6 +7023,8 @@ taskcards:
     summary: Classify each non-success as truth, composition, review, recovery, or genuine external fact
       work and repair upstream.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-GATEA-02A-CURRENT-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -6845,6 +7081,8 @@ taskcards:
     summary: Complete deterministic validation, independent review/repair, and an unchanged no-op rerun
       for every eligible entry.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-GATEA-03A-REPRO-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -6903,6 +7141,8 @@ taskcards:
     summary: Rebuild the denominator and every accepted result from registry, campaign, state, bundles,
       and checksum inventories.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-GATEA-01-COHORTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -6974,6 +7214,8 @@ taskcards:
     summary: Preserve the completed Python cohort and execute every remaining platform in the user-governed
       order with one writer lease and an incremental current-state summary.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-GATEA-02-HEAL-FAILURES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -7038,6 +7280,8 @@ taskcards:
     summary: Classify each failure at its first responsible boundary, repair it, requalify the affected
       representative, and rerun only invalidated repositories.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-GATEA-03-NO-OP
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -7096,6 +7340,8 @@ taskcards:
     summary: Reach independent approval and unchanged no-op proof for every eligible current registry
       entry under the identical frozen campaign.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-GATEA-04-REPRODUCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -7155,6 +7401,8 @@ taskcards:
     summary: Reconstruct the portfolio result and checksum inventory from the frozen registry and per-repository
       bundles without trusting the runtime summary.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -7216,6 +7464,8 @@ taskcards:
     summary: Execute the canonical profile across every current registry entry until each has a checksum-valid
       agent-approved local bundle and unchanged rerun proof.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-LOCAL-HUMAN-REVIEW-GATE-B
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -7270,6 +7520,8 @@ taskcards:
     summary: Present only agent-approved, no-op-proven local README bundles for human review and record
       a separate acceptance decision for every current registry entry.
   requirement_ids: []
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  concurrency_class: primary_only
 - task_id: L8-LOCAL-CENTRAL-AGENT-RESILIENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -7328,6 +7580,8 @@ taskcards:
     summary: Produce one-command local proof across README, metadata, community, visual handoff, package/release,
       generated signals, cross-surface validation, and recovery scenarios.
   requirement_ids: []
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  concurrency_class: read_only_assurance_isolated
 - task_id: L8-ACT-CANONICAL-WORKFLOW-PARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -7386,6 +7640,8 @@ taskcards:
     summary: Run the same reusable workflow through every applicable job and trigger path with isolated
       local state and no production authentication fallback.
   requirement_ids: []
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  concurrency_class: primary_only
 - task_id: L8-STAGING-VERIFIED-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -7442,6 +7698,8 @@ taskcards:
     summary: Create disposable staging targets and prove the production-equivalent proposal lifecycle
       without changing any target default branch.
   requirement_ids: []
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  concurrency_class: primary_only
 - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -7560,6 +7818,8 @@ taskcards:
   - PRL-009
   - L8-008
   - L8-009
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  concurrency_class: primary_only
 - task_id: L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -7621,6 +7881,8 @@ taskcards:
     summary: Prove human-accepted repository-verified Java candidates through the governed draft-PR lifecycle.
   requirement_ids:
   - PIL-016
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  concurrency_class: primary_only
 - task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -7693,6 +7955,8 @@ taskcards:
   - PIL-013
   - PIL-014
   - PIL-015
+  stage_goal_id: GOAL-L5-PRESENTATION-PILOT
+  concurrency_class: primary_only
 - task_id: L8-GATE-D-GITHUB-APP-INTEGRATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -7747,6 +8011,8 @@ taskcards:
     summary: Revalidate qualified App transport for repository-verified hosted production after Gate C.
   requirement_ids:
   - L8-001
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  concurrency_class: primary_only
 - task_id: L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -7806,6 +8072,8 @@ taskcards:
     summary: Prove autonomous observe and proposal operation across every active registry repository.
   requirement_ids:
   - L8-040
+  stage_goal_id: GOAL-L6-AUTONOMOUS-PORTFOLIO
+  concurrency_class: primary_only
 - task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -7874,6 +8142,8 @@ taskcards:
   - ONB-003
   - ONB-004
   - L8-010
+  stage_goal_id: GOAL-L7-HETEROGENEOUS-30D
+  concurrency_class: primary_only
 - task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -7947,6 +8217,8 @@ taskcards:
   - DEP-005
   - DEP-006
   - L8-011
+  stage_goal_id: GOAL-L8-SELF-MAINTAINING-90D
+  concurrency_class: primary_only
 continuation_state:
   selected_task_id: L8-MISSION-CONTROL-CONSUMER
   claim_status: bootstrapped_in_progress

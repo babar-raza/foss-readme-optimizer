@@ -8,7 +8,6 @@ import yaml
 from readme_agent.errors import ConfigError
 from readme_agent.supervisor.mission_schema import MissionTaskGraphV1, TaskCardV1
 
-_CORE_GOAL_ID = "GOAL-CORE-PRESENTABLE-PORTFOLIO"
 _SUBORDINATE_GOAL_IDS = {
     "GOAL-TRUTH",
     "GOAL-README",
@@ -16,6 +15,20 @@ _SUBORDINATE_GOAL_IDS = {
     "GOAL-AUTONOMY",
     "GOAL-DELIVERY",
     "GOAL-MATURITY",
+}
+_STAGE_GOAL_ORDERS = {
+    "GOAL-T0-TRUSTED-QUALIFICATION": 10,
+    "GOAL-C0-AUTHORIZED-PORTFOLIO": 15,
+    "GOAL-T1-TRUSTED-PORTFOLIO": 20,
+    "GOAL-T2-WORKFLOW-STAGING": 30,
+    "GOAL-T3-HOSTED-TRUSTED-DELIVERY": 40,
+    "GOAL-V1-VERIFIED-TRUTH": 50,
+    "GOAL-V2-VERIFIED-GATE-A": 60,
+    "GOAL-V3-HUMAN-AND-JAVA-PROOF": 70,
+    "GOAL-L5-PRESENTATION-PILOT": 80,
+    "GOAL-L6-AUTONOMOUS-PORTFOLIO": 90,
+    "GOAL-L7-HETEROGENEOUS-30D": 100,
+    "GOAL-L8-SELF-MAINTAINING-90D": 110,
 }
 _VAGUE_CONTRIBUTIONS = {
     "complete the task",
@@ -49,16 +62,14 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
         raise ConfigError("mission must stay locked to autonomous_supervision")
     if not authority.mission_locked:
         raise ConfigError("mission_authority.mission_locked must be true")
-    goal_ids = [goal.goal_id for goal in authority.goal_catalog]
-    if len(goal_ids) != len(set(goal_ids)):
-        raise ConfigError("mission goal_catalog contains duplicate goal IDs")
-    if authority.core_goal_id != _CORE_GOAL_ID:
-        raise ConfigError(f"mission core goal must remain {_CORE_GOAL_ID}")
-    if set(goal_ids) != {_CORE_GOAL_ID, *_SUBORDINATE_GOAL_IDS}:
-        raise ConfigError("mission goal_catalog does not define the complete governed hierarchy")
-    core_goals = [goal for goal in authority.goal_catalog if goal.role == "core"]
-    if len(core_goals) != 1 or core_goals[0].goal_id != _CORE_GOAL_ID:
-        raise ConfigError("mission goal_catalog must contain exactly one governed core goal")
+    if authority.core_goal_id is not None or authority.goal_catalog:
+        raise ConfigError("legacy universal mission goals must be absent after TRP-00 migration")
+    stage_goals = authority.stage_goal_catalog
+    stage_goal_ids = [goal.goal_id for goal in stage_goals]
+    if len(stage_goal_ids) != len(set(stage_goal_ids)):
+        raise ConfigError("mission stage_goal_catalog contains duplicate goal IDs")
+    if {goal.goal_id: goal.order for goal in stage_goals} != _STAGE_GOAL_ORDERS:
+        raise ConfigError("mission stage_goal_catalog does not match the governed ordered catalog")
 
     by_id: dict[str, TaskCardV1] = {}
     for task in graph.taskcards:
@@ -73,6 +84,16 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
             raise ConfigError(f"task {task.task_id!r} has duplicate goal_ids")
         if not set(task.goal_ids) <= _SUBORDINATE_GOAL_IDS:
             raise ConfigError(f"task {task.task_id!r} has an unknown subordinate goal")
+        if task.stage_goal_id not in _STAGE_GOAL_ORDERS:
+            raise ConfigError(f"task {task.task_id!r} has an unknown stage goal")
+        stage_goal = next(goal for goal in stage_goals if goal.goal_id == task.stage_goal_id)
+        if (
+            task.concurrency_class == "read_only_assurance_isolated"
+            and not stage_goal.concurrent_when_trusted_primary
+        ):
+            raise ConfigError(
+                f"task {task.task_id!r} declares concurrent execution under a non-concurrent goal"
+            )
         summary = " ".join(task.core_contribution.summary.lower().split())
         if summary in _VAGUE_CONTRIBUTIONS:
             raise ConfigError(f"task {task.task_id!r} has a vague core contribution")

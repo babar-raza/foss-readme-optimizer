@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 from readme_agent.facts.gating import TechnicalClaimV1
 from readme_agent.registry.surface_ownership import SurfaceOperation, SurfaceOwnershipClass
+from readme_agent.state.assurance import ContentAssuranceV1
 
 PresentationDimension = Literal[
     "product_clarity",
@@ -134,6 +135,7 @@ class PresentationActionV1(_StrictModel):
 
 class RepositoryPresentationPlanV1(_StrictModel):
     schema_version: Literal[1] = 1
+    content_assurance: ContentAssuranceV1 = "repository_verified"
     org_repo: str
     immutable_base_revision: str
     facts_hash: str

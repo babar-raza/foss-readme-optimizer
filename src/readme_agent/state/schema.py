@@ -10,8 +10,9 @@ return value.
 from datetime import UTC, datetime
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
+from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.lifecycle_schema import (
     CheckpointV1,
     ReadmePocLifecycleStateV1,
@@ -19,8 +20,10 @@ from readme_agent.state.lifecycle_schema import (
     TriggerLifecycleV2,
 )
 from readme_agent.state.mission_goal_schema import (
+    MissionGoalTransitionV1,
     MissionLifecycleScoreboardV1,
     MissionNextTaskV1,
+    StageGoalId,
 )
 
 
@@ -356,12 +359,29 @@ class OpenProposalV1(BaseModel):
     open its own independent PR against the same repo."""
 
     domain: str
+    content_assurance: ContentAssuranceV1 = "repository_verified"
+    proposal_kind: Literal["trusted_readme_transform", "verified_repository_presentation"] = (
+        "verified_repository_presentation"
+    )
     pr_number: int | None = None
     pr_url: str | None = None
     branch_name: str | None = None
     state: Literal["open", "merged", "closed", "superseded"] = "open"
     facts_hash: str | None = None
     opened_at: str | None = None
+
+    @model_validator(mode="after")
+    def _proposal_kind_matches_assurance(self) -> "OpenProposalV1":
+        expected = (
+            "trusted_readme_transform"
+            if self.content_assurance == "trusted_inherited"
+            else "verified_repository_presentation"
+        )
+        if self.proposal_kind != expected:
+            raise ValueError(
+                f"{self.content_assurance} assurance requires proposal_kind={expected!r}"
+            )
+        return self
 
 
 MissionTaskStatus = Literal[
@@ -416,6 +436,12 @@ class MissionExecutionStateV1(BaseModel):
     # are populated by the next evaluate/claim/transition reconciliation.
     lifecycle_scoreboard: MissionLifecycleScoreboardV1 | None = None
     next_task: MissionNextTaskV1 | None = None
+    active_goal_id: StageGoalId | None = None
+    concurrent_goal_ids: list[StageGoalId] = Field(default_factory=list)
+    goal_history: list[MissionGoalTransitionV1] = Field(default_factory=list)
+    goal_activation_graph_sha256: str | None = None
+    goal_activation_reason: str | None = None
+    capacity_allocation: dict[str, int] = Field(default_factory=dict)
     mission_complete: bool = False
     last_evaluated_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
 

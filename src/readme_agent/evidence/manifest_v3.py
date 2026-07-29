@@ -7,10 +7,12 @@ from typing import Literal
 from pydantic import Field
 
 from readme_agent.evidence.manifest_v2 import RunManifestV2
+from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.lifecycle_schema import (
+    AssuranceReadmePocStatusV1,
     CheckpointV1,
+    ContentAssuranceTransitionV1,
     ReadmePocStatusV1,
-    ReadmePocStatusV2,
     ReadmePocTransitionV1,
     ReadmePocTransitionV2,
     TriggerEnvelopeV2,
@@ -20,6 +22,7 @@ from readme_agent.state.lifecycle_schema import (
 
 class RunManifestV3(RunManifestV2):
     manifest_version: Literal[3] = 3
+    content_assurance: ContentAssuranceV1 = "repository_verified"
     trigger: TriggerEnvelopeV2 | None = None
     trigger_status: TriggerStatusV2 | None = None
     checkpoints: list[CheckpointV1] = Field(default_factory=list)
@@ -38,7 +41,7 @@ class RunManifestV3(RunManifestV2):
     # history for a repo whose evidence bundle needs the detail. `None`/`[]`
     # for any run that does not populate this (every run before RPOC-071
     # wires real production transitions), not a faked "already tracked."
-    readme_poc_status: ReadmePocStatusV1 | ReadmePocStatusV2 | None = None
-    readme_poc_transitions: list[ReadmePocTransitionV1 | ReadmePocTransitionV2] = Field(
-        default_factory=list
-    )
+    readme_poc_status: ReadmePocStatusV1 | AssuranceReadmePocStatusV1 | None = None
+    readme_poc_transitions: list[
+        ReadmePocTransitionV1 | ReadmePocTransitionV2 | ContentAssuranceTransitionV1
+    ] = Field(default_factory=list)

@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 from readme_agent.facts.evidence_polarity import EvidencePolarityAssessmentV1
 from readme_agent.facts.root_role_schema import PackageRootRoleInventoryV1
+from readme_agent.state.assurance import ContentAssuranceV1
 
 FactSourceType = Literal[
     "mechanical_repository",
@@ -186,6 +187,7 @@ class FactRecordV2(_StrictModel):
 
 class ProductFactsV2(_StrictModel):
     schema_version: Literal[2] = 2
+    content_assurance: ContentAssuranceV1 = "repository_verified"
     org_repo: str
     facts: list[FactRecordV2]
     selected_fact_ids: dict[str, str]

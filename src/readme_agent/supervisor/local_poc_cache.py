@@ -15,6 +15,7 @@ from readme_agent.facts.local_verification import local_verification_contract_ha
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.readme.document_templates import document_template_hash
+from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2
 
@@ -33,6 +34,7 @@ class LocalPocCacheDecisionV1(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     schema_version: int = 1
+    content_assurance: ContentAssuranceV1
     status: str | None = None
     reusable: bool
     cache_key: str
@@ -105,6 +107,7 @@ def _stored_dependencies(
     supervisor = state.supervisor_state if state is not None else None
     return {
         "source_revision": getattr(lifecycle, "source_revision", None),
+        "content_assurance": getattr(lifecycle, "content_assurance", None),
         "facts_hash": getattr(lifecycle, "facts_hash", None),
         "assessment_hash": getattr(lifecycle, "assessment_hash", None),
         "presentation_plan_hash": getattr(lifecycle, "presentation_plan_hash", None),
@@ -139,10 +142,12 @@ def _current_dependencies(
     source_revision: str | None,
     control_plane_fingerprint: str,
     inventory_sha256: str | None,
+    content_assurance: ContentAssuranceV1,
 ) -> dict[str, Any]:
     fact_contract = current_fact_acceptance_contract()
     return {
         "source_revision": source_revision,
+        "content_assurance": content_assurance,
         "fact_acceptance_contract_hash": fact_contract.canonical_hash(),
         "fact_acceptance_component_hashes": fact_contract.component_hashes,
         "local_verification_contract_hash": local_verification_contract_hash(),
@@ -162,6 +167,7 @@ def evaluate_completed_local_poc_cache(
     *,
     current_source_revision: str | None,
     current_control_plane_fingerprint: str,
+    content_assurance: ContentAssuranceV1 = "repository_verified",
 ) -> LocalPocCacheDecisionV1:
     """Fail closed unless every stored and current dependency still agrees."""
 
@@ -182,6 +188,7 @@ def evaluate_completed_local_poc_cache(
         source_revision=current_source_revision,
         control_plane_fingerprint=current_control_plane_fingerprint,
         inventory_sha256=inventory_sha256,
+        content_assurance=content_assurance,
     )
     lifecycle = state.readme_poc_lifecycle if state is not None else None
     reasons: list[str] = []
@@ -190,6 +197,8 @@ def evaluate_completed_local_poc_cache(
         reasons.append("missing_v2_lifecycle")
     elif lifecycle.status not in _COMPLETE_STATUSES:
         reasons.append("lifecycle_not_complete")
+    elif lifecycle.content_assurance != content_assurance:
+        reasons.append("content_assurance_changed")
     if manifest is None:
         reasons.append("manifest_missing_or_invalid")
     elif manifest.get("complete") is not True:
@@ -230,6 +239,7 @@ def evaluate_completed_local_poc_cache(
         manifest_bindings = {
             "org_repo": state.org_repo if state is not None else None,
             "source_revision": lifecycle.source_revision,
+            "content_assurance": lifecycle.content_assurance,
             "lifecycle_status": lifecycle.status,
             "facts_hash": lifecycle.facts_hash,
             "assessment_hash": lifecycle.assessment_hash,
@@ -241,11 +251,17 @@ def evaluate_completed_local_poc_cache(
             "reviewer_standard_hash": lifecycle.reviewer_standard_hash,
         }
         for field, expected in manifest_bindings.items():
-            if manifest.get(field) != expected:
+            actual = (
+                manifest.get(field, "repository_verified")
+                if field == "content_assurance"
+                else manifest.get(field)
+            )
+            if actual != expected:
                 reasons.append(f"manifest_{field}_mismatch")
 
     for field in (
         "source_revision",
+        "content_assurance",
         "fact_acceptance_contract_hash",
         "fact_acceptance_component_hashes",
         "local_verification_contract_hash",
@@ -279,6 +295,7 @@ def evaluate_completed_local_poc_cache(
     }
     reusable = not reasons
     return LocalPocCacheDecisionV1(
+        content_assurance=content_assurance,
         status=(
             lifecycle.status
             if reusable and isinstance(lifecycle, ReadmePocLifecycleStateV2)
@@ -310,6 +327,8 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
     for reason in reasons:
         if reason in {"missing_v2_lifecycle", "source_revision_changed"}:
             affected.append("SNAPSHOTTED")
+        elif reason == "content_assurance_changed":
+            affected.append("FACTS_COLLECTING")
         elif reason.startswith("prompt_scope_"):
             scope = reason.removeprefix("prompt_scope_").removesuffix("_changed")
             if scope in {"DETERMINISTIC_VALIDATED", "REPAIRING"}:
