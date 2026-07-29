@@ -120,14 +120,14 @@ def _implementation_proof(implementation_head: str) -> dict[str, Any]:
         encoding="utf-8"
     )
     required_contract_terms = {
-        "live source revision": "source_revision_changed",
-        "fact acceptance": "fact_acceptance_contract_hash_changed",
-        "local verification": "local_verification_contract_hash_changed",
-        "prompt registry": "prompt_registry_content_hash_changed",
-        "document template": "template_hash_changed",
-        "composition prompt": "composition_prompt_hash_changed",
-        "reviewer standard": "reviewer_standard_hash_changed",
-        "control plane": "control_plane_fingerprint_changed",
+        "live source revision": '"source_revision"',
+        "fact acceptance": '"fact_acceptance_contract_hash"',
+        "local verification": '"local_verification_contract_hash"',
+        "prompt registry": '"prompt_registry_content_hash"',
+        "document template": '"template_hash"',
+        "composition prompt": '"composition_prompt_hash"',
+        "reviewer standard": '"reviewer_standard_hash"',
+        "control plane": '"control_plane_fingerprint"',
         "semantic no-op proof": "no_op_proof_invalid",
         "semantic final verdict": "final_verdict_not_approved",
         "artifact inventory": "artifact_inventory_invalid",
