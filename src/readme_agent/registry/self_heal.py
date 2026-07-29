@@ -13,17 +13,18 @@ Posture, deliberately different from every capability:
       safety envelope is `discovery.merge()`'s invariants (new entries land
       disabled, owned fields never written, additive-only) + `write_atomic()` +
       the evidence artifact written here.
-    - Fail-open: supervision must never be blocked by this heal. Every failure
-      degrades to a `SKIPPED_*` result; nothing here ever raises. The one place
-      that needs active enforcement is GitHub's 403 rate-limit wait, capped at
-      `_MAX_RATE_LIMIT_WAIT_SECONDS` via `RegistryScanRateLimited` -- without
-      the cap, "fail-open" would silently sleep out a rate-limit reset inside
-      supervise.
+    - Failure-isolated: supervision of already-admitted repositories continues,
+      but a source failure produces `INCOMPLETE`/`HEALED_INCOMPLETE`, never
+      `NO_DRIFT`. Unexpected outer failures degrade to `SKIPPED_ERROR`. The one
+      place that needs active enforcement is GitHub's 403 rate-limit wait,
+      capped at `_MAX_RATE_LIMIT_WAIT_SECONDS` via `RegistryScanRateLimited` --
+      without the cap, failure isolation would silently sleep out a rate-limit
+      reset inside supervise.
     - Fail-closed on the write itself: every merged entry is re-validated
       against `ProductEntry` before the file is replaced, so the heal can never
       write a registry the loader would refuse to load.
     - Throttled: a TTL marker (`paths.registry_heal_marker_path()`) makes a
-      sequential 25-repo pass scan GitHub once, not 25 times.
+      sequential portfolio pass scan GitHub once, not once per repository.
       `HEAL_MIN_INTERVAL_SECONDS` has no operational history yet -- tunable,
       same posture as the supervisor's `ESCALATION_ALERT_THRESHOLD`.
 """
@@ -40,6 +41,7 @@ from pathlib import Path
 from readme_agent import env, paths
 from readme_agent.evidence.writer import generate_run_id
 from readme_agent.registry import discovery
+from readme_agent.registry.discovery_inventory import inventory_sources
 from readme_agent.registry.models import ProductEntry
 
 HEAL_MIN_INTERVAL_SECONDS = 6 * 3600
@@ -48,16 +50,19 @@ _MAX_RATE_LIMIT_WAIT_SECONDS = 60.0
 
 @dataclass
 class RegistryHealResult:
-    status: str  # HEALED | NO_DRIFT | SKIPPED_DISABLED | SKIPPED_RECENT |
-    #             SKIPPED_NO_TOKEN | SKIPPED_ERROR
+    status: str  # HEALED | HEALED_INCOMPLETE | NO_DRIFT | INCOMPLETE |
+    #             SKIPPED_DISABLED | SKIPPED_RECENT | SKIPPED_NO_TOKEN | SKIPPED_ERROR
     detail: str = ""
     new_entries: list[dict] = field(default_factory=list)
     refreshed_count: int = 0
     org_failures: list[dict] = field(default_factory=list)
+    sources: list[dict] = field(default_factory=list)
+    observations: list[dict] = field(default_factory=list)
+    inventory_complete: bool | None = None
     run_id: str | None = None
 
     def summary_line(self) -> str:
-        if self.status == "HEALED":
+        if self.status in {"HEALED", "HEALED_INCOMPLETE"}:
             added = ", ".join(
                 f"{e['repo_url'].split('/')[3]}/{e['repo_name']}" for e in self.new_entries
             )
@@ -130,9 +135,20 @@ def _heal(
 
     existing = json.loads(products_path.read_text(encoding="utf-8"))
     families = discovery.load_families(families_path)
-    discovered, org_failures = discovery.discover(
-        families, token=token, max_rate_limit_wait_seconds=_MAX_RATE_LIMIT_WAIT_SECONDS
+    inventory = inventory_sources(
+        families,
+        scan_organization=discovery.scan_org,
+        classify_repository=discovery.classify_repo_name,
+        token=token,
+        max_rate_limit_wait_seconds=_MAX_RATE_LIMIT_WAIT_SECONDS,
     )
+    discovered = [observation.to_registry_entry() for observation in inventory.matched_observations]
+    org_failures = [
+        {"org": failure.source.organization, "error": failure.error}
+        for failure in inventory.failures
+    ]
+    sources = [source.model_dump(mode="json") for source in inventory.sources]
+    observations = [observation.model_dump(mode="json") for observation in inventory.observations]
     merged = discovery.merge(existing, discovered)
 
     existing_keys = {(e["family"], e["platform"]) for e in existing}
@@ -141,7 +157,12 @@ def _heal(
 
     if merged == existing:
         result = RegistryHealResult(
-            status="NO_DRIFT", refreshed_count=refreshed_count, org_failures=org_failures
+            status="NO_DRIFT" if inventory.complete else "INCOMPLETE",
+            refreshed_count=refreshed_count,
+            org_failures=org_failures,
+            sources=sources,
+            observations=observations,
+            inventory_complete=inventory.complete,
         )
     else:
         # Fail-closed write guard: the heal must never produce a file the
@@ -151,10 +172,13 @@ def _heal(
             ProductEntry.model_validate(entry)
         discovery.write_atomic(products_path, merged)
         result = RegistryHealResult(
-            status="HEALED",
+            status="HEALED" if inventory.complete else "HEALED_INCOMPLETE",
             new_entries=new_entries,
             refreshed_count=refreshed_count,
             org_failures=org_failures,
+            sources=sources,
+            observations=observations,
+            inventory_complete=inventory.complete,
         )
 
     _try_write_marker(result)
@@ -226,6 +250,9 @@ def _try_write_evidence(result: RegistryHealResult, orgs_scanned: list[str] | No
                 "detail": result.detail,
                 "orgs_scanned": orgs_scanned or [],
                 "org_failures": result.org_failures,
+                "sources": result.sources,
+                "observations": result.observations,
+                "inventory_complete": result.inventory_complete,
                 "new_entries": result.new_entries,
                 "refreshed_count": result.refreshed_count,
                 "timestamp": datetime.now(UTC).isoformat(),

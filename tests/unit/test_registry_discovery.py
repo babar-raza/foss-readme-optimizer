@@ -9,6 +9,24 @@ from readme_agent.registry.models import ProductEntry
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
+def _raw_repository(name: str, *, repository_id: int = 1) -> dict:
+    return {
+        "id": repository_id,
+        "node_id": f"R_{repository_id}",
+        "name": name,
+        "full_name": f"aspose-3d-foss/{name}",
+        "html_url": f"https://github.com/aspose-3d-foss/{name}",
+        "clone_url": f"https://github.com/aspose-3d-foss/{name}.git",
+        "visibility": "public",
+        "default_branch": "main",
+        "archived": False,
+        "pushed_at": "2026-07-29T00:00:00Z",
+        "updated_at": "2026-07-29T00:00:00Z",
+        "topics": ["foss"],
+        "language": "Java",
+    }
+
+
 @pytest.mark.parametrize(
     ("repo_name", "expected"),
     [
@@ -233,17 +251,55 @@ def test_discover_returns_org_failures_instead_of_dropping_them(monkeypatch):
     def fake_scan_org(org, *, token=None, max_rate_limit_wait_seconds=None):
         if org == "aspose-broken-foss":
             raise RuntimeError("boom")
-        return [
-            {
-                "name": "Aspose.3D-FOSS-for-Java",
-                "html_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Java",
-                "clone_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Java.git",
-                "archived": False,
-            }
-        ]
+        return [_raw_repository("Aspose.3D-FOSS-for-Java")]
 
     monkeypatch.setattr(registry_sync, "scan_org", fake_scan_org)
     families = [{"github_org": "aspose-broken-foss"}, {"github_org": "aspose-3d-foss"}]
     discovered, org_failures = registry_sync.discover(families)
     assert [(e["family"], e["platform"]) for e in discovered] == [("3d", "java")]
     assert org_failures == [{"org": "aspose-broken-foss", "error": "boom"}]
+
+
+def test_inventory_retains_matched_unmatched_and_ambiguous_repositories(monkeypatch):
+    from readme_agent.registry.discovery_inventory import inventory_sources
+
+    repositories = [
+        _raw_repository("Aspose.3D-FOSS-for-Java", repository_id=1),
+        _raw_repository("Aspose-PDF-FOSS-for-Go-MCP", repository_id=2),
+        _raw_repository("Aspose.Cells-FOSS-for-Java", repository_id=3),
+    ]
+    monkeypatch.setattr(registry_sync, "scan_org", lambda org, **kwargs: repositories)
+
+    inventory = inventory_sources(
+        [{"family": "3d", "github_org": "aspose-3d-foss"}],
+        scan_organization=registry_sync.scan_org,
+        classify_repository=registry_sync.classify_repo_name,
+    )
+
+    assert inventory.complete is True
+    observed_names = [observation.name for observation in inventory.observations]
+    assert observed_names == sorted(observed_names, key=str.lower)
+    by_name = {observation.name: observation for observation in inventory.observations}
+    assert by_name["Aspose.3D-FOSS-for-Java"].classification == "matched"
+    assert by_name["Aspose.Cells-FOSS-for-Java"].classification == "ambiguous"
+    assert by_name["Aspose-PDF-FOSS-for-Go-MCP"].classification == "unmatched"
+    assert [item.name for item in inventory.matched_observations] == ["Aspose.3D-FOSS-for-Java"]
+
+
+def test_inventory_source_failure_is_explicitly_incomplete():
+    from readme_agent.registry.discovery_inventory import inventory_sources
+
+    def _failed_scan(org, **kwargs):
+        raise RuntimeError("404 source unavailable")
+
+    inventory = inventory_sources(
+        [{"family": "imaging", "github_org": "aspose-imaging-foss"}],
+        scan_organization=_failed_scan,
+        classify_repository=registry_sync.classify_repo_name,
+    )
+
+    assert inventory.complete is False
+    assert inventory.observations == []
+    assert len(inventory.failures) == 1
+    assert inventory.failures[0].source.organization == "aspose-imaging-foss"
+    assert inventory.failures[0].error == "404 source unavailable"

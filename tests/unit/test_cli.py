@@ -57,6 +57,18 @@ def _stub_registry_heal(monkeypatch):
     return calls
 
 
+@pytest.fixture(autouse=True)
+def _stub_supervise_allowlist(monkeypatch):
+    """Most CLI tests exercise later seams with a synthetic listed repository."""
+    import readme_agent.registry.loader as loader_module
+
+    monkeypatch.setattr(
+        loader_module,
+        "require_listed",
+        lambda org_repo: argparse.Namespace(org_repo=org_repo, mode="disabled"),
+    )
+
+
 def _stub_preflight_ok(monkeypatch) -> None:
     """Wave 8.5 (`ORC-006`/D2): `cmd_supervise` now checks
     `run_preflight_for_repo()` before anything else -- stubbed to a
@@ -222,6 +234,72 @@ class TestSuperviseRegistryHealHook:
         args = argparse.Namespace(repo="org/repo", durable_state=False)
         assert cmd_supervise(args) == 0
         assert [kind for kind, _ in calls] == ["heal", "preflight"]
+
+    def test_unlisted_target_is_blocked_before_state_or_preflight(
+        self, monkeypatch, _stub_registry_heal
+    ):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.preflight.runner as preflight_runner_module
+        import readme_agent.registry.loader as loader_module
+        from readme_agent.errors import NotAllowlistedError
+
+        calls = _stub_registry_heal
+
+        def _reject(org_repo):
+            calls.append(("allowlist", org_repo))
+            raise NotAllowlistedError("not listed")
+
+        monkeypatch.setattr(loader_module, "require_listed", _reject)
+        monkeypatch.setattr(
+            supervision_module,
+            "_force_durable_state_backend",
+            lambda: pytest.fail("durable repository state must not be opened"),
+        )
+        monkeypatch.setattr(
+            preflight_runner_module,
+            "run_preflight_for_repo",
+            lambda org_repo: pytest.fail("repository preflight must not run"),
+        )
+
+        args = argparse.Namespace(
+            repo="unlisted-org/unlisted-repo",
+            durable_state=False,
+            execution_profile="github_observe",
+        )
+        with pytest.raises(NotAllowlistedError, match="not listed"):
+            cmd_supervise(args)
+
+        assert [kind for kind, _ in calls] == ["heal", "allowlist"]
+
+    def test_public_cli_returns_allowlist_exit_before_repository_preflight(
+        self, monkeypatch, capsys
+    ):
+        import readme_agent.preflight.runner as preflight_runner_module
+        import readme_agent.registry.loader as loader_module
+        from readme_agent.errors import NotAllowlistedError
+
+        monkeypatch.setattr(
+            loader_module,
+            "require_listed",
+            lambda org_repo: (_ for _ in ()).throw(NotAllowlistedError("hard allow-list")),
+        )
+        monkeypatch.setattr(
+            preflight_runner_module,
+            "run_preflight_for_repo",
+            lambda org_repo: pytest.fail("repository preflight must not run"),
+        )
+
+        exit_code = main(
+            [
+                "supervise",
+                "--repo",
+                "unlisted-org/unlisted-repo",
+                "--no-registry-heal",
+            ]
+        )
+
+        assert exit_code == 3
+        assert "hard allow-list" in capsys.readouterr().err
 
     def test_no_registry_heal_flag_disables_the_heal(self, monkeypatch, _stub_registry_heal):
         import readme_agent.supervisor.loop as loop_module

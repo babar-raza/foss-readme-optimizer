@@ -52,6 +52,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         return _cmd_supervise_registry(args)
 
     from readme_agent.preflight.runner import format_summary, run_preflight_for_repo
+    from readme_agent.registry.loader import require_listed
     from readme_agent.registry.self_heal import heal_registry_drift
 
     profile_name = getattr(args, "execution_profile", None)
@@ -92,6 +93,15 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
         return 2
+
+    # Discovery is the only network operation permitted before admission: it
+    # inventories explicitly configured organizations and can add a newly
+    # observed repository only as disabled/read-only. Once reconciliation
+    # finishes, the public target must pass the hard execution allow-list
+    # before repository-specific state, preflight, clone, or capability work.
+    heal_result = heal_registry_drift(enabled=not getattr(args, "no_registry_heal", False))
+    print(heal_result.summary_line())
+    require_listed(args.repo)
 
     # Resolve and prove durable state before preflight can make an LLM
     # connectivity call. A GitHub profile may never degrade to ephemeral
@@ -176,14 +186,6 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
         return 2
-
-    # CORE-034 (decision #47): registry drift self-heals before preflight and
-    # before any allow-list gate, so a repo GitHub published after the last
-    # weekly scan is already listed (as mode: "disabled") when
-    # require_listed() runs below. Fail-open by contract -- whatever the heal
-    # returns, supervision proceeds.
-    heal_result = heal_registry_drift(enabled=not getattr(args, "no_registry_heal", False))
-    print(heal_result.summary_line())
 
     # Wave 8.5 (`ORC-006`/D2): a single-repo preflight, checked before either
     # branch below -- the single-domain branch needs this even more than the

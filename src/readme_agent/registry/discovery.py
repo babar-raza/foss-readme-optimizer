@@ -9,9 +9,10 @@ thin wrappers.
 Safety contract (do not weaken without a plans/master.md decision edit):
     - Read-only against GitHub: only GET requests are ever issued.
     - data/products.json is the allow-list (docs/safety-model.md). Discovery MUST NOT be
-      the thing that makes a repo operable: newly discovered (family, platform) pairs are
-      always written with mode="disabled", ecosystem=None, policy_profile=None. Enabling a
-      repo remains a manual edit per docs/policy-authoring.md.
+      the thing that makes a repo operable: matched admission candidates are always written
+      with mode="disabled", ecosystem=None, policy_profile=None. Unmatched and ambiguous
+      repositories remain in the typed observation inventory and are never silently dropped.
+      Enabling a repo remains a separate policy/authorization transition.
     - Existing entries never have mode/ecosystem/policy_profile/overrides touched by
       discovery, regardless of what GitHub reports -- only the upstream-shaped fields
       (repo_name, repo_url, clone_url, active, discovered_via) are refreshed.
@@ -178,10 +179,19 @@ def scan_org(
     ):
         repos.append(
             {
+                "id": raw["id"],
+                "node_id": raw["node_id"],
                 "name": raw["name"],
+                "full_name": raw["full_name"],
                 "html_url": raw["html_url"],
                 "clone_url": raw["clone_url"],
+                "visibility": raw.get("visibility", "unknown"),
+                "default_branch": raw.get("default_branch"),
                 "archived": bool(raw.get("archived")),
+                "pushed_at": raw.get("pushed_at"),
+                "updated_at": raw.get("updated_at"),
+                "topics": raw.get("topics") or [],
+                "language": raw.get("language"),
             }
         )
     return repos
@@ -199,33 +209,20 @@ def discover(
     printed here, so the CLI can warn on stderr and the self-heal can record
     them in evidence -- one bad org never loses the others either way.
     """
-    discovered = []
-    org_failures = []
-    for fam in families:
-        org = fam["github_org"]
-        try:
-            repos = scan_org(
-                org, token=token, max_rate_limit_wait_seconds=max_rate_limit_wait_seconds
-            )
-        except Exception as exc:  # noqa: BLE001 -- one bad org must not lose the others
-            org_failures.append({"org": org, "error": str(exc)})
-            continue
-        for repo in repos:
-            pair = classify_repo_name(repo["name"])
-            if pair is None:
-                continue
-            family, platform = pair
-            discovered.append(
-                {
-                    "family": family,
-                    "platform": platform,
-                    "repo_name": repo["name"],
-                    "repo_url": repo["html_url"],
-                    "clone_url": repo["clone_url"],
-                    "active": not repo["archived"],
-                    "discovered_via": "github",
-                }
-            )
+    from readme_agent.registry.discovery_inventory import inventory_sources
+
+    inventory = inventory_sources(
+        families,
+        scan_organization=scan_org,
+        classify_repository=classify_repo_name,
+        token=token,
+        max_rate_limit_wait_seconds=max_rate_limit_wait_seconds,
+    )
+    discovered = [observation.to_registry_entry() for observation in inventory.matched_observations]
+    org_failures = [
+        {"org": failure.source.organization, "error": failure.error}
+        for failure in inventory.failures
+    ]
     return discovered, org_failures
 
 

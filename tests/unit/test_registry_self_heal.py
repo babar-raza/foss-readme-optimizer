@@ -27,16 +27,26 @@ _CELLS_JAVA_ENABLED = {
 }
 
 _CELLS_JAVA_UPSTREAM = {
+    "id": 101,
+    "node_id": "R_cells_java",
     "name": "Aspose.Cells-FOSS-for-Java",
+    "full_name": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
     "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
     "clone_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java.git",
+    "visibility": "public",
+    "default_branch": "main",
     "archived": False,
 }
 
 _CELLS_NET_UPSTREAM = {
+    "id": 102,
+    "node_id": "R_cells_net",
     "name": "Aspose.Cells-FOSS-for-.NET",
+    "full_name": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
     "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
     "clone_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET.git",
+    "visibility": "public",
+    "default_branch": "main",
     "archived": False,
 }
 
@@ -108,19 +118,20 @@ def test_heal_is_fail_open_when_scan_raises(monkeypatch, registry_files, _isolat
     products_path, families_path = registry_files
     before = products_path.read_bytes()
 
-    def _boom(families, **kw):
+    def _boom(*args, **kw):
         raise RuntimeError("github exploded")
 
-    monkeypatch.setattr(discovery, "discover", _boom)
+    monkeypatch.setattr(discovery, "scan_org", _boom)
 
     result = _heal(products_path, families_path)
 
-    assert result.status == "SKIPPED_ERROR"
-    assert "github exploded" in result.detail
+    assert result.status == "INCOMPLETE"
+    assert result.inventory_complete is False
+    assert result.org_failures == [{"org": "aspose-cells-foss", "error": "github exploded"}]
     assert products_path.read_bytes() == before
     evidence = _evidence_files(_isolated_runs_dir, "registry_heal.json")
     assert len(evidence) == 1
-    assert json.loads(evidence[0].read_text(encoding="utf-8"))["status"] == "SKIPPED_ERROR"
+    assert json.loads(evidence[0].read_text(encoding="utf-8"))["status"] == "INCOMPLETE"
 
 
 def test_heal_skips_without_token_and_never_calls_the_network(monkeypatch, registry_files):
@@ -180,8 +191,13 @@ def test_heal_writes_registry_heal_evidence(monkeypatch, registry_files, _isolat
     assert len(evidence) == 1
     payload = json.loads(evidence[0].read_text(encoding="utf-8"))
     assert payload["status"] == "HEALED"
+    assert payload["inventory_complete"] is True
     assert payload["orgs_scanned"] == ["aspose-cells-foss"]
     assert payload["org_failures"] == []
+    assert [item["full_name"] for item in payload["observations"]] == [
+        "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    ]
     assert [e["repo_name"] for e in payload["new_entries"]] == ["Aspose.Cells-FOSS-for-.NET"]
     manifest = _evidence_files(_isolated_runs_dir, "manifest.json")
     assert len(manifest) == 1
@@ -212,7 +228,8 @@ def test_heal_org_failures_are_recorded_not_fatal(monkeypatch, registry_files):
 
     result = _heal(products_path, families_path)
 
-    assert result.status == "NO_DRIFT"
+    assert result.status == "INCOMPLETE"
+    assert result.inventory_complete is False
     assert result.org_failures == [{"org": "aspose-words-foss", "error": "504 from GitHub"}]
 
 
