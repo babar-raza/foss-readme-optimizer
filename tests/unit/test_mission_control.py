@@ -123,11 +123,20 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert (
         "L8-LOCAL-HUMAN-REVIEW-GATE-B" in tasks["L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"].dependencies
     )
+    assert tasks["L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF"].dependencies == [
+        "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"
+    ]
     assert tasks["L8-GATE-D-GITHUB-APP-INTEGRATION"].dependencies == [
+        "L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF"
+    ]
+    assert tasks["L8-WAVE6-CONTROLLED-JAVA-PILOT"].dependencies == [
+        "L8-GATE-D-GITHUB-APP-INTEGRATION"
+    ]
+    assert tasks["L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO"].dependencies == [
         "L8-WAVE6-CONTROLLED-JAVA-PILOT"
     ]
     assert tasks["L8-WAVE7-HETEROGENEOUS-PORTFOLIO"].dependencies == [
-        "L8-GATE-D-GITHUB-APP-INTEGRATION"
+        "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO"
     ]
     local_wave3 = tasks["L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"]
     assert local_wave3.dependencies == ["L8-WAVE1-CANONICAL-SAFETY-SPINE"]
@@ -166,11 +175,14 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-011"
     )
     assert l8_mapping.task_id == "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"
-    for requirement_id in ("AUTH-008", "L8-001"):
-        gate_d_mapping = next(
-            mapping for mapping in coverage.mappings if mapping.requirement_id == requirement_id
-        )
-        assert gate_d_mapping.task_id == "L8-GATE-D-GITHUB-APP-INTEGRATION"
+    auth_mapping = next(
+        mapping for mapping in coverage.mappings if mapping.requirement_id == "AUTH-008"
+    )
+    assert auth_mapping.task_id == "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION"
+    hosted_revalidation_mapping = next(
+        mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-001"
+    )
+    assert hosted_revalidation_mapping.task_id == "L8-GATE-D-GITHUB-APP-INTEGRATION"
     preproduction_mapping = next(
         mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-014"
     )

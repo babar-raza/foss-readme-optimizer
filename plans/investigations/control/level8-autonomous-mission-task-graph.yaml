@@ -17,35 +17,34 @@ autonomous_execution_contract:
   mechanism_locked: true
 mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  mission_summary: Keep GOAL-CORE-PRESENTABLE-PORTFOLIO active. First complete the temporary GOAL-TRUSTED-POC
-    by opening one independently transformation-approved trusted_readme_transform draft PR per current
-    registry repository from README_INHERITED evidence. Then resume verified_repository_presentation and
-    carry repository-verified README/profile deliverables through Gate A, delivery, production, and Level-8
-    using the sole supervisor. Never promote trusted evidence into verified acceptance.
+  mission_summary: Complete verified_repository_presentation through an automatically derived ordered
+    stage-goal state machine. First qualify trusted assurance and canaries, finish the trusted local portfolio,
+    prove the canonical workflow under act and disposable staging, qualify GitHub App hosted operation
+    on staging, and open one independently transformation-approved trusted_readme_transform draft PR per
+    current registry repository from README_INHERITED evidence. Then resume repository-verified Gate A/B/C
+    and progress through distinct Level 5, 6, 7, and 8 goals. Never promote trusted evidence into verified
+    acceptance. The legacy universal goal schema remains bootstrap-only until TRP-00 migrates it.
   governing_plan_path: plans/master.md
-  current_phase: Trusted POC - LLM-first full-registry README transformation and draft PRs
+  current_phase: T0 trusted qualification - assurance, goal migration, composition, review, and canaries
   in_scope_outcomes:
-  - 'GOAL-CORE-PRESENTABLE-PORTFOLIO: complete visitor-facing README and profile bundles for the dynamic
-    registry denominator; machinery is supporting work rather than the deliverable.'
-  - 'GOAL-TRUSTED-POC: extract README_INHERITED facts, compose through the LLM-first trusted path, independently
-    approve transformation fidelity, prove no-op, and open one authorized disclosed draft PR per current
-    registry repository before resuming verified work.'
-  - 'GOAL-TRUTH: verified facts, examples, acquisition, limitations, compatibility, and contextual-link
-    evidence.'
-  - 'GOAL-README: marker-free product-specific candidate, visual, patch, validation, approval, repair,
-    and no-op proof.'
-  - 'GOAL-PROFILE: description, homepage, topics, community-file findings, generated-surface observations,
-    and product illustration.'
-  - 'GOAL-AUTONOMY: safe, resumable, isolated, idempotent, evidence-complete execution through supervise.'
-  - 'GOAL-DELIVERY: Gate B, act, staging, Gate C, and hosted GitHub App proof in order.'
-  - 'GOAL-MATURITY: Level 5, heterogeneous Level 7, and independently audited Level 8.'
+  - 'MISSION OUTCOME: verified_repository_presentation is the immutable closure standard, not a universal
+    active runtime goal. TRP-00 replaces the legacy core/subordinate goal guard with the ordered T0/T1/T2/T3/
+    V1/V2/V3/L5/L6/L7/L8 stage catalog.'
+  - 'TRUSTED STAGES: extract README_INHERITED facts, compose through the LLM-first trusted path, independently
+    approve transformation fidelity, prove no-op, run act, staging, GitHub App hosted qualification, and
+    open one authorized disclosed draft PR per current registry repository before resuming verified work.'
+  - 'VERIFIED STAGES: V1 establishes repository facts, V2 completes full-registry Gate A, and V3 records
+    Gate-B acceptance plus verified Java proposal proof.'
+  - 'MATURITY STAGES: L5 proves complete presentation surfaces on the Java pilot, L6 proves autonomous
+    portfolio operation, L7 proves heterogeneous operation for 30 days, and L8 proves self-maintenance
+    for 90 days with an independent award.'
   - 'SHORT-TERM HORIZON: implement and qualify trusted_readme_transform, then execute one qualified single-day
     campaign whose terminal outcome is TRUSTED_PR_OPEN for every runtime-loaded registry repository. Implementation,
     canary repair, and unavailable external authority are not hidden inside the single-day campaign clock.'
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
-  - 'MEDIUM-TERM HORIZON: after trusted T2 closes, resume repository-verified facts and full-registry
+  - 'MEDIUM-TERM HORIZON: after trusted T3 closes, resume repository-verified facts and full-registry
     Gate A, then Gate B through Level 5 without reusing trusted approval as verified proof.'
   - 'PYTHON-FIRST MILESTONES: after seven-representative qualification, run a zero-paid-call readiness
     inventory for every Python entry, use the same frozen campaign and two-to-four supervisor-owned lanes,
@@ -72,15 +71,21 @@ mission_authority:
   mandatory_acceptance_criteria:
   - Content assurance is explicit in facts, candidates, reviews, lifecycle, caches, manifests, proposals,
     and effects; trusted_inherited never satisfies repository_verified acceptance.
+  - Exactly one stage goal is derived from the earliest incomplete gate, persisted atomically, advanced
+    only by current evidence, and reactivated automatically after regression, invalidation, or denominator
+    growth.
   - Trusted README facts cite immutable README spans and make zero repository/package/external fact-verification
     calls; CONFIGURED_STANDARD additions remain separately attributable.
   - Trusted transformation is LLM-first for inventory, planning, section composition, and repair, with
     deterministic code limited to generic segmentation/assembly, contracts, provenance, safety, validation,
     caching, and effects.
-  - Trusted T2 closes only when every current registry repository has exactly one authorized disclosed
-    draft PR; expected future write access does not count until a live permission check passes.
+  - Trusted T2 closes only after the actual reusable workflow passes under act and the complete proposal/effect
+    matrix passes in disposable staging.
+  - Trusted T3 closes only after App authentication and hosted operation are qualified on staging and
+    every current registry repository has exactly one authorized disclosed draft PR; expected future write
+    access does not count until a live permission check passes.
   - Every task transition recomputes the dynamic-denominator lifecycle scoreboard, first failing boundary,
-    exact next task, subordinate goal, and concrete core contribution.
+    exact next task, derived stage goal, and concrete contribution.
   - Every selected task remains inside its functional goal's short, medium, long, or cross-cutting horizon;
     a timebox breach records the first failing boundary and smallest permanent repair and never authorizes
     another plan, unrelated abstraction, reduced acceptance, or report-only closure.
@@ -129,45 +134,35 @@ mission_authority:
   goal_catalog:
   - goal_id: GOAL-CORE-PRESENTABLE-PORTFOLIO
     role: core
-    summary: Deliver and continuously prove professional repository-specific presentation for the full
-      dynamic portfolio.
-    acceptance_boundary: Remains active until every mandatory mission task closes and Level 8 is independently
-      awarded.
+    summary: Legacy bootstrap identity retained only until TRP-00 atomically migrates durable state to
+      the ordered stage-goal catalog.
+    acceptance_boundary: Must not remain the active runtime goal after TRP-00 closes.
   - goal_id: GOAL-TRUTH
     role: subordinate
-    summary: Establish short-term provenance-complete product truth that safely governs every selected
-      visitor-facing claim without waiting for optional exhaustive research.
-    acceptance_boundary: Every required fact is accepted, narrowly blocked, or explicitly omitted with
-      traceable evidence.
+    summary: Legacy bootstrap alias for the target GOAL-V1-VERIFIED-TRUTH stage until TRP-00 migration.
+    acceptance_boundary: Must be replaced by the explicit V1 goal without losing task history.
   - goal_id: GOAL-README
     role: subordinate
-    summary: Produce the short-term product-specific README outputs that preserve validated source knowledge
-      and pass deterministic and independent review.
-    acceptance_boundary: Every current registry repository is agent-approved and no-op-proven before human
-      review.
+    summary: Legacy bootstrap alias spanning target T0, T1, and V2 stages until TRP-00 migration.
+    acceptance_boundary: Must be split into explicit qualification, trusted portfolio, and verified Gate-A
+      goals.
   - goal_id: GOAL-PROFILE
     role: subordinate
-    summary: Produce medium-term professional repository-profile proposals and family-level visual assets
-      across every governed presentation surface.
-    acceptance_boundary: Every applicable profile surface has a truthful proposal, observation, or manual
-      handoff.
+    summary: Legacy bootstrap alias for the target GOAL-L5-PRESENTATION-PILOT stage until migration.
+    acceptance_boundary: Must be replaced by the explicit Level-5 presentation goal.
   - goal_id: GOAL-AUTONOMY
     role: subordinate
-    summary: Keep all horizons safe, restartable, isolated, idempotent, observable, and evidence-complete
-      while entering the critical path only for a proven blocker or indispensable safety.
-    acceptance_boundary: Every accepted task and trigger resumes or reaches a truthful terminal state
-      without unauthorized effects.
+    summary: Legacy bootstrap alias for safety contributions; autonomy becomes an invariant and explicit
+      T2, T3, and L6 stage outcomes after migration.
+    acceptance_boundary: Must not remain a selectable cross-cutting goal after TRP-00.
   - goal_id: GOAL-DELIVERY
     role: subordinate
-    summary: Carry medium-term accepted local deliverables through human review, workflow, staging, proposal,
-      hosted runtime, and Level-5 gates in order.
-    acceptance_boundary: Gate B, act, staging, Gate C, and GitHub App proof close without premature access
-      requests or writes.
+    summary: Legacy bootstrap alias spanning target T2, T3, and V3 delivery stages until migration.
+    acceptance_boundary: Must be split into workflow-staging, hosted-trusted, and verified-Java goals.
   - goal_id: GOAL-MATURITY
     role: subordinate
-    summary: Demonstrate long-term heterogeneous operation and one independently reproducible day-1-to-day-90
-      Level-8-grade evidence window.
-    acceptance_boundary: Level 5, Level 7, and Level 8 gates are independently awarded from current evidence.
+    summary: Legacy bootstrap alias spanning target Level 6, Level 7, and Level 8 stages until migration.
+    acceptance_boundary: Must be split so each maturity level has its own acceptance and active goal.
   mission_locked: true
 verified_baseline:
   repository_root: D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
@@ -211,7 +206,8 @@ taskcards:
   owner: readme-agent-supervisor
   status: TODO
   objective: Add ContentAssuranceV1 and disjoint trusted lifecycle, counter, cache, manifest, proposal,
-    and effect identities while retaining one supervisor, state backend, evidence system, and effect ledger.
+    and effect identities; replace the legacy universal/subordinate goal guard with the ordered evidence-derived
+    stage-goal catalog while retaining one supervisor, state backend, evidence system, and effect ledger.
   why_it_matters: The short-term POC must move quickly without corrupting the meaning of verified evidence
     or creating a disposable parallel runtime.
   allowed_paths:
@@ -231,17 +227,21 @@ taskcards:
   - ContentAssuranceV1 with trusted_inherited and repository_verified
   - Additive trusted lifecycle states and portfolio counters
   - Assurance-bound cache, manifest, proposal, and effect identity
-  - Durable mission migration selecting the trusted critical path while preserving verified history
+  - Durable mission migration from the universal goal to ordered T0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goals
+    while preserving verified task and goal history
   acceptance_checks:
   - Trusted artifacts cannot satisfy verified facts, approval, proposal, Gate-A, or maturity states
   - Switching assurance reopens the earliest evidence-dependent boundary
-  - Existing verified records remain intact and resumable after trusted T2
+  - Status derives GOAL-T0-TRUSTED-QUALIFICATION and automatically advances or reactivates stage goals
+  - Existing verified records remain intact and resumable after trusted T3
   verification:
-  - Schema, migration, lifecycle, scoreboard, cache-collision, and effect-identity tests
+  - Schema, goal derivation/migration/reactivation, lifecycle, scoreboard, cache-collision, and effect-identity
+    tests
   - Public mission status/evaluate proof after graph migration
   negative_controls:
   - A trusted candidate labeled AGENT_APPROVED or VerifiedProposalV1 is rejected
   - Narrative metadata cannot override typed assurance
+  - A manually selected, stale, or later-stage goal cannot override the derived earliest incomplete goal
   regression_checks:
   - Existing mission, lifecycle V2, cache, manifest, verifier, authorization, and effect-ledger tests
   evidence_requirements:
@@ -252,7 +252,7 @@ taskcards:
   failure_reroute: Repair the first schema/state boundary; do not add a second controller or store.
   closeout_rules:
   - Trusted and verified states are mechanically disjoint
-  - TRP-01 becomes the sole next dependency-ready trusted task
+  - TRP-01 becomes the sole next dependency-ready task under GOAL-T0-TRUSTED-QUALIFICATION
   goal_ids:
   - GOAL-README
   - GOAL-AUTONOMY
@@ -552,7 +552,7 @@ taskcards:
   failure_reroute: Repair agent-fixable failures by common owner; record narrow external blocks and continue.
   closeout_rules:
   - Every current registry entry has a complete trusted PR-ready bundle
-  - TRP-06 becomes ready
+  - TRP-05A becomes ready under the workflow/staging goal
   goal_ids:
   - GOAL-README
   core_contribution:
@@ -560,6 +560,191 @@ taskcards:
     summary: Produce the complete independently approved trusted README portfolio.
   requirement_ids:
   - TRP-009
+- task_id: TRP-05A-ACT-WORKFLOW-PARITY
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Prove the canonical trusted pipeline through the actual reusable workflow under act
+  source_audit_finding: The trusted path currently stops before proving that the real workflow, matrix,
+    recovery, and evidence jobs execute the same supervisor and lifecycle end to end.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-workflow
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Execute the accepted trusted contract through the actual reusable GitHub Actions workflow
+    under act with isolated local remotes and no alternate controller or product effect.
+  why_it_matters: The trusted POC must prove the autonomous workflow rather than only README quality.
+  allowed_paths:
+  - .github/workflows/
+  - src/readme_agent/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - TRP-05-FULL-REGISTRY-TRANSFORM
+  expected_outputs:
+  - Canonical act workflow run using the trusted assurance mode
+  - Dispatch, matrix, recovery, evidence-upload, and health results
+  - Production-token fallback rejection proof
+  - Workflow/runtime parity manifest
+  acceptance_checks:
+  - The actual reusable workflow executes the same supervisor through terminal trusted lifecycle states
+  - Dispatch variants, matrix isolation, duplicate delivery, checkpoint resume, and recovery pass
+  - Product remote writes and ambient PAT or GH_TOKEN acceptance are zero
+  verification:
+  - Real act execution with isolated local Git remotes
+  - Focused workflow, trigger, state, recovery, and token-boundary tests
+  negative_controls:
+  - Planning-only, fixture-controller-only, or mocked-terminal results fail the gate
+  - One matrix repository failure cannot suppress unrelated terminal results
+  regression_checks:
+  - Actionlint, workflow contract, push-blocking, allow-list, state, evidence, and health tests
+  evidence_requirements:
+  - Workflow events, job logs, terminal states, checksums, reproduction command, and independent verdict
+  rollback_or_recovery: Resume the same trigger/checkpoint and retain accepted local trusted bundles by
+    hash.
+  failure_reroute: Repair the first workflow/runtime parity boundary; do not create another workflow or
+    controller.
+  closeout_rules:
+  - Trusted workflow parity is independently accepted
+  - TRP-05B becomes the sole next trusted operational task
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Prove the trusted README system operates through the actual reusable workflow under act.
+  requirement_ids:
+  - TRP-012
+- task_id: TRP-05B-STAGING-EFFECT-PROOF
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Prove trusted proposal and effect reconciliation in disposable GitHub staging
+  source_audit_finding: Local workflow proof cannot establish GitHub branch, PR, credential-isolation,
+    lost-response, or remote reconciliation behavior.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-staging
+  owner: github-presentation-specialist
+  status: TODO
+  objective: Exercise the assurance-specific trusted proposal/effect lifecycle against disposable staging
+    repositories through the same canonical workflow and durable state.
+  why_it_matters: Real remote semantics must be proven safely before any product repository effect.
+  allowed_paths:
+  - .github/workflows/
+  - src/readme_agent/capabilities/
+  - src/readme_agent/github_api/
+  - src/readme_agent/authorization/
+  - src/readme_agent/effects/
+  - src/readme_agent/state/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - disposable staging repositories
+  forbidden_paths:
+  - production product repositories
+  - target default branches
+  - package or release surfaces
+  dependencies:
+  - TRP-05A-ACT-WORKFLOW-PARITY
+  expected_outputs:
+  - Disposable staging repository and authorization fixtures
+  - Trusted proposal create, no-op, update, drift, and reconciliation records
+  - Credential-isolation and default-branch identity evidence
+  - Independent staging verdict
+  acceptance_checks:
+  - Every staging scenario produces exactly one correct proposal state
+  - Analysis jobs receive no write credential and default branches remain byte-identical
+  - Duplicate, lost-response, expiry, and crash scenarios reconcile without duplicate effects
+  verification:
+  - Live disposable-staging scenario matrix through the canonical workflow
+  - Focused proposal identity, authorization, effect-ledger, and reconciliation tests
+  negative_controls:
+  - A trusted proposal cannot become VerifiedProposalV1 or verified Gate-C evidence
+  - A stale base, missing authorization, or leaked write token fails before effect
+  regression_checks:
+  - Redaction, authorization, token isolation, no-default-branch, and effect idempotency tests
+  evidence_requirements:
+  - Staging URLs/IDs, refs, proposal/effect records, logs, SHA-256 inventory, and cleanup disposition
+  rollback_or_recovery: Reconcile the stable staging branch/PR and retain evidence; never force-push or
+    merge.
+  failure_reroute: Repair the first remote lifecycle boundary before requesting GitHub App authority.
+  closeout_rules:
+  - The complete staging matrix is independently accepted
+  - TRP-05C becomes the sole next trusted operational task
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Prove real remote proposal behavior safely before any trusted product repository effect.
+  requirement_ids:
+  - TRP-013
+- task_id: TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Qualify GitHub App authentication and hosted autonomous operation on staging
+  source_audit_finding: The final system requires hosted schedules, short-lived App identity, recovery,
+    health, and dead-man monitoring, and the trusted lane can prove those operational properties without
+    claiming repository factuality.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-hosted
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: After act and staging pass, request the exact GitHub App authority, deploy the canonical
+    hosted workflow against staging, and prove authentication, isolation, recovery, and observability.
+  why_it_matters: The trusted POC should remove operational integration blockers before the verified lane.
+  allowed_paths:
+  - .github/workflows/
+  - config/authorization/
+  - src/readme_agent/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - disposable staging repositories
+  forbidden_paths:
+  - production product repository effects
+  - target default branches
+  - PAT or ambient GH_TOKEN production fallback
+  dependencies:
+  - TRP-05B-STAGING-EFFECT-PROOF
+  expected_outputs:
+  - Exact App registration, installation, permission, repository-scope, and secret request
+  - Hosted staging deployment with fresh short-lived installation tokens
+  - Schedule/event, recovery, lease, backlog, health, alert, and dead-man evidence
+  - Token-isolation and terminal-manifest proof
+  acceptance_checks:
+  - Hosted staging runs use only fresh scoped App installation tokens for effects
+  - Analysis and LLM jobs never receive the write token and PAT or ambient GH_TOKEN fallback fails
+  - Accepted triggers become terminal or visibly retryable/blocked with complete health evidence
+  verification:
+  - Live hosted staging triggers, expiry, recovery sweep, outage, backlog, and dead-man scenarios
+  - Focused App auth, workflow isolation, lifecycle, health, and evidence tests
+  negative_controls:
+  - Missing or expired App authority fails closed without a pending product effect
+  - A hosted trusted run cannot emit verified content or maturity acceptance
+  regression_checks:
+  - Trigger, state CAS/lease, retry, redaction, authorization, and effect reconciliation tests
+  evidence_requirements:
+  - Redacted installation/permission proof, run IDs, token-boundary results, health reports, and checksums
+  rollback_or_recovery: Disable only the staging effect authorization and preserve state/evidence for
+    diagnosis.
+  failure_reroute: Repair agent-fixable hosted defects; request human action only for unavailable App
+    authority.
+  closeout_rules:
+  - App and hosted operational qualification are independently accepted on staging
+  - TRP-06 becomes the next stage task for product-specific authority
+  goal_ids:
+  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Establish hosted App-based autonomous operation before the trusted product PR campaign.
+  requirement_ids:
+  - AUTH-008
+  - TRP-014
 - task_id: TRP-06-AUTHORIZATION-ACCESS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -587,7 +772,7 @@ taskcards:
   - target default branches
   - package or release surfaces
   dependencies:
-  - TRP-05-FULL-REGISTRY-TRANSFORM
+  - TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION
   expected_outputs:
   - Live per-repository permission inventory
   - Exact authorization request/record package for trusted draft PR effects
@@ -661,7 +846,8 @@ taskcards:
   - Every PR discloses inherited-claim non-verification and links its evidence
   - Duplicate PRs, force pushes, ready/merge actions, and default-branch changes are zero
   verification:
-  - Local/staging scenario matrix followed by authorized real draft-PR effects
+  - Revalidate the accepted staging matrix, then execute authorized real draft-PR effects through the
+    qualified hosted App workflow
   - Fresh-head, update, drift, duplicate delivery, lost response, expiry, and crash recovery
   negative_controls:
   - Trusted proposal cannot be consumed as VerifiedProposalV1 or verified Gate-C proof
@@ -792,9 +978,10 @@ taskcards:
   - Status and transition enforcement that exposes the exact next task and rejects unevidenced drift closure
   - Goal bindings for every remaining task in the sole mission graph
   acceptance_checks:
-  - GOAL-CORE-PRESENTABLE-PORTFOLIO remains active until complete mission closure.
-  - Every remaining task binds one or more subordinate goals and one visible-output, blocker-removal,
-    safety, or acceptance-proof contribution.
+  - Historical proof of the universal/subordinate guard remains inspectable but cannot close current L8-025;
+    TRP-00 owns the ordered stage-goal migration.
+  - Every remaining task binds its target stage goal and one visible-output, blocker-removal, safety,
+    or acceptance-proof contribution after that migration.
   - Status reports dynamic denominator and every required local lifecycle count from durable repository
     state.
   - Closing a machinery task without its evidenced contribution or corresponding scoreboard/blocker delta
@@ -4991,7 +5178,7 @@ taskcards:
   - logs/
   forbidden_paths:
   - production target repository remotes
-  - GitHub App production credentials before Gate C
+  - GitHub App production credentials before trusted act and disposable-staging proof
   dependencies:
   - L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT
   expected_outputs:
@@ -5002,7 +5189,8 @@ taskcards:
   - Gate A rejects pending intake, unexplained observations, scan failures, stale sources, and hash drift
   - One logical discovery change creates one intake
   - One source/repository failure does not erase unrelated matrix progress
-  - No production GitHub App is requested or required at this gate
+  - This local task neither requests nor requires GitHub App authority; hosted proof occurs later at trusted
+    T3
   verification:
   - Local workflow fixture proof for dispatch, schedules, deduplication, outage, recovery, and isolation
   - Campaign/manifest hash and freshness tests
@@ -7227,7 +7415,8 @@ taskcards:
   owner: readme-agent-supervisor
   status: TODO
   objective: After full Gate-A/B acceptance, separate verified proposal construction from terminal authorized
-    effects and prove the PR lifecycle locally without provisioning or using GitHub App credentials.
+    effects and prove repository-verified proposal semantics through the already-qualified App/workflow
+    transport.
   why_it_matters: A safe proposal system must never turn stale analysis into duplicate effects.
   allowed_paths:
   - src/readme_agent/
@@ -7247,20 +7436,20 @@ taskcards:
   - One agent-owned branch per repository with fast-forward-only updates.
   - Drift rebuild and re-verification.
   - Crash-boundary and lost-response reconciliation.
-  - A credential-provider boundary ready for later Gate-D integration, with no App credential used.
+  - Current trusted-T3 App/workflow proof revalidated by hash and environment before verified effects.
   acceptance_checks:
   - All named lifecycle scenarios produce exactly one correct proposal state.
   - Missing or expired authorization blocks before pending effect creation.
   - No write token exists in clone, LLM, package, or validation jobs.
-  - GitHub App provisioning and integration remain deferred to Gate D.
+  - Trusted App transport proof cannot satisfy verified proposal or content acceptance.
   verification:
   - Local bare-remote lifecycle tests.
   - Local/bare-remote lifecycle proof before Gate C.
-  - Credential-boundary workflow inspection and negative tests without a real App installation.
+  - Credential-boundary workflow inspection and authorized proof through the qualified installation.
   negative_controls:
   - No PAT or GH_TOKEN production fallback.
   - No force push, ready-for-review, merge, close, or default-branch write.
-  - No GitHub App credential is provisioned or used in this task.
+  - No duplicate App installation or scope expansion without evidence and authority.
   regression_checks:
   - Existing effect-ledger and PR dedup tests.
   - Full official checks.
@@ -7276,8 +7465,8 @@ taskcards:
   - GOAL-DELIVERY
   core_contribution:
     kind: acceptance_proof
-    summary: After full Gate-A/B acceptance, separate verified proposal construction from terminal authorized
-      effects and prove the PR lifecycle locally without provisioning or using GitHub App credentials.
+    summary: Prove repository-verified proposal semantics through the already-qualified App and workflow
+      transport.
   requirement_ids:
   - SAFE-001
   - SAFE-002
@@ -7332,6 +7521,67 @@ taskcards:
   - PRL-009
   - L8-008
   - L8-009
+- task_id: L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Prove repository-verified Java draft proposals after full Gate-A and Gate-B acceptance
+  source_audit_finding: Trusted T3 proves delivery mechanics but cannot prove that repository-verified
+    candidates, facts, authorization, and proposal semantics work at the higher assurance.
+  audit_classification: not_attempted
+  priority: P0
+  lane: verified-java-publication
+  owner: github-presentation-specialist
+  status: TODO
+  objective: Use the human-accepted verified Java candidates to create or update governed draft proposals
+    through the already-qualified App/workflow transport without regenerating README intelligence.
+  why_it_matters: Verified publication proof is distinct from trusted PR delivery and from the later all-surface
+    Level-5 pilot.
+  allowed_paths:
+  - src/readme_agent/capabilities/
+  - src/readme_agent/github_api/
+  - src/readme_agent/authorization/
+  - src/readme_agent/effects/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - authorized Java proposal branches
+  forbidden_paths:
+  - target default branches
+  - merge, ready-for-review, force-push, or close actions
+  - package and release endpoints
+  dependencies:
+  - L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+  expected_outputs:
+  - Repository-verified Java proposal/effect records
+  - Draft PR create/update/no-op/drift/recovery evidence
+  - Fresh per-effect authorization and exact what/why/where records
+  - Default-branch identity and independent verdict
+  acceptance_checks:
+  - Every selected Java candidate is verified HUMAN_ACCEPTED before effect
+  - Trusted proposal or PR evidence cannot satisfy the verified proposal boundary
+  - Exactly one correct draft proposal exists per governed Java repository with no default-branch change
+  verification:
+  - Authorized live Java draft-PR proof through the qualified hosted workflow
+  - Fresh-head, no-op, update, drift, duplicate, lost-response, expiry, and crash controls
+  negative_controls:
+  - Missing Gate-A/B acceptance or fresh effect authorization blocks before a pending effect
+  - No trusted fact, verdict, or proposal is relabelled as verified
+  regression_checks:
+  - Proposal, authorization, effect-ledger, App-token isolation, and no-default-branch suites
+  evidence_requirements:
+  - PR URLs/IDs, candidate/fact/authorization hashes, before/after refs, logs, and SHA-256 manifest
+  rollback_or_recovery: Reconcile only the governed proposal branch/PR; never rewrite or merge default.
+  failure_reroute: Repair agent-fixable verified proposal defects; retain repository-local authority blocks.
+  closeout_rules:
+  - Verified Gate C is independently accepted
+  - Hosted verified transport revalidation becomes ready
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Prove human-accepted repository-verified Java candidates through the governed draft-PR lifecycle.
+  requirement_ids:
+  - PIL-016
 - task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -7355,7 +7605,7 @@ taskcards:
   - merge operations
   - package and release writes
   dependencies:
-  - L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+  - L8-GATE-D-GITHUB-APP-INTEGRATION
   expected_outputs:
   - Complete PIL-013 bundle for all three repositories.
   - Independent reviewer decision.
@@ -7404,22 +7654,21 @@ taskcards:
   - PIL-013
   - PIL-014
   - PIL-015
-  - PIL-016
 - task_id: L8-GATE-D-GITHUB-APP-INTEGRATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
-  title: Integrate the GitHub App only after accepted Java PR proof
-  source_audit_finding: GitHub App credentialing and integration were embedded in an earlier wave even
-    though the ordered POC gates require them to follow the Java PR proof.
+  title: Revalidate the qualified GitHub App and hosted runtime for verified production
+  source_audit_finding: Trusted T3 proves App transport and hosted operation, but verified production
+    must revalidate scope, freshness, token isolation, and control hashes after accepted Java proof.
   audit_classification: not_attempted
   priority: P0
   lane: github-app-integration
   owner: readme-agent-supervisor
   status: TODO
-  objective: After Gate C is independently accepted, provision and integrate the production GitHub App
-    with separate read/effect tokens and no PAT fallback.
-  why_it_matters: Broad production identity is unnecessary before local README management and Java PR
-    creation have both been proven in the required order.
+  objective: After Gate C is independently accepted, revalidate and, only if necessary, narrowly update
+    the qualified App installation and hosted runtime for repository-verified production operation.
+  why_it_matters: Trusted operational proof is reusable transport evidence, but verified production cannot
+    rely on stale scope, environment, workflow, or token-boundary assumptions.
   allowed_paths:
   - src/readme_agent/
   - tests/
@@ -7430,41 +7679,98 @@ taskcards:
   - target repository default branches
   - package and release endpoints
   dependencies:
-  - L8-WAVE6-CONTROLLED-JAVA-PILOT
+  - L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF
   expected_outputs:
-  - Reviewed GitHub App installation and least-privilege permission inventory.
+  - Revalidated GitHub App installation and least-privilege permission inventory.
   - Fresh short-lived read token for analysis and separately scoped effect token.
-  - Production workflow integration with no ambient PAT or GH_TOKEN fallback.
+  - Verified production workflow deployment with no ambient PAT or GH_TOKEN fallback.
   acceptance_checks:
-  - A checksummed, independently accepted Gate-C bundle exists before any App credential is used.
+  - A checksummed, independently accepted Gate-C bundle and current trusted-T3 transport proof exist.
   - Token scopes, lifetime, repository coverage, isolation, and failure behavior pass.
   verification:
   - Workflow permission inspection, negative fallback tests, and authorized live App proof.
   negative_controls:
-  - Missing Gate-C acceptance blocks before credential minting or installation use.
+  - Missing Gate-C acceptance blocks verified production activation, not the earlier trusted staging proof.
   - Analysis, LLM, package, and validation jobs never receive a target-write token.
   regression_checks:
   - Full authorization, effect-ledger, workflow, and safety suites.
   evidence_requirements:
   - Redacted installation/scope evidence and token-boundary proof.
   rollback_or_recovery: Revoke or narrow the App installation without changing accepted local bundles.
-  failure_reroute: Continue local/read-only operation while Gate D remains unavailable.
+  failure_reroute: Continue local/read-only operation while verified hosted activation is unavailable.
   closeout_rules:
-  - AUTH-008 and L8-001 acceptance evidence are independently reproduced.
-  - No App integration step predates the accepted Gate-C evidence timestamp.
+  - L8-001 verified-production acceptance evidence is independently reproduced.
+  - Trusted-T3 proof remains separately attributable and no content assurance is promoted.
   goal_ids:
   - GOAL-DELIVERY
   core_contribution:
     kind: acceptance_proof
-    summary: After Gate C is independently accepted, provision and integrate the production GitHub App
-      with separate read/effect tokens and no PAT fallback.
+    summary: Revalidate qualified App transport for repository-verified hosted production after Gate C.
   requirement_ids:
-  - AUTH-008
   - L8-001
+- task_id: L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Award Level 6 from autonomous full-portfolio observe and proposal operation
+  source_audit_finding: The existing Wave-7 task combines initial autonomous portfolio operation with
+    later heterogeneous and 30-day proof, obscuring the distinct Level-6 acceptance boundary.
+  audit_classification: not_attempted
+  priority: P1
+  lane: level6-autonomous-portfolio
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Operate every active registry repository through restartable schedule/event-driven observe/proposal
+    mode without routine human initiation and obtain an independent Level-6 award.
+  why_it_matters: Level 6 is a distinct operational achievement and must not be hidden inside Level 7.
+  allowed_paths:
+  - runs/
+  - plans/investigations/evidence/
+  - tests/integration/
+  - .github/workflows/
+  - target agent-owned presentation branches under valid authorization
+  forbidden_paths:
+  - target default branches
+  - merge operations
+  - unreviewed newly discovered repository writes
+  dependencies:
+  - L8-WAVE6-CONTROLLED-JAVA-PILOT
+  expected_outputs:
+  - Full-active-registry observe/proposal terminal evidence
+  - Scheduled/event-triggered autonomous operation and recovery evidence
+  - Human-intervention classification and visible block inventory
+  - Independent Level-6 audit and award
+  acceptance_checks:
+  - Every active registry repository reaches a truthful terminal or visible blocked/retryable state
+  - Routine proposal initiation requires no human operation
+  - Human activity is limited to review, authorization, unresolved facts, and manual UI
+  - Level 6 is awarded without claiming heterogeneous lifecycle-per-ecosystem or 30-day proof
+  verification:
+  - Hosted schedule/event portfolio campaign
+  - Recovery, duplicate, matrix isolation, backlog, health, and passive-review controls
+  negative_controls:
+  - The three-Java Level-5 pilot alone cannot satisfy Level 6
+  - Missing active-registry terminal evidence blocks the award
+  regression_checks:
+  - Full trigger, lifecycle, authorization, evidence, and proposal safety suites
+  evidence_requirements:
+  - Portfolio manifests, intervention ledger, health/recovery evidence, and independent award
+  rollback_or_recovery: Demote an affected repository to observe-only while preserving audits and visible
+    backlog.
+  failure_reroute: Repair shared agent-fixable failures once; continue unaffected repositories.
+  closeout_rules:
+  - Level 6 is independently awarded
+  - The heterogeneous Level-7 proof becomes ready
+  goal_ids:
+  - GOAL-MATURITY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Prove autonomous observe and proposal operation across every active registry repository.
+  requirement_ids:
+  - L8-040
 - task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
-  title: Reach Levels 6 and 7 across the complete heterogeneous portfolio
+  title: Reach Level 7 across the complete heterogeneous portfolio and 30-day window
   source_audit_finding: Existing production-like evidence is concentrated in Java and does not cover a
     full proposal lifecycle in seven ecosystems or every active registry repository.
   audit_classification: not_attempted
@@ -7472,9 +7778,9 @@ taskcards:
   lane: heterogeneous-rollout
   owner: readme-agent-supervisor
   status: TODO
-  objective: Prove observe/proposal mode for the full registry, then one authorized representative per
-    Java, .NET, Python, TypeScript, C++, Go, and Rust, while operating the complete Level-8 control set
-    from hosted day 1 and awarding Level 7 after the first 30 clean days of the common 90-day series.
+  objective: Starting from the awarded Level-6 portfolio, prove one authorized representative per Java,
+    .NET, Python, TypeScript, C++, Go, and Rust while operating the complete Level-8 control set from
+    hosted day 1 and awarding Level 7 after the first 30 clean days of the common 90-day series.
   why_it_matters: Level 7 is a portfolio property, not a three-Java-repository test count.
   allowed_paths:
   - runs/
@@ -7486,7 +7792,7 @@ taskcards:
   - merge operations
   - unreviewed newly discovered repository writes
   dependencies:
-  - L8-GATE-D-GITHUB-APP-INTEGRATION
+  - L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO
   expected_outputs:
   - Full-registry observe/proposal evidence.
   - Seven-ecosystem full proposal lifecycle evidence.
@@ -7515,7 +7821,7 @@ taskcards:
   rollback_or_recovery: Demote a failing cohort or route to observe-only without disabling audits.
   failure_reroute: Continue safe ecosystems and cohorts while isolating the failing lane.
   closeout_rules:
-  - Level 6 and Level 7 gates pass.
+  - The prerequisite Level-6 award remains valid and the Level-7 gate passes.
   - Thirty-day evidence is independently reproduced.
   goal_ids:
   - GOAL-MATURITY
@@ -7613,10 +7919,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 721e403553f9a3f1ea229907f73f23c35a9a3f85f7b17e33725c60ba32d82345
+  source_sha256: b0303d5b29146296bfd742b873c8275fc0b231d5a1253844112085573ccaaeb6
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 443
-  mandatory_requirement_rows: 417
+  total_requirement_rows: 447
+  mandatory_requirement_rows: 421
   excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -9004,7 +9310,7 @@ requirement_coverage:
   - requirement_id: AUTH-008
     priority: P0
     requirement_status: PLANNED
-    task_id: L8-GATE-D-GITHUB-APP-INTEGRATION
+    task_id: TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: INT-001
@@ -9238,7 +9544,7 @@ requirement_coverage:
   - requirement_id: PIL-016
     priority: P0
     requirement_status: PLANNED
-    task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+    task_id: L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: MET-001
@@ -10033,6 +10339,24 @@ requirement_coverage:
     task_id: TRP-05-FULL-REGISTRY-TRANSFORM
     disposition: open_mandatory
     semantic_findings: []
+  - requirement_id: TRP-012
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-05A-ACT-WORKFLOW-PARITY
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-013
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-05B-STAGING-EFFECT-PROOF
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-014
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION
+    disposition: open_mandatory
+    semantic_findings: []
   - requirement_id: TRP-010
     priority: P0
     requirement_status: PLANNED
@@ -10277,5 +10601,11 @@ requirement_coverage:
     priority: P1
     requirement_status: PLANNED
     task_id: L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-040
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO
     disposition: open_mandatory
     semantic_findings: []

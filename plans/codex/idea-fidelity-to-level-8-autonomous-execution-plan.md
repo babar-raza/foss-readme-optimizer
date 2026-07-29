@@ -37,6 +37,9 @@ TRP-00 explicit content assurance and lifecycle separation
 → TRP-03 deterministic validation plus blind-quality and inheritance-fidelity review
 → TRP-04 real adversarial canaries
 → TRP-05 two-to-four-lane full-registry trusted transformation
+→ TRP-05A actual reusable-workflow parity under act
+→ TRP-05B disposable GitHub staging proposal/effect proof
+→ TRP-05C GitHub App and hosted autonomous workflow qualification on staging
 → TRP-06 per-repository authorization and live write-access proof
 → TRP-07 exactly one trusted draft PR per current registry repository
 → resume the preserved L8-INTAKE-02 verified boundary
@@ -66,32 +69,38 @@ other transformation and effect work continues. The one-day target applies to th
 qualified full-registry campaign, not to implementation, canary repair, or unavailable external
 authority.
 
-### Immutable core goal and subordinate goal system
+The trusted lane uses the complete canonical operational pipeline: local execution, `act`,
+disposable staging, GitHub App authentication, hosted scheduling/recovery, authorization, and real
+draft-PR reconciliation. It proves operational integration while deliberately leaving repository
+factuality for the later verified lane.
 
-`GOAL-CORE-PRESENTABLE-PORTFOLIO` is always active and cannot be replaced by the currently claimed
-task: produce a professional, repository-specific, factually accountable README and GitHub-profile
-bundle for every runtime-loaded `data/products.json` entry, independently approve it, prove an
-unchanged no-op, and then carry the same deliverable through the ordered human, publication,
-production, and maturity gates. The project is not successful because it has schemas, tests,
-controllers, reports, evidence directories, or maturity prose; those are supporting means.
+### Automatically derived stage-goal system
 
-Seven subordinate goals may own dependency-ready work, but none is an alternate stopping point:
+`verified_repository_presentation` is the immutable mission outcome, not a universal active goal.
+The existing universal/subordinate goal guard is a migration bootstrap only and MUST be replaced
+inside `TRP-00`. The sole mission graph declares the ordered stage catalog; the supervisor derives
+the lowest incomplete stage and persists exactly one primary goal:
 
-1. `GOAL-TRUSTED-POC` -- README-derived LLM-first transformations, independent fidelity approval,
-   no-op proof, authorization, and one trusted draft PR per current registry repository.
-2. `GOAL-TRUTH` -- verified product, acquisition, example, limitation, compatibility, and link
-   evidence needed by the core bundle.
-3. `GOAL-README` -- the actual marker-free product-specific README, badge header, visual overview,
-   examples, contextual links, native patch, validation, repair, approval, and no-op proof.
-4. `GOAL-PROFILE` -- GitHub description, homepage, topics, community-file findings,
-   generated-surface observations, and product illustration.
-5. `GOAL-AUTONOMY` -- the same output through one safe, resumable, isolated, idempotent,
-   evidence-complete `supervise` runtime.
-6. `GOAL-DELIVERY` -- Gate B, `act`, staging, Gate C, and hosted GitHub App operation in order.
-7. `GOAL-MATURITY` -- complete surfaces, Level 5, heterogeneous Level 7, and the independently
-   audited 30-day and 90-day operating windows.
+1. `GOAL-T0-TRUSTED-QUALIFICATION`
+2. `GOAL-T1-TRUSTED-PORTFOLIO`
+3. `GOAL-T2-WORKFLOW-STAGING`
+4. `GOAL-T3-HOSTED-TRUSTED-DELIVERY`
+5. `GOAL-V1-VERIFIED-TRUTH`
+6. `GOAL-V2-VERIFIED-GATE-A`
+7. `GOAL-V3-HUMAN-AND-JAVA-PROOF`
+8. `GOAL-L5-PRESENTATION-PILOT`
+9. `GOAL-L6-AUTONOMOUS-PORTFOLIO`
+10. `GOAL-L7-HETEROGENEOUS-30D`
+11. `GOAL-L8-SELF-MAINTAINING-90D`
 
-Every task must name its subordinate goal and one measurable core contribution: a visible output,
+`evaluate` automatically advances after current independent closure proof and automatically rolls
+back to the earliest affected stage after regression, invalidation, or denominator growth. The
+active goal, activation reason, graph/state revision, and append-only transition history are
+durable. A task outside the active goal cannot be claimed. Safety, autonomy, authorization,
+factuality, idempotency, and evidence completeness remain invariant acceptance conditions rather
+than selectable goals.
+
+Every task must name its stage goal and one measurable contribution: a visible output,
 the removal of its first failing boundary, an indispensable safety condition, or required
 acceptance proof. A task that provides none is moved to backlog. After every transition, execution
 recomputes a goal scoreboard from durable repository lifecycle state:
@@ -114,7 +123,8 @@ registry denominator
 The scoreboard also names the first failing boundary, the exact next task, and whether that task
 produces output or removes a blocker. Closing machinery without advancing a lifecycle count or
 removing its evidenced blocker is a drift failure. Dependency ordering still prevents downstream
-work from masquerading as upstream proof, but the core deliverable remains active throughout.
+work from masquerading as upstream proof; the status view names the current concrete stage instead
+of a generic universal objective.
 
 The audit baseline at adoption was `main` at
 `f89da6056b13cae19e02a72aa6d5ebf3fc371ee1`, with a large valuable in-flight candidate tree. At
@@ -264,19 +274,22 @@ official suite at coherent commit/gate boundaries, and the full registry only af
 freeze. Runtime bundles are updated in place under `runs/`; one checksum evidence package is
 promoted at task closure rather than after every diagnosis.
 
-### 2026-07-28 accepted accelerated goal and execution contract
+### Accelerated stage targets
 
-The functional goal guard remains the sole machine-enforced goal system. Execution agents map it
-to three horizons and may not substitute one horizon's machinery for another horizon's output:
+The 2026-07-28 three-horizon labels are superseded by the stage-goal catalog. Execution agents may
+not substitute one stage's machinery for another stage's output:
 
 | Horizon | Governed goals | Required outcome | Target control |
 | --- | --- | --- | --- |
-| Short | `GOAL-TRUTH`, `GOAL-README` | Repair the common reviewer; seven ecosystem representatives at `NO_OP_PROVEN`; eight total finalized READMEs; eight Python READMEs; then every current Python README | 3 working days for eight total; 5 for eight Python; 7 for all Python |
-| Medium | `GOAL-PROFILE`, `GOAL-DELIVERY` | Finish the remaining .NET, Java, C++, TypeScript, Rust, and Go cohorts; close full-registry Gate A; Gate B; `act`; staging; Gate C; hosted runtime; Level 5 | 7–12 working days for Gate A; 3–5 weeks for Level 5 |
-| Long | `GOAL-MATURITY` | Level-8-grade hosted operation, Level 7 at day 30, Level 8 at day 90 | one uninterrupted day-1-to-day-90 series |
+| Trusted qualification | `GOAL-T0-TRUSTED-QUALIFICATION` | Disjoint assurance plus approved/no-op real canaries | Complete before portfolio fan-out |
+| Trusted local portfolio | `GOAL-T1-TRUSTED-PORTFOLIO` | Every current repository approved/no-op under README-derived assurance | One qualified campaign day |
+| Trusted operations and delivery | `GOAL-T2-WORKFLOW-STAGING`, `GOAL-T3-HOSTED-TRUSTED-DELIVERY` | `act`, staging, App/hosted qualification, then one disclosed draft PR per current repository | Execute immediately after T1; external authority time is reported separately |
+| Verified portfolio | `GOAL-V1-VERIFIED-TRUTH`, `GOAL-V2-VERIFIED-GATE-A`, `GOAL-V3-HUMAN-AND-JAVA-PROOF` | Repository-derived facts, full-registry Gate A/B, verified Java proof | Preserve earlier 7–12 working-day Gate-A control target after verified contract qualification |
+| Level 5/6 | `GOAL-L5-PRESENTATION-PILOT`, `GOAL-L6-AUTONOMOUS-PORTFOLIO` | Complete surfaces and autonomous portfolio operation | Evidence-derived forecast after verified Gate C |
+| Level 7/8 | `GOAL-L7-HETEROGENEOUS-30D`, `GOAL-L8-SELF-MAINTAINING-90D` | Heterogeneous 30-day proof and independently audited 90-day proof | One uninterrupted day-1-to-day-90 series |
 
-`GOAL-AUTONOMY` is cross-cutting. It enters the critical path only for an evidenced blocker or an
-indispensable safety/reliability condition. A time target is never a waiver. When a target is
+Autonomy is an acceptance invariant. Supporting autonomy work enters the critical path only for an
+evidenced blocker or indispensable safety/reliability condition. A time target is never a waiver. When a target is
 breached, the agent records the first failing boundary, stops unrelated abstraction and evidence
 churn, selects the smallest permanent repair, verifies it, and continues through the same graph.
 It does not create another plan/controller or close from a report.
@@ -1764,19 +1777,19 @@ Generate one indexed package with every source README, candidate, patch, facts, 
 review, limitation, and reproduction command. Human review starts only here. A human rejection
 returns to autonomous repair, deterministic validation, and independent review.
 
-### Phase 10 -- actual workflow under act
+### Phase 10 -- revalidate trusted workflow proof for verified inputs
 
-Run the same supervisor/profile under the reusable workflow using isolated local remotes. Exercise
-workflow dispatch, repository dispatch, workflow call, simulated schedule recovery, matrix isolation,
-deduplication, checkpoint resume, evidence upload, and health aggregation. Prove production profiles
-reject PAT/GH-token fallback. Docker is needed only at this gate.
+Trusted T2 already proves the actual reusable workflow under `act`. At this verified boundary,
+reuse that proof only when workflow/control hashes and the environment are still current, then run
+focused parity with repository-verified inputs and verdicts. Any drift reopens the corresponding
+T2 workflow proof rather than creating a second workflow.
 
-### Phase 11 -- disposable GitHub staging
+### Phase 11 -- verified proposal semantics on qualified staging machinery
 
-Complete the staging subsets of `VerifiedProposalV1` and `OpenProposalV2`, then prove draft PR
-create/no-op/update/drift/dedup/lost-response/expired-authorization/crash reconciliation with
-staging-scoped credentials. Default branches remain byte-identical and analysis never receives a
-write token.
+Trusted T2 already proves transport/effect mechanics in disposable staging. Add and prove the
+repository-verified `VerifiedProposalV1` semantics without crediting trusted content evidence.
+Revalidate create/no-op/update/drift/dedup/lost-response/expired-authorization/crash
+reconciliation, default-branch identity, and analysis/effect credential isolation.
 
 ### Phase 12 -- Gate C Java README PR publication proof
 
@@ -1785,11 +1798,13 @@ product push, present the exact diff, reason, repository, branch, and remote and
 approval. Create or update draft PRs only. Never merge, mark ready, force-push, close, or write a
 default branch. Gate C proves publication, not the README POC or Level 5.
 
-### Phase 13 -- Gate D GitHub App and hosted runtime
+### Phase 13 -- hosted transport revalidation for verified operation
 
-Only after Gate C request the App registration, installation, permissions, repository scope, and
-secrets. Validate short-lived effect-job tokens, analysis/effect isolation, deployment, trigger
-recovery, leases, retry classes, health, alerts, backlog, dead-man monitoring, and manifests.
+Trusted T3 already provisions and qualifies the App and hosted workflow against staging before the
+trusted portfolio PR campaign. After verified Gate C, revalidate installation scope, short-lived
+effect-job tokens, analysis/effect isolation, deployment, recovery, leases, retry classes, health,
+alerts, backlog, dead-man monitoring, and manifests for the verified production profile. Request
+only newly required scope or rotated secrets; do not repeat provisioning without evidence.
 
 ### Phase 14 -- broader presentation and Level 5
 
@@ -1798,15 +1813,22 @@ manual social-preview handoff, package/release audit findings, generated-signal 
 cross-surface consistency. Then execute the controlled three-Java production pilot and obtain the
 independent Level-5 award.
 
-### Phase 15 -- Levels 6 and 7
+### Phase 15 -- Level 6 autonomous portfolio
 
-Operate every registry repository in observe/proposal mode, prove one complete authorized lifecycle
-per supported ecosystem, roll out remaining families, and maintain recovery, health, drift, proposal
-age, authorization-expiry, dependency, SBOM, vulnerability, and quality reporting. Activate the
+Operate every active registry repository in restartable schedule/event-driven observe/proposal
+mode without routine human initiation. Keep every fact, authorization, manual-UI, retryable, and
+external block visible. Obtain a distinct independent Level-6 award before claiming heterogeneous
+coverage or elapsed-day proof.
+
+### Phase 16 -- Level 7 heterogeneous 30-day proof
+
+Starting from the awarded Level-6 portfolio, prove one complete authorized lifecycle per supported
+ecosystem, roll out remaining families, and maintain recovery, health, drift, proposal age,
+authorization-expiry, dependency, SBOM, vulnerability, and quality reporting. Activate the
 complete Level-8 control set and immutable evidence series on hosted day 1; the first 30 clean days
 of that same series establish Level 7.
 
-### Phase 16 -- Level 8
+### Phase 17 -- Level 8
 
 Continue the same hosted-day-1 series until it reaches 90 consecutive production days with weekly
 full-registry audits, incremental
@@ -1866,9 +1888,9 @@ Execution resumes in this order; it does not start an official 31-repository cam
     Rust, Go cohorts. A new live defect closes admission, reopens the first responsible task,
     requalifies the affected representative, and resumes only invalidated repositories. Promote
     one closure evidence package after the final official suite, not one package per failed attempt.
-12. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with
-   no-effect `act` work while Gate-B review is pending, then staging, Gate C, Gate D, and Level 5
-   as their own dependencies permit. Start the complete Level-8 control/evidence series on hosted
+12. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Revalidate
+   the trusted T2/T3 workflow, staging, App, and hosted proofs by hash, then complete verified
+   Gate C and Level 5 as their own dependencies permit. Start the complete Level-8 control/evidence series on hosted
    day 1, award Level 7 from days 1–30, and continue the same uninterrupted series to Level 8 at
    day 90.
 
@@ -1890,12 +1912,11 @@ a declared boundary is incomplete proof.
 
 Human involvement is limited to Gate-B review of already agent-approved candidates, Docker or
 staging access if unavailable locally, staging credentials, exact per-product-push approval,
-GitHub App registration
-and secrets after Gate C, genuinely manual UI actions, independent acceptance authority, and
-elapsed production time. All other implementation, testing, remediation, evidence, commits, setup,
-monitoring, command execution, and continuation is autonomous. The operator does not request
-permission for an available safe in-scope command; it requests only the external authority or
-resource that the command cannot supply.
+GitHub App registration and secrets after trusted T2 has passed, genuinely manual UI actions,
+independent acceptance authority, and elapsed production time. All other implementation, testing,
+remediation, evidence, commits, setup, monitoring, command execution, and continuation is
+autonomous. The operator does not request permission for an available safe in-scope command; it
+requests only the external authority or resource that the command cannot supply.
 
 The mission closes only when every mandatory graph task is `CLOSED`, all requirements are
 truthfully evidenced, all gates pass, the 30-day and 90-day periods complete, the independent audit

@@ -139,15 +139,16 @@ to add a project fact here, it belongs in `master.md` instead.
     standing rule covering any file of this kind, present or future. (Added 2026-07-25, user
     directive — see Decision #78, `plans/idea.md`'s "README POC Readiness and Ordered Delivery
     Gates" section.)
-15. **Verified Gate C and GitHub App work remain behind verified Gates A/B; trusted POC draft PRs
-    are a narrow, explicit exception.** Verified Gate C and Gate D MUST NOT begin until every
-    runtime-loaded registry entry has a repository-verified, agent-approved, no-op-proven local
-    README and a recorded Gate-B human acceptance. Decision #85 separately authorizes
-    `trusted_readme_transform` T2 draft PRs before Gate A only when every proposal declares
-    `trusted_inherited`, uses README-derived rather than repository-verified evidence, passes
-    transformation-specific deterministic and independent review, and carries a reviewed,
-    unexpired effect authorization. Trusted PRs never satisfy Gate A, B, C, verified proposal, or
-    maturity requirements. GitHub App provisioning remains prohibited before verified Gate C.
+15. **Trusted operational qualification precedes trusted product PRs; verified content gates
+    remain disjoint.** After trusted local T1 closes, the same canonical pipeline MUST pass `act`
+    and disposable staging (T2), then GitHub App authentication and hosted staging qualification
+    (T3), before it may open trusted product draft PRs. App authority is requested only after T2
+    proof exists. Every trusted proposal declares `trusted_inherited`, uses README-derived rather
+    than repository-verified evidence, passes transformation-specific deterministic and
+    independent review, and carries reviewed unexpired effect authorization. Trusted operational
+    proof may be reused by hash/freshness, but trusted artifacts and PRs never satisfy verified
+    facts, Gate A, Gate B, Gate C, verified proposal, or maturity requirements. Verified Gate C
+    remains behind repository-verified Gates A/B and revalidates the already-qualified transport.
     This applies regardless of wave numbering. See Decisions #78/#85.
 16. **New custom infrastructure requires a documented build-vs-adopt comparison first.** This
     sharpens rule 8 (hand-rolling requires a reasoned Decision Ledger entry) into a specific,
@@ -219,7 +220,16 @@ to add a project fact here, it belongs in `master.md` instead.
     repository/package/test evidence. Assurance is part of every dependency fingerprint and
     effect identity. A mode change reopens dependent work, and no report, migration, PR, or human
     interpretation may relabel trusted evidence as verified. (Added 2026-07-29, user directive;
-    see Decision #85 and `TRP-001`–`TRP-011`.)
+    see Decision #85 and `TRP-001`–`TRP-014`.)
+21. **Runtime goals are stage-derived, never universal or manually selected.** The immutable
+    mission outcome is a closure standard, not an active goal. The sole mission graph declares the
+    ordered T0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal catalog. Mission `evaluate` derives exactly one
+    active goal from the earliest incomplete gate, records it atomically with task state, advances
+    only on current evidence, and reactivates the earliest affected goal after regression,
+    invalidation, or registry growth. Safety and autonomy are acceptance invariants attached to the
+    current goal, not alternate destinations. Narrative handovers and operators may not manually
+    override derived goal state. (Added 2026-07-29, user directive; see Decision #85 and
+    `L8-025`.)
 
 ## Applying a new requirement (the actual procedure)
 

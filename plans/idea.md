@@ -52,10 +52,10 @@ baseline outcome is non-negotiable and must not be displaced by broader presenta
 research work, or infrastructure development. It must be achieved while preserving the system's
 truthfulness, safety, verification, and repository-protection requirements.
 
-That core deliverable remains active throughout execution. Product truth, README composition,
-GitHub-profile presentation, autonomous operation, delivery, and maturity are subordinate goals
-that organize necessary work; none may replace the full-registry presentable outcome or become a
-stopping point merely because its machinery, tests, or evidence exist.
+That core deliverable is the immutable mission outcome and closure standard. It is not a universal
+runtime goal. Execution uses the ordered stage goals defined below so the agent always sees the
+next concrete outcome rather than a generic mission label. No stage may become a stopping point
+merely because its machinery, tests, or evidence exist.
 
 ## README POC Readiness and Ordered Delivery Gates
 
@@ -99,25 +99,48 @@ trusted verdict. Repository README text is authoritative content in the trusted 
 untrusted instruction data: prompt injection, hidden directives, and requests to bypass policy
 are never obeyed.
 
+The mission outcome is immutable, but it is not an always-active execution goal. The supervisor
+derives the current goal from the earliest incomplete accepted gate and persists that goal with
+the task claim. Evidence-backed closure advances it automatically; a regression, invalidated
+dependency, or newly admitted repository reactivates the earliest affected goal. Exactly one
+primary stage goal is active at a time. Safety, factuality, authorization, evidence, and
+idempotency are always-on acceptance invariants rather than competing universal goals.
+
 Delivery proceeds through ordered gates, and a later gate never starts before the gate it depends
 on is actually accepted, not merely attempted:
 
-1. **Trusted Gate T1 — full-registry LLM-first transformation proof.** For every current registry
+1. **Trusted Gate T0 — assurance and canary qualification.** Add explicit trusted-versus-verified
+   contracts, then qualify README-derived extraction, LLM-first bounded composition, deterministic
+   validation, independent blind-quality and inheritance-fidelity review, repair, recovery, and
+   no-op behavior on real adversarial canaries. This gate changes no product remote.
+2. **Trusted Gate T1 — full-registry LLM-first transformation proof.** For every current registry
    repository, the system captures the immutable README bytes, extracts README-derived
    facts/claims, produces a typed transformation plan and repository-specific candidate, and
    passes deterministic presentation/safety validation plus independent blind-quality and
    inheritance-fidelity review. It records source-span accountability, targeted repair, exact LLM
    calls, cache reuse, and an unchanged no-op rerun. This gate may use section-bounded calls for
    large READMEs; no universal template or whole-document token assumption is allowed.
-2. **Trusted Gate T2 — authorized draft-PR portfolio.** After T1 acceptance, the system creates or
+3. **Trusted Gate T2 — canonical workflow and disposable staging proof.** Run the same supervisor,
+   lifecycle, evidence, authorization, and effect contracts under the actual reusable workflow
+   through `act`, then disposable GitHub staging. Prove dispatch variants, matrix isolation,
+   checkpoint recovery, deduplication, proposal create/update/drift/lost-response/crash handling,
+   analysis/effect credential isolation, and byte-identical default branches. A planning-job-only
+   or mocked-effect result cannot close this gate.
+4. **Trusted Gate T3 — GitHub App hosted qualification and authorized draft-PR portfolio.** After
+   T2, request the exact GitHub App registration/installation and secrets needed for a disposable
+   hosted canary. Prove fresh short-lived installation tokens, fail-closed PAT/ambient-token
+   rejection, scheduler/recovery/health/dead-man behavior, and write-token isolation using
+   staging targets. Then the same hosted runtime creates or
    updates exactly one clearly labelled `trusted_readme_transform` draft pull request for every
    current registry repository. Each effect requires verified repository write access and a
    reviewed, unexpired authorization record. Expected future access is not present access:
    repositories without it remain visibly blocked while all independently eligible repositories
    continue. These PRs never merge, become ready, force-push, or write a default branch, and their
    bodies disclose that inherited product claims were not repository-verified.
-3. **Gate A — full-registry verified local README proof.** After every current registry repository
-   has its T2 draft PR, execution returns to `verified_repository_presentation`. For every
+   The trusted lane may prove the complete operational integration, but it proves only inherited
+   content fidelity—not product factuality or verified presentation maturity.
+5. **Gate A — full-registry verified local README proof.** After every current registry repository
+   has its T3 draft PR, execution returns to `verified_repository_presentation`. For every
    registry repository, the system reads
    the README from the repository's current default branch, records the source revision and exact
    original bytes, assesses that README against this document, verifies product facts against the
@@ -126,7 +149,7 @@ on is actually accepted, not merely attempted:
    and review verdict remain reviewable local artifacts. Read-only GitHub access needed to obtain
    this evidence is part of Gate A; remote writes, pull requests, and GitHub App integration are
    not.
-4. **Independent agentic approval completes the system portion of Gate A.** Every candidate is
+6. **Independent agentic approval completes the system portion of Gate A.** Every candidate is
    judged by an independent agentic reviewer — a separate LLM judgment role from whatever
    produced the candidate — and repaired until approved or honestly blocked. The system is ready
    for POC human review only when every entry in the current complete registry revision has an
@@ -134,16 +157,15 @@ on is actually accepted, not merely attempted:
    merely existing is not approval. A strong existing README may take a fast path, but still needs
    verified inherited claims, deterministic assessment, an empty-patch candidate, independent
    approval, and no-op proof.
-5. **Gate B — verified human review follows agent approval.** Humans review only candidates that already
+7. **Gate B — verified human review follows agent approval.** Humans review only candidates that already
    passed independent agentic review. Human acceptance is recorded separately; it is not inferred
    from an agent verdict. Every registry candidate must be human-accepted before Gate C begins.
-6. **Gate C — verified Java proposal proof follows full local and human acceptance.** Trusted T2
+8. **Gate C — verified Java proposal proof follows full local and human acceptance.** Trusted T3
    PRs do not satisfy this gate. Creating or updating verified proposals against the designated
    Java repositories is attempted only after every current registry repository has passed Gates A
-   and B, not before.
-7. **Gate D — GitHub App integration follows Gate C.** Production GitHub App credentialing,
-   installation, and broad integration are deferred until Gate C's Java PR proof is complete and
-   accepted; they are never pursued in parallel with, or ahead of, that proof.
+   and B, not before. Gate C reuses the already qualified App/workflow/effect machinery and proves
+   that repository-verified candidates, authorization, and proposal semantics work at the higher
+   assurance; it is not the first App integration gate.
 
 Standing constraints apply across every gate:
 

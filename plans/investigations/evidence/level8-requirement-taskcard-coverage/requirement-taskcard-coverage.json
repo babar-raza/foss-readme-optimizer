@@ -4,17 +4,17 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "721e403553f9a3f1ea229907f73f23c35a9a3f85f7b17e33725c60ba32d82345",
+  "source_sha256": "b0303d5b29146296bfd742b873c8275fc0b231d5a1253844112085573ccaaeb6",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 443,
-  "mandatory_requirement_rows": 417,
+  "total_requirement_rows": 447,
+  "mandatory_requirement_rows": 421,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 26,
-    "open_mandatory": 227,
+    "open_mandatory": 231,
     "preserved_verified": 155
   },
   "taskcard_counts": {
@@ -24,6 +24,9 @@
     "TRP-03-INDEPENDENT-FIDELITY-REVIEW": 2,
     "TRP-04-CANARY-QUALIFICATION": 1,
     "TRP-05-FULL-REGISTRY-TRANSFORM": 1,
+    "TRP-05A-ACT-WORKFLOW-PARITY": 1,
+    "TRP-05B-STAGING-EFFECT-PROOF": 1,
+    "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION": 2,
     "TRP-06-AUTHORIZATION-ACCESS": 1,
     "TRP-07-DRAFT-PR-PORTFOLIO": 1,
     "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 37,
@@ -53,8 +56,10 @@
     "L8-QUAL-01-CAMPAIGN-IDENTITY": 1,
     "L8-QUAL-03-RECOVERY": 1,
     "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 53,
-    "L8-WAVE6-CONTROLLED-JAVA-PILOT": 16,
-    "L8-GATE-D-GITHUB-APP-INTEGRATION": 2,
+    "L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF": 1,
+    "L8-WAVE6-CONTROLLED-JAVA-PILOT": 15,
+    "L8-GATE-D-GITHUB-APP-INTEGRATION": 1,
+    "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO": 1,
     "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": 5,
     "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": 7
   },
@@ -1905,7 +1910,7 @@
       "requirement_id": "AUTH-008",
       "priority": "P0",
       "requirement_status": "PLANNED",
-      "task_id": "L8-GATE-D-GITHUB-APP-INTEGRATION",
+      "task_id": "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -2217,7 +2222,7 @@
       "requirement_id": "PIL-016",
       "priority": "P0",
       "requirement_status": "PLANNED",
-      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "task_id": "L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3278,6 +3283,30 @@
       "semantic_findings": []
     },
     {
+      "requirement_id": "TRP-012",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-05A-ACT-WORKFLOW-PARITY",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-013",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-05B-STAGING-EFFECT-PROOF",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-014",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
       "requirement_id": "TRP-010",
       "priority": "P0",
       "requirement_status": "PLANNED",
@@ -3602,6 +3631,14 @@
       "priority": "P1",
       "requirement_status": "PLANNED",
       "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-040",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }
